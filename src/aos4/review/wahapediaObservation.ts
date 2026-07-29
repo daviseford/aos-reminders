@@ -21,6 +21,7 @@ export interface WahapediaObservedSource {
   url: string
   title: string
   availability: SourceObservationAvailability
+  fingerprint?: string
 }
 
 export interface WahapediaNavigationDiscovery {
@@ -33,6 +34,8 @@ const compareObserved = (
   left: Pick<WahapediaObservedSource, 'title' | 'url'>,
   right: Pick<WahapediaObservedSource, 'title' | 'url'>
 ): number => left.title.localeCompare(right.title) || left.url.localeCompare(right.url)
+
+const SHA256_PATTERN = /^[0-9a-f]{64}$/i
 
 const normalizedUrl = (value: string, base: string = WAHAPEDIA_DATA_EXPORT_URL): string => {
   const url = new URL(value, base)
@@ -184,6 +187,9 @@ export const createWahapediaSourceObservation = (
       throw new Error(`Wahapedia observed source ${index + 1} is malformed`)
     }
     const url = normalizedUrl(source.url)
+    if (source.fingerprint && !SHA256_PATTERN.test(source.fingerprint)) {
+      throw new Error(`Wahapedia observed source ${index + 1} has an invalid fingerprint`)
+    }
     const existing = byUrl.get(url)
     if (
       existing &&
@@ -205,6 +211,7 @@ export const createWahapediaSourceObservation = (
         scope: disposition ? ('explicit-non-material' as const) : ('material' as const),
         availability: source.availability,
         ...(disposition ? { disposition } : {}),
+        ...(source.fingerprint ? { fingerprint: source.fingerprint.toLowerCase() } : {}),
       }
     })
     .sort(compareObserved)

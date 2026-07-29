@@ -276,6 +276,17 @@ const wahapediaKindForUrl = (value: string): WahapediaObservationEntryKind => {
   return 'rules-page'
 }
 
+const includedInWahapediaScope = (
+  artifact: ArtifactManifestEntry,
+  scope: WahapediaRadarObservation['scope']
+): boolean => {
+  if (scope === 'full') return true
+  const url = new URL(artifact.finalUrl)
+  if (/\/Last_update\.csv$/i.test(url.pathname)) return true
+  if (/^\/aos4\/factions\/[^/]+\/?$/i.test(url.pathname)) return true
+  return /^\/aos4\/the-rules\/[^/]+\/?$/i.test(url.pathname)
+}
+
 const newWahapediaKind = (kind: WahapediaObservationEntryKind): RadarChangeKind =>
   kind === 'faction' ? 'new-faction' : kind === 'rules-page' ? 'new-rules-page' : 'export-changed'
 
@@ -295,6 +306,7 @@ export const compareWahapediaObservation = ({
   if (
     observation?.schemaVersion !== 1 ||
     observation.source !== 'wahapedia' ||
+    !['sentinel', 'full'].includes(observation.scope) ||
     !Array.isArray(observation.entries)
   ) {
     throw new Error('Wahapedia observation has an incompatible schema')
@@ -315,7 +327,9 @@ export const compareWahapediaObservation = ({
     entries.map(entry => entry.locator),
     'wahapedia'
   )
-  const accepted = artifactsForSource(acceptedManifest, 'wahapedia')
+  const accepted = artifactsForSource(acceptedManifest, 'wahapedia').filter(artifact =>
+    includedInWahapediaScope(artifact, observation.scope)
+  )
   const acceptedByUrl = new Map<string, ArtifactManifestEntry>()
   accepted.forEach(artifact => {
     acceptedByUrl.set(normalizedUrl(artifact.requestUrl), artifact)
@@ -326,7 +340,8 @@ export const compareWahapediaObservation = ({
 
   entries.forEach(entry => {
     const baseline = acceptedByUrl.get(entry.locator)
-    if (!baseline || baseline.checksum.toLowerCase() !== entry.fingerprint) {
+    const checksContentFingerprint = entry.kind === 'export' || observation.scope === 'full'
+    if (!baseline || (checksContentFingerprint && baseline.checksum.toLowerCase() !== entry.fingerprint)) {
       events.push(
         createEvent(
           'wahapedia',

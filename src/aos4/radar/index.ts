@@ -1,3 +1,7 @@
 export * from './compare'
 export * from './config'
 export * from './model'
+export * from './observers/gamesWorkshop'
+export * from './observers/requestLimiter'
+export * from './observers/robots'
+export * from './observers/wahapedia'

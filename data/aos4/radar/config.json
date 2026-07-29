@@ -8,7 +8,7 @@
   },
   "wahapedia": {
     "rootUrl": "https://wahapedia.ru/",
-    "navigationUrl": "https://wahapedia.ru/aos4/",
+    "navigationUrl": "https://wahapedia.ru/aos4/the-rules/data-export/",
     "exportSpecificationUrl": "https://wahapedia.ru/aos4/the-rules/data-export/",
     "lastUpdateUrl": "https://wahapedia.ru/aos4/Last_update.csv"
   },

@@ -90,6 +90,7 @@ export interface WahapediaRadarObservationEntry {
 export interface WahapediaRadarObservation {
   schemaVersion: 1
   source: 'wahapedia'
+  scope: 'sentinel' | 'full'
   observedAt: string
   workflowUrl?: string
   entries: WahapediaRadarObservationEntry[]

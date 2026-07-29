@@ -11,6 +11,7 @@ export interface SourceObservationEntry {
   scope: SourceObservationScope
   availability: SourceObservationAvailability
   disposition?: string
+  fingerprint?: string
 }
 
 export interface IndependentSourceObservation {

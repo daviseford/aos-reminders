@@ -58,6 +58,7 @@ describe('AoS 4 Rules Radar comparison', () => {
         observation: {
           schemaVersion: 1,
           source: 'wahapedia',
+          scope: 'full',
           observedAt,
           entries: wahapediaEntries,
         },
@@ -69,6 +70,7 @@ describe('AoS 4 Rules Radar comparison', () => {
         observation: {
           schemaVersion: 1,
           source: 'wahapedia',
+          scope: 'full',
           observedAt: '2026-07-29T21:00:00.000Z',
           entries: [...wahapediaEntries].reverse(),
         },
@@ -210,6 +212,7 @@ describe('AoS 4 Rules Radar comparison', () => {
         observation: {
           schemaVersion: 1,
           source: 'wahapedia',
+          scope: 'full',
           observedAt,
           entries: [
             {
