@@ -54,6 +54,7 @@ const relationshipIsApplicable = (
 const kindMatches = (entity: ContentEntity, kindHint: ParsedRosterSelectionKind): boolean => {
   if (kindHint === 'faction') return entity.kind === 'faction'
   if (kindHint === 'warscroll') return entity.kind === 'warscroll'
+  if (kindHint === 'enhancement') return entity.kind === 'content-group'
   return entity.kind === 'content-group' && entity.groupType === kindHint
 }
 

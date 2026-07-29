@@ -65,6 +65,17 @@ describe('AoS 4 parsed-roster resolution', () => {
     ])
   })
 
+  it('resolves provider-generic enhancements only within reachable content groups', () => {
+    const preview = resolve(
+      roster({
+        selections: [{ line: 9, label: 'Choice A', kindHint: 'enhancement' }],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([{ line: 9, label: 'Choice A', canonicalId: importFixtureIds.excludedA }])
+  })
+
   it('fails closed on ambiguous, unknown, and inapplicable selections', () => {
     const preview = resolve(
       roster({

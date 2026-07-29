@@ -6,6 +6,7 @@ export type Aos4ImportSource = 'official-app-text' | 'listbot-text' | 'roster-xm
 export type ParsedRosterSelectionKind =
   | 'faction'
   | 'warscroll'
+  | 'enhancement'
   | 'battle-formation'
   | 'artefact-of-power'
   | 'spell-lore'
@@ -26,6 +27,11 @@ export interface ParsedRoster {
   declaredContext?: string
   declaredFaction?: string
   selections: ParsedRosterSelection[]
+}
+
+export interface Aos4ParsedRosterResult {
+  parsedRoster?: ParsedRoster
+  diagnostics: Aos4ImportDiagnostic[]
 }
 
 export type Aos4ImportDiagnosticCode =
