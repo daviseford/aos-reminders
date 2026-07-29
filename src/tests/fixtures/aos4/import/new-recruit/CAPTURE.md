@@ -158,6 +158,26 @@ silently produces an empty or partial capture.
 5. **Wait for the save, then verify by reloading before exporting.** Saving is asynchronous and
    debounced; navigating away too early discards the build. Reload and re-check
    `army.getUnits().length` before opening the Export dialog.
+6. **Pick the faction dropdown with the most options.** Once the account holds lists, MyLists
+   grows a *faction filter* `<select>` that also contains faction names, and "the first select
+   containing this faction" then silently matches the filter instead of the dialog. The dialog's
+   dropdown is the one listing all 28 factions. A whole army was captured under the wrong faction
+   before this was caught, so **verify `book.getName()` immediately after creating a list**, before
+   adding anything.
+7. **Export buttons need real mouse events.** A synthetic `element.click()` on the `.imgBt` in
+   `.exports` returns cleanly and does nothing; the handlers respond to genuine pointer events.
+   Locate the button in the DOM and derive its screen position (divide `getBoundingClientRect()`
+   by `window.innerWidth / 1568`), then click that coordinate — position-independent, and no
+   screenshot required. The same applies to the Auxiliary "+" in the force dialog.
+8. **Chrome blocks bulk automatic downloads.** After roughly fifteen files, downloads from
+   newrecruit.eu stop landing silently — clicks still register, no error appears anywhere on the
+   page. Each list is three files, so this trips after about five armies. Grant the site's
+   "Automatic downloads" permission (address-bar icon) before a long capture run, and **verify
+   files actually arrived after each army** rather than trusting the click.
+
+Only one async job at a time: an abandoned in-page loop kept adding units to whatever list was
+open, producing duplicated Army Composition rows in a list built later. If a driver job may still
+be running, reload the page before starting the next one.
 
 The build-and-export loop is otherwise straightforward to automate against a normal session:
 
