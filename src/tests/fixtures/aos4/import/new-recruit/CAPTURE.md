@@ -76,18 +76,19 @@ Then finish by hand — the two judgment calls a script can't make:
 
 ## Capture status
 
-Building a list and exporting it are independent steps, and the exports are the fragile half (see
-constraint 8). As of 2026-07-29 every army except Regiments of Renown has an `<slug>-001-all-units`
-list **built and saved in New Recruit**; seven have been exported and ingested. The rest need only
-the export-and-ingest pass — open each list, export the three formats in one burst, and run
-`yarn fixtures:new-recruit:ingest <name>`.
+Every faction New Recruit offers for AoS 4.0 has an `<slug>-001-all-units` capture, complete as of
+2026-07-29. `src/tests/aos4/importNewRecruitCorpus.test.ts` runs all of them through the production
+importer and prints a per-list resolution table, which is the number to watch when catalog data
+changes.
 
 **Regiments of Renown is the one structural gap.** A list created with that faction exposes no
 "Regiments and Auxiliary" sidebar section, so the technique below does not reach it: its entries
 live only in the force dialog, under a collapsible "Regiments of Renown" heading, and that dialog
-is not reachable from `document.querySelectorAll`. Covering the ~24 RoR entries needs coordinate
-clicks against a screenshot, one per entry. They are also addable from inside any other army's
-list, so an alternative is to fold them into an existing capture rather than give them their own.
+is not reachable from `document.querySelectorAll`. A capture attempt produced a list holding only
+configuration entries — no units at all — and was dropped rather than committed, since a roster
+with no units and a faction the catalog does not carry teaches the importer nothing. Covering the
+~24 RoR entries needs one coordinate click per entry against a screenshot. They are also addable
+from inside any other army's list, so folding them into an existing capture is the cheaper route.
 
 ## The army work-list
 

@@ -185,7 +185,60 @@ const buildReachableIds = (
 
 interface FactionResolution {
   faction?: Faction
+  /** Set when the faction only exists outside the context we started in. */
+  rulesContext?: RulesContext
   matches: Aos4ImportMatch[]
+}
+
+/**
+ * Strip a provider's bracketed status marker from a faction name.
+ *
+ * New Recruit labels retired armies "Beasts of Chaos [LEGENDS]". The bracket is provenance about
+ * the catalogue, not part of the army's name, and leaving it in means the faction never matches —
+ * which fails the import outright, since without a faction nothing else can resolve.
+ */
+const PROVIDER_STATUS_SUFFIX = /\s*\[[^\]]*\]\s*$/
+
+const factionNameCandidates = (label: string): string[] => {
+  const stripped = label.replace(PROVIDER_STATUS_SUFFIX, '').trim()
+  return stripped && stripped !== label.trim() ? [label, stripped] : [label]
+}
+
+const findFactions = (catalog: Aos4Catalog, label: string, rulesContextId: RulesContextId): Faction[] => {
+  for (const candidate of factionNameCandidates(label)) {
+    const normalized = normalizeImportLabel(candidate)
+    const matches = catalog.entities.filter(
+      (entity): entity is Faction =>
+        entity.kind === 'faction' &&
+        isApplicable(entity, rulesContextId) &&
+        normalizeImportLabel(entity.name) === normalized
+    )
+    if (matches.length) return matches
+  }
+  return []
+}
+
+/**
+ * The importable context a faction can actually be fielded in, when it is absent from the one the
+ * roster declared.
+ *
+ * A Legends-only army — Beasts of Chaos, Bonesplitterz — has no presence in the current or
+ * seasonal contexts at all, so importing it there resolves nothing and the player gets an empty
+ * army. Its whole catalogue lives in Legends, and moving the *document* there is coherent in a way
+ * that mixing contexts is not: every unit in such a list is Legends content.
+ */
+const alternativeContextForFaction = (
+  catalog: Aos4Catalog,
+  label: string,
+  currentContextId: RulesContextId
+): RulesContext | undefined => {
+  const candidates = catalog.rulesContexts.filter(
+    context =>
+      context.id !== currentContextId &&
+      IMPORTABLE_CONTEXT_STATUSES.has(context.status) &&
+      findFactions(catalog, label, context.id).length === 1
+  )
+  return candidates.length === 1 ? candidates[0] : undefined
 }
 
 const resolveFaction = (
@@ -208,21 +261,31 @@ const resolveFaction = (
     return { matches: [] }
   }
 
+  let switchedContext: RulesContext | undefined
   const resolved = labels.map(({ label, line }) => {
-    const normalized = normalizeImportLabel(label)
-    const candidates = catalog.entities.filter(
-      (entity): entity is Faction =>
-        entity.kind === 'faction' &&
-        isApplicable(entity, rulesContextId) &&
-        normalizeImportLabel(entity.name) === normalized
-    )
+    let candidates = findFactions(catalog, label, rulesContextId)
+
+    if (!candidates.length) {
+      const alternative = alternativeContextForFaction(catalog, label, rulesContextId)
+      if (alternative) {
+        switchedContext = alternative
+        candidates = findFactions(catalog, label, alternative.id)
+        diagnostics.push({
+          code: 'unsupported-context',
+          severity: 'warning',
+          message: `"${label.replace(PROVIDER_STATUS_SUFFIX, '').trim()}" is only available in ${alternative.name}, so the army was imported there.`,
+          ...(line === undefined ? {} : { line }),
+        })
+      }
+    }
+
     if (candidates.length !== 1) {
       diagnostics.push({
         code: candidates.length ? 'ambiguous-selection' : 'missing-faction',
         severity: 'error',
         message: candidates.length
           ? `Faction "${label}" matches more than one catalog faction.`
-          : `Faction "${label}" is not available in the selected rules context.`,
+          : `Faction "${label}" is not available in any supported rules context.`,
         ...(line === undefined ? {} : { line }),
       })
       return undefined
@@ -245,6 +308,7 @@ const resolveFaction = (
   const faction = resolved.find(value => value)?.faction
   return {
     faction,
+    ...(switchedContext ? { rulesContext: switchedContext } : {}),
     matches: factionSelections.flatMap(selection =>
       faction ? [{ line: selection.line, label: selection.label, canonicalId: faction.id }] : []
     ),
@@ -421,7 +485,12 @@ export const resolveParsedRoster = (
     }
   }
 
-  const reachableIds = buildReachableIds(catalog, factionResolution.faction.id, context.id)
+  /**
+   * A faction found only elsewhere moves the whole document to that context, so the units in the
+   * list are resolved somewhere they can actually exist.
+   */
+  const effectiveContext = factionResolution.rulesContext ?? context
+  const reachableIds = buildReachableIds(catalog, factionResolution.faction.id, effectiveContext.id)
   const matches = [
     ...factionResolution.matches,
     ...parsedRoster.selections
@@ -430,7 +499,7 @@ export const resolveParsedRoster = (
         const match = resolveRosterSelection(
           catalog,
           selection,
-          context,
+          effectiveContext,
           reachableIds,
           Boolean(parsedRoster.allowsLegends),
           diagnostics
@@ -452,7 +521,7 @@ export const resolveParsedRoster = (
   )
   const selection = resolveSelection(catalog, {
     explicitIds: explicitSelectionIds,
-    rulesContextId: context.id,
+    rulesContextId: effectiveContext.id,
   })
   const selectionErrors = selection.diagnostics.filter(diagnostic => diagnostic.severity === 'error')
   if (selectionErrors.length) {
@@ -476,7 +545,7 @@ export const resolveParsedRoster = (
   const proposedDocument = createAos4ArmyDocument({
     id: options.createDocumentId(),
     name: parsedRoster.proposedName.trim() || 'Imported Army',
-    rulesContextId: context.id,
+    rulesContextId: effectiveContext.id,
     explicitSelectionIds,
   })
   const roundTrip = deserializeAos4ArmyDocument(serializeAos4ArmyDocument(proposedDocument), catalog)
