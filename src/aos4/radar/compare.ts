@@ -47,6 +47,18 @@ const normalizedUrl = (value: string, label = 'locator'): string => {
   return parsed.toString()
 }
 
+const normalizedWahapediaUrl = (value: string, label = 'locator'): string => {
+  const result = new URL(normalizedUrl(value, label))
+  if (
+    ['wahapedia.ru', 'www.wahapedia.ru'].includes(result.hostname) &&
+    result.pathname.length > 1 &&
+    result.pathname.endsWith('/')
+  ) {
+    result.pathname = result.pathname.slice(0, -1)
+  }
+  return result.toString()
+}
+
 const fingerprint = (value: unknown, label: string): string => {
   const result = nonEmptyString(value, label).toLowerCase()
   if (!SHA256_PATTERN.test(result)) throw new Error(`${label} must be a SHA-256 fingerprint`)
@@ -323,7 +335,7 @@ export const compareWahapediaObservation = ({
   const observedAt = instant(observation.observedAt, 'Wahapedia observation observedAt')
   const entries = observation.entries.map((entry, index) => ({
     kind: entry.kind,
-    locator: normalizedUrl(entry.locator, `Wahapedia entry ${index + 1} locator`),
+    locator: normalizedWahapediaUrl(entry.locator, `Wahapedia entry ${index + 1} locator`),
     title: nonEmptyString(entry.title, `Wahapedia entry ${index + 1} title`),
     fingerprint: fingerprint(entry.fingerprint, `Wahapedia entry ${index + 1} fingerprint`),
   }))
@@ -341,8 +353,8 @@ export const compareWahapediaObservation = ({
   )
   const acceptedByUrl = new Map<string, ArtifactManifestEntry>()
   accepted.forEach(artifact => {
-    acceptedByUrl.set(normalizedUrl(artifact.requestUrl), artifact)
-    acceptedByUrl.set(normalizedUrl(artifact.finalUrl), artifact)
+    acceptedByUrl.set(normalizedWahapediaUrl(artifact.requestUrl), artifact)
+    acceptedByUrl.set(normalizedWahapediaUrl(artifact.finalUrl), artifact)
   })
   const observedByUrl = new Map(entries.map(entry => [entry.locator, entry]))
   const events: RadarEvent[] = []
@@ -374,10 +386,10 @@ export const compareWahapediaObservation = ({
   })
   const acceptedLocators = new Set<string>()
   accepted.forEach(artifact => {
-    const locator = normalizedUrl(artifact.finalUrl)
+    const locator = normalizedWahapediaUrl(artifact.finalUrl)
     if (
       !observedByUrl.has(locator) &&
-      !observedByUrl.has(normalizedUrl(artifact.requestUrl)) &&
+      !observedByUrl.has(normalizedWahapediaUrl(artifact.requestUrl)) &&
       !acceptedLocators.has(locator)
     ) {
       acceptedLocators.add(locator)

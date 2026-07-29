@@ -121,6 +121,43 @@ describe('AoS 4 Rules Radar comparison', () => {
     )
   })
 
+  it('treats Wahapedia directory URLs with and without trailing slashes as the same source', () => {
+    const acceptedManifest: ArtifactManifest = {
+      schemaVersion: 1,
+      artifacts: [
+        {
+          requestUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/',
+          finalUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/',
+          redirectChain: [],
+          retrievedAt: observedAt,
+          adapterVersion: 'wahapedia-html/1',
+          mediaType: 'text/html',
+          byteLength: 1,
+          checksum: checksum('b'),
+        },
+      ],
+    }
+    const lane = compareWahapediaObservation({
+      acceptedManifest,
+      observation: {
+        schemaVersion: 1,
+        source: 'wahapedia',
+        scope: 'sentinel',
+        observedAt,
+        entries: [
+          {
+            kind: 'faction',
+            locator: 'https://wahapedia.ru/aos4/factions/stormcast-eternals',
+            title: 'Stormcast Eternals',
+            fingerprint: checksum('c'),
+          },
+        ],
+      },
+    })
+
+    expect(lane.events).toEqual([])
+  })
+
   it('classifies only BSData catalog paths as community material drift', () => {
     const lane = compareBsDataObservation({
       schemaVersion: 1,
