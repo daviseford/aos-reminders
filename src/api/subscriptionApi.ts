@@ -29,6 +29,12 @@ interface IRedeemGift {
   userName: string // userName receiving the gift
 }
 
+interface IRequestGrant {
+  userName: string
+  subscriptionId?: string // PayPal subscription id from the onApprove response
+  planId?: string // PayPal plan id the user subscribed to
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const withAuth = (data: Record<string, any>) => ({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })
 
@@ -36,7 +42,9 @@ const cancelSubscription = (data: ICancel) => request.post(`${api}/cancel`).send
 const getSubscription = (userName: string) => request.get(`${api}/user/${userName}`)
 const redeemCoupon = (data: IRedeemCoupon) => request.post(`${api}/redeem_coupon`).send(withAuth(data))
 const redeemGift = (data: IRedeemGift) => request.post(`${api}/redeem`).send(withAuth(data))
-const requestGrant = (userName: string) => request.post(`${api}/paypal_grant`).send(withAuth({ userName }))
+// subscriptionId + planId let the API create a provisional row when the
+// CREATED webhook hasn't arrived yet (the grant-vs-webhook race)
+const requestGrant = (data: IRequestGrant) => request.post(`${api}/paypal_grant`).send(withAuth(data))
 const updateTheme = (data: IUpdateTheme) => request.post(`${api}/theme`).send(withAuth(data))
 
 export const SubscriptionApi = {
