@@ -433,9 +433,8 @@ Git history is the archive. Do not keep copied “reference” files in the work
 
 ## Development conventions
 
-- Use Node `v20.15.1` from `.nvmrc` and Yarn Classic with the committed lockfile. CI workflows run
-  Node 22 (matching the companion APIs' `nodejs22.x`); reconciling `.nvmrc` with CI is pending
-  Phase 2 work.
+- Use Node `v22.23.2` from `.nvmrc` and Yarn Classic with the committed lockfile. CI workflows and
+  the companion APIs (`nodejs22.x`) also run Node 22.
 - TypeScript is strict; `noImplicitAny` is still disabled pending Phase 2.
 - Prettier uses two spaces, no semicolons, single quotes, 110 columns, and ES5 trailing commas.
 - Prefer `satisfies` for static dictionaries so keys stay narrow while values are checked.

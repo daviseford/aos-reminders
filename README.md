@@ -55,7 +55,7 @@ contexts, and transformation evidence. The runtime does not fetch source data.
 
 ## Development
 
-Use Node `v20.15.1` and Yarn Classic.
+Use Node `v22.23.2` and Yarn Classic.
 
 ```bash
 yarn install --frozen-lockfile
