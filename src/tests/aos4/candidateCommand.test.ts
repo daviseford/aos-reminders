@@ -1,4 +1,11 @@
-import { createArtifactManifest, type ArtifactManifestEntry, type GamesWorkshopPdfInput } from '../../aos4/data'
+import {
+  createArtifactManifest,
+  upsertArtifactEntry,
+  type AcquireArtifactRequest,
+  type ArtifactManifestEntry,
+  type GamesWorkshopPdfInput,
+} from '../../aos4/data'
+import { acquireCandidateArtifacts } from '../../aos4/data/candidateAcquisition'
 import {
   candidateArtifactUrls,
   createCandidateOfficialDocumentReport,
@@ -185,9 +192,7 @@ describe('AoS 4 candidate command arguments', () => {
     } satisfies ArtifactManifestEntry
     const manifest = createArtifactManifest([official, html])
 
-    expect(candidateArtifactUrls([], manifest, 'games-workshop-pdf/1', true)).toEqual([
-      official.requestUrl,
-    ])
+    expect(candidateArtifactUrls([], manifest, 'games-workshop-pdf/1', true)).toEqual([official.requestUrl])
     expect(
       candidateArtifactUrls(
         ['https://assets.warhammer-community.com/explicit.pdf'],
@@ -197,5 +202,42 @@ describe('AoS 4 candidate command arguments', () => {
       )
     ).toEqual(['https://assets.warhammer-community.com/explicit.pdf'])
     expect(candidateArtifactUrls([], manifest, 'games-workshop-pdf/1', false)).toEqual([])
+  })
+
+  it('keeps source-scoped acquisition isolated while full acquisition retains every export', async () => {
+    const requests: AcquireArtifactRequest[] = []
+    const acquire = async (request: AcquireArtifactRequest) => {
+      requests.push(request)
+      const bytes = new TextEncoder().encode(request.url)
+      const entry: ArtifactManifestEntry = {
+        requestUrl: request.url,
+        finalUrl: request.url,
+        redirectChain: [],
+        retrievedAt: '2026-07-29T20:00:00.000Z',
+        adapterVersion: request.adapterVersion,
+        mediaType: request.allowedMediaTypes[0],
+        byteLength: bytes.byteLength,
+        checksum: 'a'.repeat(64),
+      }
+      return {
+        bytes,
+        entry,
+        candidateManifest: upsertArtifactEntry(request.candidateManifest, entry),
+        changed: true,
+      }
+    }
+    const officialUrl = 'https://assets.warhammer-community.com/new-rules.pdf'
+    await acquireCandidateArtifacts({
+      sources: ['games-workshop'],
+      officialDocumentUrls: [officialUrl],
+      requestPauseMs: 0,
+      acquire,
+    })
+    expect(requests.map(request => request.url)).toEqual([officialUrl])
+
+    requests.length = 0
+    await acquireCandidateArtifacts({ requestPauseMs: 0, acquire })
+    expect(requests).toHaveLength(13)
+    expect(requests.every(request => request.adapterVersion === 'wahapedia-export/1')).toBe(true)
   })
 })
