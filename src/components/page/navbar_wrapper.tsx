@@ -10,7 +10,7 @@ const NavbarWrapper = ({ children }: React.PropsWithChildren<object>) => {
     <header className={`${navbarStyles.headerClass} ${theme.headerColor}`}>
       <div className={`row d-flex w-${isMobile ? 100 : 75}`}>
         <div className="flex-grow-1"> </div>
-        <div>{children}</div>
+        <nav aria-label="Main">{children}</nav>
       </div>
     </header>
   )

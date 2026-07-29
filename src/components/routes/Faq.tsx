@@ -29,11 +29,13 @@ const Faq = () => {
             title="I can't recover my password!"
             text={`If you're attempting to recover your password, and you're not seeing a recovery email - please try clicking "Continue with Google" when you see the log in.`}
             imgUrl="/img/faq_continue_with_google.png"
+            imgAlt='The AoS Reminders log in screen, with the "Continue with Google" button below the email and password fields.'
           />
           <FaqEntry
             title="How do I unsubscribe?"
             text={`Log in and then visit your Profile. From there, please click "Cancel Subscription"`}
             imgUrl="/img/faq_unsubscribe.png"
+            imgAlt='The Profile page, with the "Cancel Subscription" button beneath the subscription details.'
           />
           <FaqEntry
             title="I've noticed an incorrect or missing rule!"
@@ -48,27 +50,29 @@ const Faq = () => {
 }
 
 interface FaqEntryProps {
+  imgAlt?: string
   imgUrl?: string
   text: string
   title: string
 }
 
-const FaqEntry = ({ title, text, imgUrl = '' }: FaqEntryProps) => (
+const FaqEntry = ({ title, text, imgUrl = '', imgAlt = '' }: FaqEntryProps) => (
   <div className="col-12 col-md-8 col-lg-6 col-xl-5 mx-xl-1">
     <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
       <div className="col p-4 d-flex flex-column position-static">
-        <h3 className="mb-0">{title}</h3>
+        {/* Sits directly under the page h1, so it is an h2. .h3 keeps the existing type scale. */}
+        <h2 className="mb-0 h3">{title}</h2>
         <p className="card-text mb-auto">{text}</p>
       </div>
       {imgUrl && (
-        <div className="col-auto d-none d-block d-sm-block d-md-block d-lg-block align-self-center">
+        <div className="col-12 col-sm-auto align-self-center">
           <img
             className="mx-auto mb-4 img-fluid bg-white"
             src={imgUrl}
-            alt=""
+            alt={imgAlt}
             width="200"
             height="250"
-            role="img"
+            loading="lazy"
           />
         </div>
       )}
@@ -80,7 +84,8 @@ const PageHeader = () => {
   const { theme } = useTheme()
   return (
     <div className={`container ${theme.bgColor} ${theme.text} text-center mt-3 pb-2`}>
-      <h2>Frequently Asked Questions</h2>
+      {/* Rendered at h2 size so the page gains a top-level heading without a visual change. */}
+      <h1 className="h2">Frequently Asked Questions</h1>
       <hr />
     </div>
   )

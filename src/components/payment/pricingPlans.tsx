@@ -108,10 +108,11 @@ export const PlanComponent = (props: IPlanProps) => {
         <h3 className="my-0 font-weight-normal">{supportPlan.title}</h3>
       </div>
       <div className="card-body">
-        <h1 className="card-title pricing-card-title">
+        {/* A price is not a heading. The .h1 class keeps the type scale unchanged. */}
+        <p className="card-title pricing-card-title h1">
           ${supportPlan.monthly_cost}
           <small className="text-muted">/ month</small>
-        </h1>
+        </p>
         <ul className="list-unstyled mt-3 mb-4">
           <li>
             {!!supportPlan.discount_pct && (

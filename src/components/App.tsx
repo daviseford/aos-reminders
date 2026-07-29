@@ -21,16 +21,19 @@ const App = () => {
   return (
     <div className="d-block">
       <Router history={history}>
-        <Suspense fallback={<LoadingBody />}>
-          <Switch>
-            <Route path={ROUTES.HOME} exact component={Home} />
-            <Route path={ROUTES.FAQ} component={Faq} />
-            <Route path={ROUTES.JOIN} component={Join} />
-            <Route path={ROUTES.REDEEM} component={Redeem} />
-            <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
-            <ProtectedRoute path={ROUTES.PROFILE} component={Profile} />
-          </Switch>
-        </Suspense>
+        {/* Each route renders its own navbar, so <main> wraps the whole routed tree. */}
+        <main>
+          <Suspense fallback={<LoadingBody />}>
+            <Switch>
+              <Route path={ROUTES.HOME} exact component={Home} />
+              <Route path={ROUTES.FAQ} component={Faq} />
+              <Route path={ROUTES.JOIN} component={Join} />
+              <Route path={ROUTES.REDEEM} component={Redeem} />
+              <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
+              <ProtectedRoute path={ROUTES.PROFILE} component={Profile} />
+            </Switch>
+          </Suspense>
+        </main>
       </Router>
     </div>
   )
