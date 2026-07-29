@@ -122,13 +122,18 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
         </div>
       </div>
 
+      {/*
+        Full width rather than col-sm-6. The modal is shrink-to-fit at ~427px whatever the viewport,
+        so a half column is ~113px — not enough for the icon plus "Download PDF", which wrapped onto
+        three lines. col-sm-6 keys off viewport width, which tells us nothing about the modal's.
+      */}
       <div className="row mx-3 mt-4 pb-3">
-        <div className="col-12 col-sm-6 pb-2">
+        <div className="col-12 pb-2">
           <button className={`${theme.modalDangerClass} btn-block`} onClick={closeModal} type="button">
             Cancel
           </button>
         </div>
-        <div className="col-12 col-sm-6 pb-2">
+        <div className="col-12 pb-2">
           <button className={`${theme.modalConfirmClass} btn-block`} onClick={handleDownload} type="button">
             <MdFileDownload className="mr-2" />
             Download PDF
