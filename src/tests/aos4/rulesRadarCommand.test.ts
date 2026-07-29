@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import type { ArtifactManifest } from '../../aos4/data'
 import {
   createRadarLane,
+  pagesFromWahapediaSourceObservation,
   runRulesRadar,
   type CandidatePreparationInput,
   type RadarEvent,
@@ -23,6 +24,34 @@ afterEach(async () => {
 })
 
 describe('AoS 4 Rules Radar command', () => {
+  it('derives only accessible material pages from a full Wahapedia observation', () => {
+    expect(
+      pagesFromWahapediaSourceObservation({
+        schemaVersion: 1,
+        entries: [
+          {
+            publisher: 'wahapedia',
+            url: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/',
+            scope: 'material',
+            availability: 'accessible',
+          },
+          {
+            publisher: 'wahapedia',
+            url: 'https://wahapedia.ru/aos4/Factions.csv',
+            scope: 'material',
+            availability: 'accessible',
+          },
+          {
+            publisher: 'wahapedia',
+            url: 'https://wahapedia.ru/aos4/factions/inaccessible/',
+            scope: 'material',
+            availability: 'inaccessible',
+          },
+        ],
+      })
+    ).toEqual(['https://wahapedia.ru/aos4/factions/stormcast-eternals/'])
+  })
+
   it('writes a deterministic no-change report without candidate inputs', async () => {
     const root = await temporaryDirectory()
     const output = path.join(root, 'report')

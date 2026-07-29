@@ -195,6 +195,7 @@ interface Arguments {
   configPath: string
   acceptedManifestPath?: string
   wahapediaPageListPaths: string[]
+  wahapediaObservationPaths: string[]
   cacheDirectory: string
   requestPauseMs: number
   reportOnly: boolean
@@ -213,6 +214,7 @@ export const parseRulesRadarArguments = (values: string[]): Arguments => {
     outputDirectory: path.join('.cache', 'aos4', 'radar', 'runs', runLabel),
     configPath: path.join('data', 'aos4', 'radar', 'config.json'),
     wahapediaPageListPaths: [],
+    wahapediaObservationPaths: [],
     cacheDirectory: path.join('.cache', 'aos4', 'radar', 'artifacts'),
     requestPauseMs: 250,
     reportOnly: false,
@@ -233,6 +235,9 @@ export const parseRulesRadarArguments = (values: string[]): Arguments => {
       index += 1
     } else if (value === '--wahapedia-pages-file') {
       parsed.wahapediaPageListPaths.push(nextValue(values, index, value))
+      index += 1
+    } else if (value === '--wahapedia-observation') {
+      parsed.wahapediaObservationPaths.push(nextValue(values, index, value))
       index += 1
     } else if (value === '--cache') {
       parsed.cacheDirectory = nextValue(values, index, value)
@@ -259,6 +264,45 @@ export const parseRulesRadarArguments = (values: string[]): Arguments => {
 
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
 
+export const pagesFromWahapediaSourceObservation = (value: unknown): string[] => {
+  if (
+    !value ||
+    typeof value !== 'object' ||
+    (value as { schemaVersion?: unknown }).schemaVersion !== 1 ||
+    !Array.isArray((value as { entries?: unknown }).entries)
+  ) {
+    throw new Error('Wahapedia source observation has an incompatible schema')
+  }
+  return Array.from(
+    new Set(
+      (value as { entries: unknown[] }).entries.flatMap((entry, index) => {
+        if (!entry || typeof entry !== 'object') {
+          throw new Error(`Wahapedia source observation entry ${index + 1} is malformed`)
+        }
+        const candidate = entry as Record<string, unknown>
+        if (
+          candidate.publisher !== 'wahapedia' ||
+          !['material', 'explicit-non-material'].includes(String(candidate.scope)) ||
+          !['accessible', 'inaccessible', 'ambiguous'].includes(String(candidate.availability)) ||
+          typeof candidate.url !== 'string'
+        ) {
+          throw new Error(`Wahapedia source observation entry ${index + 1} is malformed`)
+        }
+        const url = new URL(candidate.url)
+        if (url.protocol !== 'https:' || !['wahapedia.ru', 'www.wahapedia.ru'].includes(url.hostname)) {
+          throw new Error(`Wahapedia source observation entry ${index + 1} has an invalid URL`)
+        }
+        url.hash = ''
+        return candidate.scope === 'material' &&
+          candidate.availability === 'accessible' &&
+          !url.pathname.endsWith('.csv')
+          ? [url.toString()]
+          : []
+      })
+    )
+  ).sort()
+}
+
 const artifactSummary = (artifact: ArtifactManifestEntry) => ({
   url: artifact.finalUrl,
   checksum: artifact.checksum,
@@ -272,10 +316,11 @@ const run = async (): Promise<void> => {
   const config = readRulesRadarConfig(path.resolve(rootPath, arguments_.configPath), rootPath)
   const acceptedManifestPath =
     arguments_.acceptedManifestPath ?? path.resolve(rootPath, config.acceptedManifestPath)
-  const [acceptedManifest, lanes, pageLists] = await Promise.all([
+  const [acceptedManifest, lanes, pageLists, sourceObservations] = await Promise.all([
     readJson<ArtifactManifest>(acceptedManifestPath),
     Promise.all(arguments_.lanePaths.map(filePath => readJson<RadarLane>(filePath))),
     Promise.all(arguments_.wahapediaPageListPaths.map(filePath => readJson<string[]>(filePath))),
+    Promise.all(arguments_.wahapediaObservationPaths.map(filePath => readJson<unknown>(filePath))),
   ])
   const transport = createPinnedHttpsTransport()
   const cache = new FileArtifactCache(path.resolve(rootPath, arguments_.cacheDirectory))
@@ -284,7 +329,10 @@ const run = async (): Promise<void> => {
       lanes,
       outputDirectory: path.resolve(rootPath, arguments_.outputDirectory),
       acceptedManifest,
-      wahapediaPageUrls: pageLists.flat(),
+      wahapediaPageUrls: [
+        ...pageLists.flat(),
+        ...sourceObservations.flatMap(pagesFromWahapediaSourceObservation),
+      ],
       reportOnly: arguments_.reportOnly,
     },
     {
