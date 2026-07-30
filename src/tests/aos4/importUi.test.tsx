@@ -105,6 +105,13 @@ const findButton = (container: HTMLElement, label: string): HTMLButtonElement =>
   return button
 }
 
+/**
+ * `Simulate`'s event data type predates drag events and has no `dataTransfer`, so the dropped file
+ * is attached through a cast rather than left untested.
+ */
+const dropEventData = (file: File): Parameters<typeof Simulate.drop>[1] =>
+  ({ dataTransfer: { files: [file] } }) as unknown as Parameters<typeof Simulate.drop>[1]
+
 const SubscriberActionHarness = ({ onAuthorized }: { onAuthorized: () => void }) => {
   const action = useSubscriberAction({ onAuthorized, origin: 'SubscriberActionTest' })
   return (
@@ -309,7 +316,7 @@ describe('AoS 4 import modal', () => {
     const dropzone = container.querySelector<HTMLDivElement>('.dropzone')!
 
     await act(async () => {
-      Simulate.drop(dropzone, { dataTransfer: { files: [file] } as unknown as DataTransfer })
+      Simulate.drop(dropzone, dropEventData(file))
       await Promise.resolve()
       await Promise.resolve()
     })
