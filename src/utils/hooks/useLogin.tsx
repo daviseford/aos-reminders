@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { logEvent } from 'utils/analytics'
+import { logLoginAttempt } from 'utils/analytics'
 import openPopup from 'utils/openPopup'
 
 interface UseLoginProps {
@@ -25,7 +25,7 @@ const useLogin = ({ origin, onPopupClose }: UseLoginProps) => {
   const login = useCallback(
     (event?: React.MouseEvent) => {
       event?.preventDefault()
-      logEvent(`Click-${origin}-Login`)
+      logLoginAttempt(origin, 'started')
 
       const popup = openPopup()
       setPopupIsClosed(false)
@@ -39,7 +39,7 @@ const useLogin = ({ origin, onPopupClose }: UseLoginProps) => {
         if (!popup.closed) return
         clearPopupTimer()
         setPopupIsClosed(true)
-        logEvent(`${origin}-Login-Closed`)
+        logLoginAttempt(origin, 'closed')
         onPopupClose?.()
       }, 1000)
 

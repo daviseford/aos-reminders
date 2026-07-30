@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { logEvent } from 'utils/analytics'
 
 interface AppStatusValue {
   hasNewContent: boolean
@@ -17,10 +16,7 @@ const AppStatusProvider = ({ children }: React.PropsWithChildren<object>) => {
   const [hasNewContent, setHasNewContent] = useState(false)
 
   const toggleGameMode = useCallback(() => {
-    setIsGameMode(current => {
-      logEvent(`ToggleGameMode-${current ? 'Off' : 'On'}`)
-      return !current
-    })
+    setIsGameMode(current => !current)
   }, [])
 
   useEffect(() => {

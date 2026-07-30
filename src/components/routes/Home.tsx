@@ -18,6 +18,7 @@ import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
 import { ArmyCollectionProvider } from 'context/useArmyCollection'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { logFactionSelection, logGameModeChange, logPdfDownload } from 'utils/analytics'
 import { consumePendingShareId } from 'utils/shareLink'
 
 const ImportArmyModal = lazy(() => import('components/input/importArmy/importArmyModal'))
@@ -130,6 +131,7 @@ const HomeContent = () => {
     const preset = withPageSize(selectedPreset, pageSize)
     const plan = planPrintLayout(printDocument, preset, createJsPdfMeasurer())
     renderPrintPlanToPdf(plan, { title: printDocument.title }).save(`${fileName}.pdf`)
+    logPdfDownload(presetId, pageSize)
   }
 
   useEffect(() => {
@@ -162,6 +164,7 @@ const HomeContent = () => {
 
   const selectFaction = (nextFactionId: CanonicalId<'faction'>) => {
     const faction = factionById.get(nextFactionId)
+    logFactionSelection(nextFactionId, faction?.name ?? 'Unknown faction')
     setDocument(current =>
       createAos4ArmyDocument({
         ...current,
@@ -170,6 +173,12 @@ const HomeContent = () => {
         reminderPreferences: {},
       })
     )
+  }
+
+  const toggleGameMode = () => {
+    const nextMode = !isGameMode
+    setIsGameMode(nextMode)
+    logGameModeChange(nextMode)
   }
 
   const showAll = () => {
@@ -228,7 +237,7 @@ const HomeContent = () => {
         factions={factions}
         isGameMode={isGameMode}
         onFactionChange={selectFaction}
-        onToggleGameMode={() => setIsGameMode(current => !current)}
+        onToggleGameMode={toggleGameMode}
       />
 
       <AppBanner />

@@ -37,6 +37,7 @@ declare global {
 interface IPayPalButtonProps {
   planId: string
   planTitle: string
+  onClick?: () => unknown
   onSuccess?: (data: IApprovalResponse) => unknown
   onCancel?: (data: unknown) => unknown
   style?: IStyle
@@ -67,15 +68,15 @@ const PaypalButton = (props: IPayPalButtonProps) => {
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin: props.planTitle })
   const { paypalIsReady } = usePaypal()
-  const { onSuccess, onCancel, planId, style } = props
+  const { onClick, onSuccess, onCancel, planId, style } = props
 
   const containerRef = useRef<HTMLDivElement>(null)
-  const handlersRef = useRef({ onSuccess, onCancel, login })
+  const handlersRef = useRef({ onClick, onSuccess, onCancel, login })
   const email = user?.email
 
   // Keep the latest callbacks reachable without making them effect dependencies.
   useEffect(() => {
-    handlersRef.current = { onSuccess, onCancel, login }
+    handlersRef.current = { onClick, onSuccess, onCancel, login }
   })
 
   // Serialised so a fresh style object literal on every render does not re-mount the button.
@@ -101,7 +102,8 @@ const PaypalButton = (props: IPayPalButtonProps) => {
         : undefined,
       onApprove: (data: IApprovalResponse) => handlersRef.current.onSuccess?.(data),
       onCancel: (data: unknown) => handlersRef.current.onCancel?.(data),
-      onClick: isAuthenticated ? undefined : () => handlersRef.current.login(),
+      onClick: () =>
+        isAuthenticated ? handlersRef.current.onClick?.() : handlersRef.current.login(),
     })
 
     if (buttons.isEligible && !buttons.isEligible()) return

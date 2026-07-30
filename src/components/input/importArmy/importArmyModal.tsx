@@ -7,13 +7,14 @@ import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../../aos4/gener
 import type { Aos4ArmyDocument } from '../../../aos4/state'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useTheme } from 'context/useTheme'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   createRosterFileTooLargeResult,
   decodeAos4RosterFile,
   decodeAos4TextRoster,
   MAX_ROSTER_FILE_BYTES,
 } from '../../../importers/aos4'
+import { logRosterImport } from 'utils/analytics'
 import { createAos4DocumentId } from 'utils/createAos4DocumentId'
 import { sendFailedImportReport } from './failedImportReport'
 import ImportPreview from './importPreview'
@@ -53,6 +54,7 @@ const ImportArmyModal = ({
   const [droppedFile, setDroppedFile] = useState<File>()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const filePreviewRequestRef = useRef(0)
+  const trackedErrorRef = useRef<Aos4ParsedRosterResult | undefined>(undefined)
 
   const preview = useMemo(() => {
     if (!decoded?.parsedRoster) return undefined
@@ -75,6 +77,17 @@ const ImportArmyModal = ({
   const hasErrors = diagnostics.some(diagnostic => diagnostic.severity === 'error')
   const canApply = Boolean(preview?.proposedDocument) && !hasErrors
   const canReport = Boolean(decoded && hasErrors && (mode === 'paste' ? text : droppedFile))
+
+  useEffect(() => {
+    if (!decoded || !hasErrors || trackedErrorRef.current === decoded) return
+    trackedErrorRef.current = decoded
+    logRosterImport({
+      diagnosticCount: diagnostics.length,
+      outcome: 'error',
+      selectionCount: decoded.parsedRoster?.selections.length ?? 0,
+      source: decoded.parsedRoster?.source ?? 'unknown',
+    })
+  }, [decoded, diagnostics.length, hasErrors])
 
   const chooseMode = (nextMode: ImportMode) => {
     filePreviewRequestRef.current += 1
@@ -136,6 +149,12 @@ const ImportArmyModal = ({
 
   const apply = () => {
     if (!canApply || !preview?.proposedDocument) return
+    logRosterImport({
+      diagnosticCount: diagnostics.length,
+      outcome: 'success',
+      selectionCount: decoded?.parsedRoster?.selections.length ?? 0,
+      source: decoded?.parsedRoster?.source ?? 'unknown',
+    })
     onApply(preview.proposedDocument)
   }
 

@@ -11,6 +11,7 @@ import { Simulate } from 'tests/support/reactTestHelpers'
 import { MemoryRouter, Route } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+const logRosterImport = vi.hoisted(() => vi.fn())
 const auth = vi.hoisted(() => ({
   isAuthenticated: false,
   isLoading: false,
@@ -20,6 +21,8 @@ const subscription = vi.hoisted(() => ({
   subscriptionLoading: false,
 }))
 const login = vi.hoisted(() => vi.fn())
+
+vi.mock('utils/analytics', () => ({ logRosterImport }))
 
 vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => auth,
@@ -239,6 +242,7 @@ describe('AoS 4 import modal', () => {
   beforeEach(() => {
     onApply = vi.fn()
     closeModal = vi.fn()
+    logRosterImport.mockReset()
     container = document.createElement('div')
     document.body.appendChild(container)
     act(() => {
@@ -275,6 +279,12 @@ describe('AoS 4 import modal', () => {
       reminderPreferences: {},
     })
     expect(onApply.mock.calls[0][0].explicitSelectionIds.length).toBeGreaterThan(1)
+    expect(logRosterImport).toHaveBeenCalledWith({
+      diagnosticCount: 0,
+      outcome: 'success',
+      selectionCount: 3,
+      source: 'official-app-text',
+    })
   })
 
   it('opens a reproducible GitHub report and downloads the exact failed pasted roster', async () => {
@@ -296,6 +306,12 @@ describe('AoS 4 import modal', () => {
     pasteAndPreview(pastedRoster)
 
     expect(container.textContent).toContain('GitHub issues are public')
+    expect(logRosterImport).toHaveBeenCalledWith({
+      diagnosticCount: expect.any(Number),
+      outcome: 'error',
+      selectionCount: 3,
+      source: 'official-app-text',
+    })
     const report = findButton(container, 'Send to devs')
     act(() => {
       Simulate.click(report)
