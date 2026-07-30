@@ -1,7 +1,8 @@
-import type {
-  Aos4ImportDiagnostic,
-  Aos4ImportPreview as Aos4ImportPreviewModel,
-  ParsedRoster,
+import {
+  findDeclaredRulesContext,
+  type Aos4ImportDiagnostic,
+  type Aos4ImportPreview as Aos4ImportPreviewModel,
+  type ParsedRoster,
 } from '../../../aos4/import'
 import { AOS4_CATALOG } from '../../../aos4/generated'
 import { useTheme } from 'context/useTheme'
@@ -23,7 +24,6 @@ const sourceLabels: Record<ParsedRoster['source'], string> = {
 const importableContexts = AOS4_CATALOG.rulesContexts
   .filter(context => ['current', 'seasonal', 'legends'].includes(context.status))
   .sort((left, right) => left.name.localeCompare(right.name))
-const entityById = new Map(AOS4_CATALOG.entities.map(entity => [entity.id, entity]))
 
 const DiagnosticList = ({ diagnostics }: { diagnostics: Aos4ImportDiagnostic[] }) => {
   if (!diagnostics.length) return null
@@ -56,6 +56,7 @@ const ImportPreview = ({
   const proposedContext = AOS4_CATALOG.rulesContexts.find(
     context => context.id === preview?.proposedDocument?.rulesContextId
   )
+  const declaredContext = findDeclaredRulesContext(AOS4_CATALOG, parsedRoster.declaredContext)
 
   return (
     <section aria-labelledby="import-preview-heading" className="mt-4">
@@ -69,42 +70,33 @@ const ImportPreview = ({
         <dd className="col-8">{parsedRoster.proposedName}</dd>
         <dt className="col-4">Faction</dt>
         <dd className="col-8">{parsedRoster.declaredFaction ?? 'Not declared'}</dd>
-        <dt className="col-4">Context</dt>
+        <dt className="col-4">Ruleset</dt>
         <dd className="col-8">
           {proposedContext?.name ?? parsedRoster.declaredContext ?? 'Application default'}
         </dd>
       </dl>
 
-      <label className="font-weight-bold" htmlFor="import-rules-context">
-        Resolve against rules context
-      </label>
-      <select
-        className={`form-control ${theme.bgColor} ${theme.text}`}
-        id="import-rules-context"
-        onChange={event => onContextChange(event.target.value)}
-        value={selectedContextId}
-      >
-        <option value="">Use the context declared by the roster</option>
-        {importableContexts.map(context => (
-          <option key={context.id} value={context.id}>
-            {context.name}
-          </option>
-        ))}
-      </select>
-
-      {!!preview?.matches.length && (
+      {!declaredContext && (
         <>
-          <h4 className="h6 mt-3">Matched selections</h4>
-          <ul className="small mb-0">
-            {preview.matches.map(match => (
-              <li key={`${match.line}-${match.canonicalId}`}>
-                Line {match.line}: {match.label} →{' '}
-                {entityById.get(match.canonicalId)?.name ?? match.canonicalId}
-              </li>
+          <label className="font-weight-bold" htmlFor="import-rules-context">
+            Which ruleset do you want to use?
+          </label>
+          <select
+            className={`form-control ${theme.bgColor} ${theme.text}`}
+            id="import-rules-context"
+            onChange={event => onContextChange(event.target.value)}
+            value={selectedContextId}
+          >
+            <option value="">Use the default ruleset</option>
+            {importableContexts.map(context => (
+              <option key={context.id} value={context.id}>
+                {context.name}
+              </option>
             ))}
-          </ul>
+          </select>
         </>
       )}
+
       <DiagnosticList diagnostics={diagnostics} />
     </section>
   )
