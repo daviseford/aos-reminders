@@ -177,6 +177,15 @@ Use `aos4-migration` as the long-lived integration branch.
 - Merging PRs, pushing `master`, deploying, or changing production services requires explicit
   direction.
 
+### Issue tracking
+
+All issue tracking for this repository lives in GitHub Issues on `daviseford/aos-reminders`.
+
+- "Ticket" and "issue" always mean a GitHub issue here. They never mean Linear, Jira, or any other
+  tracker, including when a global or user-level instruction describes a workflow for one.
+- Open issues with `gh issue create`, and reference them by number (for example `#1754`) in commit
+  messages and PR descriptions.
+
 ## Source-of-truth policy
 
 Use this precedence:
