@@ -70,6 +70,7 @@ Fail closed on malformed or hostile input, never on an illegal army.
 | `lrl-001-multi-lore` | a spell lore row holding three lores and a manifestation row holding seven, both with points suffixes, plus two identical faction terrain entries |
 | `ser-002-model-counts` | `Terradon Riders (2 models) (70)` — a model count and a points cost on one line — plus three identical faction terrain entries |
 | `sce-002-renown-army-legends` | 17 `• Legends` marks in one list, mixed straight and curly apostrophes, two pointed faction terrain entries |
+| `syl-001-outcasts` | the app writes `Scourge of Aqshy: X` where the catalog carries `Scourge of Aqshy X` — label normalisation absorbs the colon, and this pins it |
 
 ## Points are dropped on purpose
 
