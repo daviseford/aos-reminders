@@ -113,6 +113,22 @@ const findButton = (container: HTMLElement, label: string): HTMLButtonElement =>
 const dropEventData = (file: File): Parameters<typeof Simulate.drop>[1] =>
   ({ dataTransfer: { files: [file] } }) as unknown as Parameters<typeof Simulate.drop>[1]
 
+const readBlobText = (blob: Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onerror = () => reject(reader.error)
+    reader.onload = () => resolve(String(reader.result))
+    reader.readAsText(blob)
+  })
+
+const deferred = <T,>() => {
+  let resolve!: (value: T) => void
+  const promise = new Promise<T>(next => {
+    resolve = next
+  })
+  return { promise, resolve }
+}
+
 const SubscriberActionHarness = ({ onAuthorized }: { onAuthorized: () => void }) => {
   const action = useSubscriberAction({ onAuthorized, origin: 'SubscriberActionTest' })
   return (
@@ -234,6 +250,7 @@ describe('AoS 4 import modal', () => {
       unmountComponentAtNode(container)
     })
     container.remove()
+    vi.restoreAllMocks()
   })
 
   it('previews and atomically applies a supported pasted roster with a fresh local document', () => {
@@ -242,6 +259,7 @@ describe('AoS 4 import modal', () => {
     expect(container.textContent).toContain('Warhammer Age of Sigmar app')
     expect(container.textContent).toContain('Stormcast Eternals')
     expect(container.textContent).toContain('Thunderhead Host')
+    expect(container.textContent).not.toContain('Send to devs')
     const apply = findButton(container, 'Import Army')
     expect(apply.disabled).toBe(false)
 
@@ -258,6 +276,51 @@ describe('AoS 4 import modal', () => {
     expect(onApply.mock.calls[0][0].explicitSelectionIds.length).toBeGreaterThan(1)
   })
 
+  it('opens a reproducible GitHub report and downloads the exact failed pasted roster', async () => {
+    const pastedRoster = officialRoster().replace('Stormcast Eternals', 'Private Player Name')
+    const createObjectUrl = vi.fn<(blob: Blob) => string>().mockReturnValue('blob:failed-import')
+    const revokeObjectUrl = vi.fn()
+    Object.defineProperties(URL, {
+      createObjectURL: { configurable: true, value: createObjectUrl },
+      revokeObjectURL: { configurable: true, value: revokeObjectUrl },
+    })
+    const downloaded: { href?: string; name?: string } = {}
+    const downloadClick = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {
+      const download = document.querySelector<HTMLAnchorElement>('a[download]')!
+      downloaded.href = download.href
+      downloaded.name = download.download
+    })
+    const openIssue = vi.spyOn(window, 'open').mockImplementation(() => null)
+
+    pasteAndPreview(pastedRoster)
+
+    expect(container.textContent).toContain('GitHub issues are public')
+    const report = findButton(container, 'Send to devs')
+    act(() => {
+      Simulate.click(report)
+    })
+
+    expect(createObjectUrl).toHaveBeenCalledTimes(1)
+    const downloadedBlob = createObjectUrl.mock.calls[0][0] as Blob
+    expect(await readBlobText(downloadedBlob)).toBe(pastedRoster)
+    expect(downloaded).toEqual({
+      href: 'blob:failed-import',
+      name: 'aos-reminders-failed-import.txt',
+    })
+    expect(downloadClick).toHaveBeenCalledTimes(1)
+
+    const issueUrl = new URL(openIssue.mock.calls[0][0] as string)
+    expect(issueUrl.origin + issueUrl.pathname).toBe('https://github.com/daviseford/aos-reminders/issues/new')
+    expect(issueUrl.searchParams.get('title')).toContain('Failed roster import')
+    expect(issueUrl.searchParams.get('body')).toContain('aos-reminders-failed-import.txt')
+    expect(issueUrl.searchParams.get('body')).toContain('missing-faction')
+    expect(issueUrl.searchParams.get('body')).not.toContain(pastedRoster)
+    expect(issueUrl.searchParams.get('body')).not.toContain('Private Player Name')
+
+    await new Promise(resolve => setTimeout(resolve, 0))
+    expect(revokeObjectUrl).toHaveBeenCalledWith('blob:failed-import')
+  })
+
   /**
    * A name we cannot place is shown and skipped, not treated as a dead end. The player came from a
    * builder where the unit exists, so the useful outcome is the rest of the army plus a note about
@@ -272,6 +335,7 @@ describe('AoS 4 import modal', () => {
     pasteAndPreview(officialRoster('Definitely Unknown Unit'))
 
     expect(container.textContent).toContain('Definitely Unknown Unit')
+    expect(container.textContent).not.toContain('Send to devs')
     expect(findButton(container, 'Import Army').disabled).toBe(false)
 
     act(() => {
@@ -363,6 +427,7 @@ describe('AoS 4 import modal', () => {
     })
 
     expect(input.accept).toContain('.txt')
+    expect(input.accept).toContain('.json')
     expect(container.textContent).toContain('Listbot 4.0')
     expect(findButton(container, 'Import Army').disabled).toBe(false)
 
@@ -398,6 +463,133 @@ describe('AoS 4 import modal', () => {
     expect(arrayBuffer).not.toHaveBeenCalled()
     expect(container.textContent).toContain(`Roster files must be ${MAX_ROSTER_FILE_BYTES} bytes or smaller.`)
     expect(findButton(container, 'Import Army').disabled).toBe(true)
+  })
+
+  it('downloads an exact GitHub-compatible copy of a failed .rosz upload', async () => {
+    const rosterBytes = new Uint8Array([0x50, 0x4b, 0x03])
+    const file = new File([rosterBytes], 'private-player-name.rosz', { type: 'application/zip' })
+    Object.defineProperty(file, 'arrayBuffer', {
+      value: async () => rosterBytes.buffer,
+    })
+    const createObjectUrl = vi.fn<(blob: Blob) => string>().mockReturnValue('blob:failed-rosz')
+    Object.defineProperties(URL, {
+      createObjectURL: { configurable: true, value: createObjectUrl },
+      revokeObjectURL: { configurable: true, value: vi.fn() },
+    })
+    const downloaded: { name?: string } = {}
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {
+      downloaded.name = document.querySelector<HTMLAnchorElement>('a[download]')!.download
+    })
+    const openIssue = vi.spyOn(window, 'open').mockImplementation(() => null)
+    const input = container.querySelector<HTMLInputElement>('input[type="file"]')!
+    Object.defineProperty(input, 'files', { configurable: true, value: [file] })
+
+    await act(async () => {
+      Simulate.change(input)
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+    expect(container.textContent).toContain('not a valid ZIP archive')
+
+    act(() => {
+      Simulate.click(findButton(container, 'Send to devs'))
+    })
+
+    expect(createObjectUrl).toHaveBeenCalledWith(file)
+    expect(downloaded.name).toBe('aos-reminders-failed-import.rosz.zip')
+    const issueUrl = new URL(openIssue.mock.calls[0][0] as string)
+    expect(issueUrl.searchParams.get('title')).not.toContain('private-player-name')
+    expect(issueUrl.searchParams.get('body')).not.toContain('private-player-name')
+    expect(issueUrl.searchParams.get('body')).toContain('aos-reminders-failed-import.rosz.zip')
+    expect(issueUrl.searchParams.get('body')).toContain('unsafe-input')
+  })
+
+  it('allows a failed JSON upload to be reported with its exact bytes', async () => {
+    const rosterJson = '{"name":"Private JSON Roster"}'
+    const file = new File([rosterJson], 'private-roster.json', { type: 'application/json' })
+    Object.defineProperty(file, 'arrayBuffer', {
+      value: async () => new TextEncoder().encode(rosterJson).buffer,
+    })
+    const createObjectUrl = vi.fn<(blob: Blob) => string>().mockReturnValue('blob:failed-json')
+    Object.defineProperties(URL, {
+      createObjectURL: { configurable: true, value: createObjectUrl },
+      revokeObjectURL: { configurable: true, value: vi.fn() },
+    })
+    const downloaded: { name?: string } = {}
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {
+      downloaded.name = document.querySelector<HTMLAnchorElement>('a[download]')!.download
+    })
+    const openIssue = vi.spyOn(window, 'open').mockImplementation(() => null)
+    const input = container.querySelector<HTMLInputElement>('input[type="file"]')!
+    Object.defineProperty(input, 'files', { configurable: true, value: [file] })
+
+    await act(async () => {
+      Simulate.change(input)
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    expect(container.textContent).toContain('Choose a .txt, .ros, or .rosz roster file')
+
+    act(() => {
+      Simulate.click(findButton(container, 'Send to devs'))
+    })
+
+    expect(createObjectUrl).toHaveBeenCalledWith(file)
+    expect(downloaded.name).toBe('aos-reminders-failed-import.json')
+    const issueUrl = new URL(openIssue.mock.calls[0][0] as string)
+    expect(issueUrl.searchParams.get('body')).toContain('unsupported-source')
+    expect(issueUrl.searchParams.get('body')).not.toContain('private-roster')
+    expect(issueUrl.searchParams.get('body')).not.toContain('Private JSON Roster')
+  })
+
+  it('keeps the report file paired with the latest upload when reads finish out of order', async () => {
+    const firstRead = deferred<ArrayBuffer>()
+    const firstFile = new File([''], 'first.rosz', { type: 'application/zip' })
+    Object.defineProperty(firstFile, 'arrayBuffer', {
+      value: () => firstRead.promise,
+    })
+    const secondText = 'This is the latest unsupported roster.'
+    const secondFile = new File([secondText], 'latest.txt', { type: 'text/plain' })
+    Object.defineProperty(secondFile, 'arrayBuffer', {
+      value: async () => new TextEncoder().encode(secondText).buffer,
+    })
+    const input = container.querySelector<HTMLInputElement>('input[type="file"]')!
+
+    Object.defineProperty(input, 'files', { configurable: true, value: [firstFile] })
+    act(() => {
+      Simulate.change(input)
+    })
+
+    Object.defineProperty(input, 'files', { configurable: true, value: [secondFile] })
+    await act(async () => {
+      Simulate.change(input)
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    expect(container.textContent).toContain('not a supported current official app or Listbot 4.0 export')
+
+    await act(async () => {
+      firstRead.resolve(new Uint8Array([0x50, 0x4b, 0x03]).buffer)
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    expect(container.textContent).toContain('not a supported current official app or Listbot 4.0 export')
+    expect(container.textContent).not.toContain('not a valid ZIP archive')
+
+    const createObjectUrl = vi.fn<(blob: Blob) => string>().mockReturnValue('blob:latest-import')
+    Object.defineProperties(URL, {
+      createObjectURL: { configurable: true, value: createObjectUrl },
+      revokeObjectURL: { configurable: true, value: vi.fn() },
+    })
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined)
+    const openIssue = vi.spyOn(window, 'open').mockImplementation(() => null)
+
+    act(() => {
+      Simulate.click(findButton(container, 'Send to devs'))
+    })
+
+    expect(createObjectUrl).toHaveBeenCalledWith(secondFile)
+    const issueUrl = new URL(openIssue.mock.calls[0][0] as string)
+    expect(issueUrl.searchParams.get('body')).toContain('unsupported-source')
+    expect(issueUrl.searchParams.get('body')).not.toContain('unsafe-input')
   })
 
   it('cancels without applying or persisting the raw roster', () => {

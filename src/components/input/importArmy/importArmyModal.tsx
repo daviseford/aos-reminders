@@ -15,6 +15,7 @@ import {
   MAX_ROSTER_FILE_BYTES,
 } from '../../../importers/aos4'
 import { createAos4DocumentId } from 'utils/createAos4DocumentId'
+import { sendFailedImportReport } from './failedImportReport'
 import ImportPreview from './importPreview'
 
 interface ImportArmyModalProps {
@@ -49,8 +50,9 @@ const ImportArmyModal = ({
   const [selectedContextId, setSelectedContextId] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
-  const [droppedFileName, setDroppedFileName] = useState('')
+  const [droppedFile, setDroppedFile] = useState<File>()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const filePreviewRequestRef = useRef(0)
 
   const preview = useMemo(() => {
     if (!decoded?.parsedRoster) return undefined
@@ -72,39 +74,47 @@ const ImportArmyModal = ({
   ]
   const hasErrors = diagnostics.some(diagnostic => diagnostic.severity === 'error')
   const canApply = Boolean(preview?.proposedDocument) && !hasErrors
+  const canReport = Boolean(decoded && hasErrors && (mode === 'paste' ? text : droppedFile))
 
   const chooseMode = (nextMode: ImportMode) => {
+    filePreviewRequestRef.current += 1
     setMode(nextMode)
     setDecoded(undefined)
     setSelectedContextId('')
-    setDroppedFileName('')
+    setDroppedFile(undefined)
+    setIsProcessing(false)
   }
 
   const previewText = () => {
+    filePreviewRequestRef.current += 1
     setSelectedContextId('')
+    setIsProcessing(false)
     setDecoded(decodeAos4TextRoster(text))
   }
 
   const previewFile = async (file?: File) => {
     if (!file) return
+    const requestId = filePreviewRequestRef.current + 1
+    filePreviewRequestRef.current = requestId
     setSelectedContextId('')
-    setDroppedFileName(file.name)
+    setDecoded(undefined)
+    setDroppedFile(file)
     if (file.size > MAX_ROSTER_FILE_BYTES) {
+      setIsProcessing(false)
       setDecoded(createRosterFileTooLargeResult())
       return
     }
     setIsProcessing(true)
     try {
-      setDecoded(
-        await decodeAos4RosterFile({
-          name: file.name,
-          bytes: new Uint8Array(await file.arrayBuffer()),
-        })
-      )
+      const result = await decodeAos4RosterFile({
+        name: file.name,
+        bytes: new Uint8Array(await file.arrayBuffer()),
+      })
+      if (filePreviewRequestRef.current === requestId) setDecoded(result)
     } catch {
-      setDecoded(unexpectedFileError())
+      if (filePreviewRequestRef.current === requestId) setDecoded(unexpectedFileError())
     } finally {
-      setIsProcessing(false)
+      if (filePreviewRequestRef.current === requestId) setIsProcessing(false)
     }
   }
 
@@ -127,6 +137,25 @@ const ImportArmyModal = ({
   const apply = () => {
     if (!canApply || !preview?.proposedDocument) return
     onApply(preview.proposedDocument)
+  }
+
+  const reportFailedImport = () => {
+    if (!canReport) return
+    if (mode === 'paste') {
+      sendFailedImportReport({
+        diagnostics,
+        file: new Blob([text], { type: 'text/plain;charset=utf-8' }),
+        fileName: 'aos-reminders-failed-import.txt',
+      })
+      return
+    }
+    if (droppedFile) {
+      sendFailedImportReport({
+        diagnostics,
+        file: droppedFile,
+        fileName: droppedFile.name,
+      })
+    }
   }
 
   return (
@@ -205,7 +234,8 @@ const ImportArmyModal = ({
               Drag and drop your roster here
             </label>
             <p className="small text-center mb-2">
-              AoS app or Listbot text (.txt), or New Recruit roster (.ros or .rosz)
+              AoS app or Listbot text (.txt), or New Recruit roster (.ros or .rosz). Failed .json imports can
+              also be reported.
             </p>
             <button
               className={theme.genericButton}
@@ -214,9 +244,9 @@ const ImportArmyModal = ({
             >
               Choose a file
             </button>
-            {!!droppedFileName && <p className="small mt-2 mb-0">{droppedFileName}</p>}
+            {!!droppedFile && <p className="small mt-2 mb-0">{droppedFile.name}</p>}
             <input
-              accept=".txt,.ros,.rosz,text/plain,application/xml,application/zip"
+              accept=".txt,.ros,.rosz,.json,text/plain,application/json,application/xml,application/zip"
               className="visually-hidden"
               id="import-roster-file"
               onChange={event => void previewFile(event.target.files?.[0])}
@@ -234,6 +264,23 @@ const ImportArmyModal = ({
           preview={preview}
           selectedContextId={selectedContextId}
         />
+
+        {canReport && (
+          <div className="mt-3">
+            <p className="small mb-2">
+              Help us reproduce this import error. This downloads an exact copy of the failed roster and opens
+              a GitHub issue draft without the roster content or original filename. Attach the downloaded file
+              before submitting. GitHub issues are public, so remove any private information first.
+            </p>
+            <button
+              className={`${theme.genericButton} d-block w-100`}
+              onClick={reportFailedImport}
+              type="button"
+            >
+              Send to devs
+            </button>
+          </div>
+        )}
 
         <div className="row mt-4">
           <div className="col-6">
