@@ -68,6 +68,8 @@ Fail closed on malformed or hostile input, never on an illegal army.
 | `idk-001-renown-army-no-lore` | an Army of Renown with no lore, drops or tactics rows at all — header, regiments and terrain only |
 | `ko-001-renown-army-repeats` | a two-part Army of Renown header with a `• Legends` mark mid-regiment and repeated units across two regiments |
 | `lrl-001-multi-lore` | a spell lore row holding three lores and a manifestation row holding seven, both with points suffixes, plus two identical faction terrain entries |
+| `ser-002-model-counts` | `Terradon Riders (2 models) (70)` — a model count and a points cost on one line — plus three identical faction terrain entries |
+| `sce-002-renown-army-legends` | 17 `• Legends` marks in one list, mixed straight and curly apostrophes, two pointed faction terrain entries |
 
 ## Points are dropped on purpose
 

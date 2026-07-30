@@ -197,6 +197,19 @@ describe('official AoS app text import', () => {
       expect(labelled(parsed, 'warscroll')).toEqual(['Freeguild Fusiliers'])
     })
 
+    it('keeps a model count in the label but drops the points beside it', () => {
+      // `Terradon Riders (2 models) (70)` carries two parenthesised suffixes. Only the points are
+      // bookkeeping — the catalog ships the size variant as its own warscroll, so the count is part
+      // of the identity and has to survive for the roster to pick the right one.
+      const parsed = decode(
+        'Grand Alliance Order | Seraphon | Sunclaw Starhost',
+        'Regiment 1',
+        'Terradon Riders (90)',
+        'Terradon Riders (2 models) (70)'
+      )
+      expect(labelled(parsed, 'warscroll')).toEqual(['Terradon Riders', 'Terradon Riders (2 models)'])
+    })
+
     it('keeps every faction terrain entry, not just the first', () => {
       const parsed = decode(
         'Grand Alliance Destruction | Ogor Mawtribes | Greedy Eaters',

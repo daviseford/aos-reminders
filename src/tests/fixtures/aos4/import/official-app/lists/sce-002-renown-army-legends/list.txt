@@ -1,0 +1,109 @@
+Sce1 20850/3000 pts
+-----
+Stormcast Eternals | Ruination Brotherhood
+Army of Renown
+General's Handbook 2026-27
+Auxiliaries: 33 (+10560 Points)
+Drops: 37
+Prayer Lore - Ruination Brotherhood Prayer Lore
+Manifestation Lore - Twilit Sorceries, Morbid Conjuration (20 Points), Forbidden Power (20 Points), Primal Energy (10 Points), Krondspine Incarnate and Aetherwrought Machineries
+Battle Tactics Cards: Blazing Onslaught, Burning for Vengeance, Flanking Firestorm, Legend of the Parch, Siege of Ashes and Smokescreen
+-----
+Regiment 1
+Knight-Azyros (110)
+---
+Regiment 2
+Knight-Questor (110)
+---
+Regiment 3
+Scourge of Aqshy: Iridan the Witness (320)
+---
+Regiment 5
+Tornus the Redeemed (150)
+Annihilators (130)
+Annihilators with Meteoric Grandhammers (180)
+Decimators (240)
+• Legends
+Domitan’s Stormcoven (210)
+• Legends
+Judicators with Boltstorm Crossbows (160)
+• Legends
+Judicators with Skybolt Bows (140)
+• Legends
+Judicators with Skybolt Bows (140)
+• Legends
+Knight-Azyros (110)
+Knight-Azyros (110)
+Knight-Questor (110)
+Liberators (90)
+Lord-Terminos (140)
+Praetors (120)
+Prosecutors (150)
+Protectors (220)
+• Legends
+Questor Soulsworn (210)
+Reclusians (140)
+Retributors (170)
+• Legends
+Scourge of Aqshy: Stormstrike Palladors (220)
+Steelheart’s Champions (110)
+• Legends
+Stormcoven (210)
+Stormstrike Chariot (110)
+Stormstrike Palladors (180)
+Vanquishers (90)
+Vigilors (140)
+Vindictors (90)
+Vindictors (90)
+Xandire's Truthseekers (130)
+• Legends
+-----
+Auxiliary Units
+Annihilators (130)
+Annihilators with Meteoric Grandhammers (180)
+Decimators (240)
+• Legends
+Domitan’s Stormcoven (210)
+• Legends
+Ionus Cryptborn, Warden of Lost Souls (340)
+Iridan the Witness (260)
+Judicators with Boltstorm Crossbows (160)
+• Legends
+Judicators with Skybolt Bows (140)
+• Legends
+Knight-Azyros (110)
+Knight-Questor (110)
+Liberators (90)
+Lord-Terminos (140)
+Lord-Veritant (110)
+Lord-Vigilant on Gryph-Stalker (120)
+Lord-Vigilant on Morrgryph (160)
+Praetors (120)
+Prosecutors (150)
+Protectors (220)
+• Legends
+Questor Soulsworn (210)
+Reclusians (140)
+Retributors (170)
+• Legends
+Scourge of Aqshy: Iridan the Witness (320)
+Scourge of Aqshy: Stormstrike Palladors (220)
+Steelheart’s Champions (110)
+• Legends
+Stormcoven (210)
+Stormstrike Chariot (110)
+Stormstrike Chariot (110)
+Stormstrike Palladors (180)
+Tornus the Redeemed (150)
+Vanquishers (90)
+Vigilors (140)
+Vindictors (90)
+Xandire's Truthseekers (130)
+• Legends
+-----
+Faction Terrain
+Stormreach Portal (20)
+Stormreach Portal (20)
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.36.0 (1) | Data: v466
