@@ -137,9 +137,12 @@ a package blocks correct data work, the build, or safe operation.
 
 Phase 2 is underway. Its capability-restoration track (plan `2026-07-29-001`) has delivered
 printing and PDF export (`src/aos4/print/`, documented in `docs/printing.md`) and importing, cloud
-armies, and sharing; its planned package and framework upgrades remain pending. Checked-in plans
-live under `docs/plans/`. Preserve the completed AoS 4 domain, generated-data contracts, beta
-gate, and familiar interface while working through:
+armies, and sharing. Its package track has begun: Bootstrap is on 5.3 and react-bootstrap on 2.x
+(issue #1176), migrated for visual parity — `src/css/theme.scss` pins the Bootstrap 4.6 defaults the
+interface was built against, and those pins are part of the design system (see DESIGN.md, "The
+Parity Pin Rule"). The remaining framework upgrades are pending. Checked-in plans live under
+`docs/plans/`. Preserve the completed AoS 4 domain, generated-data contracts, beta gate, and
+familiar interface while working through:
 
 - upgrade React, Vite, TypeScript, Sass, PWA tooling, and supporting packages
 - remove packages made unused by the AoS 3 retirement

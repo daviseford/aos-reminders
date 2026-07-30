@@ -135,7 +135,7 @@ by having nothing in it that isn't needed. The visual system exists to get a rul
 player who is mid-turn with dice in one hand, and then get out of the way. Every decoration is
 weight the player has to carry.
 
-The system is deliberately built on Bootstrap 4.6 defaults with a small, specific palette laid over
+The system is deliberately built on Bootstrap defaults with a small, specific palette laid over
 the top. That is a decision, not neglect: a manual uses standard-issue components so the *content*
 is the only thing that varies between pages. Two colours carry the entire structural language — a
 near-black teal for the masthead and a mid teal for every section header — and everything else is
@@ -161,10 +161,15 @@ the table.
 Two teals doing structural work against neutral paper or slate, plus Bootstrap's semantic set for
 actions and status. Colour is reserved for meaning; nothing here is decorative.
 
-The teals are the project's own and carry the identity. The semantic colours are Bootstrap 4.6
-defaults, used unmodified — a deliberate consequence of the Field Manual thesis, since standard
-signal colours are the ones a reader already knows. They are listed below because they are real,
-frequent, and user-facing, not because they were designed.
+The teals are the project's own and carry the identity. The semantic colours are Bootstrap's stock
+signal set — a deliberate consequence of the Field Manual thesis, since standard signal colours are
+the ones a reader already knows. They are listed below because they are real, frequent, and
+user-facing, not because they were designed.
+
+Three of them are no longer Bootstrap's *current* defaults. Bootstrap 5 re-picked `$blue`, `$green`,
+and `$cyan`, and `$dark` moved a step darker; `src/css/theme.scss` pins all four back to the 4.6
+values the product was built on. See "Parity pins" under Layout — the hexes below are the truth, and
+the framework's own defaults are not.
 
 ### Primary
 
@@ -195,16 +200,16 @@ frequent, and user-facing, not because they were designed.
 
 ### Semantic
 
-Bootstrap 4.6's defaults, reached through utility classes in JSX rather than through `theme.scss`.
+Bootstrap's signal set, reached through utility classes in JSX rather than through `theme.scss`.
 They do not appear on the reminders surface, which is the point: seeing one means something
 happened.
 
 - **Action Blue** (`#007bff`, `$primary`): `btn-primary` on every commitment control — the three
-  Subscribe CTAs, gift purchase, redemption. Also `badge-primary` on the `Official` marker beside a
+  Subscribe CTAs, gift purchase, redemption. Also `badge bg-primary` on the `Official` marker beside a
   Games Workshop source link, which is the one place it appears on the reminders screen. It is the
   most saturated colour in the product and it means *this is the action* or *this is authoritative*.
 - **Danger Red** (`#dc3545`): destructive confirmation buttons, `alert-danger` on failed saves,
-  shares, and imports, and the `badge-danger` sale flash in the navbar and on plan cards.
+  shares, and imports, and the `bg-danger` sale flash in the navbar and on plan cards.
 - **Success Green** (`#28a745`): confirmed saves and completed subscription state.
 - **Warning Amber** (`#ffc107`) and **Info Cyan** (`#17a2b8`): subscription status text on
   `/profile`, and `alert-info` guidance in the saved-armies and profile flows.
@@ -282,8 +287,28 @@ anything else adopts it.
 
 ## Layout
 
-Bootstrap 4.6's 12-column grid, with a custom `xxl: 1900px` tier added to the default five
-(`sm: 576`, `md: 768`, `lg: 1025`, `xl: 1200`). Containers cap at 1610px at `xxl`.
+Bootstrap 5.3's 12-column grid, with `lg` moved to 1025px and `xxl` to 1900px (`sm: 576`,
+`md: 768`, `lg: 1025`, `xl: 1200`, `xxl: 1900`). Containers cap at 1610px at `xxl`. The gutter is
+30px, not Bootstrap 5's 1.5rem — see below.
+
+### Named Rules
+
+**The Parity Pin Rule.** The product moved from Bootstrap 4.6 to 5.3 for technical reasons only, and
+`src/css/theme.scss` carries a block of overrides that hold the 4.6 defaults in place: the gutter,
+the border radii, the card spacers, the badge metrics, link decoration, the focus-ring width, the
+signal colours, and RFS (off). Each one is a value this record describes, and each is annotated in
+the stylesheet with the 5.3 default it replaces.
+
+Those pins are the system, not legacy debris. Changing one is a design decision with a visible
+consequence, so it needs the same deliberation as any other change here — do not "modernise" them
+to the framework defaults as tidy-up. Equally, do not assume an unpinned Bootstrap 5 default matches
+what this document says: if a value matters, check `theme.scss` first.
+
+Three compatibility rules sit below the Bootstrap import for behaviour that no variable controls:
+`.card`/`.card-body` colour and padding, the bare `<label>` bottom margin (with the radio-label
+exception), and gutters for the handful of `col-*` elements that live outside a `.row`. Bootstrap 5
+also applies gutters to *every* direct child of a `.row`, where 4.6 only styled `col`-classed
+children; five non-column row children opt out with `px-0` and carry a comment saying so.
 
 The page is a single centred column of stacked cards. The reminder column sits at
 `col col-sm-11 col-md-10 col-lg-10 col-xl-8` — deliberately narrower than the builder above it,
@@ -298,8 +323,8 @@ padding grows from `0.5rem 1.25rem` to a uniform `1rem`; reminder cards start co
 expanded, so the player lands on a list of phases instead of a wall of text.
 
 Spacing is Bootstrap's `1rem`-based scale used at the low end — `0.25`/`0.5`/`1rem` do almost all
-the work. Cards use `0.75rem` vertical and `1.25rem` horizontal internal padding. The rhythm is
-tight on purpose.
+the work. Card bodies use `1.25rem` all round and card headers `0.75rem` vertical / `1.25rem`
+horizontal. The rhythm is tight on purpose.
 
 **Section bands.** A full-bleed horizontal band marks a major section break on the account routes —
 today the pricing block and the mobile demo on `/subscribe`. It is a theme slot,
@@ -391,14 +416,15 @@ varies; the instruments do not.
 - **Shape:** gently rounded (`0.25rem`), Bootstrap default padding (`0.375rem 0.75rem`).
 - **Toolbar (primary pattern):** full-width outline buttons, `btn-outline-dark` in light theme and
   `btn-outline-light` in dark, laid out `col-6 col-sm-4 col-lg`. Each carries a leading icon at
-  `mr-2` and a `text-nowrap` label. Outline rather than filled because seven of them sit in one
+  `me-2` and a `text-nowrap` label. Outline rather than filled because seven of them sit in one
   row — seven filled buttons would out-shout the reminders below.
 - **Navbar:** `btn btn-outline-light btn-sm mx-2` against the teal masthead.
 - **Commitment (`btn-primary`, Action Blue):** the only *filled* buttons in the product, reserved
   for the moment money or an account changes — the three Subscribe CTAs, gift purchase, redemption.
   Filled-vs-outline is the hierarchy: outline for everything reversible, filled for the one control
   that commits. `btn-success` and `btn-danger` fill likewise for confirm and destroy in modals.
-- **Width:** `btn-block` is the dominant shape (14 uses). Buttons in this product are full-width in
+- **Width:** full-width is the dominant shape — `d-block w-100`, 14 uses (Bootstrap 5 dropped
+  `.btn-block`). Buttons in this product are full-width in
   their column far more often than they are inline.
 - **Disabled:** used semantically, not decoratively — `Show Hidden` disables at zero hidden, and
   the subscriber actions disable while auth or subscription state is resolving.
@@ -423,11 +449,14 @@ The reminder timing tags — the one genuinely bespoke component in the system.
 
 ### Badges
 
-Bootstrap badges, always `badge-pill` (`10rem` radius) — the product has no square badge.
+Bootstrap badges, almost always pill-shaped: `badge rounded-pill`, kept at 4.6's `10rem` radius and
+`.6em` horizontal padding by a rule in `theme.scss` (Bootstrap 5's `.rounded-pill` sets the radius
+and nothing else). The one exception is the inline `Sale!` flash beside a plan title, which is a
+plain `badge`.
 
-- **`Official`** (`badge-primary`, Action Blue): beside a Games Workshop source in the reminder
+- **`Official`** (`badge bg-primary`, Action Blue): beside a Games Workshop source in the reminder
   overflow menu. Marks authority, and is the only saturated colour on the reminders surface.
-- **Sale flash** (`badge-danger`): the discount percentage in the navbar and on plan cards.
+- **Sale flash** (`bg-danger`): the discount percentage in the navbar and on plan cards.
   Suppressed below 335px, where the navbar has no room for it.
 - **Selection count**: rendered as plain text in the card title (`Units (3)`), not a badge —
   deliberate, since it is a state readout rather than an attention marker.
@@ -444,7 +473,7 @@ first render.
 ### Inputs / Fields
 
 - **Text inputs:** Bootstrap `form-control` (12 uses), `form-control-sm` in dense modal rows. Always
-  paired with a real `<label>` — several are `sr-only` where the surrounding copy already names the
+  paired with a real `<label>` — several are `visually-hidden` where the surrounding copy already names the
   field.
 - **Selects:** `react-select`, themed through `theme.selectTheme` — light theme uses the library
   default, dark overrides eleven neutral/primary slots to sit on Midnight Slate. Always carries an
@@ -457,7 +486,7 @@ first render.
 ### Loading and empty states
 
 - **Spinner:** Bootstrap `spinner-border`, with `spinner-border-sm` inline in buttons. Always
-  accompanied by `sr-only` "Loading..." text under `role="status"`, so the state is announced and
+  accompanied by `visually-hidden` "Loading..." text under `role="status"`, so the state is announced and
   not merely animated.
 - **Suspense fallbacks:** `LoadingHeader` and `LoadingBody` stand in for the navbar and routed
   content, so the masthead does not collapse while a lazy route resolves.
@@ -469,19 +498,22 @@ first render.
 - **Shadow Strategy:** none. The reminder and builder cards carry no `shadow-sm`; the plan and FAQ
   cards do — see Elevation.
 - **Border:** 1px hairline; dark theme adds an explicit `border border-dark`.
-- **Internal Padding:** `0.75rem` vertical / `1.25rem` horizontal, tightening to `0.75rem` vertical
-  on the reminder body below 576px and to `0.5rem` in print.
+- **Internal Padding:** `1.25rem` on all four sides of `.card-body`, tightening to `0.75rem`
+  vertical on the reminder body below 576px and to `0.5rem` in print. (Bootstrap 4.6's `.card-body`
+  took `$card-spacer-x` as a single value, so its vertical padding was 1.25rem and `$card-spacer-y`
+  never reached it; 5.x corrected that to `0.75rem 1.25rem`, and `theme.scss` pins the old
+  behaviour. `$card-spacer-y` still drives the header, below.)
 - **Header:** Signal Teal with white text, containing a full-width `<button>` that carries the
   padding so the entire header is the hit area, an `<h2>` title, and a Material expand/collapse
   chevron. Collapsed headers on mobile append a selection count (`Units (3)`).
 
 ### Navigation
 
-- **Style:** bold light links (`font-weight-bold text-light mx-2`) directly on the masthead colour,
+- **Style:** bold light links (`fw-bold text-light mx-2`) directly on the masthead colour,
   inside `<header>` → `<nav aria-label="Main">`. No underline, no active-state treatment — the
   current route's own link is simply omitted.
 - **Content:** signed out, `Subscribe` / `FAQ` / `Log in`; signed in, `Profile` / `Log out`.
-  A sale renders a `badge badge-pill badge-danger` discount chip, suppressed below 335px.
+  A sale renders a `badge rounded-pill bg-danger` discount chip, suppressed below 335px.
 - **Mobile:** the row narrows from 75% to 100% width; links do not collapse into a menu.
 
 ### Signature Component: the Edit/Play switch
@@ -495,7 +527,7 @@ the opposite mode is a dead stop in the tab order.
 ### Named Rules
 
 **The Dead Class Rule.** A class in JSX that no rule defines is a design intention that silently
-never happened, and this codebase has a habit of them. Checked against the compiled bundle, seven
+never happened, and this codebase has a habit of them. Checked against the compiled bundle, six
 are live in `src/components/` today:
 
 | Class | Where | What was intended |
@@ -505,7 +537,6 @@ are live in `src/components/` today:
 | `btn-pill` | `payment/pricingPlans.tsx` | A rounded Subscribe CTA (`rounded-pill` is the real class) |
 | `btn-md` | `routes/Profile.tsx` | A medium button; Bootstrap only ships `btn-sm`/`btn-lg` |
 | `h-md-250` | `routes/Faq.tsx` | A fixed FAQ card height |
-| `g-0` | `routes/Faq.tsx` | Zero gutters — Bootstrap **5** syntax; 4.6 wants `no-gutters` |
 | `pricing-card-title` | `payment/pricingPlans.tsx` | Carried over from a Bootstrap example |
 
 The first two matter most to this record. The product has essentially no motion — the only
@@ -514,7 +545,12 @@ choice fitting the use scene. But the loading screen *asked* for a pulse and a f
 so the absence of motion there is an accident, not a decision. Treat it as open rather than settled.
 
 Verify a new utility class exists before relying on it — `grep` the compiled CSS, not your memory of
-which Bootstrap version this is.
+which Bootstrap version this is. A seventh entry, `g-0` on the FAQ row, left this table in the 5.3
+upgrade: it was Bootstrap 5 syntax written while the project was still on 4.6, so it had never done
+anything, and the upgrade would have brought it to life and narrowed every FAQ card. It was deleted
+rather than honoured, because reviving a style that has never shipped is a design change. That is
+the general remedy for this table: a dead class is removed or implemented deliberately, never left
+to switch itself on during an upgrade.
 
 ## Do's and Don'ts
 
@@ -550,8 +586,13 @@ which Bootstrap version this is.
 - **Don't** use uppercase outside the timing tags.
 - **Don't** use a filled button for a reversible action. Filled (`btn-primary`) is reserved for the
   control that commits; everything else is outline.
-- **Don't** reach for a Bootstrap 5 utility. This is Bootstrap 4.6 — `g-0`, `btn-md`, and
-  `display-5` are all in that trap, and two of them are live in the codebase today.
+- **Don't** reach for a Bootstrap 4 utility. This is Bootstrap 5.3 — `ml-*`/`mr-*`, `sr-only`,
+  `badge-primary`, `badge-pill`, `btn-block`, `no-gutters`, `font-weight-bold`, and the
+  `custom-control` form family are all gone. `btn-md` is in the trap in both versions and is still
+  live in the codebase today.
+- **Don't** replace a parity pin in `theme.scss` with the Bootstrap 5 default without deciding to
+  change the design. Each pin holds a value this document specifies, and each is annotated with the
+  default it overrides.
 - **Don't** trade density for whitespace on the reminders screen. It is a reference sheet read
   under time pressure, not a marketing page.
 - **Don't** restyle as a side effect of an accessibility or correctness fix. Choose the variant that
