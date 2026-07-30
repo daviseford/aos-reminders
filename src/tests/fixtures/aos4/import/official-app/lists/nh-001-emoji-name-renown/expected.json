@@ -1,0 +1,589 @@
+{
+  "id": "nh-001-emoji-name-renown",
+  "diagnostics": [],
+  "proposedName": "Night haunt one ❤️❤️",
+  "declaredFaction": "Nighthaunt",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Quicksilver Gheists"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of the Underworlds"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Infernal Sorceries"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Aetherwrought Machineries"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Guardian of Souls"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Blades of the Hollow King",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Gatebreaker Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Vokmortian, Master of the Bone-tithe",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Immortis Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Mortek Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Marrowscroll Herald",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Crypt Flayers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Crypt Ghouls",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Crypt Horrors",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Mortisan Ossifector",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Mortek Crawler",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 36,
+      "kindHint": "warscroll",
+      "label": "Neferata, Mortarch of Blood",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Barrow Knights",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Deathrattle Skeletons",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Deathrattle Skeletons",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Outlaw Cannonade Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Katakros, Mortarch of the Necropolis",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Immortis Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Immortis Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Mancrusher Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Revenant Draconith",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Royal Terrorgheist",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Treelord",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Spite-Revenants",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Spite-Revenants",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Arkhan the Black, Mortarch of Sacrament",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "Morghast Archai",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 59,
+      "kindHint": "warscroll",
+      "label": "Morghast Harbingers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Grand Justice Gormayne",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Cryptguard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Royal Decapitator",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Ushoran, Mortarch of Delusion",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Cryptguard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 67,
+      "kindHint": "warscroll",
+      "label": "Morbheg Knights",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "Mannfred von Carstein, Mortarch of Night",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Barrow Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 71,
+      "kindHint": "warscroll",
+      "label": "Fell Bats",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Fell Bats",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 74,
+      "kindHint": "warscroll",
+      "label": "Corpse Cart",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 75,
+      "kindHint": "warscroll",
+      "label": "Deadwalker Zombies",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 78,
+      "kindHint": "warscroll",
+      "label": "Awlrach the Drowner"
+    },
+    {
+      "line": 79,
+      "kindHint": "warscroll",
+      "label": "Black Coach"
+    },
+    {
+      "line": 80,
+      "kindHint": "warscroll",
+      "label": "Bladegheist Revenants"
+    },
+    {
+      "line": 81,
+      "kindHint": "warscroll",
+      "label": "Cairn Wraith",
+      "isLegends": true
+    },
+    {
+      "line": 83,
+      "kindHint": "warscroll",
+      "label": "Chainghasts"
+    },
+    {
+      "line": 84,
+      "kindHint": "warscroll",
+      "label": "Chainrasps"
+    },
+    {
+      "line": 85,
+      "kindHint": "warscroll",
+      "label": "Craventhrone Guard"
+    },
+    {
+      "line": 86,
+      "kindHint": "warscroll",
+      "label": "Dreadblade Harrows"
+    },
+    {
+      "line": 87,
+      "kindHint": "warscroll",
+      "label": "Dreadscythe Harridans"
+    },
+    {
+      "line": 88,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 90,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 92,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 94,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 96,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 98,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 100,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 102,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 104,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 106,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 108,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 110,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 112,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 114,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 116,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 118,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 120,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 122,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 124,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 126,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 128,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 130,
+      "kindHint": "warscroll",
+      "label": "Glaivewraith Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 132,
+      "kindHint": "warscroll",
+      "label": "Grimghast Reapers"
+    },
+    {
+      "line": 133,
+      "kindHint": "warscroll",
+      "label": "Guardian of Souls"
+    },
+    {
+      "line": 134,
+      "kindHint": "warscroll",
+      "label": "Hexwraiths"
+    },
+    {
+      "line": 135,
+      "kindHint": "warscroll",
+      "label": "Knight of Shrouds"
+    },
+    {
+      "line": 136,
+      "kindHint": "warscroll",
+      "label": "Knight of Shrouds on Ethereal Steed"
+    },
+    {
+      "line": 137,
+      "kindHint": "warscroll",
+      "label": "Krulghast Cruciator"
+    },
+    {
+      "line": 138,
+      "kindHint": "warscroll",
+      "label": "Kurdoss Valentian, the Craven King"
+    },
+    {
+      "line": 139,
+      "kindHint": "warscroll",
+      "label": "Lady Olynder, Mortarch of Grief"
+    },
+    {
+      "line": 140,
+      "kindHint": "warscroll",
+      "label": "Lord Executioner"
+    },
+    {
+      "line": 141,
+      "kindHint": "warscroll",
+      "label": "Lord Vitriolic"
+    },
+    {
+      "line": 142,
+      "kindHint": "warscroll",
+      "label": "Myrmourn Banshees"
+    },
+    {
+      "line": 143,
+      "kindHint": "warscroll",
+      "label": "Nagash, Supreme Lord of the Undead"
+    },
+    {
+      "line": 144,
+      "kindHint": "warscroll",
+      "label": "Pyregheists"
+    },
+    {
+      "line": 145,
+      "kindHint": "warscroll",
+      "label": "Reikenor the Grimhailer"
+    },
+    {
+      "line": 146,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Black Coach"
+    },
+    {
+      "line": 147,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Spirit Hosts"
+    },
+    {
+      "line": 148,
+      "kindHint": "warscroll",
+      "label": "Scriptor Mortis"
+    },
+    {
+      "line": 149,
+      "kindHint": "warscroll",
+      "label": "Spirit Hosts"
+    },
+    {
+      "line": 150,
+      "kindHint": "warscroll",
+      "label": "Spirit Torment"
+    },
+    {
+      "line": 151,
+      "kindHint": "warscroll",
+      "label": "The Headsmen's Curse",
+      "isLegends": true
+    },
+    {
+      "line": 153,
+      "kindHint": "warscroll",
+      "label": "Thorns of the Briar Queen",
+      "isLegends": true
+    },
+    {
+      "line": 155,
+      "kindHint": "warscroll",
+      "label": "Tomb Banshee",
+      "isLegends": true
+    },
+    {
+      "line": 157,
+      "kindHint": "warscroll",
+      "label": "Tomb Banshee",
+      "isLegends": true
+    },
+    {
+      "line": 161,
+      "kindHint": "warscroll",
+      "label": "Nexus of Grief"
+    }
+  ]
+}
