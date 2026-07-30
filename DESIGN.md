@@ -10,6 +10,11 @@ colors:
   note-blue: "#1237c7"
   ink: "#212529"
   paper: "#ffffff"
+  action-blue: "#007bff"
+  success-green: "#28a745"
+  danger-red: "#dc3545"
+  warning-amber: "#ffc107"
+  info-cyan: "#17a2b8"
 typography:
   display:
     fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
@@ -26,6 +31,11 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
+  lead:
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 300
+    lineHeight: 1.5
   label:
     fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
     fontSize: "0.7rem"
@@ -36,6 +46,7 @@ rounded:
   none: "0"
   chip: "3px"
   md: "0.25rem"
+  pill: "10rem"
 spacing:
   xs: "0.25rem"
   sm: "0.5rem"
@@ -83,12 +94,23 @@ components:
     rounded: "{rounded.md}"
     padding: "0.375rem 0.75rem"
     width: "100%"
+  button-cta:
+    backgroundColor: "{colors.action-blue}"
+    textColor: "{colors.paper}"
+    rounded: "{rounded.md}"
+    padding: "0.5rem 0.75rem"
+    width: "100%"
   reminder-tag:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
     typography: "{typography.label}"
     rounded: "{rounded.chip}"
     padding: "0.1rem 0.4rem"
+  badge-official:
+    backgroundColor: "{colors.action-blue}"
+    textColor: "{colors.paper}"
+    rounded: "{rounded.pill}"
+    padding: "0.25em 0.6em"
   modal:
     backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
@@ -128,7 +150,7 @@ the table.
 **Key Characteristics:**
 
 - Density over whitespace; the screen is a reference sheet, not a landing page
-- Two structural colours, everything else neutral
+- Two structural colours plus Bootstrap's semantic set; nothing decorative
 - Flat surfaces, hairline borders, no shadows on anything that doesn't physically move
 - System fonts only — no web font is loaded, and none should be
 - Every surface has a defined print behaviour
@@ -136,8 +158,13 @@ the table.
 
 ## Colors
 
-A cold, near-monochrome palette: two teals doing structural work against neutral paper or slate,
-with colour reserved for meaning rather than decoration.
+Two teals doing structural work against neutral paper or slate, plus Bootstrap's semantic set for
+actions and status. Colour is reserved for meaning; nothing here is decorative.
+
+The teals are the project's own and carry the identity. The semantic colours are Bootstrap 4.6
+defaults, used unmodified — a deliberate consequence of the Field Manual thesis, since standard
+signal colours are the ones a reader already knows. They are listed below because they are real,
+frequent, and user-facing, not because they were designed.
 
 ### Primary
 
@@ -165,6 +192,28 @@ with colour reserved for meaning rather than decoration.
   textarea outlines.
 - **Profile Wash** (`rgba(28, 117, 149, 0.15)`): Signal Teal at 15% behind profile card headers —
   the same accent, quieted, on the account screens where nothing is time-critical.
+
+### Semantic
+
+Bootstrap 4.6's defaults, reached through utility classes in JSX rather than through `theme.scss`.
+They do not appear on the reminders surface, which is the point: seeing one means something
+happened.
+
+- **Action Blue** (`#007bff`, `$primary`): `btn-primary` on every commitment control — the three
+  Subscribe CTAs, gift purchase, redemption. Also `badge-primary` on the `Official` marker beside a
+  Games Workshop source link, which is the one place it appears on the reminders screen. It is the
+  most saturated colour in the product and it means *this is the action* or *this is authoritative*.
+- **Danger Red** (`#dc3545`): destructive confirmation buttons, `alert-danger` on failed saves,
+  shares, and imports, and the `badge-danger` sale flash in the navbar and on plan cards.
+- **Success Green** (`#28a745`): confirmed saves and completed subscription state.
+- **Warning Amber** (`#ffc107`) and **Info Cyan** (`#17a2b8`): subscription status text on
+  `/profile`, and `alert-info` guidance in the saved-armies and profile flows.
+
+### Named Rules
+
+**The Signal-Colour Rule.** The semantic colours are for state, action, and authority — never for
+emphasis or decoration. A saturated colour on the reminders surface should be so rare it reads as
+information: today the only one is the `Official` badge.
 
 Muted text is expressed as opacity rather than a separate token: `text-white-75`
 (`rgba(255,255,255,0.75)`) in dark theme, Bootstrap's `text-muted` in light.
@@ -205,6 +254,11 @@ player who needs a rule now. The type does no expressive work; the hierarchy and
 - **Title** (500, 1.5rem, 1.2): `.CardHeaderTitle` — every collapsible card header, and the army
   name in Play mode. Steps down responsively to 1.1rem below 576px, 1rem below 395px, and 0.8rem
   below 374px; 1.1rem in print.
+- **Lead** (300, 1.25rem, 1.5): Bootstrap's `.lead`, the standing-prose role — Subscribe's intro and
+  feature list, modal explanations, the loading message, and account-flow guidance. It is the voice
+  the product uses when it is *talking to* the player rather than quoting a rule, so it appears on
+  every surface except the reminders themselves. The light 300 weight is what distinguishes it from
+  Body at a glance.
 - **Body** (400, 1rem, 1.5): rule Trigger/Declare/Effect text, the substance of the product. Falls
   to 0.9rem in print to fit more per page.
 - **Label** (700, 0.7rem, 1.35, `0.03em`, uppercase): the reminder timing tags. Small, wide-tracked,
@@ -334,6 +388,12 @@ varies; the instruments do not.
   `mr-2` and a `text-nowrap` label. Outline rather than filled because seven of them sit in one
   row — seven filled buttons would out-shout the reminders below.
 - **Navbar:** `btn btn-outline-light btn-sm mx-2` against the teal masthead.
+- **Commitment (`btn-primary`, Action Blue):** the only *filled* buttons in the product, reserved
+  for the moment money or an account changes — the three Subscribe CTAs, gift purchase, redemption.
+  Filled-vs-outline is the hierarchy: outline for everything reversible, filled for the one control
+  that commits. `btn-success` and `btn-danger` fill likewise for confirm and destroy in modals.
+- **Width:** `btn-block` is the dominant shape (14 uses). Buttons in this product are full-width in
+  their column far more often than they are inline.
 - **Disabled:** used semantically, not decoratively — `Show Hidden` disables at zero hidden, and
   the subscriber actions disable while auth or subscription state is resolving.
 - **Hover / Focus:** Bootstrap defaults, untouched. No `outline: none` appears anywhere in the
@@ -355,6 +415,47 @@ The reminder timing tags — the one genuinely bespoke component in the system.
 - **Print:** all fills drop to transparent, text to black, border to `rgba(0,0,0,0.45)`. Weight and
   border carry the distinction on paper.
 
+### Badges
+
+Bootstrap badges, always `badge-pill` (`10rem` radius) — the product has no square badge.
+
+- **`Official`** (`badge-primary`, Action Blue): beside a Games Workshop source in the reminder
+  overflow menu. Marks authority, and is the only saturated colour on the reminders surface.
+- **Sale flash** (`badge-danger`): the discount percentage in the navbar and on plan cards.
+  Suppressed below 335px, where the navbar has no room for it.
+- **Selection count**: rendered as plain text in the card title (`Units (3)`), not a badge —
+  deliberate, since it is a state readout rather than an attention marker.
+
+### Alerts
+
+Bootstrap alerts — ten typed instances across the account flows — are the standard way this product
+reports the outcome of an account operation. Never a toast, never a modal. `alert-danger` for a failed save, share, or import;
+`alert-warning` for a recoverable problem; `alert-success` for a confirmed write; `alert-info` for
+standing guidance. They render inline in the modal or panel that owns the action, so the message
+sits where the failure happened. They carry `role="alert"` where the content is not present at
+first render.
+
+### Inputs / Fields
+
+- **Text inputs:** Bootstrap `form-control` (12 uses), `form-control-sm` in dense modal rows. Always
+  paired with a real `<label>` — several are `sr-only` where the surrounding copy already names the
+  field.
+- **Selects:** `react-select`, themed through `theme.selectTheme` — light theme uses the library
+  default, dark overrides eleven neutral/primary slots to sit on Midnight Slate. Always carries an
+  `aria-label`.
+- **Note textarea:** `.NoteInput`, 95% width, `resize: vertical` only (horizontal resize let users
+  drag it past the card and scroll the page sideways), inheriting theme background and text.
+- **Dropzone:** dashed 2px, `#eeeeee` on `#fafafa` in light and Pale Gray on black in dark, with a
+  `#2196f3` border on focus and drag-over.
+
+### Loading and empty states
+
+- **Spinner:** Bootstrap `spinner-border`, with `spinner-border-sm` inline in buttons. Always
+  accompanied by `sr-only` "Loading..." text under `role="status"`, so the state is announced and
+  not merely animated.
+- **Suspense fallbacks:** `LoadingHeader` and `LoadingBody` stand in for the navbar and routed
+  content, so the masthead does not collapse while a lazy route resolves.
+
 ### Cards / Containers
 
 - **Corner Style:** `0.25rem`.
@@ -367,16 +468,6 @@ The reminder timing tags — the one genuinely bespoke component in the system.
 - **Header:** Signal Teal with white text, containing a full-width `<button>` that carries the
   padding so the entire header is the hit area, an `<h2>` title, and a Material expand/collapse
   chevron. Collapsed headers on mobile append a selection count (`Units (3)`).
-
-### Inputs / Fields
-
-- **Selects:** `react-select`, themed through `theme.selectTheme` — light theme uses the library
-  default, dark overrides eleven neutral/primary slots to sit on Midnight Slate. Always carries an
-  `aria-label`.
-- **Note textarea:** `.NoteInput`, 95% width, `resize: vertical` only (horizontal resize let users
-  drag it past the card and scroll the page sideways), inheriting theme background and text.
-- **Dropzone:** dashed 2px, `#eeeeee` on `#fafafa` in light and Pale Gray on black in dark, with a
-  `#2196f3` border on focus and drag-over.
 
 ### Navigation
 
@@ -394,6 +485,30 @@ The product's one true mode control, and the only place the system spends any ex
 `Play`, the active one bolded. The words are click-to-toggle for the mouse but deliberately **not**
 focusable — the switch is the single keyboard control, because a focusable label that only fires in
 the opposite mode is a dead stop in the tab order.
+
+### Named Rules
+
+**The Dead Class Rule.** A class in JSX that no rule defines is a design intention that silently
+never happened, and this codebase has a habit of them. Checked against the compiled bundle, seven
+are live in `src/components/` today:
+
+| Class | Where | What was intended |
+| --- | --- | --- |
+| `pulsate-fwd` | `helpers/suspenseFallbacks.tsx:56` | A pulse on the loading heading |
+| `fade-out` | `helpers/suspenseFallbacks.tsx:57` | A fade on "Loading…" |
+| `btn-pill` | `payment/pricingPlans.tsx:132` | A rounded Subscribe CTA (`rounded-pill` is the real class) |
+| `btn-md` | `routes/Profile.tsx:318` | A medium button; Bootstrap only ships `btn-sm`/`btn-lg` |
+| `h-md-250` | `routes/Faq.tsx:61` | A fixed FAQ card height |
+| `g-0` | `routes/Faq.tsx:61` | Zero gutters — Bootstrap **5** syntax; 4.6 wants `no-gutters` |
+| `pricing-card-title` | `payment/pricingPlans.tsx:113` | Carried over from a Bootstrap example |
+
+The first two matter most to this record. The product has essentially no motion — the only
+transition in the stylesheet is the dropzone's border on drag-over — and that reads as a deliberate
+choice fitting the use scene. But the loading screen *asked* for a pulse and a fade and got neither,
+so the absence of motion there is an accident, not a decision. Treat it as open rather than settled.
+
+Verify a new utility class exists before relying on it — `grep` the compiled CSS, not your memory of
+which Bootstrap version this is.
 
 ## Do's and Don'ts
 
@@ -425,6 +540,10 @@ the opposite mode is a dead stop in the tab order.
   `$themeDarkBlueTertiary` — they are declared but unused and are not part of the system.
 - **Don't** change heading level to change text size. Set the size in `.CardHeaderTitle`.
 - **Don't** use uppercase outside the timing tags.
+- **Don't** use a filled button for a reversible action. Filled (`btn-primary`) is reserved for the
+  control that commits; everything else is outline.
+- **Don't** reach for a Bootstrap 5 utility. This is Bootstrap 4.6 — `g-0`, `btn-md`, and
+  `display-5` are all in that trap, and two of them are live in the codebase today.
 - **Don't** trade density for whitespace on the reminders screen. It is a reference sheet read
   under time pressure, not a marketing page.
 - **Don't** restyle as a side effect of an accessibility or correctness fix. Choose the variant that
