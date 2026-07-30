@@ -9,6 +9,7 @@ import {
   createAos4ReminderViewModel,
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
+import AppBanner from 'components/info/banners/app_banner'
 import Reminders, { type ReminderSourceLink } from 'components/info/reminders'
 import ArmyBuilder from 'components/input/army_builder'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
@@ -229,6 +230,8 @@ const HomeContent = () => {
         onFactionChange={selectFaction}
         onToggleGameMode={() => setIsGameMode(current => !current)}
       />
+
+      <AppBanner />
 
       {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
 
