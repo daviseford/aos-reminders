@@ -16,7 +16,13 @@ The redundancy is the point. New Recruit's three exports are the same tree:
 
 So every captured list carries a **self-checking oracle**: all three files must decode to the same
 roster. That holds without any hand-authored expected value, and it held before the importer
-existed. `src/tests/aos4/importFixtures.test.ts` enforces it.
+existed. `src/tests/aos4/importFixtures.test.ts` enforces it at the file level, and
+`importNewRecruitCorpus.test.ts` enforces it through the production importer — every list, all
+three formats, one roster.
+
+All three are accepted uploads. `.json` is read by the same reader as the XML
+(`src/importers/aos4/rosterTree.ts`), with each format contributing only a validating adapter, so
+the formats cannot agree here and drift in production.
 
 ## Layout
 
@@ -36,13 +42,16 @@ Naming: `<faction-slug>-<nnn>-<shape>`, e.g. `fec-001-ghb-kitchen-sink`.
 
 ## Invariants
 
-Enforced for every list by `importFixtures.test.ts`:
+Enforced for every list — 1 and 2 by `importFixtures.test.ts`, 3 and 4 by
+`importNewRecruitCorpus.test.ts`:
 
 1. `.rosz` is a single-entry, unencrypted zip whose payload is byte-identical to `.ros`, with no
    path-traversal entry names.
 2. `.json` is an exact transliteration of `.ros`.
-3. *(with U4)* all three formats decode to an identical normalized roster.
-4. *(with U4)* decoding is deterministic across runs.
+3. all three formats decode to an identical normalized roster, apart from selection line numbers —
+   those describe the file the player uploaded, and the same list is a handful of lines as `.ros`
+   and one minified line as `.json`.
+4. decoding is deterministic across runs.
 
 Plus: the manifest is current, every list has all three formats, `meta.json` composition counts
 match the file's real contents, and no personal fields are present.

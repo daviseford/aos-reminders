@@ -4,6 +4,7 @@ import ImportArmyModal from 'components/input/importArmy/importArmyModal'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import { AOS4_CATALOG } from '../../aos4/generated'
 import { MAX_ROSTER_FILE_BYTES } from '../../importers/aos4'
+import { parseRosterXml, xmlToRosterJson } from 'tests/support/newRecruit'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { Simulate } from 'tests/support/reactTestHelpers'
@@ -409,6 +410,32 @@ describe('AoS 4 import modal', () => {
     expect(findButton(container, 'Import Army').disabled).toBe(false)
   })
 
+  /** New Recruit's third export reaches the same preview, through the same control. */
+  it('previews a native .json upload locally', async () => {
+    const rosterJson = JSON.stringify({ roster: xmlToRosterJson(parseRosterXml(rosterXml)) })
+    act(() => {
+      Simulate.click(findButton(container, 'Upload roster'))
+    })
+    const file = new File([rosterJson], 'stormhost.json', { type: 'application/json' })
+    Object.defineProperty(file, 'arrayBuffer', {
+      value: async () => new TextEncoder().encode(rosterJson).buffer,
+    })
+    const input = container.querySelector<HTMLInputElement>('input[type="file"]')!
+    Object.defineProperty(input, 'files', { configurable: true, value: [file] })
+
+    await act(async () => {
+      Simulate.change(input)
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    expect(input.accept).toContain('.json')
+    expect(container.textContent).toContain('stormhost.json')
+    expect(container.textContent).toContain('New Recruit roster file')
+    expect(container.textContent).toContain('Uploaded Stormhost')
+    expect(findButton(container, 'Import Army').disabled).toBe(false)
+  })
+
   it('uploads a Listbot text file and applies its canonical composition', async () => {
     act(() => {
       Simulate.click(findButton(container, 'Upload roster'))
@@ -504,6 +531,11 @@ describe('AoS 4 import modal', () => {
     expect(issueUrl.searchParams.get('body')).toContain('unsafe-input')
   })
 
+  /**
+   * A `.json` upload is now read rather than turned away by its extension, so this fails on
+   * content — a JSON file that is not a New Recruit roster — and is still reportable with the
+   * exact bytes, without leaking what was in the list.
+   */
   it('allows a failed JSON upload to be reported with its exact bytes', async () => {
     const rosterJson = '{"name":"Private JSON Roster"}'
     const file = new File([rosterJson], 'private-roster.json', { type: 'application/json' })
@@ -527,7 +559,7 @@ describe('AoS 4 import modal', () => {
       Simulate.change(input)
       await new Promise(resolve => setTimeout(resolve, 0))
     })
-    expect(container.textContent).toContain('Choose a .txt, .ros, or .rosz roster file')
+    expect(container.textContent).toContain('exactly one supported roster JSON root')
 
     act(() => {
       Simulate.click(findButton(container, 'Send to devs'))
@@ -536,7 +568,7 @@ describe('AoS 4 import modal', () => {
     expect(createObjectUrl).toHaveBeenCalledWith(file)
     expect(downloaded.name).toBe('aos-reminders-failed-import.json')
     const issueUrl = new URL(openIssue.mock.calls[0][0] as string)
-    expect(issueUrl.searchParams.get('body')).toContain('unsupported-source')
+    expect(issueUrl.searchParams.get('body')).toContain('unsafe-input')
     expect(issueUrl.searchParams.get('body')).not.toContain('private-roster')
     expect(issueUrl.searchParams.get('body')).not.toContain('Private JSON Roster')
   })
