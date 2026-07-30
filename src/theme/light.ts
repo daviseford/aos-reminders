@@ -20,6 +20,7 @@ const LightTheme: ITheme = {
   reminderHr: `ReminderHr`,
   reminderTags: `ReminderTags-Light`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
+  sectionBand: `bg-light`,
   selectTheme: {},
   text: `text-dark`,
   textMuted: `text-muted`,

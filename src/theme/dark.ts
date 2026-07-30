@@ -79,6 +79,12 @@ const DarkTheme: ITheme = {
   reminderHr: `ReminderHr-Dark`,
   reminderTags: `ReminderTags-Dark`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
+  /*
+   * Light theme separates this band with a tonal shelf; dark theme separates with the card borders
+   * instead, so the band takes the page colour. $themeDarkBluePrimary was the obvious candidate but
+   * it is exactly what the plan-card headers already use — the headers would vanish into the band.
+   */
+  sectionBand: bgColor,
   selectTheme,
   text: `text-white`,
   textMuted: `text-white-75`,

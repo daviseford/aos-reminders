@@ -1,6 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
-import { LinkNewTab } from 'components/helpers/link'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import Contact from 'components/page/contact'
 import { PricingPlans } from 'components/payment/pricingPlans'
@@ -11,7 +10,14 @@ import { logClick, logPageView } from 'utils/analytics'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
 const Navbar = lazy(() => import('components/page/navbar'))
-const headerClass = 'col-12 col-lg-8 col-xl-8 pt-5 mx-auto'
+
+/*
+ * The intro and the feature list are one text column, so they share a measure and a left edge. They
+ * previously used different widths (col-lg-8 vs col-lg-5) inside different wrappers, which left the
+ * two prose blocks starting 236px apart on a 1440px screen.
+ */
+const contentClass = 'col-12 col-lg-8 col-xl-8 mx-auto'
+const headerClass = `${contentClass} pt-5`
 
 const Subscribe = () => {
   const { isLoading } = useAuth0()
@@ -38,12 +44,14 @@ const Subscribe = () => {
         </Suspense>
       </div>
       <Intro />
-      <div className={`container ${theme.bgColor} ${theme.text}`}>
-        <div className="row align-items-start justify-content-center mt-3">
-          <CurrentFeatures />
-        </div>
+      <div className={`${theme.bgColor} ${theme.text}`}>
+        <CurrentFeatures />
       </div>
-      <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
+      {/*
+        A full-bleed band, not a .row: a bare row's -15px margins overflowed the viewport by 15px and
+        scrolled the whole page sideways. PricingPlans supplies its own .container.
+      */}
+      <div className={`py-5 ${theme.sectionBand} ${theme.text}`}>
         <PricingPlans />
       </div>
       <ExamplesRow />
@@ -56,18 +64,12 @@ const Subscribe = () => {
 
 const ExamplesRow = () => {
   const { isMobile } = useWindowSize()
+  const { theme } = useTheme()
   if (!isMobile) return null
 
   return (
-    <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
-      <div className="col-12">
-        <WebmWithFallback
-          webmUrl="/img/dark_mode1.mp4"
-          gifUrl="/img/dark_mode1.gif"
-          description="Dark Mode"
-          label="Demo-DarkMode"
-        />
-      </div>
+    <div className={`py-5 px-3 ${theme.sectionBand} ${theme.text}`}>
+      <DemoVideo videoUrl="/img/dark_mode1.mp4" description="Dark Mode" label="Demo-DarkMode" />
     </div>
   )
 }
@@ -77,11 +79,13 @@ const Intro = () => {
 
   return (
     <div className={`${headerClass} ${theme.text}`}>
+      {/* height reserves the box before the image loads; the intrinsic ratio is 919x843. */}
       <img
+        alt="Subscribe to support AoS Reminders"
         className="d-block mx-auto mb-4 img-fluid rounded-circle bg-white"
+        height="110"
         src="/img/logo_medium_padding.png"
         width="120"
-        alt="Subscribe to support AoS Reminders"
       />
       {/* Rendered at h2 size so the page gains a top-level heading without a visual change. */}
       <h1 className="h2">Support AoS Reminders</h1>
@@ -96,10 +100,8 @@ const Intro = () => {
   )
 }
 
-const featuresColClass = 'col-12 col-lg-5 col-xl-5 col-xxl-5 mt-2'
-
 const CurrentFeatures = () => (
-  <div className={featuresColClass}>
+  <div className={`${contentClass} mt-3`}>
     <p className="lead">
       <strong>What do you get when you subscribe?</strong>
     </p>
@@ -112,33 +114,42 @@ const CurrentFeatures = () => (
   </div>
 )
 
-interface WebmWithFallbackProps {
-  webmUrl: string
-  gifUrl: string
+interface DemoVideoProps {
+  videoUrl: string
   description: string
   label: string
 }
 
-const WebmWithFallback = ({ webmUrl, gifUrl, description, label }: WebmWithFallbackProps) => {
-  const supportsWebm = !!document.createElement('video').canPlayType
+/**
+ * The demo loops, so it needs a way to stop it (WCAG 2.2.2). The native controls provide that, and
+ * their fullscreen button covers what the old wrapping link to the raw file was standing in for — a
+ * link around the video would have swallowed every click the controls need.
+ *
+ * There is no .webm asset in public/img; the old `video/webm` source pointed at this same .mp4, and
+ * the poster was a 1.8MB gif fronting an 862KB video. Both are gone.
+ */
+const DemoVideo = ({ videoUrl, description, label }: DemoVideoProps) => {
+  const prefersReducedMotion =
+    typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   return (
     <figure className="figure">
-      <LinkNewTab href={supportsWebm ? webmUrl : gifUrl} onClick={() => logClick(label)} label="Video URL">
-        {/* muted + playsInline are required for autoplay on iOS Safari and Android Chrome. */}
-        <video
-          preload="metadata"
-          loop
-          muted
-          playsInline
-          poster={gifUrl}
-          autoPlay
-          className="figure-img img-fluid rounded img-thumbnail"
-        >
-          <source src={webmUrl} type="video/mp4" />
-          <source src={webmUrl} type="video/webm" />
-        </video>
-      </LinkNewTab>
+      {/* muted + playsInline are required for autoplay on iOS Safari and Android Chrome. */}
+      <video
+        aria-label={`${description} demo`}
+        autoPlay={!prefersReducedMotion}
+        className="figure-img img-fluid rounded img-thumbnail"
+        controls
+        height="550"
+        loop
+        muted
+        onClick={() => logClick(label)}
+        playsInline
+        preload="metadata"
+        width="320"
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </video>
       <figcaption className="figure-caption text-center">
         <strong>{description}</strong>
       </figcaption>
