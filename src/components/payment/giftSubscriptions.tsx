@@ -18,6 +18,7 @@ import useWindowSize from 'utils/hooks/useWindowSize'
 import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from 'utils/plans'
 
 const COL_SIZE = 'col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6'
+const MAX_GIFT_QUANTITY = 99
 
 const GiftSubscriptionsComponent = () => {
   const stripe = useStripe()
@@ -49,7 +50,8 @@ const GiftTable = () => {
       <div className={`${COL_SIZE} border border-${isDark ? 'dark' : 'light-gray'} rounded py-3`}>
         <div className={rowClass}>
           <div className="col-12">
-            <h4>Your Gift Subscriptions</h4>
+            {/* Sits directly under the page <h1> like the profile cards do; .h4 keeps the size. */}
+            <h2 className="h4">Your Gift Subscriptions</h2>
           </div>
           <div className="col-12">
             <p>Click to copy a one-time-use link and send it to your friend.</p>
@@ -110,10 +112,17 @@ const GiftButton = (props: IGiftSubscription) => {
         button's padding already wins.
       */}
       <GenericButton className={`${theme.genericButton} mx-2 my-2 w-auto flex-shrink-1`}>
-        <FaGift className="me-2" />
+        <FaGift className="me-2" aria-hidden="true" />
         <strong className="me-1">{label}</strong>
         {!isMobile && ' Gift'}
-        {copied && <FaCheck className="text-success ms-2" />}
+        {copied && <FaCheck className="text-success ms-2" aria-hidden="true" />}
+        {/*
+         * The tick was the only confirmation that the link reached the clipboard, and an icon
+         * announces nothing. A permanently-present live region reports the change instead.
+         */}
+        <span className="visually-hidden" role="status">
+          {copied ? 'Link copied' : ''}
+        </span>
       </GenericButton>
     </CopyToClipboard>
   )
@@ -129,10 +138,12 @@ const PurchaseTable = () => {
         <table className={`table ${theme.text} ${isMobile ? 'table-sm' : ''}`}>
           <thead>
             <tr>
-              <th>Plan</th>
-              <th>{isMobile ? '#' : 'Quantity'}</th>
-              <th>Cost</th>
-              <th />
+              <th scope="col">Plan</th>
+              <th scope="col">{isMobile ? '#' : 'Quantity'}</th>
+              <th scope="col">Cost</th>
+              <th scope="col">
+                <span className="visually-hidden">Purchase</span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -163,7 +174,7 @@ const PlansHeader = () => {
   const { theme } = useTheme()
   return (
     <div className={`col-12 text-center mb-3 ${theme.text}`}>
-      <h4>Gift a Subscription!</h4>
+      <h2 className="h4">Gift a Subscription!</h2>
     </div>
   )
 }
@@ -178,9 +189,20 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
 
   if (!stripe || !user) return null
 
+  /*
+   * parseInt('') is NaN, which priced the row "$NaN" and — because the checkout guard only compared
+   * against 0 — was still forwarded to Stripe as the line-item quantity. A negative value priced the
+   * gift negatively and passed the same guard.
+   */
+  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const parsed = parseInt(event.target.value, 10)
+    if (Number.isNaN(parsed)) return setQuantity(0)
+    setQuantity(Math.max(0, Math.min(parsed, MAX_GIFT_QUANTITY)))
+  }
+
   const handleCheckout = async (event: React.MouseEvent) => {
     event.preventDefault()
-    if (quantity === 0) return
+    if (quantity < 1) return
 
     logClick(origin)
     const price = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
@@ -214,14 +236,18 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
           style={{ maxWidth: '60px' }}
           className="form-control"
           type="number"
+          min={1}
+          max={MAX_GIFT_QUANTITY}
+          aria-label={`Quantity of ${supportPlan.title} gifts`}
           value={quantity}
-          onChange={event => setQuantity(parseInt(event.target.value, 10))}
+          onChange={handleQuantityChange}
         />
       </td>
       <td>${(parseFloat(supportPlan.cost) * quantity).toFixed(2)}</td>
       <td>
         <GenericButton
           className={`btn ${isMobile ? 'btn-sm' : ''} d-block w-100 btn-primary`}
+          disabled={isAuthenticated && quantity < 1}
           onClick={isAuthenticated ? handleCheckout : login}
         >
           {isMobile ? 'Buy' : 'Purchase'}

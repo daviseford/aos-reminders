@@ -15,7 +15,7 @@ const LightTheme: ITheme = {
   modalDangerClass: `btn btn-outline-danger`,
   modalSuccessClass: `btn btn-success`,
   noteBorder: `NoteBorder`,
-  profileCardHeader: `card-header bg-profileHeader text-dark mb-0 pb-1`,
+  profileCardHeader: `card-header bg-profileHeader text-dark`,
   reminderHeader: `bg-themeDarkBluePrimary`,
   reminderHr: `ReminderHr`,
   reminderTags: `ReminderTags-Light`,

@@ -9,6 +9,7 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { DateTime } from 'luxon'
 import { lazy, Suspense, useEffect, useState } from 'react'
+import type { IconType } from 'react-icons'
 import { FaGift, FaPaypal, FaSearchDollar } from 'react-icons/fa'
 import { MdCheckCircle, MdNotInterested } from 'react-icons/md'
 import { Link } from 'react-router-dom'
@@ -92,9 +93,164 @@ const CancelBtn = () => {
   )
 }
 
+/*
+ * The status icons used to be the only thing that answered "am I subscribed?". They carry no text,
+ * so the accessibility tree read `heading "Subscription Status:"` with the answer missing, and the
+ * meaning was left to colour alone. The icon is decorative now; the word beside it is the value.
+ */
+const CardTitle = ({
+  Icon,
+  iconClass,
+  label,
+  title,
+}: {
+  Icon?: IconType
+  iconClass?: string
+  label?: string
+  title: string
+}) => (
+  <h2 className="CardHeaderTitle">
+    {Icon ? (
+      /*
+       * The label and its icon wrap as one unit. Left to itself the flex row treats each text node
+       * as a separate item and breaks mid-phrase on a phone, stranding the icon between the two
+       * halves — "Subscription / Status: (icon) Not / subscribed".
+       */
+      <span className={`${centerContentClass} flex-wrap`}>
+        <span>{title}</span>
+        <span className="text-nowrap">
+          <Icon className={`${iconClass} mx-2`} aria-hidden="true" />
+          {label}
+        </span>
+      </span>
+    ) : (
+      title
+    )}
+  </h2>
+)
+
+const SubscriptionStatusTitle = () => {
+  const { isActive, isPending, subscriptionError, subscriptionLoading } = useSubscription()
+
+  // Neither a tick nor a cross is true yet, and a cross reads as a definitive "no".
+  if (subscriptionLoading || subscriptionError) return <CardTitle title="Subscription Status:" />
+
+  if (isPending) {
+    return (
+      <CardTitle
+        title="Subscription Status:"
+        Icon={FaSearchDollar}
+        iconClass="text-warning"
+        label="Pending"
+      />
+    )
+  }
+
+  return isActive ? (
+    <CardTitle title="Subscription Status:" Icon={MdCheckCircle} iconClass="text-success" label="Active" />
+  ) : (
+    <CardTitle
+      title="Subscription Status:"
+      Icon={MdNotInterested}
+      iconClass="text-danger"
+      label="Not subscribed"
+    />
+  )
+}
+
+const SubscriptionPeriod = () => {
+  const { subscription } = useSubscription()
+  const { subscriptionStart, planInterval, planIntervalCount } = subscription
+  if (typeof subscriptionStart !== 'number') return null
+
+  const hasEnd = typeof planInterval === 'string' && typeof planIntervalCount === 'number'
+
+  /* mb-2 keeps the run of lines at the spacing the <h5>s these replaced had. */
+  return (
+    <>
+      <p className="lead mb-2">
+        Subscription Start: {DateTime.fromSeconds(subscriptionStart).toLocaleString(DateTime.DATE_MED)}
+      </p>
+      {hasEnd && (
+        <p className="lead mb-2">
+          Subscription End:{' '}
+          {DateTime.fromSeconds(subscriptionStart)
+            .plus({ [`${planInterval}s`]: planIntervalCount })
+            .toLocaleString(DateTime.DATE_MED)}
+        </p>
+      )}
+    </>
+  )
+}
+
+/*
+ * `subscriptionLoading` and `subscriptionError` are both produced by the subscription context and
+ * were read by nothing here, so an in-flight or failed lookup rendered as a settled "not
+ * subscribed" — a subscriber on a bad venue connection was told they had no subscription.
+ */
+const SubscriptionInfoBody = () => {
+  const {
+    getSubscription,
+    hasExpiredGrant,
+    isActive,
+    isPending,
+    isSubscribed,
+    subscription,
+    subscriptionError,
+    subscriptionLoading,
+  } = useSubscription()
+  const { theme } = useTheme()
+
+  if (subscriptionLoading) {
+    return (
+      <p className={`lead mb-0 ${centerContentClass}`} role="status">
+        <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" />
+        Checking your subscription&hellip;
+      </p>
+    )
+  }
+
+  if (subscriptionError) {
+    return (
+      <div className="alert alert-warning mb-0 text-center" role="alert">
+        {subscriptionError}
+        <br />
+        <button
+          type="button"
+          className={`${theme.secondaryButton} mt-2`}
+          onClick={() => void getSubscription()}
+        >
+          Check again
+        </button>
+      </div>
+    )
+  }
+
+  if (isActive && !hasExpiredGrant) {
+    const paidBy = subscription.createdBy
+    const showsPayment = paidBy === 'paypal' || paidBy === 'stripe'
+    const showsPeriod = typeof subscription.subscriptionStart === 'number'
+
+    // An active subscription the API returned without dates or a payment method still has to say so.
+    if (!showsPeriod && !showsPayment) return <p className="lead mb-0">Your subscription is active.</p>
+
+    return (
+      <>
+        <SubscriptionPeriod />
+        {showsPayment && <p className="lead mb-0">Payment Method: {titleCase(paidBy)}</p>}
+      </>
+    )
+  }
+
+  if (isSubscribed && !isActive && !isPending && !hasExpiredGrant) return <SubscriptionExpired />
+
+  if (isPending) return <p className="lead mb-0">Your subscription is pending activation.</p>
+
+  return <p className="lead mb-0">You do not have an active subscription.</p>
+}
+
 const SubscriptionInfo = () => {
-  const { hasActiveGrant, hasExpiredGrant, isActive, isPending, isSubscribed, subscription } =
-    useSubscription()
+  const { hasActiveGrant } = useSubscription()
   const { theme } = useTheme()
 
   if (hasActiveGrant) return <TemporaryGrantComponent />
@@ -102,95 +258,41 @@ const SubscriptionInfo = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>
-          <span className={centerContentClass}>
-            Subscription Status:{' '}
-            {isActive ? (
-              <MdCheckCircle className="text-success ms-2" />
-            ) : (
-              <MdNotInterested className="text-danger ms-2" />
-            )}
-          </span>
-        </h4>
+        <SubscriptionStatusTitle />
       </div>
-      {isActive && !hasExpiredGrant && (
-        <div className={theme.cardBody}>
-          {typeof subscription.subscriptionStart === 'number' && (
-            <h5 className="lead">
-              Subscription Start:{' '}
-              {DateTime.fromSeconds(subscription.subscriptionStart).toLocaleString(DateTime.DATE_MED)}
-            </h5>
-          )}
-          {typeof subscription.subscriptionStart === 'number' &&
-            typeof subscription.planInterval === 'string' &&
-            typeof subscription.planIntervalCount === 'number' && (
-              <h5 className="lead">
-                Subscription End:{' '}
-                {DateTime.fromSeconds(subscription.subscriptionStart)
-                  .plus({
-                    [`${subscription.planInterval}s`]: subscription.planIntervalCount,
-                  })
-                  .toLocaleString(DateTime.DATE_MED)}
-              </h5>
-            )}
-          {subscription.createdBy &&
-            (subscription.createdBy === 'paypal' || subscription.createdBy === 'stripe') && (
-              <h5 className="lead">Payment Method: {titleCase(subscription.createdBy)}</h5>
-            )}
-        </div>
-      )}
-      {isSubscribed && !isActive && !isPending && !hasExpiredGrant && (
-        <div className={theme.cardBody}>
-          <SubscriptionExpired />
-        </div>
-      )}
+      <div className={theme.cardBody}>
+        <SubscriptionInfoBody />
+      </div>
     </div>
   )
 }
 
 const TemporaryGrantComponent = () => {
-  const { subscription } = useSubscription()
   const { theme } = useTheme()
 
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>
-          <span className={centerContentClass}>
-            Subscription Status: <FaSearchDollar className="text-warning ms-2" />
-          </span>
-        </h4>
+        <CardTitle
+          title="Subscription Status:"
+          Icon={FaSearchDollar}
+          iconClass="text-warning"
+          label="Verifying"
+        />
       </div>
       <div className={theme.cardBody}>
         <div className={`${centerContentClass} row`}>
           <div className="col-12">
-            <h1>
-              <FaPaypal className="text-info ms-2 align-self-center" />
-            </h1>
+            <p className="h1">
+              <FaPaypal className="text-info align-self-center" aria-hidden="true" />
+            </p>
           </div>
           <div className="col-12">
-            <h5 className="text-warning">Currently verifying payment via Paypal.</h5>
+            <p className="lead text-warning">Currently verifying payment via Paypal.</p>
           </div>
         </div>
-        {typeof subscription.subscriptionStart === 'number' && (
-          <h5 className="lead">
-            Subscription Start:{' '}
-            {DateTime.fromSeconds(subscription.subscriptionStart).toLocaleString(DateTime.DATE_MED)}
-          </h5>
-        )}
-        {typeof subscription.subscriptionStart === 'number' &&
-          typeof subscription.planInterval === 'string' &&
-          typeof subscription.planIntervalCount === 'number' && (
-            <h5 className="lead">
-              Subscription End:{' '}
-              {DateTime.fromSeconds(subscription.subscriptionStart)
-                .plus({
-                  [`${subscription.planInterval}s`]: subscription.planIntervalCount,
-                })
-                .toLocaleString(DateTime.DATE_MED)}
-            </h5>
-          )}
-        <h5 className="lead">Payment Method: Paypal</h5>
+        <SubscriptionPeriod />
+        <p className="lead mb-0">Payment Method: Paypal</p>
       </div>
     </div>
   )
@@ -199,35 +301,51 @@ const TemporaryGrantComponent = () => {
 const RecurringPaymentInfo = () => {
   const { isActive, isCanceled, isGifted } = useSubscription()
   const { theme } = useTheme()
+  const isRenewing = isActive && !isCanceled
+
+  /*
+   * An expired subscription has no recurring payment left to describe, and the status card above
+   * already reports the expiry. Rendering the header alone would leave a truncated card.
+   */
+  if (!isRenewing && !isCanceled && !isGifted) return null
 
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>
-          <span className={centerContentClass}>
-            Recurring Payment:{' '}
-            {isActive && !isCanceled ? (
-              <MdCheckCircle className="text-success ms-2" />
-            ) : (
-              <MdNotInterested className="text-danger ms-2" />
-            )}
-          </span>
-        </h4>
+        {isRenewing ? (
+          <CardTitle
+            title="Recurring Payment:"
+            Icon={MdCheckCircle}
+            iconClass="text-success"
+            label="On"
+          />
+        ) : (
+          <CardTitle
+            title="Recurring Payment:"
+            Icon={MdNotInterested}
+            iconClass="text-danger"
+            label="Off"
+          />
+        )}
       </div>
-      {isActive && !isCanceled && (
-        <div className={theme.cardBody}>
-          <CancelBtn />
-        </div>
-      )}
-      {isGifted && (
-        <div className={theme.cardBody}>
-          <FaGift className="me-2" />
-          You were gifted this subscription!
-          <FaGift className="ms-2" />
-          <br />
-          You may purchase a recurring subscription at the end of this period.
-        </div>
-      )}
+      <div className={theme.cardBody}>
+        {isRenewing && <CancelBtn />}
+        {/* Matches the promise the cancellation modal makes, so the two cannot drift apart. */}
+        {isCanceled && (
+          <p className="mb-0">
+            You&apos;ll still have access to everything until your current subscription expires.
+          </p>
+        )}
+        {isGifted && (
+          <>
+            <FaGift className="me-2" aria-hidden="true" />
+            You were gifted this subscription!
+            <FaGift className="ms-2" aria-hidden="true" />
+            <br />
+            You may purchase a recurring subscription at the end of this period.
+          </>
+        )}
+      </div>
     </div>
   )
 }
@@ -240,12 +358,11 @@ const EmailVerified = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>
-          <span className={centerContentClass}>User Email:</span>
-        </h4>
+        <CardTitle title="User Email:" />
       </div>
       <div className={theme.cardBody}>
-        <h5 className="lead">{user.email}</h5>
+        {/* Long addresses have nowhere to wrap on a phone without an explicit break opportunity. */}
+        <p className="lead mb-0 text-break">{user.email}</p>
       </div>
     </div>
   )
@@ -257,7 +374,7 @@ const Help = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>Contact Us</h4>
+        <CardTitle title="Contact Us" />
       </div>
       <div className={theme.cardBody}>
         <Contact size="normal" />
@@ -273,30 +390,34 @@ const ToggleTheme = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>Visual Theme: {isDark ? 'Dark' : 'Light'}</h4>
+        <CardTitle title={`Visual Theme: ${isDark ? 'Dark' : 'Light'}`} />
       </div>
       <div className={`${theme.cardBody} ${centerContentClass} pb-0`}>
         {isActive && (
-          <label htmlFor="visual-theme-switch">
-            <Switch
-              onChange={toggleTheme}
-              checked={isDark}
-              onColor="#1C7595"
-              onHandleColor="#E9ECEF"
-              handleDiameter={36}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-              height={26}
-              width={80}
-              className="react-switch"
-              id="visual-theme-switch"
-            />
-          </label>
+          /*
+           * The wrapping <label> carried no text, so the switch had no accessible name at all. The
+           * card header states the current value; the control needs to state what it switches.
+           */
+          <Switch
+            onChange={toggleTheme}
+            checked={isDark}
+            onColor="#1C7595"
+            onHandleColor="#E9ECEF"
+            handleDiameter={36}
+            uncheckedIcon={false}
+            checkedIcon={false}
+            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+            height={26}
+            width={80}
+            className="react-switch"
+            id="visual-theme-switch"
+            aria-label="Dark theme"
+          />
         )}
+        {/* Standing guidance, present at first render — not an outcome worth announcing on load. */}
         {!isActive && (
-          <div className="alert alert-info text-center mt-3" role="alert">
+          <div className="alert alert-info text-center mt-3">
             <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick('SubscribeDarkTheme')}>
               Subscribe now
             </Link>{' '}
@@ -309,18 +430,13 @@ const ToggleTheme = () => {
 }
 
 const SubscriptionExpired = () => (
-  <div className="mt-2">
-    <div className="alert alert-danger text-center" role="alert">
-      <strong>Your subscription has expired!</strong>
-      <br />
-      <Link
-        to={ROUTES.SUBSCRIBE}
-        className="btn btn-md btn-success mt-2"
-        onClick={() => logClick('Resubscribe')}
-      >
-        Resubscribe now!
-      </Link>
-    </div>
+  /* `btn-md` was a dead class — Bootstrap 4.6 ships only btn-sm and btn-lg, so this was default size. */
+  <div className="alert alert-danger text-center mb-0" role="alert">
+    <strong>Your subscription has expired!</strong>
+    <br />
+    <Link to={ROUTES.SUBSCRIBE} className="btn btn-success mt-2" onClick={() => logClick('Resubscribe')}>
+      Resubscribe now!
+    </Link>
   </div>
 )
 
