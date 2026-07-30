@@ -1,5 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
+# Create-only completion markers are byte-exact and must retain LF endings
+.complete.json text eol=lf
+
 # Ignore fixture files when detecting languages for Github
 src/tests/fixtures/* linguist-vendored
