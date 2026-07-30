@@ -37,7 +37,7 @@ export const RedemptionError = ({ error, showButton }: { error: string; showButt
     {showButton && (
       <GenericButton className="btn btn-danger btn-lg" disabled>
         Error!
-        <FaRegFrown className="ml-2" />
+        <FaRegFrown className="ms-2" />
       </GenericButton>
     )}
     <p className="pt-3">We&apos;re sorry. There was an error redeeming your subscription.</p>

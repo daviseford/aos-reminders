@@ -78,7 +78,7 @@ const GenericDestructiveModal = ({
       </div>
       <div className="d-flex flex-row justify-content-around">
         <GenericButton className={`${theme.modalDangerClass} ${btnResponsiveClass}`} onClick={handleConfirm}>
-          <FaCheck className="mr-2" /> {confirmText}
+          <FaCheck className="me-2" /> {confirmText}
         </GenericButton>
         <GenericButton className={`${theme.modalConfirmClass} ${btnResponsiveClass}`} onClick={handleDeny}>
           {denyText}

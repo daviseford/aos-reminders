@@ -90,13 +90,13 @@ const SharedArmyModal = ({
         )}
         <div className="row mt-3">
           <div className="col-6">
-            <button className={`${theme.modalDangerClass} btn-block`} onClick={closeModal} type="button">
+            <button className={`${theme.modalDangerClass} d-block w-100`} onClick={closeModal} type="button">
               Keep current army
             </button>
           </div>
           <div className="col-6">
             <button
-              className={`${theme.modalSuccessClass} btn-block`}
+              className={`${theme.modalSuccessClass} d-block w-100`}
               disabled={!share}
               onClick={apply}
               type="button"

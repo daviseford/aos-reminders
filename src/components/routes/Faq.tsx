@@ -58,7 +58,15 @@ interface FaqEntryProps {
 
 const FaqEntry = ({ title, text, imgUrl = '', imgAlt = '' }: FaqEntryProps) => (
   <div className="col-12 col-md-8 col-lg-6 col-xl-5 mx-xl-1">
-    <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    {/*
+      `g-0` was removed rather than migrated. It is Bootstrap 5 syntax that did nothing under 4.6
+      (which spelled it `no-gutters`), so this row has always rendered *with* gutters: the bordered
+      box is pulled 15px wider than its column and the image column carries 15px of padding. The
+      upgrade would have brought the class to life and quietly narrowed every FAQ card, which is a
+      visual change this migration is not authorised to make. Restoring the zero-gutter intent is a
+      design decision for another day.
+    */}
+    <div className="row border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
       <div className="col p-4 d-flex flex-column position-static">
         {/* Sits directly under the page h1, so it is an h2. .h3 keeps the existing type scale. */}
         <h2 className="mb-0 h3">{title}</h2>

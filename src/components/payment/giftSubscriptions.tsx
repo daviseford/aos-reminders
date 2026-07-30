@@ -57,7 +57,8 @@ const GiftTable = () => {
         </div>
         {purchasedSubs.length > 0 && (
           <div className={rowClass}>
-            <div className={theme.text}>
+            {/* px-0 w-auto flex-shrink-1: non-column child of a .row — see navbar_wrapper. */}
+            <div className={`${theme.text} px-0 w-auto flex-shrink-1`}>
               {purchasedSubs.map(gift => (
                 <GiftButton {...gift} key={gift.id} />
               ))}
@@ -68,9 +69,10 @@ const GiftTable = () => {
         {adminCreatedSubs.length > 0 && (
           <>
             <div className={rowClass}>
-              <p className={`mb-1 ${theme.text} ${centerContentClass}`}>
+              {/* px-0 w-auto flex-shrink-1: non-column child of a .row — see navbar_wrapper. */}
+              <p className={`mb-1 ${theme.text} ${centerContentClass} px-0 w-auto flex-shrink-1`}>
                 These gifts were given to you by the AoS Reminders team. Spread them around!
-                {!isMobile && <FaRegSmileBeam className="ml-2" />}
+                {!isMobile && <FaRegSmileBeam className="ms-2" />}
               </p>
             </div>
             <div className={rowClass}>
@@ -101,11 +103,17 @@ const GiftButton = (props: IGiftSubscription) => {
 
   return (
     <CopyToClipboard onCopy={handleCopy} text={props.url}>
-      <GenericButton className={`${theme.genericButton} mx-2 my-2`}>
-        <FaGift className="mr-2" />
-        <strong className="mr-1">{label}</strong>
+      {/*
+        w-auto flex-shrink-1 (but not px-0): these buttons are rendered straight into a .row in the
+        admin-gift list, and Bootstrap 5's `.row > *` would stretch each one to full width. The
+        padding needs no fix — `.btn` is declared after `.row > *` in Bootstrap's own source, so the
+        button's padding already wins.
+      */}
+      <GenericButton className={`${theme.genericButton} mx-2 my-2 w-auto flex-shrink-1`}>
+        <FaGift className="me-2" />
+        <strong className="me-1">{label}</strong>
         {!isMobile && ' Gift'}
-        {copied && <FaCheck className="text-success ml-2" />}
+        {copied && <FaCheck className="text-success ms-2" />}
       </GenericButton>
     </CopyToClipboard>
   )
@@ -213,7 +221,7 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       <td>${(parseFloat(supportPlan.cost) * quantity).toFixed(2)}</td>
       <td>
         <GenericButton
-          className={`btn ${isMobile ? 'btn-sm' : ''} btn-block btn-primary`}
+          className={`btn ${isMobile ? 'btn-sm' : ''} d-block w-100 btn-primary`}
           onClick={isAuthenticated ? handleCheckout : login}
         >
           {isMobile ? 'Buy' : 'Purchase'}

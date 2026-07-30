@@ -17,7 +17,7 @@ const Spinner = ({ variant = 'dark', size = 'normal', className = '' }: SpinnerP
   return (
     <div className={`d-flex justify-content-center ${className}`}>
       <div className={`spinner-border ${colorClass} ${sizeClass}`} style={style} role="status">
-        <span className="sr-only">Loading...</span>
+        <span className="visually-hidden">Loading...</span>
       </div>
     </div>
   )

@@ -44,43 +44,43 @@ const Toolbar = ({
     <div className="row justify-content-center pt-3">
       <div className={buttonWrapperClass}>
         <ToolbarButton onClick={onClearArmy}>
-          <FaTrash className="mr-2" />
+          <FaTrash className="me-2" />
           Clear Army
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>
         <ToolbarButton onClick={onResetArmy}>
-          <MdRefresh className="mr-2" />
+          <MdRefresh className="me-2" />
           Reset Army
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>
         <ToolbarButton onClick={onDownloadPdf}>
-          <MdFileDownload className="mr-2" />
+          <MdFileDownload className="me-2" />
           Download PDF
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>
         <ToolbarButton onClick={onImportArmy}>
-          <MdFileUpload className="mr-2" />
+          <MdFileUpload className="me-2" />
           Import Army
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>
         <ToolbarButton disabled={subscriberActionDisabled} onClick={onOpenSavedArmies}>
-          <MdSave className="mr-2" />
+          <MdSave className="me-2" />
           My Armies
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>
         <ToolbarButton disabled={subscriberActionDisabled} onClick={onShareArmy}>
-          <MdShare className="mr-2" />
+          <MdShare className="me-2" />
           Share Army
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>
         <ToolbarButton disabled={!hiddenCount} onClick={onShowAll}>
-          <MdVisibility className="mr-2" />
+          <MdVisibility className="me-2" />
           Show Hidden{hiddenCount ? ` (${hiddenCount})` : ''}
         </ToolbarButton>
       </div>
