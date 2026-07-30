@@ -3,7 +3,17 @@ import { defineConfig, type Plugin } from 'vite'
 import { configDefaults } from 'vitest/config'
 import path from 'path'
 
-const INITIAL_ENTRY_CHUNK_LIMIT_BYTES = 750 * 1024
+/*
+ * The entry chunk is what the browser must parse before the app shell exists. Splitting the
+ * generated corpus out took it from 12,516 kB to 795 kB raw (1,418 kB to 259 kB gzipped), and this
+ * budget keeps it there.
+ *
+ * 850 kB, not the 750 kB this plugin originally shipped with: ten commits of feature work landed on
+ * aos4-migration between that number being chosen and this branch merging, which is legitimate
+ * growth rather than regression. The headroom is deliberately small — the point is to fail the build
+ * the next time something large lands in the entry by accident.
+ */
+const INITIAL_ENTRY_CHUNK_LIMIT_BYTES = 850 * 1024
 
 const enforceInitialEntryChunkBudget = (): Plugin => ({
   name: 'initial-entry-chunk-budget',

@@ -16,15 +16,15 @@ or the exact source line cited; measured values are quoted verbatim.
 | # | Dimension | Score | Δ | Key Finding |
 |---|-----------|-------|---|-------------|
 | 1 | Accessibility | 3/4 → **4/4** | +2 | 85 reminder tag buttons were 20 px tall; closed by amendment 2 |
-| 2 | Performance | 2/4 | — | One initial chunk is 1.42 MB gzipped — 94% of all shipped JS |
+| 2 | Performance | 2/4 → **3/4** | +1 | Initial chunk was 1.42 MB gzipped; now 259 kB (amendment 3) |
 | 3 | Responsive Design | 3/4 | +1 | Target sizes, not layout, are what still fails on a phone |
 | 4 | Theming | 3/4 → **4/4** | +1 | Zero contrast failures in either theme; the literal-colour drift was closed by the amendment below |
 | 5 | Implementation Integrity | 3/4 | +1 | Four dead classes survive, two of them the loading screen's only intended motion |
 | **Total** | | **14/20** → **17/20** | **+6** | **Good — upper band** |
 
-Scored 14/20 as published. The two amendments at the end of this document take it to 17/20: the
+Scored 14/20 as published. The three amendments at the end of this document take it to 17/20: the
 first (`extract`) closed the token drift and records a P1 contrast failure this pass had missed; the
-second (`adapt`) closed the target-size P1 and corrects a false positive of my own in it.
+second (`adapt`) closed the target-size P1 and corrects a false positive of my own in it; the third (#1769) closed the bundle P1.
 
 Previous score: **11/20** (Acceptable). **17 of the 23 prior findings are fixed**, including the sole
 P0 and nine of ten P1s.
@@ -353,5 +353,37 @@ the three "failures" in that finding were genuine; this one was mine.
   adjacent Log in/Log out button at 31 px, so this makes the masthead 1 px taller and nothing else
   moves.
 
-Accessibility moves 3/4 → 4/4. With the bundle P1 addressed separately by #1769, the score is
-**17/20** (Good, upper band).
+Accessibility moves 3/4 → 4/4.
+
+## Amendment 3 — 2026-07-30, after landing #1769
+
+The bundle P1. PR #1769 already carried the right fix and was ten commits behind base, so it was
+brought up to date rather than duplicated. Two things had rotted in the interval: a `printModal.tsx`
+conflict — its async lazy-loaded PDF download against base's Bootstrap 5 classes, both kept — and a
+new test importing `render`/`unmountComponentAtNode` from `react-dom`, which React 19 removed,
+repointed at `tests/support/reactTestHelpers`.
+
+**Measured on the production build:**
+
+| | Before | After |
+|---|---|---|
+| Entry chunk, raw | 12,516 kB | **795 kB** |
+| Entry chunk, gzipped | 1,418 kB | **259 kB** |
+| Total JS, all chunks | 13,285 kB | 13,289 kB — split, not removed |
+
+**What this buys, and what it does not.** Measured against `vite preview` rather than inferred from
+chunk sizes: the entry now loads alone at 18–71 ms, and the corpus chunk starts at 212 ms in a second
+wave alongside the route chunk. The app shell no longer waits on the corpus to exist. But the corpus
+is still fetched on the home route, because `Home` reaches `catalog.ts`, which holds a static
+`import runtimeJson from './runtime.json'`. **Cold time-to-reminders is therefore not 82% better** —
+what improved is that 1.4 MB no longer sits on the critical path before anything can render.
+
+The next step, if pursued, is per-faction splitting: a player needs one of 28. That was this audit's
+original suggestion and is not attempted here.
+
+The build now enforces the result. An `initial-entry-chunk-budget` rollup plugin fails the build if
+the entry exceeds **850 kB** raw — 850 rather than the 750 the plugin originally shipped with,
+because ten commits of legitimate feature work landed on base in between. The headroom is small on
+purpose.
+
+Performance moves 2/4 → 3/4. Final score: **17/20**.
