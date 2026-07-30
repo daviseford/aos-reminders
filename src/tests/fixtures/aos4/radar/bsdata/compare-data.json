@@ -1,0 +1,25 @@
+{
+  "status": "ahead",
+  "ahead_by": 2,
+  "behind_by": 0,
+  "total_commits": 2,
+  "commits": [
+    {
+      "sha": "2222222222222222222222222222222222222222"
+    },
+    {
+      "sha": "1111111111111111111111111111111111111111"
+    }
+  ],
+  "files": [
+    {
+      "filename": "Stormcast Eternals.cat"
+    },
+    {
+      "filename": "README.md"
+    },
+    {
+      "filename": "Age of Sigmar 4.0.gst"
+    }
+  ]
+}

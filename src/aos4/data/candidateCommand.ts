@@ -13,13 +13,11 @@ import {
 } from './manifest'
 import { resolveDnsAddresses } from './urlPolicy'
 import {
-  WAHAPEDIA_EXPORT_FILES,
   assessWahapediaFreshness,
   createWahapediaFactionCohortReport,
   decodeWahapediaExports,
   normalizeWahapediaAbility,
   normalizeWahapediaWeapon,
-  wahapediaExportRequest,
   type WahapediaDiagnostic,
   type WahapediaExportInputs,
   type WahapediaFactionCohortReport,
@@ -38,9 +36,13 @@ import {
   type GamesWorkshopPdfExtractionResult,
   type GamesWorkshopPdfInput,
 } from './gamesWorkshop'
+import {
+  acquireCandidateArtifacts,
+  GAMES_WORKSHOP_ADAPTER_VERSION,
+  WAHAPEDIA_HTML_ADAPTER_VERSION,
+} from './candidateAcquisition'
 
-export const GAMES_WORKSHOP_ADAPTER_VERSION = 'games-workshop-pdf/1'
-export const WAHAPEDIA_HTML_ADAPTER_VERSION = 'wahapedia-html/1'
+export { GAMES_WORKSHOP_ADAPTER_VERSION, WAHAPEDIA_HTML_ADAPTER_VERSION }
 const DEFAULT_CACHE_DIRECTORY = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_REQUEST_PAUSE_MS = 250
 const OFFICIAL_PDF_MAX_PAGES = 400
@@ -193,11 +195,6 @@ const FACTION_ID_PATTERN = /^[A-Za-z0-9_-]+$/
 const MAX_OFFICIAL_SEARCH_TERMS = 20
 const MAX_OFFICIAL_SEARCH_TERM_LENGTH = 100
 const MAX_WAHAPEDIA_PAGE_URLS = 2_000
-
-const pause = async (milliseconds: number): Promise<void> => {
-  if (milliseconds <= 0) return
-  await new Promise(resolve => setTimeout(resolve, milliseconds))
-}
 
 const countDiagnostics = (diagnostics: WahapediaDiagnostic[]): CandidateAcquisitionReport['diagnostics'] => {
   const byCode = diagnostics.reduce<Record<string, number>>((counts, diagnostic) => {
@@ -419,59 +416,12 @@ export const acquireCandidateData = async (
     context?: string
     diagnostics: WahapediaHtmlDiagnostic[]
   }> = []
-  let manifest = createArtifactManifest()
-
-  for (let index = 0; index < WAHAPEDIA_EXPORT_FILES.length; index += 1) {
-    const file = WAHAPEDIA_EXPORT_FILES[index]
-    const result = await acquireArtifact(
-      wahapediaExportRequest(file, {
-        acceptedManifest: options.acceptedManifest,
-        candidateManifest: manifest,
-        offline: options.offline,
-      }),
-      acquisitionDependencies
-    )
-    manifest = result.candidateManifest
-    inputs[file] = { bytes: result.bytes, artifact: result.entry }
-    if (!options.offline && index < WAHAPEDIA_EXPORT_FILES.length - 1) {
-      await pause(pauseMs)
-    }
-  }
-
   const officialDocumentUrls = candidateArtifactUrls(
     options.officialDocumentUrls ?? [],
     options.acceptedManifest,
     GAMES_WORKSHOP_ADAPTER_VERSION,
     options.offline === true
   )
-  for (const url of officialDocumentUrls) {
-    const result = await acquireArtifact(
-      {
-        url,
-        adapterVersion: GAMES_WORKSHOP_ADAPTER_VERSION,
-        allowedMediaTypes: ['application/pdf'],
-        maxBytes: 64 * 1024 * 1024,
-        timeoutMs: OFFICIAL_PDF_TIMEOUT_MS,
-        maxRedirects: 5,
-        acceptedManifest: options.acceptedManifest,
-        candidateManifest: manifest,
-        offline: options.offline,
-      },
-      acquisitionDependencies
-    )
-    manifest = result.candidateManifest
-    const input = officialPdfInput(url, result.bytes, result.entry)
-    officialDocuments.push({
-      input,
-      extraction: await extractGamesWorkshopPdfText(input, {
-        maxPages: OFFICIAL_PDF_MAX_PAGES,
-        maxTextBytes: OFFICIAL_PDF_MAX_TEXT_BYTES,
-        timeoutMs: OFFICIAL_PDF_TIMEOUT_MS,
-      }),
-    })
-    if (!options.offline) await pause(pauseMs)
-  }
-
   const wahapediaPageUrls = uniqueWahapediaPageUrls(
     candidateArtifactUrls(
       options.wahapediaPageUrls ?? [],
@@ -480,28 +430,36 @@ export const acquireCandidateData = async (
       options.offline === true
     )
   )
-  for (let index = 0; index < wahapediaPageUrls.length; index += 1) {
-    const url = wahapediaPageUrls[index]
-    const result = await acquireArtifact(
-      {
-        url,
-        adapterVersion: WAHAPEDIA_HTML_ADAPTER_VERSION,
-        allowedMediaTypes: ['text/html'],
-        maxBytes: 32 * 1024 * 1024,
-        timeoutMs: 30_000,
-        maxRedirects: 5,
-        acceptedManifest: options.acceptedManifest,
-        candidateManifest: manifest,
-        offline: options.offline,
-      },
-      acquisitionDependencies
-    )
-    manifest = result.candidateManifest
+  const acquired = await acquireCandidateArtifacts({
+    acceptedManifest: options.acceptedManifest,
+    officialDocumentUrls,
+    wahapediaPageUrls,
+    offline: options.offline,
+    requestPauseMs: pauseMs,
+    acquire: request => acquireArtifact(request, acquisitionDependencies),
+  })
+  const manifest = acquired.manifest
+  Object.assign(inputs, acquired.wahapediaExports)
+
+  for (const document of acquired.officialDocuments) {
+    const input = officialPdfInput(document.url, document.bytes, document.artifact)
+    officialDocuments.push({
+      input,
+      extraction: await extractGamesWorkshopPdfText(input, {
+        maxPages: OFFICIAL_PDF_MAX_PAGES,
+        maxTextBytes: OFFICIAL_PDF_MAX_TEXT_BYTES,
+        timeoutMs: OFFICIAL_PDF_TIMEOUT_MS,
+      }),
+    })
+  }
+
+  for (let index = 0; index < acquired.wahapediaPages.length; index += 1) {
+    const result = acquired.wahapediaPages[index]
     const input = {
       bytes: result.bytes,
-      artifact: result.entry,
+      artifact: result.artifact,
     }
-    const wahapediaPath = new URL(result.entry.finalUrl).pathname
+    const wahapediaPath = new URL(result.artifact.finalUrl).pathname
     const isFactionPage = /^\/aos4\/factions\/[^/]+\/$/i.test(wahapediaPath)
     const isRulesPage = /^\/aos4\/the-rules\/[^/]+\/$/i.test(wahapediaPath)
     const factionPage = isFactionPage ? parseWahapediaFactionHtml(input) : undefined
@@ -521,7 +479,7 @@ export const acquireCandidateData = async (
             })()
     if (factionPage) parsed.diagnostics.push(...factionPage.diagnostics)
     wahapediaPages.push({
-      artifact: result.entry,
+      artifact: result.artifact,
       pageCount: parsed.pages.length + (rulesPage?.page ? 1 : 0),
       warscrolls: parsed.pages.filter(page => page.recordKind === 'warscroll').length,
       contentGroups: parsed.pages.filter(page => page.recordKind === 'content-group').length,
@@ -551,7 +509,6 @@ export const acquireCandidateData = async (
     if ((index + 1) % 25 === 0 || index + 1 === wahapediaPageUrls.length) {
       console.log(`Acquired Wahapedia warscroll pages: ${index + 1}/${wahapediaPageUrls.length}`)
     }
-    if (!options.offline) await pause(pauseMs)
   }
 
   const retrievedAt = new Date().toISOString()

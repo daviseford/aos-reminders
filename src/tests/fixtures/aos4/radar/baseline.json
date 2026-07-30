@@ -1,0 +1,36 @@
+{
+  "manifest": {
+    "schemaVersion": 1,
+    "artifacts": [
+      {
+        "requestUrl": "https://assets.warhammer-community.com/current-rules.pdf",
+        "finalUrl": "https://assets.warhammer-community.com/current-rules.pdf",
+        "redirectChain": [],
+        "retrievedAt": "2026-07-28T18:00:00.000Z",
+        "adapterVersion": "games-workshop-pdf/1",
+        "mediaType": "application/pdf",
+        "byteLength": 100,
+        "checksum": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "requestUrl": "https://wahapedia.ru/aos4/the-rules/the-core-rules/",
+        "finalUrl": "https://wahapedia.ru/aos4/the-rules/the-core-rules/",
+        "redirectChain": [],
+        "retrievedAt": "2026-07-28T18:00:00.000Z",
+        "adapterVersion": "wahapedia-html/1",
+        "mediaType": "text/html",
+        "byteLength": 100,
+        "checksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    ]
+  },
+  "classifications": {
+    "schemaVersion": 1,
+    "explicitlyNonMaterial": [
+      {
+        "url": "https://assets.warhammer-community.com/printable-backdrop.pdf",
+        "disposition": "Printable scenery artwork contains no game rules or characteristics."
+      }
+    ]
+  }
+}

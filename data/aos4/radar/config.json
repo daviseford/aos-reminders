@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "acceptedManifestPath": "data/aos4/manifests/accepted-2026-07-27.json",
+  "sourceClassificationsPath": "data/aos4/reviews/source-observation-classifications-2026-07-28.json",
+  "wahapedia": {
+    "rootUrl": "https://wahapedia.ru/",
+    "navigationUrl": "https://wahapedia.ru/aos4/the-rules/data-export/",
+    "lastUpdateUrl": "https://wahapedia.ru/aos4/Last_update.csv"
+  },
+  "bsData": {
+    "repository": "BSData/age-of-sigmar-4th",
+    "branch": "main",
+    "baselineSha": "0d3eb56fe21d7893d6865143324509a4fede32c3",
+    "baselineReviewedAt": "2026-07-29T21:40:00.000Z"
+  },
+  "github": {
+    "repository": "daviseford/aos-reminders",
+    "assignee": "daviseford",
+    "labels": [
+      "maintenance",
+      "rule updates"
+    ]
+  },
+  "requestBudgets": {
+    "games-workshop": 4,
+    "wahapedia": 8,
+    "bsdata": 4
+  }
+}

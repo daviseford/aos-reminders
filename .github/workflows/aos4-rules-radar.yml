@@ -1,0 +1,275 @@
+name: AoS 4 Rules Radar
+
+on:
+  schedule:
+    # Daily official-source sentinel.
+    - cron: '17 5 * * *'
+    # Weekly secondary/community sentinels.
+    - cron: '43 6 * * 2'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: Source lanes to observe
+        required: true
+        default: all
+        type: choice
+        options:
+          - official
+          - community
+          - all
+      report_only:
+        description: Build evidence without preparing candidates or changing an issue
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: aos4-rules-radar-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+      RUN_ROOT: .cache/aos4/radar/workflow
+      WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Resolve observation scope
+        id: scope
+        shell: bash
+        run: |
+          source="${{ inputs.source }}"
+          report_only="${{ inputs.report_only }}"
+          if [[ "${{ github.event_name }}" == "schedule" ]]; then
+            report_only="false"
+            if [[ "${{ github.event.schedule }}" == "17 5 * * *" ]]; then
+              source="official"
+            else
+              source="community"
+            fi
+          fi
+          [[ "$source" == "official" || "$source" == "all" ]] && official=true || official=false
+          [[ "$source" == "community" || "$source" == "all" ]] && community=true || community=false
+          echo "official=$official" >> "$GITHUB_OUTPUT"
+          echo "community=$community" >> "$GITHUB_OUTPUT"
+          echo "report_only=${report_only:-true}" >> "$GITHUB_OUTPUT"
+          mkdir -p "$RUN_ROOT/observation"
+
+      - name: Observe Games Workshop
+        id: official
+        if: steps.scope.outputs.official == 'true'
+        continue-on-error: true
+        run: >
+          yarn data:aos4:radar:observe --source official
+          --output "$RUN_ROOT/observation"
+          --cache "$RUN_ROOT/private-observer-cache"
+          --workflow-url "$WORKFLOW_URL"
+
+      - name: Observe Wahapedia sentinels
+        id: wahapedia
+        if: steps.scope.outputs.community == 'true'
+        continue-on-error: true
+        run: >
+          yarn data:aos4:radar:observe --source wahapedia
+          --output "$RUN_ROOT/observation"
+          --cache "$RUN_ROOT/private-observer-cache"
+          --workflow-url "$WORKFLOW_URL"
+
+      - name: Observe BSData
+        id: bsdata
+        if: steps.scope.outputs.community == 'true'
+        continue-on-error: true
+        run: >
+          yarn data:aos4:radar:observe-bsdata
+          --output "$RUN_ROOT/observation"
+          --workflow-url "$WORKFLOW_URL"
+
+      - name: Classify material signals
+        id: signals
+        if: always()
+        shell: bash
+        run: |
+          count_material() {
+            node -e "const fs=require('fs');const p=process.argv[1];const v=fs.existsSync(p)?JSON.parse(fs.readFileSync(p,'utf8')):{events:[]};process.stdout.write(String(v.events.filter(e=>e.class==='material').length))" "$1"
+          }
+          official_material="$(count_material "$RUN_ROOT/observation/games-workshop-lane.json")"
+          wahapedia_material="$(count_material "$RUN_ROOT/observation/wahapedia-lane.json")"
+          if [[ "$official_material" -gt 0 || "$wahapedia_material" -gt 0 ]]; then
+            candidate_material=true
+          else
+            candidate_material=false
+          fi
+          echo "official_material=$official_material" >> "$GITHUB_OUTPUT"
+          echo "wahapedia_material=$wahapedia_material" >> "$GITHUB_OUTPUT"
+          echo "candidate_material=$candidate_material" >> "$GITHUB_OUTPUT"
+
+      - name: Expand Wahapedia observation
+        id: full_wahapedia
+        if: always() && steps.signals.outputs.wahapedia_material != '0'
+        continue-on-error: true
+        run: >
+          yarn data:aos4:inventory:observe-wahapedia
+          --output "$RUN_ROOT/wahapedia-full-observation.json"
+          --cache "$RUN_ROOT/private-full-observation-cache"
+
+      - name: Assemble deterministic report
+        id: report
+        if: always()
+        continue-on-error: true
+        shell: bash
+        run: |
+          lane_args=()
+          for lane in "$RUN_ROOT"/observation/*-lane.json; do
+            [[ -f "$lane" ]] && lane_args+=(--lane "$lane")
+          done
+          if [[ "${#lane_args[@]}" -eq 0 ]]; then
+            echo "No source lane was produced" >&2
+            exit 1
+          fi
+          yarn data:aos4:radar "${lane_args[@]}" \
+            --output "$RUN_ROOT/report-only" \
+            --report-only
+
+      - name: Prepare candidate evidence
+        id: candidate
+        if: always() && steps.signals.outputs.candidate_material == 'true' && steps.scope.outputs.report_only != 'true' && steps.report.outcome == 'success' && (steps.signals.outputs.wahapedia_material == '0' || steps.full_wahapedia.outcome == 'success')
+        continue-on-error: true
+        shell: bash
+        run: |
+          lane_args=()
+          for lane in "$RUN_ROOT"/observation/*-lane.json; do
+            [[ -f "$lane" ]] && lane_args+=(--lane "$lane")
+          done
+          observation_args=()
+          if [[ -f "$RUN_ROOT/wahapedia-full-observation.json" ]]; then
+            observation_args+=(--wahapedia-observation "$RUN_ROOT/wahapedia-full-observation.json")
+          fi
+          yarn data:aos4:radar "${lane_args[@]}" "${observation_args[@]}" \
+            --output "$RUN_ROOT/candidate-report" \
+            --cache "$RUN_ROOT/private-candidate-cache"
+
+      - name: Select final report
+        id: final_report
+        if: always()
+        shell: bash
+        run: |
+          if [[ -f "$RUN_ROOT/candidate-report/report.json" ]]; then
+            report_directory="$RUN_ROOT/candidate-report"
+          elif [[ -f "$RUN_ROOT/report-only/report.json" ]]; then
+            report_directory="$RUN_ROOT/report-only"
+          else
+            echo "No deterministic report is available" >&2
+            exit 1
+          fi
+          echo "directory=$report_directory" >> "$GITHUB_OUTPUT"
+
+      - name: Synchronize Rules Radar issue
+        id: notify
+        if: always()
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          notify_args=()
+          if [[ "${{ steps.scope.outputs.report_only }}" != "true" ]]; then
+            notify_args+=(--notify-github)
+          fi
+          yarn data:aos4:radar:notify \
+            --report "${{ steps.final_report.outputs.directory }}/report.json" \
+            --output "${{ steps.final_report.outputs.directory }}/managed-issue-body.md" \
+            "${notify_args[@]}"
+
+      - name: Upload Rules Radar evidence
+        id: upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aos4-rules-radar-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            ${{ env.RUN_ROOT }}/observation/*-lane.json
+            ${{ env.RUN_ROOT }}/observation/*-observation.json
+            ${{ env.RUN_ROOT }}/observation/summary.json
+            ${{ env.RUN_ROOT }}/wahapedia-full-observation.json
+            ${{ env.RUN_ROOT }}/report-only/report.json
+            ${{ env.RUN_ROOT }}/report-only/issue-body.md
+            ${{ env.RUN_ROOT }}/report-only/managed-issue-body.md
+            ${{ env.RUN_ROOT }}/report-only/material-event-count.txt
+            ${{ env.RUN_ROOT }}/report-only/operational-event-count.txt
+            ${{ env.RUN_ROOT }}/report-only/fingerprint.txt
+            ${{ env.RUN_ROOT }}/report-only/official-urls.json
+            ${{ env.RUN_ROOT }}/report-only/wahapedia-pages.json
+            ${{ env.RUN_ROOT }}/candidate-report/report.json
+            ${{ env.RUN_ROOT }}/candidate-report/issue-body.md
+            ${{ env.RUN_ROOT }}/candidate-report/managed-issue-body.md
+            ${{ env.RUN_ROOT }}/candidate-report/material-event-count.txt
+            ${{ env.RUN_ROOT }}/candidate-report/operational-event-count.txt
+            ${{ env.RUN_ROOT }}/candidate-report/fingerprint.txt
+            ${{ env.RUN_ROOT }}/candidate-report/official-urls.json
+            ${{ env.RUN_ROOT }}/candidate-report/wahapedia-pages.json
+            ${{ env.RUN_ROOT }}/candidate-report/candidate-evidence.json
+            ${{ env.RUN_ROOT }}/candidate-report/candidate/*/manifest.json
+            ${{ env.RUN_ROOT }}/candidate-report/candidate/*/evidence.json
+
+      - name: Write Rules Radar job summary
+        id: summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## AoS 4 Rules Radar"
+            echo
+            echo "- Games Workshop observation: \`${{ steps.official.outcome }}\`"
+            echo "- Wahapedia sentinel: \`${{ steps.wahapedia.outcome }}\`"
+            echo "- BSData observation: \`${{ steps.bsdata.outcome }}\`"
+            echo "- Expanded Wahapedia observation: \`${{ steps.full_wahapedia.outcome }}\`"
+            echo "- Candidate preparation: \`${{ steps.candidate.outcome }}\`"
+            echo "- GitHub issue synchronization: \`${{ steps.notify.outcome }}\`"
+            report_directory="${{ steps.final_report.outputs.directory }}"
+            if [[ -n "$report_directory" && -f "$report_directory/material-event-count.txt" ]]; then
+              echo "- Material events: \`$(tr -d '\r\n' < "$report_directory/material-event-count.txt")\`"
+              echo "- Operational events: \`$(tr -d '\r\n' < "$report_directory/operational-event-count.txt")\`"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Preserve Rules Radar failure
+        if: always()
+        shell: bash
+        run: |
+          outcomes=(
+            "${{ steps.official.outcome }}"
+            "${{ steps.wahapedia.outcome }}"
+            "${{ steps.bsdata.outcome }}"
+            "${{ steps.full_wahapedia.outcome }}"
+            "${{ steps.report.outcome }}"
+            "${{ steps.candidate.outcome }}"
+            "${{ steps.final_report.outcome }}"
+            "${{ steps.notify.outcome }}"
+            "${{ steps.upload.outcome }}"
+            "${{ steps.summary.outcome }}"
+          )
+          for outcome in "${outcomes[@]}"; do
+            if [[ "$outcome" == "failure" ]]; then
+              echo "A Rules Radar step failed; evidence and notification were attempted." >&2
+              exit 1
+            fi
+          done

@@ -98,6 +98,60 @@ Wahapedia-derived features retain `Powered by Wahapedia`. Raw PDFs, exports, and
 text stay under ignored `.cache/aos4/`; Git contains structured reviewed facts, manifests, and
 generated application data only.
 
+## Rules Radar
+
+The Rules Radar is a quiet, official-first source-change sentinel. The workflow checks Games
+Workshop daily at minute 17 and checks Wahapedia plus BSData weekly at minute 43. A changed
+Wahapedia sentinel expands to the existing bounded full observation before candidate evidence is
+prepared. BSData is a community signal only and never supplies candidate or accepted rules data.
+
+The workflow is deliberately dormant while this file exists only on `aos4-migration`: scheduled
+workflows run from the repository's default branch. After the implementation reaches the default
+branch, first run `AoS 4 Rules Radar` manually with `source: all` and `report_only: true`. Inspect
+the uploaded lanes, report, event counts, fingerprints, URL lists, and managed issue body. Then
+inspect the first daily and weekly scheduled runs before relying on issue lifecycle automation.
+
+For a local report-only smoke run, use a new output directory:
+
+```powershell
+yarn data:aos4:radar:observe `
+  --source all `
+  --output .cache/aos4/radar/manual-observation
+yarn data:aos4:radar:observe-bsdata `
+  --output .cache/aos4/radar/manual-observation
+yarn data:aos4:radar `
+  --lane .cache/aos4/radar/manual-observation/games-workshop-lane.json `
+  --lane .cache/aos4/radar/manual-observation/wahapedia-lane.json `
+  --lane .cache/aos4/radar/manual-observation/bsdata-lane.json `
+  --output .cache/aos4/radar/manual-report `
+  --report-only
+yarn data:aos4:radar:notify `
+  --report .cache/aos4/radar/manual-report/report.json `
+  --output .cache/aos4/radar/manual-report/managed-issue-body.md
+```
+
+`data:aos4:radar:notify` is mutation-free unless `--notify-github` is explicit. Only that opt-in
+path reads `GITHUB_TOKEN`. Scheduled non-report-only runs maintain one labeled, assigned issue:
+new or changed source lanes update it, unresolved lanes survive partial observations, and clearing
+the final lane closes it. Operational failures remain separate from material rules-source changes,
+notification is attempted after candidate failures, and the workflow still ends in failure.
+
+The issue body contains a machine state marker. If notification reports a malformed machine state,
+do not guess at or partially edit its encoded value. Compare the issue with the uploaded
+`managed-issue-body.md`. Either restore the complete uploaded managed body or remove the Rules Radar
+marker from the corrupt issue and close it so the next enabled run can create a clean managed issue.
+Resolve duplicate marker-bearing issues before retrying.
+
+The durable configuration is `data/aos4/radar/config.json`. A BSData signal is resolved only after
+reviewing its `.cat`/`.gst` diff against official sources. If the signal is understood, update
+`bsData.baselineSha` to the reviewed commit and `baselineReviewedAt` to the review instant in a
+normal PR. Likewise, accepted Games Workshop or Wahapedia baselines change only through the
+candidate-review-accept-generate-certify process below.
+
+Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
+compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
+or updates the beta certification pointer.
+
 ## Candidate acquisition
 
 Start official discovery at the
