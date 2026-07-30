@@ -65,6 +65,7 @@ Fail closed on malformed or hostile input, never on an illegal army.
 | `sob-001-renown-no-terrain` | regiments of renown with no faction terrain section and no spell lore |
 | `dok-001-legends-repeats` | the same unit repeated 11 times each with its own `• Legends`, a curly apostrophe in a unit name, faction terrain that carries points |
 | `fs-001-older-handbook` | `General's Handbook 2024-25`, two seasons back, and no battle tactics line |
+| `idk-001-renown-army-no-lore` | an Army of Renown with no lore, drops or tactics rows at all — header, regiments and terrain only |
 
 ## Points are dropped on purpose
 
