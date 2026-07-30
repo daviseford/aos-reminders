@@ -223,6 +223,21 @@ describe('official AoS app text import', () => {
       expect(labelled(parsed, 'warscroll')).toEqual(['Terradon Riders', 'Terradon Riders (2 models)'])
     })
 
+    it('keeps a singular model count too', () => {
+      // The app writes "(1 model)", not "(1 models)", and the catalog carries the variant under
+      // that exact spelling — so the singular has to survive as faithfully as the plural.
+      const parsed = decode(
+        "Grand Alliance Chaos | Maggotkin of Nurgle | Nurgle's Menagerie",
+        'Auxiliary Units',
+        'Pusgoyle Blightlords (190)',
+        'Pusgoyle Blightlords (1 model) (110)'
+      )
+      expect(labelled(parsed, 'warscroll')).toEqual([
+        'Pusgoyle Blightlords',
+        'Pusgoyle Blightlords (1 model)',
+      ])
+    })
+
     it('keeps every faction terrain entry, not just the first', () => {
       const parsed = decode(
         'Grand Alliance Destruction | Ogor Mawtribes | Greedy Eaters',

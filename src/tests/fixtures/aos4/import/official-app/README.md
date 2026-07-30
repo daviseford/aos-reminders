@@ -78,6 +78,8 @@ Fail closed on malformed or hostile input, never on an illegal army.
 | `dot-001-and-in-unit-name` | the boundary in one list: a spell lore row **is** split on ` and `, while `Blue Horrors and Brimstone Horrors` is one unit and must not be |
 | `hos-001-auxiliary-only` | no `Regiment N` sections at all — the roster goes straight from the header to `Auxiliary Units` |
 | `hh-001-renown-stress` | 18 dashless regiments of renown, 51 members, one bundle repeated four times — the densest renown case in the corpus |
+| `mon-001-singular-model-count` | `Pusgoyle Blightlords (1 model) (110)` — the singular `model`, which resolves to a different warscroll than the plural entry beside it |
+| `skv-001-renown-manifestation-members` | the largest list in the corpus (117 selections, 57 renown members), with five-member bundles whose members include manifestations |
 
 ## Points are dropped on purpose
 
