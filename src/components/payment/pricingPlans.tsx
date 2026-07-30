@@ -84,17 +84,17 @@ export const PlanComponent = (props: IPlanProps) => {
 
     logClick(supportPlan.title)
     const plan = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
-    const url = isDev ? 'localhost:3000' : 'aosreminders.com'
+    const origin = window.location.origin
 
     const result = await stripe.redirectToCheckout({
       items: [{ plan, quantity: 1 }],
       customerEmail: user.email,
       clientReferenceId: user.email,
-      successUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+      successUrl: `${origin}/?${qs.stringify({
         subscribed: true,
         plan: supportPlan.title,
       })}`,
-      cancelUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+      cancelUrl: `${origin}/?${qs.stringify({
         canceled: true,
         plan: supportPlan.title,
       })}`,
@@ -192,7 +192,11 @@ const PayPalComponent = (props: IPlanProps) => {
         />
       )}
       {modalIsOpen && (
-        <PaypalPostSubscribeModal modalIsOpen={modalIsOpen} closeModal={closeModal} retryGrant={requestGrant} />
+        <PaypalPostSubscribeModal
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+          retryGrant={requestGrant}
+        />
       )}
     </div>
   )
