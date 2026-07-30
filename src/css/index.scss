@@ -298,7 +298,7 @@ small {
     text-align: start;
 
     &.ReminderTags-Light {
-        color: #4d5a63;
+        color: $themeMutedInk;
     }
 
     &.ReminderTags-Dark {
@@ -502,18 +502,23 @@ small {
     border-color: #eeeeee;
     border-style: dashed;
     background-color: #fafafa;
-    color: #bdbdbd;
+    /*
+     * Was #bdbdbd, which put the dropzone's own instructions at 1.80:1 against this background —
+     * both the "Drag and drop your roster here" label and the accepted-formats line. This is the
+     * same muted ink the timing-tag explainer uses, and measures 6.80:1 here.
+     */
+    color: $themeMutedInk;
     outline: none;
     transition: border 0.24s ease-in-out;
 }
 
 .dropzone:focus {
-    border-color: #2196f3;
+    border-color: $themeDropzoneAccent;
 }
 
 .dropzone.is-dragging {
-    border-color: #2196f3;
-    background-color: rgba(33, 150, 243, 0.08);
+    border-color: $themeDropzoneAccent;
+    background-color: rgba($themeDropzoneAccent, 0.08);
 }
 
 .dropzone.disabled {
@@ -528,7 +533,7 @@ small {
 }
 
 .dropzone-dark:focus {
-    border-color: #2196f3;
+    border-color: $themeDropzoneAccent;
 }
 
 .dropzone-dark.disabled {

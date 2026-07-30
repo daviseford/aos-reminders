@@ -15,6 +15,11 @@ colors:
   danger-red: "#dc3545"
   warning-amber: "#ffc107"
   info-cyan: "#17a2b8"
+  muted-ink: "#4d5a63"
+  dropzone-accent: "#2196f3"
+  modal-edge: "#000000"
+  modal-scrim: "rgba(0, 0, 0, 0.9)"
+  print-tag-edge: "rgba(0, 0, 0, 0.45)"
 typography:
   display:
     fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
@@ -42,8 +47,44 @@ typography:
     fontWeight: 700
     lineHeight: 1.35
     letterSpacing: "0.03em"
+  explainer:
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
+    fontSize: "0.78rem"
+    fontWeight: 400
+    lineHeight: 1.35
+    fontStyle: "italic"
+  fine-print:
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
+    fontSize: "12px"
+    fontWeight: 400
+    lineHeight: 1.5
+  mono:
+    fontFamily: "source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  title-compact:
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
+    fontSize: "1.1rem"
+    fontWeight: 500
+    lineHeight: 1.2
+  body-print:
+    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
+    fontSize: "0.9rem"
+    fontWeight: 400
+    lineHeight: 1.5
+titleSizes:
+  base: "1.5rem"
+  sm: "1.1rem"
+  xs: "1rem"
+  xxs: "0.8rem"
+  print: "1.1rem"
+bodySizes:
+  base: "1rem"
+  print: "0.9rem"
 rounded:
   none: "0"
+  none-dropzone: "2px"
   chip: "3px"
   md: "0.25rem"
   pill: "10rem"
