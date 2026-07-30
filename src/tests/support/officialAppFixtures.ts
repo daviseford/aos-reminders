@@ -55,6 +55,7 @@ export const officialAppGolden = (id: string): unknown => {
             label: selection.label,
             ...(selection.count === undefined ? {} : { count: selection.count }),
             ...(selection.isLegends ? { isLegends: true } : {}),
+            ...(selection.isRegimentOfRenown ? { isRegimentOfRenown: true } : {}),
           })),
         }
       : { parsedRoster: null }),

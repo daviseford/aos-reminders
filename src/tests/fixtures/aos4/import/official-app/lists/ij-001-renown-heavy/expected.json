@@ -111,172 +111,206 @@
     {
       "line": 38,
       "kindHint": "warscroll",
-      "label": "Beast-skewer Killbow"
+      "label": "Beast-skewer Killbow",
+      "isRegimentOfRenown": true
     },
     {
       "line": 39,
       "kindHint": "warscroll",
-      "label": "Man-skewer Boltboyz"
+      "label": "Man-skewer Boltboyz",
+      "isRegimentOfRenown": true
     },
     {
       "line": 40,
       "kindHint": "warscroll",
-      "label": "Man-skewer Boltboyz"
+      "label": "Man-skewer Boltboyz",
+      "isRegimentOfRenown": true
     },
     {
       "line": 42,
       "kindHint": "warscroll",
-      "label": "Gatebreaker Mega-Gargant"
+      "label": "Gatebreaker Mega-Gargant",
+      "isRegimentOfRenown": true
     },
     {
       "line": 44,
       "kindHint": "warscroll",
-      "label": "Rabble-Rowza"
+      "label": "Rabble-Rowza",
+      "isRegimentOfRenown": true
     },
     {
       "line": 45,
       "kindHint": "warscroll",
-      "label": "Gobbapalooza"
+      "label": "Gobbapalooza",
+      "isRegimentOfRenown": true
     },
     {
       "line": 46,
       "kindHint": "warscroll",
-      "label": "Squig Herd"
+      "label": "Squig Herd",
+      "isRegimentOfRenown": true
     },
     {
       "line": 47,
       "kindHint": "warscroll",
-      "label": "Squig Hoppers"
+      "label": "Squig Hoppers",
+      "isRegimentOfRenown": true
     },
     {
       "line": 49,
       "kindHint": "warscroll",
-      "label": "Kraken-eater Mega-Gargant"
+      "label": "Kraken-eater Mega-Gargant",
+      "isRegimentOfRenown": true
     },
     {
       "line": 51,
       "kindHint": "warscroll",
-      "label": "Outlaw Conqueror Cogfort"
+      "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
     },
     {
       "line": 53,
       "kindHint": "warscroll",
-      "label": "Swampboss Skumdrekk"
+      "label": "Swampboss Skumdrekk",
+      "isRegimentOfRenown": true
     },
     {
       "line": 54,
       "kindHint": "warscroll",
-      "label": "Hobgrot Slittaz"
+      "label": "Hobgrot Slittaz",
+      "isRegimentOfRenown": true
     },
     {
       "line": 55,
       "kindHint": "warscroll",
-      "label": "Hobgrot Slittaz"
+      "label": "Hobgrot Slittaz",
+      "isRegimentOfRenown": true
     },
     {
       "line": 57,
       "kindHint": "warscroll",
-      "label": "Endrinmaster with Dirigible Suit"
+      "label": "Endrinmaster with Dirigible Suit",
+      "isRegimentOfRenown": true
     },
     {
       "line": 58,
       "kindHint": "warscroll",
-      "label": "Grundstok Gunhauler"
+      "label": "Grundstok Gunhauler",
+      "isRegimentOfRenown": true
     },
     {
       "line": 59,
       "kindHint": "warscroll",
-      "label": "Skywardens"
+      "label": "Skywardens",
+      "isRegimentOfRenown": true
     },
     {
       "line": 61,
       "kindHint": "warscroll",
-      "label": "Ogroid Myrmidon"
+      "label": "Ogroid Myrmidon",
+      "isRegimentOfRenown": true
     },
     {
       "line": 62,
       "kindHint": "warscroll",
-      "label": "Ogroid Thaumaturge"
+      "label": "Ogroid Thaumaturge",
+      "isRegimentOfRenown": true
     },
     {
       "line": 63,
       "kindHint": "warscroll",
-      "label": "Ogroid Theridons"
+      "label": "Ogroid Theridons",
+      "isRegimentOfRenown": true
     },
     {
       "line": 65,
       "kindHint": "warscroll",
-      "label": "Mask of the Deceiver"
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
     },
     {
       "line": 67,
       "kindHint": "warscroll",
-      "label": "Nurglings"
+      "label": "Nurglings",
+      "isRegimentOfRenown": true
     },
     {
       "line": 68,
       "kindHint": "warscroll",
-      "label": "Nurglings"
+      "label": "Nurglings",
+      "isRegimentOfRenown": true
     },
     {
       "line": 70,
       "kindHint": "warscroll",
-      "label": "Beast-smasher Mega-Gargant"
+      "label": "Beast-smasher Mega-Gargant",
+      "isRegimentOfRenown": true
     },
     {
       "line": 72,
       "kindHint": "warscroll",
-      "label": "Warstomper Mega-Gargant"
+      "label": "Warstomper Mega-Gargant",
+      "isRegimentOfRenown": true
     },
     {
       "line": 74,
       "kindHint": "warscroll",
-      "label": "Outlaw Cannonade Cogfort"
+      "label": "Outlaw Cannonade Cogfort",
+      "isRegimentOfRenown": true
     },
     {
       "line": 76,
       "kindHint": "warscroll",
-      "label": "Loonboss"
+      "label": "Loonboss",
+      "isRegimentOfRenown": true
     },
     {
       "line": 77,
       "kindHint": "warscroll",
-      "label": "Dankhold Troggoth"
+      "label": "Dankhold Troggoth",
+      "isRegimentOfRenown": true
     },
     {
       "line": 79,
       "kindHint": "warscroll",
-      "label": "Loonboss"
+      "label": "Loonboss",
+      "isRegimentOfRenown": true
     },
     {
       "line": 80,
       "kindHint": "warscroll",
-      "label": "Loonsmasha Fanatics"
+      "label": "Loonsmasha Fanatics",
+      "isRegimentOfRenown": true
     },
     {
       "line": 81,
       "kindHint": "warscroll",
-      "label": "Moonclan Stabbas"
+      "label": "Moonclan Stabbas",
+      "isRegimentOfRenown": true
     },
     {
       "line": 83,
       "kindHint": "warscroll",
-      "label": "Mancrusher Gargant"
+      "label": "Mancrusher Gargant",
+      "isRegimentOfRenown": true
     },
     {
       "line": 85,
       "kindHint": "warscroll",
-      "label": "Grand Justice Gormayne"
+      "label": "Grand Justice Gormayne",
+      "isRegimentOfRenown": true
     },
     {
       "line": 86,
       "kindHint": "warscroll",
-      "label": "Cryptguard"
+      "label": "Cryptguard",
+      "isRegimentOfRenown": true
     },
     {
       "line": 87,
       "kindHint": "warscroll",
-      "label": "Royal Decapitator"
+      "label": "Royal Decapitator",
+      "isRegimentOfRenown": true
     },
     {
       "line": 90,

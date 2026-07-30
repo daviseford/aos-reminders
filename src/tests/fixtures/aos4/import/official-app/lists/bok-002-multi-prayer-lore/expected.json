@@ -1,0 +1,350 @@
+{
+  "id": "bok-002-multi-prayer-lore",
+  "diagnostics": [],
+  "proposedName": "Khorne2",
+  "declaredFaction": "Blades of Khorne",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Brass Stampede"
+    },
+    {
+      "line": 7,
+      "kindHint": "prayer-lore",
+      "label": "Proclamations of Murder"
+    },
+    {
+      "line": 7,
+      "kindHint": "prayer-lore",
+      "label": "Blood Blesssings of Khorne"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Judgements of Khorne"
+    },
+    {
+      "line": 11,
+      "kindHint": "warscroll",
+      "label": "Bloodstoker"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Bloodmaster, Herald of Khorne"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Karanak"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Scyla Anfingrimm",
+      "isLegends": true
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Blood Warriors"
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Bloodreavers"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Bloodreavers"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Claws of Karanak"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Garrek's Reavers",
+      "isLegends": true
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Gorechosen of Dromm",
+      "isLegends": true
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Kamandora’s Blades",
+      "isLegends": true
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Khorgorath"
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Khorgorath"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Magore's Fiends",
+      "isLegends": true
+    },
+    {
+      "line": 36,
+      "kindHint": "warscroll",
+      "label": "Mighty Skullcrushers"
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Blood Warriors"
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Skullreapers"
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Wrathmongers"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Skullmaster, Herald of Khorne",
+      "isLegends": true
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Bloodcrushers"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Skull Cannon"
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "Blood Warriors"
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Bloodcrushers"
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Bloodletters"
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Bloodmaster, Herald of Khorne"
+    },
+    {
+      "line": 52,
+      "kindHint": "warscroll",
+      "label": "Bloodreavers"
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Bloodsecrator"
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Bloodsecrator"
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Bloodstoker"
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Bloodthirster of Insensate Rage"
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Bloodthirster of Unfettered Fury"
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "Claws of Karanak"
+    },
+    {
+      "line": 59,
+      "kindHint": "warscroll",
+      "label": "Deathbringer"
+    },
+    {
+      "line": 60,
+      "kindHint": "warscroll",
+      "label": "Flesh Hounds"
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Garrek's Reavers",
+      "isLegends": true
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Gorechosen of Dromm",
+      "isLegends": true
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Herald of Khorne on Blood Throne"
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Kamandora’s Blades",
+      "isLegends": true
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Karanak"
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "Khorgorath"
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Lord of Khorne on Juggernaut",
+      "isLegends": true
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Magore's Fiends",
+      "isLegends": true
+    },
+    {
+      "line": 74,
+      "kindHint": "warscroll",
+      "label": "Mighty Lord of Khorne"
+    },
+    {
+      "line": 75,
+      "kindHint": "warscroll",
+      "label": "Mighty Skullcrushers"
+    },
+    {
+      "line": 76,
+      "kindHint": "warscroll",
+      "label": "Realmgore Ritualist"
+    },
+    {
+      "line": 77,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Blood Warriors"
+    },
+    {
+      "line": 78,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Bloodletters"
+    },
+    {
+      "line": 79,
+      "kindHint": "warscroll",
+      "label": "Scyla Anfingrimm",
+      "isLegends": true
+    },
+    {
+      "line": 81,
+      "kindHint": "warscroll",
+      "label": "Skarbrand"
+    },
+    {
+      "line": 82,
+      "kindHint": "warscroll",
+      "label": "Skarr Bloodwrath",
+      "isLegends": true
+    },
+    {
+      "line": 84,
+      "kindHint": "warscroll",
+      "label": "Skull Cannon"
+    },
+    {
+      "line": 85,
+      "kindHint": "warscroll",
+      "label": "Skull Cannon"
+    },
+    {
+      "line": 86,
+      "kindHint": "warscroll",
+      "label": "Skullgrinder"
+    },
+    {
+      "line": 87,
+      "kindHint": "warscroll",
+      "label": "Skullmaster, Herald of Khorne",
+      "isLegends": true
+    },
+    {
+      "line": 89,
+      "kindHint": "warscroll",
+      "label": "Skullreapers"
+    },
+    {
+      "line": 90,
+      "kindHint": "warscroll",
+      "label": "Skulltaker"
+    },
+    {
+      "line": 91,
+      "kindHint": "warscroll",
+      "label": "Slaughterpriest"
+    },
+    {
+      "line": 92,
+      "kindHint": "warscroll",
+      "label": "Valkia The Bloody",
+      "isLegends": true
+    },
+    {
+      "line": 94,
+      "kindHint": "warscroll",
+      "label": "Wrath of Khorne Bloodthirster"
+    },
+    {
+      "line": 95,
+      "kindHint": "warscroll",
+      "label": "Wrathmongers"
+    },
+    {
+      "line": 98,
+      "kindHint": "warscroll",
+      "label": "Skull Altar"
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "id": "boc-001-all-legends",
+  "diagnostics": [],
+  "proposedName": "Boc1",
+  "declaredFaction": "Beasts of Chaos",
+  "declaredContext": "General's Handbook 2025-26",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Marauding Brayherd"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of the Twisted Wilds"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Bestial Manifestations"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Twilit Sorceries"
+    },
+    {
+      "line": 11,
+      "kindHint": "warscroll",
+      "label": "Doombull",
+      "isLegends": true
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Great Bray-Shaman",
+      "isLegends": true
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Beastlord",
+      "isLegends": true
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Beastlord",
+      "isLegends": true
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Beasts of Chaos Chaos Spawn",
+      "isLegends": true
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Bestigors",
+      "isLegends": true
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Bullgors",
+      "isLegends": true
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Centigors",
+      "isLegends": true
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Chaos Gargant",
+      "isLegends": true
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Chaos Warhounds",
+      "isLegends": true
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Chimera",
+      "isLegends": true
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Cockatrice",
+      "isLegends": true
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Cygor",
+      "isLegends": true
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Doombull",
+      "isLegends": true
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Dragon Ogors",
+      "isLegends": true
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Ghorgon",
+      "isLegends": true
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Gors",
+      "isLegends": true
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Grashrak's Despoilers",
+      "isLegends": true
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Jabberslythe",
+      "isLegends": true
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Razorgor",
+      "isLegends": true
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Tuskgor Chariots",
+      "isLegends": true
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Tuskgor Chariots",
+      "isLegends": true
+    },
+    {
+      "line": 59,
+      "kindHint": "warscroll",
+      "label": "Tuskgor Chariots",
+      "isLegends": true
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Ungor Raiders",
+      "isLegends": true
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Ungors",
+      "isLegends": true
+    },
+    {
+      "line": 67,
+      "kindHint": "warscroll",
+      "label": "Beastlord",
+      "isLegends": true
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "Doombull",
+      "isLegends": true
+    },
+    {
+      "line": 71,
+      "kindHint": "warscroll",
+      "label": "Dragon Ogor Shaggoth",
+      "isLegends": true
+    },
+    {
+      "line": 75,
+      "kindHint": "warscroll",
+      "label": "Herdstone",
+      "isLegends": true
+    }
+  ]
+}
