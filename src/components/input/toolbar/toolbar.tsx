@@ -61,7 +61,7 @@ const Toolbar = ({
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>
-        <ToolbarButton disabled={subscriberActionDisabled} onClick={onImportArmy}>
+        <ToolbarButton onClick={onImportArmy}>
           <MdFileUpload className="mr-2" />
           Import Army
         </ToolbarButton>

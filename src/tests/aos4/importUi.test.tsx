@@ -105,8 +105,8 @@ const findButton = (container: HTMLElement, label: string): HTMLButtonElement =>
   return button
 }
 
-const SubscriberHarness = ({ onAuthorized }: { onAuthorized: () => void }) => {
-  const action = useSubscriberAction({ onAuthorized, origin: 'ImportArmyTest' })
+const SubscriberActionHarness = ({ onAuthorized }: { onAuthorized: () => void }) => {
+  const action = useSubscriberAction({ onAuthorized, origin: 'SubscriberActionTest' })
   return (
     <button disabled={action.disabled} onClick={action.run} type="button">
       Subscriber action
@@ -114,7 +114,7 @@ const SubscriberHarness = ({ onAuthorized }: { onAuthorized: () => void }) => {
   )
 }
 
-describe('subscriber import action', () => {
+describe('subscriber-only account action', () => {
   let container: HTMLDivElement
 
   beforeEach(() => {
@@ -134,12 +134,12 @@ describe('subscriber import action', () => {
     container.remove()
   })
 
-  it('opens login for signed-out users, Subscribe for inactive users, and the action for subscribers', () => {
+  it('opens login for signed-out users, Subscribe for inactive users, and paid actions for subscribers', () => {
     const onAuthorized = vi.fn()
     const renderHarness = () =>
       render(
         <MemoryRouter initialEntries={['/']}>
-          <SubscriberHarness onAuthorized={onAuthorized} />
+          <SubscriberActionHarness onAuthorized={onAuthorized} />
           <Route path="/subscribe">Subscribe destination</Route>
         </MemoryRouter>,
         container

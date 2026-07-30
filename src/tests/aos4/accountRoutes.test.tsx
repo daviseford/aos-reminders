@@ -127,7 +127,7 @@ describe('established account routes', () => {
     expect(container.textContent).toContain('Support AoS Reminders')
     expect(container.textContent).toContain('What do you get when you subscribe?')
     expect(container.textContent).toContain('Spare your eyes! Turn on dark mode!')
-    expect(container.textContent).toContain(
+    expect(container.textContent).not.toContain(
       'Import current army lists from the AoS app, Listbot 4.0, and New Recruit.'
     )
     expect(container.textContent).toContain(

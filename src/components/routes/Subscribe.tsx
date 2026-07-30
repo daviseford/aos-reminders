@@ -104,7 +104,6 @@ const CurrentFeatures = () => (
       <strong>What do you get when you subscribe?</strong>
     </p>
     <ul className="lead">
-      <li>Import current army lists from the AoS app, Listbot 4.0, and New Recruit.</li>
       <li>Save, load, rename, update, and delete AoS 4 armies across your devices.</li>
       <li>Create read-only army links to share with your friends.</li>
       <li>Spare your eyes! Turn on dark mode!</li>
