@@ -32,6 +32,49 @@ small {
 }
 
 /*
+ * /join and /redeem are one short form on an otherwise empty page. Both used to borrow
+ * `.LoadingContainer`, whose 35vh top padding is right for two lines of loading text and wrong for
+ * a form that grows an error block underneath it — on a 667px phone that padding alone pushed the
+ * control 233px down the page. A centred min-height places the form optically on a tall screen and
+ * lets it grow from the top on a short one.
+ */
+.RedemptionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 70vh;
+}
+
+/*
+ * Four short sentences and a field. 38rem holds the guidance at roughly 60 characters a line, and
+ * `balance` keeps centred copy off a one-word last line — the paragraphs are set centred, where a
+ * ragged orphan is the most visible thing on the page. Browsers without it wrap as they do today.
+ */
+.RedemptionColumn {
+    max-width: 38rem;
+
+    h1,
+    p {
+        text-wrap: balance;
+    }
+}
+
+/* A coupon code is seven-ish characters. A full-width field promises a paragraph. */
+.RedemptionCodeField {
+    max-width: 18rem;
+}
+
+/*
+ * Bootstrap's default `code` pink measures 3.82:1 on white — under AA — and it carries the one line
+ * of a failed redemption the player has to read back to us. The monospace face already marks the
+ * string as the server's own words, so the colour was only decorating. Inherit rather than pick a
+ * literal, so the surrounding theme slot stays the single source of the text colour.
+ */
+.RedemptionErrorDetail {
+    color: inherit;
+}
+
+/*
  * Card titles are <h2> so the document outline is correct at every viewport. The size is set here
  * rather than by picking a heading level, which is what the h4/h5 swap used to do. 1.5rem matches
  * the h4 these replaced; the breakpoint overrides further down are unchanged.
