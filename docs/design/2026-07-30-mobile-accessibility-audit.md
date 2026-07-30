@@ -15,15 +15,16 @@ or the exact source line cited; measured values are quoted verbatim.
 
 | # | Dimension | Score | Δ | Key Finding |
 |---|-----------|-------|---|-------------|
-| 1 | Accessibility | 3/4 | +1 | 85 reminder tag buttons are 20 px tall, under the 24 px WCAG 2.5.8 minimum |
+| 1 | Accessibility | 3/4 → **4/4** | +2 | 85 reminder tag buttons were 20 px tall; closed by amendment 2 |
 | 2 | Performance | 2/4 | — | One initial chunk is 1.42 MB gzipped — 94% of all shipped JS |
 | 3 | Responsive Design | 3/4 | +1 | Target sizes, not layout, are what still fails on a phone |
 | 4 | Theming | 3/4 → **4/4** | +1 | Zero contrast failures in either theme; the literal-colour drift was closed by the amendment below |
 | 5 | Implementation Integrity | 3/4 | +1 | Four dead classes survive, two of them the loading screen's only intended motion |
-| **Total** | | **14/20** → **15/20** | **+4** | **Good — address weak dimensions** |
+| **Total** | | **14/20** → **17/20** | **+6** | **Good — upper band** |
 
-Scored 14/20 as published; 15/20 after the `/impeccable extract` amendment at the end of this
-document, which also records a P1 contrast failure this pass had missed.
+Scored 14/20 as published. The two amendments at the end of this document take it to 17/20: the
+first (`extract`) closed the token drift and records a P1 contrast failure this pass had missed; the
+second (`adapt`) closed the target-size P1 and corrects a false positive of my own in it.
 
 Previous score: **11/20** (Acceptable). **17 of the 23 prior findings are fixed**, including the sole
 P0 and nine of ten P1s.
@@ -106,6 +107,10 @@ None.
   `.ReminderTag` **count 85, height 20 px** (real `<button>`, `cursor: pointer`);
   `.react-switch-bg` **80 × 20 px**; navbar `Subscribe` **73 × 21**, `FAQ` **31 × 21**.
   For contrast, the toolbar buttons measure **38 px** and pass.
+- **Correction (see amendment):** the switch measurement above is wrong. `.react-switch-bg` is the
+  track, not the control; the interactive element is `.react-switch` at **90 × 30 px**, because
+  `handleDiameter={30}` makes the handle overflow the track. The switch **passes** 2.5.8. Only the
+  tags and the navbar links were real.
 - **Impact**: PRODUCT.md names the phone held one-handed mid-turn as the hard case, and states that
   target size is a first-class concern sized "by the finger, never by the icon". The timing tags are
   the densest interactive surface in the product — 85 of them on one screen — and each is a 20 px
@@ -322,3 +327,31 @@ Detector findings across `src/css`, `src/components`, and `src/theme` went **17 
 
 Theming moves 3/4 → 4/4. The remaining P1s (target size, bundle) are unchanged, so the total is
 **15/20**.
+
+## Amendment 2 — 2026-07-30, after `/impeccable adapt`
+
+### Correction: the Edit/Play switch was never a target-size failure
+
+The P1 above cited `.react-switch-bg` at **80 × 20 px**. That is the *track*, not the control. The
+interactive element is `.react-switch`, measured at **90 × 30 px**, because `handleDiameter={30}`
+makes the handle overflow the 20 px track — and the wrapping `<label for="game-mode-switch">` is
+**90 × 36 px** on top of that. The switch **passes** WCAG 2.5.8 and always did.
+
+Measuring a decorative inner element instead of the interactive one is the same class of error as
+measuring contrast without compositing: the number is real, but it describes the wrong thing. Two of
+the three "failures" in that finding were genuine; this one was mine.
+
+### Fixed: reminder tags and navbar links
+
+- **`.ReminderTag`** — 85 buttons at 20 px. Given a transparent `::after` overlay at **24 px**,
+  matching what `.ReminderMenuToggle` already does. The chip's own 20 px appearance is unchanged, so
+  the density DESIGN.md protects is untouched. `.ReminderTags` sets a 0.25 rem (4 px) gap, so
+  vertically adjacent overlays meet exactly rather than overlapping — verified by testing all 40×39
+  rectangle pairs on the default army: **0 overlaps**.
+- **Navbar links** — 21 px, and `display: inline`, which cannot carry vertical padding at all.
+  Now `d-inline-block py-1`, measuring **32 px**. The navbar's height is otherwise set by the
+  adjacent Log in/Log out button at 31 px, so this makes the masthead 1 px taller and nothing else
+  moves.
+
+Accessibility moves 3/4 → 4/4. With the bundle P1 addressed separately by #1769, the score is
+**17/20** (Good, upper band).
