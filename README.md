@@ -107,6 +107,14 @@ Read [AGENTS.md](AGENTS.md) for the current Phase 2 scope and migration constrai
 [Phase 1 plan](docs/plans/2026-07-27-001-refactor-aos4-domain-and-data-pipeline-plan.md) remains the
 completed requirements and decision history.
 
+## Companion repositories
+
+- [REST API](https://github.com/daviseford/aos-reminders-rest-api)
+- [Subscription API](https://github.com/daviseford/aos-reminders-subscription-api)
+- [Subscription admin console](https://github.com/daviseford/aos-reminders-admin)
+
+These companion repositories are private.
+
 ## Pull requests and deployment
 
 Migration PRs target `aos4-migration`, never `master`. Every push to `master` builds and deploys the
