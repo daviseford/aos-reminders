@@ -22,10 +22,13 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
   translated
 - the 27 decoded factions that field units are selectable through one source-complete relationship
   graph; the 28th row, `Endless Spells`, is a Wahapedia container for universal manifestations
-  rather than an army, and `armyFactions` keeps it out of the selector and the import search space
-  until #1791 settles where that content belongs
-- the accepted corpus contains 1,268 warscrolls, 1,002 battle profiles, 4,850 abilities,
-  2,247 weapons, 1,402 content groups, and 18,974 live source records
+  rather than an army, and generation now offers nothing from it, so `armyFactions` has nothing
+  left to exclude
+- manifestations are a category of unit rather than an army: the five universal manifestation lores
+  and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
+  armies instead of by the container, through the review's `universalFactionContent` gate
+- the accepted corpus contains 1,286 warscrolls, 1,002 battle profiles, 4,898 abilities,
+  2,260 weapons, 1,409 content groups, and 19,126 live source records
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
   historical rules contexts isolate parallel and retired records; the browser defaults to the
   current 2026-27 seasonal context
@@ -279,6 +282,11 @@ stable faction/publication identities and audit provenance, but supersedes every
 and faction-rule row with reviewed current HTML from 27 faction warscroll collections, 28 faction
 roots, and 17 current rules pages. Use only the bounded `wahapedia-html/1` adapter and explicit
 `--wahapedia-page`/`--wahapedia-pages-file` inputs; do not add ad hoc React-side scraping.
+
+There are 28 roots but only 27 collections because Wahapedia publishes no `warscrolls.html` for
+`Endless Spells`; that root carries all 18 of its warscrolls itself. A faction root therefore
+contributes only its Spearhead warscrolls when a collection accompanies it and every datasheet when
+none does — never a page-name special case.
 
 Preserve “Powered by Wahapedia” attribution for published features derived from the exports.
 Re-check `robots.txt`, rate-limit requests, cache immutable bytes, and prefer offline replay during

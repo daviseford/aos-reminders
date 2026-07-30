@@ -1,0 +1,256 @@
+{
+  "certifiedAt": "2026-07-30T22:00:00.000Z",
+  "coverage": {
+    "factionContextStrata": {
+      "expected": 129,
+      "reviewed": 129
+    },
+    "highRiskCohorts": {
+      "expected": 19,
+      "reviewed": 19
+    },
+    "ignoredRecords": {
+      "expected": 18897,
+      "reviewed": 18897
+    },
+    "officialRecords": {
+      "expected": 1350,
+      "reviewed": 1350
+    },
+    "profileOnlyFacts": {
+      "expected": 12,
+      "reviewed": 12
+    },
+    "reconciliationDiscrepancies": {
+      "expected": 413,
+      "reviewed": 413
+    },
+    "sourceRecords": {
+      "expected": 19126,
+      "reviewed": 19126
+    }
+  },
+  "inputs": [
+    {
+      "checksum": "bb59300ad772e4e7507ce02c38cb5b8dba0e7d840c598bf364e602faad0e0a0e",
+      "name": "accepted-manifest",
+      "path": "data/aos4/manifests/accepted-2026-07-30.json"
+    },
+    {
+      "checksum": "85d5110bafdcdea9d19382059364c0f4a195ea7d62ce70954bd92d105c9eeca5",
+      "name": "audit-catalog",
+      "path": "data/aos4/catalog/catalog.json"
+    },
+    {
+      "checksum": "ab89323c42efb3527e787e86b62bcc054e0774f747ebcfc5aee181d61bbefd5e",
+      "name": "corpus-review",
+      "path": "data/aos4/reviews/corpus-2026-07-30.json"
+    },
+    {
+      "checksum": "dd431a661d01d5a13d32be1798e0ed42be735fd850418c46267f6b0d1bc8bf4e",
+      "name": "official-ledger",
+      "path": "data/aos4/catalog/official-battle-profiles.json"
+    },
+    {
+      "checksum": "941b57d7c38c753e719c41f6f1fef749a8185e8db9f4d84f6006efa5b215fc00",
+      "name": "reconciliation-report",
+      "path": "data/aos4/reports/corpus-2026-07-30-reconciliation.json"
+    },
+    {
+      "checksum": "bba197de4c35d543cce405da912d545e1a350370ce9761cfa77a3448a4bcbd0f",
+      "name": "review-assignments",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/assignments.json"
+    },
+    {
+      "checksum": "4becd3ee99b6788a36a9bb61271bf3b27b60e8b84b31cbe400800cd2fa55aec2",
+      "name": "review-calibration-results",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/calibration-results.json"
+    },
+    {
+      "checksum": "11ef929ee08fc451a7853c236b0940252d00c1a14bee8c5e010e15de48a2001d",
+      "name": "review-calibrations",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/calibrations.json"
+    },
+    {
+      "checksum": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "name": "review-findings",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/findings.json"
+    },
+    {
+      "checksum": "9f31c141cc10884ee62c2e730cceaa51e528a1f5d52c66c8def6ea60332ab76c",
+      "name": "review-index",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-index.json"
+    },
+    {
+      "checksum": "7f3e3586a68919efcc6f5a7c84fecab52c4fc2224a6cd5791145e8eb23dd7556",
+      "name": "review-index-shard-0001",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-index-shard-0001.json"
+    },
+    {
+      "checksum": "7fe8b02a1f085a976d12bbf5032b182dd59ebec1b9de45d8059775d725c1634a",
+      "name": "review-index-shard-0002",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-index-shard-0002.json"
+    },
+    {
+      "checksum": "df1df8dad50460367f1012a329d50b52d87a92c99878c80b96e0f87cc96498c4",
+      "name": "review-index-shard-0003",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-index-shard-0003.json"
+    },
+    {
+      "checksum": "43ae5bb19e5b76d25d313b2b69b384cb48d773201acf1e205df9a6bd3f3c71fd",
+      "name": "review-index-shard-0004",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-index-shard-0004.json"
+    },
+    {
+      "checksum": "d99e289675459630d07ea8f9b4568c9660a359298c16019fb8f515b7688508fc",
+      "name": "review-index-shard-0005",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-index-shard-0005.json"
+    },
+    {
+      "checksum": "ee54a78b4200052ee3179ea969cff4c6b8b7c82125aed8b34d884bc703ae9bf9",
+      "name": "review-index-shard-0006",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-index-shard-0006.json"
+    },
+    {
+      "checksum": "b0d2cb879049081adf67e48e6e5b5e359376d5c0eee20a0413d66439da7e67fb",
+      "name": "review-index-shard-0007",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-index-shard-0007.json"
+    },
+    {
+      "checksum": "25c5125e353092774293f87eb9674d7dc236de91a0ca7c8fc00a71ab583bad00",
+      "name": "review-index-shard-0008",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-index-shard-0008.json"
+    },
+    {
+      "checksum": "029e29ebee0ad07a522367d47056e87af36862c295f3682da7d75c3100ded26c",
+      "name": "review-protocol",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/protocol.json"
+    },
+    {
+      "checksum": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "name": "review-resolutions",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/resolutions.json"
+    },
+    {
+      "checksum": "85a28913854c22343993fb496c07c5268b51aff046c8c4ee48a466a9299b0517",
+      "name": "review-results",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/results.json"
+    },
+    {
+      "checksum": "3955588333c72cafeaf9e53cd806933e8e6a7c42e6b1cc4b804f45aca0a973d2",
+      "name": "review-results-shard-0001",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0001.json"
+    },
+    {
+      "checksum": "e22d2cb053affb4d36d819325b2d51d5c77a79fa2e2a277d077f51b39937b9f3",
+      "name": "review-results-shard-0002",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0002.json"
+    },
+    {
+      "checksum": "d18faa09030031894ec92da3f75c1dd34eeefa1609673e7b7132107b20ce6fe9",
+      "name": "review-results-shard-0003",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0003.json"
+    },
+    {
+      "checksum": "cdc4eddc09c9842d5fc8c143465a1a5b237ba60867f541d5ccc433a9142599d6",
+      "name": "review-results-shard-0004",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0004.json"
+    },
+    {
+      "checksum": "9f15886ab07047b595fa92c658b5912ce5e7edbed307da893a76dcd71e890fc7",
+      "name": "review-results-shard-0005",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0005.json"
+    },
+    {
+      "checksum": "fc37cf542c968c1d89f4893d6e4d1cbbb60f296cf105f2be70f6f252c0b1d2e7",
+      "name": "review-results-shard-0006",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0006.json"
+    },
+    {
+      "checksum": "0ed4a5feb0d7da14d83836b7f286e0d98d752c65a92f33c73db3714e98b597e2",
+      "name": "review-results-shard-0007",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0007.json"
+    },
+    {
+      "checksum": "19a205ce57ff12b416f3cb1d64dd1254e5d6e67d0d1ea2b18b2cde029b04db80",
+      "name": "review-results-shard-0008",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0008.json"
+    },
+    {
+      "checksum": "a51fb2cbb36a725f8d94ad214d5d3fb7eb0cd825a908fe1f3e4ad5a9ef8efa17",
+      "name": "review-results-shard-0009",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0009.json"
+    },
+    {
+      "checksum": "3f9c8b19f9e52511dbf828bdbad6a55cde123715cd5d9efbcfda49d7cfa92c01",
+      "name": "review-results-shard-0010",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0010.json"
+    },
+    {
+      "checksum": "fab5611145acbb623bd9d47c5cba615f62853c54298cb645640eca80229d75cf",
+      "name": "review-results-shard-0011",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0011.json"
+    },
+    {
+      "checksum": "9d56885bfa8cd4da50fe29882c7c057e8daadfd260cbb7d52c7cf31c811537b2",
+      "name": "review-results-shard-0012",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0012.json"
+    },
+    {
+      "checksum": "be949302aeeee0c7f9399922ceba3dc9dac68fd80fd7e75571ac0e7234c7014c",
+      "name": "review-results-shard-0013",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0013.json"
+    },
+    {
+      "checksum": "035e704e17ddedf0929e858b458353dcc9f0403bfa958af93dd249af66e7252a",
+      "name": "review-results-shard-0014",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0014.json"
+    },
+    {
+      "checksum": "c430230f47a7086ce1312f7bab3cc37facf0e6d5cf09ad11607baf7ed5fe7798",
+      "name": "review-results-shard-0015",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0015.json"
+    },
+    {
+      "checksum": "e3b3c2ba95e6bd5ba3f7cb31ea51fad835467ffa4d4c12eaf194e61e346219a7",
+      "name": "review-results-shard-0016",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/review-results-shard-0016.json"
+    },
+    {
+      "checksum": "03d41953e3aab4e772093dd261172dbf664ed7f1b3169b11b31fab11a4cb7f1b",
+      "name": "review-rubric",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/rubric.json"
+    },
+    {
+      "checksum": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "name": "review-verifications",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/verifications.json"
+    },
+    {
+      "checksum": "cb0065b810a4c897e8a2ed1f5b811e445feb44a8bca8d97c2f88fe090c6dc8f0",
+      "name": "runtime-catalog",
+      "path": "src/aos4/generated/corpus/runtime.json"
+    },
+    {
+      "checksum": "b3152fba61dc4d2c71ad3fe25edb16c235edfb4c2766224a1bd5bc48334644ee",
+      "name": "source-inventory",
+      "path": "data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3/source-inventory.json"
+    },
+    {
+      "checksum": "463a5d1beb21c1cdf3a67b64f3e2741d44060c80e4c1bc8dfa42bbbb330d9121",
+      "name": "source-observation-classifications",
+      "path": "data/aos4/reviews/source-observation-classifications-2026-07-29.json"
+    }
+  ],
+  "inventoryChecksum": "b3152fba61dc4d2c71ad3fe25edb16c235edfb4c2766224a1bd5bc48334644ee",
+  "ledgerChecksum": "50581e9d49835b39637b76478c1f19dd328d153df34895c807c421ec3d0e2a67",
+  "protocol": {
+    "checksum": "c1c873a69c9f4e0a39d20d10c2707899abba02ca510eded4c196136c0eb0942a",
+    "protocolVersion": "aos4-review/v1",
+    "rubricVersion": "aos4-rubric/v2"
+  },
+  "revision": "aos4-corpus-2026-07-30",
+  "schemaVersion": 1,
+  "sourceObservedAt": "2026-07-30T21:42:38.477Z",
+  "status": "pass"
+}

@@ -77,9 +77,9 @@ const dataPath = (...segments: string[]): string => path.join(process.cwd(), 'da
 
 const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPath(...segments), 'utf8')) as T
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-07-29.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-07-30.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-07-29-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-07-30-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -104,16 +104,16 @@ describe('AoS 4 catalog generation integrity', () => {
       status: 'strict-pass',
       summary: {
         factions: 28,
-        warscrolls: 1268,
+        warscrolls: 1286,
         battleProfiles: 1002,
-        abilities: 4850,
-        weapons: 2247,
+        abilities: 4898,
+        weapons: 2260,
         sourceArtifacts: 242,
-        sourceRecords: 18974,
+        sourceRecords: 19126,
         ignoredSourceRecords: 18897,
       },
       integrity: {
-        consumedSourceRecords: 18974,
+        consumedSourceRecords: 19126,
         issues: [],
         supersededSourceRecords: {
           count: 18897,
@@ -123,6 +123,73 @@ describe('AoS 4 catalog generation integrity', () => {
     })
     expect(report.integrity.dispositions).toEqual([])
     expect(report.integrity.supersededSourceRecords.reason.trim()).not.toBe('')
+  })
+
+  /**
+   * Manifestations are a category of unit, not an army (issue #1791).
+   *
+   * Wahapedia files them under an `Endless Spells` container row, and the catalog has to hand them
+   * to the armies that can take them rather than to that container — which offers nothing at all,
+   * so it stays out of the selector (#1796). That leaves 26 of the 27 armies: Bonesplitterz is the
+   * one that misses out, and correctly, since it exists only in Legends while this content is
+   * current-standard and seasonal.
+   */
+  it('offers the universal manifestation lores and their warscrolls to the armies', () => {
+    const factionIds = new Set(
+      AOS4_CATALOG.entities.filter(entity => entity.kind === 'faction').map(entity => entity.id)
+    )
+    const offeringFactionCount = (name: string, kind: 'content-group' | 'warscroll') => {
+      const targets = AOS4_CATALOG.entities.filter(
+        entity => entity.kind === kind && entity.name === name
+      )
+      expect(targets).toHaveLength(1)
+      return new Set(
+        AOS4_CATALOG.relationships
+          .filter(
+            relationship =>
+              relationship.kind === 'offers' &&
+              relationship.to === targets[0].id &&
+              factionIds.has(relationship.from as never)
+          )
+          .map(relationship => relationship.from)
+      ).size
+    }
+
+    const lores = [
+      'Aetherwrought Machineries',
+      'Forbidden Power',
+      'Morbid Conjuration',
+      'Primal Energy',
+      'Twilit Sorceries',
+    ]
+    lores.forEach(lore => expect(offeringFactionCount(lore, 'content-group')).toBe(26))
+    // One warscroll from each lore, so a change that drops a section is visible here.
+    const warscrolls = [
+      'Chronomantic Cogs',
+      'Horrorghast',
+      'Krondspine Incarnate of Ghur',
+      'Purple Sun of Shyish',
+      'Emerald Lifeswarm',
+      'Umbral Spellportal',
+    ]
+    warscrolls.forEach(warscroll => expect(offeringFactionCount(warscroll, 'warscroll')).toBe(26))
+    /**
+     * The container offers no warscroll of its own, which is the thing `armyFactions` reads to keep
+     * it out of the selector. It still receives the universal rules modules every faction row does.
+     */
+    const container = AOS4_CATALOG.entities.find(
+      entity => entity.kind === 'faction' && entity.name === 'Endless Spells'
+    )
+    expect(container).toBeDefined()
+    const warscrollIds = new Set(
+      AOS4_CATALOG.entities.filter(entity => entity.kind === 'warscroll').map(entity => entity.id)
+    )
+    expect(
+      AOS4_CATALOG.relationships.filter(
+        relationship => relationship.from === container?.id && warscrollIds.has(relationship.to)
+      )
+    ).toEqual([])
+    expect(armyFactions(AOS4_CATALOG).map(faction => faction.name)).not.toContain('Endless Spells')
   })
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {

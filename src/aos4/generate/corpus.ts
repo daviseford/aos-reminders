@@ -115,6 +115,17 @@ export interface CorpusWarscrollKeywordOverride {
   officialSourceRecordIds: SourceRecordId[]
 }
 
+/**
+ * Wahapedia files some content behind a faction row that is not an army. Manifestations are the
+ * live case: `Endless Spells` is a container for lores and warscrolls any army may take. Reviewing
+ * such a container as universal offers its content groups and warscrolls to every approved faction
+ * instead of to the container alone.
+ */
+export interface CorpusUniversalFactionContent {
+  factionId: string
+  reason: string
+}
+
 export interface CorpusReview {
   schemaVersion: typeof AOS4_CORPUS_REVIEW_SCHEMA_VERSION
   revision: string
@@ -140,6 +151,7 @@ export interface CorpusReview {
     validTo?: string
   }>
   approvedFactionIds: string[]
+  universalFactionContent?: CorpusUniversalFactionContent[]
   decoderDiagnosticPolicies: CorpusDiagnosticPolicy[]
   normalizationDiagnosticPolicies: CorpusDiagnosticPolicy[]
   ignoredSourceRecords: CorpusIgnoredSourceRecord[]
@@ -150,7 +162,7 @@ export interface CorpusReview {
     expectedFactionArtifacts?: number
     expectedCollectionArtifacts?: number
     expectedWarscrolls?: number
-    expectedSpearheadWarscrolls?: number
+    expectedFactionRootWarscrolls?: number
     expectedFactionGroups?: number
     expectedFactionAbilities?: number
     expectedRulesArtifacts?: number
@@ -859,6 +871,15 @@ const reviewDiagnostics = (
       message: `Approved factions do not match decoded factions (${present.join(', ')})`,
     })
   }
+  ;(review.universalFactionContent ?? []).forEach(entry => {
+    if (approved.includes(entry.factionId) && entry.reason.trim()) return
+    diagnostics.push({
+      code: 'invalid-review',
+      severity: 'error',
+      subject: entry.factionId || '(missing faction)',
+      message: 'Universal faction content requires an approved faction ID and a reason',
+    })
+  })
   if (!review.revision.trim() || Number.isNaN(new Date(review.generatedAt).valueOf())) {
     diagnostics.push({
       code: 'invalid-review',
@@ -1231,6 +1252,25 @@ export const buildAos4Corpus = (
   const warscrollKeywordOverrides = new Map(
     (review.warscrollKeywordOverrides ?? []).map(override => [override.sourceRecordId, override])
   )
+  const universalFactionIds = new Set((review.universalFactionContent ?? []).map(entry => entry.factionId))
+  const everyArmyFactionId = uniqueSorted(
+    dataset.factions.flatMap(faction => {
+      const id = factionByExternalId.get(faction.id)
+      return id && !universalFactionIds.has(faction.id) ? [id] : []
+    })
+  )
+  /**
+   * Who offers the content a faction row owns.
+   *
+   * A reviewed universal container is not an army — it exists so that content every army may take
+   * has a row to hang on — so its content is offered by all the real armies and by nothing else.
+   * Leaving the container offering its own warscrolls would put it back in the army selector
+   * (#1796), which is what `armyFactions` reads the relationship graph to decide.
+   */
+  const offeringFactionIds = (ownerExternalFactionId: string): CanonicalId<'faction'>[] =>
+    universalFactionIds.has(ownerExternalFactionId)
+      ? everyArmyFactionId
+      : [factionByExternalId.get(ownerExternalFactionId)].flatMap(id => (id ? [id] : []))
   dataset.warscrolls.forEach(record => {
     const parentKind: EntityKind = isWarscrollRecord(record) ? 'warscroll' : 'content-group'
     const id = lookup(parentKind, 'wahapedia', recordAlias(record.meta))
@@ -1267,7 +1307,7 @@ export const buildAos4Corpus = (
       ),
     ])
     const factionIds = uniqueSorted([
-      ...(factionByExternalId.has(record.factionId) ? [factionByExternalId.get(record.factionId)!] : []),
+      ...offeringFactionIds(record.factionId),
       ...regimentRecords.flatMap(item => {
         const factionId = factionByExternalId.get(item.factionId)
         return factionId ? [factionId] : []
@@ -1407,7 +1447,7 @@ export const buildAos4Corpus = (
     } satisfies ContentGroup)
     addRelationship('includes', typeGroupByKey.get(`${record.factionId}:${record.typeId}`), id)
     if (!type || !isMandatoryType(type.name)) {
-      addRelationship('offers', factionByExternalId.get(record.factionId), id)
+      offeringFactionIds(record.factionId).forEach(factionId => addRelationship('offers', factionId, id))
     }
   })
 
@@ -1609,7 +1649,9 @@ export const buildAos4Corpus = (
       rulesContextIds: contextsFor(record.meta),
       sourceRefs: [sourceReference(record.meta.sourceRecordId, 'selection wrapper')],
     } satisfies ContentGroup)
-    addRelationship('offers', factionByExternalId.get(record.factionId), choiceId)
+    offeringFactionIds(record.factionId).forEach(factionId =>
+      addRelationship('offers', factionId, choiceId)
+    )
     addRelationship('includes', choiceId, abilityId)
   })
   ;(dataset.generalRuleAbilities ?? []).forEach(record =>

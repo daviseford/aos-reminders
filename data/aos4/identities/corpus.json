@@ -3050,6 +3050,204 @@
     {
       "aliases": [
         {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002580:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3b2ed6a5-bb94-5f76-be02-518d00fb9d6d",
+      "kind": "ability",
+      "name": "SUMMON BURNING HEAD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002580:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a5185160-ea7f-510e-8586-6d8d44eac8ff",
+      "kind": "ability",
+      "name": "SUMMON EMERALD LIFESWARM"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002580:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6a16120b-4741-5266-97bc-74470523edd0",
+      "kind": "ability",
+      "name": "SUMMON RAVENAK’S GNASHING JAWS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002581:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8f37ca19-cfa5-5c64-8832-f0e57602bb9f",
+      "kind": "ability",
+      "name": "SUMMON KRONDSPINE INCARNATE OF GHUR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002582:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:bbbb47d3-5eb2-5605-9022-9d5adfd9c018",
+      "kind": "ability",
+      "name": "SUMMON SOULSCREAM BRIDGE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002582:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f6efce5b-0058-5a63-a10b-8d3f21b6751b",
+      "kind": "ability",
+      "name": "SUMMON LAUCHON THE SOULSEEKER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002582:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7e1c121a-6254-5426-bb87-fb418e16573c",
+      "kind": "ability",
+      "name": "SUMMON HORRORGHAST"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002582:5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c45cefef-a15d-5bc0-8365-20667ab72a32",
+      "kind": "ability",
+      "name": "SUMMON SHARDS OF VALAGHARR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002583:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3a9678fb-7b96-5559-ad0f-d178bf907171",
+      "kind": "ability",
+      "name": "SUMMON GEMINIDS OF UHL-GYSH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002583:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7cff1a6d-c506-5b98-bba2-366e98af4c37",
+      "kind": "ability",
+      "name": "SUMMON PRISMATIC PALISADE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002583:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b7babbe0-5b44-5396-89be-a069661f88f3",
+      "kind": "ability",
+      "name": "SUMMON UMBRAL SPELLPORTAL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002584:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:acacf124-4fa3-5ebb-9e17-3bdeba4f1a00",
+      "kind": "ability",
+      "name": "SUMMON CHRONOMANTIC COGS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002584:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2b74b01f-883f-5f59-8131-6cbed4a921bb",
+      "kind": "ability",
+      "name": "SUMMON AETHERVOID PENDULUM"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002584:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:44013dc6-96e7-501b-bd57-0db19bc3f6c5",
+      "kind": "ability",
+      "name": "SUMMON QUICKSILVER SWORDS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002585:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2eebfe34-f68d-5904-b976-d0110374f3ff",
+      "kind": "ability",
+      "name": "SUMMON SOULSNARE SHACKLES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002585:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:0c1cac5f-8ea5-5bf9-8fe4-33f044759c07",
+      "kind": "ability",
+      "name": "SUMMON MALEVOLENT MAELSTROM"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002585:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:77006750-82dc-55bb-ae58-9ff7f5b9f790",
+      "kind": "ability",
+      "name": "SUMMON PURPLE SUN OF SHYISH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:EnS:000000797:000002585:5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8d075e9c-3ad4-5969-9c93-650a65194feb",
+      "kind": "ability",
+      "name": "SUMMON SUFFOCATING GRAVETIDE"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:FE:000000663:000002949:2",
           "publisher": "wahapedia"
         }
@@ -42199,6 +42397,270 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_abilities.csv:000001151:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b61fce6f-5d4f-5def-9cd9-db89c953b862",
+      "kind": "ability",
+      "name": "THE PENDULUM SWINGS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001151:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:be5095cc-512f-5735-9806-721bf4c20973",
+      "kind": "ability",
+      "name": "SCYTHING BLADE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001152:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4445ee2e-6e15-5a07-9482-a3866c6a0d1d",
+      "kind": "ability",
+      "name": "BURNING UP"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001153:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:9308e686-baa1-56aa-b1ec-0795737d525d",
+      "kind": "ability",
+      "name": "MECHANISMS OF TIME"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001154:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:11b95757-2790-5b75-9e31-e44c5492a8f7",
+      "kind": "ability",
+      "name": "BOUNTEOUS HEALING"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001154:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f8016e77-af90-51d4-b4d5-a455161dc60c",
+      "kind": "ability",
+      "name": "RESTORED VIGOUR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001155:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b0668ed1-c741-5052-965e-003daee4d298",
+      "kind": "ability",
+      "name": "MULTIPLE PARTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001155:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3e0cf837-7a5a-5958-bcb2-9f90dc627db7",
+      "kind": "ability",
+      "name": "TENDRILS OF SHADOW AND LIGHT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001156:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:935ba56c-564e-58ad-b52c-d16497494685",
+      "kind": "ability",
+      "name": "HARBINGER OF HORROR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001157:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e35c45a7-ae61-53d7-97f0-bfb01c6ca11e",
+      "kind": "ability",
+      "name": "TRAVERSE THE TIDES OF DEATH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001158:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c190c5a5-1e08-5a3c-a990-455cd67e3993",
+      "kind": "ability",
+      "name": "NECROTIC VORTEX"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001158:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e89c73ba-429b-5086-a8a7-1c282117e80b",
+      "kind": "ability",
+      "name": "MORBID DETONATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001159:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:928cc241-fedb-543d-94dd-a9632d60c744",
+      "kind": "ability",
+      "name": "BLINDING LIGHT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001160:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:caab41b9-1631-54cb-a0fd-bb948fed032b",
+      "kind": "ability",
+      "name": "PULL OF THE NADIR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001160:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a20694fa-c2c0-5cd5-9b8c-2af40624e42c",
+      "kind": "ability",
+      "name": "END GIVEN FORM"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001161:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d40142ba-52f9-5cba-b8fa-57a975590999",
+      "kind": "ability",
+      "name": "DANCING BLADES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001162:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:06e6e2ce-56b2-5b13-b4eb-734eb1f94cba",
+      "kind": "ability",
+      "name": "RAVENING HUNGER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001164:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:eaa9bbca-d039-556b-8635-dadaadce1c1b",
+      "kind": "ability",
+      "name": "MULTIPLE PARTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001164:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a53ced43-b0f6-52c9-83df-c3f0e1537008",
+      "kind": "ability",
+      "name": "DEATHLY PASSAGE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001165:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a5052dbd-bc38-5688-addd-a8abe374e8fc",
+      "kind": "ability",
+      "name": "MULTIPLE PARTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001165:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:488a9d3b-c1fc-5875-a979-04423ad1ca16",
+      "kind": "ability",
+      "name": "BOUND FOR THE GREAT OUBLIETTE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001166:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:466065b9-9885-5ab9-b9f2-fae4de5ec8c6",
+      "kind": "ability",
+      "name": "PULLED TO THE GRAVE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001167:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:13b6510f-1e07-543a-ac46-cbb7140fdbe9",
+      "kind": "ability",
+      "name": "MULTIPLE PARTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001167:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:302d1112-d78c-571b-b9b0-75e0a70063a7",
+      "kind": "ability",
+      "name": "ARCANE PASSAGE"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000001196:1",
           "publisher": "wahapedia"
         }
@@ -47750,6 +48212,72 @@
       "canonicalId": "ability:79fe29de-f9e8-52c6-b326-c66cad67b76f",
       "kind": "ability",
       "name": "IN THEIR ELEMENT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002252:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c59b10cb-0bf8-59ea-98ff-dfd7e0bd390b",
+      "kind": "ability",
+      "name": "MULTIPLE PARTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002252:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:616b468e-ec9c-5b63-bc22-7f654fedb9ef",
+      "kind": "ability",
+      "name": "ENSNARING SOUL-DRAIN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002252:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6c2ca0e5-6af5-5e93-be4c-a4b29d75acd2",
+      "kind": "ability",
+      "name": "PHANTASMAL TRANSLOCATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002253:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:53f762b2-88ec-57c9-98b0-742b07f1e99e",
+      "kind": "ability",
+      "name": "WILD FORM"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002253:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ecb5405b-f475-54a4-a3a0-47a16e683c1c",
+      "kind": "ability",
+      "name": "ARCANE PREDATOR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002253:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:bbb5d16d-7b1f-5a92-bca3-25ce0762967f",
+      "kind": "ability",
+      "name": "DEVOURER OF MAGICS"
     },
     {
       "aliases": [
@@ -66674,6 +67202,72 @@
     {
       "aliases": [
         {
+          "externalId": "Faction_ability_subtypes.csv:EnS:000002580:000000797",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:ab5c7bc3-b7ca-5b83-ad47-6dc890c61184",
+      "kind": "content-group",
+      "name": "Primal Energy"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:EnS:000002581:000000797",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:a4d772bd-6a5f-535c-85b6-8baf3b6397bd",
+      "kind": "content-group",
+      "name": "Krondspine Incarnate"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:EnS:000002582:000000797",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:6281437a-5d8d-5e33-9eb1-da3f45826ab7",
+      "kind": "content-group",
+      "name": "Forbidden Power"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:EnS:000002583:000000797",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:ef441e92-dfe9-55b1-b213-f0f5db985249",
+      "kind": "content-group",
+      "name": "Twilit Sorceries"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:EnS:000002584:000000797",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:18e7bef8-b93a-53f9-9028-e2aa1329f8ed",
+      "kind": "content-group",
+      "name": "Aetherwrought Machineries"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:EnS:000002585:000000797",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:62765c9f-1c94-597b-be3e-27db2f71d0e5",
+      "kind": "content-group",
+      "name": "Morbid Conjuration"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_ability_subtypes.csv:FE:000002692:000000874",
           "publisher": "wahapedia"
         }
@@ -73061,6 +73655,17 @@
       "canonicalId": "content-group:dfe93898-db29-547f-9628-2c1b4ef1326d",
       "kind": "content-group",
       "name": "Fluxblade Coven"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_types.csv:EnS:000000797",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:d6c29179-f0fc-541e-aa2f-d7e6a734f429",
+      "kind": "content-group",
+      "name": "Manifestation Lore"
     },
     {
       "aliases": [
@@ -90896,6 +91501,182 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls.csv:000001151",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:cdefbf2f-162d-594c-a6f8-f58a8db7d29b",
+      "kind": "warscroll",
+      "name": "Aethervoid Pendulum"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001152",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:cb697826-52fc-56d1-9c1f-6287b4d9e445",
+      "kind": "warscroll",
+      "name": "The Burning Head"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001153",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:d6e835a6-b9d2-5ce6-a4c8-24661a525bff",
+      "kind": "warscroll",
+      "name": "Chronomantic Cogs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001154",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:bd11e12c-84ae-577a-b501-241f57fdb522",
+      "kind": "warscroll",
+      "name": "Emerald Lifeswarm"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001155",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:df7acc99-cd07-5968-8d1b-da717587a039",
+      "kind": "warscroll",
+      "name": "Geminids of Uhl-Gysh"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001156",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:c05ecf4c-1cd1-5c8b-b3f1-0a2b2692ed80",
+      "kind": "warscroll",
+      "name": "Horrorghast"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001157",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:94f297a9-d76d-50e7-90e9-e51578a01843",
+      "kind": "warscroll",
+      "name": "Lauchon the Soulseeker"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001158",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:6d44c2b1-fa66-5559-bd09-2668ba98116a",
+      "kind": "warscroll",
+      "name": "Malevolent Maelstrom"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001159",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:ef9eeff1-52f1-5ba5-aad6-4d0461187528",
+      "kind": "warscroll",
+      "name": "Prismatic Palisade"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001160",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:71bf7ab0-7fd8-5ae6-baf1-46b59138e6cf",
+      "kind": "warscroll",
+      "name": "Purple Sun of Shyish"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001161",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:e9706869-9333-54b5-90ec-ae2e1820fe3d",
+      "kind": "warscroll",
+      "name": "Quicksilver Swords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001162",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:16626020-fbbb-5df4-9b6c-754db778ed8d",
+      "kind": "warscroll",
+      "name": "Ravenak’s Gnashing Jaws"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001164",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:0650ef91-8e2b-5be4-b741-e7afcdf4f3f8",
+      "kind": "warscroll",
+      "name": "Soulscream Bridge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001165",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:ebcfa632-5738-5e4e-a8bb-438d51c04176",
+      "kind": "warscroll",
+      "name": "Soulsnare Shackles"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001166",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:7faed078-fa7f-5d54-84ec-91d32bc72cf9",
+      "kind": "warscroll",
+      "name": "Suffocating Gravetide"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001167",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:c48274c8-c345-5ecb-bfac-7c024732f352",
+      "kind": "warscroll",
+      "name": "Umbral Spellportal"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls.csv:000001196",
           "publisher": "wahapedia"
         }
@@ -93631,6 +94412,28 @@
       "canonicalId": "warscroll:128ba8fb-f798-5893-b164-2cf9b2c14ad3",
       "kind": "warscroll",
       "name": "Morgok’s Krushas"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000002252",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:9ba50dfc-4753-5f90-a367-9b404d8844b0",
+      "kind": "warscroll",
+      "name": "Shards of Valagharr"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000002253",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:fddeacdf-20b7-59f2-bc6a-57e50492612b",
+      "kind": "warscroll",
+      "name": "Krondspine Incarnate of Ghur"
     },
     {
       "aliases": [
@@ -110938,6 +111741,138 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_weapons.csv:000001152:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:f5c6042b-1aa6-5d87-8c1c-17875f9d8653",
+      "kind": "weapon",
+      "name": "Burning Breath"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001152:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:e45fc764-c421-56e1-a096-e4ab92bc2ac2",
+      "kind": "weapon",
+      "name": "Flaming Maw"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001154:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:974f70e9-21f8-5d0f-b5d4-4c7fd43c7e13",
+      "kind": "weapon",
+      "name": "Swarming Bites"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001155:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:6ada1d65-5c82-5b35-ad68-02367c67ef65",
+      "kind": "weapon",
+      "name": "Tendrils of Light and Shadow"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001156:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:7ee39f1e-5755-5af6-821b-ad042289f150",
+      "kind": "weapon",
+      "name": "Scream of Terror"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001156:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:bc3680c4-c6a4-5d25-a154-501e8a6da51d",
+      "kind": "weapon",
+      "name": "Deathly Touch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001157:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:1df4c6d8-d505-5b6d-9ac3-db59136dd035",
+      "kind": "weapon",
+      "name": "Scything Oar"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001158:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:48d959fb-59a9-50ad-94cd-12e6837fb47e",
+      "kind": "weapon",
+      "name": "Lashing Tendrils of Energy"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001160:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:a6561ffe-b876-5dd6-b8a1-0381880771cf",
+      "kind": "weapon",
+      "name": "Transmuting Rays"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001161:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:6c02495c-27c6-5332-bce4-32a58e43694a",
+      "kind": "weapon",
+      "name": "Quicksilver Blades"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001162:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:f26ed6b5-ff0c-5d5c-8212-cbfd0f83596f",
+      "kind": "weapon",
+      "name": "Gnashing Jaws"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001166:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:742fb467-8de2-5b77-8c3e-e522b09befbb",
+      "kind": "weapon",
+      "name": "Spectral Riptide"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_weapons.csv:000001196:1",
           "publisher": "wahapedia"
         }
@@ -116005,6 +116940,17 @@
       "canonicalId": "weapon:d403f939-168a-5a30-9f78-dfb29dba0bb8",
       "kind": "weapon",
       "name": "Krusha Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000002253:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:d9a44871-0742-5a94-932c-52603b50b996",
+      "kind": "weapon",
+      "name": "Amberbone Claws and Fangs"
     },
     {
       "aliases": [

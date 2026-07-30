@@ -42,6 +42,64 @@ export const IMPORT_LABEL_ALIASES: ImportLabelAlias[] = [
       'upstream source is corrected.',
   },
   {
+    from: 'Dawner’s Triumph',
+    to: 'Dawners Triumph',
+    reason:
+      'Catalog defect: the generated warscroll and battle profile drop the apostrophe ' +
+      '("Dawners Triumph"). Rosters spell it possessively, and normalization splits "Dawner’s" ' +
+      'into two words, so the correct spelling matches nothing. Remove once the source is fixed.',
+  },
+  {
+    from: 'Kurnoth Hunters with Kurnoth Greatbows',
+    to: 'Kurnoth Hunters with Greatbows',
+    reason:
+      'Provider divergence: New Recruit repeats the "Kurnoth" prefix on the weapon, which the ' +
+      'warscroll name does not. The weapon really is a Kurnoth Greatbow; only the warscroll ' +
+      'title omits it.',
+  },
+  {
+    from: 'Kurnoth Hunters with Kurnoth Greatswords',
+    to: 'Kurnoth Hunters with Greatswords',
+    reason:
+      'Provider divergence: New Recruit repeats the "Kurnoth" prefix on the weapon, which the ' +
+      'warscroll name does not. The weapon really is a Kurnoth Greatsword; only the warscroll ' +
+      'title omits it.',
+  },
+  {
+    from: 'Kurnoth Hunters with Kurnoth Scythes',
+    to: 'Kurnoth Hunters with Greatscythes',
+    reason:
+      'Provider divergence: New Recruit both repeats the "Kurnoth" prefix and shortens ' +
+      '"Greatscythes" to "Scythes". The weapon is a Kurnoth Greatscythe, so neither spelling is ' +
+      'wrong about the model — they just disagree about the warscroll title.',
+  },
+  {
+    from: 'Kurnoth Hunters with Kurnoth Greatswords (Scourge of Aqshy)',
+    to: 'Scourge of Aqshy Kurnoth Hunters with Greatswords',
+    reason:
+      'Provider divergence: New Recruit marks the seasonal variant with a trailing parenthetical ' +
+      'while the catalog carries the expansion as a name prefix, on top of the same repeated ' +
+      '"Kurnoth" the other three variants show.',
+  },
+  {
+    from: 'Outlaw Conqueror Cogfort',
+    to: 'Conqueror Cogfort',
+    reason:
+      'Provider divergence: the official app names the Cogfort Raiders member the way the ' +
+      'Regiments of Renown page lists it ("1 Outlaw Conqueror Cogfort"), but the official ' +
+      'battle-profile ledger carries no such unit — only the Cities of Sigmar Conqueror Cogfort. ' +
+      'The prefix is the band naming its member, not a separate warscroll, unlike the genuinely ' +
+      'distinct "The Iron March Immolator Cogfort".',
+  },
+  {
+    from: 'Outlaw Cannonade Cogfort',
+    to: 'Cannonade Cogfort',
+    reason:
+      'Provider divergence: the Cogfort Raiders band lists "1 Outlaw Cannonade Cogfort" while ' +
+      'the official battle-profile ledger carries only the Cities of Sigmar Cannonade Cogfort. ' +
+      'Same band-naming shape as its Conqueror counterpart.',
+  },
+  {
     from: 'Knives of the Crone',
     to: 'The Knives of the Crone',
     reason:

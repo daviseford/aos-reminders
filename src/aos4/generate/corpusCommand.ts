@@ -9,11 +9,12 @@ import {
   extractGamesWorkshopBattleProfileSupplement,
   extractGamesWorkshopBattleProfiles,
   extractGamesWorkshopPdfText,
+  factionRootWarscrollScope,
   filterNativeWahapediaFactionWarscrolls,
   mergeCurrentWahapediaWarscrollPages,
   parseWahapediaFactionHtml,
+  parseWahapediaFactionRootWarscrollsHtml,
   parseWahapediaRulesHtml,
-  parseWahapediaSpearheadWarscrollsHtml,
   parseWahapediaWarscrollCollectionHtml,
   parseWahapediaWarscrollHtml,
   type ArtifactManifest,
@@ -42,20 +43,15 @@ import {
 import { createRuntimeProjection, serializeRuntimeProjection } from './runtimeProjection'
 import { serializeAuditCatalog, stableJson } from './serialization'
 
-const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-07-29.json')
-const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-07-29.json')
+const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-07-30.json')
+const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-07-30.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
 const DEFAULT_AUDIT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_BATTLE_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaults.json')
-const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-07-29-summary.json')
-const DEFAULT_RECONCILIATION = path.join(
-  'data',
-  'aos4',
-  'reports',
-  'corpus-2026-07-29-reconciliation.json'
-)
+const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-07-30-summary.json')
+const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-07-30-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_BETA_READINESS = path.join('data', 'aos4', 'certifications', 'beta.json')
 
@@ -219,7 +215,8 @@ const loadReview = async (filePath: string): Promise<CorpusReview> => {
     !Array.isArray(value.normalizationDiagnosticPolicies) ||
     !Array.isArray(value.ignoredSourceRecords) ||
     !Array.isArray(value.timingOverrides) ||
-    !Array.isArray(value.officialDocuments)
+    !Array.isArray(value.officialDocuments) ||
+    (value.universalFactionContent !== undefined && !Array.isArray(value.universalFactionContent))
   ) {
     throw new Error(`Corpus review ${filePath} has an incompatible schema`)
   }
@@ -379,8 +376,9 @@ const loadWahapediaHtmlPages = async (
   const pages: WahapediaHtmlWarscrollRecord[] = []
   const factions: WahapediaHtmlFactionPageRecord[] = []
   const rules: WahapediaHtmlRulesPageRecord[] = []
-  let spearheadWarscrolls = 0
+  let factionRootWarscrolls = 0
   let warningCount = 0
+  const wahapediaPageUrls = artifacts.map(artifact => artifact.finalUrl)
   for (const artifact of artifacts) {
     const bytes = await cache.get(artifact.checksum)
     if (!bytes) throw new Error(`Wahapedia HTML artifact ${artifact.checksum} is missing`)
@@ -396,13 +394,18 @@ const loadWahapediaHtmlPages = async (
       !isFactionPage && !isCollectionPage && !isRulesPage
         ? parseWahapediaWarscrollHtml({ bytes, artifact })
         : undefined
-    const spearhead = isFactionPage ? parseWahapediaSpearheadWarscrollsHtml({ bytes, artifact }) : undefined
+    const factionRoot = isFactionPage
+      ? parseWahapediaFactionRootWarscrollsHtml(
+          { bytes, artifact },
+          factionRootWarscrollScope(artifact.finalUrl, wahapediaPageUrls)
+        )
+      : undefined
     const diagnostics = [
       ...(factionPage?.diagnostics ?? []),
       ...(rulesPage?.diagnostics ?? []),
       ...(collectionPage?.diagnostics ?? []),
       ...(warscrollPage?.diagnostics ?? []),
-      ...(spearhead?.diagnostics ?? []),
+      ...(factionRoot?.diagnostics ?? []),
     ]
     warningCount += diagnostics.filter(diagnostic => diagnostic.severity === 'warning').length
     const parsedPages = collectionPage ? filterNativeWahapediaFactionWarscrolls(collectionPage.pages) : []
@@ -421,8 +424,9 @@ const loadWahapediaHtmlPages = async (
     }
     if (isFactionPage) {
       factions.push(factionPage!.page!)
-      pages.push(...(spearhead?.pages ?? []))
-      spearheadWarscrolls += spearhead?.pages.filter(page => page.recordKind === 'warscroll').length ?? 0
+      pages.push(...(factionRoot?.pages ?? []))
+      factionRootWarscrolls +=
+        factionRoot?.pages.filter(page => page.recordKind === 'warscroll').length ?? 0
     } else if (isRulesPage) {
       rules.push(rulesPage!.page!)
     } else if (isCollectionPage) {
@@ -436,7 +440,7 @@ const loadWahapediaHtmlPages = async (
   const warscrolls = pages.filter(page => page.recordKind === 'warscroll').length
   const checks = [
     ['warscrolls', warscrolls, reviewedHtml?.expectedWarscrolls],
-    ['Spearhead warscrolls', spearheadWarscrolls, reviewedHtml?.expectedSpearheadWarscrolls],
+    ['faction-root warscrolls', factionRootWarscrolls, reviewedHtml?.expectedFactionRootWarscrolls],
     [
       'faction groups',
       factions.reduce((sum, page) => sum + page.groups.length, 0),

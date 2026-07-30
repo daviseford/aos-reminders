@@ -1,7 +1,9 @@
 import {
   artifactChecksum,
+  factionRootWarscrollScope,
   filterNativeWahapediaFactionWarscrolls,
   parseWahapediaFactionHtml,
+  parseWahapediaFactionRootWarscrollsHtml,
   parseWahapediaRulesHtml,
   parseWahapediaWarscrollHtml,
   parseWahapediaWarscrollCollectionHtml,
@@ -417,5 +419,94 @@ describe('Wahapedia warscroll HTML decoding', () => {
       abilities: [],
       meta: expect.objectContaining({ section: 'rules-page' }),
     })
+  })
+
+  /**
+   * The manifestation index page shape (issue #1791).
+   *
+   * `factions/endless-spells/` is not a battletome root: it has no `Faction Rules` heading, it
+   * carries every one of its warscrolls itself because Wahapedia publishes no `warscrolls.html`
+   * for it, and it anchors both its lore index and its warscroll sections to the same six names.
+   * The page decoded to nothing for months behind an exemption that named it, so this pins the
+   * shape rather than the outcome.
+   */
+  const manifestationIndexHtml = `
+    <html><body>
+      <h1 class="page_header"><span class="page_header_span">Endless Spells</span></h1>
+      <a name="Books"></a><h2>Books</h2>
+      <a name="Manifestation-Lore"></a><h2>Manifestation Lore</h2>
+      <a name="Morbid-Conjuration"></a><h3>Morbid Conjuration</h3>
+      <table><tr><td class="abHeader">Your Hero Phase</td></tr></table>
+      <div class="abBody"><b>SUMMON PURPLE SUN OF SHYISH:</b><b>Effect:</b> Set it up.</div>
+      <a name="Morbid-Conjuration"></a><h2>Morbid Conjuration</h2>
+      <section class="datasheet">
+        <a name="Purple-Sun-of-Shyish"></a>
+        <div class="nails-header">•ENDLESS SPELLS WARSCROLL•</div>
+        <h1 class="wsHeaderIn">Purple Sun of Shyish</h1>
+        <span class="wsMove">10"</span><span class="wsWounds">1</span>
+        <span class="wsSave">-</span><span class="wsBravery">-</span>
+        <div class="abHeader">Passive</div>
+        <div class="abBody"><b>MALIGNANT PATH:</b><b>Effect:</b> Roll a dice.</div>
+        <div class="wsKeywordLine1">MANIFESTATION, ENDLESS SPELL</div>
+      </section>
+    </body></html>
+  `
+
+  const manifestationIndexSource = () => {
+    const source = input(manifestationIndexHtml)
+    source.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/endless-spells/'
+    source.artifact.finalUrl = source.artifact.requestUrl
+    return source
+  }
+
+  it('decodes a manifestation index page into lores and their warscrolls', () => {
+    const source = manifestationIndexSource()
+
+    const faction = parseWahapediaFactionHtml(source)
+
+    expect(faction.diagnostics).toEqual([])
+    // The lore index, not the identically anchored warscroll section, and not `Books`.
+    expect(faction.page?.groups.map(group => [group.externalId, group.parentExternalId])).toEqual([
+      ['Manifestation-Lore', undefined],
+      ['Morbid-Conjuration', 'Manifestation-Lore'],
+    ])
+    // The summoning spell belongs to the lore; the warscroll's own ability does not.
+    expect(faction.page?.abilities.map(ability => ability.name)).toEqual(['SUMMON PURPLE SUN OF SHYISH'])
+
+    const warscrolls = parseWahapediaFactionRootWarscrollsHtml(
+      source,
+      factionRootWarscrollScope(source.artifact.finalUrl, [source.artifact.finalUrl])
+    )
+
+    expect(warscrolls.pages.map(page => [page.recordKind, page.name])).toEqual([
+      ['warscroll', 'Purple Sun of Shyish'],
+    ])
+    expect(warscrolls.pages[0].abilities.map(ability => ability.name)).toEqual(['MALIGNANT PATH'])
+  })
+
+  it('takes only Spearhead warscrolls from a faction root that has a collection page', () => {
+    const source = manifestationIndexSource()
+    const scope = factionRootWarscrollScope(source.artifact.finalUrl, [
+      source.artifact.finalUrl,
+      'https://wahapedia.ru/aos4/factions/endless-spells/warscrolls.html',
+    ])
+
+    expect(scope).toEqual('spearhead')
+    expect(parseWahapediaFactionRootWarscrollsHtml(source, scope).pages).toEqual([])
+  })
+
+  it('fails a faction page that decodes to no rules, whatever the faction is called', () => {
+    const source = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">Endless Spells</span></h1>
+        <a name="Books"></a><h2>Books</h2>
+      </body></html>
+    `)
+    source.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/endless-spells/'
+    source.artifact.finalUrl = source.artifact.requestUrl
+
+    expect(parseWahapediaFactionHtml(source).diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'not-faction-page', severity: 'error' })
+    )
   })
 })
