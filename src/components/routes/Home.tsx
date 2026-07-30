@@ -1,16 +1,7 @@
 import type { CanonicalId, Faction, SourceArtifact } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID } from '../../aos4/generated'
-import {
-  COMPACT_PRESET,
-  STANDARD_PRESET,
-  createAos4PrintDocument,
-  createJsPdfMeasurer,
-  planPrintLayout,
-  renderPrintPlanToPdf,
-  withPageSize,
-  type PrintPageSize,
-  type PrintPreset,
-} from '../../aos4/print'
+import type { PrintPageSize } from '../../aos4/print/presets'
+import type { PrintPreset } from '../../aos4/print/types'
 import { createDefaultAos4ArmyDocument, loadAos4ArmyDocument, saveAos4ArmyDocument } from '../../aos4/runtime'
 import { createAos4ArmyDocument, setAos4ReminderPreference, type Aos4ArmyDocument } from '../../aos4/state'
 import {
@@ -24,11 +15,12 @@ import { useSubscriberAction } from 'components/input/importArmy/subscriberActio
 import Toolbar from 'components/input/toolbar/toolbar'
 import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
-import PrintModal from 'components/print/printModal'
+import { ArmyCollectionProvider } from 'context/useArmyCollection'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { consumePendingShareId } from 'utils/shareLink'
 
 const ImportArmyModal = lazy(() => import('components/input/importArmy/importArmyModal'))
+const PrintModal = lazy(() => import('components/print/printModal'))
 const SavedArmiesModal = lazy(() => import('components/input/cloudArmies/savedArmiesModal'))
 const ShareArmyModal = lazy(() => import('components/input/armySharing/shareArmyModal'))
 const SharedArmyModal = lazy(() => import('components/input/armySharing/sharedArmyModal'))
@@ -79,11 +71,9 @@ const reminderSources = (reminder: Aos4ReminderViewModel): ReminderSourceLink[] 
 const factionEntities = AOS4_CATALOG.entities.filter((entity): entity is Faction => entity.kind === 'faction')
 const factionById = new Map(factionEntities.map(faction => [faction.id, faction]))
 
-const presetById = (id: PrintPreset['id']) => (id === 'compact' ? COMPACT_PRESET : STANDARD_PRESET)
-
 const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'AoS'}_Reminders`
 
-const Home = () => {
+const HomeContent = () => {
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
   const [importModalIsOpen, setImportModalIsOpen] = useState(false)
@@ -116,21 +106,29 @@ const Home = () => {
   const factionId = (selectedFactionId as CanonicalId<'faction'> | undefined) ?? AOS4_DEFAULT_FACTION_ID
   const factionName = factionById.get(factionId)?.name ?? 'Age of Sigmar 4'
 
-  const printDocument = useMemo(
-    () =>
-      createAos4PrintDocument(reminders, {
-        armyName: document.name,
-        factionName,
-        warscrolls: builder.warscrolls,
-      }),
-    [builder.warscrolls, document.name, factionName, reminders]
-  )
-
-  const handleDownloadPdf = (presetId: PrintPreset['id'], pageSize: PrintPageSize, fileName: string) => {
-    const preset = withPageSize(presetById(presetId), pageSize)
+  const handleDownloadPdf = async (
+    presetId: PrintPreset['id'],
+    pageSize: PrintPageSize,
+    fileName: string
+  ) => {
+    const {
+      COMPACT_PRESET,
+      STANDARD_PRESET,
+      createAos4PrintDocument,
+      createJsPdfMeasurer,
+      planPrintLayout,
+      renderPrintPlanToPdf,
+      withPageSize,
+    } = await import('../../aos4/print')
+    const printDocument = createAos4PrintDocument(reminders, {
+      armyName: document.name,
+      factionName,
+      warscrolls: builder.warscrolls,
+    })
+    const selectedPreset = presetId === 'compact' ? COMPACT_PRESET : STANDARD_PRESET
+    const preset = withPageSize(selectedPreset, pageSize)
     const plan = planPrintLayout(printDocument, preset, createJsPdfMeasurer())
     renderPrintPlanToPdf(plan, { title: printDocument.title }).save(`${fileName}.pdf`)
-    setPrintModalIsOpen(false)
   }
 
   useEffect(() => {
@@ -260,12 +258,14 @@ const Home = () => {
       <Footer />
 
       {printModalIsOpen && (
-        <PrintModal
-          closeModal={() => setPrintModalIsOpen(false)}
-          defaultFileName={toFileName(document.name)}
-          isOpen={printModalIsOpen}
-          onDownloadPdf={handleDownloadPdf}
-        />
+        <Suspense fallback={null}>
+          <PrintModal
+            closeModal={() => setPrintModalIsOpen(false)}
+            defaultFileName={toFileName(document.name)}
+            isOpen={printModalIsOpen}
+            onDownloadPdf={handleDownloadPdf}
+          />
+        </Suspense>
       )}
 
       {importModalIsOpen && (
@@ -315,5 +315,11 @@ const Home = () => {
     </div>
   )
 }
+
+const Home = () => (
+  <ArmyCollectionProvider>
+    <HomeContent />
+  </ArmyCollectionProvider>
+)
 
 export default Home

@@ -4,7 +4,6 @@ import './bootstrap/captureShareLink' // organize-imports-ignore
 import { Auth0Provider } from '@auth0/auth0-react'
 import App from 'components/App'
 import { AppStatusProvider } from 'context/useAppStatus'
-import { ArmyCollectionProvider } from 'context/useArmyCollection'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import React from 'react'
@@ -40,11 +39,9 @@ createRoot(container).render(
   >
     <AppStatusProvider>
       <SubscriptionProvider>
-        <ArmyCollectionProvider>
-          <ThemeProvider>
-            <App />
-          </ThemeProvider>
-        </ArmyCollectionProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </SubscriptionProvider>
     </AppStatusProvider>
   </Auth0Provider>

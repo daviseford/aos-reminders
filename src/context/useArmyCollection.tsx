@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { ArmyApi, ArmyApiError, type CreatedShare, type RemoteArmy } from '../api/armyApi'
 import type { Aos4ArmyDocument } from '../aos4/state'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useApiAccessToken } from 'utils/authToken'
 
 interface ArmyCollectionContextValue {
@@ -25,7 +25,7 @@ const messageForError = (error: unknown): string => {
 }
 
 export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<object>) => {
-  const { isAuthenticated, isLoading, user } = useAuth0()
+  const { isAuthenticated, user } = useAuth0()
   const getAccessToken = useApiAccessToken()
   const [armies, setArmies] = useState<RemoteArmy[]>([])
   const [collectionError, setCollectionError] = useState<string | null>(null)
@@ -48,10 +48,6 @@ export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<obj
       setCollectionLoading(false)
     }
   }, [getAccessToken, isAuthenticated, user?.sub])
-
-  useEffect(() => {
-    if (!isLoading) void refreshArmies()
-  }, [isLoading, refreshArmies])
 
   const createArmy = useCallback(
     async (document: Aos4ArmyDocument) => {
