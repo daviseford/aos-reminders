@@ -23,6 +23,16 @@ export interface ResolveSelectionInput {
    * belongs to *either* context; diagnostics still report against the primary context.
    */
   allowsLegends?: boolean
+  /**
+   * Overlay the historical rules context(s) on top of `rulesContextId`.
+   *
+   * A General's Handbook lapses each summer, and the content it introduced moves to the historical
+   * context rather than disappearing. An army built during that season is a mixture: current
+   * warscrolls picked from a battletome that is still in print, alongside seasonal formations and
+   * unit variants that are not. With the overlay on, an entity or relationship is applicable when
+   * it belongs to *either* context; diagnostics still report against the primary context.
+   */
+  allowsHistorical?: boolean
 }
 
 export interface SelectionCause {
@@ -71,14 +81,23 @@ export const resolveSelection = (
 ): ResolvedSelection => {
   const index = createCatalogIndex(catalog)
   const contextIds = new Set(catalog.rulesContexts.map(context => context.id))
+  const overlayStatuses = new Set(
+    [input.allowsLegends ? 'legends' : undefined, input.allowsHistorical ? 'historical' : undefined].filter(
+      (status): status is string => Boolean(status)
+    )
+  )
   const applicableContextIds = new Set<RulesContextId>([
     input.rulesContextId,
-    ...(input.allowsLegends
-      ? catalog.rulesContexts.filter(context => context.status === 'legends').map(context => context.id)
-      : []),
+    ...catalog.rulesContexts
+      .filter(context => overlayStatuses.has(context.status))
+      .map(context => context.id),
   ])
-  const availabilityDescription = input.allowsLegends
-    ? `${input.rulesContextId} or Legends`
+  const overlayNames = [
+    input.allowsLegends ? 'Legends' : undefined,
+    input.allowsHistorical ? 'historical content' : undefined,
+  ].filter((name): name is string => Boolean(name))
+  const availabilityDescription = overlayNames.length
+    ? `${input.rulesContextId} or ${overlayNames.join(' or ')}`
     : input.rulesContextId
   const selectedIds = new Set<CanonicalId>()
   const availableIds = new Set<CanonicalId>()

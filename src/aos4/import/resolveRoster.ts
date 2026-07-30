@@ -9,6 +9,7 @@ import type {
 } from '../domain'
 import { resolveSelection } from '../select'
 import { createAos4ArmyDocument, deserializeAos4ArmyDocument, serializeAos4ArmyDocument } from '../state'
+import { buildArmyOfRenownIndex, type ArmyOfRenownIndex } from './armiesOfRenown'
 import { aliasedImportLabel } from './labelAliases'
 import { normalizeImportLabel, normalizeImportLabelExact } from './normalizeLabel'
 import type {
@@ -81,12 +82,26 @@ const relationshipIsApplicable = (
  */
 const ENHANCEMENT_KIND_HINTS = new Set<ParsedRosterSelectionKind>(['enhancement', 'artefact-of-power'])
 
-const kindMatches = (entity: ContentEntity, kindHint: ParsedRosterSelectionKind): boolean => {
+const kindMatches = (
+  entity: ContentEntity,
+  kindHint: ParsedRosterSelectionKind,
+  armiesOfRenown?: ArmyOfRenownIndex
+): boolean => {
   if (kindHint === 'faction') return entity.kind === 'faction'
   if (kindHint === 'warscroll') return entity.kind === 'warscroll'
   if (ENHANCEMENT_KIND_HINTS.has(kindHint)) {
     return entity.kind === 'ability' || entity.kind === 'content-group'
   }
+  /**
+   * An Army of Renown arrives under the battle-formation hint because that is the slot it occupies.
+   *
+   * The official app's header always ends `faction | battle formation`, and an Army of Renown takes
+   * that trailing slot (`Gloomspite Gitz | Da King's Gitz`) — the roster gives the parser nothing
+   * to tell the two apart with. The catalog does distinguish them: an army is a container group
+   * carrying its own slug as `groupType`, never `battle-formation`. So accept both here and let
+   * the name decide which one the roster meant.
+   */
+  if (kindHint === 'battle-formation' && armiesOfRenown?.containerIds.has(entity.id)) return true
   return entity.kind === 'content-group' && entity.groupType === kindHint
 }
 
@@ -116,14 +131,39 @@ export const findDeclaredRulesContext = (
   return matches[0]
 }
 
+/**
+ * The season a roster declared, as the year it began.
+ *
+ * Battlepacks are named by season — "General's Handbook 2025-26" — and that is the only part of
+ * the string worth reading once the name itself has failed to match a context we carry. Deliberately
+ * narrow: it recognises the four-digit-year form the handbooks use and nothing else, so an
+ * unfamiliar battlepack name yields nothing rather than a wrong year.
+ */
+const declaredSeasonStart = (declaredContext: string | undefined): number | undefined => {
+  const match = /\b(20\d{2})\s*[-–—/]\s*\d{2}\b/.exec(declaredContext ?? '')
+  return match ? Number(match[1]) : undefined
+}
+
+/** What the roster's declared ruleset resolved to, and whether it left content behind. */
+interface RulesContextResolution {
+  context: RulesContext
+  /**
+   * The roster named a season that has since lapsed, so its seasonal content is historical.
+   *
+   * Set here rather than inferred later because this is the only point that sees what the roster
+   * actually asked for.
+   */
+  allowsHistorical: boolean
+}
+
 const resolveRulesContext = (
   catalog: Aos4Catalog,
   parsedRoster: ParsedRoster,
   defaultRulesContextId: RulesContextId,
   diagnostics: Aos4ImportDiagnostic[]
-): RulesContext | undefined => {
+): RulesContextResolution | undefined => {
   const declared = findDeclaredRulesContext(catalog, parsedRoster.declaredContext)
-  if (declared) return declared
+  if (declared) return { context: declared, allowsHistorical: false }
 
   /**
    * A missing or unrecognised battlepack falls back rather than failing.
@@ -141,20 +181,40 @@ const resolveRulesContext = (
     })
     return undefined
   }
+
+  /**
+   * A lapsed season falls back to the current one *and* keeps what it lost.
+   *
+   * When a General's Handbook expires, everything it introduced — the `Scourge of Ghyran` unit
+   * variants, that season's battle formations — is catalogued as historical rather than deleted,
+   * while the army's warscrolls carry on into the new season unchanged. Falling back without the
+   * overlay therefore drops exactly the picks that made the list that season's list, and does it
+   * silently: the player sees a formation they chose simply missing. The overlay resolves those
+   * names where they actually live, without moving the document into a context that holds only
+   * 42 warscrolls and could not describe the rest of the army.
+   */
+  const seasonStart = declaredSeasonStart(parsedRoster.declaredContext)
+  const fallbackSeasonStart = declaredSeasonStart(fallback.season)
+  const allowsHistorical =
+    seasonStart !== undefined && fallbackSeasonStart !== undefined && seasonStart < fallbackSeasonStart
+
   diagnostics.push({
     code: 'unsupported-context',
     severity: 'warning',
     message: parsedRoster.declaredContext?.trim()
-      ? `The rules context "${parsedRoster.declaredContext}" is not one we carry; using ${fallback.name}. Change it above if that is wrong.`
+      ? allowsHistorical
+        ? `The rules context "${parsedRoster.declaredContext}" has been superseded; using ${fallback.name} with that season's content still available. Change it above if that is wrong.`
+        : `The rules context "${parsedRoster.declaredContext}" is not one we carry; using ${fallback.name}. Change it above if that is wrong.`
       : `No rules context was declared; using ${fallback.name}.`,
   })
-  return fallback
+  return { context: fallback, allowsHistorical }
 }
 
 const buildReachableIds = (
   catalog: Aos4Catalog,
   factionId: CanonicalId<'faction'>,
-  rulesContextId: RulesContextId
+  rulesContextId: RulesContextId,
+  armiesOfRenown: ArmyOfRenownIndex
 ): Set<CanonicalId> => {
   const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
   const outgoing = new Map<CanonicalId, ContentRelationship[]>()
@@ -179,6 +239,24 @@ const buildReachableIds = (
       queue.push(target.id)
     })
   }
+
+  /**
+   * An Army of Renown container is reachable when the faction can reach its sections.
+   *
+   * The generator attaches an army's sections to the faction that offers them, but attaches
+   * nothing to the container itself — it exists only as the parent of those sections, with no
+   * inbound edge from anything. Traversal therefore never arrives at it, and a roster naming the
+   * army would be told it is unavailable to a faction that plainly offers its every rule. Deriving
+   * the container's availability from its sections says the same thing the graph already says,
+   * without inventing an edge the catalog does not have.
+   */
+  armiesOfRenown.sectionIdsByContainerId.forEach((sectionIds, containerId) => {
+    if (reachable.has(containerId)) return
+    const container = entityById.get(containerId)
+    if (!container || !isApplicable(container, rulesContextId)) return
+    if (sectionIds.some(sectionId => reachable.has(sectionId))) reachable.add(containerId)
+  })
+
   return reachable
 }
 
@@ -393,12 +471,14 @@ const resolveRosterSelection = (
    */
   resolutionContexts: ResolutionContext[],
   allowsLegends: boolean,
+  armiesOfRenown: ArmyOfRenownIndex,
   diagnostics: Aos4ImportDiagnostic[]
 ): Aos4ImportMatch | undefined => {
   const matchInContext = ({ context, reachableIds }: ResolutionContext) => {
     const rulesContextId = context.id
     const eligible = catalog.entities.filter(
-      entity => isApplicable(entity, rulesContextId) && kindMatches(entity, selection.kindHint)
+      entity =>
+        isApplicable(entity, rulesContextId) && kindMatches(entity, selection.kindHint, armiesOfRenown)
     )
 
     /**
@@ -419,6 +499,27 @@ const resolveRosterSelection = (
     }
 
     /**
+     * Match an Army of Renown's section by the qualified name the roster writes.
+     *
+     * The catalog calls it `Spell Lore` because it is nested under `Da King’s Gitz`; a flat roster
+     * line has to say `Da King's Gitz Spell Lore` or the player could not tell whose lore they
+     * picked. Searched separately from {@link matchLabel} rather than folded into `eligible`,
+     * because a section's `groupType` is its army's slug — admitting sections to the ordinary kind
+     * filter would make a bare `Spell Lore` match all 37 of them and fail as ambiguous. The
+     * section's own heading supplies the category instead.
+     */
+    const matchQualifiedLabel = (label: string): ContentEntity[] => {
+      const normalized = normalizeImportLabel(label)
+      return catalog.entities.filter(entity => {
+        const section = armiesOfRenown.sectionsById.get(entity.id)
+        if (!section || !isApplicable(entity, rulesContextId)) return false
+        const kindFits =
+          ENHANCEMENT_KIND_HINTS.has(selection.kindHint) || section.categoryGroupType === selection.kindHint
+        return kindFits && normalizeImportLabel(section.qualifiedName) === normalized
+      })
+    }
+
+    /**
      * Labels to try, in descending order of confidence.
      *
      * The roster's own wording always wins. A reviewed alias is consulted only when that finds
@@ -431,10 +532,10 @@ const resolveRosterSelection = (
       stripContextQualifier(selection.label, contextQualifiers(context)),
     ].filter((label): label is string => Boolean(label))
 
-    const contextCandidates = attempts.reduce<ContentEntity[]>(
-      (found, label) => (found.length ? found : matchLabel(label)),
-      []
-    )
+    const contextCandidates = [
+      ...attempts.map(label => () => matchLabel(label)),
+      ...attempts.map(label => () => matchQualifiedLabel(label)),
+    ].reduce<ContentEntity[]>((found, attempt) => (found.length ? found : attempt()), [])
     return { contextCandidates, candidates: contextCandidates.filter(entity => reachableIds.has(entity.id)) }
   }
 
@@ -514,14 +615,20 @@ export const resolveParsedRoster = (
   options: ResolveParsedRosterOptions
 ): Aos4ImportPreview => {
   const diagnostics: Aos4ImportDiagnostic[] = []
-  const context = resolveRulesContext(catalog, parsedRoster, options.defaultRulesContextId, diagnostics)
-  if (!context) {
+  const contextResolution = resolveRulesContext(
+    catalog,
+    parsedRoster,
+    options.defaultRulesContextId,
+    diagnostics
+  )
+  if (!contextResolution) {
     return {
       source: parsedRoster.source,
       matches: [],
       diagnostics: sortDiagnostics(diagnostics),
     }
   }
+  const context = contextResolution.context
 
   const factionResolution = resolveFaction(catalog, parsedRoster, context.id, diagnostics)
   const faction = factionResolution.faction
@@ -539,24 +646,39 @@ export const resolveParsedRoster = (
    */
   const effectiveContext = factionResolution.rulesContext ?? context
   const allowsLegends = Boolean(parsedRoster.allowsLegends)
+  /**
+   * Moving the document to another context abandons the superseded-season overlay.
+   *
+   * The overlay exists to keep a lapsed season's content reachable from the season that replaced
+   * it. A faction found only in Legends is a different situation entirely — the document is no
+   * longer in a seasonal context at all — so carrying the overlay across would be layering last
+   * season's standard-play content onto an army that is not playing standard.
+   */
+  const allowsHistorical = contextResolution.allowsHistorical && !factionResolution.rulesContext
+  const armiesOfRenown = buildArmyOfRenownIndex(catalog)
 
   /**
-   * A roster that opted into Legends resolves against its own context *and* the Legends overlay.
+   * A roster resolves against its own context *and* whichever overlays it earned.
    *
    * Legends warscrolls live in a context of their own, so without the overlay a list that mixes a
    * faction's current units with its retired ones — exactly what the opt-in is for — could only
-   * import half of itself. Reachability is computed per context, because the relationship edges
-   * that connect a faction to its units are context-scoped too.
+   * import half of itself. A lapsed season is the same problem with a different boundary. Both
+   * are additive: the document stays in the context that describes the bulk of the army, and the
+   * overlay only widens what a name may resolve to. Reachability is computed per context, because
+   * the relationship edges that connect a faction to its units are context-scoped too.
    */
-  const overlayContexts = allowsLegends
-    ? catalog.rulesContexts.filter(
-        rulesContext => rulesContext.status === 'legends' && rulesContext.id !== effectiveContext.id
-      )
-    : []
+  const overlayStatuses = new Set(
+    [allowsLegends ? 'legends' : undefined, allowsHistorical ? 'historical' : undefined].filter(
+      (status): status is RulesContext['status'] => Boolean(status)
+    )
+  )
+  const overlayContexts = catalog.rulesContexts.filter(
+    rulesContext => overlayStatuses.has(rulesContext.status) && rulesContext.id !== effectiveContext.id
+  )
   const reachableByContextId = new Map(
     [effectiveContext, ...overlayContexts].map(rulesContext => [
       rulesContext.id,
-      buildReachableIds(catalog, faction.id, rulesContext.id),
+      buildReachableIds(catalog, faction.id, rulesContext.id, armiesOfRenown),
     ])
   )
   const resolutionContexts = (preferLegends: boolean): ResolutionContext[] =>
@@ -577,6 +699,7 @@ export const resolveParsedRoster = (
           selection,
           resolutionContexts(Boolean(selection.isLegends)),
           allowsLegends,
+          armiesOfRenown,
           diagnostics
         )
         return match ? [match] : []
@@ -598,6 +721,7 @@ export const resolveParsedRoster = (
     explicitIds: explicitSelectionIds,
     rulesContextId: effectiveContext.id,
     ...(allowsLegends ? { allowsLegends: true } : {}),
+    ...(allowsHistorical ? { allowsHistorical: true } : {}),
   })
   const selectionErrors = selection.diagnostics.filter(diagnostic => diagnostic.severity === 'error')
   if (selectionErrors.length) {
@@ -623,6 +747,7 @@ export const resolveParsedRoster = (
     name: parsedRoster.proposedName.trim() || 'Imported Army',
     rulesContextId: effectiveContext.id,
     ...(allowsLegends ? { allowsLegends: true } : {}),
+    ...(allowsHistorical ? { allowsHistorical: true } : {}),
     explicitSelectionIds,
   })
   const roundTrip = deserializeAos4ArmyDocument(serializeAos4ArmyDocument(proposedDocument), catalog)

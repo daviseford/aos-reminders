@@ -269,6 +269,54 @@ describe('AoS 4 selection resolution', () => {
     expect(withOptIn.diagnostics).toEqual([])
   })
 
+  /**
+   * Historical content overlays the same way Legends does (issue #1783).
+   *
+   * A General's Handbook lapses every summer and what it introduced becomes historical, while the
+   * army's warscrolls carry on. An army built during that season is a mixture of the two, so it
+   * needs both contexts applicable at once — moving it wholesale into a context holding only that
+   * season's additions would strip the rest of the army instead.
+   */
+  it('overlays historical content only when the document opts in', () => {
+    const catalog = createCatalog()
+    const historicalContext = rulesContextId('30000000-0000-4000-8000-000000000015')
+    const lapsedFormation = contentGroupId('30000000-0000-4000-8000-000000000016')
+    catalog.rulesContexts.push({
+      id: historicalContext,
+      name: 'Historical',
+      mode: 'standard',
+      status: 'historical',
+      publicationIds: [],
+    })
+    catalog.entities.push(entity(lapsedFormation, 'Lapsed Formation', [historicalContext]))
+    catalog.relationships.push({
+      id: 'relationship:unit-includes-lapsed',
+      kind: 'includes',
+      from: ids.unit,
+      to: lapsedFormation,
+      rulesContextIds: [historicalContext],
+    })
+
+    const withoutOptIn = resolveSelection(catalog, {
+      explicitIds: [ids.unit, lapsedFormation],
+      rulesContextId: contextIds.standard,
+    })
+    const withOptIn = resolveSelection(catalog, {
+      explicitIds: [ids.unit, lapsedFormation],
+      rulesContextId: contextIds.standard,
+      allowsHistorical: true,
+    })
+
+    expect(withoutOptIn.selectedIds).not.toContain(lapsedFormation)
+    expect(withoutOptIn.diagnostics.map(diagnostic => diagnostic.code)).toEqual(
+      expect.arrayContaining(['inapplicable-explicit-selection'])
+    )
+    expect(withOptIn.selectedIds).toContain(lapsedFormation)
+    expect(withOptIn.diagnostics).toEqual([])
+    // The unit the army is actually made of is still there; the overlay adds, it does not replace.
+    expect(withOptIn.selectedIds).toContain(ids.unit)
+  })
+
   it('is deterministic when entity, relationship, and input order changes', () => {
     const catalog = createCatalog()
     const reorderedCatalog: Aos4Catalog = {

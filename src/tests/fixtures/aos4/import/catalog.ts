@@ -35,6 +35,20 @@ export const importFixtureIds = {
   sameNameLore: contentGroupId('81000000-0000-4000-8000-000000000033'),
   excludedA: contentGroupId('81000000-0000-4000-8000-000000000034'),
   excludedB: contentGroupId('81000000-0000-4000-8000-000000000035'),
+  /**
+   * An Army of Renown, shaped the way generation emits one.
+   *
+   * The container carries its own slug as `groupType` and has no inbound edge from anything; its
+   * sections are named after the rules section, carry the *army's* slug, and are what the faction
+   * actually offers. Reproduced faithfully because the importer recovers the army from that shape
+   * alone — a tidier fixture would test a graph the generator never produces.
+   */
+  renownedVanguard: contentGroupId('81000000-0000-4000-8000-000000000040'),
+  renownedVanguardBattleTraits: contentGroupId('81000000-0000-4000-8000-000000000041'),
+  renownedVanguardSpellLore: contentGroupId('81000000-0000-4000-8000-000000000042'),
+  /** Last season's content, catalogued as historical once its handbook lapsed. */
+  archiveGuard: warscrollId('81000000-0000-4000-8000-000000000050'),
+  archiveFormation: contentGroupId('81000000-0000-4000-8000-000000000051'),
 }
 
 const sourceRefs: ContentEntity['sourceRefs'] = []
@@ -63,6 +77,8 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
     importFixtureIds.sameNameLore,
     importFixtureIds.excludedA,
     importFixtureIds.excludedB,
+    importFixtureIds.renownedVanguardBattleTraits,
+    importFixtureIds.renownedVanguardSpellLore,
   ].map((to, index) => ({
     id: `relationship:alpha-offers-${index}`,
     kind: 'offers',
@@ -113,6 +129,34 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
       from: importFixtureIds.excludedA,
       to: importFixtureIds.excludedB,
       rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:renowned-vanguard-includes-battle-traits',
+      kind: 'includes',
+      from: importFixtureIds.renownedVanguard,
+      to: importFixtureIds.renownedVanguardBattleTraits,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:renowned-vanguard-includes-spell-lore',
+      kind: 'includes',
+      from: importFixtureIds.renownedVanguard,
+      to: importFixtureIds.renownedVanguardSpellLore,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:alpha-offers-archive-guard',
+      kind: 'offers',
+      from: importFixtureIds.alphaFaction,
+      to: importFixtureIds.archiveGuard,
+      rulesContextIds: [importFixtureContextIds.historical],
+    },
+    {
+      id: 'relationship:alpha-offers-archive-formation',
+      kind: 'offers',
+      from: importFixtureIds.alphaFaction,
+      to: importFixtureIds.archiveFormation,
+      rulesContextIds: [importFixtureContextIds.historical],
     }
   )
 
@@ -163,6 +207,7 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
           importFixtureContextIds.current,
           importFixtureContextIds.seasonal,
           importFixtureContextIds.legends,
+          importFixtureContextIds.historical,
         ],
         sourceRefs,
       },
@@ -246,6 +291,23 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
       contentGroup(importFixtureIds.sameNameLore, 'Shared Guard', 'spell-lore'),
       contentGroup(importFixtureIds.excludedA, 'Choice A', 'artefact-of-power'),
       contentGroup(importFixtureIds.excludedB, 'Choice B', 'artefact-of-power'),
+      contentGroup(importFixtureIds.renownedVanguard, 'Renowned Vanguard', 'renowned-vanguard'),
+      contentGroup(importFixtureIds.renownedVanguardBattleTraits, 'Battle Traits', 'renowned-vanguard'),
+      contentGroup(importFixtureIds.renownedVanguardSpellLore, 'Spell Lore', 'renowned-vanguard'),
+      contentGroup(importFixtureIds.archiveFormation, 'Archive Formation', 'battle-formation', [
+        importFixtureContextIds.historical,
+      ]),
+      {
+        id: importFixtureIds.archiveGuard,
+        kind: 'warscroll',
+        revision: 'import-fixture',
+        name: 'Archive Guard',
+        factionIds: [importFixtureIds.alphaFaction],
+        keywords: [],
+        characteristics: { move: '5"', save: '4+', control: '1', health: '2' },
+        rulesContextIds: [importFixtureContextIds.historical],
+        sourceRefs,
+      },
     ],
     relationships,
   }

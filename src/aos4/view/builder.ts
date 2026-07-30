@@ -27,6 +27,7 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     explicitIds: document.explicitSelectionIds,
     rulesContextId: document.rulesContextId,
     ...(document.allowsLegends ? { allowsLegends: true } : {}),
+    ...(document.allowsHistorical ? { allowsHistorical: true } : {}),
   })
   const selected = new Set(selection.selectedIds)
   const available = new Set(selection.availableIds)
