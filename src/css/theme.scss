@@ -27,5 +27,210 @@ $container-max-widths: (
     xxl: 1610px,
 );
 
+/*
+ * Bootstrap 4.6 -> 5.3 parity pins.
+ *
+ * The move to Bootstrap 5 was made for technical reasons only; it is not a redesign. Bootstrap 5
+ * changed a number of default variable values, and left unpinned each one would have shifted the
+ * rendered page. Every override below restores the 4.6 default the product was actually built
+ * against, so the compiled CSS keeps painting what DESIGN.md documents.
+ *
+ * Do not "modernise" these to the Bootstrap 5 defaults without an explicit design decision — each
+ * one is a visible change, and several are named in DESIGN.md as part of the system.
+ */
+
+/*
+ * Responsive font sizes. 4.6 shipped RFS switched off ($enable-responsive-font-sizes: false); 5.x
+ * turns it on by default, which makes the masthead h1 and <legend> fluid (calc(... + vw)) instead of
+ * the fixed sizes DESIGN.md specifies (Display 2.5rem, and .CardHeaderTitle's four explicit
+ * breakpoints). Leaving this on would silently take over the type scale.
+ */
+$enable-rfs: false;
+
+/*
+ * Brand/semantic palette. 5.x re-picked three of Bootstrap's signal colours; DESIGN.md documents the
+ * 4.6 values as part of the product's palette (Action Blue, Success Green, Info Cyan), and $dark is
+ * the toolbar's btn-outline-dark, the most repeated control on the game screen.
+ */
+$blue: #007bff; // 5.3 default: #0d6efd
+$green: #28a745; // 5.3 default: #198754
+$cyan: #17a2b8; // 5.3 default: #0dcaf0
+$dark: #343a40; // 5.3 default: $gray-900 (#212529)
+
+/*
+ * Filled-button text colour. 4.6 picked it with color-yiq() (a brightness threshold); 5.x picks it
+ * with color-contrast(), which demands a 4.5:1 WCAG ratio and therefore chooses BLACK text on
+ * primary, success, danger, and info — including the three Subscribe CTAs, which DESIGN.md calls
+ * out as the only filled buttons in the product. 2.5 is the threshold at which color-contrast()
+ * reproduces every one of 4.6's eight decisions exactly: white on primary/secondary/success/
+ * danger/info/dark, black on warning/light.
+ *
+ * This lowers a contrast floor, so it is worth being explicit: it does not make anything less
+ * legible than it is on the live site today — it keeps the existing rendering rather than changing
+ * it. Raising the real contrast of these buttons is a design change, and a separate decision.
+ */
+$min-contrast-ratio: 2.5; // 5.3 default: 4.5
+
+/*
+ * Muted text. 5.3 repointed .text-muted at --bs-secondary-color (rgba(body-color, .75)) and marked
+ * it deprecated in favour of .text-body-secondary. DESIGN.md names "Bootstrap's text-muted" as the
+ * light-theme muted tone, which is $gray-600.
+ */
+$text-muted: #6c757d; // 5.3 default: var(--bs-secondary-color)
+
+/*
+ * Typography. 5.x points $font-family-base at its own system stack, which would land on .form-control
+ * (4.6 left $input-font-family unset, so inputs inherited from body). Pinning it to the stack
+ * src/css/index.scss already paints on <body> keeps Bootstrap and the app in agreement, and keeps
+ * every input rendering the font it renders today.
+ */
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$small-font-size: 80%; // 5.3 default: .875em
+$code-font-size: 87.5%; // 5.3 default: $small-font-size
+$line-height-sm: 1.5; // 5.3 default: 1.25 — reaches btn-sm / form-control-sm
+$line-height-lg: 1.5; // 5.3 default: 2
+
+/*
+ * Geometry. DESIGN.md ("Shapes") names 0.25rem as the product's one rounded corner, and the 12-column
+ * grid is sized off $grid-gutter-width — 5.x narrowed it from 30px to 1.5rem (24px), which would have
+ * retightened every row and container on every page.
+ */
+$border-radius: 0.25rem; // 5.3 default: .375rem
+$border-radius-lg: 0.3rem; // 5.3 default: .5rem
+$border-radius-sm: 0.2rem; // 5.3 default: .25rem
+$grid-gutter-width: 30px; // 5.3 default: 1.5rem
+
+/*
+ * Links. 4.6 left body links undecorated and underlined them on hover; 5.x underlines them at rest.
+ * DESIGN.md's Navigation section specifies "No underline".
+ */
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+/*
+ * Components. Card padding and badge metrics are both quoted in DESIGN.md (cards 0.75rem/1.25rem,
+ * the Official badge 0.25em 0.6em); the focus ring is documented as 0 0 0 0.2rem and is the visible
+ * keyboard-focus indicator, so its width is not a free parameter.
+ */
+$card-border-color: rgba(0, 0, 0, 0.125); // 5.3 default: rgba($black, .175) — DESIGN.md's hairline
+$card-spacer-y: 0.75rem; // 5.3 default: $spacer (1rem)
+$card-spacer-x: 1.25rem; // 5.3 default: $spacer (1rem)
+$card-cap-padding-y: $card-spacer-y; // 5.3 default: $card-spacer-y * .5
+$card-cap-bg: rgba(0, 0, 0, 0.03); // 5.3 default: rgba(var(--bs-body-color-rgb), .03)
+$badge-font-size: 75%; // 5.3 default: .75em
+$badge-padding-y: 0.25em; // 5.3 default: .35em
+$badge-padding-x: 0.4em; // 5.3 default: .65em
+$alert-padding-y: 0.75rem; // 5.3 default: $spacer
+$alert-padding-x: 1.25rem; // 5.3 default: $spacer
+$dropdown-item-padding-x: 1.5rem; // 5.3 default: $spacer
+$input-btn-focus-width: 0.2rem; // 5.3 default: $focus-ring-width (.25rem)
+
+/*
+ * <hr>. 4.6 drew a solid rgba(0,0,0,.1) rule; 5.x draws currentColor at opacity .25, which changes
+ * the divider's colour in both themes.
+ */
+$hr-border-color: rgba(0, 0, 0, 0.1);
+$hr-opacity: 1;
+
 /* Import Bootstrap source */
 @import "bootstrap/scss/bootstrap";
+
+/*
+ * Reboot parity.
+ *
+ * 4.6 styled the bare <label> element ($label-margin-bottom: .5rem plus display: inline-block); 5.x
+ * moved that onto the opt-in .form-label class and leaves <label> an unstyled inline. Every <label>
+ * in this codebase is a bare element, so without this rule they all lose their bottom spacing. This
+ * is a compatibility shim, not a new style — it reproduces 4.6's Reboot exactly.
+ */
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+/*
+ * 4.6's .badge-pill widened a pill badge's horizontal padding to .6em; 5.x replaced .badge-pill with
+ * the geometry-only .rounded-pill, which sets the radius and nothing else. This restores the padding
+ * so the Official marker and the sale flash keep their current shape.
+ */
+.badge.rounded-pill {
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+}
+
+/*
+ * 4.6's `small, .small` rule set `font-weight: 400` as well as the font size; 5.x sets only the
+ * size. The difference shows wherever a <small> sits inside a heading — the "/ month" suffix on the
+ * subscription plan prices inherits the heading's 500 instead of being reset to normal.
+ */
+small,
+.small {
+    font-weight: 400;
+}
+
+/*
+ * Cards.
+ *
+ * Two separate 5.x changes, both of which alter every card in the product:
+ *
+ * 1. Padding. 4.6's .card-body was `padding: $card-spacer-x` — a *single* value, so the vertical
+ *    padding was 1.25rem too and $card-spacer-y never reached it (it fed .card-title and the header
+ *    only). 5.x corrected that to `$card-spacer-y $card-spacer-x`, which tightens every card body
+ *    from 20px to 12px top and bottom. The 4.6 behaviour is what the live site renders, so it is
+ *    what we keep. Note this makes DESIGN.md's "0.75rem vertical / 1.25rem horizontal" true of the
+ *    card *header* but not the body; the body is 1.25rem all round.
+ *
+ * 2. Colour. 4.6's .card set no colour, so cards inherited the theme's text colour from an
+ *    ancestor. 5.3 hardcodes `color: var(--bs-body-color)` on .card and .card-body, which is not
+ *    routed through a Sass variable and cannot be switched off. Left alone it paints dark body text
+ *    inside dark-theme cards. `inherit` restores the 4.6 contract that ITheme relies on.
+ */
+.card {
+    color: inherit;
+}
+
+.card-body {
+    padding: $card-spacer-x;
+    color: inherit;
+}
+
+/*
+ * Columns used outside a .row.
+ *
+ * 4.6 put the gutter padding (and `width: 100%`) on the column classes themselves; 5.x moved both
+ * onto `.row > *`. Seven `col-*` elements in this codebase sit outside a row — a long-standing
+ * misuse that 4.6 rendered without complaint — and the upgrade stripped their padding and width
+ * basis, widening their contents by 30px and collapsing two of them to shrink-to-fit. This restores
+ * 4.6's base column rule for exactly those elements; real row children still take their gutters
+ * from `.row > *` and are untouched.
+ */
+:not(.row) > .col,
+:not(.row) > [class^="col-"],
+:not(.row) > [class*=" col-"] {
+    position: relative;
+    padding-right: $grid-gutter-width * 0.5;
+    padding-left: $grid-gutter-width * 0.5;
+}
+
+/*
+ * Width is restored only for the *unsized* `.col`. 4.6 gave every column `width: 100%` and then
+ * sized it with flex-basis and max-width, so the 100% was a floor the sized classes overrode; 5.x
+ * sizes columns with `width` directly, so re-declaring `width: 100%` here would beat `col-lg-8` and
+ * stretch it to full bleed. Unsized `.col` is the one case that genuinely loses its width: 5.x
+ * gives it `flex: 1 0 0%`, which in the column-direction flex parents on /join and /redeem sizes
+ * the height, leaving the width to shrink to fit.
+ */
+:not(.row) > .col {
+    width: 100%;
+}
+
+/*
+ * .text-muted is the light theme's muted tone (theme.textMuted; dark uses .text-white-75). 5.3
+ * repointed the utility at --bs-secondary-color — rgba(33,37,41,.75) rather than $gray-600 — and
+ * hardcodes that in its utilities map, so the $text-muted variable above does not reach it (it
+ * still reaches .form-text). This restores 4.6's colour.
+ */
+.text-muted {
+    color: $text-muted !important;
+}

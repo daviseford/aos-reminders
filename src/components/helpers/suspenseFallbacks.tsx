@@ -9,13 +9,13 @@ import { ROUTES } from 'utils/env'
 
 export const LoadingBtn = ({ text = 'Loading' }: { text?: string }) => (
   <GenericButton disabled type="button">
-    <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true" /> {text}
+    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" /> {text}
   </GenericButton>
 )
 
 export const OfflineBtn = ({ text = 'Offline' }: { text?: string }) => (
   <GenericButton disabled type="button">
-    <FiWifiOff className="mr-2 text-danger" /> {text}
+    <FiWifiOff className="me-2 text-danger" /> {text}
   </GenericButton>
 )
 
@@ -25,7 +25,7 @@ export const LoadingHeader = () => {
   return (
     <div className={`${theme.headerColor} py-2`}>
       <NavbarWrapper>
-        <div className="py-1 mr-3 mr-sm-5 align-items-center">
+        <div className="py-1 me-3 me-sm-5 align-items-center">
           <Spinner variant="light" size="small" />
         </div>
       </NavbarWrapper>
@@ -41,7 +41,7 @@ export const OfflineHeader = () => (
       </Link>
     )}
     <GenericButton className={navbarStyles.btn} disabled type="button">
-      <FiWifiOff className="mr-2" /> Offline
+      <FiWifiOff className="me-2" /> Offline
     </GenericButton>
   </NavbarWrapper>
 )

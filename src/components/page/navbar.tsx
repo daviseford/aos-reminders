@@ -59,7 +59,7 @@ const Navbar = () => {
         >
           Subscribe
           {!!discount && !isTinyMobile && (
-            <span className="ml-1 badge badge-pill badge-danger">{discount}% off!</span>
+            <span className="ms-1 badge rounded-pill bg-danger">{discount}% off!</span>
           )}
         </Link>
       )}

@@ -150,7 +150,7 @@ const ImportArmyModal = ({
           </button>
         </div>
 
-        <div aria-label="Import source" className="btn-group btn-block mb-3" role="group">
+        <div aria-label="Import source" className="btn-group w-100 mb-3" role="group">
           <button
             aria-pressed={mode === 'paste'}
             className={mode === 'paste' ? 'btn btn-info' : theme.genericButton}
@@ -171,7 +171,7 @@ const ImportArmyModal = ({
 
         {mode === 'paste' ? (
           <>
-            <label className="font-weight-bold" htmlFor="import-roster-text">
+            <label className="fw-bold" htmlFor="import-roster-text">
               Paste roster text
             </label>
             <textarea
@@ -185,7 +185,7 @@ const ImportArmyModal = ({
               value={text}
             />
             <button
-              className={`${theme.modalConfirmClass} btn-block mt-3`}
+              className={`${theme.modalConfirmClass} d-block w-100 mt-3`}
               disabled={!text.trim()}
               onClick={previewText}
               type="button"
@@ -201,7 +201,7 @@ const ImportArmyModal = ({
             onDragOver={handleDragOver}
             onDrop={handleDrop}
           >
-            <label className="font-weight-bold text-center" htmlFor="import-roster-file">
+            <label className="fw-bold text-center" htmlFor="import-roster-file">
               Drag and drop your roster here
             </label>
             <p className="small text-center mb-2">
@@ -217,7 +217,7 @@ const ImportArmyModal = ({
             {!!droppedFileName && <p className="small mt-2 mb-0">{droppedFileName}</p>}
             <input
               accept=".txt,.ros,.rosz,text/plain,application/xml,application/zip"
-              className="sr-only"
+              className="visually-hidden"
               id="import-roster-file"
               onChange={event => void previewFile(event.target.files?.[0])}
               ref={fileInputRef}
@@ -237,13 +237,13 @@ const ImportArmyModal = ({
 
         <div className="row mt-4">
           <div className="col-6">
-            <button className={`${theme.modalDangerClass} btn-block`} onClick={closeModal} type="button">
+            <button className={`${theme.modalDangerClass} d-block w-100`} onClick={closeModal} type="button">
               Cancel
             </button>
           </div>
           <div className="col-6">
             <button
-              className={`${theme.modalSuccessClass} btn-block`}
+              className={`${theme.modalSuccessClass} d-block w-100`}
               disabled={!canApply}
               onClick={apply}
               type="button"

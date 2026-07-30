@@ -23,8 +23,13 @@ export const DonateComponent = () => {
           className={`col-10 col-sm-8 col-md-6 col-lg-4 col-xl-4 card ${theme.bgColor} ${theme.text} py-3`}
         >
           <div className="row d-flex justify-content-center d-print-none">
-            <div className="btn-group btn-group-lg" role="group" aria-label="Donate">
-              <div className="btn-group mr-2" role="group" aria-label="Donate options">
+            {/* px-0 w-auto flex-shrink-1: opt out of Bootstrap 5's `.row > *` gutters — see navbar_wrapper. */}
+            <div
+              className="btn-group btn-group-lg px-0 w-auto flex-shrink-1"
+              role="group"
+              aria-label="Donate"
+            >
+              <div className="btn-group me-2" role="group" aria-label="Donate options">
                 <IconContext.Provider value={{ size: '2.2em' }}>
                   <FaCcPaypal onClick={handlePaypalClick} className="mx-2" style={{ cursor: 'pointer' }} />
                 </IconContext.Provider>

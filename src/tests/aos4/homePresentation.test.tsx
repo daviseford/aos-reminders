@@ -122,7 +122,9 @@ describe('AoS 4 home presentation', () => {
   })
 
   it('preserves the established header, builder-card, toolbar, and reminder-card presentation', () => {
-    expect(container.querySelector('.jumbotron.jumbotron-fluid')).not.toBeNull()
+    // The masthead band: Bootstrap 5 removed .jumbotron, so the landmark is the themed,
+    // print-suppressed header block that carried those classes.
+    expect(container.querySelector('.bg-themeDarkBluePrimary.d-print-none')).not.toBeNull()
     expect(container.querySelector('.bg-themeDarkBluePrimary')).not.toBeNull()
     expect(container.querySelector('[role="switch"]')).not.toBeNull()
     expect(container.querySelector('.card-header.bg-themeLightBlue')).not.toBeNull()

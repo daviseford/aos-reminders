@@ -70,7 +70,7 @@ const GiftTable = () => {
             <div className={rowClass}>
               <p className={`mb-1 ${theme.text} ${centerContentClass}`}>
                 These gifts were given to you by the AoS Reminders team. Spread them around!
-                {!isMobile && <FaRegSmileBeam className="ml-2" />}
+                {!isMobile && <FaRegSmileBeam className="ms-2" />}
               </p>
             </div>
             <div className={rowClass}>
@@ -102,10 +102,10 @@ const GiftButton = (props: IGiftSubscription) => {
   return (
     <CopyToClipboard onCopy={handleCopy} text={props.url}>
       <GenericButton className={`${theme.genericButton} mx-2 my-2`}>
-        <FaGift className="mr-2" />
-        <strong className="mr-1">{label}</strong>
+        <FaGift className="me-2" />
+        <strong className="me-1">{label}</strong>
         {!isMobile && ' Gift'}
-        {copied && <FaCheck className="text-success ml-2" />}
+        {copied && <FaCheck className="text-success ms-2" />}
       </GenericButton>
     </CopyToClipboard>
   )
@@ -213,7 +213,7 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       <td>${(parseFloat(supportPlan.cost) * quantity).toFixed(2)}</td>
       <td>
         <GenericButton
-          className={`btn ${isMobile ? 'btn-sm' : ''} btn-block btn-primary`}
+          className={`btn ${isMobile ? 'btn-sm' : ''} d-block w-100 btn-primary`}
           onClick={isAuthenticated ? handleCheckout : login}
         >
           {isMobile ? 'Buy' : 'Purchase'}

@@ -67,7 +67,7 @@ const ShareArmyModal = ({ closeModal, document, isOpen }: ShareArmyModalProps) =
 
         {shareUrl ? (
           <>
-            <label className="font-weight-bold" htmlFor="share-army-url">
+            <label className="fw-bold" htmlFor="share-army-url">
               Share link
             </label>
             <input
@@ -76,13 +76,13 @@ const ShareArmyModal = ({ closeModal, document, isOpen }: ShareArmyModalProps) =
               readOnly
               value={shareUrl}
             />
-            <button className={`${theme.modalConfirmClass} btn-block mt-3`} onClick={() => void copy()}>
+            <button className={`${theme.modalConfirmClass} d-block w-100 mt-3`} onClick={() => void copy()}>
               {copied ? 'Copied' : 'Copy link'}
             </button>
           </>
         ) : (
           <button
-            className={`${theme.modalSuccessClass} btn-block`}
+            className={`${theme.modalSuccessClass} d-block w-100`}
             disabled={!configured}
             onClick={() => void create()}
             type="button"

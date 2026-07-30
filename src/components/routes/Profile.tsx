@@ -106,9 +106,9 @@ const SubscriptionInfo = () => {
           <span className={centerContentClass}>
             Subscription Status:{' '}
             {isActive ? (
-              <MdCheckCircle className="text-success ml-2" />
+              <MdCheckCircle className="text-success ms-2" />
             ) : (
-              <MdNotInterested className="text-danger ml-2" />
+              <MdNotInterested className="text-danger ms-2" />
             )}
           </span>
         </h4>
@@ -157,7 +157,7 @@ const TemporaryGrantComponent = () => {
       <div className={theme.profileCardHeader}>
         <h4>
           <span className={centerContentClass}>
-            Subscription Status: <FaSearchDollar className="text-warning ml-2" />
+            Subscription Status: <FaSearchDollar className="text-warning ms-2" />
           </span>
         </h4>
       </div>
@@ -165,7 +165,7 @@ const TemporaryGrantComponent = () => {
         <div className={`${centerContentClass} row`}>
           <div className="col-12">
             <h1>
-              <FaPaypal className="text-info ml-2 align-self-center" />
+              <FaPaypal className="text-info ms-2 align-self-center" />
             </h1>
           </div>
           <div className="col-12">
@@ -207,9 +207,9 @@ const RecurringPaymentInfo = () => {
           <span className={centerContentClass}>
             Recurring Payment:{' '}
             {isActive && !isCanceled ? (
-              <MdCheckCircle className="text-success ml-2" />
+              <MdCheckCircle className="text-success ms-2" />
             ) : (
-              <MdNotInterested className="text-danger ml-2" />
+              <MdNotInterested className="text-danger ms-2" />
             )}
           </span>
         </h4>
@@ -221,9 +221,9 @@ const RecurringPaymentInfo = () => {
       )}
       {isGifted && (
         <div className={theme.cardBody}>
-          <FaGift className="mr-2" />
+          <FaGift className="me-2" />
           You were gifted this subscription!
-          <FaGift className="ml-2" />
+          <FaGift className="ms-2" />
           <br />
           You may purchase a recurring subscription at the end of this period.
         </div>

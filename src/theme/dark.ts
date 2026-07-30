@@ -68,7 +68,7 @@ const DarkTheme: ITheme = {
   cardHeader: `card-header bg-themeLightBlue text-white`,
   dropzone: `dropzone-dark`,
   genericButton: `btn btn-outline-light`,
-  genericButtonBlock: `btn btn-outline-light btn-block`,
+  genericButtonBlock: `btn btn-outline-light d-block w-100`,
   headerColor: bgColor,
   modalConfirmClass: `btn btn-outline-light`,
   modalDangerClass: `btn btn-danger`,

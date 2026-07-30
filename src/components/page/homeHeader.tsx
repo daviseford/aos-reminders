@@ -28,7 +28,13 @@ export const Header = ({
   const { theme } = useTheme()
   const isMobile = useIsMobile()
   const option = factions.find(faction => faction.value === factionId) ?? null
-  const jumboClass = `jumbotron jumbotron-fluid text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
+  /*
+   * Bootstrap 5 dropped .jumbotron/.jumbotron-fluid. Nothing is lost here: after the utilities on
+   * this same element (mb-0, pt-4, pb-2/pb-3, and theme.headerColor) the pair contributed only
+   * padding-inline: 0 and border-radius: 0, which a bare <div> already has. Measured before and
+   * after the upgrade, the element's box is unchanged.
+   */
+  const mastheadClass = `text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
     isMobile ? 'pb-2' : 'pb-3'
   }`
 
@@ -36,7 +42,7 @@ export const Header = ({
     <div className={theme.headerColor}>
       <Navbar />
 
-      <div className={jumboClass}>
+      <div className={mastheadClass}>
         <div className="container">
           <h1 className="text-white">Age of Sigmar Reminders</h1>
           <p className="mt-3 mb-1 d-none d-sm-block text-white">
@@ -60,7 +66,7 @@ export const Header = ({
                 in the opposite mode is a dead stop in the tab order.
               */}
               <span
-                className={`align-self-center pb-2 mr-2 ${isGameMode ? '' : 'font-weight-bold'}`}
+                className={`align-self-center pb-2 me-2 ${isGameMode ? '' : 'fw-bold'}`}
                 onClick={() => isGameMode && onToggleGameMode()}
               >
                 Edit
@@ -84,7 +90,7 @@ export const Header = ({
                 />
               </label>
               <span
-                className={`align-self-center pb-2 ml-2 ${isGameMode ? 'font-weight-bold' : ''}`}
+                className={`align-self-center pb-2 ms-2 ${isGameMode ? 'fw-bold' : ''}`}
                 onClick={() => !isGameMode && onToggleGameMode()}
               >
                 Play
@@ -100,7 +106,7 @@ export const Header = ({
             <>
               <span className="text-white">Select your faction to get started:</span>
               <div className="d-flex pt-3 pb-2 justify-content-center">
-                <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
+                <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-start">
                   <Select
                     aria-label="Faction"
                     value={option}

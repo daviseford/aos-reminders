@@ -131,7 +131,7 @@ const ReminderEntry = ({
         <div className="flex-grow-1 ReminderHeading" {...provided.dragHandleProps}>
           <span className="ReminderHeadingRow">
             <strong className={theme.text}>{reminder.name}</strong>
-            {reminder.hidden && <MdVisibilityOff className={`${theme.text} ml-2`} />}
+            {reminder.hidden && <MdVisibilityOff className={`${theme.text} ms-2`} />}
             {!isMobile && <ReminderTags tags={reminder.tags} />}
           </span>
           {isMobile && <ReminderTags tags={reminder.tags} />}
@@ -145,7 +145,7 @@ const ReminderEntry = ({
             >
               <FaEllipsisH />
             </Dropdown.Toggle>
-            <Dropdown.Menu alignRight>
+            <Dropdown.Menu align="end">
               <Dropdown.Item onClick={() => onHide(reminder)}>
                 {reminder.hidden ? 'Show rule' : 'Hide rule'}
               </Dropdown.Item>
@@ -165,12 +165,12 @@ const ReminderEntry = ({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {source.official && <span className="badge badge-primary badge-pill mr-2">Official</span>}
+                    {source.official && <span className="badge bg-primary rounded-pill me-2">Official</span>}
                     {source.label}
                   </a>
                 ) : (
                   <Dropdown.ItemText key={source.id}>
-                    {source.official && <span className="badge badge-primary badge-pill mr-2">Official</span>}
+                    {source.official && <span className="badge bg-primary rounded-pill me-2">Official</span>}
                     {source.label}
                   </Dropdown.ItemText>
                 )
@@ -242,7 +242,12 @@ const ReminderCard = ({
             {...provided.droppableProps}
             className={`row d-block PageBreak ${printable ? '' : 'd-print-none'}`}
           >
-            <div className="card border-dark my-2 mx-1">
+            {/*
+              px-0 w-auto: opt out of Bootstrap 5's `.row > *` rule — see navbar_wrapper. Here the
+              row is `d-block`, so the card is a block box: the injected `width: 100%` would fight
+              its own `mx-1` margins and push the card past the row.
+            */}
+            <div className="card border-dark my-2 mx-1 px-0 w-auto">
               <CollapsibleCardHeader
                 bodyId={bodyId}
                 isExpanded={isExpanded}

@@ -37,10 +37,10 @@ export const CollapsibleCardHeader = ({
         type="button"
       >
         <div className={`d-flex justify-content-${isMobile ? 'end' : 'center'} align-items-center`}>
-          <div className={`flex-grow-1 text-center ${isMobile ? '' : 'pl-5'}`}>
+          <div className={`flex-grow-1 text-center ${isMobile ? '' : 'ps-5'}`}>
             <h2 className="CardHeaderTitle">{title}</h2>
           </div>
-          <div className={`${isMobile ? 'pr-0' : 'px-3'} d-print-none`}>
+          <div className={`${isMobile ? 'pe-0' : 'px-3'} d-print-none`}>
             {isExpanded ? <MdRemove aria-hidden /> : <MdExpandMore aria-hidden />}
           </div>
         </div>

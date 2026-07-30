@@ -40,16 +40,21 @@ const RadioGroup = <T extends string>({
     </legend>
     <div className="d-flex justify-content-center">
       {options.map(option => (
-        <div className="custom-control custom-radio custom-control-inline" key={option.id}>
+        /*
+          Bootstrap 5 folded .custom-control/.custom-radio into the single .form-check family; the
+          bespoke-styled radio is now the only radio there is. Geometry is the same (1.5em of left
+          padding, 1rem inline gap, a 1em control).
+        */
+        <div className="form-check form-check-inline" key={option.id}>
           <input
             checked={value === option.id}
-            className="custom-control-input"
+            className="form-check-input"
             id={`${name}-${option.id}`}
             name={name}
             onChange={() => onChange(option.id)}
             type="radio"
           />
-          <label className="custom-control-label" htmlFor={`${name}-${option.id}`}>
+          <label className="form-check-label" htmlFor={`${name}-${option.id}`}>
             {option.label}
           </label>
         </div>
@@ -129,13 +134,17 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
       */}
       <div className="row mx-3 mt-4 pb-3">
         <div className="col-12 pb-2">
-          <button className={`${theme.modalDangerClass} btn-block`} onClick={closeModal} type="button">
+          <button className={`${theme.modalDangerClass} d-block w-100`} onClick={closeModal} type="button">
             Cancel
           </button>
         </div>
         <div className="col-12 pb-2">
-          <button className={`${theme.modalConfirmClass} btn-block`} onClick={handleDownload} type="button">
-            <MdFileDownload className="mr-2" />
+          <button
+            className={`${theme.modalConfirmClass} d-block w-100`}
+            onClick={handleDownload}
+            type="button"
+          >
+            <MdFileDownload className="me-2" />
             Download PDF
           </button>
         </div>

@@ -9,7 +9,7 @@ const LightTheme: ITheme = {
   cardHeader: `card-header bg-themeLightBlue text-white`,
   dropzone: `dropzone`,
   genericButton: `btn btn-outline-dark`,
-  genericButtonBlock: `btn btn-outline-dark btn-block`,
+  genericButtonBlock: `btn btn-outline-dark d-block w-100`,
   headerColor: `bg-themeDarkBluePrimary`,
   modalConfirmClass: `btn btn-outline-dark`,
   modalDangerClass: `btn btn-outline-danger`,
