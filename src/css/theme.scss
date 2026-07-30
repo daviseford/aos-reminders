@@ -15,6 +15,16 @@ $themeLightGray: #e9ecef;
  */
 $themeProfileHeaderDark: mix($themeLightBlue, $themeDarkBlueSecondary, 30%);
 
+/*
+ * Muted secondary text in light theme — the timing-tag explainer and the import dropzone's
+ * instructions. Bootstrap's own `text-muted` (#6c757d) measures 4.49:1 against the dropzone's
+ * #fafafa and so misses AA by a hair; this reaches 6.80:1 on the same surface.
+ */
+$themeMutedInk: #4d5a63;
+
+/* The dropzone's focus and drag-over accent. The drag-over fill is this colour at 8%. */
+$themeDropzoneAccent: #2196f3;
+
 /* Override default Bootstrap variables */
 $grid-breakpoints: (
     xs: 0,

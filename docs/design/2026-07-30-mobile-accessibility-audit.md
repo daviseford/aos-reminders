@@ -18,9 +18,12 @@ or the exact source line cited; measured values are quoted verbatim.
 | 1 | Accessibility | 3/4 | +1 | 85 reminder tag buttons are 20 px tall, under the 24 px WCAG 2.5.8 minimum |
 | 2 | Performance | 2/4 | — | One initial chunk is 1.42 MB gzipped — 94% of all shipped JS |
 | 3 | Responsive Design | 3/4 | +1 | Target sizes, not layout, are what still fails on a phone |
-| 4 | Theming | 3/4 | — | Zero contrast failures in either theme; 9 undocumented literal colours remain in `index.scss` |
+| 4 | Theming | 3/4 → **4/4** | +1 | Zero contrast failures in either theme; the literal-colour drift was closed by the amendment below |
 | 5 | Implementation Integrity | 3/4 | +1 | Four dead classes survive, two of them the loading screen's only intended motion |
-| **Total** | | **14/20** | **+3** | **Good — address weak dimensions** |
+| **Total** | | **14/20** → **15/20** | **+4** | **Good — address weak dimensions** |
+
+Scored 14/20 as published; 15/20 after the `/impeccable extract` amendment at the end of this
+document, which also records a P1 contrast failure this pass had missed.
 
 Previous score: **11/20** (Acceptable). **17 of the 23 prior findings are fixed**, including the sole
 P0 and nine of ten P1s.
@@ -274,3 +277,48 @@ None.
   but a real-device pass is still worth doing before launch.
 - No `prefers-reduced-motion` audit beyond `Subscribe.tsx` was needed: the product has one CSS
   transition (the dropzone border) and no other motion.
+
+## Amendment — 2026-07-30, after `/impeccable extract`
+
+Running the recommended `extract` pass on the P3 literal-colour drift surfaced a defect this audit
+had missed, and closed the P3 itself. Both are recorded here rather than by rewriting the findings
+above, so the original pass stays readable as what it was.
+
+### New: [P1] Dropzone instructions were 1.80:1 — WCAG 1.4.3 AA
+
+- **Location**: `src/css/index.scss` `.dropzone { color: #bdbdbd }` over `background-color: #fafafa`
+- **Found**: while assessing whether `#bdbdbd` was worth promoting to a token
+- **Evidence**: measured live with the import modal open, light theme — the dropzone's own
+  instructions, `"Drag and drop your roster here"` (16 px, 700) and
+  `"AoS app or Listbot text (.txt), or New Recruit roster (.ros or .rosz)"` (12 px, 400), both
+  inherited `rgb(189, 189, 189)` on `rgb(250, 250, 250)` for **1.80:1**. The sibling "Choose a file"
+  button was unaffected at 11.02:1 because it carries its own colour.
+- **Why this pass missed it**: contrast was measured on `/` in both themes, and the dropzone only
+  exists inside the import modal. Modal surfaces were not opened. **Route-level contrast sweeps are
+  not sufficient — every modal and overlay needs its own pass.**
+- **Impact**: the two lines that tell a player what the import accepts were effectively invisible on
+  the surface whose entire job is explaining the import. PRODUCT.md records that players commonly
+  arrive with a roster built elsewhere, so this is on a primary path, not a corner.
+- **Fixed in this amendment**: replaced with the muted ink already used by the timing-tag explainer,
+  measured at **6.80:1** on the same background. Bootstrap 5.3's own `.text-muted` (`#6c757d`) was
+  rejected: it measures **4.49:1** against `#fafafa` and misses AA by a hair.
+
+### Resolved: [P3] literal values in `index.scss`
+
+Detector findings across `src/css`, `src/components`, and `src/theme` went **17 → 0**.
+
+- **Promoted to tokens** (`src/css/theme.scss`): `$themeMutedInk` (`#4d5a63`, now two uses with one
+  intent — tag explainer and dropzone) and `$themeDropzoneAccent` (`#2196f3`, three uses plus a
+  derived `rgba($themeDropzoneAccent, 0.08)` drag fill that had been hand-expanded to
+  `rgba(33, 150, 243, 0.08)`).
+- **Recorded in DESIGN.md's frontmatter**: the values whose *prose* the record already described but
+  whose machine-readable block omitted — the print tag edge, modal edge and scrim, the mono stack,
+  fine print at 12 px, the explainer step at 0.78 rem, the dropzone radius, and the `.CardHeaderTitle`
+  responsive and print ramp. This was the bulk of the drift: the design record was correct in
+  English and incomplete in YAML.
+- **Not tokenised**: the dropzone's `#eeeeee` / `#fafafa` / `black` / `whitesmoke` neutrals, each used
+  once with no defect. Extract's own rule is that a value earns a token at three uses with one
+  intent; one-off values earn documentation instead.
+
+Theming moves 3/4 → 4/4. The remaining P1s (target size, bundle) are unchanged, so the total is
+**15/20**.
