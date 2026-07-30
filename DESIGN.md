@@ -260,8 +260,9 @@ optional — a new surface with no print decision is unfinished.
 
 ## Elevation & Depth
 
-**Flat by default; borders do the work.** There are no `box-shadow` values anywhere in the
-stylesheet. Separation comes from a 1px border plus a background shift: in light theme a
+**Flat by default; borders do the work.** `src/css/` declares no `box-shadow` of its own, and
+Bootstrap ships with `$enable-shadows: false`, so component surfaces are flat unless something opts
+in. Separation comes from a 1px border plus a background shift: in light theme a
 `rgba(0,0,0,0.125)` hairline against white, in dark theme an explicit `border-dark` or Pale Gray
 edge against Midnight Slate. Card headers separate from bodies by colour alone.
 
@@ -269,19 +270,34 @@ This is not minimalism for its own sake. Shadows vanish in print, so a system th
 to convey structure would lose that structure on paper — and paper is a primary output here.
 Borders survive the trip.
 
+"Flat by default" is the default, not an absolute: three things opt in, and all three are listed
+below. Reading only `src/css/` will miss two of them, because they arrive as Bootstrap utility
+classes in JSX and as a prop on a third-party control.
+
 ### Shadow Vocabulary
 
-One exception, and it is a physical control:
+Three, in descending order of how deliberate they look:
 
 - **Switch handle** (`box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.6)`; active
-  `0px 0px 1px 10px rgba(0, 0, 0, 0.2)`): the Edit/Play and theme toggles. The shadow reads as a
-  handle that moves, which is exactly what it is.
+  `0px 0px 1px 10px rgba(0, 0, 0, 0.2)`): the Edit/Play toggle (`src/components/page/homeHeader.tsx`)
+  and the theme toggle (`src/components/routes/Profile.tsx`), both passed as props to `react-switch`.
+  The shadow reads as a handle that moves, which is exactly what it is.
+- **Focus ring** (`box-shadow: 0 0 0 0.2rem <tinted>`, Bootstrap's `$input-btn-focus-box-shadow`):
+  how Bootstrap draws focus on buttons and inputs. Not decorative and not optional — it is the
+  visible keyboard-focus indicator, and nothing may suppress it.
+- **Card lift** (`shadow-sm`, `0 .125rem .25rem rgba(0,0,0,.075)`): exactly two places — the
+  subscription plan cards (`src/components/payment/pricingPlans.tsx`) and the FAQ entry cards
+  (`src/components/routes/Faq.tsx`). Both are standalone marketing/reference cards on secondary
+  routes, not part of the reminders surface, and neither is reproduced by the reminder or builder
+  cards. Treat it as incumbent, not as licence to spread `shadow-sm` onto the game screen.
 
 ### Named Rules
 
-**The Flat-By-Default Rule.** Surfaces are flat at rest and flat in motion. A shadow is only
-permitted on a control that physically travels. If a new element needs to feel separated, give it a
-border and a background, not a shadow.
+**The Flat-By-Default Rule.** Surfaces are flat unless they earn otherwise, and the reminders and
+builder surfaces are flat without exception. Two things earn it: a control that physically travels
+(the switch handles) and the focus ring, which is an accessibility requirement rather than a
+depth choice. `shadow-sm` on the plan and FAQ cards predates this record and is preserved as
+incumbent. If a new element needs to feel separated, give it a border and a background.
 
 ## Shapes
 
@@ -343,7 +359,8 @@ The reminder timing tags — the one genuinely bespoke component in the system.
 
 - **Corner Style:** `0.25rem`.
 - **Background:** white in light theme, Midnight Slate in dark.
-- **Shadow Strategy:** none — see Elevation.
+- **Shadow Strategy:** none. The reminder and builder cards carry no `shadow-sm`; the plan and FAQ
+  cards do — see Elevation.
 - **Border:** 1px hairline; dark theme adds an explicit `border border-dark`.
 - **Internal Padding:** `0.75rem` vertical / `1.25rem` horizontal, tightening to `0.75rem` vertical
   on the reminder body below 576px and to `0.5rem` in print.
@@ -399,7 +416,11 @@ the opposite mode is a dead stop in the tab order.
 ### Don't:
 
 - **Don't** introduce a web font, or any render-blocking resource on the reminders path.
-- **Don't** add a `box-shadow` to anything that doesn't physically move.
+- **Don't** add a `box-shadow` to a new element. The switch handles, Bootstrap's focus ring, and the
+  incumbent `shadow-sm` on the plan and FAQ cards are the whole vocabulary; never put one on the
+  reminders or builder surface.
+- **Don't** suppress Bootstrap's focus ring — it is a `box-shadow`, and removing it removes the
+  visible keyboard-focus indicator.
 - **Don't** hardcode a hex in a component, or reach for `$themeRed`, `$themeYellow`, or
   `$themeDarkBlueTertiary` — they are declared but unused and are not part of the system.
 - **Don't** change heading level to change text size. Set the size in `.CardHeaderTitle`.
