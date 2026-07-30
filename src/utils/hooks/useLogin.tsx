@@ -11,7 +11,8 @@ interface UseLoginProps {
 const useLogin = ({ origin, onPopupClose }: UseLoginProps) => {
   const { isLoading, loginWithPopup } = useAuth0()
   const [popupIsClosed, setPopupIsClosed] = useState(false)
-  const timerRef = useRef<number>()
+  // @types/react 19 requires an explicit initial value for useRef.
+  const timerRef = useRef<number | undefined>(undefined)
 
   const clearPopupTimer = useCallback(() => {
     if (timerRef.current === undefined) return

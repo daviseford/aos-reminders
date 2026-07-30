@@ -2,8 +2,8 @@
 // @vitest-environment-options {"url":"https://preview.example.test/subscribe"}
 
 import { PlanComponent } from 'components/payment/pricingPlans'
-import { render, unmountComponentAtNode } from 'react-dom'
-import { act } from 'react-dom/test-utils'
+import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { act } from 'react'
 import { SUBSCRIPTION_PLANS } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -61,6 +61,11 @@ describe('subscription pricing plans', () => {
   it('keeps the established plan card stable while handing checkout to Stripe', async () => {
     stripe.redirectToCheckout.mockResolvedValue({})
 
+    /*
+     * Render and click must be separate act() blocks. A concurrent root schedules the render rather
+     * than performing it inline, so the button does not exist until act() flushes — under the old
+     * synchronous ReactDOM.render both could share one block.
+     */
     await act(async () => {
       render(
         <PlanComponent
@@ -70,7 +75,13 @@ describe('subscription pricing plans', () => {
         />,
         container
       )
-      container.querySelector('button')?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    const checkoutButton = container.querySelector('button')
+    expect(checkoutButton).not.toBeNull()
+
+    await act(async () => {
+      checkoutButton!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
       await Promise.resolve()
       await Promise.resolve()
     })
