@@ -231,6 +231,20 @@ describe('AoS 4 parsed-roster resolution', () => {
     )
   })
 
+  /**
+   * A container row is not an army (#1796). Resolving one would hand back a force with no units
+   * and no way for the player to tell why, so it is absent from the search space entirely and the
+   * roster fails where they can see it.
+   */
+  it('does not resolve a faction row that offers no warscrolls', () => {
+    const container = resolve(roster({ declaredFaction: 'Endless Spells', selections: [] }))
+
+    expect(container.proposedDocument).toBeUndefined()
+    expect(container.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'missing-faction', severity: 'error' })
+    )
+  })
+
   it('rejects a roster without a faction and round-trips the proposed document', () => {
     const missingFaction = resolve(roster({ declaredFaction: undefined }))
 

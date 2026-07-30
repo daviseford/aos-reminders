@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import {
+  armyFactions,
   sourceRecordId,
   validateCatalog,
   type Ability,
@@ -305,6 +306,23 @@ describe('AoS 4 catalog generation integrity', () => {
       (entity): entity is Faction => entity.kind === 'faction' && entity.rulesContextIds.includes(standard.id)
     )
     expect(factions).toHaveLength(27)
+
+    /*
+     * Not every decoded faction row is an army. `Endless Spells` is a container for universal
+     * manifestations (#1796), and it is the only row of that shape: every real army offers at least
+     * eleven warscrolls, this one offers none. Restoring the manifestation warscrolls (#1791) is
+     * expected to retire the row, and this assertion should fail loudly when a second container
+     * appears or this one gains units, rather than letting either back into the army selector.
+     */
+    const armies = armyFactions(AOS4_CATALOG)
+    const allFactions = AOS4_CATALOG.entities.filter((entity): entity is Faction => entity.kind === 'faction')
+    expect(allFactions).toHaveLength(28)
+    expect(armies).toHaveLength(27)
+    expect(allFactions.filter(faction => !armies.includes(faction)).map(faction => faction.name)).toEqual([
+      'Endless Spells',
+    ])
+    expect(armies.filter(army => army.rulesContextIds.includes(seasonal.id))).toHaveLength(26)
+
     AOS4_CATALOG.rulesContexts.forEach(context => {
       const applicableFactions = AOS4_CATALOG.entities.filter(
         (entity): entity is Faction =>

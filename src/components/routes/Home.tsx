@@ -1,4 +1,4 @@
-import type { CanonicalId, Faction, SourceArtifact } from '../../aos4/domain'
+import { armyFactions, type CanonicalId, type SourceArtifact } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID } from '../../aos4/generated'
 import type { PrintPageSize } from '../../aos4/print/presets'
 import type { PrintPreset } from '../../aos4/print/types'
@@ -69,8 +69,15 @@ const reminderSources = (reminder: Aos4ReminderViewModel): ReminderSourceLink[] 
     ).values()
   )
 
-const factionEntities = AOS4_CATALOG.entities.filter((entity): entity is Faction => entity.kind === 'faction')
-const factionById = new Map(factionEntities.map(faction => [faction.id, faction]))
+/*
+ * Every decoded faction can name itself, but only the ones that field units are offered. A stored
+ * document naming a faction that is no longer on offer keeps its own name and leaves the selector
+ * empty, the same way one from another rules context already does.
+ */
+const factionById = new Map(
+  AOS4_CATALOG.entities.flatMap(entity => (entity.kind === 'faction' ? [[entity.id, entity] as const] : []))
+)
+const selectableFactions = armyFactions(AOS4_CATALOG)
 
 const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'AoS'}_Reminders`
 
@@ -92,7 +99,7 @@ const HomeContent = () => {
   })
   const factions = useMemo(
     () =>
-      factionEntities
+      selectableFactions
         .filter(faction => faction.rulesContextIds.includes(document.rulesContextId))
         .map(faction => ({ label: faction.name, value: faction.id }))
         .sort((left, right) => left.label.localeCompare(right.label)),

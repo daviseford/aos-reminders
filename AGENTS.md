@@ -20,7 +20,10 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
   the document's rules context during selection resolution
 - old browser state is deleted and replaced with a schema-valid AoS 4 document; it is never
   translated
-- all 28 decoded factions are selectable through one source-complete relationship graph
+- the 27 decoded factions that field units are selectable through one source-complete relationship
+  graph; the 28th row, `Endless Spells`, is a Wahapedia container for universal manifestations
+  rather than an army, and `armyFactions` keeps it out of the selector and the import search space
+  until #1791 settles where that content belongs
 - the accepted corpus contains 1,268 warscrolls, 1,002 battle profiles, 4,850 abilities,
   2,247 weapons, 1,402 content groups, and 18,974 live source records
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and

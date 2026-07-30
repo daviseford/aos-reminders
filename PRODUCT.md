@@ -81,9 +81,10 @@ rules authorities.
 
 ### Confirmed capabilities
 
-- Faction selection across all 28 decoded factions, and a builder covering warscrolls and content
-  groups (battle formations, artefacts of power, spell/prayer/manifestation lores, regiments of
-  renown).
+- Faction selection across the 27 armies a player can field — the 28th decoded faction row,
+  `Endless Spells`, is a source container for universal manifestations rather than a force — and a
+  builder covering warscrolls and content groups (battle formations, artefacts of power,
+  spell/prayer/manifestation lores, regiments of renown).
 - Reminder projection grouped by timing window, with per-reminder hide/show, free-text notes, and
   drag reordering within a group.
 - Source attribution per reminder, badged `Official` for Games Workshop records and linked where a

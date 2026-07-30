@@ -1,4 +1,5 @@
 export * from './ability'
+export * from './armies'
 export * from './content'
 export * from './entity'
 export * from './game'

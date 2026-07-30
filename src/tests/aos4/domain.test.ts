@@ -2,6 +2,7 @@ import {
   AOS4_CATALOG_SCHEMA_VERSION,
   TURN_PHASES,
   abilityId,
+  armyFactions,
   artifactId,
   battleProfileId,
   contentGroupId,
@@ -429,6 +430,21 @@ describe('AoS 4 domain', () => {
         subject: incomplete.id,
       })
     )
+  })
+
+  it('counts only factions that offer warscrolls as armies a player can field', () => {
+    const catalog = createCatalog()
+    const container = factionId('10000000-0000-4000-8000-000000000018')
+    catalog.entities.push({ ...faction, id: container, name: 'Endless Spells' })
+    catalog.relationships.push({
+      id: 'relationship:container-content-group',
+      kind: 'offers',
+      from: container,
+      to: ids.contentGroup,
+    })
+
+    expect(catalog.entities.filter(entity => entity.kind === 'faction')).toHaveLength(2)
+    expect(armyFactions(catalog).map(army => army.name)).toEqual(['Fixture Faction'])
   })
 
   it('rejects malformed canonical, artifact, and rules-context IDs', () => {
