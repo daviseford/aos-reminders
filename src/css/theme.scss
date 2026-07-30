@@ -8,6 +8,12 @@ $themeRed: #a12f48;
 $themeRoyalBlue: #1237c7;
 $themeYellow: #e0d51f;
 $themeLightGray: #e9ecef;
+/*
+ * Dark's profile card header. The light theme washes Signal Teal over the card at 15% alpha, but
+ * `.card` keeps Bootstrap's white background in both themes, so a translucent value composites over
+ * white and lands pale. Resolving the mix here keeps the two inputs visible and the result opaque.
+ */
+$themeProfileHeaderDark: mix($themeLightBlue, $themeDarkBlueSecondary, 30%);
 
 /* Override default Bootstrap variables */
 $grid-breakpoints: (
