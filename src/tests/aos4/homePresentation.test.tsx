@@ -6,17 +6,47 @@ import { ThemeProvider } from 'context/useTheme'
 import { SubscriptionProvider } from 'context/useSubscription'
 import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
-import { act } from 'react-dom/test-utils'
+import { act, Simulate } from 'react-dom/test-utils'
 import { MemoryRouter } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+const auth = vi.hoisted(() => ({
+  isAuthenticated: false,
+  isLoading: false,
+  loginWithPopup: vi.fn(),
+  logout: vi.fn(),
+  user: undefined as { email: string } | undefined,
+}))
+const getSubscription = vi.hoisted(() => vi.fn())
+const historyPush = vi.hoisted(() => vi.fn())
+
 vi.mock('@auth0/auth0-react', () => ({
-  useAuth0: () => ({
-    isAuthenticated: false,
-    isLoading: false,
-    loginWithPopup: vi.fn(),
-    logout: vi.fn(),
-  }),
+  useAuth0: () => auth,
+}))
+
+vi.mock('../../api/subscriptionApi', () => ({
+  SubscriptionApi: {
+    cancelSubscription: vi.fn(),
+    getSubscription,
+    updateTheme: vi.fn(),
+  },
+}))
+
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom')
+  return {
+    ...actual,
+    useHistory: () => ({ push: historyPush }),
+  }
+})
+
+vi.mock('components/input/importArmy/importArmyModal', () => ({
+  default: ({ isOpen }: { isOpen: boolean }) =>
+    isOpen ? (
+      <div aria-label="Import Army" role="dialog">
+        Free import
+      </div>
+    ) : null,
 }))
 
 class MemoryStorage implements Storage {
@@ -50,7 +80,28 @@ class MemoryStorage implements Storage {
 describe('AoS 4 home presentation', () => {
   let container: HTMLDivElement
 
+  const renderHome = () =>
+    render(
+      <AppStatusProvider>
+        <SubscriptionProvider>
+          <ThemeProvider>
+            <MemoryRouter>
+              <Home />
+            </MemoryRouter>
+          </ThemeProvider>
+        </SubscriptionProvider>
+      </AppStatusProvider>,
+      container
+    )
+
   beforeEach(() => {
+    auth.isAuthenticated = false
+    auth.isLoading = false
+    auth.user = undefined
+    auth.loginWithPopup.mockReset()
+    getSubscription.mockReset()
+    getSubscription.mockRejectedValue({ status: 501 })
+    historyPush.mockReset()
     Object.defineProperty(window, 'localStorage', {
       configurable: true,
       value: new MemoryStorage(),
@@ -59,18 +110,7 @@ describe('AoS 4 home presentation', () => {
     document.body.appendChild(container)
 
     act(() => {
-      render(
-        <AppStatusProvider>
-          <SubscriptionProvider>
-            <ThemeProvider>
-              <MemoryRouter>
-                <Home />
-              </MemoryRouter>
-            </ThemeProvider>
-          </SubscriptionProvider>
-        </AppStatusProvider>,
-        container
-      )
+      renderHome()
     })
   })
 
@@ -100,6 +140,58 @@ describe('AoS 4 home presentation', () => {
     expect(container.textContent).toContain('Subscribe')
     expect(container.textContent).toContain('FAQ')
     expect(container.textContent).toContain('Log in')
+  })
+
+  it('opens the free import without authentication or a subscription', async () => {
+    const importButton = Array.from(container.querySelectorAll('button')).find(
+      button => button.textContent?.trim() === 'Import Army'
+    )
+    expect(importButton).not.toBeUndefined()
+    expect(importButton?.disabled).toBe(false)
+
+    await act(async () => {
+      Simulate.click(importButton!)
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    expect(auth.loginWithPopup).not.toHaveBeenCalled()
+    expect(container.querySelector('[role="dialog"][aria-label="Import Army"]')).not.toBeNull()
+  })
+
+  it('keeps import free while subscriber-only actions stay gated for an inactive account', async () => {
+    act(() => {
+      unmountComponentAtNode(container)
+    })
+    auth.isAuthenticated = true
+    auth.user = { email: 'inactive@example.com' }
+
+    await act(async () => {
+      renderHome()
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    const findButton = (label: string) =>
+      Array.from(container.querySelectorAll('button')).find(button => button.textContent?.trim() === label)
+
+    expect(getSubscription).toHaveBeenCalledWith('inactive@example.com')
+    expect(findButton('My Armies')?.disabled).toBe(false)
+    expect(findButton('Share Army')?.disabled).toBe(false)
+
+    act(() => {
+      Simulate.click(findButton('My Armies')!)
+      Simulate.click(findButton('Share Army')!)
+    })
+
+    expect(historyPush).toHaveBeenNthCalledWith(1, '/subscribe')
+    expect(historyPush).toHaveBeenNthCalledWith(2, '/subscribe')
+
+    await act(async () => {
+      Simulate.click(findButton('Import Army')!)
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    expect(auth.loginWithPopup).not.toHaveBeenCalled()
+    expect(container.querySelector('[role="dialog"][aria-label="Import Army"]')).not.toBeNull()
   })
 
   it('does not render the migration-workbench reskin', () => {

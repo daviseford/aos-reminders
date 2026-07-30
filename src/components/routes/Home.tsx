@@ -91,10 +91,6 @@ const Home = () => {
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
   const [pendingShareId, setPendingShareId] = useState(() => consumePendingShareId())
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
-  const importAction = useSubscriberAction({
-    onAuthorized: () => setImportModalIsOpen(true),
-    origin: 'ImportArmy',
-  })
   const savedArmiesAction = useSubscriberAction({
     onAuthorized: () => setSavedArmiesModalIsOpen(true),
     origin: 'SavedArmies',
@@ -243,14 +239,12 @@ const Home = () => {
           hiddenCount={hiddenCount}
           onClearArmy={clearArmy}
           onDownloadPdf={() => setPrintModalIsOpen(true)}
-          onImportArmy={importAction.run}
+          onImportArmy={() => setImportModalIsOpen(true)}
           onOpenSavedArmies={savedArmiesAction.run}
           onResetArmy={() => setDocument(createDefaultAos4ArmyDocument())}
           onShareArmy={shareAction.run}
           onShowAll={showAll}
-          subscriberActionDisabled={
-            importAction.disabled || savedArmiesAction.disabled || shareAction.disabled
-          }
+          subscriberActionDisabled={savedArmiesAction.disabled || shareAction.disabled}
         />
       )}
 

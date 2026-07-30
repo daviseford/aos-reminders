@@ -18,6 +18,11 @@ export default defineConfig({
       // Add more aliases as needed
     },
   },
+  server: {
+    watch: {
+      ignored: ['**/.worktrees/**', '**/.claude/worktrees/**'],
+    },
+  },
   test: {
     ...configDefaults,
     exclude: [...configDefaults.exclude, '**/.worktrees/**', '**/.claude/**'],
