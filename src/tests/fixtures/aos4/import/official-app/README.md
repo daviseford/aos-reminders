@@ -67,6 +67,7 @@ Fail closed on malformed or hostile input, never on an illegal army.
 | `fs-001-older-handbook` | `General's Handbook 2024-25`, two seasons back, and no battle tactics line |
 | `idk-001-renown-army-no-lore` | an Army of Renown with no lore, drops or tactics rows at all — header, regiments and terrain only |
 | `ko-001-renown-army-repeats` | a two-part Army of Renown header with a `• Legends` mark mid-regiment and repeated units across two regiments |
+| `lrl-001-multi-lore` | a spell lore row holding three lores and a manifestation row holding seven, both with points suffixes, plus two identical faction terrain entries |
 
 ## Points are dropped on purpose
 

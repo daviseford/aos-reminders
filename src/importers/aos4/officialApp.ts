@@ -230,11 +230,11 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
     const lore = line.text.match(lorePattern)
     if (lore) {
       const kindHint = loreKind(lore[1])
-      // Manifestations are picked individually now — `Manifestation Lore - A (20 Points), B and C`
-      // is three selections, not one lore named after all of them.
-      const labels =
-        kindHint === 'manifestation-lore' ? splitConjoinedList(lore[2]) : [lore[2].trim()]
-      labels.forEach(label => {
+      // Every lore row can hold several picks — `Spell Lore - Lore of Hysh, Lore of the Awakened
+      // Realms and Lore of Prismatic Resonance (10 Points)` is three selections, not one lore named
+      // after all of them. Safe to split because no lore the catalog carries has a comma or the
+      // word "and" in its name; battle formations do (`Pioneers and Scavengers`) and are not split.
+      splitConjoinedList(lore[2]).forEach(label => {
         selections.push({ line: line.number, label: stripPointsSuffix(label), kindHint })
       })
       return

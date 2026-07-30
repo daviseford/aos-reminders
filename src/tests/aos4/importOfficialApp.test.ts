@@ -125,6 +125,27 @@ describe('official AoS app text import', () => {
       ])
     })
 
+    it('splits a spell lore row holding several picks', () => {
+      // Not just manifestations — a spell lore row carries multiple lores too, with the points
+      // suffix on the row rather than on each member.
+      const parsed = decode(
+        'Grand Alliance Order | Lumineth Realm-lords | Warhost of Duality (20 Points)',
+        'Spell Lore - Lore of Hysh, Lore of the Awakened Realms and Lore of Prismatic Resonance (10 Points)'
+      )
+      expect(labelled(parsed, 'spell-lore')).toEqual([
+        'Lore of Hysh',
+        'Lore of the Awakened Realms',
+        'Lore of Prismatic Resonance',
+      ])
+    })
+
+    it('does not split a battle formation whose own name contains "and"', () => {
+      // `Pioneers and Scavengers` and `Mutants and Mad Things` are single formations. Lore rows are
+      // lists; a formation row never is, so it must survive the conjunction untouched.
+      const parsed = decode('Grand Alliance Chaos | Slaves to Darkness | Pioneers and Scavengers')
+      expect(labelled(parsed, 'battle-formation')).toEqual(['Pioneers and Scavengers'])
+    })
+
     it('leaves a single-valued lore and a name containing "and" intact', () => {
       const parsed = decode(
         'Grand Alliance Order | Cities of Sigmar | Grudgebound War Throng',

@@ -1,0 +1,334 @@
+{
+  "id": "lrl-001-multi-lore",
+  "diagnostics": [],
+  "proposedName": "Lrl1",
+  "declaredFaction": "Lumineth Realm-lords",
+  "declaredContext": "General's Handbook 2025-26",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Warhost of Duality"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Hysh"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of the Awakened Realms"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Prismatic Resonance"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Twilit Sorceries"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Morbid Conjuration"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Forbidden Power"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Manifestations of Hysh"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Primal Energy"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Krondspine Incarnate"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Aetherwrought Machineries"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Archmage Teclis and Celennar, Spirit of Hysh"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Alarith Spirit of the Mountain"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Alarith Stoneguard"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Hurakan Spirit of the Wind"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Hurakan Windchargers"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Myari's Purifiers",
+      "isLegends": true
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran The Light of Eltharion"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran Vanari Bannerblade"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "The Light of Eltharion"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Thyrielle's Zephyrites",
+      "isLegends": true
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Vanari Auralan Sentinels"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Vanari Auralan Wardens"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Vanari Bannerblade"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Vanari Bladelords"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Vanari Dawnriders"
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Vanari Dawnriders"
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Vanari Dawnriders"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Vanari Lord Regent"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Vanari Starshard Ballista"
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Vanari Starshard Ballista"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Ydrilan Riverblades"
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Alarith Stonemage"
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Ellania and Ellathor, Eclipsian Warsages"
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Avalenor, The Stoneheart King"
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Vanari Lord Regent on Lightcourser"
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Alarith Spirit of the Mountain"
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Alarith Stoneguard"
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Alarith Stonemage"
+    },
+    {
+      "line": 52,
+      "kindHint": "warscroll",
+      "label": "Archmage Teclis and Celennar, Spirit of Hysh"
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Avalenor, The Stoneheart King"
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Ellania and Ellathor, Eclipsian Warsages"
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Hurakan Windchargers"
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Hurakan Windmage"
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Lyrior Uthralle, Warden of Ymetrica"
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "Myari's Purifiers",
+      "isLegends": true
+    },
+    {
+      "line": 60,
+      "kindHint": "warscroll",
+      "label": "Scinari Calligrave"
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Scinari Cathallar"
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Scinari Enlightener"
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Scinari Loreseeker"
+    },
+    {
+      "line": 64,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran The Light of Eltharion"
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran Vanari Bannerblade"
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Sevireth, Lord of the Seventh Wind"
+    },
+    {
+      "line": 67,
+      "kindHint": "warscroll",
+      "label": "The Light of Eltharion"
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Thyrielle's Zephyrites",
+      "isLegends": true
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Vanari Auralan Sentinels"
+    },
+    {
+      "line": 71,
+      "kindHint": "warscroll",
+      "label": "Vanari Auralan Wardens"
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Vanari Bannerblade"
+    },
+    {
+      "line": 73,
+      "kindHint": "warscroll",
+      "label": "Vanari Dawnriders"
+    },
+    {
+      "line": 74,
+      "kindHint": "warscroll",
+      "label": "Vanari Lord Regent"
+    },
+    {
+      "line": 75,
+      "kindHint": "warscroll",
+      "label": "Vanari Lord Regent on Lightcourser"
+    },
+    {
+      "line": 76,
+      "kindHint": "warscroll",
+      "label": "Ydrilan Riverblades"
+    },
+    {
+      "line": 79,
+      "kindHint": "warscroll",
+      "label": "Shrine Luminor"
+    },
+    {
+      "line": 80,
+      "kindHint": "warscroll",
+      "label": "Shrine Luminor"
+    }
+  ]
+}
