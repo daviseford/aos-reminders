@@ -1,0 +1,41 @@
+{
+  "id": "sce-001-exported-version-format",
+  "diagnostics": [],
+  "proposedName": "Skyhammer",
+  "declaredFaction": "Stormcast Eternals",
+  "declaredContext": null,
+  "allowsLegends": false,
+  "selections": [
+    {
+      "line": 2,
+      "kindHint": "battle-formation",
+      "label": "Sentinels of the Bleak Citadels"
+    },
+    {
+      "line": 6,
+      "kindHint": "warscroll",
+      "label": "Knight-Vexillor"
+    },
+    {
+      "line": 8,
+      "kindHint": "enhancement",
+      "label": "Mirrorshield"
+    },
+    {
+      "line": 9,
+      "kindHint": "warscroll",
+      "label": "Annihilators",
+      "count": 3
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Freeguild Fusiliers"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Freeguild Marshal"
+    }
+  ]
+}

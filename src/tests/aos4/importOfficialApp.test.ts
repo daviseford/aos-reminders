@@ -1,14 +1,9 @@
-import fs from 'node:fs'
-import path from 'node:path'
-
 import { decodeAos4TextRoster } from '../../importers/aos4'
-
-const fixture = (name: string): string =>
-  fs.readFileSync(path.resolve(process.cwd(), 'src/tests/fixtures/aos4/import/official-app', name), 'utf8')
+import { readOfficialAppFixture as fixture } from '../support/officialAppFixtures'
 
 describe('official AoS app text import', () => {
   it('decodes current app output into provider-neutral composition selections', () => {
-    const result = decodeAos4TextRoster(fixture('current.txt'))
+    const result = decodeAos4TextRoster(fixture('ser-001-current-format'))
 
     expect(result.diagnostics).toEqual([])
     expect(result.parsedRoster).toMatchObject({
@@ -28,7 +23,7 @@ describe('official AoS app text import', () => {
   })
 
   it('supports the exported-version footer, CRLF, pipe headers, and regiments of renown', () => {
-    const result = decodeAos4TextRoster(fixture('exported-version.txt').replace(/\n/g, '\r\n'))
+    const result = decodeAos4TextRoster(fixture('sce-001-exported-version-format').replace(/\n/g, '\r\n'))
 
     expect(result.diagnostics).toEqual([])
     expect(result.parsedRoster).toMatchObject({
@@ -54,8 +49,179 @@ describe('official AoS app text import', () => {
     )
   })
 
+  describe('v1.36 export shapes', () => {
+    const roster = (...body: string[]): string =>
+      [
+        'Test 100/2000 pts',
+        ...body,
+        'Created with Warhammer Age of Sigmar: The App',
+        'App: v1.36.0 (1) | Data: v466',
+      ].join('\n')
+
+    const decode = (...body: string[]) => decodeAos4TextRoster(roster(...body)).parsedRoster
+
+    const labelled = (parsed: ReturnType<typeof decode>, kind: string): string[] =>
+      (parsed?.selections ?? []).filter(s => s.kindHint === kind).map(s => s.label)
+
+    it.each([
+      ['Grand Alliance Order | Cities of Sigmar | Grudgebound War Throng', 'Cities of Sigmar'],
+      // No grand alliance at all — an Army of Renown declares `faction | army`.
+      ["Gloomspite Gitz | Da King's Gitz", 'Gloomspite Gitz'],
+      // A parent publication in front instead of a grand alliance. `Orruk Warclans` is a
+      // publication and resolves against nothing; `Ironjawz` is the faction.
+      ['Orruk Warclans | Ironjawz | Weirdfist', 'Ironjawz'],
+      ['Grand Alliance Order | Stormcast Eternals', 'Stormcast Eternals'],
+    ])('reads the faction from the tail of the header %s', (header, faction) => {
+      expect(decode(header)?.declaredFaction).toBe(faction)
+    })
+
+    it('never reads the pipe-delimited version footer as a header', () => {
+      // `App: … | Data: …` is the only other pipe line in an export, and it sits below the
+      // sections. Reading it as a faction is silent corruption, so guard it explicitly.
+      const parsed = decode('Stormcast Eternals')
+      expect(parsed?.declaredFaction).toBe('Stormcast Eternals')
+      expect(parsed?.declaredFaction).not.toContain('|')
+    })
+
+    it('does not mistake a separator run for the faction', () => {
+      expect(decode('-----', 'Stormcast Eternals', '-----')?.declaredFaction).toBe('Stormcast Eternals')
+    })
+
+    it('strips the points suffix the app now writes on battle formations', () => {
+      const parsed = decode('Grand Alliance Destruction | Ogor Mawtribes | Greedy Eaters (10 Points)')
+      expect(labelled(parsed, 'battle-formation')).toEqual(['Greedy Eaters'])
+    })
+
+    it('treats a • Legends bullet as a mark on the unit above, not an enhancement', () => {
+      const parsed = decode(
+        'Gloomspite Gitz | Da King\'s Gitz',
+        'Regiment 1',
+        'Loonboss (70)',
+        '• Legends',
+        'Squig Herd (100)'
+      )
+
+      expect(parsed?.allowsLegends).toBe(true)
+      expect(labelled(parsed, 'enhancement')).toEqual([])
+      expect(parsed?.selections).toEqual([
+        expect.objectContaining({ label: "Da King's Gitz" }),
+        expect.objectContaining({ label: 'Loonboss', isLegends: true }),
+        expect.objectContaining({ label: 'Squig Herd' }),
+      ])
+      // The mark applies to the unit above it only.
+      expect(parsed?.selections.find(s => s.label === 'Squig Herd')?.isLegends).toBeUndefined()
+    })
+
+    it('splits a manifestation line into one selection per manifestation', () => {
+      const parsed = decode(
+        'Grand Alliance Order | Cities of Sigmar | Grudgebound War Throng',
+        'Manifestation Lore - Morbid Conjuration (20 Points), Forbidden Power (20 Points) and Krondspine Incarnate'
+      )
+      expect(labelled(parsed, 'manifestation-lore')).toEqual([
+        'Morbid Conjuration',
+        'Forbidden Power',
+        'Krondspine Incarnate',
+      ])
+    })
+
+    it('leaves a single-valued lore and a name containing "and" intact', () => {
+      const parsed = decode(
+        'Grand Alliance Order | Cities of Sigmar | Grudgebound War Throng',
+        'Manifestation Lore - Forbidden Power (20 Points)',
+        'Spell Lore - Spells of the Collegiate Arcane'
+      )
+      expect(labelled(parsed, 'manifestation-lore')).toEqual(['Forbidden Power'])
+      expect(labelled(parsed, 'spell-lore')).toEqual(['Spells of the Collegiate Arcane'])
+
+      // Only the final comma segment splits on " and ", so a member whose own name contains the
+      // word survives ahead of the conjunction.
+      const conjoined = decode(
+        'Grand Alliance Order | Cities of Sigmar | Grudgebound War Throng',
+        'Manifestation Lore - Intercept and Recover, Forbidden Power and Primal Energy'
+      )
+      expect(labelled(conjoined, 'manifestation-lore')).toEqual([
+        'Intercept and Recover',
+        'Forbidden Power',
+        'Primal Energy',
+      ])
+    })
+
+    it('keeps bundled sub-units that share the cost of the line above', () => {
+      const parsed = decode(
+        'Grand Alliance Order | Cities of Sigmar | Grudgebound War Throng',
+        'Regiment 1',
+        'Freeguild Command Corps Adjutants (200)',
+        'Freeguild Command Corps Auxiliaries',
+        'Freeguild Command Corps Whisperblade',
+        'Freeguild Fusiliers (120)'
+      )
+      expect(labelled(parsed, 'warscroll')).toEqual([
+        'Freeguild Command Corps Adjutants',
+        'Freeguild Command Corps Auxiliaries',
+        'Freeguild Command Corps Whisperblade',
+        'Freeguild Fusiliers',
+      ])
+    })
+
+    it('does not read detached or sentence-shaped lines as bundled sub-units', () => {
+      const parsed = decode(
+        'Grand Alliance Order | Cities of Sigmar | Grudgebound War Throng',
+        'Regiment 1',
+        'Freeguild Fusiliers (120)',
+        'The bearer shines with a rule description that is not roster composition.',
+        '',
+        'Detached from any unit above it'
+      )
+      expect(labelled(parsed, 'warscroll')).toEqual(['Freeguild Fusiliers'])
+    })
+
+    it('keeps every faction terrain entry, not just the first', () => {
+      const parsed = decode(
+        'Grand Alliance Destruction | Ogor Mawtribes | Greedy Eaters',
+        'Faction Terrain',
+        'Great Mawpot',
+        'Mawpit'
+      )
+      expect(labelled(parsed, 'warscroll')).toEqual(['Great Mawpot', 'Mawpit'])
+    })
+
+    it('reads dashless regiment of renown members and drops the bundle itself', () => {
+      const parsed = decode(
+        'Orruk Warclans | Ironjawz | Weirdfist',
+        'Regiments of Renown',
+        "Big Grikk's Kruleshots (320)",
+        'Beast-skewer Killbow',
+        'Man-skewer Boltboyz',
+        'Big Drogg Fort-Kicka (450)',
+        'Gatebreaker Mega-Gargant'
+      )
+      // The bundle carries the points but has no warscroll of its own.
+      expect(labelled(parsed, 'warscroll')).toEqual([
+        'Beast-skewer Killbow',
+        'Man-skewer Boltboyz',
+        'Gatebreaker Mega-Gargant',
+      ])
+    })
+
+    it('ignores roster bookkeeping the app emits alongside composition', () => {
+      const parsed = decode(
+        'Gloomspite Gitz | Da King\'s Gitz',
+        'Army of Renown',
+        'Auxiliaries: 2 (+20 Points)',
+        'Drops: 5',
+        'Battle Tactics Cards: Legend of the Parch, Siege of Ashes and Smokescreen',
+        'Regiment 1',
+        'Loonboss (70)',
+        'Auxiliary Units',
+        'Madcap Shaman (80)'
+      )
+      expect(labelled(parsed, 'warscroll')).toEqual(['Loonboss', 'Madcap Shaman'])
+      expect(parsed?.selections.map(s => s.label)).not.toContain('Army of Renown')
+    })
+  })
+
   it('rejects empty, stale, mixed, oversized, and overlong inputs without guessing a source', () => {
-    const official = fixture('current.txt')
+    const official = fixture('ser-001-current-format')
     const listbot = 'Skaven\nFormation\nGenerated by Listbot 4.0'
     const stale = 'Stormcast Eternals\nGenerated by Warscroll Builder'
 

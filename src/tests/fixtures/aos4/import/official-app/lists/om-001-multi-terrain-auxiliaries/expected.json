@@ -1,0 +1,133 @@
+{
+  "id": "om-001-multi-terrain-auxiliaries",
+  "diagnostics": [],
+  "proposedName": "Om1",
+  "declaredFaction": "Ogor Mawtribes",
+  "declaredContext": "General's Handbook 2025-26",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Greedy Eaters"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Maw-magic"
+    },
+    {
+      "line": 8,
+      "kindHint": "prayer-lore",
+      "label": "Everwinter Prayers"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Forbidden Power"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Firebelly"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Gnoblar Scraplauncher"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Gnoblars"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Gorger Mawpack"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Ironblaster"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Ironguts"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Leadbelchers"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Ogor Gluttons"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran Gnoblar Scraplauncher"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran Ironblaster"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Hrothgorn Mantrapper",
+      "isLegends": true
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Kragnos, the End of Empires"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Butcher"
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Gorger Mawpack"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Ironguts"
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Frostlord on Thundertusk"
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Gorlok Blackpowder",
+      "isLegends": true
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Hrothgorn Mantrapper",
+      "isLegends": true
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Great Mawpot"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Mawpit"
+    }
+  ]
+}

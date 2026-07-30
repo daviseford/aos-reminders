@@ -1,0 +1,127 @@
+{
+  "id": "cos-001-grudgebound-legends",
+  "diagnostics": [],
+  "proposedName": "Cos1",
+  "declaredFaction": "Cities of Sigmar",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Grudgebound War Throng"
+    },
+    {
+      "line": 6,
+      "kindHint": "spell-lore",
+      "label": "Spells of the Collegiate Arcane"
+    },
+    {
+      "line": 7,
+      "kindHint": "prayer-lore",
+      "label": "Scriptures of Sigmar"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Morbid Conjuration"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Forbidden Power"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Krondspine Incarnate"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Alchemite Warforger"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Brethren of the Bolt",
+      "isLegends": true
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Celestial Hurricanum"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Flagellants"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Freeguild Command Corps Adjutants"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Freeguild Command Corps Auxiliaries"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Freeguild Command Corps Whisperblade"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Freeguild Fusiliers"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Freeguild Gallants"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Freeguild Grenadiers"
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Freeguild Steelhelms"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Hexbane's Hunters",
+      "isLegends": true
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Ironweld Great Cannon"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Luminark of Hysh"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Steam Tank"
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Wildercorps Hunters"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Dawners Triumph"
+    }
+  ]
+}

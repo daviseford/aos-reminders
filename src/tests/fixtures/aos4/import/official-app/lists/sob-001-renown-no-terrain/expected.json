@@ -1,0 +1,100 @@
+{
+  "id": "sob-001-renown-no-terrain",
+  "diagnostics": [],
+  "proposedName": "Sob1",
+  "declaredFaction": "Sons of Behemat",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": false,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Taker Tribe"
+    },
+    {
+      "line": 7,
+      "kindHint": "prayer-lore",
+      "label": "Brodd's Bellows"
+    },
+    {
+      "line": 11,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Gatebreaker Mega-Gargant"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Beast-smasher Mega-Gargant"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Gatebreaker Mega-Gargant"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Kraken-eater Mega-Gargant"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Mancrusher Gargant"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Mancrusher Mob"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Mancrusher Gargant"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Warstomper Mega-Gargant"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Kragnos, the End of Empires"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Beast-smasher Mega-Gargant"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Mortisan Ossifector"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Gothizzar Harvester"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Mortek Guard"
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Mortek Guard"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "King Brodd"
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Kragnos, the End of Empires"
+    }
+  ]
+}
