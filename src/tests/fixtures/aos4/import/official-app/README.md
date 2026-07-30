@@ -80,6 +80,11 @@ Fail closed on malformed or hostile input, never on an illegal army.
 | `hh-001-renown-stress` | 18 dashless regiments of renown, 51 members, one bundle repeated four times — the densest renown case in the corpus |
 | `mon-001-singular-model-count` | `Pusgoyle Blightlords (1 model) (110)` — the singular `model`, which resolves to a different warscroll than the plural entry beside it |
 | `skv-001-renown-manifestation-members` | the largest list in the corpus (117 selections, 57 renown members), with five-member bundles whose members include manifestations |
+| `std-001-duplicate-renown-bundles` | the same renown bundle bought twice with identical members, and 82 drops — the widest roster in the corpus |
+| `fec-001-size-variants` | four `(2 models)` size variants alongside their base warscrolls; the only fixture that resolves **65/65** against the shipped catalog |
+| `nh-001-emoji-name-renown` | an emoji in the roster name, and a renown bundle whose lone member repeats the container name (`Blades of the Hollow King`) |
+| `obr-001-single-member-bundles` | renown bundles of a single member, and the same-name bundle again from a different faction |
+| `sbg-001-emoji-only-name` | a roster name that is nothing but emoji, and `Blades of the Hollow King` as a plain auxiliary unit rather than a renown bundle |
 
 ## Points are dropped on purpose
 

@@ -1,0 +1,340 @@
+{
+  "id": "fec-001-size-variants",
+  "diagnostics": [],
+  "proposedName": "Fec1",
+  "declaredFaction": "Flesh-eater Courts",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Knightly Echelon"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Madness"
+    },
+    {
+      "line": 8,
+      "kindHint": "prayer-lore",
+      "label": "Rites of Delusion"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Manifested Insanity"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Abhorrant Ghoul King"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Crypt Flayers"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Crypt Flayers (2 models)"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Crypt Ghouls"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Crypt Haunter Courtier"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Crypt Horrors"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Crypt Horrors (2 models)"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Crypt Horrors (2 models)"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Crypt Horrors (2 models)"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Crypt Infernal Courtier"
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Cryptguard"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Grand Justice Gormayne"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "High Falconer Felgryn"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Marrowscroll Herald"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Morbheg Knights"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Royal Beastflayers"
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Royal Decapitator"
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Royal Terrorgheist"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Royal Zombie Dragon"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Royal Zombie Dragon"
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Royal Decapitator"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Varghulf Courtier"
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "The Grymwatch",
+      "isLegends": true
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "The Skinnerkin",
+      "isLegends": true
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Varghulf Courtier"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Abhorrant Ghoul King"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Abhorrant Archregent"
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Abhorrant Cardinal"
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Abhorrant Ghoul King"
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "Abhorrant Ghoul King on Royal Terrorgheist"
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Abhorrant Ghoul King on Royal Zombie Dragon"
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Abhorrant Gorewarden"
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Crypt Flayers"
+    },
+    {
+      "line": 52,
+      "kindHint": "warscroll",
+      "label": "Crypt Flayers (2 models)"
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Crypt Flayers (2 models)"
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Crypt Ghast Courtier",
+      "isLegends": true
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Crypt Ghouls"
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Crypt Haunter Courtier"
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "Crypt Horrors"
+    },
+    {
+      "line": 59,
+      "kindHint": "warscroll",
+      "label": "Crypt Horrors (2 models)"
+    },
+    {
+      "line": 60,
+      "kindHint": "warscroll",
+      "label": "Crypt Infernal Courtier"
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Cryptguard"
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Grand Justice Gormayne"
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "High Falconer Felgryn"
+    },
+    {
+      "line": 64,
+      "kindHint": "warscroll",
+      "label": "Marrowscroll Herald"
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Morbheg Knights"
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Nagash, Supreme Lord of the Undead"
+    },
+    {
+      "line": 67,
+      "kindHint": "warscroll",
+      "label": "Royal Beastflayers"
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Royal Decapitator"
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "Royal Terrorgheist"
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Royal Zombie Dragon"
+    },
+    {
+      "line": 71,
+      "kindHint": "warscroll",
+      "label": "Royal Zombie Dragon"
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Royal Zombie Dragon"
+    },
+    {
+      "line": 73,
+      "kindHint": "warscroll",
+      "label": "Royal Zombie Dragon"
+    },
+    {
+      "line": 74,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Royal Decapitator"
+    },
+    {
+      "line": 75,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Varghulf Courtier"
+    },
+    {
+      "line": 76,
+      "kindHint": "warscroll",
+      "label": "The Grymwatch",
+      "isLegends": true
+    },
+    {
+      "line": 78,
+      "kindHint": "warscroll",
+      "label": "The Skinnerkin",
+      "isLegends": true
+    },
+    {
+      "line": 80,
+      "kindHint": "warscroll",
+      "label": "Ushoran, Mortarch of Delusion"
+    },
+    {
+      "line": 81,
+      "kindHint": "warscroll",
+      "label": "Varghulf Courtier"
+    },
+    {
+      "line": 84,
+      "kindHint": "warscroll",
+      "label": "Charnel Throne"
+    }
+  ]
+}

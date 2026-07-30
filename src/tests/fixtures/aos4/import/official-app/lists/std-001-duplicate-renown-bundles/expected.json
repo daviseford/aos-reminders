@@ -1,0 +1,695 @@
+{
+  "id": "std-001-duplicate-renown-bundles",
+  "diagnostics": [],
+  "proposedName": "Std1",
+  "declaredFaction": "Slaves to Darkness",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Godswrath Warband"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of the Damned"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Primal Energy"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Manifestations of Malevolence"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Centaurion Marshal"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Sloppity Bilepiper, Herald of Nurgle",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Beast of Nurgle",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Beast of Nurgle",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Endrinmaster with Dirigible Suit",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Grundstok Gunhauler",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Skywardens",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Krittok Foulblade",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Doom-Flayers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Stormvermin",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Shardspeaker of Slaanesh",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Blissbarb Archers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Nurglings",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 36,
+      "kindHint": "warscroll",
+      "label": "Nurglings",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Warstomper Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Harbinger of Decay",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Pusgoyle Blightlords",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Putrid Blightkings",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Outlaw Cannonade Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Ashen Elder",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Dominator Engine with Bane Maces",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Magister on Disc of Tzeentch",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Gaunt Summoner on Disc of Tzeentch",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Screamers of Tzeentch",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Loonboss",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Dankhold Troggoth",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Varghulf Courtier",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Morbheg Knights",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 59,
+      "kindHint": "warscroll",
+      "label": "Mancrusher Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Contorted Epitome",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Dreadful Visage",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Mesmerising Mirror",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 64,
+      "kindHint": "warscroll",
+      "label": "Wheels of Excruciation",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Magister",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 67,
+      "kindHint": "warscroll",
+      "label": "Burning Sigil of Tzeentch",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Daemonic Simulacrum",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "Pink Horrors",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Tome of Eyes",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Daemonsmith",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 73,
+      "kindHint": "warscroll",
+      "label": "Deathshrieker Rocket Battery",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 74,
+      "kindHint": "warscroll",
+      "label": "Tormentor Bombard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 76,
+      "kindHint": "warscroll",
+      "label": "Skarbrand",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 78,
+      "kindHint": "warscroll",
+      "label": "Spoilpox Scrivener, Herald of Nurgle",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 79,
+      "kindHint": "warscroll",
+      "label": "Feculent Gnarlmaw",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 80,
+      "kindHint": "warscroll",
+      "label": "Plaguebearers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 82,
+      "kindHint": "warscroll",
+      "label": "Slaughterpriest",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 83,
+      "kindHint": "warscroll",
+      "label": "Bloodreavers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 84,
+      "kindHint": "warscroll",
+      "label": "Skullreapers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 86,
+      "kindHint": "warscroll",
+      "label": "Grand Justice Gormayne",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 87,
+      "kindHint": "warscroll",
+      "label": "Cryptguard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 88,
+      "kindHint": "warscroll",
+      "label": "Royal Decapitator",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 90,
+      "kindHint": "warscroll",
+      "label": "Warlock Galvaneer",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 91,
+      "kindHint": "warscroll",
+      "label": "Ratling Warpblaster",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 92,
+      "kindHint": "warscroll",
+      "label": "Warpvolt Scourgers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 94,
+      "kindHint": "warscroll",
+      "label": "Warlock Galvaneer",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 95,
+      "kindHint": "warscroll",
+      "label": "Ratling Warpblaster",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 96,
+      "kindHint": "warscroll",
+      "label": "Warpvolt Scourgers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 99,
+      "kindHint": "warscroll",
+      "label": "Abraxia, Spear of the Everchosen"
+    },
+    {
+      "line": 100,
+      "kindHint": "warscroll",
+      "label": "Archaon, the Everchosen"
+    },
+    {
+      "line": 101,
+      "kindHint": "warscroll",
+      "label": "Be'lakor, the Dark Master"
+    },
+    {
+      "line": 102,
+      "kindHint": "warscroll",
+      "label": "Centaurion Marshal"
+    },
+    {
+      "line": 103,
+      "kindHint": "warscroll",
+      "label": "Chaos Chariot"
+    },
+    {
+      "line": 104,
+      "kindHint": "warscroll",
+      "label": "Chaos Chariot"
+    },
+    {
+      "line": 105,
+      "kindHint": "warscroll",
+      "label": "Chaos Chosen"
+    },
+    {
+      "line": 106,
+      "kindHint": "warscroll",
+      "label": "Chaos Furies"
+    },
+    {
+      "line": 107,
+      "kindHint": "warscroll",
+      "label": "Chaos Knights"
+    },
+    {
+      "line": 108,
+      "kindHint": "warscroll",
+      "label": "Chaos Legionnaires"
+    },
+    {
+      "line": 109,
+      "kindHint": "warscroll",
+      "label": "Chaos Lord"
+    },
+    {
+      "line": 110,
+      "kindHint": "warscroll",
+      "label": "Chaos Lord on Daemonic Mount"
+    },
+    {
+      "line": 111,
+      "kindHint": "warscroll",
+      "label": "Chaos Lord on Karkadrak"
+    },
+    {
+      "line": 112,
+      "kindHint": "warscroll",
+      "label": "Chaos Lord on Manticore",
+      "isLegends": true
+    },
+    {
+      "line": 114,
+      "kindHint": "warscroll",
+      "label": "Chaos Sorcerer Lord"
+    },
+    {
+      "line": 115,
+      "kindHint": "warscroll",
+      "label": "Chaos Sorcerer Lord on Manticore",
+      "isLegends": true
+    },
+    {
+      "line": 117,
+      "kindHint": "warscroll",
+      "label": "Chaos Spawn"
+    },
+    {
+      "line": 118,
+      "kindHint": "warscroll",
+      "label": "Chaos Warriors"
+    },
+    {
+      "line": 119,
+      "kindHint": "warscroll",
+      "label": "Chaos Warshrine",
+      "isLegends": true
+    },
+    {
+      "line": 121,
+      "kindHint": "warscroll",
+      "label": "Corvus Cabal",
+      "isLegends": true
+    },
+    {
+      "line": 123,
+      "kindHint": "warscroll",
+      "label": "Cypher Lords",
+      "isLegends": true
+    },
+    {
+      "line": 125,
+      "kindHint": "warscroll",
+      "label": "Daemon Prince"
+    },
+    {
+      "line": 126,
+      "kindHint": "warscroll",
+      "label": "Darkoath Chieftain"
+    },
+    {
+      "line": 127,
+      "kindHint": "warscroll",
+      "label": "Darkoath Chieftain on Warsteed"
+    },
+    {
+      "line": 128,
+      "kindHint": "warscroll",
+      "label": "Darkoath Fellriders"
+    },
+    {
+      "line": 129,
+      "kindHint": "warscroll",
+      "label": "Darkoath Marauders"
+    },
+    {
+      "line": 130,
+      "kindHint": "warscroll",
+      "label": "Darkoath Savagers"
+    },
+    {
+      "line": 131,
+      "kindHint": "warscroll",
+      "label": "Darkoath Warqueen"
+    },
+    {
+      "line": 132,
+      "kindHint": "warscroll",
+      "label": "Darkoath Warqueen"
+    },
+    {
+      "line": 133,
+      "kindHint": "warscroll",
+      "label": "Darkoath Wilderfiend"
+    },
+    {
+      "line": 134,
+      "kindHint": "warscroll",
+      "label": "Eternus, Blade of the First Prince"
+    },
+    {
+      "line": 135,
+      "kindHint": "warscroll",
+      "label": "Exalted Hero of Chaos"
+    },
+    {
+      "line": 136,
+      "kindHint": "warscroll",
+      "label": "Fomoroid Crusher"
+    },
+    {
+      "line": 137,
+      "kindHint": "warscroll",
+      "label": "Gaunt Summoner"
+    },
+    {
+      "line": 138,
+      "kindHint": "warscroll",
+      "label": "Gaunt Summoner on Disc of Tzeentch"
+    },
+    {
+      "line": 139,
+      "kindHint": "warscroll",
+      "label": "Godsworn Hunt",
+      "isLegends": true
+    },
+    {
+      "line": 141,
+      "kindHint": "warscroll",
+      "label": "Gorebeast Chariot"
+    },
+    {
+      "line": 142,
+      "kindHint": "warscroll",
+      "label": "Horns of Hashut",
+      "isLegends": true
+    },
+    {
+      "line": 144,
+      "kindHint": "warscroll",
+      "label": "Iron Golem",
+      "isLegends": true
+    },
+    {
+      "line": 146,
+      "kindHint": "warscroll",
+      "label": "Khagra's Ravagers",
+      "isLegends": true
+    },
+    {
+      "line": 148,
+      "kindHint": "warscroll",
+      "label": "Mindstealer Sphiranx"
+    },
+    {
+      "line": 149,
+      "kindHint": "warscroll",
+      "label": "Mutalith Vortex Beast"
+    },
+    {
+      "line": 150,
+      "kindHint": "warscroll",
+      "label": "Ogroid Myrmidon"
+    },
+    {
+      "line": 151,
+      "kindHint": "warscroll",
+      "label": "Ogroid Theridons"
+    },
+    {
+      "line": 152,
+      "kindHint": "warscroll",
+      "label": "Raptoryx"
+    },
+    {
+      "line": 153,
+      "kindHint": "warscroll",
+      "label": "Scions of the Flame",
+      "isLegends": true
+    },
+    {
+      "line": 155,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Chaos Lord on Karkadrak"
+    },
+    {
+      "line": 156,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Chaos Warriors"
+    },
+    {
+      "line": 157,
+      "kindHint": "warscroll",
+      "label": "Slaughterbrute"
+    },
+    {
+      "line": 158,
+      "kindHint": "warscroll",
+      "label": "Soul Grinder",
+      "isLegends": true
+    },
+    {
+      "line": 160,
+      "kindHint": "warscroll",
+      "label": "Spire Tyrants",
+      "isLegends": true
+    },
+    {
+      "line": 162,
+      "kindHint": "warscroll",
+      "label": "Splintered Fang",
+      "isLegends": true
+    },
+    {
+      "line": 164,
+      "kindHint": "warscroll",
+      "label": "Tarantulos Brood",
+      "isLegends": true
+    },
+    {
+      "line": 166,
+      "kindHint": "warscroll",
+      "label": "The Gnarlspirit Pack",
+      "isLegends": true
+    },
+    {
+      "line": 168,
+      "kindHint": "warscroll",
+      "label": "The Unmade",
+      "isLegends": true
+    },
+    {
+      "line": 170,
+      "kindHint": "warscroll",
+      "label": "Untamed Beasts",
+      "isLegends": true
+    },
+    {
+      "line": 172,
+      "kindHint": "warscroll",
+      "label": "Varanguard"
+    },
+    {
+      "line": 175,
+      "kindHint": "warscroll",
+      "label": "Nexus Chaotica"
+    },
+    {
+      "line": 176,
+      "kindHint": "warscroll",
+      "label": "Nexus Chaotica"
+    }
+  ]
+}
