@@ -1,0 +1,164 @@
+Skaven1 42140/1500 pts
+-----
+Grand Alliance Chaos | Skaven | Fleshmeld Menagerie
+General's Handbook 2025-26
+Auxiliaries: 51 (+25500 Points)
+Drops: 75
+Spell Lore - Lore of Ruin
+Prayer Lore - Noxious Prayers
+Manifestation Lore - Manifestations of Doom
+Battle Tactics Cards: Wrathful Cycles
+-----
+Regiment 1
+Clawlord (70)
+Clanrats (150)
+Spiteclaw's Swarm (100)
+• Legends
+Stormvermin (110)
+-----
+Regiments of Renown
+Brand's Oathbound (200)
+Gunnar Brand
+Singri Brand
+The Oathsworn Kin
+Cogfort Raiders (450)
+Outlaw Conqueror Cogfort
+Diseased Revellers (310)
+Sloppity Bilepiper, Herald of Nurgle
+Beast of Nurgle
+Beast of Nurgle
+Enforcers of the Tithe (470)
+Mortisan Ossifector
+Gothizzar Harvester
+Mortek Guard
+Mortek Guard
+Hargax's Pit-Beasts (390)
+Ogroid Myrmidon
+Fomoroid Crusher
+Mindstealer Sphiranx
+Lord Skaldior's Chosen (530)
+Chaos Lord on Daemonic Mount
+Chaos Knights
+Chaos Warriors
+Mask of the Deceiver (170)
+Mask of the Deceiver
+Mist-Clad Revellers (260)
+Shardspeaker of Slaanesh
+Blissbarb Archers
+Nurgle's Gift (180)
+Nurglings
+Nurglings
+One-eyed Grunnock (410)
+Warstomper Mega-Gargant
+Phulgoth's Shudderhood (530)
+Harbinger of Decay
+Pusgoyle Blightlords
+Putrid Blightkings
+Rogue Engine (470)
+Outlaw Cannonade Cogfort
+Seeker of the Dread Dirge (260)
+Ashen Elder
+Dominator Engine with Bane Maces
+Seekers of Silver (380)
+Magister on Disc of Tzeentch
+Gaunt Summoner on Disc of Tzeentch
+Screamers of Tzeentch
+Snerk's Trogg-Fer-Hire (220)
+Loonboss
+Dankhold Troggoth
+Stumblefoot Gargant (140)
+Mancrusher Gargant
+The Accursed Reflection (150)
+Contorted Epitome
+Dreadful Visage
+Mesmerising Mirror
+Wheels of Excruciation
+The Coven of Thryx (280)
+Magister
+Burning Sigil of Tzeentch
+Daemonic Simulacrum
+Pink Horrors
+Tome of Eyes
+The Curse-Steel Battery (380)
+Daemonsmith
+Deathshrieker Rocket Battery
+Tormentor Bombard
+The Pustules (200)
+Spoilpox Scrivener, Herald of Nurgle
+Feculent Gnarlmaw
+Plaguebearers
+The Exiled One (390)
+Skarbrand
+The Red Revelation (380)
+Slaughterpriest
+Bloodreavers
+Skullreapers
+The Red Revelation (380)
+Slaughterpriest
+Bloodreavers
+Skullreapers
+-----
+Auxiliary Units
+Acolyte Globadiers (90)
+Arch-Warlock (140)
+Brood Terror (220)
+Clanrats (150)
+Clawlord (70)
+Clawlord on Gnaw-beast (110)
+Deathmaster (120)
+Deathmaster Crixxit (150)
+Doom-Flayers (100)
+Doomwheel (100)
+Grey Seer (110)
+Grey Seer on Screaming Bell (310)
+Gutter Runners (150)
+Hell Pit Abomination (200)
+Krittok Foulblade (140)
+Lord Skreech Verminking (380)
+Master Moulder (80)
+Night Runners (130)
+Plague Censer Bearers (160)
+• Legends
+Plague Monks (140)
+Plague Priest (110)
+• Legends
+Plague Priest on Plague Furnace (350)
+Plagueclaw (100)
+Plaguepack (130)
+Rat Ogors (140)
+Ratling Guns (170)
+Ratling Warpblaster (110)
+Scourge of Ghyran Brood Terror (240)
+Scourge of Ghyran Grey Seer on Screaming Bell (330)
+Skabbik's Plaguepack (100)
+• Legends
+Skittershank's Clawpack (100)
+• Legends
+Spiteclaw's Swarm (100)
+• Legends
+Stormfiends (230)
+Stormfiends (230)
+Stormvermin (110)
+Thanquol on Boneripper (310)
+Verminlord Corruptor (260)
+Verminlord Deceiver (390)
+Verminlord Warbringer (260)
+Verminlord Warpseer (300)
+Vizzik Skour, Prophet of the Horned Rat (340)
+Warlock Bombardier (90)
+Warlock Engineer (100)
+Warlock Galvaneer (120)
+Warp Lightning Cannon (120)
+Warp-Grinder (100)
+Warpfire Throwers (120)
+Warplock Jezzails (120)
+Warpvolt Scourgers (170)
+Warpvolt Scourgers (170)
+Zikkit's Tunnelpack (110)
+• Legends
+-----
+Faction Terrain
+Gnawhole
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.36.0 (1) | Data: v466
