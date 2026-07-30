@@ -64,6 +64,7 @@ Fail closed on malformed or hostile input, never on an illegal army.
 | `ij-001-renown-heavy` | three-part pipe header with a parent publication instead of a grand alliance (`Orruk Warclans \| Ironjawz \| …`), 21 dashless regiments of renown, `Scourge of Aqshy:` names |
 | `sob-001-renown-no-terrain` | regiments of renown with no faction terrain section and no spell lore |
 | `dok-001-legends-repeats` | the same unit repeated 11 times each with its own `• Legends`, a curly apostrophe in a unit name, faction terrain that carries points |
+| `fs-001-older-handbook` | `General's Handbook 2024-25`, two seasons back, and no battle tactics line |
 
 ## Points are dropped on purpose
 

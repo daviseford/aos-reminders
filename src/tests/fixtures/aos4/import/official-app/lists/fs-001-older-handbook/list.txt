@@ -1,0 +1,40 @@
+F1 2220/3000 pts
+-----
+Grand Alliance Order | Fyreslayers | Warrior Kinband
+General's Handbook 2024-25
+Auxiliaries: 1 (+0 Points)
+Drops: 4
+Prayer Lore - Zharrgrim Blessings
+Manifestation Lore - Aetherwrought Machineries
+-----
+Regiment 1
+Auric Runefather on Magmadroth (320)
+---
+Regiment 2
+Auric Runesmiter (90)
+---
+Regiment 3
+Auric Runeson on Magmadroth (240)
+Auric Hearthguard (100)
+Auric Runeson (90)
+Battlesmith (100)
+Battlesmith (100)
+Doomseeker (80)
+Grimhold Exile (90)
+Grimwrath Berzerker (110)
+Hearthguard Berzerkers with Berzerker Broadaxes (100)
+Hearthguard Berzerkers with Flamestrike Poleaxes (110)
+The Chosen Axes (120)
+• Legends
+Vulkite Berzerkers with Bladed Slingshields (140)
+Vulkite Berzerkers with Fyresteel Weapons (120)
+Vulkyn Flameseekers (150)
+-----
+Auxiliary Units
+Auric Runemaster (160)
+-----
+Faction Terrain
+Magmic Battleforge
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.36.0 (1) | Data: v466
