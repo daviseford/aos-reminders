@@ -173,9 +173,11 @@ occurrence, Legends, Spearhead, General's Handbook 2026-27 (`Scourge of Aqshy`).
 - **A byte-pinned New Recruit import fixture corpus**
   (`src/tests/fixtures/aos4/import/new-recruit/`), captured from opted-in accounts and
   self-checking across all three formats.
-- **A mobile and accessibility audit**, `docs/design/2026-07-28-mobile-accessibility-audit.md`
-  (score 11/20). Most of its P0 and P1 findings have since been fixed; treat it as history and
-  re-run an audit before relying on the score.
+- **A mobile and accessibility audit**, `docs/design/2026-07-30-mobile-accessibility-audit.md`
+  (score 14/20), superseding the 2026-07-28 pass (11/20), which is retained as history. It closes
+  17 of the prior 23 findings including the sole P0, and leaves two P1s: target sizes below the
+  24px WCAG 2.5.8 floor across 85 timing tags, the mode switch, and the navbar; and a 1.42MB
+  gzipped initial chunk carrying the generated corpus. Neither is a data or rules defect.
 
 **Absences that future work must not fabricate**: there are no testimonials, no case studies, no
 press, no usage or subscriber metrics, and no benchmark data. Nothing in this repository supports a
