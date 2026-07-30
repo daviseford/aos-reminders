@@ -6,6 +6,7 @@ import { PaypalPostSubscribeModal } from 'components/modals/paypal_post_subscrib
 import PayPalButton from 'components/payment/paypal/paypalButton'
 import { IApprovalResponse } from 'components/payment/paypal/paypalTypes'
 import { PaypalProvider } from 'context/usePaypal'
+import { useTheme } from 'context/useTheme'
 import qs from 'qs'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
@@ -54,8 +55,10 @@ const PricingPlansComponent = () => {
 const PlansHeader = () => {
   const hasSale = SubscriptionPlans.some(plan => plan.sale)
 
+  // The band behind this supplies the surface colour; hardcoding bg-light here left a white strip
+  // behind the heading when the band follows the theme.
   return (
-    <div className="col-12 bg-light text-center mb-3">
+    <div className="col-12 text-center mb-3">
       <h2>
         Subscription Plans
         {hasSale && <span className="ml-2 badge badge-danger">Sale!</span>}
@@ -74,6 +77,7 @@ export const PlanComponent = (props: IPlanProps) => {
   const { supportPlan } = props
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin: supportPlan.title })
+  const { theme } = useTheme()
   const stripe = useStripe()
 
   if (!stripe) return null
@@ -104,15 +108,20 @@ export const PlanComponent = (props: IPlanProps) => {
   }
 
   return (
-    <div className="card mb-4 shadow-sm">
+    <div className={`${theme.card} mb-4 shadow-sm`}>
       <div className="card-header bg-themeDarkBluePrimary text-light">
         <h3 className="my-0 font-weight-normal">{supportPlan.title}</h3>
       </div>
-      <div className="card-body">
+      <div className={theme.cardBody}>
         {/* A price is not a heading. The .h1 class keeps the type scale unchanged. */}
         <p className="card-title pricing-card-title h1">
           ${supportPlan.monthly_cost}
-          <small className="text-muted">/ month</small>
+          {/*
+            theme.textMuted, not text-muted: Bootstrap's #6c757d lands at 3.28:1 on the dark card
+            body, under the 4.5:1 minimum for 12px text. Dark theme's text-white-75 clears it at
+            9.24:1, and light theme resolves back to text-muted.
+          */}
+          <small className={theme.textMuted}>/ month</small>
         </p>
         <ul className="list-unstyled mt-3 mb-4">
           <li>
