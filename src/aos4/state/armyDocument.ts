@@ -21,6 +21,17 @@ export interface Aos4ArmyDocument {
    * written before the field existed.
    */
   allowsLegends?: boolean
+  /**
+   * The army was built against a superseded season, so selection resolution overlays the
+   * historical rules context on top of `rulesContextId`.
+   *
+   * Last season's content — the `Scourge of Ghyran` unit variants, the battle formations the
+   * General's Handbook 2025-26 introduced — is catalogued as historical once its handbook lapses.
+   * An army imported from a roster of that vintage holds both: its units are current, its seasonal
+   * picks are not. Serialized only when true, so documents that never touched a past season
+   * round-trip byte-identically to schema 1 output written before the field existed.
+   */
+  allowsHistorical?: boolean
   explicitSelectionIds: CanonicalId[]
   reminderPreferences: Partial<Record<ReminderOccurrenceId, Aos4ReminderPreference>>
 }
@@ -67,6 +78,7 @@ export const createAos4ArmyDocument = (
   name: input.name.trim(),
   rulesContextId: input.rulesContextId,
   ...(input.allowsLegends ? { allowsLegends: true } : {}),
+  ...(input.allowsHistorical ? { allowsHistorical: true } : {}),
   explicitSelectionIds: sortedUnique(input.explicitSelectionIds),
   reminderPreferences: Object.fromEntries(
     Object.entries(input.reminderPreferences ?? {})
@@ -140,6 +152,7 @@ export const deserializeAos4ArmyDocument = (
     !value.name.trim() ||
     typeof value.rulesContextId !== 'string' ||
     (value.allowsLegends !== undefined && typeof value.allowsLegends !== 'boolean') ||
+    (value.allowsHistorical !== undefined && typeof value.allowsHistorical !== 'boolean') ||
     !Array.isArray(value.explicitSelectionIds) ||
     value.explicitSelectionIds.some(id => typeof id !== 'string') ||
     !isObject(value.reminderPreferences)
@@ -206,6 +219,7 @@ export const deserializeAos4ArmyDocument = (
       name: documentName,
       rulesContextId: rulesContext as RulesContextId,
       ...(value.allowsLegends === true ? { allowsLegends: true } : {}),
+      ...(value.allowsHistorical === true ? { allowsHistorical: true } : {}),
       explicitSelectionIds,
       reminderPreferences,
     }),

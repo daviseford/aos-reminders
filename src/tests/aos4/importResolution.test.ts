@@ -129,9 +129,7 @@ describe('AoS 4 parsed-roster resolution', () => {
   it('resolves a regiment of renown member the faction cannot otherwise reach', () => {
     const preview = resolve(
       roster({
-        selections: [
-          { line: 12, label: 'Beta Only', kindHint: 'warscroll', isRegimentOfRenown: true },
-        ],
+        selections: [{ line: 12, label: 'Beta Only', kindHint: 'warscroll', isRegimentOfRenown: true }],
       })
     )
 
@@ -139,9 +137,7 @@ describe('AoS 4 parsed-roster resolution', () => {
       importFixtureIds.alphaFaction,
       importFixtureIds.betaOnly,
     ])
-    expect(
-      preview.diagnostics.filter(diagnostic => diagnostic.code === 'inapplicable-selection')
-    ).toEqual([])
+    expect(preview.diagnostics.filter(diagnostic => diagnostic.code === 'inapplicable-selection')).toEqual([])
   })
 
   it('still refuses to guess between two candidates for a regiment of renown member', () => {
@@ -158,14 +154,12 @@ describe('AoS 4 parsed-roster resolution', () => {
     )
   })
 
-  it('prefers the faction\'s own reachable version for a regiment of renown member', () => {
+  it("prefers the faction's own reachable version for a regiment of renown member", () => {
     // Reachability is tried first, so a name the faction *can* reach still resolves to its own
     // version rather than being decided by the relaxed pass.
     const preview = resolve(
       roster({
-        selections: [
-          { line: 13, label: 'Shared Guard', kindHint: 'warscroll', isRegimentOfRenown: true },
-        ],
+        selections: [{ line: 13, label: 'Shared Guard', kindHint: 'warscroll', isRegimentOfRenown: true }],
       })
     )
 
@@ -336,5 +330,158 @@ describe('AoS 4 Legends resolution', () => {
         message: expect.stringContaining('does not opt into Legends'),
       })
     )
+  })
+})
+
+/**
+ * Armies of Renown, which the catalog models by nesting instead of naming (issue #1783).
+ *
+ * The catalog holds an army as a container group with its sections beneath it; a roster names the
+ * army in the battle-formation slot and its sections as `<army> <section>`. Neither form matches a
+ * catalog name directly, so before this every Army of Renown list lost its army rules entirely.
+ */
+describe('AoS 4 Army of Renown resolution', () => {
+  it('resolves the army named in the battle-formation slot', () => {
+    const preview = resolve(
+      roster({
+        selections: [{ line: 3, label: 'Renowned Vanguard', kindHint: 'battle-formation' }],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([
+      { line: 3, label: 'Renowned Vanguard', canonicalId: importFixtureIds.renownedVanguard },
+    ])
+  })
+
+  it('selecting the army brings in the sections nested under it', () => {
+    const preview = resolve(
+      roster({
+        selections: [{ line: 3, label: 'Renowned Vanguard', kindHint: 'battle-formation' }],
+      })
+    )
+
+    expect(preview.proposedDocument?.explicitSelectionIds).toContain(importFixtureIds.renownedVanguard)
+    expect(preview.diagnostics.filter(diagnostic => diagnostic.severity === 'error')).toEqual([])
+  })
+
+  it('resolves a section by the army-qualified name a roster writes', () => {
+    const preview = resolve(
+      roster({
+        selections: [{ line: 8, label: 'Renowned Vanguard Spell Lore', kindHint: 'spell-lore' }],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([
+      {
+        line: 8,
+        label: 'Renowned Vanguard Spell Lore',
+        canonicalId: importFixtureIds.renownedVanguardSpellLore,
+      },
+    ])
+  })
+
+  it('refuses a qualified name whose section is the wrong kind of content', () => {
+    const preview = resolve(
+      roster({
+        selections: [{ line: 8, label: 'Renowned Vanguard Battle Traits', kindHint: 'spell-lore' }],
+      })
+    )
+
+    expect(preview.matches).toEqual([])
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'unknown-selection', line: 8 })
+    )
+  })
+
+  /**
+   * A bare section name stays unresolvable, because it does not identify anything.
+   *
+   * Thirty-seven armies in the accepted corpus have a section called "Spell Lore". Matching one of
+   * them on that name alone would be a coin flip dressed up as a resolution.
+   */
+  it('does not resolve a section by its unqualified name', () => {
+    const preview = resolve(
+      roster({
+        selections: [{ line: 8, label: 'Spell Lore', kindHint: 'spell-lore' }],
+      })
+    )
+
+    expect(preview.matches).toEqual([])
+  })
+})
+
+/**
+ * Rosters built against a lapsed General's Handbook (issue #1783).
+ *
+ * A season's content moves to the historical context when its handbook expires, while the army's
+ * warscrolls carry on unchanged. Falling back to the current season without an overlay therefore
+ * drops precisely the seasonal picks that defined the list.
+ */
+describe('AoS 4 superseded-season resolution', () => {
+  const supersededRoster = (selections: ParsedRoster['selections']): ParsedRoster =>
+    roster({ declaredContext: "General's Handbook 2024-25", selections })
+
+  it('keeps the lapsed season available while importing into the current one', () => {
+    const preview = resolve(supersededRoster([{ line: 9, label: 'Archive Guard', kindHint: 'warscroll' }]))
+
+    expect(preview.matches).toEqual([
+      { line: 9, label: 'Archive Guard', canonicalId: importFixtureIds.archiveGuard },
+    ])
+    expect(preview.proposedDocument?.rulesContextId).toBe(importFixtureContextIds.seasonal)
+    expect(preview.proposedDocument?.allowsHistorical).toBe(true)
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'unsupported-context',
+        severity: 'warning',
+        message: expect.stringContaining('has been superseded'),
+      })
+    )
+  })
+
+  it('resolves a formation the lapsed season introduced', () => {
+    const preview = resolve(
+      supersededRoster([{ line: 4, label: 'Archive Formation', kindHint: 'battle-formation' }])
+    )
+
+    expect(preview.matches).toEqual([
+      { line: 4, label: 'Archive Formation', canonicalId: importFixtureIds.archiveFormation },
+    ])
+  })
+
+  it('prefers the current season when a name exists on both sides', () => {
+    const preview = resolve(supersededRoster([{ line: 3, label: 'Shared Guard', kindHint: 'warscroll' }]))
+
+    expect(preview.matches).toEqual([
+      { line: 3, label: 'Shared Guard', canonicalId: importFixtureIds.alphaGuard },
+    ])
+  })
+
+  it('leaves a roster on the current season untouched', () => {
+    const preview = resolve(
+      roster({ selections: [{ line: 9, label: 'Archive Guard', kindHint: 'warscroll' }] })
+    )
+
+    expect(preview.matches).toEqual([])
+    expect(preview.proposedDocument?.allowsHistorical).toBeUndefined()
+  })
+
+  /**
+   * A season we have not published yet is not a lapsed one.
+   *
+   * Builders carry a new handbook before we do, and treating "ahead of us" as "behind us" would
+   * quietly resolve next season's picks against last season's content.
+   */
+  it('does not overlay history for a season newer than the one we carry', () => {
+    const preview = resolve(
+      roster({
+        declaredContext: "General's Handbook 2027-28",
+        selections: [{ line: 9, label: 'Archive Guard', kindHint: 'warscroll' }],
+      })
+    )
+
+    expect(preview.matches).toEqual([])
+    expect(preview.proposedDocument?.allowsHistorical).toBeUndefined()
   })
 })

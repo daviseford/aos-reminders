@@ -41,6 +41,15 @@ export const IMPORT_LABEL_ALIASES: ImportLabelAlias[] = [
       'Rosters spell it correctly, so the correct spelling matches nothing. Remove once the ' +
       'upstream source is corrected.',
   },
+  {
+    from: 'Knives of the Crone',
+    to: 'The Knives of the Crone',
+    reason:
+      'Provider divergence: the official app drops this warband’s leading article, though it ' +
+      'keeps it on every other one in the same list ("The Shadeborn"). Not generalized to a ' +
+      'leading-article rule, because "The Roving Maw" and "Ironsunz" would then collide with ' +
+      'anything spelled either way.',
+  },
 ]
 
 const aliasIndex = new Map(IMPORT_LABEL_ALIASES.map(alias => [normalizeImportLabel(alias.from), alias.to]))

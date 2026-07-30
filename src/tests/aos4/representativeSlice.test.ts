@@ -219,6 +219,29 @@ describe('AoS 4 representative vertical slice', () => {
     ).not.toContain(finestHour.id)
   })
 
+  /**
+   * `allowsHistorical` round-trips, and its absence still writes schema 1's original bytes.
+   *
+   * Documents saved before the field existed have to keep deserializing, and documents that never
+   * touch a past season have to keep serializing to the same bytes — otherwise every stored army
+   * in every browser rewrites itself the first time it loads (issue #1783).
+   */
+  it('round-trips the superseded-season opt-in without disturbing documents that lack it', () => {
+    const plain = createDocument()
+    const serializedPlain = serializeAos4ArmyDocument(plain)
+    expect(serializedPlain).not.toContain('allowsHistorical')
+
+    const lapsed = createAos4ArmyDocument({ ...plain, allowsHistorical: true })
+    const restored = deserializeAos4ArmyDocument(serializeAos4ArmyDocument(lapsed), AOS4_CATALOG)
+
+    expect(restored.diagnostics).toEqual([])
+    expect(restored.document?.allowsHistorical).toBe(true)
+    expect(serializeAos4ArmyDocument(restored.document!)).toBe(serializeAos4ArmyDocument(lapsed))
+    expect(
+      deserializeAos4ArmyDocument(serializedPlain, AOS4_CATALOG).document?.allowsHistorical
+    ).toBeUndefined()
+  })
+
   it('loads entirely from generated data without source network access', () => {
     const originalFetch = globalThis.fetch
     const network = vi.fn(() => {
