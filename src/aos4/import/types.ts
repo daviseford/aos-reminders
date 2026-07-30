@@ -26,6 +26,15 @@ export interface ParsedRosterSelection {
    * instead of guessing from the label.
    */
   isLegends?: boolean
+  /**
+   * The entry came from a regiment of renown, so it is not bound by the army's faction.
+   *
+   * A regiment of renown is a bought-in mercenary band: an Ironjawz army can field Gloomspite,
+   * Ossiarch and Kharadron units through one. Those names are real warscrolls the army simply
+   * cannot reach through its own faction, so without this they resolve as "not available to this
+   * faction" and the whole band is dropped.
+   */
+  isRegimentOfRenown?: boolean
 }
 
 export interface ParsedRoster {

@@ -122,6 +122,59 @@ describe('AoS 4 parsed-roster resolution', () => {
     )
   })
 
+  /**
+   * A regiment of renown is bought as a whole and brings units the army cannot otherwise field, so
+   * the faction boundary that correctly rejects "Beta Only" above must not apply to its members.
+   */
+  it('resolves a regiment of renown member the faction cannot otherwise reach', () => {
+    const preview = resolve(
+      roster({
+        selections: [
+          { line: 12, label: 'Beta Only', kindHint: 'warscroll', isRegimentOfRenown: true },
+        ],
+      })
+    )
+
+    expect(preview.proposedDocument?.explicitSelectionIds).toEqual([
+      importFixtureIds.alphaFaction,
+      importFixtureIds.betaOnly,
+    ])
+    expect(
+      preview.diagnostics.filter(diagnostic => diagnostic.code === 'inapplicable-selection')
+    ).toEqual([])
+  })
+
+  it('still refuses to guess between two candidates for a regiment of renown member', () => {
+    const preview = resolve(
+      roster({
+        selections: [
+          { line: 10, label: 'Twin Formation', kindHint: 'battle-formation', isRegimentOfRenown: true },
+        ],
+      })
+    )
+
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'ambiguous-selection', line: 10, severity: 'warning' })
+    )
+  })
+
+  it('prefers the faction\'s own reachable version for a regiment of renown member', () => {
+    // Reachability is tried first, so a name the faction *can* reach still resolves to its own
+    // version rather than being decided by the relaxed pass.
+    const preview = resolve(
+      roster({
+        selections: [
+          { line: 13, label: 'Shared Guard', kindHint: 'warscroll', isRegimentOfRenown: true },
+        ],
+      })
+    )
+
+    expect(preview.proposedDocument?.explicitSelectionIds).toEqual([
+      importFixtureIds.alphaFaction,
+      importFixtureIds.alphaGuard,
+    ])
+  })
+
   it('names the selection it could not place', () => {
     const preview = resolve(
       roster({ selections: [{ line: 11, label: 'Twilit Sorceries', kindHint: 'manifestation-lore' }] })

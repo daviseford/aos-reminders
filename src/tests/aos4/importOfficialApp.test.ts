@@ -41,8 +41,9 @@ describe('official AoS app text import', () => {
       { line: 6, label: 'Knight-Vexillor', kindHint: 'warscroll' },
       { line: 8, label: 'Mirrorshield', kindHint: 'enhancement' },
       { line: 9, label: 'Annihilators', kindHint: 'warscroll', count: 3 },
-      { line: 13, label: 'Freeguild Fusiliers', kindHint: 'warscroll' },
-      { line: 14, label: 'Freeguild Marshal', kindHint: 'warscroll' },
+      // Dashed members are regiment of renown content too, and carry the cross-faction flag.
+      { line: 13, label: 'Freeguild Fusiliers', kindHint: 'warscroll', isRegimentOfRenown: true },
+      { line: 14, label: 'Freeguild Marshal', kindHint: 'warscroll', isRegimentOfRenown: true },
     ])
     expect(result.parsedRoster?.selections.map(selection => selection.label)).not.toContain(
       'The bearer shines with a rule description that is not roster composition.'
@@ -201,6 +202,23 @@ describe('official AoS app text import', () => {
         'Man-skewer Boltboyz',
         'Gatebreaker Mega-Gargant',
       ])
+      // Members are cross-faction by design; the flag is what lets them resolve outside Ironjawz.
+      expect(parsed?.selections.filter(s => s.kindHint === 'warscroll').every(s => s.isRegimentOfRenown)).toBe(
+        true
+      )
+    })
+
+    it('marks only regiment of renown members as cross-faction', () => {
+      const parsed = decode(
+        'Orruk Warclans | Ironjawz | Weirdfist',
+        'Regiment 1',
+        'Megaboss (130)',
+        'Regiments of Renown',
+        "Big Grikk's Kruleshots (320)",
+        'Beast-skewer Killbow'
+      )
+      expect(parsed?.selections.find(s => s.label === 'Megaboss')?.isRegimentOfRenown).toBeUndefined()
+      expect(parsed?.selections.find(s => s.label === 'Beast-skewer Killbow')?.isRegimentOfRenown).toBe(true)
     })
 
     it('ignores roster bookkeeping the app emits alongside composition', () => {

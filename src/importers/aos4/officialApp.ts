@@ -275,13 +275,18 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
       const dashed = line.text.match(/^-\s*(.+)$/)
       if (dashed) {
         record(
-          { line: line.number, label: stripPointsSuffix(dashed[1]), kindHint: 'warscroll' },
+          {
+            line: line.number,
+            label: stripPointsSuffix(dashed[1]),
+            kindHint: 'warscroll',
+            isRegimentOfRenown: true,
+          },
           true
         )
         return
       }
       const member = parseBundledWarscroll(line, lastEntryLine)
-      if (member) record(member, true)
+      if (member) record({ ...member, isRegimentOfRenown: true }, true)
       return
     }
 

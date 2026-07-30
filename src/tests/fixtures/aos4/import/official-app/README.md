@@ -63,6 +63,7 @@ Fail closed on malformed or hostile input, never on an illegal army.
 | `om-001-multi-terrain-auxiliaries` | battle formation with a points suffix, **two** faction terrain entries, non-contiguous regiment numbering, older `General's Handbook 2025-26` |
 | `ij-001-renown-heavy` | three-part pipe header with a parent publication instead of a grand alliance (`Orruk Warclans \| Ironjawz \| …`), 21 dashless regiments of renown, `Scourge of Aqshy:` names |
 | `sob-001-renown-no-terrain` | regiments of renown with no faction terrain section and no spell lore |
+| `dok-001-legends-repeats` | the same unit repeated 11 times each with its own `• Legends`, a curly apostrophe in a unit name, faction terrain that carries points |
 
 ## Points are dropped on purpose
 
