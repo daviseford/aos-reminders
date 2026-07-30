@@ -8,7 +8,7 @@ import { ArmyCollectionProvider } from 'context/useArmyCollection'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { installNewWorker } from 'utils/installNewWorker'
 import history from 'utils/history'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
@@ -18,7 +18,16 @@ const onRedirectCallback = (appState?: { returnTo?: string }) => {
   history.replace(appState?.returnTo || window.location.pathname)
 }
 
-render(
+/*
+ * React 19 removed the legacy `ReactDOM.render`. createRoot is the concurrent-capable replacement;
+ * the tree below is unchanged. No StrictMode wrapper is added — the app has never had one, and
+ * introducing it here would double-invoke every effect and change runtime behaviour, which this
+ * upgrade is not the place for.
+ */
+const container = document.getElementById('root')
+if (!container) throw new Error('Root container #root is missing from index.html')
+
+createRoot(container).render(
   <Auth0Provider
     domain={config.domain}
     clientId={config.clientId}
@@ -38,8 +47,7 @@ render(
         </ArmyCollectionProvider>
       </SubscriptionProvider>
     </AppStatusProvider>
-  </Auth0Provider>,
-  document.getElementById('root')
+  </Auth0Provider>
 )
 
 // Learn more about service workers: https://cra.link/PWA

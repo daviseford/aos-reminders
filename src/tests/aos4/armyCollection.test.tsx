@@ -2,8 +2,8 @@
 
 import { createDefaultAos4ArmyDocument } from '../../aos4/runtime'
 import { ArmyCollectionProvider, useArmyCollection } from 'context/useArmyCollection'
-import { render, unmountComponentAtNode } from 'react-dom'
-import { act } from 'react-dom/test-utils'
+import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { act } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({

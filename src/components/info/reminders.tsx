@@ -3,7 +3,12 @@ import { CollapsibleCardHeader } from 'components/aos4/collapsibleCardHeader'
 import { useIsMobile } from 'components/aos4/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import { Fragment, useEffect, useMemo, useState } from 'react'
-import { DragDropContext, Draggable, Droppable, type DropResult } from 'react-beautiful-dnd'
+/*
+ * @hello-pangea/dnd is the maintained fork of react-beautiful-dnd, which Atlassian deprecated in
+ * October 2024 at 13.1.1 — a release whose peer range stops at React 18. The fork keeps the same
+ * API; only this import changed.
+ */
+import { DragDropContext, Draggable, Droppable, type DropResult } from '@hello-pangea/dnd'
 import { Dropdown } from 'react-bootstrap'
 import { FaEllipsisH } from 'react-icons/fa'
 import { MdVisibilityOff } from 'react-icons/md'

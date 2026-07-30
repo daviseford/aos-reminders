@@ -4,8 +4,9 @@ import ImportArmyModal from 'components/input/importArmy/importArmyModal'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import { AOS4_CATALOG } from '../../aos4/generated'
 import { MAX_ROSTER_FILE_BYTES } from '../../importers/aos4'
-import { render, unmountComponentAtNode } from 'react-dom'
-import { act, Simulate } from 'react-dom/test-utils'
+import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { act } from 'react'
+import { Simulate } from 'tests/support/reactTestHelpers'
 import { MemoryRouter, Route } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -291,17 +292,13 @@ describe('AoS 4 import modal', () => {
     expect(container.textContent).toContain('Which ruleset do you want to use?')
 
     const select = container.querySelector<HTMLSelectElement>('#import-rules-context')!
-    const spearhead = Array.from(select.options).find(option =>
-      option.textContent?.includes('Spearhead')
-    )!
+    const spearhead = Array.from(select.options).find(option => option.textContent?.includes('Spearhead'))!
     select.value = spearhead.value
     act(() => {
       Simulate.change(select)
     })
 
-    expect(container.querySelector<HTMLSelectElement>('#import-rules-context')!.value).toBe(
-      spearhead.value
-    )
+    expect(container.querySelector<HTMLSelectElement>('#import-rules-context')!.value).toBe(spearhead.value)
     expect(container.textContent).toContain('Age of Sigmar Fourth Edition Spearhead')
   })
 
