@@ -11,6 +11,7 @@ const DELTA_PREFIX = '<!-- aos4-rules-radar:delta:v1:'
 const ISSUE_TITLE = 'AoS Rules Radar'
 const MAX_MANAGED_BODY_LENGTH = 60_000
 const MAX_MACHINE_STATE_LENGTH = 2 * 1024 * 1024
+const MAX_GITHUB_ISSUE_PAGES = 100
 
 export interface RulesRadarGitHubIssue {
   number: number
@@ -321,10 +322,17 @@ export const createGitHubIssueClient = ({
 
   return {
     async listIssues() {
-      const response = await request('GET', `${basePath}/issues?state=all&per_page=100`)
-      assertSinglePage(response.headers)
-      if (!Array.isArray(response.value)) throw new Error('GitHub issues response must be an array')
-      return response.value.filter(value => !isRecord(value) || !('pull_request' in value)).map(parseIssue)
+      const issues: RulesRadarGitHubIssue[] = []
+      for (let page = 1; page <= MAX_GITHUB_ISSUE_PAGES; page += 1) {
+        const response = await request('GET', `${basePath}/issues?state=all&per_page=100&page=${page}`)
+        if (!Array.isArray(response.value)) throw new Error('GitHub issues response must be an array')
+        issues.push(
+          ...response.value.filter(value => !isRecord(value) || !('pull_request' in value)).map(parseIssue)
+        )
+        const link = Object.entries(response.headers).find(([name]) => name.toLowerCase() === 'link')?.[1]
+        if (!link?.includes('rel="next"')) return issues
+      }
+      throw new Error('GitHub issue pagination exceeded the bounded page limit')
     },
     async listComments(issueNumber) {
       const response = await request('GET', `${basePath}/issues/${issueNumber}/comments?per_page=100`)

@@ -294,6 +294,37 @@ describe('AoS 4 Rules Radar GitHub REST adapter', () => {
 
     await expect(client.listIssues()).resolves.toEqual([expect.objectContaining({ number: 123, body: '' })])
   })
+
+  it('follows bounded pagination when the repository has more than 100 issues', async () => {
+    const requests: GitHubApiRequest[] = []
+    const issue = {
+      number: 1752,
+      title: 'AoS Rules Radar',
+      body: RULES_RADAR_ISSUE_MARKER,
+      state: 'open',
+      labels: [],
+      assignees: [],
+    }
+    const transport: GitHubApiTransport = async request => {
+      requests.push(request)
+      const page = new URL(request.url).searchParams.get('page')
+      const headers: Record<string, string> =
+        page === '2'
+          ? {}
+          : {
+              link: '<https://api.github.com/repositories/123/issues?state=all&per_page=100&page=2>; rel="next"',
+            }
+      return { status: 200, headers, body: page === '2' ? JSON.stringify([issue]) : '[]' }
+    }
+    const client = createGitHubIssueClient({
+      repository: 'daviseford/aos-reminders',
+      token: 'secret-token',
+      transport,
+    })
+
+    await expect(client.listIssues()).resolves.toEqual([expect.objectContaining({ number: issue.number })])
+    expect(requests.map(request => new URL(request.url).searchParams.get('page'))).toEqual(['1', '2'])
+  })
 })
 
 class FakeClient implements RulesRadarGitHubClient {
