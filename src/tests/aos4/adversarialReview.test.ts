@@ -17,6 +17,7 @@ const SOURCE_ID =
   'source-record:games-workshop:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa%3Apage%3A1' as SourceRecordId
 const RECORD_CHECKSUM = 'b'.repeat(64)
 const EXCERPT_REF = `review-evidence:sha256:${'c'.repeat(64)}`
+const OFFICIAL_EXCERPT_REF = `review-evidence:sha256:${'d'.repeat(64)}`
 const SECONDARY_SOURCE_ID =
   'source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Ffixture%2Fwarscrolls.html%23fixture' as SourceRecordId
 
@@ -129,7 +130,12 @@ const secondaryPair = (
   recordKind: string,
   structuredValue: Record<string, unknown>,
   entity: Record<string, unknown> | Record<string, unknown>[],
-  cohortIds: string[] = []
+  cohortIds: string[] = [],
+  officialOverride?: {
+    field: 'abilityTextOverrides' | 'timingOverrides' | 'warscrollKeywordOverrides'
+    value: Record<string, unknown>
+    excerpt: string
+  }
 ): ReviewPacketPair => {
   const sourceEvidence = [
     {
@@ -140,6 +146,21 @@ const secondaryPair = (
       excerptRef: EXCERPT_REF,
       structuredValue,
     },
+    ...(officialOverride
+      ? [
+          {
+            sourceRecordId: SOURCE_ID,
+            recordChecksum: 'e'.repeat(64),
+            locator: { kind: 'page' as const, page: 1 },
+            authority: 'official' as const,
+            excerptRef: OFFICIAL_EXCERPT_REF,
+            structuredValue: {
+              recordKind: 'official-override-evidence',
+              reviewedChecksum: 'e'.repeat(64),
+            },
+          },
+        ]
+      : []),
   ]
   const blindPacket = createReviewPacket({
     protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
@@ -173,6 +194,15 @@ const secondaryPair = (
         field: 'entity',
         value,
       })),
+      ...(officialOverride
+        ? [
+            {
+              path: 'data/aos4/reviews/custom-review.json',
+              field: officialOverride.field,
+              value: officialOverride.value,
+            },
+          ]
+        : []),
     ],
     rulesContextIds: [],
     blind: false,
@@ -196,6 +226,17 @@ const secondaryPair = (
         content: JSON.stringify({ recordKind, value: structuredValue }),
         endDelimiter: '--- END UNTRUSTED SOURCE EVIDENCE ---',
       },
+      ...(officialOverride
+        ? [
+            {
+              ref: OFFICIAL_EXCERPT_REF,
+              trust: 'untrusted-source-data' as const,
+              beginDelimiter: '--- BEGIN UNTRUSTED SOURCE EVIDENCE ---' as const,
+              content: officialOverride.excerpt,
+              endDelimiter: '--- END UNTRUSTED SOURCE EVIDENCE ---' as const,
+            },
+          ]
+        : []),
     ],
   }
 }
@@ -393,6 +434,281 @@ describe('AoS 4 deterministic adversarial reviewer', () => {
           actualValue: 'Heal D3 damage.',
         },
       ],
+    })
+  })
+
+  it('rejects reordered source sentences and short cross-word keyword matches', () => {
+    const reviewPair = secondaryPair(
+      'faction-ability',
+      {
+        name: 'ARCANE STRIKE',
+        conditionHtml: 'Your Hero Phase',
+        descriptionHtml: '<b>Effect:</b> First sentence. Second sentence. Move towards the enemy.',
+        keywordsHtml: '',
+        isReaction: false,
+      },
+      {
+        kind: 'ability',
+        name: 'ARCANE STRIKE',
+        abilityKind: 'active',
+        keywords: ['WARD'],
+        text: { effect: 'Second sentence. First sentence.' },
+        timings: [{ kind: 'active', raw: 'Your Hero Phase' }],
+      }
+    )
+
+    expect(assessAdversarialComparison(reviewPair)).toMatchObject({
+      outcome: 'finding',
+      findings: expect.arrayContaining([
+        expect.objectContaining({
+          subject: expect.objectContaining({ field: 'secondary.source-ability-text.effect' }),
+        }),
+        expect.objectContaining({
+          subject: expect.objectContaining({ field: 'secondary.source-ability-keywords[0]' }),
+        }),
+      ]),
+    })
+  })
+
+  it('accepts a secondary ability correction only when the reviewed official evidence supports it', () => {
+    const source = {
+      name: 'ARCANE STRIKE',
+      conditionHtml: 'Your Hero Phase',
+      descriptionHtml: '<b>Effect:</b> Inflict D3 mortal damage.',
+      keywordsHtml: '',
+      isReaction: false,
+    }
+    const correctedText = { effect: 'Inflict D6 mortal damage.' }
+    const reviewPair = secondaryPair(
+      'faction-ability',
+      source,
+      {
+        kind: 'ability',
+        name: 'ARCANE STRIKE',
+        abilityKind: 'active',
+        keywords: [],
+        text: correctedText,
+        timings: [{ kind: 'active', raw: 'Your Hero Phase' }],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'abilityTextOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          text: correctedText,
+          reason: 'Official errata changes the damage.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt: 'Change Arcane Strike to: Effect: Inflict D6 mortal damage.',
+      }
+    )
+
+    expect(assessAdversarialComparison(reviewPair)).toMatchObject({
+      outcome: 'pass',
+      findings: [],
+    })
+  })
+
+  it('grounds a mixed-source correction sentence by sentence despite fragmented PDF text', () => {
+    const source = {
+      name: 'DEPLOY REGIMENT',
+      conditionHtml: 'Deployment Phase',
+      descriptionHtml: '<b>Effect:</b> Keep deploying this regiment. You cannot pick other units as targets.',
+      keywordsHtml: '',
+      isReaction: false,
+    }
+    const correctedText = {
+      effect:
+        'Keep deploying this regiment. You cannot set up other units as part of those DEPLOY abilities.',
+    }
+    const reviewPair = secondaryPair(
+      'general-rule-ability',
+      source,
+      {
+        kind: 'ability',
+        name: 'DEPLOY REGIMENT',
+        abilityKind: 'active',
+        keywords: [],
+        text: correctedText,
+        timings: [{ kind: 'active', raw: 'Deployment Phase' }],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'abilityTextOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          text: correctedText,
+          reason: 'Official errata replaces the final sentence.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt:
+          'Change the final sentence to: You cannot set up other units as part of those Deploy abi lities.',
+      }
+    )
+
+    expect(assessAdversarialComparison(reviewPair)).toMatchObject({
+      outcome: 'pass',
+      findings: [],
+    })
+  })
+
+  it('rejects an ability correction when the cited official page contributes no corrected text', () => {
+    const source = {
+      name: 'ARCANE STRIKE',
+      conditionHtml: 'Your Hero Phase',
+      descriptionHtml: '<b>Effect:</b> Inflict D3 mortal damage.',
+      keywordsHtml: '',
+      isReaction: false,
+    }
+    const unchangedText = { effect: 'Inflict D3 mortal damage.' }
+    const reviewPair = secondaryPair(
+      'faction-ability',
+      source,
+      {
+        kind: 'ability',
+        name: 'ARCANE STRIKE',
+        abilityKind: 'active',
+        keywords: [],
+        text: unchangedText,
+        timings: [{ kind: 'active', raw: 'Your Hero Phase' }],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'abilityTextOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          text: unchangedText,
+          reason: 'Official errata claims to replace the effect.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt: 'This page contains an unrelated correction.',
+      }
+    )
+
+    expect(assessAdversarialComparison(reviewPair)).toMatchObject({
+      outcome: 'finding',
+      findings: expect.arrayContaining([
+        expect.objectContaining({
+          subject: expect.objectContaining({ field: 'official-override.ability-text.evidence' }),
+        }),
+      ]),
+    })
+  })
+
+  it('requires official text to support an overridden timing and ability kind', () => {
+    const reviewPair = secondaryPair(
+      'faction-ability',
+      {
+        name: 'ARCANE STRIKE',
+        conditionHtml: 'Passive',
+        descriptionHtml: '<b>Effect:</b> Inflict D3 mortal damage.',
+        keywordsHtml: '',
+        isReaction: false,
+      },
+      {
+        kind: 'ability',
+        name: 'ARCANE STRIKE',
+        abilityKind: 'active',
+        keywords: [],
+        text: { effect: 'Inflict D3 mortal damage.' },
+        timings: [{ kind: 'active', raw: 'Your Hero Phase' }],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'timingOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          abilityKind: 'active',
+          timings: [{ kind: 'active', raw: 'Your Hero Phase' }],
+          reason: 'Official errata claims to replace the timing.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt: 'This page contains an unrelated correction.',
+      }
+    )
+
+    expect(assessAdversarialComparison(reviewPair)).toMatchObject({
+      outcome: 'finding',
+      findings: expect.arrayContaining([
+        expect.objectContaining({
+          subject: expect.objectContaining({
+            field: 'secondary.source-official-override.ability-timing[0]',
+          }),
+        }),
+        expect.objectContaining({
+          subject: expect.objectContaining({ field: 'official-override.ability-kind.evidence' }),
+        }),
+      ]),
+    })
+  })
+
+  it('accepts an officially supported warscroll keyword removal', () => {
+    const reviewPair = secondaryPair(
+      'warscroll-keyword',
+      {
+        warscrollId: 'fixture-warscroll',
+        keyword: 'HERO',
+        parameter: '',
+      },
+      {
+        kind: 'warscroll',
+        name: 'Thyrielle, Matriarch of the Aelven Sea',
+        keywords: ['ORDER', 'AELF'],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'warscrollKeywordOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          remove: ['HERO'],
+          reason: 'Official errata removes the keyword.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt: 'Thyrielle, Matriarch of the Aelven Sea no longer has the Hero keyword.',
+      }
+    )
+
+    expect(assessAdversarialComparison(reviewPair)).toMatchObject({
+      outcome: 'pass',
+      findings: [],
+    })
+  })
+
+  it('rejects keyword-removal evidence assembled from unrelated words', () => {
+    const reviewPair = secondaryPair(
+      'warscroll-keyword',
+      {
+        warscrollId: 'fixture-warscroll',
+        keyword: 'WARD',
+        parameter: '',
+      },
+      {
+        kind: 'warscroll',
+        name: 'Fixture Unit',
+        keywords: ['ORDER'],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'warscrollKeywordOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          remove: ['WARD'],
+          reason: 'Official errata removes the keyword.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt: 'Remove a marker. Then move toward the objective.',
+      }
+    )
+
+    expect(assessAdversarialComparison(reviewPair)).toMatchObject({
+      outcome: 'finding',
+      findings: expect.arrayContaining([
+        expect.objectContaining({
+          subject: expect.objectContaining({
+            field: 'official-override.warscroll-keyword.evidence',
+          }),
+        }),
+      ]),
     })
   })
 

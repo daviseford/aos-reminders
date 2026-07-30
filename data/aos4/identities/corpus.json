@@ -54019,7 +54019,7 @@
       ],
       "canonicalId": "battle-profile:53fb755b-672b-50bc-914f-c99e6eff1c44",
       "kind": "battle-profile",
-      "name": "Scourge of Aqshy Spirit Host battle profile"
+      "name": "Scourge of Aqshy Spirit Hosts battle profile"
     },
     {
       "aliases": [
@@ -80204,17 +80204,6 @@
     {
       "aliases": [
         {
-          "externalId": "official:15e050fa3663d3a57da675ecc059b37f7932d48e3dea79012d7260195530b80a",
-          "publisher": "games-workshop"
-        }
-      ],
-      "canonicalId": "publication:569ff77a-6e58-5e37-be6f-053311fdc852",
-      "kind": "publication",
-      "name": "Rules Updates"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "official:19d1a5a884ffff7c2cbc11b21db71a560880c541ac21830f2c608f5492f3fada",
           "publisher": "games-workshop"
         }
@@ -80310,6 +80299,17 @@
       "canonicalId": "publication:e388bec0-cd6e-5f97-ba8b-149069070c64",
       "kind": "publication",
       "name": "Spearhead: Helsmiths of Hashut - Helforge Host"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:240af53bd83954067cc8fdb3486bdc55f32dbd103bc8d2fd1081c06790b6333d",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:6c93843a-b154-538a-ac80-c80abbebb917",
+      "kind": "publication",
+      "name": "Armies of Renown"
     },
     {
       "aliases": [
@@ -80644,17 +80644,6 @@
     {
       "aliases": [
         {
-          "externalId": "official:4a09c52988284131c27a686a65301ee25a9c532824f72a4e35fd22d14461df11",
-          "publisher": "games-workshop"
-        }
-      ],
-      "canonicalId": "publication:d052ddd8-8241-5cb7-b8a4-aebcdf78bb18",
-      "kind": "publication",
-      "name": "Armies of Renown"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "official:4a2a0862eab918613d3aa8722094f5d54f93a757e41fb93af928873ad48ce7e2",
           "publisher": "games-workshop"
         }
@@ -80776,6 +80765,17 @@
     {
       "aliases": [
         {
+          "externalId": "official:5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:80d8fad2-f432-5d9c-8cab-b1930a8f8d2b",
+      "kind": "publication",
+      "name": "Battle Profiles"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:607775cab94d2176d4a96c8d30de367fbcecea62cdbe50862dbd129e8a7a83f9",
           "publisher": "games-workshop"
         }
@@ -80798,13 +80798,13 @@
     {
       "aliases": [
         {
-          "externalId": "official:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f",
+          "externalId": "official:64cbf4bd20cd400f4e609236e1f16d53d73f6b74ced10f0ca34192c0f08b47be",
           "publisher": "games-workshop"
         }
       ],
-      "canonicalId": "publication:1f20a0cc-8c17-59d3-8866-8d19a6fc7e77",
+      "canonicalId": "publication:fcab1341-bd3c-5f24-8a3b-3c66f2ea0f14",
       "kind": "publication",
-      "name": "Battle Profiles"
+      "name": "Legends Warscrolls"
     },
     {
       "aliases": [
@@ -81025,17 +81025,6 @@
       "canonicalId": "publication:75db88a1-1ad8-54db-90c3-5e7fe9f8af12",
       "kind": "publication",
       "name": "Scourge of Aqshy - Ogor Mawtribes"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "official:891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae",
-          "publisher": "games-workshop"
-        }
-      ],
-      "canonicalId": "publication:cdf24a0e-7d46-58fa-933e-b15286260b73",
-      "kind": "publication",
-      "name": "Legends Warscrolls"
     },
     {
       "aliases": [
@@ -81359,6 +81348,17 @@
     {
       "aliases": [
         {
+          "externalId": "official:b0c1c4c58744ab5a40bd8eb6749e34270599ae533578f9d62d7ce4c4ab7efbe1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:1c752a88-3fc4-5a3a-9580-0b01fbbb74b7",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Skaven"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:b23c945c96f1a3844824e73ab4e87b60a1cd55247956666ed476a93ba2bb1c53",
           "publisher": "games-workshop"
         }
@@ -81381,6 +81381,17 @@
     {
       "aliases": [
         {
+          "externalId": "official:b750d1548cd2a786ac22b258ed2829e488f2655e16a2a851a3fdc10648704b5b",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:7bd897da-0100-5806-a924-ce752c83b3f0",
+      "kind": "publication",
+      "name": "Battletome Supplement: Ogor Mawtribes"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:b88302276b755f75d06a9d5ba5405035b512118c9ed99461cda3faf9bb2ac3a3",
           "publisher": "games-workshop"
         }
@@ -81388,17 +81399,6 @@
       "canonicalId": "publication:91f3a72d-7b2c-55ac-802a-42067f3bd12c",
       "kind": "publication",
       "name": "Scourge of Ghyran - Maggotkin of Nurgle"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "official:bbef37c7138dc3fe2f37f2ec50cf32e730f98b989a67dc654bf6a3a7381fd026",
-          "publisher": "games-workshop"
-        }
-      ],
-      "canonicalId": "publication:61487661-e0a9-5535-b21b-10a74612ad28",
-      "kind": "publication",
-      "name": "Darkwater Hero Warscrolls"
     },
     {
       "aliases": [
@@ -81612,6 +81612,17 @@
     {
       "aliases": [
         {
+          "externalId": "official:dfbb72b3631d01f4b085daa7f0808eab17227dee70acbc9af384f2a3e4865cfb",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:89f2b610-5846-547c-99d8-a7bd499ca361",
+      "kind": "publication",
+      "name": "Darkwater Hero Warscrolls"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:e04b8c1239d45585ff2fe96aa930fb5dfed7507909699a8435a17aa72a3cc797",
           "publisher": "games-workshop"
         }
@@ -81630,17 +81641,6 @@
       "canonicalId": "publication:0e942cc5-990f-55be-8127-746d0dea05a9",
       "kind": "publication",
       "name": "Scourge of Aqshy - Disciples of Tzeentch"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "official:e37b74b0deacbcd2344e45ab470d22ba23157c8e2c96cf7c445ca643e824502a",
-          "publisher": "games-workshop"
-        }
-      ],
-      "canonicalId": "publication:d1256d9f-dc6c-5688-8033-8b3f71f26937",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Skaven"
     },
     {
       "aliases": [
@@ -81707,6 +81707,17 @@
       "canonicalId": "publication:5c0c4fb0-0109-5b67-819c-bac0ec8fd45e",
       "kind": "publication",
       "name": "Regiments of Renown - Kharadron Overlords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:f22149076e05dd6c450a5390c8d11dd72a8bf62663dd9a4df6ab99dad621acd2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:73baf5c5-78fa-553a-9b08-b8cd55a77000",
+      "kind": "publication",
+      "name": "Rules Updates"
     },
     {
       "aliases": [
@@ -83917,7 +83928,7 @@
       ],
       "canonicalId": "warscroll:d9b14857-4c09-52b4-a8b7-3098226bce6e",
       "kind": "warscroll",
-      "name": "Scourge of Aqshy Spirit Host"
+      "name": "Scourge of Aqshy Spirit Hosts"
     },
     {
       "aliases": [

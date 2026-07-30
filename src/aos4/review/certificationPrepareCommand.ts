@@ -44,17 +44,17 @@ const DEFAULT_REVIEW_OUTPUT = path.join('.cache', 'aos4', 'review', 'adversarial
 const DEFAULT_INVENTORY = path.join('.cache', 'aos4', 'review', 'source-inventory.json')
 
 const EXISTING_INPUTS = {
-  'accepted-manifest': path.join('data', 'aos4', 'manifests', 'accepted-2026-07-27.json'),
-  'corpus-review': path.join('data', 'aos4', 'reviews', 'corpus-2026-07-27.json'),
+  'accepted-manifest': path.join('data', 'aos4', 'manifests', 'accepted-2026-07-29.json'),
+  'corpus-review': path.join('data', 'aos4', 'reviews', 'corpus-2026-07-29.json'),
   'audit-catalog': path.join('data', 'aos4', 'catalog', 'catalog.json'),
-  'reconciliation-report': path.join('data', 'aos4', 'reports', 'corpus-2026-07-27-reconciliation.json'),
+  'reconciliation-report': path.join('data', 'aos4', 'reports', 'corpus-2026-07-29-reconciliation.json'),
   'official-ledger': path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json'),
   'runtime-catalog': path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json'),
   'source-observation-classifications': path.join(
     'data',
     'aos4',
     'reviews',
-    'source-observation-classifications-2026-07-28.json'
+    'source-observation-classifications-2026-07-29.json'
   ),
 } as const
 

@@ -170,7 +170,7 @@ describe('AoS 4 structured-data pathology validation', () => {
     expect(AOS4_GOLDEN_TRUTH_CASES).toContainEqual({
       id: 'golden-truth:lord-terminos-base-size',
       sourceRecordId:
-        'source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A20',
+        'source-record:games-workshop:5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2%3Apage%3A20',
       locator: { kind: 'page', page: 20, section: 'Lord-Terminos' },
       field: 'baseSizes[1]',
       observedValue: '2 5 m m [1]',

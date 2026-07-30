@@ -5,7 +5,7 @@ AoS 4 data moves through four distinct states:
 1. Candidate acquisition downloads immutable source bytes into the ignored checksum cache and
    writes manifests, diagnostics, cohort inventories, and official-page locators.
 2. Reviewed inputs pin accepted artifacts and record approvals, dispositions, official evidence,
-   timing overrides, and stable canonical identities under `data/aos4/`.
+   semantic overrides, and stable canonical identities under `data/aos4/`.
 3. Deterministic generation writes a complete curator-facing audit catalog and a compact browser
    projection from exactly the same reviewed inputs.
 4. Checksum-bound certification independently inventories sources, reviews every required record,
@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-07-27 snapshot is defined by:
+The accepted 2026-07-29 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-07-27.json` | 13 Wahapedia exports, 156 official PDFs, and 72 reviewed Wahapedia pages, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-07-27.json` | faction approval, diagnostic policies, exact exceptions, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-07-29.json` | 13 Wahapedia exports, 157 official PDFs, and 72 reviewed Wahapedia pages, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-07-29.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-07-27-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-07-27-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-07-29-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-07-29-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -37,7 +37,7 @@ The strict report currently records:
 - 4,850 usable abilities
 - 2,247 weapons
 - 1,402 content groups, including 48 Spearhead force/unit wrappers
-- 241 source artifacts and 19,057 live source records
+- 242 source artifacts and 18,974 live source records
 - every live record consumed, with zero unresolved integrity issues
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
 - 1,350 extracted GW battle-profile facts: 928 applied to runtime, 12 profile-only gaps,
@@ -59,13 +59,13 @@ than as a second selectable current context.
 
 The current official Battle Profiles PDF and Ogor Mawtribes supplement contribute 1,303 effective
 facts. Reconciliation applies official unit size, points, regiment options, notes, and bases to 928
-runtime profiles and now records 406 field-level secondary discrepancies after upstream parser and
+runtime profiles and now records 413 field-level secondary discrepancies after upstream parser and
 normalization corrections. Twelve official unit facts remain `profile-only` because current
 warscroll rules were not available; generation preserves their exact facts and checksums but does
-not invent reminders. The official June 2026 Rules Updates supplies the missing `Passive` timing
-for Sanctum of Amyntok's Multiple Parts ability. The other accepted official documents are
-reference evidence: their pages are available to reviewers but do not invent structured runtime
-facts.
+not invent reminders. The official July 2026 Rules Updates supplies reviewed ability-text, timing,
+and keyword corrections where the accepted secondary pages have not yet caught up. The other
+accepted official documents are reference evidence: their pages are available to reviewers but do
+not invent structured runtime facts.
 
 Every official document is limited to the rules contexts it actually governs. Spearhead,
 2026-27 `Scourge of Aqshy`, Legends, and historical `Scourge of Ghyran` records must not leak
@@ -194,7 +194,7 @@ Replay pinned artifacts without network access:
 
 ```powershell
 yarn data:aos4:candidate `
-  --accepted-manifest data/aos4/manifests/accepted-2026-07-27.json `
+  --accepted-manifest data/aos4/manifests/accepted-2026-07-29.json `
   --offline `
   --output <new-directory>
 ```

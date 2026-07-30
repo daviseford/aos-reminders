@@ -456,6 +456,192 @@ describe('AoS 4 corpus generation', () => {
     expect(result.summary.status).toBe('blocked')
   })
 
+  it('applies official ability text and warscroll keyword corrections without mutating source records', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const targetAbility = decoded.dataset.warscrollAbilities[0]
+    const targetWarscroll = decoded.dataset.warscrolls.find(
+      record => record.id === targetAbility.warscrollId
+    )!
+    const removedKeyword = decoded.dataset.warscrollKeywords
+      .find(record => record.warscrollId === targetWarscroll.id)!
+      .keyword.toUpperCase()
+    const officialChecksum = 'e'.repeat(64)
+    const officialSourceRecordId = sourceRecordId('games-workshop', `${officialChecksum}:page:1`)
+    const profileSourceRecordId = sourceRecordId('games-workshop', `${officialChecksum}:page:2`)
+    targetWarscroll.meta.officialSourceRecordIds = [officialSourceRecordId]
+    const reviewed: CorpusReview = {
+      ...review,
+      officialDocuments: [
+        {
+          title: 'Official correction fixture',
+          documentKind: 'reference',
+          rulesContextIds: [review.rulesContext.id],
+          artifact: {
+            requestUrl: 'https://assets.warhammer-community.com/correction-fixture.pdf',
+            finalUrl: 'https://assets.warhammer-community.com/correction-fixture.pdf',
+            redirectChain: [],
+            retrievedAt: '2026-07-30T12:00:00.000Z',
+            adapterVersion: 'games-workshop-pdf/1',
+            mediaType: 'application/pdf',
+            byteLength: 1,
+            checksum: officialChecksum,
+          },
+          sourceRecords: [
+            {
+              id: officialSourceRecordId,
+              page: 1,
+              recordChecksum: 'd'.repeat(64),
+            },
+            {
+              id: profileSourceRecordId,
+              page: 2,
+              recordChecksum: 'c'.repeat(64),
+            },
+          ],
+        },
+      ],
+      abilityTextOverrides: [
+        {
+          sourceRecordId: targetAbility.meta.sourceRecordId,
+          text: { effect: 'Official corrected effect.' },
+          reason: 'The official errata replaces the secondary-source effect.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+      warscrollKeywordOverrides: [
+        {
+          sourceRecordId: targetWarscroll.meta.sourceRecordId,
+          remove: [removedKeyword],
+          reason: 'The official errata removes the stale keyword.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    }
+    const identities = createCorpusIdentityRegistry(decoded.dataset, reviewed)
+    const result = buildAos4Corpus(decoded, identities, reviewed)
+    const ability = result.catalog.entities.find(
+      entity =>
+        entity.kind === 'ability' &&
+        entity.sourceRefs.some(reference => reference.sourceRecordId === targetAbility.meta.sourceRecordId)
+    )
+    const warscroll = result.catalog.entities.find(
+      entity =>
+        entity.kind === 'warscroll' &&
+        entity.sourceRefs.some(reference => reference.sourceRecordId === targetWarscroll.meta.sourceRecordId)
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(ability).toMatchObject({
+      kind: 'ability',
+      text: { effect: 'Official corrected effect.' },
+      sourceRefs: expect.arrayContaining([
+        expect.objectContaining({ sourceRecordId: officialSourceRecordId }),
+      ]),
+    })
+    expect(warscroll).toMatchObject({
+      kind: 'warscroll',
+      sourceRefs: expect.arrayContaining([
+        expect.objectContaining({ sourceRecordId: officialSourceRecordId }),
+      ]),
+    })
+    expect(warscroll?.kind === 'warscroll' ? warscroll.keywords : []).not.toContain(removedKeyword)
+
+    targetWarscroll.meta.officialSourceRecordIds = [profileSourceRecordId]
+    const revisedResult = buildAos4Corpus(decoded, identities, reviewed)
+    const revisedWarscroll = revisedResult.catalog.entities.find(
+      entity =>
+        entity.kind === 'warscroll' &&
+        entity.sourceRefs.some(reference => reference.sourceRecordId === targetWarscroll.meta.sourceRecordId)
+    )
+    expect(revisedWarscroll?.revision).not.toBe(warscroll?.revision)
+  })
+
+  it('rejects official overrides that generation would ignore or apply as no-ops', async () => {
+    const officialSourceRecordId = sourceRecordId('games-workshop', `${'e'.repeat(64)}:page:1`)
+
+    const ignoredAbilityDecoded = decodeWahapediaExports(await loadInputs())
+    const ignoredAbility = ignoredAbilityDecoded.dataset.warscrollAbilities[0]
+    const ignoredAbilityReview: CorpusReview = {
+      ...review,
+      ignoredSourceRecords: [
+        {
+          sourceRecordId: ignoredAbility.meta.sourceRecordId,
+          reason: 'Fixture ignored ability.',
+        },
+      ],
+      abilityTextOverrides: [
+        {
+          sourceRecordId: ignoredAbility.meta.sourceRecordId,
+          text: { effect: 'Official corrected effect.' },
+          reason: 'Fixture correction.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    }
+    const ignoredAbilityResult = buildAos4Corpus(
+      ignoredAbilityDecoded,
+      createCorpusIdentityRegistry(ignoredAbilityDecoded.dataset, ignoredAbilityReview),
+      ignoredAbilityReview
+    )
+    expect(ignoredAbilityResult.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-review',
+        subject: ignoredAbility.meta.sourceRecordId,
+      })
+    )
+
+    const contentGroupDecoded = decodeWahapediaExports(await loadInputs())
+    const contentGroupTarget = contentGroupDecoded.dataset.warscrolls[0]
+    contentGroupTarget.move = ''
+    const contentGroupReview: CorpusReview = {
+      ...review,
+      warscrollKeywordOverrides: [
+        {
+          sourceRecordId: contentGroupTarget.meta.sourceRecordId,
+          remove: ['ORDER'],
+          reason: 'Fixture correction.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    }
+    const contentGroupResult = buildAos4Corpus(
+      contentGroupDecoded,
+      createCorpusIdentityRegistry(contentGroupDecoded.dataset, contentGroupReview),
+      contentGroupReview
+    )
+    expect(contentGroupResult.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-review',
+        subject: contentGroupTarget.meta.sourceRecordId,
+      })
+    )
+
+    const absentKeywordDecoded = decodeWahapediaExports(await loadInputs())
+    const absentKeywordTarget = absentKeywordDecoded.dataset.warscrolls[0]
+    const absentKeywordReview: CorpusReview = {
+      ...review,
+      warscrollKeywordOverrides: [
+        {
+          sourceRecordId: absentKeywordTarget.meta.sourceRecordId,
+          remove: ['HERO'],
+          reason: 'Fixture correction.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    }
+    const absentKeywordResult = buildAos4Corpus(
+      absentKeywordDecoded,
+      createCorpusIdentityRegistry(absentKeywordDecoded.dataset, absentKeywordReview),
+      absentKeywordReview
+    )
+    expect(absentKeywordResult.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-review',
+        subject: absentKeywordTarget.meta.sourceRecordId,
+      })
+    )
+  })
+
   it('fails closed when a source diagnostic has not been reviewed', async () => {
     const decoded = decodeWahapediaExports(await loadInputs())
     decoded.diagnostics.push({
