@@ -36,25 +36,26 @@ describe('AoS 4 legacy isolation', () => {
         .filter(entry => entry.isDirectory() && entry.name !== 'aos4')
         .map(entry => entry.name)
     )
-    const violations: string[] = []
-
-    for (const file of await sourceFiles(aos4Root)) {
-      const source = await readFile(file, 'utf8')
-      importedSpecifiers(source).forEach(specifier => {
-        if (specifier.startsWith('.')) {
-          const resolved = path.resolve(path.dirname(file), specifier)
-          if (resolved !== aos4Root && !resolved.startsWith(`${aos4Root}${path.sep}`)) {
-            violations.push(`${path.relative(sourceRoot, file)} -> ${specifier}`)
-          }
-          return
-        }
-
-        const topLevel = specifier.split('/')[0]
-        if (sourceDirectories.has(topLevel)) {
-          violations.push(`${path.relative(sourceRoot, file)} -> ${specifier}`)
-        }
-      })
-    }
+    // Read concurrently: this walks every file under src/aos4, and doing it one await at a time
+    // left the test slow enough to trip the default timeout when the suite is under load.
+    const violations = (
+      await Promise.all(
+        (await sourceFiles(aos4Root)).map(async file => {
+          const source = await readFile(file, 'utf8')
+          return importedSpecifiers(source).flatMap(specifier => {
+            if (specifier.startsWith('.')) {
+              const resolved = path.resolve(path.dirname(file), specifier)
+              const outside = resolved !== aos4Root && !resolved.startsWith(`${aos4Root}${path.sep}`)
+              return outside ? [`${path.relative(sourceRoot, file)} -> ${specifier}`] : []
+            }
+            const topLevel = specifier.split('/')[0]
+            return sourceDirectories.has(topLevel)
+              ? [`${path.relative(sourceRoot, file)} -> ${specifier}`]
+              : []
+          })
+        })
+      )
+    ).flat()
 
     expect(violations).toEqual([])
   })

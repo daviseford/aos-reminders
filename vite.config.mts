@@ -67,7 +67,21 @@ export default defineConfig({
   test: {
     ...configDefaults,
     exclude: [...configDefaults.exclude, '**/.worktrees/**', '**/.claude/**'],
-    environment: 'jsdom',
+    /**
+     * Node by default, jsdom only for the component tests that render.
+     *
+     * Standing up a jsdom window for all 65 files dominated the run — most of them are pure
+     * parsing, catalog and corpus logic that never touches the DOM. Paying for it everywhere
+     * starved the CPU enough that short tests began tripping the default 5s timeout under load.
+     */
+    environment: 'node',
+    environmentMatchGlobs: [
+      ['**/*.test.tsx', 'jsdom'],
+      // Not component tests, but they still need a DOM: New Recruit rosters are parsed with
+      // DOMParser, and the print path builds its output against real nodes.
+      ['**/importNewRecruit.test.ts', 'jsdom'],
+      ['**/print*.test.ts', 'jsdom'],
+    ],
     globals: true,
   },
 })

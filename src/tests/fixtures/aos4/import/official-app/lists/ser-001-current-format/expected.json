@@ -1,0 +1,41 @@
+{
+  "id": "ser-001-current-format",
+  "diagnostics": [],
+  "proposedName": "Sunhost",
+  "declaredFaction": "Seraphon",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": false,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Thunderquake Starhost"
+    },
+    {
+      "line": 6,
+      "kindHint": "spell-lore",
+      "label": "Lore of Primal Jungles"
+    },
+    {
+      "line": 9,
+      "kindHint": "warscroll",
+      "label": "Slann Starmaster"
+    },
+    {
+      "line": 11,
+      "kindHint": "enhancement",
+      "label": "Coatl Familiar"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Saurus Warriors",
+      "count": 2
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Realmshaper Engine"
+    }
+  ]
+}

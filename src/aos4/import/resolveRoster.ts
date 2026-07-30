@@ -438,26 +438,43 @@ const resolveRosterSelection = (
     return { contextCandidates, candidates: contextCandidates.filter(entity => reachableIds.has(entity.id)) }
   }
 
-  let known = false
-  for (const resolutionContext of resolutionContexts) {
-    const { contextCandidates, candidates } = matchInContext(resolutionContext)
-    if (candidates.length === 1) {
-      return {
-        line: selection.line,
-        label: selection.label,
-        canonicalId: candidates[0].id,
-      }
+  const ambiguous = (): undefined => {
+    diagnostics.push({
+      code: 'ambiguous-selection',
+      severity: 'warning',
+      message: `"${selection.label}" matches more than one ${selection.kindHint}, so it was not imported. Add it by hand to be sure of the right one.`,
+      line: selection.line,
+    })
+    return undefined
+  }
+  const matched = (entity: ContentEntity): Aos4ImportMatch => ({
+    line: selection.line,
+    label: selection.label,
+    canonicalId: entity.id,
+  })
+
+  const perContext = resolutionContexts.map(resolutionContext => matchInContext(resolutionContext))
+
+  for (const { candidates } of perContext) {
+    if (candidates.length === 1) return matched(candidates[0])
+    if (candidates.length > 1) return ambiguous()
+  }
+  const known = perContext.some(({ contextCandidates }) => contextCandidates.length > 0)
+
+  /**
+   * A regiment of renown resolves outside the army's faction.
+   *
+   * The band is bought as a whole and brings units the army has no other way to field — an
+   * Ironjawz list can hold Gloomspite, Ossiarch and Kharadron warscrolls through one. Reachability
+   * is still tried first above, so a name the faction *can* reach resolves to its own version and
+   * collisions are decided the same way as before; this only runs once that found nothing, and
+   * still refuses to guess between two candidates.
+   */
+  if (selection.isRegimentOfRenown && known) {
+    for (const { contextCandidates } of perContext) {
+      if (contextCandidates.length === 1) return matched(contextCandidates[0])
+      if (contextCandidates.length > 1) return ambiguous()
     }
-    if (candidates.length > 1) {
-      diagnostics.push({
-        code: 'ambiguous-selection',
-        severity: 'warning',
-        message: `"${selection.label}" matches more than one ${selection.kindHint}, so it was not imported. Add it by hand to be sure of the right one.`,
-        line: selection.line,
-      })
-      return undefined
-    }
-    known = known || contextCandidates.length > 0
   }
 
   /**

@@ -1,0 +1,240 @@
+{
+  "id": "dok-001-legends-repeats",
+  "diagnostics": [],
+  "proposedName": "Dok1",
+  "declaredFaction": "Daughters of Khaine",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Fervent Ritualists"
+    },
+    {
+      "line": 7,
+      "kindHint": "manifestation-lore",
+      "label": "Manifestations of Khaine"
+    },
+    {
+      "line": 11,
+      "kindHint": "warscroll",
+      "label": "Hag Queen on Cauldron of Blood"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Morathi-Khaine"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Slaughter Queen on Cauldron of Blood"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Blood Hags"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Blood Sisters"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Blood Stalkers"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Bloodwrack Medusa"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Bloodwrack Shrine"
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Doomfire Warlocks"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Gryselle’s Arenai",
+      "isLegends": true
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Hag Queen on Cauldron of Blood"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "High Gladiatrix"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Khainite Shadowstalkers"
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Khainite Shadowstalkers"
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Khinerai Heartrenders"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Khinerai Lifetakers"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Knives of the Crone",
+      "isLegends": true
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Krethusa the Croneseer"
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Maleneth Witchblade",
+      "isLegends": true
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Melusai Ironscale"
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Morathi-Khaine"
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Morgwaeth's Blade-coven",
+      "isLegends": true
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Khainite Shadowstalkers"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Melusai Ironscale"
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Melusai Ironscale"
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Sisters of Slaughter"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Slaughter Queen"
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 52,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 60,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 64,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "The Shadeborn",
+      "isLegends": true
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Witch Aelves"
+    },
+    {
+      "line": 71,
+      "kindHint": "warscroll",
+      "label": "Hag Queen"
+    },
+    {
+      "line": 74,
+      "kindHint": "warscroll",
+      "label": "Shrine of Dark Tribute"
+    }
+  ]
+}

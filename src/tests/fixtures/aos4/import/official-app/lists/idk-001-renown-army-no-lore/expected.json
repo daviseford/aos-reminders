@@ -1,0 +1,136 @@
+{
+  "id": "idk-001-renown-army-no-lore",
+  "diagnostics": [],
+  "proposedName": "Idk1",
+  "declaredFaction": "Idoneth Deepkin",
+  "declaredContext": "General's Handbook 2025-26",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "The First Phalanx of Ionrach"
+    },
+    {
+      "line": 9,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran Akhelian Thrallmaster"
+    },
+    {
+      "line": 10,
+      "kindHint": "warscroll",
+      "label": "Cyreni's Razors",
+      "isLegends": true
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Cyreni's Razors",
+      "isLegends": true
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Cyreni's Razors",
+      "isLegends": true
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Cyreni's Razors",
+      "isLegends": true
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Cyreni's Razors",
+      "isLegends": true
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Cyreni's Razors",
+      "isLegends": true
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Cyreni's Razors",
+      "isLegends": true
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Cyreni's Razors",
+      "isLegends": true
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Elathain's Soulraid",
+      "isLegends": true
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Volturnos, High King of the Deep"
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Akhelian King"
+    },
+    {
+      "line": 36,
+      "kindHint": "warscroll",
+      "label": "Akhelian Thrallmaster"
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Ikon of the Sea"
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Akhelian Allopex"
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Akhelian Ishlaen Guard"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Akhelian Leviadon"
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Akhelian Leviadon"
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Akhelian Morrsarr Guard"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Cyreni's Razors",
+      "isLegends": true
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Elathain's Soulraid",
+      "isLegends": true
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Gloomtide Shipwreck"
+    }
+  ]
+}
