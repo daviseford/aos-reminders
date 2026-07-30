@@ -76,9 +76,9 @@ const dataPath = (...segments: string[]): string => path.join(process.cwd(), 'da
 
 const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPath(...segments), 'utf8')) as T
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-07-27.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-07-29.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-07-27-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-07-29-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -107,12 +107,12 @@ describe('AoS 4 catalog generation integrity', () => {
         battleProfiles: 1002,
         abilities: 4850,
         weapons: 2247,
-        sourceArtifacts: 241,
-        sourceRecords: 19057,
+        sourceArtifacts: 242,
+        sourceRecords: 18974,
         ignoredSourceRecords: 18897,
       },
       integrity: {
-        consumedSourceRecords: 19057,
+        consumedSourceRecords: 18974,
         issues: [],
         supersededSourceRecords: {
           count: 18897,
@@ -126,13 +126,13 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(241)
+    expect(acceptedManifest.artifacts).toHaveLength(242)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
-    ).toHaveLength(156)
+    ).toHaveLength(157)
     const htmlArtifacts = acceptedManifest.artifacts.filter(
       artifact => artifact.adapterVersion === 'wahapedia-html/1'
     )

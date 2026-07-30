@@ -43,8 +43,8 @@ import {
 import { AOS4_REVIEW_PROTOCOL_VERSION, AOS4_REVIEW_RUBRIC_VERSION } from './records'
 import { writeCreateOnlyDirectory } from './reviewWorkspace'
 
-const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-07-27.json')
-const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-07-27.json')
+const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-07-29.json')
+const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-07-29.json')
 const DEFAULT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
@@ -164,6 +164,9 @@ const datasetSnapshots = (dataset: WahapediaDataset): Map<SourceRecordId, Source
     ['faction-ability-type', dataset.factionAbilityTypes],
     ['faction-ability-subtype', dataset.factionAbilitySubtypes],
     ['faction-ability', dataset.factionAbilities],
+    ['general-rules-page', dataset.generalRulesPages ?? []],
+    ['general-rule-group', dataset.generalRuleGroups ?? []],
+    ['general-rule-ability', dataset.generalRuleAbilities ?? []],
     ...(dataset.lastUpdate ? ([['last-update', [dataset.lastUpdate]]] as Array<[string, unknown[]]>) : []),
   ]
   collections.forEach(([recordKind, values]) =>
@@ -326,8 +329,10 @@ const riskCohorts = (
     review.decoderDiagnosticPolicies.some(policy => policy.sourceRecordId === sourceRecordId) ||
     review.normalizationDiagnosticPolicies.some(policy => policy.sourceRecordId === sourceRecordId) ||
     review.timingOverrides.some(override => override.sourceRecordId === sourceRecordId) ||
+    review.abilityTextOverrides?.some(override => override.sourceRecordId === sourceRecordId) ||
     review.contextOverrides?.some(override => override.sourceRecordId === sourceRecordId) ||
-    review.weaponProfileOverrides?.some(override => override.sourceRecordId === sourceRecordId)
+    review.weaponProfileOverrides?.some(override => override.sourceRecordId === sourceRecordId) ||
+    review.warscrollKeywordOverrides?.some(override => override.sourceRecordId === sourceRecordId)
   if (isPolicyOrOverride) cohorts.push('high-risk:policy-or-override')
   if (review.timingOverrides.some(override => override.sourceRecordId === sourceRecordId)) {
     cohorts.push('high-risk:phase-timing-conflict')
@@ -435,13 +440,15 @@ const buildSourceCandidates = (
   catalog: Aos4Catalog,
   identities: IdentityRegistry,
   runtime: RuntimeProjection,
-  sourceIndexes: SourceEntityIndexes
+  sourceIndexes: SourceEntityIndexes,
+  reviewPath: string
 ): ReviewPacketCandidate[] => {
   const snapshots = datasetSnapshots(sourceData.decoded.dataset)
   const { entitiesBySourceRecord, factionIdsBySourceRecord } = sourceIndexes
   const authority = authorityByArtifact(catalog)
   const identitiesByEntity = new Map(identities.entries.map(entry => [entry.canonicalId, entry]))
   const runtimeById = runtimeDestinationsById(runtime)
+  const sourceRecordById = new Map(catalog.sourceRecords.map(record => [record.id, record]))
   const pathologiesByEntity = new Map<CanonicalId, PathologyIssue[]>()
   inspectCatalogPathologies(catalog).forEach(pathology => {
     const entityId = pathology.subject as CanonicalId
@@ -463,24 +470,104 @@ const buildSourceCandidates = (
             reviewedChecksum: sourceRecord.recordChecksum,
           })
     const sourceAuthority = authority.get(sourceRecord.artifactId) ?? 'unknown'
+    const keyword =
+      snapshot?.recordKind === 'warscroll-keyword'
+        ? [snapshot.structuredValue.keyword, snapshot.structuredValue.parameter]
+            .filter(Boolean)
+            .join(' ')
+            .trim()
+            .toUpperCase()
+        : undefined
+    const reviewOverrides = [
+      ...(sourceData.review.abilityTextOverrides ?? [])
+        .filter(override => override.sourceRecordId === sourceRecord.id)
+        .map(override => ({ field: 'abilityTextOverrides', value: override })),
+      ...sourceData.review.timingOverrides
+        .filter(override => override.sourceRecordId === sourceRecord.id)
+        .map(override => ({ field: 'timingOverrides', value: override })),
+      ...(sourceData.review.warscrollKeywordOverrides ?? [])
+        .filter(
+          override =>
+            override.sourceRecordId === sourceRecord.id ||
+            (keyword &&
+              (override.remove ?? []).some(value => value.trim().toUpperCase() === keyword) &&
+              entities.some(
+                entity =>
+                  entity.kind === 'warscroll' &&
+                  entity.sourceRefs.some(reference => reference.sourceRecordId === override.sourceRecordId)
+              ))
+        )
+        .map(override => ({ field: 'warscrollKeywordOverrides', value: override })),
+    ]
+    const officialOverrideSourceIds = Array.from(
+      new Set(reviewOverrides.flatMap(({ value }) => value.officialSourceRecordIds))
+    ).sort((left, right) => left.localeCompare(right))
+    let preferredOverrideEntityKind: ContentEntity['kind'] | undefined
+    if (reviewOverrides.some(override => override.field === 'warscrollKeywordOverrides')) {
+      preferredOverrideEntityKind = 'warscroll'
+    } else if (
+      reviewOverrides.some(
+        override => override.field === 'abilityTextOverrides' || override.field === 'timingOverrides'
+      )
+    ) {
+      preferredOverrideEntityKind = 'ability'
+    }
+    const overrideExcerptFocus =
+      entities.find(entity => entity.kind === preferredOverrideEntityKind)?.name ??
+      entities.find(entity => entity.kind === 'warscroll')?.name ??
+      entities[0]?.name ??
+      keyword
+    const officialOverrideEvidence = officialOverrideSourceIds.map(sourceRecordId => {
+      const officialRecord = sourceRecordById.get(sourceRecordId)
+      if (!officialRecord) {
+        throw new Error(`Official override references missing source record ${sourceRecordId}`)
+      }
+      const officialAuthority = authority.get(officialRecord.artifactId) ?? 'unknown'
+      if (officialAuthority !== 'official') {
+        throw new Error(`Official override evidence ${sourceRecordId} is not from an official artifact`)
+      }
+      return {
+        sourceRecordId: officialRecord.id,
+        artifactId: officialRecord.artifactId,
+        recordChecksum: officialRecord.recordChecksum,
+        locator: officialRecord.locator,
+        authority: officialAuthority,
+        structuredValue: {
+          recordKind: 'official-override-evidence',
+          reviewedChecksum: officialRecord.recordChecksum,
+        },
+        excerpt:
+          pageExcerpt(
+            sourceData.officialPageTextBySourceRecordId.get(officialRecord.id),
+            overrideExcerptFocus
+          ) ??
+          sourceExcerpt({
+            recordKind: 'official-override-evidence',
+            reviewedChecksum: officialRecord.recordChecksum,
+          }),
+      }
+    })
     return {
       key: sourceRecordCandidateKey(sourceRecord.id),
       category: 'source-record',
-      cohortIds: [
-        sourceAuthority === 'secondary' ? 'secondary-semantic' : `source-authority:${sourceAuthority}`,
-        ...(snapshot ? [`source-kind:${snapshot.recordKind}`] : ['source-kind:official-page']),
-        ...riskCohorts(
-          sourceRecord.id,
-          snapshot,
-          sourceRecord.rulesContextIds,
-          catalog,
-          entities,
-          identitiesByEntity,
-          sourceData.review,
-          sourceData.decoded.diagnostics
-        ),
-        ...pathologyReviewCohorts(entities.flatMap(entity => pathologiesByEntity.get(entity.id) ?? [])),
-      ],
+      cohortIds: Array.from(
+        new Set([
+          sourceAuthority === 'secondary' ? 'secondary-semantic' : `source-authority:${sourceAuthority}`,
+          ...(snapshot ? [`source-kind:${snapshot.recordKind}`] : ['source-kind:official-page']),
+          ...riskCohorts(
+            sourceRecord.id,
+            snapshot,
+            sourceRecord.rulesContextIds,
+            catalog,
+            entities,
+            identitiesByEntity,
+            sourceData.review,
+            sourceData.decoded.diagnostics
+          ),
+          ...reviewOverrides.map(({ field }) => `high-risk:official-${field}`),
+          ...pathologyReviewCohorts(entities.flatMap(entity => pathologiesByEntity.get(entity.id) ?? [])),
+        ])
+      ),
       ...(entities.length === 1 ? { canonicalEntityId: entities[0].id } : {}),
       factionIds: factionIdsBySourceRecord.get(sourceRecord.id) ?? [],
       rulesContextIds: sourceRecord.rulesContextIds,
@@ -500,8 +587,16 @@ const buildSourceCandidates = (
               value: structuredValue,
             }),
         },
+        ...officialOverrideEvidence,
       ],
-      generatedDestinations: generatedDestinations(sourceRecord, entities, runtimeById),
+      generatedDestinations: [
+        ...generatedDestinations(sourceRecord, entities, runtimeById),
+        ...reviewOverrides.map(override => ({
+          path: reviewPath.replaceAll('\\', '/'),
+          field: override.field,
+          value: override.value,
+        })),
+      ],
     }
   })
 }
@@ -630,7 +725,7 @@ const buildReconciliationCandidates = (
       ],
       generatedDestinations: [
         {
-          path: 'data/aos4/reports/corpus-2026-07-27-reconciliation.json',
+          path: 'data/aos4/reports/corpus-2026-07-29-reconciliation.json',
           field: `discrepancies[${index}]`,
           value: discrepancy,
         },
@@ -663,7 +758,7 @@ const buildReconciliationCandidates = (
       ],
       generatedDestinations: [
         {
-          path: 'data/aos4/reports/corpus-2026-07-27-reconciliation.json',
+          path: 'data/aos4/reports/corpus-2026-07-29-reconciliation.json',
           field: `unmatchedOfficialUnitFacts[${index}]`,
           value: fact,
         },
@@ -766,7 +861,8 @@ const contextIdsForMeta = (catalog: Aos4Catalog, meta: WahapediaRecordMeta): Rul
 
 const buildIgnoredCandidates = (
   sourceData: Awaited<ReturnType<typeof loadAcceptedCorpusSourceData>>,
-  catalog: Aos4Catalog
+  catalog: Aos4Catalog,
+  reviewPath: string
 ): ReviewPacketCandidate[] => {
   const snapshots = datasetSnapshots(sourceData.acceptedDecoded.dataset)
   const supersededMetas = sourceData.decoded.dataset.supersededMetas ?? []
@@ -816,7 +912,7 @@ const buildIgnoredCandidates = (
       ],
       generatedDestinations: [
         {
-          path: 'data/aos4/reviews/corpus-2026-07-27.json',
+          path: reviewPath.replaceAll('\\', '/'),
           field: 'ignoredSourceRecords',
           value: disposition,
         },
@@ -870,7 +966,7 @@ const buildIgnoredCandidates = (
     ],
     generatedDestinations: [
       {
-        path: 'data/aos4/reviews/corpus-2026-07-27.json',
+        path: reviewPath.replaceAll('\\', '/'),
         field: 'supersededSourceRecords',
         value: { sourceRecordId: meta.sourceRecordId, reason },
       },
@@ -972,7 +1068,14 @@ const run = async (): Promise<void> => {
     cacheDirectory: arguments_.cacheDirectory,
   })
   const sourceIndexes = sourceEntityIndexes(catalog)
-  const sourceCandidates = buildSourceCandidates(sourceData, catalog, identities, runtime, sourceIndexes)
+  const sourceCandidates = buildSourceCandidates(
+    sourceData,
+    catalog,
+    identities,
+    runtime,
+    sourceIndexes,
+    arguments_.reviewPath
+  )
   const officialCandidates = buildOfficialCandidates(
     catalog,
     profiles,
@@ -980,12 +1083,43 @@ const run = async (): Promise<void> => {
     sourceIndexes.entitiesBySourceRecord
   )
   const reconciliationCandidates = buildReconciliationCandidates(catalog, sourceData.reconciliation)
-  const ignoredCandidates = buildIgnoredCandidates(sourceData, catalog)
+  const ignoredCandidates = buildIgnoredCandidates(sourceData, catalog, arguments_.reviewPath)
   const goldenTruthCandidates = buildGoldenTruthCandidates(
     catalog,
     runtime,
     sourceIndexes,
     sourceData.officialPageTextBySourceRecordId
+  )
+  const overrideFields = [
+    ['abilityTextOverrides', sourceData.review.abilityTextOverrides ?? []],
+    ['timingOverrides', sourceData.review.timingOverrides],
+    ['warscrollKeywordOverrides', sourceData.review.warscrollKeywordOverrides ?? []],
+  ] as const
+  overrideFields.forEach(([field, overrides]) => {
+    const expectedIds = new Set(overrides.map(override => override.sourceRecordId))
+    const actualIds = new Set(
+      sourceCandidates.flatMap(candidate =>
+        candidate.generatedDestinations.flatMap(destination =>
+          destination.field === field &&
+          destination.value &&
+          typeof destination.value === 'object' &&
+          'sourceRecordId' in destination.value
+            ? [String(destination.value.sourceRecordId)]
+            : []
+        )
+      )
+    )
+    if (
+      actualIds.size !== expectedIds.size ||
+      Array.from(expectedIds).some(sourceRecordId => !actualIds.has(sourceRecordId))
+    ) {
+      throw new Error(
+        `Review packet preparation found ${actualIds.size}/${expectedIds.size} ${field} targets`
+      )
+    }
+  })
+  const requiredOverrideCohorts = overrideFields.flatMap(([field, overrides]) =>
+    overrides.length > 0 ? [`high-risk:official-${field}`] : []
   )
   const prepared = prepareReviewPackets({
     revision: sourceData.review.revision,
@@ -1013,7 +1147,7 @@ const run = async (): Promise<void> => {
           rulesContextId,
         }))
       ),
-    requiredHighRiskCohorts: [...REQUIRED_HIGH_RISK_COHORTS],
+    requiredHighRiskCohorts: [...REQUIRED_HIGH_RISK_COHORTS, ...requiredOverrideCohorts],
     calibrationCases: calibrationCases(officialCandidates, reconciliationCandidates),
   })
   const shardCount = Math.ceil(prepared.workspace.pairs.length / PACKET_SHARD_SIZE)

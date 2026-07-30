@@ -9,7 +9,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 The migration branch is now an Age of Sigmar fourth-edition-only workbench:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-07-28` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-07-30` snapshot
 - the AoS 3 faction corpus, rule utilities, Redux state, saved-army schema, importers, and fixtures
   have been removed
 - importing, cloud armies, and army sharing are rebuilt as AoS 4-native features: roster parsers in
@@ -22,7 +22,7 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
   translated
 - all 28 decoded factions are selectable through one source-complete relationship graph
 - the accepted corpus contains 1,268 warscrolls, 1,002 battle profiles, 4,850 abilities,
-  2,247 weapons, 1,402 content groups, and 19,057 live source records
+  2,247 weapons, 1,402 content groups, and 18,974 live source records
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
   historical rules contexts isolate parallel and retired records; the browser defaults to the
   current 2026-27 seasonal context
@@ -114,7 +114,7 @@ Phase 1 has two parts:
    stable identities, generation, and coverage/freshness reporting.
 
 The structural and machine-audit work is complete for the accepted
-`aos4-corpus-2026-07-28` snapshot. The manifest, corpus review, stable identity registry, complete
+`aos4-corpus-2026-07-30` snapshot. The manifest, corpus review, stable identity registry, complete
 audit catalog, compact runtime projection, and generation report are checked in. The strict gate
 has no unresolved timing, dangling reference, unsafe HTML, duplicate identity, silent source
 conflict, or unreviewed source diagnostic.

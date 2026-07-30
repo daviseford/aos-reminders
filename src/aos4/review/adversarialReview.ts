@@ -65,6 +65,52 @@ const sourceComparableText = (value: unknown): string =>
     .replace(/[^a-z0-9]+/gi, '')
     .toLowerCase()
 
+const textSegments = (value: unknown): string[] =>
+  visibleSourceText(value)
+    .split(/(?:\r?\n+|(?<=[.!?])\s+)/)
+    .map(segment => segment.trim())
+    .filter(Boolean)
+
+const generatedTextIsGrounded = (
+  source: unknown,
+  generated: unknown,
+  allowFragmentedWords = false
+): boolean => {
+  const sourceText = visibleSourceText(source)
+  const generatedText = visibleSourceText(generated)
+  const sourceTokens: string[] = sourceText.toLowerCase().match(/[a-z0-9]+/g) ?? []
+  const generatedTokens: string[] = generatedText.toLowerCase().match(/[a-z0-9]+/g) ?? []
+  let sourceTokenIndex = 0
+  if (
+    generatedTokens.length > 0 &&
+    generatedTokens.every(token => {
+      const index = sourceTokens.indexOf(token, sourceTokenIndex)
+      if (index < 0) return false
+      sourceTokenIndex = index + 1
+      return true
+    })
+  ) {
+    return true
+  }
+  if (!allowFragmentedWords) return false
+
+  const comparableSource = sourceComparableText(sourceText)
+  const comparableSegments = textSegments(generatedText).map(sourceComparableText)
+  let sourceCharacterIndex = 0
+  return (
+    comparableSegments.length > 0 &&
+    comparableSegments.every(segment => {
+      // The compact fallback repairs PDF extraction such as "abi lities". Requiring a
+      // substantial phrase prevents a short keyword from matching inside an unrelated word.
+      if (segment.length < 20) return false
+      const index = comparableSource.indexOf(segment, sourceCharacterIndex)
+      if (index < 0) return false
+      sourceCharacterIndex = index + segment.length
+      return true
+    })
+  )
+}
+
 const decodeHtmlEntities = (value: string): string =>
   value.replace(
     /&(?:#(\d+)|#x([0-9a-f]+)|([a-z]+));/gi,
@@ -104,10 +150,30 @@ const semanticCharacteristic = (value: unknown): string =>
     .replace(/[\u2010-\u2015\u2212]/g, '-')
     .replace(/\s+/g, '')
 
+const primarySourceEvidence = (pair: ReviewPacketPair): ReviewPacketSourceEvidence | undefined => {
+  const sourceRecordDestination = pair.comparisonPacket.generatedDestinations.find(
+    destination => destination.field === 'sourceRecords' && isRecord(destination.value)
+  )
+  const sourceRecordId = isRecord(sourceRecordDestination?.value)
+    ? sourceRecordDestination.value.id
+    : undefined
+  return (
+    pair.comparisonPacket.sourceEvidence.find(evidence => evidence.sourceRecordId === sourceRecordId) ??
+    pair.comparisonPacket.sourceEvidence[0]
+  )
+}
+
 const evidenceJsonValue = (
   pair: ReviewPacketPair
 ): { recordKind: string; value: Record<string, unknown> } | undefined => {
-  const evidence = pair.comparisonPacket.sourceEvidence[0]
+  const evidence = primarySourceEvidence(pair)
+  if (isRecord(evidence?.structuredValue)) {
+    const recordKind =
+      pair.comparisonPacket.cohortIds
+        .find(cohortId => cohortId.startsWith('source-kind:'))
+        ?.slice('source-kind:'.length) ?? 'structured-source'
+    return { recordKind, value: evidence.structuredValue }
+  }
   const content = evidence?.excerptRef ? evidenceBlockByRef(pair).get(evidence.excerptRef) : undefined
   if (!content) return undefined
   try {
@@ -157,24 +223,14 @@ const unsupportedSourceValue = (
     : []
 }
 
-const unsupportedGeneratedText = (field: string, source: unknown, generated: unknown): FailedCheck[] => {
+const unsupportedGeneratedText = (
+  field: string,
+  source: unknown,
+  generated: unknown,
+  allowFragmentedWords = false
+): FailedCheck[] => {
   if (generated === undefined || generated === null || String(generated).trim() === '') return []
-  const sourceTokens: string[] =
-    visibleSourceText(source)
-      .toLowerCase()
-      .match(/[a-z0-9]+/g) ?? []
-  const generatedTokens: string[] =
-    visibleSourceText(generated)
-      .toLowerCase()
-      .match(/[a-z0-9]+/g) ?? []
-  let sourceIndex = 0
-  const grounded = generatedTokens.every(token => {
-    const index = sourceTokens.indexOf(token, sourceIndex)
-    if (index < 0) return false
-    sourceIndex = index + 1
-    return true
-  })
-  return grounded
+  return generatedTextIsGrounded(source, generated, allowFragmentedWords)
     ? []
     : [
         failed(
@@ -194,7 +250,8 @@ const reviewEquivalentTimingSource = (value: string): string =>
 
 const abilitySourceFidelityChecks = (
   source: Record<string, unknown>,
-  ability: Record<string, unknown> | undefined
+  ability: Record<string, unknown> | undefined,
+  overrides: { text: boolean; timing: boolean } = { text: false, timing: false }
 ): FailedCheck[] => {
   if (!ability) {
     return [failed('secondary.source-ability', 'Source ability has no generated ability entity')]
@@ -203,19 +260,19 @@ const abilitySourceFidelityChecks = (
   const condition = visibleSourceText(source.conditionHtml)
   const description = visibleSourceText(source.descriptionHtml)
   const sourceRuleText = `${condition} ${description} ${visibleSourceText(source.keywordsHtml)}`
-  if (Array.isArray(ability.timings)) {
+  if (!overrides.timing && Array.isArray(ability.timings)) {
     ability.timings.forEach((timing, index) => {
       if (!isRecord(timing) || !condition) return
       checks.push(
         ...unsupportedGeneratedText(
           `ability-timings[${index}].raw`,
-          reviewEquivalentTimingSource(condition),
+          reviewEquivalentTimingSource(sourceRuleText),
           timing.raw
         )
       )
     })
   }
-  if (isRecord(ability.text)) {
+  if (!overrides.text && isRecord(ability.text)) {
     Object.entries(ability.text).forEach(([field, value]) => {
       checks.push(...unsupportedGeneratedText(`ability-text.${field}`, sourceRuleText, value))
     })
@@ -232,7 +289,7 @@ const abilitySourceFidelityChecks = (
       : condition
         ? 'active'
         : undefined
-  if (expectedKind) {
+  if (expectedKind && !overrides.timing) {
     checks.push(...unsupportedSourceValue('ability-kind', expectedKind, ability.abilityKind))
   }
   return checks
@@ -371,8 +428,15 @@ const secondarySourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] =>
   if (!parsed) return []
   const entities = generatedCatalogEntities(pair)
   const { recordKind, value } = parsed
-  if (recordKind === 'warscroll-ability' || recordKind === 'faction-ability') {
-    return abilitySourceFidelityChecks(value, entityOfKind(entities, 'ability'))
+  if (
+    recordKind === 'warscroll-ability' ||
+    recordKind === 'faction-ability' ||
+    recordKind === 'general-rule-ability'
+  ) {
+    return abilitySourceFidelityChecks(value, entityOfKind(entities, 'ability'), {
+      text: reviewOverrideDestinations(pair, 'abilityTextOverrides').length > 0,
+      timing: reviewOverrideDestinations(pair, 'timingOverrides').length > 0,
+    })
   }
   if (recordKind === 'warscroll-weapon') {
     return weaponSourceFidelityChecks(
@@ -386,6 +450,12 @@ const secondarySourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] =>
     const warscroll = entityOfKind(entities, 'warscroll')
     const expected = `${String(value.keyword ?? '')}${value.parameter ? ` ${String(value.parameter)}` : ''}`
     const keywords = Array.isArray(warscroll?.keywords) ? warscroll.keywords : []
+    const officiallyRemoved = reviewOverrideDestinations(pair, 'warscrollKeywordOverrides').some(
+      override =>
+        Array.isArray(override.remove) &&
+        override.remove.some(value => sourceComparableText(value) === sourceComparableText(expected))
+    )
+    if (officiallyRemoved) return []
     return keywords.some(keyword => sourceComparableText(keyword).includes(sourceComparableText(expected)))
       ? []
       : [
@@ -475,8 +545,7 @@ const officialSourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] => 
 }
 
 const sourceRecordId = (pair: ReviewPacketPair): SourceRecordId =>
-  pair.comparisonPacket.sourceEvidence[0]?.sourceRecordId ??
-  ('source-record:review:missing-evidence' as SourceRecordId)
+  primarySourceEvidence(pair)?.sourceRecordId ?? ('source-record:review:missing-evidence' as SourceRecordId)
 
 const evidenceIdentity = (evidence: ReviewPacketSourceEvidence[]) =>
   evidence.map(({ sourceRecordId: id, recordChecksum, locator, authority, artifactId, excerptRef }) => ({
@@ -494,6 +563,293 @@ const evidenceReferences = (evidence: ReviewPacketSourceEvidence[]) =>
     recordChecksum: value.recordChecksum,
     locator: value.locator,
   }))
+
+const reviewOverrideDestinations = (
+  pair: ReviewPacketPair,
+  field: 'abilityTextOverrides' | 'timingOverrides' | 'warscrollKeywordOverrides'
+): Record<string, unknown>[] =>
+  pair.comparisonPacket.generatedDestinations.flatMap(destination =>
+    destination.field === field && isRecord(destination.value) ? [destination.value] : []
+  )
+
+const officialOverrideEvidenceText = (
+  pair: ReviewPacketPair,
+  officialSourceRecordIds: SourceRecordId[],
+  evidenceBlocks: ReadonlyMap<string, string>
+): string =>
+  pair.comparisonPacket.sourceEvidence
+    .filter(
+      evidence =>
+        evidence.authority === 'official' && officialSourceRecordIds.includes(evidence.sourceRecordId)
+    )
+    .map(evidence => (evidence.excerptRef ? (evidenceBlocks.get(evidence.excerptRef) ?? '') : ''))
+    .join('\n')
+
+const secondaryAbilityRuleText = (pair: ReviewPacketPair): string => {
+  const source = evidenceJsonValue(pair)?.value
+  if (!source) return ''
+  return [source.conditionHtml, source.descriptionHtml, source.keywordsHtml]
+    .map(visibleSourceText)
+    .filter(Boolean)
+    .join(' ')
+}
+
+const unmatchedGeneratedTokenRuns = (source: unknown, generated: unknown): string[] => {
+  const sourceTokens: string[] =
+    visibleSourceText(source)
+      .toLowerCase()
+      .match(/[a-z0-9]+/g) ?? []
+  const generatedTokens: string[] =
+    visibleSourceText(generated)
+      .toLowerCase()
+      .match(/[a-z0-9]+/g) ?? []
+  const lengths = Array.from({ length: generatedTokens.length + 1 }, () =>
+    Array<number>(sourceTokens.length + 1).fill(0)
+  )
+  for (let generatedIndex = generatedTokens.length - 1; generatedIndex >= 0; generatedIndex -= 1) {
+    for (let sourceIndex = sourceTokens.length - 1; sourceIndex >= 0; sourceIndex -= 1) {
+      lengths[generatedIndex][sourceIndex] =
+        generatedTokens[generatedIndex] === sourceTokens[sourceIndex]
+          ? lengths[generatedIndex + 1][sourceIndex + 1] + 1
+          : Math.max(lengths[generatedIndex + 1][sourceIndex], lengths[generatedIndex][sourceIndex + 1])
+    }
+  }
+  const unmatchedIndexes = new Set<number>()
+  let generatedIndex = 0
+  let sourceIndex = 0
+  while (generatedIndex < generatedTokens.length && sourceIndex < sourceTokens.length) {
+    if (generatedTokens[generatedIndex] === sourceTokens[sourceIndex]) {
+      generatedIndex += 1
+      sourceIndex += 1
+    } else if (lengths[generatedIndex + 1][sourceIndex] >= lengths[generatedIndex][sourceIndex + 1]) {
+      unmatchedIndexes.add(generatedIndex)
+      generatedIndex += 1
+    } else {
+      sourceIndex += 1
+    }
+  }
+  while (generatedIndex < generatedTokens.length) {
+    unmatchedIndexes.add(generatedIndex)
+    generatedIndex += 1
+  }
+  const runs: string[] = []
+  let current: string[] = []
+  generatedTokens.forEach((token, index) => {
+    if (unmatchedIndexes.has(index)) {
+      current.push(token)
+    } else if (current.length) {
+      runs.push(current.join(' '))
+      current = []
+    }
+  })
+  if (current.length) runs.push(current.join(' '))
+  return runs
+}
+
+const escapeRegularExpression = (value: string): string => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+const officialEvidenceSupportsKeywordRemoval = (officialText: string, keyword: string): boolean => {
+  const keywordPattern = escapeRegularExpression(visibleSourceText(keyword)).replace(/\s+/g, '\\s+')
+  if (!keywordPattern) return false
+  const action = String.raw`\b(?:remove|removes|removed|removing|delete|deletes|deleted|deleting|no longer (?:has|have))\b`
+  const boundedText = String.raw`[^.!?\r\n]{0,160}`
+  return (
+    new RegExp(`${action}${boundedText}\\b${keywordPattern}\\b`, 'i').test(officialText) ||
+    new RegExp(
+      `\\b${keywordPattern}\\b${boundedText}\\b(?:keyword\\s+)?(?:is|are)\\s+(?:removed|deleted)\\b`,
+      'i'
+    ).test(officialText)
+  )
+}
+
+const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
+  const overrides = [
+    ...reviewOverrideDestinations(pair, 'abilityTextOverrides').map(value => ({
+      field: 'abilityTextOverrides' as const,
+      value,
+    })),
+    ...reviewOverrideDestinations(pair, 'timingOverrides').map(value => ({
+      field: 'timingOverrides' as const,
+      value,
+    })),
+    ...reviewOverrideDestinations(pair, 'warscrollKeywordOverrides').map(value => ({
+      field: 'warscrollKeywordOverrides' as const,
+      value,
+    })),
+  ]
+  if (!overrides.length) return []
+
+  const evidenceBySourceRecordId = new Map(
+    pair.comparisonPacket.sourceEvidence.map(evidence => [evidence.sourceRecordId, evidence])
+  )
+  const evidenceBlocks = evidenceBlockByRef(pair)
+  const primaryEvidence = primarySourceEvidence(pair)
+  const orderedEvidence = [
+    ...(primaryEvidence ? [primaryEvidence] : []),
+    ...pair.comparisonPacket.sourceEvidence.filter(evidence => evidence !== primaryEvidence),
+  ]
+  const allEvidenceText = orderedEvidence
+    .map(evidence => (evidence.excerptRef ? (evidenceBlocks.get(evidence.excerptRef) ?? '') : ''))
+    .join('\n')
+  const entities = generatedCatalogEntities(pair)
+  const ability = entityOfKind(entities, 'ability')
+  const warscroll = entityOfKind(entities, 'warscroll')
+  const checks: FailedCheck[] = []
+
+  overrides.forEach(override => {
+    const officialSourceRecordIds: SourceRecordId[] = Array.isArray(override.value.officialSourceRecordIds)
+      ? override.value.officialSourceRecordIds.map(value => String(value) as SourceRecordId)
+      : []
+    if (
+      !officialSourceRecordIds.length ||
+      officialSourceRecordIds.some(
+        sourceRecordId => evidenceBySourceRecordId.get(sourceRecordId)?.authority !== 'official'
+      )
+    ) {
+      checks.push(
+        failed(
+          `official-override.${override.field}.evidence`,
+          'Reviewed override is not bound to its cited official source evidence',
+          officialSourceRecordIds,
+          pair.comparisonPacket.sourceEvidence.map(evidence => evidence.sourceRecordId)
+        )
+      )
+      return
+    }
+    const officialText = officialOverrideEvidenceText(pair, officialSourceRecordIds, evidenceBlocks)
+
+    if (override.field === 'abilityTextOverrides') {
+      if (!ability || !same(ability.text, override.value.text)) {
+        checks.push(
+          failed(
+            'official-override.ability-text.destination',
+            'Generated ability text differs from the reviewed official override',
+            override.value.text,
+            ability?.text
+          )
+        )
+      }
+      if (isRecord(override.value.text)) {
+        const secondaryText = secondaryAbilityRuleText(pair)
+        Object.entries(override.value.text).forEach(([field, value]) => {
+          checks.push(
+            ...unsupportedGeneratedText(
+              `official-override.ability-text.${field}`,
+              allEvidenceText,
+              value,
+              true
+            )
+          )
+        })
+        const generatedText = Object.values(override.value.text).map(String).join(' ')
+        const officialContributions = unmatchedGeneratedTokenRuns(secondaryText, generatedText)
+        if (!officialContributions.length) {
+          checks.push(
+            failed(
+              'official-override.ability-text.evidence',
+              'Reviewed ability text override does not contain an official-source contribution',
+              override.value.text,
+              officialText
+            )
+          )
+        } else {
+          officialContributions.forEach(contribution => {
+            if (generatedTextIsGrounded(officialText, contribution, true)) return
+            checks.push(
+              failed(
+                'official-override.ability-text.evidence',
+                'Official evidence does not support the changed ability text',
+                contribution,
+                officialText
+              )
+            )
+          })
+        }
+      }
+    } else if (override.field === 'timingOverrides') {
+      if (
+        !ability ||
+        ability.abilityKind !== override.value.abilityKind ||
+        !same(ability.timings, override.value.timings)
+      ) {
+        checks.push(
+          failed(
+            'official-override.ability-timing.destination',
+            'Generated ability timing differs from the reviewed official override',
+            {
+              abilityKind: override.value.abilityKind,
+              timings: override.value.timings,
+            },
+            ability
+              ? {
+                  abilityKind: ability.abilityKind,
+                  timings: ability.timings,
+                }
+              : undefined
+          )
+        )
+      }
+      if (Array.isArray(override.value.timings)) {
+        override.value.timings.forEach((timing, index) => {
+          if (!isRecord(timing)) return
+          checks.push(
+            ...unsupportedGeneratedText(
+              `official-override.ability-timing[${index}]`,
+              officialText,
+              timing.raw,
+              true
+            )
+          )
+        })
+      }
+      const abilityKind = String(override.value.abilityKind ?? '')
+      const kindIsGrounded =
+        generatedTextIsGrounded(officialText, abilityKind, true) ||
+        (Array.isArray(override.value.timings) &&
+          override.value.timings.some(
+            timing =>
+              isRecord(timing) &&
+              timing.kind === override.value.abilityKind &&
+              generatedTextIsGrounded(officialText, timing.raw, true)
+          ))
+      if (!kindIsGrounded) {
+        checks.push(
+          failed(
+            'official-override.ability-kind.evidence',
+            'Official evidence does not support the reviewed ability kind',
+            abilityKind,
+            officialText
+          )
+        )
+      }
+    } else {
+      const keywords = Array.isArray(warscroll?.keywords) ? warscroll.keywords.map(String) : []
+      const removed = Array.isArray(override.value.remove) ? override.value.remove.map(String) : []
+      removed.forEach(keyword => {
+        if (keywords.some(value => sourceComparableText(value) === sourceComparableText(keyword))) {
+          checks.push(
+            failed(
+              'official-override.warscroll-keyword.remove',
+              'Generated warscroll retains an officially removed keyword',
+              `without ${keyword}`,
+              keywords
+            )
+          )
+        }
+        if (!officialEvidenceSupportsKeywordRemoval(officialText, keyword)) {
+          checks.push(
+            failed(
+              'official-override.warscroll-keyword.evidence',
+              'Official evidence does not support the reviewed keyword removal',
+              keyword
+            )
+          )
+        }
+      })
+    }
+  })
+  return checks
+}
 
 const failed = (field: string, message: string, expected?: unknown, actual?: unknown): FailedCheck => ({
   field,
@@ -642,8 +998,10 @@ const ignoredChecks = (pair: ReviewPacketPair): FailedCheck[] => {
   if (!isRecord(evidence)) {
     return [failed('ignored.disposition', 'Ignored-record evidence is missing its disposition')]
   }
-  const destination = pair.comparisonPacket.generatedDestinations.find(value =>
-    value.path.endsWith('corpus-2026-07-27.json')
+  const destinationField =
+    evidence.disposition === 'superseded' ? 'supersededSourceRecords' : 'ignoredSourceRecords'
+  const destination = pair.comparisonPacket.generatedDestinations.find(
+    value => value.field === destinationField
   )?.value
   if (!isRecord(destination)) {
     return [
@@ -680,7 +1038,7 @@ const ignoredChecks = (pair: ReviewPacketPair): FailedCheck[] => {
 }
 
 const sourceRecordChecks = (pair: ReviewPacketPair): FailedCheck[] => {
-  const evidence = pair.comparisonPacket.sourceEvidence[0]
+  const evidence = primarySourceEvidence(pair)
   if (!evidence) return [failed('source.evidence', 'Source-record packet contains no source evidence')]
   const auditRecord = pair.comparisonPacket.generatedDestinations.find(
     destination =>
@@ -739,6 +1097,7 @@ const sourceRecordChecks = (pair: ReviewPacketPair): FailedCheck[] => {
   if (evidence.authority === 'secondary') {
     checks.push(...secondarySourceFidelityChecks(pair))
   }
+  checks.push(...officialOverrideChecks(pair))
   return checks
 }
 

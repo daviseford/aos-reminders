@@ -68,6 +68,13 @@ export interface CorpusTimingOverride {
   officialSourceRecordIds: SourceRecordId[]
 }
 
+export interface CorpusAbilityTextOverride {
+  sourceRecordId: SourceRecordId
+  text: Ability['text']
+  reason: string
+  officialSourceRecordIds: SourceRecordId[]
+}
+
 export interface CorpusOfficialSourceRecord {
   id: SourceRecordId
   page: number
@@ -97,6 +104,13 @@ export interface CorpusContextOverride {
 export interface CorpusWeaponProfileOverride {
   sourceRecordId: SourceRecordId
   profile: Partial<Pick<Weapon['profile'], 'rangeInches' | 'attacks' | 'hit' | 'wound' | 'rend' | 'damage'>>
+  reason: string
+  officialSourceRecordIds: SourceRecordId[]
+}
+
+export interface CorpusWarscrollKeywordOverride {
+  sourceRecordId: SourceRecordId
+  remove: string[]
   reason: string
   officialSourceRecordIds: SourceRecordId[]
 }
@@ -159,8 +173,10 @@ export interface CorpusReview {
     reason: string
   }
   defaultRulesContextId?: RulesContextId
+  abilityTextOverrides?: CorpusAbilityTextOverride[]
   contextOverrides?: CorpusContextOverride[]
   weaponProfileOverrides?: CorpusWeaponProfileOverride[]
+  warscrollKeywordOverrides?: CorpusWarscrollKeywordOverride[]
 }
 
 export type CorpusGenerationDiagnosticCode =
@@ -907,6 +923,76 @@ const reviewDiagnostics = (
     }
     seenWeaponOverrides.add(override.sourceRecordId)
   })
+  const abilitySourceIds = new Set(
+    [
+      ...decoded.dataset.warscrollAbilities,
+      ...decoded.dataset.factionAbilities,
+      ...(decoded.dataset.generalRuleAbilities ?? []),
+    ]
+      .map(record => record.meta.sourceRecordId)
+      .filter(
+        sourceRecordId =>
+          !review.ignoredSourceRecords.some(ignored => ignored.sourceRecordId === sourceRecordId)
+      )
+  )
+  const seenAbilityTextOverrides = new Set<SourceRecordId>()
+  ;(review.abilityTextOverrides ?? []).forEach(override => {
+    if (
+      seenAbilityTextOverrides.has(override.sourceRecordId) ||
+      !abilitySourceIds.has(override.sourceRecordId) ||
+      !override.text.effect.trim() ||
+      [override.text.declare, override.text.reactionTrigger].some(
+        value => value !== undefined && !value.trim()
+      ) ||
+      !override.reason.trim() ||
+      override.officialSourceRecordIds.length === 0
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: override.sourceRecordId,
+        message:
+          'Ability text override must uniquely target an accepted ability, provide valid text, and cite official evidence',
+      })
+    }
+    seenAbilityTextOverrides.add(override.sourceRecordId)
+  })
+  const warscrollBySourceRecordId = new Map(
+    decoded.dataset.warscrolls.filter(isWarscrollRecord).map(record => [record.meta.sourceRecordId, record])
+  )
+  const keywordsByWarscrollId = new Map<string, Set<string>>()
+  decoded.dataset.warscrollKeywords.forEach(record => {
+    const keyword = [record.keyword, record.parameter].filter(Boolean).join(' ').trim().toUpperCase()
+    if (!keyword) return
+    const keywords = keywordsByWarscrollId.get(record.warscrollId) ?? new Set<string>()
+    keywords.add(keyword)
+    keywordsByWarscrollId.set(record.warscrollId, keywords)
+  })
+  const seenWarscrollKeywordOverrides = new Set<SourceRecordId>()
+  ;(review.warscrollKeywordOverrides ?? []).forEach(override => {
+    const warscroll = warscrollBySourceRecordId.get(override.sourceRecordId)
+    const removed = uniqueSorted(override.remove.map(value => value.trim().toUpperCase()).filter(Boolean))
+    const sourceKeywords = warscroll
+      ? (keywordsByWarscrollId.get(warscroll.id) ?? new Set<string>())
+      : new Set<string>()
+    if (
+      seenWarscrollKeywordOverrides.has(override.sourceRecordId) ||
+      !warscroll ||
+      !removed.length ||
+      removed.some(value => !sourceKeywords.has(value)) ||
+      !override.reason.trim() ||
+      override.officialSourceRecordIds.length === 0
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: override.sourceRecordId,
+        message:
+          'Warscroll keyword override must uniquely target an accepted warscroll, change keywords, and cite official evidence',
+      })
+    }
+    seenWarscrollKeywordOverrides.add(override.sourceRecordId)
+  })
   return diagnostics
 }
 
@@ -954,10 +1040,16 @@ const officialEvidenceFor = (sourceRecordId: SourceRecordId, review: CorpusRevie
     ...review.timingOverrides
       .filter(override => override.sourceRecordId === sourceRecordId)
       .flatMap(override => override.officialSourceRecordIds),
+    ...(review.abilityTextOverrides ?? [])
+      .filter(override => override.sourceRecordId === sourceRecordId)
+      .flatMap(override => override.officialSourceRecordIds),
     ...(review.contextOverrides ?? [])
       .filter(override => override.sourceRecordId === sourceRecordId)
       .flatMap(override => override.officialSourceRecordIds ?? []),
     ...(review.weaponProfileOverrides ?? [])
+      .filter(override => override.sourceRecordId === sourceRecordId)
+      .flatMap(override => override.officialSourceRecordIds),
+    ...(review.warscrollKeywordOverrides ?? [])
       .filter(override => override.sourceRecordId === sourceRecordId)
       .flatMap(override => override.officialSourceRecordIds),
   ])
@@ -1029,8 +1121,10 @@ export const buildAos4Corpus = (
   review.normalizationDiagnosticPolicies
     .flatMap(policy => policy.officialSourceRecordIds ?? [])
     .concat(review.timingOverrides.flatMap(override => override.officialSourceRecordIds))
+    .concat((review.abilityTextOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .concat((review.contextOverrides ?? []).flatMap(override => override.officialSourceRecordIds ?? []))
     .concat((review.weaponProfileOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
+    .concat((review.warscrollKeywordOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .forEach(id => {
       if (!officialSourceIds.has(id)) {
         diagnostics.push({
@@ -1134,6 +1228,9 @@ export const buildAos4Corpus = (
   )
 
   const parentByWarscrollExternalId = new Map<string, CanonicalId>()
+  const warscrollKeywordOverrides = new Map(
+    (review.warscrollKeywordOverrides ?? []).map(override => [override.sourceRecordId, override])
+  )
   dataset.warscrolls.forEach(record => {
     const parentKind: EntityKind = isWarscrollRecord(record) ? 'warscroll' : 'content-group'
     const id = lookup(parentKind, 'wahapedia', recordAlias(record.meta))
@@ -1144,6 +1241,13 @@ export const buildAos4Corpus = (
     const baseRecords = basesByWarscroll.get(record.id) ?? []
     const organisationRecords = organisationByWarscroll.get(record.id) ?? []
     const profileExists = hasBattleProfile(record)
+    const keywordOverride = warscrollKeywordOverrides.get(record.meta.sourceRecordId)
+    const removedKeywords = new Set((keywordOverride?.remove ?? []).map(value => value.trim().toUpperCase()))
+    const keywords = uniqueSorted([
+      ...keywordRecords
+        .map(item => [item.keyword, item.parameter].filter(Boolean).join(' ').trim().toUpperCase())
+        .filter(keyword => keyword && !removedKeywords.has(keyword)),
+    ])
     const parentRefs = sortedSourceReferences([
       sourceReference(record.meta.sourceRecordId),
       ...keywordRecords.map(item => sourceReference(item.meta.sourceRecordId, 'normalized keyword')),
@@ -1174,14 +1278,21 @@ export const buildAos4Corpus = (
       entities.push({
         id: id as CanonicalId<'warscroll'>,
         kind: 'warscroll',
-        revision: entityRevision(record.meta),
+        revision: keywordOverride
+          ? createHash('sha256')
+              .update(
+                [
+                  entityRevision(record.meta),
+                  ...keywords,
+                  ...officialEvidenceFor(record.meta.sourceRecordId, review),
+                ].join('\n'),
+                'utf8'
+              )
+              .digest('hex')
+          : entityRevision(record.meta),
         name: record.name.trim(),
         factionIds,
-        keywords: uniqueSorted(
-          keywordRecords
-            .map(item => [item.keyword, item.parameter].filter(Boolean).join(' ').trim().toUpperCase())
-            .filter(Boolean)
-        ),
+        keywords,
         characteristics: {
           move: record.move.trim(),
           save: record.save.trim(),
@@ -1387,6 +1498,9 @@ export const buildAos4Corpus = (
       .map(policy => [policy.code, policy])
   )
   const timingOverrides = new Map(review.timingOverrides.map(override => [override.sourceRecordId, override]))
+  const abilityTextOverrides = new Map(
+    (review.abilityTextOverrides ?? []).map(override => [override.sourceRecordId, override])
+  )
   const abilityIdBySource = new Map<SourceRecordId, CanonicalId<'ability'>>()
   const addAbility = (record: AbilityRecord, actor: Ability['actor']) => {
     if (ignoredSourceRecordIds.has(record.meta.sourceRecordId)) return
@@ -1408,6 +1522,7 @@ export const buildAos4Corpus = (
       }
     })
     const timingOverride = timingOverrides.get(record.meta.sourceRecordId)
+    const textOverride = abilityTextOverrides.get(record.meta.sourceRecordId)
     const abilityKind = timingOverride?.abilityKind ?? normalized.abilityKind
     const cost = abilityCost(record)
     const officialEvidence = officialEvidenceFor(record.meta.sourceRecordId, review)
@@ -1422,14 +1537,29 @@ export const buildAos4Corpus = (
             ...(normalized.text.reactionTrigger ? { reactionTrigger: normalized.text.reactionTrigger } : {}),
           }
         : normalized.text
+    const text = textOverride?.text ?? (abilityKind === 'reaction' ? reactionText : nonReactionText)
     entities.push({
       id,
       kind: 'ability',
-      revision: record.meta.recordChecksum,
+      revision:
+        timingOverride || textOverride
+          ? createHash('sha256')
+              .update(
+                [
+                  entityRevision(record.meta),
+                  abilityKind,
+                  JSON.stringify(timingOverride?.timings ?? normalized.timings),
+                  JSON.stringify(text),
+                  ...officialEvidence,
+                ].join('\n'),
+                'utf8'
+              )
+              .digest('hex')
+          : record.meta.recordChecksum,
       name: normalized.name,
       abilityKind,
       actor: normalized.actor,
-      text: abilityKind === 'reaction' ? reactionText : nonReactionText,
+      text,
       timings: timingOverride?.timings ?? normalized.timings,
       keywords: normalized.keywords,
       ...(cost ? { cost } : {}),
