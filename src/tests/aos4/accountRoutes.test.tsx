@@ -177,7 +177,7 @@ describe('established account routes', () => {
     expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).toBeNull()
   })
 
-  it('preserves the active-subscriber redirect screen', async () => {
+  it('shows the already-subscribed screen instead of the plans for an active subscriber', async () => {
     subscription.isSubscribed = true
     subscription.isActive = true
 
@@ -193,8 +193,15 @@ describe('established account routes', () => {
       await Promise.resolve()
     })
 
-    expect(container.textContent).toContain('You are now subscribed :) Thanks!')
+    /*
+     * The screen is only reachable by arriving already subscribed — Stripe returns to `/` and gift
+     * purchases to /profile — so it must not claim the visit just subscribed the user.
+     */
+    expect(container.textContent).toContain("You're already subscribed")
+    expect(container.textContent).not.toContain('now subscribed')
     expect(container.textContent).not.toContain('Subscription Plans')
+    // It used to bounce to the home page on a 1000ms timer instead of offering somewhere to go.
+    expect(container.querySelector('a[href="/profile"]')).not.toBeNull()
   })
 
   it('preserves the established profile cards and subscription controls', async () => {
