@@ -301,6 +301,13 @@ Spacing is Bootstrap's `1rem`-based scale used at the low end — `0.25`/`0.5`/`
 the work. Cards use `0.75rem` vertical and `1.25rem` horizontal internal padding. The rhythm is
 tight on purpose.
 
+**Section bands.** A full-bleed horizontal band marks a major section break on the account routes —
+today the pricing block and the mobile demo on `/subscribe`. It is a theme slot,
+`theme.sectionBand`: `bg-light` in light theme, and the page colour in dark, where the card borders
+do the separating instead (see Elevation). A band is a plain `<div>` with vertical padding, never a
+`.row` — a bare Bootstrap row carries −15px margins and will overflow the viewport and scroll the
+page sideways, which it did on `/subscribe` at every width until it was fixed.
+
 ### Named Rules
 
 **The One Breakpoint Rule.** The mobile breakpoint is 575.98px and it is defined once, in
@@ -340,8 +347,7 @@ Three, in descending order of how deliberate they look:
   how Bootstrap draws focus on buttons and inputs. Not decorative and not optional — it is the
   visible keyboard-focus indicator, and nothing may suppress it.
 - **Card lift** (`shadow-sm`, `0 .125rem .25rem rgba(0,0,0,.075)`): exactly two places — the
-  subscription plan cards (`src/components/payment/pricingPlans.tsx`) and the FAQ entry cards
-  (`src/components/routes/Faq.tsx`). Both are standalone marketing/reference cards on secondary
+  subscription plan cards (`payment/pricingPlans.tsx`) and the FAQ entry cards (`routes/Faq.tsx`). Both are standalone marketing/reference cards on secondary
   routes, not part of the reminders surface, and neither is reproduced by the reminder or builder
   cards. Treat it as incumbent, not as licence to spread `shadow-sm` onto the game screen.
 
@@ -494,13 +500,13 @@ are live in `src/components/` today:
 
 | Class | Where | What was intended |
 | --- | --- | --- |
-| `pulsate-fwd` | `helpers/suspenseFallbacks.tsx:56` | A pulse on the loading heading |
-| `fade-out` | `helpers/suspenseFallbacks.tsx:57` | A fade on "Loading…" |
-| `btn-pill` | `payment/pricingPlans.tsx:132` | A rounded Subscribe CTA (`rounded-pill` is the real class) |
-| `btn-md` | `routes/Profile.tsx:318` | A medium button; Bootstrap only ships `btn-sm`/`btn-lg` |
-| `h-md-250` | `routes/Faq.tsx:61` | A fixed FAQ card height |
-| `g-0` | `routes/Faq.tsx:61` | Zero gutters — Bootstrap **5** syntax; 4.6 wants `no-gutters` |
-| `pricing-card-title` | `payment/pricingPlans.tsx:113` | Carried over from a Bootstrap example |
+| `pulsate-fwd` | `helpers/suspenseFallbacks.tsx` | A pulse on the loading heading |
+| `fade-out` | `helpers/suspenseFallbacks.tsx` | A fade on "Loading…" |
+| `btn-pill` | `payment/pricingPlans.tsx` | A rounded Subscribe CTA (`rounded-pill` is the real class) |
+| `btn-md` | `routes/Profile.tsx` | A medium button; Bootstrap only ships `btn-sm`/`btn-lg` |
+| `h-md-250` | `routes/Faq.tsx` | A fixed FAQ card height |
+| `g-0` | `routes/Faq.tsx` | Zero gutters — Bootstrap **5** syntax; 4.6 wants `no-gutters` |
+| `pricing-card-title` | `payment/pricingPlans.tsx` | Carried over from a Bootstrap example |
 
 The first two matter most to this record. The product has essentially no motion — the only
 transition in the stylesheet is the dropzone's border on drag-over — and that reads as a deliberate
@@ -524,6 +530,8 @@ which Bootstrap version this is.
 - **Do** use a real `<button>`, `<fieldset>`/`<legend>`, `<main>`, or `<nav>` rather than ARIA on a
   `div`. The native element is almost always the fix that also renders identically.
 - **Do** derive responsive decisions from `src/utils/breakpoints.ts` so JS and CSS agree.
+- **Do** build a full-bleed band as a padded `<div>` with `theme.sectionBand`, never as a bare
+  `.row` — a row outside a container overflows the viewport by 15px and scrolls the page sideways.
 - **Do** pair every colour-coded state with a text label, because the colour is gone in print.
 - **Do** reuse the established primitives — collapsible card, outline toolbar button, timing chip —
   when new AoS 4 data needs a new treatment.
