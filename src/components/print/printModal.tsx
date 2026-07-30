@@ -1,5 +1,5 @@
-import type { PrintPageSize, PrintPreset } from '../../aos4/print'
-import { PRINT_PRESETS } from '../../aos4/print'
+import { PRINT_PRESETS, type PrintPageSize } from '../../aos4/print/presets'
+import type { PrintPreset } from '../../aos4/print/types'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
@@ -9,7 +9,7 @@ interface PrintModalProps {
   closeModal: () => void
   defaultFileName: string
   isOpen: boolean
-  onDownloadPdf: (presetId: PrintPreset['id'], pageSize: PrintPageSize, fileName: string) => void
+  onDownloadPdf: (presetId: PrintPreset['id'], pageSize: PrintPageSize, fileName: string) => Promise<void>
 }
 
 const PAGE_SIZES: { id: PrintPageSize; label: string }[] = [
@@ -63,6 +63,8 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
   const [presetId, setPresetId] = useState<PrintPreset['id']>('compact')
   const [pageSize, setPageSize] = useState<PrintPageSize>('a4')
   const [fileName, setFileName] = useState(defaultFileName)
+  const [downloadError, setDownloadError] = useState<string>()
+  const [isDownloadingPdf, setIsDownloadingPdf] = useState(false)
 
   const preset = PRINT_PRESETS.find(candidate => candidate.id === presetId) ?? PRINT_PRESETS[0]
 
@@ -70,12 +72,26 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
     setFileName(event.target.value)
   }
 
-  const handleDownload = () => {
-    onDownloadPdf(presetId, pageSize, fileName.trim() || defaultFileName)
+  const handleDownload = async () => {
+    setDownloadError(undefined)
+    setIsDownloadingPdf(true)
+    try {
+      await onDownloadPdf(presetId, pageSize, fileName.trim() || defaultFileName)
+      setIsDownloadingPdf(false)
+      closeModal()
+    } catch {
+      setDownloadError('The PDF could not be created. Please try again.')
+      setIsDownloadingPdf(false)
+    }
   }
 
   return (
-    <GenericModal closeModal={closeModal} isOpen={isOpen} label="Print options">
+    <GenericModal
+      closeModal={closeModal}
+      isOpen={isOpen}
+      isProcessing={isDownloadingPdf}
+      label="Print options"
+    >
       <div className={`row justify-content-center text-center ${theme.text}`}>
         <div className="col">
           <h5>Download Reminders</h5>
@@ -122,6 +138,12 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
         </div>
       </div>
 
+      {downloadError && (
+        <div className="alert alert-danger mx-3 mt-3" role="alert">
+          {downloadError}
+        </div>
+      )}
+
       {/*
         Full width rather than col-sm-6. The modal is shrink-to-fit at ~427px whatever the viewport,
         so a half column is ~113px — not enough for the icon plus "Download PDF", which wrapped onto
@@ -134,7 +156,12 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
           </button>
         </div>
         <div className="col-12 pb-2">
-          <button className={`${theme.modalConfirmClass} btn-block`} onClick={handleDownload} type="button">
+          <button
+            className={`${theme.modalConfirmClass} btn-block`}
+            disabled={isDownloadingPdf}
+            onClick={() => void handleDownload()}
+            type="button"
+          >
             <MdFileDownload className="mr-2" />
             Download PDF
           </button>

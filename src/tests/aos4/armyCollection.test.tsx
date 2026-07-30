@@ -37,11 +37,12 @@ const currentDocument = createDefaultAos4ArmyDocument()
 const remoteArmy = { id: 'cloud-1', createdAt: 1, updatedAt: 2, document: currentDocument }
 
 const Probe = () => {
-  const { armies, collectionError, createArmy, deleteArmy, updateArmy } = useArmyCollection()
+  const { armies, collectionError, createArmy, deleteArmy, refreshArmies, updateArmy } = useArmyCollection()
   return (
     <div>
       <span data-testid="armies">{armies.map(army => army.id).join(',')}</span>
       <span data-testid="error">{collectionError}</span>
+      <button onClick={() => void refreshArmies()}>Refresh</button>
       <button onClick={() => void createArmy({ ...currentDocument, name: 'Created' })}>Create</button>
       <button onClick={() => void updateArmy('cloud-1', { ...currentDocument, name: 'Updated' })}>
         Update
@@ -94,8 +95,17 @@ describe('cloud army collection state', () => {
     })
   }
 
-  it('loads the verified owner collection with an audience-scoped token', async () => {
+  it('defers the owner collection until it is explicitly requested', async () => {
     await renderProbe()
+    expect(auth.getAccessTokenSilently).not.toHaveBeenCalled()
+    expect(armyApi.listArmies).not.toHaveBeenCalled()
+
+    await act(async () => {
+      container.querySelectorAll('button')[0].click()
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
     expect(auth.getAccessTokenSilently).toHaveBeenCalledWith({
       authorizationParams: {
         audience: 'https://api.aosreminders.com',
@@ -110,14 +120,14 @@ describe('cloud army collection state', () => {
     await renderProbe()
 
     await act(async () => {
-      container.querySelectorAll('button')[0].click()
+      container.querySelectorAll('button')[1].click()
       await Promise.resolve()
       await Promise.resolve()
     })
-    expect(container.querySelector('[data-testid="armies"]')?.textContent).toBe('cloud-2,cloud-1')
+    expect(container.querySelector('[data-testid="armies"]')?.textContent).toBe('cloud-2')
 
     await act(async () => {
-      container.querySelectorAll('button')[2].click()
+      container.querySelectorAll('button')[3].click()
       await Promise.resolve()
       await Promise.resolve()
     })
@@ -127,6 +137,13 @@ describe('cloud army collection state', () => {
   it('leaves the local UI mounted and exposes a recoverable error on failure', async () => {
     armyApi.listArmies.mockRejectedValue(new Error('Network unavailable'))
     await renderProbe()
+
+    await act(async () => {
+      container.querySelectorAll('button')[0].click()
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
     expect(container.querySelector('[data-testid="error"]')?.textContent).toBe('Network unavailable')
     expect(container.querySelector('[data-testid="armies"]')?.textContent).toBe('')
   })
