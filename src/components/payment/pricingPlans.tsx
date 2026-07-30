@@ -10,10 +10,19 @@ import { useTheme } from 'context/useTheme'
 import qs from 'qs'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
-import { logClick, logEvent, logSubscription } from 'utils/analytics'
+import {
+  logBeginCheckout,
+  logCheckoutCancelled,
+  logClick,
+  logPurchase,
+} from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
-import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
+import {
+  ISubscriptionPlan,
+  SubscriptionPlans,
+  toSubscriptionAnalyticsItem,
+} from 'utils/plans'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
 const PricingPlansComponent = () => {
@@ -87,19 +96,26 @@ export const PlanComponent = (props: IPlanProps) => {
     if (!user) return
 
     logClick(supportPlan.title)
+    logBeginCheckout({
+      items: [toSubscriptionAnalyticsItem(supportPlan)],
+      provider: 'stripe',
+    })
     const plan = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const origin = window.location.origin
+    const successQuery = qs.stringify({
+      subscribed: true,
+      checkout_kind: 'subscription',
+      plan: supportPlan.title,
+    })
 
     const result = await stripe.redirectToCheckout({
       items: [{ plan, quantity: 1 }],
       customerEmail: user.email,
       clientReferenceId: user.email,
-      successUrl: `${origin}/?${qs.stringify({
-        subscribed: true,
-        plan: supportPlan.title,
-      })}`,
+      successUrl: `${origin}/?${successQuery}&checkout_session_id={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${origin}/?${qs.stringify({
         canceled: true,
+        checkout_kind: 'subscription',
         plan: supportPlan.title,
       })}`,
     })
@@ -163,6 +179,7 @@ const PayPalComponent = (props: IPlanProps) => {
 
   const { paypal_dev, paypal_prod, title } = props.supportPlan
   const planId = isDev ? paypal_dev : paypal_prod
+  const analyticsItem = toSubscriptionAnalyticsItem(props.supportPlan)
 
   // The approval response is proof of payment — passing its subscriptionID
   // lets the API grant access even before PayPal's webhooks arrive. The modal
@@ -180,8 +197,11 @@ const PayPalComponent = (props: IPlanProps) => {
     setApproval(data)
     setModalIsOpen(true)
     props.setPaypalModalIsOpen(true)
-    logEvent(`Checkout-Subscribed-${title}`)
-    logSubscription(title, 'paypal')
+    logPurchase({
+      items: [analyticsItem],
+      provider: 'paypal',
+      transactionId: data.subscriptionID,
+    })
 
     try {
       await requestGrant(data)
@@ -199,7 +219,8 @@ const PayPalComponent = (props: IPlanProps) => {
     <div className="col mt-2">
       {!props.paypalModalIsOpen && (
         <PayPalButton
-          onCancel={() => logEvent(`Checkout-Canceled-${title}`)}
+          onClick={() => logBeginCheckout({ items: [analyticsItem], provider: 'paypal' })}
+          onCancel={() => logCheckoutCancelled({ items: [analyticsItem], provider: 'paypal' })}
           onSuccess={handleSuccess}
           planId={planId}
           planTitle={title}

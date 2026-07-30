@@ -9,7 +9,7 @@ import { useTheme } from 'context/useTheme'
 import { isString } from 'lodash'
 import qs from 'qs'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { logEvent, logPageView } from 'utils/analytics'
+import { logAccountAction } from 'utils/analytics'
 import useLogin from 'utils/hooks/useLogin'
 import { RedemptionStorage } from 'utils/redemptionStorage'
 import { SubscriptionApi } from '../../api/subscriptionApi'
@@ -35,7 +35,6 @@ const Redeem = () => {
   const { theme, isDark, setLightTheme } = useTheme()
 
   useEffect(() => {
-    logPageView()
     cacheQueryRedemption()
   }, [])
 
@@ -135,7 +134,7 @@ const RedeemSection = () => {
         // Cleared only once the gift is actually spent. Clearing on failure too used to throw away
         // the one copy of the id whenever the link's query string was no longer in the address bar.
         RedemptionStorage.clear()
-        logEvent('Redeemed-Gift')
+        logAccountAction('gift_redeemed')
         setSuccess(true)
       } else {
         // A response that confirms nothing is a failure, not a silent no-op.

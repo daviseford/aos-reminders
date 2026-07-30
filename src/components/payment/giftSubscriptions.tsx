@@ -11,15 +11,18 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaCheck, FaGift, FaRegSmileBeam } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
 import { IGiftSubscription } from 'types/subscription'
-import { logClick } from 'utils/analytics'
+import { logBeginCheckout, logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
-import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from 'utils/plans'
+import {
+  GiftedSubscriptionPlans,
+  IGiftedSubscriptionPlans,
+  MAX_GIFT_QUANTITY,
+  toGiftSubscriptionAnalyticsItem,
+} from 'utils/plans'
 
 const COL_SIZE = 'col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6'
-const MAX_GIFT_QUANTITY = 99
-
 const GiftSubscriptionsComponent = () => {
   const stripe = useStripe()
   const { isActive } = useSubscription()
@@ -205,21 +208,29 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
     if (quantity < 1) return
 
     logClick(origin)
+    logBeginCheckout({
+      items: [toGiftSubscriptionAnalyticsItem(supportPlan, quantity)],
+      provider: 'stripe',
+    })
     const price = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
+    const successQuery = qs.stringify({
+      gifted: true,
+      checkout_kind: 'gift_subscription',
+      quantity,
+      plan: supportPlan.title,
+    })
     const result = await stripe.redirectToCheckout({
       mode: 'payment',
       lineItems: [{ price, quantity }],
       customerEmail: user.email,
       clientReferenceId: user.email,
-      successUrl: `${window.location.protocol}//${url}/profile?${qs.stringify({
-        gifted: true,
-        quantity,
-        plan: supportPlan.title,
-      })}`,
+      successUrl: `${window.location.protocol}//${url}/profile?${successQuery}&checkout_session_id={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${window.location.protocol}//${url}?${qs.stringify({
         canceled: true,
+        checkout_kind: 'gift_subscription',
         plan: supportPlan.title,
+        quantity,
       })}`,
     })
 

@@ -6,7 +6,7 @@ import { RedemptionError, RedemptionLogin, RedemptionSuccess } from 'components/
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { logEvent, logPageView } from 'utils/analytics'
+import { logAccountAction } from 'utils/analytics'
 import useLogin from 'utils/hooks/useLogin'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
@@ -23,10 +23,6 @@ const Join = () => {
   const { isLoading, user } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
   const { theme, isDark, setLightTheme } = useTheme()
-
-  useEffect(() => {
-    logPageView()
-  }, [])
 
   useEffect(() => {
     void getSubscription()
@@ -95,7 +91,7 @@ const RedeemSection = () => {
       if (body.error) {
         setError(body.error)
       } else {
-        logEvent('Redeemed-Coupon')
+        logAccountAction('coupon_redeemed')
         setError('')
         setSuccess(true)
       }

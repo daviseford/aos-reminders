@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { centerContentClass } from 'theme/helperClasses'
 import { TBootstrapTypes } from 'types/theme'
-import { logClick, logEvent } from 'utils/analytics'
+import { logBannerClose, logBannerView } from 'utils/analytics'
 
 const storageKey = (name: string) => `aos-reminders:aos4:banner:${name}`
 
@@ -43,13 +43,13 @@ export const NotificationBanner = ({
   const [isOn, setIsOn] = useState(() => !(persistClose && isDismissed(name)))
 
   useEffect(() => {
-    if (enableLog && isOn) logEvent(`Display-${name}`)
+    if (enableLog && isOn) logBannerView(name)
   }, [enableLog, isOn, name])
 
   const handleClose = () => {
     setIsOn(false)
     if (persistClose) rememberDismissal(name)
-    if (enableLog) logClick(`Close-${name}`)
+    if (enableLog) logBannerClose(name)
   }
 
   if (!isOn) return null

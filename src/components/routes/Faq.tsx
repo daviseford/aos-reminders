@@ -5,7 +5,6 @@ import Footer from 'components/page/footer'
 import { useTheme } from 'context/useTheme'
 import { lazy, Suspense, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { logPageView } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
 
 const Navbar = lazy(() => import('components/page/navbar'))
@@ -307,7 +306,6 @@ const Faq = () => {
   const { theme } = useTheme()
 
   useEffect(() => {
-    logPageView()
     /*
      * Questions carry anchors now, so /faq#unsubscribe has to survive arrival. Scrolling to the top
      * unconditionally would land the reader back at the masthead every time.

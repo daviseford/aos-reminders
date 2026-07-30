@@ -6,7 +6,7 @@ import { PricingPlans } from 'components/payment/pricingPlans'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect } from 'react'
-import { logClick, logPageView } from 'utils/analytics'
+import { logClick } from 'utils/analytics'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
 const Navbar = lazy(() => import('components/page/navbar'))
@@ -25,7 +25,6 @@ const Subscribe = () => {
   const { theme } = useTheme()
 
   useEffect(() => {
-    logPageView()
     window.scrollTo(0, 0)
   }, [])
 

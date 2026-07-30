@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import DarkTheme from 'theme/dark'
 import LightTheme from 'theme/light'
 import { ITheme, TThemeType } from 'types/theme'
-import { logEvent } from 'utils/analytics'
+import { logThemeChange } from 'utils/analytics'
 import { SubscriptionApi } from '../api/subscriptionApi'
 
 const LOCAL_THEME_KEY = 'theme'
@@ -46,7 +46,7 @@ const ThemeProvider = ({ children }: React.PropsWithChildren<object>) => {
         console.error('Unable to save subscriber theme', error)
       })
     }
-    logEvent(`SetTheme-${theme}`)
+    logThemeChange(theme)
     return isDark ? setLightTheme() : setDarkTheme()
   }, [isActive, isDark, setDarkTheme, setLightTheme, subscription])
 

@@ -14,7 +14,7 @@ import { MdCheckCircle, MdNotInterested } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import Switch from 'react-switch'
 import { centerContentClass } from 'theme/helperClasses'
-import { logClick, logPageView } from 'utils/analytics'
+import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { titleCase } from 'utils/textUtils'
 
@@ -24,10 +24,6 @@ const Profile = () => {
   const { isLoading, user } = useAuth0()
   const { getSubscription } = useSubscription()
   const { theme } = useTheme()
-
-  useEffect(() => {
-    logPageView()
-  }, [])
 
   useEffect(() => {
     void getSubscription()

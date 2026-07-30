@@ -2,6 +2,7 @@ import { LoadingBody } from 'components/helpers/suspenseFallbacks'
 import ProtectedRoute from 'components/page/privateRoute'
 import { lazy, Suspense, useEffect } from 'react'
 import { Route, Router, Switch } from 'react-router-dom'
+import { initializeAnalytics, startPageViewTracking } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { handleStripeCheckout } from 'utils/handleQueryParams'
 import history from 'utils/history'
@@ -15,7 +16,9 @@ const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
 const App = () => {
   useEffect(() => {
+    initializeAnalytics()
     handleStripeCheckout()
+    return startPageViewTracking(history)
   }, [])
 
   return (
