@@ -8,8 +8,7 @@ import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { DateTime } from 'luxon'
-import { lazy, Suspense, useEffect, useState } from 'react'
-import type { IconType } from 'react-icons'
+import { lazy, Suspense, useEffect, useState, type ReactNode } from 'react'
 import { FaGift, FaPaypal, FaSearchDollar } from 'react-icons/fa'
 import { MdCheckCircle, MdNotInterested } from 'react-icons/md'
 import { Link } from 'react-router-dom'
@@ -98,19 +97,9 @@ const CancelBtn = () => {
  * so the accessibility tree read `heading "Subscription Status:"` with the answer missing, and the
  * meaning was left to colour alone. The icon is decorative now; the word beside it is the value.
  */
-const CardTitle = ({
-  Icon,
-  iconClass,
-  label,
-  title,
-}: {
-  Icon?: IconType
-  iconClass?: string
-  label?: string
-  title: string
-}) => (
+const CardTitle = ({ icon, label, title }: { icon?: ReactNode; label?: string; title: string }) => (
   <h2 className="CardHeaderTitle">
-    {Icon ? (
+    {icon ? (
       /*
        * The label and its icon wrap as one unit. Left to itself the flex row treats each text node
        * as a separate item and breaks mid-phrase on a phone, stranding the icon between the two
@@ -119,7 +108,7 @@ const CardTitle = ({
       <span className={`${centerContentClass} flex-wrap`}>
         <span>{title}</span>
         <span className="text-nowrap">
-          <Icon className={`${iconClass} mx-2`} aria-hidden="true" />
+          {icon}
           {label}
         </span>
       </span>
@@ -139,20 +128,22 @@ const SubscriptionStatusTitle = () => {
     return (
       <CardTitle
         title="Subscription Status:"
-        Icon={FaSearchDollar}
-        iconClass="text-warning"
+        icon={<FaSearchDollar className="text-warning mx-2" aria-hidden="true" />}
         label="Pending"
       />
     )
   }
 
   return isActive ? (
-    <CardTitle title="Subscription Status:" Icon={MdCheckCircle} iconClass="text-success" label="Active" />
+    <CardTitle
+      title="Subscription Status:"
+      icon={<MdCheckCircle className="text-success mx-2" aria-hidden="true" />}
+      label="Active"
+    />
   ) : (
     <CardTitle
       title="Subscription Status:"
-      Icon={MdNotInterested}
-      iconClass="text-danger"
+      icon={<MdNotInterested className="text-danger mx-2" aria-hidden="true" />}
       label="Not subscribed"
     />
   )
@@ -275,8 +266,7 @@ const TemporaryGrantComponent = () => {
       <div className={theme.profileCardHeader}>
         <CardTitle
           title="Subscription Status:"
-          Icon={FaSearchDollar}
-          iconClass="text-warning"
+          icon={<FaSearchDollar className="text-warning mx-2" aria-hidden="true" />}
           label="Verifying"
         />
       </div>
@@ -315,15 +305,13 @@ const RecurringPaymentInfo = () => {
         {isRenewing ? (
           <CardTitle
             title="Recurring Payment:"
-            Icon={MdCheckCircle}
-            iconClass="text-success"
+            icon={<MdCheckCircle className="text-success mx-2" aria-hidden="true" />}
             label="On"
           />
         ) : (
           <CardTitle
             title="Recurring Payment:"
-            Icon={MdNotInterested}
-            iconClass="text-danger"
+            icon={<MdNotInterested className="text-danger mx-2" aria-hidden="true" />}
             label="Off"
           />
         )}
