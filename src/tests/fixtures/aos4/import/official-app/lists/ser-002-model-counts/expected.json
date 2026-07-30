@@ -1,0 +1,328 @@
+{
+  "id": "ser-002-model-counts",
+  "diagnostics": [],
+  "proposedName": "Serpahin1",
+  "declaredFaction": "Seraphon",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Sunclaw Starhost"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Primal Jungles"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Celestial Manipulation"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Twilit Sorceries"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Morbid Conjuration"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Primal Energy"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Terradon Chief"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Bastiladon with Ark of Sotek"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Bastiladon with Solar Engine"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Raptadon Chargers"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Raptadon Hunters"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Ripperdactyl Riders"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Spawn of Chotec"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Stegadon"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Terradon Riders"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Terradon Riders (2 models)"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Terrawings"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Saurus Astrolith Bearer"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Saurus Oldblood"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Saurus Scar-Veteran on Aggradon"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Slann Starmaster"
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Aggradon Lancers"
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Bastiladon with Ark of Sotek"
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Bastiladon with Solar Engine"
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Engine of the Gods"
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Hunters of Huanchi with Dartpipes"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Hunters of Huanchi with Starstone Bolas"
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Kroxigor"
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Kroxigor Warspawned"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Lord Kroak"
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Raptadon Chargers"
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Raptadon Hunters"
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "Ripperdactyl Chief"
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Ripperdactyl Riders"
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Ripperdactyl Riders (2 models)"
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Saurus Astrolith Bearer"
+    },
+    {
+      "line": 52,
+      "kindHint": "warscroll",
+      "label": "Saurus Guard"
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Saurus Oldblood"
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Saurus Oldblood on Carnosaur"
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Saurus Scar-Veteran on Aggradon"
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Saurus Scar-Veteran on Carnosaur"
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Saurus Warriors"
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Saurus Scar-Veteran on Aggradon"
+    },
+    {
+      "line": 59,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Slann Starmaster"
+    },
+    {
+      "line": 60,
+      "kindHint": "warscroll",
+      "label": "Skink Oracle on Troglodon"
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Skink Starpriest"
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Skink Starseer"
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Skinks"
+    },
+    {
+      "line": 64,
+      "kindHint": "warscroll",
+      "label": "Slann Starmaster"
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Spawn of Chotec"
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Stegadon"
+    },
+    {
+      "line": 67,
+      "kindHint": "warscroll",
+      "label": "Stegadon Chief"
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Sunblood Pack"
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "Terradon Chief"
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Terradon Riders"
+    },
+    {
+      "line": 71,
+      "kindHint": "warscroll",
+      "label": "Terradon Riders (2 models)"
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Terrawings"
+    },
+    {
+      "line": 73,
+      "kindHint": "warscroll",
+      "label": "The Jaws of Itzl",
+      "isLegends": true
+    },
+    {
+      "line": 75,
+      "kindHint": "warscroll",
+      "label": "The Starblood Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 77,
+      "kindHint": "warscroll",
+      "label": "The Starblood Stalkers",
+      "isLegends": true
+    },
+    {
+      "line": 81,
+      "kindHint": "warscroll",
+      "label": "Realmshaper Engine"
+    },
+    {
+      "line": 82,
+      "kindHint": "warscroll",
+      "label": "Realmshaper Engine"
+    },
+    {
+      "line": 83,
+      "kindHint": "warscroll",
+      "label": "Realmshaper Engine"
+    }
+  ]
+}

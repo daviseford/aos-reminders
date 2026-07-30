@@ -69,22 +69,26 @@
     {
       "line": 26,
       "kindHint": "warscroll",
-      "label": "Mortisan Ossifector"
+      "label": "Mortisan Ossifector",
+      "isRegimentOfRenown": true
     },
     {
       "line": 27,
       "kindHint": "warscroll",
-      "label": "Gothizzar Harvester"
+      "label": "Gothizzar Harvester",
+      "isRegimentOfRenown": true
     },
     {
       "line": 28,
       "kindHint": "warscroll",
-      "label": "Mortek Guard"
+      "label": "Mortek Guard",
+      "isRegimentOfRenown": true
     },
     {
       "line": 29,
       "kindHint": "warscroll",
-      "label": "Mortek Guard"
+      "label": "Mortek Guard",
+      "isRegimentOfRenown": true
     },
     {
       "line": 32,

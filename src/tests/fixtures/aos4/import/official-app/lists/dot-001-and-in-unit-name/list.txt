@@ -1,0 +1,71 @@
+Dot1 17810/2500 pts
+-----
+Grand Alliance Chaos | Disciples of Tzeentch | Denizens of the Silver Towers
+General's Handbook 2026-27
+Auxiliaries: 35 (+11900 Points)
+Drops: 39
+Spell Lore - Lore of Change and Lore of Fate
+Manifestation Lore - Manifestations of Tzeentch and Aetherwrought Machineries
+-----
+Regiment 1
+Fatemaster on Disc of Tzeentch (160)
+• Legends
+---
+Regiment 3
+Fatemaster (150)
+---
+Regiment 4
+Fluxmaster, Herald of Tzeentch on Disc (180)
+• Legends
+---
+Regiment 5
+The Blue Scribes (180)
+• Legends
+-----
+Auxiliary Units
+Blue Horrors and Brimstone Horrors (120)
+Burning Chariot of Tzeentch (120)
+Burning Chariot of Tzeentch (120)
+Changecaster, Herald of Tzeentch (140)
+Chaos Spawn of Tzeentch (60)
+Curseling, Eye of Tzeentch (170)
+Ephilim's Pandaemonium (100)
+• Legends
+Exalted Flamer of Tzeentch (120)
+Eyes of the Nine (100)
+• Legends
+Fatemaster (150)
+Fatemaster on Disc of Tzeentch (160)
+• Legends
+Fateskimmer, Herald of Tzeentch on Burning Chariot (140)
+Flamers of Tzeentch (130)
+Fluxmaster, Herald of Tzeentch on Disc (180)
+• Legends
+Gaunt Summoner (180)
+Gaunt Summoner on Disc of Tzeentch (210)
+Jade Obelisk (100)
+Kairic Acolytes (90)
+Kairos Fateweaver (400)
+Lord of Change (380)
+Magister (140)
+Magister on Disc of Tzeentch (150)
+Ogroid Thaumaturge (110)
+Pink Horrors (170)
+Scourge of Aqshy: Ogroid Thaumaturge (140)
+Scourge of Aqshy: Screamers of Tzeentch (110)
+Screamers of Tzeentch (80)
+Screamers of Tzeentch (80)
+The Blue Scribes (180)
+• Legends
+The Changeling (140)
+Tzaangor Enlightened (200)
+Tzaangor Enlightened on Foot (110)
+Tzaangor Shaman (130)
+Tzaangor Skyfires (160)
+Tzaangors (170)
+-----
+Faction Terrain
+Argent Shard
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.36.0 (1) | Data: v466

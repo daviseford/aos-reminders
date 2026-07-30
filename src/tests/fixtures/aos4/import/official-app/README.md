@@ -68,6 +68,16 @@ Fail closed on malformed or hostile input, never on an illegal army.
 | `idk-001-renown-army-no-lore` | an Army of Renown with no lore, drops or tactics rows at all — header, regiments and terrain only |
 | `ko-001-renown-army-repeats` | a two-part Army of Renown header with a `• Legends` mark mid-regiment and repeated units across two regiments |
 | `lrl-001-multi-lore` | a spell lore row holding three lores and a manifestation row holding seven, both with points suffixes, plus two identical faction terrain entries |
+| `ser-002-model-counts` | `Terradon Riders (2 models) (70)` — a model count and a points cost on one line — plus three identical faction terrain entries |
+| `sce-002-renown-army-legends` | 17 `• Legends` marks in one list, mixed straight and curly apostrophes, two pointed faction terrain entries |
+| `syl-001-outcasts` | the app writes `Scourge of Aqshy: X` where the catalog carries `Scourge of Aqshy X` — label normalisation absorbs the colon, and this pins it |
+| `cos-002-empty-roster` | a roster with no units at all — no section headers, so header detection cannot lean on finding one |
+| `boc-001-all-legends` | a wholly retired faction: every unit marked `• Legends`, including the faction terrain |
+| `bok-001-baleful-lords` | a small two-part Army of Renown over points, with regiments numbered 1, 3 and 5 |
+| `bok-002-multi-prayer-lore` | a prayer lore row holding two lores, and the misspelling in the app output (`Blood Blesssings`) kept verbatim |
+| `dot-001-and-in-unit-name` | the boundary in one list: a spell lore row **is** split on ` and `, while `Blue Horrors and Brimstone Horrors` is one unit and must not be |
+| `hos-001-auxiliary-only` | no `Regiment N` sections at all — the roster goes straight from the header to `Auxiliary Units` |
+| `hh-001-renown-stress` | 18 dashless regiments of renown, 51 members, one bundle repeated four times — the densest renown case in the corpus |
 
 ## Points are dropped on purpose
 

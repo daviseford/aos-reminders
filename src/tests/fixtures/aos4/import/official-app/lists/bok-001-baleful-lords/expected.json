@@ -1,0 +1,70 @@
+{
+  "id": "bok-001-baleful-lords",
+  "diagnostics": [],
+  "proposedName": "Khorne1",
+  "declaredFaction": "Blades of Khorne",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": false,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "The Baleful Lords"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Morbid Conjuration"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Krondspine Incarnate"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Aetherwrought Machineries"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Bloodthirster of Unfettered Fury"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Skarbrand"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Skarbrand"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Bloodthirster of Insensate Rage"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Bloodthirster of Unfettered Fury"
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Skarbrand"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Wrath of Khorne Bloodthirster"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Skull Altar"
+    }
+  ]
+}

@@ -1,0 +1,286 @@
+{
+  "id": "syl-001-outcasts",
+  "diagnostics": [],
+  "proposedName": "Syl1",
+  "declaredFaction": "Sylvaneth",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Outcasts"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of the Deepwood"
+    },
+    {
+      "line": 8,
+      "kindHint": "prayer-lore",
+      "label": "Lore of the Spirit-Song"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Twilit Sorceries"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Manifestations of the Deepwood"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Belthanos, First Thorn of Kurnoth"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Arch-Revenant"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Branchwych"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Grove Guardian"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Treelord Ancient"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Arch-Revenant"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Dryads"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Gossamid Archers"
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Kurnoth Hunters with Greatbows"
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Kurnoth Hunters with Greatscythes"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Kurnoth Hunters with Greatswords"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Kurnoth’s Heralds",
+      "isLegends": true
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Revenant Seekers"
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Kurnoth Hunters with Greatswords"
+    },
+    {
+      "line": 36,
+      "kindHint": "warscroll",
+      "label": "Skaeth's Wild Hunt",
+      "isLegends": true
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Spite-Revenants"
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Spiterider Lancers"
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "The Twistweald"
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Tree-Revenants"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Treelord"
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Ylthari's Guardians",
+      "isLegends": true
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Alarielle the Everqueen"
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "Arch-Revenant"
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Belthanos, First Thorn of Kurnoth"
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Branchwych"
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Dryads"
+    },
+    {
+      "line": 52,
+      "kindHint": "warscroll",
+      "label": "Drycha Hamadreth"
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Gossamid Archers"
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Grove Guardian"
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Kurnoth Hunters with Greatbows"
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Kurnoth Hunters with Greatscythes"
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Kurnoth Hunters with Greatswords"
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "Kurnoth’s Heralds",
+      "isLegends": true
+    },
+    {
+      "line": 60,
+      "kindHint": "warscroll",
+      "label": "Revenant Seekers"
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Kurnoth Hunters with Greatswords"
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Treelord Ancient"
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Skaeth's Wild Hunt",
+      "isLegends": true
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Spirit of Durthu"
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Spite-Revenants"
+    },
+    {
+      "line": 67,
+      "kindHint": "warscroll",
+      "label": "Spiterider Lancers"
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "The Lady of Vines"
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "The Twistweald"
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Tree-Revenants"
+    },
+    {
+      "line": 71,
+      "kindHint": "warscroll",
+      "label": "Treelord"
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Treelord Ancient"
+    },
+    {
+      "line": 73,
+      "kindHint": "warscroll",
+      "label": "Warsong Revenant"
+    },
+    {
+      "line": 74,
+      "kindHint": "warscroll",
+      "label": "Ylthari's Guardians",
+      "isLegends": true
+    },
+    {
+      "line": 78,
+      "kindHint": "warscroll",
+      "label": "Awakened Wyldwood"
+    },
+    {
+      "line": 79,
+      "kindHint": "warscroll",
+      "label": "Awakened Wyldwood"
+    }
+  ]
+}

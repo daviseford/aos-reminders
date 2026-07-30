@@ -139,6 +139,19 @@ describe('official AoS app text import', () => {
       ])
     })
 
+    it('splits a lore row but never a unit name, in the same list', () => {
+      // Both shapes appear together in a real Tzeentch export. Only lore rows are lists; a unit
+      // line is one name however many conjunctions it holds.
+      const parsed = decode(
+        'Grand Alliance Chaos | Disciples of Tzeentch | Denizens of the Silver Towers',
+        'Spell Lore - Lore of Change and Lore of Fate',
+        'Auxiliary Units',
+        'Blue Horrors and Brimstone Horrors (120)'
+      )
+      expect(labelled(parsed, 'spell-lore')).toEqual(['Lore of Change', 'Lore of Fate'])
+      expect(labelled(parsed, 'warscroll')).toEqual(['Blue Horrors and Brimstone Horrors'])
+    })
+
     it('does not split a battle formation whose own name contains "and"', () => {
       // `Pioneers and Scavengers` and `Mutants and Mad Things` are single formations. Lore rows are
       // lists; a formation row never is, so it must survive the conjunction untouched.
@@ -197,6 +210,19 @@ describe('official AoS app text import', () => {
       expect(labelled(parsed, 'warscroll')).toEqual(['Freeguild Fusiliers'])
     })
 
+    it('keeps a model count in the label but drops the points beside it', () => {
+      // `Terradon Riders (2 models) (70)` carries two parenthesised suffixes. Only the points are
+      // bookkeeping — the catalog ships the size variant as its own warscroll, so the count is part
+      // of the identity and has to survive for the roster to pick the right one.
+      const parsed = decode(
+        'Grand Alliance Order | Seraphon | Sunclaw Starhost',
+        'Regiment 1',
+        'Terradon Riders (90)',
+        'Terradon Riders (2 models) (70)'
+      )
+      expect(labelled(parsed, 'warscroll')).toEqual(['Terradon Riders', 'Terradon Riders (2 models)'])
+    })
+
     it('keeps every faction terrain entry, not just the first', () => {
       const parsed = decode(
         'Grand Alliance Destruction | Ogor Mawtribes | Greedy Eaters',
@@ -240,6 +266,29 @@ describe('official AoS app text import', () => {
       )
       expect(parsed?.selections.find(s => s.label === 'Megaboss')?.isRegimentOfRenown).toBeUndefined()
       expect(parsed?.selections.find(s => s.label === 'Beast-skewer Killbow')?.isRegimentOfRenown).toBe(true)
+    })
+
+    it('marks faction terrain as Legends when the bullet follows it', () => {
+      // A wholly retired faction marks its terrain too, so the bullet is not confined to units.
+      const parsed = decode(
+        'Grand Alliance Chaos | Beasts of Chaos | Marauding Brayherd',
+        'Faction Terrain',
+        'Herdstone',
+        '• Legends'
+      )
+      expect(parsed?.selections.find(s => s.label === 'Herdstone')?.isLegends).toBe(true)
+      expect(parsed?.allowsLegends).toBe(true)
+    })
+
+    it('decodes a roster that declares no units at all', () => {
+      // An empty list has no section headers, so header detection cannot lean on finding one.
+      const parsed = decode('Cities of Sigmar | Allies of the Free Cities', 'Army of Renown')
+
+      expect(parsed?.proposedName).toBe('Test')
+      expect(parsed?.declaredFaction).toBe('Cities of Sigmar')
+      expect(parsed?.selections).toEqual([
+        expect.objectContaining({ label: 'Allies of the Free Cities', kindHint: 'battle-formation' }),
+      ])
     })
 
     it('ignores roster bookkeeping the app emits alongside composition', () => {

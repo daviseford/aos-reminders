@@ -1,0 +1,216 @@
+{
+  "id": "hos-001-auxiliary-only",
+  "diagnostics": [],
+  "proposedName": "Slaanesh1",
+  "declaredFaction": "Hedonites of Slaanesh",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Godseeker Cavalcade"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Extravagance"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Manifestations of Depravity"
+    },
+    {
+      "line": 11,
+      "kindHint": "warscroll",
+      "label": "Bladebringer, Herald on Exalted Chariot"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Bladebringer, Herald on Hellflayer",
+      "isLegends": true
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Bladebringer, Herald on Seeker Chariot",
+      "isLegends": true
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Blissbarb Archers"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Blissbarb Seekers"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Contorted Epitome"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Daemonettes"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Dexcessa, the Talon of Slaanesh"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Exalted Chariot",
+      "isLegends": true
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Fiends"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Glutos Orscollion, Lord of Gluttony"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Hellflayer"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Hellstriders"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Infernal Enrapturess, Herald of Slaanesh"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Keeper of Secrets"
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Lord of Hubris"
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Lord of Hysteria"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Lord of Pain"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Myrmidesh Painbringers"
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Blissbarb Seekers"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Infernal Enrapturess, Herald of Slaanesh"
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Seeker Chariot"
+    },
+    {
+      "line": 36,
+      "kindHint": "warscroll",
+      "label": "Seekers"
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Shalaxi Helbane"
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Shardspeaker of Slaanesh"
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Sigvald, Prince of Slaanesh"
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Slaangor Fiendbloods"
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Slickblade Seekers"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Syll'Esske, the Vengeful Allegiance"
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Symbaresh Twinsouls"
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Synessa, the Voice of Slaanesh"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "The Dread Pageant",
+      "isLegends": true
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "The Masque"
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "The Thricefold Discord",
+      "isLegends": true
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Thricefold Discord"
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Viceleader, Herald of Slaanesh",
+      "isLegends": true
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Fane of Slaanesh"
+    }
+  ]
+}

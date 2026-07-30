@@ -1,0 +1,243 @@
+{
+  "id": "dot-001-and-in-unit-name",
+  "diagnostics": [],
+  "proposedName": "Dot1",
+  "declaredFaction": "Disciples of Tzeentch",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Denizens of the Silver Towers"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Change"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Fate"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Manifestations of Tzeentch"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Aetherwrought Machineries"
+    },
+    {
+      "line": 11,
+      "kindHint": "warscroll",
+      "label": "Fatemaster on Disc of Tzeentch",
+      "isLegends": true
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Fatemaster"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Fluxmaster, Herald of Tzeentch on Disc",
+      "isLegends": true
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "The Blue Scribes",
+      "isLegends": true
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Blue Horrors and Brimstone Horrors"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Burning Chariot of Tzeentch"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Burning Chariot of Tzeentch"
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Changecaster, Herald of Tzeentch"
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Chaos Spawn of Tzeentch"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Curseling, Eye of Tzeentch"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Ephilim's Pandaemonium",
+      "isLegends": true
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Exalted Flamer of Tzeentch"
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Eyes of the Nine",
+      "isLegends": true
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Fatemaster"
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Fatemaster on Disc of Tzeentch",
+      "isLegends": true
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Fateskimmer, Herald of Tzeentch on Burning Chariot"
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Flamers of Tzeentch"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Fluxmaster, Herald of Tzeentch on Disc",
+      "isLegends": true
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Gaunt Summoner"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Gaunt Summoner on Disc of Tzeentch"
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Jade Obelisk"
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Kairic Acolytes"
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "Kairos Fateweaver"
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Lord of Change"
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Magister"
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Magister on Disc of Tzeentch"
+    },
+    {
+      "line": 52,
+      "kindHint": "warscroll",
+      "label": "Ogroid Thaumaturge"
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Pink Horrors"
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Ogroid Thaumaturge"
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Screamers of Tzeentch"
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Screamers of Tzeentch"
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Screamers of Tzeentch"
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "The Blue Scribes",
+      "isLegends": true
+    },
+    {
+      "line": 60,
+      "kindHint": "warscroll",
+      "label": "The Changeling"
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Tzaangor Enlightened"
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Tzaangor Enlightened on Foot"
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Tzaangor Shaman"
+    },
+    {
+      "line": 64,
+      "kindHint": "warscroll",
+      "label": "Tzaangor Skyfires"
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Tzaangors"
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Argent Shard"
+    }
+  ]
+}

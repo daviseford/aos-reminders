@@ -1,0 +1,402 @@
+{
+  "id": "sce-002-renown-army-legends",
+  "diagnostics": [],
+  "proposedName": "Sce1",
+  "declaredFaction": "Stormcast Eternals",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Ruination Brotherhood"
+    },
+    {
+      "line": 8,
+      "kindHint": "prayer-lore",
+      "label": "Ruination Brotherhood Prayer Lore"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Twilit Sorceries"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Morbid Conjuration"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Forbidden Power"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Primal Energy"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Krondspine Incarnate"
+    },
+    {
+      "line": 9,
+      "kindHint": "manifestation-lore",
+      "label": "Aetherwrought Machineries"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Knight-Azyros"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Knight-Questor"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Iridan the Witness"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Tornus the Redeemed"
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Annihilators"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Annihilators with Meteoric Grandhammers"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Decimators",
+      "isLegends": true
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Domitan’s Stormcoven",
+      "isLegends": true
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Judicators with Boltstorm Crossbows",
+      "isLegends": true
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Judicators with Skybolt Bows",
+      "isLegends": true
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Judicators with Skybolt Bows",
+      "isLegends": true
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Knight-Azyros"
+    },
+    {
+      "line": 36,
+      "kindHint": "warscroll",
+      "label": "Knight-Azyros"
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Knight-Questor"
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Liberators"
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Lord-Terminos"
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Praetors"
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Prosecutors"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Protectors",
+      "isLegends": true
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Questor Soulsworn"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Reclusians"
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Retributors",
+      "isLegends": true
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Stormstrike Palladors"
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Steelheart’s Champions",
+      "isLegends": true
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Stormcoven"
+    },
+    {
+      "line": 52,
+      "kindHint": "warscroll",
+      "label": "Stormstrike Chariot"
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Stormstrike Palladors"
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Vanquishers"
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Vigilors"
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Vindictors"
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Vindictors"
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "Xandire's Truthseekers",
+      "isLegends": true
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Annihilators"
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Annihilators with Meteoric Grandhammers"
+    },
+    {
+      "line": 64,
+      "kindHint": "warscroll",
+      "label": "Decimators",
+      "isLegends": true
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Domitan’s Stormcoven",
+      "isLegends": true
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Ionus Cryptborn, Warden of Lost Souls"
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "Iridan the Witness"
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Judicators with Boltstorm Crossbows",
+      "isLegends": true
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Judicators with Skybolt Bows",
+      "isLegends": true
+    },
+    {
+      "line": 74,
+      "kindHint": "warscroll",
+      "label": "Knight-Azyros"
+    },
+    {
+      "line": 75,
+      "kindHint": "warscroll",
+      "label": "Knight-Questor"
+    },
+    {
+      "line": 76,
+      "kindHint": "warscroll",
+      "label": "Liberators"
+    },
+    {
+      "line": 77,
+      "kindHint": "warscroll",
+      "label": "Lord-Terminos"
+    },
+    {
+      "line": 78,
+      "kindHint": "warscroll",
+      "label": "Lord-Veritant"
+    },
+    {
+      "line": 79,
+      "kindHint": "warscroll",
+      "label": "Lord-Vigilant on Gryph-Stalker"
+    },
+    {
+      "line": 80,
+      "kindHint": "warscroll",
+      "label": "Lord-Vigilant on Morrgryph"
+    },
+    {
+      "line": 81,
+      "kindHint": "warscroll",
+      "label": "Praetors"
+    },
+    {
+      "line": 82,
+      "kindHint": "warscroll",
+      "label": "Prosecutors"
+    },
+    {
+      "line": 83,
+      "kindHint": "warscroll",
+      "label": "Protectors",
+      "isLegends": true
+    },
+    {
+      "line": 85,
+      "kindHint": "warscroll",
+      "label": "Questor Soulsworn"
+    },
+    {
+      "line": 86,
+      "kindHint": "warscroll",
+      "label": "Reclusians"
+    },
+    {
+      "line": 87,
+      "kindHint": "warscroll",
+      "label": "Retributors",
+      "isLegends": true
+    },
+    {
+      "line": 89,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Iridan the Witness"
+    },
+    {
+      "line": 90,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Stormstrike Palladors"
+    },
+    {
+      "line": 91,
+      "kindHint": "warscroll",
+      "label": "Steelheart’s Champions",
+      "isLegends": true
+    },
+    {
+      "line": 93,
+      "kindHint": "warscroll",
+      "label": "Stormcoven"
+    },
+    {
+      "line": 94,
+      "kindHint": "warscroll",
+      "label": "Stormstrike Chariot"
+    },
+    {
+      "line": 95,
+      "kindHint": "warscroll",
+      "label": "Stormstrike Chariot"
+    },
+    {
+      "line": 96,
+      "kindHint": "warscroll",
+      "label": "Stormstrike Palladors"
+    },
+    {
+      "line": 97,
+      "kindHint": "warscroll",
+      "label": "Tornus the Redeemed"
+    },
+    {
+      "line": 98,
+      "kindHint": "warscroll",
+      "label": "Vanquishers"
+    },
+    {
+      "line": 99,
+      "kindHint": "warscroll",
+      "label": "Vigilors"
+    },
+    {
+      "line": 100,
+      "kindHint": "warscroll",
+      "label": "Vindictors"
+    },
+    {
+      "line": 101,
+      "kindHint": "warscroll",
+      "label": "Xandire's Truthseekers",
+      "isLegends": true
+    },
+    {
+      "line": 105,
+      "kindHint": "warscroll",
+      "label": "Stormreach Portal"
+    },
+    {
+      "line": 106,
+      "kindHint": "warscroll",
+      "label": "Stormreach Portal"
+    }
+  ]
+}

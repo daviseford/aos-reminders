@@ -1,0 +1,15 @@
+{
+  "id": "cos-002-empty-roster",
+  "diagnostics": [],
+  "proposedName": "Empty cos",
+  "declaredFaction": "Cities of Sigmar",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": false,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Allies of the Free Cities"
+    }
+  ]
+}

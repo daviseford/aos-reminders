@@ -30,12 +30,14 @@
     {
       "line": 13,
       "kindHint": "warscroll",
-      "label": "Freeguild Fusiliers"
+      "label": "Freeguild Fusiliers",
+      "isRegimentOfRenown": true
     },
     {
       "line": 14,
       "kindHint": "warscroll",
-      "label": "Freeguild Marshal"
+      "label": "Freeguild Marshal",
+      "isRegimentOfRenown": true
     }
   ]
 }
