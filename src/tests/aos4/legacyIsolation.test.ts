@@ -112,6 +112,8 @@ describe('AoS 4 legacy isolation', () => {
       'components/helpers/link.tsx',
       'components/helpers/spinner.tsx',
       'components/helpers/suspenseFallbacks.tsx',
+      'components/info/banners/app_banner.tsx',
+      'components/info/banners/notification_banner.tsx',
       'components/info/donate.tsx',
       'components/info/offline.tsx',
       'components/info/reminders.tsx',
