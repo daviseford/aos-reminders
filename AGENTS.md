@@ -137,13 +137,18 @@ a package blocks correct data work, the build, or safe operation.
 
 Phase 2 is underway. Its capability-restoration track (plan `2026-07-29-001`) has delivered
 printing and PDF export (`src/aos4/print/`, documented in `docs/printing.md`) and importing, cloud
-armies, and sharing; its planned package and framework upgrades remain pending. Checked-in plans
-live under `docs/plans/`. Preserve the completed AoS 4 domain, generated-data contracts, beta
-gate, and familiar interface while working through:
+armies, and sharing. Its package track has begun: Bootstrap is on 5.3 and react-bootstrap on 2.x
+(issue #1176), migrated for visual parity — `src/css/theme.scss` pins the Bootstrap 4.6 defaults the
+interface was built against, and those pins are part of the design system (see DESIGN.md, "The
+Parity Pin Rule"). React is on 19 (issue #1770): `createRoot`, and deliberately no `StrictMode`
+wrapper — the app has never had one, and adding it would double-invoke every effect. Vite,
+TypeScript, Sass, PWA tooling, Stripe, and react-dropzone remain pending. Checked-in plans live
+under `docs/plans/`. Preserve the completed AoS 4 domain, generated-data contracts, beta gate, and
+familiar interface while working through:
 
-- upgrade React, Vite, TypeScript, Sass, PWA tooling, and supporting packages
-- remove packages made unused by the AoS 3 retirement
-- replace obsolete or unmaintained libraries
+- upgrade Vite, TypeScript, Sass, PWA tooling, and the remaining supporting packages
+- remove packages made unused by the AoS 3 retirement (the four Redux packages are gone)
+- replace obsolete or unmaintained libraries (react-beautiful-dnd -> @hello-pangea/dnd is done)
 - finish CRA-to-Vite/PWA cleanup
 - tighten compiler and lint settings
 - redesign API/auth/subscription capabilities against AoS 4 contracts as needed (save and share
@@ -458,6 +463,27 @@ Install:
 ```powershell
 yarn install --frozen-lockfile
 ```
+
+**Reinstall from scratch after crossing the React 17/Bootstrap 4 boundary.** Branches that predate
+the Phase 2 package track resolve a different dependency tree, and Yarn Classic does not always
+prune the nested copies it no longer needs. The failure this produces is a stale
+`react-bootstrap/node_modules/@types/react` at 17.x sitting under a top-level 19.x: `tsc` then
+resolves react-bootstrap's *and* react-icons' JSX types through React 17's namespace and reports a
+handful of `TS2786 ... is not a valid JSX element type` errors in files nobody touched — typically
+`src/components/info/reminders.tsx` and `src/components/helpers/link.tsx`.
+
+Nothing is wrong with the code when this happens. `yarn.lock` carries a single `@types/react`, and
+`package.json` already pins it through `resolutions`, so CI installs clean and compiles with zero
+errors. Only the local tree is poisoned. Confirm with:
+
+```powershell
+Get-ChildItem -Recurse -Path node_modules -Filter package.json |
+  Where-Object { $_.FullName -match '@types\\react\\package.json$' }
+```
+
+More than one hit means the tree is stale; `rm -rf node_modules` and reinstall. Do not "fix" the
+reported type errors — verify against a clean install before believing any baseline error count,
+and before treating pre-existing errors as something a branch inherited.
 
 Run:
 

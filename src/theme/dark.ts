@@ -68,13 +68,18 @@ const DarkTheme: ITheme = {
   cardHeader: `card-header bg-themeLightBlue text-white`,
   dropzone: `dropzone-dark`,
   genericButton: `btn btn-outline-light`,
-  genericButtonBlock: `btn btn-outline-light btn-block`,
+  genericButtonBlock: `btn btn-outline-light d-block w-100`,
   headerColor: bgColor,
   modalConfirmClass: `btn btn-outline-light`,
   modalDangerClass: `btn btn-danger`,
   modalSuccessClass: `btn btn-outline-success`,
   noteBorder: `NoteBorder-Dark`,
-  profileCardHeader: `card-header bg-profileHeader text-dark mb-0 pb-1`,
+  /*
+   * `.card` never gets a themed background, so the light theme's 15% wash composites over Bootstrap's
+   * white card and renders as a bright band — the only light surface on a dark page, and louder than
+   * the Signal Teal headers everywhere else. Dark supplies its own opaque value instead.
+   */
+  profileCardHeader: `card-header bg-profileHeader-dark text-white`,
   reminderHeader: `bg-themeLightBlue`,
   reminderHr: `ReminderHr-Dark`,
   reminderTags: `ReminderTags-Dark`,

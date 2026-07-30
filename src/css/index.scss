@@ -32,6 +32,50 @@ small {
 }
 
 /*
+ * /join, /redeem, and the already-subscribed screen they share are one short form or message on an
+ * otherwise empty page. The two redemption routes used to borrow
+ * `.LoadingContainer`, whose 35vh top padding is right for two lines of loading text and wrong for
+ * a form that grows an error block underneath it — on a 667px phone that padding alone pushed the
+ * control 233px down the page. A centred min-height places the form optically on a tall screen and
+ * lets it grow from the top on a short one.
+ */
+.RedemptionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 70vh;
+}
+
+/*
+ * Four short sentences and a field. 38rem holds the guidance at roughly 60 characters a line, and
+ * `balance` keeps centred copy off a one-word last line — the paragraphs are set centred, where a
+ * ragged orphan is the most visible thing on the page. Browsers without it wrap as they do today.
+ */
+.RedemptionColumn {
+    max-width: 38rem;
+
+    h1,
+    p {
+        text-wrap: balance;
+    }
+}
+
+/* A coupon code is seven-ish characters. A full-width field promises a paragraph. */
+.RedemptionCodeField {
+    max-width: 18rem;
+}
+
+/*
+ * Bootstrap's default `code` pink measures 3.82:1 on white — under AA — and it carries the one line
+ * of a failed redemption the player has to read back to us. The monospace face already marks the
+ * string as the server's own words, so the colour was only decorating. Inherit rather than pick a
+ * literal, so the surrounding theme slot stays the single source of the text colour.
+ */
+.RedemptionErrorDetail {
+    color: inherit;
+}
+
+/*
  * Card titles are <h2> so the document outline is correct at every viewport. The size is set here
  * rather than by picking a heading level, which is what the h4/h5 swap used to do. 1.5rem matches
  * the h4 these replaced; the breakpoint overrides further down are unchanged.
@@ -96,6 +140,37 @@ small {
     font-size: 11px;
 }
 
+/*
+ * FAQ. Entries stack inside a section card and a hairline separates them, so the Signal Teal
+ * section header stays the only colour on the page. The light value is the same hairline Bootstrap
+ * draws around a card; on Midnight Slate that hairline is invisible, so dark supplies its own.
+ */
+.FaqEntry + .FaqEntry {
+    margin-block-start: 1.25rem;
+    padding-block-start: 1.25rem;
+    border-block-start: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.FaqEntry-Dark + .FaqEntry-Dark {
+    border-block-start-color: rgba(255, 255, 255, 0.2);
+}
+
+/*
+ * Links here inherit the theme's text colour instead of Bootstrap's $primary. #007bff sits at
+ * 2.6:1 on Midnight Slate, under the 4.5:1 minimum, and the Signal-Colour Rule reserves Action Blue
+ * for the controls that commit. The underline carries "this is a link" in both themes.
+ */
+.FaqLink {
+    color: inherit;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+
 .text-white-75 {
     color: rgba(255, 255, 255, 0.75) !important;
 }
@@ -115,6 +190,13 @@ small {
 }
 .bg-profileHeader {
     background-color: rgba(28, 117, 149, 0.15);
+}
+/*
+ * Dark's equivalent of the wash above — quieter than the full-strength Signal Teal on the reminder
+ * card headers, which is the same distinction the light wash draws.
+ */
+.bg-profileHeader-dark {
+    background-color: $themeProfileHeaderDark;
 }
 .bg-themeLightGray {
     background-color: $themeLightGray;
@@ -216,7 +298,7 @@ small {
     text-align: start;
 
     &.ReminderTags-Light {
-        color: #4d5a63;
+        color: $themeMutedInk;
     }
 
     &.ReminderTags-Dark {
@@ -420,18 +502,23 @@ small {
     border-color: #eeeeee;
     border-style: dashed;
     background-color: #fafafa;
-    color: #bdbdbd;
+    /*
+     * Was #bdbdbd, which put the dropzone's own instructions at 1.80:1 against this background —
+     * both the "Drag and drop your roster here" label and the accepted-formats line. This is the
+     * same muted ink the timing-tag explainer uses, and measures 6.80:1 here.
+     */
+    color: $themeMutedInk;
     outline: none;
     transition: border 0.24s ease-in-out;
 }
 
 .dropzone:focus {
-    border-color: #2196f3;
+    border-color: $themeDropzoneAccent;
 }
 
 .dropzone.is-dragging {
-    border-color: #2196f3;
-    background-color: rgba(33, 150, 243, 0.08);
+    border-color: $themeDropzoneAccent;
+    background-color: rgba($themeDropzoneAccent, 0.08);
 }
 
 .dropzone.disabled {
@@ -446,7 +533,7 @@ small {
 }
 
 .dropzone-dark:focus {
-    border-color: #2196f3;
+    border-color: $themeDropzoneAccent;
 }
 
 .dropzone-dark.disabled {

@@ -61,7 +61,7 @@ const PlansHeader = () => {
     <div className="col-12 text-center mb-3">
       <h2>
         Subscription Plans
-        {hasSale && <span className="ml-2 badge badge-danger">Sale!</span>}
+        {hasSale && <span className="ms-2 badge bg-danger">Sale!</span>}
       </h2>
     </div>
   )
@@ -107,10 +107,15 @@ export const PlanComponent = (props: IPlanProps) => {
     if (result.error) console.error(result.error)
   }
 
+  /*
+   * px-0 only: this card is a direct child of a `row-cols-*` row, so Bootstrap 5's `.row > *` would
+   * inset the header and body 15px inside the card's own border. Its width still comes from
+   * `.row-cols-*`, so unlike the other opt-outs (see navbar_wrapper) this one must not touch it.
+   */
   return (
-    <div className={`${theme.card} mb-4 shadow-sm`}>
+    <div className={`${theme.card} mb-4 shadow-sm px-0`}>
       <div className="card-header bg-themeDarkBluePrimary text-light">
-        <h3 className="my-0 font-weight-normal">{supportPlan.title}</h3>
+        <h3 className="my-0 fw-normal">{supportPlan.title}</h3>
       </div>
       <div className={theme.cardBody}>
         {/* A price is not a heading. The .h1 class keeps the type scale unchanged. */}
@@ -127,7 +132,7 @@ export const PlanComponent = (props: IPlanProps) => {
           <li>
             {!!supportPlan.discount_pct && (
               <>
-                <span className="badge badge-pill badge-danger mb-2">{supportPlan.discount_pct}% off!</span>
+                <span className="badge rounded-pill bg-danger mb-2">{supportPlan.discount_pct}% off!</span>
                 <br />
               </>
             )}
@@ -138,7 +143,7 @@ export const PlanComponent = (props: IPlanProps) => {
           <IconContext.Provider value={{ size: '1.2em' }}>
             <GenericButton
               type="button"
-              className="btn btn btn-block btn-primary btn-pill py-2"
+              className="btn btn d-block w-100 btn-primary btn-pill py-2"
               onClick={isAuthenticated ? handleStripeCheckout : login}
             >
               Subscribe for {supportPlan.title}

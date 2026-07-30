@@ -116,7 +116,7 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
 
         <div className="card mb-3">
           <div className={`card-body ${theme.cardBody}`}>
-            <label className="font-weight-bold" htmlFor="saved-army-name">
+            <label className="fw-bold" htmlFor="saved-army-name">
               Save current army
             </label>
             <div className="input-group">
@@ -127,16 +127,19 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
                 onChange={event => setSaveName(event.target.value)}
                 value={saveName}
               />
-              <div className="input-group-append">
-                <button
-                  className={theme.modalSuccessClass}
-                  disabled={!configured || !saveName.trim()}
-                  onClick={() => void saveNew()}
-                  type="button"
-                >
-                  Save new
-                </button>
-              </div>
+              {/*
+                Bootstrap 5 removed the .input-group-append wrapper: an input group's children are
+                now direct flex items, and the trailing control's square inner corners come from
+                `.input-group > :not(:first-child)`. The button is unchanged.
+              */}
+              <button
+                className={theme.modalSuccessClass}
+                disabled={!configured || !saveName.trim()}
+                onClick={() => void saveNew()}
+                type="button"
+              >
+                Save new
+              </button>
             </div>
           </div>
         </div>
@@ -149,7 +152,7 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
           <div aria-label="Saved armies" className="list-group">
             {armies.map(army => (
               <div className={`list-group-item ${theme.cardBody} ${theme.text}`} key={army.id}>
-                <label className="sr-only" htmlFor={`army-name-${army.id}`}>
+                <label className="visually-hidden" htmlFor={`army-name-${army.id}`}>
                   Saved army name
                 </label>
                 <input
@@ -167,21 +170,21 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
                 </p>
                 <div className="d-flex flex-wrap">
                   <button
-                    className={`${theme.genericButton} btn-sm mr-2 mb-2`}
+                    className={`${theme.genericButton} btn-sm me-2 mb-2`}
                     onClick={() => setPendingLoad(army)}
                     type="button"
                   >
                     Load
                   </button>
                   <button
-                    className={`${theme.genericButton} btn-sm mr-2 mb-2`}
+                    className={`${theme.genericButton} btn-sm me-2 mb-2`}
                     onClick={() => void rename(army)}
                     type="button"
                   >
                     Rename
                   </button>
                   <button
-                    className={`${theme.genericButton} btn-sm mr-2 mb-2`}
+                    className={`${theme.genericButton} btn-sm me-2 mb-2`}
                     onClick={() => void updateFromCurrent(army)}
                     type="button"
                   >
@@ -190,7 +193,7 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
                   {pendingDeleteId === army.id ? (
                     <>
                       <button
-                        className={`${theme.modalDangerClass} btn-sm mr-2 mb-2`}
+                        className={`${theme.modalDangerClass} btn-sm me-2 mb-2`}
                         onClick={() => void confirmDelete(army)}
                         type="button"
                       >
@@ -226,7 +229,7 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
               {selectedCount} selections in {pendingLoad.document.rulesContextId}
             </p>
             <button
-              className={`${theme.modalConfirmClass} btn-sm mr-2`}
+              className={`${theme.modalConfirmClass} btn-sm me-2`}
               onClick={() => {
                 onApply(pendingLoad.document)
                 closeModal()

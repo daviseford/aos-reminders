@@ -17,9 +17,9 @@ const OfflineComponent = () => {
           className={`col-12 col-sm-8 col-md-6 col-lg-6 col-xl-6 col-xxl-4 ${theme.card} ${theme.bgColor} ${theme.text} py-3 text-center`}
         >
           <p className="text-danger">
-            <FiWifiOff className="mr-2" />
+            <FiWifiOff className="me-2" />
             You are in <strong>Offline</strong> mode.
-            <FiWifiOff className="ml-2" />
+            <FiWifiOff className="ms-2" />
           </p>
           <p>Your capabilites are limited in this mode.</p>
           You cannot save a new army.

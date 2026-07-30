@@ -5,8 +5,9 @@ import { AppStatusProvider } from 'context/useAppStatus'
 import { ThemeProvider } from 'context/useTheme'
 import { SubscriptionProvider } from 'context/useSubscription'
 import React from 'react'
-import { render, unmountComponentAtNode } from 'react-dom'
-import { act, Simulate } from 'react-dom/test-utils'
+import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { act } from 'react'
+import { Simulate } from 'tests/support/reactTestHelpers'
 import { MemoryRouter } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -122,7 +123,9 @@ describe('AoS 4 home presentation', () => {
   })
 
   it('preserves the established header, builder-card, toolbar, and reminder-card presentation', () => {
-    expect(container.querySelector('.jumbotron.jumbotron-fluid')).not.toBeNull()
+    // The masthead band: Bootstrap 5 removed .jumbotron, so the landmark is the themed,
+    // print-suppressed header block that carried those classes.
+    expect(container.querySelector('.bg-themeDarkBluePrimary.d-print-none')).not.toBeNull()
     expect(container.querySelector('.bg-themeDarkBluePrimary')).not.toBeNull()
     expect(container.querySelector('[role="switch"]')).not.toBeNull()
     expect(container.querySelector('.card-header.bg-themeLightBlue')).not.toBeNull()

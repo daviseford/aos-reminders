@@ -34,7 +34,7 @@ export const LinkButton = ({ Icon, href, btnClass, text }: LinkButtonProps) => {
       label={text}
     >
       <div className={centerContentClass}>
-        <Icon className={isMobile ? 'mx-2 my-1' : 'mr-2'} />
+        <Icon className={isMobile ? 'mx-2 my-1' : 'me-2'} />
         {isMobile ? '' : ` ${text}`}
       </div>
     </LinkNewTab>

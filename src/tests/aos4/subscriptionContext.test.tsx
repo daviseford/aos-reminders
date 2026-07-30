@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 
 import { SubscriptionProvider, useSubscription } from 'context/useSubscription'
-import { render, unmountComponentAtNode } from 'react-dom'
-import { act } from 'react-dom/test-utils'
+import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { act } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({

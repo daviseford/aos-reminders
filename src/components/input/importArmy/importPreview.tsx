@@ -78,7 +78,7 @@ const ImportPreview = ({
 
       {!declaredContext && (
         <>
-          <label className="font-weight-bold" htmlFor="import-rules-context">
+          <label className="fw-bold" htmlFor="import-rules-context">
             Which ruleset do you want to use?
           </label>
           <select

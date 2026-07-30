@@ -4,8 +4,8 @@ import PrivateRoute from 'components/page/privateRoute'
 import Profile from 'components/routes/Profile'
 import Subscribe from 'components/routes/Subscribe'
 import { AppStatusProvider } from 'context/useAppStatus'
-import { render, unmountComponentAtNode } from 'react-dom'
-import { act } from 'react-dom/test-utils'
+import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { act } from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -47,6 +47,7 @@ const theme = {
   modalConfirmClass: 'btn btn-primary',
   modalDangerClass: 'btn btn-danger',
   profileCardHeader: 'card-header',
+  secondaryButton: 'btn btn-sm btn-outline-secondary',
   text: 'text-dark',
 }
 
@@ -93,9 +94,11 @@ describe('established account routes', () => {
     auth.withAuthenticationRequired.mockClear()
     subscription.getSubscription.mockReset()
     subscription.isActive = false
+    subscription.isCanceled = false
+    subscription.isPending = false
     subscription.isSubscribed = false
     subscription.subscriptionError = null
-    subscription.subscriptionError = null
+    subscription.subscriptionLoading = false
     container = document.createElement('div')
     document.body.appendChild(container)
   })
@@ -174,7 +177,7 @@ describe('established account routes', () => {
     expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).toBeNull()
   })
 
-  it('preserves the active-subscriber redirect screen', async () => {
+  it('shows the already-subscribed screen instead of the plans for an active subscriber', async () => {
     subscription.isSubscribed = true
     subscription.isActive = true
 
@@ -190,8 +193,15 @@ describe('established account routes', () => {
       await Promise.resolve()
     })
 
-    expect(container.textContent).toContain('You are now subscribed :) Thanks!')
+    /*
+     * The screen is only reachable by arriving already subscribed — Stripe returns to `/` and gift
+     * purchases to /profile — so it must not claim the visit just subscribed the user.
+     */
+    expect(container.textContent).toContain("You're already subscribed")
+    expect(container.textContent).not.toContain('now subscribed')
     expect(container.textContent).not.toContain('Subscription Plans')
+    // It used to bounce to the home page on a 1000ms timer instead of offering somewhere to go.
+    expect(container.querySelector('a[href="/profile"]')).not.toBeNull()
   })
 
   it('preserves the established profile cards and subscription controls', async () => {
@@ -213,6 +223,111 @@ describe('established account routes', () => {
     expect(container.textContent).toContain('User Email:')
     expect(container.textContent).toContain('Contact Us')
     expect(container.textContent).toContain('Gift subscriptions')
+  })
+
+  const renderProfile = async () => {
+    await act(async () => {
+      render(
+        <AppStatusProvider>
+          <MemoryRouter>
+            <Profile />
+          </MemoryRouter>
+        </AppStatusProvider>,
+        container
+      )
+      await Promise.resolve()
+    })
+  }
+
+  it('states the subscription status in words rather than by icon alone', async () => {
+    await renderProfile()
+    expect(container.textContent).toContain('Not subscribed')
+    expect(container.textContent).toContain('You do not have an active subscription.')
+
+    // Every icon on the card is decorative; the text beside it carries the value.
+    const headerIcons = container.querySelectorAll('.card-header svg')
+    expect(headerIcons.length).toBeGreaterThan(0)
+    headerIcons.forEach(icon => expect(icon.getAttribute('aria-hidden')).toBe('true'))
+  })
+
+  it('does not report a settled status while the lookup is still in flight', async () => {
+    subscription.subscriptionLoading = true
+
+    await renderProfile()
+
+    expect(container.textContent).toContain('Checking your subscription')
+    expect(container.textContent).not.toContain('Not subscribed')
+    expect(container.querySelector('[role="status"]')).not.toBeNull()
+  })
+
+  it('surfaces a failed subscription lookup instead of rendering it as not subscribed', async () => {
+    subscription.subscriptionError = 'Subscription status is temporarily unavailable. Please try again.'
+
+    await renderProfile()
+
+    expect(container.textContent).toContain('temporarily unavailable')
+    expect(container.textContent).not.toContain('Not subscribed')
+    expect(container.textContent).not.toContain('You do not have an active subscription.')
+    expect(container.querySelector('.alert-warning')).not.toBeNull()
+  })
+
+  it('offers a recovery path when the subscription lookup fails', async () => {
+    subscription.subscriptionError = 'Subscription status is temporarily unavailable. Please try again.'
+
+    await renderProfile()
+
+    const retry = Array.from(container.querySelectorAll('button')).find(b => b.textContent === 'Check again')
+    expect(retry).toBeDefined()
+
+    subscription.getSubscription.mockClear()
+    await act(async () => {
+      retry?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await Promise.resolve()
+    })
+    expect(subscription.getSubscription).toHaveBeenCalled()
+  })
+
+  it('keeps profile card titles at one heading level below the page title', async () => {
+    await renderProfile()
+
+    expect(container.querySelectorAll('h1')).toHaveLength(1)
+    expect(container.querySelectorAll('h4')).toHaveLength(0)
+
+    const cardTitles = Array.from(container.querySelectorAll('.card-header h2'))
+    expect(cardTitles.length).toBeGreaterThan(0)
+    cardTitles.forEach(title => expect(title.className).toContain('CardHeaderTitle'))
+
+    // The email address is data, not document structure.
+    const headings = Array.from(container.querySelectorAll('h1,h2,h3,h4,h5,h6')).map(h => h.textContent ?? '')
+    expect(headings.some(text => text.includes('general@example.com'))).toBe(false)
+    expect(container.textContent).toContain('general@example.com')
+  })
+
+  it('never renders a profile card as a bare header', async () => {
+    for (const state of [
+      { isSubscribed: false, isActive: false },
+      { isSubscribed: true, isActive: true },
+      { isSubscribed: true, isActive: false },
+      { isSubscribed: true, isActive: true, isCanceled: true },
+    ]) {
+      Object.assign(subscription, state)
+      await renderProfile()
+
+      container.querySelectorAll('.card').forEach(card => {
+        const body = card.querySelector('.card-body')
+        // A card is either header-plus-content or nothing; a header with an empty body reads as truncated.
+        const hasContent =
+          !!body?.textContent?.trim() || !!body?.querySelector('button, a, input, svg, video, img')
+        expect({ card: card.querySelector('.card-header')?.textContent, hasContent }).toEqual({
+          card: card.querySelector('.card-header')?.textContent,
+          hasContent: true,
+        })
+      })
+
+      act(() => {
+        unmountComponentAtNode(container)
+      })
+    }
   })
 
   it('keeps Profile behind the Auth0 protected-route wrapper', () => {
