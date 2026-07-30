@@ -10,7 +10,7 @@ import {
   createPinnedHttpsTransport,
   resolveDnsAddresses,
 } from '../../aos4/data'
-import type { RulesContextId } from '../../aos4/domain'
+import { armyFactions, type RulesContextId } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
 import { stableJson } from '../../aos4/generate/serialization'
 import { resolveParsedRoster } from '../../aos4/import'
@@ -36,7 +36,6 @@ const MAX_VERSION_BYTES = 64 * 1024
 const OUTPUT_ROOT = path.resolve('data', 'aos4', 'import-corpus')
 const DEFAULT_OUTPUT = path.join(OUTPUT_ROOT, 'listbot')
 const CACHE_ROOT = path.resolve('.cache', 'aos4', 'import', 'listbot')
-const NON_ARMY_FACTION_IDS = new Set(['faction:e668f75e-fd2f-513d-8ebb-e24696ceacb6'])
 const IMPORTABLE_CONTEXT_STATUSES = new Set(['current', 'seasonal', 'legends'])
 
 interface CommandOptions {
@@ -108,9 +107,7 @@ const catalogArmyContexts = (): ArmyContext[] => {
   const bindingsByCatalogFactionId = new Map(
     LISTBOT_ARMY_BINDINGS.map(binding => [binding.catalogFactionId, binding])
   )
-  const factions = AOS4_CATALOG.entities.flatMap(entity =>
-    entity.kind === 'faction' && !NON_ARMY_FACTION_IDS.has(entity.id) ? [entity] : []
-  )
+  const factions = armyFactions(AOS4_CATALOG)
   const factionIds = new Set(factions.map(faction => faction.id))
   LISTBOT_ARMY_BINDINGS.forEach(binding => {
     if (!factionIds.has(binding.catalogFactionId as (typeof factions)[number]['id'])) {

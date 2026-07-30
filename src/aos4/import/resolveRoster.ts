@@ -1,11 +1,12 @@
-import type {
-  Aos4Catalog,
-  CanonicalId,
-  ContentEntity,
-  ContentRelationship,
-  Faction,
-  RulesContext,
-  RulesContextId,
+import {
+  armyFactions,
+  type Aos4Catalog,
+  type CanonicalId,
+  type ContentEntity,
+  type ContentRelationship,
+  type Faction,
+  type RulesContext,
+  type RulesContextId,
 } from '../domain'
 import { resolveSelection } from '../select'
 import { createAos4ArmyDocument, deserializeAos4ArmyDocument, serializeAos4ArmyDocument } from '../state'
@@ -281,14 +282,18 @@ const factionNameCandidates = (label: string): string[] => {
   return stripped && stripped !== label.trim() ? [label, stripped] : [label]
 }
 
-const findFactions = (catalog: Aos4Catalog, label: string, rulesContextId: RulesContextId): Faction[] => {
+/**
+ * Match a roster's faction label against the armies a player can actually field.
+ *
+ * The search space is `armyFactions`, not every decoded faction row: `Endless Spells` is a
+ * container for universal manifestations rather than an army (#1796), and a roster naming it would
+ * resolve to a force with no units instead of failing where the player can see it.
+ */
+const findFactions = (armies: Faction[], label: string, rulesContextId: RulesContextId): Faction[] => {
   for (const candidate of factionNameCandidates(label)) {
     const normalized = normalizeImportLabel(candidate)
-    const matches = catalog.entities.filter(
-      (entity): entity is Faction =>
-        entity.kind === 'faction' &&
-        isApplicable(entity, rulesContextId) &&
-        normalizeImportLabel(entity.name) === normalized
+    const matches = armies.filter(
+      faction => isApplicable(faction, rulesContextId) && normalizeImportLabel(faction.name) === normalized
     )
     if (matches.length) return matches
   }
@@ -306,6 +311,7 @@ const findFactions = (catalog: Aos4Catalog, label: string, rulesContextId: Rules
  */
 const alternativeContextForFaction = (
   catalog: Aos4Catalog,
+  armies: Faction[],
   label: string,
   currentContextId: RulesContextId
 ): RulesContext | undefined => {
@@ -313,7 +319,7 @@ const alternativeContextForFaction = (
     context =>
       context.id !== currentContextId &&
       IMPORTABLE_CONTEXT_STATUSES.has(context.status) &&
-      findFactions(catalog, label, context.id).length === 1
+      findFactions(armies, label, context.id).length === 1
   )
   return candidates.length === 1 ? candidates[0] : undefined
 }
@@ -338,15 +344,16 @@ const resolveFaction = (
     return { matches: [] }
   }
 
+  const armies = armyFactions(catalog)
   let switchedContext: RulesContext | undefined
   const resolved = labels.map(({ label, line }) => {
-    let candidates = findFactions(catalog, label, rulesContextId)
+    let candidates = findFactions(armies, label, rulesContextId)
 
     if (!candidates.length) {
-      const alternative = alternativeContextForFaction(catalog, label, rulesContextId)
+      const alternative = alternativeContextForFaction(catalog, armies, label, rulesContextId)
       if (alternative) {
         switchedContext = alternative
-        candidates = findFactions(catalog, label, alternative.id)
+        candidates = findFactions(armies, label, alternative.id)
         diagnostics.push({
           code: 'unsupported-context',
           severity: 'warning',

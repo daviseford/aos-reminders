@@ -21,6 +21,11 @@ export const importFixtureContextIds = {
 export const importFixtureIds = {
   alphaFaction: factionId('81000000-0000-4000-8000-000000000010'),
   betaFaction: factionId('81000000-0000-4000-8000-000000000011'),
+  /**
+   * A `Factions.csv` container row rather than an army, shaped the way `Endless Spells` is: it
+   * offers universal rules content to hang manifestations off, and no warscrolls at all.
+   */
+  containerFaction: factionId('81000000-0000-4000-8000-000000000012'),
   alphaGuard: warscrollId('81000000-0000-4000-8000-000000000020'),
   betaGuard: warscrollId('81000000-0000-4000-8000-000000000021'),
   betaOnly: warscrollId('81000000-0000-4000-8000-000000000022'),
@@ -145,6 +150,13 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
       rulesContextIds: [importFixtureContextIds.seasonal],
     },
     {
+      id: 'relationship:container-offers-same-name-lore',
+      kind: 'offers',
+      from: importFixtureIds.containerFaction,
+      to: importFixtureIds.sameNameLore,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
       id: 'relationship:alpha-offers-archive-guard',
       kind: 'offers',
       from: importFixtureIds.alphaFaction,
@@ -217,6 +229,14 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
         revision: 'import-fixture',
         name: 'Beta Hosts',
         rulesContextIds: [importFixtureContextIds.seasonal],
+        sourceRefs,
+      },
+      {
+        id: importFixtureIds.containerFaction,
+        kind: 'faction',
+        revision: 'import-fixture',
+        name: 'Endless Spells',
+        rulesContextIds: [importFixtureContextIds.current, importFixtureContextIds.seasonal],
         sourceRefs,
       },
       {

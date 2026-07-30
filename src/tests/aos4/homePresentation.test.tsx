@@ -197,6 +197,30 @@ describe('AoS 4 home presentation', () => {
     expect(container.querySelector('[role="dialog"][aria-label="Import Army"]')).not.toBeNull()
   })
 
+  /**
+   * `Endless Spells` is a `Factions.csv` container for universal manifestations, not an army
+   * (#1796). Offering it handed the player a force with no units and no explanation.
+   */
+  it('offers only factions that field units in the army selector', async () => {
+    const factionInput = container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')
+    expect(factionInput).not.toBeNull()
+
+    await act(async () => {
+      factionInput!.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
+      )
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    const offered = Array.from(container.querySelectorAll('[role="option"]')).map(option =>
+      option.textContent?.trim()
+    )
+    expect(offered).toContain('Stormcast Eternals')
+    expect(offered).toContain('Flesh-eater Courts')
+    expect(offered).toContain('Disciples of Tzeentch')
+    expect(offered).not.toContain('Endless Spells')
+  })
+
   it('does not render the migration-workbench reskin', () => {
     expect(container.querySelector('.aos4-hero')).toBeNull()
     expect(container.querySelector('.aos4-layout')).toBeNull()
