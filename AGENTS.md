@@ -464,6 +464,27 @@ Install:
 yarn install --frozen-lockfile
 ```
 
+**Reinstall from scratch after crossing the React 17/Bootstrap 4 boundary.** Branches that predate
+the Phase 2 package track resolve a different dependency tree, and Yarn Classic does not always
+prune the nested copies it no longer needs. The failure this produces is a stale
+`react-bootstrap/node_modules/@types/react` at 17.x sitting under a top-level 19.x: `tsc` then
+resolves react-bootstrap's *and* react-icons' JSX types through React 17's namespace and reports a
+handful of `TS2786 ... is not a valid JSX element type` errors in files nobody touched — typically
+`src/components/info/reminders.tsx` and `src/components/helpers/link.tsx`.
+
+Nothing is wrong with the code when this happens. `yarn.lock` carries a single `@types/react`, and
+`package.json` already pins it through `resolutions`, so CI installs clean and compiles with zero
+errors. Only the local tree is poisoned. Confirm with:
+
+```powershell
+Get-ChildItem -Recurse -Path node_modules -Filter package.json |
+  Where-Object { $_.FullName -match '@types\\react\\package.json$' }
+```
+
+More than one hit means the tree is stale; `rm -rf node_modules` and reinstall. Do not "fix" the
+reported type errors — verify against a clean install before believing any baseline error count,
+and before treating pre-existing errors as something a branch inherited.
+
 Run:
 
 ```powershell
