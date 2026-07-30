@@ -276,6 +276,25 @@ small {
     border-radius: 3px;
     border: 1px solid transparent;
     cursor: help;
+    /*
+     * The chip renders 20px tall, under the 24px WCAG 2.5.8 floor, and there are 85 of them on the
+     * default army. Growing the chip itself would trade away the density the reminders surface is
+     * built on, so this widens the hit box only — the same approach .ReminderMenuToggle takes.
+     *
+     * 24px against a 20px chip overhangs 2px per side, and .ReminderTags sets a 0.25rem (4px) gap,
+     * so vertically stacked overlays meet exactly and never overlap.
+     */
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 24px;
+        transform: translateY(-50%);
+    }
 
     &:focus-visible {
         outline: 2px solid $themeLightBlue;
