@@ -428,6 +428,14 @@ export const parseWahapediaWarscrollHtml = (input: WahapediaHtmlInput): Wahapedi
   return result
 }
 
+/**
+ * A faction root page carries the faction's Spearhead warscrolls inline while the rest live on its
+ * `warscrolls.html` collection. Factions Wahapedia publishes without a collection page — currently
+ * Endless Spells, whose manifestations sit under their lore headings — carry every warscroll on the
+ * root page instead, so the caller states which datasheets the root is expected to contribute.
+ */
+export type WahapediaFactionRootWarscrollScope = 'spearhead' | 'all'
+
 const parseWahapediaWarscrollCollection = (
   input: WahapediaHtmlInput,
   spearheadOnly: boolean
@@ -547,9 +555,26 @@ export const filterNativeWahapediaFactionWarscrolls = (
   )
 }
 
-export const parseWahapediaSpearheadWarscrollsHtml = (
-  input: WahapediaHtmlInput
-): WahapediaHtmlCollectionParseResult => parseWahapediaWarscrollCollection(input, true)
+export const parseWahapediaFactionRootWarscrollsHtml = (
+  input: WahapediaHtmlInput,
+  scope: WahapediaFactionRootWarscrollScope
+): WahapediaHtmlCollectionParseResult => parseWahapediaWarscrollCollection(input, scope === 'spearhead')
+
+/**
+ * Decides which datasheets a faction root page contributes, from the pages the caller holds: when a
+ * `warscrolls.html` collection accompanies the root, the root contributes only its Spearhead
+ * warscrolls and the collection supplies the rest; without one, the root is the only place the
+ * faction's warscrolls exist.
+ */
+export const factionRootWarscrollScope = (
+  factionRootUrl: string,
+  wahapediaPageUrls: readonly string[]
+): WahapediaFactionRootWarscrollScope => {
+  const collectionPath = `${new URL(factionRootUrl).pathname}warscrolls.html`.toLowerCase()
+  return wahapediaPageUrls.some(url => new URL(url).pathname.toLowerCase() === collectionPath)
+    ? 'spearhead'
+    : 'all'
+}
 
 const headingExternalId = (heading: Element): string => {
   let candidate = heading.previousElementSibling
@@ -610,7 +635,15 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
   )
   const groups: WahapediaHtmlFactionGroupRecord[] = []
   const abilities: WahapediaHtmlFactionAbilityRecord[] = []
-  let inFactionRules = false
+  const parentByGroup = new Map<WahapediaHtmlFactionGroupRecord, WahapediaHtmlFactionGroupRecord>()
+  const groupsWithAbilities = new Set<WahapediaHtmlFactionGroupRecord>()
+  // Battletome roots gate their rules behind a `Faction Rules` heading, after the book list and the
+  // designers' commentary. A faction page without that heading — Endless Spells — is rules content
+  // from its first heading onwards.
+  const hasFactionRulesHeading = Array.from(document.querySelectorAll('h2')).some(
+    heading => !heading.closest('.tooltip_templates') && /^Faction Rules$/i.test(normalizedText(heading))
+  )
+  let inFactionRules = !hasFactionRulesHeading
   let excludedSection = false
   let inheritedContext: WahapediaHtmlContext | undefined
   let typeGroup: WahapediaHtmlFactionGroupRecord | undefined
@@ -647,6 +680,7 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
       meta: recordMeta(input, `faction-group:${externalId}`, value),
     }
     groups.push(group)
+    if (parent) parentByGroup.set(group, parent)
     return group
   }
 
@@ -694,7 +728,17 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
       subgroup = skipSubgroup || !typeGroup ? undefined : addGroup(node, typeGroup)
       continue
     }
-    if (!node.matches('.abHeader') || skipSubgroup || node.closest('.sShowPathToGlory')) continue
+    // Warscroll abilities belong to their datasheet, never to the surrounding rule group. Battletome
+    // roots keep them out through their `Warscrolls` subheading; pages that list datasheets directly
+    // under a rule heading need the structural exclusion.
+    if (
+      !node.matches('.abHeader') ||
+      skipSubgroup ||
+      node.closest('.sShowPathToGlory') ||
+      node.closest('.datasheet')
+    ) {
+      continue
+    }
     const group = subgroup ?? typeGroup
     const body = bodyByHeader.get(node)
     if (!group || !body) {
@@ -710,6 +754,7 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     abilityCountByGroup.set(group.externalId, line)
     const value = abilityValue(node, body, line)
     if (!value.name) continue
+    groupsWithAbilities.add(group)
     const externalId = `${group.externalId}:ability:${line}`
     abilities.push({
       ...value,
@@ -720,12 +765,15 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     })
   }
 
-  const retainedGroupIds = new Set(abilities.map(ability => ability.groupExternalId))
-  groups
-    .filter(group => retainedGroupIds.has(group.externalId) && group.parentExternalId)
-    .forEach(group => retainedGroupIds.add(group.parentExternalId!))
-  const retainedGroups = groups.filter(group => retainedGroupIds.has(group.externalId))
-  if ((!retainedGroups.length || !abilities.length) && factionName !== 'Endless Spells') {
+  // Retain by group identity rather than by external ID: a page may anchor its rules index and its
+  // warscroll sections to the same name, and only the group that actually carried abilities is real.
+  const retained = new Set(groupsWithAbilities)
+  groupsWithAbilities.forEach(group => {
+    const parent = parentByGroup.get(group)
+    if (parent) retained.add(parent)
+  })
+  const retainedGroups = groups.filter(group => retained.has(group))
+  if (!retainedGroups.length || !abilities.length) {
     decoded.diagnostics.push({
       code: 'not-faction-page',
       severity: 'error',

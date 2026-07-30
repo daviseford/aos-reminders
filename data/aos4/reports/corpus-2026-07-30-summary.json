@@ -1,0 +1,70 @@
+{
+  "acceptedManifest": "data/aos4/manifests/accepted-2026-07-30.json",
+  "generatedAt": "2026-07-30T21:10:00.000Z",
+  "identities": "data/aos4/identities/corpus.json",
+  "integrity": {
+    "consumedSourceRecords": 19126,
+    "dispositions": [],
+    "issues": [],
+    "supersededSourceRecords": {
+      "checksum": "31a9e711d23800deb3e0fb23bd686e9e4a85e82ef264aea806911adb506281ef",
+      "count": 18897,
+      "reason": "Current reviewed Wahapedia HTML replaces the accepted May 2026 bulk warscroll and faction-rule records; superseded rows remain dispositioned for audit but cannot enter the current runtime."
+    }
+  },
+  "products": {
+    "data/aos4/catalog/catalog.json": {
+      "byteLength": 30703792,
+      "checksum": "85d5110bafdcdea9d19382059364c0f4a195ea7d62ce70954bd92d105c9eeca5"
+    },
+    "data/aos4/catalog/official-battle-profiles.json": {
+      "byteLength": 1427146,
+      "checksum": "dd431a661d01d5a13d32be1798e0ed42be735fd850418c46267f6b0d1bc8bf4e"
+    },
+    "data/aos4/identities/corpus.json": {
+      "byteLength": 3448296,
+      "checksum": "a6195e703fe368914492c6d0fa555727dc8fa37fa7ccdf9029026e21d2f34357"
+    },
+    "data/aos4/reports/corpus-2026-07-30-reconciliation.json": {
+      "byteLength": 167780,
+      "checksum": "941b57d7c38c753e719c41f6f1fef749a8185e8db9f4d84f6006efa5b215fc00"
+    },
+    "src/aos4/generated/corpus/defaults.json": {
+      "byteLength": 169,
+      "checksum": "56f2897a563b6a9e6a31e83ce8ffd9e3d361d12aa0a8890bf24d374264ffb0a6"
+    },
+    "src/aos4/generated/corpus/runtime.json": {
+      "byteLength": 12794358,
+      "checksum": "cb0065b810a4c897e8a2ed1f5b811e445feb44a8bca8d97c2f88fe090c6dc8f0"
+    }
+  },
+  "review": "data/aos4/reviews/corpus-2026-07-30.json",
+  "schemaVersion": 1,
+  "sourceDiagnostics": {
+    "byCode": {
+      "duplicate-identical-record": 635,
+      "empty-association-record": 559,
+      "missing-faction": 2,
+      "polluted-marker": 522
+    },
+    "reviewed": 1718
+  },
+  "status": "strict-pass",
+  "summary": {
+    "abilities": 4898,
+    "attribution": "Powered by Wahapedia",
+    "battleProfiles": 1002,
+    "contentGroups": 1409,
+    "factions": 28,
+    "ignoredSourceRecords": 18897,
+    "publications": 278,
+    "relationships": 12141,
+    "revision": "aos4-corpus-2026-07-30",
+    "schemaVersion": 1,
+    "sourceArtifacts": 242,
+    "sourceRecords": 19126,
+    "status": "strict-pass",
+    "warscrolls": 1286,
+    "weapons": 2260
+  }
+}

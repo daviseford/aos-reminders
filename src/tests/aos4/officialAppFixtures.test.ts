@@ -153,14 +153,30 @@ describe('official app list resolution', () => {
   })
 
   /**
-   * Names the corpus genuinely does not carry must keep failing closed.
-   *
-   * Each is a near-miss to something real — `Conqueror Cogfort` exists, two different Freeguild
-   * Marshals exist — and resolving to a neighbour would produce reminders for a unit the player
-   * never took. Tracked as corpus coverage instead; see the manifestation work in issue #1791.
+   * The five universal manifestation lores belong to no army — any list may take them — so every
+   * faction has to reach them. They were absent entirely until the Endless Spells page stopped
+   * decoding to nothing (issue #1791).
    */
   it.each([
-    ['ij-001-renown-heavy', 'Outlaw Conqueror Cogfort'],
+    ['cos-001-grudgebound-legends', 'Morbid Conjuration'],
+    ['cos-001-grudgebound-legends', 'Forbidden Power'],
+    ['fs-001-older-handbook', 'Aetherwrought Machineries'],
+    ['gg-001-army-of-renown', 'Primal Energy'],
+    ['hh-001-renown-stress', 'Twilit Sorceries'],
+    ['lrl-001-multi-lore', 'Krondspine Incarnate'],
+  ])('%s reaches the universal manifestation lore "%s"', (id, lore) => {
+    expect(resolveFixture(id).matched).toContain(lore)
+  })
+
+  /**
+   * Names the corpus genuinely does not carry must keep failing closed.
+   *
+   * `Mask of the Deceiver` is a Regiment of Renown band rather than a warscroll — the importer
+   * resolves a band's members and never the bundle itself — and the official battle-profile
+   * ledger carries no bare `Freeguild Marshal`, only the Relic Envoy and Griffon variants.
+   * Resolving either to a neighbour would produce reminders for a unit the player never took.
+   */
+  it.each([
     ['ij-001-renown-heavy', 'Mask of the Deceiver'],
     ['sce-001-exported-version-format', 'Freeguild Marshal'],
   ])('%s reports "%s" rather than guessing at a near-miss', (id, label) => {

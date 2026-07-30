@@ -23,9 +23,10 @@ import {
   type WahapediaFactionCohortReport,
 } from './wahapedia'
 import {
+  factionRootWarscrollScope,
   parseWahapediaFactionHtml,
+  parseWahapediaFactionRootWarscrollsHtml,
   parseWahapediaRulesHtml,
-  parseWahapediaSpearheadWarscrollsHtml,
   parseWahapediaWarscrollHtml,
   parseWahapediaWarscrollCollectionHtml,
   type WahapediaHtmlDiagnostic,
@@ -467,7 +468,13 @@ export const acquireCandidateData = async (
     const parsed = wahapediaPath.endsWith('/warscrolls.html')
       ? parseWahapediaWarscrollCollectionHtml(input)
       : isFactionPage
-        ? parseWahapediaSpearheadWarscrollsHtml(input)
+        ? parseWahapediaFactionRootWarscrollsHtml(
+            input,
+            factionRootWarscrollScope(
+              result.artifact.finalUrl,
+              acquired.wahapediaPages.map(page => page.artifact.finalUrl)
+            )
+          )
         : isRulesPage
           ? { pages: [], diagnostics: rulesPage?.diagnostics ?? [] }
           : (() => {
