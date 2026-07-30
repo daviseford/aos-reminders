@@ -16,7 +16,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
-import { resolveParsedRoster } from '../../aos4/import'
+import { resolveParsedRoster, type ParsedRoster } from '../../aos4/import'
 import { decodeAos4RosterFile } from '../../importers/aos4'
 import { LISTS_ROOT, listDirectories } from '../support/newRecruitManifest'
 
@@ -24,11 +24,21 @@ const directories = listDirectories()
 const fixture = (id: string, file: string) => path.join(LISTS_ROOT, id, file)
 const readMeta = (id: string) => JSON.parse(readFileSync(fixture(id, 'meta.json'), 'utf8'))
 
-const decode = async (id: string, format: 'ros' | 'rosz') =>
+const decode = async (id: string, format: 'ros' | 'rosz' | 'json') =>
   decodeAos4RosterFile({
     name: `list.${format}`,
     bytes: new Uint8Array(readFileSync(fixture(id, `list.${format}`))),
   })
+
+/**
+ * A roster's content, without positions in the file it arrived in.
+ *
+ * Line numbers are the one thing the three exports legitimately disagree on: the same list is a
+ * handful of lines as `.ros` and a single minified line as `.json`. They describe the upload the
+ * player handed us, so the roster is compared without them.
+ */
+const withoutLines = (roster?: ParsedRoster) =>
+  roster && { ...roster, selections: roster.selections.map(selection => ({ ...selection, line: 0 })) }
 
 const errors = (diagnostics: { severity: string }[]) =>
   diagnostics.filter(diagnostic => diagnostic.severity === 'error')
@@ -67,6 +77,23 @@ describe('New Recruit corpus through the production importer', () => {
     it('decodes .rosz to the same roster as .ros', async () => {
       const [loose, packed] = await Promise.all([decode(id, 'ros'), decode(id, 'rosz')])
       expect(packed.parsedRoster).toEqual(loose.parsedRoster)
+    })
+
+    /**
+     * Invariant 3, and the reason `.json` is worth accepting at all: New Recruit's third export is
+     * the same tree transliterated, so the player gets the same army whichever button they pressed.
+     *
+     * This is the assertion the format support rests on. The synthetic cases in
+     * `importNewRecruit.test.ts` can only cover shapes we thought of; these are 29 real captures,
+     * carrying the ids New Recruit typed as numbers, the seasonal name qualifiers, the Legends
+     * tags, and the deep upgrade nesting that tells a unit from a model inside it.
+     */
+    it('decodes .json to the same roster as .ros', async () => {
+      const [xml, json] = await Promise.all([decode(id, 'ros'), decode(id, 'json')])
+
+      expect(errors(json.diagnostics)).toEqual([])
+      expect(withoutLines(json.parsedRoster)).toEqual(withoutLines(xml.parsedRoster))
+      expect(json.parsedRoster?.selections.every(selection => selection.line >= 1)).toBe(true)
     })
 
     /** Invariant 4: decoding is deterministic, which is what makes snapshots meaningful. */

@@ -1,9 +1,17 @@
 import type { Aos4ImportDiagnostic, Aos4ParsedRosterResult } from '../../aos4/import'
+import { parseAos4RosterJson } from './rosterJson'
 import { parseAos4RosterXml } from './rosterXml'
 import { decodeAos4TextRoster } from './textRoster'
 
 export const MAX_ROSTER_FILE_BYTES = 1024 * 1024
 export const MAX_EXPANDED_ROSTER_BYTES = 5 * 1024 * 1024
+
+/**
+ * `.ros`, `.rosz`, and `.json` are the three ways New Recruit exports one list, and `.txt` covers
+ * the official app and Listbot. The extension only chooses a reader — each one still validates what
+ * it was handed, so a mislabelled file is refused by content rather than accepted by name.
+ */
+const SUPPORTED_EXTENSIONS = new Set(['txt', 'ros', 'rosz', 'json'])
 
 export interface Aos4RosterFileInput {
   name: string
@@ -253,13 +261,16 @@ export const decodeAos4RosterFile = async (input: Aos4RosterFileInput): Promise<
   }
 
   const extension = input.name.split('.').pop()?.toLocaleLowerCase('en')
-  if (extension !== 'txt' && extension !== 'ros' && extension !== 'rosz') {
-    return inputError('unsupported-source', 'Choose a .txt, .ros, or .rosz roster file.')
+  if (!SUPPORTED_EXTENSIONS.has(extension ?? '')) {
+    return inputError('unsupported-source', 'Choose a .txt, .ros, .rosz, or .json roster file.')
   }
 
   try {
     if (extension === 'txt') {
       return decodeAos4TextRoster(decodeUtf8(input.bytes, 'Roster text'))
+    }
+    if (extension === 'json') {
+      return parseAos4RosterJson(decodeUtf8(input.bytes, 'Roster JSON'))
     }
     const xmlBytes = extension === 'rosz' ? await extractRosterXml(input.bytes) : input.bytes
     return parseAos4RosterXml(decodeUtf8(xmlBytes, 'Roster XML'))

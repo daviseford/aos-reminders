@@ -94,9 +94,9 @@ const FaqSections: IFaqSection[] = [
         answer: (
           <>
             No. <strong>Import Army</strong> takes the roster you already made: text exported from the
-            official Warhammer Age of Sigmar app or from Listbot 4.0, and New Recruit .ros or .rosz files. You
-            can paste the text or drop the file in. An imported roster sets your selections — it is never
-            treated as a rules authority.
+            official Warhammer Age of Sigmar app or from Listbot 4.0, and New Recruit .ros, .rosz, or .json
+            files. You can paste the text or drop the file in. An imported roster sets your selections — it is
+            never treated as a rules authority.
           </>
         ),
       },
