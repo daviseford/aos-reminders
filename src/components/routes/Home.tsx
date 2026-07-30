@@ -10,7 +10,7 @@ import {
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
 import AppBanner from 'components/info/banners/app_banner'
-import Reminders, { type ReminderSourceLink } from 'components/info/reminders'
+import Reminders, { REMINDERS_ANCHOR_ID, type ReminderSourceLink } from 'components/info/reminders'
 import ArmyBuilder from 'components/input/army_builder'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import Toolbar from 'components/input/toolbar/toolbar'
@@ -81,6 +81,27 @@ const factionById = new Map(
 const selectableFactions = armyFactions(AOS4_CATALOG)
 
 const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'AoS'}_Reminders`
+
+/*
+ * The masthead, mode switch, faction select, builder cards, and the seven toolbar buttons all sit
+ * between the top of the document and the reminders, so reaching the content by keyboard means
+ * tabbing past roughly a dozen controls. The link targets the reminders rather than <main>, because
+ * <main> wraps the routed tree from the navbar down and skipping to it would move nothing.
+ */
+const SkipToReminders = () => (
+  /*
+   * A light chip in both themes rather than a theme slot. The link reveals itself over the masthead,
+   * and the masthead is dark in each theme — Deep Harbour Teal in light, Midnight Slate in dark — so
+   * `theme.bgColor` would paint it Midnight Slate on Midnight Slate and hide it exactly when a
+   * keyboard user needs to see it.
+   */
+  <a
+    className="SkipLink visually-hidden-focusable bg-light text-dark d-print-none"
+    href={`#${REMINDERS_ANCHOR_ID}`}
+  >
+    Skip to reminders
+  </a>
+)
 
 const HomeContent = () => {
   const [document, setDocument] = useState(loadDocument)
@@ -238,6 +259,8 @@ const HomeContent = () => {
 
   return (
     <div>
+      <SkipToReminders />
+
       <Header
         armyName={document.name}
         factionId={factionId}

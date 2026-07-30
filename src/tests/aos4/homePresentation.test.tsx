@@ -221,6 +221,69 @@ describe('AoS 4 home presentation', () => {
     expect(offered).not.toContain('Endless Spells')
   })
 
+  it('opens on a skip link that reaches the reminders, and a real footer landmark', () => {
+    const skip = container.querySelector('a.SkipLink')
+    expect(skip).not.toBeNull()
+    expect(skip?.textContent).toBe('Skip to reminders')
+    // First focusable in the document, or it is not a skip link.
+    expect(container.querySelector('a, button, input, select, textarea')).toBe(skip)
+
+    // The target has to exist and be focusable, otherwise the link moves focus nowhere.
+    const target = container.querySelector('#aos4-reminders')
+    expect(target).not.toBeNull()
+    expect(skip?.getAttribute('href')).toBe(`#${target?.id}`)
+    expect(target?.getAttribute('tabindex')).toBe('-1')
+
+    // The masthead is dark in both themes, so the chip stays light in both.
+    expect(skip?.className).toContain('bg-light')
+    expect(skip?.className).toContain('d-print-none')
+
+    expect(container.querySelector('footer')).not.toBeNull()
+  })
+
+  it('lets link contents supply the accessible name instead of an analytics slug', () => {
+    const release = Array.from(container.querySelectorAll('a')).find(link =>
+      link.textContent?.includes('Release Notes')
+    )
+    expect(release).not.toBeUndefined()
+    // WCAG 2.5.3: this announced itself as "GithubLatestRelease" while reading "…Release Notes".
+    expect(release?.getAttribute('aria-label')).toBeNull()
+
+    // The contact links keep their text at every width, so they name themselves too.
+    const contacts = Array.from(container.querySelectorAll('footer a')).map(link => link.textContent?.trim())
+    expect(contacts).toEqual(expect.arrayContaining(['Github', 'Email', 'Discord']))
+  })
+
+  it('tiles collapsed builder cards two-up on mobile rather than sizing them to their titles', () => {
+    act(() => {
+      unmountComponentAtNode(container)
+    })
+    // jsdom has no matchMedia, so breakpoints.ts falls back to innerWidth. 1024 is the default, and
+    // the mobile branch never renders without this.
+    const width = window.innerWidth
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 390 })
+
+    try {
+      act(() => {
+        renderHome()
+      })
+
+      const collapsed = Array.from(container.querySelectorAll('.card'))
+        .map(card => card.parentElement)
+        .filter((col): col is HTMLElement => !!col && col.className.includes('col-6'))
+
+      // More than the one expanded card, so this is exercising the collapsed branch.
+      expect(collapsed.length).toBeGreaterThan(1)
+      /*
+       * `col w-50` was the intent and never applied: `.col` sets `flex: 1 0 0%`, and a flex-basis of
+       * 0 beats `width`, so the cards sized to their own titles and tiled three-up then two-up.
+       */
+      expect(container.querySelector('.col.w-50')).toBeNull()
+    } finally {
+      Object.defineProperty(window, 'innerWidth', { configurable: true, value: width })
+    }
+  })
+
   it('does not render the migration-workbench reskin', () => {
     expect(container.querySelector('.aos4-hero')).toBeNull()
     expect(container.querySelector('.aos4-layout')).toBeNull()

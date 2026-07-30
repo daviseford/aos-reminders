@@ -13,6 +13,9 @@ import { Dropdown } from 'react-bootstrap'
 import { FaEllipsisH } from 'react-icons/fa'
 import { MdVisibilityOff } from 'react-icons/md'
 
+/** The skip link's destination. Exported so the anchor and its target cannot drift apart. */
+export const REMINDERS_ANCHOR_ID = 'aos4-reminders'
+
 export interface ReminderSourceLink {
   id: string
   label: string
@@ -298,7 +301,12 @@ const Reminders = (props: RemindersProps) => {
 
   return (
     <div className={`row mx-auto ${props.isGameMode ? 'mt-0' : 'mt-3'} d-flex justify-content-center`}>
-      <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
+      {/* tabIndex -1 so the skip link can move focus here; it stays out of the tab order. */}
+      <div
+        className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer"
+        id={REMINDERS_ANCHOR_ID}
+        tabIndex={-1}
+      >
         {groups.map(group => (
           <ReminderCard key={group.key} {...props} group={group} />
         ))}

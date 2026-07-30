@@ -94,7 +94,13 @@ const SelectionCard = ({
   const title = isMobile && group.mobileTitle ? group.mobileTitle : group.title
   const selectionCount = selectedValues.length
   const bodyClass = `${theme.cardBody} ${isExpanded ? '' : 'd-none'} ${isMobile ? 'py-3' : ''}`
-  const colMobile = isMobile && !isExpanded ? 'col w-50 px-1' : 'col-12 px-1'
+  /*
+   * col-6, not the `col w-50` this carried before: `.col` sets `flex: 1 0 0%`, and a flex-basis of 0
+   * wins over `width`, so `w-50` never applied. Collapsed cards sized to their own title text instead
+   * — on a 390px phone the row tiled three-up, then two-up, then three-up, and a trailing card grew
+   * to fill its row. col-6 is the two-up tiling DESIGN.md specifies, at one width for every card.
+   */
+  const colMobile = isMobile && !isExpanded ? 'col-6 px-1' : 'col-12 px-1'
   const colDesktop = `col-sm-12 col-md-6 col-lg-4 col-xl-4 ${isMobile ? '' : 'mb-2'}`
   const bodyId = `aos4-builder-${group.key}`
 

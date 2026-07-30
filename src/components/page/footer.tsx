@@ -5,8 +5,13 @@ import Contact from 'components/page/contact'
 import { useTheme } from 'context/useTheme'
 import pkgJson from '../../../package.json'
 
+/*
+ * <footer>, not <div>: this block holds the Games Workshop disclaimer and the contact links, and a
+ * bare div left them unreachable by landmark navigation. `footer` is display: block, so the box is
+ * unchanged.
+ */
 const Footer = () => (
-  <div className="container d-print-none">
+  <footer className="container d-print-none">
     <DonateComponent />
     <OfflineComponent />
     <Disclaimer />
@@ -16,7 +21,7 @@ const Footer = () => (
       </div>
     </div>
     <ReleaseNotes />
-  </div>
+  </footer>
 )
 
 const Disclaimer = () => {
@@ -41,10 +46,7 @@ const ReleaseNotes = () => {
   return (
     <div className={`row text-center ${theme.bgColor} pt-1 pb-2`}>
       <div className="col">
-        <LinkNewTab
-          href="https://github.com/daviseford/aos-reminders/releases/latest"
-          label="GithubLatestRelease"
-        >
+        <LinkNewTab href="https://github.com/daviseford/aos-reminders/releases/latest">
           <small className={theme.text}>AoS Reminders v{pkgJson.version} - Release Notes</small>
         </LinkNewTab>
       </div>

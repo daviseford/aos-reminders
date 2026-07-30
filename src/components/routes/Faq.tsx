@@ -49,13 +49,13 @@ interface IFaqSection {
 }
 
 const GithubIssuesLink = () => (
-  <LinkNewTab className="FaqLink" href={`${GITHUB_URL}/issues`} label="Faq-GithubIssues">
+  <LinkNewTab className="FaqLink" href={`${GITHUB_URL}/issues`}>
     open an issue on Github
   </LinkNewTab>
 )
 
 const WahapediaLink = () => (
-  <LinkNewTab className="FaqLink" href="//wahapedia.ru/aos4/the-rules/" label="Faq-Wahapedia">
+  <LinkNewTab className="FaqLink" href="//wahapedia.ru/aos4/the-rules/">
     Wahapedia
   </LinkNewTab>
 )
