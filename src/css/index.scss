@@ -429,6 +429,11 @@ small {
     border-color: #2196f3;
 }
 
+.dropzone.is-dragging {
+    border-color: #2196f3;
+    background-color: rgba(33, 150, 243, 0.08);
+}
+
 .dropzone.disabled {
     opacity: 0.6;
 }

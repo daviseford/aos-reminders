@@ -7,7 +7,7 @@ import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../../aos4/gener
 import type { Aos4ArmyDocument } from '../../../aos4/state'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useTheme } from 'context/useTheme'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import {
   createRosterFileTooLargeResult,
   decodeAos4RosterFile,
@@ -43,11 +43,14 @@ const ImportArmyModal = ({
   onApply,
 }: ImportArmyModalProps) => {
   const { theme } = useTheme()
-  const [mode, setMode] = useState<ImportMode>('paste')
+  const [mode, setMode] = useState<ImportMode>('upload')
   const [text, setText] = useState('')
   const [decoded, setDecoded] = useState<Aos4ParsedRosterResult>()
   const [selectedContextId, setSelectedContextId] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const [droppedFileName, setDroppedFileName] = useState('')
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const preview = useMemo(() => {
     if (!decoded?.parsedRoster) return undefined
@@ -74,6 +77,7 @@ const ImportArmyModal = ({
     setMode(nextMode)
     setDecoded(undefined)
     setSelectedContextId('')
+    setDroppedFileName('')
   }
 
   const previewText = () => {
@@ -84,6 +88,7 @@ const ImportArmyModal = ({
   const previewFile = async (file?: File) => {
     if (!file) return
     setSelectedContextId('')
+    setDroppedFileName(file.name)
     if (file.size > MAX_ROSTER_FILE_BYTES) {
       setDecoded(createRosterFileTooLargeResult())
       return
@@ -101,6 +106,22 @@ const ImportArmyModal = ({
     } finally {
       setIsProcessing(false)
     }
+  }
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    setIsDragging(true)
+  }
+
+  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    if (event.currentTarget.contains(event.relatedTarget as Node | null)) return
+    setIsDragging(false)
+  }
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    setIsDragging(false)
+    void previewFile(event.dataTransfer?.files?.[0])
   }
 
   const apply = () => {
@@ -173,14 +194,34 @@ const ImportArmyModal = ({
             </button>
           </>
         ) : (
-          <div className={theme.dropzone}>
-            <label className="font-weight-bold" htmlFor="import-roster-file">
-              AoS app or Listbot text (.txt), or New Recruit roster (.ros or .rosz)
+          <div
+            className={`${theme.dropzone}${isDragging ? ' is-dragging' : ''}`}
+            onDragEnter={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          >
+            <label className="font-weight-bold text-center" htmlFor="import-roster-file">
+              Drag and drop your roster here
             </label>
+            <p className="small text-center mb-2">
+              AoS app or Listbot text (.txt), or New Recruit roster (.ros or .rosz)
+            </p>
+            <button
+              className={theme.genericButton}
+              onClick={() => fileInputRef.current?.click()}
+              type="button"
+            >
+              Choose a file
+            </button>
+            {!!droppedFileName && <p className="small mt-2 mb-0">{droppedFileName}</p>}
             <input
               accept=".txt,.ros,.rosz,text/plain,application/xml,application/zip"
+              className="sr-only"
               id="import-roster-file"
               onChange={event => void previewFile(event.target.files?.[0])}
+              ref={fileInputRef}
+              tabIndex={-1}
               type="file"
             />
           </div>

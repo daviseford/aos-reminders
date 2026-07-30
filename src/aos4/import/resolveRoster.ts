@@ -99,57 +99,56 @@ const contextAliases = (context: RulesContext): string[] => {
   return aliases.flatMap(alias => (alias?.trim() ? [normalizeImportLabel(alias)] : []))
 }
 
+/**
+ * The ruleset a roster declared, when it names one we carry.
+ *
+ * The import preview asks the player which ruleset to use only when this returns nothing, so the
+ * question is asked exactly when the roster leaves it open — or names a pack we cannot honour.
+ */
+export const findDeclaredRulesContext = (
+  catalog: Aos4Catalog,
+  declaredContext?: string
+): RulesContext | undefined => {
+  if (!declaredContext?.trim()) return undefined
+  const normalized = normalizeImportLabel(declaredContext)
+  const matches = catalog.rulesContexts.filter(context => contextAliases(context).includes(normalized))
+  if (matches.length !== 1 || !IMPORTABLE_CONTEXT_STATUSES.has(matches[0].status)) return undefined
+  return matches[0]
+}
+
 const resolveRulesContext = (
   catalog: Aos4Catalog,
   parsedRoster: ParsedRoster,
   defaultRulesContextId: RulesContextId,
   diagnostics: Aos4ImportDiagnostic[]
 ): RulesContext | undefined => {
-  if (!parsedRoster.declaredContext?.trim()) {
-    const fallback = catalog.rulesContexts.find(context => context.id === defaultRulesContextId)
-    if (!fallback || !IMPORTABLE_CONTEXT_STATUSES.has(fallback.status)) {
-      diagnostics.push({
-        code: 'unsupported-context',
-        severity: 'error',
-        message: 'The default rules context is not available for import.',
-      })
-      return undefined
-    }
-    diagnostics.push({
-      code: 'unsupported-context',
-      severity: 'warning',
-      message: `No rules context was declared; using ${fallback.name}.`,
-    })
-    return fallback
-  }
+  const declared = findDeclaredRulesContext(catalog, parsedRoster.declaredContext)
+  if (declared) return declared
 
-  const normalized = normalizeImportLabel(parsedRoster.declaredContext)
-  const matches = catalog.rulesContexts.filter(context => contextAliases(context).includes(normalized))
-  if (matches.length !== 1 || !IMPORTABLE_CONTEXT_STATUSES.has(matches[0].status)) {
-    /**
-     * An unrecognised battlepack falls back rather than failing.
-     *
-     * Builders publish new seasons before we carry them, and older rosters name packs we have
-     * retired. Neither means the file is unreadable, and the player can change the context in the
-     * preview, so this reports what happened and continues on the default.
-     */
-    const fallback = catalog.rulesContexts.find(context => context.id === defaultRulesContextId)
-    if (!fallback || !IMPORTABLE_CONTEXT_STATUSES.has(fallback.status)) {
-      diagnostics.push({
-        code: 'unsupported-context',
-        severity: 'error',
-        message: 'The default rules context is not available for import.',
-      })
-      return undefined
-    }
+  /**
+   * A missing or unrecognised battlepack falls back rather than failing.
+   *
+   * Builders publish new seasons before we carry them, and older rosters name packs we have
+   * retired. Neither means the file is unreadable, and the player can change the ruleset in the
+   * preview, so this reports what happened and continues on the default.
+   */
+  const fallback = catalog.rulesContexts.find(context => context.id === defaultRulesContextId)
+  if (!fallback || !IMPORTABLE_CONTEXT_STATUSES.has(fallback.status)) {
     diagnostics.push({
       code: 'unsupported-context',
-      severity: 'warning',
-      message: `The rules context "${parsedRoster.declaredContext}" is not one we carry; using ${fallback.name}. Change it above if that is wrong.`,
+      severity: 'error',
+      message: 'The default rules context is not available for import.',
     })
-    return fallback
+    return undefined
   }
-  return matches[0]
+  diagnostics.push({
+    code: 'unsupported-context',
+    severity: 'warning',
+    message: parsedRoster.declaredContext?.trim()
+      ? `The rules context "${parsedRoster.declaredContext}" is not one we carry; using ${fallback.name}. Change it above if that is wrong.`
+      : `No rules context was declared; using ${fallback.name}.`,
+  })
+  return fallback
 }
 
 const buildReachableIds = (

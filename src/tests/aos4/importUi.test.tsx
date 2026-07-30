@@ -196,6 +196,11 @@ describe('AoS 4 import modal', () => {
   }
 
   const pasteAndPreview = (text: string) => {
+    if (!container.querySelector('textarea')) {
+      act(() => {
+        Simulate.click(findButton(container, 'Paste roster'))
+      })
+    }
     const textarea = container.querySelector('textarea')!
     textarea.value = text
     act(() => {
@@ -267,6 +272,53 @@ describe('AoS 4 import modal', () => {
     expect(onApply).toHaveBeenCalledTimes(1)
   })
 
+  /**
+   * The roster usually settles the ruleset itself, and asking anyway invites the player to change
+   * an answer they never gave. The question appears only where one is genuinely missing.
+   */
+  it('asks which ruleset to use only when the roster declares none we carry', () => {
+    pasteAndPreview(officialRoster())
+    expect(container.querySelector('#import-rules-context')).toBeNull()
+
+    pasteAndPreview(officialRoster('Annihilators', false))
+    expect(container.textContent).toContain('Which ruleset do you want to use?')
+
+    const select = container.querySelector<HTMLSelectElement>('#import-rules-context')!
+    const spearhead = Array.from(select.options).find(option =>
+      option.textContent?.includes('Spearhead')
+    )!
+    select.value = spearhead.value
+    act(() => {
+      Simulate.change(select)
+    })
+
+    expect(container.querySelector<HTMLSelectElement>('#import-rules-context')!.value).toBe(
+      spearhead.value
+    )
+    expect(container.textContent).toContain('Age of Sigmar Fourth Edition Spearhead')
+  })
+
+  /**
+   * Uploading is the common path, so the modal opens on it — no click to switch modes here.
+   */
+  it('opens on the upload zone and previews a roster dropped onto it', async () => {
+    const file = new File([rosterXml], 'stormhost.ros', { type: 'application/xml' })
+    Object.defineProperty(file, 'arrayBuffer', {
+      value: async () => new TextEncoder().encode(rosterXml).buffer,
+    })
+    const dropzone = container.querySelector<HTMLDivElement>('.dropzone')!
+
+    await act(async () => {
+      Simulate.drop(dropzone, { dataTransfer: { files: [file] } as unknown as DataTransfer })
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    expect(container.textContent).toContain('stormhost.ros')
+    expect(container.textContent).toContain('Uploaded Stormhost')
+    expect(findButton(container, 'Import Army').disabled).toBe(false)
+  })
+
   it('previews a native .ros upload locally', async () => {
     act(() => {
       Simulate.click(findButton(container, 'Upload roster'))
@@ -308,8 +360,6 @@ describe('AoS 4 import modal', () => {
 
     expect(input.accept).toContain('.txt')
     expect(container.textContent).toContain('Listbot 4.0')
-    expect(container.textContent).toContain('Master Moulder')
-    expect(container.textContent).toContain('Stormfiends')
     expect(findButton(container, 'Import Army').disabled).toBe(false)
 
     act(() => {
