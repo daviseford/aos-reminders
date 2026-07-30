@@ -8,8 +8,19 @@ const prodEndpoint = 'https://kd0sjpg6oe.execute-api.us-east-1.amazonaws.com/pro
 const api = isDev ? devEndpoint : prodEndpoint
 const requestTimeout = { deadline: 10_000, response: 5_000 }
 
+/*
+ * The subscription API is an API Gateway REST API, and it does not decode percent-encoded path
+ * parameters — `%40` arrives at the lambda literally, never matches a stored userName, and the
+ * lookup answers 501. `useSubscription` reads 501 as "this user has no subscription", so a plain
+ * `encodeURIComponent` here makes every subscriber look unsubscribed, silently.
+ *
+ * `@` is a legal path character (RFC 3986 pchar), so leaving it alone is correct as well as
+ * necessary. Encoding the rest still guards against `/`, `?`, and `#` in an address.
+ */
+const encodeUserName = (userName: string) => encodeURIComponent(userName).replace(/%40/g, '@')
+
 const getSubscription = (userName: string) =>
-  request.get(`${api}/user/${encodeURIComponent(userName)}`).timeout(requestTimeout)
+  request.get(`${api}/user/${encodeUserName(userName)}`).timeout(requestTimeout)
 
 const cancelSubscription = (data: { userName: string; subscriptionId: string }) =>
   request
