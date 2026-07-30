@@ -139,6 +139,37 @@ small {
     font-size: 11px;
 }
 
+/*
+ * FAQ. Entries stack inside a section card and a hairline separates them, so the Signal Teal
+ * section header stays the only colour on the page. The light value is the same hairline Bootstrap
+ * draws around a card; on Midnight Slate that hairline is invisible, so dark supplies its own.
+ */
+.FaqEntry + .FaqEntry {
+    margin-block-start: 1.25rem;
+    padding-block-start: 1.25rem;
+    border-block-start: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.FaqEntry-Dark + .FaqEntry-Dark {
+    border-block-start-color: rgba(255, 255, 255, 0.2);
+}
+
+/*
+ * Links here inherit the theme's text colour instead of Bootstrap's $primary. #007bff sits at
+ * 2.6:1 on Midnight Slate, under the 4.5:1 minimum, and the Signal-Colour Rule reserves Action Blue
+ * for the controls that commit. The underline carries "this is a link" in both themes.
+ */
+.FaqLink {
+    color: inherit;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+
 .text-white-75 {
     color: rgba(255, 255, 255, 0.75) !important;
 }

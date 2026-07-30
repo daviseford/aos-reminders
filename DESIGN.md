@@ -372,7 +372,8 @@ Three, in descending order of how deliberate they look:
   how Bootstrap draws focus on buttons and inputs. Not decorative and not optional — it is the
   visible keyboard-focus indicator, and nothing may suppress it.
 - **Card lift** (`shadow-sm`, `0 .125rem .25rem rgba(0,0,0,.075)`): exactly two places — the
-  subscription plan cards (`payment/pricingPlans.tsx`) and the FAQ entry cards (`routes/Faq.tsx`). Both are standalone marketing/reference cards on secondary
+  subscription plan cards (`payment/pricingPlans.tsx`) and the FAQ section cards
+  (`routes/Faq.tsx`). Both are standalone marketing/reference cards on secondary
   routes, not part of the reminders surface, and neither is reproduced by the reminder or builder
   cards. Treat it as incumbent, not as licence to spread `shadow-sm` onto the game screen.
 
@@ -527,7 +528,7 @@ the opposite mode is a dead stop in the tab order.
 ### Named Rules
 
 **The Dead Class Rule.** A class in JSX that no rule defines is a design intention that silently
-never happened, and this codebase has a habit of them. Checked against the compiled bundle, six
+never happened, and this codebase has a habit of them. Checked against the compiled bundle, five
 are live in `src/components/` today:
 
 | Class | Where | What was intended |
@@ -536,7 +537,6 @@ are live in `src/components/` today:
 | `fade-out` | `helpers/suspenseFallbacks.tsx` | A fade on "Loading…" |
 | `btn-pill` | `payment/pricingPlans.tsx` | A rounded Subscribe CTA (`rounded-pill` is the real class) |
 | `btn-md` | `routes/Profile.tsx` | A medium button; Bootstrap only ships `btn-sm`/`btn-lg` |
-| `h-md-250` | `routes/Faq.tsx` | A fixed FAQ card height |
 | `pricing-card-title` | `payment/pricingPlans.tsx` | Carried over from a Bootstrap example |
 
 The first two matter most to this record. The product has essentially no motion — the only
@@ -548,7 +548,8 @@ Verify a new utility class exists before relying on it — `grep` the compiled C
 which Bootstrap version this is. A seventh entry, `g-0` on the FAQ row, left this table in the 5.3
 upgrade: it was Bootstrap 5 syntax written while the project was still on 4.6, so it had never done
 anything, and the upgrade would have brought it to life and narrowed every FAQ card. It was deleted
-rather than honoured, because reviving a style that has never shipped is a design change. That is
+rather than honoured, because reviving a style that has never shipped is a design change. An eighth,
+`h-md-250` on the same row, left with the FAQ rebuild that replaced that layout outright. That is
 the general remedy for this table: a dead class is removed or implemented deliberately, never left
 to switch itself on during an upgrade.
 
