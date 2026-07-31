@@ -1,0 +1,24 @@
+hedonites-of-slaanesh-app-001 420/2000 pts
+
+Hedonites of Slaanesh
+Depraved Carnival
+General's Handbook 2026-27
+Drops: 1
+Wounds: 35
+Spell Lore - Lore of Extravagance
+
+
+General's Regiment
+The Masque (120)
+• General
+Blissbarb Archers (140)
+Blissbarb Seekers (160)
+
+Faction Terrain
+Fane of Slaanesh
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v34

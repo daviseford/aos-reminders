@@ -1,0 +1,24 @@
+seraphon-app-001 840/2000 pts
+
+Seraphon
+Thunderquake Starhost
+General's Handbook 2026-27
+Drops: 1
+Wounds: 45
+Spell Lore - Lore of Celestial Manipulation
+
+
+General's Regiment
+Lord Kroak (410)
+• General
+Aggradon Lancers (200)
+Bastiladon with Ark of Sotek (230)
+
+Faction Terrain
+Realmshaper Engine
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v41

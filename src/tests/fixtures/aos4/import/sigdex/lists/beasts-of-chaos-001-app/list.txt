@@ -1,0 +1,24 @@
+beasts-of-chaos-app-001 430/2000 pts
+
+Beasts of Chaos
+Almighty Beastherd
+General's Handbook 2026-27
+Drops: 1
+Wounds: 30
+Spell Lore - Lore of the Twisted Wilds
+
+
+General's Regiment
+Great Bray-Shaman (140)
+• General
+Beasts of Chaos Chaos Spawn (70)
+Bestigors (220)
+
+Faction Terrain
+Herdstone
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v26

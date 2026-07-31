@@ -1,0 +1,25 @@
+flesh-eater-courts-app-001 330/2000 pts
+
+Flesh-eater Courts
+Royal Menagerie
+General's Handbook 2026-27
+Drops: 1
+Wounds: 21
+Spell Lore - Lore of Madness
+Prayer Lore - Rites of Delusion
+
+
+General's Regiment
+Abhorrant Ghoul King (110)
+• General
+Varghulf Courtier (100)
+Varghulf Courtier (Scourge of Aqshy) (110)
+
+Faction Terrain
+Charnel Throne (10)
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v43

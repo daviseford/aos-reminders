@@ -1,15 +1,18 @@
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
 import { resolveParsedRoster } from '../../aos4/import'
 import { decodeAos4TextRoster } from '../../importers'
-import { readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { describe, expect, it } from 'vitest'
+import { afterAll, describe, expect, it } from 'vitest'
 
-const fixture = (id: string): string =>
-  readFileSync(
-    join(__dirname, '..', 'fixtures', 'aos4', 'import', 'sigdex', 'lists', id, 'list.txt'),
-    'utf-8'
-  )
+const LISTS_ROOT = join(__dirname, '..', 'fixtures', 'aos4', 'import', 'sigdex', 'lists')
+
+const fixture = (id: string): string => readFileSync(join(LISTS_ROOT, id, 'list.txt'), 'utf-8')
+
+const fixtureIds = readdirSync(LISTS_ROOT, { withFileTypes: true })
+  .filter(entry => entry.isDirectory())
+  .map(entry => entry.name)
+  .sort()
 
 const roster = (...body: string[]) =>
   [
@@ -53,14 +56,38 @@ describe('Sigdex text import', () => {
     expect(labelled(parsedRoster!, 'enhancement')).toEqual([])
   })
 
-  it('resolves the standard fixture against the accepted catalog without errors', () => {
-    const { parsedRoster } = decodeAos4TextRoster(fixture('ogor-001-standard'))
-    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
-      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
-      createDocumentId: () => 'army:sigdex-test',
+  const unresolvedByLabel = new Map<string, number>()
+
+  describe('app-captured corpus (one list per army, harvested from sigdex.io)', () => {
+    it.each(fixtureIds)('%s decodes and resolves without errors', id => {
+      const { parsedRoster, diagnostics } = decodeAos4TextRoster(fixture(id))
+      expect(diagnostics).toEqual([])
+      expect(parsedRoster).toBeDefined()
+      expect(parsedRoster!.source).toBe('sigdex-text')
+      expect(parsedRoster!.declaredFaction).toBeTruthy()
+
+      const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+        defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+        createDocumentId: () => `army:sigdex-${id}`,
+      })
+      expect(preview.diagnostics.filter(d => d.severity === 'error')).toEqual([])
+      expect(preview.proposedDocument).toBeDefined()
+      for (const diagnostic of preview.diagnostics) {
+        if (diagnostic.severity !== 'warning') continue
+        const label = `${id}: ${diagnostic.code} ${diagnostic.message}`
+        unresolvedByLabel.set(label, (unresolvedByLabel.get(label) ?? 0) + 1)
+      }
     })
-    expect(preview.diagnostics.filter(d => d.severity === 'error')).toEqual([])
-    expect(preview.proposedDocument).toBeDefined()
+  })
+
+  afterAll(() => {
+    if (unresolvedByLabel.size === 0) return
+    // eslint-disable-next-line no-console
+    console.log(
+      ['Sigdex corpus warnings (fail-soft, not asserted):', ...Array.from(unresolvedByLabel.keys())].join(
+        '\n  '
+      )
+    )
   })
 
   it('keeps enhancement bullets and strips their points', () => {

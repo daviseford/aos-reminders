@@ -1,0 +1,25 @@
+ogor-mawtribes-app-001 400/2000 pts
+
+Ogor Mawtribes
+Blackpowder Fanatics
+General's Handbook 2026-27
+Drops: 1
+Wounds: 23
+Spell Lore - Lore of Maw-magic
+Prayer Lore - Everwinter Prayers
+
+
+General's Regiment
+Tyrant (150)
+• General
+Frost Sabres (70)
+Gnoblar Scraplauncher (160)
+
+Faction Terrain
+Great Mawpot (20)
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v31

@@ -1,0 +1,24 @@
+slaves-to-darkness-app-001 590/2000 pts
+
+Slaves to Darkness
+Darkoath Horde
+General's Handbook 2026-27
+Drops: 1
+Wounds: 36
+Spell Lore - Lore of the Damned
+
+
+General's Regiment
+Abraxia, Spear of the Everchosen (250)
+• General
+Chaos Chariot (90)
+Chaos Chosen (250)
+
+Faction Terrain
+Nexus Chaotica
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v50
