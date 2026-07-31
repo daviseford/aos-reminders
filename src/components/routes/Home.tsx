@@ -2,7 +2,13 @@ import { armyFactions, type CanonicalId, type SourceArtifact } from '../../aos4/
 import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID } from '../../aos4/generated'
 import type { PrintPageSize } from '../../aos4/print/presets'
 import type { PrintPreset } from '../../aos4/print/types'
-import { createDefaultAos4ArmyDocument, loadAos4ArmyDocument, saveAos4ArmyDocument } from '../../aos4/runtime'
+import {
+  createDefaultAos4ArmyDocument,
+  loadAos4ArmyDocument,
+  saveAos4ArmyDocument,
+  setAos4OverlayFlag,
+  type Aos4OverlayFlag,
+} from '../../aos4/runtime'
 import { createAos4ArmyDocument, setAos4ReminderPreference, type Aos4ArmyDocument } from '../../aos4/state'
 import {
   createAos4BuilderViewModel,
@@ -101,6 +107,42 @@ const SkipToReminders = () => (
   >
     Skip to reminders
   </a>
+)
+
+type OverlayTogglesProps = {
+  document: Aos4ArmyDocument
+  onToggle: (flag: Aos4OverlayFlag, enabled: boolean) => void
+}
+
+const OverlayToggles = ({ document, onToggle }: OverlayTogglesProps) => (
+  <div className="container-fluid d-flex justify-content-center flex-wrap gap-4 pt-3">
+    <div className="form-check form-switch">
+      <input
+        checked={Boolean(document.allowsLegends)}
+        className="form-check-input"
+        id="toggle-allows-legends"
+        onChange={event => onToggle('allowsLegends', event.target.checked)}
+        role="switch"
+        type="checkbox"
+      />
+      <label className="form-check-label" htmlFor="toggle-allows-legends">
+        Include Legends units
+      </label>
+    </div>
+    <div className="form-check form-switch">
+      <input
+        checked={Boolean(document.allowsHistorical)}
+        className="form-check-input"
+        id="toggle-allows-historical"
+        onChange={event => onToggle('allowsHistorical', event.target.checked)}
+        role="switch"
+        type="checkbox"
+      />
+      <label className="form-check-label" htmlFor="toggle-allows-historical">
+        Include Scourge of Ghyran (2025-26)
+      </label>
+    </div>
+  </div>
 )
 
 const HomeContent = () => {
@@ -203,6 +245,10 @@ const HomeContent = () => {
     )
   }
 
+  const handleOverlayToggle = (flag: Aos4OverlayFlag, enabled: boolean) => {
+    setDocument(current => setAos4OverlayFlag(AOS4_CATALOG, current, flag, enabled))
+  }
+
   const toggleGameMode = () => {
     const nextMode = !isGameMode
     setIsGameMode(nextMode)
@@ -271,6 +317,8 @@ const HomeContent = () => {
       />
 
       <AppBanner />
+
+      {!isGameMode && <OverlayToggles document={document} onToggle={handleOverlayToggle} />}
 
       {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
 
