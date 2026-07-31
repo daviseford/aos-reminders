@@ -54,6 +54,26 @@ Before merging #1717, confirm all of the following:
 The last two bullets are production gates, not documentation warnings. Merging without them can
 publish paid-feature claims for capabilities that are unavailable or insufficiently authorized.
 
+## Cutover evidence record
+
+Create the release-window record in #1805 before the first production mutation. Do not put tokens,
+provider secrets, raw callback bodies, account emails, or database rows in the issue. Record only:
+
+- the owner's authorization timestamp and the exact operation it covers;
+- frontend, subscription API, and army API commit SHAs;
+- reviewed CloudFormation change-set IDs and confirmation that retained tables have no replacement
+  or deletion action;
+- DynamoDB backup names and restore checkpoints;
+- Auth0 issuer/audience, CORS origin, share base, entitlement route, and provider endpoint mappings
+  as redacted fingerprints or route names rather than secrets;
+- the dev verification case counts, cleanup counts, and any intentionally retained test event;
+- the two GitHub repository-variable names and redacted endpoint host fingerprints;
+- start/end times, CloudWatch alarm state, go/no-go decision, and rollback revision.
+
+Production operations remain individually authorized. Approval to prepare or review this record is
+not approval to deploy either API, change provider configuration, rotate credentials, merge #1717,
+push `master`, upload S3 assets, or invalidate CloudFront.
+
 ## Deployment mechanics
 
 `.github/workflows/deploy.yml` builds the exact `master` revision, synchronizes `dist/` to the
