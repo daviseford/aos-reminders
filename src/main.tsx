@@ -8,9 +8,7 @@ import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { installNewWorker } from 'utils/installNewWorker'
 import history from 'utils/history'
-import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import config from './auth_config.json'
 
 const onRedirectCallback = (appState?: { returnTo?: string }) => {
@@ -46,26 +44,3 @@ createRoot(container).render(
     </AppStatusProvider>
   </Auth0Provider>
 )
-
-// Learn more about service workers: https://cra.link/PWA
-// https://github.com/facebook/create-react-app/issues/5316
-// https://github.com/facebook/create-react-app/issues/7237
-serviceWorkerRegistration.register({
-  onUpdate: async () => {
-    // We post a message letting the rest of the app know that we have updated content
-    if (typeof BroadcastChannel !== 'undefined') {
-      const bc = new BroadcastChannel('app-update')
-      bc.postMessage('App has updated.')
-    }
-
-    // We prefer using the BroadcastChannel (above) as it can reach across tabs
-    // But it won't always work due to browser limitations.
-    // So we always dispatch an event to the window just in case.
-    window.dispatchEvent(new Event('hasNewContent'))
-
-    // Go ahead and update to the latest cached worker
-    // The user will be given an option in the UI to reload and get the newest version
-    // But this ensures that they'll get the new worker next time they visit
-    installNewWorker()
-  },
-})
