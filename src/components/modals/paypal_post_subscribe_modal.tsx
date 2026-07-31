@@ -4,7 +4,6 @@ import GenericModal from 'components/modals/generic/generic_modal'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
-import { IconContext } from 'react-icons'
 import { useSetInterval } from 'utils/hooks/useInterval'
 
 interface IModalComponentProps {
@@ -16,51 +15,35 @@ interface IModalComponentProps {
 export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen, retryGrant }: IModalComponentProps) => {
   const { isActive, subscriptionLoading, getSubscription } = useSubscription()
   const { theme } = useTheme()
-
-  const [interval, setInterval] = useState(1000)
+  const [interval, setInterval] = useState<number | null>(1000)
 
   useSetInterval(() => {
     if (subscriptionLoading) return
-
     if (isActive) {
-      setInterval(0)
+      setInterval(null)
       closeModal()
       return
     }
-
-    if (!isActive && !subscriptionLoading) {
-      console.log('Checking for subscription update from Paypal...')
-      // Re-send the grant each tick: the first attempt races PayPal's CREATED
-      // webhook (median 12s behind the approval) and may have found no row yet
-      retryGrant?.().catch(() => undefined)
-      getSubscription()
-    }
+    // Re-send the grant each tick: the first attempt races PayPal's CREATED
+    // webhook (median 12s behind the approval) and may have found no row yet
+    void retryGrant?.().catch(() => undefined)
+    void getSubscription()
   }, interval)
 
   return (
-    <GenericModal
-      isOpen={modalIsOpen}
-      closeModal={closeModal}
-      label="Post Paypal Subscription Modal"
-      isProcessing={false}
-    >
+    <GenericModal isOpen={modalIsOpen} closeModal={closeModal} label="Post Paypal Subscription Modal">
       <div className="row">
-        <IconContext.Provider value={{ size: '1.7em' }}>
-          <div className={`col ${theme.text}`}>
-            <h4 className="mb-3">Thanks! :)</h4>
-            <p className="text-center mb-1">One sec, we&apos;re verifying your PayPal transaction...</p>
-
-            <LargeSpinner className={'text-dark'} />
-
-            <p className="text-center mt-1">
-              This application will automatically reload when your subscription is available.
-              <br />
-              This could take up to one minute. Feel free to close this window and browse around.
-            </p>
-          </div>
-        </IconContext.Provider>
+        <div className={`col ${theme.text}`}>
+          <h4 className="mb-3">Thanks! :)</h4>
+          <p className="text-center mb-1">One sec, we&apos;re verifying your PayPal transaction...</p>
+          <LargeSpinner className="text-dark" />
+          <p className="text-center mt-1">
+            This application will automatically reload when your subscription is available.
+            <br />
+            This could take up to one minute. Feel free to close this window and browse around.
+          </p>
+        </div>
       </div>
-
       <div className="row text-center">
         <div className="col px-0">
           <GenericButton className={theme.modalConfirmClass} onClick={closeModal}>

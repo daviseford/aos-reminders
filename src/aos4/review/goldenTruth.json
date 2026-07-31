@@ -1,0 +1,15 @@
+[
+  {
+    "id": "golden-truth:lord-terminos-base-size",
+    "sourceRecordId": "source-record:games-workshop:5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2%3Apage%3A20",
+    "locator": {
+      "kind": "page",
+      "page": 20,
+      "section": "Lord-Terminos"
+    },
+    "field": "baseSizes[1]",
+    "observedValue": "2 5 m m [1]",
+    "expectedValue": "25mm [1]",
+    "rationale": "The official base-size cell is layout-split; adjacent digits and the mm unit form 25mm."
+  }
+]

@@ -31,12 +31,168 @@ small {
     padding-top: 35vh;
 }
 
-.CardHeaderTitle {
-    margin-bottom: 0;
+/*
+ * /join, /redeem, and the already-subscribed screen they share are one short form or message on an
+ * otherwise empty page. The two redemption routes used to borrow
+ * `.LoadingContainer`, whose 35vh top padding is right for two lines of loading text and wrong for
+ * a form that grows an error block underneath it — on a 667px phone that padding alone pushed the
+ * control 233px down the page. A centred min-height places the form optically on a tall screen and
+ * lets it grow from the top on a short one.
+ */
+.RedemptionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 70vh;
 }
 
+/*
+ * Four short sentences and a field. 38rem holds the guidance at roughly 60 characters a line, and
+ * `balance` keeps centred copy off a one-word last line — the paragraphs are set centred, where a
+ * ragged orphan is the most visible thing on the page. Browsers without it wrap as they do today.
+ */
+.RedemptionColumn {
+    max-width: 38rem;
+
+    h1,
+    p {
+        text-wrap: balance;
+    }
+}
+
+/* A coupon code is seven-ish characters. A full-width field promises a paragraph. */
+.RedemptionCodeField {
+    max-width: 18rem;
+}
+
+/*
+ * Bootstrap's default `code` pink measures 3.82:1 on white — under AA — and it carries the one line
+ * of a failed redemption the player has to read back to us. The monospace face already marks the
+ * string as the server's own words, so the colour was only decorating. Inherit rather than pick a
+ * literal, so the surrounding theme slot stays the single source of the text colour.
+ */
+.RedemptionErrorDetail {
+    color: inherit;
+}
+
+/*
+ * Card titles are <h2> so the document outline is correct at every viewport. The size is set here
+ * rather than by picking a heading level, which is what the h4/h5 swap used to do. 1.5rem matches
+ * the h4 these replaced; the breakpoint overrides further down are unchanged.
+ */
+.CardHeaderTitle {
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+
+/*
+ * Collapsible card headers are real <button>s. These rules strip the UA button chrome and carry the
+ * padding the .card-header used to own, so the whole header stays clickable and looks identical.
+ */
+.CardHeaderToggle {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0.5rem 1.25rem;
+    border: 0;
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.CardHeaderToggle-Mobile {
+    @extend .CardHeaderToggle;
+    padding: 1rem;
+}
+
+/*
+ * The reminder overflow menu is a 16x24 glyph, well under the 24x24 WCAG 2.5.8 minimum. This grows
+ * the hit area without changing layout or the icon's appearance.
+ *
+ * Width is 40px, not 44px: `.ReminderOptions` sits 0.85rem (13.6px) from the tag row, so a 40px
+ * overlay overhangs 12px per side and stays clear of the rightmost `.ReminderTag` button. Height is
+ * unconstrained by neighbours, so it takes the full 44px.
+ */
+.ReminderMenuToggle {
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 44px;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/*
+ * Skip link. Bootstrap's `.visually-hidden-focusable` clips the link while it is unfocused and then
+ * returns it to the normal flow on focus — which would push the masthead down the moment a keyboard
+ * user hits Tab. Holding it absolute keeps the reveal from moving anything else. The colours are
+ * utility classes on the element itself (see Home.tsx); `$border-radius` is the parity-pinned 4.6
+ * value, so the chip matches every other control on the page.
+ */
+.SkipLink:focus {
+    position: absolute;
+    z-index: 1030;
+    top: 0;
+    left: 0;
+    margin: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid currentcolor;
+    border-radius: $border-radius;
+    text-decoration: none;
+}
+
+/* Reboot sizes <legend> at 1.5rem; these group labels replaced 1rem <label>s. */
+.FieldsetLegend {
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+}
+
+/*
+ * 12px to match `small`, which is the smallest type anywhere else in the product. The disclaimer is a
+ * brand commitment that has to appear on every page, so it should not also be the one thing set below
+ * the floor; position and colour already make it subordinate.
+ */
 .DisclaimerText {
-    font-size: 11px;
+    font-size: 12px;
+}
+
+/*
+ * FAQ. Entries stack inside a section card and a hairline separates them, so the Signal Teal
+ * section header stays the only colour on the page. The light value is the same hairline Bootstrap
+ * draws around a card; on Midnight Slate that hairline is invisible, so dark supplies its own.
+ */
+.FaqEntry + .FaqEntry {
+    margin-block-start: 1.25rem;
+    padding-block-start: 1.25rem;
+    border-block-start: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.FaqEntry-Dark + .FaqEntry-Dark {
+    border-block-start-color: rgba(255, 255, 255, 0.2);
+}
+
+/*
+ * Links here inherit the theme's text colour instead of Bootstrap's $primary. #007bff sits at
+ * 2.6:1 on Midnight Slate, under the 4.5:1 minimum, and the Signal-Colour Rule reserves Action Blue
+ * for the controls that commit. The underline carries "this is a link" in both themes.
+ */
+.FaqLink {
+    color: inherit;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+        color: inherit;
+        text-decoration: underline;
+    }
 }
 
 .text-white-75 {
@@ -57,7 +213,14 @@ small {
     background-color: $themeLightBlue;
 }
 .bg-profileHeader {
-    background-color: rgba(28, 117, 149, 0.15); // $themeLightBlue
+    background-color: rgba(28, 117, 149, 0.15);
+}
+/*
+ * Dark's equivalent of the wash above — quieter than the full-strength Signal Teal on the reminder
+ * card headers, which is the same distinction the light wash draws.
+ */
+.bg-profileHeader-dark {
+    background-color: $themeProfileHeaderDark;
 }
 .bg-themeLightGray {
     background-color: $themeLightGray;
@@ -70,8 +233,8 @@ small {
 .ReminderEntry {
     font-size: 1rem;
     padding-top: 0.5rem;
-    padding-bottom: 0px;
-    margin-block-end: 0px;
+    padding-bottom: 0;
+    margin-block-end: 0;
 }
 
 .ReminderHr {
@@ -79,6 +242,179 @@ small {
     &-Dark {
         @extend .ReminderHr;
         background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+/**
+ * Timing facet tags.
+ *
+ * Above the mobile breakpoint the heading is a single row with the name on the left and the tags
+ * pushed to the right; at or below it the tags wrap onto their own line beneath the name. Tone
+ * colours are set per theme below, never by the tone class alone, so light and dark can differ.
+ */
+.ReminderHeadingRow {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.ReminderTags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    align-items: baseline;
+}
+
+/**
+ * The options button centres against the heading's first line box rather than the whole heading, so
+ * it stays put whether the tags sit beside the name or wrap beneath it. `min-height` matches the
+ * name's line box; without it the button chases the tallest element on the row.
+ */
+.ReminderOptions {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    min-height: 1.5rem;
+    margin-inline-start: 0.85rem;
+}
+
+.ReminderHeadingRow > .ReminderTags {
+    margin-inline-start: auto;
+}
+
+.ReminderHeading > .ReminderTags {
+    margin-block-start: 0.25rem;
+}
+
+.ReminderTag {
+    appearance: none;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    cursor: help;
+    /*
+     * The chip renders 20px tall, under the 24px WCAG 2.5.8 floor, and there are 85 of them on the
+     * default army. Growing the chip itself would trade away the density the reminders surface is
+     * built on, so this widens the hit box only — the same approach .ReminderMenuToggle takes.
+     *
+     * 24px against a 20px chip overhangs 2px per side, and .ReminderTags sets a 0.25rem (4px) gap,
+     * so vertically stacked overlays meet exactly and never overlap.
+     */
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 24px;
+        transform: translateY(-50%);
+    }
+
+    &:focus-visible {
+        outline: 2px solid $themeLightBlue;
+        outline-offset: 1px;
+    }
+}
+
+/**
+ * Touch devices never hover, so the tapped tag's expansion lands on its own full-width line. As a
+ * flex sibling of the tag row it wraps below without disturbing the row's right alignment.
+ */
+.ReminderTagExplainer {
+    display: block;
+    flex-basis: 100%;
+    width: 100%;
+    margin-block-start: 0.2rem;
+    font-size: 0.78rem;
+    font-style: italic;
+    line-height: 1.35;
+    text-align: start;
+
+    &.ReminderTags-Light {
+        color: $themeMutedInk;
+    }
+
+    &.ReminderTags-Dark {
+        color: rgba(255, 255, 255, 0.78);
+    }
+}
+
+@mixin tag-tones($active, $reaction, $passive, $your, $enemy, $neutral, $usage) {
+    .ReminderTag {
+        &--kind-active {
+            @include tag-tone($active...);
+        }
+        &--kind-reaction {
+            @include tag-tone($reaction...);
+        }
+        &--kind-passive {
+            @include tag-tone($passive...);
+        }
+        &--turn-your {
+            @include tag-tone($your...);
+        }
+        &--turn-enemy {
+            @include tag-tone($enemy...);
+        }
+        &--turn-neutral {
+            @include tag-tone($neutral...);
+        }
+        &--priority {
+            @include tag-tone($reaction...);
+        }
+        &--usage {
+            @include tag-tone($usage...);
+            border-style: dashed;
+        }
+    }
+}
+
+@mixin tag-tone($bg, $fg, $border) {
+    background-color: $bg;
+    color: $fg;
+    border-color: $border;
+}
+
+.ReminderTags-Light {
+    @include tag-tones(
+        (#e0eff5, #0c4a60, #b4d7e4),
+        (#f8ecd9, #79490d, #e6cda4),
+        (#e9eef1, #46585f, #d0dade),
+        (#e6f2ea, #1f5334, #bcdcc7),
+        (#f9e8e8, #7c3535, #ecc9c9),
+        (#eef0f2, #4d5a63, #d8dee2),
+        (transparent, #5b6b74, #b9c5cc)
+    );
+}
+
+.ReminderTags-Dark {
+    @include tag-tones(
+        (rgba(28, 117, 149, 0.34), #86d3ea, rgba(28, 117, 149, 0.62)),
+        (rgba(198, 144, 58, 0.26), #f2c982, rgba(198, 144, 58, 0.5)),
+        (rgba(255, 255, 255, 0.1), #bccad2, rgba(255, 255, 255, 0.2)),
+        (rgba(72, 160, 105, 0.24), #92d8ac, rgba(72, 160, 105, 0.45)),
+        (rgba(190, 90, 90, 0.24), #f0a6a6, rgba(190, 90, 90, 0.45)),
+        (rgba(255, 255, 255, 0.08), #b3c1ca, rgba(255, 255, 255, 0.18)),
+        (transparent, #a9bac3, rgba(255, 255, 255, 0.3))
+    );
+}
+
+/** Browser print drops the fills; the border and weight carry the distinction on paper. */
+@media print {
+    .ReminderTag {
+        background-color: transparent !important;
+        color: black !important;
+        border-color: rgba(0, 0, 0, 0.45) !important;
     }
 }
 
@@ -99,7 +435,7 @@ small {
     width: 100%;
     height: 7.6em !important;
     resize: none;
-    overflow:hidden;
+    overflow: hidden;
     padding: 8px;
     box-sizing: border-box;
 
@@ -115,8 +451,10 @@ small {
 .NoteInput {
     min-width: 45%;
     width: 95%;
+    max-width: 100%;
     height: 7em;
-    resize: both;
+    /* `both` let the textarea be dragged wider than the card, scrolling the whole page sideways. */
+    resize: vertical;
     padding: 8px;
     box-sizing: border-box;
 }
@@ -140,6 +478,10 @@ small {
     }
 }
 
+.dropdown-toggle.btn-link::after {
+    display: none;
+}
+
 /* Modal */
 .Modal-Light {
     padding: 1.5%;
@@ -152,6 +494,15 @@ small {
     transform: translate(-50%, -50%);
     border: 1px solid #000000;
     background-color: rgba(255, 255, 255, 1);
+    /*
+     * The overlay is fixed and does not scroll, and the modal is centred with a translate. Without
+     * these bounds any modal taller than the viewport pushes its own top above y=0 where it cannot
+     * be reached — the print modal already exceeds a phone held in landscape.
+     */
+    max-height: 90vh;
+    max-width: calc(100vw - 2rem);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .Modal-Dark {
@@ -167,11 +518,19 @@ small {
 
 .Modal-Overlay {
     position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: rgba(0, 0, 0, 0.9);
+}
+
+.aos4-import-modal {
+    width: min(42rem, calc(100vw - 4rem));
+}
+
+.aos4-account-modal {
+    width: min(46rem, calc(100vw - 4rem));
 }
 
 /* Dropzone */
@@ -186,13 +545,23 @@ small {
     border-color: #eeeeee;
     border-style: dashed;
     background-color: #fafafa;
-    color: #bdbdbd;
+    /*
+     * Was #bdbdbd, which put the dropzone's own instructions at 1.80:1 against this background —
+     * both the "Drag and drop your roster here" label and the accepted-formats line. This is the
+     * same muted ink the timing-tag explainer uses, and measures 6.80:1 here.
+     */
+    color: $themeMutedInk;
     outline: none;
     transition: border 0.24s ease-in-out;
 }
 
 .dropzone:focus {
-    border-color: #2196f3;
+    border-color: $themeDropzoneAccent;
+}
+
+.dropzone.is-dragging {
+    border-color: $themeDropzoneAccent;
+    background-color: rgba($themeDropzoneAccent, 0.08);
 }
 
 .dropzone.disabled {
@@ -207,7 +576,7 @@ small {
 }
 
 .dropzone-dark:focus {
-    border-color: #2196f3;
+    border-color: $themeDropzoneAccent;
 }
 
 .dropzone-dark.disabled {
@@ -270,7 +639,6 @@ small {
 
 /* Print styles/helpers below */
 .PageBreak {
-    /* https://www.w3schools.com/cssref/pr_print_pagebi.asp */
     page-break-inside: avoid !important;
 }
 

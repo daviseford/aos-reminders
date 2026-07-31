@@ -1,0 +1,33 @@
+{
+  "explicitlyNonMaterial": [
+    {
+      "disposition": "Narrative lore download; it contains no player-facing game rule or characteristic used by AoS Reminders.",
+      "url": "https://assets.warhammer-community.com/ageofsigmar_lore_assaultonhel_sclaw_eng.24.09-h7v9bspxgt.pdf"
+    },
+    {
+      "disposition": "Blank printable army roster; it records user-entered information and contains no normative game rule or characteristic.",
+      "url": "https://assets.warhammer-community.com/ageofsigmar_miscellaneous_armyroster_eng.24.09-lgu9t30uss.pdf"
+    },
+    {
+      "disposition": "Printable scenery artwork; it contains no game rule or characteristic.",
+      "url": "https://assets.warhammer-community.com/ageofsigmar_miscellaneous_backdrops_eng_24.09-gkdrtcbbs5.pdf"
+    },
+    {
+      "disposition": "Blank Path to Glory tracking roster; it records user-entered campaign state and contains no normative game rule or characteristic.",
+      "url": "https://assets.warhammer-community.com/ageofsigmar_miscellaneous_pathtogloryroster_eng.24.09-tk7hjnzxse.pdf"
+    },
+    {
+      "disposition": "Blank Blighted Wilds campaign tracking sheets; they contain no normative game rule or characteristic.",
+      "url": "https://assets.warhammer-community.com/eng_29-04_aos_misc_blighted_wilds_rosters-lw2rh5l9yl-vhrmnaopes.pdf"
+    },
+    {
+      "disposition": "Event-administration guidance for tournament organisers; it is not a source of player reminders, faction rules, warscrolls, battle profiles, or characteristics.",
+      "url": "https://assets.warhammer-community.com/eng_29-07_warhammer_age_of_sigmar_tournament_organiser_pack_2026-27-fusohvhksu-btzzsigvfk.pdf"
+    },
+    {
+      "disposition": "Blank Path to Glory warscroll template; it contains no published unit rule or characteristic.",
+      "url": "https://assets.warhammer-community.com/eng_blank_path_to_glory_warscroll-dfk1owgqtt-m8tm67xzpw.pdf"
+    }
+  ],
+  "schemaVersion": 1
+}

@@ -17,52 +17,36 @@ const DEFAULT_OPTS = {
 const PaypalContext = React.createContext<IPaypalStatusProvider | void>(undefined)
 
 const PaypalProvider = ({ children }: React.PropsWithChildren<object>) => {
-  const [paypalIsReady, setIsPaypalReady] = useState<boolean>(false)
+  const [paypalIsReady, setIsPaypalReady] = useState(false)
   const isMounted = useRef(false)
-
-  const unmountFn = () => {
-    isMounted.current = false
-  }
 
   useEffect(() => {
     isMounted.current = true
 
-    // If we already have paypal loaded, we don't need to do anything
-    if (paypalIsReady) return unmountFn
+    if (paypalIsReady) return () => void (isMounted.current = false)
 
-    // Check if Paypal already exists in the window (probably from a previous mount)
     if (window.paypal) {
       setIsPaypalReady(true)
-      return unmountFn
+      return () => void (isMounted.current = false)
     }
 
     const script = document.createElement('script')
-
     script.type = 'text/javascript'
     script.src = `https://www.paypal.com/sdk/js?${qs.stringify(DEFAULT_OPTS)}`
     script.async = true
-
     script.onload = () => {
-      // Only update if this component is still mounted
-      if (isMounted) setIsPaypalReady(true)
+      if (isMounted.current) setIsPaypalReady(true)
     }
-
     script.onerror = () => {
-      if (isMounted) setIsPaypalReady(false)
+      if (isMounted.current) setIsPaypalReady(false)
       console.error('The Paypal SDK could not be loaded.')
     }
+    document.body?.appendChild(script)
 
-    document.body && document.body.appendChild(script)
-
-    return unmountFn
+    return () => void (isMounted.current = false)
   }, [paypalIsReady])
 
-  const value = useMemo(
-    () => ({
-      paypalIsReady,
-    }),
-    [paypalIsReady]
-  )
+  const value = useMemo(() => ({ paypalIsReady }), [paypalIsReady])
 
   return <PaypalContext.Provider value={value}>{children}</PaypalContext.Provider>
 }

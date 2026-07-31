@@ -1,6 +1,4 @@
 import { useTheme } from 'context/useTheme'
-import React from 'react'
-import { centerContentClass } from 'theme/helperClasses'
 
 type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
@@ -9,7 +7,7 @@ const GenericButton = ({ children, ...props }: React.PropsWithChildren<ButtonPro
 
   return (
     <button type="button" className={theme.genericButtonBlock} {...props}>
-      <div className={centerContentClass}>{children}</div>
+      <div className="d-flex align-items-center justify-content-center">{children}</div>
     </button>
   )
 }

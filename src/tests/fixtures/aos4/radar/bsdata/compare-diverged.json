@@ -1,0 +1,12 @@
+{
+  "status": "diverged",
+  "ahead_by": 1,
+  "behind_by": 1,
+  "total_commits": 1,
+  "commits": [
+    {
+      "sha": "1111111111111111111111111111111111111111"
+    }
+  ],
+  "files": []
+}

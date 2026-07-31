@@ -11,19 +11,22 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaCheck, FaGift, FaRegSmileBeam } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
 import { IGiftSubscription } from 'types/subscription'
-import { logClick } from 'utils/analytics'
+import { logBeginCheckout, logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
-import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from 'utils/plans'
+import {
+  GiftedSubscriptionPlans,
+  IGiftedSubscriptionPlans,
+  MAX_GIFT_QUANTITY,
+  toGiftSubscriptionAnalyticsItem,
+} from 'utils/plans'
 
-const COL_SIZE = `col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6`
-
+const COL_SIZE = 'col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6'
 const GiftSubscriptionsComponent = () => {
   const stripe = useStripe()
   const { isActive } = useSubscription()
-
-  if (!stripe || !isActive) return <></>
+  if (!stripe || !isActive) return null
 
   return (
     <div className="container">
@@ -39,83 +42,90 @@ const GiftTable = () => {
   const { subscription } = useSubscription()
   const { isMobile } = useWindowSize()
   const { giftSubscriptions = [] } = subscription
-
-  const border = `border border-${isDark ? `dark` : `light-gray`} rounded`
-
   if (giftSubscriptions.length === 0) return null
 
-  const purchasedSubs = giftSubscriptions.filter(x => x.origin === 'stripe')
-  const adminCreatedSubs = giftSubscriptions.filter(x => x.origin !== 'stripe')
-
+  const purchasedSubs = giftSubscriptions.filter(gift => gift.origin === 'stripe')
+  const adminCreatedSubs = giftSubscriptions.filter(gift => gift.origin !== 'stripe')
   const rowClass = `row d-flex justify-content-center text-center ${theme.text} mx-1`
 
   return (
-    <>
-      <div className={`row d-flex justify-content-center pb-5 ${theme.text}`}>
-        <div className={`${COL_SIZE} ${border} py-3`}>
+    <div className={`row d-flex justify-content-center pb-5 ${theme.text}`}>
+      <div className={`${COL_SIZE} border border-${isDark ? 'dark' : 'light-gray'} rounded py-3`}>
+        <div className={rowClass}>
+          <div className="col-12">
+            {/* Sits directly under the page <h1> like the profile cards do; .h4 keeps the size. */}
+            <h2 className="h4">Your Gift Subscriptions</h2>
+          </div>
+          <div className="col-12">
+            <p>Click to copy a one-time-use link and send it to your friend.</p>
+          </div>
+        </div>
+        {purchasedSubs.length > 0 && (
           <div className={rowClass}>
-            <div className="col-12">
-              <h4>Your Gift Subscriptions</h4>
-            </div>
-            <div className="col-12">
-              <p>Click to copy a one-time-use link and send it to your friend.</p>
+            {/* px-0 w-auto flex-shrink-1: non-column child of a .row — see navbar_wrapper. */}
+            <div className={`${theme.text} px-0 w-auto flex-shrink-1`}>
+              {purchasedSubs.map(gift => (
+                <GiftButton {...gift} key={gift.id} />
+              ))}
             </div>
           </div>
-
-          {purchasedSubs.length > 0 && (
+        )}
+        {purchasedSubs.length > 0 && adminCreatedSubs.length > 0 && <hr />}
+        {adminCreatedSubs.length > 0 && (
+          <>
             <div className={rowClass}>
-              <div className={`${theme.text}`}>
-                {purchasedSubs.map((x, i) => (
-                  <GiftButton {...x} key={i} />
-                ))}
-              </div>
+              {/* px-0 w-auto flex-shrink-1: non-column child of a .row — see navbar_wrapper. */}
+              <p className={`mb-1 ${theme.text} ${centerContentClass} px-0 w-auto flex-shrink-1`}>
+                These gifts were given to you by the AoS Reminders team. Spread them around!
+                {!isMobile && <FaRegSmileBeam className="ms-2" />}
+              </p>
             </div>
-          )}
-
-          {purchasedSubs.length > 0 && adminCreatedSubs.length > 0 && <hr />}
-
-          {adminCreatedSubs.length > 0 && (
-            <>
-              <div className={rowClass}>
-                <p className={`mb-1 ${theme.text} ${centerContentClass}`}>
-                  These gifts were given to you by the AoS Reminders team. Spread them around!
-                  {isMobile ? `` : <FaRegSmileBeam className="ml-2" />}
-                </p>
-              </div>
-              <div className={rowClass}>
-                {adminCreatedSubs.map((x, i) => (
-                  <GiftButton {...x} key={i} />
-                ))}
-              </div>
-            </>
-          )}
-        </div>
+            <div className={rowClass}>
+              {adminCreatedSubs.map(gift => (
+                <GiftButton {...gift} key={gift.id} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
-    </>
+    </div>
   )
 }
 
 const GiftButton = (props: IGiftSubscription) => {
-  const { planInterval, planIntervalCount } = props
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()
   const [copied, setCopied] = useState(false)
-
-  const label = `${planIntervalCount} ${capitalize(planInterval)}${planIntervalCount > 1 ? `s` : ``}`
+  const label = `${props.planIntervalCount} ${capitalize(props.planInterval)}${
+    props.planIntervalCount > 1 ? 's' : ''
+  }`
 
   const handleCopy = () => {
     logClick(`Copy-Gift-URL-${label}`)
     setCopied(true)
-    setTimeout(() => setCopied(false), 2500)
+    window.setTimeout(() => setCopied(false), 2500)
   }
 
   return (
     <CopyToClipboard onCopy={handleCopy} text={props.url}>
-      <GenericButton className={`${theme.genericButton} mx-2 my-2`}>
-        <FaGift className="mr-2" />
-        <strong className="mr-1">{label}</strong>
-        {isMobile ? `` : ` Gift`}
-        {copied && <FaCheck className={`text-success ml-2`} />}
+      {/*
+        w-auto flex-shrink-1 (but not px-0): these buttons are rendered straight into a .row in the
+        admin-gift list, and Bootstrap 5's `.row > *` would stretch each one to full width. The
+        padding needs no fix — `.btn` is declared after `.row > *` in Bootstrap's own source, so the
+        button's padding already wins.
+      */}
+      <GenericButton className={`${theme.genericButton} mx-2 my-2 w-auto flex-shrink-1`}>
+        <FaGift className="me-2" aria-hidden="true" />
+        <strong className="me-1">{label}</strong>
+        {!isMobile && ' Gift'}
+        {copied && <FaCheck className="text-success ms-2" aria-hidden="true" />}
+        {/*
+         * The tick was the only confirmation that the link reached the clipboard, and an icon
+         * announces nothing. A permanently-present live region reports the change instead.
+         */}
+        <span className="visually-hidden" role="status">
+          {copied ? 'Link copied' : ''}
+        </span>
       </GenericButton>
     </CopyToClipboard>
   )
@@ -126,40 +136,40 @@ const PurchaseTable = () => {
   const { isMobile } = useWindowSize()
 
   return (
-    <>
-      <div className={`row d-flex justify-content-center`}>
-        <div className={`${COL_SIZE}`}>
-          <table className={`table ${theme.text} ${isMobile ? `table-sm` : ``}`}>
-            <thead>
-              <tr>
-                <th>Plan</th>
-                <th>{isMobile ? `#` : `Quantity`}</th>
-                <th>Cost</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {GiftedSubscriptionPlans.map((plan, i) => (
-                <PlanComponent supportPlan={plan} key={i} />
-              ))}
-            </tbody>
-          </table>
-          <div className={`row text-center justify-content-center ${theme.text} pb-5`}>
-            <div className="col">
-              <small>
-                <em>
-                  Gifted subscriptions are <strong>not</strong> recurring charges. You only pay for the
-                  initial subscription period.
-                  <br />
-                  You will receive an activation link that you can send to anyone. They will set up their
-                  account using that link.
-                </em>
-              </small>
-            </div>
+    <div className="row d-flex justify-content-center">
+      <div className={COL_SIZE}>
+        <table className={`table ${theme.text} ${isMobile ? 'table-sm' : ''}`}>
+          <thead>
+            <tr>
+              <th scope="col">Plan</th>
+              <th scope="col">{isMobile ? '#' : 'Quantity'}</th>
+              <th scope="col">Cost</th>
+              <th scope="col">
+                <span className="visually-hidden">Purchase</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {GiftedSubscriptionPlans.map(plan => (
+              <PlanComponent supportPlan={plan} key={plan.title} />
+            ))}
+          </tbody>
+        </table>
+        <div className={`row text-center justify-content-center ${theme.text} pb-5`}>
+          <div className="col">
+            <small>
+              <em>
+                Gifted subscriptions are <strong>not</strong> recurring charges. You only pay for the initial
+                subscription period.
+                <br />
+                You will receive an activation link that you can send to anyone. They will set up their
+                account using that link.
+              </em>
+            </small>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -167,16 +177,12 @@ const PlansHeader = () => {
   const { theme } = useTheme()
   return (
     <div className={`col-12 text-center mb-3 ${theme.text}`}>
-      <h4>Gift a Subscription!</h4>
+      <h2 className="h4">Gift a Subscription!</h2>
     </div>
   )
 }
 
-interface IPlanProps {
-  supportPlan: IGiftedSubscriptionPlans
-}
-
-const PlanComponent = ({ supportPlan }: IPlanProps) => {
+const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans }) => {
   const origin = `${supportPlan.title}-GiftedSubscription`
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin })
@@ -186,53 +192,49 @@ const PlanComponent = ({ supportPlan }: IPlanProps) => {
 
   if (!stripe || !user) return null
 
-  // When the customer clicks on the button, redirect them to Checkout.
-  const handleCheckout = async (e: React.MouseEvent) => {
-    e.preventDefault()
-
-    if (quantity === 0) return // Can't do anything with zero quantity
-
-    logClick(origin)
-
-    const price = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
-    const url = isDev ? 'localhost:3000' : 'aosreminders.com'
-
-    const item = { price, quantity: typeof quantity === 'string' ? parseInt(quantity) : quantity }
-
-    stripe
-      .redirectToCheckout({
-        mode: 'payment',
-        lineItems: [item],
-
-        // Meta
-        customerEmail: user.email, // Used to prefill checkout
-        clientReferenceId: user.email, // Included in the checkout.session.completed webhook
-
-        // Redirect after checkout
-        successUrl: `${window.location.protocol}//${url}/profile?${qs.stringify({
-          gifted: true,
-          quantity,
-          plan: supportPlan.title,
-        })}`,
-        cancelUrl: `${window.location.protocol}//${url}?${qs.stringify({
-          canceled: true,
-          plan: supportPlan.title,
-        })}`,
-      })
-      .then(function (result) {
-        if (result.error) {
-          // If `redirectToCheckout` fails due to a browser or network
-          // error, display the localized error message to your customer.
-          console.log(result.error)
-          // var displayError = document.getElementById('error-message');
-          // displayError.textContent = result.error.message;
-        }
-      })
+  /*
+   * parseInt('') is NaN, which priced the row "$NaN" and — because the checkout guard only compared
+   * against 0 — was still forwarded to Stripe as the line-item quantity. A negative value priced the
+   * gift negatively and passed the same guard.
+   */
+  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const parsed = parseInt(event.target.value, 10)
+    if (Number.isNaN(parsed)) return setQuantity(0)
+    setQuantity(Math.max(0, Math.min(parsed, MAX_GIFT_QUANTITY)))
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setQuantity(parseInt(value, 10))
+  const handleCheckout = async (event: React.MouseEvent) => {
+    event.preventDefault()
+    if (quantity < 1) return
+
+    logClick(origin)
+    logBeginCheckout({
+      items: [toGiftSubscriptionAnalyticsItem(supportPlan, quantity)],
+      provider: 'stripe',
+    })
+    const price = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
+    const url = isDev ? 'localhost:3000' : 'aosreminders.com'
+    const successQuery = qs.stringify({
+      gifted: true,
+      checkout_kind: 'gift_subscription',
+      quantity,
+      plan: supportPlan.title,
+    })
+    const result = await stripe.redirectToCheckout({
+      mode: 'payment',
+      lineItems: [{ price, quantity }],
+      customerEmail: user.email,
+      clientReferenceId: user.email,
+      successUrl: `${window.location.protocol}//${url}/profile?${successQuery}&checkout_session_id={CHECKOUT_SESSION_ID}`,
+      cancelUrl: `${window.location.protocol}//${url}?${qs.stringify({
+        canceled: true,
+        checkout_kind: 'gift_subscription',
+        plan: supportPlan.title,
+        quantity,
+      })}`,
+    })
+
+    if (result.error) console.error(result.error)
   }
 
   return (
@@ -245,19 +247,21 @@ const PlanComponent = ({ supportPlan }: IPlanProps) => {
           style={{ maxWidth: '60px' }}
           className="form-control"
           type="number"
+          min={1}
+          max={MAX_GIFT_QUANTITY}
+          aria-label={`Quantity of ${supportPlan.title} gifts`}
           value={quantity}
-          onChange={handleChange}
+          onChange={handleQuantityChange}
         />
       </td>
-
       <td>${(parseFloat(supportPlan.cost) * quantity).toFixed(2)}</td>
-
       <td>
         <GenericButton
-          className={`btn btn ${isMobile ? `btn-sm` : ``} btn-block btn-primary`}
+          className={`btn ${isMobile ? 'btn-sm' : ''} d-block w-100 btn-primary`}
+          disabled={isAuthenticated && quantity < 1}
           onClick={isAuthenticated ? handleCheckout : login}
         >
-          {isMobile ? `Buy` : `Purchase`}
+          {isMobile ? 'Buy' : 'Purchase'}
         </GenericButton>
       </td>
     </tr>
@@ -266,10 +270,8 @@ const PlanComponent = ({ supportPlan }: IPlanProps) => {
 
 const stripePromise = loadStripe(STRIPE_KEY)
 
-export const GiftSubscriptions = () => {
-  return (
-    <Elements stripe={stripePromise}>
-      <GiftSubscriptionsComponent />
-    </Elements>
-  )
-}
+export const GiftSubscriptions = () => (
+  <Elements stripe={stripePromise}>
+    <GiftSubscriptionsComponent />
+  </Elements>
+)

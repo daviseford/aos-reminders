@@ -1,0 +1,326 @@
+{
+  "id": "ij-001-renown-heavy",
+  "diagnostics": [],
+  "proposedName": "Ow1",
+  "declaredFaction": "Ironjawz",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Weirdfist"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of the Weird"
+    },
+    {
+      "line": 8,
+      "kindHint": "prayer-lore",
+      "label": "Warbeats"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Megaboss"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Ardboy Big Boss"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Ardboyz"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Brute Ragerz"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Brutes"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Gore-gruntas"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Ironskull's Boyz",
+      "isLegends": true
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Maw-grunta Gougers"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Maw-grunta with Hakkin' Krew"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Megaboss"
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Morgok's Krushas",
+      "isLegends": true
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Brutes"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Megaboss"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Weirdbrute Wrekkaz"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Zoggrok Anvilsmasha"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Gordrakk, the Fist of Gork"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Weirdnob Shaman"
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Beast-skewer Killbow",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Man-skewer Boltboyz",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Man-skewer Boltboyz",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Gatebreaker Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Rabble-Rowza",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Gobbapalooza",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Squig Herd",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Squig Hoppers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Kraken-eater Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Swampboss Skumdrekk",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Hobgrot Slittaz",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Hobgrot Slittaz",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Endrinmaster with Dirigible Suit",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "Grundstok Gunhauler",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 59,
+      "kindHint": "warscroll",
+      "label": "Skywardens",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Ogroid Myrmidon",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Ogroid Thaumaturge",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Ogroid Theridons",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 67,
+      "kindHint": "warscroll",
+      "label": "Nurglings",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Nurglings",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Beast-smasher Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Warstomper Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 74,
+      "kindHint": "warscroll",
+      "label": "Outlaw Cannonade Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 76,
+      "kindHint": "warscroll",
+      "label": "Loonboss",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 77,
+      "kindHint": "warscroll",
+      "label": "Dankhold Troggoth",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 79,
+      "kindHint": "warscroll",
+      "label": "Loonboss",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 80,
+      "kindHint": "warscroll",
+      "label": "Loonsmasha Fanatics",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 81,
+      "kindHint": "warscroll",
+      "label": "Moonclan Stabbas",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 83,
+      "kindHint": "warscroll",
+      "label": "Mancrusher Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 85,
+      "kindHint": "warscroll",
+      "label": "Grand Justice Gormayne",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 86,
+      "kindHint": "warscroll",
+      "label": "Cryptguard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 87,
+      "kindHint": "warscroll",
+      "label": "Royal Decapitator",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 90,
+      "kindHint": "warscroll",
+      "label": "Kragnos, the End of Empires"
+    },
+    {
+      "line": 93,
+      "kindHint": "warscroll",
+      "label": "Bossrokk Tower"
+    }
+  ]
+}

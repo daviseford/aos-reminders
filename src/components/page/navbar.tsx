@@ -11,7 +11,6 @@ import { logClick } from 'utils/analytics'
 import { BASE_URL, ROUTES } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
-import { LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
 import { SubscriptionPlans } from 'utils/plans'
 import config from '../../auth_config.json'
 
@@ -21,26 +20,24 @@ const Navbar = () => {
   const { login, isLoggingIn } = useLogin({ origin: 'Navbar' })
   const { isActive, subscriptionLoading } = useSubscription()
   const { isTinyMobile } = useWindowSize()
-
   const { pathname } = window.location
-  const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
+  const loginBtnText = !isAuthenticated ? 'Log in' : 'Log out'
 
   const handleLoginBtn = () => {
     if (isAuthenticated) {
       logClick('Navbar-Logout')
-      LocalUserName.clear() // Get rid of stored user info
-      LocalSavedArmies.clear() // Remove any saved armies that we've fetched from the API
-      LocalTheme.clear() // Revert back to default theme settings
+      localStorage.removeItem('theme')
       return logout({ clientId: config.clientId, logoutParams: { returnTo: BASE_URL } })
-    } else {
-      return login()
     }
+    return login()
   }
 
   if (isOffline) return <OfflineHeader />
   if (isLoggingIn || subscriptionLoading) return <LoadingHeader />
 
-  const discount = SubscriptionPlans.some(x => x.sale) ? max(SubscriptionPlans.map(x => x.discount_pct)) : 0
+  const discount = SubscriptionPlans.some(plan => plan.sale)
+    ? max(SubscriptionPlans.map(plan => plan.discount_pct || 0))
+    : 0
 
   return (
     <NavbarWrapper>
@@ -49,11 +46,6 @@ const Navbar = () => {
           Home
         </Link>
       )}
-      {/* {pathname !== ROUTES.STATS && (
-        <Link to={ROUTES.STATS} className={navbarStyles.link} onClick={() => logClick('Navbar-Stats')}>
-          Stats
-        </Link>
-      )} */}
       {isAuthenticated && pathname !== ROUTES.PROFILE && (
         <Link to={ROUTES.PROFILE} className={navbarStyles.link} onClick={() => logClick('Navbar-Profile')}>
           Profile
@@ -67,17 +59,15 @@ const Navbar = () => {
         >
           Subscribe
           {!!discount && !isTinyMobile && (
-            <span className="ml-1 badge badge-pill badge-danger">{discount}% off!</span>
+            <span className="ms-1 badge rounded-pill bg-danger">{discount}% off!</span>
           )}
         </Link>
       )}
-
       {pathname !== ROUTES.FAQ && (
         <Link to={ROUTES.FAQ} className={navbarStyles.link} onClick={() => logClick('Navbar-Faq')}>
           FAQ
         </Link>
       )}
-
       <GenericButton className={navbarStyles.btn} onClick={handleLoginBtn}>
         {loginBtnText}
       </GenericButton>

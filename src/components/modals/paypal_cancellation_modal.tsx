@@ -3,6 +3,7 @@ import { useSubscription } from 'context/useSubscription'
 import React from 'react'
 import { logClick } from 'utils/analytics'
 import { isDev } from 'utils/env'
+import { openPaypalSubscriptionManagement } from 'utils/paypal'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -13,11 +14,8 @@ export const CancelPaypalSubscriptionModal = ({ closeModal, modalIsOpen }: IModa
   const { subscription } = useSubscription()
 
   const handleClick = () => {
-    window.location.replace(
-      `https://www.${isDev ? 'sandbox.' : ''}paypal.com/myaccount/autopay/connect/${
-        subscription.subscriptionId
-      }`
-    )
+    if (!subscription.subscriptionId) return
+    openPaypalSubscriptionManagement(subscription.subscriptionId, isDev)
     logClick('CancelPaypalSubscription')
   }
 
@@ -26,8 +24,8 @@ export const CancelPaypalSubscriptionModal = ({ closeModal, modalIsOpen }: IModa
       isOpen={modalIsOpen}
       closeModal={closeModal}
       onConfirm={handleClick}
-      headerText={`Cancel Subscription?`}
-      confirmText={`Cancel Subscription`}
+      headerText="Cancel Subscription?"
+      confirmText="Cancel Subscription"
     >
       <p>We&apos;ll be sad to see you go, but you&apos;re always welcome back!</p>
       <p>You&apos;ll still have access to everything until your current subscription expires.</p>

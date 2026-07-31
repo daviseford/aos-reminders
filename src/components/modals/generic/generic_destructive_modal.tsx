@@ -16,53 +16,46 @@ interface IModalComponentProps {
   bodyText?: string
 }
 
-/**
- * A re-usable generic confirmation modal component
- *
- * Ask if we really want to do a destructive action.
- *
- * @param props
- */
-const GenericDestructiveModal = (props: React.PropsWithChildren<IModalComponentProps>) => {
-  const {
-    bodyText = '',
-    children,
-    closeModal,
-    confirmText = 'Confirm',
-    denyText = 'Cancel',
-    headerText,
-    isOpen,
-    onConfirm = null,
-    onConfirmAsync = null,
-    onDeny = null,
-  } = props
+const GenericDestructiveModal = ({
+  bodyText = '',
+  children,
+  closeModal,
+  confirmText = 'Confirm',
+  denyText = 'Cancel',
+  headerText,
+  isOpen,
+  onConfirm,
+  onConfirmAsync,
+  onDeny,
+}: React.PropsWithChildren<IModalComponentProps>) => {
   const { theme } = useTheme()
+  const [processingError, setProcessingError] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
 
-  const handleConfirm = async (e: React.MouseEvent) => {
-    e.preventDefault()
-
+  const handleConfirm = async (event: React.MouseEvent) => {
+    event.preventDefault()
+    setProcessingError(null)
     if (onConfirmAsync) {
       try {
         setIsProcessing(true)
         await onConfirmAsync()
-      } catch (err) {
-        console.error(err)
+      } catch {
+        setIsProcessing(false)
+        setProcessingError('That action could not be completed. Please try again.')
+        return
       }
     }
-
-    if (onConfirm) onConfirm()
-
+    onConfirm?.()
     closeModal()
   }
 
-  const handleDeny = async (e: React.MouseEvent) => {
-    e.preventDefault()
-    if (onDeny) onDeny()
+  const handleDeny = (event: React.MouseEvent) => {
+    event.preventDefault()
+    onDeny?.()
     closeModal()
   }
 
-  const btnReponsiveClass = `mx-2 mx-sm-1`
+  const btnResponsiveClass = 'mx-2 mx-sm-1'
 
   return (
     <GenericModal
@@ -75,15 +68,19 @@ const GenericDestructiveModal = (props: React.PropsWithChildren<IModalComponentP
         <div className={`col ${theme.text} text-center`}>
           <h4 className="mb-3">{headerText}</h4>
           {bodyText && <p className="mb-3">{bodyText}</p>}
-          {children ? <div className={`mb-3`}>{children}</div> : null}
+          {children ? <div className="mb-3">{children}</div> : null}
+          {processingError && (
+            <div className="alert alert-danger" role="alert">
+              {processingError}
+            </div>
+          )}
         </div>
       </div>
-
       <div className="d-flex flex-row justify-content-around">
-        <GenericButton className={`${theme.modalDangerClass} ${btnReponsiveClass}`} onClick={handleConfirm}>
-          <FaCheck className="mr-2" /> {confirmText}
+        <GenericButton className={`${theme.modalDangerClass} ${btnResponsiveClass}`} onClick={handleConfirm}>
+          <FaCheck className="me-2" /> {confirmText}
         </GenericButton>
-        <GenericButton className={`${theme.modalConfirmClass} ${btnReponsiveClass}`} onClick={handleDeny}>
+        <GenericButton className={`${theme.modalConfirmClass} ${btnResponsiveClass}`} onClick={handleDeny}>
           {denyText}
         </GenericButton>
       </div>

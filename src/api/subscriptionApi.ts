@@ -1,57 +1,94 @@
-import request from 'superagent'
-import { TThemeType } from 'types/theme'
-import { isDev, SUBSCRIPTION_AUTH_KEY } from 'utils/env'
+import type { TThemeType } from 'types/theme'
 
-const devEndpoint = `https://pitljgzx18.execute-api.us-east-1.amazonaws.com/dev`
-const prodEndpoint = `https://kd0sjpg6oe.execute-api.us-east-1.amazonaws.com/prod`
+export class SubscriptionApiError extends Error {
+  readonly status: number
 
-const api = isDev ? devEndpoint : prodEndpoint
-
-interface ICancel {
-  userName: string
-  subscriptionId: string
+  constructor(message: string, status = 0) {
+    super(message)
+    this.name = 'SubscriptionApiError'
+    this.status = status
+  }
 }
 
-interface IUpdateTheme {
-  id: string
-  userName: string
-  theme: TThemeType
+type Fetcher = typeof fetch
+
+interface SubscriptionResponse<T = unknown> {
+  body: T
 }
 
-interface IRedeemCoupon {
-  couponId: string
-  userName: string // userName receiving the gift
+const configuredEndpoint = (import.meta.env.VITE_SUBSCRIPTION_API_URL || '').replace(/\/+$/, '')
+
+const responseBody = async (response: Response): Promise<unknown> => {
+  try {
+    return await response.json()
+  } catch {
+    return null
+  }
 }
 
-interface IRedeemGift {
-  giftId: string
-  userId: string // userId of the referrer
-  userName: string // userName receiving the gift
+const responseMessage = (value: unknown): string => {
+  if (typeof value === 'string' && value) return value
+  if (
+    typeof value === 'object' &&
+    value !== null &&
+    'message' in value &&
+    typeof value.message === 'string'
+  ) {
+    return value.message
+  }
+  return 'The subscription service could not complete the request.'
 }
 
-interface IRequestGrant {
-  userName: string
-  subscriptionId?: string // PayPal subscription id from the onApprove response
-  planId?: string // PayPal plan id the user subscribed to
+export const createSubscriptionApi = (endpoint: string, fetcher: Fetcher = fetch) => {
+  const baseUrl = endpoint.replace(/\/+$/, '')
+
+  const request = async <T>(
+    path: string,
+    token: string,
+    options: RequestInit = {}
+  ): Promise<SubscriptionResponse<T>> => {
+    if (!baseUrl) throw new SubscriptionApiError('Subscriptions are not configured for this build.', 503)
+    if (!token) throw new SubscriptionApiError('Please log in again to continue.', 401)
+
+    const headers = new Headers(options.headers)
+    headers.set('Accept', 'application/json')
+    headers.set('Authorization', `Bearer ${token}`)
+    if (options.body) headers.set('Content-Type', 'application/json')
+
+    let response: Response
+    try {
+      response = await fetcher(`${baseUrl}${path}`, {
+        ...options,
+        headers,
+        signal: options.signal ?? AbortSignal.timeout(10_000),
+      })
+    } catch {
+      throw new SubscriptionApiError('The subscription service is temporarily unavailable.')
+    }
+
+    const body = await responseBody(response)
+    if (!response.ok) throw new SubscriptionApiError(responseMessage(body), response.status)
+    return { body: body as T }
+  }
+
+  const post = <T>(path: string, token: string, data?: object) =>
+    request<T>(path, token, {
+      method: 'POST',
+      body: data ? JSON.stringify(data) : undefined,
+    })
+
+  return {
+    isConfigured: Boolean(baseUrl),
+    getSubscription: (token: string) => request('/account', token),
+    cancelSubscription: (token: string) => post('/account/cancel', token),
+    requestGrant: (data: { subscriptionId: string }, token: string) =>
+      post('/account/paypal-grant', token, data),
+    redeemCoupon: (data: { couponId: string }, token: string) =>
+      post<{ error?: string; success?: boolean }>('/account/redeem-coupon', token, data),
+    redeemGift: (data: { giftId: string; userId: string }, token: string) =>
+      post<{ error?: string; success?: boolean }>('/account/redeem-gift', token, data),
+    updateTheme: (data: { theme: TThemeType }, token: string) => post('/account/theme', token, data),
+  }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const withAuth = (data: Record<string, any>) => ({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })
-
-const cancelSubscription = (data: ICancel) => request.post(`${api}/cancel`).send(withAuth(data))
-const getSubscription = (userName: string) => request.get(`${api}/user/${userName}`)
-const redeemCoupon = (data: IRedeemCoupon) => request.post(`${api}/redeem_coupon`).send(withAuth(data))
-const redeemGift = (data: IRedeemGift) => request.post(`${api}/redeem`).send(withAuth(data))
-// subscriptionId + planId let the API create a provisional row when the
-// CREATED webhook hasn't arrived yet (the grant-vs-webhook race)
-const requestGrant = (data: IRequestGrant) => request.post(`${api}/paypal_grant`).send(withAuth(data))
-const updateTheme = (data: IUpdateTheme) => request.post(`${api}/theme`).send(withAuth(data))
-
-export const SubscriptionApi = {
-  cancelSubscription,
-  getSubscription,
-  redeemCoupon,
-  redeemGift,
-  requestGrant,
-  updateTheme,
-}
+export const SubscriptionApi = createSubscriptionApi(configuredEndpoint)

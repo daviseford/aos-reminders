@@ -1,10 +1,12 @@
 name: Lint, Test, and Build
 
+# `aos4-migration` is the long-lived integration branch for the AoS 4 migration (see AGENTS.md).
+# Without it here, migration sub-PRs merge with no lint/test/build gate at all.
 on:
   push:
-    branches: [ master ]
+    branches: [ master, aos4-migration ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, aos4-migration ]
 
 env:
   CI: true
@@ -15,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: 'yarn'
@@ -29,8 +31,11 @@ jobs:
       - name: Lint with eslint
         run: yarn lint
 
-      - name: Test with jest
-        run: yarn test
+      - name: Test with vitest
+        run: yarn test --run
+
+      - name: Validate AoS 4 beta data readiness
+        run: yarn data:aos4:verify:beta
 
       - name: Build with TypeScript
         run: yarn build

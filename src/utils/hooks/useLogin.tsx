@@ -1,62 +1,58 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { useMemo, useState } from 'react'
-import { logClick, logEvent } from 'utils/analytics'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { logLoginAttempt } from 'utils/analytics'
 import openPopup from 'utils/openPopup'
 
-interface IUseLoginProps {
-  /**
-   * The source of this login, e.g. 'Navbar'
-   */
+interface UseLoginProps {
   origin: string
-  /**
-   * An optional function to run after the user has closed the login popup
-   *
-   * Note: This is triggered whether the user logged in successfully, or just closed the window.
-   */
   onPopupClose?: () => unknown
 }
 
-/**
- * A useful hook to help with logins
- *
- * Includes a tracker for the login window that can notify you when closed.
- *
- * @param props
- *
- * @example const { login } =  useLogin({ origin: 'Navbar' })
- */
-const useLogin = (props: IUseLoginProps) => {
+const useLogin = ({ origin, onPopupClose }: UseLoginProps) => {
   const { isLoading, loginWithPopup } = useAuth0()
   const [popupIsClosed, setPopupIsClosed] = useState(false)
+  // @types/react 19 requires an explicit initial value for useRef.
+  const timerRef = useRef<number | undefined>(undefined)
 
-  const value = useMemo(
-    () => ({
-      isLoggingIn: isLoading && !popupIsClosed,
-      popupIsClosed,
-      login: (e?: React.MouseEvent) => {
-        e?.preventDefault?.()
-        logClick(`${props.origin}-Login`)
+  const clearPopupTimer = useCallback(() => {
+    if (timerRef.current === undefined) return
+    window.clearInterval(timerRef.current)
+    timerRef.current = undefined
+  }, [])
 
-        const popup = openPopup()
-        setPopupIsClosed(false)
+  useEffect(() => clearPopupTimer, [clearPopupTimer])
 
-        // https://stackoverflow.com/a/48240128
-        const timer = setInterval(() => {
-          if (popup?.closed) {
-            clearInterval(timer)
-            setPopupIsClosed(true)
-            logEvent(`${props.origin}-Login-Closed`)
-            if (props.onPopupClose) props.onPopupClose()
-          }
-        }, 1000)
+  const login = useCallback(
+    (event?: React.MouseEvent) => {
+      event?.preventDefault()
+      logLoginAttempt(origin, 'started')
 
-        return loginWithPopup({ authorizationParams: { redirect_uri: window.location.href } }, { popup })
-      },
-    }),
-    [isLoading, loginWithPopup, popupIsClosed, props]
+      const popup = openPopup()
+      setPopupIsClosed(false)
+      clearPopupTimer()
+
+      if (!popup) {
+        return loginWithPopup({ authorizationParams: { redirect_uri: window.location.href } })
+      }
+
+      timerRef.current = window.setInterval(() => {
+        if (!popup.closed) return
+        clearPopupTimer()
+        setPopupIsClosed(true)
+        logLoginAttempt(origin, 'closed')
+        onPopupClose?.()
+      }, 1000)
+
+      return loginWithPopup({ authorizationParams: { redirect_uri: window.location.href } }, { popup })
+    },
+    [clearPopupTimer, loginWithPopup, onPopupClose, origin]
   )
 
-  return value
+  return {
+    isLoggingIn: isLoading && !popupIsClosed,
+    login,
+    popupIsClosed,
+  }
 }
 
 export default useLogin

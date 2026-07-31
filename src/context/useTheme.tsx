@@ -1,11 +1,17 @@
-import { SubscriptionApi } from 'api/subscriptionApi'
 import { useSubscription } from 'context/useSubscription'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import DarkTheme from 'theme/dark'
 import LightTheme from 'theme/light'
 import { ITheme, TThemeType } from 'types/theme'
-import { logEvent } from 'utils/analytics'
-import { LocalTheme } from 'utils/localStore'
+import { logThemeChange } from 'utils/analytics'
+import { useApiAccessToken } from 'utils/authToken'
+import { SubscriptionApi } from '../api/subscriptionApi'
+
+const LOCAL_THEME_KEY = 'theme'
+
+const getLocalTheme = () => localStorage.getItem(LOCAL_THEME_KEY) as TThemeType | null
+
+const setLocalTheme = (theme: TThemeType) => localStorage.setItem(LOCAL_THEME_KEY, theme)
 
 interface IThemeProvider {
   isDark: boolean
@@ -19,9 +25,10 @@ interface IThemeProvider {
 const ThemeContext = React.createContext<IThemeProvider | void>(undefined)
 
 const ThemeProvider = ({ children }: React.PropsWithChildren<object>) => {
-  const { subscription } = useSubscription()
-  const [theme, setTheme] = useState(LocalTheme.get() === 'dark' ? DarkTheme : LightTheme)
-  const [isDark, setIsDark] = useState(LocalTheme.get() === 'dark')
+  const { isActive, subscription } = useSubscription()
+  const getAccessToken = useApiAccessToken()
+  const [theme, setTheme] = useState(getLocalTheme() === 'dark' ? DarkTheme : LightTheme)
+  const [isDark, setIsDark] = useState(getLocalTheme() === 'dark')
 
   const setLightTheme = useCallback(() => {
     setTheme(LightTheme)
@@ -34,12 +41,17 @@ const ThemeProvider = ({ children }: React.PropsWithChildren<object>) => {
 
   const toggleTheme = useCallback(() => {
     const theme = isDark ? 'light' : 'dark'
-    LocalTheme.set(theme)
-    const { id, userName } = subscription
-    Promise.resolve(SubscriptionApi.updateTheme({ id, userName, theme }))
-    logEvent(`SetTheme-${theme}`)
+    setLocalTheme(theme)
+    if (isActive) {
+      void getAccessToken()
+        .then(token => SubscriptionApi.updateTheme({ theme }, token))
+        .catch(error => {
+          console.error('Unable to save subscriber theme', error)
+        })
+    }
+    logThemeChange(theme)
     return isDark ? setLightTheme() : setDarkTheme()
-  }, [subscription, isDark, setDarkTheme, setLightTheme])
+  }, [getAccessToken, isActive, isDark, setDarkTheme, setLightTheme])
 
   const setThemeFromValue = useCallback(
     (val: TThemeType | null) => {
@@ -48,25 +60,19 @@ const ThemeProvider = ({ children }: React.PropsWithChildren<object>) => {
     [setLightTheme, setDarkTheme]
   )
 
-  // Fetch our theme from the subscription API
-  useEffect(() => {
-    if (subscription && subscription.theme) {
-      LocalTheme.set(subscription.theme) // Update local value
-      setThemeFromValue(subscription.theme)
-    }
-  }, [subscription, setThemeFromValue])
-
   // Assign our theme's bgColor to the root element
   useEffect(() => {
     const element = document.getElementById('root')
     if (element) element.className = theme.bgColor
   }, [theme.bgColor])
 
-  // Fetch our theme from the local store
+  useEffect(() => setThemeFromValue(getLocalTheme()), [setThemeFromValue])
+
   useEffect(() => {
-    const theme = LocalTheme.get()
-    setThemeFromValue(theme)
-  })
+    if (!subscription.theme) return
+    setLocalTheme(subscription.theme)
+    setThemeFromValue(subscription.theme)
+  }, [setThemeFromValue, subscription.theme])
 
   const value = useMemo(
     () => ({

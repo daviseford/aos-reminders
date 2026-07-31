@@ -1,5 +1,4 @@
-import { TSupportedFaction } from 'meta/factions'
-import { TThemeType } from 'types/theme'
+import type { TThemeType } from 'types/theme'
 
 export interface IGiftSubscription {
   id: string
@@ -7,30 +6,22 @@ export interface IGiftSubscription {
   planInterval: string
   planIntervalCount: number
   url: string
-  userName: string // The userName who gifted the subscription
 }
 
-export interface ISubscription {
+export interface Subscription {
   active?: boolean
-  createdAt?: number
-  customerId?: string
+  createdBy?: 'admin' | 'stripe' | 'paypal' | 'gift' | 'coupon'
   expired?: boolean
-  has_grant?: boolean
-  favoriteFaction?: TSupportedFaction
   giftSubscriptions?: IGiftSubscription[]
-  id: string
+  has_grant?: boolean
   planId?: string
   planInterval?: string
   planIntervalCount?: number
   subscribed: boolean
   subscriptionId?: string
-  subscriptionStatus?: 'active' | 'canceled' | 'pending_activation' | 'temporary_grant'
-  subscriptionCreated?: number
   subscriptionStart?: number
-  subscriptionEnd?: number
-  livemode?: boolean
+  subscriptionStatus?: 'active' | 'canceled' | 'pending_activation' | 'temporary_grant'
   theme?: TThemeType
-  updatedAt?: number
-  userName: string
-  createdBy?: 'admin' | 'stripe' | 'paypal' | 'gift' | 'coupon'
 }
+
+export type ISubscription = Subscription

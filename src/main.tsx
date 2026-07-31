@@ -1,52 +1,50 @@
 import 'core-js/stable' // organize-imports-ignore
-import 'css/animations.scss' // organize-imports-ignore
 import 'css/index.scss' // organize-imports-ignore
+import './bootstrap/captureShareLink' // organize-imports-ignore
+import { Auth0Provider } from '@auth0/auth0-react'
 import App from 'components/App'
 import { AppStatusProvider } from 'context/useAppStatus'
-import { SavedArmiesProvider } from 'context/useSavedArmies'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
+import { createRoot } from 'react-dom/client'
 import { installNewWorker } from 'utils/installNewWorker'
-import config from './auth_config.json'
-import { Auth0Provider } from '@auth0/auth0-react'
-import { persistor, store } from 'store'
 import history from 'utils/history'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import config from './auth_config.json'
 
-const onRedirectCallback = (appState: unknown) => {
-  // Use the router's history module to replace the url
-  // @ts-expect-error returnTo is there
+const onRedirectCallback = (appState?: { returnTo?: string }) => {
   history.replace(appState?.returnTo || window.location.pathname)
 }
 
-render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <Auth0Provider
-        domain={config.domain}
-        clientId={config.clientId}
-        authorizationParams={{
-          redirect_uri: window.location.origin,
-        }}
-        onRedirectCallback={onRedirectCallback}
-      >
-        <AppStatusProvider>
-          <SubscriptionProvider>
-            <SavedArmiesProvider>
-              <ThemeProvider>
-                <App />
-              </ThemeProvider>
-            </SavedArmiesProvider>
-          </SubscriptionProvider>
-        </AppStatusProvider>
-      </Auth0Provider>
-    </PersistGate>
-  </Provider>,
-  document.getElementById('root')
+/*
+ * React 19 removed the legacy `ReactDOM.render`. createRoot is the concurrent-capable replacement;
+ * the tree below is unchanged. No StrictMode wrapper is added — the app has never had one, and
+ * introducing it here would double-invoke every effect and change runtime behaviour, which this
+ * upgrade is not the place for.
+ */
+const container = document.getElementById('root')
+if (!container) throw new Error('Root container #root is missing from index.html')
+
+createRoot(container).render(
+  <Auth0Provider
+    domain={config.domain}
+    clientId={config.clientId}
+    authorizationParams={{
+      audience: config.audience,
+      redirect_uri: window.location.origin,
+      scope: 'openid profile email',
+    }}
+    onRedirectCallback={onRedirectCallback}
+  >
+    <AppStatusProvider>
+      <SubscriptionProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </SubscriptionProvider>
+    </AppStatusProvider>
+  </Auth0Provider>
 )
 
 // Learn more about service workers: https://cra.link/PWA

@@ -14,7 +14,10 @@ export interface ITheme {
   profileCardHeader: string
   reminderHeader: string
   reminderHr: string
+  reminderTags: string
   secondaryButton: string
+  /** A recessed full-bleed band that separates a section from the page around it. */
+  sectionBand: string
   selectTheme: Record<string, string>
   text: string
   textMuted: string

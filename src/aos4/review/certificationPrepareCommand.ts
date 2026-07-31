@@ -1,0 +1,602 @@
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import type { ArtifactManifest } from '../data'
+import { stableCompactJson, stableJson } from '../generate/serialization'
+import { assertAgentBlindDerivations } from './adversarialReview'
+import {
+  calibrationEvidenceIssues,
+  certificationChronologyIssues,
+  checksumCertificationText,
+  createCalibrationEvidenceReceipt,
+  createCertificationManifest,
+  evaluateCertification,
+  reviewLedgerWithResults,
+  type ReviewProtocolDefinition,
+  type ReviewRubricDefinition,
+  type SourceInventory,
+} from './certification'
+import { validateReviewLedger } from './findings'
+import { assertReviewIndexMatchesPacketPairs, type ReviewPacketSafeIndex } from './packets'
+import {
+  assertCreateOnlyDirectoryComplete,
+  loadReviewPacketPairs,
+  writeCreateOnlyFilesDirectory,
+} from './reviewWorkspace'
+import {
+  AOS4_REVIEW_PROTOCOL_VERSION,
+  AOS4_REVIEW_RUBRIC_VERSION,
+  AOS4_REVIEW_SCHEMA_VERSION,
+  checksumReviewRecord,
+  reviewerConfigurationId,
+  type CertificationInput,
+  type ReviewAssignment,
+  type ReviewCalibration,
+  type ReviewFinding,
+  type ReviewLedger,
+  type ReviewerMetadata,
+  type ReviewerResult,
+} from './records'
+
+const DEFAULT_INDEX = path.join('.cache', 'aos4', 'review', 'workspace', 'index.json')
+const DEFAULT_WORKSPACE = path.join('.cache', 'aos4', 'review', 'workspace', 'workspace.json')
+const DEFAULT_REVIEW_OUTPUT = path.join('.cache', 'aos4', 'review', 'adversarial-review')
+const DEFAULT_INVENTORY = path.join('.cache', 'aos4', 'review', 'source-inventory.json')
+
+const EXISTING_INPUTS = {
+  'accepted-manifest': path.join('data', 'aos4', 'manifests', 'accepted-2026-07-30.json'),
+  'corpus-review': path.join('data', 'aos4', 'reviews', 'corpus-2026-07-30.json'),
+  'audit-catalog': path.join('data', 'aos4', 'catalog', 'catalog.json'),
+  'reconciliation-report': path.join('data', 'aos4', 'reports', 'corpus-2026-07-30-reconciliation.json'),
+  'official-ledger': path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json'),
+  'runtime-catalog': path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json'),
+  'source-observation-classifications': path.join(
+    'data',
+    'aos4',
+    'reviews',
+    'source-observation-classifications-2026-07-29.json'
+  ),
+} as const
+
+const GENERATED_INPUT_FILES = {
+  'review-protocol': 'protocol.json',
+  'review-rubric': 'rubric.json',
+  'review-index': 'review-index.json',
+  'review-assignments': 'assignments.json',
+  'review-calibrations': 'calibrations.json',
+  'review-calibration-results': 'calibration-results.json',
+  'review-results': 'results.json',
+  'review-findings': 'findings.json',
+  'review-resolutions': 'resolutions.json',
+  'review-verifications': 'verifications.json',
+  'source-inventory': 'source-inventory.json',
+} as const
+
+const CERTIFICATION_SHARD_SIZE = 5_000
+
+interface CertificationPreparationArguments {
+  output: string
+  reviewOutput: string
+  inventory: string
+  index: string
+  workspace: string
+  evaluatedAt: string
+}
+
+interface AdversarialResultIndex {
+  schemaVersion: 1
+  revision: string
+  reviewer: ReviewerMetadata
+  assignmentId: ReviewAssignment['id']
+  calibrationResultPath: string
+  calibrationResultCount: number
+  calibrationResultsChecksum: string
+  resultShards: Array<{
+    path: string
+    resultCount: number
+    findingCount: number
+  }>
+  outcomeCounts: Record<ReviewerResult['outcome'], number>
+}
+
+interface ReviewerResultShard {
+  schemaVersion: 1
+  revision: string
+  results: ReviewerResult[]
+}
+
+interface ShardedReviewIndex {
+  schemaVersion: 1
+  kind: 'review-index-shards'
+  revision: string
+  protocolVersion: string
+  rubricVersion: string
+  coverage: ReviewPacketSafeIndex['coverage']
+  shards: Array<{ inputName: string; entries: number }>
+}
+
+interface ShardedReviewResults {
+  schemaVersion: 1
+  kind: 'review-result-shards'
+  revision: string
+  shards: Array<{ inputName: string; results: number }>
+}
+
+const nextValue = (values: string[], index: number, flag: string): string => {
+  const value = values[index + 1]
+  if (!value || value.startsWith('--')) throw new Error(`${flag} requires a value`)
+  return value
+}
+
+export const parseCertificationPreparationArguments = (
+  values: string[]
+): CertificationPreparationArguments => {
+  const parsed: CertificationPreparationArguments = {
+    output: '',
+    reviewOutput: DEFAULT_REVIEW_OUTPUT,
+    inventory: DEFAULT_INVENTORY,
+    index: DEFAULT_INDEX,
+    workspace: DEFAULT_WORKSPACE,
+    evaluatedAt: '',
+  }
+  for (let index = 0; index < values.length; index += 1) {
+    const value = values[index]
+    if (
+      value === '--output' ||
+      value === '--review-output' ||
+      value === '--inventory' ||
+      value === '--index' ||
+      value === '--workspace' ||
+      value === '--evaluated-at'
+    ) {
+      const next = nextValue(values, index, value)
+      if (value === '--output') parsed.output = next
+      else if (value === '--review-output') parsed.reviewOutput = next
+      else if (value === '--inventory') parsed.inventory = next
+      else if (value === '--index') parsed.index = next
+      else if (value === '--workspace') parsed.workspace = next
+      else parsed.evaluatedAt = next
+      index += 1
+    } else {
+      throw new Error(`Unknown argument: ${value}`)
+    }
+  }
+  if (!parsed.output) throw new Error('--output requires a repository-relative directory')
+  if (
+    !parsed.evaluatedAt ||
+    Number.isNaN(new Date(parsed.evaluatedAt).valueOf()) ||
+    new Date(parsed.evaluatedAt).toISOString() !== parsed.evaluatedAt
+  ) {
+    throw new Error('--evaluated-at requires a canonical ISO timestamp')
+  }
+  return parsed
+}
+
+const withinDirectory = (directory: string, relativePath: string): string => {
+  if (path.isAbsolute(relativePath)) {
+    throw new Error(`Review result shard path must be relative: ${relativePath}`)
+  }
+  const resolved = path.resolve(directory, relativePath)
+  if (resolved !== directory && !resolved.startsWith(`${directory}${path.sep}`)) {
+    throw new Error(`Review result shard path escapes its directory: ${relativePath}`)
+  }
+  return resolved
+}
+
+const withinRepository = (repoRoot: string, relativePath: string): string => {
+  if (path.isAbsolute(relativePath)) {
+    throw new Error(`Certification path must be repository-relative: ${relativePath}`)
+  }
+  const resolved = path.resolve(repoRoot, relativePath)
+  if (resolved !== repoRoot && !resolved.startsWith(`${repoRoot}${path.sep}`)) {
+    throw new Error(`Certification path escapes the repository: ${relativePath}`)
+  }
+  return resolved
+}
+
+const repositoryPath = (repoRoot: string, absolutePath: string): string => {
+  const relative = path.relative(repoRoot, absolutePath)
+  if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new Error(`Certification input is outside the repository: ${absolutePath}`)
+  }
+  return relative.replaceAll(path.sep, '/')
+}
+
+const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
+
+const collectionCounts = (results: ReviewerResult[]) =>
+  results.reduce<Record<ReviewerResult['outcome'], number>>(
+    (counts, result) => {
+      counts[result.outcome] += 1
+      return counts
+    },
+    { pass: 0, finding: 0, 'cannot-verify': 0 }
+  )
+
+const sameJson = (left: unknown, right: unknown): boolean =>
+  stableCompactJson(left) === stableCompactJson(right)
+
+const loadAdversarialLedger = async (
+  reviewOutput: string,
+  revision: string
+): Promise<{ ledger: ReviewLedger; calibrationResults: ReviewerResult[] }> => {
+  await assertCreateOnlyDirectoryComplete(reviewOutput)
+  const [assignment, calibration, resultIndex, persistedFindings] = await Promise.all([
+    readJson<ReviewAssignment>(path.join(reviewOutput, 'assignment.json')),
+    readJson<ReviewCalibration>(path.join(reviewOutput, 'calibration.json')),
+    readJson<AdversarialResultIndex>(path.join(reviewOutput, 'results-index.json')),
+    readJson<ReviewFinding[]>(path.join(reviewOutput, 'findings.json')),
+  ])
+  if (
+    resultIndex.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION ||
+    resultIndex.revision !== revision ||
+    resultIndex.assignmentId !== assignment.id
+  ) {
+    throw new Error('Adversarial review output does not match the prepared review index')
+  }
+
+  const calibrationResults = await readJson<ReviewerResult[]>(
+    withinDirectory(reviewOutput, resultIndex.calibrationResultPath)
+  )
+  if (
+    calibrationResults.length !== resultIndex.calibrationResultCount ||
+    checksumReviewRecord(calibrationResults) !== resultIndex.calibrationResultsChecksum
+  ) {
+    throw new Error('Adversarial calibration results do not match their result index')
+  }
+  const results: ReviewerResult[] = []
+  for (const reference of resultIndex.resultShards) {
+    const shard = await readJson<ReviewerResultShard>(withinDirectory(reviewOutput, reference.path))
+    const findingCount = shard.results.reduce((total, result) => total + result.findings.length, 0)
+    if (
+      shard.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION ||
+      shard.revision !== revision ||
+      shard.results.length !== reference.resultCount ||
+      findingCount !== reference.findingCount
+    ) {
+      throw new Error(`Adversarial result shard is invalid: ${reference.path}`)
+    }
+    results.push(...shard.results)
+  }
+  results.sort(
+    (left, right) =>
+      left.assignmentId.localeCompare(right.assignmentId) || left.packetId.localeCompare(right.packetId)
+  )
+  if (!sameJson(collectionCounts(results), resultIndex.outcomeCounts)) {
+    throw new Error('Adversarial review outcome counts do not match its result shards')
+  }
+  const findings = results
+    .flatMap(result => result.findings)
+    .sort((left, right) => left.id.localeCompare(right.id))
+  if (!sameJson(findings, persistedFindings)) {
+    throw new Error('Adversarial review findings do not match its result shards')
+  }
+  return {
+    ledger: {
+      schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+      assignments: [assignment],
+      calibrations: [calibration],
+      results,
+      findings,
+      resolutions: [],
+      verifications: [],
+    },
+    calibrationResults,
+  }
+}
+
+interface InterpretationShape {
+  arrays: number
+  booleans: number
+  nulls: number
+  numbers: number
+  objects: number
+  strings: number
+  fieldPaths: string[]
+}
+
+const interpretationShape = (value: unknown): InterpretationShape => {
+  const shape: InterpretationShape = {
+    arrays: 0,
+    booleans: 0,
+    nulls: 0,
+    numbers: 0,
+    objects: 0,
+    strings: 0,
+    fieldPaths: [],
+  }
+  const visit = (child: unknown, parentPath: string): void => {
+    if (child === null) {
+      shape.nulls += 1
+    } else if (Array.isArray(child)) {
+      shape.arrays += 1
+      child.forEach(value_ => visit(value_, `${parentPath}[]`))
+    } else if (typeof child === 'object') {
+      shape.objects += 1
+      Object.entries(child)
+        .sort(([left], [right]) => left.localeCompare(right))
+        .forEach(([key, value_]) => {
+          const childPath = parentPath ? `${parentPath}.${key}` : key
+          shape.fieldPaths.push(childPath)
+          visit(value_, childPath)
+        })
+    } else if (typeof child === 'string') {
+      shape.strings += 1
+    } else if (typeof child === 'number') {
+      shape.numbers += 1
+    } else if (typeof child === 'boolean') {
+      shape.booleans += 1
+    }
+  }
+  visit(value, '')
+  shape.fieldPaths = Array.from(new Set(shape.fieldPaths)).sort()
+  return shape
+}
+
+export const sourceSafeReviewerResults = (results: ReviewerResult[]): ReviewerResult[] =>
+  results.map(result =>
+    result.blindExpectedInterpretation === undefined
+      ? result
+      : {
+          ...result,
+          blindExpectedInterpretation: {
+            interpretationChecksum: checksumReviewRecord(result.blindExpectedInterpretation),
+            shape: interpretationShape(result.blindExpectedInterpretation),
+          },
+        }
+  )
+
+export const sourceSafeReviewLedger = (ledger: ReviewLedger): ReviewLedger => ({
+  ...ledger,
+  results: sourceSafeReviewerResults(ledger.results),
+})
+
+const protocolDefinition = (): ReviewProtocolDefinition => ({
+  schemaVersion: 1,
+  protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+  rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+  promptVersion: 'aos4-review-prompt/v1',
+  evidenceHandling: 'untrusted-source-data',
+  blindInterpretationRequired: true,
+})
+
+const rubricDefinition = (): ReviewRubricDefinition => ({
+  schemaVersion: 1,
+  rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+  allowedOutcomes: ['pass', 'finding', 'cannot-verify'],
+  materialSeverities: ['blocker', 'major'],
+  acceptedLimitationPolicy:
+    'No automated finding or cannot-verify outcome may remain in a passing beta certification; correct the pipeline or auditor and rerun.',
+})
+
+const textInput = (name: string, filePath: string, content: string): CertificationInput => ({
+  name,
+  path: filePath,
+  checksum: checksumCertificationText(content),
+})
+
+const chunked = <T>(values: T[], size: number): T[][] => {
+  const chunks: T[][] = []
+  for (let index = 0; index < values.length; index += size) {
+    chunks.push(values.slice(index, index + size))
+  }
+  return chunks
+}
+
+const shardedCertificationFiles = (
+  index: ReviewPacketSafeIndex,
+  results: ReviewerResult[]
+): {
+  indexManifest: ShardedReviewIndex
+  resultManifest: ShardedReviewResults
+  files: Map<string, string>
+  inputs: Array<{ name: string; fileName: string }>
+} => {
+  const files = new Map<string, string>()
+  const inputs: Array<{ name: string; fileName: string }> = []
+  const indexShards = chunked(index.entries, CERTIFICATION_SHARD_SIZE).map((entries, shardIndex) => {
+    const suffix = String(shardIndex + 1).padStart(4, '0')
+    const name = `review-index-shard-${suffix}`
+    const fileName = `${name}.json`
+    files.set(fileName, stableCompactJson(entries))
+    inputs.push({ name, fileName })
+    return { inputName: name, entries: entries.length }
+  })
+  const resultShards = chunked(results, CERTIFICATION_SHARD_SIZE).map((values, shardIndex) => {
+    const suffix = String(shardIndex + 1).padStart(4, '0')
+    const name = `review-results-shard-${suffix}`
+    const fileName = `${name}.json`
+    files.set(fileName, stableCompactJson(values))
+    inputs.push({ name, fileName })
+    return { inputName: name, results: values.length }
+  })
+  return {
+    indexManifest: {
+      schemaVersion: 1,
+      kind: 'review-index-shards',
+      revision: index.revision,
+      protocolVersion: index.protocolVersion,
+      rubricVersion: index.rubricVersion,
+      coverage: index.coverage,
+      shards: indexShards,
+    },
+    resultManifest: {
+      schemaVersion: 1,
+      kind: 'review-result-shards',
+      revision: index.revision,
+      shards: resultShards,
+    },
+    files,
+    inputs,
+  }
+}
+
+export const runCertificationPreparation = async (
+  arguments_: CertificationPreparationArguments,
+  repoRoot = process.cwd()
+) => {
+  const resolvedRoot = path.resolve(repoRoot)
+  const output = withinRepository(resolvedRoot, arguments_.output)
+  const reviewOutput = withinRepository(resolvedRoot, arguments_.reviewOutput)
+  const indexPath = withinRepository(resolvedRoot, arguments_.index)
+  const workspacePath = withinRepository(resolvedRoot, arguments_.workspace)
+  const inventoryPath = withinRepository(resolvedRoot, arguments_.inventory)
+
+  const [index, inventory, acceptedManifest, pairs] = await Promise.all([
+    readJson<ReviewPacketSafeIndex>(indexPath),
+    readJson<SourceInventory>(inventoryPath),
+    readJson<ArtifactManifest>(withinRepository(resolvedRoot, EXISTING_INPUTS['accepted-manifest'])),
+    loadReviewPacketPairs(workspacePath),
+  ])
+  if (
+    index.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION ||
+    index.protocolVersion !== AOS4_REVIEW_PROTOCOL_VERSION ||
+    index.rubricVersion !== AOS4_REVIEW_RUBRIC_VERSION ||
+    inventory.revision !== index.revision
+  ) {
+    throw new Error('Review index, source inventory, protocol, rubric, or revision do not match')
+  }
+  assertReviewIndexMatchesPacketPairs(index, pairs)
+  const loadedReview = await loadAdversarialLedger(reviewOutput, index.revision)
+  const calibrationResults = sourceSafeReviewerResults(loadedReview.calibrationResults)
+  const reviewLedger = sourceSafeReviewLedger({
+    ...loadedReview.ledger,
+    calibrations: loadedReview.ledger.calibrations.map(calibration => {
+      const assignment = loadedReview.ledger.assignments.find(
+        value => reviewerConfigurationId(value.reviewer) === calibration.reviewerConfigurationId
+      )
+      if (!assignment) {
+        throw new Error('Calibration has no matching adversarial reviewer assignment')
+      }
+      return {
+        ...calibration,
+        evidence: createCalibrationEvidenceReceipt(assignment.id, index, calibrationResults),
+      }
+    }),
+  })
+  const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
+  const validationLedger = reviewLedgerWithResults(reviewLedger, calibrationResults)
+  const ledgerIssues = validateReviewLedger(validationLedger, packets)
+  if (ledgerIssues.length) {
+    throw new Error(
+      `Adversarial review ledger is invalid: ${ledgerIssues[0].code} ` +
+        `${ledgerIssues[0].path}: ${ledgerIssues[0].message}`
+    )
+  }
+  const calibrationIssues = calibrationEvidenceIssues(index, reviewLedger, calibrationResults)
+  if (calibrationIssues.length) {
+    throw new Error(
+      `Adversarial calibration evidence is invalid: ${calibrationIssues[0].code} ` +
+        `${calibrationIssues[0].path}: ${calibrationIssues[0].message}`
+    )
+  }
+  const chronologyIssues = certificationChronologyIssues(
+    arguments_.evaluatedAt,
+    reviewLedger,
+    calibrationResults,
+    inventory.observedAt
+  )
+  if (chronologyIssues.length) {
+    throw new Error(
+      `Certification timestamp is invalid: ${chronologyIssues[0].code} ` +
+        `${chronologyIssues[0].path}: ${chronologyIssues[0].message}`
+    )
+  }
+  assertAgentBlindDerivations(validationLedger, pairs)
+  const ledger = reviewLedger
+
+  const protocol = protocolDefinition()
+  const rubric = rubricDefinition()
+  const sharded = shardedCertificationFiles(index, ledger.results)
+  const generatedValues = {
+    'review-protocol': protocol,
+    'review-rubric': rubric,
+    'review-index': sharded.indexManifest,
+    'review-assignments': ledger.assignments,
+    'review-calibrations': ledger.calibrations,
+    'review-calibration-results': calibrationResults,
+    'review-results': sharded.resultManifest,
+    'review-findings': ledger.findings,
+    'review-resolutions': ledger.resolutions,
+    'review-verifications': ledger.verifications,
+    'source-inventory': inventory,
+  } as const
+  const outputRelative = repositoryPath(resolvedRoot, output)
+  const generatedTexts = new Map<string, string>([
+    ...Array.from(sharded.files),
+    ...Object.entries(generatedValues).map(
+      ([name, value]) =>
+        [GENERATED_INPUT_FILES[name as keyof typeof GENERATED_INPUT_FILES], stableJson(value)] as [
+          string,
+          string,
+        ]
+    ),
+  ])
+  const generatedInputs = Object.entries(GENERATED_INPUT_FILES).map(([name, fileName]) =>
+    textInput(name, `${outputRelative}/${fileName}`, generatedTexts.get(fileName)!)
+  )
+  generatedInputs.push(
+    ...sharded.inputs.map(({ name, fileName }) =>
+      textInput(name, `${outputRelative}/${fileName}`, generatedTexts.get(fileName)!)
+    )
+  )
+  const existingInputs: CertificationInput[] = []
+  for (const [name, relativePath] of Object.entries(EXISTING_INPUTS)) {
+    const content = await readFile(withinRepository(resolvedRoot, relativePath), 'utf8')
+    existingInputs.push(textInput(name, relativePath.replaceAll(path.sep, '/'), content))
+  }
+  const inputs = [...existingInputs, ...generatedInputs]
+  const evaluation = evaluateCertification({
+    index,
+    ledger,
+    inventory,
+    acceptedArtifactChecksums: acceptedManifest.artifacts.map(artifact => artifact.checksum),
+  })
+  if (!evaluation.ok) {
+    throw new Error(
+      `Certification preparation found a blocker: ${evaluation.issues[0].code} ` +
+        `${evaluation.issues[0].path}: ${evaluation.issues[0].message}`
+    )
+  }
+  const inventoryInput = generatedInputs.find(input => input.name === 'source-inventory')!
+  const manifest = createCertificationManifest({
+    evaluation,
+    inputs,
+    ledger,
+    inventory: {
+      checksum: inventoryInput.checksum,
+      observedAt: inventory.observedAt,
+      complete: inventory.complete,
+    },
+    certifiedAt: arguments_.evaluatedAt,
+    protocolVersion: protocol.protocolVersion,
+    rubricVersion: rubric.rubricVersion,
+  })
+  generatedTexts.set('manifest.json', stableJson(manifest))
+  generatedTexts.set(
+    'summary.json',
+    stableJson({
+      ...evaluation.summary,
+      boundChecksums: manifest.inputs,
+    })
+  )
+  await writeCreateOnlyFilesDirectory(output, generatedTexts)
+  return { output: outputRelative, manifest, evaluation }
+}
+
+const run = async (): Promise<void> => {
+  const result = await runCertificationPreparation(
+    parseCertificationPreparationArguments(process.argv.slice(2))
+  )
+  console.log(
+    `Prepared AoS 4 certification ${result.manifest.revision} at ${result.output}: ` +
+      `${result.evaluation.status}, ${result.evaluation.issues.length} issue(s)`
+  )
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  run().catch(error => {
+    console.error(error)
+    process.exitCode = 1
+  })
+}

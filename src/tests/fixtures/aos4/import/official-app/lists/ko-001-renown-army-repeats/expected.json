@@ -1,0 +1,121 @@
+{
+  "id": "ko-001-renown-army-repeats",
+  "diagnostics": [],
+  "proposedName": "KO1",
+  "declaredFaction": "Kharadron Overlords",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Pioneer Outpost"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Twilit Sorceries"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Endrinmaster with Endrinharness"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Arkanaut Company"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Endrinriggers"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Grundstok Thunderers"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Endrinriggers"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Skywardens"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Arkanaut Admiral"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Endrinriggers"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Grundstok Gunhauler"
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Grundstok Gunhauler"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Grundstok Gunhauler"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Grundstok Thunderers"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Endrinriggers"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Skywardens"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Thundrik's Profiteers",
+      "isLegends": true
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Vongrim Harpoon Crew"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Vongrim Salvagers"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Aetheric Navigator"
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Endrinmaster with Endrinharness"
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Zontari Endrin Dock"
+    }
+  ]
+}

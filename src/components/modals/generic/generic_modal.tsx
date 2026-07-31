@@ -10,14 +10,19 @@ interface IGenericModalProps {
   label: string
 }
 
-Modal.setAppElement('#root')
+if (typeof document !== 'undefined' && document.getElementById('root')) {
+  Modal.setAppElement('#root')
+}
 
-const GenericModal = (props: React.PropsWithChildren<IGenericModalProps>) => {
-  const { children, closeModal, isOpen, label, isProcessing = false } = props
+const GenericModal = ({
+  children,
+  closeModal,
+  isOpen,
+  label,
+  isProcessing = false,
+}: React.PropsWithChildren<IGenericModalProps>) => {
   const { isDark } = useTheme()
-
-  const themeType = isDark ? 'Dark' : 'Light'
-  const modalClassName = `Modal-${isProcessing ? `Transparent` : themeType}`
+  const modalClassName = `Modal-${isProcessing ? 'Transparent' : isDark ? 'Dark' : 'Light'}`
 
   return (
     <Modal
@@ -25,9 +30,9 @@ const GenericModal = (props: React.PropsWithChildren<IGenericModalProps>) => {
       contentLabel={label}
       isOpen={isOpen}
       onRequestClose={closeModal}
-      overlayClassName={'Modal-Overlay'}
+      overlayClassName="Modal-Overlay"
     >
-      <div className={`container`}>
+      <div className="container">
         {isProcessing && <ModalSpinner />}
         <div hidden={isProcessing}>{children}</div>
       </div>
@@ -35,13 +40,10 @@ const GenericModal = (props: React.PropsWithChildren<IGenericModalProps>) => {
   )
 }
 
-export default GenericModal
+const ModalSpinner = ({ isDark = false }: { isDark?: boolean }) => (
+  <div className="d-flex flex-row justify-content-center">
+    <Spinner variant={isDark ? 'light-gray' : 'dark'} size="large" />
+  </div>
+)
 
-const ModalSpinner = ({ isDark = false }: { isDark?: boolean }) => {
-  const variant = isDark ? 'light-gray' : 'dark'
-  return (
-    <div className={`d-flex flex-row justify-content-center`}>
-      <Spinner variant={variant} size="large" />
-    </div>
-  )
-}
+export default GenericModal

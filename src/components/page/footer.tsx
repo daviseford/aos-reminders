@@ -5,26 +5,24 @@ import Contact from 'components/page/contact'
 import { useTheme } from 'context/useTheme'
 import pkgJson from '../../../package.json'
 
-/**
- * Hidden when printing
+/*
+ * <footer>, not <div>: this block holds the Games Workshop disclaimer and the contact links, and a
+ * bare div left them unreachable by landmark navigation. `footer` is display: block, so the box is
+ * unchanged.
  */
-const Footer = () => {
-  return (
-    <div className="container d-print-none">
-      <DonateComponent />
-      <OfflineComponent />
-      <Disclaimer />
-      <div className="row text-center pt-2">
-        <div className="col">
-          <Contact size="small" />
-        </div>
+const Footer = () => (
+  <footer className="container d-print-none">
+    <DonateComponent />
+    <OfflineComponent />
+    <Disclaimer />
+    <div className="row text-center pt-2">
+      <div className="col">
+        <Contact size="small" />
       </div>
-      <ReleaseNotes />
     </div>
-  )
-}
-
-export default Footer
+    <ReleaseNotes />
+  </footer>
+)
 
 const Disclaimer = () => {
   const { theme } = useTheme()
@@ -48,13 +46,12 @@ const ReleaseNotes = () => {
   return (
     <div className={`row text-center ${theme.bgColor} pt-1 pb-2`}>
       <div className="col">
-        <LinkNewTab
-          href="https://github.com/daviseford/aos-reminders/releases/latest"
-          label={'GithubLatestRelease'}
-        >
+        <LinkNewTab href="https://github.com/daviseford/aos-reminders/releases/latest">
           <small className={theme.text}>AoS Reminders v{pkgJson.version} - Release Notes</small>
         </LinkNewTab>
       </div>
     </div>
   )
 }
+
+export default Footer

@@ -8,8 +8,7 @@ interface IModalComponentProps {
   closeModal: () => void
 }
 
-export const CancelStripeSubscriptionModal = (props: IModalComponentProps) => {
-  const { closeModal, modalIsOpen } = props
+export const CancelStripeSubscriptionModal = ({ closeModal, modalIsOpen }: IModalComponentProps) => {
   const { cancelSubscription } = useSubscription()
 
   const handleClick = async () => {
@@ -22,8 +21,8 @@ export const CancelStripeSubscriptionModal = (props: IModalComponentProps) => {
       isOpen={modalIsOpen}
       closeModal={closeModal}
       onConfirmAsync={handleClick}
-      headerText={`Cancel Subscription?`}
-      confirmText={`Cancel Subscription`}
+      headerText="Cancel Subscription?"
+      confirmText="Cancel Subscription"
     >
       <p>We&apos;ll be sad to see you go, but you&apos;re always welcome back!</p>
       <p>You&apos;ll still have access to everything until your current subscription expires.</p>

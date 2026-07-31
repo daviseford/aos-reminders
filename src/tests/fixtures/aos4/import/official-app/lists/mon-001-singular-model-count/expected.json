@@ -1,0 +1,250 @@
+{
+  "id": "mon-001-singular-model-count",
+  "diagnostics": [],
+  "proposedName": "Nurg1",
+  "declaredFaction": "Maggotkin of Nurgle",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Nurgle's Menagerie"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Malignance"
+    },
+    {
+      "line": 8,
+      "kindHint": "prayer-lore",
+      "label": "Lore of Virulence"
+    },
+    {
+      "line": 8,
+      "kindHint": "prayer-lore",
+      "label": "Benedictions of Sickness"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Doktor Festus",
+      "isLegends": true
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Beast of Nurgle"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Beast of Nurgle"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Belga the Cystwitch"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Bloab Rotspawned"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Cankerborn"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Doktor Festus",
+      "isLegends": true
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Epidemius, Tallyman of Nurgle",
+      "isLegends": true
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Festus the Leechlord"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Gelgus Pust"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Grandfather's Gardeners",
+      "isLegends": true
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Great Unclean One"
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Gutrot Spume"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Harbinger of Decay"
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Horticulous Slimux"
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Lord of Afflictions"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Lord of Blights"
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Lord of Plagues"
+    },
+    {
+      "line": 36,
+      "kindHint": "warscroll",
+      "label": "Morbidex Twiceborn"
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Nurglings"
+    },
+    {
+      "line": 38,
+      "kindHint": "warscroll",
+      "label": "Orghotts Daemonspew"
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Pestigors"
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Plague Drones"
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Plaguebearers"
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Pox-Wretches"
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Poxbringer, Herald of Nurgle"
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Pusgoyle Blightlords"
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Pusgoyle Blightlords (1 model)"
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Putrid Blightkings"
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Rotbringer Sorcerer"
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "Rotigus"
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Rotmire Creed"
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Rotswords"
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Putrid Blightkings"
+    },
+    {
+      "line": 52,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Sloven Knights"
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Shaman Foulhoof"
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Sloppity Bilepiper, Herald of Nurgle"
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Sloven Knights"
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Spoilpox Scrivener, Herald of Nurgle"
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "The Glottkin"
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "The Wurmspat",
+      "isLegends": true
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Feculent Gnarlmaw"
+    },
+    {
+      "line": 63,
+      "kindHint": "warscroll",
+      "label": "Feculent Gnarlmaw"
+    }
+  ]
+}

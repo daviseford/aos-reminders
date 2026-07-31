@@ -1,0 +1,471 @@
+{
+  "id": "sbg-001-emoji-only-name",
+  "diagnostics": [],
+  "proposedName": "😎🇺🇸🇺🇸😎",
+  "declaredFaction": "Soulblight Gravelords",
+  "declaredContext": "General's Handbook 2025-26",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Legions of Ulfenkarn"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Undeath"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Manifestations of the Grave"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Cado Ezechiar, The Hollow King",
+      "isLegends": true
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Askurgan Trueblades"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Barrow Guard"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Deadwalker Zombies"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Gatebreaker Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Black Coach",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Endrinmaster with Dirigible Suit",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Grundstok Gunhauler",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Skywardens",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Mortisan Ossifector",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Gothizzar Harvester",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Mortek Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Mortek Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Scriptor Mortis",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 36,
+      "kindHint": "warscroll",
+      "label": "Craventhrone Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Craventhrone Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Vokmortian, Master of the Bone-tithe",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Immortis Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Mortek Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 43,
+      "kindHint": "warscroll",
+      "label": "Marrowscroll Herald",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Crypt Flayers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 45,
+      "kindHint": "warscroll",
+      "label": "Crypt Ghouls",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Crypt Horrors",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "Mortisan Ossifector",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 49,
+      "kindHint": "warscroll",
+      "label": "Mortek Crawler",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 54,
+      "kindHint": "warscroll",
+      "label": "Askurgan Trueblades"
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Barrow Guard"
+    },
+    {
+      "line": 56,
+      "kindHint": "warscroll",
+      "label": "Barrow Knights"
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Belladamma Volga, First of the Vyrkos"
+    },
+    {
+      "line": 58,
+      "kindHint": "warscroll",
+      "label": "Blades of the Hollow King"
+    },
+    {
+      "line": 59,
+      "kindHint": "warscroll",
+      "label": "Blood Knights"
+    },
+    {
+      "line": 60,
+      "kindHint": "warscroll",
+      "label": "Bloodseeker Palanquin",
+      "isLegends": true
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Cado Ezechiar, The Hollow King",
+      "isLegends": true
+    },
+    {
+      "line": 64,
+      "kindHint": "warscroll",
+      "label": "Corpse Cart"
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Coven Throne"
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Deadwalker Zombies"
+    },
+    {
+      "line": 67,
+      "kindHint": "warscroll",
+      "label": "Deathrattle Skeletons"
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Dire Wolves"
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "Fell Bats"
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Gorslav the Gravekeeper",
+      "isLegends": true
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Ivya Volga, The Outcast"
+    },
+    {
+      "line": 73,
+      "kindHint": "warscroll",
+      "label": "Kosargi Nightguard",
+      "isLegends": true
+    },
+    {
+      "line": 75,
+      "kindHint": "warscroll",
+      "label": "Kritza, the Rat Prince"
+    },
+    {
+      "line": 76,
+      "kindHint": "warscroll",
+      "label": "Lady Annika, the Thirsting Blade"
+    },
+    {
+      "line": 77,
+      "kindHint": "warscroll",
+      "label": "Lauka Vai, Mother of Nightmares"
+    },
+    {
+      "line": 78,
+      "kindHint": "warscroll",
+      "label": "Mannfred von Carstein, Mortarch of Night"
+    },
+    {
+      "line": 79,
+      "kindHint": "warscroll",
+      "label": "Mortis Engine"
+    },
+    {
+      "line": 80,
+      "kindHint": "warscroll",
+      "label": "Nagash, Supreme Lord of the Undead"
+    },
+    {
+      "line": 81,
+      "kindHint": "warscroll",
+      "label": "Necromancer"
+    },
+    {
+      "line": 82,
+      "kindHint": "warscroll",
+      "label": "Neferata, Mortarch of Blood"
+    },
+    {
+      "line": 83,
+      "kindHint": "warscroll",
+      "label": "Prince Vhordrai"
+    },
+    {
+      "line": 84,
+      "kindHint": "warscroll",
+      "label": "Radukar the Beast"
+    },
+    {
+      "line": 85,
+      "kindHint": "warscroll",
+      "label": "Radukar the Wolf"
+    },
+    {
+      "line": 86,
+      "kindHint": "warscroll",
+      "label": "Revenant Draconith"
+    },
+    {
+      "line": 87,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran Corpse Cart"
+    },
+    {
+      "line": 88,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran Corpse Cart"
+    },
+    {
+      "line": 89,
+      "kindHint": "warscroll",
+      "label": "Scourge of Ghyran Sekhar, Fang of Nulahmia"
+    },
+    {
+      "line": 90,
+      "kindHint": "warscroll",
+      "label": "Sekhar, Fang of Nulahmia"
+    },
+    {
+      "line": 91,
+      "kindHint": "warscroll",
+      "label": "Terrorgheist",
+      "isLegends": true
+    },
+    {
+      "line": 93,
+      "kindHint": "warscroll",
+      "label": "Terrorgheist",
+      "isLegends": true
+    },
+    {
+      "line": 95,
+      "kindHint": "warscroll",
+      "label": "The Crimson Court",
+      "isLegends": true
+    },
+    {
+      "line": 97,
+      "kindHint": "warscroll",
+      "label": "The Exiled Dead",
+      "isLegends": true
+    },
+    {
+      "line": 99,
+      "kindHint": "warscroll",
+      "label": "The Sepulchral Guard",
+      "isLegends": true
+    },
+    {
+      "line": 101,
+      "kindHint": "warscroll",
+      "label": "The Sons of Velmorn",
+      "isLegends": true
+    },
+    {
+      "line": 103,
+      "kindHint": "warscroll",
+      "label": "Torgillius the Chamberlain",
+      "isLegends": true
+    },
+    {
+      "line": 105,
+      "kindHint": "warscroll",
+      "label": "Vampire Lord"
+    },
+    {
+      "line": 106,
+      "kindHint": "warscroll",
+      "label": "Vampire Lord on Nightmare Steed"
+    },
+    {
+      "line": 107,
+      "kindHint": "warscroll",
+      "label": "Vampire Lord on Zombie Dragon",
+      "isLegends": true
+    },
+    {
+      "line": 109,
+      "kindHint": "warscroll",
+      "label": "Vargheists"
+    },
+    {
+      "line": 110,
+      "kindHint": "warscroll",
+      "label": "Vargskyr",
+      "isLegends": true
+    },
+    {
+      "line": 112,
+      "kindHint": "warscroll",
+      "label": "Vargskyr",
+      "isLegends": true
+    },
+    {
+      "line": 114,
+      "kindHint": "warscroll",
+      "label": "Vengorian Lord"
+    },
+    {
+      "line": 115,
+      "kindHint": "warscroll",
+      "label": "Vyrkos Blood-born",
+      "isLegends": true
+    },
+    {
+      "line": 117,
+      "kindHint": "warscroll",
+      "label": "Watch Captain Halgrim",
+      "isLegends": true
+    },
+    {
+      "line": 119,
+      "kindHint": "warscroll",
+      "label": "Wight King"
+    },
+    {
+      "line": 120,
+      "kindHint": "warscroll",
+      "label": "Wight King on Skeletal Steed"
+    },
+    {
+      "line": 121,
+      "kindHint": "warscroll",
+      "label": "Wight Lord on Skeletal Steed"
+    },
+    {
+      "line": 122,
+      "kindHint": "warscroll",
+      "label": "Zondara's Gravebreakers",
+      "isLegends": true
+    },
+    {
+      "line": 126,
+      "kindHint": "warscroll",
+      "label": "Cursed Sepulchre"
+    }
+  ]
+}

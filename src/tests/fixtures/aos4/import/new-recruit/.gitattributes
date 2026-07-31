@@ -1,0 +1,5 @@
+# Roster fixtures are compared byte-for-byte: `.rosz` must stay byte-identical to `.ros`, and
+# checksums are recorded in manifest.json. Git must never normalise line endings here or the
+# invariants in src/tests/aos4/importFixtures.test.ts break on checkout.
+* -text
+*.rosz binary

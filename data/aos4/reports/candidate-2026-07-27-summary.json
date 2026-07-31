@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate-review-required",
+  "retrievedAt": "2026-07-27",
+  "wahapediaExportMarker": "2026-05-26",
+  "artifacts": {
+    "wahapediaExports": 13,
+    "gamesWorkshopDocuments": 1
+  },
+  "decodedRecords": {
+    "factions": 28,
+    "sources": 120,
+    "warscrolls": 1795,
+    "warscrollAbilities": 2444,
+    "warscrollWeapons": 2147,
+    "warscrollKeywords": 6700,
+    "warscrollBases": 1251,
+    "warscrollOrganisation": 1406,
+    "regimentOfRenownFactions": 492,
+    "factionAbilityTypes": 282,
+    "factionAbilitySubtypes": 732,
+    "factionAbilities": 1648
+  },
+  "normalization": {
+    "abilities": 4092,
+    "weapons": 2147,
+    "unknownWeaponTypes": 0,
+    "unresolvedTimings": 1,
+    "phaseIndependentAbilities": 1,
+    "effectPhaseWindowAbilities": 1,
+    "sourcePhaseConflicts": 177,
+    "sourceTimingCorrections": 8,
+    "reactionFlagMismatches": 13
+  },
+  "timingReview": {
+    "unresolvedTimingSourceRecordIds": [
+      "source-record:wahapedia:Warscrolls_abilities.csv%3A000000851%3A2"
+    ],
+    "sourcePhaseConflictCountsByFile": {
+      "Faction_abilities.csv": 93,
+      "Warscrolls_abilities.csv": 84
+    },
+    "phaseIndependentSourceRecordIds": [
+      "source-record:wahapedia:Warscrolls_abilities.csv%3A000001746%3A1"
+    ],
+    "effectPhaseWindowSourceRecordIds": [
+      "source-record:wahapedia:Faction_abilities.csv%3AOB%3A000001045%3A000004250%3A3"
+    ],
+    "sourceTimingCorrectionSourceRecordIds": [
+      "source-record:wahapedia:Faction_abilities.csv%3ACoS%3A000000900%3A000003400%3A6",
+      "source-record:wahapedia:Faction_abilities.csv%3AFY%3A000000899%3A000003388%3A6",
+      "source-record:wahapedia:Faction_abilities.csv%3AIJ%3A000000793%3A000002579%3A2",
+      "source-record:wahapedia:Faction_abilities.csv%3AIJ%3A000000903%3A000003416%3A2",
+      "source-record:wahapedia:Faction_abilities.csv%3AIJ%3A000000903%3A000003416%3A3",
+      "source-record:wahapedia:Faction_abilities.csv%3AIJ%3A000000903%3A000003416%3A4",
+      "source-record:wahapedia:Faction_abilities.csv%3AKB%3A000000789%3A000002528%3A2",
+      "source-record:wahapedia:Faction_abilities.csv%3AKO%3A000000901%3A000003394%3A6"
+    ]
+  },
+  "diagnostics": {
+    "errors": 2,
+    "warnings": 1716,
+    "pollutedMarkers": 522,
+    "identicalDuplicateRecords": 635,
+    "emptyKeywordAssociationRecords": 559,
+    "missingFactionJoins": 2
+  },
+  "coverage": {
+    "representativeStormcastCohort": "complete",
+    "approvedCorpus": "not-yet-reviewed",
+    "candidateManifestAccepted": false
+  },
+  "notes": [
+    "All live source bytes remain in the ignored checksum cache.",
+    "Counts are reconnaissance results, not an assertion that the complete corpus is release-ready.",
+    "Empty keyword association sentinels are reported and excluded from the decoded record count.",
+    "Phase-independent Reaction timings are modeled as triggered windows instead of being forced into a turn phase.",
+    "Ordinal battle-round windows and eight diagnosed instances of two exact source-typo patterns classify 18 timings without relying on the lossy ability_phase field.",
+    "One once-per-phase ability is projected into the three phase windows explicitly labelled in its effect instead of trusting its contradictory ability_phase field.",
+    "One usage-only active ability is retained in a phase-independent window because the current official update removed its older End of Any Turn timing; the stale Wahapedia ability_phase value is not used.",
+    "The current official update identifies Passive timing for one Lumineth ability whose export condition is empty and whose ability_phase metadata is wrong; the candidate remains blocked until both records are linked through formal reconciliation.",
+    "The lossy Wahapedia ability_phase field can no longer create a canonical timing; 177 disagreements are reported for cohort review.",
+    "Thirteen records contradict their textual Reaction timing with is_reaction=false and remain blocked for review.",
+    "Two Regiment of Renown rows reference the absent LCA faction and remain unresolved.",
+    "The Games Workshop private download endpoint returned HTTP 500 during discovery; the official Battle Profiles PDF was independently located and checksummed."
+  ]
+}

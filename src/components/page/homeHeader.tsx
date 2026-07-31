@@ -1,214 +1,133 @@
-import { LinkNewTab } from 'components/helpers/link'
-import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import { SelectOne, TFilterOptionFn } from 'components/input/select'
-import ToggleGameMode from 'components/input/toggle_game_mode'
-import { useAppStatus } from 'context/useAppStatus'
-import { useSavedArmies } from 'context/useSavedArmies'
+import Navbar from 'components/page/navbar'
+import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
-import { factionNamesActions, realmscapeActions, selectionActions, selectors } from 'ducks'
-import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
-import { getFactionFromList } from 'meta/faction_list'
-import React, { lazy, Suspense, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { IArmy } from 'types/army'
-import { logFactionSwitch, logSubFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
-import { getArmy } from 'utils/getArmy/getArmy'
-import { getSideEffects } from 'utils/getSideEffects'
-import useWindowSize from 'utils/hooks/useWindowSize'
-import { importFactionNameMap } from 'utils/import/options'
-import { titleCase } from 'utils/textUtils'
-import { handleSelectOneSideEffects, withSelectOne } from 'utils/withSelect'
+import Switch from 'react-switch'
+import Select from 'react-select'
+import type { CanonicalId } from '../../aos4/domain'
 
-const Navbar = lazy(() => import('./navbar'))
-
-const { resetAllySelections, resetSelections, resetSideEffects, removeSelections } = selectionActions
-const { resetRealmscapeStore } = realmscapeActions
-const { setFactionName, setSubFactionName } = factionNamesActions
-
-export const Header = () => {
-  const { theme } = useTheme()
-
-  return (
-    <div className={theme.headerColor}>
-      <Suspense fallback={<LoadingHeader />}>
-        <Navbar />
-      </Suspense>
-      <Jumbotron />
-    </div>
-  )
+interface HeaderProps {
+  armyName: string
+  factionId: CanonicalId<'faction'>
+  factions: Array<{
+    label: string
+    value: CanonicalId<'faction'>
+  }>
+  isGameMode: boolean
+  onFactionChange: (factionId: CanonicalId<'faction'>) => void
+  onToggleGameMode: () => void
 }
 
-const Jumbotron = () => {
-  const { isGameMode } = useAppStatus()
-  const { isMobile } = useWindowSize()
-  const { loadedArmy } = useSavedArmies()
+export const Header = ({
+  armyName,
+  factionId,
+  factions,
+  isGameMode,
+  onFactionChange,
+  onToggleGameMode,
+}: HeaderProps) => {
   const { theme } = useTheme()
-  const factionName = useSelector(selectors.selectFactionName)
-
-  const jumboClass = `jumbotron jumbotron-fluid text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
-    isMobile ? `pb-2` : `pb-3`
+  const isMobile = useIsMobile()
+  const option = factions.find(faction => faction.value === factionId) ?? null
+  /*
+   * Bootstrap 5 dropped .jumbotron/.jumbotron-fluid. Nothing is lost here: after the utilities on
+   * this same element (mb-0, pt-4, pb-2/pb-3, and theme.headerColor) the pair contributed only
+   * padding-inline: 0 and border-radius: 0, which a bare <div> already has. Measured before and
+   * after the upgrade, the element's box is unchanged.
+   */
+  const mastheadClass = `text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
+    isMobile ? 'pb-2' : 'pb-3'
   }`
 
   return (
-    <div className={jumboClass}>
-      <div className="container">
-        <h1 className="display-5 text-white">Age of Sigmar Reminders</h1>
-        <p className="mt-3 mb-1 d-none d-sm-block text-white">
-          By Davis E. Ford -{' '}
-          <LinkNewTab className="text-white" href="//daviseford.com" label={'Davis E. Ford website'}>
-            daviseford.com
-          </LinkNewTab>
-        </p>
-        <ToggleGameMode />
-        {isGameMode ? (
-          <div className={`pt-1 pb-0 justify-content-center`}>
-            <h2 className="display-5 text-white">
-              {loadedArmy ? loadedArmy.armyName : titleCase(factionName)}
-            </h2>
+    <div className={theme.headerColor}>
+      <Navbar />
+
+      <div className={mastheadClass}>
+        <div className="container">
+          <h1 className="text-white">Age of Sigmar Reminders</h1>
+          <p className="mt-3 mb-1 d-none d-sm-block text-white">
+            By Davis E. Ford -{' '}
+            <a
+              className="text-white"
+              href="//daviseford.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Davis E. Ford website"
+            >
+              daviseford.com
+            </a>
+          </p>
+
+          <div className="d-flex align-items-center justify-content-center text-white">
+            <div className="d-inline-flex flex-row">
+              {/*
+                These labels stay click-to-toggle for the mouse, but they are not focusable: the
+                switch below is the single keyboard control, and a focusable label that only fires
+                in the opposite mode is a dead stop in the tab order.
+              */}
+              <span
+                className={`align-self-center pb-2 me-2 ${isGameMode ? '' : 'fw-bold'}`}
+                onClick={() => isGameMode && onToggleGameMode()}
+              >
+                Edit
+              </span>
+              <label htmlFor="game-mode-switch" className="mb-0">
+                <Switch
+                  onChange={onToggleGameMode}
+                  checked={isGameMode}
+                  onColor="#1C7595"
+                  onHandleColor="#E9ECEF"
+                  handleDiameter={30}
+                  uncheckedIcon={false}
+                  checkedIcon={false}
+                  boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                  activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                  height={20}
+                  width={80}
+                  className="react-switch"
+                  id="game-mode-switch"
+                  aria-label="Edit or play mode"
+                />
+              </label>
+              <span
+                className={`align-self-center pb-2 ms-2 ${isGameMode ? 'fw-bold' : ''}`}
+                onClick={() => !isGameMode && onToggleGameMode()}
+              >
+                Play
+              </span>
+            </div>
           </div>
-        ) : (
-          <>
-            <FactionSelectComponent />
-            <SubFactionSelectComponent />
-          </>
-        )}
+
+          {isGameMode ? (
+            <div className="pt-1 pb-0 justify-content-center">
+              <h2 className="text-white">{armyName}</h2>
+            </div>
+          ) : (
+            <>
+              <span className="text-white">Select your faction to get started:</span>
+              <div className="d-flex pt-3 pb-2 justify-content-center">
+                <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-start">
+                  <Select
+                    aria-label="Faction"
+                    value={option}
+                    options={factions}
+                    onChange={selected => selected && onFactionChange(selected.value)}
+                    isClearable={false}
+                    className={theme.text}
+                    theme={defaultTheme => ({
+                      ...defaultTheme,
+                      colors: {
+                        ...defaultTheme.colors,
+                        ...theme.selectTheme,
+                      },
+                    })}
+                  />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
-  )
-}
-
-/**
- * Allows us to type in subfaction names and helpfully gets factionNames
- *
- * e.g. User can type "Ironjawz" and will get the "Orruk Warclans" result suggested!
- *
- * @param option
- * @param inputValue
- */
-const filterFactionsAndSubfactions: TFilterOptionFn = (option, inputValue) => {
-  const { label, value } = option
-  const inputValueLower = inputValue.toLowerCase()
-  const viaSubfaction = Object.entries(importFactionNameMap || {}).reduce((a, [key, faction]) => {
-    if (key.toLowerCase().includes(inputValueLower)) a.push(faction.factionName)
-    return a
-  }, [] as string[])
-  return label.toLowerCase().includes(inputValueLower) || viaSubfaction.includes(value)
-}
-
-const FactionSelectComponent = () => {
-  const dispatch = useDispatch()
-  const { isOnline } = useAppStatus()
-  const { setLoadedArmy } = useSavedArmies()
-  const factionName = useSelector(selectors.selectFactionName)
-
-  const setValue = withSelectOne(value => {
-    setLoadedArmy(null)
-    dispatch(resetSelections())
-    dispatch(resetSideEffects())
-    dispatch(resetRealmscapeStore())
-    dispatch(resetAllySelections())
-    resetAnalyticsStore()
-
-    const { subFactionKeys, SubFactions } = getFactionFromList(value as TPrimaryFactions)
-    const name = subFactionKeys[0]
-    dispatch(setSubFactionName(name))
-
-    // Handle subfaction sideEffects
-    const sideEffects = getSideEffects([{ ...SubFactions[name], name }])
-    handleSelectOneSideEffects(sideEffects)
-
-    dispatch(setFactionName(value as TPrimaryFactions))
-
-    if (isOnline) {
-      logFactionSwitch(value)
-      logSubFactionSwitch(name)
-    }
-  })
-
-  return (
-    <>
-      <span className="text-white">Select your faction to get started:</span>
-      <div className={`d-flex pt-3 pb-2 justify-content-center`}>
-        <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
-          <SelectOne
-            value={titleCase(factionName)}
-            items={PRIMARY_FACTIONS}
-            setValue={setValue}
-            hasDefault={true}
-            toTitle={true}
-            filterOption={filterFactionsAndSubfactions}
-          />
-        </div>
-      </div>
-    </>
-  )
-}
-
-const SubFactionSelectComponent = () => {
-  const dispatch = useDispatch()
-  const { subFactionName, factionName } = useSelector(selectors.selectFactionNameSlice)
-  const { origin_realm, realmscape } = useSelector(selectors.selectRealmscapeSlice)
-  const sideEffects = useSelector(selectors.selectSideEffects)
-  const factionInfo = useMemo(() => getFactionFromList(factionName), [factionName])
-
-  // Only display if we actually need to choose between subfactions
-  if (!factionInfo?.subFactionKeys || factionInfo.subFactionKeys.length < 2) return <></>
-
-  const setValue = withSelectOne(name => {
-    const army = getArmy(factionName, name || null, origin_realm, realmscape) as IArmy
-
-    const types = [
-      army.Artifacts || [],
-      army.Battalions || [],
-      army.CommandAbilities || [],
-      army.CommandTraits || [],
-      army.EndlessSpells || [],
-      army.Flavors || [],
-      army.MountTraits || [],
-      army.Prayers || [],
-      army.Scenery || [],
-      army.Spells || [],
-      army.Triumphs || [],
-      army.Units || [],
-    ]
-
-    const validKeysInArmy = types.map(x => x.map(y => y.name)).flat()
-    const sideEffectKeysToRemoveFromSelections = Object.entries(sideEffects).reduce((a, [key, slice]) => {
-      if (validKeysInArmy.includes(key)) return a
-      a = a.concat(key) // Add the parent element obviously
-
-      // And now find all sub-keys for that element (we need to remove them too)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      Object.entries(slice).forEach(([_k, _v]) => {
-        a = a.concat(..._v)
-      })
-
-      return a
-    }, [] as string[])
-
-    dispatch(removeSelections(sideEffectKeysToRemoveFromSelections))
-    dispatch(setSubFactionName(name || ''))
-
-    if (name) {
-      const sideEffects = getSideEffects([{ ...factionInfo.SubFactions[name], name }])
-      handleSelectOneSideEffects(sideEffects)
-      logSubFactionSwitch(name)
-    }
-  })
-
-  return (
-    <>
-      <span className="text-white">Select your sub-faction:</span>
-      <div className={`d-flex pt-3 pb-2 justify-content-center`}>
-        <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
-          <SelectOne
-            value={subFactionName}
-            items={factionInfo.subFactionKeys}
-            setValue={setValue}
-            hasDefault={true}
-          />
-        </div>
-      </div>
-    </>
   )
 }

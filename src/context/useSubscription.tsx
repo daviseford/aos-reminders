@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { SubscriptionApi } from 'api/subscriptionApi'
+import { SubscriptionApi } from '../api/subscriptionApi'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { ISubscription } from 'types/subscription'
+import type { Subscription } from 'types/subscription'
+import { useApiAccessToken } from 'utils/authToken'
 import {
   hasActiveGrant,
   hasExpiredGrant,
@@ -14,151 +15,107 @@ import {
   isSubscriber,
 } from 'utils/subscriptionUtils'
 
-const initialState = {
-  createdByPaypal: false,
-  createdByStripe: false,
-  isActive: false,
-  isCanceled: false,
-  isGifted: false,
-  isNotSubscribed: false,
-  isPending: false,
-  hasExpiredGrant: false,
-  hasActiveGrant: false,
-  isSubscribed: false,
-  subscription: { id: '', userName: '', subscribed: false },
-  subscriptionLoading: false,
+const emptySubscription: Subscription = {
+  subscribed: false,
 }
 
-interface ISubscriptionContext {
+interface SubscriptionContextValue {
   cancelSubscription: () => Promise<void>
-  getSubscription: () => Promise<void>
-  /**
-   * Does this user have an active subscription?
-   * A user who has cancelled their subscription, but is still in their subscription period
-   * is still considered an active subscriber
-   */
-  isActive: boolean
-  /**
-   * Has this user cancelled recurring payments?
-   */
-  isCanceled: boolean
-  /**
-   * Was this subscription given as a gift?
-   */
-  isGifted: boolean
-  /**
-   * This value is only set AFTER Auth0 and the Subscription API have been contacted
-   * Don't rely on it for immediate correctness on pageload
-   */
-  isNotSubscribed: boolean
-  /**
-   * If this subscription was created by Paypal,
-   * there is a 30-60 time period after checkout before their subscription is confirmed.
-   */
-  isPending: boolean
-  /**
-   * Does this user exist in the subscription API?
-   * This DOES NOT mean they have an active subscription
-   */
-  isSubscribed: boolean
   createdByPaypal: boolean
   createdByStripe: boolean
-
-  /**
-   * Does this user have an active grant (a ten minute grace period while Paypal completes checkout)
-   */
+  getSubscription: () => Promise<void>
   hasActiveGrant: boolean
-  /**
-   * If a user has an expired grant, their checkout most likely failed.
-   */
   hasExpiredGrant: boolean
-
-  subscription: ISubscription
+  isActive: boolean
+  isCanceled: boolean
+  isGifted: boolean
+  isNotSubscribed: boolean
+  isPending: boolean
+  isSubscribed: boolean
+  subscription: Subscription
+  subscriptionError: string | null
   subscriptionLoading: boolean
 }
 
-const SubscriptionContext = React.createContext<ISubscriptionContext | void>(undefined)
+const SubscriptionContext = React.createContext<SubscriptionContextValue | undefined>(undefined)
 
 const SubscriptionProvider = ({ children }: React.PropsWithChildren<object>) => {
-  const { user, isLoading } = useAuth0()
-  const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
-  const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
-  const [isNotSubscribed, setIsNotSubscribed] = useState(initialState.isNotSubscribed)
-
-  const createdByPaypal = isPaypal(subscription)
-  const createdByStripe = isStripe(subscription)
-  const isActive = isActiveSubscriber(subscription)
-  const isCanceled = isCanceledSubscriber(subscription)
-  const isGifted = isGiftedSubscriber(subscription)
-  const isPending = isPendingSubscriber(subscription)
-  const isSubscribed = isSubscriber(subscription)
+  const { isAuthenticated, isLoading, user } = useAuth0()
+  const getAccessToken = useApiAccessToken()
+  const [subscription, setSubscription] = useState(emptySubscription)
+  const [subscriptionError, setSubscriptionError] = useState<string | null>(null)
+  const [subscriptionLoading, setSubscriptionLoading] = useState(false)
+  const [isNotSubscribed, setIsNotSubscribed] = useState(false)
 
   useEffect(() => {
     if (isLoading) return
-    if (!user) setIsNotSubscribed(true)
-  }, [isLoading, user])
+    if (!isAuthenticated || !user) setIsNotSubscribed(true)
+  }, [isAuthenticated, isLoading, user])
 
   const getSubscription = useCallback(async () => {
-    if (!user?.email) return setSubscription(initialState.subscription)
-
-    try {
-      setSubscriptionLoading(true)
-      const response = await SubscriptionApi.getSubscription(user.email)
-      const subscription: ISubscription = response.body
-      setSubscription(subscription)
-      setSubscriptionLoading(false)
-    } catch (err) {
-      if (err.status === 501) {
-        console.log(`${user.email} is not registered with the Subscription API`)
-      } else {
-        console.log(`There was an unexpected error retrieving ${user.email} from the Subscription API`)
-        console.error(err)
-      }
-      setSubscription(initialState.subscription)
+    if (!isAuthenticated || !user) {
+      setSubscription(emptySubscription)
+      setSubscriptionError(null)
       setIsNotSubscribed(true)
+      return
+    }
+
+    setSubscriptionLoading(true)
+    setSubscriptionError(null)
+    try {
+      const token = await getAccessToken()
+      const response = await SubscriptionApi.getSubscription(token)
+      setSubscription(response.body as Subscription)
+      setIsNotSubscribed(false)
+    } catch (error) {
+      const status =
+        typeof error === 'object' && error !== null && 'status' in error ? Number(error.status) : undefined
+      setSubscription(emptySubscription)
+      setIsNotSubscribed(status === 404)
+      if (status !== 404) {
+        setSubscriptionError('Subscription status is temporarily unavailable. Please try again.')
+      }
+    } finally {
       setSubscriptionLoading(false)
     }
-  }, [user])
+  }, [getAccessToken, isAuthenticated, user])
+
+  useEffect(() => {
+    if (!isLoading) void getSubscription()
+  }, [getSubscription, isLoading])
 
   const cancelSubscription = useCallback(async () => {
-    try {
-      const { userName, subscriptionId = '' } = subscription
-      await SubscriptionApi.cancelSubscription({ userName, subscriptionId })
-      await getSubscription()
-    } catch (err) {
-      console.error(err)
-    }
-  }, [getSubscription, subscription])
+    if (!isAuthenticated) return
+
+    const token = await getAccessToken()
+    await SubscriptionApi.cancelSubscription(token)
+    await getSubscription()
+  }, [getAccessToken, getSubscription, isAuthenticated])
 
   const value = useMemo(
     () => ({
       cancelSubscription,
-      createdByPaypal,
-      createdByStripe,
+      createdByPaypal: isPaypal(subscription),
+      createdByStripe: isStripe(subscription),
       getSubscription,
       hasActiveGrant: hasActiveGrant(subscription),
       hasExpiredGrant: hasExpiredGrant(subscription),
-      isActive,
-      isCanceled,
-      isGifted,
+      isActive: isActiveSubscriber(subscription),
+      isCanceled: isCanceledSubscriber(subscription),
+      isGifted: isGiftedSubscriber(subscription),
       isNotSubscribed,
-      isPending,
-      isSubscribed,
+      isPending: isPendingSubscriber(subscription),
+      isSubscribed: isSubscriber(subscription),
       subscription,
+      subscriptionError,
       subscriptionLoading,
     }),
     [
       cancelSubscription,
-      createdByPaypal,
-      createdByStripe,
       getSubscription,
-      isActive,
-      isCanceled,
-      isGifted,
       isNotSubscribed,
-      isPending,
-      isSubscribed,
       subscription,
+      subscriptionError,
       subscriptionLoading,
     ]
   )
@@ -168,9 +125,7 @@ const SubscriptionProvider = ({ children }: React.PropsWithChildren<object>) => 
 
 const useSubscription = () => {
   const context = React.useContext(SubscriptionContext)
-  if (context === undefined) {
-    throw new Error('useSubscription must be used within a SubscriptionProvider')
-  }
+  if (!context) throw new Error('useSubscription must be used within a SubscriptionProvider')
   return context
 }
 

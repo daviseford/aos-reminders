@@ -1,128 +1,141 @@
-![Deployment Status](https://github.com/daviseford/aos-reminders/actions/workflows/deploy.yml/badge.svg?branch=master)
+# AoS Reminders
 
-## Discord
+AoS Reminders turns an Age of Sigmar army configuration into phase-ordered reminders.
 
-[https://discord.gg/2nt9Fxp](https://discord.gg/2nt9Fxp)
+## Version 6 and Age of Sigmar fourth edition
 
-## THIS REPOSITORY IS LOOKING FOR A NEW MAINTAINER!
+Version 6.0.0 is the clean cutover to Age of Sigmar fourth edition. The release candidate is
+assembled on `aos4-migration` in [PR #1717](https://github.com/daviseford/aos-reminders/pull/1717);
+`master` remains the production branch, and every push to it deploys the site.
 
-## How to Contribute
+The release provides:
 
-If you want to add an army or edit an existing army, please do so! Use the `src/factions/sample/` folder as a reference for how things are added!
+- an AoS 4 canonical domain model for timing, abilities, weapons, warscrolls, battle profiles,
+  relationships, rules contexts, and provenance
+- safe Games Workshop and Wahapedia acquisition adapters
+- deterministic reconciliation, identity, audit, and runtime-generation tools
+- an accepted, source-traceable corpus covering 27 playable armies plus the universal Endless
+  Spells source container: 1,286 warscrolls, 1,002 battle profiles, 4,898 abilities, 2,260 weapons,
+  and 1,409 content groups
+- explicit current-standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends,
+  and historical rules contexts so parallel or retired records cannot leak into the current
+  builder
+- an official battle-profile ledger that dispositions all 1,350 extracted GW facts and keeps 12
+  profile-only gaps visible without inventing missing warscroll rules
+- a responsive AoS 4 builder/reminder screen with notes, hiding, focus mode, printing/PDF export,
+  and local persistence
+- official-app, Listbot, and New Recruit `.ros`/`.rosz`/`.json` roster imports
+- Auth0-native cloud armies and opaque sharing, pending the coordinated production API rollout
+- Bootstrap 5.3, React 19, maintained drag-and-drop, production-only GA4, and a quiet rules-source
+  radar while broader Phase 2 modernization continues
+- a hard clean cut: no AoS 3 rules, state, importers, or compatibility behavior remain
 
-Feel free to submit a PR for any incorrect/missing rules! I am only human, and the amount of data entry needed for a single army can sometimes be overwhelming.
+| Program stage | Status |
+| --- | --- |
+| Phase 1: AoS 4 data and domain | Complete and machine-verified for beta use |
+| Phase 2: capabilities and modernization | Capability restoration delivered; modernization underway |
+| Version 6 production launch | Release candidate; see [the release runbook](docs/release.md) |
 
-**For more contribution guidelines, check out [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md)**
+The Phase 1 beta gate binds the accepted `aos4-corpus-2026-07-30` revision to a complete automated
+review of 79,598 results across 39,799 source/generated pairs, with zero live findings and zero
+`cannot-verify` outcomes. Run `yarn data:aos4:verify:beta` to verify the committed evidence without
+network or cache access. Future beta reports and source updates reopen only the affected data
+through the candidate pipeline; they do not restart the completed migration.
 
-## Available Scripts
+Phase 2 continues after this release while the accepted AoS 4 data contracts remain stable. The
+Auth0 subscription and private army/share implementations are prepared in launch-hardening PRs,
+but their production rollout and live negative checks remain tracked in
+[#1720](https://github.com/daviseford/aos-reminders/issues/1720) and
+[#1804](https://github.com/daviseford/aos-reminders/issues/1804). Do not describe either production
+gate as complete until those checks pass.
 
-In the project directory, you can run:
+## Sources
 
-### `yarn install`
+Games Workshop publications are authoritative. Wahapedia's AoS 4 exports and bounded current
+faction pages provide the coherent secondary dataset used for discovery and coverage.
 
-If you just downloaded this repository, or if you are getting errors regarding missing packages, run `yarn install` to download/update dependencies.
+- [Official Age of Sigmar downloads](https://www.warhammer-community.com/en-gb/downloads/warhammer-age-of-sigmar/)
+- [Wahapedia AoS 4 data export](https://wahapedia.ru/aos4/the-rules/data-export/)
 
-### `yarn start`
+Accepted data retains immutable artifact and record checksums, source locators, dates, rules
+contexts, and transformation evidence. The runtime does not fetch source data.
 
-Runs the app in the development mode.
+## Development
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.
-
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.
-
-### `yarn lint`
-
-Checks your code for formatting or logical errors. Run this before opening a PR, since the CI will fail your branch if you don't pass the linting standards.
-
-### `yarn build`
-
-Builds the app for production to the `dist` folder.
-
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## `yarn analyze`
-
-Run after `yarn build`. Analyzes the build bundle and shows which dependencies and files are taking up space.
-
-## `yarn verify` (Mac/Linux) and `yarn verify:win` (Windows)
-
-Runs a script that checks rules to see if they're misplaced. Be sure to run this after adding a new army since it can catch some common errors.
-
-## `yarn intake`
-
-Sorts error logs in `src/tests/fixtures/intake/`.
-
-## Pre-commit
-
-I have set this repository up to automatically take care of some chores when you push a commit.
-
-1. Any special punctuation characters such as `‘`, `’`, `“`, and `”` are removed and replaced with `'` or `"`.
-2. Any leading or trailing whitespace is removed from any `name`, `desc`, and `tag` entries.
-3. Periods are added to the end of descriptions if they are missing.
-4. Finally, we use `pretty-quick` to format the code according to the repository standards.
-
-Alternatively, just run `yarn prepush` before you open a pull request - it'll catch any errors may have missed.
-
-## Deployment
-
-This repository is automatically deployed using Github Actions.
-
-Whenever a commit is pushed to the `master` branch, the project is built and uploaded to S3.
-
-This happens automatically, so be careful when merging to `master`! Your changes will immediately be live.
-
-### Authenticating Locally
-
-If you want to test or use subscriber features _locally_, you can do it :)
-
-First, login through Auth0. You can create a fake account - your email doesn't need to be verified.
-
-Then subscribe and go through checkout as usual. You can use any of Stripes [test card numbers](https://stripe.com/docs/testing#cards) to complete the transaction. Just enter a test card number, and any expiration date/CVC/ZIP code, and your account will be subscribed.
-
-I like to use card # `4242 4242 4242 4242` since I can just spam my keyboard.
-
-Obviously, this does not work in production :)
-
-### Warscroll Builder/Azyr/Battlescribe Import
-
-Found a discrepancy between Warscroll Builder/Azyr/Battlescribe/Warhammer App and AoS Reminders? You have three options:
-
-1. [Open an issue on Github](https://github.com/daviseford/aos-reminders/issues) and let us know.
-2. Add to the typo list (`[warscroll|azyr|battlescribe|warhammerApp]TypoMap`) in `src/utils/import/options.ts`
-3. Just wait. :) Failed imports are fired off to Google Analytics - we will probably fix your issue within a couple days.
-
-
-### Helpful Commands
-
-Delete all local branches except `master`
-
-Linux/OSX:
+Use Node `v22.23.2` and Yarn Classic.
 
 ```bash
-git branch | grep -v "master" | xargs git branch -D
+yarn install --frozen-lockfile
+yarn start
 ```
 
-Windows:
+Vite serves the application at `http://localhost:5173` by default.
 
-```powershell
-git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }
+Verification:
+
+```bash
+yarn lint
+yarn tsc --noEmit
+yarn test --run
+yarn build
 ```
 
-### API Repositories
+Full candidate acquisition is a deliberate network operation:
 
-+ [REST API](https://github.com/daviseford/aos-reminders-rest-api)
-+ [Subscription API](https://github.com/daviseford/aos-reminders-subscription-api)
+```bash
+yarn data:aos4:candidate --output <new-directory>
+```
 
-_Note: These are both private repositories._
+Candidate output is never accepted automatically. See [AoS 4 data maintenance](docs/data/aos4-maintenance.md)
+for acquisition, offline replay, review, override, identity, and generation policy.
 
-### Will you ever add units stats or points?
+Verify the accepted snapshot and every generated checksum from the local artifact cache:
 
-No.
+```bash
+yarn data:aos4:generate
+yarn data:aos4:verify:beta
+```
 
-This is something I will never add to AoS Reminders (unless we get a blessing from GW). It gets too close to entirely replacing the need for a battletome, and I don't want GW to think I'm trying to do that. It's a great idea but not one that I will do :)
+## Architecture
+
+The AoS 4 implementation lives under `src/aos4/`:
+
+- `domain/` — canonical contracts and validation
+- `normalize/` — safe text and timing normalization
+- `data/` — source acquisition and provider adapters
+- `reconcile/` — fact linking, precedence, conflicts, and overrides
+- `select/` — stable-ID relationship resolution
+- `reminders/` — stable reminder projection and ordering
+- `state/` and `runtime/` — versioned army documents and browser persistence
+- `view/` — pure builder/reminder presentation models
+- `generate/` and `generated/` — deterministic accepted outputs
+
+Read [AGENTS.md](AGENTS.md) for the current Phase 2 scope and migration constraints. The
+[Phase 1 plan](docs/plans/2026-07-27-001-refactor-aos4-domain-and-data-pipeline-plan.md) remains the
+completed requirements and decision history.
+
+## Companion repositories
+
+- [REST API](https://github.com/daviseford/aos-reminders-rest-api)
+- [Subscription API](https://github.com/daviseford/aos-reminders-subscription-api)
+- [Subscription admin console](https://github.com/daviseford/aos-reminders-admin)
+
+These companion repositories are private.
+
+## Pull requests and deployment
+
+Until PR #1717 lands, final Version 6 release changes target `aos4-migration`. After launch, normal
+pull requests target `master` unless a new integration branch is explicitly established. Every
+push to `master` builds and deploys the production site to S3/CloudFront, so merging or pushing it
+requires explicit project-owner authorization.
+
+See [the release runbook](docs/release.md) for production gates and post-deploy validation, and
+[CONTRIBUTING.md](docs/CONTRIBUTING.md) for the normal contribution workflow.
+
+## Community
+
+- [Discord](https://discord.gg/2nt9Fxp)
+- [GitHub issues](https://github.com/daviseford/aos-reminders/issues)
+
+AoS Reminders is an unofficial fan-made project and is not endorsed or sanctioned by Games
+Workshop.

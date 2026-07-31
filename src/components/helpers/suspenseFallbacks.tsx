@@ -9,17 +9,15 @@ import { ROUTES } from 'utils/env'
 
 export const LoadingBtn = ({ text = 'Loading' }: { text?: string }) => (
   <GenericButton disabled type="button">
-    <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span> {text}
+    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" /> {text}
   </GenericButton>
 )
 
-export const OfflineBtn = ({ text = 'Offline' }: { text?: string }) => {
-  return (
-    <GenericButton disabled type="button">
-      <FiWifiOff className="mr-2 text-danger" /> {text}
-    </GenericButton>
-  )
-}
+export const OfflineBtn = ({ text = 'Offline' }: { text?: string }) => (
+  <GenericButton disabled type="button">
+    <FiWifiOff className="me-2 text-danger" /> {text}
+  </GenericButton>
+)
 
 export const LoadingHeader = () => {
   const { theme } = useTheme()
@@ -27,7 +25,7 @@ export const LoadingHeader = () => {
   return (
     <div className={`${theme.headerColor} py-2`}>
       <NavbarWrapper>
-        <div className={`py-1 mr-3 mr-sm-5 align-items-center`}>
+        <div className="py-1 me-3 me-sm-5 align-items-center">
           <Spinner variant="light" size="small" />
         </div>
       </NavbarWrapper>
@@ -35,22 +33,18 @@ export const LoadingHeader = () => {
   )
 }
 
-export const OfflineHeader = () => {
-  const { pathname } = window.location
-
-  return (
-    <NavbarWrapper>
-      {pathname !== ROUTES.HOME && (
-        <Link to={ROUTES.HOME} className={navbarStyles.link}>
-          Home
-        </Link>
-      )}
-      <GenericButton className={navbarStyles.btn} disabled type="button">
-        <FiWifiOff className="mr-2" /> Offline
-      </GenericButton>
-    </NavbarWrapper>
-  )
-}
+export const OfflineHeader = () => (
+  <NavbarWrapper>
+    {window.location.pathname !== ROUTES.HOME && (
+      <Link to={ROUTES.HOME} className={navbarStyles.link}>
+        Home
+      </Link>
+    )}
+    <GenericButton className={navbarStyles.btn} disabled type="button">
+      <FiWifiOff className="me-2" /> Offline
+    </GenericButton>
+  </NavbarWrapper>
+)
 
 export const LoadingBody = () => {
   const { theme } = useTheme()

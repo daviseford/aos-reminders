@@ -1,346 +1,183 @@
 import ReactGA from 'react-ga4'
-import { TImportParsers, TLoadedArmy } from 'types/import'
-import { TSavePdfType } from 'types/pdf'
-import { TSelections } from 'types/selections'
-import { isValidFactionName } from 'utils/armyUtils'
-import { isDev, isProd, isTest } from 'utils/env'
-import { GiftedSubscriptionPlans, SubscriptionPlans } from 'utils/plans'
-import { generateUUID, titleCase } from 'utils/textUtils'
+import type { Aos4ImportSource } from '../aos4/import'
+import type { PrintPageSize } from '../aos4/print/presets'
+import type { PrintPreset } from '../aos4/print/types'
 
-if (!isTest) {
-  ReactGA.initialize('G-EM4GX294XG', {
-    // titleCase: false,
+const MEASUREMENT_ID = 'G-EM4GX294XG'
+const PRODUCTION_HOSTS = new Set(['aosreminders.com', 'www.aosreminders.com'])
+const isTest = import.meta.env.MODE === 'test'
+
+let initialized = false
+
+export interface AnalyticsEnvironment {
+  hostname: string
+  isProduction: boolean
+}
+
+interface PageLocation {
+  pathname: string
+}
+
+interface PageViewHistory {
+  location: PageLocation
+  listen: (listener: (location: PageLocation) => void) => () => void
+}
+
+export interface AnalyticsCommerceItem {
+  item_category: 'subscription' | 'gift_subscription'
+  item_id: string
+  item_name: string
+  price: number
+  quantity: number
+}
+
+interface CheckoutEvent {
+  items: AnalyticsCommerceItem[]
+  provider: 'paypal' | 'stripe'
+}
+
+interface PurchaseEvent extends CheckoutEvent {
+  transactionId: string
+}
+
+type AnalyticsParameters = Record<string, unknown>
+
+const currentEnvironment = (): AnalyticsEnvironment => ({
+  hostname: typeof window === 'undefined' ? '' : window.location.hostname,
+  isProduction: import.meta.env.PROD,
+})
+
+export const canCollectAnalytics = ({ hostname, isProduction }: AnalyticsEnvironment): boolean =>
+  isProduction && PRODUCTION_HOSTS.has(hostname.toLowerCase())
+
+export const initializeAnalytics = (environment = currentEnvironment()): boolean => {
+  if (initialized || !canCollectAnalytics(environment)) return false
+
+  ReactGA.initialize(MEASUREMENT_ID, {
     gaOptions: { siteSpeedSampleRate: 100 },
+    gtagOptions: { send_page_view: false },
   })
-  // if (isProd) ReactGA.plugin.require('ecommerce')
+  initialized = true
+  return true
 }
 
-/**
- * Sends a Google Analytics event
- */
-export const logPageView = () => {
-  if (isProd) {
-    ReactGA.send({ hitType: 'pageview', page: window.location.pathname + window.location.search })
-    // ReactGA.pageview(window.location.pathname + window.location.search)
-  }
+const logToGA = (name: string, parameters: AnalyticsParameters = {}): void => {
+  if (!isTest && import.meta.env.DEV) console.debug('GA4 Event:', name, parameters)
+  if (initialized) ReactGA.event(name, parameters)
 }
 
-/**
- * Generic wrapper for logging events
- * Will print to console in dev, will actually log in prod
- */
-const logToGA = (event: { category: string; action: string; label: string }) => {
-  if (isDev) {
-    console.log(`GA Event: `, event)
-  } else if (isProd) {
-    ReactGA.event(event)
-  }
-}
+const sanitizedPath = (pathname: string): string => (pathname.startsWith('/') ? pathname : '/')
 
-/**
- * Sends a Google Analytics event indicating a pdf download
- * @param factionName
- */
-export const logDownloadEvent = (factionName: string | null, layout: TSavePdfType) => {
-  if (isValidFactionName(factionName)) {
-    logToGA({
-      category: 'Button',
-      action: `Download-${factionName}`,
-      label: `DownloadPDF-${layout}`,
-    })
-  }
-}
-
-/**
- * Sends a Google Analytics event telling us which faction the user has selected
- * @param factionName
- */
-export const logFactionSwitch = (factionName: string | null) => {
-  if (isValidFactionName(factionName)) {
-    logToGA({
-      category: 'Select',
-      action: `Select-${factionName}`,
-      label: factionName,
-    })
-  }
-}
-
-/**
- * Sends a Google Analytics event telling us which subfaction the user has selected
- * @param subFaction
- */
-export const logSubFactionSwitch = (subFaction = '') => {
-  if (!subFaction) return
-  logToGA({
-    category: 'Select',
-    action: `Select-SubFaction-${subFaction}`,
-    label: subFaction,
+export const logPageView = ({ pathname }: PageLocation): void => {
+  if (!initialized || typeof window === 'undefined' || typeof document === 'undefined') return
+  const page = sanitizedPath(pathname)
+  ReactGA.send({
+    hitType: 'pageview',
+    location: `${window.location.origin}${page}`,
+    page,
+    title: document.title,
   })
 }
 
-/**
- * Sends a Google Analytics event telling us which allied faction the user has selected
- * @param factionName
- */
-export const logAllyFaction = (factionName: string | null) => {
-  if (isValidFactionName(factionName)) {
-    logToGA({
-      category: 'Select',
-      action: `Select-Ally-${factionName}`,
-      label: factionName,
-    })
-  }
+export const startPageViewTracking = (routerHistory: PageViewHistory): (() => void) => {
+  if (!initialized) return () => undefined
+  logPageView(routerHistory.location)
+  return routerHistory.listen(location => logPageView(location))
 }
 
-/**
- * Sends a Google Analytics event telling us about a click event
- * @param label
- */
-export const logClick = (label: string) => {
-  if (label) {
-    logToGA({
-      category: 'Click',
-      action: `Click-${label}`,
-      label: 'AoS Reminders',
-    })
-  }
+export const logClick = (interactionName: string): void => {
+  logToGA('ui_interaction', { interaction_name: interactionName })
 }
 
-/**
- * Sends a Google Analytics event
- * @param event
- */
-export const logEvent = (event: string) => {
-  if (event) {
-    logToGA({
-      category: 'Event',
-      action: `Event-${event}`,
-      label: 'AoS Reminders',
-    })
-  }
+export const logThemeChange = (themeName: string): void => {
+  logToGA('theme_change', { theme_name: themeName })
 }
 
-/**
- * This variable stores individual selections that we've already seen
- * To prevent logging duplicate selections
- */
-let selectionStore: string[] = []
-
-/**
- * Utility to reset the selectionStore
- */
-export const resetAnalyticsStore = () => {
-  selectionStore = []
+export const logBannerView = (bannerName: string): void => {
+  logToGA('banner_view', { banner_name: bannerName })
 }
 
-/**
- * Used for logging individual units, traits, abilities, etc
- * @param trait
- * @param name
- */
-export const logIndividualSelection = (trait: string, name: string, label: string) => {
-  if (!name || !trait) return
+export const logBannerClose = (bannerName: string): void => {
+  logToGA('banner_close', { banner_name: bannerName })
+}
 
-  const lookup = `${trait}-${name}-${label}`
+export const logGameModeChange = (isGameMode: boolean): void => {
+  logToGA('game_mode_change', { game_mode: isGameMode ? 'play' : 'edit' })
+}
 
-  if (selectionStore.includes(lookup)) return
-  selectionStore.push(lookup)
-
-  logToGA({
-    category: `Individual-Selection`,
-    action: `${trait}-${name}`,
-    label,
+export const logFactionSelection = (factionId: string, factionName: string): void => {
+  logToGA('select_content', {
+    content_type: 'faction',
+    faction_name: factionName,
+    item_id: factionId,
   })
 }
 
-/**
- * Sends a Google Analytics event
- * @param value
- */
-export const logFailedImport = (value: string, type: TImportParsers) => {
-  if (value) {
-    logToGA({
-      category: 'Event',
-      action: `failedImport-${type}-${value}`,
-      label: 'FailedImport',
-    })
-  }
-}
-
-/**
- * Sends a Google Analytics event telling us which faction the user has attempted to load
- * @param factionName
- */
-export const logInvalidFactionLookup = (factionName: string | null) => {
-  if (factionName) {
-    logToGA({
-      category: 'Event',
-      action: `InvalidFactionLookup-${factionName}`,
-      label: factionName,
-    })
-  }
-}
-
-export const logDeprecatedImport = (value: string, type: TImportParsers) => {
-  if (value) {
-    logToGA({
-      category: 'Event',
-      action: `deprecatedImport-${type}-${value}`,
-      label: 'DeprecatedImport',
-    })
-  }
-}
-
-export const logIgnoredImport = (value: string, type: TImportParsers) => {
-  if (value) {
-    logToGA({
-      category: 'Event',
-      action: `IgnoredImport-${type}-${value}`,
-      label: 'IgnoredImport',
-    })
-  }
-}
-
-export const logDisplay = (element: string) => {
-  if (element) {
-    logToGA({
-      category: 'Display',
-      action: `Display-${element}`,
-      label: 'Display',
-    })
-  }
-}
-
-export const logNote = (action: string, factionName: string) => {
-  logToGA({
-    category: 'Note',
-    action: `${action}-Note-${factionName}`,
-    label: factionName,
+export const logPdfDownload = (layout: PrintPreset['id'], pageSize: PrintPageSize): void => {
+  logToGA('file_download', {
+    file_extension: 'pdf',
+    file_name: `reminders-${layout}-${pageSize}.pdf`,
+    print_layout: layout,
+    print_page_size: pageSize,
   })
 }
 
-export const logMigration = (version: number) => {
-  logToGA({
-    category: 'Migration',
-    action: `Migrate-to-v${version}`,
-    label: `Migrate-to-v${version}`,
+export const logRosterImport = ({
+  diagnosticCount,
+  outcome,
+  selectionCount,
+  source,
+}: {
+  diagnosticCount: number
+  outcome: 'error' | 'success'
+  selectionCount: number
+  source: Aos4ImportSource | 'unknown'
+}): void => {
+  logToGA('roster_import', {
+    diagnostic_count: diagnosticCount,
+    import_outcome: outcome,
+    roster_source: source,
+    selection_count: selectionCount,
   })
 }
 
-export const logSubscription = (planTitle: string, provider: 'stripe' | 'paypal') => {
-  const plan = SubscriptionPlans.find(x => x.title === planTitle)
-  if (!isProd || !plan) return
-  try {
-    const transaction_id = generateUUID()
-
-    // https://github.com/codler/react-ga4/issues/11
-
-    // ReactGA.gtag('event', 'addItem', {
-    //   transaction_id,
-    //   name: plan.title,
-    //   sku: provider === 'paypal' ? plan.paypal_prod : plan.stripe_prod,
-    //   price: plan.cost,
-    //   category: 'Subscription',
-    //   quantity: '1',
-    // })
-
-    ReactGA.gtag('event', 'purchase', {
-      transaction_id,
-      value: plan.cost,
-      items: [
-        {
-          transaction_id,
-          name: plan.title,
-          sku: provider === 'paypal' ? plan.paypal_prod : plan.stripe_prod,
-          price: plan.cost,
-          category: 'Subscription',
-          quantity: '1',
-        },
-      ],
-    })
-
-    // ReactGA.gtag('event', 'send', 'ga')
-    // ReactGA.gtag('event', 'clear', 'ga')
-  } catch (err) {
-    // empty
-  }
+export const logAccountAction = (
+  accountAction: 'coupon_redeemed' | 'gift_redeemed' | 'subscription_cancelled'
+): void => {
+  logToGA('account_action', { account_action: accountAction })
 }
 
-export const logGiftedSubscription = (planTitle: string, quantity: string) => {
-  const plan = GiftedSubscriptionPlans.find(x => x.title === planTitle)
-  if (!isProd || !plan) return
-  try {
-    const transaction_id = generateUUID()
-    const value = (parseFloat(plan.cost) * parseInt(quantity)).toFixed(2)
-
-    // https://github.com/codler/react-ga4/issues/11
-    // ReactGA.gtag('event', 'addItem', {
-    //   transaction_id,
-    //   name: plan.title,
-    //   sku: plan.stripe_prod,
-    //   price: plan.cost,
-    //   category: 'Gifted-Subscription',
-    //   quantity,
-    // })
-    ReactGA.gtag('event', 'purchase', {
-      transaction_id,
-      value,
-      items: [
-        {
-          transaction_id,
-          name: plan.title,
-          sku: plan.stripe_prod,
-          price: plan.cost,
-          category: 'Gifted-Subscription',
-          quantity,
-        },
-      ],
-    })
-
-    // ReactGA.gtag('event', 'send', 'ga')
-    // ReactGA.gtag('event', 'clear', 'ga')
-  } catch (err) {
-    // empty
-  }
+export const logLoginAttempt = (loginOrigin: string, outcome: 'closed' | 'started'): void => {
+  logToGA(outcome === 'started' ? 'login_start' : 'login_closed', { login_origin: loginOrigin })
 }
 
-/**
- * Logs all the pertinent details of a loaded army to Google Analytics
- * @param army
- */
-export const logLoadedArmy = (army: TLoadedArmy) => {
-  try {
-    const {
-      selections = [] as unknown as TSelections,
-      allySelections = {},
-      origin_realm = null,
-      realmscape = null,
-      realmscape_feature = null,
-      factionName,
-    } = army
-
-    // Log the faction name
-    logFactionSwitch(factionName)
-
-    // Log each selection
-    Object.keys(selections).forEach(key => {
-      const trait = titleCase(key)
-      const _selections = selections[key as keyof typeof selections] || []
-      _selections.forEach((name: string) => logIndividualSelection(trait, name, factionName))
-    })
-
-    // Log each allied faction + selection
-    Object.keys(allySelections).forEach(allyFactionName => {
-      logAllyFaction(allyFactionName)
-      const _units = allySelections[allyFactionName as keyof typeof allySelections]?.units || []
-      _units.forEach(name => logIndividualSelection('AlliedUnits', name, allyFactionName))
-    })
-
-    // Log Realm information
-    if (origin_realm) logIndividualSelection('Realm of Origin', origin_realm, factionName)
-    if (realmscape) logIndividualSelection('Realm of Battle', realmscape, factionName)
-    if (realmscape_feature) logIndividualSelection('Realm Feature', realmscape_feature, factionName)
-  } catch (err) {
-    console.error(err)
-  }
+export const logBeginCheckout = ({ items, provider }: CheckoutEvent): void => {
+  logToGA('begin_checkout', {
+    currency: 'USD',
+    items,
+    payment_provider: provider,
+    value: commerceValue(items),
+  })
 }
+
+export const logPurchase = ({ items, provider, transactionId }: PurchaseEvent): void => {
+  if (!transactionId.trim()) return
+  logToGA('purchase', {
+    currency: 'USD',
+    items,
+    payment_provider: provider,
+    transaction_id: transactionId,
+    value: commerceValue(items),
+  })
+}
+
+export const logCheckoutCancelled = ({ items, provider }: CheckoutEvent): void => {
+  logToGA('checkout_cancelled', {
+    items,
+    payment_provider: provider,
+    value: commerceValue(items),
+  })
+}
+
+const commerceValue = (items: AnalyticsCommerceItem[]): number =>
+  Number(items.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2))

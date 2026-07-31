@@ -1,0 +1,116 @@
+{
+  "id": "fs-001-older-handbook",
+  "diagnostics": [],
+  "proposedName": "F1",
+  "declaredFaction": "Fyreslayers",
+  "declaredContext": "General's Handbook 2024-25",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Warrior Kinband"
+    },
+    {
+      "line": 7,
+      "kindHint": "prayer-lore",
+      "label": "Zharrgrim Blessings"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Aetherwrought Machineries"
+    },
+    {
+      "line": 11,
+      "kindHint": "warscroll",
+      "label": "Auric Runefather on Magmadroth"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Auric Runesmiter"
+    },
+    {
+      "line": 17,
+      "kindHint": "warscroll",
+      "label": "Auric Runeson on Magmadroth"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Auric Hearthguard"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Auric Runeson"
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Battlesmith"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Battlesmith"
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Doomseeker"
+    },
+    {
+      "line": 23,
+      "kindHint": "warscroll",
+      "label": "Grimhold Exile"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Grimwrath Berzerker"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Hearthguard Berzerkers with Berzerker Broadaxes"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Hearthguard Berzerkers with Flamestrike Poleaxes"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "The Chosen Axes",
+      "isLegends": true
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Vulkite Berzerkers with Bladed Slingshields"
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Vulkite Berzerkers with Fyresteel Weapons"
+    },
+    {
+      "line": 31,
+      "kindHint": "warscroll",
+      "label": "Vulkyn Flameseekers"
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Auric Runemaster"
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Magmic Battleforge"
+    }
+  ]
+}

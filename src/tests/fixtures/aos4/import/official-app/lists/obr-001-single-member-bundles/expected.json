@@ -1,0 +1,459 @@
+{
+  "id": "obr-001-single-member-bundles",
+  "diagnostics": [],
+  "proposedName": "Ossiarch1",
+  "declaredFaction": "Ossiarch Bonereapers",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": true,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Remorseless Conquerors"
+    },
+    {
+      "line": 7,
+      "kindHint": "spell-lore",
+      "label": "Lore of Ossian Sorcery"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Horrors of the Necropolis"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Katakros, Mortarch of the Necropolis"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Gatebreaker Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Blades of the Hollow King",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 20,
+      "kindHint": "warscroll",
+      "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 22,
+      "kindHint": "warscroll",
+      "label": "Black Coach",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Scriptor Mortis",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Craventhrone Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Craventhrone Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Endrinmaster with Dirigible Suit",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Grundstok Gunhauler",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 30,
+      "kindHint": "warscroll",
+      "label": "Skywardens",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Marrowscroll Herald",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Crypt Flayers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Crypt Ghouls",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 35,
+      "kindHint": "warscroll",
+      "label": "Crypt Horrors",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 39,
+      "kindHint": "warscroll",
+      "label": "Neferata, Mortarch of Blood",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 40,
+      "kindHint": "warscroll",
+      "label": "Barrow Knights",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 41,
+      "kindHint": "warscroll",
+      "label": "Deathrattle Skeletons",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 42,
+      "kindHint": "warscroll",
+      "label": "Deathrattle Skeletons",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 44,
+      "kindHint": "warscroll",
+      "label": "Outlaw Cannonade Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 46,
+      "kindHint": "warscroll",
+      "label": "Codewright",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 47,
+      "kindHint": "warscroll",
+      "label": "Grundstok Thunderers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 48,
+      "kindHint": "warscroll",
+      "label": "Grundstok Thunderers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 50,
+      "kindHint": "warscroll",
+      "label": "Loonboss",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 51,
+      "kindHint": "warscroll",
+      "label": "Dankhold Troggoth",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 53,
+      "kindHint": "warscroll",
+      "label": "Mancrusher Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 55,
+      "kindHint": "warscroll",
+      "label": "Revenant Draconith",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 57,
+      "kindHint": "warscroll",
+      "label": "Royal Terrorgheist",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 59,
+      "kindHint": "warscroll",
+      "label": "Lady Olynder, Mortarch of Grief",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 60,
+      "kindHint": "warscroll",
+      "label": "Dreadscythe Harridans",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 61,
+      "kindHint": "warscroll",
+      "label": "Myrmourn Banshees",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 62,
+      "kindHint": "warscroll",
+      "label": "Myrmourn Banshees",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 64,
+      "kindHint": "warscroll",
+      "label": "Grand Justice Gormayne",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 65,
+      "kindHint": "warscroll",
+      "label": "Cryptguard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 66,
+      "kindHint": "warscroll",
+      "label": "Royal Decapitator",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 68,
+      "kindHint": "warscroll",
+      "label": "Treelord",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 69,
+      "kindHint": "warscroll",
+      "label": "Spite-Revenants",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 70,
+      "kindHint": "warscroll",
+      "label": "Spite-Revenants",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 72,
+      "kindHint": "warscroll",
+      "label": "Corpse Cart",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 73,
+      "kindHint": "warscroll",
+      "label": "Deadwalker Zombies",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 75,
+      "kindHint": "warscroll",
+      "label": "Ushoran, Mortarch of Delusion",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 76,
+      "kindHint": "warscroll",
+      "label": "Cryptguard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 77,
+      "kindHint": "warscroll",
+      "label": "Morbheg Knights",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 79,
+      "kindHint": "warscroll",
+      "label": "Mannfred von Carstein, Mortarch of Night",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 80,
+      "kindHint": "warscroll",
+      "label": "Barrow Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 81,
+      "kindHint": "warscroll",
+      "label": "Fell Bats",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 82,
+      "kindHint": "warscroll",
+      "label": "Fell Bats",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 85,
+      "kindHint": "warscroll",
+      "label": "Arch-Kavalos Zandtos"
+    },
+    {
+      "line": 86,
+      "kindHint": "warscroll",
+      "label": "Arkhan the Black, Mortarch of Sacrament"
+    },
+    {
+      "line": 87,
+      "kindHint": "warscroll",
+      "label": "Gothizzar Harvester"
+    },
+    {
+      "line": 88,
+      "kindHint": "warscroll",
+      "label": "Immortis Guard"
+    },
+    {
+      "line": 89,
+      "kindHint": "warscroll",
+      "label": "Kainan's Reapers",
+      "isLegends": true
+    },
+    {
+      "line": 91,
+      "kindHint": "warscroll",
+      "label": "Katakros, Mortarch of the Necropolis"
+    },
+    {
+      "line": 92,
+      "kindHint": "warscroll",
+      "label": "Kavalos Deathriders"
+    },
+    {
+      "line": 93,
+      "kindHint": "warscroll",
+      "label": "Kavalos War Chariot"
+    },
+    {
+      "line": 94,
+      "kindHint": "warscroll",
+      "label": "Liege-Kavalos"
+    },
+    {
+      "line": 95,
+      "kindHint": "warscroll",
+      "label": "Liege-Kavalos on War Chariot"
+    },
+    {
+      "line": 96,
+      "kindHint": "warscroll",
+      "label": "Liege-Mortek"
+    },
+    {
+      "line": 97,
+      "kindHint": "warscroll",
+      "label": "Morghast Archai"
+    },
+    {
+      "line": 98,
+      "kindHint": "warscroll",
+      "label": "Morghast Harbingers"
+    },
+    {
+      "line": 99,
+      "kindHint": "warscroll",
+      "label": "Mortek Crawler"
+    },
+    {
+      "line": 100,
+      "kindHint": "warscroll",
+      "label": "Mortek Guard"
+    },
+    {
+      "line": 101,
+      "kindHint": "warscroll",
+      "label": "Mortek Triaxes"
+    },
+    {
+      "line": 102,
+      "kindHint": "warscroll",
+      "label": "Mortis Reapers"
+    },
+    {
+      "line": 103,
+      "kindHint": "warscroll",
+      "label": "Mortisan Boneshaper"
+    },
+    {
+      "line": 104,
+      "kindHint": "warscroll",
+      "label": "Mortisan Ossifector"
+    },
+    {
+      "line": 105,
+      "kindHint": "warscroll",
+      "label": "Mortisan Soulmason"
+    },
+    {
+      "line": 106,
+      "kindHint": "warscroll",
+      "label": "Mortisan Soulreaper"
+    },
+    {
+      "line": 107,
+      "kindHint": "warscroll",
+      "label": "Nagash, Supreme Lord of the Undead"
+    },
+    {
+      "line": 108,
+      "kindHint": "warscroll",
+      "label": "Necropolis Stalkers"
+    },
+    {
+      "line": 109,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Mortis Reapers"
+    },
+    {
+      "line": 110,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Vokmortian, Master of the Bone-tithe"
+    },
+    {
+      "line": 111,
+      "kindHint": "warscroll",
+      "label": "Teratic Cohort"
+    },
+    {
+      "line": 112,
+      "kindHint": "warscroll",
+      "label": "Thanatek's Tithe",
+      "isLegends": true
+    },
+    {
+      "line": 114,
+      "kindHint": "warscroll",
+      "label": "Vokmortian, Master of the Bone-tithe"
+    },
+    {
+      "line": 117,
+      "kindHint": "warscroll",
+      "label": "Bone-tithe Nexus"
+    }
+  ]
+}

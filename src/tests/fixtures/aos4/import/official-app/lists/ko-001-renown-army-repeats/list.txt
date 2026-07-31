@@ -1,0 +1,43 @@
+KO1 2450/3000 pts
+-----
+Kharadron Overlords | Pioneer Outpost
+Army of Renown
+General's Handbook 2026-27
+Auxiliaries: 1 (+0 Points)
+Drops: 4
+Manifestation Lore - Twilit Sorceries
+Battle Tactics Cards: Legend of the Parch and Siege of Ashes
+-----
+Regiment 1
+Endrinmaster with Endrinharness (150)
+Arkanaut Company (80)
+Endrinriggers (100)
+Grundstok Thunderers (130)
+Scourge of Aqshy: Endrinriggers (140)
+Skywardens (130)
+---
+Regiment 2
+Arkanaut Admiral (130)
+Endrinriggers (100)
+Grundstok Gunhauler (140)
+Grundstok Gunhauler (140)
+Grundstok Gunhauler (140)
+Grundstok Thunderers (130)
+Scourge of Aqshy: Endrinriggers (140)
+Skywardens (130)
+Thundrik's Profiteers (150)
+• Legends
+Vongrim Harpoon Crew (120)
+Vongrim Salvagers (110)
+---
+Regiment 3
+Aetheric Navigator (120)
+-----
+Auxiliary Units
+Endrinmaster with Endrinharness (150)
+-----
+Faction Terrain
+Zontari Endrin Dock (20)
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.36.0 (1) | Data: v466
