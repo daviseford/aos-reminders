@@ -44,7 +44,7 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
 
 Do not confuse these version numbers:
 
-- `package.json` reports the application version (`5.2.9`)
+- `package.json` reports the application version (`6.0.0`)
 - “AoS 4” means the Games Workshop game edition released in 2024
 - the AoS 4 army-document and catalog schema versions are independent internal contracts
 
