@@ -177,16 +177,10 @@ const cleanExtractedText = (value: string): string =>
     )
     .replace(/\bS\s+y\s+lva\s+n\s+e\s+t\s+h\b/gi, 'Sylvaneth')
     .replace(/\bSpider\s+fa\s+ng\b/gi, 'Spiderfang')
-    .replace(
-      /\bVa\s+n\s+a\s+r\s+i\s+Au\s+r\s+a\s+la\s+n\s+Wa\s+rdens\b/gi,
-      'Vanari Auralan Wardens'
-    )
+    .replace(/\bVa\s+n\s+a\s+r\s+i\s+Au\s+r\s+a\s+la\s+n\s+Wa\s+rdens\b/gi, 'Vanari Auralan Wardens')
     .replace(/\bI\s+ron\s+jaw\s+z\b/gi, 'Ironjawz')
     .replace(/\bB\s+o\s+s\s+s\s+r\s+o\s+k\s+k\s+Tow\s+e\s+r\b/gi, 'Bossrokk Tower')
-    .replace(
-      /\bC\s+h\s+a\s+r\s+n\s+e\s+l\s+Ve\s+s\s+t\s+m\s+e\s+nt\s+s\b/gi,
-      'Charnel Vestments'
-    )
+    .replace(/\bC\s+h\s+a\s+r\s+n\s+e\s+l\s+Ve\s+s\s+t\s+m\s+e\s+nt\s+s\b/gi, 'Charnel Vestments')
     .replace(/\bD\s+ua\s+r\s+d\s+i\s+n\b/gi, 'Duardin')
     .replace(/\bDa\s+e\s+m\s+o\s+n\b/gi, 'Daemon')
     .replace(/\bK\s+n\s+i\s+g\s+h\s+t\s+s\b/gi, 'Knights')
@@ -479,7 +473,11 @@ const sectionForRow = (items: PositionedItem[], row: NumericRow): string => {
     )
     .sort((left, right) => left.y - right.y)
   return (
-    headers[0]?.str.replace(/\s+/g, ' ').trim().toUpperCase().replace(/^LEGENDS\s+/, '') ?? 'UNITS'
+    headers[0]?.str
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toUpperCase()
+      .replace(/^LEGENDS\s+/, '') ?? 'UNITS'
   )
 }
 
@@ -515,8 +513,7 @@ const extractUnitFacts = (
       withoutColumnHeader(textValue(baseSizeItemsForRow(items, rows, rowIndex)), /^BASE SIZE\s*/i)
     )
     const seasonal =
-      /^Scourge of Aqshy\b/i.test(name) ||
-      /\bGeneral.s Handbook 20\d{2}[–-]\d{2}\b/i.test(splitColumns.notes)
+      /^Scourge of Aqshy\b/i.test(name) || /\bGeneral.s Handbook 20\d{2}[–-]\d{2}\b/i.test(splitColumns.notes)
     const fact = {
       kind: 'unit' as const,
       key: `page:${page}:unit:${rowIndex + 1}`,

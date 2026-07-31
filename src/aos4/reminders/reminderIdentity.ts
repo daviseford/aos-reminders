@@ -29,5 +29,4 @@ export const semanticTimingKey = (timing: AbilityTiming): string => {
 export const reminderOccurrenceId = (
   abilityId: CanonicalId<'ability'>,
   timing: AbilityTiming
-): ReminderOccurrenceId =>
-  `reminder:${abilityId}@${semanticTimingKey(timing)}` as ReminderOccurrenceId
+): ReminderOccurrenceId => `reminder:${abilityId}@${semanticTimingKey(timing)}` as ReminderOccurrenceId

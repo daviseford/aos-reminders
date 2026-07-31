@@ -1,10 +1,4 @@
-import type {
-  AbilityText,
-  AbilityTiming,
-  CanonicalId,
-  SourceReference,
-  TimingKind,
-} from '../domain'
+import type { AbilityText, AbilityTiming, CanonicalId, SourceReference, TimingKind } from '../domain'
 import type { SelectionCause } from '../select'
 
 declare const reminderOccurrenceIdBrand: unique symbol

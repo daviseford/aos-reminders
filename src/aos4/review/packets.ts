@@ -38,12 +38,7 @@ export const profileOnlyFactCandidateKey = (factChecksum: string): string =>
 export const ignoredRecordCandidateKey = (sourceRecordId: SourceRecordId): string =>
   `ignored-record:${sourceRecordId}`
 
-export const CALIBRATION_CASE_KINDS = [
-  'pass',
-  'defect',
-  'disagreement',
-  'insufficient-evidence',
-] as const
+export const CALIBRATION_CASE_KINDS = ['pass', 'defect', 'disagreement', 'insufficient-evidence'] as const
 
 export type CalibrationCaseKind = (typeof CALIBRATION_CASE_KINDS)[number]
 
@@ -66,8 +61,7 @@ const CALIBRATION_CONTROL_OUTCOMES = {
 
 export const calibrationControlOutcomes = (
   kind: CalibrationCaseKind
-): readonly [ReviewerResult['outcome'], ReviewerResult['outcome']] =>
-  CALIBRATION_CONTROL_OUTCOMES[kind]
+): readonly [ReviewerResult['outcome'], ReviewerResult['outcome']] => CALIBRATION_CONTROL_OUTCOMES[kind]
 
 export const REQUIRED_HIGH_RISK_COHORTS = [
   'high-risk:policy-or-override',

@@ -416,13 +416,7 @@ describe('AoS 4 certification evaluation', () => {
   it('requires certification to occur after all bound review evidence', () => {
     const input = passingInput()
 
-    expect(
-      certificationChronologyIssues(
-        '2026-07-28T12:00:30.000Z',
-        input.ledger,
-        []
-      )
-    ).toContainEqual(
+    expect(certificationChronologyIssues('2026-07-28T12:00:30.000Z', input.ledger, [])).toContainEqual(
       expect.objectContaining({
         code: 'certification-before-evidence',
         path: 'manifest.certifiedAt',
@@ -430,12 +424,7 @@ describe('AoS 4 certification evaluation', () => {
     )
     expect(certificationChronologyIssues(REVIEWED_AT, input.ledger, [])).toEqual([])
     expect(
-      certificationChronologyIssues(
-        '2026-07-28T12:04:00.000Z',
-        input.ledger,
-        [],
-        '2026-07-28T12:05:00.000Z'
-      )
+      certificationChronologyIssues('2026-07-28T12:04:00.000Z', input.ledger, [], '2026-07-28T12:05:00.000Z')
     ).toContainEqual(
       expect.objectContaining({
         code: 'certification-before-evidence',
@@ -607,11 +596,7 @@ describe('AoS 4 certification evaluation', () => {
 
   it('counts each review entry once per distinct coverage key', () => {
     const input = passingInput()
-    input.index.entries[0].cohortIds = [
-      'high-risk:reaction',
-      'high-risk:reaction',
-      SAMPLING_METADATA_COHORT,
-    ]
+    input.index.entries[0].cohortIds = ['high-risk:reaction', 'high-risk:reaction', SAMPLING_METADATA_COHORT]
 
     expect(evaluateCertification(input).summary.coverageByCohort).toMatchObject({
       'high-risk:reaction': { reviewed: 1, expected: 1 },
@@ -787,16 +772,9 @@ describe('AoS 4 certification evaluation', () => {
           packetId: entry.comparisonPacketId,
           packetChecksum: entry.comparisonPacketChecksum,
           reviewedAt: `2026-07-28T10:5${entryIndex}:30.000Z`,
-          outcome:
-            entry.calibrationKind === 'defect'
-              ? 'finding'
-              : insufficient
-                ? 'cannot-verify'
-                : 'pass',
+          outcome: entry.calibrationKind === 'defect' ? 'finding' : insufficient ? 'cannot-verify' : 'pass',
           findings:
-            entry.calibrationKind === 'defect'
-              ? [seededControlFinding(entry.comparisonPacketId)]
-              : [],
+            entry.calibrationKind === 'defect' ? [seededControlFinding(entry.comparisonPacketId)] : [],
         }),
       ]
     })
@@ -822,8 +800,7 @@ describe('AoS 4 certification evaluation', () => {
 
     expect(calibrationEvidenceIssues(index, ledger, calibrationResults)).toEqual([])
 
-    const defectComparisonId = entries.find(entry => entry.calibrationKind === 'defect')!
-      .comparisonPacketId
+    const defectComparisonId = entries.find(entry => entry.calibrationKind === 'defect')!.comparisonPacketId
     const withEvidenceFor = (results: ReviewerResult[]): ReviewLedger => ({
       ...ledger,
       calibrations: ledger.calibrations.map(calibration => ({
@@ -955,10 +932,7 @@ describe('AoS 4 certification evaluation', () => {
       input.index.entries.push(...calibrationEntries, goldenEntry)
       input.index.coverage.highRiskCohorts = [...REQUIRED_HIGH_RISK_COHORTS]
       const assignment = createReviewAssignment({
-        packetIds: input.index.entries.flatMap(entry => [
-          entry.blindPacketId,
-          entry.comparisonPacketId,
-        ]),
+        packetIds: input.index.entries.flatMap(entry => [entry.blindPacketId, entry.comparisonPacketId]),
         reviewer: agentReviewer,
         execution: 'local',
         assignedAt: '2026-07-28T10:49:00.000Z',
@@ -986,15 +960,10 @@ describe('AoS 4 certification evaluation', () => {
       const calibrationResults = calibrationEntries.flatMap((entry, entryIndex) => {
         const kind = entry.calibrationKind!
         const comparisonOutcome: ReviewerResult['outcome'] =
-          kind === 'defect'
-            ? 'finding'
-            : kind === 'insufficient-evidence'
-              ? 'cannot-verify'
-              : 'pass'
+          kind === 'defect' ? 'finding' : kind === 'insufficient-evidence' ? 'cannot-verify' : 'pass'
         const blindOutcome: ReviewerResult['outcome'] =
           kind === 'insufficient-evidence' ? 'cannot-verify' : 'pass'
-        const seededFinding =
-          kind === 'defect' ? [seededControlFinding(entry.comparisonPacketId)] : []
+        const seededFinding = kind === 'defect' ? [seededControlFinding(entry.comparisonPacketId)] : []
         return [
           fixtureResult({
             assignmentId: assignment.id,
@@ -1017,11 +986,7 @@ describe('AoS 4 certification evaluation', () => {
       input.ledger.calibrations = [
         {
           ...input.ledger.calibrations[0],
-          evidence: createCalibrationEvidenceReceipt(
-            assignment.id,
-            input.index,
-            calibrationResults
-          ),
+          evidence: createCalibrationEvidenceReceipt(assignment.id, input.index, calibrationResults),
         },
       ]
       const structured: Record<string, unknown> = {

@@ -95,7 +95,7 @@ describe('official AoS app text import', () => {
 
     it('treats a • Legends bullet as a mark on the unit above, not an enhancement', () => {
       const parsed = decode(
-        'Gloomspite Gitz | Da King\'s Gitz',
+        "Gloomspite Gitz | Da King's Gitz",
         'Regiment 1',
         'Loonboss (70)',
         '• Legends',
@@ -265,9 +265,9 @@ describe('official AoS app text import', () => {
         'Gatebreaker Mega-Gargant',
       ])
       // Members are cross-faction by design; the flag is what lets them resolve outside Ironjawz.
-      expect(parsed?.selections.filter(s => s.kindHint === 'warscroll').every(s => s.isRegimentOfRenown)).toBe(
-        true
-      )
+      expect(
+        parsed?.selections.filter(s => s.kindHint === 'warscroll').every(s => s.isRegimentOfRenown)
+      ).toBe(true)
     })
 
     it('marks only regiment of renown members as cross-faction', () => {
@@ -308,7 +308,7 @@ describe('official AoS app text import', () => {
 
     it('ignores roster bookkeeping the app emits alongside composition', () => {
       const parsed = decode(
-        'Gloomspite Gitz | Da King\'s Gitz',
+        "Gloomspite Gitz | Da King's Gitz",
         'Army of Renown',
         'Auxiliaries: 2 (+20 Points)',
         'Drops: 5',

@@ -28,4 +28,3 @@ export const createCatalogIndex = (catalog: Aos4Catalog): CatalogIndex => {
     outgoingByEntityId,
   }
 }
-

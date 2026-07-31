@@ -374,11 +374,7 @@ export const runCertificationCheck = async (
     resolutions: namedJson<FindingResolution[]>('review-resolutions', manifest.inputs, files),
     verifications: namedJson<FindingVerification[]>('review-verifications', manifest.inputs, files),
   })
-  const calibrationResults = namedJson<ReviewerResult[]>(
-    'review-calibration-results',
-    manifest.inputs,
-    files
-  )
+  const calibrationResults = namedJson<ReviewerResult[]>('review-calibration-results', manifest.inputs, files)
   const protocol = namedJson<ProtocolFile>('review-protocol', manifest.inputs, files)
   const rubric = namedJson<RubricFile>('review-rubric', manifest.inputs, files)
   const inventoryFile = namedJson<SourceInventory>('source-inventory', manifest.inputs, files)

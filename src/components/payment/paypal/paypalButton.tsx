@@ -102,8 +102,7 @@ const PaypalButton = (props: IPayPalButtonProps) => {
         : undefined,
       onApprove: (data: IApprovalResponse) => handlersRef.current.onSuccess?.(data),
       onCancel: (data: unknown) => handlersRef.current.onCancel?.(data),
-      onClick: () =>
-        isAuthenticated ? handlersRef.current.onClick?.() : handlersRef.current.login(),
+      onClick: () => (isAuthenticated ? handlersRef.current.onClick?.() : handlersRef.current.login()),
     })
 
     if (buttons.isEligible && !buttons.isEligible()) return

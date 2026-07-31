@@ -425,8 +425,7 @@ const loadWahapediaHtmlPages = async (
     if (isFactionPage) {
       factions.push(factionPage!.page!)
       pages.push(...(factionRoot?.pages ?? []))
-      factionRootWarscrolls +=
-        factionRoot?.pages.filter(page => page.recordKind === 'warscroll').length ?? 0
+      factionRootWarscrolls += factionRoot?.pages.filter(page => page.recordKind === 'warscroll').length ?? 0
     } else if (isRulesPage) {
       rules.push(rulesPage!.page!)
     } else if (isCollectionPage) {

@@ -165,7 +165,11 @@ const fragmentedAndBleedingTextPage = (): PdfTextItem[] => [
   item('Wa r Hyd ra', 40, 700),
   item('1', 160, 700),
   item('170', 210, 700),
-  item('R E L E V A N T K E Y WOR DS Da e m o n, C ava l r y NOTES This unit cannot be reinforced.', 260, 700),
+  item(
+    'R E L E V A N T K E Y WOR DS Da e m o n, C ava l r y NOTES This unit cannot be reinforced.',
+    260,
+    700
+  ),
   item('120 × 92mm', 520, 700),
 ]
 
@@ -232,17 +236,15 @@ const fragmentedOfficialUnitNamesPage = (): PdfTextItem[] => [
 ]
 
 const fragmentedOfficialRegimentNamesPage = (): PdfTextItem[] =>
-  ['Nu rg le’s Gi ft', 'K r it tok ’s Claw pack', 'Phu lgot h ’s Shudderhood'].flatMap(
-    (name, index) => {
-      const y = 700 - index * 30
-      return [
-        item(name, 40, y),
-        item('1 Unit', 130, y),
-        item('300', 250, y),
-        item('Order armies only.', 320, y),
-      ]
-    }
-  )
+  ['Nu rg le’s Gi ft', 'K r it tok ’s Claw pack', 'Phu lgot h ’s Shudderhood'].flatMap((name, index) => {
+    const y = 700 - index * 30
+    return [
+      item(name, 40, y),
+      item('1 Unit', 130, y),
+      item('300', 250, y),
+      item('Order armies only.', 320, y),
+    ]
+  })
 
 const fakeLoader = (
   pageCount: number,

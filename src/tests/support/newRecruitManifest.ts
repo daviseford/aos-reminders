@@ -12,10 +12,7 @@ import { createHash } from 'node:crypto'
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
-export const FIXTURE_ROOT = path.resolve(
-  process.cwd(),
-  'src/tests/fixtures/aos4/import/new-recruit'
-)
+export const FIXTURE_ROOT = path.resolve(process.cwd(), 'src/tests/fixtures/aos4/import/new-recruit')
 export const LISTS_ROOT = path.join(FIXTURE_ROOT, 'lists')
 export const MANIFEST_PATH = path.join(FIXTURE_ROOT, 'manifest.json')
 
@@ -86,9 +83,7 @@ export const buildManifest = (): Manifest => {
       rulesContext: meta.rulesContext,
       pointsLimit: meta.pointsLimit,
       legalForPlay: meta.legality?.legalForPlay ?? true,
-      shapes: [...(meta.shapes ?? [])].sort((left: string, right: string) =>
-        left.localeCompare(right)
-      ),
+      shapes: [...(meta.shapes ?? [])].sort((left: string, right: string) => left.localeCompare(right)),
       files,
     }
   })
@@ -119,8 +114,7 @@ export const buildManifest = (): Manifest => {
   }
 }
 
-export const serializeManifest = (manifest: Manifest): string =>
-  `${JSON.stringify(manifest, null, 2)}\n`
+export const serializeManifest = (manifest: Manifest): string => `${JSON.stringify(manifest, null, 2)}\n`
 
 export const writeManifest = (): Manifest => {
   const manifest = buildManifest()
