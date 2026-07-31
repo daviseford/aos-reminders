@@ -1,0 +1,25 @@
+maggotkin-of-nurgle-app-001 460/2000 pts
+
+Maggotkin of Nurgle
+Affliction Cyst
+General's Handbook 2026-27
+Drops: 1
+Wounds: 34
+Spell Lore - Lore of Malignance
+Prayer Lore - Benedictions of Sickness (Scourge of Aqshy)
+
+
+General's Regiment
+Bloab Rotspawned (260)
+• General
+Beast of Nurgle (100)
+Nurglings (100)
+
+Faction Terrain
+Feculent Gnarlmaw
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v48

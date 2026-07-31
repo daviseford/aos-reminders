@@ -1,0 +1,24 @@
+blades-of-khorne-app-001 770/2000 pts
+
+Blades of Khorne
+Brass Stampede
+General's Handbook 2026-27
+Drops: 1
+Wounds: 56
+Prayer Lore - Proclamations of Murder (Scourge of Aqshy)
+
+
+General's Regiment
+Wrath of Khorne Bloodthirster (400)
+• General
+Blood Warriors (180)
+Blood Warriors (Scourge of Aqshy) (190)
+
+Faction Terrain
+Skull Altar
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v50

@@ -1,0 +1,24 @@
+lumineth-realm-lords-app-001 580/2000 pts
+
+Lumineth Realm-lords
+Scinari Council
+General's Handbook 2026-27
+Drops: 1
+Wounds: 29
+Spell Lore - Lore of Hysh
+
+
+General's Regiment
+Alarith Stonemage (120)
+• General
+Alarith Spirit of the Mountain (310)
+Ydrilan Riverblades (150)
+
+Faction Terrain
+Shrine Luminor
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v31

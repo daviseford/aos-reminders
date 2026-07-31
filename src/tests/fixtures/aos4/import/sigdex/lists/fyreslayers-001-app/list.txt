@@ -1,0 +1,24 @@
+fyreslayers-app-001 310/2000 pts
+
+Fyreslayers
+Forge Brethren
+General's Handbook 2026-27
+Drops: 1
+Wounds: 25
+Prayer Lore - Zharrgrim Blessings
+
+
+General's Regiment
+Grimwrath Berzerker (110)
+• General
+Auric Hearthguard (100)
+Hearthguard Berzerkers with Berzerker Broadaxes (100)
+
+Faction Terrain
+Magmic Battleforge
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v29

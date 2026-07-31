@@ -1,0 +1,25 @@
+ironjawz-app-001 420/2000 pts
+
+Ironjawz
+Weirdfist
+General's Handbook 2026-27
+Drops: 1
+Wounds: 36
+Spell Lore - Lore of the Weird
+Prayer Lore - Warbeats
+
+
+General's Regiment
+Zoggrok Anvilsmasha (160)
+• General
+Ardboyz (160)
+Brute Ragerz (100)
+
+Faction Terrain
+Bossrokk Tower
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v43

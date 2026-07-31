@@ -1,0 +1,24 @@
+kruleboyz-app-001 400/2000 pts
+
+Kruleboyz
+Light Finga
+General's Handbook 2026-27
+Drops: 1
+Wounds: 31
+Spell Lore - Lore of the Swamp
+
+
+General's Regiment
+Swampcalla Shaman with Pot-grot (120)
+• General
+Beast-skewer Killbow (130)
+Gutrippaz (150)
+
+Faction Terrain
+Skaregob Totem
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v41

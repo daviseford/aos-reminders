@@ -1,0 +1,25 @@
+sylvaneth-app-001 450/2000 pts
+
+Sylvaneth
+Lords of the Clan
+General's Handbook 2026-27
+Drops: 1
+Wounds: 30
+Spell Lore - Lore of the Deepwood
+Prayer Lore - Lore of the Spirit-Song
+
+
+General's Regiment
+Arch-Revenant (110)
+• General
+Treelord (240)
+Dryads (100)
+
+Faction Terrain
+Awakened Wyldwood
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v37

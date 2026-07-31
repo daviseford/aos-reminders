@@ -1,0 +1,22 @@
+bonesplitterz-app-001 430/2000 pts
+
+Bonesplitterz
+Kop Rukk
+General's Handbook 2026-27
+Drops: 1
+Wounds: 29
+Spell Lore - Lore of the Savage Beasts
+Prayer Lore - Prayers of the Living Wilds
+
+
+General's Regiment
+Wurrgog Prophet (160)
+• General
+Savage Big Stabbas (130)
+Savage Boarboy Maniaks (140)
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v26

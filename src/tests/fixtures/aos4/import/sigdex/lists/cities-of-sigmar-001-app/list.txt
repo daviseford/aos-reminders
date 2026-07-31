@@ -1,0 +1,25 @@
+cities-of-sigmar-app-001 380/2000 pts
+
+Cities of Sigmar
+Stalwart Guardians
+General's Handbook 2026-27
+Drops: 1
+Wounds: 25
+Spell Lore - Spells of the Collegiate Arcane
+Prayer Lore - Scriptures of Sigmar
+
+
+General's Regiment
+Alchemite Warforger (130)
+• General
+Black Ark Corsairs (120)
+Black Guard (130)
+
+Faction Terrain
+Dawner's Triumph
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v48

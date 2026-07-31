@@ -1,0 +1,24 @@
+idoneth-deepkin-app-001 470/2000 pts
+
+Idoneth Deepkin
+Soul-raid Ambushers
+General's Handbook 2026-27
+Drops: 1
+Wounds: 27
+Spell Lore - Lore of the Deeps
+
+
+General's Regiment
+Akhelian King (140)
+• General
+Akhelian Allopex (160)
+Akhelian Ishlaen Guard (170)
+
+Faction Terrain
+Gloomtide Shipwreck
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v41

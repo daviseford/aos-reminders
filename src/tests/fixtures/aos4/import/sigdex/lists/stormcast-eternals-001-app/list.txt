@@ -1,0 +1,25 @@
+stormcast-eternals-app-001 550/2000 pts
+
+Stormcast Eternals
+Vanguard Wing
+General's Handbook 2026-27
+Drops: 1
+Wounds: 22
+Spell Lore - Lore of the Storm
+Prayer Lore - Prayers of the Stormhosts
+
+
+General's Regiment
+Neave Blacktalon (280)
+• General
+Aetherwings (80)
+Dracothian Guard Desolators (170)
+
+Faction Terrain
+Stormreach Portal (20)
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v43

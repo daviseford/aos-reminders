@@ -1,0 +1,21 @@
+sons-of-behemat-app-001 690/2000 pts
+
+Sons of Behemat
+Boss Tribe
+General's Handbook 2026-27
+Drops: 1
+Wounds: 59
+Prayer Lore - Brodd's Bellows (Scourge of Aqshy)
+
+
+General's Regiment
+Warstomper Mega-Gargant (450)
+• General
+Mancrusher Gargant (120)
+Mancrusher Gargant (Scourge of Aqshy) (120)
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v27

@@ -1,0 +1,24 @@
+ossiarch-bonereapers-app-001 420/2000 pts
+
+Ossiarch Bonereapers
+Border Guards
+General's Handbook 2026-27
+Drops: 1
+Wounds: 26
+Spell Lore - Lore of Ossian Sorcery
+
+
+General's Regiment
+Arch-Kavalos Zandtos (220)
+• General
+Mortek Guard (110)
+Teratic Cohort (90)
+
+Faction Terrain
+Bone-tithe Nexus
+
+
+Created with Sigdex: sigdex.io
+App Version: 22.1.0
+Server Version: 3.0.58
+Data Version: v36
