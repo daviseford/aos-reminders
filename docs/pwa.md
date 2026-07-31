@@ -26,8 +26,22 @@ The generated catalog chunk is excluded from the precache and served by a
 `CacheFirst` runtime route instead. It is 11.6 MiB against Workbox's 2 MiB
 ceiling, and precaching it would download the whole catalog before the worker
 could activate — the worst case on exactly the bad venue wifi that makes offline
-support worth having. `sw-extras.js` warms the current build's URL on activate so
-taking an update does not leave a user one online fetch short.
+support worth having.
+
+`sw-extras.js` warms the current build's URL **on `install`**, so taking an update
+never leaves a user one online fetch short of working army data. Install is the
+right event because it is the only one that can be refused: a rejected `install`
+aborts the update and leaves the client on its previous worker, which still has
+its own catalog cached and still works offline. Warming on `activate` would
+commit the client to a build it cannot run offline, because activation cannot be
+refused. A failed warm therefore means "this update did not land", and the hourly
+poll retries.
+
+`activate` keeps only cheap, fault-tolerant work — pruning the catalog cache to
+the current build and deleting the CRA-era `images` cache. Nothing slow belongs
+there: activation holds fetch events until `waitUntil` settles, and the page
+reloads the moment the worker takes control, so a download on that path would
+leave the reload on a blank screen.
 
 ## What CI checks
 

@@ -64,21 +64,24 @@ const enforceInitialEntryChunkBudget = (): Plugin => ({
 })
 
 /*
- * Emits the `sw-extras.js` that the generated worker importScripts.
+ * Emits the `sw-extras.js` that the generated worker importScripts. Two things have to happen that
+ * Workbox config cannot express, and they sit on different lifecycle events for a reason.
  *
- * Two things have to happen at activation that Workbox config cannot express:
- *
- * 1. Warm the catalog. A new build gives the chunk a new hashed URL, so the CacheFirst route misses
- *    until something requests it online. Without this, a user who takes an update and is next offline
- *    gets a working shell and no army data — exactly the case offline support exists for. Activation
- *    is the right moment because it only happens after the update was fetched, so the network is
- *    known good.
- * 2. Drop the CRA-era `images` runtime cache. `cleanupOutdatedCaches` only matches Workbox's own
- *    precache naming, so a custom-named cache from the old worker would otherwise persist forever on
- *    exactly the legacy clients this migration is trying to reclaim.
+ * 1. Warm the catalog, on `install`. A new build gives the chunk a new hashed URL, so the CacheFirst
+ *    route misses until something requests it online — and a user who takes an update and is next
+ *    offline would get a working shell and no army data, exactly the case offline support exists for.
+ *    A rejected `install` waitUntil aborts the update, so a failed warm leaves the client on its
+ *    previous worker, which still has its own catalog cached and still works offline. That is the
+ *    whole point of warming here rather than on `activate`: activation cannot be refused, so a
+ *    failure there would commit the client to a build it cannot run offline. The hourly poll retries.
+ * 2. Prune, and drop the CRA-era `images` runtime cache, on `activate`. Both are cheap and
+ *    fault-tolerant. Nothing slow belongs here: activation holds fetch events until waitUntil
+ *    settles, and the page reloads the moment the worker takes control, so a download on this path
+ *    would leave that reload on a blank screen. `cleanupOutdatedCaches` only matches Workbox's own
+ *    precache naming, so the custom-named legacy cache needs deleting by hand.
  *
  * The URL is baked in at build time because the worker has no other way to learn a content-hashed
- * name. This file also owns pruning the catalog cache, rather than an ExpirationPlugin: writing to a
+ * name. This file also owns the catalog cache rather than an ExpirationPlugin: writing to a
  * Workbox-managed cache directly would bypass its IndexedDB bookkeeping and leave entry counts wrong.
  * One current entry is the whole policy — after activation the previous build's URL is never
  * requested again.
@@ -114,41 +117,52 @@ const withTimeout = () =>
     ? { signal: AbortSignal.timeout(WARM_TIMEOUT_MS) }
     : undefined
 
+/*
+ * Deliberately unguarded: a rejection here rejects install's waitUntil, which aborts the update and
+ * leaves the client on its previous worker -- one that still has its own catalog cached and still
+ * works offline. Swallowing the failure instead would activate a build that cannot load army data
+ * offline, which is worse than not updating. The hourly poll retries.
+ */
+const warmCatalog = async () => {
+  if (!CATALOG_URL) return
+
+  const cache = await caches.open(CATALOG_CACHE)
+  const cached = await cache.match(CATALOG_URL)
+  if (isCatalogModule(cached)) return
+  if (cached) await cache.delete(CATALOG_URL)
+
+  // No 'reload' cache mode: the URL is content-hashed and served immutable, so a copy the page has
+  // already downloaded is by construction the right bytes and re-fetching them buys nothing.
+  const response = await fetch(CATALOG_URL, withTimeout())
+  if (!isCatalogModule(response)) {
+    throw new Error('sw-extras: catalog warm did not return the module; aborting this update')
+  }
+  await cache.put(CATALOG_URL, response)
+}
+
+self.addEventListener('install', event => {
+  event.waitUntil(warmCatalog())
+})
+
 self.addEventListener('activate', event => {
   event.waitUntil(
     (async () => {
-      // Independently fault-tolerant: a storage failure here must not skip the catalog work below.
+      // Everything here is cheap and independently fault-tolerant. Activation holds fetch events
+      // until waitUntil settles and the page reloads the moment the worker takes control, so a slow
+      // step on this path would leave that reload on a blank screen.
       await Promise.all(LEGACY_CACHES.map(name => caches.delete(name).catch(() => {})))
 
       if (!CATALOG_URL) return
       try {
+        // Drop previous builds' entries, and anything that is not the module -- that is how a cache
+        // poisoned by the SPA's 200-HTML fallback heals instead of serving it until the next deploy.
         const cache = await caches.open(CATALOG_CACHE)
-
-        // Drop previous builds' entries, and any entry that is not the module -- that is how a
-        // poisoned cache heals itself instead of serving HTML until the next deploy.
         for (const request of await cache.keys()) {
           const isCurrent = new URL(request.url).pathname === CATALOG_URL
           if (!isCurrent || !isCatalogModule(await cache.match(request))) await cache.delete(request)
         }
-        if (await cache.match(CATALOG_URL)) return
-
-        /*
-         * With a window open, stop here. Activation holds fetch events until waitUntil settles, and
-         * vite-plugin-pwa reloads the page the moment the worker takes control -- so warming an
-         * 11.6 MiB chunk on this path would leave that reload staring at a blank page for the whole
-         * download. The reloaded page requests the catalog itself and the runtime route caches it
-         * behind the app's own loading state. Warming is for the other case: activation with no
-         * clients (the last tab closed), where the next start may well be offline.
-         */
-        if ((await self.clients.matchAll({ type: 'window' })).length > 0) return
-
-        // No 'reload' cache mode: the URL is content-hashed and served immutable, so the HTTP-cached
-        // copy is by construction the right bytes and re-downloading them buys nothing.
-        const response = await fetch(CATALOG_URL, withTimeout())
-        if (isCatalogModule(response)) await cache.put(CATALOG_URL, response)
       } catch {
-        // Offline, timed out, or storage refused. The runtime route fills the cache on first online
-        // use, and the prune above re-runs on the next activation.
+        // Storage refused. The runtime route still serves the catalog; the prune retries next time.
       }
     })()
   )
