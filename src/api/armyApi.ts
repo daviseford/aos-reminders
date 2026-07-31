@@ -41,6 +41,8 @@ const parseDocument = (value: unknown): Aos4ArmyDocument => {
   const selection = resolveSelection(AOS4_CATALOG, {
     explicitIds: restored.document.explicitSelectionIds,
     rulesContextId: restored.document.rulesContextId,
+    ...(restored.document.allowsLegends ? { allowsLegends: true } : {}),
+    ...(restored.document.allowsHistorical ? { allowsHistorical: true } : {}),
   })
   if (selection.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     throw new ArmyApiError('The service returned an invalid army selection.', 502)

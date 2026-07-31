@@ -25,7 +25,7 @@ const columnClass = 'col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-5'
  * below its capture size so nothing is upscaled. .img-fluid supplies max-width: 100% and
  * height: auto, so the pair reserves the correct box before the image loads and shrinks
  * proportionally on a narrow screen. Both were previously declared 200x250 whatever they were,
- * which reserved 180px the wide one never used and rendered it at 200x70 — unreadable.
+ * which reserved 180px the wide one never used and rendered it at 200x70 - unreadable.
  */
 interface IFaqImage {
   alt: string
@@ -81,7 +81,7 @@ const FaqSections: IFaqSection[] = [
         answer: (
           <>
             You give it the army you are bringing. It works out every ability that army grants you and lists
-            those abilities under the window they fire in — deployment, each of the seven turn phases, the
+            those abilities under the window they fire in - deployment, each of the seven turn phases, the
             start and end of a battle round, and reactions to your opponent. It is not a rules search. It is
             your list, in turn order.
           </>
@@ -94,8 +94,7 @@ const FaqSections: IFaqSection[] = [
           <>
             No. <strong>Import Army</strong> takes the roster you already made: text exported from the
             official Warhammer Age of Sigmar app or from Listbot 4.0, and New Recruit .ros, .rosz, or .json
-            files. You can paste the text or drop the file in. An imported roster sets your selections — it is
-            never treated as a rules authority.
+            files. You can paste the text or drop the file in.
           </>
         ),
       },
@@ -117,7 +116,7 @@ const FaqSections: IFaqSection[] = [
         answer: (
           <>
             Open the ⋯ menu on any reminder and choose <strong>Hide rule</strong>. It stays out of Play mode
-            until you change your mind — <strong>Show Hidden</strong> in the toolbar keeps a count and brings
+            until you change your mind - <strong>Show Hidden</strong> in the toolbar keeps a count and brings
             them all back at once. The same menu has <strong>Add note</strong> for writing your own line under
             a rule, and you can drag reminders into a different order within their phase.
           </>
@@ -135,21 +134,19 @@ const FaqSections: IFaqSection[] = [
         answer: (
           <>
             Yes, and it costs nothing. <strong>Download PDF</strong> in the toolbar builds the sheet in your
-            browser — <strong>Standard</strong> for larger type in a single column, <strong>Compact</strong>{' '}
-            for two columns and fewer pages — on A4 or US Letter. Your notes come with it, and anything you
+            browser - <strong>Standard</strong> for larger type in a single column, <strong>Compact</strong>{' '}
+            for two columns and fewer pages - on A4 or US Letter. Your notes come with it, and anything you
             hid stays hidden.
           </>
         ),
       },
       {
         id: 'offline',
-        question: 'Does it work without a signal?',
+        question: 'Does it work without Wifi?',
         answer: (
           <>
-            Partly, and I would not count on it. No rules data is fetched while you play — the whole corpus
-            ships with the page — and your current army is kept in this browser, so a connection that drops
-            mid-game does not take your reminders with it. But there is no offline cache yet: if the tab is
-            not already open, a dead connection is a dead page. Venue signal being what it is, take the PDF.
+            Partly, and I would not count on it. Your current army is kept in this browser, so a connection that drops
+            mid-game does not take your reminders with it. But there is no offline cache yet (coming soon). I advise printing the PDF.
           </>
         ),
       },
@@ -178,7 +175,6 @@ const FaqSections: IFaqSection[] = [
             Games Workshop publications are the authority. <WahapediaLink /> is used to find and cross-check
             coverage. Every reminder carries its source in the ⋯ menu, and anything drawn from a Games
             Workshop publication is badged <strong>Official</strong> and links to the document it came from.
-            Powered by Wahapedia.
           </>
         ),
       },
@@ -220,10 +216,10 @@ const FaqSections: IFaqSection[] = [
         question: 'What does a subscription get me?',
         answer: (
           <>
-            <strong>My Armies</strong> keeps your armies on your account so they follow you between devices —
+            <strong>My Armies</strong> keeps your armies on your account so they follow you between devices -
             save, load, rename, update, and delete. <strong>Share Army</strong> creates a link a friend can
-            open to take their own copy of the list. And dark theme. Everything else — the builder, importing,
-            reminders, notes, hiding, reordering, and the PDF — is free, and stays free. See{' '}
+            open to take their own copy of the list. And dark theme. Everything else - the builder, importing,
+            reminders, notes, hiding, reordering, and the PDF - is free, and stays free. See{' '}
             <Link className="FaqLink" to={ROUTES.SUBSCRIBE}>
               the plans
             </Link>
@@ -246,7 +242,7 @@ const FaqSections: IFaqSection[] = [
         question: "I can't recover my password!",
         answer: (
           <>
-            If you signed up with Google, there is no AoS Reminders password to recover — use{' '}
+            If you signed up with Google, there is no AoS Reminders password to recover - use{' '}
             <strong>Continue with Google</strong> on the log in screen rather than the email and password
             fields.
           </>
@@ -283,7 +279,7 @@ const FaqSections: IFaqSection[] = [
         answer: (
           <>
             No. There is no card field anywhere on this site. Payment happens on Stripe&apos;s own hosted
-            checkout or through PayPal&apos;s button, and they manage the subscription from there — including
+            checkout or through PayPal&apos;s button, and they manage the subscription from there - including
             cancelling it.
           </>
         ),
@@ -294,7 +290,7 @@ const FaqSections: IFaqSection[] = [
         answer: (
           <>
             Yes. <strong>Gift a Subscription</strong> on your <ProfileLink>Profile</ProfileLink> charges you
-            once — it is not a recurring subscription — and gives you a one-time-use link to send on.
+            once - it is not a recurring subscription - and gives you a one-time-use link to send on.
           </>
         ),
       },
@@ -315,7 +311,7 @@ const Faq = () => {
     /*
      * `instant` is required, not a preference. Bootstrap 5.3 sets `scroll-behavior: smooth` on
      * `:root` (4.6 did not), so a bare scrollIntoView() starts an animation from the top that the
-     * browser's own load-time scroll handling cancels — the reader lands at the masthead and the
+     * browser's own load-time scroll handling cancels - the reader lands at the masthead and the
      * anchor silently does nothing. An arrival jump should be instant anyway; the smooth behaviour
      * still applies to the section links, which is where it reads well.
      */
