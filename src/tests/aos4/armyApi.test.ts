@@ -25,7 +25,7 @@ describe('AoS 4 army API client', () => {
       ])
     )
     const api = createArmyApi('https://army.example/', fetcher)
-    const armies = await api.listArmies('auth0|owner', 'access-token')
+    const armies = await api.listArmies('access-token')
 
     expect(armies).toEqual([
       {
@@ -36,7 +36,7 @@ describe('AoS 4 army API client', () => {
       },
     ])
     const [url, options] = fetcher.mock.calls[0]
-    expect(url).toBe('https://army.example/items?ownerId=auth0%7Cowner')
+    expect(url).toBe('https://army.example/items')
     expect(new Headers(options.headers).get('Authorization')).toBe('Bearer access-token')
   })
 
@@ -77,7 +77,7 @@ describe('AoS 4 army API client', () => {
       ])
     )
     await expect(
-      createArmyApi('https://army.example', invalidFetcher).listArmies('owner', 'token')
+      createArmyApi('https://army.example', invalidFetcher).listArmies('token')
     ).rejects.toMatchObject({ status: 502 })
 
     const deniedFetcher = vi.fn().mockResolvedValue(jsonResponse('An active subscription is required.', 403))

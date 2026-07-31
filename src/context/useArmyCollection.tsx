@@ -25,14 +25,14 @@ const messageForError = (error: unknown): string => {
 }
 
 export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<object>) => {
-  const { isAuthenticated, user } = useAuth0()
+  const { isAuthenticated } = useAuth0()
   const getAccessToken = useApiAccessToken()
   const [armies, setArmies] = useState<RemoteArmy[]>([])
   const [collectionError, setCollectionError] = useState<string | null>(null)
   const [collectionLoading, setCollectionLoading] = useState(false)
 
   const refreshArmies = useCallback(async () => {
-    if (!isAuthenticated || !user?.sub) {
+    if (!isAuthenticated) {
       setArmies([])
       setCollectionError(null)
       return
@@ -41,13 +41,13 @@ export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<obj
     setCollectionError(null)
     try {
       const token = await getAccessToken()
-      setArmies(await ArmyApi.listArmies(user.sub, token))
+      setArmies(await ArmyApi.listArmies(token))
     } catch (error) {
       setCollectionError(messageForError(error))
     } finally {
       setCollectionLoading(false)
     }
-  }, [getAccessToken, isAuthenticated, user?.sub])
+  }, [getAccessToken, isAuthenticated])
 
   const createArmy = useCallback(
     async (document: Aos4ArmyDocument) => {

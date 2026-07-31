@@ -119,8 +119,8 @@ export const createArmyApi = (endpoint: string, fetcher: Fetcher = fetch) => {
 
   return {
     isConfigured: Boolean(baseUrl),
-    async listArmies(ownerId: string, token: string): Promise<RemoteArmy[]> {
-      const value = await request(`/items?ownerId=${encodeURIComponent(ownerId)}`, {}, token)
+    async listArmies(token: string): Promise<RemoteArmy[]> {
+      const value = await request('/items', {}, token)
       if (!Array.isArray(value)) throw new ArmyApiError('The service returned an invalid army list.', 502)
       return value.map(parseRemoteArmy)
     },
