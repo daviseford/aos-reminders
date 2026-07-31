@@ -17,12 +17,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SITE_S3: s3://aosreminders.com/
-      SITE_BUILD_DIR: ./dist/
+      SITE_S3: s3://aosreminders.com
+      SITE_BUILD_DIR: ./dist
       CF_DIST_ID: E3OO9Y9QRVZ2L1
-      CF_PATH: /*
       VITE_ARMY_API_URL: ${{ vars.PRODUCTION_ARMY_API_URL }}
       VITE_SUBSCRIPTION_API_URL: ${{ vars.PRODUCTION_SUBSCRIPTION_API_URL }}
+      # Header classes. Hashed assets never change under a given name; the entry
+      # points must be revalidated on every request or an installed service
+      # worker can be pinned to an old build at the edge. Keep these in step with
+      # upload.sh and CI-build.sh; see docs/deployment.md.
+      IMMUTABLE: 'public, max-age=31536000, immutable'
+      MODERATE: 'public, max-age=86400'
+      REVALIDATE: 'public, max-age=0, must-revalidate'
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -42,9 +48,6 @@ jobs:
       - name: Lint with eslint
         run: yarn lint
 
-      - name: Test with vitest
-        run: yarn test --run
-
       - name: Validate AoS 4 beta data readiness
         run: yarn data:aos4:verify:beta
 
@@ -53,6 +56,9 @@ jobs:
 
       - name: Build production artifact
         run: yarn build
+
+      - name: Test with vitest
+        run: yarn test --run
 
       - name: Inspect production artifact
         run: yarn release:inspect-artifact
@@ -64,8 +70,44 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Deploy build bundle to S3 bucket
-        run: aws s3 sync --delete ${{ env.SITE_BUILD_DIR }} ${{ env.SITE_S3 }} --exclude "*build_log.txt" --exclude "*.idea*" --exclude "*.sh" --exclude "*.git*" --exclude "*.DS_Store"
+      # Hashed assets first: a freshly revalidated index.html must never
+      # reference a chunk that has not landed yet.
+      - name: Upload content-hashed assets
+        run: aws s3 sync "${{ env.SITE_BUILD_DIR }}/assets" "${{ env.SITE_S3 }}/assets" --cache-control "${{ env.IMMUTABLE }}"
 
+      # `sync` compares size and modification time and skips unchanged objects,
+      # so without this a chunk the live index.html still references ages out and
+      # the bucket lifecycle rule deletes it. Server-side copy: nothing is
+      # re-uploaded from the runner.
+      - name: Refresh hashed-asset timestamps
+        run: aws s3 cp "${{ env.SITE_S3 }}/assets" "${{ env.SITE_S3 }}/assets" --recursive --metadata-directive REPLACE --cache-control "${{ env.IMMUTABLE }}"
+
+      # Unhashed public assets carry a ?v= query buster rather than a content
+      # hash, so a moderate TTL and no `immutable`.
+      - name: Upload unhashed public assets
+        run: |
+          aws s3 sync "${{ env.SITE_BUILD_DIR }}" "${{ env.SITE_S3 }}" \
+            --exclude "*build_log.txt" --exclude "*.idea*" --exclude "*.sh" \
+            --exclude "*.git*" --exclude "*.DS_Store" \
+            --exclude "assets/*" --exclude "index.html" --exclude "site.webmanifest" \
+            --exclude "service-worker.js" --exclude "workbox-*.js" --exclude "registerSW.js" \
+            --cache-control "${{ env.MODERATE }}"
+
+      # The worker only exists once the PWA plugin is building it, so the upload
+      # is guarded rather than assumed.
+      - name: Upload manifest and service worker
+        run: |
+          aws s3 cp "${{ env.SITE_BUILD_DIR }}/site.webmanifest" "${{ env.SITE_S3 }}/site.webmanifest" \
+            --cache-control "${{ env.REVALIDATE }}"
+          for worker in "${{ env.SITE_BUILD_DIR }}"/service-worker.js "${{ env.SITE_BUILD_DIR }}"/workbox-*.js "${{ env.SITE_BUILD_DIR }}"/registerSW.js; do
+            [ -e "$worker" ] || continue
+            aws s3 cp "$worker" "${{ env.SITE_S3 }}/$(basename "$worker")" --cache-control "${{ env.REVALIDATE }}"
+          done
+
+      - name: Upload index.html
+        run: aws s3 cp "${{ env.SITE_BUILD_DIR }}/index.html" "${{ env.SITE_S3 }}/index.html" --cache-control "${{ env.REVALIDATE }}" --content-type "text/html; charset=utf-8"
+
+      # Only the mutable entry points. `/*` is one billable path but evicts every
+      # hashed asset from the edge, forcing a full refetch from S3.
       - name: Invalidate CloudFront cache
-        run: aws cloudfront create-invalidation --distribution-id ${{ env.CF_DIST_ID }} --paths "${{ env.CF_PATH }}"
+        run: aws cloudfront create-invalidation --distribution-id ${{ env.CF_DIST_ID }} --paths "/" "/index.html" "/site.webmanifest" "/service-worker.js"
