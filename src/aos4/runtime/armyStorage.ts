@@ -1,5 +1,6 @@
 import type { Aos4Catalog } from '../domain'
 import { AOS4_DEFAULT_RULES_CONTEXT_ID, AOS4_DEFAULT_SELECTION_IDS } from '../generated'
+import { resolveSelection } from '../select'
 import {
   createAos4ArmyDocument,
   deserializeAos4ArmyDocument,
@@ -57,4 +58,39 @@ export const loadAos4ArmyDocument = (storage: Storage, catalog: Aos4Catalog): Lo
   const document = createDefaultAos4ArmyDocument()
   saveAos4ArmyDocument(storage, document)
   return { document, diagnostics: restored.diagnostics, source: 'reset' }
+}
+
+export type Aos4OverlayFlag = 'allowsLegends' | 'allowsHistorical'
+
+export const setAos4OverlayFlag = (
+  catalog: Aos4Catalog,
+  document: Aos4ArmyDocument,
+  flag: Aos4OverlayFlag,
+  enabled: boolean
+): Aos4ArmyDocument => {
+  const next = createAos4ArmyDocument(
+    flag === 'allowsLegends'
+      ? { ...document, allowsLegends: enabled }
+      : { ...document, allowsHistorical: enabled }
+  )
+  if (enabled) return next
+
+  // Turning an overlay off can strand explicit selections that only resolved under it. Prune the
+  // now-inapplicable ids so the document stays valid for the builder, cloud sync, and shares.
+  const selection = resolveSelection(catalog, {
+    explicitIds: next.explicitSelectionIds,
+    rulesContextId: next.rulesContextId,
+    ...(next.allowsLegends ? { allowsLegends: true } : {}),
+    ...(next.allowsHistorical ? { allowsHistorical: true } : {}),
+  })
+  const inapplicable = new Set(
+    selection.diagnostics
+      .filter(diagnostic => diagnostic.code === 'inapplicable-explicit-selection')
+      .flatMap(diagnostic => diagnostic.entityIds ?? [])
+  )
+  if (inapplicable.size === 0) return next
+  return createAos4ArmyDocument({
+    ...next,
+    explicitSelectionIds: next.explicitSelectionIds.filter(id => !inapplicable.has(id)),
+  })
 }
