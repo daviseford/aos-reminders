@@ -1,4 +1,4 @@
-import { decodeAos4TextRoster } from '../../importers/aos4'
+import { decodeAos4TextRoster } from '../../importers'
 import { readOfficialAppFixture as fixture } from '../support/officialAppFixtures'
 
 describe('official AoS app text import', () => {

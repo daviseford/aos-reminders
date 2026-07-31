@@ -9,7 +9,7 @@ import {
   MAX_EXPANDED_ROSTER_BYTES,
   MAX_ROSTER_FILE_BYTES,
   MAX_ROSTER_JSON_DEPTH,
-} from '../../importers/aos4'
+} from '../../importers'
 import { parseRosterXml, xmlToRosterJson } from '../support/newRecruit'
 
 /**
@@ -259,7 +259,7 @@ describe('New Recruit .ros and .rosz import', () => {
   })
 
   it('keeps fflate behind a dynamic production import', () => {
-    const source = fs.readFileSync(path.resolve(process.cwd(), 'src/importers/aos4/rosterFile.ts'), 'utf8')
+    const source = fs.readFileSync(path.resolve(process.cwd(), 'src/importers/rosterFile.ts'), 'utf8')
 
     expect(source).toContain("await import('fflate')")
     expect(source).not.toMatch(/^import .* from ['"]fflate['"]/m)

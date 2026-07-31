@@ -1,4 +1,4 @@
-import type { Aos4ImportDiagnostic, Aos4ParsedRosterResult } from '../../aos4/import'
+import type { Aos4ImportDiagnostic, Aos4ParsedRosterResult } from '../aos4/import'
 import { parseAos4RosterJson } from './rosterJson'
 import { parseAos4RosterXml } from './rosterXml'
 import { decodeAos4TextRoster } from './textRoster'

@@ -3,7 +3,7 @@ import type {
   Aos4ParsedRosterResult,
   ParsedRosterSelection,
   ParsedRosterSelectionKind,
-} from '../../aos4/import'
+} from '../aos4/import'
 import { MAX_IMPORT_SELECTIONS } from './detectTextSource'
 
 /**

@@ -2,7 +2,7 @@ import fs from 'node:fs'
 
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID, AOS4_RUNTIME_PROJECTION } from '../../aos4/generated'
 import { buildArmyOfRenownIndex, resolveParsedRoster } from '../../aos4/import'
-import { decodeAos4TextRoster } from '../../importers/aos4'
+import { decodeAos4TextRoster } from '../../importers'
 import {
   decodeOfficialAppFixture,
   officialAppExpectedPath,

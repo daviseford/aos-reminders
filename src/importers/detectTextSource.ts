@@ -1,4 +1,4 @@
-import type { Aos4ImportDiagnostic, Aos4ImportSource, Aos4ParsedRosterResult } from '../../aos4/import'
+import type { Aos4ImportDiagnostic, Aos4ImportSource, Aos4ParsedRosterResult } from '../aos4/import'
 
 export const MAX_TEXT_IMPORT_BYTES = 1024 * 1024
 export const MAX_TEXT_IMPORT_LINES = 10_000

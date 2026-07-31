@@ -110,6 +110,7 @@ describe('AoS 4 legacy isolation', () => {
       'api/armyApi.ts',
       'api/subscriptionApi.ts',
       'components/helpers/alreadySubscribed.tsx',
+      'components/helpers/collapsibleCardHeader.tsx',
       'components/helpers/link.tsx',
       'components/helpers/spinner.tsx',
       'components/helpers/suspenseFallbacks.tsx',

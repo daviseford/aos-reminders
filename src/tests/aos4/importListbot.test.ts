@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { decodeAos4RosterFile, decodeAos4TextRoster } from '../../importers/aos4'
+import { decodeAos4RosterFile, decodeAos4TextRoster } from '../../importers'
 
 const fixture = (name: string): string =>
   fs.readFileSync(path.resolve(process.cwd(), 'src/tests/fixtures/aos4/import/listbot', name), 'utf8')

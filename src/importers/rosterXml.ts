@@ -1,4 +1,4 @@
-import type { Aos4ParsedRosterResult } from '../../aos4/import'
+import type { Aos4ParsedRosterResult } from '../aos4/import'
 import { MAX_TEXT_IMPORT_LINES } from './detectTextSource'
 import { parseAos4RosterTree, rosterError, type RosterNode } from './rosterTree'
 

@@ -9,7 +9,7 @@ import {
   type ListbotGameData,
   type ListbotUnscopedUnitBinding,
 } from '../support/listbotCorpus'
-import { decodeAos4TextRoster } from '../../importers/aos4'
+import { decodeAos4TextRoster } from '../../importers'
 
 const snapshot: ListbotGameData = {
   version: '2026-07-29T00:00:00Z',

@@ -3,7 +3,7 @@ import type {
   Aos4ParsedRosterResult,
   ParsedRosterSelection,
   ParsedRosterSelectionKind,
-} from '../../aos4/import'
+} from '../aos4/import'
 import type { Aos4ImportLine } from './detectTextSource'
 
 const pointsLinePattern = /^(?:(\d+)\s*[x×]\s+)?(.+?)\s+\(\s*\d+\s*(?:pts?|points?)?\s*\)\s*$/i

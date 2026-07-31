@@ -13,7 +13,7 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
 - the AoS 3 faction corpus, rule utilities, Redux state, saved-army schema, importers, and fixtures
   have been removed
 - importing, cloud armies, and army sharing are rebuilt as AoS 4-native features: roster parsers in
-  `src/importers/aos4/` (official app text, Listbot text and file upload, New Recruit
+  `src/importers/` (official app text, Listbot text and file upload, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
   client in `src/api/armyApi.ts`
 - an army document may opt into Legends units (`allowsLegends`); Legends applies as an overlay on
@@ -44,7 +44,7 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
 
 Do not confuse these version numbers:
 
-- `package.json` reports the application version (`5.2.9`)
+- `package.json` reports the application version (`6.0.0`)
 - “AoS 4” means the Games Workshop game edition released in 2024
 - the AoS 4 army-document and catalog schema versions are independent internal contracts
 
@@ -336,7 +336,7 @@ applicable official and secondary source records, their exact checksums, and the
   causes/diagnostics.
 - `src/aos4/import/` resolves imported roster labels to stable selections through normalized
   labels and reviewed aliases (`labelAliases.ts`); provider parsers live outside the domain in
-  `src/importers/aos4/`.
+  `src/importers/`.
 - `src/aos4/reminders/` projects selected abilities to stable reminder occurrences and orders them
   by window, priority, lane, perspective, name, and ID.
 - `src/aos4/view/` creates builder/reminder view models. It contains no React or browser storage.

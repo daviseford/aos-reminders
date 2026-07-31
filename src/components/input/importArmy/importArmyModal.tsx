@@ -13,7 +13,7 @@ import {
   decodeAos4RosterFile,
   decodeAos4TextRoster,
   MAX_ROSTER_FILE_BYTES,
-} from '../../../importers/aos4'
+} from '../../../importers'
 import { logRosterImport } from 'utils/analytics'
 import { createAos4DocumentId } from 'utils/createAos4DocumentId'
 import { sendFailedImportReport } from './failedImportReport'

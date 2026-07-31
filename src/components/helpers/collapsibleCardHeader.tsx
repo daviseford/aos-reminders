@@ -1,4 +1,4 @@
-import { useIsMobile } from 'components/aos4/useIsMobile'
+import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import { MdExpandMore, MdRemove } from 'react-icons/md'
 

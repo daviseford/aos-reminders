@@ -3,7 +3,7 @@
 Army lists copied out of **Warhammer Age of Sigmar: The App** (Storm Forge), captured verbatim as
 the app puts them on the clipboard.
 
-Parser: `src/importers/aos4/officialApp.ts`
+Parser: `src/importers/officialApp.ts`
 Tests: `src/tests/aos4/officialAppFixtures.test.ts` (corpus-wide), `importOfficialApp.test.ts`
 (targeted semantics and source-detection rejections)
 

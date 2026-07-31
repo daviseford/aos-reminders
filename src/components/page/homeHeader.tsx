@@ -1,5 +1,5 @@
-import { useIsMobile } from 'components/aos4/useIsMobile'
 import Navbar from 'components/page/navbar'
+import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import Switch from 'react-switch'
 import Select from 'react-select'

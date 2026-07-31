@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import type { Aos4ParsedRosterResult } from '../../aos4/import'
-import { decodeAos4TextRoster } from '../../importers/aos4'
+import { decodeAos4TextRoster } from '../../importers'
 
 export const OFFICIAL_APP_FIXTURE_DIR = path.resolve(
   process.cwd(),

@@ -21,7 +21,7 @@ existed. `src/tests/aos4/importFixtures.test.ts` enforces it at the file level, 
 three formats, one roster.
 
 All three are accepted uploads. `.json` is read by the same reader as the XML
-(`src/importers/aos4/rosterTree.ts`), with each format contributing only a validating adapter, so
+(`src/importers/rosterTree.ts`), with each format contributing only a validating adapter, so
 the formats cannot agree here and drift in production.
 
 ## Layout
