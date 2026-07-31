@@ -1,0 +1,236 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Independent nightly DynamoDB exports for AoS Reminders production data.
+
+Parameters:
+  BackupBucketName:
+    Type: String
+    Default: aos-reminders-dynamodb-backups
+    Description: Globally unique S3 bucket created with Object Lock enabled.
+
+Resources:
+  BackupBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketName: !Ref BackupBucketName
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+          - Id: ExpireExportsAfterRetention
+            Status: Enabled
+            Prefix: ''
+            ExpirationInDays: 45
+            NoncurrentVersionExpiration:
+              NoncurrentDays: 1
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 7
+          - Id: RemoveExpiredDeleteMarkers
+            Status: Enabled
+            Prefix: ''
+            ExpiredObjectDeleteMarker: true
+      ObjectLockEnabled: true
+      ObjectLockConfiguration:
+        ObjectLockEnabled: Enabled
+        Rule:
+          DefaultRetention:
+            Mode: GOVERNANCE
+            Days: 35
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: application
+          Value: aos-reminders
+        - Key: purpose
+          Value: dynamodb-backups
+
+  BackupBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref BackupBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: '*'
+            Action: s3:*
+            Resource:
+              - !GetAtt BackupBucket.Arn
+              - !Sub '${BackupBucket.Arn}/*'
+            Condition:
+              Bool:
+                'aws:SecureTransport': 'false'
+
+  BackupExportRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: export-production-tables
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: ExportProductionTables
+                Effect: Allow
+                Action: dynamodb:ExportTableToPointInTime
+                Resource:
+                  - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-subscription-api-v2-prod
+                  - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-subscription-api-v2-provider-events-prod
+                  - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-rest-api-prod
+                  - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-link-api-prod
+                  - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-coupon-api-prod
+                  - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-admin-audit
+              - Sid: WriteBackupObjects
+                Effect: Allow
+                Action:
+                  - s3:AbortMultipartUpload
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                Resource: !Sub '${BackupBucket.Arn}/*'
+              - Sid: WriteFunctionLogs
+                Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aos-reminders-dynamodb-backup-export:*
+      Tags:
+        - Key: application
+          Value: aos-reminders
+        - Key: purpose
+          Value: dynamodb-backups
+
+  BackupExportLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/aos-reminders-dynamodb-backup-export
+      RetentionInDays: 30
+
+  BackupExportFunction:
+    Type: AWS::Lambda::Function
+    DependsOn: BackupExportLogGroup
+    Properties:
+      FunctionName: aos-reminders-dynamodb-backup-export
+      Description: Starts full point-in-time exports of every AoS Reminders production table.
+      Runtime: nodejs22.x
+      Handler: index.handler
+      MemorySize: 128
+      Timeout: 30
+      ReservedConcurrentExecutions: 1
+      Role: !GetAtt BackupExportRole.Arn
+      Environment:
+        Variables:
+          BACKUP_BUCKET_NAME: !Ref BackupBucket
+          BACKUP_BUCKET_OWNER: !Ref AWS::AccountId
+          TABLE_ARNS: !Join
+            - ','
+            - - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-subscription-api-v2-prod
+              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-subscription-api-v2-provider-events-prod
+              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-rest-api-prod
+              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-link-api-prod
+              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-coupon-api-prod
+              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aos-reminders-admin-audit
+      Code:
+        ZipFile: |
+          const crypto = require('node:crypto')
+          const {
+            DynamoDBClient,
+            ExportTableToPointInTimeCommand,
+          } = require('@aws-sdk/client-dynamodb')
+
+          const dynamodb = new DynamoDBClient({})
+          const bucketName = process.env.BACKUP_BUCKET_NAME
+          const bucketOwner = process.env.BACKUP_BUCKET_OWNER
+          const tableArns = process.env.TABLE_ARNS.split(',')
+
+          exports.handler = async event => {
+            const scheduledTime = event && event.time ? new Date(event.time) : new Date()
+            const exportDate = scheduledTime.toISOString().slice(0, 10)
+
+            const exports = await Promise.all(
+              tableArns.map(async tableArn => {
+                const tableName = tableArn.split('/').at(-1)
+                const clientToken = crypto
+                  .createHash('sha256')
+                  .update(`${exportDate}:${tableArn}:${bucketName}`)
+                  .digest('hex')
+                const result = await dynamodb.send(
+                  new ExportTableToPointInTimeCommand({
+                    TableArn: tableArn,
+                    ClientToken: clientToken,
+                    S3Bucket: bucketName,
+                    S3BucketOwner: bucketOwner,
+                    S3Prefix: `${tableName}/${exportDate}`,
+                    S3SseAlgorithm: 'AES256',
+                    ExportFormat: 'DYNAMODB_JSON',
+                    ExportType: 'FULL_EXPORT',
+                  }),
+                )
+
+                return {
+                  tableName,
+                  exportArn: result.ExportDescription.ExportArn,
+                  status: result.ExportDescription.ExportStatus,
+                }
+              }),
+            )
+
+            const summary = { exportDate, exports }
+            console.log(JSON.stringify(summary))
+            return summary
+          }
+      Tags:
+        - Key: application
+          Value: aos-reminders
+        - Key: purpose
+          Value: dynamodb-backups
+
+  NightlyExportRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: aos-reminders-dynamodb-backup-nightly
+      Description: Starts immutable production DynamoDB exports every night at 09:00 UTC.
+      ScheduleExpression: cron(0 9 * * ? *)
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt BackupExportFunction.Arn
+          Id: BackupExportFunction
+          RetryPolicy:
+            MaximumEventAgeInSeconds: 3600
+            MaximumRetryAttempts: 2
+
+  AllowNightlyExportInvocation:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref BackupExportFunction
+      Principal: events.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+      SourceArn: !GetAtt NightlyExportRule.Arn
+
+Outputs:
+  BackupBucketName:
+    Value: !Ref BackupBucket
+  BackupExportFunctionName:
+    Value: !Ref BackupExportFunction
+  BackupExportRoleArn:
+    Value: !GetAtt BackupExportRole.Arn
+  NightlyExportRuleArn:
+    Value: !GetAtt NightlyExportRule.Arn
