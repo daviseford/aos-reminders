@@ -1,6 +1,7 @@
 export * from './detectTextSource'
 export * from './listbot'
 export * from './officialApp'
+export * from './sigdex'
 export * from './rosterFile'
 export * from './rosterJson'
 export * from './rosterTree'
