@@ -1,4 +1,4 @@
-import type { Aos4ParsedRosterResult } from '../../aos4/import'
+import type { Aos4ParsedRosterResult } from '../aos4/import'
 import { detectAos4TextSource, enforceParsedSelectionLimit, type Aos4ImportLine } from './detectTextSource'
 import { parseListbotRoster } from './listbot'
 import { parseOfficialAppRoster } from './officialApp'

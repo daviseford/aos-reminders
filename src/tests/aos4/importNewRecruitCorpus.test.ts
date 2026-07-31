@@ -17,7 +17,7 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
 import { resolveParsedRoster, type ParsedRoster } from '../../aos4/import'
-import { decodeAos4RosterFile } from '../../importers/aos4'
+import { decodeAos4RosterFile } from '../../importers'
 import { LISTS_ROOT, listDirectories } from '../support/newRecruitManifest'
 
 const directories = listDirectories()

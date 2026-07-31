@@ -14,7 +14,7 @@ import { armyFactions, type RulesContextId } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
 import { stableJson } from '../../aos4/generate/serialization'
 import { resolveParsedRoster } from '../../aos4/import'
-import { decodeAos4TextRoster } from '../../importers/aos4'
+import { decodeAos4TextRoster } from '../../importers'
 import {
   LISTBOT_CURRENT_PAGE_URL,
   LISTBOT_ARMY_BINDINGS,

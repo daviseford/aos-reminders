@@ -3,7 +3,7 @@
 import ImportArmyModal from 'components/input/importArmy/importArmyModal'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import { AOS4_CATALOG } from '../../aos4/generated'
-import { MAX_ROSTER_FILE_BYTES } from '../../importers/aos4'
+import { MAX_ROSTER_FILE_BYTES } from '../../importers'
 import { parseRosterXml, xmlToRosterJson } from 'tests/support/newRecruit'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
