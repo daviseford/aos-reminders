@@ -175,10 +175,10 @@ The companion API services (`aos-reminders-rest-api`, `aos-reminders-subscriptio
 `nodejs22.x`/Serverless v4/AWS SDK v3 with characterization tests and CI (plan
 `2026-07-28-002`, units U2/U3). Issue #1727 completed authenticated CI `serverless package` gates,
 dev verification, and the dev/prod runtime deploys. The later AoS 4-native army/share service in
-`aos-reminders-rest-api#10` is dev-validated; its private-read/production hardening is prepared in
+`aos-reminders-rest-api#10` is dev-validated; its private-read/production hardening merged in
 `aos-reminders-rest-api#11` but still needs the coordinated production deployment and frontend API
-configuration tracked in issue #1804. Subscription authorization and verified webhook handling are
-prepared in `aos-reminders-subscription-api#17` but remain a production gate under issue #1720. Live
+configuration tracked in issue #1804. Subscription authorization and verified webhook handling
+merged in `aos-reminders-subscription-api#17` but remain a production gate under issue #1720. Live
 real-money Stripe and PayPal verification after the Version 6 frontend deploy remains tracked in
 issue #1731, and the full production smoke/operational handoff is issue #1805.
 

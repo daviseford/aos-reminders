@@ -40,7 +40,7 @@ Before merging #1717, confirm all of the following:
 - the accepted beta pointer still resolves to
   `data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3`;
 - the project owner explicitly authorizes the `master` merge and resulting frontend deployment;
-- the AoS 4-native army/share service from `aos-reminders-rest-api#10` is deployed to production
+- the AoS 4-native army/share service through `aos-reminders-rest-api#11` is deployed to production
   with the production entitlement URL, Auth0 issuer/audience, share base URL, and CORS origins;
   [#1804](https://github.com/daviseford/aos-reminders/issues/1804) tracks the coordinated rollout;
 - repository variables `PRODUCTION_ARMY_API_URL` and `PRODUCTION_SUBSCRIPTION_API_URL` contain the
