@@ -23,6 +23,7 @@ import Toolbar from 'components/input/toolbar/toolbar'
 import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
 import { ArmyCollectionProvider } from 'context/useArmyCollection'
+import { useTheme } from 'context/useTheme'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { logFactionSelection, logGameModeChange, logPdfDownload } from 'utils/analytics'
 import { consumePendingShareId } from 'utils/shareLink'
@@ -114,36 +115,39 @@ type OverlayTogglesProps = {
   onToggle: (flag: Aos4OverlayFlag, enabled: boolean) => void
 }
 
-const OverlayToggles = ({ document, onToggle }: OverlayTogglesProps) => (
-  <div className="container-fluid d-flex justify-content-center flex-wrap gap-4 pt-3">
-    <div className="form-check form-switch">
-      <input
-        checked={Boolean(document.allowsLegends)}
-        className="form-check-input"
-        id="toggle-allows-legends"
-        onChange={event => onToggle('allowsLegends', event.target.checked)}
-        role="switch"
-        type="checkbox"
-      />
-      <label className="form-check-label" htmlFor="toggle-allows-legends">
-        Include Legends units
-      </label>
+const OverlayToggles = ({ document, onToggle }: OverlayTogglesProps) => {
+  const { theme } = useTheme()
+  return (
+    <div className="container-fluid d-flex justify-content-center flex-wrap gap-4 pt-3">
+      <div className="form-check form-switch">
+        <input
+          checked={Boolean(document.allowsLegends)}
+          className="form-check-input"
+          id="toggle-allows-legends"
+          onChange={event => onToggle('allowsLegends', event.target.checked)}
+          role="switch"
+          type="checkbox"
+        />
+        <label className={`form-check-label ${theme.text}`} htmlFor="toggle-allows-legends">
+          Include Legends units
+        </label>
+      </div>
+      <div className="form-check form-switch">
+        <input
+          checked={Boolean(document.allowsHistorical)}
+          className="form-check-input"
+          id="toggle-allows-historical"
+          onChange={event => onToggle('allowsHistorical', event.target.checked)}
+          role="switch"
+          type="checkbox"
+        />
+        <label className={`form-check-label ${theme.text}`} htmlFor="toggle-allows-historical">
+          Include Scourge of Ghyran (2025-26)
+        </label>
+      </div>
     </div>
-    <div className="form-check form-switch">
-      <input
-        checked={Boolean(document.allowsHistorical)}
-        className="form-check-input"
-        id="toggle-allows-historical"
-        onChange={event => onToggle('allowsHistorical', event.target.checked)}
-        role="switch"
-        type="checkbox"
-      />
-      <label className="form-check-label" htmlFor="toggle-allows-historical">
-        Include Scourge of Ghyran (2025-26)
-      </label>
-    </div>
-  </div>
-)
+  )
+}
 
 const HomeContent = () => {
   const [document, setDocument] = useState(loadDocument)
