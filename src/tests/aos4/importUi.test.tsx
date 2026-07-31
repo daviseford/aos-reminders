@@ -612,14 +612,14 @@ describe('AoS 4 import modal', () => {
       Simulate.change(input)
       await new Promise(resolve => setTimeout(resolve, 0))
     })
-    expect(container.textContent).toContain('not a supported current official app or Listbot 4.0 export')
+    expect(container.textContent).toContain('not a supported current official app, Listbot 4.0, or Sigdex export')
 
     await act(async () => {
       firstRead.resolve(new Uint8Array([0x50, 0x4b, 0x03]).buffer)
       await new Promise(resolve => setTimeout(resolve, 0))
     })
 
-    expect(container.textContent).toContain('not a supported current official app or Listbot 4.0 export')
+    expect(container.textContent).toContain('not a supported current official app, Listbot 4.0, or Sigdex export')
     expect(container.textContent).not.toContain('not a valid ZIP archive')
 
     const createObjectUrl = vi.fn<(blob: Blob) => string>().mockReturnValue('blob:latest-import')

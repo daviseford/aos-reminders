@@ -17,6 +17,7 @@ interface ImportPreviewProps {
 
 const sourceLabels: Record<ParsedRoster['source'], string> = {
   'listbot-text': 'Listbot 4.0',
+  'sigdex-text': 'Sigdex',
   'official-app-text': 'Warhammer Age of Sigmar app',
   'roster-xml': 'New Recruit roster file',
 }

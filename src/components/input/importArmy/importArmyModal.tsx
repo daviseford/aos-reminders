@@ -184,8 +184,8 @@ const ImportArmyModal = ({
           <div>
             <h2 className="h4 mb-1">Import Army</h2>
             <p className="small mb-0">
-              Import composition from the current AoS app or Listbot 4.0 text export, or a New Recruit
-              .ros/.rosz/.json file.
+              Import composition from the current AoS app, Listbot 4.0, or Sigdex text export, or a New
+              Recruit .ros/.rosz/.json file.
             </p>
           </div>
           <button
@@ -253,7 +253,7 @@ const ImportArmyModal = ({
               Drag and drop your roster here
             </label>
             <p className="small text-center mb-2">
-              AoS app or Listbot text (.txt), or New Recruit roster (.ros, .rosz, or .json)
+              AoS app, Listbot, or Sigdex text (.txt), or New Recruit roster (.ros, .rosz, or .json)
             </p>
             <button
               className={theme.genericButton}

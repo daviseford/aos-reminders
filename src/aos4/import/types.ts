@@ -1,7 +1,7 @@
 import type { CanonicalId } from '../domain'
 import type { Aos4ArmyDocument } from '../state'
 
-export type Aos4ImportSource = 'official-app-text' | 'listbot-text' | 'roster-xml'
+export type Aos4ImportSource = 'official-app-text' | 'listbot-text' | 'sigdex-text' | 'roster-xml'
 
 export type ParsedRosterSelectionKind =
   | 'faction'

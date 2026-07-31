@@ -13,7 +13,7 @@ Version 6 is now an Age of Sigmar fourth-edition-only codebase:
 - the AoS 3 faction corpus, rule utilities, Redux state, saved-army schema, importers, and fixtures
   have been removed
 - importing, cloud armies, and army sharing are rebuilt as AoS 4-native features: roster parsers in
-  `src/importers/` (official app text, Listbot text and file upload, New Recruit
+  `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
   client in `src/api/armyApi.ts`
 - an army document may opt into Legends units (`allowsLegends`); Legends applies as an overlay on
@@ -237,8 +237,8 @@ observer) is planned but not implemented; see
 
 ### Roster import sources
 
-Importing accepts official Warhammer app text, Listbot 4.0 text or file upload, and New Recruit
-`.ros`/`.rosz`/`.json` rosters. These are roster inputs, never rules authorities: they resolve
+Importing accepts official Warhammer app text, Listbot 4.0 text or file upload, Sigdex text, and
+New Recruit `.ros`/`.rosz`/`.json` rosters. These are roster inputs, never rules authorities: they resolve
 against accepted stable IDs (`src/aos4/import/`) and must not create or override canonical rule
 facts. Roster bracket suffixes such as New Recruit's `[LEGENDS]` are provenance, not identity; the
 per-selection `Legends` category drives context handling. The checked-in New Recruit fixture
