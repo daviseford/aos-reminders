@@ -4,10 +4,9 @@ import type { PrintPageSize } from '../../aos4/print/presets'
 import type { PrintPreset } from '../../aos4/print/types'
 import {
   createDefaultAos4ArmyDocument,
+  deriveAos4OverlayFlags,
   loadAos4ArmyDocument,
   saveAos4ArmyDocument,
-  setAos4OverlayFlag,
-  type Aos4OverlayFlag,
 } from '../../aos4/runtime'
 import { createAos4ArmyDocument, setAos4ReminderPreference, type Aos4ArmyDocument } from '../../aos4/state'
 import {
@@ -23,7 +22,6 @@ import Toolbar from 'components/input/toolbar/toolbar'
 import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
 import { ArmyCollectionProvider } from 'context/useArmyCollection'
-import { useTheme } from 'context/useTheme'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { logFactionSelection, logGameModeChange, logPdfDownload } from 'utils/analytics'
 import { consumePendingShareId } from 'utils/shareLink'
@@ -110,45 +108,6 @@ const SkipToReminders = () => (
   </a>
 )
 
-type OverlayTogglesProps = {
-  document: Aos4ArmyDocument
-  onToggle: (flag: Aos4OverlayFlag, enabled: boolean) => void
-}
-
-const OverlayToggles = ({ document, onToggle }: OverlayTogglesProps) => {
-  const { theme } = useTheme()
-  return (
-    <div className="container-fluid d-flex justify-content-center flex-wrap gap-4 pt-3">
-      <div className="form-check form-switch">
-        <input
-          checked={Boolean(document.allowsLegends)}
-          className="form-check-input"
-          id="toggle-allows-legends"
-          onChange={event => onToggle('allowsLegends', event.target.checked)}
-          role="switch"
-          type="checkbox"
-        />
-        <label className={`form-check-label ${theme.text}`} htmlFor="toggle-allows-legends">
-          Include Legends units
-        </label>
-      </div>
-      <div className="form-check form-switch">
-        <input
-          checked={Boolean(document.allowsHistorical)}
-          className="form-check-input"
-          id="toggle-allows-historical"
-          onChange={event => onToggle('allowsHistorical', event.target.checked)}
-          role="switch"
-          type="checkbox"
-        />
-        <label className={`form-check-label ${theme.text}`} htmlFor="toggle-allows-historical">
-          Include Scourge of Ghyran (2025-26)
-        </label>
-      </div>
-    </div>
-  )
-}
-
 const HomeContent = () => {
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
@@ -219,10 +178,16 @@ const HomeContent = () => {
   const setSelections = (groupIds: CanonicalId[], selectedIds: CanonicalId[]) => {
     setDocument(current => {
       const group = new Set(groupIds)
-      return createAos4ArmyDocument({
-        ...current,
-        explicitSelectionIds: [...current.explicitSelectionIds.filter(id => !group.has(id)), ...selectedIds],
-      })
+      return deriveAos4OverlayFlags(
+        AOS4_CATALOG,
+        createAos4ArmyDocument({
+          ...current,
+          explicitSelectionIds: [
+            ...current.explicitSelectionIds.filter(id => !group.has(id)),
+            ...selectedIds,
+          ],
+        })
+      )
     })
   }
 
@@ -247,10 +212,6 @@ const HomeContent = () => {
         reminderPreferences: {},
       })
     )
-  }
-
-  const handleOverlayToggle = (flag: Aos4OverlayFlag, enabled: boolean) => {
-    setDocument(current => setAos4OverlayFlag(AOS4_CATALOG, current, flag, enabled))
   }
 
   const toggleGameMode = () => {
@@ -321,8 +282,6 @@ const HomeContent = () => {
       />
 
       <AppBanner />
-
-      {!isGameMode && <OverlayToggles document={document} onToggle={handleOverlayToggle} />}
 
       {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
 
