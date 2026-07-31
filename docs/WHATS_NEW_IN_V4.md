@@ -1,5 +1,9 @@
 # AoS Reminders v4.0.0 - A New Approach to Data
 
+> Historical release notes for application version 4.0.0. This predates the Age of Sigmar
+> fourth-edition cutover and is unrelated to application version 6.0.0; see the root README and
+> `docs/release.md` for the current release.
+
 [AoS Reminders v4.0.0](https://aosreminders.com/?utm_source=v4-changelog&utm_medium=v4-changelog&utm_campaign=v4-changelog) has just been released - and there's a lot to talk about.
 
 ## TL;DR

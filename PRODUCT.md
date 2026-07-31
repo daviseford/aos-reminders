@@ -38,10 +38,11 @@ abilities those selections grant into discrete reminder occurrences, and orders 
 in which they fire — deployment, each of the seven turn phases, round boundaries, reactions, and
 phase-independent effects.
 
-**Success for the current stretch of work is Phase 2 modernization to launch-ready**: package and
-framework upgrades, and closing the subscription-API authorization gap that blocks production
-launch, so the `aos4-migration` branch can merge to `master`. Phase 1 (data and domain correctness)
-is complete and machine-verified for beta.
+**Version 6.0.0 is the AoS 4 launch release.** Phase 1 (data and domain correctness) is complete and
+machine-verified for beta. Capability restoration has delivered printing, importing, cloud armies,
+and sharing; Phase 2 package modernization continues after launch. Production readiness still
+requires the explicit API and configuration gates in `docs/release.md`, including the unresolved
+subscription-API authorization gap.
 
 ## Positioning
 
@@ -127,10 +128,11 @@ Preserve it; do not change it as a side effect of other work.
   generate pipeline, including corrections prompted by beta feedback.
 - **Names are display text, never durable identity.** Everything resolves through stable canonical
   IDs.
-- **A push to `master` deploys production.** Migration work targets `aos4-migration`; merging or
-  pushing `master` requires explicit authorization.
+- **A push to `master` deploys production.** Final Version 6 launch preparation targets
+  `aos4-migration`; after PR #1717 lands, ordinary work targets `master` unless a new integration
+  branch is explicitly established. Merging or pushing `master` requires explicit authorization.
 
-### Known blocker
+### Known launch gates
 
 **Production launch is blocked on subscription-API authorization.** The restored subscription API
 uses a public shared browser key and does not verify the user's Auth0 token or derive account
@@ -139,6 +141,12 @@ server-side bearer-token verification, server-derived ownership, rejection of cr
 key rotation, and passing negative authorization tests. Do not describe the subscription API as
 secure. The separate army/share API (`src/api/armyApi.ts`) does send the user's Auth0 bearer token
 on every account operation.
+
+**Cloud armies and sharing also require a coordinated production rollout.** The AoS 4-native
+army/share service was dev-validated, but the production frontend build must receive
+`VITE_ARMY_API_URL` and target a production deployment of that service. The current deployment
+workflow does not provide the variable. Until both sides are configured and smoke-tested, the
+capability is implemented but not production-ready; the coordinated work is tracked in #1804.
 
 ### Terminology
 
@@ -163,11 +171,12 @@ occurrence, Legends, Spearhead, General's Handbook 2026-27 (`Scourge of Aqshy`).
 
 ## Evidence on Hand
 
-- **The accepted corpus** `aos4-corpus-2026-07-28`: 28 decoded factions, 1,268 warscrolls, 1,002
-  battle profiles, 4,850 abilities, 2,247 weapons, 1,402 content groups, and 19,057 live source
-  records. Checked in under `src/aos4/generated/corpus/`.
-- **A beta certification** binding that corpus to a complete machine review — 79,446 results across
-  39,723 source/generated pairs, zero live findings, zero `cannot-verify` outcomes. Verifiable
+- **The accepted corpus** `aos4-corpus-2026-07-30`: 28 decoded source factions (27 playable armies
+  plus the Endless Spells container), 1,286 warscrolls, 1,002 battle profiles, 4,898 abilities,
+  2,260 weapons, 1,409 content groups, and 19,126 live source records. Checked in under
+  `src/aos4/generated/corpus/`.
+- **A beta certification** binding that corpus to a complete machine review — 79,598 results across
+  39,799 source/generated pairs, zero live findings, zero `cannot-verify` outcomes. Verifiable
   offline via `yarn data:aos4:verify:beta`.
 - **An official battle-profile ledger** dispositioning all 1,350 extracted Games Workshop facts,
   with 12 profile-only gaps left deliberately visible rather than filled by invention.

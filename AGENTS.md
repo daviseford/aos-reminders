@@ -6,7 +6,7 @@ This file applies to the entire repository.
 
 AoS Reminders turns an Age of Sigmar army configuration into phase-ordered reminders.
 
-The migration branch is now an Age of Sigmar fourth-edition-only workbench:
+Version 6 is now an Age of Sigmar fourth-edition-only codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
 - the checked-in runtime is generated from the accepted `aos4-corpus-2026-07-30` snapshot
@@ -170,21 +170,24 @@ confined to `src/aos4/print/pdf.ts` and `src/aos4/print/measure.ts`.
 
 The companion API services (`aos-reminders-rest-api`, `aos-reminders-subscription-api`) run on
 `nodejs22.x`/Serverless v4/AWS SDK v3 with characterization tests and CI (plan
-`2026-07-28-002`, units U2/U3). Their deploy pipeline is unresolved — Serverless license key for
-CI, a CI `serverless package` gate, and first dev-stage deploy verification (including a real
-Stripe checkout webhook against the upgraded client) are tracked in issue #1727. `serverless
-package` needs no authentication; deploys do.
+`2026-07-28-002`, units U2/U3). Issue #1727 completed authenticated CI `serverless package` gates,
+dev verification, and the dev/prod runtime deploys. The later AoS 4-native army/share service in
+`aos-reminders-rest-api#10` is dev-validated but still needs a coordinated production deployment
+and a production `VITE_ARMY_API_URL` in the frontend build; issue #1804 tracks that rollout. Live
+real-money Stripe and PayPal verification after the Version 6 frontend deploy remains tracked in
+issue #1731, and the full production smoke/operational handoff is issue #1805.
 
 ## Branch and pull-request strategy
 
-Use `aos4-migration` as the long-lived integration branch.
+PR #1717 is the final long-lived AoS 4 integration PR.
 
-- The integration branch has a draft PR to `master` named
-  `AoS Reminders version 4 migration (work in progress)`.
-- Never merge that integration PR until the user explicitly authorizes launch.
-- Base migration work on the latest `origin/aos4-migration`.
-- Target migration sub-PRs at `aos4-migration`, not `master`.
-- Local commits and pushes to migration branches are authorized.
+- Until PR #1717 lands, base final release work on the latest `origin/aos4-migration` and target
+  release sub-PRs at `aos4-migration`.
+- PR #1717 is named `AoS Reminders 6.0.0 — Age of Sigmar fourth-edition release` and targets
+  `master`.
+- After PR #1717 lands, base normal work on the latest `origin/master` and target PRs at `master`
+  unless the user explicitly establishes another integration branch.
+- Local commits and pushes to non-`master` branches are authorized.
 - Merging PRs, pushing `master`, deploying, or changing production services requires explicit
   direction.
 
@@ -540,6 +543,8 @@ unit-test prerequisite.
    production-build checks.
 7. Repeat the checksum-bound machine review and update the beta-readiness pointer; a prior result
    is never inherited by a changed corpus.
-8. Commit and push only to a migration sub-PR targeting `aos4-migration`.
+8. Until PR #1717 lands, commit and push only to a release sub-PR targeting `aos4-migration`.
+   After launch, use normal PRs targeting `master`; never push `master` directly without explicit
+   authorization.
 9. Reconcile beta-tester rules reports against official sources and add regression coverage for
    confirmed corrections.

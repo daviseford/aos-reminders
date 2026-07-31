@@ -1,7 +1,8 @@
-# Contributing to the AoS 4 migration
+# Contributing to AoS Reminders
 
-AoS Reminders has completed the data-and-domain phase of its clean fourth-edition migration and is
-ready for Phase 2 modernization. Read the root [AGENTS.md](../AGENTS.md) for current scope and
+AoS Reminders version 6 is the clean fourth-edition cutover. Its data-and-domain phase is complete,
+capability restoration has delivered printing, importing, cloud armies, and sharing, and Phase 2
+package modernization continues. Read the root [AGENTS.md](../AGENTS.md) for current scope and
 constraints. The
 [Phase 1 plan](plans/2026-07-27-001-refactor-aos4-domain-and-data-pipeline-plan.md) is retained as
 completed requirements and decision history.
@@ -12,9 +13,12 @@ pipeline, add regression coverage, and produce a new checksum-bound certificatio
 
 ## Branching
 
-- Base migration work on the latest `origin/aos4-migration`.
-- Target migration pull requests at `aos4-migration`.
-- Never push or merge `master`; it is the production deployment branch.
+- Until release PR #1717 lands, base final Version 6 work on `origin/aos4-migration` and target
+  release sub-PRs at `aos4-migration`.
+- After #1717 lands, base ordinary work on `origin/master` and target pull requests at `master`
+  unless a new integration branch is explicitly established.
+- Never push `master` directly. A merge or push to `master` deploys production and requires explicit
+  project-owner authorization.
 - Keep rules/data corrections separate from Phase 2 package modernization where practical.
 
 ## Data contributions
@@ -125,5 +129,5 @@ Explain:
 - which verification commands passed
 - known coverage gaps
 
-Do not mark the long-lived integration PR ready or merge it without explicit project-owner
-authorization.
+State whether a change affects production configuration or requires coordinated companion-service
+work. Do not merge a production-targeting PR without explicit project-owner authorization.

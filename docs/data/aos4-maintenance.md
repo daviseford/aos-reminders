@@ -16,39 +16,41 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-07-29 snapshot is defined by:
+The accepted 2026-07-30 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-07-29.json` | 13 Wahapedia exports, 157 official PDFs, and 72 reviewed Wahapedia pages, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-07-29.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-07-30.json` | 13 Wahapedia exports, 157 official PDFs, and 72 reviewed Wahapedia pages, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-07-30.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-07-29-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-07-29-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-07-30-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-07-30-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
-- 28 factions
-- 1,268 warscrolls and 1,002 battle profiles
-- 4,850 usable abilities
-- 2,247 weapons
-- 1,402 content groups, including 48 Spearhead force/unit wrappers
-- 242 source artifacts and 18,974 live source records
+- 28 decoded source factions: 27 playable armies plus the Endless Spells container
+- 1,286 warscrolls and 1,002 battle profiles
+- 4,898 usable abilities
+- 2,260 weapons
+- 1,409 content groups, including 48 Spearhead force/unit wrappers
+- 242 source artifacts and 19,126 live source records
 - every live record consumed, with zero unresolved integrity issues
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
 - 1,350 extracted GW battle-profile facts: 928 applied to runtime, 12 profile-only gaps,
   363 structured references, and 47 superseded facts
 
 The accepted current rules come from 27 faction `warscrolls.html` collection pages, 28 faction
-roots, and 17 current rules pages. Collection pages contribute 1,074 native faction warscrolls;
-faction roots add 194 Spearhead warscrolls, 1,041 faction-rule groups, and 1,829 faction abilities.
-The rules pages add the general, seasonal, Spearhead, and reference structures needed for the
-supported game contexts. The review pins exact counts and diagnostics so a silent remote-shape
-change fails generation.
+roots, and 17 current rules pages. Collection pages contribute 1,074 native faction warscrolls.
+Faction roots add 194 Spearhead warscrolls and, because Wahapedia publishes no separate collection
+for Endless Spells, 18 universal manifestation warscrolls from that container page. The reviewed
+relationship graph offers the universal manifestation lores and warscrolls to all 27 playable
+armies while never offering Endless Spells as an army. The rules pages add the general, seasonal,
+Spearhead, and reference structures needed for the supported game contexts. The review pins exact
+counts and diagnostics so a silent remote-shape change fails generation.
 
 The 13 May 2026 exports remain accepted only for stable faction/publication identities and audit
 history. No bulk warscroll, weapon, ability, keyword, organization, or faction-rule row may enter
@@ -105,11 +107,11 @@ Workshop daily at minute 17 and checks Wahapedia plus BSData weekly at minute 43
 Wahapedia sentinel expands to the existing bounded full observation before candidate evidence is
 prepared. BSData is a community signal only and never supplies candidate or accepted rules data.
 
-The workflow is deliberately dormant while this file exists only on `aos4-migration`: scheduled
-workflows run from the repository's default branch. After the implementation reaches the default
-branch, first run `AoS 4 Rules Radar` manually with `source: all` and `report_only: true`. Inspect
-the uploaded lanes, report, event counts, fingerprints, URL lists, and managed issue body. Then
-inspect the first daily and weekly scheduled runs before relying on issue lifecycle automation.
+Scheduled workflows run only from the repository's default branch, so the Rules Radar becomes
+active when Version 6 reaches `master`. Immediately after launch, first run `AoS 4 Rules Radar`
+manually with `source: all` and `report_only: true`. Inspect the uploaded lanes, report, event
+counts, fingerprints, URL lists, and managed issue body. Then inspect the first daily and weekly
+scheduled runs before relying on issue lifecycle automation.
 
 For a local report-only smoke run, use a new output directory:
 
@@ -194,7 +196,7 @@ Replay pinned artifacts without network access:
 
 ```powershell
 yarn data:aos4:candidate `
-  --accepted-manifest data/aos4/manifests/accepted-2026-07-29.json `
+  --accepted-manifest data/aos4/manifests/accepted-2026-07-30.json `
   --offline `
   --output <new-directory>
 ```

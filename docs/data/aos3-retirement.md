@@ -1,5 +1,8 @@
 # AoS 3 retirement record
 
+> This is a historical cutover record. Current corpus counts and operating procedures live in
+> `docs/data/aos4-maintenance.md` and `docs/release.md`.
+
 AoS 3 is an untrusted historical implementation, not a compatibility target or a source for AoS 4.
 The migration branch completed its clean runtime cutover on 2026-07-27.
 
@@ -18,7 +21,8 @@ The migration branch completed its clean runtime cutover on 2026-07-27.
 - TypeScript, AoS 4 tests, and the production build are the clean-cut gate.
 
 The initial representative Stormcast cohort proved the cutover. The accepted 2026-07-27 Phase 1
-corpus now supplies all 28 decoded factions through the same AoS 4-only runtime.
+corpus supplied all 28 decoded source rows through the same AoS 4-only runtime; later accepted
+snapshots distinguish the 27 playable armies from the Endless Spells source container.
 
 ## Persistence reset
 

@@ -12,7 +12,7 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-07-30`, generated from the accepted 2026-07-29 source
+The current revision is `aos4-corpus-2026-07-30`, generated from the accepted 2026-07-30 source
 snapshot. Its automated review is complete:
 
 | Measure | Result |
@@ -22,14 +22,14 @@ snapshot. Its automated review is complete:
 | Official battle-profile facts | 1,350/1,350 |
 | Final official/secondary reconciliation discrepancies | 413/413 |
 | Official profile-only facts | 12/12 |
-| Live audit source records | 18,974/18,974 |
+| Live audit source records | 19,126/19,126 |
 | Superseded source-record dispositions | 18,897/18,897 |
-| Live review pairs | 39,647/39,647 |
-| Independent outcomes | 79,294 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 39,799/39,799 |
+| Independent outcomes | 79,598 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 19/19 |
 
-The independent source inventory was observed at `2026-07-30T01:31:37.653Z`: 242 entries matched
+The independent source inventory was observed at `2026-07-30T21:42:38.477Z`: 242 entries matched
 accepted checksums and 9 discovery entries received explicit non-material dispositions.
 
 `data/aos4/certifications/beta.json` binds the accepted revision to this automated evidence.

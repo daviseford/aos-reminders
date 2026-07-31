@@ -2,45 +2,52 @@
 
 AoS Reminders turns an Age of Sigmar army configuration into phase-ordered reminders.
 
-## AoS 4 migration status
+## Version 6 and Age of Sigmar fourth edition
 
-The repository is being revived as a clean Age of Sigmar fourth-edition application. Migration work
-is isolated behind the long-lived `aos4-migration` branch and its draft pull request; `master`
-remains the production branch.
+Version 6.0.0 is the clean cutover to Age of Sigmar fourth edition. The release candidate is
+assembled on `aos4-migration` in [PR #1717](https://github.com/daviseford/aos-reminders/pull/1717);
+`master` remains the production branch, and every push to it deploys the site.
 
-The migration workbench currently provides:
+The release provides:
 
 - an AoS 4 canonical domain model for timing, abilities, weapons, warscrolls, battle profiles,
   relationships, rules contexts, and provenance
 - safe Games Workshop and Wahapedia acquisition adapters
 - deterministic reconciliation, identity, audit, and runtime-generation tools
-- an accepted, source-traceable corpus covering all 28 decoded factions, 1,268 warscrolls,
-  1,002 battle profiles, 4,850 abilities, 2,247 weapons, and 1,402 content groups
+- an accepted, source-traceable corpus covering 27 playable armies plus the universal Endless
+  Spells source container: 1,286 warscrolls, 1,002 battle profiles, 4,898 abilities, 2,260 weapons,
+  and 1,409 content groups
 - explicit current-standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends,
   and historical rules contexts so parallel or retired records cannot leak into the current
   builder
 - an official battle-profile ledger that dispositions all 1,350 extracted GW facts and keeps 12
   profile-only gaps visible without inventing missing warscroll rules
-- a responsive AoS 4 builder/reminder screen with notes, hiding, focus mode, printing, and local
-  persistence
+- a responsive AoS 4 builder/reminder screen with notes, hiding, focus mode, printing/PDF export,
+  and local persistence
+- official-app, Listbot, and New Recruit `.ros`/`.rosz`/`.json` roster imports
+- Auth0-native cloud armies and opaque sharing, pending the coordinated production API rollout
+- Bootstrap 5.3, React 19, maintained drag-and-drop, production-only GA4, and a quiet rules-source
+  radar while broader Phase 2 modernization continues
 - a hard clean cut: no AoS 3 rules, state, importers, or compatibility behavior remain
 
 | Program stage | Status |
 | --- | --- |
 | Phase 1: AoS 4 data and domain | Complete and machine-verified for beta use |
-| Phase 2: package and application modernization | Ready to begin; planned upgrades remain pending |
-| Production launch | Not authorized; backend account authorization remains a release blocker |
+| Phase 2: capabilities and modernization | Capability restoration delivered; modernization underway |
+| Version 6 production launch | Release candidate; see [the release runbook](docs/release.md) |
 
-The Phase 1 beta gate binds the accepted `aos4-corpus-2026-07-28` revision to a complete automated
-review of 79,446 results across 39,723 source/generated pairs, with zero live findings and zero
+The Phase 1 beta gate binds the accepted `aos4-corpus-2026-07-30` revision to a complete automated
+review of 79,598 results across 39,799 source/generated pairs, with zero live findings and zero
 `cannot-verify` outcomes. Run `yarn data:aos4:verify:beta` to verify the committed evidence without
 network or cache access. Future beta reports and source updates reopen only the affected data
 through the candidate pipeline; they do not restart the completed migration.
 
-Phase 2 can now proceed while the accepted AoS 4 data contracts remain stable. This is not launch
-authorization: do not deploy or merge the migration PR to `master` until the migration is
-explicitly approved and the production account API verifies Auth0 bearer tokens and account
-ownership server-side.
+Phase 2 continues after this release while the accepted AoS 4 data contracts remain stable. The
+legacy subscription API still has the authorization gap tracked in
+[#1720](https://github.com/daviseford/aos-reminders/issues/1720), and
+[#1804](https://github.com/daviseford/aos-reminders/issues/1804) tracks the secure army/share API
+deployment and production Vite configuration. Do not describe either gate as complete until its
+production checks pass.
 
 ## Sources
 
@@ -117,10 +124,13 @@ These companion repositories are private.
 
 ## Pull requests and deployment
 
-Migration PRs target `aos4-migration`, never `master`. Every push to `master` builds and deploys the
-production site to S3/CloudFront.
+Until PR #1717 lands, final Version 6 release changes target `aos4-migration`. After launch, normal
+pull requests target `master` unless a new integration branch is explicitly established. Every
+push to `master` builds and deploys the production site to S3/CloudFront, so merging or pushing it
+requires explicit project-owner authorization.
 
-See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for the current contribution workflow.
+See [the release runbook](docs/release.md) for production gates and post-deploy validation, and
+[CONTRIBUTING.md](docs/CONTRIBUTING.md) for the normal contribution workflow.
 
 ## Community
 
