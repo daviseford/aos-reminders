@@ -82,7 +82,6 @@ describe('Sigdex text import', () => {
 
   afterAll(() => {
     if (unresolvedByLabel.size === 0) return
-    // eslint-disable-next-line no-console
     console.log(
       ['Sigdex corpus warnings (fail-soft, not asserted):', ...Array.from(unresolvedByLabel.keys())].join(
         '\n  '
