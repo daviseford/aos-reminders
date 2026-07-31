@@ -29,11 +29,14 @@ jobs:
       - name: Lint with eslint
         run: yarn lint
 
+      # Build before test. src/tests/pwaBuild.test.ts asserts on the generated service worker and
+      # manifest, and `dist/` is gitignored -- with the old ordering those assertions had nothing to
+      # read on a clean checkout.
+      - name: Build with TypeScript
+        run: yarn build
+
       - name: Test with vitest
         run: yarn test --run
 
       - name: Validate AoS 4 beta data readiness
         run: yarn data:aos4:verify:beta
-
-      - name: Build with TypeScript
-        run: yarn build

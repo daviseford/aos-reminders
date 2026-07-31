@@ -64,7 +64,7 @@
     "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
     "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",
     "lint": "eslint src --max-warnings 0",
-    "prepush": "yarn lint && yarn tsc --noEmit && yarn test --run && yarn build",
+    "prepush": "yarn lint && yarn tsc --noEmit && yarn build && yarn test --run",
     "release:inspect-artifact": "vite-node --script scripts/validateDeploymentConfig.ts artifact dist",
     "release:validate-config": "vite-node --script scripts/validateDeploymentConfig.ts config",
     "start": "vite",
