@@ -1,4 +1,5 @@
 import { LoadingBody } from 'components/helpers/suspenseFallbacks'
+import { UpdateAvailable } from 'components/info/updateAvailable'
 import ProtectedRoute from 'components/page/privateRoute'
 import { lazy, Suspense, useEffect } from 'react'
 import { Route, Router, Switch } from 'react-router-dom'
@@ -24,6 +25,12 @@ const App = () => {
   return (
     <div className="d-block">
       <Router history={history}>
+        {/*
+          Mounted here rather than in the navbar: Navbar early-returns <OfflineHeader /> while
+          offline, which would hide the prompt exactly when a client has a waiting worker and loses
+          the network. This sits above <main> so it appears on every route.
+        */}
+        <UpdateAvailable />
         {/* Each route renders its own navbar, so <main> wraps the whole routed tree. */}
         <main>
           <Suspense fallback={<LoadingBody />}>
