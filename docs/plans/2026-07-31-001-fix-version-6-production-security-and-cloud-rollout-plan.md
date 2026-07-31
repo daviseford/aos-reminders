@@ -382,9 +382,11 @@ characterized billing handler.
 KTD7. **Make public stage configuration checked-in and secret material externally resolved.** Auth0
 issuer/audience, production origin, share base URL, and service-to-service URLs are non-secret
 deployment inputs with no permissive production defaults. Stripe API keys, Stripe endpoint secrets,
-PayPal client credentials, and PayPal webhook IDs resolve from encrypted AWS configuration and are
-rotated when their existing copies are exposed or committed. Rotation prepares replacement
-credentials alongside the current values, deploys and verifies the replacement, and revokes the old
+PayPal client credentials, and PayPal webhook IDs resolve from encrypted AWS configuration. A
+production-formatted Stripe key existed in the private subscription-repository history; that fact is
+not evidence of public exposure. Review repository access history and policy, and rotate only when
+that review or other evidence requires it. When rotation is required, prepare replacement
+credentials alongside the current values, deploy and verify the replacement, and revoke the old
 value only after direct checks pass so the security fix does not create an avoidable provider gap.
 
 KTD8. **Treat endpoint variables as required release inputs, not optional feature flags.** The
@@ -492,8 +494,9 @@ stateDiagram-v2
 
 - Confirm the Auth0 API identifier, issuer, signing algorithm, and the access-token claim that holds
   the normalized account email in both dev and production.
-- Create or rotate Stripe API and webhook secrets and PayPal verification credentials in encrypted
-  AWS configuration without copying their values into issues, PRs, logs, or repository files.
+- Verify Stripe API and webhook secrets and PayPal verification credentials in encrypted AWS
+  configuration without copying their values into issues, PRs, logs, or repository files. Rotate
+  only when repository access history, organizational policy, or other evidence requires it.
 - Record the PayPal webhook ID associated with each deployed callback URL and stage.
 - Create GitHub Actions configuration variables for the production subscription and army HTTP API
   endpoints after those endpoints are known.
@@ -620,8 +623,9 @@ value and a crash cannot make an applied change look retryable. Model pre-transi
 lease, and set TTL beyond the longest documented provider retry horizon. Define the event table as
 an additive retained resource so stack rollback cannot delete the replay ledger. Treat a browser
 PayPal approval as a locator and retrieve authoritative subscription details before a temporary
-grant. Move Stripe and PayPal credentials out of tracked JSON and hardcoded environment modules;
-rotate any exposed production credential before it is considered safe.
+grant. Move Stripe and PayPal credentials out of tracked JSON and hardcoded environment modules. Do
+not infer public exposure from the private repository history; review access and policy, and rotate
+a production credential only when that review or other evidence requires it.
 
 **Test scenarios.**
 
@@ -1074,7 +1078,7 @@ runbooks prepare or verify them but do not expand the authorization granted by t
 | API Gateway changes the body used for Stripe verification | Valid callbacks fail or altered bodies bypass the intended check | Preserve/test raw bytes through the deployed integration and replay provider test events before prod |
 | PayPal verification API is slow or unavailable | Valid callbacks are delayed | Use a bounded timeout, fail closed, monitor failures, and rely on provider retry rather than accepting unverifiable events |
 | A callback worker dies after claiming an event | The provider retries but the transition stays blocked, or an unsafe takeover repeats value | Use explicit claim states, a bounded processing lease, conditional takeover, retained records, and launch/first-days checks for claims older than the lease |
-| Existing tracked provider credentials remain valid | Repository access can become provider access | Rotate before sign-off, store replacements encrypted, and confirm old credentials fail |
+| A historically tracked private-repository credential remains valid | A person with repository access during that interval may have been able to use it; public exposure is not established | Review access history and policy; if rotation is required, store the replacement encrypted and confirm the old credential fails |
 | CloudFormation proposes table replacement | Subscriber or army data can be lost | Stop, retain backups, and revise the template; never approve a replacement in the launch window |
 | Production endpoint variables are missing or stale | Paid features deploy disabled or against the wrong stage | Required pre-upload validator plus artifact inspection and direct API checks |
 | Secured APIs deploy before the frontend | Current account actions can be temporarily unavailable | Use a bounded maintenance window and communicate it; prefer safe unavailability to vulnerable compatibility |

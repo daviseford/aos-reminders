@@ -103,12 +103,13 @@ The launch-hardening client on this branch retires the shared browser key and se
 Auth0 bearer token for every subscription account operation. Production remains blocked until the
 companion subscription change in `aos-reminders-subscription-api#17` is reviewed, deployed, and
 live-verified: it must derive account ownership from verified claims, reject cross-account access,
-verify and deduplicate provider callbacks, rotate/revoke exposed credentials, and pass the negative
-authorization matrix. Preserve the familiar account UI while this work is tracked in issue #1720;
-do not describe the production subscription API as secure before those checks pass. The army/share
-client likewise sends the bearer token for the `https://api.aosreminders.com` audience; its private
-collection hardening and production rollout remain tracked in `aos-reminders-rest-api#11` and issue
-#1804.
+verify and deduplicate provider callbacks, review the private-repository credential history, and
+pass the negative authorization matrix. The repository history is not evidence of public credential
+exposure; rotate a credential only when access history, policy, or other evidence requires it.
+Preserve the familiar account UI while this work is tracked in issue #1720; do not describe the
+production subscription API as secure before those checks pass. The army/share client likewise
+sends the bearer token for the `https://api.aosreminders.com` audience; its private collection
+hardening and production rollout remain tracked in `aos-reminders-rest-api#11` and issue #1804.
 
 ## Migration program
 
