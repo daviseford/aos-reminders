@@ -26,8 +26,12 @@ yarn install --frozen-lockfile
 yarn lint
 yarn tsc --noEmit
 yarn test --run
-yarn build
 yarn data:aos4:verify:beta
+$env:VITE_ARMY_API_URL = 'https://<production-army-api-id>.execute-api.us-east-1.amazonaws.com'
+$env:VITE_SUBSCRIPTION_API_URL = 'https://<production-subscription-api-id>.execute-api.us-east-1.amazonaws.com'
+yarn release:validate-config
+yarn build
+yarn release:inspect-artifact
 ```
 
 Before merging #1717, confirm all of the following:
@@ -39,9 +43,9 @@ Before merging #1717, confirm all of the following:
 - the AoS 4-native army/share service from `aos-reminders-rest-api#10` is deployed to production
   with the production entitlement URL, Auth0 issuer/audience, share base URL, and CORS origins;
   [#1804](https://github.com/daviseford/aos-reminders/issues/1804) tracks the coordinated rollout;
-- the production frontend build receives `VITE_ARMY_API_URL` for that service. The checked-in
-  deployment workflow does not currently provide this variable, so cloud armies and sharing are
-  unconfigured unless the build environment is coordinated before merge;
+- repository variables `PRODUCTION_ARMY_API_URL` and `PRODUCTION_SUBSCRIPTION_API_URL` contain the
+  compatible production HTTP API endpoints. The deployment workflow maps them to the two Vite
+  variables, validates them, and confirms both are embedded in the artifact;
 - the subscription-account authorization work in
   [#1720](https://github.com/daviseford/aos-reminders/issues/1720) is resolved and its negative
   authorization matrix passes. The public shared browser key is not an identity boundary and must
@@ -53,10 +57,11 @@ publish paid-feature claims for capabilities that are unavailable or insufficien
 ## Deployment mechanics
 
 `.github/workflows/deploy.yml` builds the exact `master` revision, synchronizes `dist/` to the
-production S3 bucket with deletion enabled, and invalidates the CloudFront distribution. The
-separate `Lint, Test, and Build` workflow runs lint, Vitest, the beta gate, and the production build
-for `master`. The two workflows run independently; the deployment does not wait for post-merge CI,
-which is why every pre-merge check above must already be green.
+production S3 bucket with deletion enabled, and invalidates the CloudFront distribution. Before it
+loads AWS credentials or mutates production, that same job validates both API endpoints, runs lint,
+Vitest, the beta gate, TypeScript, the production build, and artifact inspection. The separate
+`Lint, Test, and Build` workflow remains an earlier non-credentialed signal but is not treated as a
+deployment dependency.
 
 The Rules Radar schedule also becomes active only after the workflow exists on the default branch.
 After the merge, manually run `AoS 4 Rules Radar` once with `source: all` and `report_only: true`,

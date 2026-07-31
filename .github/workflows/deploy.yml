@@ -21,16 +21,11 @@ jobs:
       SITE_BUILD_DIR: ./dist/
       CF_DIST_ID: E3OO9Y9QRVZ2L1
       CF_PATH: /*
+      VITE_ARMY_API_URL: ${{ vars.PRODUCTION_ARMY_API_URL }}
+      VITE_SUBSCRIPTION_API_URL: ${{ vars.PRODUCTION_SUBSCRIPTION_API_URL }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
-
-      - name: Configure AWS cli
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -41,8 +36,33 @@ jobs:
       - name: Install dependencies with yarn
         run: yarn install --frozen-lockfile
 
-      - name: Build with TypeScript
+      - name: Validate production API configuration
+        run: yarn release:validate-config
+
+      - name: Lint with eslint
+        run: yarn lint
+
+      - name: Test with vitest
+        run: yarn test --run
+
+      - name: Validate AoS 4 beta data readiness
+        run: yarn data:aos4:verify:beta
+
+      - name: Check TypeScript
+        run: yarn tsc --noEmit
+
+      - name: Build production artifact
         run: yarn build
+
+      - name: Inspect production artifact
+        run: yarn release:inspect-artifact
+
+      - name: Configure AWS cli
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
       - name: Deploy build bundle to S3 bucket
         run: aws s3 sync --delete ${{ env.SITE_BUILD_DIR }} ${{ env.SITE_S3 }} --exclude "*build_log.txt" --exclude "*.idea*" --exclude "*.sh" --exclude "*.git*" --exclude "*.DS_Store"
