@@ -130,14 +130,38 @@ small {
     }
 }
 
+/*
+ * Skip link. Bootstrap's `.visually-hidden-focusable` clips the link while it is unfocused and then
+ * returns it to the normal flow on focus — which would push the masthead down the moment a keyboard
+ * user hits Tab. Holding it absolute keeps the reveal from moving anything else. The colours are
+ * utility classes on the element itself (see Home.tsx); `$border-radius` is the parity-pinned 4.6
+ * value, so the chip matches every other control on the page.
+ */
+.SkipLink:focus {
+    position: absolute;
+    z-index: 1030;
+    top: 0;
+    left: 0;
+    margin: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid currentcolor;
+    border-radius: $border-radius;
+    text-decoration: none;
+}
+
 /* Reboot sizes <legend> at 1.5rem; these group labels replaced 1rem <label>s. */
 .FieldsetLegend {
     margin-bottom: 0.25rem;
     font-size: 1rem;
 }
 
+/*
+ * 12px to match `small`, which is the smallest type anywhere else in the product. The disclaimer is a
+ * brand commitment that has to appear on every page, so it should not also be the one thing set below
+ * the floor; position and colour already make it subordinate.
+ */
 .DisclaimerText {
-    font-size: 11px;
+    font-size: 12px;
 }
 
 /*
