@@ -14,6 +14,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 const auth = vi.hoisted(() => ({
   isAuthenticated: false,
   isLoading: false,
+  getAccessTokenSilently: vi.fn(),
   loginWithPopup: vi.fn(),
   logout: vi.fn(),
   user: undefined as { email: string } | undefined,
@@ -100,8 +101,10 @@ describe('AoS 4 home presentation', () => {
     auth.isLoading = false
     auth.user = undefined
     auth.loginWithPopup.mockReset()
+    auth.getAccessTokenSilently.mockReset()
+    auth.getAccessTokenSilently.mockResolvedValue('audience-token')
     getSubscription.mockReset()
-    getSubscription.mockRejectedValue({ status: 501 })
+    getSubscription.mockRejectedValue({ status: 404 })
     historyPush.mockReset()
     Object.defineProperty(window, 'localStorage', {
       configurable: true,
@@ -176,7 +179,7 @@ describe('AoS 4 home presentation', () => {
     const findButton = (label: string) =>
       Array.from(container.querySelectorAll('button')).find(button => button.textContent?.trim() === label)
 
-    expect(getSubscription).toHaveBeenCalledWith('inactive@example.com')
+    expect(getSubscription).toHaveBeenCalledWith('audience-token')
     expect(findButton('My Armies')?.disabled).toBe(false)
     expect(findButton('Share Army')?.disabled).toBe(false)
 

@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { SubscriptionApi } from '../api/subscriptionApi'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import type { Subscription } from 'types/subscription'
+import { useApiAccessToken } from 'utils/authToken'
 import {
   hasActiveGrant,
   hasExpiredGrant,
@@ -15,8 +16,6 @@ import {
 } from 'utils/subscriptionUtils'
 
 const emptySubscription: Subscription = {
-  id: '',
-  userName: '',
   subscribed: false,
 }
 
@@ -42,6 +41,7 @@ const SubscriptionContext = React.createContext<SubscriptionContextValue | undef
 
 const SubscriptionProvider = ({ children }: React.PropsWithChildren<object>) => {
   const { isLoading, user } = useAuth0()
+  const getAccessToken = useApiAccessToken()
   const [subscription, setSubscription] = useState(emptySubscription)
   const [subscriptionError, setSubscriptionError] = useState<string | null>(null)
   const [subscriptionLoading, setSubscriptionLoading] = useState(false)
@@ -53,7 +53,7 @@ const SubscriptionProvider = ({ children }: React.PropsWithChildren<object>) => 
   }, [isLoading, user])
 
   const getSubscription = useCallback(async () => {
-    if (!user?.email) {
+    if (!user) {
       setSubscription(emptySubscription)
       setSubscriptionError(null)
       setIsNotSubscribed(true)
@@ -63,34 +63,32 @@ const SubscriptionProvider = ({ children }: React.PropsWithChildren<object>) => 
     setSubscriptionLoading(true)
     setSubscriptionError(null)
     try {
-      const response = await SubscriptionApi.getSubscription(user.email)
+      const token = await getAccessToken()
+      const response = await SubscriptionApi.getSubscription(token)
       setSubscription(response.body as Subscription)
       setIsNotSubscribed(false)
     } catch (error) {
       const status =
         typeof error === 'object' && error !== null && 'status' in error ? Number(error.status) : undefined
       setSubscription(emptySubscription)
-      setIsNotSubscribed(status === 501)
-      if (status !== 501) {
+      setIsNotSubscribed(status === 404)
+      if (status !== 404) {
         setSubscriptionError('Subscription status is temporarily unavailable. Please try again.')
       }
     } finally {
       setSubscriptionLoading(false)
     }
-  }, [user?.email])
+  }, [getAccessToken, user])
 
   useEffect(() => {
     if (!isLoading) void getSubscription()
   }, [getSubscription, isLoading])
 
   const cancelSubscription = useCallback(async () => {
-    if (!subscription.userName || !subscription.subscriptionId) return
-    await SubscriptionApi.cancelSubscription({
-      userName: subscription.userName,
-      subscriptionId: subscription.subscriptionId,
-    })
+    const token = await getAccessToken()
+    await SubscriptionApi.cancelSubscription(token)
     await getSubscription()
-  }, [getSubscription, subscription.subscriptionId, subscription.userName])
+  }, [getAccessToken, getSubscription])
 
   const value = useMemo(
     () => ({

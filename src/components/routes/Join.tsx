@@ -7,6 +7,7 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { logAccountAction } from 'utils/analytics'
+import { useApiAccessToken } from 'utils/authToken'
 import useLogin from 'utils/hooks/useLogin'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
@@ -69,6 +70,7 @@ const Preamble = () => (
 
 const RedeemSection = () => {
   const { user } = useAuth0()
+  const getAccessToken = useApiAccessToken()
   const [couponId, setCouponId] = useState('')
   const [isRedeeming, setIsRedeeming] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -82,12 +84,12 @@ const RedeemSection = () => {
 
   const handleRedeem = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const userName = user?.email
-    if (!canRedeem || !userName) return
+    if (!canRedeem) return
 
     setIsRedeeming(true)
     try {
-      const { body } = await SubscriptionApi.redeemCoupon({ couponId: code, userName })
+      const token = await getAccessToken()
+      const { body } = await SubscriptionApi.redeemCoupon({ couponId: code }, token)
       if (body.error) {
         setError(body.error)
       } else {

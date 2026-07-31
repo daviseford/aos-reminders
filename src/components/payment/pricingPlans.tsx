@@ -11,6 +11,7 @@ import qs from 'qs'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
 import { logBeginCheckout, logCheckoutCancelled, logClick, logPurchase } from 'utils/analytics'
+import { useApiAccessToken } from 'utils/authToken'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import { ISubscriptionPlan, SubscriptionPlans, toSubscriptionAnalyticsItem } from 'utils/plans'
@@ -164,7 +165,7 @@ export const PlanComponent = (props: IPlanProps) => {
 }
 
 const PayPalComponent = (props: IPlanProps) => {
-  const { user } = useAuth0()
+  const getAccessToken = useApiAccessToken()
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [approval, setApproval] = useState<IApprovalResponse | null>(null)
 
@@ -172,16 +173,12 @@ const PayPalComponent = (props: IPlanProps) => {
   const planId = isDev ? paypal_dev : paypal_prod
   const analyticsItem = toSubscriptionAnalyticsItem(props.supportPlan)
 
-  // The approval response is proof of payment — passing its subscriptionID
-  // lets the API grant access even before PayPal's webhooks arrive. The modal
-  // retries this every poll tick, so a lost first attempt is not fatal.
+  // The approval response supplies a locator. The API retrieves the authoritative PayPal
+  // subscription before granting access, and the modal retries while callback activation lands.
   const requestGrant = async (data: IApprovalResponse | null = approval) => {
-    if (!user?.email) return null
-    return SubscriptionApi.requestGrant({
-      userName: user.email,
-      subscriptionId: data?.subscriptionID,
-      planId: data?.subscriptionID ? planId : undefined,
-    })
+    if (!data?.subscriptionID) return null
+    const token = await getAccessToken()
+    return SubscriptionApi.requestGrant({ subscriptionId: data.subscriptionID }, token)
   }
 
   const handleSuccess = async (data: IApprovalResponse) => {

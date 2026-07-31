@@ -15,12 +15,14 @@ export const useApiAccessToken = (): (() => Promise<string>) => {
   return useCallback(async () => {
     if (!isAuthenticated) throw new AuthenticationRequiredError()
     try {
-      return await getAccessTokenSilently({
+      const token = await getAccessTokenSilently({
         authorizationParams: {
           audience: config.audience,
           scope: 'openid profile email',
         },
       })
+      if (!token) throw new AuthenticationRequiredError()
+      return token
     } catch {
       throw new AuthenticationRequiredError()
     }
