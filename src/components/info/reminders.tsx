@@ -1,6 +1,6 @@
 import type { Aos4ReminderViewModel } from '../../aos4/view'
-import { CollapsibleCardHeader } from 'components/aos4/collapsibleCardHeader'
-import { useIsMobile } from 'components/aos4/useIsMobile'
+import { CollapsibleCardHeader } from 'components/helpers/collapsibleCardHeader'
+import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import { Fragment, useEffect, useMemo, useState } from 'react'
 /*
