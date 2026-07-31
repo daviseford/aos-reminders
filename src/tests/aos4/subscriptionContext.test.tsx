@@ -6,6 +6,7 @@ import { act } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({
+  isAuthenticated: true,
   isLoading: false,
   user: { email: 'general@example.com' } as { email: string } | undefined,
 }))
@@ -61,6 +62,7 @@ describe('subscription account state', () => {
   let container: HTMLDivElement
 
   beforeEach(() => {
+    auth.isAuthenticated = true
     auth.isLoading = false
     auth.user = { email: 'general@example.com' }
     subscriptionApi.cancelSubscription.mockReset()
@@ -106,6 +108,17 @@ describe('subscription account state', () => {
     expect(token.get).toHaveBeenCalled()
     expect(subscriptionApi.getSubscription).toHaveBeenCalledWith('audience-token')
     expect(container.querySelector('[data-testid="status"]')?.textContent).toBe('active')
+    expect(container.querySelector('[data-testid="error"]')?.textContent).toBe('')
+  })
+
+  it('does not load subscription state for a signed-out session with stale user data', async () => {
+    auth.isAuthenticated = false
+
+    await renderProbe()
+
+    expect(token.get).not.toHaveBeenCalled()
+    expect(subscriptionApi.getSubscription).not.toHaveBeenCalled()
+    expect(container.querySelector('[data-testid="status"]')?.textContent).toBe('none')
     expect(container.querySelector('[data-testid="error"]')?.textContent).toBe('')
   })
 

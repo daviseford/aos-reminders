@@ -40,7 +40,7 @@ interface SubscriptionContextValue {
 const SubscriptionContext = React.createContext<SubscriptionContextValue | undefined>(undefined)
 
 const SubscriptionProvider = ({ children }: React.PropsWithChildren<object>) => {
-  const { isLoading, user } = useAuth0()
+  const { isAuthenticated, isLoading, user } = useAuth0()
   const getAccessToken = useApiAccessToken()
   const [subscription, setSubscription] = useState(emptySubscription)
   const [subscriptionError, setSubscriptionError] = useState<string | null>(null)
@@ -49,11 +49,11 @@ const SubscriptionProvider = ({ children }: React.PropsWithChildren<object>) => 
 
   useEffect(() => {
     if (isLoading) return
-    if (!user) setIsNotSubscribed(true)
-  }, [isLoading, user])
+    if (!isAuthenticated || !user) setIsNotSubscribed(true)
+  }, [isAuthenticated, isLoading, user])
 
   const getSubscription = useCallback(async () => {
-    if (!user) {
+    if (!isAuthenticated || !user) {
       setSubscription(emptySubscription)
       setSubscriptionError(null)
       setIsNotSubscribed(true)
@@ -78,17 +78,19 @@ const SubscriptionProvider = ({ children }: React.PropsWithChildren<object>) => 
     } finally {
       setSubscriptionLoading(false)
     }
-  }, [getAccessToken, user])
+  }, [getAccessToken, isAuthenticated, user])
 
   useEffect(() => {
     if (!isLoading) void getSubscription()
   }, [getSubscription, isLoading])
 
   const cancelSubscription = useCallback(async () => {
+    if (!isAuthenticated) return
+
     const token = await getAccessToken()
     await SubscriptionApi.cancelSubscription(token)
     await getSubscription()
-  }, [getAccessToken, getSubscription])
+  }, [getAccessToken, getSubscription, isAuthenticated])
 
   const value = useMemo(
     () => ({
