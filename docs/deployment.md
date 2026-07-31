@@ -18,7 +18,11 @@ existed, nothing set one at all, and CloudFront cached whatever it liked.
 |---|---|---|
 | Content-hashed | `assets/*` | `public, max-age=31536000, immutable` |
 | Unhashed public | icons, `favicon.ico`, `robots.txt`, `browserconfig.xml`, `safari-pinned-tab.svg`, `img/*` | `public, max-age=86400` |
-| Mutable entry points | `index.html`, `site.webmanifest`, `service-worker.js`, `workbox-*.js`, `registerSW.js` | `public, max-age=0, must-revalidate` |
+| Mutable entry points | `index.html`, `site.webmanifest`, `service-worker.js`, `sw-extras.js`, `workbox-*.js`, `registerSW.js` | `public, max-age=0, must-revalidate` |
+
+`sw-extras.js` is in that last class because the worker pulls it in with
+`importScripts`, and `importScripts` *does* go through the HTTP cache even
+though the top-level worker script does not.
 
 The unhashed public assets sit between the other two because they carry a `?v=`
 query buster rather than a content hash — they are not immutable under a given

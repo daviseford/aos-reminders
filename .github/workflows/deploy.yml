@@ -91,6 +91,7 @@ jobs:
             --exclude "*.git*" --exclude "*.DS_Store" \
             --exclude "assets/*" --exclude "index.html" --exclude "site.webmanifest" \
             --exclude "service-worker.js" --exclude "workbox-*.js" --exclude "registerSW.js" \
+            --exclude "sw-extras.js" \
             --cache-control "${{ env.MODERATE }}"
 
       # The worker only exists once the PWA plugin is building it, so the upload
@@ -99,7 +100,8 @@ jobs:
         run: |
           aws s3 cp "${{ env.SITE_BUILD_DIR }}/site.webmanifest" "${{ env.SITE_S3 }}/site.webmanifest" \
             --cache-control "${{ env.REVALIDATE }}"
-          for worker in "${{ env.SITE_BUILD_DIR }}"/service-worker.js "${{ env.SITE_BUILD_DIR }}"/workbox-*.js "${{ env.SITE_BUILD_DIR }}"/registerSW.js; do
+          for worker in "${{ env.SITE_BUILD_DIR }}"/service-worker.js "${{ env.SITE_BUILD_DIR }}"/workbox-*.js \
+                        "${{ env.SITE_BUILD_DIR }}"/registerSW.js "${{ env.SITE_BUILD_DIR }}"/sw-extras.js; do
             [ -e "$worker" ] || continue
             aws s3 cp "$worker" "${{ env.SITE_S3 }}/$(basename "$worker")" --cache-control "${{ env.REVALIDATE }}"
           done

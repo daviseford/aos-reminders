@@ -1,6 +1,7 @@
 import 'core-js/stable' // organize-imports-ignore
 import 'css/index.scss' // organize-imports-ignore
 import './bootstrap/captureShareLink' // organize-imports-ignore
+import './bootstrap/registerServiceWorker' // organize-imports-ignore
 import { Auth0Provider } from '@auth0/auth0-react'
 import App from 'components/App'
 import { AppStatusProvider } from 'context/useAppStatus'

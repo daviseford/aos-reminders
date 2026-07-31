@@ -38,6 +38,7 @@ aws s3 sync "${SITE_BUILD_DIR}" "${SITE_S3}" \
   --exclude "*.git*" --exclude "*.DS_Store" \
   --exclude "assets/*" --exclude "index.html" --exclude "site.webmanifest" \
   --exclude "service-worker.js" --exclude "workbox-*.js" --exclude "registerSW.js" \
+  --exclude "sw-extras.js" \
   --cache-control "${MODERATE}"
 
 # 3. Manifest and service worker.
@@ -46,7 +47,8 @@ aws s3 cp "${SITE_BUILD_DIR}/site.webmanifest" "${SITE_S3}/site.webmanifest" \
 
 # The worker only exists once the PWA plugin is building it. Guard the upload so
 # a deploy from before that point does not fail on a missing file.
-for worker in "${SITE_BUILD_DIR}"/service-worker.js "${SITE_BUILD_DIR}"/workbox-*.js "${SITE_BUILD_DIR}"/registerSW.js; do
+for worker in "${SITE_BUILD_DIR}"/service-worker.js "${SITE_BUILD_DIR}"/workbox-*.js \
+              "${SITE_BUILD_DIR}"/registerSW.js "${SITE_BUILD_DIR}"/sw-extras.js; do
   [ -e "${worker}" ] || continue
   aws s3 cp "${worker}" "${SITE_S3}/$(basename "${worker}")" --cache-control "${REVALIDATE}"
 done
