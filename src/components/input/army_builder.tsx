@@ -83,11 +83,26 @@ const SelectionCard = ({
   const { theme } = useTheme()
   const isMobile = useIsMobile()
   const [isExpanded, setIsExpanded] = useState(initiallyExpanded)
-  const options: Option[] = group.options.map(option => ({
+  const toOption = (option: BuilderOption): Option => ({
     label: option.name,
     value: option.id,
     disabled: !option.available && !option.selected,
-  }))
+  })
+  // Current-standard content lists first; Legends and Scourge of Ghyran content is always offered
+  // but sits under its own group header so its provenance stays visible.
+  const currentOptions = group.options.filter(option => !option.overlay).map(toOption)
+  const legendsOptions = group.options.filter(option => option.overlay === 'legends').map(toOption)
+  const historicalOptions = group.options
+    .filter(option => option.overlay === 'historical')
+    .map(toOption)
+  const options: Option[] = [...currentOptions, ...legendsOptions, ...historicalOptions]
+  const groupedOptions = [
+    ...currentOptions,
+    ...(legendsOptions.length ? [{ label: 'Legends', options: legendsOptions }] : []),
+    ...(historicalOptions.length
+      ? [{ label: 'Scourge of Ghyran (2025-26)', options: historicalOptions }]
+      : []),
+  ]
   const selectedValues = options.filter(option =>
     group.options.some(candidate => candidate.id === option.value && candidate.selected)
   )
@@ -119,7 +134,7 @@ const SelectionCard = ({
           <Select<Option, true>
             aria-label={group.title}
             value={selectedValues}
-            options={options}
+            options={groupedOptions}
             isMulti
             isClearable
             closeMenuOnSelect={false}

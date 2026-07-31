@@ -60,37 +60,41 @@ export const loadAos4ArmyDocument = (storage: Storage, catalog: Aos4Catalog): Lo
   return { document, diagnostics: restored.diagnostics, source: 'reset' }
 }
 
-export type Aos4OverlayFlag = 'allowsLegends' | 'allowsHistorical'
-
-export const setAos4OverlayFlag = (
+// The builder offers Legends and historical content to everyone, so the document's overlay flags
+// follow the selections instead of a user setting. Validation elsewhere (the army API client, the
+// reminder view) still resolves with exactly the flags a document carries, so a document that
+// selects overlay content must declare it — and one that no longer does should not.
+export const deriveAos4OverlayFlags = (
   catalog: Aos4Catalog,
-  document: Aos4ArmyDocument,
-  flag: Aos4OverlayFlag,
-  enabled: boolean
+  document: Aos4ArmyDocument
 ): Aos4ArmyDocument => {
-  const next = createAos4ArmyDocument(
-    flag === 'allowsLegends'
-      ? { ...document, allowsLegends: enabled }
-      : { ...document, allowsHistorical: enabled }
-  )
-  if (enabled) return next
+  const inapplicableUnder = (flags: { allowsLegends?: boolean; allowsHistorical?: boolean }) =>
+    new Set(
+      resolveSelection(catalog, {
+        explicitIds: document.explicitSelectionIds,
+        rulesContextId: document.rulesContextId,
+        ...flags,
+      })
+        .diagnostics.filter(diagnostic => diagnostic.code === 'inapplicable-explicit-selection')
+        .flatMap(diagnostic => diagnostic.entityIds ?? [])
+    )
 
-  // Turning an overlay off can strand explicit selections that only resolved under it. Prune the
-  // now-inapplicable ids so the document stays valid for the builder, cloud sync, and shares.
-  const selection = resolveSelection(catalog, {
-    explicitIds: next.explicitSelectionIds,
-    rulesContextId: next.rulesContextId,
-    ...(next.allowsLegends ? { allowsLegends: true } : {}),
-    ...(next.allowsHistorical ? { allowsHistorical: true } : {}),
-  })
-  const inapplicable = new Set(
-    selection.diagnostics
-      .filter(diagnostic => diagnostic.code === 'inapplicable-explicit-selection')
-      .flatMap(diagnostic => diagnostic.entityIds ?? [])
-  )
-  if (inapplicable.size === 0) return next
+  const strict = inapplicableUnder({})
+  let needsLegends = false
+  let needsHistorical = false
+  if (strict.size > 0) {
+    const stillWithLegends = inapplicableUnder({ allowsLegends: true })
+    const stillWithHistorical = inapplicableUnder({ allowsHistorical: true })
+    needsLegends = Array.from(strict).some(id => !stillWithLegends.has(id))
+    needsHistorical = Array.from(strict).some(id => !stillWithHistorical.has(id))
+  }
+
+  if (Boolean(document.allowsLegends) === needsLegends && Boolean(document.allowsHistorical) === needsHistorical) {
+    return document
+  }
   return createAos4ArmyDocument({
-    ...next,
-    explicitSelectionIds: next.explicitSelectionIds.filter(id => !inapplicable.has(id)),
+    ...document,
+    allowsLegends: needsLegends,
+    allowsHistorical: needsHistorical,
   })
 }

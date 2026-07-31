@@ -9,6 +9,7 @@ export interface Aos4BuilderOption {
   groupType?: string
   selected: boolean
   available: boolean
+  overlay?: 'legends' | 'historical'
 }
 
 export interface Aos4BuilderWarscroll {
@@ -23,12 +24,32 @@ export interface Aos4BuilderWarscroll {
 }
 
 export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4ArmyDocument) => {
+  // Every army offers its full catalog: current-standard content plus the Legends and historical
+  // (Scourge of Ghyran) overlays. Options carry an `overlay` marker so the UI can group them
+  // rather than asking the player to opt in first.
   const selection = resolveSelection(catalog, {
     explicitIds: document.explicitSelectionIds,
     rulesContextId: document.rulesContextId,
-    ...(document.allowsLegends ? { allowsLegends: true } : {}),
-    ...(document.allowsHistorical ? { allowsHistorical: true } : {}),
+    allowsLegends: true,
+    allowsHistorical: true,
   })
+  const strictAvailable = new Set(
+    resolveSelection(catalog, {
+      explicitIds: document.explicitSelectionIds,
+      rulesContextId: document.rulesContextId,
+    }).availableIds
+  )
+  const legendsAvailable = new Set(
+    resolveSelection(catalog, {
+      explicitIds: document.explicitSelectionIds,
+      rulesContextId: document.rulesContextId,
+      allowsLegends: true,
+    }).availableIds
+  )
+  const overlayFor = (id: CanonicalId): 'legends' | 'historical' | undefined => {
+    if (strictAvailable.has(id)) return undefined
+    return legendsAvailable.has(id) ? 'legends' : 'historical'
+  }
   const selected = new Set(selection.selectedIds)
   const available = new Set(selection.availableIds)
   const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
@@ -39,6 +60,7 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     .flatMap(id => {
       const entity = entityById.get(id)
       if (!entity) return []
+      const overlay = overlayFor(id)
       return [
         {
           id,
@@ -47,6 +69,7 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
           ...(entity.kind === 'content-group' ? { groupType: entity.groupType } : {}),
           selected: selected.has(id),
           available: available.has(id),
+          ...(overlay ? { overlay } : {}),
         },
       ]
     })
