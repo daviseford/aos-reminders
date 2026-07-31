@@ -150,15 +150,17 @@ armies, and sharing. Its package track has begun: Bootstrap is on 5.3 and react-
 (issue #1176), migrated for visual parity — `src/css/theme.scss` pins the Bootstrap 4.6 defaults the
 interface was built against, and those pins are part of the design system (see DESIGN.md, "The
 Parity Pin Rule"). React is on 19 (issue #1770): `createRoot`, and deliberately no `StrictMode`
-wrapper — the app has never had one, and adding it would double-invoke every effect. Vite,
-TypeScript, Sass, PWA tooling, Stripe, and react-dropzone remain pending. Checked-in plans live
+wrapper — the app has never had one, and adding it would double-invoke every effect. PWA support is
+rebuilt on `vite-plugin-pwa` 1.3 (issue #1801): the app is installable and works offline after one
+online visit, the orphaned CRA worker layer is gone, and the production deploy sets per-file
+`Cache-Control` headers the worker depends on. See `docs/pwa.md` and `docs/deployment.md`. Vite,
+TypeScript, Sass, Stripe, and react-dropzone remain pending. Checked-in plans live
 under `docs/plans/`. Preserve the completed AoS 4 domain, generated-data contracts, beta gate, and
 familiar interface while working through:
 
-- upgrade Vite, TypeScript, Sass, PWA tooling, and the remaining supporting packages
+- upgrade Vite, TypeScript, Sass, and the remaining supporting packages
 - remove packages made unused by the AoS 3 retirement (the four Redux packages are gone)
 - replace obsolete or unmaintained libraries (react-beautiful-dnd -> @hello-pangea/dnd is done)
-- finish CRA-to-Vite/PWA cleanup
 - tighten compiler and lint settings
 - redesign API/auth/subscription capabilities against AoS 4 contracts as needed (save and share
   are delivered)
@@ -181,6 +183,11 @@ configuration tracked in issue #1804. Subscription authorization and verified we
 merged in `aos-reminders-subscription-api#17` but remain a production gate under issue #1720. Live
 real-money Stripe and PayPal verification after the Version 6 frontend deploy remains tracked in
 issue #1731, and the full production smoke/operational handoff is issue #1805.
+
+Issue #1801 asked for PWA support in both this app and the subscription admin console. Only this
+app's half shipped; the console's is `aos-reminders-admin#9`, which scopes it to a manifest and
+icons with no service worker — that console renders live subscriber data, and browser caches are
+origin-scoped rather than per-user, so a cached response would outlive its session.
 
 ## Branch and pull-request strategy
 
