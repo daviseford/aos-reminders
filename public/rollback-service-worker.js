@@ -1,9 +1,12 @@
 /*
  * Emergency rollback worker.
  *
- * This file is never registered by the app and is not part of the build output.
- * It is deployed by hand, over the top of `/service-worker.js`, to un-ship a bad
- * service worker -- see "Rolling back the service worker" in docs/deployment.md.
+ * This file is never registered by the app. It is copied into the build output
+ * like any other `public/` asset and published inert at its own path; nothing
+ * fetches it there. To un-ship a bad service worker you promote it by hand over
+ * the top of `/service-worker.js` -- see "Rolling back the service worker" in
+ * docs/deployment.md. It is excluded from the precache so a broken worker cannot
+ * pin a stale copy of its own escape hatch.
  *
  * A service worker persists on clients until it is explicitly replaced or
  * unregistered, so a broken one cannot be fixed by redeploying the app alone.

@@ -72,15 +72,16 @@ jobs:
 
       # Hashed assets first: a freshly revalidated index.html must never
       # reference a chunk that has not landed yet.
+      #
+      # `cp`, not `sync`. sync skips objects whose size and mtime match, which
+      # would leave a still-referenced chunk's LastModified frozen at its first
+      # upload -- and the bucket lifecycle rule expires by age, so it would
+      # eventually delete a chunk the live index.html still points at. Uploading
+      # unconditionally refreshes exactly this build's asset set and nothing
+      # else; refreshing the whole remote prefix instead would also revive
+      # long-dead orphans and stop the lifecycle rule ever collecting anything.
       - name: Upload content-hashed assets
-        run: aws s3 sync "${{ env.SITE_BUILD_DIR }}/assets" "${{ env.SITE_S3 }}/assets" --cache-control "${{ env.IMMUTABLE }}"
-
-      # `sync` compares size and modification time and skips unchanged objects,
-      # so without this a chunk the live index.html still references ages out and
-      # the bucket lifecycle rule deletes it. Server-side copy: nothing is
-      # re-uploaded from the runner.
-      - name: Refresh hashed-asset timestamps
-        run: aws s3 cp "${{ env.SITE_S3 }}/assets" "${{ env.SITE_S3 }}/assets" --recursive --metadata-directive REPLACE --cache-control "${{ env.IMMUTABLE }}"
+        run: aws s3 cp "${{ env.SITE_BUILD_DIR }}/assets" "${{ env.SITE_S3 }}/assets" --recursive --cache-control "${{ env.IMMUTABLE }}"
 
       # Unhashed public assets carry a ?v= query buster rather than a content
       # hash, so a moderate TTL and no `immutable`.

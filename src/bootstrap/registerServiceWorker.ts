@@ -33,16 +33,21 @@ const announceNewContent = () => {
  */
 export const applyWaitingUpdate = registerSW({
   onNeedRefresh: announceNewContent,
-  onRegisteredSW: (swUrl, registration) => {
+  onRegisteredSW: (_swUrl, registration) => {
     if (!registration) return
 
     setInterval(async () => {
       if (registration.installing || !navigator.onLine) return
 
       try {
-        // Ask the network directly: a cached 200 would make a stale worker look current.
-        const response = await fetch(swUrl, { cache: 'no-store' })
-        if (response.status === 200) await registration.update()
+        /*
+         * `update()` fetches and byte-compares the worker script itself, and the deploy serves it
+         * `max-age=0, must-revalidate`, so it cannot come from the HTTP cache. The pre-flight fetch
+         * the plugin's docs suggest would just be a second round trip to the same URL each hour, per
+         * open tab, and would not catch the failure that actually bit this app before -- a worker
+         * path answering 200 with the SPA's HTML.
+         */
+        await registration.update()
       } catch {
         // Offline or the check failed. The next tick retries.
       }

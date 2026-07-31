@@ -101,11 +101,19 @@ Superseded assets are instead bounded by a bucket lifecycle rule:
 - **Not** a noncurrent-version rule. Each build emits a *distinct key* rather
   than a new version of one key, so version-based expiration would never match.
 
-Because the rule is age-based, the deploy runs a server-side
-`--metadata-directive REPLACE` pass over `assets/` on every run. That refreshes
-`LastModified` on chunks this build did not change, so a still-referenced chunk
-cannot age out underneath loaded clients. **Removing that step re-arms exactly
-the bug the retention rule exists to prevent.**
+Because the rule is age-based, the deploy uploads `assets/` with `aws s3 cp
+--recursive` rather than `aws s3 sync`. `sync` skips objects whose size and mtime
+already match, which would leave a still-referenced chunk's `LastModified` frozen
+at its first upload until the rule expired it underneath loaded clients.
+Uploading unconditionally refreshes exactly the current build's asset set.
+**Switching that step back to `sync` re-arms the bug the retention rule exists to
+prevent.**
+
+Refreshing the whole *remote* prefix instead — a server-side
+`--metadata-directive REPLACE` over `s3://…/assets/` — looks equivalent and is
+not: it also resets the clock on orphans from builds that shipped months ago, so
+nothing would ever reach the expiry age and the rule would never collect
+anything.
 
 The rule lives in bucket configuration, not in this repository.
 

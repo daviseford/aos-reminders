@@ -23,8 +23,12 @@ const rememberDismissal = (name: string) => {
 }
 
 interface IBannerProps {
+  /** Overrides the close button's accessible name. Set it when more than one banner can be on screen. */
+  closeLabel?: string
   enableLog?: boolean
   name: string
+  /** Notified after the banner closes, for callers that own their own re-display policy. */
+  onClose?: () => void
   persistClose?: boolean
   variant?: TBootstrapTypes
 }
@@ -35,8 +39,10 @@ interface IBannerProps {
  */
 export const NotificationBanner = ({
   children,
+  closeLabel = 'Close notification',
   enableLog = false,
   name,
+  onClose,
   persistClose = true,
   variant = 'primary',
 }: React.PropsWithChildren<IBannerProps>) => {
@@ -50,6 +56,7 @@ export const NotificationBanner = ({
     setIsOn(false)
     if (persistClose) rememberDismissal(name)
     if (enableLog) logBannerClose(name)
+    onClose?.()
   }
 
   if (!isOn) return null
@@ -64,7 +71,7 @@ export const NotificationBanner = ({
       <button
         type="button"
         className="btn-close align-self-start ms-2 flex-shrink-0"
-        aria-label="Close notification"
+        aria-label={closeLabel}
         onClick={handleClose}
       />
     </div>

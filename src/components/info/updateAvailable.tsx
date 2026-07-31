@@ -1,3 +1,4 @@
+import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { useAppStatus } from 'context/useAppStatus'
 import { useEffect, useRef, useState } from 'react'
 import { applyWaitingUpdate } from '../../bootstrap/registerServiceWorker'
@@ -5,9 +6,10 @@ import { applyWaitingUpdate } from '../../bootstrap/registerServiceWorker'
 /*
  * How long a dismissal lasts.
  *
- * Not "for this session": an installed PWA on a phone is suspended rather than closed, so the next
- * natural load can be weeks away, and the waiting worker only activates once every tab is gone. A
- * bounded dismissal means someone who taps the wrong thing is not stranded on an old build.
+ * Not "for this session", and deliberately not NotificationBanner's persisted dismissal: an
+ * installed PWA on a phone is suspended rather than closed, so the next natural load can be weeks
+ * away, and the waiting worker only activates once every tab is gone. A bounded dismissal means
+ * someone who taps the wrong thing is not stranded on an old build.
  */
 const DISMISS_DURATION_MS = 60 * 60 * 1000
 
@@ -31,10 +33,10 @@ export const UpdateAvailable = ({ onApply = applyWaitingUpdate }: IUpdateAvailab
 
   useEffect(() => () => clearTimeout(dismissTimer.current), [])
 
+  // Unmounting on dismiss is what lets the banner come back: NotificationBanner's own `isOn` latches
+  // off, so a remount is the only way to re-show it.
   const handleDismiss = () => {
     setIsDismissed(true)
-    // Local state only. NotificationBanner's localStorage dismissal is keyed by name, which would
-    // suppress every future build's prompt after a single close.
     dismissTimer.current = setTimeout(() => setIsDismissed(false), DISMISS_DURATION_MS)
   }
 
@@ -49,29 +51,22 @@ export const UpdateAvailable = ({ onApply = applyWaitingUpdate }: IUpdateAvailab
   if (!hasNewContent || isDismissed) return null
 
   return (
-    <div className="alert alert-info text-center fade show d-flex my-0 d-print-none" role="alert">
-      <div className="flex-grow-1 d-flex justify-content-center align-items-center flex-wrap gap-2">
-        <span>A new version of AoS Reminders is available.</span>
-        <button
-          type="button"
-          className="btn btn-sm btn-primary flex-shrink-0"
-          onClick={handleApply}
-          disabled={isApplying}
-        >
-          {isApplying ? 'Reloading...' : 'Reload'}
-        </button>
-      </div>
-      {/*
-        flex-shrink-0 keeps the 24px hit box intact -- without it the banner text squeezes the close
-        button's 1em width below the WCAG 2.5.8 floor. Same fix as notification_banner.tsx.
-      */}
+    <NotificationBanner
+      closeLabel="Dismiss update notification"
+      name="app-update"
+      onClose={handleDismiss}
+      persistClose={false}
+      variant="info"
+    >
+      <span>A new version of AoS Reminders is available.</span>
       <button
         type="button"
-        className="btn-close align-self-start ms-2 flex-shrink-0"
-        aria-label="Dismiss update notification"
-        onClick={handleDismiss}
+        className="btn btn-sm btn-primary flex-shrink-0 ms-2"
+        onClick={handleApply}
         disabled={isApplying}
-      />
-    </div>
+      >
+        {isApplying ? 'Reloading...' : 'Reload'}
+      </button>
+    </NotificationBanner>
   )
 }

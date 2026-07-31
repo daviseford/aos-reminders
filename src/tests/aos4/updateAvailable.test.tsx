@@ -87,7 +87,6 @@ describe('update-available banner', () => {
 
     expect(reloadButton()!.disabled).toBe(true)
     expect(reloadButton()!.textContent).toContain('Reloading')
-    expect(dismissButton()!.disabled).toBe(true)
   })
 
   it('hides on dismiss without applying the update', () => {

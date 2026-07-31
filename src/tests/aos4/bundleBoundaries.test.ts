@@ -19,7 +19,10 @@ describe('initial bundle boundaries', () => {
     expect(main.indexOf("import './bootstrap/captureShareLink'")).toBeLessThan(
       main.indexOf("import App from 'components/App'")
     )
-    expect(viteConfig).toContain("return 'aos4-catalog-data'")
+    // The chunk name is a shared constant: the PWA config also needs it, to keep the catalog out of
+    // the precache. Pin both the value and the manualChunks use so neither can drift alone.
+    expect(viteConfig).toContain("const CATALOG_CHUNK_NAME = 'aos4-catalog-data'")
+    expect(viteConfig).toContain('return CATALOG_CHUNK_NAME')
     expect(viteConfig).toContain("name: 'initial-entry-chunk-budget'")
   })
 

@@ -20,15 +20,16 @@ yarn build
 
 # 1. Content-hashed assets, first: a freshly revalidated index.html must never
 #    reference a chunk that has not landed yet.
-aws s3 sync "${SITE_BUILD_DIR}/assets" "${SITE_S3}/assets" --cache-control "${IMMUTABLE}"
-
-# 1b. Refresh LastModified on every hashed asset, including ones this build did
-#     not change. `sync` compares size and modification time and skips unchanged
-#     objects, so without this a chunk the live index.html still references ages
-#     out and the bucket lifecycle rule deletes it. This is a server-side copy,
-#     so nothing is re-uploaded from here.
-aws s3 cp "${SITE_S3}/assets" "${SITE_S3}/assets" \
-  --recursive --metadata-directive REPLACE --cache-control "${IMMUTABLE}"
+#
+#    `cp`, not `sync`. sync skips objects whose size and mtime match, which would
+#    leave a still-referenced chunk's LastModified frozen at its first upload --
+#    and the bucket lifecycle rule expires by age, so it would eventually delete
+#    a chunk the live index.html still points at. Uploading unconditionally
+#    refreshes exactly this build's asset set and nothing else; refreshing the
+#    whole remote prefix instead would also revive long-dead orphans and stop the
+#    lifecycle rule ever collecting anything.
+aws s3 cp "${SITE_BUILD_DIR}/assets" "${SITE_S3}/assets" \
+  --recursive --cache-control "${IMMUTABLE}"
 
 # 2. Unhashed public assets: icons, favicon, robots.txt, img/. They carry a ?v=
 #    query buster rather than a content hash, so they get a moderate TTL and no

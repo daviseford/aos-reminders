@@ -26,13 +26,16 @@ echo "Now uploading to S3"
 
 # 1. Content-hashed assets first: a freshly revalidated index.html must never
 #    reference a chunk that has not landed yet.
-aws s3 sync "${SITE_BUILD_DIR}/assets" "${SITE_S3}/assets" --cache-control "${IMMUTABLE}"
-
-# 1b. Refresh LastModified on unchanged hashed assets, server-side, so the
-#     bucket lifecycle rule cannot expire a chunk the live index.html still
-#     references.
-aws s3 cp "${SITE_S3}/assets" "${SITE_S3}/assets" \
-  --recursive --metadata-directive REPLACE --cache-control "${IMMUTABLE}"
+#
+#    `cp`, not `sync`. sync skips objects whose size and mtime match, which would
+#    leave a still-referenced chunk's LastModified frozen at its first upload --
+#    and the bucket lifecycle rule expires by age, so it would eventually delete
+#    a chunk the live index.html still points at. Uploading unconditionally
+#    refreshes exactly this build's asset set and nothing else; refreshing the
+#    whole remote prefix instead would also revive long-dead orphans and stop the
+#    lifecycle rule ever collecting anything.
+aws s3 cp "${SITE_BUILD_DIR}/assets" "${SITE_S3}/assets" \
+  --recursive --cache-control "${IMMUTABLE}"
 
 # 2. Unhashed public assets: they carry a ?v= query buster rather than a content
 #    hash, so a moderate TTL and no `immutable`.
