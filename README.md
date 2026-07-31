@@ -43,11 +43,11 @@ network or cache access. Future beta reports and source updates reopen only the 
 through the candidate pipeline; they do not restart the completed migration.
 
 Phase 2 continues after this release while the accepted AoS 4 data contracts remain stable. The
-legacy subscription API still has the authorization gap tracked in
-[#1720](https://github.com/daviseford/aos-reminders/issues/1720), and
-[#1804](https://github.com/daviseford/aos-reminders/issues/1804) tracks the secure army/share API
-deployment and production Vite configuration. Do not describe either gate as complete until its
-production checks pass.
+Auth0 subscription and private army/share implementations are prepared in launch-hardening PRs,
+but their production rollout and live negative checks remain tracked in
+[#1720](https://github.com/daviseford/aos-reminders/issues/1720) and
+[#1804](https://github.com/daviseford/aos-reminders/issues/1804). Do not describe either production
+gate as complete until those checks pass.
 
 ## Sources
 
