@@ -99,25 +99,56 @@ const emitServiceWorkerExtras = (): Plugin => ({
 const CATALOG_URL = ${JSON.stringify(catalogUrl)}
 const CATALOG_CACHE = ${JSON.stringify(CATALOG_CACHE_NAME)}
 const LEGACY_CACHES = ['images']
+const WARM_TIMEOUT_MS = 20000
+
+/*
+ * A missing object at this origin answers 200 with the SPA shell rather than 404. Caching that under
+ * the catalog's URL would make CacheFirst serve HTML to a dynamic import forever, so every read and
+ * write of this cache is gated on the response actually being the module.
+ */
+const isCatalogModule = response =>
+  !!response && response.status === 200 && (response.headers.get('content-type') || '').includes('javascript')
+
+const withTimeout = () =>
+  typeof AbortSignal !== 'undefined' && AbortSignal.timeout
+    ? { signal: AbortSignal.timeout(WARM_TIMEOUT_MS) }
+    : undefined
 
 self.addEventListener('activate', event => {
   event.waitUntil(
     (async () => {
-      await Promise.all(LEGACY_CACHES.map(name => caches.delete(name)))
+      // Independently fault-tolerant: a storage failure here must not skip the catalog work below.
+      await Promise.all(LEGACY_CACHES.map(name => caches.delete(name).catch(() => {})))
 
       if (!CATALOG_URL) return
       try {
         const cache = await caches.open(CATALOG_CACHE)
+
+        // Drop previous builds' entries, and any entry that is not the module -- that is how a
+        // poisoned cache heals itself instead of serving HTML until the next deploy.
         for (const request of await cache.keys()) {
-          if (new URL(request.url).pathname !== CATALOG_URL) await cache.delete(request)
+          const isCurrent = new URL(request.url).pathname === CATALOG_URL
+          if (!isCurrent || !isCatalogModule(await cache.match(request))) await cache.delete(request)
         }
         if (await cache.match(CATALOG_URL)) return
-        const response = await fetch(CATALOG_URL, { cache: 'reload' })
-        if (response && (response.status === 200 || response.status === 0)) {
-          await cache.put(CATALOG_URL, response)
-        }
+
+        /*
+         * With a window open, stop here. Activation holds fetch events until waitUntil settles, and
+         * vite-plugin-pwa reloads the page the moment the worker takes control -- so warming an
+         * 11.6 MiB chunk on this path would leave that reload staring at a blank page for the whole
+         * download. The reloaded page requests the catalog itself and the runtime route caches it
+         * behind the app's own loading state. Warming is for the other case: activation with no
+         * clients (the last tab closed), where the next start may well be offline.
+         */
+        if ((await self.clients.matchAll({ type: 'window' })).length > 0) return
+
+        // No 'reload' cache mode: the URL is content-hashed and served immutable, so the HTTP-cached
+        // copy is by construction the right bytes and re-downloading them buys nothing.
+        const response = await fetch(CATALOG_URL, withTimeout())
+        if (isCatalogModule(response)) await cache.put(CATALOG_URL, response)
       } catch {
-        // Offline at activation. The runtime route still fills the cache on first online use.
+        // Offline, timed out, or storage refused. The runtime route fills the cache on first online
+        // use, and the prune above re-runs on the next activation.
       }
     })()
   )
@@ -172,7 +203,11 @@ export default defineConfig({
               cacheName: CATALOG_CACHE_NAME,
               // No ExpirationPlugin: sw-extras.js owns this cache and prunes it to the current
               // build's chunk on activate. Two writers would fight over its bookkeeping.
-              cacheableResponse: { statuses: [0, 200] },
+              //
+              // 200 only. An opaque (status 0) response is unreachable here -- the pattern is
+              // same-origin -- so allowing it would only widen what can land in the cache. A 200
+              // that is the SPA shell rather than the module is caught by sw-extras.js's prune.
+              cacheableResponse: { statuses: [200] },
             },
           },
         ],

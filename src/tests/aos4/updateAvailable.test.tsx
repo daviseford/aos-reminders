@@ -1,12 +1,14 @@
 // @vitest-environment jsdom
 
-import { UpdateAvailable } from 'components/info/updateAvailable'
+import {
+  APPLY_TIMEOUT_MS,
+  DISMISS_DURATION_MS,
+  UpdateAvailable,
+} from 'components/info/updateAvailable'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { act } from 'react'
 import { render, Simulate, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-
-const DISMISS_DURATION_MS = 60 * 60 * 1000
 
 describe('update-available banner', () => {
   let container: HTMLDivElement
@@ -67,15 +69,47 @@ describe('update-available banner', () => {
     expect(container.textContent).toContain('A new version of AoS Reminders is available.')
   })
 
-  it('applies the waiting update exactly once, however many times it is activated', () => {
+  it('applies the waiting update exactly once on a fast double-tap', () => {
+    mount()
+    announceNewContent()
+
+    /*
+     * Both clicks inside one act(): React has not committed `disabled` yet, so the second one
+     * genuinely reaches the handler and the re-entrancy guard is what stops it. Clicking in separate
+     * act() calls would only prove the disabled attribute works — that version stays green with the
+     * guard deleted.
+     */
+    act(() => {
+      const button = reloadButton()!
+      Simulate.click(button)
+      Simulate.click(button)
+    })
+
+    expect(onApply).toHaveBeenCalledTimes(1)
+  })
+
+  it('ignores further activation once the control is disabled', () => {
     mount()
     announceNewContent()
 
     act(() => Simulate.click(reloadButton()!))
     act(() => Simulate.click(reloadButton()!))
-    act(() => Simulate.click(reloadButton()!))
 
     expect(onApply).toHaveBeenCalledTimes(1)
+  })
+
+  it('re-enables the control when the reload never arrives', () => {
+    mount()
+    announceNewContent()
+    act(() => Simulate.click(reloadButton()!))
+    expect(reloadButton()!.disabled).toBe(true)
+
+    // applyWaitingUpdate is a no-op when no worker is actually waiting, so no reload ever comes.
+    act(() => {
+      vi.advanceTimersByTime(APPLY_TIMEOUT_MS)
+    })
+
+    expect(reloadButton()!.disabled).toBe(false)
   })
 
   it('puts the reload control into a disabled in-progress state once activated', () => {
@@ -110,16 +144,24 @@ describe('update-available banner', () => {
     setItem.mockRestore()
   })
 
-  it('brings the banner back after the dismissal window elapses', () => {
+  it('brings the banner back only once the dismissal window has fully elapsed', () => {
+    expect(DISMISS_DURATION_MS).toBe(60 * 60 * 1000)
+
     mount()
     announceNewContent()
     act(() => Simulate.click(dismissButton()!))
     expect(banner()).toBeNull()
 
+    // Asserting the near edge too: without it a dismissal collapsed to a second would still pass,
+    // and a banner that returns immediately is worse than one that never returns.
     act(() => {
-      vi.advanceTimersByTime(DISMISS_DURATION_MS)
+      vi.advanceTimersByTime(DISMISS_DURATION_MS - 1)
     })
+    expect(banner()).toBeNull()
 
+    act(() => {
+      vi.advanceTimersByTime(1)
+    })
     expect(banner()).not.toBeNull()
   })
 

@@ -11,7 +11,16 @@ import { applyWaitingUpdate } from '../../bootstrap/registerServiceWorker'
  * away, and the waiting worker only activates once every tab is gone. A bounded dismissal means
  * someone who taps the wrong thing is not stranded on an old build.
  */
-const DISMISS_DURATION_MS = 60 * 60 * 1000
+export const DISMISS_DURATION_MS = 60 * 60 * 1000
+
+/*
+ * How long the accept control stays in its pending state before it re-enables.
+ *
+ * `applyWaitingUpdate` is a no-op when there is no worker actually waiting -- it activated on its
+ * own, or workbox-window never loaded -- and in that case no reload ever comes. Without this the
+ * button would sit disabled on "Reloading..." for the life of the page with no way to retry.
+ */
+export const APPLY_TIMEOUT_MS = 10 * 1000
 
 interface IUpdateAvailableProps {
   /** Injected in tests. Defaults to the real registration's skip-waiting call. */
@@ -30,8 +39,21 @@ export const UpdateAvailable = ({ onApply = applyWaitingUpdate }: IUpdateAvailab
   const [isDismissed, setIsDismissed] = useState(false)
   const [isApplying, setIsApplying] = useState(false)
   const dismissTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const applyTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  /*
+   * A ref, not `isApplying`. Two taps inside one React batch both read the same render's state, so a
+   * state-based guard sees `false` twice and posts SKIP_WAITING twice; a ref updates synchronously.
+   * `isApplying` still drives the disabled/pending UI, which is a separate concern.
+   */
+  const hasApplied = useRef(false)
 
-  useEffect(() => () => clearTimeout(dismissTimer.current), [])
+  useEffect(
+    () => () => {
+      clearTimeout(dismissTimer.current)
+      clearTimeout(applyTimer.current)
+    },
+    []
+  )
 
   // Unmounting on dismiss is what lets the banner come back: NotificationBanner's own `isOn` latches
   // off, so a remount is the only way to re-show it.
@@ -43,8 +65,14 @@ export const UpdateAvailable = ({ onApply = applyWaitingUpdate }: IUpdateAvailab
   const handleApply = () => {
     // The page reloads out from under this component once the new worker takes control, but the
     // interval before that is long enough to tap twice.
-    if (isApplying) return
+    if (hasApplied.current) return
+    hasApplied.current = true
     setIsApplying(true)
+    // If the reload never arrives, re-enable rather than stranding the user on a dead control.
+    applyTimer.current = setTimeout(() => {
+      hasApplied.current = false
+      setIsApplying(false)
+    }, APPLY_TIMEOUT_MS)
     onApply()
   }
 
@@ -59,9 +87,13 @@ export const UpdateAvailable = ({ onApply = applyWaitingUpdate }: IUpdateAvailab
       variant="info"
     >
       <span>A new version of AoS Reminders is available.</span>
+      {/*
+        Outline, not filled. DESIGN.md reserves `btn-primary` for the control that commits money or
+        an account; reloading onto a new build is reversible.
+      */}
       <button
         type="button"
-        className="btn btn-sm btn-primary flex-shrink-0 ms-2"
+        className="btn btn-sm btn-outline-primary flex-shrink-0 ms-2"
         onClick={handleApply}
         disabled={isApplying}
       >

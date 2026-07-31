@@ -47,25 +47,39 @@ aws s3 sync "${SITE_BUILD_DIR}" "${SITE_S3}" \
   --exclude "sw-extras.js" \
   --cache-control "${MODERATE}"
 
-# 3. Manifest and service worker. The worker only exists once the PWA plugin is
-#    building it, so the upload is guarded.
+# 3. Manifest, then everything the worker pulls in. The worker does
+#    `importScripts("sw-extras.js")` and precaches index.html by revision, so both
+#    must already be live before the worker that references them.
 aws s3 cp "${SITE_BUILD_DIR}/site.webmanifest" "${SITE_S3}/site.webmanifest" \
-  --cache-control "${REVALIDATE}"
+  --cache-control "${REVALIDATE}" --content-type "application/manifest+json"
 
-for worker in "${SITE_BUILD_DIR}"/service-worker.js "${SITE_BUILD_DIR}"/workbox-*.js \
-              "${SITE_BUILD_DIR}"/registerSW.js "${SITE_BUILD_DIR}"/sw-extras.js; do
-  [ -e "${worker}" ] || continue
-  aws s3 cp "${worker}" "${SITE_S3}/$(basename "${worker}")" --cache-control "${REVALIDATE}"
+# sw-extras.js carries this build's catalog URL and is mandatory. workbox-*.js is a
+# glob that may not expand, and registerSW.js is never emitted under
+# injectRegister:false -- those two stay optional.
+aws s3 cp "${SITE_BUILD_DIR}/sw-extras.js" "${SITE_S3}/sw-extras.js" --cache-control "${REVALIDATE}"
+for optional in "${SITE_BUILD_DIR}"/workbox-*.js "${SITE_BUILD_DIR}"/registerSW.js; do
+  [ -e "${optional}" ] || continue
+  aws s3 cp "${optional}" "${SITE_S3}/$(basename "${optional}")" --cache-control "${REVALIDATE}"
 done
 
-# 4. index.html last.
+# 4. index.html, before the worker that precaches it by revision.
 aws s3 cp "${SITE_BUILD_DIR}/index.html" "${SITE_S3}/index.html" \
   --cache-control "${REVALIDATE}" --content-type "text/html; charset=utf-8"
 
-# 5. Invalidate only the mutable entry points. `/*` is one billable path but
+# 5. The worker last. A build that did not emit it is broken, not old: skipping the
+#    upload would silently leave the previous worker controlling every client while
+#    the deploy reports success.
+if [ ! -e "${SITE_BUILD_DIR}/service-worker.js" ]; then
+  echo "FATAL: ${SITE_BUILD_DIR}/service-worker.js missing -- refusing to deploy" >&2
+  exit 1
+fi
+aws s3 cp "${SITE_BUILD_DIR}/service-worker.js" "${SITE_S3}/service-worker.js" \
+  --cache-control "${REVALIDATE}"
+
+# 6. Invalidate only the mutable entry points. `/*` is one billable path but
 #    evicts every hashed asset from the edge, forcing a full refetch from S3.
 echo "Now invalidating CF cache"
 aws cloudfront create-invalidation --distribution-id "${CF_DIST_ID}" \
-  --paths "/" "/index.html" "/site.webmanifest" "/service-worker.js"
+  --paths "/" "/index.html" "/site.webmanifest" "/service-worker.js" "/sw-extras.js"
 
 echo "Deployed to https://aosreminders.com/"

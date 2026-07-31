@@ -20,8 +20,26 @@ const distDir = path.resolve(process.cwd(), 'dist')
 const read = (relativePath: string) => fs.readFileSync(path.join(distDir, relativePath), 'utf8')
 const exists = (relativePath: string) => fs.existsSync(path.join(distDir, relativePath))
 
-if (!fs.existsSync(distDir)) {
-  throw new Error('dist/ is missing. These assertions read build output — run `yarn build` first.')
+/*
+ * Freshness, not just existence. A `dist/` left over from another branch satisfies every assertion
+ * below while telling you nothing about the current source — which would make this file report green
+ * on precisely the regression it exists to catch.
+ */
+const BUILD_INPUTS = ['vite.config.mts', 'public/site.webmanifest', 'package.json']
+const workerPath = path.join(distDir, 'service-worker.js')
+
+if (!fs.existsSync(workerPath)) {
+  throw new Error(
+    'dist/service-worker.js is missing. These assertions read build output — run `yarn build` first.'
+  )
+}
+
+const builtAt = fs.statSync(workerPath).mtimeMs
+const staleAgainst = BUILD_INPUTS.filter(
+  file => fs.statSync(path.resolve(process.cwd(), file)).mtimeMs > builtAt
+)
+if (staleAgainst.length > 0) {
+  throw new Error(`dist/ predates ${staleAgainst.join(', ')} — run \`yarn build\` first.`)
 }
 
 const serviceWorkerSource = read('service-worker.js')
@@ -108,21 +126,53 @@ describe('generated service worker', () => {
     expect(catalogEntries(precached)).toEqual([])
   })
 
-  it('would fail if the catalog ever entered the precache manifest', () => {
-    // Proves the assertion above is load-bearing rather than tautological. The precache glob cannot
-    // be used as the mutation point: a catalog entry over the ceiling throws during the build, so
-    // there would be no output to assert against.
-    const withCatalog = [...precached, 'assets/aos4-catalog-data-deadbeef.js']
-
-    expect(catalogEntries(withCatalog)).not.toEqual([])
+  it('leaves the non-app files out of the precache manifest', () => {
+    // Precaching rollback-service-worker.js would pin a copy of the escape hatch inside the very
+    // worker it exists to replace; sw-extras.js is importScripts'd, not fetched as a precache entry.
+    expect(precached.filter(url => !url.includes('/'))).toEqual(['index.html'])
   })
 
-  it('serves the catalog from a runtime route and caches nothing authenticated', () => {
-    expect(serviceWorkerSource).toContain('aos4-catalog')
+  it('would fail if the catalog ever entered the precache manifest', () => {
+    /*
+     * Mutates the parser's input, not its output. Injecting into the already-parsed array would only
+     * re-test Array.filter, and would still pass if a Workbox format change silently emptied
+     * `precached` — the one failure that makes the assertion above vacuous.
+     *
+     * The precache glob cannot serve as the mutation point either: a catalog entry over the ceiling
+     * throws during the build, leaving no output to assert against.
+     */
+    const withCatalog = serviceWorkerSource.replace(
+      '{url:"index.html"',
+      '{url:"assets/aos4-catalog-data-deadbeef.js",revision:null},{url:"index.html"'
+    )
 
-    // The worker caches build output and the catalog. Nothing else — least of all a response from
-    // the Auth0, army, or subscription APIs, which are origin-scoped and outlive a session.
-    for (const forbidden of ['auth0.com', 'api.aosreminders.com', 'stripe.com']) {
+    expect(withCatalog).not.toBe(serviceWorkerSource) // the splice point still exists
+    expect(catalogEntries(precachedUrls(withCatalog))).not.toEqual([])
+  })
+
+  it('serves the catalog CacheFirst from the cache sw-extras.js prunes', () => {
+    // CacheFirst is the offline guarantee. NetworkFirst would still look fine online and silently
+    // drop cold-offline army data, which is the behaviour this whole change exists to deliver.
+    expect(serviceWorkerSource).toContain('CacheFirst')
+
+    // The two writers must name the same cache, or Workbox fills one while sw-extras prunes another.
+    const catalogCache = read('sw-extras.js').match(/CATALOG_CACHE = "([^"]+)"/)?.[1]
+    expect(catalogCache).toBeTruthy()
+    expect(serviceWorkerSource).toContain(`cacheName:"${catalogCache}"`)
+  })
+
+  it('caches nothing authenticated', () => {
+    // Caches are origin-scoped, not per-user, so an authenticated response landing in one is a
+    // cross-user exposure on a shared device. Assert the route set rather than hunting hostnames:
+    // a catch-all route would name no host at all.
+    const runtimeCaches = Array.from(serviceWorkerSource.matchAll(/cacheName:"([^"]+)"/g)).map(
+      match => match[1]
+    )
+    expect(runtimeCaches).toEqual(['aos4-catalog'])
+
+    // Belt and braces on the real hosts. `api.aosreminders.com` is an Auth0 *audience*, not an
+    // endpoint the app fetches — the army and subscription APIs both live on execute-api.
+    for (const forbidden of ['auth0.com', 'execute-api', 'stripe.com']) {
       expect(serviceWorkerSource).not.toContain(forbidden)
     }
   })

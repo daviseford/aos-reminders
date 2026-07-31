@@ -23,21 +23,29 @@ const announceNewContent = () => {
 }
 
 /*
+ * Skip-waiting activates the new worker for *every* client on this origin, so without this flag each
+ * open tab reloads itself when any one of them accepts -- including a tab whose user had just
+ * dismissed the prompt. That is exactly the mid-session interruption `registerType: 'prompt'` was
+ * chosen to avoid, so the reload is scoped to the client that asked for it. The others keep running
+ * and pick the new build up on their next navigation.
+ */
+let acceptedHere = false
+
+/*
  * Registered through the vanilla entry point rather than `virtual:pwa-register/react`. The React hook
  * registers twice under StrictMode (vite-pwa/vite-plugin-pwa#925, still open) and is not tested
  * against React 19 upstream; this keeps registration out of the component tree entirely.
- *
- * Calling this is what applies a waiting update: it posts SKIP_WAITING, and the plugin reloads the
- * page once the new worker takes control. Under `registerType: 'prompt'` nothing else can trigger
- * that, so the reload only ever follows an explicit user accept.
  */
-export const applyWaitingUpdate = registerSW({
+const updateServiceWorker = registerSW({
   onNeedRefresh: announceNewContent,
+  onNeedReload: async () => {
+    if (acceptedHere) window.location.reload()
+  },
   onRegisteredSW: (_swUrl, registration) => {
     if (!registration) return
 
     setInterval(async () => {
-      if (registration.installing || !navigator.onLine) return
+      if (registration.installing) return
 
       try {
         /*
@@ -46,6 +54,10 @@ export const applyWaitingUpdate = registerSW({
          * the plugin's docs suggest would just be a second round trip to the same URL each hour, per
          * open tab, and would not catch the failure that actually bit this app before -- a worker
          * path answering 200 with the SPA's HTML.
+         *
+         * No `navigator.onLine` guard either: it reports whether an interface is up, not whether the
+         * origin is reachable, and a false negative would skip the check for a full hour. A genuinely
+         * offline `update()` costs one rejected fetch, which the catch already absorbs.
          */
         await registration.update()
       } catch {
@@ -54,3 +66,13 @@ export const applyWaitingUpdate = registerSW({
     }, UPDATE_POLL_INTERVAL_MS)
   },
 })
+
+/**
+ * Applies a waiting update: posts SKIP_WAITING and reloads *this* client once the new worker takes
+ * control. Under `registerType: 'prompt'` nothing else triggers that, so a reload only ever follows
+ * an explicit accept in the tab the user is looking at.
+ */
+export const applyWaitingUpdate = () => {
+  acceptedHere = true
+  void updateServiceWorker()
+}

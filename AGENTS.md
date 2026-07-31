@@ -515,9 +515,13 @@ Run:
 ```powershell
 yarn lint
 yarn tsc --noEmit
-yarn test --run
 yarn build
+yarn test --run
 ```
+
+Build before test: `src/tests/pwaBuild.test.ts` asserts on the generated service worker and manifest
+in `dist/`, which is gitignored. `prepush` and CI use this order for the same reason — see
+[docs/pwa.md](./docs/pwa.md).
 
 Focused examples:
 

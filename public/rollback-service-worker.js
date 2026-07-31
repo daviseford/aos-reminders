@@ -25,11 +25,19 @@ self.addEventListener('install', () => {
 self.addEventListener('activate', event => {
   event.waitUntil(
     (async () => {
+      // Claim first: skipWaiting alone only takes over clients that already had a controller, and a
+      // rollback that leaves some windows behind is not a rollback.
+      await self.clients.claim()
+
       const names = await caches.keys()
-      await Promise.all(names.map(name => caches.delete(name)))
+      await Promise.all(names.map(name => caches.delete(name).catch(() => {})))
       await self.registration.unregister()
-      const clients = await self.clients.matchAll({ type: 'window' })
-      clients.forEach(client => client.navigate(client.url))
+
+      // includeUncontrolled so a window loaded before this worker took over is reloaded too.
+      // navigate() rejects for a client this worker no longer controls, which the unregister above
+      // makes likely -- swallow it rather than raising inside the escape hatch.
+      const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+      await Promise.all(clients.map(client => client.navigate(client.url).catch(() => {})))
     })()
   )
 })
