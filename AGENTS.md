@@ -99,14 +99,17 @@ community trusts that experience; an AoS 4 data/domain migration does not author
 - Do not add a migration-workbench aesthetic, new visual language, or broad reskin unless the user
   explicitly requests one.
 
-The restored subscription API is a migration-only compatibility risk: its shared browser key is
-public and its account operations are not authorized with the user's Auth0 token. An
-Auth0-protected route is not API authorization. Production launch is blocked until the
-subscription backend verifies Auth0 bearer tokens, derives account ownership server-side, rejects
-cross-account access, rotates the shared key, and passes negative authorization tests. Preserve
-the familiar account UI while this work is explicitly tracked; do not describe the subscription
-API as secure. The newer army/share API is different: `src/api/armyApi.ts` sends the user's Auth0
-bearer token for the `https://api.aosreminders.com` audience on every account operation.
+The launch-hardening client on this branch retires the shared browser key and sends the user's
+Auth0 bearer token for every subscription account operation. Production remains blocked until the
+companion subscription change in `aos-reminders-subscription-api#17` is reviewed, deployed, and
+live-verified: it must derive account ownership from verified claims, reject cross-account access,
+verify and deduplicate provider callbacks, review the private-repository credential history, and
+pass the negative authorization matrix. The repository history is not evidence of public credential
+exposure; rotate a credential only when access history, policy, or other evidence requires it.
+Preserve the familiar account UI while this work is tracked in issue #1720; do not describe the
+production subscription API as secure before those checks pass. The army/share client likewise
+sends the bearer token for the `https://api.aosreminders.com` audience; its private collection
+hardening and production rollout remain tracked in `aos-reminders-rest-api#11` and issue #1804.
 
 ## Migration program
 
@@ -172,8 +175,10 @@ The companion API services (`aos-reminders-rest-api`, `aos-reminders-subscriptio
 `nodejs22.x`/Serverless v4/AWS SDK v3 with characterization tests and CI (plan
 `2026-07-28-002`, units U2/U3). Issue #1727 completed authenticated CI `serverless package` gates,
 dev verification, and the dev/prod runtime deploys. The later AoS 4-native army/share service in
-`aos-reminders-rest-api#10` is dev-validated but still needs a coordinated production deployment
-and a production `VITE_ARMY_API_URL` in the frontend build; issue #1804 tracks that rollout. Live
+`aos-reminders-rest-api#10` is dev-validated; its private-read/production hardening is prepared in
+`aos-reminders-rest-api#11` but still needs the coordinated production deployment and frontend API
+configuration tracked in issue #1804. Subscription authorization and verified webhook handling are
+prepared in `aos-reminders-subscription-api#17` but remain a production gate under issue #1720. Live
 real-money Stripe and PayPal verification after the Version 6 frontend deploy remains tracked in
 issue #1731, and the full production smoke/operational handoff is issue #1805.
 

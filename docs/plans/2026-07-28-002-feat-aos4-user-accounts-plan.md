@@ -10,6 +10,13 @@ execution: code
 
 # AoS 4 User Accounts
 
+**Status note (2026-07-31).** The production cutover details in this plan are superseded by
+`2026-07-31-001-fix-version-6-production-security-and-cloud-rollout-plan.md`. The subscription
+repository is private. Its history contains a production-formatted Stripe key, but that alone is
+not evidence of public exposure; credential rotation is conditional on repository access history,
+organizational policy, or other evidence. The later plan also makes army collections private rather
+than preserving the public-read design explored below.
+
 Signed-in users must be able to save and update armies and preferences against the AoS 4 domain,
 and the account APIs behind them must authorize requests properly. Today neither is true: the
 saved-army client was removed in the AoS 4 cutover, and both backend services authorize with a
@@ -135,9 +142,10 @@ R20. Both services have a test harness and a CI workflow that runs it.
 
 **Secret hygiene**
 
-R21. The live Stripe secret key is rotated, and no credential is read from a committed file.
-R22. `sub-api: config.dev.json` and `sub-api: config.prod.json` are removed from the working tree
-and purged from git history.
+R21. No credential is read from a committed file. Review the private repository's access history
+and policy, and rotate a provider credential only when that review or other evidence requires it.
+R22. `sub-api: config.dev.json` and `sub-api: config.prod.json` are removed from the working tree.
+History rewriting is separate, explicitly authorized maintenance and is not evidence of exposure.
 R23. Hardcoded migration keys in `rest-api: items/migrate.js`, `rest-api: items/migrate_v4.js`, and
 `sub-api: migrations/migrate_v4.js` are removed along with their endpoints, which served the 2021
 migration and have no remaining purpose.
@@ -342,8 +350,9 @@ named and should be done first.
    U1 and every authorization unit.
 2. **Create a Serverless Framework license key** and add it to CI secrets for both API repos. Blocks
    U2, U3.
-3. **Rotate the live Stripe secret key** in the Stripe dashboard and store the replacement in SSM
-   Parameter Store. Blocks U11.
+3. **Review the historical Stripe configuration** against private-repository access history and
+   organizational policy. Rotate only if that review or other evidence requires it, and store the
+   active value in the encrypted deployment secret store. Blocks U11 production sign-off.
 4. **Authorize each AWS deploy.** Every unit touching a service definition is code-complete at PR;
    deploying is a separate approval.
 
@@ -673,9 +682,10 @@ gap there as a launch blocker; gaps on the army side are ordinary test debt.
 
 **Verification.** Both suites green in CI and required for merge.
 
-### U11. Secret rotation, history purge, SSM wiring
+### U11. Secret externalization and access review
 
-**Goal.** Remove committed credentials and stop reading secrets from files in the repo.
+**Goal.** Stop reading secrets from files in the repo and review the private credential history
+without presuming public exposure.
 
 **Requirements.** R21, R22.
 
@@ -684,22 +694,21 @@ gap there as a launch blocker; gaps on the army side are ordinary test debt.
 **Files.** `sub-api: config.dev.json`, `sub-api: config.prod.json`, `sub-api: util/env.js`,
 `sub-api: serverless.yml`, `sub-api: .gitignore`.
 
-**Approach.** Source the Stripe key from SSM Parameter Store at deploy time instead of a committed
-JSON file, delete both config files, and purge them from history. Rotate the live key first so the
-purge is a cleanup of an already-dead credential rather than the control that protects it — history
-rewrite does not invalidate a key, and clones and forks may retain it.
-
-**Execution note.** History rewrite is coordinated: it changes every commit hash on both repos'
-default branches. Confirm no open work depends on the current hashes before rewriting.
+**Approach.** Source the Stripe key from the encrypted deployment environment instead of committed
+JSON, and delete both config files from the working tree. Review private-repository access history
+and organizational policy. If rotation is required, verify the replacement before revoking the old
+value. Do not rewrite history without separate explicit authorization; rewriting history does not
+invalidate a credential.
 
 **Test scenarios.**
-- No credential literal remains in the working tree or in history.
-- A deploy resolves the Stripe key from SSM.
-- A missing SSM parameter fails the deploy loudly rather than deploying a service with an undefined
-  key.
+- No credential literal remains in the working tree or packaged service.
+- A deploy resolves the Stripe key from the encrypted deployment environment.
+- A missing required deployment secret fails packaging loudly rather than deploying a service with
+  an undefined key.
 
-**Verification.** Secret scan clean across history; deploy succeeds against SSM; the rotated key is
-the only one that works.
+**Verification.** Working-tree and package scans are clean; deploy succeeds against external secret
+configuration. If policy requires rotation, confirm the replacement works before revoking the old
+value.
 
 ### U12. Frontend army API client and collection sync
 
@@ -835,7 +844,7 @@ All are deferred — none blocks implementation.
 | Endpoint URLs change with the HTTP API migration (KTD3) | Old clients break at cutover | Coordinate frontend and API deploys in one window; keep the old stack deployed until the new one is verified |
 | SDK v2 to v3 call-shape differences | Silent behavior change in untested handlers | Characterization tests before the swap (U2, U3 execution notes) |
 | Stripe client is four years stale | Billing regression during the runtime upgrade | Treat billing characterization tests as a hard gate in U3 |
-| History rewrite in U11 | Invalidates existing clones and hashes | Rotate the key first so the purge is cleanup, not the protecting control |
+| Historical private-repository credential remains active | A person with repository access during that interval may have been able to use it; public exposure is not established | Review access history and policy; rotate only when that review or other evidence requires it |
 | Adding a GSI to a live table | Backfill time and throughput cost | Verify table size and provisioned capacity before U5; fall back to a rebuild path if blocked |
 | Serverless v4 CLI authentication | CI cannot deploy without a license key | Operator prerequisite 2, ahead of U2 |
 | Two auth implementations (KTD1) | Drift between services | Keep helper shape identical; U10 enumerates the same matrix against both |

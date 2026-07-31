@@ -6,6 +6,7 @@ import { act } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({
+  isAuthenticated: true,
   isLoading: false,
   user: { email: 'general@example.com' } as { email: string } | undefined,
 }))
@@ -13,6 +14,10 @@ const auth = vi.hoisted(() => ({
 const subscriptionApi = vi.hoisted(() => ({
   cancelSubscription: vi.fn(),
   getSubscription: vi.fn(),
+}))
+
+const token = vi.hoisted(() => ({
+  get: vi.fn(),
 }))
 
 vi.mock('@auth0/auth0-react', () => ({
@@ -23,13 +28,16 @@ vi.mock('../../api/subscriptionApi', () => ({
   SubscriptionApi: subscriptionApi,
 }))
 
+vi.mock('utils/authToken', () => ({
+  useApiAccessToken: () => token.get,
+}))
+
 const Probe = () => {
   const {
     cancelSubscription,
     getSubscription,
     isActive,
     isNotSubscribed,
-    subscription,
     subscriptionError,
     subscriptionLoading,
   } = useSubscription()
@@ -40,7 +48,6 @@ const Probe = () => {
         {subscriptionLoading ? 'loading' : isActive ? 'active' : isNotSubscribed ? 'none' : 'unknown'}
       </span>
       <span data-testid="error">{subscriptionError}</span>
-      <span data-testid="user">{subscription.userName}</span>
       <button type="button" onClick={() => void cancelSubscription()}>
         Cancel
       </button>
@@ -55,11 +62,14 @@ describe('subscription account state', () => {
   let container: HTMLDivElement
 
   beforeEach(() => {
+    auth.isAuthenticated = true
     auth.isLoading = false
     auth.user = { email: 'general@example.com' }
     subscriptionApi.cancelSubscription.mockReset()
     subscriptionApi.cancelSubscription.mockResolvedValue({})
     subscriptionApi.getSubscription.mockReset()
+    token.get.mockReset()
+    token.get.mockResolvedValue('audience-token')
     container = document.createElement('div')
     document.body.appendChild(container)
   })
@@ -89,18 +99,26 @@ describe('subscription account state', () => {
     subscriptionApi.getSubscription.mockResolvedValue({
       body: {
         active: true,
-        id: 'account-1',
         subscribed: true,
-        subscriptionId: 'subscription-1',
-        userName: 'general@example.com',
       },
     })
 
     await renderProbe()
 
-    expect(subscriptionApi.getSubscription).toHaveBeenCalledWith('general@example.com')
+    expect(token.get).toHaveBeenCalled()
+    expect(subscriptionApi.getSubscription).toHaveBeenCalledWith('audience-token')
     expect(container.querySelector('[data-testid="status"]')?.textContent).toBe('active')
-    expect(container.querySelector('[data-testid="user"]')?.textContent).toBe('general@example.com')
+    expect(container.querySelector('[data-testid="error"]')?.textContent).toBe('')
+  })
+
+  it('does not load subscription state for a signed-out session with stale user data', async () => {
+    auth.isAuthenticated = false
+
+    await renderProbe()
+
+    expect(token.get).not.toHaveBeenCalled()
+    expect(subscriptionApi.getSubscription).not.toHaveBeenCalled()
+    expect(container.querySelector('[data-testid="status"]')?.textContent).toBe('none')
     expect(container.querySelector('[data-testid="error"]')?.textContent).toBe('')
   })
 
@@ -108,9 +126,7 @@ describe('subscription account state', () => {
     subscriptionApi.getSubscription.mockRejectedValueOnce({ status: 503 }).mockResolvedValueOnce({
       body: {
         active: true,
-        id: 'account-1',
         subscribed: true,
-        userName: 'general@example.com',
       },
     })
 
@@ -132,8 +148,8 @@ describe('subscription account state', () => {
     expect(container.querySelector('[data-testid="status"]')?.textContent).toBe('active')
   })
 
-  it('treats the legacy no-subscription response as an inactive account rather than an outage', async () => {
-    subscriptionApi.getSubscription.mockRejectedValue({ status: 501 })
+  it('treats an unknown account as inactive rather than an outage', async () => {
+    subscriptionApi.getSubscription.mockRejectedValue({ status: 404 })
 
     await renderProbe()
 
@@ -141,14 +157,21 @@ describe('subscription account state', () => {
     expect(container.querySelector('[data-testid="error"]')?.textContent).toBe('')
   })
 
+  it('keeps a silent-token failure distinct from an inactive account', async () => {
+    token.get.mockRejectedValue(new Error('login required'))
+
+    await renderProbe()
+
+    expect(subscriptionApi.getSubscription).not.toHaveBeenCalled()
+    expect(container.querySelector('[data-testid="status"]')?.textContent).toBe('unknown')
+    expect(container.querySelector('[data-testid="error"]')?.textContent).toContain('temporarily unavailable')
+  })
+
   it('cancels a Stripe subscription and refreshes its server state', async () => {
     const subscription = {
       active: true,
       createdBy: 'stripe',
-      id: 'account-1',
       subscribed: true,
-      subscriptionId: 'subscription-1',
-      userName: 'general@example.com',
     }
     subscriptionApi.getSubscription.mockResolvedValue({ body: subscription })
 
@@ -159,10 +182,7 @@ describe('subscription account state', () => {
       await Promise.resolve()
     })
 
-    expect(subscriptionApi.cancelSubscription).toHaveBeenCalledWith({
-      subscriptionId: 'subscription-1',
-      userName: 'general@example.com',
-    })
+    expect(subscriptionApi.cancelSubscription).toHaveBeenCalledWith('audience-token')
     expect(subscriptionApi.getSubscription).toHaveBeenCalledTimes(2)
   })
 })

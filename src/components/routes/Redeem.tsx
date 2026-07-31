@@ -10,6 +10,7 @@ import { isString } from 'lodash'
 import qs from 'qs'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { logAccountAction } from 'utils/analytics'
+import { useApiAccessToken } from 'utils/authToken'
 import useLogin from 'utils/hooks/useLogin'
 import { RedemptionStorage } from 'utils/redemptionStorage'
 import { SubscriptionApi } from '../../api/subscriptionApi'
@@ -102,6 +103,7 @@ const MissingRedemption = () => (
 
 const RedeemSection = () => {
   const { user } = useAuth0()
+  const getAccessToken = useApiAccessToken()
   /*
    * Captured once. It used to be re-read on every render while handleRedeem cleared the cache
    * mid-flow, so what the page believed it was holding depended on when it last re-rendered — and a
@@ -118,16 +120,15 @@ const RedeemSection = () => {
 
   const handleRedeem = async (event: React.MouseEvent) => {
     event.preventDefault()
-    const userName = user?.email
-    if (!canRedeem || !redemption || !userName) return
+    if (!canRedeem || !redemption) return
 
     setIsRedeeming(true)
     try {
-      const { body } = await SubscriptionApi.redeemGift({
-        giftId: redemption.giftId,
-        userId: redemption.userId,
-        userName,
-      })
+      const token = await getAccessToken()
+      const { body } = await SubscriptionApi.redeemGift(
+        { giftId: redemption.giftId, userId: redemption.userId },
+        token
+      )
       if (body.error) {
         setError(body.error)
       } else if (body.success) {

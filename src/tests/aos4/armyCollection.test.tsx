@@ -112,7 +112,7 @@ describe('cloud army collection state', () => {
         scope: 'openid profile email',
       },
     })
-    expect(armyApi.listArmies).toHaveBeenCalledWith('auth0|owner-1', 'access-token')
+    expect(armyApi.listArmies).toHaveBeenCalledWith('access-token')
     expect(container.querySelector('[data-testid="armies"]')?.textContent).toBe('cloud-1')
   })
 

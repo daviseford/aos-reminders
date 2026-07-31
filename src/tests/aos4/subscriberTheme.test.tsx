@@ -19,12 +19,20 @@ const subscriptionApi = vi.hoisted(() => ({
   updateTheme: vi.fn(),
 }))
 
+const token = vi.hoisted(() => ({
+  get: vi.fn(),
+}))
+
 vi.mock('context/useSubscription', () => ({
   useSubscription: () => account,
 }))
 
 vi.mock('../../api/subscriptionApi', () => ({
   SubscriptionApi: subscriptionApi,
+}))
+
+vi.mock('utils/authToken', () => ({
+  useApiAccessToken: () => token.get,
 }))
 
 const Probe = () => {
@@ -61,6 +69,8 @@ describe('subscriber theme continuity', () => {
     })
     subscriptionApi.updateTheme.mockReset()
     subscriptionApi.updateTheme.mockResolvedValue({})
+    token.get.mockReset()
+    token.get.mockResolvedValue('audience-token')
     container = document.createElement('div')
     container.id = 'root'
     document.body.appendChild(container)
@@ -88,16 +98,13 @@ describe('subscriber theme continuity', () => {
     expect(container.textContent).toBe('Dark')
     expect(window.localStorage.getItem('theme')).toBe('dark')
 
-    act(() => {
+    await act(async () => {
       container.querySelector('button')?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await Promise.resolve()
     })
 
     expect(container.textContent).toBe('Light')
     expect(window.localStorage.getItem('theme')).toBe('light')
-    expect(subscriptionApi.updateTheme).toHaveBeenCalledWith({
-      id: 'account-1',
-      theme: 'light',
-      userName: 'general@example.com',
-    })
+    expect(subscriptionApi.updateTheme).toHaveBeenCalledWith({ theme: 'light' }, 'audience-token')
   })
 })

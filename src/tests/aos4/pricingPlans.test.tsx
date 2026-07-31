@@ -30,7 +30,13 @@ const analytics = vi.hoisted(() => ({
   logPurchase: vi.fn(),
 }))
 
+const token = vi.hoisted(() => ({ get: vi.fn() }))
+
 vi.mock('utils/analytics', () => analytics)
+
+vi.mock('utils/authToken', () => ({
+  useApiAccessToken: () => token.get,
+}))
 
 vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => ({
@@ -75,6 +81,8 @@ describe('subscription pricing plans', () => {
   beforeEach(() => {
     stripe.redirectToCheckout.mockReset()
     paypal.callbacks = null
+    token.get.mockReset()
+    token.get.mockResolvedValue('audience-token')
     vi.clearAllMocks()
     container = document.createElement('div')
     document.body.appendChild(container)
@@ -191,5 +199,9 @@ describe('subscription pricing plans', () => {
       provider: 'paypal',
       transactionId: 'subscription-id',
     })
+    expect(SubscriptionApi.requestGrant).toHaveBeenCalledWith(
+      { subscriptionId: 'subscription-id' },
+      'audience-token'
+    )
   })
 })
