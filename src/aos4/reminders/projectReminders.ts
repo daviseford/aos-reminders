@@ -1,10 +1,4 @@
-import type {
-  Ability,
-  AbilityText,
-  Aos4Catalog,
-  CanonicalId,
-  SourceReference,
-} from '../domain'
+import type { Ability, AbilityText, Aos4Catalog, CanonicalId, SourceReference } from '../domain'
 import type { ResolvedSelection, SelectionCause } from '../select'
 import { reminderOccurrenceId, semanticTimingKey } from './reminderIdentity'
 import { orderReminders } from './orderReminders'
@@ -13,18 +7,10 @@ import type { ProjectedReminder, ReminderOccurrenceId } from './types'
 const compareIds = (left: string, right: string): number => left.localeCompare(right)
 
 const sourceReferenceKey = (reference: SourceReference): string =>
-  [
-    reference.sourceRecordId,
-    reference.field ?? '',
-    reference.transformation ?? '',
-  ].join('|')
+  [reference.sourceRecordId, reference.field ?? '', reference.transformation ?? ''].join('|')
 
 const causeKey = (cause: SelectionCause): string =>
-  [
-    cause.rootId,
-    cause.entityPath.join('>'),
-    cause.relationshipPath.join('>'),
-  ].join('|')
+  [cause.rootId, cause.entityPath.join('>'), cause.relationshipPath.join('>')].join('|')
 
 const uniqueBy = <T>(values: Iterable<T>, key: (value: T) => string): T[] => {
   const unique = new Map<string, T>()
@@ -44,12 +30,7 @@ const displayKey = (ability: Ability, timingKey: string): string =>
   JSON.stringify([ability.name, textKey(ability.text), timingKey])
 
 const contributingIds = (causes: SelectionCause[], abilityIds: CanonicalId[]): CanonicalId[] =>
-  Array.from(
-    new Set([
-      ...abilityIds,
-      ...causes.flatMap(cause => cause.entityPath),
-    ])
-  ).sort(compareIds)
+  Array.from(new Set([...abilityIds, ...causes.flatMap(cause => cause.entityPath)])).sort(compareIds)
 
 const mergeReminder = (
   reminder: ProjectedReminder,
@@ -57,9 +38,7 @@ const mergeReminder = (
   ability: Ability,
   causes: SelectionCause[]
 ): void => {
-  reminder.occurrenceIds = Array.from(
-    new Set([...reminder.occurrenceIds, occurrenceId])
-  ).sort(compareIds)
+  reminder.occurrenceIds = Array.from(new Set([...reminder.occurrenceIds, occurrenceId])).sort(compareIds)
   reminder.abilityIds = Array.from(new Set([...reminder.abilityIds, ability.id])).sort(compareIds)
   reminder.causes = uniqueBy([...reminder.causes, ...causes], causeKey)
   reminder.contributingEntityIds = contributingIds(reminder.causes, reminder.abilityIds)
@@ -67,10 +46,7 @@ const mergeReminder = (
   reminder.id = reminder.occurrenceIds[0]
 }
 
-export const projectReminders = (
-  catalog: Aos4Catalog,
-  selection: ResolvedSelection
-): ProjectedReminder[] => {
+export const projectReminders = (catalog: Aos4Catalog, selection: ResolvedSelection): ProjectedReminder[] => {
   const selectedIds = new Set(selection.selectedIds)
   const causesByEntityId = new Map<CanonicalId, SelectionCause[]>()
   selection.causes.forEach(cause => {

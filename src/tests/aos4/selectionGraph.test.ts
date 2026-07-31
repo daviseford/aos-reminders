@@ -142,26 +142,16 @@ describe('AoS 4 selection resolution', () => {
       rulesContextId: contextIds.standard,
     })
 
-    expect(result.selectedIds).toEqual([
-      ids.formation,
-      ids.unit,
-      ids.ability,
-      ids.mandatory,
-      ids.faction,
-    ])
+    expect(result.selectedIds).toEqual([ids.formation, ids.unit, ids.ability, ids.mandatory, ids.faction])
     expect(result.availableIds).toEqual([ids.formation])
     expect(
-      result.causes
-        .filter(cause => cause.entityId === ids.ability)
-        .map(cause => cause.entityPath)
+      result.causes.filter(cause => cause.entityId === ids.ability).map(cause => cause.entityPath)
     ).toEqual([
       [ids.formation, ids.ability],
       [ids.unit, ids.ability],
     ])
     expect(
-      result.causes
-        .filter(cause => cause.entityId === ids.mandatory)
-        .map(cause => cause.entityPath)
+      result.causes.filter(cause => cause.entityId === ids.mandatory).map(cause => cause.entityPath)
     ).toEqual([
       [ids.formation, ids.ability, ids.mandatory],
       [ids.unit, ids.ability, ids.mandatory],

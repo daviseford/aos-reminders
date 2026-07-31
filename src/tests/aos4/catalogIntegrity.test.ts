@@ -139,9 +139,7 @@ describe('AoS 4 catalog generation integrity', () => {
       AOS4_CATALOG.entities.filter(entity => entity.kind === 'faction').map(entity => entity.id)
     )
     const offeringFactionCount = (name: string, kind: 'content-group' | 'warscroll') => {
-      const targets = AOS4_CATALOG.entities.filter(
-        entity => entity.kind === kind && entity.name === name
-      )
+      const targets = AOS4_CATALOG.entities.filter(entity => entity.kind === kind && entity.name === name)
       expect(targets).toHaveLength(1)
       return new Set(
         AOS4_CATALOG.relationships

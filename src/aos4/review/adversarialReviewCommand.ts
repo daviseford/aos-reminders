@@ -253,11 +253,7 @@ const run = async (): Promise<void> => {
         livePacketIds.push(pair.blindPacket.id, pair.comparisonPacket.id)
       })
   }
-  assertInterspersedCalibrationControls(
-    manifest.batches,
-    liveBlindPacketIds,
-    calibrationBlindPacketIds
-  )
+  assertInterspersedCalibrationControls(manifest.batches, liveBlindPacketIds, calibrationBlindPacketIds)
   const calibrationPacketIds = calibrationPairs.flatMap(pair => [
     pair.blindPacket.id,
     pair.comparisonPacket.id,
@@ -272,12 +268,7 @@ const run = async (): Promise<void> => {
     if (!pair.calibrationKind) {
       throw new Error(`Calibration pair is missing its control kind: ${pair.pairKey}`)
     }
-    const blind = createAdversarialBlindResult(
-      pair,
-      assignment.id,
-      reviewer,
-      campaignTimes.calibrationBlind
-    )
+    const blind = createAdversarialBlindResult(pair, assignment.id, reviewer, campaignTimes.calibrationBlind)
     const comparison = createAdversarialComparisonResult(
       pair,
       blind,
@@ -382,11 +373,7 @@ const run = async (): Promise<void> => {
     await Promise.all([
       writeFile(path.join(staging, 'assignment.json'), stableJson(assignment), 'utf8'),
       writeFile(path.join(staging, 'calibration.json'), stableJson(calibration), 'utf8'),
-      writeFile(
-        path.join(staging, 'calibration-results.json'),
-        stableJson(calibrationResults),
-        'utf8'
-      ),
+      writeFile(path.join(staging, 'calibration-results.json'), stableJson(calibrationResults), 'utf8'),
       writeFile(path.join(staging, 'findings.json'), stableJson(allFindings), 'utf8'),
       writeFile(
         path.join(staging, 'results-index.json'),

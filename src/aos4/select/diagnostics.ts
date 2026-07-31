@@ -20,9 +20,7 @@ export interface SelectionDiagnostic {
   rulesContextId?: RulesContextId
 }
 
-export const normalizeSelectionDiagnostics = (
-  diagnostics: SelectionDiagnostic[]
-): SelectionDiagnostic[] => {
+export const normalizeSelectionDiagnostics = (diagnostics: SelectionDiagnostic[]): SelectionDiagnostic[] => {
   const unique = new Map<string, SelectionDiagnostic>()
   diagnostics.forEach(diagnostic => {
     const key = `${diagnostic.code}|${diagnostic.subject}|${diagnostic.rulesContextId ?? ''}`
@@ -36,4 +34,3 @@ export const normalizeSelectionDiagnostics = (
       left.message.localeCompare(right.message)
   )
 }
-

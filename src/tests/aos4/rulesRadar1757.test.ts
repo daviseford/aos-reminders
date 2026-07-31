@@ -7,9 +7,7 @@ const catalog = JSON.parse(
 ) as Aos4Catalog
 
 const abilitiesNamed = (name: string): Ability[] =>
-  catalog.entities.filter(
-    (entity): entity is Ability => entity.kind === 'ability' && entity.name === name
-  )
+  catalog.entities.filter((entity): entity is Ability => entity.kind === 'ability' && entity.name === name)
 
 const profileNamed = (name: string): BattleProfile => {
   const profile = catalog.entities.find(
@@ -42,9 +40,7 @@ describe('29 July 2026 rules radar acceptance', () => {
         },
       ],
     })
-    expect(abilitiesNamed('REDOLENCE OF VIOLENCE')[0].text.effect).toContain(
-      'banished and removed from play'
-    )
+    expect(abilitiesNamed('REDOLENCE OF VIOLENCE')[0].text.effect).toContain('banished and removed from play')
     expect(abilitiesNamed('THE PRINCE IN THE MIRROR')[0].text.declare).toContain(
       'even if he is a replacement unit'
     )
@@ -52,9 +48,7 @@ describe('29 July 2026 rules radar acceptance', () => {
       'The target is considered by you to be POLLUTED for the rest of the battle.'
     )
     expect(abilitiesNamed('TASTY MORSELS')[0].text.effect).toContain('‘Hungry Sinkhole’')
-    expect(abilitiesNamed('PRIME GUTSERVER')[0].text.effect).toContain(
-      'within 1" of a friendly Mawpit'
-    )
+    expect(abilitiesNamed('PRIME GUTSERVER')[0].text.effect).toContain('within 1" of a friendly Mawpit')
     expect(abilitiesNamed('DAMNED VESSEL')[0]).toMatchObject({
       abilityKind: 'passive',
       text: {
@@ -78,15 +72,12 @@ describe('29 July 2026 rules radar acceptance', () => {
       points: 150,
       notes: expect.arrayContaining([expect.stringContaining('as a Swamp Beast')]),
     })
-    expect(profileNamed('Deathmaster Crixxit battle profile').regimentOptions).toContain(
-      '0-1 Clanrats'
-    )
+    expect(profileNamed('Deathmaster Crixxit battle profile').regimentOptions).toContain('0-1 Clanrats')
   })
 
   it('removes the retired Hero keyword from Thyrielle’s Zephyrites', () => {
     const warscroll = catalog.entities.find(
-      (entity): entity is Warscroll =>
-        entity.kind === 'warscroll' && entity.name === 'Thyrielle’s Zephyrites'
+      (entity): entity is Warscroll => entity.kind === 'warscroll' && entity.name === 'Thyrielle’s Zephyrites'
     )
 
     expect(warscroll?.keywords).not.toContain('HERO')

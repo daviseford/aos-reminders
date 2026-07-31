@@ -1649,9 +1649,7 @@ export const buildAos4Corpus = (
       rulesContextIds: contextsFor(record.meta),
       sourceRefs: [sourceReference(record.meta.sourceRecordId, 'selection wrapper')],
     } satisfies ContentGroup)
-    offeringFactionIds(record.factionId).forEach(factionId =>
-      addRelationship('offers', factionId, choiceId)
-    )
+    offeringFactionIds(record.factionId).forEach(factionId => addRelationship('offers', factionId, choiceId))
     addRelationship('includes', choiceId, abilityId)
   })
   ;(dataset.generalRuleAbilities ?? []).forEach(record =>

@@ -270,7 +270,9 @@ const sortedResults = (results: ReviewerResult[]): ReviewerResult[] =>
   )
 
 const calibrationControlEntries = (index: ReviewPacketSafeIndex): ReviewPacketIndexEntry[] =>
-  index.entries.filter(entry => entry.calibration).sort((left, right) => compareText(left.pairKey, right.pairKey))
+  index.entries
+    .filter(entry => entry.calibration)
+    .sort((left, right) => compareText(left.pairKey, right.pairKey))
 
 export const createCalibrationEvidenceReceipt = (
   assignmentId: ReviewAssignment['id'],
@@ -298,10 +300,7 @@ export const createCalibrationEvidenceReceipt = (
   return { ...receipt, receiptChecksum: checksumReviewRecord(receipt) }
 }
 
-export const reviewLedgerWithResults = (
-  ledger: ReviewLedger,
-  results: ReviewerResult[]
-): ReviewLedger => ({
+export const reviewLedgerWithResults = (ledger: ReviewLedger, results: ReviewerResult[]): ReviewLedger => ({
   ...ledger,
   results: [...ledger.results, ...results],
   findings: [...ledger.findings, ...results.flatMap(result => result.findings)],
@@ -332,13 +331,7 @@ export const calibrationEvidenceIssues = (
     verifications: [],
   })
   calibrationLedgerIssues.forEach(value =>
-    issues.push(
-      issue(
-        'invalid-calibration-evidence',
-        `calibrationLedger.${value.path}`,
-        value.message
-      )
-    )
+    issues.push(issue('invalid-calibration-evidence', `calibrationLedger.${value.path}`, value.message))
   )
   const entries = calibrationControlEntries(index)
   const entryByPacketId = new Map<
@@ -457,9 +450,7 @@ export const calibrationEvidenceIssues = (
       return
     }
     const assignment = assignments.get(evidence.assignmentId)
-    const relevantResults = calibrationResults.filter(
-      result => result.assignmentId === evidence.assignmentId
-    )
+    const relevantResults = calibrationResults.filter(result => result.assignmentId === evidence.assignmentId)
     if (
       !assignment ||
       reviewerConfigurationId(assignment.reviewer) !== calibration.reviewerConfigurationId ||
@@ -479,11 +470,7 @@ export const calibrationEvidenceIssues = (
       )
       return
     }
-    const expectedReceipt = createCalibrationEvidenceReceipt(
-      evidence.assignmentId,
-      index,
-      relevantResults
-    )
+    const expectedReceipt = createCalibrationEvidenceReceipt(evidence.assignmentId, index, relevantResults)
     if (checksumReviewRecord(evidence) !== checksumReviewRecord(expectedReceipt)) {
       issues.push(
         issue(
@@ -494,8 +481,8 @@ export const calibrationEvidenceIssues = (
       )
     }
     const resultFor = (entry: ReviewPacketIndexEntry, lane: 'blind' | 'comparison') =>
-      relevantResults.find(result =>
-        result.packetId === (lane === 'blind' ? entry.blindPacketId : entry.comparisonPacketId)
+      relevantResults.find(
+        result => result.packetId === (lane === 'blind' ? entry.blindPacketId : entry.comparisonPacketId)
       )
     const defects = entries.filter(entry => entry.calibrationKind === 'defect')
     const insufficient = entries.filter(entry => entry.calibrationKind === 'insufficient-evidence')
@@ -891,12 +878,7 @@ const packetOutcomeIssues = (
   const issues: CertificationIssue[] = []
   const blindAll = resultIndex.get(entry.blindPacketId) ?? []
   const comparisonAll = resultIndex.get(entry.comparisonPacketId) ?? []
-  const blind = matchingResults(
-    entry.blindPacketId,
-    entry.blindPacketChecksum,
-    resultIndex,
-    assignments
-  )
+  const blind = matchingResults(entry.blindPacketId, entry.blindPacketChecksum, resultIndex, assignments)
   const comparison = matchingResults(
     entry.comparisonPacketId,
     entry.comparisonPacketChecksum,
@@ -957,9 +939,7 @@ const packetOutcomeIssues = (
       )
     )
   }
-  issues.push(
-    ...blindSequenceIssues(entry, blind, comparison, assignments, `${entryPath}.comparison`)
-  )
+  issues.push(...blindSequenceIssues(entry, blind, comparison, assignments, `${entryPath}.comparison`))
   return issues
 }
 
@@ -1139,12 +1119,7 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
     isEntryReviewed(entry, resultIndex, assignments)
   const machineIssues = liveEntries.flatMap(entry => packetOutcomeIssues(entry, resultIndex, assignments))
   const partialImports = liveEntries.filter(entry => {
-    const blind = matchingResults(
-      entry.blindPacketId,
-      entry.blindPacketChecksum,
-      resultIndex,
-      assignments
-    )
+    const blind = matchingResults(entry.blindPacketId, entry.blindPacketChecksum, resultIndex, assignments)
     const comparison = matchingResults(
       entry.comparisonPacketId,
       entry.comparisonPacketChecksum,

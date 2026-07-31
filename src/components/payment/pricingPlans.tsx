@@ -10,19 +10,10 @@ import { useTheme } from 'context/useTheme'
 import qs from 'qs'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
-import {
-  logBeginCheckout,
-  logCheckoutCancelled,
-  logClick,
-  logPurchase,
-} from 'utils/analytics'
+import { logBeginCheckout, logCheckoutCancelled, logClick, logPurchase } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
-import {
-  ISubscriptionPlan,
-  SubscriptionPlans,
-  toSubscriptionAnalyticsItem,
-} from 'utils/plans'
+import { ISubscriptionPlan, SubscriptionPlans, toSubscriptionAnalyticsItem } from 'utils/plans'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
 const PricingPlansComponent = () => {

@@ -342,9 +342,7 @@ describe('Wahapedia AoS 4 export adapter', () => {
         severity: 'warning',
       })
     )
-    expect(fact.diagnostics).not.toContainEqual(
-      expect.objectContaining({ code: 'reaction-flag-mismatch' })
-    )
+    expect(fact.diagnostics).not.toContainEqual(expect.objectContaining({ code: 'reaction-flag-mismatch' }))
   })
 
   it.each([

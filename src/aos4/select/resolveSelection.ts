@@ -1,15 +1,6 @@
-import type {
-  Aos4Catalog,
-  CanonicalId,
-  ContentEntity,
-  ContentRelationship,
-  RulesContextId,
-} from '../domain'
+import type { Aos4Catalog, CanonicalId, ContentEntity, ContentRelationship, RulesContextId } from '../domain'
 import { createCatalogIndex } from './catalog'
-import {
-  normalizeSelectionDiagnostics,
-  type SelectionDiagnostic,
-} from './diagnostics'
+import { normalizeSelectionDiagnostics, type SelectionDiagnostic } from './diagnostics'
 
 export interface ResolveSelectionInput {
   explicitIds: CanonicalId[]
@@ -75,10 +66,7 @@ const sortCauses = (causes: SelectionCause[]): SelectionCause[] =>
       left.relationshipPath.join('>').localeCompare(right.relationshipPath.join('>'))
   )
 
-export const resolveSelection = (
-  catalog: Aos4Catalog,
-  input: ResolveSelectionInput
-): ResolvedSelection => {
+export const resolveSelection = (catalog: Aos4Catalog, input: ResolveSelectionInput): ResolvedSelection => {
   const index = createCatalogIndex(catalog)
   const contextIds = new Set(catalog.rulesContexts.map(context => context.id))
   const overlayStatuses = new Set(
