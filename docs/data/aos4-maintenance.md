@@ -77,6 +77,25 @@ The strict generation gate and the checksum-bound machine review are green for t
 snapshot. See [`aos4-accuracy-review.md`](./aos4-accuracy-review.md) for the review, correction,
 verification, and staleness workflow.
 
+### Pending review revision: corpus-2026-07-31
+
+`data/aos4/reviews/corpus-2026-07-31.json` is a prepared, not-yet-accepted revision. It carries the
+2026-07-30 review forward and additionally dispositions six Wahapedia rules-page source records as
+ignored: the illustrative `EXAMPLE SPELL` (Mystic Shield) and `EXAMPLE PRAYER` (Resurrection) cards
+that the core rules and the 2024-25/2025-26 General's Handbook pages reproduce to show the
+ability-card format. They are not playable abilities, and the universal core-rules wiring was
+surfacing them as reminders for every army (customer report 2026-07-31). Sacred Rites is not
+excluded ("All PRIESTS know the following prayer"), and the Ascension page's Mystic Shield and
+Resurrection are genuine Path rank rewards on an already reference-only page, so they stay.
+
+Accepting this revision requires an operator with the accepted 2026-07-30 immutable artifact cache
+(`.cache/aos4/artifacts`): run `yarn data:aos4:generate:write` against the new review, then the
+full certification campaign and `beta.json` re-point described in
+[`aos4-accuracy-review.md`](./aos4-accuracy-review.md). Until then the accepted 2026-07-30 products
+remain byte-for-byte reproducible and the beta gate stays bound to them.
+`src/tests/aos4/coreRulesExampleAbilities.test.ts` guards the exclusion list and proves the
+resulting selection graph drops exactly the example cards.
+
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
 the current runtime.
