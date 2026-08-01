@@ -21,6 +21,11 @@ import {
 } from './certification'
 import { parseCertificationManifest, parseReviewLedger, validateReviewLedger } from './findings'
 import {
+  DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH,
+  loadProfileOnlyDeviationLedger,
+  profileOnlyGateIssues,
+} from '../generate/profileOnlyGate'
+import {
   assertReviewIndexMatchesPacketPairs,
   ignoredRecordCandidateKey,
   officialRecordCandidateKey,
@@ -418,6 +423,22 @@ export const runCertificationCheck = async (
     inventoryFile.observedAt
   )
   const populationIssues = boundReviewPopulationIssues(index, catalog, officialLedger, reconciliation, review)
+  // The official-first intake gate (#1820): a profile-only official unit fact without a reviewed
+  // deviation (rationale + target date) blocks beta readiness, and therefore deployment.
+  const profileOnlyLedger = await loadProfileOnlyDeviationLedger(
+    repoPath(repoRoot, DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH)
+  )
+  const profileOnlyIssues: CertificationIssue[] = profileOnlyGateIssues(
+    reconciliation.unmatchedOfficialUnitFacts,
+    profileOnlyLedger,
+    review.officialDocuments
+  ).map(issue => ({
+    code: issue.code,
+    state: 'blocked' as const,
+    path: DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH,
+    subject: issue.subject,
+    message: issue.message,
+  }))
   const manifestIssues = verifyCertificationManifest({
     manifest,
     evaluation,
@@ -457,6 +478,7 @@ export const runCertificationCheck = async (
     ...calibrationIssues,
     ...chronologyIssues,
     ...populationIssues,
+    ...profileOnlyIssues,
     ...manifestIssues,
     ...summaryIssues,
   ].sort(
@@ -469,6 +491,7 @@ export const runCertificationCheck = async (
     ...calibrationIssues,
     ...chronologyIssues,
     ...populationIssues,
+    ...profileOnlyIssues,
     ...manifestIssues,
     ...summaryIssues,
   ])

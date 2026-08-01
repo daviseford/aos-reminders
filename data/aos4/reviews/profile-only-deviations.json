@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "deviations": [
+    {
+      "faction": "Warhammer Legends",
+      "name": "The Emberwatch",
+      "reason": "Legends-context Underworlds warband from the official Battle Profiles PDF (page 65). No accepted source publishes its warscroll rules: Wahapedia carries no page for it and no free official document contains them. Legends content sits outside the current-context intake obligation, so the gap is accepted and tracked rather than blocking; it remains the accepted 2026-08-01b baseline of exactly one profile-only official unit fact.",
+      "targetDate": "2026-12-31",
+      "recordedAt": "2026-08-01"
+    }
+  ]
+}

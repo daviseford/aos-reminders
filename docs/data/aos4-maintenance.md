@@ -69,10 +69,32 @@ facts. Reconciliation applies official unit size, points, regiment options, note
 runtime profiles and now records 411 field-level secondary discrepancies after upstream parser and
 normalization corrections. One official unit fact (The Emberwatch, Legends) remains `profile-only`
 because current warscroll rules are not available anywhere; generation preserves its exact fact
-and checksum but does not invent reminders. The official July 2026 Rules Updates supplies reviewed
-ability-text and timing corrections where the accepted secondary pages have not yet caught up. The
-other accepted official documents are reference evidence: their pages are available to reviewers
-but do not invent structured runtime facts.
+and checksum but does not invent reminders, and the accepted gap is recorded in the profile-only
+deviation ledger described below. The official July 2026 Rules Updates supplies reviewed
+ability-text and timing corrections where the accepted secondary pages have not yet caught up.
+When an official publication introduces units whose rules no accepted source carries, reviewed
+intake — extraction from the official publication itself, or the BSData fallback tier when its
+conditions hold — is the primary path and starts immediately; it is not an option to weigh, and
+an official document is never merely reference evidence for content it introduces. Official pages
+that introduce no new content remain reviewer evidence and do not invent structured runtime facts.
+
+### The official-first intake gate (#1820)
+
+`profile-only` is a gated state, not a resting state. Every profile-only official unit fact must
+carry an explicit reviewed deviation in `data/aos4/reviews/profile-only-deviations.json` — the
+faction, unit name, a rationale, a target date, and the recording date. Both strict generation and
+`yarn data:aos4:verify:beta` fail closed, naming the unit and its source publication, when:
+
+- a profile-only unit fact has no recorded deviation (any increase beyond the accepted population
+  is unaccepted until reviewed), or
+- a recorded deviation is malformed or duplicated, or
+- a deviation no longer matches any profile-only fact (resolved entries must be removed so they
+  cannot shield a future regression).
+
+The deployment workflow runs the beta gate, so a release that would ship a new profile-only unit
+stops before S3. The accepted 2026-08-01b baseline is exactly one entry: The Emberwatch
+(Warhammer Legends), deferred with a rationale referencing its Legends context. The Rules Radar's
+managed issue states this obligation whenever it observes a new or replaced official publication.
 
 The ten July 2026 Ogor Mawtribes battletome units (Redd the Maw, Tyrant on Glutthorn, Morga the
 Mighty, Grell Firefist, Gutseers, Cleavers, Gluttons, Hunters with Sabrefangs, Maulbeast Cavalry,
