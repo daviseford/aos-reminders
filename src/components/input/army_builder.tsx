@@ -165,7 +165,13 @@ const ArmyBuilder = ({ builder, onSetGroupSelections }: ArmyBuilderProps) => {
   const groups = useMemo(
     () =>
       groupSelections(
-        builder.options.filter(option => option.kind === 'warscroll' || option.kind === 'content-group')
+        // Armies of Renown are the masthead's top-level choice, not a builder card; showing the
+        // root here as well would duplicate the control.
+        builder.options.filter(
+          option =>
+            (option.kind === 'warscroll' || option.kind === 'content-group') &&
+            option.groupType !== 'army-of-renown'
+        )
       ),
     [builder.options]
   )

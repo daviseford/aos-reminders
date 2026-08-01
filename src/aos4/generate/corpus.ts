@@ -2082,6 +2082,18 @@ export const buildAos4Corpus = (
     const from = entityById.get(relationship.from)
     const to = entityById.get(relationship.to)
     if (!from || !to) return [relationship]
+    if (relationship.kind === 'excludes') {
+      // A replacement crosses contexts: the builder's Legends/historical overlays let a
+      // current-context army see other contexts' content, so an Army of Renown's exclusion stays
+      // applicable wherever either endpoint exists — an intersection would silently drop the
+      // exclusion of exactly the overlay content it must suppress.
+      return [
+        {
+          ...relationship,
+          rulesContextIds: uniqueSorted([...from.rulesContextIds, ...to.rulesContextIds]),
+        },
+      ]
+    }
     const toContextIds = new Set(to.rulesContextIds)
     const sharedContextIds = from.rulesContextIds.filter(id => toContextIds.has(id))
     return sharedContextIds.length
