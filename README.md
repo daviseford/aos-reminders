@@ -4,9 +4,10 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 
 ## Version 6 and Age of Sigmar fourth edition
 
-Version 6.0.0 is the clean cutover to Age of Sigmar fourth edition. The release candidate is
-assembled on `aos4-migration` in [PR #1717](https://github.com/daviseford/aos-reminders/pull/1717);
-`master` remains the production branch, and every push to it deploys the site.
+Version 6.0.0 is the clean cutover to Age of Sigmar fourth edition. The release was assembled in
+[PR #1717](https://github.com/daviseford/aos-reminders/pull/1717) and merged to `master` on
+2026-07-31; `master` is the primary development and production branch, and every push to it
+deploys the site.
 
 The release provides:
 
@@ -124,10 +125,9 @@ These companion repositories are private.
 
 ## Pull requests and deployment
 
-Until PR #1717 lands, final Version 6 release changes target `aos4-migration`. After launch, normal
-pull requests target `master` unless a new integration branch is explicitly established. Every
-push to `master` builds and deploys the production site to S3/CloudFront, so merging or pushing it
-requires explicit project-owner authorization.
+Normal pull requests target `master` unless a new integration branch is explicitly established.
+Every push to `master` builds and deploys the production site to S3/CloudFront, so merging or
+pushing it requires explicit project-owner authorization.
 
 See [the release runbook](docs/release.md) for production gates and post-deploy validation, and
 [CONTRIBUTING.md](docs/CONTRIBUTING.md) for the normal contribution workflow.

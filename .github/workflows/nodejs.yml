@@ -1,12 +1,10 @@
 name: Lint, Test, and Build
 
-# `aos4-migration` is the long-lived integration branch for the AoS 4 migration (see AGENTS.md).
-# Without it here, migration sub-PRs merge with no lint/test/build gate at all.
 on:
   push:
-    branches: [ master, aos4-migration ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, aos4-migration ]
+    branches: [ master ]
 
 env:
   CI: true

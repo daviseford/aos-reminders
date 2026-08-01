@@ -99,7 +99,7 @@ community trusts that experience; an AoS 4 data/domain migration does not author
 - Do not add a migration-workbench aesthetic, new visual language, or broad reskin unless the user
   explicitly requests one.
 
-The launch-hardening client on this branch retires the shared browser key and sends the user's
+The Version 6 launch-hardening client retires the shared browser key and sends the user's
 Auth0 bearer token for every subscription account operation. Production remains blocked until the
 companion subscription change in `aos-reminders-subscription-api#17` is reviewed, deployed, and
 live-verified: it must derive account ownership from verified claims, reject cross-account access,
@@ -184,17 +184,16 @@ issue #1731, and the full production smoke/operational handoff is issue #1805.
 
 ## Branch and pull-request strategy
 
-PR #1717 is the final long-lived AoS 4 integration PR.
+`master` is the primary development branch and the normal PR target. The Version 6 release
+(PR #1717, `AoS Reminders 6.0.0 — Age of Sigmar fourth-edition release`) merged the retired
+`aos4-migration` integration branch into `master` on 2026-07-31; do not base new work on
+`aos4-migration` or target PRs at it.
 
-- Until PR #1717 lands, base final release work on the latest `origin/aos4-migration` and target
-  release sub-PRs at `aos4-migration`.
-- PR #1717 is named `AoS Reminders 6.0.0 — Age of Sigmar fourth-edition release` and targets
-  `master`.
-- After PR #1717 lands, base normal work on the latest `origin/master` and target PRs at `master`
-  unless the user explicitly establishes another integration branch.
+- Base normal work on the latest `origin/master` and target PRs at `master` unless the user
+  explicitly establishes another integration branch.
 - Local commits and pushes to non-`master` branches are authorized.
-- Merging PRs, pushing `master`, deploying, or changing production services requires explicit
-  direction.
+- A push to `master` triggers production deployment. Merging PRs, pushing `master`, deploying, or
+  changing production services requires explicit direction.
 
 ### Issue tracking
 
@@ -548,8 +547,7 @@ unit-test prerequisite.
    production-build checks.
 7. Repeat the checksum-bound machine review and update the beta-readiness pointer; a prior result
    is never inherited by a changed corpus.
-8. Until PR #1717 lands, commit and push only to a release sub-PR targeting `aos4-migration`.
-   After launch, use normal PRs targeting `master`; never push `master` directly without explicit
+8. Use normal PRs targeting `master`; never push `master` directly without explicit
    authorization.
 9. Reconcile beta-tester rules reports against official sources and add regression coverage for
    confirmed corrections.
