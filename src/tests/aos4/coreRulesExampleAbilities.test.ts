@@ -13,15 +13,17 @@ import { resolveSelection } from '../../aos4/select'
  * ability-card format, and the bounded rules-page parser ingested those example cards as real
  * abilities inside the universal "Spells" / "Prayers" groups.
  *
- * The correction is a reviewed input: `data/aos4/reviews/corpus-2026-07-31.json` dispositions the
- * six example-card source records as ignored. The Ascension page's Mystic Shield and Resurrection
- * are deliberately NOT excluded: there they are genuine Path of the Mage / Path of the Devout
- * rank rewards ("ELITE: When a HERO on this Path gains this rank, pick 1 of the following
- * abilities"), and that page is already reference-only. Sacred Rites is likewise kept: the core
- * rules state "All PRIESTS know the following prayer", so it is a real universal ability.
+ * The correction is a reviewed input: the accepted review (`data/aos4/reviews/corpus-2026-08-01.json`,
+ * carried forward from the prepared corpus-2026-07-31 revision) dispositions the six example-card
+ * source records as ignored, and the shipped catalog no longer contains those entities. The
+ * Ascension page's Mystic Shield and Resurrection are deliberately NOT excluded: there they are
+ * genuine Path of the Mage / Path of the Devout rank rewards ("ELITE: When a HERO on this Path
+ * gains this rank, pick 1 of the following abilities"), and that page is already reference-only.
+ * Sacred Rites is likewise kept: the core rules state "All PRIESTS know the following prayer", so
+ * it is a real universal ability.
  */
 
-interface PendingReview {
+interface AcceptedReview {
   revision: string
   ignoredSourceRecords: Array<{ sourceRecordId: string; reason: string }>
 }
@@ -40,13 +42,13 @@ const EXAMPLE_CARD_SOURCE_RECORD_IDS = [
 
 const EXAMPLE_CARD_NAMES = ['MYSTIC SHIELD', 'RESURRECTION']
 
-const pendingReview = JSON.parse(
-  readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-07-31.json'), 'utf8')
-) as PendingReview
+const acceptedReview = JSON.parse(
+  readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01.json'), 'utf8')
+) as AcceptedReview
 
 const exampleRecordIdSet = new Set(EXAMPLE_CARD_SOURCE_RECORD_IDS)
 
-/** Entities the generator will drop once the pending review is regenerated. */
+/** The shipped catalog is generated from the accepted review, so nothing should remain to drop. */
 const excludedEntityIds = new Set(
   AOS4_CATALOG.entities
     .filter(
@@ -57,7 +59,6 @@ const excludedEntityIds = new Set(
     .map(entity => entity.id)
 )
 
-/** The catalog as deterministic regeneration will produce it from the pending review. */
 const correctedCatalog: Aos4Catalog = {
   ...AOS4_CATALOG,
   entities: AOS4_CATALOG.entities.filter(entity => !excludedEntityIds.has(entity.id)),
@@ -81,10 +82,10 @@ const reminderNames = (
 }
 
 describe('core-rules example ability cards stay out of reminders (customer report 2026-07-31)', () => {
-  it('dispositions every example-card source record as ignored in the pending review revision', () => {
-    expect(pendingReview.revision).toBe('aos4-corpus-2026-07-31')
+  it('dispositions every example-card source record as ignored in the accepted review revision', () => {
+    expect(acceptedReview.revision).toBe('aos4-corpus-2026-08-01')
     const ignoredById = new Map(
-      pendingReview.ignoredSourceRecords.map(record => [record.sourceRecordId, record.reason])
+      acceptedReview.ignoredSourceRecords.map(record => [record.sourceRecordId, record.reason])
     )
     EXAMPLE_CARD_SOURCE_RECORD_IDS.forEach(sourceRecordId => {
       expect(ignoredById.has(sourceRecordId)).toBe(true)
@@ -97,7 +98,7 @@ describe('core-rules example ability cards stay out of reminders (customer repor
     ).toBe(true)
     // The class fix must not overreach onto real universal abilities or the genuine Ascension
     // Path of the Mage / Path of the Devout rank rewards.
-    pendingReview.ignoredSourceRecords.forEach(record =>
+    acceptedReview.ignoredSourceRecords.forEach(record =>
       expect(record.sourceRecordId).not.toMatch(/ascension/)
     )
     // Sacred Rites is a real universal prayer ("All PRIESTS know the following prayer").
@@ -108,8 +109,9 @@ describe('core-rules example ability cards stay out of reminders (customer repor
     const targeted = AOS4_CATALOG.entities.filter(entity =>
       entity.sourceRefs.some(reference => exampleRecordIdSet.has(reference.sourceRecordId))
     )
-    // Before regeneration the six example entities are present; afterwards the list is empty.
+    // The accepted catalog is generated from the review, so the list is expected to be empty.
     // Either way, nothing except the two example cards may be touched by the exclusions.
+    expect(targeted).toEqual([])
     targeted.forEach(entity => {
       expect(entity.kind).toBe('ability')
       expect(EXAMPLE_CARD_NAMES).toContain(entity.name)

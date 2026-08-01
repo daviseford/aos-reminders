@@ -67,7 +67,7 @@ export const AOS4_GENERATION_AUDIT = {
   schemaVersion: 1,
   generatedAt: projection.generatedAt,
   attribution: projection.attribution,
-  reviewScope: 'Complete accepted AoS 4 corpus snapshot dated 2026-07-27.',
+  reviewScope: 'Complete accepted AoS 4 corpus snapshot dated 2026-08-01.',
   acknowledgedDiagnostics: [],
   sourcePolicy: {
     officialPublisher: 'games-workshop',
