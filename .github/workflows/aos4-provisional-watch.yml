@@ -1,0 +1,100 @@
+name: AoS 4 Provisional Watch
+
+# Daily check of the concrete pages where the corpus's provisional community-fallback content
+# would be verified or replaced (the `verificationCondition` on every `communityWarscrollSources`
+# review entry). Replaces the operator-machine cron that only ran while a workstation was on.
+#
+# The watch is evidence, not acceptance: a hit comments on the tracking issue so the standard
+# candidate intake can run. Nothing here changes accepted data.
+
+on:
+  schedule:
+    - cron: '7 14 * * *'
+  workflow_dispatch:
+    inputs:
+      report_only:
+        description: Build the report without commenting on tracking issues
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: aos4-provisional-watch-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+      OUTPUT_DIR: .cache/aos4/radar/provisional-watch
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run the provisional watch
+        run: yarn data:aos4:radar:watch-provisional --output "$OUTPUT_DIR"
+
+      - name: Comment on tracking issues
+        if: github.event_name == 'schedule' || inputs.report_only != true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          notifications="$(node -e "const r=require('./$OUTPUT_DIR/report.json');process.stdout.write(r.notifications.map(n=>n.issueNumber+' '+n.fingerprint).join('\n'))")"
+          [[ -z "$notifications" ]] && { echo "No provisional content has appeared."; exit 0; }
+          while read -r issue fingerprint; do
+            marker="<!-- aos4-provisional-watch:$issue:$fingerprint -->"
+            if gh api "repos/${{ github.repository }}/issues/$issue/comments" --paginate --jq '.[].body' | grep -qF "$marker"; then
+              echo "Issue #$issue already carries the $fingerprint notification."
+            else
+              gh issue comment "$issue" --repo "${{ github.repository }}" --body-file "$OUTPUT_DIR/issue-$issue-comment.md"
+              echo "Commented on issue #$issue ($fingerprint)."
+            fi
+          done <<< "$notifications"
+
+      - name: Upload watch report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aos4-provisional-watch-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            ${{ env.OUTPUT_DIR }}/report.json
+            ${{ env.OUTPUT_DIR }}/issue-*-comment.md
+
+      - name: Write job summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## AoS 4 Provisional Watch"
+            echo
+            if [[ -f "$OUTPUT_DIR/report.json" ]]; then
+              node -e "
+                const report = require('./$OUTPUT_DIR/report.json')
+                for (const finding of report.findings) {
+                  const total = finding.found.length + finding.missing.length
+                  console.log('- \`' + finding.id + '\`: ' + finding.availability + ', ' + finding.found.length + '/' + total + ' sentinels present')
+                }
+                console.log('')
+                console.log(report.notifications.length + ' notification(s).')
+              "
+            else
+              echo "No report was produced."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
