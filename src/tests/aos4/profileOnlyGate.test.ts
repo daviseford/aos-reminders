@@ -130,17 +130,17 @@ describe('the official-first intake gate (#1820)', () => {
   it('accepts the current baseline: the accepted reconciliation passes with the recorded ledger', () => {
     const reconciliation = JSON.parse(
       readFileSync(
-        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-01c-reconciliation.json'),
+        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-01d-reconciliation.json'),
         'utf8'
       )
     ) as WahapediaHtmlReconciliation
     const review = JSON.parse(
-      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01c.json'), 'utf8')
+      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01d.json'), 'utf8')
     ) as CorpusReview
     const ledger = parseProfileOnlyDeviationLedger(
       JSON.parse(readFileSync(path.join(process.cwd(), DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH), 'utf8'))
     )
-    // The accepted 2026-08-01c population is exactly The Emberwatch, deferred for its Legends
+    // The accepted 2026-08-01d population is exactly The Emberwatch, deferred for its Legends
     // context; the gate must be green on this baseline.
     expect(reconciliation.unmatchedOfficialUnitFacts).toHaveLength(1)
     expect(ledger.deviations).toEqual([

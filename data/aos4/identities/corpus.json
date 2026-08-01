@@ -212,28 +212,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:48078a06-2b32-5584-943d-84ef7563ae6e",
-      "kind": "ability",
-      "name": "Aquatic Illusions"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss:ability:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:cea5a708-75cb-59f2-8ebc-124fcc6f212e",
-      "kind": "ability",
-      "name": "Nebulous Sea-fog"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:ability:1",
           "publisher": "other"
         }
@@ -45521,6 +45499,28 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_abilities.csv:000001708:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:eac51869-5ab1-505d-ade1-b79cc633fb9b",
+      "kind": "ability",
+      "name": "AQUATIC ILLUSIONS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001708:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f94b2013-670d-5d51-9813-4ab2331200a9",
+      "kind": "ability",
+      "name": "NEBULOUS SEA-FOG"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000001718:1",
           "publisher": "wahapedia"
         }
@@ -54343,17 +54343,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss:battle-profile",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "battle-profile:7c853003-3d0e-50c3-a148-8829530e400d",
-      "kind": "battle-profile",
-      "name": "Lorai, Child of the Abyss battle profile"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:battle-profile",
           "publisher": "other"
         }
@@ -62688,6 +62677,17 @@
       "canonicalId": "battle-profile:53297bbe-62c7-5ddf-bc12-6efb681a3ed0",
       "kind": "battle-profile",
       "name": "Neave’s Companions battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000001708:battle-profile",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "battle-profile:6c1aadb1-09f3-5151-a00c-e227a34fb590",
+      "kind": "battle-profile",
+      "name": "Lorai, Child of the Abyss battle profile"
     },
     {
       "aliases": [
@@ -83053,17 +83053,6 @@
     {
       "aliases": [
         {
-          "externalId": "community:72f866e3affcde31ef1ab75b2dd947f0c37da6a50892b0c843fe0e78a1c7d451",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "publication:edf5850d-b47a-58c2-b60b-ee0ac0484adf",
-      "kind": "publication",
-      "name": "BSData Stormcast Eternals library (provisional community transcription, pending official verification)"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "community:7e4d36ff7ad4b26ef27221bac71c52f2b812d85319688691acd44ccf8af0ab27",
           "publisher": "other"
         }
@@ -84457,17 +84446,6 @@
       "canonicalId": "warscroll:89ccb5ba-230f-54bb-8fb1-615990d3dff2",
       "kind": "warscroll",
       "name": "Hunters with Sabrefangs"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "warscroll:55581d28-3d26-537c-945f-6666f302dd8a",
-      "kind": "warscroll",
-      "name": "Lorai, Child of the Abyss"
     },
     {
       "aliases": [
@@ -93745,6 +93723,17 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls.csv:000001708",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:3a645d96-ed32-5c8d-b6cc-1f084ae7acc8",
+      "kind": "warscroll",
+      "name": "Lorai, Child of the Abyss"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls.csv:000001718",
           "publisher": "wahapedia"
         }
@@ -98757,17 +98746,6 @@
       "canonicalId": "weapon:bce354db-f235-503a-9dcf-3479fc8cbbbd",
       "kind": "weapon",
       "name": "Sabrefang's Tusks and Claws"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:2f24f031-b66a-5b68-b2da-995aed6d9539",
-      "kind": "weapon",
-      "name": "Abyssal Touch"
     },
     {
       "aliases": [
@@ -115466,6 +115444,17 @@
       "canonicalId": "weapon:a4c1c949-5fb8-555c-9e18-53a3565d4078",
       "kind": "weapon",
       "name": "Anda’s Celestial Talons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000001708:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:75dd33c9-e1a2-5c95-bef3-defddb0394a0",
+      "kind": "weapon",
+      "name": "Abyssal Touch"
     },
     {
       "aliases": [
