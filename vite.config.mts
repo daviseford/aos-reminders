@@ -47,10 +47,8 @@ const NON_APP_PRECACHE_GLOBS = ['sw-extras-*.js', 'rollback-service-worker.js', 
  * generated corpus out took it from 12,516 kB to 795 kB raw (1,418 kB to 259 kB gzipped), and this
  * budget keeps it there.
  *
- * 850 kB, not the 750 kB this plugin originally shipped with: ten commits of feature work landed on
- * aos4-migration between that number being chosen and this branch merging, which is legitimate
- * growth rather than regression. The headroom is deliberately small — the point is to fail the build
- * the next time something large lands in the entry by accident.
+ * The 850 kB limit leaves the current entry only modest headroom and fails the build the next time
+ * something large lands there by accident.
  */
 const INITIAL_ENTRY_CHUNK_LIMIT_BYTES = 850 * 1024
 

@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 const virtualRegisterSW = vi.hoisted(() => vi.fn(() => vi.fn(async () => undefined)))
 
@@ -62,10 +62,6 @@ const createHarness = (registrationState: 'missing' | 'installing' | 'waiting' |
 }
 
 describe('service-worker registration controller', () => {
-  beforeEach(() => {
-    virtualRegisterSW.mockClear()
-  })
-
   it('does not reload either tab before a waiting update is explicitly accepted', () => {
     const firstTab = createHarness('waiting')
     const secondTab = createHarness('waiting')

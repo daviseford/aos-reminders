@@ -1,5 +1,7 @@
 import { registerSW } from 'virtual:pwa-register'
 
+export type { RegisterSWOptions } from 'virtual:pwa-register'
+
 /*
  * A standalone PWA left open at a game table never performs a full navigation, so it would otherwise
  * never notice a new build within a session. An hourly registration.update() closes that window --
@@ -8,13 +10,7 @@ import { registerSW } from 'virtual:pwa-register'
  */
 const UPDATE_POLL_INTERVAL_MS = 60 * 60 * 1000
 
-export interface RegisterSWOptions {
-  onNeedRefresh?: () => void
-  onNeedReload?: () => void
-  onRegisteredSW?: (swUrl: string, registration?: ServiceWorkerRegistration) => void
-}
-
-type RegisterServiceWorker = (options: RegisterSWOptions) => (reloadPage?: boolean) => Promise<void>
+type RegisterServiceWorker = typeof registerSW
 
 interface ServiceWorkerRegistrationDependencies {
   announceNewContent: () => void
