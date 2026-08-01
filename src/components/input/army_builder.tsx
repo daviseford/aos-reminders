@@ -166,10 +166,13 @@ const ArmyBuilder = ({ builder, onSetGroupSelections }: ArmyBuilderProps) => {
     () =>
       groupSelections(
         // Armies of Renown are the masthead's top-level choice, not a builder card; showing the
-        // root here as well would duplicate the control.
+        // root here as well would duplicate the control. Their granted abilities do surface,
+        // as selected chips inside the standard category cards.
         builder.options.filter(
           option =>
-            (option.kind === 'warscroll' || option.kind === 'content-group') &&
+            (option.kind === 'warscroll' ||
+              option.kind === 'content-group' ||
+              (option.kind === 'ability' && Boolean(option.groupType))) &&
             option.groupType !== 'army-of-renown'
         )
       ),

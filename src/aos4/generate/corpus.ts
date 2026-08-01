@@ -1718,7 +1718,14 @@ export const buildAos4Corpus = (
     if (!id) return
     subtypeGroupByKey.set(`${record.factionId}:${record.id}`, id)
     const type = factionAbilityTypeByKey.get(`${record.factionId}:${record.typeId}`)
-    const resolvedGroupType = groupType(type?.name || record.name)
+    const armyOfRenownRootId = armyOfRenownRootByTypeKey.get(`${record.factionId}:${record.typeId}`)
+    // An Army of Renown subgroup keeps its real rules category (`spell-lore`, `heroic-trait`, …)
+    // rather than the army-slug type, so its granted content presents inside the standard
+    // category cards instead of clustering under an army card. The name stays exactly the
+    // source's heading; the army context is carried by the relationship graph.
+    const resolvedGroupType = armyOfRenownRootId
+      ? groupType(record.name)
+      : groupType(type?.name || record.name)
     entities.push({
       id,
       kind: 'content-group',
@@ -1728,15 +1735,9 @@ export const buildAos4Corpus = (
       rulesContextIds: contextsFor(record.meta),
       sourceRefs: [sourceReference(record.meta.sourceRecordId)],
     } satisfies ContentGroup)
-    const armyOfRenownRootId = armyOfRenownRootByTypeKey.get(`${record.factionId}:${record.typeId}`)
     if (armyOfRenownRootId) {
-      // Army of Renown subgroups hang behind the root choice: its battle traits apply
-      // automatically, its enhancement and lore subgroups become available to pick.
-      if (isMandatoryType(record.name)) {
-        addRelationship('includes', armyOfRenownRootId, id)
-      } else {
-        addRelationship('offers', armyOfRenownRootId, id)
-      }
+      // An Army of Renown grants its whole rules set: every subgroup auto-applies with the root.
+      addRelationship('includes', armyOfRenownRootId, id)
       return
     }
     addRelationship('includes', typeGroupByKey.get(`${record.factionId}:${record.typeId}`), id)

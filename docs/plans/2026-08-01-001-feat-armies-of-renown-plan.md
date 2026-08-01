@@ -61,8 +61,12 @@ faction selector.
 **Replace semantics (selection graph)**
 
 - R3. Generation rewires classified AoRs: the faction offers only the AoR root; the root
-  auto-includes its `Battle Traits` subgroup and offers its other subgroups; the faction's direct
-  offers of AoR subgroups are removed.
+  auto-includes every subgroup (an Army of Renown grants its whole rules set — the AoS 3
+  allegiance behavior); the faction's direct offers of AoR subgroups are removed. Subgroups keep
+  their real rules category as `groupType` so granted content presents in the standard cards.
+  In the builder, each granted enhancement/lore ability surfaces as a selected chip in its
+  category card (Prime Gutserver under Heroic Traits, Mawmeat and Retcher under Spell Lores);
+  battle traits populate the reminders only, like every army's battle traits.
 - R4. Generation emits `excludes` edges from each AoR root to the faction's replaced regular
   groups — every faction content group whose `groupType` is one of `battle-trait`,
   `battle-formation`, `heroic-trait`, `artefact-of-power`, `spell-lore`, `prayer-lore`,

@@ -4,6 +4,7 @@ import type { ContentGroup, Faction } from '../../aos4/domain'
 import { AOS4_CATALOG } from '../../aos4/generated'
 import { projectReminders } from '../../aos4/reminders'
 import { resolveSelection } from '../../aos4/select'
+import { createAos4BuilderViewModel } from '../../aos4/view'
 
 /**
  * Armies of Renown are a top-level choice that replaces the faction's regular rules (issue #1834;
@@ -128,14 +129,27 @@ describe('Armies of Renown as a top-level replacing choice', () => {
         rulesContextId: standard.id,
       })
       expect(selection.diagnostics).toEqual([])
-      const selectedOrAvailable = new Set([...selection.selectedIds, ...selection.availableIds])
-      const offendingGroups = Array.from(selectedOrAvailable).flatMap(id => {
+      // Nothing with a replaced group type is offered, and the only selected groups carrying one
+      // are the army's own granted sections (they keep their real rules category and the army's
+      // qualified name).
+      const offendingAvailable = selection.availableIds.flatMap(id => {
         const group = groupById.get(id as never)
         if (!group || !REPLACED_GROUP_TYPES.has(group.groupType)) return []
         return [`${group.groupType}:${group.name}`]
       })
-      expect(offendingGroups).toEqual([])
-      // The army's own subgroups are reachable, and universal manifestation lores remain.
+      expect(offendingAvailable).toEqual([])
+      const grantedByRoot = new Set(
+        AOS4_CATALOG.relationships
+          .filter(relationship => relationship.kind === 'includes' && relationship.from === root.id)
+          .map(relationship => relationship.to)
+      )
+      const selectedReplacedTypes = selection.selectedIds.flatMap(id => {
+        const group = groupById.get(id as never)
+        if (!group || !REPLACED_GROUP_TYPES.has(group.groupType)) return []
+        return [id]
+      })
+      selectedReplacedTypes.forEach(id => expect(grantedByRoot.has(id)).toBe(true))
+      // Universal manifestation lores remain.
       const availableGroups = selection.availableIds.flatMap(id => {
         const group = groupById.get(id as never)
         return group ? [group.groupType] : []
@@ -143,6 +157,38 @@ describe('Armies of Renown as a top-level replacing choice', () => {
       expect(availableGroups).toContain('manifestation-lore')
     }
   )
+
+  it('grants The Roving Maw content as selected chips in the standard category cards', () => {
+    const ogor = factionByName('Ogor Mawtribes')
+    const roving = armyOfRenownRoots.find(root => root.name === 'The Roving Maw')!
+    const builder = createAos4BuilderViewModel(AOS4_CATALOG, {
+      id: 'test',
+      name: 'test',
+      rulesContextId: standard.id,
+      explicitSelectionIds: [ogor.id, roving.id],
+      reminderPreferences: {},
+    } as never)
+    const chips = (category: string) =>
+      builder.options
+        .filter(option => option.groupType === category && option.selected)
+        .map(option => option.name)
+        .sort()
+    expect(chips('heroic-trait')).toEqual(['Prime Gutserver'])
+    expect(chips('artefact-of-power')).toEqual(['Flasks of Congealed Maw-Juices'])
+    expect(chips('spell-lore')).toEqual(['Mawmeat', 'Retcher'])
+    // Battle traits populate the reminders only, never a category card.
+    expect(builder.options.filter(option => option.groupType === 'battle-trait')).toEqual([])
+    const reminders = projectReminders(
+      AOS4_CATALOG,
+      resolveSelection(AOS4_CATALOG, { explicitIds: [ogor.id, roving.id], rulesContextId: standard.id })
+    ).map(reminder => reminder.name)
+    ;['DRIVEN BY STARVATION', 'TASTY MORSELS', 'THE REALM HUNGERS', 'MAWPITS OF GHUR'].forEach(trait =>
+      expect(reminders).toContain(trait)
+    )
+    ;['PRIME GUTSERVER', 'FLASKS OF CONGEALED MAW-JUICES', 'MAWMEAT', 'RETCHER'].forEach(granted =>
+      expect(reminders).toContain(granted)
+    )
+  })
 
   it('keeps a faction without an Army of Renown untouched', () => {
     const skaven = factionByName('Skaven')

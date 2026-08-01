@@ -149,12 +149,8 @@ export const buildArmyOfRenownIndex = (catalog: Aos4Catalog): ArmyOfRenownIndex 
 
   const childIdsById = new Map<CanonicalId, CanonicalId[]>()
   catalog.relationships.forEach(relationship => {
-    // A classified Army of Renown root *offers* its enhancement sections (only its battle traits
-    // are auto-included), so its children span both relationship kinds.
-    const parent = groupsById.get(relationship.from)
-    const spansOffers = parent?.groupType === 'army-of-renown'
-    if (relationship.kind !== 'includes' && !(spansOffers && relationship.kind === 'offers')) return
-    if (!parent || !groupsById.has(relationship.to)) return
+    if (relationship.kind !== 'includes') return
+    if (!groupsById.has(relationship.from) || !groupsById.has(relationship.to)) return
     childIdsById.set(relationship.from, [...(childIdsById.get(relationship.from) ?? []), relationship.to])
   })
 
