@@ -77,9 +77,9 @@ const dataPath = (...segments: string[]): string => path.join(process.cwd(), 'da
 
 const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPath(...segments), 'utf8')) as T
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-01b.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-01c.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-01b-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-01c-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -109,14 +109,14 @@ describe('AoS 4 catalog generation integrity', () => {
         factions: 28,
         warscrolls: 1297,
         battleProfiles: 1013,
-        abilities: 4919,
+        abilities: 4929,
         weapons: 2280,
-        sourceArtifacts: 244,
-        sourceRecords: 19274,
+        sourceArtifacts: 245,
+        sourceRecords: 19290,
         ignoredSourceRecords: 18903,
       },
       integrity: {
-        consumedSourceRecords: 19268,
+        consumedSourceRecords: 19284,
         issues: [],
         supersededSourceRecords: {
           count: 18897,
@@ -202,18 +202,19 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(244)
+    expect(acceptedManifest.artifacts).toHaveLength(245)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
     ).toHaveLength(157)
-    // The community fallback tier: commit-pinned BSData catalogues for the Ogor supplement units.
+    // The community fallback tier: commit-pinned BSData catalogues for the Ogor supplement units
+    // and the Ogor battletome faction package (formations, traits, artefacts).
     const bsdataArtifacts = acceptedManifest.artifacts.filter(
       artifact => artifact.adapterVersion === 'bsdata-cat/1'
     )
-    expect(bsdataArtifacts).toHaveLength(2)
+    expect(bsdataArtifacts).toHaveLength(3)
     bsdataArtifacts.forEach(artifact =>
       expect(artifact.requestUrl).toMatch(
         /^https:\/\/raw\.githubusercontent\.com\/BSData\/age-of-sigmar-4th\/[0-9a-f]{40}\//

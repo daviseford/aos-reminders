@@ -268,11 +268,11 @@ describe('BSData community-tier catalogue extraction', () => {
 
 describe('the standing fallback-tier policy record in the accepted review', () => {
   const review = JSON.parse(
-    readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01b.json'), 'utf8')
+    readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01c.json'), 'utf8')
   ) as { communityWarscrollSources: CorpusCommunityWarscrollSource[] }
 
   it('records every community source as commit-pinned, provisional, scoped, and owner-authorized', () => {
-    expect(review.communityWarscrollSources).toHaveLength(2)
+    expect(review.communityWarscrollSources).toHaveLength(3)
     review.communityWarscrollSources.forEach(source => {
       expect(source.policyTier).toBe('community-fallback')
       expect(source.status).toBe('provisional-pending-official-verification')
@@ -285,11 +285,20 @@ describe('the standing fallback-tier policy record in the accepted review', () =
       expect(source.verificationCondition).toMatch(/wahapedia|official/i)
       expect(source.officialSourceRecordIds.length).toBeGreaterThan(0)
       source.officialSourceRecordIds.forEach(id => expect(id).toMatch(/^source-record:games-workshop:/))
-      expect(source.units.length).toBeGreaterThan(0)
+      // Each source is scoped to named units or named faction options, never taken wholesale.
+      expect(source.units.length + (source.factionOptions ?? []).length).toBeGreaterThan(0)
       source.units.forEach(unit => expect(unit.recordChecksum).toMatch(/^[0-9a-f]{64}$/))
+      ;(source.factionOptions ?? []).forEach(option =>
+        expect(option.recordChecksum).toMatch(/^[0-9a-f]{64}$/)
+      )
     })
     const unitNames = review.communityWarscrollSources.flatMap(source => source.units.map(unit => unit.name))
     expect(unitNames).toHaveLength(11)
     expect(unitNames).toContain('Lorai, Child of the Abyss')
+    const optionNames = review.communityWarscrollSources.flatMap(source =>
+      (source.factionOptions ?? []).map(option => option.name)
+    )
+    expect(optionNames).toHaveLength(10)
+    expect(optionNames).toContain('Hunger-Filled Tribe')
   })
 })

@@ -67,6 +67,25 @@ export interface BsDataWarscrollFact {
   factChecksum: string
 }
 
+/**
+ * Roster-option kinds the community fallback tier may supply. Each maps to the official Battle
+ * Profiles `optionType` label that establishes the option's existence.
+ */
+export type BsDataFactionOptionType = 'battle-formation' | 'heroic-trait' | 'artefact-of-power'
+
+export interface BsDataFactionOptionFact {
+  kind: 'faction-option'
+  optionType: BsDataFactionOptionType
+  /** The option name as transcribed by BSData; the official spelling wins downstream. */
+  name: string
+  section: string
+  /** The BSData selection-entry group the option was found in, e.g. `Traits of Endless Hunger`. */
+  groupName: string
+  abilities: BsDataAbilityFact[]
+  sourceRecordId: SourceRecordId
+  factChecksum: string
+}
+
 export type BsDataDiagnosticCode =
   | 'invalid-xml'
   | 'unit-not-found'
@@ -74,6 +93,9 @@ export type BsDataDiagnosticCode =
   | 'unknown-profile-type'
   | 'missing-characteristic'
   | 'missing-ability-effect'
+  | 'option-not-found'
+  | 'duplicate-option'
+  | 'missing-option-ability'
 
 export interface BsDataDiagnostic {
   code: BsDataDiagnosticCode
@@ -84,5 +106,10 @@ export interface BsDataDiagnostic {
 
 export interface BsDataExtractionResult {
   facts: BsDataWarscrollFact[]
+  diagnostics: BsDataDiagnostic[]
+}
+
+export interface BsDataFactionOptionExtractionResult {
+  facts: BsDataFactionOptionFact[]
   diagnostics: BsDataDiagnostic[]
 }

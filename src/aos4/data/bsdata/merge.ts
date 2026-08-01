@@ -1,6 +1,10 @@
 import { createHash } from 'node:crypto'
 import { artifactId, sourceRecordId, type SourceRecordId } from '../../domain'
-import type { GamesWorkshopBattleProfileFact, GamesWorkshopUnitProfileFact } from '../gamesWorkshop'
+import type {
+  GamesWorkshopBattleProfileFact,
+  GamesWorkshopRosterOptionFact,
+  GamesWorkshopUnitProfileFact,
+} from '../gamesWorkshop'
 import type { ArtifactManifestEntry } from '../manifest'
 import type {
   WahapediaDataset,
@@ -10,7 +14,7 @@ import type {
   WahapediaWarscrollWeaponRecord,
 } from '../wahapedia'
 import type { WahapediaHtmlReconciliation } from '../wahapediaHtml'
-import type { BsDataAbilityFact, BsDataWarscrollFact } from './records'
+import type { BsDataAbilityFact, BsDataFactionOptionFact, BsDataFactionOptionType, BsDataWarscrollFact } from './records'
 
 /**
  * Merge reviewed BSData warscroll facts into the current dataset.
@@ -73,6 +77,225 @@ const abilityTypeLabel: Record<BsDataAbilityFact['kind'], string> = {
   spell: 'Ability (Spell)',
   prayer: 'Ability (Prayer)',
   command: 'Ability (Command)',
+}
+
+export interface BsDataFactionOptionSourceInput {
+  artifact: ArtifactManifestEntry
+  /** Repository slug (e.g. BSData/age-of-sigmar-4th) used for commit-stable identity aliases. */
+  repository: string
+  facts: BsDataFactionOptionFact[]
+  /** Official page source records that establish this content (policy condition (a)). */
+  officialSourceRecordIds: SourceRecordId[]
+}
+
+const OPTION_TYPE_LABELS: Record<
+  BsDataFactionOptionType,
+  { officialOptionType: string; typeGroupName: string }
+> = {
+  'battle-formation': { officialOptionType: 'Battle Formation', typeGroupName: 'Battle Formations' },
+  'heroic-trait': { officialOptionType: 'Heroic Trait', typeGroupName: 'Heroic Traits' },
+  'artefact-of-power': { officialOptionType: 'Artefact of Power', typeGroupName: 'Artefacts of Power' },
+}
+
+const bsDataGeneratedId = (seed: string): string =>
+  `bsdata-${createHash('sha256').update(seed).digest('hex').slice(0, 16)}`
+
+/**
+ * Merge reviewed BSData faction roster-option facts (battle formations, heroic traits, artefacts)
+ * into the current dataset.
+ *
+ * Like the warscroll merge, this is the community fallback tier: every option must be established
+ * by an effective official roster-option fact, the official spelling wins the displayed name, and
+ * disagreements are preserved as reconciliation discrepancies resolved official-side. Battle
+ * formations become their own faction-ability subtype; heroic traits and artefacts join one new
+ * subtype per BSData group so they present like their Wahapedia-sourced counterparts.
+ */
+export const mergeBsDataFactionOptions = (
+  dataset: WahapediaDataset,
+  reconciliation: WahapediaHtmlReconciliation,
+  sources: BsDataFactionOptionSourceInput[],
+  officialFacts: GamesWorkshopBattleProfileFact[]
+): BsDataMergeResult => {
+  if (!sources.length) return { dataset, reconciliation }
+  const officialOptions = officialFacts.filter(
+    (fact): fact is GamesWorkshopRosterOptionFact => fact.kind === 'roster-option'
+  )
+  const factionIdByName = new Map(dataset.factions.map(faction => [canonical(faction.name), faction.id]))
+  const discrepancies = [...reconciliation.discrepancies]
+  const newSubtypes: WahapediaDataset['factionAbilitySubtypes'] = []
+  const newAbilities: WahapediaDataset['factionAbilities'] = []
+
+  sources.forEach(source => {
+    const sourceArtifactId = artifactId(source.artifact.checksum)
+    const identityFor = (recordSourceId: SourceRecordId): SourceRecordId => {
+      // Identity aliases must survive BSData refreshes: strip the artifact checksum and key the
+      // alias on the repository and catalogue section instead.
+      const suffix = decodeURIComponent(String(recordSourceId)).slice(
+        `source-record:bsdata:${source.artifact.checksum}:`.length
+      )
+      return sourceRecordId('bsdata', `${source.repository}:${suffix}`)
+    }
+    const meta = (
+      recordSourceId: SourceRecordId,
+      recordChecksum: string,
+      section: string,
+      officialSourceRecordIds?: SourceRecordId[]
+    ): WahapediaRecordMeta => ({
+      file: 'BSDataCatalogue.cat',
+      row: 0,
+      artifactId: sourceArtifactId,
+      sourceRecordId: recordSourceId,
+      identitySourceRecordId: identityFor(recordSourceId),
+      recordChecksum,
+      section,
+      rulesContextKinds: ['standard'],
+      ...(officialSourceRecordIds?.length ? { officialSourceRecordIds } : {}),
+    })
+    /** Shared subtypes for grouped options (heroic traits, artefacts), keyed per faction+group. */
+    const sharedSubtypes = new Map<string, { id: string; name: string; lines: number }>()
+
+    ;[...source.facts]
+      .sort((left, right) => left.section.localeCompare(right.section))
+      .forEach(fact => {
+        const labels = OPTION_TYPE_LABELS[fact.optionType]
+        const matches = officialOptions.filter(
+          candidate =>
+            candidate.context === 'standard' &&
+            canonical(candidate.optionType) === canonical(labels.officialOptionType) &&
+            canonical(candidate.name) === canonical(fact.name)
+        )
+        if (matches.length !== 1) {
+          throw new Error(
+            `BSData faction option ${fact.name} matches ${matches.length} effective official ` +
+              `roster-option facts; the community fallback tier requires exactly one official ` +
+              'publication establishing the content'
+          )
+        }
+        const official = matches[0]
+        const factionId = factionIdByName.get(canonical(official.faction))
+        if (!factionId) {
+          throw new Error(`BSData faction option ${fact.name} names an unknown faction ${official.faction}`)
+        }
+        const type = dataset.factionAbilityTypes.find(
+          candidate =>
+            candidate.factionId === factionId && canonical(candidate.name) === canonical(labels.typeGroupName)
+        )
+        if (!type) {
+          throw new Error(
+            `BSData faction option ${fact.name} has no ${labels.typeGroupName} group for ${official.faction}`
+          )
+        }
+        const sourceUrl = `${source.artifact.finalUrl}#${fact.section}`
+        if (fact.name !== official.name) {
+          discrepancies.push({
+            url: sourceUrl,
+            field: 'name',
+            secondary: fact.name,
+            official: official.name,
+            officialSourceRecordId: official.sourceRecordId,
+          })
+        }
+        if (fact.optionType !== 'battle-formation' && fact.abilities.length !== 1) {
+          throw new Error(
+            `BSData faction option ${fact.name} carries ${fact.abilities.length} abilities; a ` +
+              'heroic trait or artefact is exactly one ability card'
+          )
+        }
+        let subtypeId: string
+        let subtypeName: string
+        let lineOffset = 0
+        if (fact.optionType === 'battle-formation') {
+          subtypeId = bsDataGeneratedId(fact.sourceRecordId)
+          subtypeName = official.name
+          newSubtypes.push({
+            factionId,
+            id: subtypeId,
+            name: official.name,
+            typeId: type.id,
+            descriptionHtml: '',
+            legendHtml: '',
+            meta: meta(fact.sourceRecordId, fact.factChecksum, fact.section, [official.sourceRecordId]),
+          })
+        } else {
+          const key = `${factionId}:${fact.optionType}:${canonical(fact.groupName)}`
+          let shared = sharedSubtypes.get(key)
+          if (!shared) {
+            const groupSection = `option-group:${fact.groupName
+              .normalize('NFKD')
+              .replace(/[’']/g, '')
+              .replace(/[^A-Za-z0-9]+/g, '-')
+              .replace(/^-+|-+$/g, '')
+              .toLowerCase()}`
+            const groupSourceRecordId = sourceRecordId('bsdata', `${source.artifact.checksum}:${groupSection}`)
+            shared = { id: bsDataGeneratedId(groupSourceRecordId), name: fact.groupName, lines: 0 }
+            sharedSubtypes.set(key, shared)
+            newSubtypes.push({
+              factionId,
+              id: shared.id,
+              name: fact.groupName,
+              typeId: type.id,
+              descriptionHtml: '',
+              legendHtml: '',
+              meta: meta(
+                groupSourceRecordId,
+                checksum({ factionId, group: fact.groupName, optionType: fact.optionType }),
+                groupSection,
+                source.officialSourceRecordIds
+              ),
+            })
+          }
+          subtypeId = shared.id
+          subtypeName = shared.name
+          lineOffset = shared.lines
+          shared.lines += fact.abilities.length
+        }
+        const grouped = fact.optionType !== 'battle-formation'
+        fact.abilities.forEach(ability => {
+          const points = abilityPoints(ability)
+          newAbilities.push({
+            factionId,
+            typeId: type.id,
+            typeName: type.name,
+            subtypeId,
+            subtypeName,
+            line: String(lineOffset + ability.line),
+            // A grouped roster option (trait, artefact) IS its single ability card: it displays
+            // under its official name and carries the option-level record identity so the audit
+            // trail consumes the reviewed option record. A formation keeps the transcribed names
+            // and per-ability records of the abilities it grants.
+            name: grouped ? official.name : ability.name,
+            descriptionHtml: abilityDescription(ability),
+            legendHtml: '',
+            abilityType: abilityTypeLabel[ability.kind],
+            isReaction: /\breaction\s*:/i.test(ability.timing),
+            conditionHtml: abilityCondition(ability),
+            keywordsHtml: ability.keywords.join(', '),
+            abilityPhase: '',
+            pointsType: points.pointsType,
+            points: points.points,
+            meta: grouped
+              ? meta(fact.sourceRecordId, fact.factChecksum, fact.section, [official.sourceRecordId])
+              : meta(ability.sourceRecordId, ability.recordChecksum, fact.section, [
+                  official.sourceRecordId,
+                ]),
+          })
+        })
+      })
+  })
+
+  return {
+    dataset: {
+      ...dataset,
+      factionAbilitySubtypes: [...dataset.factionAbilitySubtypes, ...newSubtypes],
+      factionAbilities: [...dataset.factionAbilities, ...newAbilities],
+    },
+    reconciliation: {
+      ...reconciliation,
+      discrepancies: discrepancies.sort(
+        (left, right) => left.url.localeCompare(right.url) || left.field.localeCompare(right.field)
+      ),
+    },
+  }
 }
 
 export const mergeBsDataWarscrolls = (

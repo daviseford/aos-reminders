@@ -16,7 +16,7 @@ import { createAos4BuilderViewModel } from '../../aos4/view'
  * Under the standing fallback-tier source policy (official Games Workshop publications are
  * authoritative, Wahapedia is the preferred secondary, BSData is an acceptable fallback only while
  * an official publication establishes the content and Wahapedia does not yet carry the rules),
- * the accepted `corpus-2026-08-01b` review admits the commit-pinned BSData `ogors`-branch
+ * the accepted `corpus-2026-08-01c` review admits the commit-pinned BSData `ogors`-branch
  * transcriptions of exactly these eleven units as provisional community facts. Official facts win
  * every overlapping field, and the provisional status stays visible through source attribution.
  *
@@ -44,7 +44,7 @@ const OGOR_SUPPLEMENT_UNITS: Array<{ name: string; unitSize: number; points: num
 
 const reconciliation = JSON.parse(
   readFileSync(
-    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-01b-reconciliation.json'),
+    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-01c-reconciliation.json'),
     'utf8'
   )
 ) as ReconciliationReport
