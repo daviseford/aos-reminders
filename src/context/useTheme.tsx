@@ -9,6 +9,12 @@ import { SubscriptionApi } from '../api/subscriptionApi'
 
 const LOCAL_THEME_KEY = 'theme'
 
+/*
+ * Every page background a theme can ask for, so the effect below can clear whichever one <body> is
+ * already wearing before it applies the current one.
+ */
+const BG_CLASS_NAMES = [LightTheme.bgColor, DarkTheme.bgColor]
+
 const getLocalTheme = () => localStorage.getItem(LOCAL_THEME_KEY) as TThemeType | null
 
 const setLocalTheme = (theme: TThemeType) => localStorage.setItem(LOCAL_THEME_KEY, theme)
@@ -64,6 +70,19 @@ const ThemeProvider = ({ children }: React.PropsWithChildren<object>) => {
   useEffect(() => {
     const element = document.getElementById('root')
     if (element) element.className = theme.bgColor
+
+    /*
+     * ...and to <body>, which owns the canvas. `#root` covers the document, but the area outside it
+     * is painted from <body>: iOS rubber-band overscroll, and the gap a page shorter than the
+     * viewport leaves once a route sizes `#root` below its min-height floor. Left white, those read
+     * as a flash of the light theme.
+     *
+     * `classList` rather than `className`, which is what `#root` above can safely use: react-modal
+     * writes `ReactModal__Body--open` onto <body> for as long as a modal is open, and assigning
+     * `className` would drop it.
+     */
+    document.body.classList.remove(...BG_CLASS_NAMES)
+    document.body.classList.add(theme.bgColor)
   }, [theme.bgColor])
 
   useEffect(() => setThemeFromValue(getLocalTheme()), [setThemeFromValue])
