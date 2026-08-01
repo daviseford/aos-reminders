@@ -16,28 +16,28 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-01b snapshot is defined by:
+The accepted 2026-08-01c snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-01b.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 2 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-01b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-01c.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-08-01c.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-01b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-01b-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-01c-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-01c-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
 - 1,297 warscrolls and 1,013 battle profiles
-- 4,919 usable abilities
+- 4,929 usable abilities
 - 2,280 weapons
-- 1,410 content groups, including 48 Spearhead force/unit wrappers
-- 244 source artifacts and 19,274 live source records
+- 1,416 content groups, including 48 Spearhead force/unit wrappers
+- 245 source artifacts and 19,290 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -45,8 +45,10 @@ The strict report currently records:
 - 1,350 extracted GW battle-profile facts: 939 applied to runtime, 1 profile-only gap,
   363 structured references, and 47 superseded facts
 - 11 provisional community warscrolls (10 Ogor Mawtribes supplement units and Lorai, Child of the
-  Abyss) transcribed from two commit-pinned BSData catalogues under the fallback-tier source
-  policy, with official battle-profile facts overriding every overlapping field
+  Abyss) and 10 provisional Ogor Mawtribes battletome roster options (4 battle formations,
+  3 heroic traits, 3 artefacts of power) transcribed from three commit-pinned BSData catalogues
+  under the fallback-tier source policy, with official battle-profile facts overriding every
+  overlapping field
 
 The accepted current rules come from 27 faction `warscrolls.html` collection pages, 28 faction
 roots, and 17 current rules pages. Collection pages contribute 1,074 native faction warscrolls.
@@ -112,6 +114,24 @@ owner-supplied official source publishes the warscrolls, the standard candidate 
 these provisional facts; `src/tests/aos4/ogorSupplementProvisional.test.ts` and
 `src/tests/aos4/bsDataLibrary.test.ts` pin the boundary and the policy record until then.
 
+The battletome's replacement roster options ship the same way (beta report #1828, snapshot
+2026-08-01c): the official Battle Profiles - Ogor Mawtribes document establishes four battle
+formations (Hunger-filled Tribe, Vanguard of the Mawpath, Hinterland Hunters, Maw-cult Fanatics),
+three heroic traits (The Crusherguts, Leave Not a Morsel, Dreaded Far and Wide), and three
+artefacts of power (Trophy Rack, Carvalox Hide, Mantle of Entrails), and marks the index-era set
+superseded. Wahapedia still presents the index-era options as current (verified 2026-08-01), so
+their rules text comes provisionally from the commit-pinned BSData main-branch faction catalogue
+(`BSData/age-of-sigmar-4th@a882188b`), recorded as `factionOptions` on a
+`communityWarscrollSources` review entry with per-option checksums, official spellings winning
+every name conflict. Reviewed `contextOverrides` apply official precedence to the superseded
+index-era formations, traits, and artefacts, moving them to the historical context until the
+secondary source catches up. The battletome's two lores (Lore of Gut Magic, Lore of the
+Everwinter) are **not** shipped: BSData has not transcribed their spells or prayers (the lore
+entry links dangle at the pinned commit), so the index-era lores remain current until a source
+exists. The army-wide battle traits and Big Names likewise wait for Wahapedia because no official
+battle-profile fact establishes them for the fallback tier.
+`src/tests/aos4/ogorBattletomeFactionPackage.test.ts` pins this boundary.
+
 Every official document is limited to the rules contexts it actually governs. Spearhead,
 2026-27 `Scourge of Aqshy`, Legends, and historical `Scourge of Ghyran` records must not leak
 across context boundaries merely because they share the Games Workshop downloads catalog.
@@ -148,6 +168,12 @@ commit-pinned BSData catalogues and the `communityWarscrollSources` review entri
 Ogor supplement units and Lorai provisionally under the fallback-tier source policy described in
 the Source policy section. Every Wahapedia and Games Workshop artifact is byte-identical to the
 2026-08-01 pins.
+
+The 2026-08-01c revision extends 2026-08-01b the same way for the battletome roster options
+(beta report #1828): it adds one commit-pinned BSData faction catalogue, the `factionOptions`
+scope on a new community source entry, and the reviewed `contextOverrides` that retire the
+superseded index-era options to the historical context. Every other artifact is byte-identical
+to the 2026-08-01b pins.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not

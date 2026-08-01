@@ -7,12 +7,15 @@ import {
   artifactChecksum,
   assertArtifactChecksum,
   createArtifactManifest,
+  extractBsDataFactionOptions,
   extractBsDataWarscrolls,
   extractGamesWorkshopBattleProfileSupplement,
   extractGamesWorkshopBattleProfiles,
   extractGamesWorkshopPdfText,
+  mergeBsDataFactionOptions,
   mergeBsDataWarscrolls,
   type BsDataCommunitySourceInput,
+  type BsDataFactionOptionSourceInput,
   factionRootWarscrollScope,
   filterNativeWahapediaFactionWarscrolls,
   mergeCurrentWahapediaWarscrollPages,
@@ -48,15 +51,15 @@ import {
 import { createRuntimeProjection, serializeRuntimeProjection } from './runtimeProjection'
 import { serializeAuditCatalog, stableJson } from './serialization'
 
-const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-01b.json')
-const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-01b.json')
+const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-01c.json')
+const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-01c.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
 const DEFAULT_AUDIT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_BATTLE_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaults.json')
-const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01b-summary.json')
-const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01b-reconciliation.json')
+const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01c-summary.json')
+const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01c-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_BETA_READINESS = path.join('data', 'aos4', 'certifications', 'beta.json')
 const DEFAULT_PROFILE_ONLY_DEVIATIONS = path.join('data', 'aos4', 'reviews', 'profile-only-deviations.json')
@@ -399,6 +402,54 @@ const extractCommunityWarscrollFacts = async (
       if (!fact || fact.section !== unit.section || fact.factChecksum !== unit.recordChecksum) {
         throw new Error(
           `Community warscroll ${unit.name} no longer matches its reviewed section or checksum ` +
+            `(${fact ? `${fact.section} ${fact.factChecksum}` : 'not extracted'})`
+        )
+      }
+    })
+    inputs.push({
+      artifact: source.artifact,
+      repository: source.repository,
+      facts: extracted.facts,
+      officialSourceRecordIds: source.officialSourceRecordIds,
+    })
+  }
+  return inputs
+}
+
+const extractCommunityFactionOptionFacts = async (
+  review: CorpusReview,
+  cache: FileArtifactCache
+): Promise<BsDataFactionOptionSourceInput[]> => {
+  const inputs: BsDataFactionOptionSourceInput[] = []
+  for (const source of review.communityWarscrollSources ?? []) {
+    const options = source.factionOptions ?? []
+    if (!options.length) continue
+    const bytes = await cache.get(source.artifact.checksum)
+    if (!bytes) throw new Error(`Community artifact ${source.artifact.checksum} is missing`)
+    const extracted = extractBsDataFactionOptions(
+      bytes,
+      source.artifact.checksum,
+      options.map(option => ({
+        name: option.name,
+        optionType: option.optionType,
+        groupName: option.groupName,
+      }))
+    )
+    const errors = extracted.diagnostics.filter(diagnostic => diagnostic.severity === 'error')
+    if (errors.length) {
+      throw new Error(
+        `Community faction-option extraction failed for ${source.title}:\n${errors
+          .map(diagnostic => `- ${diagnostic.code}: ${diagnostic.message}`)
+          .join('\n')}`
+      )
+    }
+    // A community fact enters generation only when its reviewed section and checksum both pin the
+    // extracted content exactly; a drifted transcription must fail closed, never silently update.
+    options.forEach(option => {
+      const fact = extracted.facts.find(candidate => candidate.name === option.name)
+      if (!fact || fact.section !== option.section || fact.factChecksum !== option.recordChecksum) {
+        throw new Error(
+          `Community faction option ${option.name} no longer matches its reviewed section or checksum ` +
             `(${fact ? `${fact.section} ${fact.factChecksum}` : 'not extracted'})`
         )
       }
@@ -923,6 +974,7 @@ export const loadAcceptedCorpusSourceData = async (
   const decoded = decodeWahapediaExports(await loadWahapediaInputs(manifest, cache))
   const officialBattleProfiles = await extractOfficialBattleProfileFacts(review, cache)
   const communitySources = await extractCommunityWarscrollFacts(review, cache)
+  const communityOptionSources = await extractCommunityFactionOptionFacts(review, cache)
   collectGarbage()
   const wahapediaHtml = await loadWahapediaHtmlPages(manifest, review, cache)
   collectGarbage()
@@ -940,14 +992,20 @@ export const loadAcceptedCorpusSourceData = async (
     communitySources,
     officialBattleProfiles.effective
   )
-  validateReviewedReconciliation(review, communityMerged.reconciliation)
+  const communityOptionsMerged = mergeBsDataFactionOptions(
+    communityMerged.dataset,
+    communityMerged.reconciliation,
+    communityOptionSources,
+    officialBattleProfiles.effective
+  )
+  validateReviewedReconciliation(review, communityOptionsMerged.reconciliation)
   return {
     manifest,
     review,
     acceptedDecoded: decoded,
-    decoded: { ...decoded, dataset: communityMerged.dataset },
+    decoded: { ...decoded, dataset: communityOptionsMerged.dataset },
     officialBattleProfiles,
-    reconciliation: communityMerged.reconciliation,
+    reconciliation: communityOptionsMerged.reconciliation,
     officialPageTextBySourceRecordId,
   }
 }

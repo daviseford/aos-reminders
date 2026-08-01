@@ -125,6 +125,18 @@ export interface CorpusCommunityWarscrollUnit {
   recordChecksum: string
 }
 
+export interface CorpusCommunityFactionOption {
+  /** The option name exactly as the BSData catalogue spells it; the official spelling wins. */
+  name: string
+  optionType: 'battle-formation' | 'heroic-trait' | 'artefact-of-power'
+  /** The BSData selection-entry group the option must be found in. */
+  groupName: string
+  /** The catalogue section the extractor derives, e.g. `option:hunger-filled-tribe`. */
+  section: string
+  /** The pinned checksum of the extracted faction-option fact. */
+  recordChecksum: string
+}
+
 /**
  * A reviewed community warscroll source under the standing fallback-tier source policy.
  *
@@ -149,6 +161,8 @@ export interface CorpusCommunityWarscrollSource {
   /** Official page source records establishing the content (fallback condition (a)). */
   officialSourceRecordIds: SourceRecordId[]
   units: CorpusCommunityWarscrollUnit[]
+  /** Faction roster options (battle formations, traits, artefacts) supplied by this source. */
+  factionOptions?: CorpusCommunityFactionOption[]
 }
 
 /**
@@ -457,7 +471,7 @@ const identityDefinitions = (dataset: WahapediaDataset, review: CorpusReview): I
     add('ability', record.name, recordAlias(record.meta), recordPublisher(record.meta))
   )
   dataset.factionAbilities.forEach(record =>
-    add('ability', record.name, recordAlias(record.meta), 'wahapedia')
+    add('ability', record.name, recordAlias(record.meta), recordPublisher(record.meta))
   )
   ;(dataset.generalRulesPages ?? []).forEach(record =>
     add('content-group', record.title, recordAlias(record.meta), 'wahapedia')
@@ -472,10 +486,10 @@ const identityDefinitions = (dataset: WahapediaDataset, review: CorpusReview): I
     add('weapon', record.name, recordAlias(record.meta), recordPublisher(record.meta))
   )
   dataset.factionAbilityTypes.forEach(record =>
-    add('content-group', record.name, recordAlias(record.meta), 'wahapedia')
+    add('content-group', record.name, recordAlias(record.meta), recordPublisher(record.meta))
   )
   dataset.factionAbilitySubtypes.forEach(record =>
-    add('content-group', record.name, recordAlias(record.meta), 'wahapedia')
+    add('content-group', record.name, recordAlias(record.meta), recordPublisher(record.meta))
   )
   dataset.factionAbilityTypes.forEach(type => {
     if (isMandatoryType(type.name)) return
@@ -634,10 +648,12 @@ const sourceRulesContextIds = (
     (review.contextOverrides ?? []).map(override => [override.sourceRecordId, override.rulesContextIds])
   )
   const contextIdsForWarscroll = (record: WahapediaWarscrollRecord): RulesContextId[] => {
-    const explicit = contextIdsForMeta(record.meta)
-    if (explicit) return explicit
+    // A reviewed context override outranks the context the secondary source implies: it exists to
+    // apply official precedence (e.g. a battletome superseding index-era options).
     const overridden = overrideBySourceRecordId.get(record.meta.sourceRecordId)
     if (overridden) return overridden
+    const explicit = contextIdsForMeta(record.meta)
+    if (explicit) return explicit
     if (isSpearheadWarscroll(record)) {
       if (!spearheadContextId) {
         throw new Error(`Spearhead record ${record.meta.sourceRecordId} requires a Spearhead context`)
@@ -702,7 +718,12 @@ const sourceRulesContextIds = (
   )
   const bySourceRecordId = new Map<SourceRecordId, RulesContextId[]>()
   const assign = (meta: WahapediaRecordMeta, contextIds: RulesContextId[]) =>
-    bySourceRecordId.set(meta.sourceRecordId, uniqueSorted(contextIdsForMeta(meta) ?? contextIds))
+    bySourceRecordId.set(
+      meta.sourceRecordId,
+      uniqueSorted(
+        overrideBySourceRecordId.get(meta.sourceRecordId) ?? contextIdsForMeta(meta) ?? contextIds
+      )
+    )
 
   const factionContexts = new Map<string, RulesContextId[]>()
   dataset.warscrolls.forEach(record =>
@@ -1058,12 +1079,22 @@ const reviewDiagnostics = (
   })
   const communityChecksums = new Set<string>()
   ;(review.communityWarscrollSources ?? []).forEach(source => {
+    const factionOptions = source.factionOptions ?? []
     const unitsValid =
-      source.units.length > 0 &&
       source.units.every(
         unit => unit.name.trim() && unit.section.trim() && /^[0-9a-f]{64}$/.test(unit.recordChecksum)
-      ) &&
-      new Set(source.units.map(unit => unit.section)).size === source.units.length
+      ) && new Set(source.units.map(unit => unit.section)).size === source.units.length
+    const factionOptionsValid =
+      factionOptions.every(
+        option =>
+          option.name.trim() &&
+          option.groupName.trim() &&
+          option.section.trim() &&
+          /^[0-9a-f]{64}$/.test(option.recordChecksum) &&
+          ['battle-formation', 'heroic-trait', 'artefact-of-power'].includes(option.optionType)
+      ) && new Set(factionOptions.map(option => option.section)).size === factionOptions.length
+    const scopeValid =
+      source.units.length + factionOptions.length > 0 && unitsValid && factionOptionsValid
     if (
       communityChecksums.has(source.artifact.checksum) ||
       source.policyTier !== 'community-fallback' ||
@@ -1079,7 +1110,7 @@ const reviewDiagnostics = (
       !source.authorizedBy.trim() ||
       Number.isNaN(new Date(source.authorizedAt).valueOf()) ||
       source.officialSourceRecordIds.length === 0 ||
-      !unitsValid
+      !scopeValid
     ) {
       diagnostics.push({
         code: 'invalid-review',
@@ -1087,7 +1118,8 @@ const reviewDiagnostics = (
         subject: source.artifact.checksum || '(missing artifact)',
         message:
           'Community warscroll source must be commit-pinned, marked provisional in its title, scoped to ' +
-          'named units with pinned checksums, and cite official evidence establishing the content',
+          'named units or faction options with pinned checksums, and cite official evidence establishing ' +
+          'the content',
       })
     }
     communityChecksums.add(source.artifact.checksum)
@@ -1335,9 +1367,12 @@ export const buildAos4Corpus = (
       name: source.title,
       publisher: 'other',
       rulesContextIds: currentReviewContextIds,
-      sourceRefs: source.units.map(unit =>
+      sourceRefs: [
+        ...source.units.map(unit => unit.section),
+        ...(source.factionOptions ?? []).map(option => option.section),
+      ].map(section =>
         sourceReference(
-          domainSourceRecordId('bsdata', `${source.artifact.checksum}:${unit.section}`),
+          domainSourceRecordId('bsdata', `${source.artifact.checksum}:${section}`),
           'provisional community transcription'
         )
       ),
@@ -1551,7 +1586,7 @@ export const buildAos4Corpus = (
     dataset.factionAbilityTypes.map(record => [`${record.factionId}:${record.id}`, record])
   )
   dataset.factionAbilityTypes.forEach(record => {
-    const id = lookup('content-group', 'wahapedia', recordAlias(record.meta)) as
+    const id = lookup('content-group', recordPublisher(record.meta), recordAlias(record.meta)) as
       | CanonicalId<'content-group'>
       | undefined
     if (!id) return
@@ -1570,7 +1605,7 @@ export const buildAos4Corpus = (
   })
   const subtypeGroupByKey = new Map<string, CanonicalId<'content-group'>>()
   dataset.factionAbilitySubtypes.forEach(record => {
-    const id = lookup('content-group', 'wahapedia', recordAlias(record.meta)) as
+    const id = lookup('content-group', recordPublisher(record.meta), recordAlias(record.meta)) as
       | CanonicalId<'content-group'>
       | undefined
     if (!id) return

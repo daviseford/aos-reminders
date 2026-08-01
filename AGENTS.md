@@ -27,15 +27,15 @@ Version 6 is now an Age of Sigmar fourth-edition-only codebase:
 - manifestations are a category of unit rather than an army: the five universal manifestation lores
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
-- the accepted corpus contains 1,286 warscrolls, 1,002 battle profiles, 4,898 abilities,
-  2,260 weapons, 1,409 content groups, and 19,126 live source records
+- the accepted corpus contains 1,297 warscrolls, 1,013 battle profiles, 4,929 abilities,
+  2,280 weapons, 1,416 content groups, and 19,290 live source records
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
   historical rules contexts isolate parallel and retired records; the browser defaults to the
   current 2026-27 seasonal context
 - strict generation consumes every live record and separately dispositions 18,897 superseded
   May 2026 bulk warscroll/faction-rule records so none can leak into runtime
-- all 1,350 extracted official battle-profile facts have an explicit disposition: 928 apply to
-  runtime, 12 remain profile-only gaps, 363 remain structured references, and 47 are superseded
+- all 1,350 extracted official battle-profile facts have an explicit disposition: 939 apply to
+  runtime, 1 remains a profile-only gap, 363 remain structured references, and 47 are superseded
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
 - Phase 1 is complete and machine-verified for beta use; Phase 2 is underway — capability

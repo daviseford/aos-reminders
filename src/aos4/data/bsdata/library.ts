@@ -5,6 +5,9 @@ import type {
   BsDataAbilityFact,
   BsDataDiagnostic,
   BsDataExtractionResult,
+  BsDataFactionOptionExtractionResult,
+  BsDataFactionOptionFact,
+  BsDataFactionOptionType,
   BsDataWarscrollFact,
   BsDataWeaponFact,
 } from './records'
@@ -75,6 +78,52 @@ const WEAPON_PROFILE_TYPES: Record<string, 'melee' | 'ranged'> = {
 
 const unitEntries = (root: XmlElement): XmlElement[] =>
   descendantElements(root, 'selectionEntry').filter(entry => entry.attributes.type === 'unit')
+
+/**
+ * Extract every Ability profile carried by an entry. Shared between unit warscrolls and faction
+ * roster options; the caller supplies the record-ID naming scheme.
+ */
+const extractAbilityProfiles = (
+  entry: XmlElement,
+  ownerName: string,
+  recordId: (suffix: string) => ReturnType<typeof sourceRecordId>,
+  diagnostics: BsDataDiagnostic[]
+): BsDataAbilityFact[] => {
+  const abilities: BsDataAbilityFact[] = []
+  descendantElements(entry, 'profile').forEach(profile => {
+    const typeName = profile.attributes.typeName ?? ''
+    const abilityShape = ABILITY_PROFILE_TYPES[typeName]
+    if (!abilityShape) return
+    const effect = plainText(characteristicText(profile, 'Effect') ?? '')
+    if (!effect) {
+      diagnostics.push({
+        code: 'missing-ability-effect',
+        severity: 'error',
+        message: `Ability ${profile.attributes.name ?? '(unnamed)'} on ${ownerName} has no effect text`,
+        unit: ownerName,
+      })
+      return
+    }
+    const declare = plainText(characteristicText(profile, 'Declare') ?? '')
+    const line = abilities.length + 1
+    const costValue = abilityShape.costCharacteristic
+      ? integerValue(characteristicText(profile, abilityShape.costCharacteristic))
+      : undefined
+    const withoutChecksum = {
+      line,
+      name: plainText(profile.attributes.name ?? ''),
+      kind: abilityShape.kind,
+      timing: plainText(characteristicText(profile, 'Timing') ?? ''),
+      ...(declare ? { declare } : {}),
+      effect,
+      keywords: splitKeywords(plainText(characteristicText(profile, 'Keywords') ?? '')),
+      ...(costValue === undefined ? {} : { costValue }),
+      sourceRecordId: recordId(`ability:${line}`),
+    }
+    abilities.push({ ...withoutChecksum, recordChecksum: checksum(withoutChecksum) })
+  })
+  return abilities
+}
 
 const extractUnit = (
   entry: XmlElement,
@@ -211,6 +260,105 @@ const extractUnit = (
     sourceRecordId: recordId(''),
   }
   return { ...withoutChecksum, factChecksum: checksum(withoutChecksum) }
+}
+
+export interface BsDataFactionOptionSpec {
+  /** The option name exactly as the BSData catalogue spells it. */
+  name: string
+  optionType: BsDataFactionOptionType
+  /** The `selectionEntryGroup` name the option must be found in. */
+  groupName: string
+}
+
+/**
+ * Extract structured faction roster-option facts (battle formations, heroic traits, artefacts)
+ * for an explicit, reviewed set of options from a pinned BSData faction catalogue. Only the named
+ * options are extracted: the community fallback tier is scoped per option by the review, never
+ * taken wholesale.
+ */
+export const extractBsDataFactionOptions = (
+  bytes: Uint8Array,
+  artifactChecksum: string,
+  options: BsDataFactionOptionSpec[]
+): BsDataFactionOptionExtractionResult => {
+  const diagnostics: BsDataDiagnostic[] = []
+  const source = new TextDecoder('utf-8', { fatal: false }).decode(bytes)
+  const parsed = parseXmlDocument(source)
+  if (!parsed.root) {
+    return {
+      facts: [],
+      diagnostics: parsed.errors.map(error => ({
+        code: 'invalid-xml',
+        severity: 'error',
+        message: error,
+      })),
+    }
+  }
+  const groups = descendantElements(parsed.root, 'selectionEntryGroup')
+  const facts: BsDataFactionOptionFact[] = []
+  options.forEach(option => {
+    // A catalogue may carry several groups with the same name (e.g. a seasonal and a battletome
+    // `Plunder of the Mawtribes`); search them all and fail closed on an ambiguous option name.
+    const namedGroups = groups.filter(
+      candidate => (candidate.attributes.name ?? '').trim() === option.groupName
+    )
+    if (!namedGroups.length) {
+      diagnostics.push({
+        code: 'option-not-found',
+        severity: 'error',
+        message: `Group ${JSON.stringify(option.groupName)} is not present in the catalogue`,
+        unit: option.name,
+      })
+      return
+    }
+    const matches = namedGroups.flatMap(group =>
+      descendantElements(group, 'selectionEntry').filter(
+        entry => (entry.attributes.name ?? '').trim() === option.name
+      )
+    )
+    if (!matches.length) {
+      diagnostics.push({
+        code: 'option-not-found',
+        severity: 'error',
+        message: `Option ${JSON.stringify(option.name)} is not present in group ${JSON.stringify(option.groupName)}`,
+        unit: option.name,
+      })
+      return
+    }
+    if (matches.length > 1) {
+      diagnostics.push({
+        code: 'duplicate-option',
+        severity: 'error',
+        message: `Option ${JSON.stringify(option.name)} appears ${matches.length} times in group ${JSON.stringify(option.groupName)}`,
+        unit: option.name,
+      })
+      return
+    }
+    const section = `option:${slug(option.name)}`
+    const recordId = (suffix: string) =>
+      sourceRecordId('bsdata', `${artifactChecksum}:${section}${suffix ? `:${suffix}` : ''}`)
+    const abilities = extractAbilityProfiles(matches[0], option.name, recordId, diagnostics)
+    if (!abilities.length) {
+      diagnostics.push({
+        code: 'missing-option-ability',
+        severity: 'error',
+        message: `Option ${JSON.stringify(option.name)} carries no ability profile`,
+        unit: option.name,
+      })
+      return
+    }
+    const withoutChecksum = {
+      kind: 'faction-option' as const,
+      optionType: option.optionType,
+      name: plainText(option.name),
+      section,
+      groupName: option.groupName,
+      abilities,
+      sourceRecordId: recordId(''),
+    }
+    facts.push({ ...withoutChecksum, factChecksum: checksum(withoutChecksum) })
+  })
+  return { facts, diagnostics }
 }
 
 export const extractBsDataWarscrolls = (

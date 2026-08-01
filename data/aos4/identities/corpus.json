@@ -3,6 +3,116 @@
     {
       "aliases": [
         {
+          "externalId": "BSData/age-of-sigmar-4th:option:carvalox-hide",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f1a19f7e-1fd3-56f5-af77-9600d5c2d21d",
+      "kind": "ability",
+      "name": "Carvalox Hide"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:dreaded-far-and-wide",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d84fcf66-ee3a-5eae-b1b5-857b89ff0a9a",
+      "kind": "ability",
+      "name": "Dreaded Far and Wide"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:hinterland-hunters:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:82df3137-77f9-5fb7-9055-d9ad3e6fa8bc",
+      "kind": "ability",
+      "name": "Prowling Predators"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:hunger-filled-tribe:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d62517fb-2a52-5528-ba90-10a905ce845d",
+      "kind": "ability",
+      "name": "Feast of Bloodshed"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:leave-not-a-morsel",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c102d3e2-0819-52a4-9810-0d4c5446854d",
+      "kind": "ability",
+      "name": "Leave Not a Morsel"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:mantle-of-entrails",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:04fb00d4-b61f-5742-a9fb-1230d440db00",
+      "kind": "ability",
+      "name": "Mantle of Entrails"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:maw-cult-fanatics:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:786f600a-3473-524b-9580-aad743277121",
+      "kind": "ability",
+      "name": "Grub's Up, Mateys!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:the-crusherguts",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:2258fade-734c-5005-a3c9-ee74b9a96341",
+      "kind": "ability",
+      "name": "The Crusherguts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:trophy-rack",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f8795a21-c513-5ce4-8e35-fa01c79ee56c",
+      "kind": "ability",
+      "name": "Trophy Rack"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:vanguard-of-the-mawpath:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:43f9c692-6bf0-5fc7-95ee-7b09644994c9",
+      "kind": "ability",
+      "name": "Smash and Grab"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:cleavers:ability:1",
           "publisher": "other"
         }
@@ -65321,6 +65431,72 @@
     {
       "aliases": [
         {
+          "externalId": "BSData/age-of-sigmar-4th:option-group:plunder-of-the-mawtribes",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:5d97b80b-0a6a-5229-92b8-990aabad2d6c",
+      "kind": "content-group",
+      "name": "Plunder of the Mawtribes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option-group:traits-of-endless-hunger",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:55778d67-a8b5-5a2b-9cd6-5500f09305df",
+      "kind": "content-group",
+      "name": "Traits of Endless Hunger"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:hinterland-hunters",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:2efb707b-62f7-5d18-8f74-18e6ca88548b",
+      "kind": "content-group",
+      "name": "Hinterland Hunters"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:hunger-filled-tribe",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:7a23bc65-c10f-5a3f-8f0a-4f48f0398a71",
+      "kind": "content-group",
+      "name": "Hunger-filled Tribe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:maw-cult-fanatics",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:1d27878f-cda3-5ef1-a7d9-387f7273e01d",
+      "kind": "content-group",
+      "name": "Maw-cult Fanatics"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:vanguard-of-the-mawpath",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:4978270d-cdf8-5784-8823-fd2ae03b9940",
+      "kind": "content-group",
+      "name": "Vanguard of the Mawpath"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "choice:html:https://wahapedia.ru/aos4/factions/blades-of-khorne/#faction-ability:Brazen-Mutations:ability:1",
           "publisher": "wahapedia"
         }
@@ -82862,6 +83038,17 @@
       "canonicalId": "publication:6b8108a8-512b-552b-a934-9a7509f269c8",
       "kind": "publication",
       "name": "Spearhead: Nighthaunt - Cursed Shacklehorde"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:023ec4bc25c0cd21c961768da3bd73d4278d81cec53dae50e3f84d82d99fdd73",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:302bc5eb-c0ce-5cc7-b83c-bbd99db8108d",
+      "kind": "publication",
+      "name": "BSData Ogor Mawtribes catalogue (provisional community transcription, pending official verification)"
     },
     {
       "aliases": [
