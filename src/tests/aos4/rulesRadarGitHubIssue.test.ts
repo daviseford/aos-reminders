@@ -215,6 +215,66 @@ describe('AoS 4 Rules Radar GitHub issue lifecycle', () => {
     expect(body.length).toBeLessThan(60_000)
     expect((await synchronizeRulesRadarIssue(report, client, options)).action).toBe('noop')
   })
+
+  /**
+   * #1820: a new official publication is an intake obligation with a gate consequence, not an
+   * observation. The managed issue body must say so on official publication events - and only
+   * on those, so secondary/community change entries stay plain observations.
+   */
+  it('states the intake obligation and gate consequence for new official publications', () => {
+    const officialReport = createRadarReport([
+      laneWithEvent(
+        'games-workshop',
+        event(
+          'games-workshop',
+          'official',
+          'new-publication',
+          'https://assets.warhammer-community.com/new-battletome.pdf'
+        )
+      ),
+    ])
+    const officialBody = renderManagedRulesRadarIssueBody(officialReport)
+    expect(officialBody).toContain('Intake obligation')
+    expect(officialBody).toContain('drives reviewed rules intake immediately')
+    expect(officialBody).toContain('Profile-only is a gated state, not a resting state')
+    expect(officialBody).toContain('Gate consequence')
+    expect(officialBody).toContain('yarn data:aos4:verify:beta')
+    expect(officialBody).toContain('data/aos4/reviews/profile-only-deviations.json')
+
+    const replacedReport = createRadarReport([
+      laneWithEvent(
+        'games-workshop',
+        event(
+          'games-workshop',
+          'official',
+          'replaced-publication',
+          'https://assets.warhammer-community.com/replaced-battletome.pdf'
+        )
+      ),
+    ])
+    expect(renderManagedRulesRadarIssueBody(replacedReport)).toContain('Intake obligation')
+
+    const secondaryReport = createRadarReport([
+      laneWithEvent(
+        'wahapedia',
+        event('wahapedia', 'secondary', 'new-faction', 'https://wahapedia.ru/aos4/factions/new-faction/')
+      ),
+    ])
+    expect(renderManagedRulesRadarIssueBody(secondaryReport)).not.toContain('Intake obligation')
+
+    const operationalReport = createRadarReport([
+      laneWithEvent(
+        'games-workshop',
+        event(
+          'games-workshop',
+          'official',
+          'source-unavailable',
+          'https://www.warhammer-community.com/en-gb/downloads/warhammer-age-of-sigmar/'
+        )
+      ),
+    ])
+    expect(renderManagedRulesRadarIssueBody(operationalReport)).not.toContain('Intake obligation')
+  })
 })
 
 describe('AoS 4 Rules Radar GitHub REST adapter', () => {

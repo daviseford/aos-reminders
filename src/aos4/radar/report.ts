@@ -58,6 +58,31 @@ const evidenceLines = (event: RadarEvent): string[] =>
       return [`  - ${inertMarkdown(key)}: ${rendered}`]
     })
 
+/**
+ * A new or replaced official publication is an intake obligation, not an observation (#1820).
+ * The obligation is rendered once per lane (never per event) so a mass catalog change cannot
+ * push the managed body past its bounded size.
+ */
+const OFFICIAL_INTAKE_OBLIGATION_KINDS = new Set<RadarEvent['changeKind']>([
+  'new-publication',
+  'replaced-publication',
+])
+
+const carriesOfficialIntakeObligation = (event: RadarEvent): boolean =>
+  event.class === 'material' &&
+  event.authority === 'official' &&
+  OFFICIAL_INTAKE_OBLIGATION_KINDS.has(event.changeKind)
+
+const OFFICIAL_INTAKE_OBLIGATION_LINES = [
+  '> **Intake obligation:** an official publication drives reviewed rules intake immediately —',
+  '> start a candidate cycle now (official extraction, or the BSData fallback tier when its',
+  '> conditions hold). Profile-only is a gated state, not a resting state.',
+  '> **Gate consequence:** if a publication above introduces units whose rules no accepted source',
+  '> carries, the new profile-only facts fail `yarn data:aos4:verify:beta` — and therefore the',
+  '> deployment workflow — unless a reviewed deviation with a rationale and target date is',
+  '> recorded in `data/aos4/reviews/profile-only-deviations.json`.',
+]
+
 const renderEvent = (event: RadarEvent): string[] => [
   `- **${CHANGE_LABELS[event.changeKind]}** — ${inertMarkdown(event.locator, 500)}`,
   `  - Authority: ${event.authority}`,
@@ -90,6 +115,9 @@ export const renderRulesRadarIssueBody = (report: RadarReport): string => {
     const operational = lane.events.filter(event => event.class === 'operational')
     if (material.length) {
       lines.push('### Rules-source changes', '')
+      if (material.some(carriesOfficialIntakeObligation)) {
+        lines.push(...OFFICIAL_INTAKE_OBLIGATION_LINES, '')
+      }
       material.forEach(event => lines.push(...renderEvent(event)))
       lines.push('')
     }
