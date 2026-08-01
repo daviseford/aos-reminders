@@ -13,10 +13,9 @@ pipeline, add regression coverage, and produce a new checksum-bound certificatio
 
 ## Branching
 
-- Until release PR #1717 lands, base final Version 6 work on `origin/aos4-migration` and target
-  release sub-PRs at `aos4-migration`.
-- After #1717 lands, base ordinary work on `origin/master` and target pull requests at `master`
-  unless a new integration branch is explicitly established.
+- Base ordinary work on `origin/master` and target pull requests at `master` unless a new
+  integration branch is explicitly established. The retired `aos4-migration` integration branch
+  merged into `master` with release PR #1717; do not base new work on it.
 - Never push `master` directly. A merge or push to `master` deploys production and requires explicit
   project-owner authorization.
 - Keep rules/data corrections separate from Phase 2 package modernization where practical.

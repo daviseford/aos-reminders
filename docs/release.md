@@ -1,8 +1,9 @@
 # Release and production operations
 
 AoS Reminders 6.0.0 is the clean Age of Sigmar fourth-edition launch. Release PR
-[#1717](https://github.com/daviseford/aos-reminders/pull/1717) merges `aos4-migration` into
-`master`; a push to `master` starts the S3/CloudFront production deployment.
+[#1717](https://github.com/daviseford/aos-reminders/pull/1717) merged the `aos4-migration`
+integration branch into `master` on 2026-07-31; a push to `master` starts the S3/CloudFront
+production deployment.
 
 This runbook records the launch gates separately from the migration's implementation history. It
 does not authorize a merge, API deployment, or production configuration change.

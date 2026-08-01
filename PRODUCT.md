@@ -128,9 +128,9 @@ Preserve it; do not change it as a side effect of other work.
   generate pipeline, including corrections prompted by beta feedback.
 - **Names are display text, never durable identity.** Everything resolves through stable canonical
   IDs.
-- **A push to `master` deploys production.** Final Version 6 launch preparation targets
-  `aos4-migration`; after PR #1717 lands, ordinary work targets `master` unless a new integration
-  branch is explicitly established. Merging or pushing `master` requires explicit authorization.
+- **A push to `master` deploys production.** Ordinary work targets `master` unless a new
+  integration branch is explicitly established. Merging or pushing `master` requires explicit
+  authorization.
 
 ### Known launch gates
 
