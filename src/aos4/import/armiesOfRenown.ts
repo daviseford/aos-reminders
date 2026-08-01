@@ -160,8 +160,13 @@ export const buildArmyOfRenownIndex = (catalog: Aos4Catalog): ArmyOfRenownIndex 
   const claimedSectionIds = new Set<CanonicalId>()
 
   groupsById.forEach((container, containerId) => {
-    if (CATEGORY_GROUP_TYPES.has(container.groupType)) return
-    if (groupTypeSlug(container.name) !== container.groupType) return
+    // The reviewed classification marks the official Armies of Renown explicitly; every other
+    // army-shaped section (Regiments of Renown and similar) still matches structurally.
+    const isClassified = container.groupType === 'army-of-renown'
+    if (!isClassified) {
+      if (CATEGORY_GROUP_TYPES.has(container.groupType)) return
+      if (groupTypeSlug(container.name) !== container.groupType) return
+    }
 
     const sectionIds = childIdsById.get(containerId) ?? []
     const sections = sectionIds.flatMap(id => {
