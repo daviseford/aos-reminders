@@ -225,6 +225,15 @@ prepared. Within the Rules Radar, BSData is a change signal; BSData bytes enter 
 through the fallback-tier source policy above (commit-pinned, provisional, official-established),
 never through radar automation.
 
+The companion **AoS 4 Provisional Watch** workflow (`aos4-provisional-watch.yml`, daily at
+14:07 UTC) checks the concrete pages where the corpus's provisional community-fallback content
+would be verified or replaced — the Wahapedia pages named by each `communityWarscrollSources`
+verification condition, plus the moving BSData files for transcriptions the fallback tier is
+still missing. The reviewed sentinel list is `data/aos4/radar/provisional-watch.json`; a hit
+comments once per finding-set on the tracking issue (deduplicated by a fingerprint marker) so the
+standard candidate intake can run. Like the radar, the watch is evidence, not acceptance. Run it
+locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`.
+
 Scheduled workflows run only from the repository's default branch, so the Rules Radar becomes
 active when Version 6 reaches `master`. Immediately after launch, first run `AoS 4 Rules Radar`
 manually with `source: all` and `report_only: true`. Inspect the uploaded lanes, report, event

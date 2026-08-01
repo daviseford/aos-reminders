@@ -55,6 +55,7 @@
     "data:aos4:radar:observe-bsdata": "vite-node --script src/aos4/radar/bsDataObservationCommand.ts",
     "data:aos4:radar": "vite-node --script src/aos4/radar/rulesRadarCommand.ts",
     "data:aos4:radar:notify": "vite-node --script src/aos4/radar/rulesRadarNotifyCommand.ts",
+    "data:aos4:radar:watch-provisional": "vite-node --script src/aos4/radar/provisionalWatchCommand.ts",
     "data:aos4:review:adversarial": "vite-node --script src/aos4/review/adversarialReviewCommand.ts",
     "data:aos4:review:prepare": "vite-node --script src/aos4/review/packetCommand.ts",
     "data:aos4:verify:beta": "yarn data:aos4:certify --current data/aos4/certifications/beta.json",
