@@ -12,7 +12,7 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-07-30`, generated from the accepted 2026-07-30 source
+The current revision is `aos4-corpus-2026-08-01`, generated from the accepted 2026-08-01 source
 snapshot. Its automated review is complete:
 
 | Measure | Result |
@@ -20,17 +20,25 @@ snapshot. Its automated review is complete:
 | Accepted artifacts independently inventoried | 242/242 |
 | Explicit non-material discovery entries | 9 |
 | Official battle-profile facts | 1,350/1,350 |
-| Final official/secondary reconciliation discrepancies | 413/413 |
+| Final official/secondary reconciliation discrepancies | 406/406 |
 | Official profile-only facts | 12/12 |
-| Live audit source records | 19,126/19,126 |
-| Superseded source-record dispositions | 18,897/18,897 |
+| Live audit source records | 19,127/19,127 |
+| Ignored-record dispositions (superseded + explicit) | 18,903/18,903 |
 | Live review pairs | 39,799/39,799 |
 | Independent outcomes | 79,598 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
-| Populated high-risk cohorts | 19/19 |
+| Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed at `2026-07-30T21:42:38.477Z`: 242 entries matched
+The independent source inventory was observed at `2026-08-01T00:44:08.562Z`: 242 entries matched
 accepted checksums and 9 discovery entries received explicit non-material dispositions.
+
+The first 2026-08-01 campaign returned 12 findings; both underlying causes were corrected and the
+complete campaign was rerun from freshly prepared packets. Six findings retired ability-text
+overrides whose secondary source had caught up to the cited official Rules Updates corrections,
+and six exposed an auditor gap for live-but-ignored source records: the packet builder now binds
+the durable review disposition into the source-record packet, and the independent comparison
+verifies the reviewed absence (no generated entities, matching target, non-empty reason) instead
+of demanding a generated entity.
 
 `data/aos4/certifications/beta.json` binds the accepted revision to this automated evidence.
 `yarn data:aos4:verify:beta` is the fail-closed beta gate. It passes for the current revision, which
