@@ -1135,7 +1135,7 @@ const sourceRecordChecks = (pair: ReviewPacketPair): FailedCheck[] => {
       )
     )
   }
-  if (evidence.authority === 'secondary') {
+  if (evidence.authority === 'secondary' || evidence.authority === 'community') {
     checks.push(...secondarySourceFidelityChecks(pair))
   }
   checks.push(...officialOverrideChecks(pair))

@@ -2,7 +2,7 @@ import type { AbilityActor, ArtifactId, SourceRecordId } from '../../domain'
 import type { ArtifactManifestEntry } from '../manifest'
 import type { WahapediaExportFileName } from './exportCatalog'
 
-export type WahapediaSourceFileName = WahapediaExportFileName | 'WahapediaRules.html'
+export type WahapediaSourceFileName = WahapediaExportFileName | 'WahapediaRules.html' | 'BSDataLibrary.cat'
 
 export interface WahapediaExportInput {
   bytes: Uint8Array

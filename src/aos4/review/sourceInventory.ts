@@ -48,6 +48,7 @@ const normalizedUrl = (value: string): string => {
 
 const publisherForArtifact = (artifact: ArtifactManifestEntry): SourceInventoryEntry['publisher'] => {
   if (artifact.adapterVersion === 'games-workshop-pdf/1') return 'games-workshop'
+  if (artifact.adapterVersion === 'bsdata-cat/1') return 'bsdata'
   if (artifact.adapterVersion === 'wahapedia-export/1' || artifact.adapterVersion === 'wahapedia-html/1') {
     return 'wahapedia'
   }
@@ -100,7 +101,7 @@ const validateObservation = (observation: IndependentSourceObservation, observat
   }
   observation.entries.forEach((entry, entryIndex) => {
     if (
-      !['games-workshop', 'wahapedia'].includes(entry?.publisher) ||
+      !['games-workshop', 'wahapedia', 'bsdata'].includes(entry?.publisher) ||
       !isNonEmptyString(entry?.title) ||
       !['material', 'explicit-non-material'].includes(entry?.scope) ||
       !['accessible', 'inaccessible', 'ambiguous'].includes(entry?.availability)

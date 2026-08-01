@@ -17,6 +17,7 @@ import {
 import {
   AOS4_CATALOG_SCHEMA_VERSION,
   artifactId,
+  sourceRecordId as domainSourceRecordId,
   type Ability,
   type AbilityCost,
   type AbilityKind,
@@ -115,6 +116,41 @@ export interface CorpusWarscrollKeywordOverride {
   officialSourceRecordIds: SourceRecordId[]
 }
 
+export interface CorpusCommunityWarscrollUnit {
+  /** The official unit name; it must match exactly one effective official unit fact. */
+  name: string
+  /** The catalogue section the extractor derives, e.g. `unit:tyrant-on-glutthorn`. */
+  section: string
+  /** The pinned checksum of the extracted warscroll fact. */
+  recordChecksum: string
+}
+
+/**
+ * A reviewed community warscroll source under the standing fallback-tier source policy.
+ *
+ * The source hierarchy is: official Games Workshop publications (authoritative), then Wahapedia
+ * (preferred secondary), then BSData as an acceptable fallback — only when an official publication
+ * establishes the content, Wahapedia does not yet carry the rules, the facts are marked
+ * provisional/community, and they are verified or replaced when Wahapedia or an owner-supplied
+ * official source becomes available. Community facts never override official or Wahapedia facts.
+ */
+export interface CorpusCommunityWarscrollSource {
+  artifact: ArtifactManifestEntry
+  title: string
+  repository: string
+  branch: string
+  commit: string
+  policyTier: 'community-fallback'
+  status: 'provisional-pending-official-verification'
+  authorizedBy: string
+  authorizedAt: string
+  reason: string
+  verificationCondition: string
+  /** Official page source records establishing the content (fallback condition (a)). */
+  officialSourceRecordIds: SourceRecordId[]
+  units: CorpusCommunityWarscrollUnit[]
+}
+
 /**
  * Wahapedia files some content behind a faction row that is not an army. Manifestations are the
  * live case: `Endless Spells` is a container for lores and warscrolls any army may take. Reviewing
@@ -185,6 +221,7 @@ export interface CorpusReview {
     reason: string
   }
   defaultRulesContextId?: RulesContextId
+  communityWarscrollSources?: CorpusCommunityWarscrollSource[]
   abilityTextOverrides?: CorpusAbilityTextOverride[]
   contextOverrides?: CorpusContextOverride[]
   weaponProfileOverrides?: CorpusWeaponProfileOverride[]
@@ -264,14 +301,32 @@ const uuidFromIdentity = (kind: EntityKind, alias: IdentityAlias): string => {
 const canonicalIdForDefinition = (definition: IdentityDefinition): CanonicalId =>
   `${definition.kind}:${uuidFromIdentity(definition.kind, definition.alias)}` as CanonicalId
 
-const recordAlias = (meta: WahapediaRecordMeta): string => {
-  const prefix = 'source-record:wahapedia:'
+const RECORD_ALIAS_PREFIXES: Array<{ prefix: string; publisher: IdentityAlias['publisher'] }> = [
+  { prefix: 'source-record:wahapedia:', publisher: 'wahapedia' },
+  // BSData community records use the generic `other` publisher: the alias namespace is the
+  // record ID itself, which already carries the bsdata provider and artifact checksum.
+  { prefix: 'source-record:bsdata:', publisher: 'other' },
+]
+
+const recordAliasEntry = (
+  meta: WahapediaRecordMeta
+): { prefix: string; publisher: IdentityAlias['publisher'] } => {
   const identitySourceRecordId = meta.identitySourceRecordId ?? meta.sourceRecordId
-  if (!identitySourceRecordId.startsWith(prefix)) {
-    throw new Error(`Unexpected Wahapedia source record ID: ${identitySourceRecordId}`)
+  const entry = RECORD_ALIAS_PREFIXES.find(candidate => identitySourceRecordId.startsWith(candidate.prefix))
+  if (!entry) {
+    throw new Error(`Unexpected source record ID for identity aliasing: ${identitySourceRecordId}`)
   }
-  return decodeURIComponent(identitySourceRecordId.slice(prefix.length))
+  return entry
 }
+
+const recordAlias = (meta: WahapediaRecordMeta): string => {
+  const identitySourceRecordId = meta.identitySourceRecordId ?? meta.sourceRecordId
+  const entry = recordAliasEntry(meta)
+  return decodeURIComponent(identitySourceRecordId.slice(entry.prefix.length))
+}
+
+const recordPublisher = (meta: WahapediaRecordMeta): IdentityAlias['publisher'] =>
+  recordAliasEntry(meta).publisher
 
 const battleProfileAlias = (record: WahapediaWarscrollRecord): string =>
   `${recordAlias(record.meta)}:battle-profile`
@@ -378,20 +433,28 @@ const identityDefinitions = (dataset: WahapediaDataset, review: CorpusReview): I
   review.officialDocuments.forEach(document =>
     add('publication', document.title, `official:${document.artifact.checksum}`, 'games-workshop')
   )
+  ;(review.communityWarscrollSources ?? []).forEach(source =>
+    add('publication', source.title, `community:${source.artifact.checksum}`, 'other')
+  )
   dataset.factions.forEach(record => add('faction', record.name, recordAlias(record.meta), 'wahapedia'))
   dataset.warscrolls.forEach(record => {
     add(
       isWarscrollRecord(record) ? 'warscroll' : 'content-group',
       record.name,
       recordAlias(record.meta),
-      'wahapedia'
+      recordPublisher(record.meta)
     )
     if (hasBattleProfile(record)) {
-      add('battle-profile', `${record.name} battle profile`, battleProfileAlias(record), 'wahapedia')
+      add(
+        'battle-profile',
+        `${record.name} battle profile`,
+        battleProfileAlias(record),
+        recordPublisher(record.meta)
+      )
     }
   })
   dataset.warscrollAbilities.forEach(record =>
-    add('ability', record.name, recordAlias(record.meta), 'wahapedia')
+    add('ability', record.name, recordAlias(record.meta), recordPublisher(record.meta))
   )
   dataset.factionAbilities.forEach(record =>
     add('ability', record.name, recordAlias(record.meta), 'wahapedia')
@@ -406,7 +469,7 @@ const identityDefinitions = (dataset: WahapediaDataset, review: CorpusReview): I
     add('ability', record.name, recordAlias(record.meta), 'wahapedia')
   )
   dataset.warscrollWeapons.forEach(record =>
-    add('weapon', record.name, recordAlias(record.meta), 'wahapedia')
+    add('weapon', record.name, recordAlias(record.meta), recordPublisher(record.meta))
   )
   dataset.factionAbilityTypes.forEach(record =>
     add('content-group', record.name, recordAlias(record.meta), 'wahapedia')
@@ -783,6 +846,19 @@ const sourceArtifacts = (dataset: WahapediaDataset, review: CorpusReview): Sourc
     ...(document.publicationDate ? { publicationDate: document.publicationDate } : {}),
     ...(document.effectiveDate ? { effectiveDate: document.effectiveDate } : {}),
   }))
+  const community = (review.communityWarscrollSources ?? []).map(source => ({
+    id: artifactId(source.artifact.checksum),
+    publisher: 'other' as const,
+    authority: { kind: 'community' as const },
+    title: source.title,
+    edition: '4',
+    language: 'en',
+    retrievedAt: source.artifact.retrievedAt,
+    sourceUrl: source.artifact.finalUrl,
+    checksum: source.artifact.checksum,
+    mediaType: source.artifact.mediaType,
+    version: source.commit,
+  }))
   const html = (dataset.htmlArtifacts ?? []).map(entry => {
     const sourcePath = new URL(entry.finalUrl).pathname
     const isRulesPage = /^\/aos4\/the-rules\//i.test(sourcePath)
@@ -801,7 +877,9 @@ const sourceArtifacts = (dataset: WahapediaDataset, review: CorpusReview): Sourc
       mediaType: entry.mediaType,
     }
   })
-  return [...wahapedia, ...html, ...official].sort((left, right) => left.id.localeCompare(right.id))
+  return [...wahapedia, ...html, ...official, ...community].sort((left, right) =>
+    left.id.localeCompare(right.id)
+  )
 }
 
 const sourceRecords = (
@@ -978,6 +1056,42 @@ const reviewDiagnostics = (
     }
     seenAbilityTextOverrides.add(override.sourceRecordId)
   })
+  const communityChecksums = new Set<string>()
+  ;(review.communityWarscrollSources ?? []).forEach(source => {
+    const unitsValid =
+      source.units.length > 0 &&
+      source.units.every(
+        unit => unit.name.trim() && unit.section.trim() && /^[0-9a-f]{64}$/.test(unit.recordChecksum)
+      ) &&
+      new Set(source.units.map(unit => unit.section)).size === source.units.length
+    if (
+      communityChecksums.has(source.artifact.checksum) ||
+      source.policyTier !== 'community-fallback' ||
+      source.status !== 'provisional-pending-official-verification' ||
+      !source.title.trim() ||
+      !/provisional/i.test(source.title) ||
+      !source.repository.trim() ||
+      !source.branch.trim() ||
+      !/^[0-9a-f]{40}$/.test(source.commit) ||
+      !source.artifact.finalUrl.includes(`/${source.commit}/`) ||
+      !source.reason.trim() ||
+      !source.verificationCondition.trim() ||
+      !source.authorizedBy.trim() ||
+      Number.isNaN(new Date(source.authorizedAt).valueOf()) ||
+      source.officialSourceRecordIds.length === 0 ||
+      !unitsValid
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: source.artifact.checksum || '(missing artifact)',
+        message:
+          'Community warscroll source must be commit-pinned, marked provisional in its title, scoped to ' +
+          'named units with pinned checksums, and cite official evidence establishing the content',
+      })
+    }
+    communityChecksums.add(source.artifact.checksum)
+  })
   const warscrollBySourceRecordId = new Map(
     decoded.dataset.warscrolls.filter(isWarscrollRecord).map(record => [record.meta.sourceRecordId, record])
   )
@@ -1146,6 +1260,7 @@ export const buildAos4Corpus = (
     .concat((review.contextOverrides ?? []).flatMap(override => override.officialSourceRecordIds ?? []))
     .concat((review.weaponProfileOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .concat((review.warscrollKeywordOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
+    .concat((review.communityWarscrollSources ?? []).flatMap(source => source.officialSourceRecordIds))
     .forEach(id => {
       if (!officialSourceIds.has(id)) {
         diagnostics.push({
@@ -1201,6 +1316,31 @@ export const buildAos4Corpus = (
       publisher: 'games-workshop',
       rulesContextIds: document.rulesContextIds,
       sourceRefs: document.sourceRecords.map(record => sourceReference(record.id)),
+    } satisfies Publication)
+  })
+  const seasonalReviewContextId = reviewedRulesContexts.find(context => context.status === 'seasonal')?.id
+  const currentReviewContextIds = uniqueSorted([
+    contextId,
+    ...(seasonalReviewContextId ? [seasonalReviewContextId] : []),
+  ])
+  ;(review.communityWarscrollSources ?? []).forEach(source => {
+    const id = lookup('publication', 'other', `community:${source.artifact.checksum}`) as
+      | CanonicalId<'publication'>
+      | undefined
+    if (!id) return
+    entities.push({
+      id,
+      kind: 'publication',
+      revision: source.artifact.checksum,
+      name: source.title,
+      publisher: 'other',
+      rulesContextIds: currentReviewContextIds,
+      sourceRefs: source.units.map(unit =>
+        sourceReference(
+          domainSourceRecordId('bsdata', `${source.artifact.checksum}:${unit.section}`),
+          'provisional community transcription'
+        )
+      ),
     } satisfies Publication)
   })
 
@@ -1273,7 +1413,7 @@ export const buildAos4Corpus = (
       : [factionByExternalId.get(ownerExternalFactionId)].flatMap(id => (id ? [id] : []))
   dataset.warscrolls.forEach(record => {
     const parentKind: EntityKind = isWarscrollRecord(record) ? 'warscroll' : 'content-group'
-    const id = lookup(parentKind, 'wahapedia', recordAlias(record.meta))
+    const id = lookup(parentKind, recordPublisher(record.meta), recordAlias(record.meta))
     if (!id) return
     parentByWarscrollExternalId.set(record.id, id)
     const keywordRecords = keywordsByWarscroll.get(record.id) ?? []
@@ -1359,7 +1499,7 @@ export const buildAos4Corpus = (
     }
 
     if (profileExists && parentKind === 'warscroll') {
-      const profileId = lookup('battle-profile', 'wahapedia', battleProfileAlias(record)) as
+      const profileId = lookup('battle-profile', recordPublisher(record.meta), battleProfileAlias(record)) as
         | CanonicalId<'battle-profile'>
         | undefined
       if (profileId) {
@@ -1544,7 +1684,9 @@ export const buildAos4Corpus = (
   const abilityIdBySource = new Map<SourceRecordId, CanonicalId<'ability'>>()
   const addAbility = (record: AbilityRecord, actor: Ability['actor']) => {
     if (ignoredSourceRecordIds.has(record.meta.sourceRecordId)) return
-    const id = lookup('ability', 'wahapedia', recordAlias(record.meta)) as CanonicalId<'ability'> | undefined
+    const id = lookup('ability', recordPublisher(record.meta), recordAlias(record.meta)) as
+      | CanonicalId<'ability'>
+      | undefined
     if (!id) return
     abilityIdBySource.set(record.meta.sourceRecordId, id)
     const normalized = normalizeWahapediaAbility(record, actor)
@@ -1665,7 +1807,9 @@ export const buildAos4Corpus = (
   )
   dataset.warscrollWeapons.forEach(record => {
     if (ignoredSourceRecordIds.has(record.meta.sourceRecordId)) return
-    const id = lookup('weapon', 'wahapedia', recordAlias(record.meta)) as CanonicalId<'weapon'> | undefined
+    const id = lookup('weapon', recordPublisher(record.meta), recordAlias(record.meta)) as
+      | CanonicalId<'weapon'>
+      | undefined
     if (!id) return
     const normalized = normalizeWahapediaWeapon(record)
     normalized.diagnostics.forEach(diagnostic => {
