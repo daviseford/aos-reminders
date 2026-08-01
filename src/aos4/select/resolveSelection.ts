@@ -87,12 +87,7 @@ export const resolveSelection = (catalog: Aos4Catalog, input: ResolveSelectionIn
   const availabilityDescription = overlayNames.length
     ? `${input.rulesContextId} or ${overlayNames.join(' or ')}`
     : input.rulesContextId
-  const selectedIds = new Set<CanonicalId>()
-  const availableIds = new Set<CanonicalId>()
   const diagnostics: SelectionDiagnostic[] = []
-  const causes: SelectionCause[] = []
-  const queuedCauseSignatures = new Set<string>()
-  const queue: SelectionCause[] = []
 
   if (!contextIds.has(input.rulesContextId)) {
     diagnostics.push({
@@ -143,96 +138,135 @@ export const resolveSelection = (catalog: Aos4Catalog, input: ResolveSelectionIn
     }
   })
 
-  sortIds(new Set(input.explicitIds)).forEach(entityId => {
-    const entity = index.entitiesById.get(entityId)
-    if (!entity) {
-      diagnostics.push({
-        code: 'missing-explicit-selection',
-        severity: 'error',
-        subject: entityId,
-        message: `Explicit selection ${entityId} does not exist in the catalog`,
-        entityIds: [entityId],
-      })
-      return
-    }
-    if (!isEntityApplicable(entity, applicableContextIds)) {
-      diagnostics.push({
-        code: 'inapplicable-explicit-selection',
-        severity: 'error',
-        subject: entityId,
-        message: `Explicit selection ${entityId} is not available in ${availabilityDescription}`,
-        entityIds: [entityId],
-        rulesContextId: input.rulesContextId,
-      })
-      return
-    }
-
-    const cause: SelectionCause = {
-      entityId,
-      rootId: entityId,
-      entityPath: [entityId],
-      relationshipPath: [],
-    }
-    selectedIds.add(entityId)
-    causes.push(cause)
-    queuedCauseSignatures.add(causeSignature(cause))
-    queue.push(cause)
-  })
-
-  for (let queueIndex = 0; queueIndex < queue.length; queueIndex += 1) {
-    const cause = queue[queueIndex]
-    const outgoing = index.outgoingByEntityId.get(cause.entityId) ?? []
-
-    outgoing
-      .filter(relationship => isRelationshipApplicable(relationship, applicableContextIds))
-      .forEach(relationship => {
-        const target = index.entitiesById.get(relationship.to)
-        if (!target) return
-
-        if (!isEntityApplicable(target, applicableContextIds)) {
-          diagnostics.push({
-            code: 'inapplicable-relationship-target',
-            severity: 'error',
-            subject: relationship.id,
-            message: `Relationship ${relationship.id} targets content outside ${availabilityDescription}`,
-            entityIds: [relationship.from, relationship.to],
-            rulesContextId: input.rulesContextId,
-          })
-          return
-        }
-
-        if (relationship.kind === 'offers') {
-          availableIds.add(target.id)
-          return
-        }
-        if (!AUTO_SELECT_RELATIONSHIPS.has(relationship.kind)) return
-
-        if (cause.entityPath.includes(target.id)) {
-          diagnostics.push({
-            code: 'relationship-cycle',
-            severity: 'error',
-            subject: relationship.id,
-            message: `Relationship ${relationship.id} creates a selection cycle`,
-            entityIds: [...cause.entityPath, target.id],
-          })
-          return
-        }
-
-        const nextCause: SelectionCause = {
-          entityId: target.id,
-          rootId: cause.rootId,
-          entityPath: [...cause.entityPath, target.id],
-          relationshipPath: [...cause.relationshipPath, relationship.id],
-        }
-        const signature = causeSignature(nextCause)
-        if (queuedCauseSignatures.has(signature)) return
-
-        selectedIds.add(target.id)
-        causes.push(nextCause)
-        queuedCauseSignatures.add(signature)
-        queue.push(nextCause)
-      })
+  interface ResolutionPass {
+    selectedIds: Set<CanonicalId>
+    availableIds: Set<CanonicalId>
+    causes: SelectionCause[]
+    diagnostics: SelectionDiagnostic[]
   }
+
+  const runPass = (suppressedIds: ReadonlySet<CanonicalId>): ResolutionPass => {
+    const selectedIds = new Set<CanonicalId>()
+    const availableIds = new Set<CanonicalId>()
+    const passDiagnostics: SelectionDiagnostic[] = []
+    const causes: SelectionCause[] = []
+    const queuedCauseSignatures = new Set<string>()
+    const queue: SelectionCause[] = []
+
+    sortIds(new Set(input.explicitIds)).forEach(entityId => {
+      const entity = index.entitiesById.get(entityId)
+      if (!entity) {
+        passDiagnostics.push({
+          code: 'missing-explicit-selection',
+          severity: 'error',
+          subject: entityId,
+          message: `Explicit selection ${entityId} does not exist in the catalog`,
+          entityIds: [entityId],
+        })
+        return
+      }
+      if (!isEntityApplicable(entity, applicableContextIds)) {
+        passDiagnostics.push({
+          code: 'inapplicable-explicit-selection',
+          severity: 'error',
+          subject: entityId,
+          message: `Explicit selection ${entityId} is not available in ${availabilityDescription}`,
+          entityIds: [entityId],
+          rulesContextId: input.rulesContextId,
+        })
+        return
+      }
+
+      const cause: SelectionCause = {
+        entityId,
+        rootId: entityId,
+        entityPath: [entityId],
+        relationshipPath: [],
+      }
+      selectedIds.add(entityId)
+      causes.push(cause)
+      queuedCauseSignatures.add(causeSignature(cause))
+      queue.push(cause)
+    })
+
+    for (let queueIndex = 0; queueIndex < queue.length; queueIndex += 1) {
+      const cause = queue[queueIndex]
+      const outgoing = index.outgoingByEntityId.get(cause.entityId) ?? []
+
+      outgoing
+        .filter(relationship => isRelationshipApplicable(relationship, applicableContextIds))
+        .forEach(relationship => {
+          const target = index.entitiesById.get(relationship.to)
+          if (!target) return
+          // A replaced (suppressed) entity is unreachable: not offered, not auto-included.
+          if (suppressedIds.has(target.id)) return
+
+          if (!isEntityApplicable(target, applicableContextIds)) {
+            passDiagnostics.push({
+              code: 'inapplicable-relationship-target',
+              severity: 'error',
+              subject: relationship.id,
+              message: `Relationship ${relationship.id} targets content outside ${availabilityDescription}`,
+              entityIds: [relationship.from, relationship.to],
+              rulesContextId: input.rulesContextId,
+            })
+            return
+          }
+
+          if (relationship.kind === 'offers') {
+            availableIds.add(target.id)
+            return
+          }
+          if (!AUTO_SELECT_RELATIONSHIPS.has(relationship.kind)) return
+
+          if (cause.entityPath.includes(target.id)) {
+            passDiagnostics.push({
+              code: 'relationship-cycle',
+              severity: 'error',
+              subject: relationship.id,
+              message: `Relationship ${relationship.id} creates a selection cycle`,
+              entityIds: [...cause.entityPath, target.id],
+            })
+            return
+          }
+
+          const nextCause: SelectionCause = {
+            entityId: target.id,
+            rootId: cause.rootId,
+            entityPath: [...cause.entityPath, target.id],
+            relationshipPath: [...cause.relationshipPath, relationship.id],
+          }
+          const signature = causeSignature(nextCause)
+          if (queuedCauseSignatures.has(signature)) return
+
+          selectedIds.add(target.id)
+          causes.push(nextCause)
+          queuedCauseSignatures.add(signature)
+          queue.push(nextCause)
+        })
+    }
+
+    return { selectedIds, availableIds, causes, diagnostics: passDiagnostics }
+  }
+
+  // Pass 1 resolves without suppression; any `excludes` edge whose source is then selected
+  // suppresses its target for pass 2. Suppression models replacement (an Army of Renown replaces
+  // the faction's regular rules): the target and anything reachable only through it disappear
+  // from selection and availability. An explicit selection is never silently suppressed — it
+  // stays selected and the conflict surfaces as a diagnostic instead.
+  const firstPass = runPass(new Set())
+  const explicitIdSet = new Set(input.explicitIds)
+  const suppressedIds = new Set<CanonicalId>()
+  applicableRelationships
+    .filter(relationship => relationship.kind === 'excludes')
+    .forEach(relationship => {
+      if (!firstPass.selectedIds.has(relationship.from)) return
+      if (explicitIdSet.has(relationship.to)) return
+      suppressedIds.add(relationship.to)
+    })
+  const finalPass = suppressedIds.size ? runPass(suppressedIds) : firstPass
+  const { selectedIds, availableIds, causes } = finalPass
+  diagnostics.push(...finalPass.diagnostics)
 
   applicableRelationships
     .filter(relationship => relationship.kind === 'excludes')

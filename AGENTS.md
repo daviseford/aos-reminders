@@ -2,6 +2,13 @@
 
 This file applies to the entire repository.
 
+`CONCEPTS.md` at the repo root holds the shared domain vocabulary — entities, named processes,
+and the faction / Army of Renown / battle-formation hierarchy — relevant when orienting to the
+codebase or discussing how army-building concepts relate. `docs/solutions/` holds documented
+solutions to past problems (bugs, architecture patterns, workflow learnings), organized by
+category with YAML frontmatter (`module`, `tags`, `problem_type`) — relevant when implementing
+or debugging in documented areas.
+
 ## Project purpose and current state
 
 AoS Reminders turns an Age of Sigmar army configuration into phase-ordered reminders.
@@ -9,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 Version 6 is now an Age of Sigmar fourth-edition-only codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-07-30` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-01e` snapshot
 - the AoS 3 faction corpus, rule utilities, Redux state, saved-army schema, importers, and fixtures
   have been removed
 - importing, cloud armies, and army sharing are rebuilt as AoS 4-native features: roster parsers in
@@ -28,7 +35,7 @@ Version 6 is now an Age of Sigmar fourth-edition-only codebase:
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
 - the accepted corpus contains 1,297 warscrolls, 1,013 battle profiles, 4,929 abilities,
-  2,280 weapons, 1,416 content groups, and 19,290 live source records
+  2,280 weapons, 1,416 content groups, and 19,312 live source records
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
   historical rules contexts isolate parallel and retired records; the browser defaults to the
   current 2026-27 seasonal context
@@ -98,6 +105,15 @@ community trusts that experience; an AoS 4 data/domain migration does not author
   hierarchy and interaction pattern.
 - Do not add a migration-workbench aesthetic, new visual language, or broad reskin unless the user
   explicitly requests one.
+- **When in doubt about interaction shape, run the AoS 3 app and look.** The pre-cutover AoS 3
+  application is the UX ancestor this product deliberately mimics — users loved that experience,
+  and the goal is to stay very close to it while adapting only where fourth-edition rules
+  genuinely differ (the faction → sub-faction hierarchy, allegiance content auto-populating
+  reminders, and the builder card layout all originate there). It lives in git history: check out
+  the pre-merge commit into a worktree and run it beside the current app, e.g.
+  `git worktree add ../aos-reminders-aos3 b9791cb6~1`, then `yarn install --frozen-lockfile` and
+  `node_modules/.bin/vite --port 5174` inside the worktree. `CONCEPTS.md` records how the
+  faction / Army of Renown / battle-formation hierarchy maps onto that ancestry.
 
 The Version 6 launch-hardening client retires the shared browser key and sends the user's
 Auth0 bearer token for every subscription account operation. Production remains blocked until the
