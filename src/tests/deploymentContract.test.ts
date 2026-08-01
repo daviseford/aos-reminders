@@ -18,6 +18,14 @@ const bashPath = (path: string) => {
 
 const readRepoFile = (path: string) => readFileSync(join(repoRoot, path), 'utf8')
 const shellQuote = (value: string) => `'${value.replaceAll("'", `'"'"'`)}'`
+const lifecyclePreflightQuery =
+  '[length(Rules), length(Rules[0]), Rules[0].ID, Rules[0].Status,' +
+  ' length(Rules[0].Filter), length(Rules[0].Filter.Tag), Rules[0].Filter.Tag.Key,' +
+  ' Rules[0].Filter.Tag.Value, length(Rules[0].Expiration), Rules[0].Expiration.Days]'
+const cloudFrontPreflightQuery =
+  'DistributionConfig.[DefaultCacheBehavior.MinTTL, DefaultCacheBehavior.DefaultTTL,' +
+  ' DefaultCacheBehavior.MaxTTL, DefaultCacheBehavior.CachePolicyId,' +
+  ' DefaultCacheBehavior.ResponseHeadersPolicyId, CacheBehaviors.Quantity]'
 
 describe('production deployment contract', () => {
   const temporaryDirectories: string[] = []
@@ -43,6 +51,7 @@ describe('production deployment contract', () => {
       ['site.webmanifest', '{}'],
       ['service-worker.js', 'importScripts("sw-extras-abc123.js")'],
       ['sw-extras-abc123.js', 'const catalog = true'],
+      ['workbox-abc123.js', 'const workbox = true'],
       ['favicon.ico', 'icon'],
     ]) {
       writeFileSync(join(buildDirectory, path), contents)
@@ -54,6 +63,30 @@ describe('production deployment contract', () => {
       `#!/usr/bin/env bash
 set -euo pipefail
 printf '%s\\n' "$*" >> "$AWS_LOG"
+
+require_exact_option() {
+  local contract="$1"
+  local option="$2"
+  local expected="$3"
+  shift 3
+
+  local actual=''
+  local count=0
+  while [[ "$#" -gt 0 ]]; do
+    if [[ "$1" == "$option" ]]; then
+      count=$((count + 1))
+      actual="\${2:-}"
+      shift 2
+    else
+      shift
+    fi
+  done
+
+  if [[ "$count" -ne 1 || "$actual" != "$expected" ]]; then
+    echo "Unexpected $contract $option argument" >&2
+    exit 64
+  fi
+}
 
 if [[ "$1 $2" == "s3api put-object" && "$*" == *"--if-none-match *"* ]]; then
   attempts=0
@@ -73,18 +106,67 @@ if [[ -n "\${AWS_FAIL_MATCH:-}" && "$*" == *"$AWS_FAIL_MATCH"* ]]; then
   exit 42
 fi
 
+if [[ "$1 $2" == "s3api get-bucket-lifecycle-configuration" ]]; then
+  require_exact_option 'lifecycle preflight' '--query' ${shellQuote(lifecyclePreflightQuery)} "$@"
+  require_exact_option 'lifecycle preflight' '--output' 'text' "$@"
+  if [[ "\${AWS_LIFECYCLE_STATE:-valid}" == "missing" ]]; then
+    echo 'NoSuchLifecycleConfiguration' >&2
+    exit 254
+  fi
+  if [[ "\${AWS_LIFECYCLE_STATE:-valid}" == "malformed" ]]; then
+    printf '%s\t%s\n' '1' '4'
+    exit 0
+  fi
+  if [[ "\${AWS_LIFECYCLE_STATE:-valid}" == "invalid" ]]; then
+    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' '1' '4' 'retire-superseded-assets' 'Enabled' '1' '2' 'retire' 'false' '1' '30'
+    exit 0
+  fi
+  if [[ "\${AWS_LIFECYCLE_STATE:-valid}" == "extra-prefix-rule" ]]; then
+    # Projection for the valid named rule plus a second unsafe prefix-only expiration rule.
+    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' '2' '4' 'retire-superseded-assets' 'Enabled' '1' '2' 'retire' 'true' '1' '30'
+    exit 0
+  fi
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' '1' '4' 'retire-superseded-assets' 'Enabled' '1' '2' 'retire' 'true' '1' '30'
+  exit 0
+fi
+
+if [[ "$1 $2" == "cloudfront get-distribution-config" ]]; then
+  require_exact_option 'CloudFront preflight' '--query' ${shellQuote(cloudFrontPreflightQuery)} "$@"
+  require_exact_option 'CloudFront preflight' '--output' 'text' "$@"
+  if [[ "\${AWS_CLOUDFRONT_STATE:-valid}" == "malformed" ]]; then
+    printf '%s\t%s\n' '0' '86400'
+    exit 0
+  fi
+  if [[ "\${AWS_CLOUDFRONT_STATE:-valid}" == "invalid" ]]; then
+    printf '%s\t%s\t%s\t%s\t%s\t%s\n' '60' '86400' '31536000' 'None' 'None' '0'
+    exit 0
+  fi
+  if [[ "\${AWS_CLOUDFRONT_STATE:-valid}" == "ordered-behavior" ]]; then
+    printf '%s\t%s\t%s\t%s\t%s\t%s\n' '0' '86400' '31536000' 'None' 'None' '1'
+    exit 0
+  fi
+  printf '%s\t%s\t%s\t%s\t%s\t%s\n' '0' '86400' '31536000' 'None' 'None' '0'
+  exit 0
+fi
+
 if [[ "$1 $2" == "s3api head-object" ]]; then
   printf '%s\\t%s\\t%s\\n' '"held-etag"' 'held-owner' '2026-08-01T00:00:00+00:00'
   exit 0
 fi
 
 if [[ "$1 $2" == "s3api list-objects-v2" ]]; then
-  printf '%s\\n' "\${AWS_REMOTE_KEYS:-}"
+  if [[ "$*" == *"--prefix assets/"* ]]; then
+    printf '%s\\n' "\${AWS_REMOTE_ASSET_KEYS:-}"
+  elif [[ "$*" == *"--prefix sw-extras-"* ]]; then
+    printf '%s\\n' "\${AWS_REMOTE_EXTRAS_KEYS:-}"
+  elif [[ "$*" == *"--prefix workbox-"* ]]; then
+    printf '%s\\n' "\${AWS_REMOTE_WORKBOX_KEYS:-}"
+  fi
   exit 0
 fi
 
 if [[ "$1 $2" == "s3api get-object-tagging" ]]; then
-  if [[ "$*" == *"assets/already-retired.js"* ]]; then
+  if [[ "$*" == *"assets/already-retired.js"* || "$*" == *"workbox-already-retired.js"* ]]; then
     echo 'true'
   else
     echo 'false'
@@ -102,7 +184,9 @@ echo '{}'
       const environment = {
         AWS_LOCK_ATTEMPTS: bashPath(attemptsPath),
         AWS_LOG: bashPath(logPath),
-        AWS_REMOTE_KEYS: 'assets/current-123.js\tassets/newly-superseded.js\tassets/already-retired.js',
+        AWS_REMOTE_ASSET_KEYS: 'assets/current-123.js\tassets/newly-superseded.js\tassets/already-retired.js',
+        AWS_REMOTE_EXTRAS_KEYS: 'sw-extras-abc123.js\tsw-extras-old.js',
+        AWS_REMOTE_WORKBOX_KEYS: 'workbox-abc123.js\tworkbox-old.js\tworkbox-already-retired.js',
         CF_DIST_ID: 'distribution-id',
         DEPLOY_OWNER: 'deployment-test',
         SITE_BUILD_DIR: bashPath(buildDirectory),
@@ -147,6 +231,29 @@ echo '{}'
     }
   })
 
+  it.each([
+    ['the retirement lifecycle is missing', { AWS_LIFECYCLE_STATE: 'missing' }, /lifecycle/i],
+    ['the retirement lifecycle response is malformed', { AWS_LIFECYCLE_STATE: 'malformed' }, /lifecycle/i],
+    ['the retirement lifecycle is unsafe', { AWS_LIFECYCLE_STATE: 'invalid' }, /lifecycle/i],
+    [
+      'an additional unsafe lifecycle rule exists',
+      { AWS_LIFECYCLE_STATE: 'extra-prefix-rule' },
+      /lifecycle/i,
+    ],
+    ['the CloudFront response is malformed', { AWS_CLOUDFRONT_STATE: 'malformed' }, /CloudFront/i],
+    ['CloudFront overrides revalidation', { AWS_CLOUDFRONT_STATE: 'invalid' }, /CloudFront/i],
+    ['CloudFront has an ordered cache behavior', { AWS_CLOUDFRONT_STATE: 'ordered-behavior' }, /CloudFront/i],
+  ])('fails before publication when %s', (_description, environment, expectedError) => {
+    const harness = createHarness()
+    const result = harness.run(environment)
+
+    expect(result.status).not.toBe(0)
+    expect(result.stderr).toMatch(expectedError)
+    const log = harness.log()
+    expect(log.some(line => line.startsWith('s3 cp ') || line.startsWith('s3 sync '))).toBe(false)
+    expect(log.some(line => line.startsWith('s3api put-object '))).toBe(false)
+  })
+
   it('publishes dependencies first, the index next, and the service worker last', () => {
     const harness = createHarness()
     const result = harness.run()
@@ -188,11 +295,42 @@ echo '{}'
       )
     ).toBe(true)
     expect(
-      log.some(line => line.startsWith('s3api copy-object ') && line.includes('assets/newly-superseded.js'))
+      log.some(
+        line =>
+          line.startsWith('s3api put-object-tagging ') &&
+          line.includes('workbox-abc123.js') &&
+          line.includes('retire,Value=false')
+      )
     ).toBe(true)
     expect(
-      log.some(line => line.startsWith('s3api copy-object ') && line.includes('assets/already-retired.js'))
-    ).toBe(false)
+      log.some(
+        line =>
+          line.startsWith('s3api put-object-tagging ') &&
+          line.includes('sw-extras-abc123.js') &&
+          line.includes('retire,Value=false')
+      )
+    ).toBe(true)
+    const copiesFor = (key: string) =>
+      log.filter(line => line.startsWith('s3api copy-object ') && line.includes(key))
+    expect(copiesFor('assets/newly-superseded.js')).toHaveLength(1)
+    expect(copiesFor('sw-extras-old.js')).toHaveLength(1)
+    expect(copiesFor('workbox-old.js')).toHaveLength(1)
+    expect(copiesFor('assets/already-retired.js')).toHaveLength(0)
+    expect(copiesFor('workbox-already-retired.js')).toHaveLength(0)
+  })
+
+  it('force-copies unhashed public files with the moderate cache header', () => {
+    const harness = createHarness()
+    const result = harness.run()
+
+    expect(result.status, result.stderr).toBe(0)
+    const log = harness.log()
+    const publicUpload = log.find(
+      line =>
+        line.startsWith('s3 cp ') && line.includes(' --recursive ') && line.includes('public, max-age=86400')
+    )
+    expect(publicUpload).toBeDefined()
+    expect(log.some(line => line.startsWith('s3 sync '))).toBe(false)
   })
 
   it('fails closed before publication when another deploy holds the lock', () => {

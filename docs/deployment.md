@@ -61,7 +61,8 @@ a fresh lock. Supplying one value, a mismatch, or losing the reacquisition race 
 
 ## CloudFront settings
 
-As measured on 2026-07-31, the distribution uses legacy cache settings with one default behavior:
+As measured on 2026-07-31, the distribution uses legacy cache settings with one default behavior
+and no ordered cache behaviors:
 
 | Setting | Value | Consequence |
 |---|---|---|
@@ -74,32 +75,31 @@ Re-check after any distribution change:
 
 ```bash
 aws cloudfront get-distribution-config --id E3OO9Y9QRVZ2L1 \
-  --query 'DistributionConfig.DefaultCacheBehavior.{Min:MinTTL,Default:DefaultTTL,Max:MaxTTL,Policy:CachePolicyId}'
+  --query 'DistributionConfig.{Default:DefaultCacheBehavior.{Min:MinTTL,Default:DefaultTTL,Max:MaxTTL,Policy:CachePolicyId},Ordered:CacheBehaviors.Quantity}'
 ```
 
 If the distribution moves to a managed cache policy, prefer `UseOriginCacheControlHeaders` with a
 minimum and default TTL of zero. A response headers policy does not affect edge caching.
 
-`aws s3 sync` compares size and modification time, not metadata. To re-stamp existing object headers,
-use a deliberate `aws s3 cp s3://... s3://... --recursive --metadata-directive REPLACE` operation and
-confirm the result with `aws s3api head-object`.
+The deploy uses recursive `aws s3 cp` for the small unhashed-public class so every publication
+re-stamps its explicit `Cache-Control`, even when file bytes are unchanged. Confirm headers with
+`aws s3api head-object` after changing this class or its exclusions.
 
 ## Asset retention
 
 The deploy does not pass `--delete`. Removing the previous build's hashed chunks immediately would
 break lazy imports in tabs that already loaded its `index.html`.
 
-Superseded assets are bounded by a current-version lifecycle rule whose filter combines both:
+Superseded immutable files are bounded by a single current-version lifecycle rule filtered only by
+the tag `retire=true`, with expiration after 30 days. The deploy is the only process that applies
+that tag, and its retirement inventory is explicitly limited to `assets/*`, root
+`sw-extras-*.js`, and root `workbox-*.js`.
 
-- prefix `assets/`;
-- tag `retire=true`; and
-- expiration after 30 days.
-
-Every current build asset is tagged `retire=false` before `index.html` is published, so the lifecycle
-cannot expire the live release. After successful publication, the deploy finds remote assets absent
-from the new build. An asset not already retired is self-copied once with `retire=true`; that resets
-its `LastModified` at the transition and starts a full 30-day grace period. An asset already tagged
-`retire=true` is untouched, so later deploys cannot extend its window.
+Every current immutable file is tagged `retire=false` before `index.html` is published, so the
+lifecycle cannot expire the live release. After successful publication, the deploy finds inventoried
+immutable files absent from the new build. A file not already retired is self-copied once with
+`retire=true`; that resets its `LastModified` at the transition and starts a full 30-day grace period.
+A file already tagged `retire=true` is untouched, so later deploys cannot extend its window.
 
 The production lifecycle configuration should have this shape:
 
@@ -109,12 +109,7 @@ The production lifecycle configuration should have this shape:
     {
       "ID": "retire-superseded-assets",
       "Status": "Enabled",
-      "Filter": {
-        "And": {
-          "Prefix": "assets/",
-          "Tags": [{ "Key": "retire", "Value": "true" }]
-        }
-      },
+      "Filter": { "Tag": { "Key": "retire", "Value": "true" } },
       "Expiration": { "Days": 30 }
     }
   ]
@@ -123,11 +118,16 @@ The production lifecycle configuration should have this shape:
 
 The rule lives in bucket configuration, not in this repository.
 
+The shared deploy script verifies that this is the complete lifecycle configuration and that
+CloudFront has exactly the documented default behavior before acquiring the production lock. An
+extra lifecycle rule, an ordered cache behavior, or another drifted prerequisite therefore stops
+all three deployment entry points before their first AWS write.
+
 ## Production prerequisites
 
 Before the first PWA deploy:
 
-- replace any prefix-only `assets/` expiration rule with the tag-filtered rule above; verify a
+- replace any existing lifecycle configuration with the single tag-only rule above; verify a
   `retire=false` fixture survives and a `retire=true` fixture is lifecycle-eligible;
 - grant the deploy principal `GetObject`, `PutObject`, `DeleteObject`, `GetObjectTagging`,
   `PutObjectTagging`, and `ListBucket` for the site and lock keys, including conditional put/delete;

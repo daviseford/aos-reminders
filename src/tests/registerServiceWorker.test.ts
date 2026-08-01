@@ -207,4 +207,48 @@ describe('rollback registration guard', () => {
       shouldDisableServiceWorkerRegistration({ search: '', sessionStorage: createSessionStorage() })
     ).toBe(false)
   })
+
+  it('keeps rollback registration disabled when reading session storage is denied', () => {
+    const sessionStorage = {
+      getItem: () => {
+        throw new Error('storage denied')
+      },
+      setItem: vi.fn(),
+    }
+
+    expect(
+      shouldDisableServiceWorkerRegistration({
+        search: '?aos-reminders-rollback=1',
+        sessionStorage,
+      })
+    ).toBe(true)
+  })
+
+  it('keeps rollback registration disabled when writing session storage is denied', () => {
+    const sessionStorage = {
+      getItem: vi.fn(() => null),
+      setItem: () => {
+        throw new Error('storage denied')
+      },
+    }
+
+    expect(
+      shouldDisableServiceWorkerRegistration({
+        search: '?aos-reminders-rollback=1',
+        sessionStorage,
+      })
+    ).toBe(true)
+  })
+
+  it('keeps normal registration enabled when reading session storage is denied', () => {
+    const sessionStorage = {
+      getItem: () => {
+        throw new Error('storage denied')
+      },
+      setItem: vi.fn(),
+    }
+
+    expect(shouldDisableServiceWorkerRegistration({ search: '', sessionStorage })).toBe(false)
+    expect(sessionStorage.setItem).not.toHaveBeenCalled()
+  })
 })

@@ -41,6 +41,55 @@ for required in index.html site.webmanifest service-worker.js; do
 done
 [[ -d "${SITE_BUILD_DIR}/assets" ]] || fail "${SITE_BUILD_DIR}/assets is missing"
 
+# Fail before acquiring the lock or publishing anything when the production infrastructure would
+# make a coherent PWA release unsafe. These are read-only probes; changing either configuration is
+# a separate operator action.
+lifecycle_query='[length(Rules), length(Rules[0]), Rules[0].ID, Rules[0].Status,'
+lifecycle_query+=' length(Rules[0].Filter), length(Rules[0].Filter.Tag), Rules[0].Filter.Tag.Key,'
+lifecycle_query+=' Rules[0].Filter.Tag.Value, length(Rules[0].Expiration),'
+lifecycle_query+=' Rules[0].Expiration.Days]'
+if ! lifecycle_rule=$(aws s3api get-bucket-lifecycle-configuration \
+  --bucket "$SITE_BUCKET" \
+  --query "$lifecycle_query" \
+  --output text 2>/dev/null); then
+  fail "production lifecycle is missing; configure the single tag-filtered retire=true rule"
+fi
+IFS=$'\t' read -r lifecycle_rule_count lifecycle_rule_field_count lifecycle_id lifecycle_status \
+  lifecycle_filter_field_count lifecycle_tag_field_count lifecycle_tag_key lifecycle_tag_value \
+  lifecycle_expiration_field_count lifecycle_days <<< "$lifecycle_rule"
+[[ "$lifecycle_rule_count" == '1' &&
+  "$lifecycle_rule_field_count" == '4' &&
+  "$lifecycle_id" == 'retire-superseded-assets' &&
+  "$lifecycle_status" == 'Enabled' &&
+  "$lifecycle_filter_field_count" == '1' &&
+  "$lifecycle_tag_field_count" == '2' &&
+  "$lifecycle_tag_key" == 'retire' &&
+  "$lifecycle_tag_value" == 'true' &&
+  "$lifecycle_expiration_field_count" == '1' &&
+  "$lifecycle_days" == '30' ]] ||
+  fail "production lifecycle must contain exactly one Enabled retire=true tag-only rule" \
+    "with 30-day expiration"
+
+cloudfront_query='DistributionConfig.[DefaultCacheBehavior.MinTTL,'
+cloudfront_query+=' DefaultCacheBehavior.DefaultTTL, DefaultCacheBehavior.MaxTTL,'
+cloudfront_query+=' DefaultCacheBehavior.CachePolicyId,'
+cloudfront_query+=' DefaultCacheBehavior.ResponseHeadersPolicyId, CacheBehaviors.Quantity]'
+if ! cloudfront_behavior=$(aws cloudfront get-distribution-config \
+  --id "$CF_DIST_ID" \
+  --query "$cloudfront_query" \
+  --output text 2>/dev/null); then
+  fail "CloudFront cache behavior could not be verified"
+fi
+IFS=$'\t' read -r min_ttl default_ttl max_ttl cache_policy response_headers_policy \
+  ordered_behavior_count <<< "$cloudfront_behavior"
+[[ "$min_ttl" == '0' &&
+  "$default_ttl" == '86400' &&
+  "$max_ttl" == '31536000' &&
+  "$cache_policy" == 'None' &&
+  "$response_headers_policy" == 'None' &&
+  "$ordered_behavior_count" == '0' ]] ||
+  fail "CloudFront must use only the documented default behavior and no ordered cache behaviors"
+
 shopt -s nullglob
 extras=("${SITE_BUILD_DIR}"/sw-extras-*.js)
 [[ ${#extras[@]} -eq 1 ]] ||
@@ -129,25 +178,22 @@ release_lock() {
 }
 trap release_lock EXIT
 
-declare -A current_assets=()
+declare -A current_immutable_objects=()
 while IFS= read -r -d '' local_asset; do
   relative_asset="${local_asset#"${SITE_BUILD_DIR%/}/"}"
-  current_assets["${SITE_PREFIX}${relative_asset}"]=1
+  current_immutable_objects["${SITE_PREFIX}${relative_asset}"]=1
 done < <(find "${SITE_BUILD_DIR}/assets" -type f -print0)
-[[ ${#current_assets[@]} -gt 0 ]] || fail "${SITE_BUILD_DIR}/assets contains no files"
+[[ ${#current_immutable_objects[@]} -gt 0 ]] || fail "${SITE_BUILD_DIR}/assets contains no files"
 
-# Immutable content is published first. Current assets are explicitly removed from the retirement
+for dependency in "${extras[@]}" "${workbox_dependencies[@]}"; do
+  current_immutable_objects["${SITE_PREFIX}$(basename "$dependency")"]=1
+done
+
+# Immutable content is published first. Current files are explicitly removed from the retirement
 # lifecycle before either mutable entry point can reference them.
 aws s3 cp "${SITE_BUILD_DIR}/assets" "${SITE_S3}/assets" \
   --recursive \
   --cache-control "$IMMUTABLE"
-
-for asset_key in "${!current_assets[@]}"; do
-  aws s3api put-object-tagging \
-    --bucket "$SITE_BUCKET" \
-    --key "$asset_key" \
-    --tagging 'TagSet=[{Key=retire,Value=false}]' >/dev/null
-done
 
 for dependency in "${extras[@]}" "${workbox_dependencies[@]}"; do
   aws s3 cp "$dependency" "${SITE_S3}/$(basename "$dependency")" \
@@ -155,8 +201,16 @@ for dependency in "${extras[@]}" "${workbox_dependencies[@]}"; do
     --content-type 'text/javascript; charset=utf-8'
 done
 
+for immutable_key in "${!current_immutable_objects[@]}"; do
+  aws s3api put-object-tagging \
+    --bucket "$SITE_BUCKET" \
+    --key "$immutable_key" \
+    --tagging 'TagSet=[{Key=retire,Value=false}]' >/dev/null
+done
+
 # Unhashed public assets carry a query-version buster, not a content hash.
-aws s3 sync "$SITE_BUILD_DIR" "$SITE_S3" \
+aws s3 cp "$SITE_BUILD_DIR" "$SITE_S3" \
+  --recursive \
   --exclude '*build_log.txt' --exclude '*.idea*' --exclude '*.sh' \
   --exclude '*.git*' --exclude '*.DS_Store' \
   --exclude 'assets/*' --exclude 'index.html' --exclude 'site.webmanifest' \
@@ -189,33 +243,45 @@ aws cloudfront create-invalidation \
   --distribution-id "$CF_DIST_ID" \
   --paths '/' '/index.html' '/site.webmanifest' '/service-worker.js'
 
-# Start the 30-day clock only when an asset first leaves the live build. A self-copy preserves
-# metadata while changing the tag and LastModified. Already-retired objects are left untouched, so
-# later deployments cannot extend their retention window.
-remote_assets_output=$(aws s3api list-objects-v2 \
-  --bucket "$SITE_BUCKET" \
-  --prefix "$ASSET_PREFIX" \
-  --query 'Contents[].Key' \
-  --output text)
+# Start the 30-day clock only when an immutable file first leaves the live build. A self-copy
+# preserves metadata while changing the tag and LastModified. Already-retired objects are left
+# untouched, so later deployments cannot extend their retention window.
+remote_immutable_output=$(
+  for immutable_prefix in "$ASSET_PREFIX" "${SITE_PREFIX}sw-extras-" "${SITE_PREFIX}workbox-"; do
+    aws s3api list-objects-v2 \
+      --bucket "$SITE_BUCKET" \
+      --prefix "$immutable_prefix" \
+      --query 'Contents[].Key' \
+      --output text
+  done
+)
 
-while IFS= read -r remote_asset; do
-  [[ -n "$remote_asset" ]] || continue
-  [[ -n "${current_assets[$remote_asset]:-}" ]] && continue
+while IFS= read -r remote_immutable; do
+  [[ -n "$remote_immutable" ]] || continue
+  relative_immutable="${remote_immutable#"$SITE_PREFIX"}"
+  case "$relative_immutable" in
+    assets/*) ;;
+    sw-extras-*.js | workbox-*.js)
+      [[ "$relative_immutable" != */* ]] || continue
+      ;;
+    *) continue ;;
+  esac
+  [[ -n "${current_immutable_objects[$remote_immutable]:-}" ]] && continue
 
   retire_tag=$(aws s3api get-object-tagging \
     --bucket "$SITE_BUCKET" \
-    --key "$remote_asset" \
+    --key "$remote_immutable" \
     --query "TagSet[?Key=='retire'].Value | [0]" \
     --output text)
   [[ "$retire_tag" == 'true' ]] && continue
 
   aws s3api copy-object \
     --bucket "$SITE_BUCKET" \
-    --key "$remote_asset" \
-    --copy-source "${SITE_BUCKET}/${remote_asset}" \
+    --key "$remote_immutable" \
+    --copy-source "${SITE_BUCKET}/${remote_immutable}" \
     --metadata-directive COPY \
     --tagging-directive REPLACE \
     --tagging 'retire=true' >/dev/null
-done < <(printf '%s' "$remote_assets_output" | tr '\t' '\n')
+done < <(printf '%s' "$remote_immutable_output" | tr '\t' '\n')
 
 echo 'Deployed to https://aosreminders.com/'
