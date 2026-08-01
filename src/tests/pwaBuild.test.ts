@@ -44,6 +44,9 @@ if (staleAgainst.length > 0) {
 
 const serviceWorkerSource = read('service-worker.js')
 const manifest = JSON.parse(read('site.webmanifest'))
+const extrasImports = Array.from(
+  serviceWorkerSource.matchAll(/(?:importScripts\(|,)"(sw-extras-[a-f0-9]+\.js)"/g)
+).map(match => match[1])
 
 /** The `{url, revision}` entries Workbox baked into the generated worker. */
 const precachedUrls = (source: string) =>
@@ -128,7 +131,7 @@ describe('generated service worker', () => {
 
   it('leaves the non-app files out of the precache manifest', () => {
     // Precaching rollback-service-worker.js would pin a copy of the escape hatch inside the very
-    // worker it exists to replace; sw-extras.js is importScripts'd, not fetched as a precache entry.
+    // worker it exists to replace; sw-extras-<hash>.js is imported, not fetched as a precache entry.
     expect(precached.filter(url => !url.includes('/'))).toEqual(['index.html'])
   })
 
@@ -150,15 +153,25 @@ describe('generated service worker', () => {
     expect(catalogEntries(precachedUrls(withCatalog))).not.toEqual([])
   })
 
-  it('serves the catalog CacheFirst from the cache sw-extras.js prunes', () => {
+  it('serves the catalog CacheFirst from the cache the generated extras prunes', () => {
     // CacheFirst is the offline guarantee. NetworkFirst would still look fine online and silently
     // drop cold-offline army data, which is the behaviour this whole change exists to deliver.
     expect(serviceWorkerSource).toContain('CacheFirst')
 
     // The two writers must name the same cache, or Workbox fills one while sw-extras prunes another.
-    const catalogCache = read('sw-extras.js').match(/CATALOG_CACHE = "([^"]+)"/)?.[1]
+    expect(extrasImports).toHaveLength(1)
+    const catalogCache = read(extrasImports[0]).match(/CATALOG_CACHE = "([^"]+)"/)?.[1]
     expect(catalogCache).toBeTruthy()
     expect(serviceWorkerSource).toContain(`cacheName:"${catalogCache}"`)
+  })
+
+  it('admits only successful JavaScript responses to the runtime catalog cache', () => {
+    // These strings come from the custom cacheWillUpdate callback in the generated worker. Unlike
+    // cacheableResponse's status-only shorthand, the callback rejects the SPA's 200 HTML fallback.
+    expect(serviceWorkerSource).toContain('cacheWillUpdate')
+    expect(serviceWorkerSource).toContain('content-type')
+    expect(serviceWorkerSource).toContain('javascript')
+    expect(serviceWorkerSource).toMatch(/(?:status.{0,20}200|200.{0,20}status)/)
   })
 
   it('caches nothing authenticated', () => {
@@ -178,13 +191,24 @@ describe('generated service worker', () => {
   })
 
   it('pulls in the generated extras with the catalog URL baked in', () => {
-    expect(serviceWorkerSource).toContain('sw-extras.js')
+    expect(extrasImports).toHaveLength(1)
+    expect(serviceWorkerSource).not.toContain('"sw-extras.js"')
 
-    const extras = read('sw-extras.js')
+    const emittedExtras = fs.readdirSync(distDir).filter(file => /^sw-extras-[a-f0-9]+\.js$/.test(file))
+    expect(emittedExtras).toEqual(extrasImports)
+
+    const extras = read(extrasImports[0])
     const catalogUrl = extras.match(/CATALOG_URL = "([^"]+)"/)?.[1]
 
     expect(catalogUrl).toMatch(/^\/assets\/aos4-catalog-data-.+\.js$/)
     expect(exists(catalogUrl!.replace(/^\//, ''))).toBe(true)
-    expect(extras).toContain("caches.delete") // the CRA-era `images` cache
+    expect(extras).toContain('caches.delete') // the CRA-era `images` cache
+  })
+
+  it('claims clients only after the prompt-controlled worker is explicitly activated', () => {
+    expect(serviceWorkerSource).toContain('clientsClaim')
+    // Prompt mode keeps only the message-driven skipWaiting path; there is no eager top-level call.
+    expect(serviceWorkerSource).toContain('"SKIP_WAITING"')
+    expect(serviceWorkerSource.match(/skipWaiting\(\)/g)).toHaveLength(1)
   })
 })

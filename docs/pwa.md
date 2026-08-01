@@ -11,7 +11,7 @@ checked by hand.
 | Web app manifest | `public/site.webmanifest`, linked from `index.html` |
 | Icons | `public/android-chrome-{192,512}.png`, `public/maskable-icon-512x512.png` |
 | Worker config | `vite.config.mts` (`VitePWA`, `generateSW`) |
-| Activation extras | generated `sw-extras.js` — see the `service-worker-extras` plugin in `vite.config.mts` |
+| Activation extras | generated `sw-extras-<content-hash>.js` — see the `service-worker-extras` plugin in `vite.config.mts` |
 | Registration | `src/bootstrap/registerServiceWorker.ts` |
 | Update prompt | `src/components/info/updateAvailable.tsx`, mounted in `src/components/App.tsx` |
 | Emergency rollback | `public/rollback-service-worker.js` — see docs/deployment.md |
@@ -28,7 +28,7 @@ ceiling, and precaching it would download the whole catalog before the worker
 could activate — the worst case on exactly the bad venue wifi that makes offline
 support worth having.
 
-`sw-extras.js` warms the current build's URL **on `install`**, so taking an update
+The immutable `sw-extras-<content-hash>.js` warms the current build's URL **on `install`**, so taking an update
 never leaves a user one online fetch short of working army data. Install is the
 right event because it is the only one that can be refused: a rejected `install`
 aborts the update and leaves the client on its previous worker, which still has
@@ -46,7 +46,8 @@ leave the reload on a blank screen.
 ## What CI checks
 
 `src/tests/pwaBuild.test.ts` asserts manifest fields, icon existence, worker
-location, precache contents, the catalog exclusion, and that no API origin
+location, precache contents, the catalog exclusion, the single immutable extras
+import, the catalog response gate, client claiming, and that no API origin
 appears in the worker. It reads `dist/`, so **CI builds before it tests** and
 `prepush` does the same.
 
@@ -69,9 +70,9 @@ installability or maskable-icon audit. Treat the list below as the real gate.
 The honest version of this test is to kill the origin, not to tick "offline" in
 DevTools:
 
-1. Load the app once online so the worker installs, then reload so it takes
-   control (under `prompt` there is no `clientsClaim`, so the first load is not
-   controlled).
+1. Load the app once online and wait for the worker to activate and take control.
+   `clientsClaim` claims the current page; prompt mode still prevents an update
+   worker from activating until someone explicitly accepts it.
 2. Stop the preview server.
 3. Reload. The shell should render, the faction selector should populate, and
    `fetch('/assets/aos4-catalog-data-*.js')` should return 200 from cache.
@@ -81,8 +82,9 @@ DevTools:
 1. Build, load, and reload so a worker is controlling.
 2. Change something the build hashes (any source file), rebuild.
 3. Call `registration.update()` — this is what the hourly poll does.
-4. The banner should appear **without the page reloading itself**, and the page
-   should reload onto the new build only after Reload is activated.
+4. The banner should appear **without any page reloading itself**. Activate
+   Reload in one tab; every open controlled tab should then reload onto the new
+   build after the worker takes control.
 
 ### Cache contents
 
@@ -103,6 +105,8 @@ cache must degrade to "needs one online load", never to a broken app.
 
 - **`prompt`, not `autoUpdate`.** `autoUpdate` reloads the page under the user
   mid-session, which is wrong for something people read during a game turn.
+  `clientsClaim` does not change that waiting policy: it claims clients only
+  after one tab explicitly posts the prompt's skip-waiting message.
 - **Dismissal is deliberately not persisted.** `NotificationBanner` stores
   dismissal in localStorage keyed by name; reusing that here would suppress every
   future build's prompt after one close.
@@ -110,6 +114,7 @@ cache must degrade to "needs one online load", never to a broken app.
   stale shell, so it runs no current code and cannot show the prompt. It recovers
   when its last tab closes. Do not add `skipWaiting` to force it — that reloads
   every ordinary user mid-session.
-- **Two writers, one cache.** `sw-extras.js` owns the `aos4-catalog` cache and
+- **Two writers, one cache.** `sw-extras-<content-hash>.js` owns the
+  `aos4-catalog` cache and
   prunes it. Do not add an `ExpirationPlugin` to the runtime route as well;
   writing to a Workbox-managed cache directly corrupts its bookkeeping.
