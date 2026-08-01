@@ -12,6 +12,9 @@ on:
     branches:
       - master
 
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -22,13 +25,6 @@ jobs:
       CF_DIST_ID: E3OO9Y9QRVZ2L1
       VITE_ARMY_API_URL: ${{ vars.PRODUCTION_ARMY_API_URL }}
       VITE_SUBSCRIPTION_API_URL: ${{ vars.PRODUCTION_SUBSCRIPTION_API_URL }}
-      # Header classes. Hashed assets never change under a given name; the entry
-      # points must be revalidated on every request or an installed service
-      # worker can be pinned to an old build at the edge. Keep these in step with
-      # upload.sh and CI-build.sh; see docs/deployment.md.
-      IMMUTABLE: 'public, max-age=31536000, immutable'
-      MODERATE: 'public, max-age=86400'
-      REVALIDATE: 'public, max-age=0, must-revalidate'
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -73,63 +69,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Hashed assets first: a freshly revalidated index.html must never
-      # reference a chunk that has not landed yet.
-      #
-      # `cp`, not `sync`. sync skips objects whose size and mtime match, which
-      # would leave a still-referenced chunk's LastModified frozen at its first
-      # upload -- and the bucket lifecycle rule expires by age, so it would
-      # eventually delete a chunk the live index.html still points at. Uploading
-      # unconditionally refreshes exactly this build's asset set and nothing
-      # else; refreshing the whole remote prefix instead would also revive
-      # long-dead orphans and stop the lifecycle rule ever collecting anything.
-      - name: Upload content-hashed assets
-        run: aws s3 cp "${{ env.SITE_BUILD_DIR }}/assets" "${{ env.SITE_S3 }}/assets" --recursive --cache-control "${{ env.IMMUTABLE }}"
-
-      # Unhashed public assets carry a ?v= query buster rather than a content
-      # hash, so a moderate TTL and no `immutable`.
-      - name: Upload unhashed public assets
-        run: |
-          aws s3 sync "${{ env.SITE_BUILD_DIR }}" "${{ env.SITE_S3 }}" \
-            --exclude "*build_log.txt" --exclude "*.idea*" --exclude "*.sh" \
-            --exclude "*.git*" --exclude "*.DS_Store" \
-            --exclude "assets/*" --exclude "index.html" --exclude "site.webmanifest" \
-            --exclude "service-worker.js" --exclude "workbox-*.js" --exclude "registerSW.js" \
-            --exclude "sw-extras.js" \
-            --cache-control "${{ env.MODERATE }}"
-
-      # The worker does `importScripts("sw-extras.js")` and precaches index.html by
-      # revision, so both must be live before the worker that references them.
-      # sw-extras.js carries this build's catalog URL and is mandatory; workbox-*.js
-      # is a glob that may not expand and registerSW.js is never emitted under
-      # injectRegister:false, so those two stay optional.
-      - name: Upload manifest and worker dependencies
-        run: |
-          aws s3 cp "${{ env.SITE_BUILD_DIR }}/site.webmanifest" "${{ env.SITE_S3 }}/site.webmanifest" \
-            --cache-control "${{ env.REVALIDATE }}" --content-type "application/manifest+json"
-          aws s3 cp "${{ env.SITE_BUILD_DIR }}/sw-extras.js" "${{ env.SITE_S3 }}/sw-extras.js" \
-            --cache-control "${{ env.REVALIDATE }}"
-          for optional in "${{ env.SITE_BUILD_DIR }}"/workbox-*.js "${{ env.SITE_BUILD_DIR }}"/registerSW.js; do
-            [ -e "$optional" ] || continue
-            aws s3 cp "$optional" "${{ env.SITE_S3 }}/$(basename "$optional")" --cache-control "${{ env.REVALIDATE }}"
-          done
-
-      - name: Upload index.html
-        run: aws s3 cp "${{ env.SITE_BUILD_DIR }}/index.html" "${{ env.SITE_S3 }}/index.html" --cache-control "${{ env.REVALIDATE }}" --content-type "text/html; charset=utf-8"
-
-      # Last, and mandatory. A build that did not emit the worker is broken, not old:
-      # skipping it would leave the previous worker controlling every client while the
-      # deploy reports success.
-      - name: Upload service worker
-        run: |
-          if [ ! -e "${{ env.SITE_BUILD_DIR }}/service-worker.js" ]; then
-            echo "FATAL: service-worker.js missing -- refusing to deploy" >&2
-            exit 1
-          fi
-          aws s3 cp "${{ env.SITE_BUILD_DIR }}/service-worker.js" "${{ env.SITE_S3 }}/service-worker.js" \
-            --cache-control "${{ env.REVALIDATE }}"
-
-      # Only the mutable entry points. `/*` is one billable path but evicts every
-      # hashed asset from the edge, forcing a full refetch from S3.
-      - name: Invalidate CloudFront cache
-        run: aws cloudfront create-invalidation --distribution-id ${{ env.CF_DIST_ID }} --paths "/" "/index.html" "/site.webmanifest" "/service-worker.js" "/sw-extras.js"
+      # Every AWS mutation lives in the shared contract used by the two manual
+      # entry points as well. The S3 lock also serializes those external callers.
+      - name: Publish production artifact
+        env:
+          DEPLOY_OWNER: github-actions:${{ github.repository_owner }}:${{ github.run_id }}:${{ github.run_attempt }}
+        run: bash scripts/deploy-production.sh

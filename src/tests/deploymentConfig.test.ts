@@ -59,7 +59,7 @@ describe('production deployment configuration', () => {
 
   it('keeps every release gate before AWS mutation and deploys only master', () => {
     const workflow = readFileSync(join(process.cwd(), '.github', 'workflows', 'deploy.yml'), 'utf8')
-    const syncIndex = workflow.indexOf('aws s3 sync')
+    const publicationIndex = workflow.indexOf('bash scripts/deploy-production.sh')
 
     expect(workflow).toMatch(/branches:\s*\n\s*- master/)
     expect(workflow).not.toMatch(/branches:\s*\[[^\]]*aos4-migration/)
@@ -74,7 +74,7 @@ describe('production deployment configuration', () => {
     ]) {
       const commandIndex = workflow.indexOf(command)
       expect(commandIndex, `${command} is present`).toBeGreaterThan(-1)
-      expect(commandIndex, `${command} runs before upload`).toBeLessThan(syncIndex)
+      expect(commandIndex, `${command} runs before publication`).toBeLessThan(publicationIndex)
     }
   })
 })

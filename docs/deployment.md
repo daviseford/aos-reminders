@@ -1,62 +1,72 @@
 # Deployment
 
-The production site is static files in the `aosreminders.com` S3 bucket, served
-through CloudFront distribution `E3OO9Y9QRVZ2L1`.
+The production site is static files in the `aosreminders.com` S3 bucket, served through CloudFront
+distribution `E3OO9Y9QRVZ2L1`.
 
-Three files carry the same upload contract and must stay in step:
+`scripts/deploy-production.sh` is the only AWS publication contract. Three entry points build and
+validate an artifact, then call it:
 
-- `upload.sh` — manual deploy from a workstation
-- `CI-build.sh` — standalone CI deploy
-- `.github/workflows/deploy.yml` — the deploy that runs on a push to `master`
+- `upload.sh` - manual deploy from a workstation
+- `CI-build.sh` - standalone CI deploy
+- `.github/workflows/deploy.yml` - the deploy that runs on a push to `master`
 
-## Header contract
+## Header and publication contract
 
-Every object is uploaded with an explicit `Cache-Control`. Before this contract
-existed, nothing set one at all, and CloudFront cached whatever it liked.
+Every object is uploaded with an explicit `Cache-Control`.
 
 | Class | Files | `Cache-Control` |
 |---|---|---|
-| Content-hashed | `assets/*` | `public, max-age=31536000, immutable` |
+| Content-hashed | `assets/*`, `sw-extras-<hash>.js`, `workbox-<hash>.js` | `public, max-age=31536000, immutable` |
 | Unhashed public | icons, `favicon.ico`, `robots.txt`, `browserconfig.xml`, `safari-pinned-tab.svg`, `img/*` | `public, max-age=86400` |
-| Mutable entry points | `index.html`, `site.webmanifest`, `service-worker.js`, `sw-extras.js`, `workbox-*.js`, `registerSW.js` | `public, max-age=0, must-revalidate` |
+| Mutable entry points | `index.html`, `site.webmanifest`, `service-worker.js`, `registerSW.js` | `public, max-age=0, must-revalidate` |
 
-`sw-extras.js` is in that last class because the worker pulls it in with
-`importScripts`, and `importScripts` *does* go through the HTTP cache even
-though the top-level worker script does not.
+The worker imports a content-hashed `sw-extras-<hash>.js`. Its immutable name is part of the
+worker's build identity: overwriting one fixed extras key would let an interrupted deploy change
+what the previously published worker imports.
 
-The unhashed public assets sit between the other two because they carry a `?v=`
-query buster rather than a content hash — they are not immutable under a given
-name, but they also change perhaps once a year.
+Upload order matters. Immutable assets and worker dependencies go first, then the manifest and
+public files, then `index.html`, and `service-worker.js` last. A freshly revalidated entry point
+therefore cannot reference a dependency that has not landed, and the worker is never visible before
+its complete build.
 
-**Upload order matters.** Hashed assets go first and `index.html` goes last, so a
-freshly revalidated `index.html` can never reference a chunk that has not landed
-yet.
+The mutable entry points must revalidate. A service worker pinned at the edge cannot be replaced:
+the browser bypasses its own HTTP cache for the top-level worker, but CloudFront can still serve its
+cached copy for the edge TTL.
 
-**Why the entry points must revalidate.** A service worker that is pinned at the
-edge cannot be replaced: the browser fetches the worker script bypassing its own
-HTTP cache, but CloudFront ignores `Cache-Control` in viewer *requests*, so the
-edge keeps serving the stale copy for its whole TTL. No new worker, no
-`updatefound`, and installed clients stay on the old build indefinitely.
+## Deployment serialization
+
+GitHub Actions uses the `production-deployment` concurrency group with `cancel-in-progress: false`.
+That queues GitHub runs, but it cannot see manual or standalone-CI callers, so every entry point also
+acquires `_deploy/production.lock` in S3.
+
+The lock is created atomically with `put-object --if-none-match '*'`. The owner is stored in object
+metadata, the returned ETag is retained by the process, and release uses
+`delete-object --if-match <acquired-etag>`. A process can therefore never delete a lock another
+deploy replaced. If acquisition fails, the script reports the current owner, ETag, and timestamp and
+performs no publication write.
+
+Do not delete a lock merely because it looks old. After confirming in GitHub and on the originating
+host that its process is gone, recover it by supplying both values printed by the failed acquisition:
+
+```bash
+DEPLOY_LOCK_RECOVER_OWNER='github-actions:daviseford:123456:1' \
+DEPLOY_LOCK_RECOVER_ETAG='"0123456789abcdef"' \
+  ./upload.sh
+```
+
+Recovery re-reads and exactly matches both values, conditionally deletes that ETag, then competes for
+a fresh lock. Supplying one value, a mismatch, or losing the reacquisition race fails closed.
 
 ## CloudFront settings
 
-Object headers are necessary but not sufficient — the distribution has to honour
-them. As measured on 2026-07-31, it does.
-
-The distribution uses **legacy cache settings**, not a managed cache policy
-(`CachePolicyId` is null), with a single default cache behaviour and no
-additional behaviours:
+As measured on 2026-07-31, the distribution uses legacy cache settings with one default behavior:
 
 | Setting | Value | Consequence |
 |---|---|---|
-| `MinTTL` | `0` | Origin `max-age=0, must-revalidate` takes effect. A non-zero minimum would have overridden it and kept the entry points pinned. |
-| `DefaultTTL` | `86400` | **An object uploaded with no `Cache-Control` is cached at the edge for 24 hours.** This is why the site currently serves cached responses despite no origin header. |
-| `MaxTTL` | `31536000` | The one-year `immutable` on hashed assets is honoured in full. |
-| `ResponseHeadersPolicyId` | null | No policy is rewriting headers on the way out. |
-
-So the header contract above works as written, and **no CloudFront change is
-required**. The `DefaultTTL` row is the reason it matters: a forgotten header
-fails *closed* here, silently pinning a file for a day.
+| `MinTTL` | `0` | Origin `max-age=0, must-revalidate` takes effect. |
+| `DefaultTTL` | `86400` | An object with no `Cache-Control` is cached at the edge for 24 hours. |
+| `MaxTTL` | `31536000` | The one-year `immutable` on hashed assets is honored in full. |
+| `ResponseHeadersPolicyId` | null | No policy rewrites headers on the way out. |
 
 Re-check after any distribution change:
 
@@ -65,64 +75,70 @@ aws cloudfront get-distribution-config --id E3OO9Y9QRVZ2L1 \
   --query 'DistributionConfig.DefaultCacheBehavior.{Min:MinTTL,Default:DefaultTTL,Max:MaxTTL,Policy:CachePolicyId}'
 ```
 
-If the distribution is ever migrated to a managed cache policy, prefer
-`UseOriginCacheControlHeaders` (min 0, default 0): it keeps S3 object metadata
-authoritative and makes a forgotten header fail open rather than closed.
+If the distribution moves to a managed cache policy, prefer `UseOriginCacheControlHeaders` with a
+minimum and default TTL of zero. A response headers policy does not affect edge caching.
 
-A **response headers policy does not affect edge caching.** It rewrites the
-viewer response only, so using one to set `Cache-Control` would fix the browser
-and leave the stale copy at the edge untouched. Reserve response headers
-policies for headers S3 cannot emit at all.
-
-## Changing the header strategy
-
-`aws s3 sync` compares size and modification time, **not metadata**. Changing a
-`Cache-Control` value without changing the file's bytes leaves the old header in
-place forever. To re-stamp existing objects:
-
-```bash
-aws s3 cp s3://aosreminders.com/ s3://aosreminders.com/ --recursive \
-  --metadata-directive REPLACE --cache-control "<new value>"
-```
-
-Confirm with `aws s3api head-object --bucket aosreminders.com --key index.html`.
+`aws s3 sync` compares size and modification time, not metadata. To re-stamp existing object headers,
+use a deliberate `aws s3 cp s3://... s3://... --recursive --metadata-directive REPLACE` operation and
+confirm the result with `aws s3api head-object`.
 
 ## Asset retention
 
-The deploy does **not** pass `--delete`. It used to, which meant the previous
-build's hashed chunks disappeared the moment a new build landed — so any browser
-that had already loaded the old `index.html` got a 404 on the next lazy route
-chunk it requested, and a failed dynamic import cannot be retried.
+The deploy does not pass `--delete`. Removing the previous build's hashed chunks immediately would
+break lazy imports in tabs that already loaded its `index.html`.
 
-Superseded assets are instead bounded by a bucket lifecycle rule:
+Superseded assets are bounded by a current-version lifecycle rule whose filter combines both:
 
-- **Scope:** prefix `assets/`
-- **Action:** expire current versions after 30 days
-- **Not** a noncurrent-version rule. Each build emits a *distinct key* rather
-  than a new version of one key, so version-based expiration would never match.
+- prefix `assets/`;
+- tag `retire=true`; and
+- expiration after 30 days.
 
-Because the rule is age-based, the deploy uploads `assets/` with `aws s3 cp
---recursive` rather than `aws s3 sync`. `sync` skips objects whose size and mtime
-already match, which would leave a still-referenced chunk's `LastModified` frozen
-at its first upload until the rule expired it underneath loaded clients.
-Uploading unconditionally refreshes exactly the current build's asset set.
-**Switching that step back to `sync` re-arms the bug the retention rule exists to
-prevent.**
+Every current build asset is tagged `retire=false` before `index.html` is published, so the lifecycle
+cannot expire the live release. After successful publication, the deploy finds remote assets absent
+from the new build. An asset not already retired is self-copied once with `retire=true`; that resets
+its `LastModified` at the transition and starts a full 30-day grace period. An asset already tagged
+`retire=true` is untouched, so later deploys cannot extend its window.
 
-Refreshing the whole *remote* prefix instead — a server-side
-`--metadata-directive REPLACE` over `s3://…/assets/` — looks equivalent and is
-not: it also resets the clock on orphans from builds that shipped months ago, so
-nothing would ever reach the expiry age and the rule would never collect
-anything.
+The production lifecycle configuration should have this shape:
+
+```json
+{
+  "Rules": [
+    {
+      "ID": "retire-superseded-assets",
+      "Status": "Enabled",
+      "Filter": {
+        "And": {
+          "Prefix": "assets/",
+          "Tags": [{ "Key": "retire", "Value": "true" }]
+        }
+      },
+      "Expiration": { "Days": 30 }
+    }
+  ]
+}
+```
 
 The rule lives in bucket configuration, not in this repository.
 
+## Production prerequisites
+
+Before the first PWA deploy:
+
+- replace any prefix-only `assets/` expiration rule with the tag-filtered rule above; verify a
+  `retire=false` fixture survives and a `retire=true` fixture is lifecycle-eligible;
+- grant the deploy principal `GetObject`, `PutObject`, `DeleteObject`, `GetObjectTagging`,
+  `PutObjectTagging`, and `ListBucket` for the site and lock keys, including conditional put/delete;
+- confirm CloudFront still honors the cache headers described above;
+- confirm the build emits exactly one `sw-extras-<hash>.js` and the worker imports that exact name;
+  and
+- leave workflow concurrency enabled. The S3 lock remains required because external callers bypass
+  GitHub concurrency.
+
 ## Withdrawing a bad build
 
-Retention has a consequence: superseded hashed assets stay publicly retrievable
-until the rule expires them. Redeploying no longer withdraws anything. To pull a
-build that shipped something it should not have — a mis-set `VITE_` value baked
-into a chunk, say — delete the objects explicitly and invalidate:
+Retired hashed assets remain publicly retrievable during the grace period. To withdraw a chunk that
+contains sensitive or incorrect configuration, delete it explicitly and invalidate it:
 
 ```bash
 aws s3 rm s3://aosreminders.com/assets/<chunk>.js
@@ -132,12 +148,12 @@ aws cloudfront create-invalidation --distribution-id E3OO9Y9QRVZ2L1 \
 
 ## Rolling back the service worker
 
-A service worker is the highest-reversal-cost artifact in this deploy: it
-persists on clients until explicitly replaced or unregistered, and no automated
-gate catches a bad one. `public/rollback-service-worker.js` is a committed no-op
-worker that unregisters itself and deletes every cache it can see.
+`public/rollback-service-worker.js` is a committed no-op worker that unregisters itself and deletes
+every cache it can see. Before an emergency rollback, stop or wait for GitHub deployments and confirm
+`_deploy/production.lock` is absent. Acquire that same lock conditionally; do not race the shared
+deployment contract.
 
-To un-ship a worker, upload it to the worker's own path and invalidate:
+Upload the rollback worker to the worker's own path and invalidate:
 
 ```bash
 aws s3 cp public/rollback-service-worker.js s3://aosreminders.com/service-worker.js \
@@ -147,8 +163,8 @@ aws cloudfront create-invalidation --distribution-id E3OO9Y9QRVZ2L1 \
   --paths "/service-worker.js" "/" "/index.html"
 ```
 
-Clients pick it up on their next worker update check, unregister, and fall back
-to plain network delivery. Dry-run it against a local build before trusting it.
+Release the emergency lock only with the ETag returned by its acquisition. Clients pick up the
+rollback worker on their next update check, unregister, and fall back to network delivery.
 
 ## Verifying a deploy
 
@@ -159,6 +175,5 @@ curl -sI https://aosreminders.com/service-worker.js | grep -iE 'cache-control|co
 curl -sI https://aosreminders.com/assets/<hashed>.js | grep -i cache-control
 ```
 
-Expect `max-age=0, must-revalidate` on the first three and `immutable` on the
-last. A non-zero `Age` with `X-Cache: Hit` on a freshly deployed entry point
-means the edge is still serving a stale copy — check the cache policy above.
+Expect `max-age=0, must-revalidate` on the first three and `immutable` on the last. A non-zero `Age`
+with `X-Cache: Hit` on a freshly deployed entry point means the edge is still serving a stale copy.
