@@ -1,0 +1,71 @@
+{
+  "kind": "review-result-shards",
+  "revision": "aos4-corpus-2026-08-01b",
+  "schemaVersion": 1,
+  "shards": [
+    {
+      "inputName": "review-results-shard-0001",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0002",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0003",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0004",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0005",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0006",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0007",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0008",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0009",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0010",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0011",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0012",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0013",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0014",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0015",
+      "results": 5000
+    },
+    {
+      "inputName": "review-results-shard-0016",
+      "results": 4880
+    }
+  ]
+}
