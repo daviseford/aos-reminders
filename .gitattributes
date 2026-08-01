@@ -1,6 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
+# Bash entry points are executed from Windows via WSL in the deployment contract tests.
+*.sh text eol=lf
+
 # Create-only completion markers are byte-exact and must retain LF endings
 .complete.json text eol=lf
 
