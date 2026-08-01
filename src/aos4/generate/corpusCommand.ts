@@ -40,6 +40,7 @@ import { runCertificationCheck } from '../review/certificationCommand'
 import { buildAos4Corpus, createCorpusIdentityRegistry, type CorpusReview } from './corpus'
 import { validateIdentityRegistry, type IdentityRegistry } from './identityRegistry'
 import { validateGenerationIntegrity } from './integrity'
+import { loadProfileOnlyDeviationLedger, profileOnlyGateIssues } from './profileOnlyGate'
 import {
   createOfficialBattleProfileCatalog,
   type ReviewedOfficialBattleProfileFact,
@@ -58,6 +59,7 @@ const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01b-
 const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01b-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_BETA_READINESS = path.join('data', 'aos4', 'certifications', 'beta.json')
+const DEFAULT_PROFILE_ONLY_DEVIATIONS = path.join('data', 'aos4', 'reviews', 'profile-only-deviations.json')
 
 interface CorpusCommandArguments {
   acceptedManifestPath: string
@@ -69,6 +71,7 @@ interface CorpusCommandArguments {
   defaultsPath: string
   reportPath: string
   reconciliationPath: string
+  profileOnlyDeviationsPath: string
   cacheDirectory: string
   initializeIdentities: boolean
   candidate: boolean
@@ -736,6 +739,7 @@ export const parseCorpusCommandArguments = (arguments_: string[]): CorpusCommand
     defaultsPath: DEFAULT_DEFAULTS,
     reportPath: DEFAULT_REPORT,
     reconciliationPath: DEFAULT_RECONCILIATION,
+    profileOnlyDeviationsPath: DEFAULT_PROFILE_ONLY_DEVIATIONS,
     cacheDirectory: DEFAULT_CACHE,
     initializeIdentities: false,
     candidate: false,
@@ -751,6 +755,7 @@ export const parseCorpusCommandArguments = (arguments_: string[]): CorpusCommand
     '--defaults': 'defaultsPath',
     '--report': 'reportPath',
     '--reconciliation': 'reconciliationPath',
+    '--profile-only-deviations': 'profileOnlyDeviationsPath',
     '--cache': 'cacheDirectory',
   }
   for (let index = 0; index < arguments_.length; index += 1) {
@@ -777,6 +782,17 @@ export const generateCorpusProducts = async (
 ): Promise<GeneratedProduct[]> => {
   const { review, decoded, officialBattleProfiles, reconciliation } =
     await loadAcceptedCorpusSourceData(arguments_)
+  // The official-first intake gate (#1820): every profile-only official unit fact needs a
+  // reviewed deviation with a rationale and target date, or generation fails closed.
+  const profileOnlyLedger = await loadProfileOnlyDeviationLedger(arguments_.profileOnlyDeviationsPath)
+  ensureNoErrors(
+    'Official-first intake gate',
+    profileOnlyGateIssues(
+      reconciliation.unmatchedOfficialUnitFacts,
+      profileOnlyLedger,
+      review.officialDocuments
+    )
+  )
   const identities = arguments_.initializeIdentities
     ? createCorpusIdentityRegistry(decoded.dataset, review)
     : await loadIdentities(arguments_.identitiesPath)

@@ -92,6 +92,9 @@ export type CertificationIssueCode =
   | 'stale-protocol'
   | 'stale-coverage'
   | 'manifest-not-passing'
+  | 'unaccepted-profile-only-unit'
+  | 'invalid-profile-only-deviation'
+  | 'stale-profile-only-deviation'
 
 export interface CertificationIssue {
   code: CertificationIssueCode
