@@ -8,6 +8,7 @@ import {
   loadAos4ArmyDocument,
   saveAos4ArmyDocument,
 } from '../../aos4/runtime'
+import { resolveSelection } from '../../aos4/select'
 import { createAos4ArmyDocument, setAos4ReminderPreference, type Aos4ArmyDocument } from '../../aos4/state'
 import {
   createAos4BuilderViewModel,
@@ -214,6 +215,44 @@ const HomeContent = () => {
     )
   }
 
+  // The faction's Armies of Renown, offered as the top-level choice under the faction selector.
+  // Picking one replaces the faction's regular rules, so switching drops explicit selections the
+  // new army no longer offers (the established sub-faction switch behavior).
+  const armiesOfRenown = useMemo(
+    () =>
+      builder.options
+        .filter(option => option.groupType === 'army-of-renown' && !option.overlay)
+        .map(option => ({ label: option.name, value: option.id })),
+    [builder]
+  )
+  const armyOfRenownId =
+    document.explicitSelectionIds.find(id => armiesOfRenown.some(option => option.value === id)) ?? null
+
+  const selectArmyOfRenown = (nextId: CanonicalId | null) => {
+    setDocument(current => {
+      const rootIds = new Set(armiesOfRenown.map(option => option.value))
+      const withoutRoots = current.explicitSelectionIds.filter(id => !rootIds.has(id))
+      const nextExplicit = nextId ? [...withoutRoots, nextId] : withoutRoots
+      const probe = resolveSelection(AOS4_CATALOG, {
+        explicitIds: nextExplicit,
+        rulesContextId: current.rulesContextId,
+        allowsLegends: true,
+        allowsHistorical: true,
+      })
+      const stillOffered = new Set(probe.availableIds)
+      return deriveAos4OverlayFlags(
+        AOS4_CATALOG,
+        createAos4ArmyDocument({
+          ...current,
+          explicitSelectionIds: nextExplicit.filter(
+            id =>
+              id === nextId || factionById.has(id as CanonicalId<'faction'>) || stillOffered.has(id)
+          ),
+        })
+      )
+    })
+  }
+
   const toggleGameMode = () => {
     const nextMode = !isGameMode
     setIsGameMode(nextMode)
@@ -273,10 +312,13 @@ const HomeContent = () => {
       <SkipToReminders />
 
       <Header
+        armiesOfRenown={armiesOfRenown}
         armyName={document.name}
+        armyOfRenownId={armyOfRenownId}
         factionId={factionId}
         factions={factions}
         isGameMode={isGameMode}
+        onArmyOfRenownChange={selectArmyOfRenown}
         onFactionChange={selectFaction}
         onToggleGameMode={toggleGameMode}
       />

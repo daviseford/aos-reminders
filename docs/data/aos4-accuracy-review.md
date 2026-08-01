@@ -12,7 +12,7 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-01d`, generated from the accepted 2026-08-01d source
+The current revision is `aos4-corpus-2026-08-01e`, generated from the accepted 2026-08-01e source
 snapshot. Its automated review is complete:
 
 | Measure | Result |
@@ -22,10 +22,10 @@ snapshot. Its automated review is complete:
 | Official battle-profile facts | 1,350/1,350 |
 | Final official/secondary reconciliation discrepancies | 414/414 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 19,290/19,290 |
+| Live audit source records | 19,312/19,312 |
 | Ignored-record dispositions (superseded + explicit) | 18,903/18,903 |
-| Live review pairs | 39,959/39,959 |
-| Independent outcomes | 79,918 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 39,981/39,981 |
+| Independent outcomes | 79,962 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 

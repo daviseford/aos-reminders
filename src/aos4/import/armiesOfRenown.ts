@@ -149,8 +149,12 @@ export const buildArmyOfRenownIndex = (catalog: Aos4Catalog): ArmyOfRenownIndex 
 
   const childIdsById = new Map<CanonicalId, CanonicalId[]>()
   catalog.relationships.forEach(relationship => {
-    if (relationship.kind !== 'includes') return
-    if (!groupsById.has(relationship.from) || !groupsById.has(relationship.to)) return
+    // A classified Army of Renown root *offers* its enhancement sections (only its battle traits
+    // are auto-included), so its children span both relationship kinds.
+    const parent = groupsById.get(relationship.from)
+    const spansOffers = parent?.groupType === 'army-of-renown'
+    if (relationship.kind !== 'includes' && !(spansOffers && relationship.kind === 'offers')) return
+    if (!parent || !groupsById.has(relationship.to)) return
     childIdsById.set(relationship.from, [...(childIdsById.get(relationship.from) ?? []), relationship.to])
   })
 
@@ -160,8 +164,13 @@ export const buildArmyOfRenownIndex = (catalog: Aos4Catalog): ArmyOfRenownIndex 
   const claimedSectionIds = new Set<CanonicalId>()
 
   groupsById.forEach((container, containerId) => {
-    if (CATEGORY_GROUP_TYPES.has(container.groupType)) return
-    if (groupTypeSlug(container.name) !== container.groupType) return
+    // The reviewed classification marks the official Armies of Renown explicitly; every other
+    // army-shaped section (Regiments of Renown and similar) still matches structurally.
+    const isClassified = container.groupType === 'army-of-renown'
+    if (!isClassified) {
+      if (CATEGORY_GROUP_TYPES.has(container.groupType)) return
+      if (groupTypeSlug(container.name) !== container.groupType) return
+    }
 
     const sectionIds = childIdsById.get(containerId) ?? []
     const sections = sectionIds.flatMap(id => {

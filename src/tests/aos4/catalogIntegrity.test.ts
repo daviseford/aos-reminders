@@ -79,7 +79,7 @@ const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPa
 
 const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-01d.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-01d-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-01e-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -112,11 +112,11 @@ describe('AoS 4 catalog generation integrity', () => {
         abilities: 4929,
         weapons: 2280,
         sourceArtifacts: 244,
-        sourceRecords: 19290,
+        sourceRecords: 19312,
         ignoredSourceRecords: 18903,
       },
       integrity: {
-        consumedSourceRecords: 19284,
+        consumedSourceRecords: 19306,
         issues: [],
         supersededSourceRecords: {
           count: 18897,

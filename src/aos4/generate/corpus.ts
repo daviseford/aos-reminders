@@ -176,6 +176,22 @@ export interface CorpusUniversalFactionContent {
   reason: string
 }
 
+/**
+ * A reviewed Army of Renown classification.
+ *
+ * The official Armies of Renown document defines the semantic: picking one replaces the faction's
+ * rules ("use the faction rules on these pages instead of the [faction] rules"). Each entry names
+ * the faction-page ability-type group that is the army's root; generation types that root
+ * `army-of-renown`, rewires its subgroups behind it, and emits `excludes` edges applying the
+ * replacement to the faction's regular content groups.
+ */
+export interface CorpusArmyOfRenown {
+  /** Source record of the faction-page ability-type group that is the Army of Renown root. */
+  sourceRecordId: SourceRecordId
+  reason: string
+  officialSourceRecordIds: SourceRecordId[]
+}
+
 export interface CorpusReview {
   schemaVersion: typeof AOS4_CORPUS_REVIEW_SCHEMA_VERSION
   revision: string
@@ -202,6 +218,7 @@ export interface CorpusReview {
   }>
   approvedFactionIds: string[]
   universalFactionContent?: CorpusUniversalFactionContent[]
+  armiesOfRenown?: CorpusArmyOfRenown[]
   decoderDiagnosticPolicies: CorpusDiagnosticPolicy[]
   normalizationDiagnosticPolicies: CorpusDiagnosticPolicy[]
   ignoredSourceRecords: CorpusIgnoredSourceRecord[]
@@ -434,6 +451,23 @@ const groupType = (value: string): string => {
 }
 
 const isMandatoryType = (name: string): boolean => /^battle traits$/i.test(name.trim())
+
+/**
+ * The regular faction content an Army of Renown replaces. The official rule is total ("use the
+ * faction rules on these pages instead of the [faction] rules"), so every regular rules-choice
+ * group of the faction is excluded while an Army of Renown root is selected; universal
+ * manifestation lores and general rules modules are army-agnostic and remain.
+ */
+const ARMY_OF_RENOWN_REPLACED_GROUP_TYPES = new Set([
+  'battle-trait',
+  'battle-formation',
+  'heroic-trait',
+  'artefact-of-power',
+  'spell-lore',
+  'prayer-lore',
+  'monstrous-traits',
+  'big-names',
+])
 
 const abilitiesByType = (
   dataset: WahapediaDataset,
@@ -1310,6 +1344,7 @@ export const buildAos4Corpus = (
         adoption => adoption.officialSourceRecordIds
       )
     )
+    .concat((review.armiesOfRenown ?? []).flatMap(entry => entry.officialSourceRecordIds))
     .forEach(id => {
       if (!officialSourceIds.has(id)) {
         diagnostics.push({
@@ -1602,23 +1637,78 @@ export const buildAos4Corpus = (
   const factionAbilityTypeByKey = new Map(
     dataset.factionAbilityTypes.map(record => [`${record.factionId}:${record.id}`, record])
   )
+  // Reviewed Army of Renown classification: the named faction-page ability-type groups become
+  // `army-of-renown` roots that replace the faction's regular rules (see CorpusArmyOfRenown).
+  const armiesOfRenownBySourceRecordId = new Map(
+    (review.armiesOfRenown ?? []).map(entry => [entry.sourceRecordId, entry])
+  )
+  const matchedArmyOfRenownSourceRecordIds = new Set<SourceRecordId>()
+  const armyOfRenownRootByTypeKey = new Map<string, CanonicalId<'content-group'>>()
+  const replaceableGroupsByExternalFactionId = new Map<string, CanonicalId<'content-group'>[]>()
+  const armyOfRenownRootsByExternalFactionId = new Map<string, CanonicalId<'content-group'>[]>()
+  const trackReplaceable = (
+    externalFactionId: string,
+    id: CanonicalId<'content-group'>,
+    resolvedGroupType: string
+  ): void => {
+    if (!ARMY_OF_RENOWN_REPLACED_GROUP_TYPES.has(resolvedGroupType)) return
+    replaceableGroupsByExternalFactionId.set(externalFactionId, [
+      ...(replaceableGroupsByExternalFactionId.get(externalFactionId) ?? []),
+      id,
+    ])
+  }
   dataset.factionAbilityTypes.forEach(record => {
     const id = lookup('content-group', recordPublisher(record.meta), recordAlias(record.meta)) as
       | CanonicalId<'content-group'>
       | undefined
     if (!id) return
     typeGroupByKey.set(`${record.factionId}:${record.id}`, id)
+    const armyOfRenown = armiesOfRenownBySourceRecordId.get(record.meta.sourceRecordId)
+    if (armyOfRenown) matchedArmyOfRenownSourceRecordIds.add(armyOfRenown.sourceRecordId)
+    const resolvedGroupType = armyOfRenown ? 'army-of-renown' : groupType(record.name)
     entities.push({
       id,
       kind: 'content-group',
       revision: record.meta.recordChecksum,
       name: record.name.trim(),
-      groupType: groupType(record.name),
+      groupType: resolvedGroupType,
       rulesContextIds: contextsFor(record.meta),
-      sourceRefs: [sourceReference(record.meta.sourceRecordId)],
+      sourceRefs: [
+        sourceReference(record.meta.sourceRecordId),
+        ...(armyOfRenown
+          ? armyOfRenown.officialSourceRecordIds.map(officialId =>
+              sourceReference(officialId, 'reviewed Army of Renown classification')
+            )
+          : []),
+      ],
     } satisfies ContentGroup)
     const factionId = factionByExternalId.get(record.factionId)
     if (isMandatoryType(record.name)) addRelationship('includes', factionId, id)
+    if (armyOfRenown) {
+      // The root itself is the top-level choice: offered by its faction, never auto-included.
+      armyOfRenownRootByTypeKey.set(`${record.factionId}:${record.id}`, id)
+      armyOfRenownRootsByExternalFactionId.set(record.factionId, [
+        ...(armyOfRenownRootsByExternalFactionId.get(record.factionId) ?? []),
+        id,
+      ])
+      offeringFactionIds(record.factionId).forEach(offeringId => addRelationship('offers', offeringId, id))
+    }
+    trackReplaceable(record.factionId, id, resolvedGroupType)
+  })
+  ;(review.armiesOfRenown ?? []).forEach(entry => {
+    if (
+      !matchedArmyOfRenownSourceRecordIds.has(entry.sourceRecordId) ||
+      !entry.reason.trim() ||
+      entry.officialSourceRecordIds.length === 0
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: entry.sourceRecordId,
+        message:
+          'Army of Renown classification must target an existing faction ability-type group and cite official evidence',
+      })
+    }
   })
   const subtypeGroupByKey = new Map<string, CanonicalId<'content-group'>>()
   dataset.factionAbilitySubtypes.forEach(record => {
@@ -1628,19 +1718,32 @@ export const buildAos4Corpus = (
     if (!id) return
     subtypeGroupByKey.set(`${record.factionId}:${record.id}`, id)
     const type = factionAbilityTypeByKey.get(`${record.factionId}:${record.typeId}`)
+    const resolvedGroupType = groupType(type?.name || record.name)
     entities.push({
       id,
       kind: 'content-group',
       revision: record.meta.recordChecksum,
       name: record.name.trim(),
-      groupType: groupType(type?.name || record.name),
+      groupType: resolvedGroupType,
       rulesContextIds: contextsFor(record.meta),
       sourceRefs: [sourceReference(record.meta.sourceRecordId)],
     } satisfies ContentGroup)
+    const armyOfRenownRootId = armyOfRenownRootByTypeKey.get(`${record.factionId}:${record.typeId}`)
+    if (armyOfRenownRootId) {
+      // Army of Renown subgroups hang behind the root choice: its battle traits apply
+      // automatically, its enhancement and lore subgroups become available to pick.
+      if (isMandatoryType(record.name)) {
+        addRelationship('includes', armyOfRenownRootId, id)
+      } else {
+        addRelationship('offers', armyOfRenownRootId, id)
+      }
+      return
+    }
     addRelationship('includes', typeGroupByKey.get(`${record.factionId}:${record.typeId}`), id)
     if (!type || !isMandatoryType(type.name)) {
       offeringFactionIds(record.factionId).forEach(factionId => addRelationship('offers', factionId, id))
     }
+    trackReplaceable(record.factionId, id, resolvedGroupType)
   })
 
   const generalRulesPageByExternalId = new Map(
@@ -1830,21 +1933,39 @@ export const buildAos4Corpus = (
       addRelationship('includes', typeId, abilityId)
       return
     }
+    // An ability sitting directly on an Army of Renown root (no subgroup) applies whenever the
+    // army is chosen; it must never become a faction-offered selection wrapper.
+    const armyOfRenownRootId = armyOfRenownRootByTypeKey.get(`${record.factionId}:${record.typeId}`)
+    if (armyOfRenownRootId) {
+      addRelationship('includes', armyOfRenownRootId, abilityId)
+      return
+    }
     const choiceId = lookup('content-group', 'wahapedia', choiceGroupAlias(record)) as
       | CanonicalId<'content-group'>
       | undefined
     if (!choiceId) return
+    const wrapperGroupType = groupType(type?.name || record.typeName || 'other')
     entities.push({
       id: choiceId,
       kind: 'content-group',
       revision: record.meta.recordChecksum,
       name: record.name.trim(),
-      groupType: groupType(type?.name || record.typeName || 'other'),
+      groupType: wrapperGroupType,
       rulesContextIds: contextsFor(record.meta),
       sourceRefs: [sourceReference(record.meta.sourceRecordId, 'selection wrapper')],
     } satisfies ContentGroup)
     offeringFactionIds(record.factionId).forEach(factionId => addRelationship('offers', factionId, choiceId))
     addRelationship('includes', choiceId, abilityId)
+    trackReplaceable(record.factionId, choiceId, wrapperGroupType)
+  })
+  // Apply the Army of Renown replacement: while a classified root is selected, every regular
+  // rules-choice group of its faction is excluded (official rule: "use the faction rules on
+  // these pages instead of the [faction] rules").
+  armyOfRenownRootsByExternalFactionId.forEach((rootIds, externalFactionId) => {
+    const replaced = replaceableGroupsByExternalFactionId.get(externalFactionId) ?? []
+    rootIds.forEach(rootId =>
+      replaced.forEach(replacedId => addRelationship('excludes', rootId, replacedId))
+    )
   })
   ;(dataset.generalRuleAbilities ?? []).forEach(record =>
     addRelationship(

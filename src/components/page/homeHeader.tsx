@@ -6,28 +6,42 @@ import Select from 'react-select'
 import type { CanonicalId } from '../../aos4/domain'
 
 interface HeaderProps {
+  armiesOfRenown: Array<{
+    label: string
+    value: CanonicalId
+  }>
   armyName: string
+  armyOfRenownId: CanonicalId | null
   factionId: CanonicalId<'faction'>
   factions: Array<{
     label: string
     value: CanonicalId<'faction'>
   }>
   isGameMode: boolean
+  onArmyOfRenownChange: (armyOfRenownId: CanonicalId | null) => void
   onFactionChange: (factionId: CanonicalId<'faction'>) => void
   onToggleGameMode: () => void
 }
 
+const NO_ARMY_OF_RENOWN = { label: 'None', value: null }
+
 export const Header = ({
+  armiesOfRenown,
   armyName,
+  armyOfRenownId,
   factionId,
   factions,
   isGameMode,
+  onArmyOfRenownChange,
   onFactionChange,
   onToggleGameMode,
 }: HeaderProps) => {
   const { theme } = useTheme()
   const isMobile = useIsMobile()
   const option = factions.find(faction => faction.value === factionId) ?? null
+  const armyOfRenownOptions = [NO_ARMY_OF_RENOWN, ...armiesOfRenown]
+  const armyOfRenownOption =
+    armyOfRenownOptions.find(candidate => candidate.value === armyOfRenownId) ?? NO_ARMY_OF_RENOWN
   /*
    * Bootstrap 5 dropped .jumbotron/.jumbotron-fluid. Nothing is lost here: after the utilities on
    * this same element (mb-0, pt-4, pb-2/pb-3, and theme.headerColor) the pair contributed only
@@ -124,6 +138,35 @@ export const Header = ({
                   />
                 </div>
               </div>
+              {/*
+                The sub-faction slot, reborn: an Army of Renown replaces the faction's regular
+                rules, so the choice sits directly under the faction rather than among the
+                content cards. Rendered only for factions that have one.
+              */}
+              {armiesOfRenown.length > 0 ? (
+                <>
+                  <span className="text-white">Army of Renown:</span>
+                  <div className="d-flex pt-3 pb-2 justify-content-center">
+                    <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-start">
+                      <Select
+                        aria-label="Army of Renown"
+                        value={armyOfRenownOption}
+                        options={armyOfRenownOptions}
+                        onChange={selected => onArmyOfRenownChange(selected?.value ?? null)}
+                        isClearable={false}
+                        className={theme.text}
+                        theme={defaultTheme => ({
+                          ...defaultTheme,
+                          colors: {
+                            ...defaultTheme.colors,
+                            ...theme.selectTheme,
+                          },
+                        })}
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : null}
             </>
           )}
         </div>

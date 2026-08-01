@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-01d snapshot is defined by:
+The accepted 2026-08-01e snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
 | `data/aos4/manifests/accepted-2026-08-01d.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 2 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-01d.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/reviews/corpus-2026-08-01e.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-01d-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-01d-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-01e-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-01e-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -37,7 +37,7 @@ The strict report currently records:
 - 4,929 usable abilities
 - 2,280 weapons
 - 1,416 content groups, including 48 Spearhead force/unit wrappers
-- 244 source artifacts and 19,290 live source records
+- 244 source artifacts and 19,312 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -49,6 +49,10 @@ The strict report currently records:
   power) transcribed from two commit-pinned BSData catalogues under the fallback-tier source
   policy, with official battle-profile facts overriding every overlapping field; Lorai, Child of
   the Abyss completed the provisional-to-verified swap when Wahapedia published her datasheet
+- the 12 official Armies of Renown classified as `army-of-renown` roots (reviewed
+  `armiesOfRenown` input citing the official July 2026 Armies of Renown document) with replace
+  semantics: `excludes` edges suppress the faction's regular rules-choice groups while a root is
+  selected, and the root's battle traits apply automatically (issues #1833/#1834)
 
 The accepted current rules come from 27 faction `warscrolls.html` collection pages, 28 faction
 roots, and 17 current rules pages. Collection pages contribute 1,074 native faction warscrolls.
@@ -185,6 +189,16 @@ Battle Profiles record establishing her roster home, and fails closed if the dat
 matching exactly one non-native page. Every other artifact is byte-identical to the 2026-08-01c
 pins. Note that a provisional swap replaces canonical identities: an army document that selected
 the provisional entity resolves it with a diagnostic and reselects the verified one.
+
+The 2026-08-01e revision classifies the 12 official Armies of Renown (beta direction in #1834,
+correctness bug #1833) on the same artifacts and manifest: all 24 pages of the accepted official
+Armies of Renown document become reviewed source records, and the new `armiesOfRenown` review
+input names each army's faction-page root. Generation types those roots `army-of-renown`, hangs
+their subgroups behind the root (battle traits auto-included, enhancements offered), and emits
+`excludes` edges so selecting an army suppresses the faction's regular battle traits, formations,
+enhancements, and lores — the official replacement semantic. Canonical identities are unchanged;
+only group typing and the relationship graph moved. `src/tests/aos4/armiesOfRenown.test.ts` pins
+the classification, the replacement, and the #1833 regression.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not

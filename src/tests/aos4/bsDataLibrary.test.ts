@@ -268,7 +268,7 @@ describe('BSData community-tier catalogue extraction', () => {
 
 describe('the standing fallback-tier policy record in the accepted review', () => {
   const review = JSON.parse(
-    readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01d.json'), 'utf8')
+    readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01e.json'), 'utf8')
   ) as { communityWarscrollSources: CorpusCommunityWarscrollSource[] }
 
   it('records every community source as commit-pinned, provisional, scoped, and owner-authorized', () => {
