@@ -8,21 +8,25 @@ import type { Aos4ArmyDocument } from '../../aos4/state'
 import { createAos4BuilderViewModel } from '../../aos4/view'
 
 /**
- * The July 2026 Ogor Mawtribes battletome adds ten new units, and Lorai, Child of the Abyss joined
- * the Stormcast Eternals through The Blacktalons. Their existence, points, unit sizes, bases, and
- * roster notes are established by accepted official Battle Profiles documents, but neither
- * Wahapedia nor any accepted official document publishes their warscroll rules yet.
+ * The July 2026 Ogor Mawtribes battletome adds ten new units. Their existence, points, unit
+ * sizes, bases, and roster notes are established by accepted official Battle Profiles documents,
+ * but neither Wahapedia nor any accepted official document publishes their warscroll rules yet.
  *
  * Under the standing fallback-tier source policy (official Games Workshop publications are
  * authoritative, Wahapedia is the preferred secondary, BSData is an acceptable fallback only while
  * an official publication establishes the content and Wahapedia does not yet carry the rules),
- * the accepted `corpus-2026-08-01c` review admits the commit-pinned BSData `ogors`-branch
- * transcriptions of exactly these eleven units as provisional community facts. Official facts win
+ * the accepted `corpus-2026-08-01d` review admits the commit-pinned BSData `ogors`-branch
+ * transcriptions of exactly these ten units as provisional community facts. Official facts win
  * every overlapping field, and the provisional status stays visible through source attribution.
  *
- * When Wahapedia (or an owner-supplied official source) publishes the warscrolls, the standard
- * candidate intake replaces these provisional facts and this test's expectations must move with
- * that acceptance.
+ * Lorai, Child of the Abyss demonstrates the swap this test guards: she shipped provisionally in
+ * `2026-08-01b`, Wahapedia then published her datasheet, and `2026-08-01d` replaced the BSData
+ * transcription with the Wahapedia rules through a reviewed cross-faction adoption (her keyword
+ * line names Idoneth Deepkin and The Blacktalons, so the native filter needs the reviewed entry).
+ *
+ * When Wahapedia (or an owner-supplied official source) publishes the remaining warscrolls, the
+ * standard candidate intake replaces those provisional facts and this test's expectations must
+ * move with that acceptance.
  */
 
 interface ReconciliationReport {
@@ -44,7 +48,7 @@ const OGOR_SUPPLEMENT_UNITS: Array<{ name: string; unitSize: number; points: num
 
 const reconciliation = JSON.parse(
   readFileSync(
-    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-01c-reconciliation.json'),
+    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-01d-reconciliation.json'),
     'utf8'
   )
 ) as ReconciliationReport
@@ -123,7 +127,7 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     }
   )
 
-  it('resolves Lorai, Child of the Abyss for the Stormcast Eternals with her official profile', () => {
+  it('resolves Lorai, Child of the Abyss from Wahapedia via the reviewed cross-faction adoption', () => {
     const stormcast = factionByName('Stormcast Eternals')
     const lorai = warscrollFor(stormcast, 'Lorai, Child of the Abyss')
     expect(lorai).toBeDefined()
@@ -140,8 +144,14 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     const reminders = projectReminders(AOS4_CATALOG, selection).filter(reminder =>
       reminder.contributingEntityIds.includes(lorai!.id)
     )
-    expect(reminders.map(reminder => reminder.name).sort()).toEqual(['Aquatic Illusions', 'Nebulous Sea-fog'])
-    expect(hasProvisionalCommunityAttribution(lorai!)).toBe(true)
+    expect(reminders.map(reminder => reminder.name).sort()).toEqual(['AQUATIC ILLUSIONS', 'NEBULOUS SEA-FOG'])
+    // The provisional swap completed: her rules now come from the Wahapedia secondary source.
+    expect(hasProvisionalCommunityAttribution(lorai!)).toBe(false)
+    expect(
+      lorai!.sourceRefs.some(reference =>
+        String(reference.sourceRecordId).startsWith('source-record:wahapedia:')
+      )
+    ).toBe(true)
   })
 
   it('keeps The Emberwatch as the only remaining profile-only official fact', () => {

@@ -51,15 +51,15 @@ import {
 import { createRuntimeProjection, serializeRuntimeProjection } from './runtimeProjection'
 import { serializeAuditCatalog, stableJson } from './serialization'
 
-const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-01c.json')
-const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-01c.json')
+const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-01d.json')
+const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-01d.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
 const DEFAULT_AUDIT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_BATTLE_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaults.json')
-const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01c-summary.json')
-const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01c-reconciliation.json')
+const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01d-summary.json')
+const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01d-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_BETA_READINESS = path.join('data', 'aos4', 'certifications', 'beta.json')
 const DEFAULT_PROFILE_ONLY_DEVIATIONS = path.join('data', 'aos4', 'reviews', 'profile-only-deviations.json')
@@ -513,6 +513,16 @@ const loadWahapediaHtmlPages = async (
   let factionRootWarscrolls = 0
   let warningCount = 0
   const wahapediaPageUrls = artifacts.map(artifact => artifact.finalUrl)
+  const adoptionsByUrl = new Map<string, Array<{ name: string; reason: string }>>()
+  ;(review.currentWahapediaHtml?.adoptedWarscrolls ?? []).forEach(adoption => {
+    if (!adoption.name.trim() || !adoption.reason.trim() || !adoption.officialSourceRecordIds.length) {
+      throw new Error(`Adopted warscroll review entry for ${adoption.url} is malformed`)
+    }
+    adoptionsByUrl.set(adoption.url, [
+      ...(adoptionsByUrl.get(adoption.url) ?? []),
+      { name: adoption.name, reason: adoption.reason },
+    ])
+  })
   for (const artifact of artifacts) {
     const bytes = await cache.get(artifact.checksum)
     if (!bytes) throw new Error(`Wahapedia HTML artifact ${artifact.checksum} is missing`)
@@ -542,7 +552,31 @@ const loadWahapediaHtmlPages = async (
       ...(factionRoot?.diagnostics ?? []),
     ]
     warningCount += diagnostics.filter(diagnostic => diagnostic.severity === 'warning').length
-    const parsedPages = collectionPage ? filterNativeWahapediaFactionWarscrolls(collectionPage.pages) : []
+    const adoptions = isCollectionPage ? (adoptionsByUrl.get(artifact.finalUrl) ?? []) : []
+    const parsedPages = collectionPage
+      ? filterNativeWahapediaFactionWarscrolls(
+          collectionPage.pages,
+          new Set(adoptions.map(adoption => adoption.name))
+        )
+      : []
+    // An adoption must keep matching exactly one datasheet the native filter would otherwise drop;
+    // a stale entry (renamed, removed, or now keyed native) fails closed for review.
+    adoptions.forEach(adoption => {
+      const withoutAdoptions = collectionPage
+        ? filterNativeWahapediaFactionWarscrolls(collectionPage.pages)
+        : []
+      const adopted = parsedPages.filter(
+        page => page.recordKind === 'warscroll' && page.name === adoption.name
+      )
+      if (
+        adopted.length !== 1 ||
+        withoutAdoptions.some(page => page.recordKind === 'warscroll' && page.name === adoption.name)
+      ) {
+        throw new Error(
+          `Adopted warscroll ${adoption.name} no longer matches exactly one non-native datasheet on ${artifact.finalUrl}`
+        )
+      }
+    })
     if (
       (isFactionPage && !factionPage?.page) ||
       (isRulesPage && !rulesPage?.page) ||

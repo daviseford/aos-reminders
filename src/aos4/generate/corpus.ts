@@ -219,6 +219,18 @@ export interface CorpusReview {
     expectedRulesGroups?: number
     expectedRulesAbilities?: number
     expectedWarnings?: number
+    /**
+     * Reviewed cross-faction adoptions: datasheets a collection page carries whose keyword line
+     * names another faction, but whose roster home an official publication establishes (e.g.
+     * Lorai, Child of the Abyss on the Stormcast Eternals collection). Each entry must match
+     * exactly one non-native datasheet on its page; a stale entry fails generation.
+     */
+    adoptedWarscrolls?: Array<{
+      url: string
+      name: string
+      reason: string
+      officialSourceRecordIds: SourceRecordId[]
+    }>
     rulesPages?: WahapediaRulesPageReview[]
     reconciliation?: {
       checksum: string
@@ -1293,6 +1305,11 @@ export const buildAos4Corpus = (
     .concat((review.weaponProfileOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .concat((review.warscrollKeywordOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .concat((review.communityWarscrollSources ?? []).flatMap(source => source.officialSourceRecordIds))
+    .concat(
+      (review.currentWahapediaHtml?.adoptedWarscrolls ?? []).flatMap(
+        adoption => adoption.officialSourceRecordIds
+      )
+    )
     .forEach(id => {
       if (!officialSourceIds.has(id)) {
         diagnostics.push({

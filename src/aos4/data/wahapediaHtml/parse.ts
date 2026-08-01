@@ -541,17 +541,26 @@ const isNativeWahapediaFactionWarscroll = (page: WahapediaHtmlWarscrollRecord): 
   page.recordKind === 'warscroll' &&
   page.keywords.some(keyword => canonicalFactionName(keyword) === canonicalFactionName(page.factionName))
 
+/**
+ * Keep the datasheets a faction collection natively owns (their keyword line names the faction),
+ * plus any explicitly reviewed adoptions: datasheets whose keyword line names another faction but
+ * whose roster home is established officially — e.g. Lorai, Child of the Abyss, an Idoneth wizard
+ * the official Battle Profiles list under Stormcast Eternals via The Blacktalons.
+ */
 export const filterNativeWahapediaFactionWarscrolls = (
-  pages: WahapediaHtmlWarscrollRecord[]
+  pages: WahapediaHtmlWarscrollRecord[],
+  adoptedNames: ReadonlySet<string> = new Set()
 ): WahapediaHtmlWarscrollRecord[] => {
-  const nativeWarscrolls = pages.filter(isNativeWahapediaFactionWarscroll)
+  const isKeptWarscroll = (page: WahapediaHtmlWarscrollRecord): boolean =>
+    isNativeWahapediaFactionWarscroll(page) ||
+    (page.recordKind === 'warscroll' && adoptedNames.has(page.name))
+  const keptWarscrolls = pages.filter(isKeptWarscroll)
   const requiredGroupIds = new Set(
-    nativeWarscrolls.flatMap(page => (page.parentExternalId ? [page.parentExternalId] : []))
+    keptWarscrolls.flatMap(page => (page.parentExternalId ? [page.parentExternalId] : []))
   )
   return pages.filter(
     page =>
-      isNativeWahapediaFactionWarscroll(page) ||
-      (page.recordKind === 'content-group' && requiredGroupIds.has(page.externalId))
+      isKeptWarscroll(page) || (page.recordKind === 'content-group' && requiredGroupIds.has(page.externalId))
   )
 }
 

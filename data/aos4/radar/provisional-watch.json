@@ -94,18 +94,6 @@
    ]
   },
   {
-   "id": "wahapedia-stormcast-lorai",
-   "issueNumber": 1812,
-   "reason": "Lorai, Child of the Abyss ships provisionally from BSData. The accepted 2026-08-01 Stormcast Eternals collection page already parses a full Lorai datasheet, so this watch is expected to fire immediately: the verification condition is satisfied and the standard candidate intake should replace her provisional facts.",
-   "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html",
-   "sentinels": [
-    {
-     "label": "Lorai, Child of the Abyss",
-     "needle": "Lorai"
-    }
-   ]
-  },
-  {
    "id": "bsdata-ogor-lore-transcription-faction-cat",
    "issueNumber": 1828,
    "reason": "BSData's Lore of Gut Magic and Lore of the Everwinter entries are dangling links: the spell and prayer group definitions are not transcribed anywhere at the pinned commit, so the fallback tier cannot supply the battletome lores. The group definitions appearing in the moving main-branch faction catalogue would allow a fallback-tier intake of the lores while Wahapedia still lags.",
