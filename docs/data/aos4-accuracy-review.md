@@ -12,25 +12,32 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-01`, generated from the accepted 2026-08-01 source
+The current revision is `aos4-corpus-2026-08-01b`, generated from the accepted 2026-08-01b source
 snapshot. Its automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
-| Accepted artifacts independently inventoried | 242/242 |
+| Accepted artifacts independently inventoried | 244/244 |
 | Explicit non-material discovery entries | 9 |
 | Official battle-profile facts | 1,350/1,350 |
-| Final official/secondary reconciliation discrepancies | 406/406 |
-| Official profile-only facts | 12/12 |
-| Live audit source records | 19,127/19,127 |
+| Final official/secondary reconciliation discrepancies | 411/411 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 19,274/19,274 |
 | Ignored-record dispositions (superseded + explicit) | 18,903/18,903 |
-| Live review pairs | 39,799/39,799 |
-| Independent outcomes | 79,598 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 39,940/39,940 |
+| Independent outcomes | 79,880 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed at `2026-08-01T00:44:08.562Z`: 242 entries matched
-accepted checksums and 9 discovery entries received explicit non-material dispositions.
+The independent source inventory was observed at `2026-08-01T01:56:18.285Z`: 244 entries matched
+accepted checksums (including the two commit-pinned BSData catalogues, observed live by the
+`data:aos4:inventory:observe-bsdata` observer) and 9 discovery entries received explicit
+non-material dispositions.
+
+Provisional community-tier records receive the same treatment as secondary ones: their source
+records are independently compared against the generated entities, their artifacts must carry the
+`community` authority and a visibly provisional title, and the official battle-profile facts they
+depend on are certified as applied-to-runtime overrides.
 
 The first 2026-08-01 campaign returned 12 findings; both underlying causes were corrected and the
 complete campaign was rerun from freshly prepared packets. Six findings retired ability-text

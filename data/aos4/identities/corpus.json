@@ -3,6 +3,292 @@
     {
       "aliases": [
         {
+          "externalId": "BSData/age-of-sigmar-4th:unit:cleavers:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e03e799c-cb42-50ac-82c8-4af7b0d9b236",
+      "kind": "ability",
+      "name": "Arcane Appetite"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gluttons:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d1294d0c-9d47-5c3a-b6ab-e1b7b7da1d42",
+      "kind": "ability",
+      "name": "Wall of Meat"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:04a46f97-56b9-5ba7-afba-e2486ad15236",
+      "kind": "ability",
+      "name": "Ogor-Made Ammunition"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a231a768-f905-5821-b88d-991b67fc9dbb",
+      "kind": "ability",
+      "name": "Thunderous Diversion"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:68531994-0581-59bd-bb8b-c6053e6901a3",
+      "kind": "ability",
+      "name": "Oi! Pay Attention, Slobs!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gutseers:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c43cb1c0-1de4-5392-9a37-ab51c1c6ad61",
+      "kind": "ability",
+      "name": "Arcane Contortions"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gutseers:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:032a9dfc-a0e1-5255-8195-81a1de8ab82c",
+      "kind": "ability",
+      "name": "Conduits of Gut Magic"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:66928ab5-3dc7-53f9-958a-3468ee4929f0",
+      "kind": "ability",
+      "name": "Through the Frosts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:75cb8fab-6247-5a65-8956-e314d86d12f4",
+      "kind": "ability",
+      "name": "Ferocious Sabrefangs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:48078a06-2b32-5584-943d-84ef7563ae6e",
+      "kind": "ability",
+      "name": "Aquatic Illusions"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:cea5a708-75cb-59f2-8ebc-124fcc6f212e",
+      "kind": "ability",
+      "name": "Nebulous Sea-fog"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e902f144-74b1-5163-8a5b-795c9e9af58c",
+      "kind": "ability",
+      "name": "Ravenous Counter-Attack"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:6981460a-91ea-518f-bef7-c7678bb05889",
+      "kind": "ability",
+      "name": "Shock and Gore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:237f2552-fd0b-5b1c-acb6-0a3d2b41c7dc",
+      "kind": "ability",
+      "name": "Relentless Predators"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a124d355-8690-50cc-a399-3040abb2bced",
+      "kind": "ability",
+      "name": "An Ogor's Ogor"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d6d07709-21ec-5e70-b50b-68bf03a23201",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1f42f198-507f-5858-8570-4d8b958a3524",
+      "kind": "ability",
+      "name": "A Light Snack"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f3e87470-2930-5805-9d2c-e1965fdc0ec9",
+      "kind": "ability",
+      "name": "Been There, Ate That"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:5",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:7b902ad7-17a5-5422-9bb6-ae459e52763a",
+      "kind": "ability",
+      "name": "The Right Motivation"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:8ca43cf5-dd9e-5286-80ef-a121c672414c",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c9d66a0d-3519-58b2-a5fd-3d12e514a8bf",
+      "kind": "ability",
+      "name": "Son of the Hungering One"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b824ffa4-1096-5695-a1fc-d79645c866a2",
+      "kind": "ability",
+      "name": "From the Depths of the Cauldron"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d179efd8-28bd-522f-86ec-3e72ee4b8fd1",
+      "kind": "ability",
+      "name": "The Maw Opens"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:604a5b87-9b1a-5b2a-a333-51a5d60d757b",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:3657a060-bff6-595e-b74b-1d23178aac98",
+      "kind": "ability",
+      "name": "Pitiless Warlord"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b263830a-4359-577e-a6b4-44a999b24ccb",
+      "kind": "ability",
+      "name": "Glutthorn Stampede"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:BoC:000000476:000001925:2",
           "publisher": "wahapedia"
         }
@@ -53892,6 +54178,127 @@
     {
       "aliases": [
         {
+          "externalId": "BSData/age-of-sigmar-4th:unit:cleavers:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:da9ae9c9-1be6-5d5c-bf0d-f85129a58892",
+      "kind": "battle-profile",
+      "name": "Cleavers battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gluttons:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:2c9ad6f8-d463-5e92-9688-f7c4951164bc",
+      "kind": "battle-profile",
+      "name": "Gluttons battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:40fa9f33-0bca-5a97-838e-1c4bd6686bb2",
+      "kind": "battle-profile",
+      "name": "Grell Firefist battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gutseers:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:fe555ac1-05fd-512a-906d-f192eb70a7a0",
+      "kind": "battle-profile",
+      "name": "Gutseers battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:7c1f1be4-ad8c-5dc2-9fdd-85da8e5b707c",
+      "kind": "battle-profile",
+      "name": "Hunters with Sabrefangs battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:7c853003-3d0e-50c3-a148-8829530e400d",
+      "kind": "battle-profile",
+      "name": "Lorai, Child of the Abyss battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:e6d4f3af-6a54-5933-ac3e-cbcdac3bdcb5",
+      "kind": "battle-profile",
+      "name": "Maulbeast Cavalry battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:d13a54e5-603d-52e5-b3d2-e26810da8e4d",
+      "kind": "battle-profile",
+      "name": "Maulbeast Raiders battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:a083b96d-0813-5a2a-909d-67c105457d8b",
+      "kind": "battle-profile",
+      "name": "Morga the Mighty, Overtyrant battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:7c2c5613-ea0a-55dc-baa4-12a487e30cce",
+      "kind": "battle-profile",
+      "name": "Redd the Maw, High Slaughtermaster battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:5072971a-7784-54de-aca7-f6ae33bec7ac",
+      "kind": "battle-profile",
+      "name": "Tyrant on Glutthorn battle profile"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Scourge-of-Aqshy-Blood-Warriors/warscroll:battle-profile",
           "publisher": "wahapedia"
         }
@@ -82459,6 +82866,28 @@
     {
       "aliases": [
         {
+          "externalId": "community:72f866e3affcde31ef1ab75b2dd947f0c37da6a50892b0c843fe0e78a1c7d451",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:edf5850d-b47a-58c2-b60b-ee0ac0484adf",
+      "kind": "publication",
+      "name": "BSData Stormcast Eternals library (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:7e4d36ff7ad4b26ef27221bac71c52f2b812d85319688691acd44ccf8af0ab27",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:a38715d5-6fb6-5f6c-90e0-9722eb78e030",
+      "kind": "publication",
+      "name": "BSData Ogor Mawtribes library (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Last_update.csv:2026-05-26 01:33:36",
           "publisher": "wahapedia"
         }
@@ -83786,6 +84215,127 @@
       "canonicalId": "publication:307b8162-f3e1-5d69-915e-e99b81a5db68",
       "kind": "publication",
       "name": "Spearhead: Ossiarch Bonereapers - Tithe-Reaper Echelon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:cleavers",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:bd57f577-0070-56a0-b30b-d02c9d76f9dc",
+      "kind": "warscroll",
+      "name": "Cleavers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gluttons",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:786a5478-cdd5-5c9e-b99a-64abd300c3c2",
+      "kind": "warscroll",
+      "name": "Gluttons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:3d7eeb3f-cec6-5f0e-984d-d824c54696a4",
+      "kind": "warscroll",
+      "name": "Grell Firefist"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gutseers",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:64653115-2bc4-5cdd-9b06-ce3df37d81f0",
+      "kind": "warscroll",
+      "name": "Gutseers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:89ccb5ba-230f-54bb-8fb1-615990d3dff2",
+      "kind": "warscroll",
+      "name": "Hunters with Sabrefangs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:55581d28-3d26-537c-945f-6666f302dd8a",
+      "kind": "warscroll",
+      "name": "Lorai, Child of the Abyss"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:978ff9a9-1948-5753-a499-84c7f574fb55",
+      "kind": "warscroll",
+      "name": "Maulbeast Cavalry"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:d1eb2b5d-66e4-5894-8779-7d9bf1ac631e",
+      "kind": "warscroll",
+      "name": "Maulbeast Raiders"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:63fc6999-e8d4-5e96-a571-8d13f0b956d5",
+      "kind": "warscroll",
+      "name": "Morga the Mighty, Overtyrant"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:955103c0-b6f8-5b34-8d0a-ecfd5046a434",
+      "kind": "warscroll",
+      "name": "Redd the Maw, High Slaughtermaster"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:f1747fd5-adb7-5c6e-a38f-a3e35bc3c0b9",
+      "kind": "warscroll",
+      "name": "Tyrant on Glutthorn"
     },
     {
       "aliases": [
@@ -97932,6 +98482,226 @@
       "canonicalId": "warscroll:0969b438-1a0d-51cd-872d-e43478156142",
       "kind": "warscroll",
       "name": "Freeguild Command Corps Arch-Knight and Retinue"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:cleavers:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:4ed23cf0-9c3f-5e25-bad3-653b4094ff84",
+      "kind": "weapon",
+      "name": "Cleaver's Tools"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gluttons:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:745887ae-38d7-5c4b-91a2-dfa7746981d8",
+      "kind": "weapon",
+      "name": "Glutton Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:9d8a3d99-e48f-560b-9fb9-ca40d2888fd1",
+      "kind": "weapon",
+      "name": "Blastbelch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ee47d74b-451b-5598-a32a-763c4076a550",
+      "kind": "weapon",
+      "name": "Maneater Cleaver"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gutseers:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:4abb8c1c-2fc6-5151-9888-b5839c58118e",
+      "kind": "weapon",
+      "name": "Gutseer's Tools"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:f5042daa-7f5c-5401-9040-e2fe4acd4988",
+      "kind": "weapon",
+      "name": "Hunter's Crossbow"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:1648e36f-df00-518c-8a85-eb205a84a33b",
+      "kind": "weapon",
+      "name": "Skinning Blades"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:bce354db-f235-503a-9dcf-3479fc8cbbbd",
+      "kind": "weapon",
+      "name": "Sabrefang's Tusks and Claws"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lorai-child-of-the-abyss:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:2f24f031-b66a-5b68-b2da-995aed6d9539",
+      "kind": "weapon",
+      "name": "Abyssal Touch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:6d2b4841-53f4-5e59-9cf5-9db99b892246",
+      "kind": "weapon",
+      "name": "Gutbiter Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:acd6f68e-224a-590b-a2e8-14c0b4861a96",
+      "kind": "weapon",
+      "name": "Maulbeast's Horns and Fangs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:e82caf5d-8d76-5178-be25-cbc84ce8e990",
+      "kind": "weapon",
+      "name": "Hunter Crossbow and Blood Vulture"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:60c468e8-e783-5be0-a9cb-a30d50ee6903",
+      "kind": "weapon",
+      "name": "Punches and Kicks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:2ba567c3-4f91-5453-817f-eb794e2a4f79",
+      "kind": "weapon",
+      "name": "Maulbeast's Horns and Fangs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:e587ec2a-1700-583f-bb78-8ba55f9cf71f",
+      "kind": "weapon",
+      "name": "The Meatfist Masher"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:19416ce2-383a-579b-84da-ccaae29a0f9d",
+      "kind": "weapon",
+      "name": "Grutta's Horn and Hooves"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:dd7d6f2a-eb87-5e64-9253-790b8dab541c",
+      "kind": "weapon",
+      "name": "Redd's Ladle"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:98cbc89e-d9e6-5526-bbff-cd889bbe56ad",
+      "kind": "weapon",
+      "name": "Mawseeker Acolytes' Blades and Gorger's Claws"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:8a16e81c-dc9d-56b1-8729-a27d318eb246",
+      "kind": "weapon",
+      "name": "Tyrant's Meatcleavers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:6fa6047c-d359-5e20-b2bc-53a2dd651555",
+      "kind": "weapon",
+      "name": "Glutthorn's Horn and Hooves"
     },
     {
       "aliases": [

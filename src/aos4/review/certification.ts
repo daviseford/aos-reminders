@@ -186,7 +186,7 @@ export type SourceInventoryStatus =
   | 'ambiguous'
 
 export interface SourceInventoryEntry {
-  publisher: 'games-workshop' | 'wahapedia'
+  publisher: 'games-workshop' | 'wahapedia' | 'bsdata'
   url: string
   title: string
   status: SourceInventoryStatus
@@ -753,7 +753,7 @@ const sourceInventoryIssues = (
       // The shape diagnostic below handles invalid URLs.
     }
     const valid =
-      ['games-workshop', 'wahapedia'].includes(entry.publisher) &&
+      ['games-workshop', 'wahapedia', 'bsdata'].includes(entry.publisher) &&
       url?.protocol === 'https:' &&
       isNonEmptyString(entry.title) &&
       ['matched', 'explicit-non-material', 'missing', 'unexpected', 'inaccessible', 'ambiguous'].includes(

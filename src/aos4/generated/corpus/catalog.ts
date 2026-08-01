@@ -21,7 +21,12 @@ const sourceArtifacts: SourceArtifact[] = projection.sourceArtifacts.map(artifac
   id: artifact.id,
   publisher: artifact.publisher,
   authority: {
-    kind: artifact.publisher === 'games-workshop' ? 'official' : 'secondary',
+    kind:
+      artifact.publisher === 'games-workshop'
+        ? 'official'
+        : artifact.publisher === 'wahapedia'
+          ? 'secondary'
+          : 'community',
   },
   title: artifact.title,
   edition: '4',

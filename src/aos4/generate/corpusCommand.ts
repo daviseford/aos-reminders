@@ -2,13 +2,17 @@ import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
+  BSDATA_ADAPTER_VERSION,
   FileArtifactCache,
   artifactChecksum,
   assertArtifactChecksum,
   createArtifactManifest,
+  extractBsDataWarscrolls,
   extractGamesWorkshopBattleProfileSupplement,
   extractGamesWorkshopBattleProfiles,
   extractGamesWorkshopPdfText,
+  mergeBsDataWarscrolls,
+  type BsDataCommunitySourceInput,
   factionRootWarscrollScope,
   filterNativeWahapediaFactionWarscrolls,
   mergeCurrentWahapediaWarscrollPages,
@@ -43,15 +47,15 @@ import {
 import { createRuntimeProjection, serializeRuntimeProjection } from './runtimeProjection'
 import { serializeAuditCatalog, stableJson } from './serialization'
 
-const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-01.json')
-const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-01.json')
+const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-01b.json')
+const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-01b.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
 const DEFAULT_AUDIT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_BATTLE_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaults.json')
-const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01-summary.json')
-const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01-reconciliation.json')
+const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01b-summary.json')
+const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01b-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_BETA_READINESS = path.join('data', 'aos4', 'certifications', 'beta.json')
 
@@ -328,6 +332,82 @@ const validateOfficialDocuments = (manifest: ArtifactManifest, review: CorpusRev
         .join(', ')}`
     )
   }
+}
+
+const validateCommunityWarscrollSources = (manifest: ArtifactManifest, review: CorpusReview): void => {
+  const acceptedByChecksum = new Map(manifest.artifacts.map(artifact => [artifact.checksum, artifact]))
+  const sources = review.communityWarscrollSources ?? []
+  sources.forEach(source => {
+    const accepted = acceptedByChecksum.get(source.artifact.checksum)
+    const reviewed = source.artifact
+    if (
+      !accepted ||
+      accepted.requestUrl !== reviewed.requestUrl ||
+      accepted.finalUrl !== reviewed.finalUrl ||
+      accepted.redirectChain.join('|') !== reviewed.redirectChain.join('|') ||
+      accepted.retrievedAt !== reviewed.retrievedAt ||
+      accepted.adapterVersion !== BSDATA_ADAPTER_VERSION ||
+      accepted.mediaType !== reviewed.mediaType ||
+      accepted.byteLength !== reviewed.byteLength ||
+      accepted.checksum !== reviewed.checksum
+    ) {
+      throw new Error(`Community warscroll source ${source.title} is not pinned in the accepted manifest`)
+    }
+  })
+  const reviewedChecksums = new Set(sources.map(source => source.artifact.checksum))
+  const unreviewed = manifest.artifacts.filter(
+    artifact =>
+      artifact.adapterVersion === BSDATA_ADAPTER_VERSION && !reviewedChecksums.has(artifact.checksum)
+  )
+  if (unreviewed.length) {
+    throw new Error(
+      `Accepted community artifacts are missing review metadata: ${unreviewed
+        .map(artifact => artifact.checksum)
+        .join(', ')}`
+    )
+  }
+}
+
+const extractCommunityWarscrollFacts = async (
+  review: CorpusReview,
+  cache: FileArtifactCache
+): Promise<BsDataCommunitySourceInput[]> => {
+  const inputs: BsDataCommunitySourceInput[] = []
+  for (const source of review.communityWarscrollSources ?? []) {
+    const bytes = await cache.get(source.artifact.checksum)
+    if (!bytes) throw new Error(`Community artifact ${source.artifact.checksum} is missing`)
+    const extracted = extractBsDataWarscrolls(
+      bytes,
+      source.artifact.checksum,
+      source.units.map(unit => unit.name)
+    )
+    const errors = extracted.diagnostics.filter(diagnostic => diagnostic.severity === 'error')
+    if (errors.length) {
+      throw new Error(
+        `Community warscroll extraction failed for ${source.title}:\n${errors
+          .map(diagnostic => `- ${diagnostic.code}: ${diagnostic.message}`)
+          .join('\n')}`
+      )
+    }
+    // A community fact enters generation only when its reviewed section and checksum both pin the
+    // extracted content exactly; a drifted transcription must fail closed, never silently update.
+    source.units.forEach(unit => {
+      const fact = extracted.facts.find(candidate => candidate.name === unit.name)
+      if (!fact || fact.section !== unit.section || fact.factChecksum !== unit.recordChecksum) {
+        throw new Error(
+          `Community warscroll ${unit.name} no longer matches its reviewed section or checksum ` +
+            `(${fact ? `${fact.section} ${fact.factChecksum}` : 'not extracted'})`
+        )
+      }
+    })
+    inputs.push({
+      artifact: source.artifact,
+      repository: source.repository,
+      facts: extracted.facts,
+      officialSourceRecordIds: source.officialSourceRecordIds,
+    })
+  }
+  return inputs
 }
 
 const loadWahapediaHtmlPages = async (
@@ -820,11 +900,13 @@ export const loadAcceptedCorpusSourceData = async (
     loadReview(arguments_.reviewPath),
   ])
   validateOfficialDocuments(manifest, review)
+  validateCommunityWarscrollSources(manifest, review)
   const cache = new FileArtifactCache(arguments_.cacheDirectory)
   await verifyAcceptedArtifacts(manifest, cache)
   const officialPageTextBySourceRecordId = await validateOfficialEvidence(review, cache)
   const decoded = decodeWahapediaExports(await loadWahapediaInputs(manifest, cache))
   const officialBattleProfiles = await extractOfficialBattleProfileFacts(review, cache)
+  const communitySources = await extractCommunityWarscrollFacts(review, cache)
   collectGarbage()
   const wahapediaHtml = await loadWahapediaHtmlPages(manifest, review, cache)
   collectGarbage()
@@ -836,14 +918,20 @@ export const loadAcceptedCorpusSourceData = async (
     wahapediaHtml.rules,
     review.currentWahapediaHtml?.rulesPages ?? []
   )
-  validateReviewedReconciliation(review, merged.reconciliation)
+  const communityMerged = mergeBsDataWarscrolls(
+    merged.dataset,
+    merged.reconciliation,
+    communitySources,
+    officialBattleProfiles.effective
+  )
+  validateReviewedReconciliation(review, communityMerged.reconciliation)
   return {
     manifest,
     review,
     acceptedDecoded: decoded,
-    decoded: { ...decoded, dataset: merged.dataset },
+    decoded: { ...decoded, dataset: communityMerged.dataset },
     officialBattleProfiles,
-    reconciliation: merged.reconciliation,
+    reconciliation: communityMerged.reconciliation,
     officialPageTextBySourceRecordId,
   }
 }
