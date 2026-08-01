@@ -21756,7 +21756,7 @@
       ],
       "canonicalId": "ability:b05c7ed3-b9aa-5802-befd-f1700efb118c",
       "kind": "ability",
-      "name": "DEVIOUS UNDERLING"
+      "name": "MASTERCLAN CONNECTIONS"
     },
     {
       "aliases": [
@@ -21767,7 +21767,7 @@
       ],
       "canonicalId": "ability:cc1e893a-9deb-55d8-9561-65364eca4f22",
       "kind": "ability",
-      "name": "FLESHMEDDLER"
+      "name": "MASTER OF THE SWARM"
     },
     {
       "aliases": [
@@ -21778,7 +21778,7 @@
       ],
       "canonicalId": "ability:92596ad2-35c8-5a1d-b1a9-221200bd4ab2",
       "kind": "ability",
-      "name": "PIT TINKERER"
+      "name": "ESSENCE OF THE GNAW"
     },
     {
       "aliases": [
@@ -26322,6 +26322,17 @@
       "canonicalId": "ability:381657a5-a62d-53ec-a495-3cf601fb6e2c",
       "kind": "ability",
       "name": "MYSTIC SHIELD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/the-rules/general-s-handbook-2025-26/#rules-ability:Standard-Bearers:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:16f1da7e-a613-5d8a-ba74-c9c31845ce6e",
+      "kind": "ability",
+      "name": "STANDARD BEARER"
     },
     {
       "aliases": [
@@ -79221,6 +79232,17 @@
       "canonicalId": "content-group:b94a80a8-e204-5b7c-9353-62b7389e647d",
       "kind": "content-group",
       "name": "2.0 Spells"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/the-rules/general-s-handbook-2025-26/#rules-group:Standard-Bearers",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:ba8dd808-a2b2-5c28-86ef-3cc406ef6a0b",
+      "kind": "content-group",
+      "name": "3.0 Standard Bearers"
     },
     {
       "aliases": [

@@ -10,7 +10,7 @@ does not authorize a merge, API deployment, or production configuration change.
 ## What ships in 6.0.0
 
 - the canonical AoS 4 domain, selection, reminder, state, and generated-data runtime;
-- the accepted `aos4-corpus-2026-07-30` snapshot and checksum-bound beta gate;
+- the accepted `aos4-corpus-2026-08-01` snapshot and checksum-bound beta gate;
 - 27 playable armies, with universal manifestations sourced from the Endless Spells container;
 - official-app, Listbot, and New Recruit `.ros`/`.rosz`/`.json` roster imports;
 - PDF export, cloud armies, opaque sharing, Auth0, subscriptions, themes, and account pages;
@@ -38,7 +38,7 @@ Before merging #1717, confirm all of the following:
 
 - the PR title does not trip the WIP check and every required GitHub check is green;
 - the accepted beta pointer still resolves to
-  `data/aos4/certifications/aos4-corpus-2026-07-30-machine-r3`;
+  `data/aos4/certifications/aos4-corpus-2026-08-01-machine-r1`;
 - the project owner explicitly authorizes the `master` merge and resulting frontend deployment;
 - the AoS 4-native army/share service through `aos-reminders-rest-api#11` is deployed to production
   with the production entitlement URL, Auth0 issuer/audience, share base URL, and CORS origins;

@@ -16,29 +16,31 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-07-30 snapshot is defined by:
+The accepted 2026-08-01 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-07-30.json` | 13 Wahapedia exports, 157 official PDFs, and 72 reviewed Wahapedia pages, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-07-30.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-01.json` | 13 Wahapedia exports, 157 official PDFs, and 72 reviewed Wahapedia pages, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-08-01.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-07-30-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-07-30-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-01-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-01-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
 - 1,286 warscrolls and 1,002 battle profiles
-- 4,898 usable abilities
+- 4,893 usable abilities
 - 2,260 weapons
-- 1,409 content groups, including 48 Spearhead force/unit wrappers
-- 242 source artifacts and 19,126 live source records
-- every live record consumed, with zero unresolved integrity issues
+- 1,410 content groups, including 48 Spearhead force/unit wrappers
+- 242 source artifacts and 19,127 live source records
+- every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
+- 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
+  ignored so they never appear as reminders (customer report 2026-07-31)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
 - 1,350 extracted GW battle-profile facts: 928 applied to runtime, 12 profile-only gaps,
   363 structured references, and 47 superseded facts
@@ -61,13 +63,25 @@ than as a second selectable current context.
 
 The current official Battle Profiles PDF and Ogor Mawtribes supplement contribute 1,303 effective
 facts. Reconciliation applies official unit size, points, regiment options, notes, and bases to 928
-runtime profiles and now records 413 field-level secondary discrepancies after upstream parser and
+runtime profiles and now records 406 field-level secondary discrepancies after upstream parser and
 normalization corrections. Twelve official unit facts remain `profile-only` because current
 warscroll rules were not available; generation preserves their exact facts and checksums but does
-not invent reminders. The official July 2026 Rules Updates supplies reviewed ability-text, timing,
-and keyword corrections where the accepted secondary pages have not yet caught up. The other
-accepted official documents are reference evidence: their pages are available to reviewers but do
-not invent structured runtime facts.
+not invent reminders. The official July 2026 Rules Updates supplies reviewed ability-text and
+timing corrections where the accepted secondary pages have not yet caught up. The other accepted
+official documents are reference evidence: their pages are available to reviewers but do not
+invent structured runtime facts.
+
+The twelve profile-only facts are the ten July 2026 Ogor Mawtribes battletome units (Redd the Maw,
+Tyrant on Glutthorn, Morga the Mighty, Grell Firefist, Gutseers, Cleavers, Gluttons, Hunters with
+Sabrefangs, Maulbeast Cavalry, and Maulbeast Raiders), Lorai, Child of the Abyss (Stormcast
+Eternals), and The Emberwatch (Legends). As of 2026-08-01 no accepted source publishes their
+warscroll rules: Wahapedia still lists only the pre-supplement warscrolls, and the free official
+"Battletome Supplement: Ogor Mawtribes" PDF contains only the legacy-unit warscrolls
+(Slaughtermaster, Maneaters, Firebelly, Icebrow Hunter, and similar) rather than the new units.
+Community transcriptions (BSData) exist but are never a source of accepted rules data. When
+Wahapedia or an official document publishes the missing warscrolls, the standard candidate intake
+replaces these profile-only facts; `src/tests/aos4/ogorSupplementProfileOnly.test.ts` pins the
+boundary until then.
 
 Every official document is limited to the rules contexts it actually governs. Spearhead,
 2026-27 `Scourge of Aqshy`, Legends, and historical `Scourge of Ghyran` records must not leak
@@ -77,24 +91,28 @@ The strict generation gate and the checksum-bound machine review are green for t
 snapshot. See [`aos4-accuracy-review.md`](./aos4-accuracy-review.md) for the review, correction,
 verification, and staleness workflow.
 
-### Pending review revision: corpus-2026-07-31
+### Review lineage: corpus-2026-07-31 and the 2026-08-01 acceptance
 
-`data/aos4/reviews/corpus-2026-07-31.json` is a prepared, not-yet-accepted revision. It carries the
-2026-07-30 review forward and additionally dispositions six Wahapedia rules-page source records as
-ignored: the illustrative `EXAMPLE SPELL` (Mystic Shield) and `EXAMPLE PRAYER` (Resurrection) cards
-that the core rules and the 2024-25/2025-26 General's Handbook pages reproduce to show the
-ability-card format. They are not playable abilities, and the universal core-rules wiring was
-surfacing them as reminders for every army (customer report 2026-07-31). Sacred Rites is not
-excluded ("All PRIESTS know the following prayer"), and the Ascension page's Mystic Shield and
-Resurrection are genuine Path rank rewards on an already reference-only page, so they stay.
+`data/aos4/reviews/corpus-2026-07-31.json` was a prepared, not-then-accepted revision carrying the
+2026-07-30 review forward plus six ignored dispositions for the illustrative `EXAMPLE SPELL`
+(Mystic Shield) and `EXAMPLE PRAYER` (Resurrection) cards that the core rules and the
+2024-25/2025-26 General's Handbook pages reproduce to show the ability-card format. They are not
+playable abilities, and the universal core-rules wiring was surfacing them as reminders for every
+army (customer report 2026-07-31). Sacred Rites is not excluded ("All PRIESTS know the following
+prayer"), and the Ascension page's Mystic Shield and Resurrection are genuine Path rank rewards on
+an already reference-only page, so they stay.
 
-Accepting this revision requires an operator with the accepted 2026-07-30 immutable artifact cache
-(`.cache/aos4/artifacts`): run `yarn data:aos4:generate:write` against the new review, then the
-full certification campaign and `beta.json` re-point described in
-[`aos4-accuracy-review.md`](./aos4-accuracy-review.md). Until then the accepted 2026-07-30 products
-remain byte-for-byte reproducible and the beta gate stays bound to them.
-`src/tests/aos4/coreRulesExampleAbilities.test.ts` guards the exclusion list and proves the
-resulting selection graph drops exactly the example cards.
+Because the accepted 2026-07-30 immutable artifact cache was no longer available and live
+Wahapedia bytes had drifted from the pinned checksums, that revision was accepted through a fresh
+candidate acquisition instead of an offline replay: the 2026-08-01 snapshot re-pins every source
+(all 13 exports and 157 official PDFs were byte-identical; 65 Wahapedia HTML pages drifted),
+carries the corpus-2026-07-31 dispositions forward, and additionally reviews the drift: a new
+reference-only historical "Standard Bearers" section on the General's Handbook 2025-26 page, three
+Skaven Devious Machinations heroic-trait renames matching the official July 2026 Scourge of Aqshy
+Skaven document, a Wahapedia `{Army)` timing typo fix on Cursed Stele, and Wahapedia catching up
+to the official Thyrielle's Zephyrites HERO-keyword removal (which retired the reviewed keyword
+override). `src/tests/aos4/coreRulesExampleAbilities.test.ts` guards the exclusion list and proves
+the shipped selection graph drops exactly the example cards.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not

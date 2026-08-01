@@ -77,9 +77,9 @@ const dataPath = (...segments: string[]): string => path.join(process.cwd(), 'da
 
 const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPath(...segments), 'utf8')) as T
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-07-30.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-01.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-07-30-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-01-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -93,6 +93,8 @@ const copyCatalog = (changes: Partial<Aos4Catalog> = {}): Aos4Catalog => ({
 describe('AoS 4 catalog generation integrity', () => {
   it('ships a strict, fully consumed runtime projection of the accepted corpus', () => {
     expect(validateCatalog(AOS4_CATALOG)).toEqual([])
+    // The runtime projection only carries referenced source records, so the six ignored
+    // example-card records are absent here and everything present is consumed.
     expect(validateGenerationIntegrity(AOS4_CATALOG)).toEqual({
       ok: true,
       consumedSourceRecordIds: AOS4_CATALOG.sourceRecords
@@ -100,20 +102,21 @@ describe('AoS 4 catalog generation integrity', () => {
         .sort((left, right) => left.localeCompare(right)),
       issues: [],
     })
+    expect(AOS4_CATALOG.sourceRecords).toHaveLength(report.integrity.consumedSourceRecords)
     expect(report).toMatchObject({
       status: 'strict-pass',
       summary: {
         factions: 28,
         warscrolls: 1286,
         battleProfiles: 1002,
-        abilities: 4898,
+        abilities: 4893,
         weapons: 2260,
         sourceArtifacts: 242,
-        sourceRecords: 19126,
-        ignoredSourceRecords: 18897,
+        sourceRecords: 19127,
+        ignoredSourceRecords: 18903,
       },
       integrity: {
-        consumedSourceRecords: 19126,
+        consumedSourceRecords: 19121,
         issues: [],
         supersededSourceRecords: {
           count: 18897,
@@ -121,7 +124,14 @@ describe('AoS 4 catalog generation integrity', () => {
         },
       },
     })
-    expect(report.integrity.dispositions).toEqual([])
+    // The six ignored dispositions are exactly the illustrative core-rules example ability cards
+    // (customer report 2026-07-31); everything else stays fully consumed.
+    expect(report.integrity.dispositions).toHaveLength(6)
+    report.integrity.dispositions.forEach(disposition => {
+      expect(disposition.status).toBe('ignored')
+      expect(disposition.reason).toMatch(/example/i)
+      expect(disposition.sourceRecordId).toMatch(/rules-ability%3A(?:Spells|Prayers)%3Aability/)
+    })
     expect(report.integrity.supersededSourceRecords.reason.trim()).not.toBe('')
   })
 

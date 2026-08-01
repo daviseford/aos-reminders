@@ -424,6 +424,47 @@ const warscrollSourceFidelityChecks = (
 }
 
 const secondarySourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] => {
+  const ignoredDispositions = pair.comparisonPacket.generatedDestinations.filter(
+    destination => destination.field === 'ignoredSourceRecords' && isRecord(destination.value)
+  )
+  if (ignoredDispositions.length) {
+    // A reviewed ignored source record intentionally generates nothing: verify the durable
+    // disposition instead of expecting a runtime entity.
+    const checks: FailedCheck[] = []
+    const entities = generatedCatalogEntities(pair)
+    if (entities.length) {
+      checks.push(
+        failed(
+          'secondary.ignored-source-entity',
+          'A reviewed ignored source record must not generate runtime entities',
+          [],
+          entities.map(entity => entity.name)
+        )
+      )
+    }
+    ignoredDispositions.forEach(destination => {
+      const value = destination.value as Record<string, unknown>
+      if (!String(value.reason ?? '').trim()) {
+        checks.push(
+          failed(
+            'secondary.ignored-source-reason',
+            'Ignored source disposition requires a specific non-empty reason'
+          )
+        )
+      }
+      if (value.sourceRecordId !== sourceRecordId(pair)) {
+        checks.push(
+          failed(
+            'secondary.ignored-source-record',
+            'Ignored disposition targets a different source record',
+            sourceRecordId(pair),
+            value.sourceRecordId
+          )
+        )
+      }
+    })
+    return checks
+  }
   const parsed = evidenceJsonValue(pair)
   if (!parsed) return []
   const entities = generatedCatalogEntities(pair)

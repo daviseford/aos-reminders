@@ -284,8 +284,23 @@ export const boundReviewPopulationIssues = (
   const explicitIgnoredKeys = review.ignoredSourceRecords.map(record =>
     ignoredRecordCandidateKey(record.sourceRecordId)
   )
-  const expectedIgnoredCount = review.supersededSourceRecords?.expectedCount ?? explicitIgnoredKeys.length
+  // Explicitly ignored records fall into two populations: records that are still live in the
+  // bound catalog (ignored with a reviewed reason) and records that the superseded checksum
+  // already covers. The superseded checksum must keep binding exactly the superseded set, so the
+  // live explicit dispositions are counted separately and excluded from that checksum.
+  const catalogSourceRecordIds = new Set<string>(catalog.sourceRecords.map(record => record.id))
+  const liveExplicitIgnoredKeys = new Set(
+    review.ignoredSourceRecords
+      .filter(record => catalogSourceRecordIds.has(record.sourceRecordId))
+      .map(record => ignoredRecordCandidateKey(record.sourceRecordId))
+  )
+  const supersededExpectedCount = review.supersededSourceRecords?.expectedCount
+  const expectedIgnoredCount =
+    supersededExpectedCount === undefined
+      ? explicitIgnoredKeys.length
+      : supersededExpectedCount + liveExplicitIgnoredKeys.size
   const ignoredSourceRecordIds = Array.from(ignoredKeys)
+    .filter(key => !liveExplicitIgnoredKeys.has(key))
     .map(key => key.slice('ignored-record:'.length))
     .sort((left, right) => left.localeCompare(right))
   const ignoredChecksum = createHash('sha256').update(ignoredSourceRecordIds.join('\n'), 'utf8').digest('hex')
@@ -293,7 +308,9 @@ export const boundReviewPopulationIssues = (
   if (
     ignoredKeys.size !== expectedIgnoredCount ||
     explicitIgnoredKeys.some(key => !ignoredKeys.has(key)) ||
-    (expectedIgnoredCount > 0 && ignoredChecksum !== expectedIgnoredChecksum)
+    (supersededExpectedCount !== undefined &&
+      supersededExpectedCount > 0 &&
+      ignoredChecksum !== expectedIgnoredChecksum)
   ) {
     issues.push({
       code: 'invalid-review-index',
