@@ -2,10 +2,21 @@
 
 /* Make sure our document fills the page - important for dark theme! */
 html,
-body,
-#root {
+body {
     margin: 0;
     height: 100%;
+}
+
+/*
+ * `#root` is the element useTheme paints `theme.bgColor` onto, so its box *is* the page background.
+ * `height: 100%` bounded that box to one viewport, which is why a page taller than the fold showed
+ * the white canvas in dark theme — only the cards, which paint their own background, stayed dark.
+ * `min-height` keeps the full-viewport floor on short pages (/join, /redeem, the loading fallback)
+ * and lets the box grow with the content on long ones.
+ */
+#root {
+    margin: 0;
+    min-height: 100%;
 }
 
 /* Elements */

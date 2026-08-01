@@ -107,4 +107,55 @@ describe('subscriber theme continuity', () => {
     expect(window.localStorage.getItem('theme')).toBe('light')
     expect(subscriptionApi.updateTheme).toHaveBeenCalledWith({ theme: 'light' }, 'audience-token')
   })
+
+  /*
+   * The canvas behind the document takes its colour from <body>, not from `#root`, so a theme that
+   * only paints `#root` leaves white in the overscroll area. The previous background has to come off
+   * as well as the new one going on, or a toggle back to light leaves both classes fighting.
+   */
+  it('paints the current theme onto <body> and clears the previous one', async () => {
+    await act(async () => {
+      render(
+        <ThemeProvider>
+          <Probe />
+        </ThemeProvider>,
+        container
+      )
+      await Promise.resolve()
+    })
+
+    expect(document.body.classList.contains('bg-themeDarkBlueSecondary')).toBe(true)
+    expect(document.body.classList.contains('bg-white')).toBe(false)
+
+    await act(async () => {
+      container.querySelector('button')?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await Promise.resolve()
+    })
+
+    expect(document.body.classList.contains('bg-white')).toBe(true)
+    expect(document.body.classList.contains('bg-themeDarkBlueSecondary')).toBe(false)
+  })
+
+  /* react-modal parks `ReactModal__Body--open` on <body>; a theme change must not sweep it off. */
+  it('leaves unrelated body classes alone', async () => {
+    document.body.classList.add('ReactModal__Body--open')
+
+    await act(async () => {
+      render(
+        <ThemeProvider>
+          <Probe />
+        </ThemeProvider>,
+        container
+      )
+      await Promise.resolve()
+    })
+
+    await act(async () => {
+      container.querySelector('button')?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await Promise.resolve()
+    })
+
+    expect(document.body.classList.contains('ReactModal__Body--open')).toBe(true)
+    document.body.classList.remove('ReactModal__Body--open')
+  })
 })
