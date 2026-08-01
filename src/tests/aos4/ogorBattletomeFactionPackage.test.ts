@@ -8,7 +8,7 @@ import { resolveSelection } from '../../aos4/select'
  * formations, three heroic traits, and three artefacts of power (beta report #1828). Their
  * existence and official spellings are established by the accepted official Battle Profiles -
  * Ogor Mawtribes document, but Wahapedia does not yet carry their rules (verified 2026-08-01),
- * so under the standing fallback-tier source policy the accepted `corpus-2026-08-01c` review
+ * so under the standing fallback-tier source policy the accepted `corpus-2026-08-01d` review
  * admits the commit-pinned BSData main-branch transcriptions as provisional community facts.
  *
  * Official precedence also moves the superseded index-era options to the historical context:

@@ -1,0 +1,129 @@
+{
+ "schemaVersion": 1,
+ "watches": [
+  {
+   "id": "wahapedia-ogor-battletome-faction-package",
+   "issueNumber": 1828,
+   "reason": "The accepted corpus ships the July 2026 Ogor Mawtribes battletome battle formations, heroic traits, and artefacts provisionally from BSData, and cannot ship the two battletome lores at all until a source publishes them. Any of these appearing on the Wahapedia faction page satisfies the verification condition for the provisional facts and unblocks the lore transition.",
+   "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/",
+   "sentinels": [
+    {
+     "label": "Hunger-filled Tribe (battle formation)",
+     "needle": "Hunger-filled Tribe"
+    },
+    {
+     "label": "Vanguard of the Mawpath (battle formation)",
+     "needle": "Vanguard of the Mawpath"
+    },
+    {
+     "label": "Hinterland Hunters (battle formation)",
+     "needle": "Hinterland Hunters"
+    },
+    {
+     "label": "Maw-cult Fanatics (battle formation)",
+     "needle": "Maw-cult Fanatics"
+    },
+    {
+     "label": "The Crusherguts (heroic trait)",
+     "needle": "The Crusherguts"
+    },
+    {
+     "label": "Leave Not a Morsel (heroic trait)",
+     "needle": "Leave Not a Morsel"
+    },
+    {
+     "label": "Dreaded Far and Wide (heroic trait)",
+     "needle": "Dreaded Far and Wide"
+    },
+    {
+     "label": "Trophy Rack (artefact of power)",
+     "needle": "Trophy Rack"
+    },
+    {
+     "label": "Carvalox Hide (artefact of power)",
+     "needle": "Carvalox Hide"
+    },
+    {
+     "label": "Mantle of Entrails (artefact of power)",
+     "needle": "Mantle of Entrails"
+    },
+    {
+     "label": "Lore of Gut Magic (spell lore)",
+     "needle": "Lore of Gut Magic"
+    },
+    {
+     "label": "Lore of the Everwinter (prayer lore)",
+     "needle": "Lore of the Everwinter"
+    }
+   ]
+  },
+  {
+   "id": "wahapedia-ogor-supplement-warscrolls",
+   "issueNumber": 1812,
+   "reason": "The ten July 2026 Ogor Mawtribes supplement units ship provisionally from BSData because Wahapedia still lists only the pre-supplement warscrolls. Any of these appearing on the Wahapedia warscroll collection satisfies the verification condition for the provisional unit facts.",
+   "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html",
+   "sentinels": [
+    {
+     "label": "Redd the Maw, High Slaughtermaster",
+     "needle": "Redd the Maw"
+    },
+    {
+     "label": "Tyrant on Glutthorn",
+     "needle": "Tyrant on Glutthorn"
+    },
+    {
+     "label": "Morga the Mighty, Overtyrant",
+     "needle": "Morga the Mighty"
+    },
+    {
+     "label": "Grell Firefist",
+     "needle": "Grell Firefist"
+    },
+    {
+     "label": "Gutseers",
+     "needle": "Gutseers"
+    },
+    {
+     "label": "Hunters with Sabrefangs",
+     "needle": "Hunters with Sabrefangs"
+    },
+    {
+     "label": "Maulbeast Cavalry / Maulbeast Raiders",
+     "needle": "Maulbeast"
+    }
+   ]
+  },
+  {
+   "id": "bsdata-ogor-lore-transcription-faction-cat",
+   "issueNumber": 1828,
+   "reason": "BSData's Lore of Gut Magic and Lore of the Everwinter entries are dangling links: the spell and prayer group definitions are not transcribed anywhere at the pinned commit, so the fallback tier cannot supply the battletome lores. The group definitions appearing in the moving main-branch faction catalogue would allow a fallback-tier intake of the lores while Wahapedia still lags.",
+   "url": "https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/refs/heads/main/Ogor%20Mawtribes.cat",
+   "sentinels": [
+    {
+     "label": "Lore of Gut Magic spell group definition (id 1708-0960-47ad-a552)",
+     "needle": " id=\"1708-0960-47ad-a552\""
+    },
+    {
+     "label": "Lore of the Everwinter prayer group definition (id e5b8-86da-de17-d117)",
+     "needle": " id=\"e5b8-86da-de17-d117\""
+    }
+   ]
+  },
+  {
+   "id": "bsdata-ogor-lore-transcription-library-cat",
+   "issueNumber": 1828,
+   "reason": "Companion watch to the faction-catalogue lore watch: the missing spell and prayer group definitions could equally land in the moving main-branch Ogor Mawtribes library catalogue.",
+   "url": "https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/refs/heads/main/Ogor%20Mawtribes%20-%20Library.cat",
+   "sentinels": [
+    {
+     "label": "Lore of Gut Magic spell group definition (id 1708-0960-47ad-a552)",
+     "needle": " id=\"1708-0960-47ad-a552\""
+    },
+    {
+     "label": "Lore of the Everwinter prayer group definition (id e5b8-86da-de17-d117)",
+     "needle": " id=\"e5b8-86da-de17-d117\""
+    }
+   ]
+  }
+ ]
+}

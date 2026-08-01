@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-01c snapshot is defined by:
+The accepted 2026-08-01d snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-01c.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-01c.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-01d.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 2 commit-pinned BSData catalogues, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-08-01d.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-01c-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-01c-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-01d-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-01d-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -37,18 +37,18 @@ The strict report currently records:
 - 4,929 usable abilities
 - 2,280 weapons
 - 1,416 content groups, including 48 Spearhead force/unit wrappers
-- 245 source artifacts and 19,290 live source records
+- 244 source artifacts and 19,290 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
 - 1,350 extracted GW battle-profile facts: 939 applied to runtime, 1 profile-only gap,
   363 structured references, and 47 superseded facts
-- 11 provisional community warscrolls (10 Ogor Mawtribes supplement units and Lorai, Child of the
-  Abyss) and 10 provisional Ogor Mawtribes battletome roster options (4 battle formations,
-  3 heroic traits, 3 artefacts of power) transcribed from three commit-pinned BSData catalogues
-  under the fallback-tier source policy, with official battle-profile facts overriding every
-  overlapping field
+- 10 provisional community warscrolls (the Ogor Mawtribes supplement units) and 10 provisional
+  Ogor Mawtribes battletome roster options (4 battle formations, 3 heroic traits, 3 artefacts of
+  power) transcribed from two commit-pinned BSData catalogues under the fallback-tier source
+  policy, with official battle-profile facts overriding every overlapping field; Lorai, Child of
+  the Abyss completed the provisional-to-verified swap when Wahapedia published her datasheet
 
 The accepted current rules come from 27 faction `warscrolls.html` collection pages, 28 faction
 roots, and 17 current rules pages. Collection pages contribute 1,074 native faction warscrolls.
@@ -100,12 +100,12 @@ managed issue states this obligation whenever it observes a new or replaced offi
 
 The ten July 2026 Ogor Mawtribes battletome units (Redd the Maw, Tyrant on Glutthorn, Morga the
 Mighty, Grell Firefist, Gutseers, Cleavers, Gluttons, Hunters with Sabrefangs, Maulbeast Cavalry,
-and Maulbeast Raiders) and Lorai, Child of the Abyss (Stormcast Eternals) ship provisionally under
+and Maulbeast Raiders) ship provisionally under
 the fallback-tier source policy: their existence, points, unit sizes, bases, and roster notes are
 established by accepted official Battle Profiles documents, Wahapedia still lists only the
 pre-supplement warscrolls, and the free official "Battletome Supplement: Ogor Mawtribes" PDF
-contains only the legacy-unit warscrolls. Their rules text therefore comes from two commit-pinned
-BSData catalogues (`BSData/age-of-sigmar-4th@c8e1b1c9`, branch `ogors`) recorded as
+contains only the legacy-unit warscrolls. Their rules text therefore comes from the commit-pinned
+BSData Ogor library catalogue (`BSData/age-of-sigmar-4th@c8e1b1c9`, branch `ogors`) recorded as
 `communityWarscrollSources` review entries — commit-pinned, per-unit checksum-pinned, marked
 `provisional-pending-official-verification`, and visibly attributed as provisional community
 transcriptions in the reminder source links. The five BSData/official base-size formatting
@@ -175,6 +175,17 @@ scope on a new community source entry, and the reviewed `contextOverrides` that 
 superseded index-era options to the historical context. Every other artifact is byte-identical
 to the 2026-08-01b pins.
 
+The 2026-08-01d revision completes the first provisional-to-verified swap: the accepted Stormcast
+Eternals collection page carries Lorai, Child of the Abyss's full datasheet, so her Wahapedia
+rules replace the BSData transcription, retiring the Stormcast library catalogue and its
+community source entry. Her keyword line names Idoneth Deepkin and The Blacktalons rather than
+Stormcast Eternals, so the intake introduced the reviewed `adoptedWarscrolls` mechanism: a
+`currentWahapediaHtml` entry that names the collection page and datasheet, cites the official
+Battle Profiles record establishing her roster home, and fails closed if the datasheet stops
+matching exactly one non-native page. Every other artifact is byte-identical to the 2026-08-01c
+pins. Note that a provisional swap replaces canonical identities: an army document that selected
+the provisional entity resolves it with a diagnostic and reselects the verified one.
+
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
 the current runtime.
@@ -224,6 +235,15 @@ Wahapedia sentinel expands to the existing bounded full observation before candi
 prepared. Within the Rules Radar, BSData is a change signal; BSData bytes enter a candidate only
 through the fallback-tier source policy above (commit-pinned, provisional, official-established),
 never through radar automation.
+
+The companion **AoS 4 Provisional Watch** workflow (`aos4-provisional-watch.yml`, daily at
+14:07 UTC) checks the concrete pages where the corpus's provisional community-fallback content
+would be verified or replaced — the Wahapedia pages named by each `communityWarscrollSources`
+verification condition, plus the moving BSData files for transcriptions the fallback tier is
+still missing. The reviewed sentinel list is `data/aos4/radar/provisional-watch.json`; a hit
+comments once per finding-set on the tracking issue (deduplicated by a fingerprint marker) so the
+standard candidate intake can run. Like the radar, the watch is evidence, not acceptance. Run it
+locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`.
 
 Scheduled workflows run only from the repository's default branch, so the Rules Radar becomes
 active when Version 6 reaches `master`. Immediately after launch, first run `AoS 4 Rules Radar`
