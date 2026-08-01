@@ -77,9 +77,9 @@ const dataPath = (...segments: string[]): string => path.join(process.cwd(), 'da
 
 const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPath(...segments), 'utf8')) as T
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-01.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-01b.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-01-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-01b-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -107,16 +107,16 @@ describe('AoS 4 catalog generation integrity', () => {
       status: 'strict-pass',
       summary: {
         factions: 28,
-        warscrolls: 1286,
-        battleProfiles: 1002,
-        abilities: 4893,
-        weapons: 2260,
-        sourceArtifacts: 242,
-        sourceRecords: 19127,
+        warscrolls: 1297,
+        battleProfiles: 1013,
+        abilities: 4919,
+        weapons: 2280,
+        sourceArtifacts: 244,
+        sourceRecords: 19274,
         ignoredSourceRecords: 18903,
       },
       integrity: {
-        consumedSourceRecords: 19121,
+        consumedSourceRecords: 19268,
         issues: [],
         supersededSourceRecords: {
           count: 18897,
@@ -202,13 +202,23 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(242)
+    expect(acceptedManifest.artifacts).toHaveLength(244)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
     ).toHaveLength(157)
+    // The community fallback tier: commit-pinned BSData catalogues for the Ogor supplement units.
+    const bsdataArtifacts = acceptedManifest.artifacts.filter(
+      artifact => artifact.adapterVersion === 'bsdata-cat/1'
+    )
+    expect(bsdataArtifacts).toHaveLength(2)
+    bsdataArtifacts.forEach(artifact =>
+      expect(artifact.requestUrl).toMatch(
+        /^https:\/\/raw\.githubusercontent\.com\/BSData\/age-of-sigmar-4th\/[0-9a-f]{40}\//
+      )
+    )
     const htmlArtifacts = acceptedManifest.artifacts.filter(
       artifact => artifact.adapterVersion === 'wahapedia-html/1'
     )
@@ -244,6 +254,10 @@ describe('AoS 4 catalog generation integrity', () => {
         }),
       ])
     )
+    // Community-tier artifacts must always be distinguishable and explicitly provisional.
+    const communityArtifacts = AOS4_CATALOG.sourceArtifacts.filter(artifact => artifact.publisher === 'other')
+    expect(communityArtifacts.length).toBeGreaterThan(0)
+    communityArtifacts.forEach(artifact => expect(artifact.title).toMatch(/provisional/i))
     expect(AOS4_GENERATION_AUDIT).toMatchObject({
       attribution: 'Powered by Wahapedia',
       acknowledgedDiagnostics: [],
@@ -259,8 +273,8 @@ describe('AoS 4 catalog generation integrity', () => {
       units: 967,
       rosterOptions: 307,
       regimentsOfRenown: 76,
-      appliedToRuntime: 928,
-      profileOnly: 12,
+      appliedToRuntime: 939,
+      profileOnly: 1,
       structuredReference: 363,
     })
     expect(officialBattleProfiles.records).toHaveLength(1350)
@@ -270,7 +284,7 @@ describe('AoS 4 catalog generation integrity', () => {
     })
     expect(
       officialBattleProfiles.records.filter(record => record.disposition === 'profile-only')
-    ).toHaveLength(12)
+    ).toHaveLength(1)
   })
 
   it('does not allow superseded bulk rule rows into the live catalog', () => {

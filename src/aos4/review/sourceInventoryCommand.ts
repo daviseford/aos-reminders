@@ -20,7 +20,7 @@ const nextValue = (values: string[], index: number, flag: string): string => {
 
 export const parseSourceInventoryArguments = (values: string[]): Arguments => {
   const parsed: Arguments = {
-    acceptedManifestPath: path.join('data', 'aos4', 'manifests', 'accepted-2026-08-01.json'),
+    acceptedManifestPath: path.join('data', 'aos4', 'manifests', 'accepted-2026-08-01b.json'),
     revision: '',
     observationPaths: [],
     outputPath: path.join('.cache', 'aos4', 'review', 'source-inventory.json'),

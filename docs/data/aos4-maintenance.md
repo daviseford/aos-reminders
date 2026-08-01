@@ -16,34 +16,37 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-01 snapshot is defined by:
+The accepted 2026-08-01b snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-01.json` | 13 Wahapedia exports, 157 official PDFs, and 72 reviewed Wahapedia pages, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-01.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-01b.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 2 commit-pinned BSData catalogues, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-08-01b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-01-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-01-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-01b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-01b-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
-- 1,286 warscrolls and 1,002 battle profiles
-- 4,893 usable abilities
-- 2,260 weapons
+- 1,297 warscrolls and 1,013 battle profiles
+- 4,919 usable abilities
+- 2,280 weapons
 - 1,410 content groups, including 48 Spearhead force/unit wrappers
-- 242 source artifacts and 19,127 live source records
+- 244 source artifacts and 19,274 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,350 extracted GW battle-profile facts: 928 applied to runtime, 12 profile-only gaps,
+- 1,350 extracted GW battle-profile facts: 939 applied to runtime, 1 profile-only gap,
   363 structured references, and 47 superseded facts
+- 11 provisional community warscrolls (10 Ogor Mawtribes supplement units and Lorai, Child of the
+  Abyss) transcribed from two commit-pinned BSData catalogues under the fallback-tier source
+  policy, with official battle-profile facts overriding every overlapping field
 
 The accepted current rules come from 27 faction `warscrolls.html` collection pages, 28 faction
 roots, and 17 current rules pages. Collection pages contribute 1,074 native faction warscrolls.
@@ -62,26 +65,30 @@ content. The prior 2025-26 season is retained only inside the generic historical
 than as a second selectable current context.
 
 The current official Battle Profiles PDF and Ogor Mawtribes supplement contribute 1,303 effective
-facts. Reconciliation applies official unit size, points, regiment options, notes, and bases to 928
-runtime profiles and now records 406 field-level secondary discrepancies after upstream parser and
-normalization corrections. Twelve official unit facts remain `profile-only` because current
-warscroll rules were not available; generation preserves their exact facts and checksums but does
-not invent reminders. The official July 2026 Rules Updates supplies reviewed ability-text and
-timing corrections where the accepted secondary pages have not yet caught up. The other accepted
-official documents are reference evidence: their pages are available to reviewers but do not
-invent structured runtime facts.
+facts. Reconciliation applies official unit size, points, regiment options, notes, and bases to 939
+runtime profiles and now records 411 field-level secondary discrepancies after upstream parser and
+normalization corrections. One official unit fact (The Emberwatch, Legends) remains `profile-only`
+because current warscroll rules are not available anywhere; generation preserves its exact fact
+and checksum but does not invent reminders. The official July 2026 Rules Updates supplies reviewed
+ability-text and timing corrections where the accepted secondary pages have not yet caught up. The
+other accepted official documents are reference evidence: their pages are available to reviewers
+but do not invent structured runtime facts.
 
-The twelve profile-only facts are the ten July 2026 Ogor Mawtribes battletome units (Redd the Maw,
-Tyrant on Glutthorn, Morga the Mighty, Grell Firefist, Gutseers, Cleavers, Gluttons, Hunters with
-Sabrefangs, Maulbeast Cavalry, and Maulbeast Raiders), Lorai, Child of the Abyss (Stormcast
-Eternals), and The Emberwatch (Legends). As of 2026-08-01 no accepted source publishes their
-warscroll rules: Wahapedia still lists only the pre-supplement warscrolls, and the free official
-"Battletome Supplement: Ogor Mawtribes" PDF contains only the legacy-unit warscrolls
-(Slaughtermaster, Maneaters, Firebelly, Icebrow Hunter, and similar) rather than the new units.
-Community transcriptions (BSData) exist but are never a source of accepted rules data. When
-Wahapedia or an official document publishes the missing warscrolls, the standard candidate intake
-replaces these profile-only facts; `src/tests/aos4/ogorSupplementProfileOnly.test.ts` pins the
-boundary until then.
+The ten July 2026 Ogor Mawtribes battletome units (Redd the Maw, Tyrant on Glutthorn, Morga the
+Mighty, Grell Firefist, Gutseers, Cleavers, Gluttons, Hunters with Sabrefangs, Maulbeast Cavalry,
+and Maulbeast Raiders) and Lorai, Child of the Abyss (Stormcast Eternals) ship provisionally under
+the fallback-tier source policy: their existence, points, unit sizes, bases, and roster notes are
+established by accepted official Battle Profiles documents, Wahapedia still lists only the
+pre-supplement warscrolls, and the free official "Battletome Supplement: Ogor Mawtribes" PDF
+contains only the legacy-unit warscrolls. Their rules text therefore comes from two commit-pinned
+BSData catalogues (`BSData/age-of-sigmar-4th@c8e1b1c9`, branch `ogors`) recorded as
+`communityWarscrollSources` review entries — commit-pinned, per-unit checksum-pinned, marked
+`provisional-pending-official-verification`, and visibly attributed as provisional community
+transcriptions in the reminder source links. The five BSData/official base-size formatting
+disagreements are logged reconciliation discrepancies resolved official-side. When Wahapedia or an
+owner-supplied official source publishes the warscrolls, the standard candidate intake replaces
+these provisional facts; `src/tests/aos4/ogorSupplementProvisional.test.ts` and
+`src/tests/aos4/bsDataLibrary.test.ts` pin the boundary and the policy record until then.
 
 Every official document is limited to the rules contexts it actually governs. Spearhead,
 2026-27 `Scourge of Aqshy`, Legends, and historical `Scourge of Ghyran` records must not leak
@@ -114,16 +121,40 @@ to the official Thyrielle's Zephyrites HERO-keyword removal (which retired the r
 override). `src/tests/aos4/coreRulesExampleAbilities.test.ts` guards the exclusion list and proves
 the shipped selection graph drops exactly the example cards.
 
+The 2026-08-01b revision extends that snapshot on the same acquisition: it adds the two
+commit-pinned BSData catalogues and the `communityWarscrollSources` review entries that ship the
+Ogor supplement units and Lorai provisionally under the fallback-tier source policy described in
+the Source policy section. Every Wahapedia and Games Workshop artifact is byte-identical to the
+2026-08-01 pins.
+
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
 the current runtime.
 
 ## Source policy
 
-Use the newest applicable Games Workshop publication as authoritative. Use
-[Wahapedia's AoS 4 exports](https://wahapedia.ru/aos4/the-rules/data-export/) and bounded current
-faction pages as the coherent secondary datasets for discovery, joins, and coverage. Other sources
-may identify gaps but must not silently override either source.
+Sources form a three-tier hierarchy:
+
+1. **Official Games Workshop publications are authoritative.** Use the newest applicable
+   publication; it wins every conflict.
+2. **Wahapedia is the preferred secondary.** Use
+   [Wahapedia's AoS 4 exports](https://wahapedia.ru/aos4/the-rules/data-export/) and bounded
+   current faction pages as the coherent secondary datasets for discovery, joins, and coverage.
+3. **BSData is an acceptable fallback**, by owner decision (2026-08-01, see
+   [#1812](https://github.com/daviseford/aos-reminders/issues/1812)): community-transcribed rules
+   from [BSData/age-of-sigmar-4th](https://github.com/BSData/age-of-sigmar-4th) may enter the
+   accepted corpus only when **(a)** an official Games Workshop publication establishes the
+   content (the unit exists in an accepted official battle-profile fact), **(b)** Wahapedia does
+   not yet carry the rules, **(c)** the facts are recorded as a commit-pinned
+   `communityWarscrollSources` review entry marked `provisional-pending-official-verification`
+   with per-unit checksums and their attribution visibly provisional, and **(d)** they are
+   verified or replaced through the standard candidate intake as soon as Wahapedia or an
+   owner-supplied official source becomes available. BSData never overrides an official or
+   Wahapedia fact, and it never supplies battle-profile values (points, unit sizes, bases, roster
+   notes) that officialdom already provides. BSData also underpins much of the wider AoS tool
+   ecosystem, so alignment with it has value in itself — but only inside these conditions.
+
+Other sources may identify gaps but must not silently override any tier above them.
 
 Every accepted fact must retain:
 
@@ -142,7 +173,9 @@ generated application data only.
 The Rules Radar is a quiet, official-first source-change sentinel. The workflow checks Games
 Workshop daily at minute 17 and checks Wahapedia plus BSData weekly at minute 43. A changed
 Wahapedia sentinel expands to the existing bounded full observation before candidate evidence is
-prepared. BSData is a community signal only and never supplies candidate or accepted rules data.
+prepared. Within the Rules Radar, BSData is a change signal; BSData bytes enter a candidate only
+through the fallback-tier source policy above (commit-pinned, provisional, official-established),
+never through radar automation.
 
 Scheduled workflows run only from the repository's default branch, so the Rules Radar becomes
 active when Version 6 reaches `master`. Immediately after launch, first run `AoS 4 Rules Radar`
@@ -239,6 +272,22 @@ yarn data:aos4:candidate `
 ```
 
 Offline replay fails when any checksum-addressed cache entry is missing or corrupt.
+
+Fallback-tier BSData catalogues are acquired separately, always pinned to a full commit SHA so the
+bytes are immutable:
+
+```powershell
+yarn data:aos4:candidate:bsdata `
+  --repository BSData/age-of-sigmar-4th `
+  --ref <full-commit-sha> `
+  --path "Ogor Mawtribes - Library.cat" `
+  --output <new-directory>
+```
+
+The command verifies the commit exists, caches the pinned bytes by SHA-256, and writes a
+`bsdata-manifest.json` plus provenance record. Like every acquisition, it proves retrieval only;
+acceptance happens through a reviewed `communityWarscrollSources` entry that satisfies the
+fallback-tier conditions.
 
 ## Review and acceptance
 

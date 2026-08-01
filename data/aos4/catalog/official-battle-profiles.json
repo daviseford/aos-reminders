@@ -1,6 +1,6 @@
 {
   "authority": "games-workshop",
-  "generatedAt": "2026-08-01T00:27:17.426Z",
+  "generatedAt": "2026-08-01T01:37:21.274Z",
   "records": [
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
@@ -605,7 +605,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -634,7 +634,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -723,7 +723,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -932,7 +932,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -1050,7 +1050,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -1137,7 +1137,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -1166,7 +1166,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -1377,7 +1377,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -1495,7 +1495,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -1524,7 +1524,7 @@
     },
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Ogor Mawtribes",
       "fact": {
         "baseSizes": [
@@ -13296,7 +13296,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
@@ -37877,9 +37877,9 @@
   ],
   "schemaVersion": 1,
   "summary": {
-    "appliedToRuntime": 928,
+    "appliedToRuntime": 939,
     "effective": 1303,
-    "profileOnly": 12,
+    "profileOnly": 1,
     "records": 1350,
     "regimentsOfRenown": 76,
     "rosterOptions": 307,
