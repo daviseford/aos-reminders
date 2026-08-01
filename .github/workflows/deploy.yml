@@ -38,29 +38,10 @@ jobs:
       - name: Install dependencies with yarn
         run: yarn install --frozen-lockfile
 
-      - name: Validate production API configuration
-        run: yarn release:validate-config
-
-      - name: Lint with eslint
-        run: yarn lint
-
-      - name: Validate AoS 4 beta data readiness
-        run: yarn data:aos4:verify:beta
-
-      - name: Check TypeScript
-        run: yarn tsc --noEmit
-
-      - name: Build production artifact
-        run: yarn build
-
-      # The build-shape assertions in src/tests/pwaBuild.test.ts are the only thing that
-      # catches a PWA config regression that stops emitting the worker. Without this step
-      # they live only in nodejs.yml, which does not gate the deploy.
-      - name: Test with vitest
-        run: yarn test --run
-
-      - name: Inspect production artifact
-        run: yarn release:inspect-artifact
+      # This is the same fail-closed release preparation used by the manual and
+      # standalone-CI entry points. It must finish before AWS credentials are configured.
+      - name: Prepare production release
+        run: bash scripts/prepare-production-release.sh
 
       - name: Configure AWS cli
         uses: aws-actions/configure-aws-credentials@v1

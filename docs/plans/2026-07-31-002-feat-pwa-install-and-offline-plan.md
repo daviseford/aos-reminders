@@ -16,7 +16,7 @@ execution: code
 
 - **Objective.** Make AoS Reminders installable and genuinely usable offline. Addresses the first half of issue #1801; the admin console is out of scope, so the issue does not close on this work alone.
 - **Authority hierarchy.** `AGENTS.md` and `DESIGN.md` outrank this plan. Within this plan, an R wins on product behavior and a KTD wins on implementation mechanism. Where this plan conflicts with `docs/plans/2026-07-28-003-refactor-phase2-frontend-modernization-plan.md`, this plan supersedes it and U11 amends that document.
-- **Execution profile.** Sequential. Base on the latest `origin/aos4-migration` and target the PR there, per the branch strategy in `AGENTS.md`.
+- **Execution profile.** Sequential. Base on the latest `origin/master` and target the PR there, per the branch strategy in `AGENTS.md`.
 - **Stop conditions.** Stop and surface if: the CloudFront distribution's cache policy cannot be read or changed (U3); or the precache manifest picks up the catalog chunk despite the glob exclusion (U4).
 - **Tail ownership.** The implementer owns commits, the PR, and CI to green. Production deployment requires explicit user authorization and is not part of this work.
 
@@ -115,13 +115,13 @@ Underneath all of it, production serves no `Cache-Control` header on anything. `
 
 - KTD5. **Use the `generateSW` strategy, not `injectManifest`.** Everything this app needs — SPA navigation fallback, outdated-cache cleanup, and the catalog runtime route — is expressible as configuration. A hand-written worker source would reintroduce the maintenance burden that motivated the original decision to delete it.
 
-- KTD6. **Runtime-cache the catalog chunk with `CacheFirst`; do not precache it and do not raise the precache ceiling.** `src/aos4/generated/corpus/runtime.json` builds to an 11.58 MiB chunk, against a 2 MiB default precache limit that the plugin throws on rather than warns about. Precaching it would download the whole catalog before the worker could activate — worst-case behaviour on the venue wifi that motivates offline support. The chunk is content-hashed, so a new build is a new URL and therefore a cache miss; U4 warms that URL on activation so the offline guarantee survives an update. Governs R4.
+- KTD6. **Runtime-cache the catalog chunk with `CacheFirst`; do not precache it and do not raise the precache ceiling.** `src/aos4/generated/corpus/runtime.json` builds to an 11.58 MiB chunk, against a 2 MiB default precache limit that the plugin throws on rather than warns about. Precaching it through Workbox would cross that ceiling and fail the build. The chunk is content-hashed, so a new build is a new URL and therefore a cache miss; U4 warms that URL during installation and aborts the update if the warm fails, so an accepted update is offline-complete before it activates. Governs R4.
 
 - KTD7. **Use `registerType: 'prompt'` and drive the existing app-status plumbing rather than the plugin's own UI.** `autoUpdate` reloads under the user mid-session, which is wrong for an app people read during a game turn. The repo already has the update channel built — `hasNewContent`, the `app-update` broadcast channel, and the skip-waiting message contract — and only lacks the UI that consumes it. Governs R5.
 
 - KTD8. **Set `Cache-Control` on the S3 objects, not through a CloudFront response-headers policy.** A response-headers policy alters only the viewer response and leaves edge TTL untouched, so it would fix the browser and not the stale copy at the edge. Governs R8.
 
-- KTD9. **Stop deleting superseded assets on deploy, and bound their retention by object age.** The current `aws s3 sync --delete` removes the previous build's hashed chunks the moment a new build lands, so any already-loaded client that then requests a lazy route chunk gets a 404 that cannot be retried. Retention bounds that failure class to a window rather than eliminating it outright. The rule must be age-based on the hashed-asset prefix: S3 versioning semantics do not apply, because each build emits a distinct key rather than a new version of one key. That makes the deploy responsible for refreshing every current-build object's timestamp, or the rule will expire a chunk the live `index.html` still references. Governs R9.
+- KTD9. **Stop deleting superseded assets on deploy, and retire only assets that a successful release proves are no longer current.** The current `aws s3 sync --delete` removes the previous build's hashed chunks the moment a new build lands, so any already-loaded client that then requests a lazy route chunk gets a 404 that cannot be retried. Each successful deploy tags its current immutable assets `retire=false`, then self-copies only older manifest entries once with `retire=true`. An S3 lifecycle rule scoped to the immutable prefix and `retire=true` expires those assets after the retention window. This avoids both immediate deletion and an age-only rule expiring a still-current unchanged chunk. Governs R9.
 
 - KTD10. **Verify worker behaviour in a browser and in build output, not in vitest.** (session-settled: user-approved — chosen over upgrading Vite as part of this work: Vitest's stable browser mode requires Vite 6 or newer, and that upgrade is a separate Phase 2 track.) jsdom cannot run a service worker. Lighthouse removed its PWA category in 12.0.0 and current releases carry no installability audit, so there is no first-party CI answer to "is this installable"; the checks in U6 are assembled from build-output assertions plus a documented manual checklist.
 
@@ -155,7 +155,7 @@ stateDiagram-v2
   Prompted --> Dismissed: user dismisses
   Dismissed --> Prompted: periodic check re-raises
   Prompted --> Activating: user accepts, control disabled
-  Activating --> Controlling: new worker claims clients, catalog warmed, page reloads
+  Activating --> Controlling: install-warmed worker claims clients, page reloads
 ```
 
 **Deploy ordering.** Header class drives upload order, and the mutable entry points land last so a cached shell never references a chunk that has not arrived.
@@ -299,8 +299,8 @@ The maskable variant needs its significant content inside a centre circle of rad
    - Unhashed public assets — icons, `favicon.ico`, `robots.txt`, `browserconfig.xml`, `safari-pinned-tab.svg`, `img/`: a moderate max-age with no `immutable`, since they carry a `?v=` query buster rather than a content hash.
    - Mutable entry points — the manifest, the worker script, `index.html`: `max-age=0, must-revalidate`, uploaded last so a freshly cached shell never references a chunk that has not landed.
 2. Guard the worker-script upload with a file-existence check in all three scripts. U3 lands before U4, so `dist/service-worker.js` does not exist yet on the first deploys carrying this change, and an unguarded per-file upload would fail the deploy outright.
-3. Drop `--delete` per KTD9, and upload the hashed assets with `--metadata-directive REPLACE` on every deploy rather than letting `sync` skip unchanged files. The lifecycle rule expires by object age, so a chunk that is still referenced but unchanged must have its timestamp refreshed or the rule will delete it out from under loaded clients.
-4. Specify the retention rule in `docs/deployment.md` as an age-based expiration scoped to the hashed-asset prefix, using the window OQ3 settles. Creating it is a bucket-configuration step performed alongside the header rollout, not a repo change.
+3. Drop `--delete` per KTD9. Upload current immutable assets with `retire=false`, keep the release manifest, and self-copy only superseded entries once with `retire=true` after the new mutable entry points publish successfully.
+4. Specify the retention rule in `docs/deployment.md` as an expiration scoped to the immutable prefix and `retire=true`, using the window OQ3 settles. Creating it is a bucket-configuration step performed alongside the header rollout, not a repo change.
 5. Replace the `/*` invalidation with targeted paths covering the root, `index.html`, the worker script, and the manifest. `/*` is a single billable path but evicts every hashed asset from the edge, forcing a full re-fetch from S3 on every deploy.
 6. Perform a one-time metadata rewrite over the existing bucket contents. `aws s3 sync` compares size and modification time, not metadata, so objects whose bytes have not changed would keep their current header-free state indefinitely.
 7. Read the distribution's cache policy with `aws cloudfront get-cache-policy` and record the result. Object-level headers are necessary but not sufficient: a policy with a non-zero minimum TTL overrides origin `no-cache`, and response-headers policies do not affect edge caching at all.
@@ -341,7 +341,7 @@ The maskable variant needs its significant content inside a centre circle of rad
 2. Point the plugin away from generating its own manifest; U2 owns `public/site.webmanifest` and `index.html` already links it. Two manifest sources would drift.
 3. Exclude the catalog chunk with `workbox.globIgnores`, leaving `globPatterns` at its default. Overriding `globPatterns` would mean hand-maintaining a list that must keep matching content-hashed route chunks, and drift there produces a runtime error rather than a build failure. The glob exclusion — not the runtime route — is what keeps the chunk out of the precache manifest and out of the size check.
 4. Add a `CacheFirst` runtime route for the catalog, bounded by a small entry cap so the cache holds the current build and one predecessor.
-5. Warm the catalog URL once on activation. Without it R4 degrades to "one online fetch per build": every update produces a new hashed URL, which is a `CacheFirst` miss, so a user who takes an update and then loses network cannot generate reminders — the exact scenario KTD6 exists to serve.
+5. Warm the catalog URL once during installation and fail the install if the response is not a successful JavaScript payload. Without it R4 degrades to "one online fetch per build": every update produces a new hashed URL, which is a `CacheFirst` miss, so a user who takes an update and then loses network cannot generate reminders — the exact scenario KTD6 exists to serve.
 6. Constrain runtime caching to build output and the catalog, per R14. The Auth0, army, and subscription APIs are cross-origin, so the defaults do not capture them, but the route list is the guardrail and U6 asserts on it.
 7. Leave `cleanupOutdatedCaches` at its default for precaches, and add a one-time deletion of the CRA worker's custom `images` cache on activation. `cleanupOutdatedCaches` matches Workbox's own precache naming only and will not touch it.
 8. Register through the plugin's vanilla entry point, not its React hook. The hook has an open double-registration bug under StrictMode and is untested against React 19; the vanilla path avoids both and keeps registration out of the component tree.
@@ -361,7 +361,7 @@ The build will fail rather than warn if anything above the precache size ceiling
 - The generated worker's runtime route list contains the catalog route and nothing else.
 - Loading the built output, then going offline and reloading, renders the shell rather than a browser error.
 - After loading an army online, going offline and reopening the app still resolves faction and warscroll data.
-- After taking an update, going offline immediately still resolves catalog data, proving the activation warm-up ran.
+- After taking an update, going offline immediately still resolves catalog data, proving the install warm-up ran before activation.
 - A cache named `images` left by the CRA worker is gone after the new worker activates.
 - With a worker registered, deploying a new build causes the app-status update signal to fire without the page reloading on its own.
 - Starting from a client controlled by a worker registered at `/service-worker.js`, serving the new build installs the new worker rather than leaving the old registration in place, and the new worker takes control once the last tab closes.
@@ -479,7 +479,7 @@ The build will fail rather than warn if anything above the precache size ceiling
 Manual gates that no command covers:
 
 - **Installability.** Chrome DevTools Application panel against a production build. No maintained CI tool answers this; Lighthouse removed its PWA category and current releases have no installability audit.
-- **Offline behaviour.** Load online, disable the network, reload, and exercise faction selection and reminder generation — including immediately after taking an update, which is the case the activation warm-up protects.
+- **Offline behaviour.** Load online, disable the network, reload, and exercise faction selection and reminder generation — including immediately after taking an update, which is the case the install warm-up protects.
 - **Update prompt.** Register the worker, deploy a changed build, and confirm the banner appears and reloads only on accept.
 - **Cache contents.** Confirm the worker's caches hold build output and the catalog only, with no API response (R14).
 
@@ -508,7 +508,7 @@ Deployment-time gates, to run when the work is authorized for production:
 | U1 | No worker source, registration, or Workbox 6 dependency remains; the built bundle contains no registration call; the `/service-worker.js` derivation is recorded before `homepage` is deleted. |
 | U2 | The manifest passes the DevTools installability check, its theme colour matches the masthead, and the maskable icon renders correctly under the platform mask. |
 | U3 | The three scripts carry the ordered per-file headers and the worker-upload guard, `docs/deployment.md` records the header contract, retention rule, and rollback recipe, and the CloudFront cache policy has been read and recorded. |
-| U4 | The worker emits at the output root, precaches the shell, excludes the catalog, warms it on activation, caches no API response, and the rollback worker is committed and dry-run. |
+| U4 | The worker emits at the output root, precaches the shell, excludes the catalog, warms it during installation, caches no API response, and the rollback worker is committed and dry-run. |
 | U5 | The update banner appears on a waiting worker, reloads only on accept, returns after dismissal, and passes its accessibility scenarios; the isolation test passes with the new component allowlisted. |
 | U6 | Build assertions cover manifest fields, worker location, precache shape, and the runtime route list; the catalog-exclusion assertion is proven load-bearing by injection; CI builds before it tests; and `docs/pwa.md` records the manual checks. |
 | U11 | No document in the repository still instructs deleting the service worker, and #1801's open admin half is noted. |

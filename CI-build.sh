@@ -7,6 +7,6 @@ export DEPLOY_OWNER="${DEPLOY_OWNER:-standalone-ci:${CI_BUILD_ID:-unknown}:$$}"
 
 pip install awscli
 yarn install --frozen-lockfile
-yarn build
+bash scripts/prepare-production-release.sh
 
 bash scripts/deploy-production.sh

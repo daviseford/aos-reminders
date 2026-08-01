@@ -3,8 +3,10 @@
 The production site is static files in the `aosreminders.com` S3 bucket, served through CloudFront
 distribution `E3OO9Y9QRVZ2L1`.
 
-`scripts/deploy-production.sh` is the only AWS publication contract. Three entry points build and
-validate an artifact, then call it:
+`scripts/prepare-production-release.sh` is the only production preparation contract. It validates
+the API configuration, lints, verifies the accepted AoS 4 beta corpus, type-checks, builds, tests,
+and inspects the artifact. `scripts/deploy-production.sh` is the only AWS publication contract.
+Three entry points install dependencies, run the shared preparation contract, then publish:
 
 - `upload.sh` - manual deploy from a workstation
 - `CI-build.sh` - standalone CI deploy
@@ -164,7 +166,12 @@ aws cloudfront create-invalidation --distribution-id E3OO9Y9QRVZ2L1 \
 ```
 
 Release the emergency lock only with the ETag returned by its acquisition. Clients pick up the
-rollback worker on their next update check, unregister, and fall back to network delivery.
+rollback worker on their next update check, unregister, and fall back to network delivery. The
+rollback worker adds `?aos-reminders-rollback=1` when it navigates each client. The app records that
+marker in `sessionStorage` and disables service-worker registration for the rest of that tab's
+session; without the marker, the freshly loaded app would register the still-published rollback
+worker again and repeat the unregister/navigation cycle. Do not remove this marker protocol from
+either side of the rollback path.
 
 ## Verifying a deploy
 

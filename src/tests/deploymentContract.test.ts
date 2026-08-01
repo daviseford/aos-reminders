@@ -68,6 +68,11 @@ if [[ "$1 $2" == "s3api put-object" && "$*" == *"--if-none-match *"* ]]; then
   exit 0
 fi
 
+if [[ -n "\${AWS_FAIL_MATCH:-}" && "$*" == *"$AWS_FAIL_MATCH"* ]]; then
+  echo "Injected AWS failure for $AWS_FAIL_MATCH" >&2
+  exit 42
+fi
+
 if [[ "$1 $2" == "s3api head-object" ]]; then
   printf '%s\\t%s\\t%s\\n' '"held-etag"' 'held-owner' '2026-08-01T00:00:00+00:00'
   exit 0
@@ -200,6 +205,30 @@ echo '{}'
     expect(log.some(line => line.startsWith('s3 cp ') || line.startsWith('s3 sync '))).toBe(false)
     expect(log.some(line => line.startsWith('s3api copy-object '))).toBe(false)
     expect(log.some(line => line.startsWith('s3api put-object-tagging '))).toBe(false)
+  })
+
+  it('releases the lock and stops after a publication failure', () => {
+    const harness = createHarness()
+    const result = harness.run({ AWS_FAIL_MATCH: '/service-worker.js' })
+
+    expect(result.status).not.toBe(0)
+    expect(result.stderr).toContain('Injected AWS failure for /service-worker.js')
+    const log = harness.log()
+    const workerUpload = log.findIndex(
+      line => line.startsWith('s3 cp ') && line.includes('/service-worker.js')
+    )
+    const lockRelease = log.findIndex(
+      line =>
+        line.startsWith('s3api delete-object ') &&
+        line.includes('_deploy/production.lock') &&
+        line.includes('--if-match "acquired-etag"')
+    )
+
+    expect(workerUpload).toBeGreaterThan(-1)
+    expect(lockRelease).toBeGreaterThan(workerUpload)
+    expect(log.some(line => line.startsWith('cloudfront create-invalidation '))).toBe(false)
+    expect(log.some(line => line.startsWith('s3api list-objects-v2 '))).toBe(false)
+    expect(log.some(line => line.startsWith('s3api copy-object '))).toBe(false)
   })
 
   it('recovers a stale lock only with the exact owner and ETag', () => {

@@ -5,6 +5,6 @@ set -euo pipefail
 export DEPLOY_OWNER="${DEPLOY_OWNER:-manual:${USER:-unknown}@${HOSTNAME:-unknown}:$$}"
 
 yarn install --frozen-lockfile
-yarn build
+bash scripts/prepare-production-release.sh
 
 bash scripts/deploy-production.sh

@@ -22,6 +22,12 @@ Clients that still hold the pre-Vite CRA registration poll that exact path, so
 keeping the name is what takes those registrations over rather than orphaning
 them. **Do not rename it.**
 
+The generated worker accepts only the versioned activation message in
+`src/bootstrap/serviceWorkerProtocol.ts`, not Workbox's generic `SKIP_WAITING` token. This keeps
+pre-Vite CRA tabs from activating the replacement worker before a user accepts the new app's prompt.
+Once accepted, a short-lived origin-wide marker plus an unconditional `controllerchange` listener
+reloads every controlled tab, including one opened after acceptance but before activation.
+
 The generated catalog chunk is excluded from the precache and served by a
 `CacheFirst` runtime route instead. It is 11.6 MiB against Workbox's 2 MiB
 ceiling, and precaching it would download the whole catalog before the worker
@@ -112,8 +118,9 @@ cache must degrade to "needs one online load", never to a broken app.
   future build's prompt after one close.
 - **Legacy clients lag.** A client still controlled by the CRA worker is served a
   stale shell, so it runs no current code and cannot show the prompt. It recovers
-  when its last tab closes. Do not add `skipWaiting` to force it — that reloads
-  every ordinary user mid-session.
+  when its last tab closes. Do not restore the generic `SKIP_WAITING` activation
+  token or add an eager `skipWaiting` call — either would reload ordinary users
+  mid-session.
 - **Two writers, one cache.** `sw-extras-<content-hash>.js` owns the
   `aos4-catalog` cache and
   prunes it. Do not add an `ExpirationPlugin` to the runtime route as well;

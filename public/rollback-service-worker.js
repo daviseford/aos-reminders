@@ -37,7 +37,13 @@ self.addEventListener('activate', event => {
       // navigate() rejects for a client this worker no longer controls, which the unregister above
       // makes likely -- swallow it rather than raising inside the escape hatch.
       const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true })
-      await Promise.all(clients.map(client => client.navigate(client.url).catch(() => {})))
+      await Promise.all(
+        clients.map(client => {
+          const destination = new URL(client.url)
+          destination.searchParams.set('aos-reminders-rollback', '1')
+          return client.navigate(destination.href).catch(() => {})
+        })
+      )
     })()
   )
 })

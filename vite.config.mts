@@ -1,9 +1,11 @@
 import react from '@vitejs/plugin-react-swc'
 import { createHash } from 'node:crypto'
+import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { defineConfig, type Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { configDefaults } from 'vitest/config'
+import { SERVICE_WORKER_ACTIVATION_MESSAGE } from './src/bootstrap/serviceWorkerProtocol'
 
 /*
  * The generated corpus is 11.6 MiB as a built chunk, against Workbox's 2 MiB precache ceiling — and
@@ -70,6 +72,39 @@ const enforceInitialEntryChunkBudget = (): Plugin => ({
 })
 
 /*
+ * Workbox's generated message handler accepts the generic `SKIP_WAITING` token. The CRA worker
+ * currently controlling production tabs posts that token automatically when it sees an update,
+ * which would bypass this release's user-facing prompt. Replace the generated handler's one token
+ * with this app generation's private protocol, and fail closed if Workbox ever changes its output.
+ */
+const privatizeServiceWorkerActivation = (): Plugin => {
+  let workerPath = path.resolve('dist/service-worker.js')
+
+  return {
+    name: 'private-service-worker-activation',
+    apply: 'build',
+    enforce: 'post',
+    configResolved(config) {
+      workerPath = path.resolve(config.root, config.build.outDir, 'service-worker.js')
+    },
+    async closeBundle() {
+      const source = await readFile(workerPath, 'utf8')
+      const genericToken = JSON.stringify('SKIP_WAITING')
+      const privateToken = JSON.stringify(SERVICE_WORKER_ACTIVATION_MESSAGE)
+      const occurrences = source.split(genericToken).length - 1
+
+      if (occurrences !== 1) {
+        this.error(
+          `Expected exactly one Workbox ${genericToken} activation token in ${workerPath}; found ${occurrences}.`
+        )
+      }
+
+      await writeFile(workerPath, source.replace(genericToken, privateToken))
+    },
+  }
+}
+
+/*
  * Emits the immutable `sw-extras-<hash>.js` that the generated worker imports. Two things have to
  * happen that Workbox config cannot express, and they sit on different lifecycle events for a reason.
  *
@@ -115,10 +150,15 @@ const WARM_TIMEOUT_MS = 20000
 const isCatalogModule = response =>
   !!response && response.status === 200 && (response.headers.get('content-type') || '').includes('javascript')
 
-const withTimeout = () =>
-  typeof AbortSignal !== 'undefined' && AbortSignal.timeout
-    ? { signal: AbortSignal.timeout(WARM_TIMEOUT_MS) }
-    : undefined
+const fetchCatalog = async () => {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), WARM_TIMEOUT_MS)
+  try {
+    return await fetch(CATALOG_URL, { signal: controller.signal })
+  } finally {
+    clearTimeout(timeout)
+  }
+}
 
 /*
  * Deliberately unguarded: a rejection here rejects install's waitUntil, which aborts the update and
@@ -136,7 +176,7 @@ const warmCatalog = async () => {
 
   // No 'reload' cache mode: the URL is content-hashed and served immutable, so a copy the page has
   // already downloaded is by construction the right bytes and re-fetching them buys nothing.
-  const response = await fetch(CATALOG_URL, withTimeout())
+  const response = await fetchCatalog()
   if (!isCatalogModule(response)) {
     throw new Error('sw-extras: catalog warm did not return the module; aborting this update')
   }
@@ -246,6 +286,8 @@ export default defineConfig({
         ],
       },
     }),
+    // Must run after vite-plugin-pwa writes the worker in closeBundle.
+    privatizeServiceWorkerActivation(),
     enforceInitialEntryChunkBudget(),
   ],
   resolve: {

@@ -3,6 +3,7 @@
 import fs from 'fs'
 import path from 'path'
 import { describe, expect, it } from 'vitest'
+import { SERVICE_WORKER_ACTIVATION_MESSAGE } from '../bootstrap/serviceWorkerProtocol'
 
 /**
  * Assertions over the built PWA output.
@@ -25,7 +26,13 @@ const exists = (relativePath: string) => fs.existsSync(path.join(distDir, relati
  * below while telling you nothing about the current source — which would make this file report green
  * on precisely the regression it exists to catch.
  */
-const BUILD_INPUTS = ['vite.config.mts', 'public/site.webmanifest', 'package.json']
+const BUILD_INPUTS = [
+  'vite.config.mts',
+  'src/bootstrap/serviceWorkerProtocol.ts',
+  'public/site.webmanifest',
+  'public/rollback-service-worker.js',
+  'package.json',
+]
 const workerPath = path.join(distDir, 'service-worker.js')
 
 if (!fs.existsSync(workerPath)) {
@@ -205,10 +212,30 @@ describe('generated service worker', () => {
     expect(extras).toContain('caches.delete') // the CRA-era `images` cache
   })
 
+  it('bounds the catalog warm on browsers without AbortSignal.timeout', () => {
+    expect(extrasImports).toHaveLength(1)
+    const extras = read(extrasImports[0])
+
+    expect(extras).toContain('new AbortController')
+    expect(extras).toContain('setTimeout')
+    expect(extras).toContain('controller.abort')
+    expect(extras).toContain('finally')
+    expect(extras).toContain('clearTimeout')
+    expect(extras).not.toContain('AbortSignal.timeout')
+  })
+
   it('claims clients only after the prompt-controlled worker is explicitly activated', () => {
     expect(serviceWorkerSource).toContain('clientsClaim')
-    // Prompt mode keeps only the message-driven skipWaiting path; there is no eager top-level call.
-    expect(serviceWorkerSource).toContain('"SKIP_WAITING"')
+    // The private token prevents legacy CRA clients from bypassing the new app's explicit prompt.
+    expect(serviceWorkerSource).toContain(JSON.stringify(SERVICE_WORKER_ACTIVATION_MESSAGE))
+    expect(serviceWorkerSource).not.toContain('"SKIP_WAITING"')
     expect(serviceWorkerSource.match(/skipWaiting\(\)/g)).toHaveLength(1)
+  })
+
+  it('ships a rollback worker that marks clients before navigating them', () => {
+    const rollbackWorker = read('rollback-service-worker.js')
+
+    expect(rollbackWorker).toContain("searchParams.set('aos-reminders-rollback', '1')")
+    expect(rollbackWorker).toContain('client.navigate(destination.href)')
   })
 })
