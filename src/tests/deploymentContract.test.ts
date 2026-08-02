@@ -232,6 +232,7 @@ echo '{}'
     }
 
     return {
+      buildDirectory,
       log: () =>
         existsSync(logPath) && readFileSync(logPath, 'utf8').trim()
           ? readFileSync(logPath, 'utf8').trim().split('\n')
@@ -303,6 +304,18 @@ echo '{}'
     ).toBe(true)
   })
 
+  it('fails before publication when the build emits no workbox runtime', () => {
+    const harness = createHarness()
+    rmSync(join(harness.buildDirectory, 'workbox-abc123.js'))
+    const result = harness.run()
+
+    expect(result.status).not.toBe(0)
+    expect(result.stderr).toMatch(/workbox/i)
+    const log = harness.log()
+    expect(log.some(line => line.startsWith('s3 cp ') || line.startsWith('s3 sync '))).toBe(false)
+    expect(log.some(line => line.startsWith('s3api put-object '))).toBe(false)
+  })
+
   it('keeps live assets ineligible and starts retirement exactly once', () => {
     const harness = createHarness()
     const result = harness.run()
@@ -340,6 +353,12 @@ echo '{}'
     expect(copiesFor('workbox-old.js')).toHaveLength(1)
     expect(copiesFor('assets/already-retired.js')).toHaveLength(0)
     expect(copiesFor('workbox-already-retired.js')).toHaveLength(0)
+    // The live build's own keys must never be tagged for retirement: the lifecycle rule would
+    // delete them 30 days later. Without these, a membership check that always reported "not
+    // current" would still pass every other assertion in this suite.
+    expect(copiesFor('assets/current-123.js')).toHaveLength(0)
+    expect(copiesFor('sw-extras-abc123.js')).toHaveLength(0)
+    expect(copiesFor('workbox-abc123.js')).toHaveLength(0)
     log
       .filter(line => line.startsWith('s3api copy-object '))
       .forEach(line => {
