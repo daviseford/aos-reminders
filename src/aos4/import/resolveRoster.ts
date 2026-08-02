@@ -482,6 +482,12 @@ const isLegendsOnly = (catalog: Aos4Catalog, label: string, kindHint: ParsedRost
 interface ResolutionContext {
   context: RulesContext
   reachableIds: Set<CanonicalId>
+  /**
+   * What the faction's own `offers` edges grant, before graph traversal widens it. A member
+   * warscroll a faction can only field inside a bought regiment is reachable but not directly
+   * offered, and that distinction decides what a bare unit line naming both means.
+   */
+  directlyOfferedIds: Set<CanonicalId>
 }
 
 const resolveRosterSelection = (
@@ -502,7 +508,7 @@ const resolveRosterSelection = (
   armiesOfRenown: ArmyOfRenownIndex,
   diagnostics: Aos4ImportDiagnostic[]
 ): Aos4ImportMatch | undefined => {
-  const matchInContext = ({ context, reachableIds }: ResolutionContext) => {
+  const matchInContext = ({ context, reachableIds, directlyOfferedIds }: ResolutionContext) => {
     const rulesContextId = context.id
     const eligible = catalog.entities.filter(
       entity =>
@@ -592,13 +598,75 @@ const resolveRosterSelection = (
       return containers.length ? containers : found
     }
 
-    const contextCandidates = collapseContainedCandidates(
-      [
+    /**
+     * A Regiment of Renown named on an ordinary unit line.
+     *
+     * Listbot has no regiment section: its game data files a regiment as a unit-shaped entry
+     * (`isRor`), so the export writes `- 1 x Lord Skaldior's Chosen (530)` exactly like a
+     * warscroll. The name is still unambiguous — it belongs to a classified regiment group and
+     * to nothing else — so a warscroll-hinted label falls back to the regiments only after every
+     * warscroll attempt has found nothing. A real warscroll that shares its name with a regiment
+     * (Gotrek Gurnisson is both) therefore always wins the unit line, and the fallback can never
+     * divert it. A line already marked `isRegimentOfRenown` sits *inside* a regiment section, so
+     * it can only be a member warscroll — its parser records the bundle separately, and a member
+     * whose warscroll the corpus lacks (Mask of the Deceiver's Underworlds warband) must keep
+     * failing closed instead of resolving to its own bundle a second time.
+     */
+    const matchRegimentOfRenown = (label: string): ContentEntity[] => {
+      if (selection.kindHint !== 'warscroll' || selection.isRegimentOfRenown) return []
+      const normalized = normalizeImportLabel(label)
+      return catalog.entities.filter(
+        entity =>
+          entity.kind === 'content-group' &&
+          entity.groupType === 'regiment-of-renown' &&
+          isApplicable(entity, rulesContextId) &&
+          normalizeImportLabel(entity.name) === normalized
+      )
+    }
+
+    const firstNonEmpty = (matchers: Array<() => ContentEntity[]>): ContentEntity[] =>
+      matchers.reduce<ContentEntity[]>((found, attempt) => (found.length ? found : attempt()), [])
+
+    const primary = collapseContainedCandidates(
+      firstNonEmpty([
         ...attempts.map(label => () => matchLabel(label)),
         ...attempts.map(label => () => matchQualifiedLabel(label)),
-      ].reduce<ContentEntity[]>((found, attempt) => (found.length ? found : attempt()), [])
+      ])
     )
-    return { contextCandidates, candidates: contextCandidates.filter(entity => reachableIds.has(entity.id)) }
+    const primaryReachable = primary.filter(entity => reachableIds.has(entity.id))
+    const reachableRegiments = () =>
+      firstNonEmpty(attempts.map(label => () => matchRegimentOfRenown(label))).filter(entity =>
+        reachableIds.has(entity.id)
+      )
+    if (primaryReachable.length) {
+      /**
+       * A unit line naming both a warscroll and a regiment means whichever one the faction can
+       * actually buy. Blades of the Hollow King is a Soulblight warscroll *and* a regiment three
+       * other factions may include; for Soulblight the line is the directly offered unit, while
+       * for Nighthaunt the warscroll is reachable only as the regiment's member — through the
+       * regiment's own `includes` edge — so the pointed line is the regiment purchase, and
+       * resolving it to the member would lose the regiment's own ability, the exact #1858 loss.
+       */
+      const regimentInstead =
+        primaryReachable.every(
+          entity => entity.kind === 'warscroll' && !directlyOfferedIds.has(entity.id)
+        ) && selection.kindHint === 'warscroll' && !selection.isRegimentOfRenown
+          ? reachableRegiments()
+          : []
+      if (regimentInstead.length) {
+        return { contextCandidates: regimentInstead, candidates: regimentInstead }
+      }
+      return { contextCandidates: primary, candidates: primaryReachable }
+    }
+    /**
+     * The regiment fallback also runs when the warscroll reading went nowhere *reachable*, not
+     * merely when nothing matched: an unreachable same-name warscroll must not shadow the
+     * regiment the roster actually bought.
+     */
+    const regiments = firstNonEmpty(attempts.map(label => () => matchRegimentOfRenown(label)))
+    const regimentsReachable = regiments.filter(entity => reachableIds.has(entity.id))
+    if (regimentsReachable.length) return { contextCandidates: regiments, candidates: regimentsReachable }
+    return { contextCandidates: primary.length ? primary : regiments, candidates: [] }
   }
 
   const ambiguous = (): undefined => {
@@ -743,11 +811,27 @@ export const resolveParsedRoster = (
       buildReachableIds(catalog, faction.id, rulesContext.id, armiesOfRenown),
     ])
   )
+  const directlyOfferedByContextId = new Map(
+    [effectiveContext, ...overlayContexts].map(rulesContext => [
+      rulesContext.id,
+      new Set(
+        catalog.relationships
+          .filter(
+            relationship =>
+              relationship.kind === 'offers' &&
+              relationship.from === faction.id &&
+              relationshipIsApplicable(relationship, rulesContext.id)
+          )
+          .map(relationship => relationship.to)
+      ),
+    ])
+  )
   const resolutionContexts = (preferLegends: boolean): ResolutionContext[] =>
     (preferLegends ? [...overlayContexts, effectiveContext] : [effectiveContext, ...overlayContexts]).map(
       rulesContext => ({
         context: rulesContext,
         reachableIds: reachableByContextId.get(rulesContext.id) ?? new Set<CanonicalId>(),
+        directlyOfferedIds: directlyOfferedByContextId.get(rulesContext.id) ?? new Set<CanonicalId>(),
       })
     )
 

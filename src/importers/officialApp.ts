@@ -266,12 +266,13 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
     }
 
     if (section === 'regiment-of-renown') {
-      // Only the members are roster content. The renown regiment itself — `Big Grikk's Kruleshots
-      // (320)` — is a purchasable bundle with no warscroll of its own, so it carries the points
-      // but never resolves. Chain its members off it without recording it.
+      // The pointed line — `Big Grikk's Kruleshots (320)` — is the regiment itself: a purchasable
+      // bundle the catalog models as a `regiment-of-renown` content group carrying the regiment's
+      // own abilities (issue #1858). Record it as that kind, then chain its members off it; the
+      // members remain roster content of their own because the roster states their loadout.
       const container = parsePointedWarscroll(line)
       if (container) {
-        lastEntryLine = line.number
+        record({ ...container, kindHint: 'regiment-of-renown', isRegimentOfRenown: true }, true)
         return
       }
       // Older exports dashed their members; v1.36 lists them bare, like bundled sub-units.

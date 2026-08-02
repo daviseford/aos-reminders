@@ -43,9 +43,21 @@
       "label": "Deadwalker Zombies"
     },
     {
+      "line": 19,
+      "kindHint": "regiment-of-renown",
+      "label": "Big Drogg Fort-Kicka",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 20,
       "kindHint": "warscroll",
       "label": "Gatebreaker Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 21,
+      "kindHint": "regiment-of-renown",
+      "label": "Casket of Resurrections",
       "isRegimentOfRenown": true
     },
     {
@@ -55,9 +67,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 23,
+      "kindHint": "regiment-of-renown",
+      "label": "Cogfort Raiders",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 24,
       "kindHint": "warscroll",
       "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 25,
+      "kindHint": "regiment-of-renown",
+      "label": "Exile Scavengers",
       "isRegimentOfRenown": true
     },
     {
@@ -76,6 +100,12 @@
       "line": 28,
       "kindHint": "warscroll",
       "label": "Skywardens",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 29,
+      "kindHint": "regiment-of-renown",
+      "label": "Enforcers of the Tithe",
       "isRegimentOfRenown": true
     },
     {
@@ -103,6 +133,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 34,
+      "kindHint": "regiment-of-renown",
+      "label": "Craventhrone Executioners",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 35,
       "kindHint": "warscroll",
       "label": "Scriptor Mortis",
@@ -121,6 +157,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 38,
+      "kindHint": "regiment-of-renown",
+      "label": "Heralds of the Bone-tithe",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 39,
       "kindHint": "warscroll",
       "label": "Vokmortian, Master of the Bone-tithe",
@@ -136,6 +178,12 @@
       "line": 41,
       "kindHint": "warscroll",
       "label": "Mortek Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 42,
+      "kindHint": "regiment-of-renown",
+      "label": "Jerrion's Delegation",
       "isRegimentOfRenown": true
     },
     {
@@ -163,6 +211,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 47,
+      "kindHint": "regiment-of-renown",
+      "label": "Karahtet's Siege Breaker",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 48,
       "kindHint": "warscroll",
       "label": "Mortisan Ossifector",
@@ -172,6 +226,12 @@
       "line": 49,
       "kindHint": "warscroll",
       "label": "Mortek Crawler",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 50,
+      "kindHint": "regiment-of-renown",
+      "label": "Mask of the Deceiver",
       "isRegimentOfRenown": true
     },
     {

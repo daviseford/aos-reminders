@@ -2,6 +2,8 @@ import fs from 'node:fs'
 
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID, AOS4_RUNTIME_PROJECTION } from '../../aos4/generated'
 import { buildArmyOfRenownIndex, resolveParsedRoster } from '../../aos4/import'
+import { projectReminders } from '../../aos4/reminders'
+import { resolveSelection } from '../../aos4/select'
 import { decodeAos4TextRoster } from '../../importers'
 import {
   decodeOfficialAppFixture,
@@ -186,23 +188,111 @@ describe('official app list resolution', () => {
   /**
    * Names the corpus genuinely does not carry must keep failing closed.
    *
-   * `Mask of the Deceiver` is a Regiment of Renown band rather than a warscroll — the importer
-   * resolves a band's members and never the bundle itself — and the official battle-profile
-   * ledger carries no bare `Freeguild Marshal`, only the Relic Envoy and Griffon variants.
-   * Resolving either to a neighbour would produce reminders for a unit the player never took.
+   * The official battle-profile ledger carries no bare `Freeguild Marshal`, only the Relic Envoy
+   * and Griffon variants. Resolving either to a neighbour would produce reminders for a unit the
+   * player never took.
    */
-  it.each([
-    ['ij-001-renown-heavy', 'Mask of the Deceiver'],
-    ['sce-001-exported-version-format', 'Freeguild Marshal'],
-  ])('%s reports "%s" rather than guessing at a near-miss', (id, label) => {
-    const { matched, preview } = resolveFixture(id)
+  it('sce-001-exported-version-format reports "Freeguild Marshal" rather than guessing at a near-miss', () => {
+    const { matched, preview } = resolveFixture('sce-001-exported-version-format')
 
-    expect(matched).not.toContain(label)
+    expect(matched).not.toContain('Freeguild Marshal')
     expect(preview.diagnostics).toContainEqual(
       expect.objectContaining({
         code: 'unknown-selection',
         severity: 'warning',
-        message: expect.stringContaining(label),
+        message: expect.stringContaining('Freeguild Marshal'),
+      })
+    )
+  })
+
+  /**
+   * `Mask of the Deceiver` is both the regiment and its sole member warscroll. The bundle line
+   * resolves to the classified regiment group (issue #1858); the member line names an Underworlds
+   * warband warscroll the corpus does not carry, and that absence must keep failing closed
+   * rather than resolving the member to the group a second time.
+   */
+  it('ij-001-renown-heavy resolves the Mask of the Deceiver regiment but not its absent member warscroll', () => {
+    const { preview } = resolveFixture('ij-001-renown-heavy')
+
+    const maskMatches = preview.matches.filter(match => match.label === 'Mask of the Deceiver')
+    expect(maskMatches).toHaveLength(1)
+    const entity = AOS4_CATALOG.entities.find(candidate => candidate.id === maskMatches[0].canonicalId)
+    expect(entity).toMatchObject({ kind: 'content-group', groupType: 'regiment-of-renown' })
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'unknown-selection',
+        severity: 'warning',
+        message: expect.stringContaining('Mask of the Deceiver'),
+      })
+    )
+  })
+
+  /**
+   * The issue #1858 repro list, verbatim: importing it must surface the regiment's own passive.
+   *
+   * The regiment bundle line used to be discarded as unresolvable scaffolding, so the import
+   * succeeded while silently losing IRONCLAD DESPOILERS. Now the bundle resolves to the
+   * classified `regiment-of-renown` content group, the import's selection state matches a manual
+   * builder pick, and the passive lands in the reminders alongside the members' own abilities.
+   */
+  it('skv-003-skaldior-regiment-ability imports the regiment and its passive lands in the reminders', () => {
+    const { matched, preview } = resolveFixture('skv-003-skaldior-regiment-ability')
+
+    expect(preview.diagnostics).toEqual([])
+    expect(matched).toContain("Lord Skaldior's Chosen")
+    expect(matched).toContain('Chaos Lord on Daemonic Mount')
+    expect(matched).toContain('Chaos Knights')
+    expect(matched).toContain('Chaos Warriors')
+
+    const document = preview.proposedDocument
+    expect(document).toBeDefined()
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: document!.explicitSelectionIds,
+      rulesContextId: document!.rulesContextId,
+    })
+    expect(selection.diagnostics).toEqual([])
+    const regiment = AOS4_CATALOG.entities.find(
+      entity =>
+        entity.kind === 'content-group' &&
+        entity.groupType === 'regiment-of-renown' &&
+        entity.name === 'Lord Skaldior’s Chosen'
+    )!
+    expect(selection.selectedIds).toContain(regiment.id)
+
+    const reminders = projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name)
+    expect(reminders).toContain('IRONCLAD DESPOILERS')
+  })
+
+  /**
+   * A regiment the corpus does not yet carry must fail closed as a named diagnostic, never a
+   * silent drop or a guess. Okar's Torrbad and Urrgar's Maulerguts are the live case: their
+   * official battle-profile rows exist, but Wahapedia does not yet publish their rules, so no
+   * classified regiment group exists to resolve to.
+   */
+  it("reports an unclassified regiment (Okar's Torrbad) instead of dropping or guessing", () => {
+    const preview = resolveParsedRoster(
+      AOS4_CATALOG,
+      {
+        source: 'official-app-text',
+        proposedName: 'unclassified regiment probe',
+        declaredFaction: 'Ogor Mawtribes',
+        selections: [
+          {
+            line: 3,
+            label: "Okar's Torrbad",
+            kindHint: 'regiment-of-renown',
+            isRegimentOfRenown: true,
+          },
+        ],
+      },
+      { defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID, createDocumentId: () => 'army:probe' }
+    )
+    expect(preview.matches.map(match => match.label)).not.toContain("Okar's Torrbad")
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'unknown-selection',
+        severity: 'warning',
+        message: expect.stringContaining("Okar's Torrbad"),
       })
     )
   })

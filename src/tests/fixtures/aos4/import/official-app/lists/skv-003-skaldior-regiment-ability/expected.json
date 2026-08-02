@@ -1,0 +1,104 @@
+{
+  "id": "skv-003-skaldior-regiment-ability",
+  "diagnostics": [],
+  "proposedName": "StD into rats",
+  "declaredFaction": "Skaven",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": false,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Warpcog Convocation"
+    },
+    {
+      "line": 6,
+      "kindHint": "spell-lore",
+      "label": "Lore of Ruin"
+    },
+    {
+      "line": 7,
+      "kindHint": "prayer-lore",
+      "label": "Noxious Prayers"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Manifestations of Doom"
+    },
+    {
+      "line": 12,
+      "kindHint": "warscroll",
+      "label": "Verminlord Warpseer"
+    },
+    {
+      "line": 14,
+      "kindHint": "enhancement",
+      "label": "Foulhide"
+    },
+    {
+      "line": 15,
+      "kindHint": "enhancement",
+      "label": "Master of the Swarm"
+    },
+    {
+      "line": 16,
+      "kindHint": "warscroll",
+      "label": "Rat Ogors"
+    },
+    {
+      "line": 18,
+      "kindHint": "enhancement",
+      "label": "Anabolic Accelerators"
+    },
+    {
+      "line": 19,
+      "kindHint": "warscroll",
+      "label": "Stormfiends"
+    },
+    {
+      "line": 25,
+      "kindHint": "warscroll",
+      "label": "Arch-Warlock"
+    },
+    {
+      "line": 26,
+      "kindHint": "warscroll",
+      "label": "Clanrats"
+    },
+    {
+      "line": 27,
+      "kindHint": "warscroll",
+      "label": "Warpvolt Scourgers"
+    },
+    {
+      "line": 31,
+      "kindHint": "regiment-of-renown",
+      "label": "Lord Skaldior's Chosen",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 32,
+      "kindHint": "warscroll",
+      "label": "Chaos Lord on Daemonic Mount",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Chaos Knights",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 34,
+      "kindHint": "warscroll",
+      "label": "Chaos Warriors",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 37,
+      "kindHint": "warscroll",
+      "label": "Gnawhole"
+    }
+  ]
+}

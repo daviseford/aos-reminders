@@ -48,6 +48,12 @@
       "label": "Stormvermin"
     },
     {
+      "line": 20,
+      "kindHint": "regiment-of-renown",
+      "label": "Brand's Oathbound",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 21,
       "kindHint": "warscroll",
       "label": "Gunnar Brand",
@@ -66,9 +72,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 24,
+      "kindHint": "regiment-of-renown",
+      "label": "Cogfort Raiders",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 25,
       "kindHint": "warscroll",
       "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 26,
+      "kindHint": "regiment-of-renown",
+      "label": "Diseased Revellers",
       "isRegimentOfRenown": true
     },
     {
@@ -87,6 +105,12 @@
       "line": 29,
       "kindHint": "warscroll",
       "label": "Beast of Nurgle",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 30,
+      "kindHint": "regiment-of-renown",
+      "label": "Enforcers of the Tithe",
       "isRegimentOfRenown": true
     },
     {
@@ -114,6 +138,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 35,
+      "kindHint": "regiment-of-renown",
+      "label": "Hargax's Pit-Beasts",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 36,
       "kindHint": "warscroll",
       "label": "Ogroid Myrmidon",
@@ -129,6 +159,12 @@
       "line": 38,
       "kindHint": "warscroll",
       "label": "Mindstealer Sphiranx",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 39,
+      "kindHint": "regiment-of-renown",
+      "label": "Lord Skaldior's Chosen",
       "isRegimentOfRenown": true
     },
     {
@@ -150,9 +186,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 43,
+      "kindHint": "regiment-of-renown",
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 44,
       "kindHint": "warscroll",
       "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 45,
+      "kindHint": "regiment-of-renown",
+      "label": "Mist-Clad Revellers",
       "isRegimentOfRenown": true
     },
     {
@@ -168,6 +216,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 48,
+      "kindHint": "regiment-of-renown",
+      "label": "Nurgle's Gift",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 49,
       "kindHint": "warscroll",
       "label": "Nurglings",
@@ -180,9 +234,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 51,
+      "kindHint": "regiment-of-renown",
+      "label": "One-eyed Grunnock",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 52,
       "kindHint": "warscroll",
       "label": "Warstomper Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 53,
+      "kindHint": "regiment-of-renown",
+      "label": "Phulgoth's Shudderhood",
       "isRegimentOfRenown": true
     },
     {
@@ -204,9 +270,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 57,
+      "kindHint": "regiment-of-renown",
+      "label": "Rogue Engine",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 58,
       "kindHint": "warscroll",
       "label": "Outlaw Cannonade Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 59,
+      "kindHint": "regiment-of-renown",
+      "label": "Seeker of the Dread Dirge",
       "isRegimentOfRenown": true
     },
     {
@@ -219,6 +297,12 @@
       "line": 61,
       "kindHint": "warscroll",
       "label": "Dominator Engine with Bane Maces",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 62,
+      "kindHint": "regiment-of-renown",
+      "label": "Seekers of Silver",
       "isRegimentOfRenown": true
     },
     {
@@ -240,6 +324,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 66,
+      "kindHint": "regiment-of-renown",
+      "label": "Snerk's Trogg-Fer-Hire",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 67,
       "kindHint": "warscroll",
       "label": "Loonboss",
@@ -252,9 +342,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 69,
+      "kindHint": "regiment-of-renown",
+      "label": "Stumblefoot Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 70,
       "kindHint": "warscroll",
       "label": "Mancrusher Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 71,
+      "kindHint": "regiment-of-renown",
+      "label": "The Accursed Reflection",
       "isRegimentOfRenown": true
     },
     {
@@ -279,6 +381,12 @@
       "line": 75,
       "kindHint": "warscroll",
       "label": "Wheels of Excruciation",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 76,
+      "kindHint": "regiment-of-renown",
+      "label": "The Coven of Thryx",
       "isRegimentOfRenown": true
     },
     {
@@ -312,6 +420,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 82,
+      "kindHint": "regiment-of-renown",
+      "label": "The Curse-Steel Battery",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 83,
       "kindHint": "warscroll",
       "label": "Daemonsmith",
@@ -327,6 +441,12 @@
       "line": 85,
       "kindHint": "warscroll",
       "label": "Tormentor Bombard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 86,
+      "kindHint": "regiment-of-renown",
+      "label": "The Pustules",
       "isRegimentOfRenown": true
     },
     {
@@ -348,9 +468,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 90,
+      "kindHint": "regiment-of-renown",
+      "label": "The Exiled One",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 91,
       "kindHint": "warscroll",
       "label": "Skarbrand",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 92,
+      "kindHint": "regiment-of-renown",
+      "label": "The Red Revelation",
       "isRegimentOfRenown": true
     },
     {
@@ -369,6 +501,12 @@
       "line": 95,
       "kindHint": "warscroll",
       "label": "Skullreapers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 96,
+      "kindHint": "regiment-of-renown",
+      "label": "The Red Revelation",
       "isRegimentOfRenown": true
     },
     {

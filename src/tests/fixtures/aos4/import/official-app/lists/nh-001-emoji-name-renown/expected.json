@@ -32,9 +32,21 @@
       "label": "Guardian of Souls"
     },
     {
+      "line": 15,
+      "kindHint": "regiment-of-renown",
+      "label": "Cogfort Raiders",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 16,
       "kindHint": "warscroll",
       "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 17,
+      "kindHint": "regiment-of-renown",
+      "label": "Blades of the Hollow King",
       "isRegimentOfRenown": true
     },
     {
@@ -44,9 +56,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 19,
+      "kindHint": "regiment-of-renown",
+      "label": "Big Drogg Fort-Kicka",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 20,
       "kindHint": "warscroll",
       "label": "Gatebreaker Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 21,
+      "kindHint": "regiment-of-renown",
+      "label": "Heralds of the Bone-tithe",
       "isRegimentOfRenown": true
     },
     {
@@ -65,6 +89,12 @@
       "line": 24,
       "kindHint": "warscroll",
       "label": "Mortek Guard",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 25,
+      "kindHint": "regiment-of-renown",
+      "label": "Jerrion's Delegation",
       "isRegimentOfRenown": true
     },
     {
@@ -92,6 +122,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 30,
+      "kindHint": "regiment-of-renown",
+      "label": "Karahtet's Siege Breaker",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 31,
       "kindHint": "warscroll",
       "label": "Mortisan Ossifector",
@@ -104,9 +140,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 33,
+      "kindHint": "regiment-of-renown",
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 34,
       "kindHint": "warscroll",
       "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 35,
+      "kindHint": "regiment-of-renown",
+      "label": "Neferata's Royal Echelon",
       "isRegimentOfRenown": true
     },
     {
@@ -134,9 +182,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 40,
+      "kindHint": "regiment-of-renown",
+      "label": "Rogue Engine",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 41,
       "kindHint": "warscroll",
       "label": "Outlaw Cannonade Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 42,
+      "kindHint": "regiment-of-renown",
+      "label": "Scions of the Necropolis",
       "isRegimentOfRenown": true
     },
     {
@@ -158,9 +218,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 46,
+      "kindHint": "regiment-of-renown",
+      "label": "Stumblefoot Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 47,
       "kindHint": "warscroll",
       "label": "Mancrusher Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 48,
+      "kindHint": "regiment-of-renown",
+      "label": "The Beast of Castle Sternieste",
       "isRegimentOfRenown": true
     },
     {
@@ -170,9 +242,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 50,
+      "kindHint": "regiment-of-renown",
+      "label": "The Horror of Hallow's Watch",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 51,
       "kindHint": "warscroll",
       "label": "Royal Terrorgheist",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 52,
+      "kindHint": "regiment-of-renown",
+      "label": "The Lost-Song Spirits",
       "isRegimentOfRenown": true
     },
     {
@@ -194,6 +278,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 56,
+      "kindHint": "regiment-of-renown",
+      "label": "The Liche's Hand",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 57,
       "kindHint": "warscroll",
       "label": "Arkhan the Black, Mortarch of Sacrament",
@@ -209,6 +299,12 @@
       "line": 59,
       "kindHint": "warscroll",
       "label": "Morghast Harbingers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 60,
+      "kindHint": "regiment-of-renown",
+      "label": "The Scarlet Jury",
       "isRegimentOfRenown": true
     },
     {
@@ -230,6 +326,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 64,
+      "kindHint": "regiment-of-renown",
+      "label": "The Summerking's Entourage",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 65,
       "kindHint": "warscroll",
       "label": "Ushoran, Mortarch of Delusion",
@@ -245,6 +347,12 @@
       "line": 67,
       "kindHint": "warscroll",
       "label": "Morbheg Knights",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 68,
+      "kindHint": "regiment-of-renown",
+      "label": "The Sternieste Garrison",
       "isRegimentOfRenown": true
     },
     {
@@ -269,6 +377,12 @@
       "line": 72,
       "kindHint": "warscroll",
       "label": "Fell Bats",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 73,
+      "kindHint": "regiment-of-renown",
+      "label": "Veremord's Shamblers",
       "isRegimentOfRenown": true
     },
     {

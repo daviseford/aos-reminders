@@ -147,6 +147,8 @@ export const parseAos4RosterTree = (root: RosterNode): Aos4ParsedRosterResult =>
           line: selection.line,
           label,
           kindHint,
+          // A regiment is bought as a whole and is not bound by the army's faction (#1858).
+          ...(kindHint === 'regiment-of-renown' ? { isRegimentOfRenown: true } : {}),
           ...(hasLegendsCategory(selection) ? { isLegends: true } : {}),
         })
       }
