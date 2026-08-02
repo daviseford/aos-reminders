@@ -224,6 +224,42 @@ export interface CorpusArmyOfRenown {
   evidenceTier?: 'official' | 'secondary-provisional'
 }
 
+/**
+ * A reviewed Regiment of Renown classification (issue #1858).
+ *
+ * A Regiment of Renown is a purchasable bundle: an army from any faction its INCLUSION block
+ * names may buy the whole regiment, gaining its member units and its regiment abilities. Each
+ * entry names the kept collection datasheet record that is the regiment's source; generation
+ * types that record `regiment-of-renown`, offers it from exactly its inclusion factions, and
+ * links its member warscrolls.
+ *
+ * Every entry must target a datasheet the source pages themselves classify as a Regiment of
+ * Renown (the decoded record's `regimentOfRenown` marker), and every source-classified datasheet
+ * must have a reviewed entry — generation fails closed in both directions, so a new regiment
+ * appearing on the collection pages can never silently decode as a generic content group.
+ */
+export interface CorpusRegimentOfRenown {
+  /** Source record of the kept collection datasheet that is the regiment's source. */
+  sourceRecordId: SourceRecordId
+  reason: string
+  officialSourceRecordIds: SourceRecordId[]
+  /**
+   * Evidence basis for the classification, with the same semantics as
+   * {@link CorpusArmyOfRenown.evidenceTier}: `official` (the default) requires at least one cited
+   * official source record naming the regiment; `secondary-provisional` classifies on the
+   * accepted secondary transcription's own explicit marking (the one live case is Heroes of The
+   * Jade Abbey, a Legends regiment absent from the current official Battle Profiles).
+   */
+  evidenceTier?: 'official' | 'secondary-provisional'
+  /**
+   * The name the official battle-profile row uses when it differs from the datasheet's name
+   * (Wahapedia's `Big Drogg Fort-Kicka` is the official `Big Drogg Fort-kicker`; `Scions of the
+   * Necropolis` is officially `The Scions of the Necropolis`). Used to disposition the official
+   * regiment-of-renown profile rows as applied to runtime.
+   */
+  officialProfileName?: string
+}
+
 export interface CorpusReview {
   schemaVersion: typeof AOS4_CORPUS_REVIEW_SCHEMA_VERSION
   revision: string
@@ -251,6 +287,7 @@ export interface CorpusReview {
   approvedFactionIds: string[]
   universalFactionContent?: CorpusUniversalFactionContent[]
   armiesOfRenown?: CorpusArmyOfRenown[]
+  regimentsOfRenown?: CorpusRegimentOfRenown[]
   decoderDiagnosticPolicies: CorpusDiagnosticPolicy[]
   normalizationDiagnosticPolicies: CorpusDiagnosticPolicy[]
   ignoredSourceRecords: CorpusIgnoredSourceRecord[]
@@ -308,7 +345,9 @@ export type CorpusGenerationDiagnosticCode =
   | 'identity-not-found'
   | 'invalid-review'
   | 'missing-official-source-record'
+  | 'regiment-of-renown-member-missing'
   | 'unclassified-army-of-renown'
+  | 'unclassified-regiment-of-renown'
   | 'unreviewed-normalization-diagnostic'
   | 'unreviewed-source-diagnostic'
 
@@ -753,9 +792,18 @@ const sourceRulesContextIds = (
   const warscrollContexts = new Map(
     dataset.warscrolls.map(record => [record.id, contextIdsForWarscroll(record)])
   )
+  /**
+   * A Regiment of Renown record's `factionId` is only the collection page that carried its kept
+   * copy — the regiment is offered by its inclusion factions, not owned by the carrier — so it
+   * must never pull the carrier faction into a rules context (a Legends faction's page carrying a
+   * current regiment does not make the faction current).
+   */
   const factionsWithCurrentWarscrolls = new Set(
     dataset.warscrolls
-      .filter(record => warscrollContexts.get(record.id)?.includes(review.rulesContext.id))
+      .filter(
+        record =>
+          !record.regimentOfRenown && warscrollContexts.get(record.id)?.includes(review.rulesContext.id)
+      )
       .map(record => record.factionId)
   )
   const spearheadGroupNames = new Set(
@@ -805,7 +853,8 @@ const sourceRulesContextIds = (
     )
 
   const factionContexts = new Map<string, RulesContextId[]>()
-  dataset.warscrolls.forEach(record =>
+  dataset.warscrolls.forEach(record => {
+    if (record.regimentOfRenown) return
     factionContexts.set(
       record.factionId,
       uniqueSorted([
@@ -813,7 +862,7 @@ const sourceRulesContextIds = (
         ...(warscrollContexts.get(record.id) ?? currentContextIds),
       ])
     )
-  )
+  })
   dataset.factionAbilityTypes.forEach(record =>
     factionContexts.set(
       record.factionId,
@@ -1386,6 +1435,7 @@ export const buildAos4Corpus = (
       )
     )
     .concat((review.armiesOfRenown ?? []).flatMap(entry => entry.officialSourceRecordIds))
+    .concat((review.regimentsOfRenown ?? []).flatMap(entry => entry.officialSourceRecordIds))
     .forEach(id => {
       if (!officialSourceIds.has(id)) {
         diagnostics.push({
@@ -1558,6 +1608,16 @@ export const buildAos4Corpus = (
     universalFactionIds.has(ownerExternalFactionId)
       ? everyArmyFactionId
       : [factionByExternalId.get(ownerExternalFactionId)].flatMap(id => (id ? [id] : []))
+  // Reviewed Regiment of Renown classification: the kept collection datasheets become
+  // `regiment-of-renown` content groups offered by their inclusion factions (see
+  // CorpusRegimentOfRenown).
+  const regimentsOfRenownBySourceRecordId = new Map(
+    (review.regimentsOfRenown ?? []).map(entry => [entry.sourceRecordId, entry])
+  )
+  const matchedRegimentOfRenownSourceRecordIds = new Set<SourceRecordId>()
+  const sourceMarkedRegimentOfRenownRecordIds = new Set(
+    dataset.warscrolls.filter(record => record.regimentOfRenown).map(record => record.meta.sourceRecordId)
+  )
   dataset.warscrolls.forEach(record => {
     const parentKind: EntityKind = isWarscrollRecord(record) ? 'warscroll' : 'content-group'
     const id = lookup(parentKind, recordPublisher(record.meta), recordAlias(record.meta))
@@ -1593,8 +1653,28 @@ export const buildAos4Corpus = (
         sourceReference(sourceRecordId, 'authoritative battle-profile reconciliation')
       ),
     ])
+    const regimentOfRenown = record.regimentOfRenown
+      ? regimentsOfRenownBySourceRecordId.get(record.meta.sourceRecordId)
+      : undefined
+    if (record.regimentOfRenown && !regimentOfRenown) {
+      // The source datasheet classifies this record as a Regiment of Renown. Without a reviewed
+      // entry it would decode as a generic supplemental content group with no availability —
+      // the #1858 bug class — so generation stops until the classification is reviewed.
+      diagnostics.push({
+        code: 'unclassified-regiment-of-renown',
+        severity: 'error',
+        subject: record.meta.sourceRecordId,
+        message: `Source-classified Regiment of Renown "${record.name.trim()}" has no reviewed regimentsOfRenown entry`,
+      })
+    }
+    if (regimentOfRenown) matchedRegimentOfRenownSourceRecordIds.add(regimentOfRenown.sourceRecordId)
+    /**
+     * A Regiment of Renown is offered by exactly its inclusion factions (the merged availability
+     * records), never by the faction whose collection page carried the kept copy: a regiment's
+     * home faction is often not allowed to include it.
+     */
     const factionIds = uniqueSorted([
-      ...offeringFactionIds(record.factionId),
+      ...(record.regimentOfRenown ? [] : offeringFactionIds(record.factionId)),
       ...regimentRecords.flatMap(item => {
         const factionId = factionByExternalId.get(item.factionId)
         return factionId ? [factionId] : []
@@ -1636,9 +1716,18 @@ export const buildAos4Corpus = (
         kind: 'content-group',
         revision: entityRevision(record.meta),
         name: record.name.trim(),
-        groupType: groupType(record.role || 'supplemental-content'),
+        groupType: regimentOfRenown
+          ? 'regiment-of-renown'
+          : groupType(record.role || 'supplemental-content'),
         rulesContextIds: contextsFor(record.meta),
-        sourceRefs: parentRefs,
+        sourceRefs: regimentOfRenown
+          ? sortedSourceReferences([
+              ...parentRefs,
+              ...regimentOfRenown.officialSourceRecordIds.map(officialId =>
+                sourceReference(officialId, 'reviewed Regiment of Renown classification')
+              ),
+            ])
+          : parentRefs,
       } satisfies ContentGroup)
     }
     if (!record.parentWarscrollId) {
@@ -1691,6 +1780,51 @@ export const buildAos4Corpus = (
       parentByWarscrollExternalId.get(record.parentWarscrollId),
       parentByWarscrollExternalId.get(record.id)
     )
+  })
+  dataset.warscrolls.forEach(record => {
+    if (!record.regimentOfRenown) return
+    const groupId = parentByWarscrollExternalId.get(record.id)
+    // Buying the regiment brings its member units, so the group includes their warscrolls.
+    ;(record.regimentOfRenownMemberIds ?? []).forEach(memberId =>
+      addRelationship('includes', groupId, parentByWarscrollExternalId.get(memberId))
+    )
+    ;(record.regimentOfRenownUnresolvedMembers ?? []).forEach(memberName =>
+      diagnostics.push({
+        code: 'regiment-of-renown-member-missing',
+        severity: 'warning',
+        subject: record.meta.sourceRecordId,
+        message:
+          `Regiment of Renown "${record.name.trim()}" member "${memberName}" has no accepted ` +
+          'current warscroll datasheet, so its membership edge is omitted until one is accepted',
+      })
+    )
+  })
+  ;(review.regimentsOfRenown ?? []).forEach(entry => {
+    const requiresOfficialEvidence = (entry.evidenceTier ?? 'official') === 'official'
+    if (
+      !matchedRegimentOfRenownSourceRecordIds.has(entry.sourceRecordId) ||
+      !entry.reason.trim() ||
+      (requiresOfficialEvidence && entry.officialSourceRecordIds.length === 0)
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: entry.sourceRecordId,
+        message:
+          'Regiment of Renown classification must target an existing kept collection datasheet and cite official evidence (or declare the secondary-provisional tier)',
+      })
+    }
+    if (!sourceMarkedRegimentOfRenownRecordIds.has(entry.sourceRecordId)) {
+      // Both tiers require the source datasheet's own classification: an entry targeting an
+      // unmarked record is a typo or a stale pin, never a valid classification.
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: entry.sourceRecordId,
+        message:
+          'Regiment of Renown classification targets a record the source pages do not classify as a Regiment of Renown',
+      })
+    }
   })
 
   const typeGroupByKey = new Map<string, CanonicalId<'content-group'>>()

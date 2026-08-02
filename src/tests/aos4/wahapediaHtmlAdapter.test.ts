@@ -1,5 +1,6 @@
 import {
   artifactChecksum,
+  dedupeWahapediaRegimentOfRenownPages,
   factionRootWarscrollScope,
   filterNativeWahapediaFactionWarscrolls,
   parseWahapediaFactionHtml,
@@ -567,5 +568,121 @@ describe('Wahapedia warscroll HTML decoding', () => {
     expect(parseWahapediaFactionHtml(source).diagnostics).toContainEqual(
       expect.objectContaining({ code: 'not-faction-page', severity: 'error' })
     )
+  })
+})
+
+describe('Regiment of Renown datasheets (issue #1858)', () => {
+  const regimentSheet = (
+    overrides: { anchor?: string; name?: string; effect?: string; inclusion?: string[] } = {}
+  ) => {
+    const anchor = overrides.anchor ?? 'Lord-Skaldior-s-Chosen'
+    const name = overrides.name ?? 'Lord Skaldior’s Chosen'
+    const inclusion = overrides.inclusion ?? ['Blades of Khorne', 'Skaven']
+    return `
+      <section class="datasheet">
+        <a name="${anchor}"></a>
+        <div class="wsHeader_short">
+          <div class="nails-header"><span class="nails">•</span>REGIMENT OF RENOWN<span class="nails">•</span></div>
+          <h1 class="wsHeaderIn">${name}</h1>
+        </div>
+        <div>
+          <div class="wsAbilityHeader">INCLUSION</div>
+          This Regiment of Renown can be included in armies from the following factions:
+          <ul>${inclusion.map(faction => `<li><a href="/aos4/factions/x">${faction}</a></li>`).join('')}</ul>
+        </div>
+        <div>
+          <div class="wsAbilityHeader">ORGANISATION</div>
+          <ul class="wsOrgList"><li>1 <a href="/aos4/factions/slaves-to-darkness/warscrolls.html#Chaos-Knights">Chaos Knights</a> unit with 5 models.</li></ul>
+        </div>
+        <div class="PitchedBattleProfile">
+          <div class="wsAbilityHeader">BATTLE PROFILE</div>
+          <div>Points: 530</div>
+        </div>
+        <div class="abHeader" bgcolor="#000000">Passive</div>
+        <div class="abBody"><b>IRONCLAD DESPOILERS:</b><span class="ShowFluff">Fluff.</span><div><b>Effect:</b> ${
+          overrides.effect ?? 'Add 1 to save rolls for units in this Regiment of Renown.'
+        }</div></div>
+      </section>
+    `
+  }
+  const collectionInput = (sheets: string, faction = 'Skaven', url = 'https://wahapedia.ru/aos4/factions/skaven/warscrolls.html') => {
+    const source = input(`
+      <html><body>
+        <span class="page_header_span2">${faction}</span>
+        ${sheets}
+      </body></html>
+    `)
+    source.artifact.requestUrl = url
+    source.artifact.finalUrl = url
+    return source
+  }
+
+  it('decodes the marker, inclusion factions, and member links, and the native filter keeps the sheet', () => {
+    const result = parseWahapediaWarscrollCollectionHtml(collectionInput(regimentSheet()))
+    expect(result.diagnostics).toEqual([])
+    expect(result.pages).toHaveLength(1)
+    const page = result.pages[0]
+    expect(page).toMatchObject({
+      recordKind: 'content-group',
+      name: 'Lord Skaldior’s Chosen',
+      points: 530,
+      regimentOfRenown: {
+        inclusionFactionNames: ['Blades of Khorne', 'Skaven'],
+        members: [
+          {
+            name: 'Chaos Knights',
+            href: '/aos4/factions/slaves-to-darkness/warscrolls.html#Chaos-Knights',
+          },
+        ],
+      },
+    })
+    expect(page.abilities.map(ability => ability.name)).toEqual(['IRONCLAD DESPOILERS'])
+    // A regiment has no keyword line, so only the marker keeps it through the native filter.
+    expect(filterNativeWahapediaFactionWarscrolls([page])).toEqual([page])
+    expect(filterNativeWahapediaFactionWarscrolls([{ ...page, regimentOfRenown: undefined }])).toEqual([])
+  })
+
+  it('collapses identical copies to the smallest source URL without diagnostics', () => {
+    const khorne = parseWahapediaWarscrollCollectionHtml(
+      collectionInput(
+        regimentSheet(),
+        'Blades of Khorne',
+        'https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html'
+      )
+    ).pages[0]
+    const skaven = parseWahapediaWarscrollCollectionHtml(collectionInput(regimentSheet())).pages[0]
+    const bystander = parseWahapediaWarscrollCollectionHtml(collectionInput(regimentSheet())).pages[0]
+
+    const result = dedupeWahapediaRegimentOfRenownPages([skaven, khorne])
+    expect(result.diagnostics).toEqual([])
+    expect(result.pages).toEqual([khorne])
+    // Non-regiment pages pass through untouched.
+    const passthrough = { ...bystander, regimentOfRenown: undefined }
+    expect(dedupeWahapediaRegimentOfRenownPages([passthrough, khorne]).pages).toEqual([
+      passthrough,
+      khorne,
+    ])
+  })
+
+  it('keeps the majority variant when copies disagree on rules text, and surfaces the drift', () => {
+    const urlFor = (faction: string) => `https://wahapedia.ru/aos4/factions/${faction}/warscrolls.html`
+    const copy = (faction: string, effect?: string) =>
+      parseWahapediaWarscrollCollectionHtml(
+        collectionInput(regimentSheet(effect ? { effect } : {}), faction, urlFor(faction))
+      ).pages[0]
+    const majorityA = copy('blades-of-khorne')
+    const majorityB = copy('skaven')
+    const divergent = copy('maggotkin-of-nurgle', 'Add 1 to save rolls for non-INFANTRY units.')
+
+    const result = dedupeWahapediaRegimentOfRenownPages([divergent, majorityB, majorityA])
+    expect(result.pages).toEqual([majorityA])
+    expect(result.diagnostics).toEqual([
+      expect.objectContaining({
+        code: 'regiment-of-renown-variant',
+        severity: 'warning',
+        url: majorityA.sourceUrl,
+        message: expect.stringContaining('2 conflicting variants across 3 collection copies'),
+      }),
+    ])
   })
 })

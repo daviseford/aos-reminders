@@ -12,6 +12,7 @@ import type {
   WahapediaHtmlInput,
   WahapediaHtmlParseResult,
   WahapediaHtmlRecordMeta,
+  WahapediaHtmlRegimentOfRenown,
   WahapediaHtmlRulesParseResult,
   WahapediaHtmlWeaponRecord,
   WahapediaHtmlWarscrollRecord,
@@ -215,6 +216,38 @@ const abilityValue = (header: Element, body: Element, line: number) => {
   }
 }
 
+/**
+ * Read a Regiment of Renown datasheet's INCLUSION and ORGANISATION blocks.
+ *
+ * A Regiment of Renown datasheet carries no characteristic circle; what defines it is the
+ * `•REGIMENT OF RENOWN•` nails header, the INCLUSION block listing the factions whose armies may
+ * include the regiment, and the ORGANISATION block linking the member warscrolls the purchase
+ * brings. A handful of regiments (single-model bands like Gotrek Gurnisson) publish their
+ * organisation as plain text without links; those simply contribute no member links.
+ */
+const regimentOfRenownStructure = (datasheet: Element): WahapediaHtmlRegimentOfRenown => {
+  const sectionContainer = (label: string): Element | undefined => {
+    const header = (Array.from(datasheet.querySelectorAll('.wsAbilityHeader')) as Element[]).find(
+      candidate => normalizedText(candidate).toUpperCase() === label
+    )
+    return header?.parentElement ?? undefined
+  }
+  const inclusion = sectionContainer('INCLUSION')
+  const organisation = sectionContainer('ORGANISATION')
+  return {
+    inclusionFactionNames: inclusion
+      ? Array.from(inclusion.querySelectorAll('ul li a')).map(normalizedText).filter(Boolean)
+      : [],
+    members: organisation
+      ? Array.from(organisation.querySelectorAll('a[href]')).flatMap(link => {
+          const name = normalizedText(link)
+          const href = link.getAttribute('href') ?? ''
+          return name && href.includes('#') ? [{ name, href }] : []
+        })
+      : [],
+  }
+}
+
 const abilityRecords = (
   root: ParentNode,
   input: WahapediaHtmlInput,
@@ -367,8 +400,14 @@ const parseDatasheet = (
       ? /^yes$/i.test(profile.get('can be reinforced') ?? '')
       : undefined,
   }
+  // The marker sits outside the hashed record value, like a faction group's `armyOfRenown`
+  // classification: it derives from page structure, so carrying it must not change identity.
+  const regimentOfRenown = /\bREGIMENTS? OF RENOWN\b/i.test(headerText)
+    ? regimentOfRenownStructure(datasheet)
+    : undefined
   return {
     ...value,
+    ...(regimentOfRenown ? { regimentOfRenown } : {}),
     weapons: weaponRecords(datasheet, input, diagnostics, recordScope),
     abilities: abilityRecords(datasheet, input, diagnostics, recordScope),
     meta: recordMeta(input, 'warscroll', value, recordScope),
@@ -549,6 +588,12 @@ const isNativeWahapediaFactionWarscroll = (page: WahapediaHtmlWarscrollRecord): 
  * plus any explicitly reviewed adoptions: datasheets whose keyword line names another faction but
  * whose roster home is established officially — e.g. Lorai, Child of the Abyss, an Idoneth wizard
  * the official Battle Profiles list under Stormcast Eternals via The Blacktalons.
+ *
+ * Regiment of Renown datasheets are also kept: they have no keyword line at all (they are
+ * purchasable bundles, not units), so the native filter used to drop every one of them and no
+ * regiment's abilities could ever reach the corpus (issue #1858). Each collection carries a copy
+ * of every regiment its faction may include; `dedupeWahapediaRegimentOfRenownPages` collapses the
+ * copies afterwards, and generation fails closed until each kept regiment is reviewed.
  */
 export const filterNativeWahapediaFactionWarscrolls = (
   pages: WahapediaHtmlWarscrollRecord[],
@@ -563,8 +608,106 @@ export const filterNativeWahapediaFactionWarscrolls = (
   )
   return pages.filter(
     page =>
-      isKeptWarscroll(page) || (page.recordKind === 'content-group' && requiredGroupIds.has(page.externalId))
+      isKeptWarscroll(page) ||
+      (page.recordKind === 'content-group' &&
+        (requiredGroupIds.has(page.externalId) || Boolean(page.regimentOfRenown)))
   )
+}
+
+const canonicalRegimentName = (value: string): string =>
+  value
+    .normalize('NFKD')
+    .replace(/[‘’']/g, '')
+    .replace(/[^a-z0-9]+/gi, '')
+    .toLowerCase()
+
+const comparableAbilityText = (value: string): string =>
+  repairMojibake(value)
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\u00a0/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+/**
+ * The variant identity of a Regiment of Renown copy: everything rules-bearing, compared as
+ * normalized text so per-page HTML furniture (tooltip ids, styling) does not split identical
+ * rules into distinct variants.
+ */
+const regimentVariantKey = (page: WahapediaHtmlWarscrollRecord): string =>
+  JSON.stringify([
+    page.name,
+    page.points ?? null,
+    [...(page.regimentOfRenown?.inclusionFactionNames ?? [])].sort(),
+    (page.regimentOfRenown?.members ?? []).map(member => `${member.name}|${member.href}`),
+    page.abilities.map(ability => [
+      ability.name,
+      comparableAbilityText(ability.conditionHtml),
+      comparableAbilityText(ability.descriptionHtml),
+    ]),
+  ])
+
+export interface WahapediaRegimentOfRenownDedupeResult {
+  pages: WahapediaHtmlWarscrollRecord[]
+  diagnostics: WahapediaHtmlDiagnostic[]
+}
+
+/**
+ * Collapse the per-faction copies of each Regiment of Renown datasheet into one record.
+ *
+ * Every collection page republishes each regiment its faction may include — Lord Skaldior's
+ * Chosen appears on all six of its inclusion factions' pages — so keeping the filter's output
+ * as-is would mint one duplicate entity per copy. One copy per regiment name is kept; identity
+ * follows the kept copy's page.
+ *
+ * Copies of the same regiment are not always byte-identical: Wahapedia has shipped pages where
+ * one copy's ability text disagrees with the rest (`INFANTRY` vs `non-INFANTRY`), with no
+ * official arbiter in the accepted document set. The rule is deterministic and surfaced rather
+ * than silent: the most-republished variant wins (majority), ties break to the lexicographically
+ * smaller variant, the kept copy is the winning variant's smallest source URL, and every
+ * conflicting variant emits a warning diagnostic that the reviewed warning count must
+ * disposition.
+ */
+export const dedupeWahapediaRegimentOfRenownPages = (
+  pages: WahapediaHtmlWarscrollRecord[]
+): WahapediaRegimentOfRenownDedupeResult => {
+  const diagnostics: WahapediaHtmlDiagnostic[] = []
+  const copiesByName = new Map<string, WahapediaHtmlWarscrollRecord[]>()
+  pages.forEach(page => {
+    if (!page.regimentOfRenown) return
+    const key = canonicalRegimentName(page.name)
+    copiesByName.set(key, [...(copiesByName.get(key) ?? []), page])
+  })
+  const keptByName = new Map<string, WahapediaHtmlWarscrollRecord>()
+  copiesByName.forEach((copies, key) => {
+    const copiesByVariant = new Map<string, WahapediaHtmlWarscrollRecord[]>()
+    copies.forEach(copy => {
+      const variant = regimentVariantKey(copy)
+      copiesByVariant.set(variant, [...(copiesByVariant.get(variant) ?? []), copy])
+    })
+    const variants = Array.from(copiesByVariant.entries()).sort(
+      (left, right) => right[1].length - left[1].length || left[0].localeCompare(right[0])
+    )
+    const winner = variants[0][1]
+      .slice()
+      .sort((left, right) => left.sourceUrl.localeCompare(right.sourceUrl))[0]
+    keptByName.set(key, winner)
+    if (variants.length > 1) {
+      diagnostics.push({
+        code: 'regiment-of-renown-variant',
+        severity: 'warning',
+        url: winner.sourceUrl,
+        message:
+          `Regiment of Renown "${winner.name}" is published in ${variants.length} conflicting ` +
+          `variants across ${copies.length} collection copies and no accepted official document ` +
+          `carries its rules text; the majority variant (${variants[0][1].length} of ${copies.length} ` +
+          `copies) was kept provisionally pending official verification`,
+      })
+    }
+  })
+  return {
+    pages: pages.filter(page => !page.regimentOfRenown || keptByName.get(canonicalRegimentName(page.name)) === page),
+    diagnostics,
+  }
 }
 
 export const parseWahapediaFactionRootWarscrollsHtml = (

@@ -16,6 +16,7 @@ import {
   mergeBsDataWarscrolls,
   type BsDataCommunitySourceInput,
   type BsDataFactionOptionSourceInput,
+  dedupeWahapediaRegimentOfRenownPages,
   factionRootWarscrollScope,
   filterNativeWahapediaFactionWarscrolls,
   mergeCurrentWahapediaWarscrollPages,
@@ -45,6 +46,7 @@ import { validateIdentityRegistry, type IdentityRegistry } from './identityRegis
 import { validateGenerationIntegrity } from './integrity'
 import { loadProfileOnlyDeviationLedger, profileOnlyGateIssues } from './profileOnlyGate'
 import {
+  canonicalOfficialProfileName,
   createOfficialBattleProfileCatalog,
   type ReviewedOfficialBattleProfileFact,
 } from './officialBattleProfiles'
@@ -52,14 +54,14 @@ import { createRuntimeProjection, serializeRuntimeProjection } from './runtimePr
 import { serializeAuditCatalog, stableJson } from './serialization'
 
 const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-02.json')
-const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-02.json')
+const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-02b.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
 const DEFAULT_AUDIT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_BATTLE_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaults.json')
-const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-02-summary.json')
-const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-02-reconciliation.json')
+const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-02b-summary.json')
+const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-02b-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_BETA_READINESS = path.join('data', 'aos4', 'certifications', 'beta.json')
 const DEFAULT_PROFILE_ONLY_DEVIATIONS = path.join('data', 'aos4', 'reviews', 'profile-only-deviations.json')
@@ -605,6 +607,16 @@ const loadWahapediaHtmlPages = async (
     }
     collectGarbage()
   }
+  // Every collection republishes each Regiment of Renown its faction may include; collapse the
+  // copies to one record per regiment before merging, and count any cross-copy rules drift the
+  // dedupe surfaced against the reviewed warning gate.
+  const dedupedRegiments = dedupeWahapediaRegimentOfRenownPages(pages)
+  pages.length = 0
+  pages.push(...dedupedRegiments.pages)
+  warningCount += dedupedRegiments.diagnostics.filter(
+    diagnostic => diagnostic.severity === 'warning'
+  ).length
+
   const reviewedHtml = review.currentWahapediaHtml
   const warscrolls = pages.filter(page => page.recordKind === 'warscroll').length
   const checks = [
@@ -925,8 +937,26 @@ export const generateCorpusProducts = async (
     })
   )
   const auditCatalog = serializeAuditCatalog(generated.catalog)
+  /**
+   * The official regiment-of-renown profile rows whose runtime content now exists: every
+   * classified regiment group's name, plus the reviewed official spellings for the rows whose
+   * name differs from the datasheet's (issue #1858).
+   */
+  const appliedRegimentOfRenownNames = new Set([
+    ...generated.catalog.entities
+      .filter(entity => entity.kind === 'content-group' && entity.groupType === 'regiment-of-renown')
+      .map(entity => canonicalOfficialProfileName(entity.name)),
+    ...(review.regimentsOfRenown ?? []).flatMap(entry =>
+      entry.officialProfileName ? [canonicalOfficialProfileName(entry.officialProfileName)] : []
+    ),
+  ])
   const officialBattleProfileCatalog = stableJson(
-    createOfficialBattleProfileCatalog(officialBattleProfiles.reviewed, reconciliation, review.generatedAt)
+    createOfficialBattleProfileCatalog(
+      officialBattleProfiles.reviewed,
+      reconciliation,
+      review.generatedAt,
+      appliedRegimentOfRenownNames
+    )
   )
   const runtime = serializeRuntimeProjection(
     createRuntimeProjection(generated.catalog, generated.summary.attribution)

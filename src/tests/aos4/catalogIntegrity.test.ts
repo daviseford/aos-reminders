@@ -79,7 +79,7 @@ const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPa
 
 const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-02.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-02-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-02b-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -109,14 +109,14 @@ describe('AoS 4 catalog generation integrity', () => {
         factions: 28,
         warscrolls: 1297,
         battleProfiles: 1013,
-        abilities: 4939,
-        weapons: 2280,
+        abilities: 5075,
+        weapons: 2283,
         sourceArtifacts: 245,
-        sourceRecords: 19333,
+        sourceRecords: 20111,
         ignoredSourceRecords: 18903,
       },
       integrity: {
-        consumedSourceRecords: 19327,
+        consumedSourceRecords: 20105,
         issues: [],
         supersededSourceRecords: {
           count: 18897,
@@ -276,9 +276,12 @@ describe('AoS 4 catalog generation integrity', () => {
       units: 967,
       rosterOptions: 307,
       regimentsOfRenown: 76,
-      appliedToRuntime: 939,
+      // 74 regiment-of-renown rows joined the applied set when their classified runtime content
+      // groups shipped (issue #1858); the two Ogor supplement regiments Wahapedia does not yet
+      // carry remain structured references.
+      appliedToRuntime: 1013,
       profileOnly: 1,
-      structuredReference: 363,
+      structuredReference: 289,
     })
     expect(officialBattleProfiles.records).toHaveLength(1350)
     officialBattleProfiles.records.forEach(record => {
