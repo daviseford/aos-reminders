@@ -14,6 +14,7 @@ export interface ProjectedReminder {
   name: string
   text: AbilityText
   timing: AbilityTiming
+  keywords: string[]
   lane: TimingKind
   causes: SelectionCause[]
   contributingEntityIds: CanonicalId[]

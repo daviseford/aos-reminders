@@ -40,6 +40,7 @@ const mergeReminder = (
 ): void => {
   reminder.occurrenceIds = Array.from(new Set([...reminder.occurrenceIds, occurrenceId])).sort(compareIds)
   reminder.abilityIds = Array.from(new Set([...reminder.abilityIds, ability.id])).sort(compareIds)
+  reminder.keywords = Array.from(new Set([...reminder.keywords, ...ability.keywords])).sort(compareIds)
   reminder.causes = uniqueBy([...reminder.causes, ...causes], causeKey)
   reminder.contributingEntityIds = contributingIds(reminder.causes, reminder.abilityIds)
   reminder.sourceRefs = uniqueBy([...reminder.sourceRefs, ...ability.sourceRefs], sourceReferenceKey)
@@ -88,6 +89,7 @@ export const projectReminders = (catalog: Aos4Catalog, selection: ResolvedSelect
           name: ability.name,
           text: ability.text,
           timing,
+          keywords: [...ability.keywords].sort(compareIds),
           lane: timing.kind,
           causes,
           contributingEntityIds: contributingIds(causes, [ability.id]),

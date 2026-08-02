@@ -189,10 +189,13 @@ const abilityValue = (header: Element, body: Element, line: number) => {
   const name = normalizedText(nameElement).replace(/:\s*$/, '')
   nameElement?.remove()
   const condition = normalizedText(header)
-  const keywordHtml = Array.from(header.querySelectorAll('.kwb'))
-    .map(normalizedText)
-    .filter(Boolean)
-    .join(', ')
+  // The ability's KEYWORDS strip is a sibling rendered after the body, not part of the header:
+  // header `.kwb` spans are keyword *mentions* inside the timing text ("You declared a FIGHT
+  // ability"), while the strip carries the ability's own keyword line ("DIRTY TRICK",
+  // "SPELL, UNLIMITED") that the retired CSV export shipped in its `keywords` column.
+  const keywordsStrip =
+    body.nextElementSibling?.classList.contains('abKeywords') === true ? body.nextElementSibling : null
+  const keywordHtml = normalizedText(keywordsStrip?.querySelector('.abKeywordsBodyText'))
   const phase =
     condition.match(
       /\b(?:Your|Enemy|Any) (?:Start of Turn|Hero|Movement|Shooting|Charge|Combat|End of Turn)(?: Phase)?\b/i

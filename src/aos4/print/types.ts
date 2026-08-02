@@ -31,6 +31,7 @@ export type PrintTagTone =
   | 'kind-reaction'
   | 'kind-passive'
   | 'source'
+  | 'keyword'
   | 'turn-your'
   | 'turn-enemy'
   | 'turn-neutral'
