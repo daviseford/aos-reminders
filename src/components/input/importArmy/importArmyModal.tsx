@@ -76,7 +76,7 @@ const ImportArmyModal = ({
   ]
   const hasErrors = diagnostics.some(diagnostic => diagnostic.severity === 'error')
   const canApply = Boolean(preview?.proposedDocument) && !hasErrors
-  const canReport = Boolean(decoded && hasErrors && (mode === 'paste' ? text : droppedFile))
+  const canReport = Boolean(decoded && diagnostics.length > 0 && (mode === 'paste' ? text : droppedFile))
 
   useEffect(() => {
     if (!decoded || !hasErrors || trackedErrorRef.current === decoded) return
@@ -286,9 +286,10 @@ const ImportArmyModal = ({
         {canReport && (
           <div className="mt-3">
             <p className="small mb-2">
-              Help us reproduce this import error. This downloads an exact copy of the failed roster and opens
-              a GitHub issue draft without the roster content or original filename. Attach the downloaded file
-              before submitting. GitHub issues are public, so remove any private information first.
+              Help us investigate these import warnings or errors. This downloads an exact copy of the roster
+              and opens a GitHub issue draft without the roster content or original filename. Attach the
+              downloaded file before submitting. GitHub issues are public, so remove any private information
+              first.
             </p>
             <button
               className={`${theme.genericButton} d-block w-100`}

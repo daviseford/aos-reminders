@@ -343,7 +343,14 @@ describe('AoS 4 import modal', () => {
    * builder where the unit exists, so the useful outcome is the rest of the army plus a note about
    * what was dropped.
    */
-  it('stays confirmable when a selection cannot be placed, and names it', () => {
+  it('stays confirmable and reportable when a selection cannot be placed', () => {
+    Object.defineProperties(URL, {
+      createObjectURL: { configurable: true, value: vi.fn(() => 'blob:warning-import') },
+      revokeObjectURL: { configurable: true, value: vi.fn() },
+    })
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined)
+    const openIssue = vi.spyOn(window, 'open').mockImplementation(() => null)
+
     pasteAndPreview(officialRoster('Annihilators', false))
 
     expect(container.textContent).toContain('No rules context was declared')
@@ -352,8 +359,16 @@ describe('AoS 4 import modal', () => {
     pasteAndPreview(officialRoster('Definitely Unknown Unit'))
 
     expect(container.textContent).toContain('Definitely Unknown Unit')
-    expect(container.textContent).not.toContain('Send to devs')
     expect(findButton(container, 'Import Army').disabled).toBe(false)
+
+    act(() => {
+      Simulate.click(findButton(container, 'Send to devs'))
+    })
+
+    const issueUrl = new URL(openIssue.mock.calls[0][0] as string)
+    expect(issueUrl.searchParams.get('title')).toContain('warning')
+    expect(issueUrl.searchParams.get('body')).toContain('imported this roster with warnings')
+    expect(issueUrl.searchParams.get('body')).toContain('unknown-selection')
 
     act(() => {
       Simulate.click(findButton(container, 'Import Army'))
