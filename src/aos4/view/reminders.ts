@@ -2,7 +2,9 @@ import {
   TURN_PHASES,
   type AbilityTiming,
   type Aos4Catalog,
+  type CanonicalId,
   type CombatPriority,
+  type ContentEntity,
   type TimingKind,
   type TimingPerspective,
   type UsageLimit,
@@ -72,6 +74,7 @@ export type Aos4ReminderTagTone =
   | 'turn-neutral'
   | 'usage'
   | 'priority'
+  | 'source'
 
 export interface Aos4ReminderTag {
   label: string
@@ -190,19 +193,71 @@ export interface Aos4ReminderViewModel {
   projected: ProjectedReminder
 }
 
-const withPreferences = (reminder: ProjectedReminder, document: Aos4ArmyDocument): Aos4ReminderViewModel => {
+/**
+ * Names the selection that put this reminder in the army, so an ability is recognizable as
+ * belonging to what the player picked (issue #1836: Well-Fed Beasts grants HORN TOSS, and nothing
+ * on the HORN TOSS reminder said so). One tag per distinct granting source:
+ *
+ * - An ability with a warscroll ancestor is that unit's own — its warscroll name wins, even when
+ *   the unit itself arrived through a group (a Regiment of Renown).
+ * - Otherwise the cause's root names the grant when the root is a picked content-group: a spell
+ *   lore, an enhancement trait, an Army of Renown. Faction-rooted content is deliberately
+ *   untagged — stamping the faction name on every automatic battle trait and core rule is noise.
+ *
+ * A tag that would repeat the reminder's own name is dropped: enhancement picks are groups named
+ * after their single ability, and "Tunnel Master — Tunnel Master" attributes nothing.
+ */
+const sourceTags = (
+  reminder: ProjectedReminder,
+  entityById: Map<CanonicalId, ContentEntity>
+): Aos4ReminderTag[] => {
+  const tagsByLabel = new Map<string, Aos4ReminderTag>()
+  reminder.causes.forEach(cause => {
+    const ancestors = cause.entityPath.slice(0, -1)
+    for (let index = ancestors.length - 1; index >= 0; index -= 1) {
+      const ancestor = entityById.get(ancestors[index])
+      if (ancestor?.kind === 'warscroll') {
+        tagsByLabel.set(ancestor.name, {
+          label: ancestor.name,
+          tone: 'source',
+          description: `Printed on the ${ancestor.name} warscroll. Only that unit uses it.`,
+        })
+        return
+      }
+    }
+    const root = entityById.get(cause.rootId)
+    if (root?.kind === 'content-group') {
+      tagsByLabel.set(root.name, {
+        label: root.name,
+        tone: 'source',
+        description: `In your army because you took ${root.name}.`,
+      })
+    }
+  })
+  return Array.from(tagsByLabel.values())
+    .filter(tag => tag.label.toLowerCase() !== reminder.name.toLowerCase())
+    .sort((left, right) => left.label.localeCompare(right.label))
+}
+
+const withPreferences = (
+  reminder: ProjectedReminder,
+  document: Aos4ArmyDocument,
+  entityById: Map<CanonicalId, ContentEntity>
+): Aos4ReminderViewModel => {
   const preference = document.reminderPreferences[reminder.id]
   const details = timingDetails(reminder.timing)
   const label = windowLabel(reminder.timing)
+  const grantedBy = sourceTags(reminder, entityById)
   return {
     id: reminder.id,
     name: reminder.name,
     windowKey: gameWindowKey(reminder.timing.window),
     windowLabel: label,
     typeLabel: details.join(' · '),
-    tags: timingTags(reminder.timing),
+    tags: [...grantedBy, ...timingTags(reminder.timing)],
     accessibleLabel: [
       reminder.name,
+      ...grantedBy.map(tag => `From ${tag.label}`),
       label,
       ...details,
       ...(reminder.text.reactionTrigger ? [`Trigger: ${reminder.text.reactionTrigger}`] : []),
@@ -228,7 +283,10 @@ export const createAos4ReminderViewModel = (
     ...(document.allowsLegends ? { allowsLegends: true } : {}),
     ...(document.allowsHistorical ? { allowsHistorical: true } : {}),
   })
-  const reminders = projectReminders(catalog, selection).map(reminder => withPreferences(reminder, document))
+  const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
+  const reminders = projectReminders(catalog, selection).map(reminder =>
+    withPreferences(reminder, document, entityById)
+  )
   const baseOrder = new Map(reminders.map((reminder, index) => [reminder.id, index]))
   return reminders.sort((left, right) => {
     if (left.windowKey !== right.windowKey) {
