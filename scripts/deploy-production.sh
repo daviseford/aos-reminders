@@ -268,13 +268,31 @@ while IFS= read -r remote_immutable; do
     --output text)
   [[ "$retire_tag" == 'true' ]] && continue
 
+  # S3 rejects a self-copy whose only change is tags, so the write needs the REPLACE metadata
+  # directive to be legal — and REPLACE drops the object's stored headers unless they are restated.
+  # Losing Content-Type would break any straggler still loading this module from a stale shell.
+  retire_metadata=$(aws s3api head-object \
+    --bucket "$SITE_BUCKET" \
+    --key "$remote_immutable" \
+    --query '[CacheControl, ContentType]' \
+    --output text) || fail "could not read headers for $remote_immutable before retirement"
+  IFS=$'\t' read -r retire_cache_control retire_content_type <<< "$retire_metadata"
+  retire_headers=()
+  [[ -n "$retire_cache_control" && "$retire_cache_control" != 'None' ]] &&
+    retire_headers+=(--cache-control "$retire_cache_control")
+  [[ -n "$retire_content_type" && "$retire_content_type" != 'None' ]] &&
+    retire_headers+=(--content-type "$retire_content_type")
+
   aws s3api copy-object \
     --bucket "$SITE_BUCKET" \
     --key "$remote_immutable" \
     --copy-source "${SITE_BUCKET}/${remote_immutable}" \
-    --metadata-directive COPY \
+    --metadata-directive REPLACE \
+    ${retire_headers[@]+"${retire_headers[@]}"} \
     --tagging-directive REPLACE \
     --tagging 'retire=true' >/dev/null
-done < <(printf '%s' "$remote_immutable_output" | tr '\t' '\n')
+# %s\n, not %s: read never runs its body for a final unterminated line, which would silently
+# exempt the last listed object from retirement on every deploy.
+done < <(printf '%s\n' "$remote_immutable_output" | tr '\t' '\n')
 
 echo 'Deployed to https://aosreminders.com/'
