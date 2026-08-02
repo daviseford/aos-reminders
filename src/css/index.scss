@@ -360,7 +360,7 @@ small {
     }
 }
 
-@mixin tag-tones($active, $reaction, $passive, $your, $enemy, $neutral, $usage, $source, $keyword) {
+@mixin tag-tones($active, $reaction, $passive, $your, $enemy, $neutral, $usage, $source, $provenance, $keyword) {
     .ReminderTag {
         &--kind-active {
             @include tag-tone($active...);
@@ -390,6 +390,14 @@ small {
         &--source {
             @include tag-tone($source...);
         }
+        /*
+         * The quiet cousin of --source: names a game-wide origin (core rules, the season, battle
+         * traits) rather than something the player picked, so it keeps the source family's hue as
+         * an outline instead of a fill (issue #1857).
+         */
+        &--provenance {
+            @include tag-tone($provenance...);
+        }
         &--keyword {
             @include tag-tone($keyword...);
         }
@@ -412,6 +420,7 @@ small {
         (#eef0f2, #4d5a63, #d8dee2),
         (transparent, #5b6b74, #b9c5cc),
         (#efeaf7, #543e7a, #d3c6e8),
+        (transparent, #6b6085, #cfc4e2),
         (#f7e9f1, #7a2e5b, #e6c3d8)
     );
 }
@@ -426,6 +435,7 @@ small {
         (rgba(255, 255, 255, 0.08), #b3c1ca, rgba(255, 255, 255, 0.18)),
         (transparent, #a9bac3, rgba(255, 255, 255, 0.3)),
         (rgba(132, 100, 190, 0.24), #cbb8ee, rgba(132, 100, 190, 0.45)),
+        (transparent, #b3a4cf, rgba(132, 100, 190, 0.45)),
         (rgba(190, 90, 145, 0.24), #f0b1d4, rgba(190, 90, 145, 0.45))
     );
 }

@@ -127,6 +127,8 @@ describe('print tags', () => {
       'turn-neutral',
       'usage',
       'priority',
+      'source',
+      'provenance',
     ]
     ;[STANDARD_PRESET, COMPACT_PRESET].forEach(preset => {
       tones.forEach(tone => {
