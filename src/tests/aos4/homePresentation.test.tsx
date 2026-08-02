@@ -224,6 +224,47 @@ describe('AoS 4 home presentation', () => {
     expect(offered).not.toContain('Endless Spells')
   })
 
+  /**
+   * Manifestations are a category of unit, not roster units (CONCEPTS.md). Mixing them into the
+   * Units card buried the units a player actually fields, so they get their own builder card.
+   */
+  it('offers manifestations in their own builder card rather than under Units', async () => {
+    const cardTitles = Array.from(container.querySelectorAll('.CardHeaderTitle')).map(
+      title => title.textContent
+    )
+    expect(cardTitles).toContain('Units')
+    expect(cardTitles).toContain('Manifestations')
+
+    const optionsOf = async (label: string) => {
+      const input = container.querySelector<HTMLInputElement>(`input[aria-label="${label}"]`)
+      expect(input).not.toBeNull()
+      const open = new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
+      const close = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+      await act(async () => {
+        input!.dispatchEvent(open)
+        await new Promise(resolve => setTimeout(resolve, 0))
+      })
+      const offered = Array.from(container.querySelectorAll('[role="option"]')).map(option =>
+        option.textContent?.trim()
+      )
+      await act(async () => {
+        input!.dispatchEvent(close)
+        await new Promise(resolve => setTimeout(resolve, 0))
+      })
+      return offered
+    }
+
+    const unitOptions = await optionsOf('Units')
+    expect(unitOptions).toContain('Aetherwings')
+    expect(unitOptions).not.toContain('Aethervoid Pendulum')
+    expect(unitOptions).not.toContain('Celestian Vortex')
+
+    const manifestationOptions = await optionsOf('Manifestations')
+    expect(manifestationOptions).toContain('Aethervoid Pendulum')
+    expect(manifestationOptions).toContain('Celestian Vortex')
+    expect(manifestationOptions).not.toContain('Aetherwings')
+  })
+
   it('opens on a skip link that reaches the reminders, and a real footer landmark', () => {
     const skip = container.querySelector('a.SkipLink')
     expect(skip).not.toBeNull()

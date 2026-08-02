@@ -190,6 +190,9 @@ export interface Aos4ReminderViewModel {
   note?: string
   order?: number
   sourceRecordIds: string[]
+  /** The game-wide rules module carrying this reminder, when one does. Provenance data only —
+   * never rendered as a tag (see `rulesModuleName`). */
+  rulesModule?: string
   projected: ProjectedReminder
 }
 
@@ -239,6 +242,28 @@ const sourceTags = (
     .sort((left, right) => left.label.localeCompare(right.label))
 }
 
+/**
+ * Names the game-wide rules module (The Core Rules, a General's Handbook) that carries a
+ * faction-rooted reminder. MUSICIAN and STANDARD BEARER are not faction rules — they arrive
+ * through a rules-module container every army includes. Deliberately data, not a tag: stamping
+ * THE CORE RULES on every core reminder read as noise, but the provenance stays available for
+ * future surfaces (filtering, an explainer, print grouping).
+ */
+const rulesModuleName = (
+  reminder: ProjectedReminder,
+  entityById: Map<CanonicalId, ContentEntity>
+): string | undefined => {
+  for (const cause of reminder.causes) {
+    for (const ancestorId of cause.entityPath.slice(0, -1)) {
+      const ancestor = entityById.get(ancestorId)
+      if (ancestor?.kind === 'content-group' && ancestor.groupType === 'rules-module') {
+        return ancestor.name
+      }
+    }
+  }
+  return undefined
+}
+
 const withPreferences = (
   reminder: ProjectedReminder,
   document: Aos4ArmyDocument,
@@ -248,6 +273,7 @@ const withPreferences = (
   const details = timingDetails(reminder.timing)
   const label = windowLabel(reminder.timing)
   const grantedBy = sourceTags(reminder, entityById)
+  const rulesModule = rulesModuleName(reminder, entityById)
   return {
     id: reminder.id,
     name: reminder.name,
@@ -269,6 +295,7 @@ const withPreferences = (
     ...(preference?.note ? { note: preference.note } : {}),
     ...(preference?.order !== undefined ? { order: preference.order } : {}),
     sourceRecordIds: reminder.sourceRefs.map(reference => String(reference.sourceRecordId)),
+    ...(rulesModule ? { rulesModule } : {}),
     projected: reminder,
   }
 }

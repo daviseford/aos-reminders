@@ -57,6 +57,24 @@ describe('reminder source attribution (#1836)', () => {
     })
   })
 
+  /**
+   * Game-wide rules keep their module provenance as data, never as a tag: MUSICIAN is not an Ogor
+   * rule, but stamping THE CORE RULES on every core reminder read as noise on the reminder cards.
+   */
+  it('records the rules module on game-wide reminders without surfacing a tag', () => {
+    const reminders = remindersFor([['faction', 'Ogor Mawtribes']])
+    const coreReminders = ['MUSICIAN', 'STANDARD BEARER']
+    coreReminders.forEach(name => {
+      const reminder = reminders.find(candidate => candidate.name === name)
+      expect(reminder).toBeDefined()
+      expect(reminder!.rulesModule).toBe('The Core Rules')
+      expect(sourceLabels(reminder!)).toEqual([])
+    })
+    const battleTrait = reminders.find(reminder => reminder.name === 'TRAMPLING CHARGE')
+    expect(battleTrait).toBeDefined()
+    expect(battleTrait!.rulesModule).toBeUndefined()
+  })
+
   it('tags a warscroll-native spell with its unit', () => {
     const kroak = entityByName('warscroll', 'Lord Kroak')
     expect(kroak).toBeDefined()
