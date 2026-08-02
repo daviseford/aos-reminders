@@ -359,7 +359,7 @@ three-up grid on desktop (`col-md-6 col-lg-4`) and the toolbar is a seven-button
 
 **Mobile is a different layout, not a narrower one.** Below 576px: collapsed builder cards drop to
 `col w-50` and tile two-up so the whole builder is visible without scrolling; group titles switch
-to shorter `mobileTitle` variants ("Formations", "Artefacts", "Manifestations"); card header
+to shorter `mobileTitle` variants ("Formations", "Artefacts", "Manif. Lores"); card header
 padding grows from `0.5rem 1.25rem` to a uniform `1rem`; reminder cards start collapsed rather than
 expanded, so the player lands on a list of phases instead of a wall of text.
 

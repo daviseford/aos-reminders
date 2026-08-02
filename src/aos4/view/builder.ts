@@ -65,7 +65,13 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
         id,
         name: entity.name,
         kind: entity.kind,
-        ...(entity.kind === 'content-group' ? { groupType: entity.groupType } : {}),
+        ...(entity.kind === 'content-group'
+          ? { groupType: entity.groupType }
+          : entity.kind === 'warscroll' && entity.keywords.includes('MANIFESTATION')
+            ? // Manifestations are a category of unit, not roster units (CONCEPTS.md); grouping
+              // them apart keeps the Units card a list of the units a player actually fields.
+              { groupType: 'manifestation' }
+            : {}),
         selected: selected.has(id),
         available: available.has(id),
         ...(overlay ? { overlay } : {}),
@@ -89,7 +95,10 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
       .map((word, index) =>
         index > 0 && CHIP_MINOR_WORDS.has(word)
           ? word
-          : word.replace(/(^|-)([a-z])/g, (_, boundary: string, letter: string) => `${boundary}${letter.toUpperCase()}`)
+          : word.replace(
+              /(^|-)([a-z])/g,
+              (_, boundary: string, letter: string) => `${boundary}${letter.toUpperCase()}`
+            )
       )
       .join(' ')
   const armyOfRenownRootIds = new Set(

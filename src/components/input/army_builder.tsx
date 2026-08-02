@@ -33,7 +33,8 @@ const titles: Record<string, { title: string; mobileTitle?: string; order: numbe
   'artefact-of-power': { title: 'Artefacts of Power', mobileTitle: 'Artefacts', order: 2 },
   'spell-lore': { title: 'Spell Lores', order: 3 },
   'prayer-lore': { title: 'Prayer Lores', order: 4 },
-  'manifestation-lore': { title: 'Manifestation Lores', mobileTitle: 'Manifestations', order: 5 },
+  'manifestation-lore': { title: 'Manifestation Lores', mobileTitle: 'Manif. Lores', order: 5 },
+  manifestation: { title: 'Manifestations', order: 6 },
   'regiment-of-renown': {
     title: 'Regiment Of Renown',
     mobileTitle: 'Regiments',
@@ -92,9 +93,7 @@ const SelectionCard = ({
   // but sits under its own group header so its provenance stays visible.
   const currentOptions = group.options.filter(option => !option.overlay).map(toOption)
   const legendsOptions = group.options.filter(option => option.overlay === 'legends').map(toOption)
-  const historicalOptions = group.options
-    .filter(option => option.overlay === 'historical')
-    .map(toOption)
+  const historicalOptions = group.options.filter(option => option.overlay === 'historical').map(toOption)
   const options: Option[] = [...currentOptions, ...legendsOptions, ...historicalOptions]
   const groupedOptions = [
     ...currentOptions,
