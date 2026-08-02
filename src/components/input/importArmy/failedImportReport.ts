@@ -22,6 +22,7 @@ const githubAttachmentName = (fileName: string): string => {
 }
 
 const issueBody = (attachmentName: string, diagnostics: readonly Aos4ImportDiagnostic[]): string => {
+  const hasErrors = diagnostics.some(diagnostic => diagnostic.severity === 'error')
   const diagnosticLines = diagnostics
     .slice(0, MAX_ISSUE_DIAGNOSTICS)
     .map(diagnostic => {
@@ -34,15 +35,15 @@ const issueBody = (attachmentName: string, diagnostics: readonly Aos4ImportDiagn
       ? `\n- ${diagnostics.length - MAX_ISSUE_DIAGNOSTICS} more diagnostics omitted from this draft.`
       : ''
 
-  return `## Failed import
+  return `## ${hasErrors ? 'Failed import' : 'Import warning'}
 
-AoS Reminders could not import this roster.
+AoS Reminders ${hasErrors ? 'could not import this roster.' : 'imported this roster with warnings.'}
 
 ## Reproduction file
 
 Attach the downloaded \`${attachmentName}\` file to this issue before submitting it. Its contents are
-the exact roster input that failed. Its generic name and any extra \`.xml\`, \`.zip\`, or \`.txt\`
-suffix only make the file type attachable on GitHub.
+the exact roster input that produced these diagnostics. Its generic name and any extra \`.xml\`,
+\`.zip\`, or \`.txt\` suffix only make the file type attachable on GitHub.
 
 GitHub issues are public. Please remove any private information before attaching the file.
 The original filename, roster content, and diagnostic messages were not added to this draft.
@@ -58,7 +59,8 @@ const createFailedImportIssueUrl = (
   diagnostics: readonly Aos4ImportDiagnostic[]
 ): string => {
   const url = new URL(`${GITHUB_URL}/issues/new`, 'https://aosreminders.com')
-  url.searchParams.set('title', '[BUG] Failed roster import')
+  const hasErrors = diagnostics.some(diagnostic => diagnostic.severity === 'error')
+  url.searchParams.set('title', hasErrors ? '[BUG] Failed roster import' : '[BUG] Roster import warning')
   url.searchParams.set('body', issueBody(attachmentName, diagnostics))
   return url.toString()
 }
