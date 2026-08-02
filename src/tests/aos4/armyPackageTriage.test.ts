@@ -1,4 +1,4 @@
-import type { ContentGroup, Faction } from '../../aos4/domain'
+import type { CanonicalId, ContentGroup, Faction } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
 import { createAos4ArmyDocument } from '../../aos4/state'
 import { createAos4BuilderViewModel } from '../../aos4/view'
@@ -20,7 +20,7 @@ const factionByName = (name: string): Faction => {
   return entity as Faction
 }
 
-const builderFor = (explicitSelectionIds: Faction['id'][]) =>
+const builderFor = (explicitSelectionIds: CanonicalId[]) =>
   createAos4BuilderViewModel(
     AOS4_CATALOG,
     createAos4ArmyDocument({
