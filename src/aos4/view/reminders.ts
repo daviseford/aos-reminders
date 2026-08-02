@@ -5,6 +5,7 @@ import {
   type CanonicalId,
   type CombatPriority,
   type ContentEntity,
+  type RulesContextId,
   type TimingKind,
   type TimingPerspective,
   type UsageLimit,
@@ -75,6 +76,7 @@ export type Aos4ReminderTagTone =
   | 'usage'
   | 'priority'
   | 'source'
+  | 'provenance'
 
 export interface Aos4ReminderTag {
   label: string
@@ -190,8 +192,8 @@ export interface Aos4ReminderViewModel {
   note?: string
   order?: number
   sourceRecordIds: string[]
-  /** The game-wide rules module carrying this reminder, when one does. Provenance data only —
-   * never rendered as a tag (see `rulesModuleName`). */
+  /** The game-wide rules module carrying this reminder, when one does. Text-only provenance data;
+   * the tag row renders the quieter `provenance` tone instead (see `provenanceTag`). */
   rulesModule?: string
   projected: ProjectedReminder
 }
@@ -243,11 +245,79 @@ const sourceTags = (
 }
 
 /**
+ * Names where a faction-automatic reminder actually comes from, for the rules `sourceTags`
+ * deliberately leaves untagged (issue #1857: MUSICIAN, the season counter, and Bull Charge all
+ * looked equally faction-owned). One quiet tag, three families, checked in this order:
+ *
+ * - A rules-module ancestor (The Core Rules) names a game-wide module every army includes.
+ * - An ability that exists only in a seasonal rules context is the season's, not the faction's —
+ *   the current corpus carries these as a faction-rooted `Season Rules 2026-27` group.
+ * - A battle-trait group under the faction root is the faction's own battletome battle traits.
+ *
+ * Anything else faction-rooted stays untagged rather than guessing. The tone is `provenance`, not
+ * `source`: a source tag names something the player picked, and tests and consumers filter on that
+ * distinction.
+ */
+const provenanceTag = (
+  reminder: ProjectedReminder,
+  entityById: Map<CanonicalId, ContentEntity>,
+  seasonalContextIds: ReadonlySet<RulesContextId>
+): Aos4ReminderTag | undefined => {
+  for (const cause of reminder.causes) {
+    const ancestors = cause.entityPath.slice(0, -1).map(id => entityById.get(id))
+
+    const module = ancestors.find(
+      ancestor => ancestor?.kind === 'content-group' && ancestor.groupType === 'rules-module'
+    )
+    if (module) {
+      return /core rules/i.test(module.name)
+        ? {
+            label: 'Core Rules',
+            tone: 'provenance',
+            description: 'From the core rules. Every army uses this.',
+          }
+        : {
+            label: module.name,
+            tone: 'provenance',
+            description: `From ${module.name}, which every army includes.`,
+          }
+    }
+
+    const ability = entityById.get(cause.entityPath[cause.entityPath.length - 1])
+    if (
+      ability &&
+      ability.rulesContextIds.length > 0 &&
+      ability.rulesContextIds.every(id => seasonalContextIds.has(id))
+    ) {
+      // The nearest carrying group names the season's package, e.g. `Season Rules 2026-27`.
+      const carrier = [...ancestors].reverse().find(ancestor => ancestor?.kind === 'content-group')
+      return {
+        label: 'Seasonal',
+        tone: 'provenance',
+        description: `From ${carrier ? carrier.name : "the current season's rules"} — every army uses these while the season lasts.`,
+      }
+    }
+
+    const battleTraits = ancestors.find(
+      ancestor => ancestor?.kind === 'content-group' && ancestor.groupType === 'battle-trait'
+    )
+    const root = entityById.get(cause.rootId)
+    if (battleTraits && root?.kind === 'faction') {
+      return {
+        label: battleTraits.name,
+        tone: 'provenance',
+        description: `One of ${root.name}'s battle traits. In your army automatically.`,
+      }
+    }
+  }
+  return undefined
+}
+
+/**
  * Names the game-wide rules module (The Core Rules, a General's Handbook) that carries a
  * faction-rooted reminder. MUSICIAN and STANDARD BEARER are not faction rules — they arrive
- * through a rules-module container every army includes. Deliberately data, not a tag: stamping
- * THE CORE RULES on every core reminder read as noise, but the provenance stays available for
- * future surfaces (filtering, an explainer, print grouping).
+ * through a rules-module container every army includes. Kept as data alongside the quiet
+ * `provenance` tag (issue #1857) for text-only surfaces (filtering, an explainer, print grouping).
  */
 const rulesModuleName = (
   reminder: ProjectedReminder,
@@ -267,12 +337,16 @@ const rulesModuleName = (
 const withPreferences = (
   reminder: ProjectedReminder,
   document: Aos4ArmyDocument,
-  entityById: Map<CanonicalId, ContentEntity>
+  entityById: Map<CanonicalId, ContentEntity>,
+  seasonalContextIds: ReadonlySet<RulesContextId>
 ): Aos4ReminderViewModel => {
   const preference = document.reminderPreferences[reminder.id]
   const details = timingDetails(reminder.timing)
   const label = windowLabel(reminder.timing)
   const grantedBy = sourceTags(reminder, entityById)
+  // A picked source already names the grant; provenance covers only the faction-automatic rest.
+  const provenance = grantedBy.length ? undefined : provenanceTag(reminder, entityById, seasonalContextIds)
+  const attribution = provenance ? [provenance] : grantedBy
   const rulesModule = rulesModuleName(reminder, entityById)
   return {
     id: reminder.id,
@@ -280,10 +354,10 @@ const withPreferences = (
     windowKey: gameWindowKey(reminder.timing.window),
     windowLabel: label,
     typeLabel: details.join(' · '),
-    tags: [...grantedBy, ...timingTags(reminder.timing)],
+    tags: [...attribution, ...timingTags(reminder.timing)],
     accessibleLabel: [
       reminder.name,
-      ...grantedBy.map(tag => `From ${tag.label}`),
+      ...attribution.map(tag => `From ${tag.label}`),
       label,
       ...details,
       ...(reminder.text.reactionTrigger ? [`Trigger: ${reminder.text.reactionTrigger}`] : []),
@@ -311,8 +385,11 @@ export const createAos4ReminderViewModel = (
     ...(document.allowsHistorical ? { allowsHistorical: true } : {}),
   })
   const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
+  const seasonalContextIds: ReadonlySet<RulesContextId> = new Set(
+    catalog.rulesContexts.filter(context => context.status === 'seasonal').map(context => context.id)
+  )
   const reminders = projectReminders(catalog, selection).map(reminder =>
-    withPreferences(reminder, document, entityById)
+    withPreferences(reminder, document, entityById, seasonalContextIds)
   )
   const baseOrder = new Map(reminders.map((reminder, index) => [reminder.id, index]))
   return reminders.sort((left, right) => {

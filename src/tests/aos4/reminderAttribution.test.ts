@@ -7,8 +7,10 @@ import { createAos4ReminderViewModel, type Aos4ReminderViewModel } from '../../a
  * Reminders name the selection that granted them (issue #1836). Without attribution, a player who
  * picks Well-Fed Beasts scans the reminders for that name and finds nothing — the granted
  * abilities surface under their own names (HORN TOSS, GRUMPY ALPHA) with no visible tie to the
- * trait. Every player-picked grant carries a `source` tag; faction-automatic content stays
- * untagged so the faction name is not stamped on every core rule.
+ * trait. Every player-picked grant carries a `source` tag; faction-automatic content never carries
+ * one, so the faction name is not stamped on every core rule. Game-wide content instead carries a
+ * quiet `provenance` tag naming its real origin — core rules, the season, or the battletome's
+ * battle traits (issue #1857).
  */
 
 type PickableKind = 'faction' | 'warscroll' | 'content-group'
@@ -33,6 +35,9 @@ const remindersFor = (explicitNames: Array<[PickableKind, string]>): Aos4Reminde
 const sourceLabels = (reminder: Aos4ReminderViewModel): string[] =>
   reminder.tags.filter(tag => tag.tone === 'source').map(tag => tag.label)
 
+const provenanceLabels = (reminder: Aos4ReminderViewModel): string[] =>
+  reminder.tags.filter(tag => tag.tone === 'provenance').map(tag => tag.label)
+
 describe('reminder source attribution (#1836)', () => {
   it('tags a monstrous trait pick on each granted ability reminder', () => {
     const wellFed = entityByName('content-group', 'Well-Fed Beasts')
@@ -49,7 +54,7 @@ describe('reminder source attribution (#1836)', () => {
     })
   })
 
-  it('leaves faction-automatic content untagged', () => {
+  it('keeps the source tone off faction-automatic content', () => {
     const reminders = remindersFor([['faction', 'Ogor Mawtribes']])
     expect(reminders.length).toBeGreaterThan(0)
     reminders.forEach(reminder => {
@@ -58,21 +63,74 @@ describe('reminder source attribution (#1836)', () => {
   })
 
   /**
-   * Game-wide rules keep their module provenance as data, never as a tag: MUSICIAN is not an Ogor
-   * rule, but stamping THE CORE RULES on every core reminder read as noise on the reminder cards.
+   * Game-wide rules carry a quiet provenance tag naming their origin (issue #1857): MUSICIAN is
+   * not an Ogor rule, and without a tag it read as one. The tag uses its own `provenance` tone —
+   * never `source`, which is reserved for things the player picked — and the `rulesModule` data
+   * stays for text-only surfaces.
    */
-  it('records the rules module on game-wide reminders without surfacing a tag', () => {
+  it('tags game-wide core rules with a Core Rules provenance tag', () => {
     const reminders = remindersFor([['faction', 'Ogor Mawtribes']])
-    const coreReminders = ['MUSICIAN', 'STANDARD BEARER']
+    const coreReminders = ['MUSICIAN', 'STANDARD BEARER', 'RALLY']
     coreReminders.forEach(name => {
       const reminder = reminders.find(candidate => candidate.name === name)
       expect(reminder).toBeDefined()
       expect(reminder!.rulesModule).toBe('The Core Rules')
       expect(sourceLabels(reminder!)).toEqual([])
+      expect(provenanceLabels(reminder!)).toEqual(['Core Rules'])
     })
-    const battleTrait = reminders.find(reminder => reminder.name === 'Bull Charge')
-    expect(battleTrait).toBeDefined()
-    expect(battleTrait!.rulesModule).toBeUndefined()
+  })
+
+  /**
+   * The season's rules arrive through a faction-rooted seasonal group (`Season Rules 2026-27`),
+   * so without a tag they read as faction rules. They are classified by rules context — the
+   * ability exists only in a seasonal context — never by group name.
+   */
+  it('tags seasonal rules as Seasonal', () => {
+    const reminders = remindersFor([['faction', 'Ogor Mawtribes']])
+    const seasonal = ['RAISING THE HEAT', 'FIGHT THROUGH THE PAIN']
+    seasonal.forEach(name => {
+      const reminder = reminders.find(candidate => candidate.name === name)
+      expect(reminder).toBeDefined()
+      expect(sourceLabels(reminder!)).toEqual([])
+      expect(provenanceLabels(reminder!)).toEqual(['Seasonal'])
+      const tag = reminder!.tags.find(candidate => candidate.tone === 'provenance')
+      expect(tag!.description).toContain('Season Rules 2026-27')
+    })
+  })
+
+  it("tags battletome battle traits with the faction's battle-trait group", () => {
+    const reminders = remindersFor([['faction', 'Ogor Mawtribes']])
+    const battleTraits = ['Bull Charge', "Eat 'Em Alive"]
+    battleTraits.forEach(name => {
+      const reminder = reminders.find(candidate => candidate.name === name)
+      expect(reminder).toBeDefined()
+      expect(reminder!.rulesModule).toBeUndefined()
+      expect(sourceLabels(reminder!)).toEqual([])
+      expect(provenanceLabels(reminder!)).toEqual(['Battle Traits'])
+      const tag = reminder!.tags.find(candidate => candidate.tone === 'provenance')
+      expect(tag!.description).toContain('Ogor Mawtribes')
+    })
+  })
+
+  /**
+   * A picked source is the stronger attribution: a reminder the player granted names its pick and
+   * never also carries a game-wide provenance tag.
+   */
+  it('never adds a provenance tag to a reminder attributed to a pick', () => {
+    const reminders = remindersFor([
+      ['faction', 'Ogor Mawtribes'],
+      ['content-group', 'Well-Fed Beasts'],
+      ['content-group', 'Lore of Gut Magic'],
+    ])
+    reminders
+      .filter(reminder => sourceLabels(reminder).length > 0)
+      .forEach(reminder => {
+        expect(provenanceLabels(reminder)).toEqual([])
+      })
+    const spell = reminders.find(reminder => reminder.name === 'Blood Feast')
+    expect(spell).toBeDefined()
+    expect(sourceLabels(spell!)).toEqual(['Lore of Gut Magic'])
+    expect(provenanceLabels(spell!)).toEqual([])
   })
 
   it('tags a warscroll-native spell with its unit', () => {

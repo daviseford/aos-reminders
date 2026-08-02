@@ -36,6 +36,7 @@ export type PrintTagTone =
   | 'turn-neutral'
   | 'usage'
   | 'priority'
+  | 'provenance'
 
 export interface PrintTag {
   label: string
