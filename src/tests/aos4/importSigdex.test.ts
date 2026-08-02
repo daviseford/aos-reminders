@@ -1,5 +1,8 @@
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
 import { resolveParsedRoster } from '../../aos4/import'
+import { projectReminders } from '../../aos4/reminders'
+import { resolveSelection } from '../../aos4/select'
+import { createAos4BuilderViewModel } from '../../aos4/view'
 import { decodeAos4TextRoster } from '../../importers'
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -25,10 +28,8 @@ const roster = (...body: string[]) =>
 
 const decode = (...body: string[]) => decodeAos4TextRoster(roster(...body)).parsedRoster
 
-const labelled = (
-  parsed: NonNullable<ReturnType<typeof decode>>,
-  kind: string
-): string[] => parsed.selections.filter(s => s.kindHint === kind).map(s => s.label)
+const labelled = (parsed: NonNullable<ReturnType<typeof decode>>, kind: string): string[] =>
+  parsed.selections.filter(s => s.kindHint === kind).map(s => s.label)
 
 describe('Sigdex text import', () => {
   it('parses the standard fixture', () => {
@@ -145,6 +146,58 @@ describe('Sigdex text import', () => {
     )
     expect(labelled(parsed!, 'enhancement')).toEqual(['Gnawhide Cloak', 'Endless Appetite'])
     expect(labelled(parsed!, 'warscroll')).toEqual(['Tyrant'])
+  })
+
+  /**
+   * Issue #1827: a Sigdex Stormcast list with an artefact produced the artefact's reminder but the
+   * builder's Artefacts dropdown stayed empty. The import resolves the enhancement bullet to the
+   * individual `ability` inside the offering group, and the builder view model emitted that option
+   * without the offering group's category, so the dropdown card filtered it out — and its overlay
+   * was derived from the ability itself, which is never individually offered, misfiling current
+   * content as historical. Both the reminder and the dropdown selection must show the artefact.
+   */
+  it('reflects an imported artefact and heroic trait in the builder dropdown selections', () => {
+    const parsed = decode(
+      'Stormcast Eternals',
+      'Vanguard Wing',
+      "General's Handbook 2026-27",
+      "General's Regiment",
+      'Neave Blacktalon (280)',
+      '• General',
+      '• Staunch Defender',
+      '• Quicksilver Draught',
+      'Aetherwings (80)'
+    )
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsed!, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'army:sigdex-artefact',
+    })
+    expect(preview.diagnostics).toEqual([])
+    const document = preview.proposedDocument!
+    expect(document).toBeDefined()
+
+    // The artefact's rule is in the reminders...
+    const reminders = projectReminders(
+      AOS4_CATALOG,
+      resolveSelection(AOS4_CATALOG, {
+        explicitIds: document.explicitSelectionIds,
+        rulesContextId: document.rulesContextId,
+      })
+    ).map(reminder => reminder.name)
+    expect(reminders).toContain('QUICKSILVER DRAUGHT')
+    expect(reminders).toContain('STAUNCH DEFENDER')
+
+    // ...and the builder cards show the same picks as selected, filed on the right card. The
+    // dropdown component only renders ability options that carry a groupType, so these assertions
+    // are exactly what the Artefacts and Heroic Traits cards read.
+    const builder = createAos4BuilderViewModel(AOS4_CATALOG, document)
+    const selectedChips = (category: string) =>
+      builder.options.filter(option => option.groupType === category && option.selected)
+    expect(selectedChips('artefact-of-power').map(option => option.name)).toEqual(['Quicksilver Draught'])
+    expect(selectedChips('heroic-trait').map(option => option.name)).toEqual(['Staunch Defender'])
+    // Current-context enhancements must not be misfiled under an overlay group header.
+    expect(selectedChips('artefact-of-power')[0].overlay).toBeUndefined()
+    expect(selectedChips('heroic-trait')[0].overlay).toBeUndefined()
   })
 
   it('parses an Army of Renown header into faction plus formation-style selection', () => {
