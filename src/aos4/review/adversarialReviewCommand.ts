@@ -1,6 +1,9 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { execFile } from 'node:child_process'
+import { availableParallelism } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
 import { stableJson } from '../generate/serialization'
 import {
   assessAdversarialComparison,
@@ -36,6 +39,10 @@ import {
   loadReusableCertificationEvidence,
   partitionReusableReviewEvidence,
 } from './reviewReuse'
+import type {
+  AdversarialReviewWorkerReceipt,
+  AdversarialReviewWorkerTask,
+} from './adversarialReviewWorkerCommand'
 
 const REVIEW_CACHE = path.join('.cache', 'aos4', 'review')
 const DEFAULT_WORKSPACE = path.join(REVIEW_CACHE, 'workspace')
@@ -47,6 +54,7 @@ interface Arguments {
   reviewerId: string
   campaignAt: string
   reuseCertification?: string
+  jobs?: number
 }
 
 interface PacketShard {
@@ -93,6 +101,13 @@ export const parseAdversarialReviewArguments = (values: string[]): Arguments => 
       index += 1
     } else if (value === '--reuse-certification') {
       parsed.reuseCertification = nextValue(values, index, value)
+      index += 1
+    } else if (value === '--jobs') {
+      const jobs = Number(nextValue(values, index, value))
+      if (!Number.isSafeInteger(jobs) || jobs < 1 || jobs > 32) {
+        throw new Error('--jobs requires an integer from 1 to 32')
+      }
+      parsed.jobs = jobs
       index += 1
     } else {
       throw new Error(`Unknown argument: ${value}`)
@@ -143,6 +158,103 @@ export const deterministicReviewerMetadata = (id: string): ReviewerMetadata => (
 })
 
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
+
+interface FreshShardReference {
+  index: number
+  path: string
+  freshPairKeys: string[]
+}
+
+interface FreshWorkerResultReference {
+  path: string
+  resultCount: number
+  checksum: string
+}
+
+interface ReviewerResultShard {
+  schemaVersion: 1
+  revision: string
+  results: ReviewerResult[]
+}
+
+export const balancedFreshShardGroups = (
+  shards: FreshShardReference[],
+  jobs: number
+): FreshShardReference[][] => {
+  if (!shards.length) return []
+  const groups = Array.from({ length: Math.min(jobs, shards.length) }, () => ({
+    pairs: 0,
+    shards: [] as FreshShardReference[],
+  }))
+  ;[...shards]
+    .sort((left, right) => right.freshPairKeys.length - left.freshPairKeys.length || left.index - right.index)
+    .forEach(shard => {
+      const group = [...groups].sort(
+        (left, right) => left.pairs - right.pairs || groups.indexOf(left) - groups.indexOf(right)
+      )[0]
+      group.shards.push(shard)
+      group.pairs += shard.freshPairKeys.length
+    })
+  return groups.map(group => group.shards.sort((left, right) => left.index - right.index))
+}
+
+const execFileAsync = promisify(execFile)
+
+const runFreshWorkers = async (
+  staging: string,
+  task: Omit<AdversarialReviewWorkerTask, 'shards'>,
+  groups: FreshShardReference[][]
+): Promise<Map<number, FreshWorkerResultReference>> => {
+  const viteNode = path.resolve('node_modules', 'vite-node', 'vite-node.mjs')
+  const workerCommand = fileURLToPath(new URL('./adversarialReviewWorkerCommand.ts', import.meta.url))
+  const receipts = await Promise.all(
+    groups.map(async (shards, workerIndex) => {
+      const suffix = String(workerIndex + 1).padStart(4, '0')
+      const taskPath = path.join(staging, `worker-task-${suffix}.json`)
+      const output = path.join(staging, `worker-${suffix}`)
+      await writeFile(taskPath, stableJson({ ...task, shards }), 'utf8')
+      await execFileAsync(
+        process.execPath,
+        [viteNode, '--script', workerCommand, '--task', taskPath, '--output', output],
+        { cwd: process.cwd(), windowsHide: true, maxBuffer: 1024 * 1024 }
+      )
+      await assertCreateOnlyDirectoryComplete(output)
+      const receipt = await readJson<AdversarialReviewWorkerReceipt>(path.join(output, 'receipt.json'))
+      if (receipt.schemaVersion !== 1 || receipt.revision !== task.revision) {
+        throw new Error(`Adversarial review worker ${suffix} returned an invalid receipt`)
+      }
+      return {
+        output,
+        receipt,
+      }
+    })
+  )
+  const expectedShardIndexes = groups
+    .flat()
+    .map(shard => shard.index)
+    .sort((left, right) => left - right)
+  const actualShardIndexes = receipts
+    .flatMap(value => value.receipt.shards.map(shard => shard.index))
+    .sort((left, right) => left - right)
+  if (stableJson(actualShardIndexes) !== stableJson(expectedShardIndexes)) {
+    throw new Error('Adversarial review workers returned duplicate or missing shards')
+  }
+  return new Map(
+    receipts.flatMap(({ output, receipt }) =>
+      receipt.shards.map(
+        shard =>
+          [
+            shard.index,
+            {
+              path: path.join(output, shard.path),
+              resultCount: shard.resultCount,
+              checksum: shard.checksum,
+            },
+          ] as const
+      )
+    )
+  )
+}
 
 export const assertInterspersedCalibrationControls = (
   batches: ReviewPacketBatch[],
@@ -283,8 +395,11 @@ export const runAdversarialReview = async (values = process.argv.slice(2)): Prom
   const calibrationBlindPacketIds = new Set<ReviewPacketId>()
   const liveBlindPacketIds = new Set<ReviewPacketId>()
   const freshPacketIds: ReviewerResult['packetId'][] = []
+  const freshShardReferences: FreshShardReference[] = []
+  const livePairCountsByShard: number[] = []
   let livePairCount = 0
-  for (const shard of manifest.shards) {
+  for (let shardIndex = 0; shardIndex < manifest.shards.length; shardIndex += 1) {
+    const shard = manifest.shards[shardIndex]
     const packetShard = await readJson<PacketShard>(path.join(workspace, shard.path))
     packetShard.pairs
       .filter(pair => pair.calibration)
@@ -295,18 +410,23 @@ export const runAdversarialReview = async (values = process.argv.slice(2)): Prom
         calibrationPairs.push(pair)
         calibrationBlindPacketIds.add(pair.blindPacket.id)
       })
-    packetShard.pairs
-      .filter(pair => pair.countsTowardCoverage)
-      .forEach(pair => {
-        if (liveBlindPacketIds.has(pair.blindPacket.id)) {
-          throw new Error(`Duplicate live blind packet: ${pair.blindPacket.id}`)
-        }
-        livePairCount += 1
-        liveBlindPacketIds.add(pair.blindPacket.id)
-        if (freshPairKeys.has(pair.pairKey)) {
-          freshPacketIds.push(pair.blindPacket.id, pair.comparisonPacket.id)
-        }
-      })
+    const livePairs = packetShard.pairs.filter(pair => pair.countsTowardCoverage)
+    livePairCountsByShard[shardIndex] = livePairs.length
+    const shardFreshPairKeys: string[] = []
+    livePairs.forEach(pair => {
+      if (liveBlindPacketIds.has(pair.blindPacket.id)) {
+        throw new Error(`Duplicate live blind packet: ${pair.blindPacket.id}`)
+      }
+      livePairCount += 1
+      liveBlindPacketIds.add(pair.blindPacket.id)
+      if (freshPairKeys.has(pair.pairKey)) {
+        freshPacketIds.push(pair.blindPacket.id, pair.comparisonPacket.id)
+        shardFreshPairKeys.push(pair.pairKey)
+      }
+    })
+    if (shardFreshPairKeys.length) {
+      freshShardReferences.push({ index: shardIndex, path: shard.path, freshPairKeys: shardFreshPairKeys })
+    }
   }
   const freshBlindPacketIds = new Set(reusable.freshEntries.map(entry => entry.blindPacketId))
   const freshBatches = manifest.batches.map(batch => ({
@@ -378,6 +498,8 @@ export const runAdversarialReview = async (values = process.argv.slice(2)): Prom
     (left, right) =>
       left.assignmentId.localeCompare(right.assignmentId) || left.packetId.localeCompare(right.packetId)
   )
+  const requestedJobs = arguments_.jobs ?? Math.min(8, availableParallelism())
+  const workerGroups = balancedFreshShardGroups(freshShardReferences, requestedJobs)
   const execution = createReviewCampaignExecution({
     revision: manifest.revision,
     campaignAt: arguments_.campaignAt,
@@ -386,6 +508,8 @@ export const runAdversarialReview = async (values = process.argv.slice(2)): Prom
     freshPairKeys,
     freshAssignmentId: assignment.id,
     contributingAssignmentIds: assignments.map(value => value.id),
+    requestedJobs,
+    peakChildProcessCount: workerGroups.length,
     ...(reuseSource
       ? {
           reuseSource: {
@@ -396,83 +520,84 @@ export const runAdversarialReview = async (values = process.argv.slice(2)): Prom
       : {}),
   })
   await writeCreateOnlyDirectory(output, async staging => {
-    await Promise.all([
-      mkdir(path.join(staging, 'blind-results'), { recursive: true }),
-      mkdir(path.join(staging, 'results'), { recursive: true }),
-    ])
-    let processedBlindResults = 0
+    await mkdir(path.join(staging, 'results'), { recursive: true })
+    const workerResultPaths = await runFreshWorkers(
+      staging,
+      {
+        schemaVersion: 1,
+        revision: manifest.revision,
+        workspace,
+        assignmentId: assignment.id,
+        reviewer,
+        blindReviewedAt: campaignTimes.liveBlind,
+        comparisonReviewedAt: campaignTimes.liveComparison,
+      },
+      workerGroups
+    )
     for (let shardIndex = 0; shardIndex < manifest.shards.length; shardIndex += 1) {
-      const packetShard = await readJson<PacketShard>(path.join(workspace, manifest.shards[shardIndex].path))
-      const pairs = packetShard.pairs.filter(pair => pair.countsTowardCoverage)
-      const freshPairs = pairs.filter(pair => freshPairKeys.has(pair.pairKey))
-      const blindResults = freshPairs.map(pair =>
-        createAdversarialBlindResult(pair, assignment.id, reviewer, campaignTimes.liveBlind)
+      const freshResultReference = workerResultPaths.get(shardIndex)
+      const freshResultShard = freshResultReference
+        ? await readJson<ReviewerResultShard>(freshResultReference.path)
+        : undefined
+      if (
+        freshResultReference &&
+        (freshResultShard?.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION ||
+          freshResultShard.revision !== manifest.revision ||
+          freshResultShard.results.length !== freshResultReference.resultCount ||
+          checksumReviewRecord(freshResultShard.results) !== freshResultReference.checksum)
+      ) {
+        throw new Error(`Adversarial review worker result is invalid for shard ${shardIndex + 1}`)
+      }
+      const freshResultsByPacketId = new Map(
+        (freshResultShard?.results ?? []).map(result => [result.packetId, result])
       )
-      processedBlindResults += blindResults.length
-      const blindResultPath = path.join(
-        'blind-results',
-        `shard-${String(shardIndex + 1).padStart(4, '0')}.json`
-      )
-      await writeFile(
-        path.join(staging, blindResultPath),
-        stableJson({
-          schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-          revision: manifest.revision,
-          results: blindResults,
-        }),
-        'utf8'
-      )
-      const savedBlindResults = await readJson<{ results: ReviewerResult[] }>(
-        path.join(staging, blindResultPath)
-      )
-      const savedBlindByPacketId = new Map(savedBlindResults.results.map(result => [result.packetId, result]))
-      const results = pairs.flatMap(pair => {
-        if (!freshPairKeys.has(pair.pairKey)) {
-          const blind = reusedResultsByPacketId.get(pair.blindPacket.id)
-          const comparison = reusedResultsByPacketId.get(pair.comparisonPacket.id)
-          if (!blind || !comparison) {
-            throw new Error(`Reusable review result is missing for ${pair.pairKey}`)
-          }
-          return [blind, comparison]
-        }
-        const blind = savedBlindByPacketId.get(pair.blindPacket.id)
-        if (!blind) throw new Error(`Saved blind result is missing for ${pair.blindPacket.id}`)
-        return [
-          blind,
-          createAdversarialComparisonResult(
-            pair,
-            blind,
-            assignment.id,
-            reviewer,
-            campaignTimes.liveComparison
-          ),
-        ]
-      })
+      const allFresh = freshResultReference?.resultCount === (livePairCountsByShard[shardIndex] ?? 0) * 2
+      const results = allFresh
+        ? freshResultShard!.results
+        : await readJson<PacketShard>(path.join(workspace, manifest.shards[shardIndex].path)).then(
+            packetShard =>
+              packetShard.pairs
+                .filter(pair => pair.countsTowardCoverage)
+                .flatMap(pair => {
+                  if (!freshPairKeys.has(pair.pairKey)) {
+                    const blind = reusedResultsByPacketId.get(pair.blindPacket.id)
+                    const comparison = reusedResultsByPacketId.get(pair.comparisonPacket.id)
+                    if (!blind || !comparison) {
+                      throw new Error(`Reusable review result is missing for ${pair.pairKey}`)
+                    }
+                    return [blind, comparison]
+                  }
+                  const blind = freshResultsByPacketId.get(pair.blindPacket.id)
+                  const comparison = freshResultsByPacketId.get(pair.comparisonPacket.id)
+                  if (!blind || !comparison) {
+                    throw new Error(`Fresh review result is missing for ${pair.pairKey}`)
+                  }
+                  return [blind, comparison]
+                })
+          )
       results.forEach(result => {
         outcomeCounts[result.outcome] += 1
         allFindings.push(...result.findings)
       })
-      const resultPath = path.join('results', `shard-${String(shardIndex + 1).padStart(4, '0')}.json`)
-      await writeFile(
-        path.join(staging, resultPath),
-        stableJson({
-          schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-          revision: manifest.revision,
-          results,
-        }),
-        'utf8'
-      )
+      const resultPath = allFresh
+        ? path.relative(staging, freshResultReference!.path)
+        : path.join('results', `shard-${String(shardIndex + 1).padStart(4, '0')}.json`)
+      if (!allFresh) {
+        await writeFile(
+          path.join(staging, resultPath),
+          stableJson({
+            schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+            revision: manifest.revision,
+            results,
+          }),
+          'utf8'
+        )
+      }
       resultShards.push({
         path: resultPath.replaceAll(path.sep, '/'),
         resultCount: results.length,
         findingCount: results.reduce((total, result) => total + result.findings.length, 0),
       })
-    }
-    if (processedBlindResults !== reusable.freshEntries.length) {
-      throw new Error(
-        `Adversarial review produced ${processedBlindResults}/${reusable.freshEntries.length} ` +
-          'fresh live blind results'
-      )
     }
     allFindings.sort((left, right) => left.id.localeCompare(right.id))
     await Promise.all([

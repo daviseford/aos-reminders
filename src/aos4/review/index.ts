@@ -1,5 +1,6 @@
 export * from './adversarialReview'
 export * from './adversarialReviewCommand'
+export * from './adversarialReviewWorkerCommand'
 export * from './certification'
 export * from './certificationCommand'
 export * from './certificationEvidence'

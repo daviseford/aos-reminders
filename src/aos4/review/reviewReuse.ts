@@ -123,7 +123,8 @@ export const reviewCampaignExecutionIssues = (
     !Number.isSafeInteger(execution.workers?.requestedJobs) ||
     execution.workers.requestedJobs < 1 ||
     !Number.isSafeInteger(execution.workers?.peakChildProcessCount) ||
-    execution.workers.peakChildProcessCount < 0
+    execution.workers.peakChildProcessCount < 0 ||
+    execution.workers.peakChildProcessCount > execution.workers.requestedJobs
   ) {
     issues.push('execution metadata does not match the current review engine and revision')
   }
