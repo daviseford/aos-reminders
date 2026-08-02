@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises'
 import {
   AwsS3ArtifactStore,
   MemoryArtifactCache,
+  RestoringArtifactCache,
   artifactChecksum,
   createArtifactManifest,
   pullArtifactManifest,
@@ -80,6 +81,34 @@ describe('AoS 4 private artifact store', () => {
     expect(second).toEqual({ total: 1, transferred: 0, reused: 1, missing: 0 })
     expect(store.reads).toEqual([artifactChecksum(value)])
     expect(await cache.get(artifactChecksum(value))).toEqual(value)
+  })
+
+  it('restores a missing cache read once and then serves it locally', async () => {
+    const value = bytes('restored')
+    const checksum = artifactChecksum(value)
+    const local = new MemoryArtifactCache()
+    const store = new FakeArtifactStore()
+    store.seed(value)
+    const cache = new RestoringArtifactCache(local, store)
+
+    await expect(cache.get(checksum)).resolves.toEqual(value)
+    await expect(cache.get(checksum)).resolves.toEqual(value)
+
+    expect(store.reads).toEqual([checksum])
+    expect(await local.get(checksum)).toEqual(value)
+  })
+
+  it('fails a restoring cache read when the remote blob is corrupt', async () => {
+    const expected = bytes('expected')
+    const corrupt = bytes('corrupt!')
+    const checksum = artifactChecksum(expected)
+    const local = new MemoryArtifactCache()
+    const store = new FakeArtifactStore()
+    store.metadata.set(checksum, { checksum, byteLength: expected.byteLength })
+    store.values.set(checksum, corrupt)
+
+    await expect(new RestoringArtifactCache(local, store).get(checksum)).rejects.toThrow(/remote artifact/i)
+    expect(await local.get(checksum)).toBeUndefined()
   })
 
   it('fails closed on remote corruption without publishing it locally', async () => {

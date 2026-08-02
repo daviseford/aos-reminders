@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
-  FileArtifactCache,
+  createArtifactCache,
   assertArtifactChecksum,
   type ArtifactManifest,
   type WahapediaHtmlReconciliation,
@@ -60,7 +60,7 @@ export const assertReviewCacheComplete = async (
   manifest: ArtifactManifest,
   cacheDirectory: string
 ): Promise<void> => {
-  const cache = new FileArtifactCache(cacheDirectory)
+  const cache = createArtifactCache(cacheDirectory)
   for (const artifact of manifest.artifacts) {
     const bytes = await cache.get(artifact.checksum)
     if (!bytes) {

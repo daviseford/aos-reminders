@@ -4,7 +4,7 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { artifactChecksum, assertArtifactChecksum } from './artifact'
-import type { ArtifactCache } from './cache'
+import { FileArtifactCache, type ArtifactCache } from './cache'
 import type { ArtifactManifest } from './manifest'
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/
@@ -68,6 +68,8 @@ export interface AwsS3ArtifactStoreConfiguration {
   profile?: string
   region?: string
 }
+
+type ArtifactStoreEnvironment = Record<string, string | undefined>
 
 interface ArtifactRequirement {
   checksum: string
@@ -286,6 +288,79 @@ export class AwsS3ArtifactStore implements ArtifactStore {
       await rm(directory, { recursive: true, force: true })
     }
   }
+}
+
+export class RestoringArtifactCache implements ArtifactCache {
+  constructor(
+    private readonly local: ArtifactCache,
+    private readonly store: ArtifactStore
+  ) {}
+
+  async get(checksum: string): Promise<Uint8Array | undefined> {
+    const normalized = normalizedChecksum(checksum)
+    const local = await this.local.get(normalized)
+    if (local) {
+      if (artifactChecksum(local) !== normalized) {
+        throw new ArtifactStoreError('local-corrupt', `Local artifact ${normalized} is corrupt`)
+      }
+      return local
+    }
+    const metadata = await this.store.inspect(normalized)
+    if (!metadata) return undefined
+    if (normalizedChecksum(metadata.checksum) !== normalized) {
+      throw new ArtifactStoreError(
+        'remote-corrupt',
+        `Remote artifact ${normalized} has unexpected integrity metadata`
+      )
+    }
+    const remote = await this.store.read(normalized)
+    if (!remote) {
+      throw new ArtifactStoreError(
+        'remote-missing',
+        `Remote artifact ${normalized} disappeared during restore`
+      )
+    }
+    if (remote.byteLength !== metadata.byteLength || artifactChecksum(remote) !== normalized) {
+      throw new ArtifactStoreError('remote-corrupt', `Remote artifact ${normalized} is corrupt`)
+    }
+    await this.local.put(normalized, remote)
+    return remote
+  }
+
+  put(checksum: string, bytes: Uint8Array): Promise<void> {
+    return this.local.put(checksum, bytes)
+  }
+}
+
+export const createArtifactCache = (
+  cacheDirectory: string,
+  environment: ArtifactStoreEnvironment = process.env,
+  runner?: AwsCliRunner
+): ArtifactCache => {
+  const local = new FileArtifactCache(cacheDirectory)
+  const bucket = environment.AOS4_ARTIFACT_STORE_BUCKET
+  const prefix = environment.AOS4_ARTIFACT_STORE_PREFIX
+  const expectedOwner = environment.AOS4_ARTIFACT_STORE_EXPECTED_OWNER
+  if (!bucket && !prefix && !expectedOwner) return local
+  if (!bucket || !expectedOwner) {
+    throw new ArtifactStoreError(
+      'invalid-store-configuration',
+      'Private artifact restore requires both bucket and expected owner'
+    )
+  }
+  return new RestoringArtifactCache(
+    local,
+    new AwsS3ArtifactStore(
+      {
+        bucket,
+        prefix,
+        expectedOwner,
+        profile: environment.AWS_PROFILE,
+        region: environment.AWS_REGION ?? environment.AWS_DEFAULT_REGION,
+      },
+      runner
+    )
+  )
 }
 
 const requirementsFor = (manifest: ArtifactManifest): ArtifactRequirement[] => {

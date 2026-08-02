@@ -3,7 +3,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
   BSDATA_ADAPTER_VERSION,
-  FileArtifactCache,
+  createArtifactCache,
   artifactChecksum,
   assertArtifactChecksum,
   createArtifactManifest,
@@ -27,6 +27,7 @@ import {
   parseWahapediaWarscrollHtml,
   type ArtifactManifest,
   type ArtifactManifestEntry,
+  type ArtifactCache,
   type GamesWorkshopBattleProfileFact,
   type WahapediaHtmlFactionPageRecord,
   type WahapediaHtmlReconciliation,
@@ -260,7 +261,7 @@ const artifactForWahapediaFile = (
 
 const loadWahapediaInputs = async (
   manifest: ArtifactManifest,
-  cache: FileArtifactCache
+  cache: ArtifactCache
 ): Promise<WahapediaExportInputs> => {
   const entries = await Promise.all(
     WAHAPEDIA_EXPORT_FILES.map(async file => {
@@ -279,10 +280,7 @@ const loadWahapediaInputs = async (
   return Object.fromEntries(entries) as WahapediaExportInputs
 }
 
-const verifyAcceptedArtifacts = async (
-  manifest: ArtifactManifest,
-  cache: FileArtifactCache
-): Promise<void> => {
+const verifyAcceptedArtifacts = async (manifest: ArtifactManifest, cache: ArtifactCache): Promise<void> => {
   for (const artifact of manifest.artifacts) {
     const bytes = await cache.get(artifact.checksum)
     if (!bytes) {
@@ -378,7 +376,7 @@ const validateCommunityWarscrollSources = (manifest: ArtifactManifest, review: C
 
 const extractCommunityWarscrollFacts = async (
   review: CorpusReview,
-  cache: FileArtifactCache
+  cache: ArtifactCache
 ): Promise<BsDataCommunitySourceInput[]> => {
   const inputs: BsDataCommunitySourceInput[] = []
   for (const source of review.communityWarscrollSources ?? []) {
@@ -420,7 +418,7 @@ const extractCommunityWarscrollFacts = async (
 
 const extractCommunityFactionOptionFacts = async (
   review: CorpusReview,
-  cache: FileArtifactCache
+  cache: ArtifactCache
 ): Promise<BsDataFactionOptionSourceInput[]> => {
   const inputs: BsDataFactionOptionSourceInput[] = []
   for (const source of review.communityWarscrollSources ?? []) {
@@ -471,7 +469,7 @@ const extractCommunityFactionOptionFacts = async (
 const loadWahapediaHtmlPages = async (
   manifest: ArtifactManifest,
   review: CorpusReview,
-  cache: FileArtifactCache
+  cache: ArtifactCache
 ): Promise<{
   warscrolls: WahapediaHtmlWarscrollRecord[]
   factions: WahapediaHtmlFactionPageRecord[]
@@ -656,7 +654,7 @@ const loadWahapediaHtmlPages = async (
 
 const extractOfficialBattleProfileFacts = async (
   review: CorpusReview,
-  cache: FileArtifactCache
+  cache: ArtifactCache
 ): Promise<{
   effective: GamesWorkshopBattleProfileFact[]
   reviewed: ReviewedOfficialBattleProfileFact[]
@@ -708,7 +706,7 @@ const extractOfficialBattleProfileFacts = async (
 
 const validateOfficialEvidence = async (
   review: CorpusReview,
-  cache: FileArtifactCache
+  cache: ArtifactCache
 ): Promise<Map<string, string>> => {
   const pageTextBySourceRecordId = new Map<string, string>()
   for (const document of review.officialDocuments) {
@@ -1034,7 +1032,7 @@ export const loadAcceptedCorpusSourceData = async (
   ])
   validateOfficialDocuments(manifest, review)
   validateCommunityWarscrollSources(manifest, review)
-  const cache = new FileArtifactCache(arguments_.cacheDirectory)
+  const cache = createArtifactCache(arguments_.cacheDirectory)
   await verifyAcceptedArtifacts(manifest, cache)
   const officialPageTextBySourceRecordId = await validateOfficialEvidence(review, cache)
   const decoded = decodeWahapediaExports(await loadWahapediaInputs(manifest, cache))
