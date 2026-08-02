@@ -27,6 +27,12 @@ export const importFixtureIds = {
    */
   containerFaction: factionId('81000000-0000-4000-8000-000000000012'),
   alphaGuard: warscrollId('81000000-0000-4000-8000-000000000020'),
+  /**
+   * The seasonal replacement warscroll for `alphaGuard`, catalogued the way generation emits one:
+   * a distinct entity named with the battlepack prefixed, living in the same seasonal context as
+   * the base warscroll it replaces (#1862).
+   */
+  alphaGuardSeasonal: warscrollId('81000000-0000-4000-8000-000000000026'),
   betaGuard: warscrollId('81000000-0000-4000-8000-000000000021'),
   betaOnly: warscrollId('81000000-0000-4000-8000-000000000022'),
   /** Catalogued only in the Legends context, reachable from Alpha Hosts only there. */
@@ -99,6 +105,13 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
       from: importFixtureIds.alphaFaction,
       to: importFixtureIds.alphaRetired,
       rulesContextIds: [importFixtureContextIds.legends],
+    },
+    {
+      id: 'relationship:alpha-offers-shared-guard-seasonal',
+      kind: 'offers',
+      from: importFixtureIds.alphaFaction,
+      to: importFixtureIds.alphaGuardSeasonal,
+      rulesContextIds: [importFixtureContextIds.seasonal],
     },
     {
       id: 'relationship:alpha-offers-twin-era-current',
@@ -244,6 +257,17 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
         kind: 'warscroll',
         revision: 'import-fixture',
         name: 'Shared Guard',
+        factionIds: [importFixtureIds.alphaFaction],
+        keywords: [],
+        characteristics: { move: '5"', save: '4+', control: '1', health: '2' },
+        rulesContextIds: [importFixtureContextIds.seasonal],
+        sourceRefs,
+      },
+      {
+        id: importFixtureIds.alphaGuardSeasonal,
+        kind: 'warscroll',
+        revision: 'import-fixture',
+        name: 'Scourge of Tests Shared Guard',
         factionIds: [importFixtureIds.alphaFaction],
         keywords: [],
         characteristics: { move: '5"', save: '4+', control: '1', health: '2' },

@@ -66,18 +66,6 @@ const groupKind = (group: string): ParsedRosterSelectionKind | undefined => {
   return undefined
 }
 
-const directModelName = (selection: RosterNode): string | undefined => {
-  const modelNames = new Set(
-    childrenNamed(selection, 'selections')
-      .flatMap(container => childrenNamed(container, 'selection'))
-      .filter(child => child.attribute('type') === 'model')
-      .map(child => child.attribute('name')?.trim())
-      .filter((name): name is string => Boolean(name))
-  )
-  if (modelNames.size !== 1) return undefined
-  return Array.from(modelNames)[0]
-}
-
 /**
  * New Recruit marks each retired entry with a `Legends` category on the selection itself, which is
  * a far stronger signal than recognising the name later: it says which side of the Legends
@@ -90,11 +78,19 @@ const hasLegendsCategory = (selection: RosterNode): boolean =>
     .flatMap(container => childrenNamed(container, 'category'))
     .some(category => category.attribute('name')?.trim().toLocaleLowerCase('en') === 'legends')
 
-const unitLabel = (selection: RosterNode): string => {
-  const selectedName = selection.attribute('name')?.trim() ?? ''
-  const modelName = directModelName(selection)
-  return modelName && selectedName.startsWith(`${modelName} (`) ? modelName : selectedName
-}
+/**
+ * A unit's label is the roster's own wording, parenthetical qualifier and all.
+ *
+ * This used to collapse "Killaboss with Stab-grot (Scourge of Aqshy)" to the nested model's name,
+ * on the theory that the parenthetical merely restated the season being imported into. It does
+ * not: the qualifier is New Recruit distinguishing a General's Handbook replacement warscroll —
+ * a distinct catalog entity — from the battletome one, and the same shape carries the catalog's
+ * genuine size variants ("Stormdrake Guard (1 model)"). Erasing it here resolved every such unit
+ * to the base warscroll and handed the player the wrong reminders (#1862). Interpreting a
+ * qualifier requires knowing the rules context, so that judgement belongs to resolution, not
+ * parsing.
+ */
+const unitLabel = (selection: RosterNode): string => selection.attribute('name')?.trim() ?? ''
 
 const declaredContextFromForce = (force: RosterNode): string | undefined => {
   const name = (force.attribute('name') ?? '').replace(/^[^A-Za-z0-9]+/, '').trim()

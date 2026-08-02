@@ -132,7 +132,7 @@ describe('New Recruit .ros and .rosz import', () => {
       { line: 16, label: 'Lore of the Storm', kindHint: 'spell-lore' },
       { line: 28, label: 'Knight-Vexillor', kindHint: 'warscroll' },
       { line: 31, label: 'Mirrorshield', kindHint: 'artefact-of-power' },
-      { line: 38, label: 'Annihilators', kindHint: 'warscroll', count: 2 },
+      { line: 38, label: 'Annihilators (Scourge of Aqshy)', kindHint: 'warscroll', count: 2 },
     ])
     expect(plain.parsedRoster?.selections.map(selection => selection.label)).not.toEqual(
       expect.arrayContaining(['Rules prose must not import', 'A profile name is not a selection'])
@@ -385,7 +385,7 @@ describe('New Recruit .json import', () => {
       'Lore of the Storm',
       'Knight-Vexillor',
       'Mirrorshield',
-      'Annihilators',
+      'Annihilators (Scourge of Aqshy)',
     ])
   })
 
