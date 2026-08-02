@@ -12,7 +12,7 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-02`, generated from the 2026-08-01 source
+The current revision is `aos4-corpus-2026-08-02b`, generated from the 2026-08-01 source
 acquisition plus one additional commit-pinned BSData catalogue (manifest `accepted-2026-08-02`).
 Its automated review is complete:
 
@@ -192,29 +192,27 @@ repository. Beta rules reports remain an additional correctness signal.
 
 ### Performance reference
 
-The following fixed-campaign measurements used Windows, Node 22.23.2, Yarn 1.22.19, 20 logical
-processors, about 64 GiB of RAM, a warm local artifact cache, and 40,002 live pairs. Times are wall
-clock and exclude source acquisition/network access.
+The following `aos4-corpus-2026-08-02b` fixed-campaign measurements used Windows, Node 22.23.2,
+Yarn 1.22.19, 20 logical processors, about 64 GiB of RAM, a warm local artifact cache, and 40,780
+live pairs. Times are wall clock and exclude source acquisition/network access.
 
 | Campaign | Review | Prepare | Combined | Reused / fresh | Peak children |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Cold, `--jobs 1` | 18.827 s | 23.140 s | 41.967 s | 0 / 40,002 | 1 |
-| Cold, `--jobs 8` | 7.849 s | — | — | 0 / 40,002 | 8 |
-| Unchanged incremental, `--jobs 8` | 2.492 s | 5.132 s | 7.624 s | 40,002 / 0 | 0 |
-| Controlled 2.00% delta, `--jobs 8` | 3.320 s | 7.631 s | 10.951 s | 39,202 / 800 | 4 |
-| Observed sparse delta, `--jobs 8` | 4.935 s | 10.170 s | 15.105 s | 38,701 / 1,301 | 8 |
+| Cold, `--jobs 1` | 16.929 s | 23.253 s | 40.183 s | 0 / 40,780 | 1 |
+| Cold, `--jobs 8` | 7.343 s | — | — | 0 / 40,780 | 8 |
+| Unchanged incremental, `--jobs 8` | 2.468 s | 5.161 s | 7.629 s | 40,780 / 0 | 0 |
+| Controlled 2.00% delta, `--jobs 8` | 3.324 s | 7.621 s | 10.944 s | 39,964 / 816 | 4 |
 
-Cold parallel review was 58.3% faster than the serial review with byte-identical verdict evidence
-apart from execution provenance. The unchanged incremental review-plus-preparation path was 81.8%
-faster than the cold serial reference. The controlled 2.00% delta was 73.9% faster than the same
+Cold parallel review was 56.6% faster than the serial review with byte-identical verdict evidence
+apart from execution provenance. The unchanged incremental review-plus-preparation path was 81.0%
+faster than the cold serial reference. The controlled 2.00% delta was 72.8% faster than the same
 reference and passed the small-delta target; only four children were needed for its four fresh
-shards. The observed sparse delta changed 3.25% of live pairs and was 64.0% faster. The final
-standalone certification check took 7.632 seconds for cold evidence, 7.782 seconds for the unchanged
-overlay, and 7.817 seconds for the controlled delta. Including that check, the unchanged path was
-68.9% faster end to end. Peak process-tree working set during an eight-worker cold run was about
-2.0 GiB. Re-run this table after changing packet size, evidence schemas, reviewer behavior, or worker
-orchestration; do not compare timings from different revisions or machines as if they were the same
-experiment.
+shards. The final standalone certification check took 7.793 seconds for cold evidence, 7.746 seconds
+for the unchanged overlay, and 7.909 seconds for the controlled delta. Including that check, the
+unchanged path was 68.0% faster end to end. A representative eight-worker cold process tree on this
+implementation used about 2.0 GiB of working set. Re-run this table after changing packet size,
+evidence schemas, reviewer behavior, or worker orchestration; do not compare timings from different
+revisions or machines as if they were the same experiment.
 
 ## Findings and corrections
 
