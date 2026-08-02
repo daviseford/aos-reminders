@@ -95,7 +95,19 @@ const OPTION_TYPE_LABELS: Record<
   'battle-formation': { officialOptionType: 'Battle Formation', typeGroupName: 'Battle Formations' },
   'heroic-trait': { officialOptionType: 'Heroic Trait', typeGroupName: 'Heroic Traits' },
   'artefact-of-power': { officialOptionType: 'Artefact of Power', typeGroupName: 'Artefacts of Power' },
+  'spell-lore': { officialOptionType: 'Spell Lore', typeGroupName: 'Spell Lore' },
+  'prayer-lore': { officialOptionType: 'Prayer Lore', typeGroupName: 'Prayer Lore' },
+  // Army-wide battle traits have no battle-profile row: the empty official option type routes the
+  // merge to the source-level official anchor instead of a per-option roster-option match.
+  'battle-trait': { officialOptionType: '', typeGroupName: 'Battle Traits' },
 }
+
+/** Options that are their own subtype card set: per-ability names and records are preserved. */
+const OWN_SUBTYPE_OPTION_TYPES = new Set<BsDataFactionOptionType>([
+  'battle-formation',
+  'spell-lore',
+  'prayer-lore',
+])
 
 const bsDataGeneratedId = (seed: string): string =>
   `bsdata-${createHash('sha256').update(seed).digest('hex').slice(0, 16)}`
@@ -158,35 +170,58 @@ export const mergeBsDataFactionOptions = (
       .sort((left, right) => left.section.localeCompare(right.section))
       .forEach(fact => {
         const labels = OPTION_TYPE_LABELS[fact.optionType]
-        const matches = officialOptions.filter(
+        let official: GamesWorkshopRosterOptionFact | undefined
+        let factionId: string | undefined
+        if (fact.optionType === 'battle-trait') {
+          // No battle-profile row names army-wide battle traits: the reviewed entry supplies the
+          // faction and the source-level official evidence carries the fallback-tier anchor.
+          if (!fact.faction) {
+            throw new Error(
+              `BSData battle traits ${fact.name} name no faction; the reviewed option must ` +
+                'supply one because no official roster-option fact establishes battle traits'
+            )
+          }
+          factionId = factionIdByName.get(canonical(fact.faction))
+          if (!factionId) {
+            throw new Error(`BSData battle traits ${fact.name} name an unknown faction ${fact.faction}`)
+          }
+        } else {
+          const matches = officialOptions.filter(
+            candidate =>
+              candidate.context === 'standard' &&
+              canonical(candidate.optionType) === canonical(labels.officialOptionType) &&
+              canonical(candidate.name) === canonical(fact.name)
+          )
+          if (matches.length !== 1) {
+            throw new Error(
+              `BSData faction option ${fact.name} matches ${matches.length} effective official ` +
+                `roster-option facts; the community fallback tier requires exactly one official ` +
+                'publication establishing the content'
+            )
+          }
+          official = matches[0]
+          factionId = factionIdByName.get(canonical(official.faction))
+          if (!factionId) {
+            throw new Error(`BSData faction option ${fact.name} names an unknown faction ${official.faction}`)
+          }
+        }
+        const optionFactionId = factionId
+        const typeCandidates = dataset.factionAbilityTypes.filter(
           candidate =>
-            candidate.context === 'standard' &&
-            canonical(candidate.optionType) === canonical(labels.officialOptionType) &&
-            canonical(candidate.name) === canonical(fact.name)
+            candidate.factionId === optionFactionId &&
+            canonical(candidate.name) === canonical(labels.typeGroupName) &&
+            (!fact.typeSourceRecordId || candidate.meta.sourceRecordId === fact.typeSourceRecordId)
         )
-        if (matches.length !== 1) {
+        if (typeCandidates.length !== 1) {
           throw new Error(
-            `BSData faction option ${fact.name} matches ${matches.length} effective official ` +
-              `roster-option facts; the community fallback tier requires exactly one official ` +
-              'publication establishing the content'
+            `BSData faction option ${fact.name} matches ${typeCandidates.length} ` +
+              `${labels.typeGroupName} groups for its faction; pin the reviewed ` +
+              'typeSourceRecordId to exactly one faction-page ability-type record'
           )
         }
-        const official = matches[0]
-        const factionId = factionIdByName.get(canonical(official.faction))
-        if (!factionId) {
-          throw new Error(`BSData faction option ${fact.name} names an unknown faction ${official.faction}`)
-        }
-        const type = dataset.factionAbilityTypes.find(
-          candidate =>
-            candidate.factionId === factionId && canonical(candidate.name) === canonical(labels.typeGroupName)
-        )
-        if (!type) {
-          throw new Error(
-            `BSData faction option ${fact.name} has no ${labels.typeGroupName} group for ${official.faction}`
-          )
-        }
+        const type = typeCandidates[0]
         const sourceUrl = `${source.artifact.finalUrl}#${fact.section}`
-        if (fact.name !== official.name) {
+        if (official && fact.name !== official.name) {
           discrepancies.push({
             url: sourceUrl,
             field: 'name',
@@ -195,7 +230,10 @@ export const mergeBsDataFactionOptions = (
             officialSourceRecordId: official.sourceRecordId,
           })
         }
-        if (fact.optionType !== 'battle-formation' && fact.abilities.length !== 1) {
+        if (
+          (fact.optionType === 'heroic-trait' || fact.optionType === 'artefact-of-power') &&
+          fact.abilities.length !== 1
+        ) {
           throw new Error(
             `BSData faction option ${fact.name} carries ${fact.abilities.length} abilities; a ` +
               'heroic trait or artefact is exactly one ability card'
@@ -204,20 +242,31 @@ export const mergeBsDataFactionOptions = (
         let subtypeId: string
         let subtypeName: string
         let lineOffset = 0
-        if (fact.optionType === 'battle-formation') {
+        if (OWN_SUBTYPE_OPTION_TYPES.has(fact.optionType)) {
+          const displayName = official?.name ?? fact.name
           subtypeId = bsDataGeneratedId(fact.sourceRecordId)
-          subtypeName = official.name
+          subtypeName = displayName
           newSubtypes.push({
-            factionId,
+            factionId: optionFactionId,
             id: subtypeId,
-            name: official.name,
+            name: displayName,
             typeId: type.id,
             descriptionHtml: '',
             legendHtml: '',
-            meta: meta(fact.sourceRecordId, fact.factChecksum, fact.section, [official.sourceRecordId]),
+            meta: meta(
+              fact.sourceRecordId,
+              fact.factChecksum,
+              fact.section,
+              official ? [official.sourceRecordId] : source.officialSourceRecordIds
+            ),
           })
+        } else if (fact.optionType === 'battle-trait') {
+          // Army-wide battle traits sit directly on the faction's mandatory Battle Traits type,
+          // exactly like their secondary-sourced predecessors: no subtype wrapper.
+          subtypeId = ''
+          subtypeName = ''
         } else {
-          const key = `${factionId}:${fact.optionType}:${canonical(fact.groupName)}`
+          const key = `${optionFactionId}:${fact.optionType}:${canonical(fact.groupName)}`
           let shared = sharedSubtypes.get(key)
           if (!shared) {
             const groupSection = `option-group:${fact.groupName
@@ -230,7 +279,7 @@ export const mergeBsDataFactionOptions = (
             shared = { id: bsDataGeneratedId(groupSourceRecordId), name: fact.groupName, lines: 0 }
             sharedSubtypes.set(key, shared)
             newSubtypes.push({
-              factionId,
+              factionId: optionFactionId,
               id: shared.id,
               name: fact.groupName,
               typeId: type.id,
@@ -238,7 +287,7 @@ export const mergeBsDataFactionOptions = (
               legendHtml: '',
               meta: meta(
                 groupSourceRecordId,
-                checksum({ factionId, group: fact.groupName, optionType: fact.optionType }),
+                checksum({ factionId: optionFactionId, group: fact.groupName, optionType: fact.optionType }),
                 groupSection,
                 source.officialSourceRecordIds
               ),
@@ -249,21 +298,22 @@ export const mergeBsDataFactionOptions = (
           lineOffset = shared.lines
           shared.lines += fact.abilities.length
         }
-        const grouped = fact.optionType !== 'battle-formation'
+        // A single-card roster option (trait, artefact) IS its one ability card: it displays
+        // under its official name and carries the option-level record identity so the audit
+        // trail consumes the reviewed option record. A formation, lore, or battle-trait set keeps
+        // the transcribed names and per-ability records of the abilities it grants.
+        const singleCard = fact.optionType === 'heroic-trait' || fact.optionType === 'artefact-of-power'
+        const abilityOfficialIds = official ? [official.sourceRecordId] : source.officialSourceRecordIds
         fact.abilities.forEach(ability => {
           const points = abilityPoints(ability)
           newAbilities.push({
-            factionId,
+            factionId: optionFactionId,
             typeId: type.id,
             typeName: type.name,
             subtypeId,
             subtypeName,
             line: String(lineOffset + ability.line),
-            // A grouped roster option (trait, artefact) IS its single ability card: it displays
-            // under its official name and carries the option-level record identity so the audit
-            // trail consumes the reviewed option record. A formation keeps the transcribed names
-            // and per-ability records of the abilities it grants.
-            name: grouped ? official.name : ability.name,
+            name: singleCard && official ? official.name : ability.name,
             descriptionHtml: abilityDescription(ability),
             legendHtml: '',
             abilityType: abilityTypeLabel[ability.kind],
@@ -273,11 +323,9 @@ export const mergeBsDataFactionOptions = (
             abilityPhase: '',
             pointsType: points.pointsType,
             points: points.points,
-            meta: grouped
-              ? meta(fact.sourceRecordId, fact.factChecksum, fact.section, [official.sourceRecordId])
-              : meta(ability.sourceRecordId, ability.recordChecksum, fact.section, [
-                  official.sourceRecordId,
-                ]),
+            meta: singleCard
+              ? meta(fact.sourceRecordId, fact.factChecksum, fact.section, abilityOfficialIds)
+              : meta(ability.sourceRecordId, ability.recordChecksum, fact.section, abilityOfficialIds),
           })
         })
       })

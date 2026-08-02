@@ -16,39 +16,41 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-01f snapshot is defined by:
+The accepted 2026-08-02 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-01d.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 2 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-01f.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-02.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-08-02.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-01f-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-01f-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-02-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-02-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
 - 1,297 warscrolls and 1,013 battle profiles
-- 4,929 usable abilities
+- 4,939 usable abilities
 - 2,280 weapons
-- 1,416 content groups, including 48 Spearhead force/unit wrappers
-- 244 source artifacts and 19,321 live source records
+- 1,418 content groups, including 48 Spearhead force/unit wrappers
+- 245 source artifacts and 19,333 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
 - 1,350 extracted GW battle-profile facts: 939 applied to runtime, 1 profile-only gap,
   363 structured references, and 47 superseded facts
-- 10 provisional community warscrolls (the Ogor Mawtribes supplement units) and 10 provisional
-  Ogor Mawtribes battletome roster options (4 battle formations, 3 heroic traits, 3 artefacts of
-  power) transcribed from two commit-pinned BSData catalogues under the fallback-tier source
-  policy, with official battle-profile facts overriding every overlapping field; Lorai, Child of
-  the Abyss completed the provisional-to-verified swap when Wahapedia published her datasheet
+- 10 provisional community warscrolls (the Ogor Mawtribes supplement units) and 13 provisional
+  Ogor Mawtribes battletome faction-package entries (4 battle formations, 3 heroic traits,
+  3 artefacts of power, the army-wide battle traits, and the Lore of Gut Magic and Lore of the
+  Everwinter) transcribed from three commit-pinned BSData catalogues under the fallback-tier
+  source policy, with official battle-profile facts overriding every overlapping field; Lorai,
+  Child of the Abyss completed the provisional-to-verified swap when Wahapedia published her
+  datasheet
 - all 60 source-classified Armies of Renown classified as `army-of-renown` roots with replace
   semantics: `excludes` edges suppress the faction's regular rules-choice groups while a root is
   selected, and the root's battle traits apply automatically (issues #1833/#1834/#1844). The 12
@@ -135,12 +137,26 @@ their rules text comes provisionally from the commit-pinned BSData main-branch f
 `communityWarscrollSources` review entry with per-option checksums, official spellings winning
 every name conflict. Reviewed `contextOverrides` apply official precedence to the superseded
 index-era formations, traits, and artefacts, moving them to the historical context until the
-secondary source catches up. The battletome's two lores (Lore of Gut Magic, Lore of the
-Everwinter) are **not** shipped: BSData has not transcribed their spells or prayers (the lore
-entry links dangle at the pinned commit), so the index-era lores remain current until a source
-exists. The army-wide battle traits and Big Names likewise wait for Wahapedia because no official
-battle-profile fact establishes them for the fallback tier.
-`src/tests/aos4/ogorBattletomeFactionPackage.test.ts` pins this boundary.
+secondary source catches up.
+
+The battletome's two lores and its army-wide battle traits ship the same way since the 2026-08-02
+revision (Discord beta report of index-era cards remaining current). The earlier finding that
+BSData had not transcribed the lores was a provisional-watch coverage gap, not a source gap: the
+faction catalogue's lore entries are links into the shared `Lores.cat` catalogue, which carries
+the full Lore of Gut Magic and Lore of the Everwinter definitions at the already-pinned commit and
+which the watch never fetched. Both lores are officially established as page 2 roster options
+(`Spell Lore` / `Prayer Lore`) of the Battle Profiles - Ogor Mawtribes document. The army-wide
+battle traits (Eat 'Em Alive, Bull Charge, Jaws of the Beast, Closing the Jaws) have no
+battle-profile row of their own; their fallback-tier anchor is the source-level official evidence
+on the review entry — the same document's per-option "Battletome: Ogor Mawtribes" notes establish
+that the battletome package replaced the index-era faction rules for the current context. This is
+a deliberate, owner-reviewed extension of fallback condition (a) for exactly this content class.
+Reviewed `contextOverrides` retire the index-era battle traits and both index-era lores to the
+historical context. Big Names remain absent: nothing official establishes a battletome Big Names
+package. `src/tests/aos4/ogorBattletomeFactionPackage.test.ts` pins this boundary, including the
+faction-only reminder set that the beta report exercised. Legacy-unit warscroll text (the
+battletome also rewrites the pre-supplement warscrolls, e.g. the Bloodpelt Hunter) remains
+secondary-sourced from the index-era Wahapedia pages and is tracked as follow-up intake.
 
 Every official document is limited to the rules contexts it actually governs. Spearhead,
 2026-27 `Scourge of Aqshy`, Legends, and historical `Scourge of Ghyran` records must not leak
@@ -223,6 +239,19 @@ new Army of Renown appearing on a faction page can never again decode as a gener
 (the #1844 bug class). The White Dwarf armies decode in the Legends context and surface under the
 masthead dropdown's Legends group header. `src/tests/aos4/armyPackageTriage.test.ts` pins the
 retirement of the interim builder triage this revision replaces.
+
+The 2026-08-02 revision completes the Ogor battletome faction package on the same acquisition
+(Discord beta report: index-era Trampling Charge, Unrelenting Hunter, and Call of the Blizzard
+still presented as current). It adds one commit-pinned BSData catalogue — the shared `Lores.cat`
+at the already-accepted `a882188b` commit — carrying the Lore of Gut Magic and Lore of the
+Everwinter transcriptions the faction catalogue only links to (the prior "dangling links" finding
+was a provisional-watch coverage gap; the watch config now carries the battle-trait sentinels and
+drops the satisfied BSData lore watches). The `communityWarscrollSources` scopes grow three
+entries: the two lores (each a `spell-lore`/`prayer-lore` option pinned to its exact faction-page
+type record) and the army-wide battle traits (a `battle-trait` option carrying the four battletome
+trait abilities subtype-less on the faction's mandatory Battle Traits type). Reviewed
+`contextOverrides` retire the index-era battle traits and lores to the historical context. Every
+Wahapedia and Games Workshop artifact is byte-identical to the 2026-08-01 pins.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not

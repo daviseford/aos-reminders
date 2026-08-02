@@ -124,7 +124,7 @@ describe('Armies of Renown as a top-level replacing choice', () => {
       ALL_ARMIES_OF_RENOWN.map(entry => entry.name).sort()
     )
     const review = JSON.parse(
-      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01f.json'), 'utf8')
+      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-02.json'), 'utf8')
     ) as {
       armiesOfRenown: Array<{
         officialSourceRecordIds: string[]
@@ -180,7 +180,7 @@ describe('Armies of Renown as a top-level replacing choice', () => {
 
     const regular = resolveSelection(AOS4_CATALOG, { explicitIds: [ogor.id], rulesContextId: standard.id })
     const regularReminders = projectReminders(AOS4_CATALOG, regular).map(reminder => reminder.name)
-    expect(regularReminders).toContain('RAVENOUS BRUTES')
+    expect(regularReminders).toContain('Bull Charge')
     expect(regular.availableIds).toContain(roving.id)
     expect(regular.diagnostics).toEqual([])
 
@@ -193,8 +193,8 @@ describe('Armies of Renown as a top-level replacing choice', () => {
     // The army's own battle traits apply automatically…
     expect(renownReminders).toContain('DRIVEN BY STARVATION')
     // …and never stack with the regular set it replaces.
-    expect(renownReminders).not.toContain('RAVENOUS BRUTES')
-    expect(renownReminders).not.toContain('FEAST ON FLESH')
+    expect(renownReminders).not.toContain('Bull Charge')
+    expect(renownReminders).not.toContain("Eat 'Em Alive")
     expect(renownReminders.filter(name => name === 'TRAMPLING CHARGE')).toHaveLength(1)
 
     // Deselecting restores the regular army exactly.

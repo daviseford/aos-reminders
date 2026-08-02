@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { sourceRecordId } from '../../domain'
+import { sourceRecordId, type SourceRecordId } from '../../domain'
 import { childElements, descendantElements, parseXmlDocument, type XmlElement } from './xml'
 import type {
   BsDataAbilityFact,
@@ -268,7 +268,21 @@ export interface BsDataFactionOptionSpec {
   optionType: BsDataFactionOptionType
   /** The `selectionEntryGroup` name the option must be found in. */
   groupName: string
+  /** Reviewed routing metadata carried onto the fact; see `BsDataFactionOptionFact`. */
+  faction?: string
+  typeSourceRecordId?: SourceRecordId
 }
+
+/**
+ * A lore is transcribed as one `selectionEntryGroup` whose member entries are its spells or
+ * prayers, and army-wide battle traits as one `selectionEntry` carrying every trait ability, so
+ * those option kinds extract the whole container rather than a named entry inside a group.
+ */
+const CONTAINER_OPTION_TYPES = new Set<BsDataFactionOptionType>([
+  'spell-lore',
+  'prayer-lore',
+  'battle-trait',
+])
 
 /**
  * Extract structured faction roster-option facts (battle formations, heroic traits, artefacts)
@@ -294,28 +308,42 @@ export const extractBsDataFactionOptions = (
       })),
     }
   }
-  const groups = descendantElements(parsed.root, 'selectionEntryGroup')
+  const root = parsed.root
+  const groups = descendantElements(root, 'selectionEntryGroup')
   const facts: BsDataFactionOptionFact[] = []
   options.forEach(option => {
-    // A catalogue may carry several groups with the same name (e.g. a seasonal and a battletome
-    // `Plunder of the Mawtribes`); search them all and fail closed on an ambiguous option name.
-    const namedGroups = groups.filter(
-      candidate => (candidate.attributes.name ?? '').trim() === option.groupName
-    )
-    if (!namedGroups.length) {
-      diagnostics.push({
-        code: 'option-not-found',
-        severity: 'error',
-        message: `Group ${JSON.stringify(option.groupName)} is not present in the catalogue`,
-        unit: option.name,
-      })
-      return
-    }
-    const matches = namedGroups.flatMap(group =>
-      descendantElements(group, 'selectionEntry').filter(
-        entry => (entry.attributes.name ?? '').trim() === option.name
+    let matches: XmlElement[]
+    if (CONTAINER_OPTION_TYPES.has(option.optionType)) {
+      // The container itself is the option: a lore is a `selectionEntryGroup` whose entries are
+      // its spells or prayers, and army-wide battle traits are one `selectionEntry` carrying the
+      // trait abilities. The reviewed name and group name are the container's own name.
+      matches =
+        option.optionType === 'battle-trait'
+          ? descendantElements(root, 'selectionEntry').filter(
+              entry => (entry.attributes.name ?? '').trim() === option.groupName
+            )
+          : groups.filter(candidate => (candidate.attributes.name ?? '').trim() === option.groupName)
+    } else {
+      // A catalogue may carry several groups with the same name (e.g. a seasonal and a battletome
+      // `Plunder of the Mawtribes`); search them all and fail closed on an ambiguous option name.
+      const namedGroups = groups.filter(
+        candidate => (candidate.attributes.name ?? '').trim() === option.groupName
       )
-    )
+      if (!namedGroups.length) {
+        diagnostics.push({
+          code: 'option-not-found',
+          severity: 'error',
+          message: `Group ${JSON.stringify(option.groupName)} is not present in the catalogue`,
+          unit: option.name,
+        })
+        return
+      }
+      matches = namedGroups.flatMap(group =>
+        descendantElements(group, 'selectionEntry').filter(
+          entry => (entry.attributes.name ?? '').trim() === option.name
+        )
+      )
+    }
     if (!matches.length) {
       diagnostics.push({
         code: 'option-not-found',
@@ -356,7 +384,14 @@ export const extractBsDataFactionOptions = (
       abilities,
       sourceRecordId: recordId(''),
     }
-    facts.push({ ...withoutChecksum, factChecksum: checksum(withoutChecksum) })
+    facts.push({
+      ...withoutChecksum,
+      factChecksum: checksum(withoutChecksum),
+      // Routing metadata is reviewed configuration, not transcription content: it stays outside
+      // the pinned fact checksum so re-routing never masquerades as a source change.
+      ...(option.faction ? { faction: option.faction } : {}),
+      ...(option.typeSourceRecordId ? { typeSourceRecordId: option.typeSourceRecordId } : {}),
+    })
   })
   return { facts, diagnostics }
 }

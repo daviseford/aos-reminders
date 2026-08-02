@@ -268,11 +268,11 @@ describe('BSData community-tier catalogue extraction', () => {
 
 describe('the standing fallback-tier policy record in the accepted review', () => {
   const review = JSON.parse(
-    readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01f.json'), 'utf8')
+    readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-02.json'), 'utf8')
   ) as { communityWarscrollSources: CorpusCommunityWarscrollSource[] }
 
   it('records every community source as commit-pinned, provisional, scoped, and owner-authorized', () => {
-    expect(review.communityWarscrollSources).toHaveLength(2)
+    expect(review.communityWarscrollSources).toHaveLength(3)
     review.communityWarscrollSources.forEach(source => {
       expect(source.policyTier).toBe('community-fallback')
       expect(source.status).toBe('provisional-pending-official-verification')
@@ -300,7 +300,12 @@ describe('the standing fallback-tier policy record in the accepted review', () =
     const optionNames = review.communityWarscrollSources.flatMap(source =>
       (source.factionOptions ?? []).map(option => option.name)
     )
-    expect(optionNames).toHaveLength(10)
+    // 2026-08-02: the ten roster options plus the army-wide battle traits and the two battletome
+    // lores (Lores.cat carries the lore transcriptions the faction catalogue only links to).
+    expect(optionNames).toHaveLength(13)
     expect(optionNames).toContain('Hunger-Filled Tribe')
+    expect(optionNames).toContain('Battle Traits: Ogor Mawtribes')
+    expect(optionNames).toContain('Lore of Gut Magic')
+    expect(optionNames).toContain('Lore of the Everwinter')
   })
 })
