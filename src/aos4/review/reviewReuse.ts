@@ -109,6 +109,7 @@ export const reviewCampaignExecutionIssues = (
   const livePairKeys = sortedUnique(liveEntries.map(entry => entry.pairKey))
   const reused = sortedUnique(execution.pairSets?.reused ?? [])
   const fresh = sortedUnique(execution.pairSets?.fresh ?? [])
+  const freshSet = new Set(fresh)
   const all = sortedUnique([...reused, ...fresh])
   const assignmentIds = sortedUnique(assignments.map(assignment => assignment.id))
   const freshAssignment = assignments.find(assignment => assignment.id === execution.assignments?.fresh)
@@ -133,7 +134,7 @@ export const reviewCampaignExecutionIssues = (
     execution.pairSets.reused.join('\n') !== reused.join('\n') ||
     execution.pairSets.fresh.join('\n') !== fresh.join('\n') ||
     reused.length + fresh.length !== livePairKeys.length ||
-    reused.some(pairKey => fresh.includes(pairKey)) ||
+    reused.some(pairKey => freshSet.has(pairKey)) ||
     all.join('\n') !== livePairKeys.join('\n') ||
     execution.pairSets.reusedChecksum !== reviewPairSetChecksum(reused) ||
     execution.pairSets.freshChecksum !== reviewPairSetChecksum(fresh)
@@ -165,7 +166,7 @@ export const reviewCampaignExecutionIssues = (
     resultByPacketId.set(result.packetId, [...(resultByPacketId.get(result.packetId) ?? []), result])
   )
   liveEntries.forEach(entry => {
-    const expectedAssignment = fresh.includes(entry.pairKey) ? execution.assignments.fresh : undefined
+    const expectedAssignment = freshSet.has(entry.pairKey) ? execution.assignments.fresh : undefined
     const pairResults = [entry.blindPacketId, entry.comparisonPacketId].flatMap(
       packetId => resultByPacketId.get(packetId) ?? []
     )

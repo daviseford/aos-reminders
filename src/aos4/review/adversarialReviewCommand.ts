@@ -200,6 +200,17 @@ export const balancedFreshShardGroups = (
 
 const execFileAsync = promisify(execFile)
 
+const workerResultPath = (output: string, relativePath: string): string => {
+  if (path.isAbsolute(relativePath)) {
+    throw new Error(`Adversarial review worker result path must be relative: ${relativePath}`)
+  }
+  const resolved = path.resolve(output, relativePath)
+  if (resolved !== output && !resolved.startsWith(`${output}${path.sep}`)) {
+    throw new Error(`Adversarial review worker result path escapes its output: ${relativePath}`)
+  }
+  return resolved
+}
+
 const runFreshWorkers = async (
   staging: string,
   task: Omit<AdversarialReviewWorkerTask, 'shards'>,
@@ -246,7 +257,7 @@ const runFreshWorkers = async (
           [
             shard.index,
             {
-              path: path.join(output, shard.path),
+              path: workerResultPath(output, shard.path),
               resultCount: shard.resultCount,
               checksum: shard.checksum,
             },
