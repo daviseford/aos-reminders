@@ -35,6 +35,22 @@ yarn build
 yarn release:inspect-artifact
 ```
 
+For a release that changes the accepted AoS 4 corpus, restore the manifest-pinned private artifact
+cache before the offline generation/certification gates:
+
+```powershell
+yarn data:aos4:cache:pull `
+  --manifest data/aos4/manifests/accepted-2026-08-02.json `
+  --jobs 4
+yarn data:aos4:generate:candidate
+yarn data:aos4:verify:beta
+```
+
+The pull is read-only against the private store and verifies every restored SHA-256. Missing or
+corrupt private bytes are a no-go for offline replay; do not fall back to an unreviewed live download
+during a release. A UI-only release does not need to restore the source cache, but it still runs the
+checked-in beta gate.
+
 Before merging #1717, confirm all of the following:
 
 - the PR title does not trip the WIP check and every required GitHub check is green;

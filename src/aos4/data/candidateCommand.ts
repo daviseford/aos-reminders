@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { stableJson } from '../generate/serialization'
-import { FileArtifactCache } from './cache'
+import { createArtifactCache } from './artifactStore'
 import { acquireArtifact, type AcquisitionDependencies } from './command'
 import { createPinnedHttpsTransport } from './http'
 import {
@@ -308,7 +308,7 @@ const createCandidateAnalysis = (
 
 const dependencies = (): AcquisitionDependencies => ({
   transport: createPinnedHttpsTransport(),
-  cache: new FileArtifactCache(DEFAULT_CACHE_DIRECTORY),
+  cache: createArtifactCache(DEFAULT_CACHE_DIRECTORY),
   now: () => new Date().toISOString(),
   policy: {
     allowedHosts: [

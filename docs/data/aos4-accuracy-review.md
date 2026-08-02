@@ -12,7 +12,7 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-02`, generated from the 2026-08-01 source
+The current revision is `aos4-corpus-2026-08-02b`, generated from the 2026-08-01 source
 acquisition plus one additional commit-pinned BSData catalogue (manifest `accepted-2026-08-02`).
 Its automated review is complete:
 
@@ -117,11 +117,47 @@ entry needs a specific evidence-backed disposition.
 yarn data:aos4:review:adversarial `
   --workspace .cache/aos4/review/workspace-<revision> `
   --output .cache/aos4/review/adversarial-<revision> `
-  --campaign-at <iso-instant>
+  --campaign-at <iso-instant> `
+  --jobs 8
 ```
 
 Blind results are sealed before generated values are compared. Any finding or `cannot-verify`
 outcome blocks the candidate until it is resolved and the affected evidence is rerun.
+
+Use `--jobs 1` as the serial reference or on a constrained machine. The default leaves one available
+processor for the parent, uses at least one worker, and never exceeds eight workers; `--jobs` accepts
+1 through 32. Pass an explicit value when reproducing a campaign so execution provenance stays
+byte-stable across machines with different processor counts.
+Workers receive only their assigned fresh packet shards, save blind evidence before comparison,
+and return checksum receipts. The parent validates those receipts and merges evidence in canonical
+workspace order.
+
+To reuse a prior passing certification, write to a new output directory and add:
+
+```powershell
+yarn data:aos4:review:adversarial `
+  --workspace .cache/aos4/review/workspace-<revision> `
+  --output .cache/aos4/review/adversarial-<revision>-incremental `
+  --campaign-at <iso-instant> `
+  --reuse-certification data/aos4/certifications/<prior-revision> `
+  --jobs 8
+```
+
+Reuse is pair-scoped, not campaign-scoped. The compact certification receipt binds each passing
+verdict to the exact pair key, packet IDs/checksums, assignment-scoped calibration, protocol,
+rubric, reviewer configuration, and engine version. Changed, missing, duplicate, corrupt, or
+ambiguous evidence is evaluated fresh. Concealed calibration controls are always fresh. A no-op
+campaign starts zero workers; a sparse change starts workers only for affected shards.
+
+`execution.json`, `results-index.json`, the certification manifest, and the summary expose the
+reused/fresh pair counts, pair-set checksums, contributing assignments, requested jobs, peak child
+count, and source-certification checksum. Reused result evidence is retained through checksum-bound
+overlays rather than recopied or silently trusted. The standalone certification check resolves the
+overlay and revalidates the complete result population.
+Incremental result overlays retain their referenced certification directories as immutable inputs.
+Keep every referenced ancestor while a descendant remains current. The preparer limits generated
+chains to three overlay levels; the next sparse campaign resolves the source evidence once and writes
+a self-contained result set, so verification cost and retention ancestry cannot grow without bound.
 
 ### 4. Prepare and verify beta evidence
 
@@ -154,6 +190,30 @@ certification directory is outside the supported trust boundary; the committed g
 integrity of the prepared safe evidence, not independence from a maintainer who can rewrite the
 repository. Beta rules reports remain an additional correctness signal.
 
+### Performance reference
+
+The following `aos4-corpus-2026-08-02b` fixed-campaign measurements used Windows, Node 22.23.2,
+Yarn 1.22.19, 20 logical processors, about 64 GiB of RAM, a warm local artifact cache, and 40,780
+live pairs. Times are wall clock and exclude source acquisition/network access.
+
+| Campaign | Review | Prepare | Combined | Reused / fresh | Peak children |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Cold, `--jobs 1` | 16.929 s | 23.253 s | 40.183 s | 0 / 40,780 | 1 |
+| Cold, `--jobs 8` | 7.343 s | — | — | 0 / 40,780 | 8 |
+| Unchanged incremental, `--jobs 8` | 2.468 s | 5.161 s | 7.629 s | 40,780 / 0 | 0 |
+| Controlled 2.00% delta, `--jobs 8` | 3.324 s | 7.621 s | 10.944 s | 39,964 / 816 | 4 |
+
+Cold parallel review was 56.6% faster than the serial review with byte-identical verdict evidence
+apart from execution provenance. The unchanged incremental review-plus-preparation path was 81.0%
+faster than the cold serial reference. The controlled 2.00% delta was 72.8% faster than the same
+reference and passed the small-delta target; only four children were needed for its four fresh
+shards. The final standalone certification check took 7.793 seconds for cold evidence, 7.746 seconds
+for the unchanged overlay, and 7.909 seconds for the controlled delta. Including that check, the
+unchanged path was 68.0% faster end to end. A representative eight-worker cold process tree on this
+implementation used about 2.0 GiB of working set. Re-run this table after changing packet size,
+evidence schemas, reviewer behavior, or worker orchestration; do not compare timings from different
+revisions or machines as if they were the same experiment.
+
 ## Findings and corrections
 
 A passing beta certification contains zero automated findings and zero `cannot-verify` outcomes.
@@ -182,11 +242,13 @@ corrected.
 
 ## Refreshes and disputes
 
-A new or changed source always starts a candidate cycle; never transfer a prior beta result. If
-evidence cannot independently establish a fact, keep the result `cannot-verify` until the fact is
-supported or removed from current scope. If Games Workshop and Wahapedia disagree, retain both
-locators and values, apply the newest applicable official source, and keep the discrepancy in the
-audit trail.
+A new or changed source always starts a candidate cycle and produces a new immutable campaign. Do
+not transfer a prior beta pointer or campaign pass wholesale. Exact pair verdicts may be retained
+only through `--reuse-certification`; changed or ambiguous pairs remain fresh, while the new
+inventory, controls, execution record, manifest, and full coverage gate are current. If evidence
+cannot independently establish a fact, keep the result `cannot-verify` until the fact is supported
+or removed from current scope. If Games Workshop and Wahapedia disagree, retain both locators and
+values, apply the newest applicable official source, and keep the discrepancy in the audit trail.
 
 Model output, old AoS 3 behavior, aggregate counts, and a previous pass are never evidence for an
 AoS 4 rule.

@@ -6,6 +6,8 @@ export const AOS4_REVIEW_SCHEMA_VERSION = 1 as const
 export const AOS4_CERTIFICATION_SCHEMA_VERSION = 1 as const
 export const AOS4_REVIEW_PROTOCOL_VERSION = 'aos4-review/v1' as const
 export const AOS4_REVIEW_RUBRIC_VERSION = 'aos4-rubric/v2' as const
+export const AOS4_REVIEW_PROMPT_VERSION = 'aos4-review-prompt/v1' as const
+export const AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION = 'evidence-auditor/v2' as const
 
 export type ReviewPacketId = `review-packet:sha256:${string}`
 export type ReviewAssignmentId = `review-assignment:sha256:${string}`
@@ -166,6 +168,69 @@ export interface ReviewLedger {
   verifications: FindingVerification[]
 }
 
+export interface ReviewCampaignExecution {
+  schemaVersion: 1
+  revision: string
+  mode: 'full' | 'incremental'
+  campaignAt: string
+  reviewerConfigurationId: ReviewerConfigurationId
+  reviewEngineVersion: typeof AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION
+  reuseSource?: {
+    directory: string
+    manifestChecksum: string
+  }
+  pairSets: {
+    total: number
+    reused: string[]
+    fresh: string[]
+    reusedChecksum: string
+    freshChecksum: string
+  }
+  assignments: {
+    fresh: ReviewAssignmentId
+    contributing: ReviewAssignmentId[]
+  }
+  workers: {
+    requestedJobs: number
+    peakChildProcessCount: number
+  }
+}
+
+export interface CertificationExecutionProjection {
+  mode: ReviewCampaignExecution['mode']
+  totalPairs: number
+  reusedPairs: number
+  freshPairs: number
+  checksum: string
+}
+
+export const reviewCalibrationIdentity = (calibration: ReviewCalibration): string =>
+  calibration.evidence
+    ? `assignment:${calibration.evidence.assignmentId}`
+    : `configuration:${calibration.reviewerConfigurationId}:${calibration.rubricVersion}`
+
+export const reviewCalibrationForAssignment = (
+  calibrations: ReviewCalibration[],
+  assignmentId: ReviewAssignmentId,
+  reviewerConfiguration: ReviewerConfigurationId,
+  rubricVersion: string,
+  assignmentCount: number
+): ReviewCalibration | undefined =>
+  calibrations.find(
+    calibration =>
+      calibration.evidence?.assignmentId === assignmentId &&
+      calibration.reviewerConfigurationId === reviewerConfiguration &&
+      calibration.rubricVersion === rubricVersion
+  ) ??
+  (assignmentCount === 1
+    ? calibrations.find(
+        calibration =>
+          !calibration.evidence &&
+          calibration.reviewerConfigurationId === reviewerConfiguration &&
+          calibration.rubricVersion === rubricVersion
+      )
+    : undefined)
+
 export interface CertificationInput {
   name: string
   path: string
@@ -200,8 +265,10 @@ export interface CertificationManifest {
   }
   coverage: CertificationCoverage
   ledgerChecksum: string
+  ledgerChecksumKind?: 'input-bindings/v1'
   inventoryChecksum: string
   sourceObservedAt: string
+  execution?: CertificationExecutionProjection
 }
 
 type ReviewPacketDraft = Omit<ReviewPacket, 'schemaVersion' | 'id' | 'packetChecksum'> & {

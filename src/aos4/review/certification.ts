@@ -4,6 +4,7 @@ import {
   AOS4_REVIEW_SCHEMA_VERSION,
   checksumReviewRecord,
   reviewerConfigurationId,
+  reviewCalibrationForAssignment,
   type CertificationCoverage,
   type CertificationInput,
   type CertificationManifest,
@@ -277,6 +278,16 @@ const calibrationControlEntries = (index: ReviewPacketSafeIndex): ReviewPacketIn
     .filter(entry => entry.calibration)
     .sort((left, right) => compareText(left.pairKey, right.pairKey))
 
+export const calibrationControlSetChecksum = (index: ReviewPacketSafeIndex): string =>
+  checksumReviewRecord(
+    calibrationControlEntries(index).map(entry => ({
+      pairKey: entry.pairKey,
+      calibrationKind: entry.calibrationKind,
+      blindPacketId: entry.blindPacketId,
+      comparisonPacketId: entry.comparisonPacketId,
+    }))
+  )
+
 export const createCalibrationEvidenceReceipt = (
   assignmentId: ReviewAssignment['id'],
   index: ReviewPacketSafeIndex,
@@ -291,22 +302,20 @@ export const createCalibrationEvidenceReceipt = (
     assignmentId,
     blindResultsChecksum: checksumReviewRecord(blindResults),
     comparisonResultsChecksum: checksumReviewRecord(comparisonResults),
-    controlPairKeysChecksum: checksumReviewRecord(
-      entries.map(entry => ({
-        pairKey: entry.pairKey,
-        calibrationKind: entry.calibrationKind,
-        blindPacketId: entry.blindPacketId,
-        comparisonPacketId: entry.comparisonPacketId,
-      }))
-    ),
+    controlPairKeysChecksum: calibrationControlSetChecksum(index),
   }
   return { ...receipt, receiptChecksum: checksumReviewRecord(receipt) }
 }
 
+const uniqueReviewFindings = (findings: ReviewFinding[]): ReviewFinding[] =>
+  Array.from(new Map(findings.map(finding => [finding.id, finding])).values()).sort((left, right) =>
+    left.id.localeCompare(right.id)
+  )
+
 export const reviewLedgerWithResults = (ledger: ReviewLedger, results: ReviewerResult[]): ReviewLedger => ({
   ...ledger,
   results: [...ledger.results, ...results],
-  findings: [...ledger.findings, ...results.flatMap(result => result.findings)],
+  findings: uniqueReviewFindings([...ledger.findings, ...results.flatMap(result => result.findings)]),
 })
 
 export const calibrationEvidenceIssues = (
@@ -329,7 +338,7 @@ export const calibrationEvidenceIssues = (
     assignments: ledger.assignments,
     calibrations: ledger.calibrations,
     results: calibrationResults,
-    findings: calibrationResults.flatMap(result => result.findings),
+    findings: uniqueReviewFindings(calibrationResults.flatMap(result => result.findings)),
     resolutions: [],
     verifications: [],
   })
@@ -377,11 +386,7 @@ export const calibrationEvidenceIssues = (
       )
     )
   }
-  const resultsByPacketId = new Map<string, ReviewerResult[]>()
   calibrationResults.forEach((result, resultIndex) => {
-    const values = resultsByPacketId.get(result.packetId) ?? []
-    values.push(result)
-    resultsByPacketId.set(result.packetId, values)
     const reference = entryByPacketId.get(result.packetId)
     if (
       !reference ||
@@ -411,31 +416,6 @@ export const calibrationEvidenceIssues = (
           )
         )
       }
-    }
-  })
-  entries.forEach(entry => {
-    const blind = resultsByPacketId.get(entry.blindPacketId) ?? []
-    const comparison = resultsByPacketId.get(entry.comparisonPacketId) ?? []
-    const path = `index.calibrationControls.${entry.pairKey}`
-    if (blind.length !== 1 || comparison.length !== 1 || !entry.calibrationKind) {
-      issues.push(
-        issue(
-          'invalid-calibration-evidence',
-          path,
-          'Calibration control does not have exactly one blind and one comparison result'
-        )
-      )
-      return
-    }
-    const [expectedBlind, expectedComparison] = calibrationControlOutcomes(entry.calibrationKind)
-    if (blind[0].outcome !== expectedBlind || comparison[0].outcome !== expectedComparison) {
-      issues.push(
-        issue(
-          'invalid-calibration-evidence',
-          path,
-          `Calibration control ${entry.calibrationKind} has unexpected outcomes`
-        )
-      )
     }
   })
   const assignments = assignmentById(ledger)
@@ -487,6 +467,31 @@ export const calibrationEvidenceIssues = (
       relevantResults.find(
         result => result.packetId === (lane === 'blind' ? entry.blindPacketId : entry.comparisonPacketId)
       )
+    entries.forEach(entry => {
+      const blind = relevantResults.filter(result => result.packetId === entry.blindPacketId)
+      const comparison = relevantResults.filter(result => result.packetId === entry.comparisonPacketId)
+      const controlPath = `${path}.controls.${entry.pairKey}`
+      if (blind.length !== 1 || comparison.length !== 1 || !entry.calibrationKind) {
+        issues.push(
+          issue(
+            'invalid-calibration-evidence',
+            controlPath,
+            'Calibration control does not have exactly one blind and one comparison result'
+          )
+        )
+        return
+      }
+      const [expectedBlind, expectedComparison] = calibrationControlOutcomes(entry.calibrationKind)
+      if (blind[0].outcome !== expectedBlind || comparison[0].outcome !== expectedComparison) {
+        issues.push(
+          issue(
+            'invalid-calibration-evidence',
+            controlPath,
+            `Calibration control ${entry.calibrationKind} has unexpected outcomes`
+          )
+        )
+      }
+    })
     const defects = entries.filter(entry => entry.calibrationKind === 'defect')
     const insufficient = entries.filter(entry => entry.calibrationKind === 'insufficient-evidence')
     const foundDefects = defects.filter(entry => {
@@ -519,6 +524,27 @@ export const calibrationEvidenceIssues = (
           'invalid-calibration-evidence',
           path,
           'Calibration summary is not derivable from its committed control results'
+        )
+      )
+    }
+  })
+  calibrationResults.forEach((result, resultIndex) => {
+    const assignment = assignments.get(result.assignmentId)
+    if (
+      !assignment ||
+      !reviewCalibrationForAssignment(
+        ledger.calibrations,
+        result.assignmentId,
+        result.reviewerConfigurationId,
+        index.rubricVersion,
+        ledger.assignments.length
+      )
+    ) {
+      issues.push(
+        issue(
+          'invalid-calibration-evidence',
+          `calibrationResults[${resultIndex}].assignmentId`,
+          'Calibration result has no assignment-scoped calibration'
         )
       )
     }
@@ -830,6 +856,63 @@ const resultsByPacket = (ledger: ReviewLedger): Map<ReviewPacketId, ReviewerResu
   return results
 }
 
+const hasExactPassingLedgerCorrespondence = (index: ReviewPacketSafeIndex, ledger: ReviewLedger): boolean => {
+  const entries = index.entries.filter(entry => entry.countsTowardCoverage && !entry.calibration)
+  if (
+    ledger.findings.length !== 0 ||
+    ledger.resolutions.length !== 0 ||
+    ledger.verifications.length !== 0 ||
+    ledger.results.length !== entries.length * 2
+  ) {
+    return false
+  }
+  const assignments = assignmentById(ledger)
+  const results = resultsByPacket(ledger)
+  if (results.size !== entries.length * 2) return false
+  const valid = (result: ReviewerResult | undefined, checksum: string): result is ReviewerResult => {
+    const assignment = result ? assignments.get(result.assignmentId) : undefined
+    return Boolean(
+      result &&
+        assignment?.reviewer.kind === 'agent' &&
+        result.packetChecksum === checksum &&
+        result.reviewerConfigurationId === reviewerConfigurationId(assignment.reviewer) &&
+        result.outcome === 'pass' &&
+        result.findings.length === 0
+    )
+  }
+  return entries.every(entry => {
+    const blindResults = results.get(entry.blindPacketId)
+    const comparisonResults = results.get(entry.comparisonPacketId)
+    if (blindResults?.length !== 1 || comparisonResults?.length !== 1) return false
+    const blind = blindResults[0]
+    const comparison = comparisonResults[0]
+    const assignment = assignments.get(blind.assignmentId)
+    const calibration = assignment
+      ? reviewCalibrationForAssignment(
+          ledger.calibrations,
+          assignment.id,
+          reviewerConfigurationId(assignment.reviewer),
+          index.rubricVersion,
+          ledger.assignments.length
+        )
+      : undefined
+    if (
+      !valid(blind, entry.blindPacketChecksum) ||
+      !valid(comparison, entry.comparisonPacketChecksum) ||
+      (entry.blindDerivationRequired && blind.blindExpectedInterpretation === undefined) ||
+      calibration?.passed !== true ||
+      new Date(calibration.calibratedAt) > new Date(blind.reviewedAt)
+    ) {
+      return false
+    }
+    return (
+      assignments.get(blind.assignmentId)?.reviewer.id ===
+        assignments.get(comparison.assignmentId)?.reviewer.id &&
+      new Date(blind.reviewedAt).valueOf() < new Date(comparison.reviewedAt).valueOf()
+    )
+  })
+}
+
 const reviewerId = (result: ReviewerResult, assignments: Map<string, ReviewAssignment>): string | undefined =>
   assignments.get(result.assignmentId)?.reviewer.id
 
@@ -946,12 +1029,6 @@ const packetOutcomeIssues = (
   return issues
 }
 
-const isEntryReviewed = (
-  entry: ReviewPacketIndexEntry,
-  resultIndex: Map<ReviewPacketId, ReviewerResult[]>,
-  assignments: Map<string, ReviewAssignment>
-): boolean => !packetOutcomeIssues(entry, resultIndex, assignments).length
-
 const coverageByValues = (
   entries: ReviewPacketIndexEntry[],
   values: (entry: ReviewPacketIndexEntry) => string[],
@@ -982,17 +1059,17 @@ const categoryCoverage = (
 const calibrationIssues = (ledger: ReviewLedger, index: ReviewPacketSafeIndex): CertificationIssue[] => {
   const issues: CertificationIssue[] = []
   const assignments = assignmentById(ledger)
-  const calibrations = new Map(
-    ledger.calibrations.map(calibration => [
-      `${calibration.reviewerConfigurationId}:${calibration.rubricVersion}`,
-      calibration,
-    ])
-  )
   ledger.results.forEach((result, resultIndex) => {
     const assignment = assignments.get(result.assignmentId)
     if (!assignment) return
     const expectedConfiguration = reviewerConfigurationId(assignment.reviewer)
-    const calibration = calibrations.get(`${expectedConfiguration}:${index.rubricVersion}`)
+    const calibration = reviewCalibrationForAssignment(
+      ledger.calibrations,
+      result.assignmentId,
+      expectedConfiguration,
+      index.rubricVersion,
+      ledger.assignments.length
+    )
     const path = `ledger.results[${resultIndex}]`
     if (!calibration) {
       issues.push(
@@ -1110,27 +1187,48 @@ const ledgerIssues = (ledger: ReviewLedger): CertificationIssue[] =>
 const statusFor = (issues: CertificationIssue[]): CertificationManifest['status'] =>
   issues.some(value => value.state === 'stale') ? 'stale' : issues.length ? 'blocked' : 'pass'
 
-export const evaluateCertification = (input: CertificationEvaluationInput): CertificationEvaluation => {
+export const evaluateCertification = (
+  input: CertificationEvaluationInput,
+  options: { prevalidatedPassingLedger?: boolean } = {}
+): CertificationEvaluation => {
   const index = input.index
   const ledger = input.ledger
   const inventory = input.inventory
+  const liveEntries = index.entries.filter(entry => entry.countsTowardCoverage && !entry.calibration)
+  const prevalidatedPassingLedger =
+    options.prevalidatedPassingLedger === true && hasExactPassingLedgerCorrespondence(index, ledger)
   const inventoryEntries = Array.isArray(inventory?.entries) ? inventory.entries : []
   const assignments = assignmentById(ledger)
-  const resultIndex = resultsByPacket(ledger)
-  const liveEntries = index.entries.filter(entry => entry.countsTowardCoverage && !entry.calibration)
-  const reviewed = (entry: ReviewPacketIndexEntry): boolean =>
-    isEntryReviewed(entry, resultIndex, assignments)
-  const machineIssues = liveEntries.flatMap(entry => packetOutcomeIssues(entry, resultIndex, assignments))
-  const partialImports = liveEntries.filter(entry => {
-    const blind = matchingResults(entry.blindPacketId, entry.blindPacketChecksum, resultIndex, assignments)
-    const comparison = matchingResults(
-      entry.comparisonPacketId,
-      entry.comparisonPacketChecksum,
-      resultIndex,
-      assignments
+  const resultIndex = prevalidatedPassingLedger ? new Map() : resultsByPacket(ledger)
+  const outcomeIssuesByPairKey = new Map(
+    liveEntries.map(
+      entry =>
+        [
+          entry.pairKey,
+          prevalidatedPassingLedger ? [] : packetOutcomeIssues(entry, resultIndex, assignments),
+        ] as const
     )
-    return Boolean(blind.length) !== Boolean(comparison.length)
-  })
+  )
+  const machineIssues = liveEntries.flatMap(entry => outcomeIssuesByPairKey.get(entry.pairKey) ?? [])
+  const reviewed = (entry: ReviewPacketIndexEntry): boolean =>
+    outcomeIssuesByPairKey.get(entry.pairKey)?.length === 0
+  const partialImports = prevalidatedPassingLedger
+    ? []
+    : liveEntries.filter(entry => {
+        const blind = matchingResults(
+          entry.blindPacketId,
+          entry.blindPacketChecksum,
+          resultIndex,
+          assignments
+        )
+        const comparison = matchingResults(
+          entry.comparisonPacketId,
+          entry.comparisonPacketChecksum,
+          resultIndex,
+          assignments
+        )
+        return Boolean(blind.length) !== Boolean(comparison.length)
+      })
   const coverageByCohort = coverageByValues(liveEntries, entry => entry.cohortIds, reviewed)
   const coverageByFaction = coverageByValues(liveEntries, entry => entry.factionIds, reviewed)
   const coverageByContext = coverageByValues(liveEntries, entry => entry.rulesContextIds, reviewed)
@@ -1141,21 +1239,26 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
     community: sourceCoverage.community ?? count(0, 0),
     unknown: sourceCoverage.unknown ?? count(0, 0),
   }
-  const factionContextCoverage = Object.fromEntries(
-    index.coverage.factionContextStrata.map(stratum => {
-      const [factionId, contextId] = stratum.split('|')
-      const entries = liveEntries.filter(
-        entry =>
-          entry.factionIds.includes(factionId as never) && entry.rulesContextIds.includes(contextId as never)
-      )
-      return [stratum, count(entries.filter(reviewed).length, entries.length)]
-    })
+  const factionContextCounts = new Map(
+    index.coverage.factionContextStrata.map(stratum => [stratum, count(0, 0)] as const)
   )
+  liveEntries.forEach(entry => {
+    entry.factionIds.forEach(factionId =>
+      entry.rulesContextIds.forEach(contextId => {
+        const stratum = `${factionId}|${contextId}`
+        const current = factionContextCounts.get(stratum)
+        if (current) {
+          factionContextCounts.set(
+            stratum,
+            count(current.reviewed + Number(reviewed(entry)), current.expected + 1)
+          )
+        }
+      })
+    )
+  })
+  const factionContextCoverage = Object.fromEntries(factionContextCounts)
   const highRiskCoverage = Object.fromEntries(
-    index.coverage.highRiskCohorts.map(cohort => {
-      const entries = liveEntries.filter(entry => entry.cohortIds.includes(cohort))
-      return [cohort, count(entries.filter(reviewed).length, entries.length)]
-    })
+    index.coverage.highRiskCohorts.map(cohort => [cohort, coverageByCohort[cohort] ?? count(0, 0)])
   )
   const coverage: CertificationCoverage = {
     officialRecords: categoryCoverage(liveEntries, 'official-record', reviewed),
@@ -1177,9 +1280,15 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
   }
   const findingEvaluation = findingIssues(ledger)
   const outcomeCounts: CertificationSummary['outcomeCounts'] = {
-    pass: ledger.results.filter(result => result.outcome === 'pass').length,
-    finding: ledger.results.filter(result => result.outcome === 'finding').length,
-    'cannot-verify': ledger.results.filter(result => result.outcome === 'cannot-verify').length,
+    pass: prevalidatedPassingLedger
+      ? liveEntries.length * 2
+      : ledger.results.filter(result => result.outcome === 'pass').length,
+    finding: prevalidatedPassingLedger
+      ? 0
+      : ledger.results.filter(result => result.outcome === 'finding').length,
+    'cannot-verify': prevalidatedPassingLedger
+      ? 0
+      : ledger.results.filter(result => result.outcome === 'cannot-verify').length,
   }
   const outcomes: CertificationSummary['outcomes'] = {
     pass: outcomeCounts.pass,
@@ -1238,7 +1347,7 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
   }
   const issues = sortedIssues([
     ...indexIssues(index),
-    ...ledgerIssues(ledger),
+    ...(prevalidatedPassingLedger ? [] : ledgerIssues(ledger)),
     ...ledger.assignments.flatMap((assignment, assignmentIndex) =>
       assignment.reviewer.protocolVersion === index.protocolVersion
         ? []
@@ -1250,7 +1359,7 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
             ),
           ]
     ),
-    ...calibrationIssues(ledger, index),
+    ...(prevalidatedPassingLedger ? [] : calibrationIssues(ledger, index)),
     ...machineIssues,
     ...partialImports.map(entry =>
       issue(
@@ -1283,6 +1392,19 @@ const normalizedInputs = (inputs: CertificationInput[]): CertificationInput[] =>
       compareText(left.path, right.path) ||
       compareText(left.checksum, right.checksum)
   )
+
+const LEDGER_INPUT_NAMES = new Set([
+  'review-assignments',
+  'review-calibrations',
+  'review-calibration-results',
+  'review-results',
+  'review-findings',
+  'review-resolutions',
+  'review-verifications',
+])
+
+const certificationLedgerInputChecksum = (inputs: CertificationInput[]): string =>
+  checksumReviewRecord(normalizedInputs(inputs).filter(input => LEDGER_INPUT_NAMES.has(input.name)))
 
 const requiredInputIssues = (inputs: CertificationInput[]): CertificationIssue[] => {
   const names = inputs.map(input => input.name)
@@ -1336,7 +1458,8 @@ export const createCertificationManifest = (
     }),
   },
   coverage: input.evaluation.summary.coverage,
-  ledgerChecksum: checksumReviewRecord(input.ledger),
+  ledgerChecksum: certificationLedgerInputChecksum(input.inputs),
+  ledgerChecksumKind: 'input-bindings/v1',
   inventoryChecksum: input.inventory.checksum,
   sourceObservedAt: input.inventory.observedAt,
 })
@@ -1385,7 +1508,10 @@ export const verifyCertificationManifest = (
       issue('stale-protocol', 'manifest.protocol', 'Review protocol or rubric has changed', 'stale')
     )
   }
-  if (input.manifest.ledgerChecksum !== checksumReviewRecord(input.ledger)) {
+  const expectedLedgerChecksum = input.manifest.ledgerChecksumKind
+    ? certificationLedgerInputChecksum(input.currentInputs)
+    : checksumReviewRecord(input.ledger)
+  if (input.manifest.ledgerChecksum !== expectedLedgerChecksum) {
     issues.push(issue('stale-ledger', 'manifest.ledgerChecksum', 'Review ledger has changed', 'stale'))
   }
   if (

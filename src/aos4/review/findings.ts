@@ -6,6 +6,8 @@ import {
   createReviewFinding,
   expectedReviewPacketChecksum,
   reviewerConfigurationId,
+  reviewCalibrationForAssignment,
+  reviewCalibrationIdentity,
   type CertificationCoverage,
   type CertificationManifest,
   type FindingResolution,
@@ -416,7 +418,7 @@ export const validateReviewLedger = (
     ...duplicateIssues(ledger.assignments, value => value.id, 'duplicate-assignment', 'assignments'),
     ...duplicateIssues(
       ledger.calibrations,
-      value => `${value.reviewerConfigurationId}:${value.rubricVersion}`,
+      reviewCalibrationIdentity,
       'duplicate-calibration',
       'calibrations'
     ),
@@ -453,9 +455,6 @@ export const validateReviewLedger = (
   const packetIdsByAssignmentId = new Map(
     ledger.assignments.map(value => [value.id, new Set(value.packetIds)])
   )
-  const calibrationById = new Map(
-    ledger.calibrations.map(value => [`${value.reviewerConfigurationId}:${value.rubricVersion}`, value])
-  )
   const findingById = new Map(ledger.findings.map(value => [value.id, value]))
   const originatingReviewerByFindingId = new Map<string, string>()
   const resultFindingIds = new Set<ReviewFinding['id']>()
@@ -490,9 +489,13 @@ export const validateReviewLedger = (
         )
       )
     }
-    const calibration = packet
-      ? calibrationById.get(`${result.reviewerConfigurationId}:${packet.rubricVersion}`)
-      : ledger.calibrations.find(value => value.reviewerConfigurationId === result.reviewerConfigurationId)
+    const calibration = reviewCalibrationForAssignment(
+      ledger.calibrations,
+      result.assignmentId,
+      result.reviewerConfigurationId,
+      packet?.rubricVersion ?? ledger.calibrations[0]?.rubricVersion ?? '',
+      ledger.assignments.length
+    )
     if (!calibration) {
       issues.push(issue('missing-calibration', path, 'Agent result requires a matching calibration'))
     } else if (!calibration.passed) {
@@ -711,6 +714,7 @@ export const parseCertificationManifest = (input: unknown): CertificationManifes
     !isNonEmptyString(manifest.protocol.rubricVersion) ||
     !isChecksum(manifest.protocol.checksum) ||
     !isChecksum(manifest.ledgerChecksum) ||
+    (manifest.ledgerChecksumKind !== undefined && manifest.ledgerChecksumKind !== 'input-bindings/v1') ||
     !isChecksum(manifest.inventoryChecksum) ||
     !isIsoInstant(manifest.sourceObservedAt)
   ) {
@@ -726,6 +730,18 @@ export const parseCertificationManifest = (input: unknown): CertificationManifes
       issues.push(issue('invalid-shape', `manifest.inputs[${index}]`, 'Invalid certification input binding'))
     }
   })
+  if (
+    manifest.execution !== undefined &&
+    (!isRecord(manifest.execution) ||
+      !['full', 'incremental'].includes(manifest.execution.mode) ||
+      !isNonNegativeInteger(manifest.execution.totalPairs) ||
+      !isNonNegativeInteger(manifest.execution.reusedPairs) ||
+      !isNonNegativeInteger(manifest.execution.freshPairs) ||
+      manifest.execution.reusedPairs + manifest.execution.freshPairs !== manifest.execution.totalPairs ||
+      !isChecksum(manifest.execution.checksum))
+  ) {
+    issues.push(issue('invalid-shape', 'manifest.execution', 'Invalid certification execution'))
+  }
   issues.push(
     ...duplicateIssues(manifest.inputs ?? [], value => value.name, 'invalid-shape', 'manifest.inputs'),
     ...coverageIssues(manifest.coverage, 'manifest.coverage')
