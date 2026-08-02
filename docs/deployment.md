@@ -101,6 +101,14 @@ immutable files absent from the new build. A file not already retired is self-co
 `retire=true`; that resets its `LastModified` at the transition and starts a full 30-day grace period.
 A file already tagged `retire=true` is untouched, so later deploys cannot extend its window.
 
+The deploy records those already-retired keys in `_deploy/retired-immutable-keys.txt`. Normal
+releases use this deployment-owned inventory to avoid one `GetObjectTagging` request for every
+historical object. The inventory is only an optimization: when it is absent, the deploy rechecks
+the complete bounded S3 inventory, reconstructs the file, and preserves the same one-time
+retirement behavior. An interrupted retirement also recovers safely because the next run checks
+the real tag for every key missing from the inventory before copying it. Invalid inventory entries
+fail closed before public files are uploaded.
+
 The production lifecycle configuration should have this shape:
 
 ```json

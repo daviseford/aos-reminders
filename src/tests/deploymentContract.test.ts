@@ -42,6 +42,7 @@ describe('production deployment contract', () => {
     const fakeBin = join(directory, 'bin')
     const logPath = join(directory, 'aws.log')
     const attemptsPath = join(directory, 'lock-attempts')
+    const retirementStatePath = join(directory, 'retired-immutable-keys.txt')
     mkdirSync(join(buildDirectory, 'assets'), { recursive: true })
     mkdirSync(fakeBin)
 
@@ -178,6 +179,20 @@ if [[ "$1 $2" == "s3api list-objects-v2" ]]; then
   exit 0
 fi
 
+if [[ "$1 $2" == "s3 cp" && "$3" == s3://*/_deploy/retired-immutable-keys.txt ]]; then
+  if [[ ! -f "$AWS_RETIREMENT_STATE" ]]; then
+    echo 'NoSuchKey' >&2
+    exit 254
+  fi
+  cp "$AWS_RETIREMENT_STATE" "$4"
+  exit 0
+fi
+
+if [[ "$1 $2" == "s3 cp" && "$4" == s3://*/_deploy/retired-immutable-keys.txt ]]; then
+  cp "$3" "$AWS_RETIREMENT_STATE"
+  exit 0
+fi
+
 # The real CLI validates local cp sources before any request; a phantom build artifact in the
 # script must fail here exactly as it would in production.
 if [[ "$1 $2" == "s3 cp" && "$3" != s3://* && ! -e "$3" ]]; then
@@ -209,6 +224,7 @@ echo '{}'
         // A retirement-eligible key deliberately sits last: an unterminated final line from the
         // key listing must still be processed, or the last object silently escapes retirement.
         AWS_REMOTE_WORKBOX_KEYS: 'workbox-abc123.js\tworkbox-already-retired.js\tworkbox-old.js',
+        AWS_RETIREMENT_STATE: bashPath(retirementStatePath),
         CF_DIST_ID: 'distribution-id',
         DEPLOY_OWNER: 'deployment-test',
         PRECOMPRESS_THRESHOLD_BYTES: '100',
@@ -237,6 +253,7 @@ echo '{}'
         existsSync(logPath) && readFileSync(logPath, 'utf8').trim()
           ? readFileSync(logPath, 'utf8').trim().split('\n')
           : [],
+      retirementStatePath,
       run,
     }
   }
@@ -298,7 +315,11 @@ echo '{}'
     expect(log[extrasUpload]).toContain('public, max-age=31536000, immutable')
     expect(indexUpload).toBeGreaterThan(extrasUpload)
     expect(workerUpload).toBeGreaterThan(indexUpload)
-    expect(log.slice(workerUpload + 1).some(line => line.startsWith('s3 cp '))).toBe(false)
+    expect(
+      log
+        .slice(workerUpload + 1)
+        .some(line => line.startsWith('s3 cp ') && !line.includes('_deploy/retired-immutable-keys.txt'))
+    ).toBe(false)
     expect(
       log.some(line => line.startsWith('s3api delete-object ') && line.includes('--if-match "acquired-etag"'))
     ).toBe(true)
@@ -366,6 +387,47 @@ echo '{}'
         expect(line).toContain('public, max-age=31536000, immutable')
         expect(line).toContain('text/javascript; charset=utf-8')
       })
+  })
+
+  it('reuses the retired-key inventory instead of re-reading every historical object tag', () => {
+    const harness = createHarness()
+    const firstResult = harness.run()
+    expect(firstResult.status, firstResult.stderr).toBe(0)
+    const firstLogLength = harness.log().length
+
+    const secondResult = harness.run()
+    expect(secondResult.status, secondResult.stderr).toBe(0)
+    const secondLog = harness.log().slice(firstLogLength)
+
+    expect(
+      secondLog.some(
+        line =>
+          line.startsWith('s3 cp s3://test-bucket/_deploy/retired-immutable-keys.txt ') &&
+          line.includes('--only-show-errors')
+      )
+    ).toBe(true)
+    expect(secondLog.some(line => line.startsWith('s3api get-object-tagging '))).toBe(false)
+    expect(
+      secondLog.filter(
+        line => line.startsWith('s3api put-object-tagging ') && line.includes('retire,Value=false')
+      )
+    ).toHaveLength(4)
+    expect(readFileSync(harness.retirementStatePath, 'utf8')).toContain('assets/newly-superseded.js')
+  })
+
+  it('fails closed before publication when the retired-key inventory contains an unmanaged key', () => {
+    const harness = createHarness()
+    writeFileSync(harness.retirementStatePath, 'index.html\n')
+
+    const result = harness.run()
+
+    expect(result.status).not.toBe(0)
+    expect(result.stderr).toMatch(/retirement state/i)
+    const log = harness.log()
+    expect(log.some(line => line.includes('/assets --recursive'))).toBe(false)
+    expect(
+      log.some(line => line.startsWith('s3api delete-object ') && line.includes('--if-match "acquired-etag"'))
+    ).toBe(true)
   })
 
   it('stores oversized scripts gzipped so CloudFront size limits cannot ship them raw', () => {
