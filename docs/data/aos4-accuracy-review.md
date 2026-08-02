@@ -12,25 +12,26 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-01f`, generated from the same accepted 2026-08-01
-source snapshot (manifest `accepted-2026-08-01d`). Its automated review is complete:
+The current revision is `aos4-corpus-2026-08-02`, generated from the 2026-08-01 source
+acquisition plus one additional commit-pinned BSData catalogue (manifest `accepted-2026-08-02`).
+Its automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
-| Accepted artifacts independently inventoried | 244/244 |
+| Accepted artifacts independently inventoried | 245/245 |
 | Explicit non-material discovery entries | 9 |
 | Official battle-profile facts | 1,350/1,350 |
 | Final official/secondary reconciliation discrepancies | 414/414 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 19,321/19,321 |
+| Live audit source records | 19,333/19,333 |
 | Ignored-record dispositions (superseded + explicit) | 18,903/18,903 |
-| Live review pairs | 39,990/39,990 |
-| Independent outcomes | 79,980 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 40,002/40,002 |
+| Independent outcomes | 80,004 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed on 2026-08-01: 244 entries matched accepted
-checksums (including the two commit-pinned BSData catalogues, observed live by the
+The independent source inventory was observed on 2026-08-02: 245 entries matched accepted
+checksums (including the three commit-pinned BSData catalogues, observed live by the
 `data:aos4:inventory:observe-bsdata` observer) and 9 discovery entries received explicit
 non-material dispositions carried forward from the 2026-08-01b review.
 

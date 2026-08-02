@@ -68,10 +68,19 @@ export interface BsDataWarscrollFact {
 }
 
 /**
- * Roster-option kinds the community fallback tier may supply. Each maps to the official Battle
- * Profiles `optionType` label that establishes the option's existence.
+ * Roster-option kinds the community fallback tier may supply. `battle-formation`, `heroic-trait`,
+ * `artefact-of-power`, `spell-lore`, and `prayer-lore` each map to the official Battle Profiles
+ * `optionType` label that establishes the option's existence. `battle-trait` carries the army-wide
+ * battle traits a battletome replaces wholesale; no battle-profile row names them, so its official
+ * anchor is the source-level evidence on the review entry.
  */
-export type BsDataFactionOptionType = 'battle-formation' | 'heroic-trait' | 'artefact-of-power'
+export type BsDataFactionOptionType =
+  | 'battle-formation'
+  | 'heroic-trait'
+  | 'artefact-of-power'
+  | 'spell-lore'
+  | 'prayer-lore'
+  | 'battle-trait'
 
 export interface BsDataFactionOptionFact {
   kind: 'faction-option'
@@ -84,6 +93,14 @@ export interface BsDataFactionOptionFact {
   abilities: BsDataAbilityFact[]
   sourceRecordId: SourceRecordId
   factChecksum: string
+  /**
+   * Reviewed routing metadata (not part of the transcription checksum): the faction the option
+   * belongs to when no official roster-option fact can supply it (`battle-trait`), and the exact
+   * faction-page ability-type record the merged abilities attach to when the faction carries
+   * several same-named types (e.g. the faction and an Army of Renown both named `Battle Traits`).
+   */
+  faction?: string
+  typeSourceRecordId?: SourceRecordId
 }
 
 export type BsDataDiagnosticCode =

@@ -3,6 +3,50 @@
     {
       "aliases": [
         {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-ogor-mawtribes:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:70b1b6a6-a0dc-5f5e-8c11-2e6fbbae3b0d",
+      "kind": "ability",
+      "name": "Eat 'Em Alive"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-ogor-mawtribes:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:8713e41f-96aa-5aed-b4e0-6797d471dfae",
+      "kind": "ability",
+      "name": "Bull Charge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-ogor-mawtribes:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:46cb224d-c61a-5fb0-964b-1425c816f1b1",
+      "kind": "ability",
+      "name": "Jaws of the Beast"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-ogor-mawtribes:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:fa57e035-94b0-5336-958c-5719b5050012",
+      "kind": "ability",
+      "name": "Closing the Jaws"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:carvalox-hide",
           "publisher": "other"
         }
@@ -54,6 +98,72 @@
       "canonicalId": "ability:c102d3e2-0819-52a4-9810-0d4c5446854d",
       "kind": "ability",
       "name": "Leave Not a Morsel"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:lore-of-gut-magic:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:14ca8438-31d2-5d63-b5ea-9f854dc67db3",
+      "kind": "ability",
+      "name": "Blood Feast"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:lore-of-gut-magic:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a43f3690-0e17-5834-ba76-8af8c375a6e0",
+      "kind": "ability",
+      "name": "Shincruncher"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:lore-of-gut-magic:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a3b75f3b-33a1-58d5-904d-39a0f4d792db",
+      "kind": "ability",
+      "name": "Tallowflage"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:lore-of-the-everwinter:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:5965bfcd-8c60-51ae-8dee-2a557e3f0398",
+      "kind": "ability",
+      "name": "Freezing Tailwinds"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:lore-of-the-everwinter:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e257043a-30b1-51b4-b7bf-b87608be08a2",
+      "kind": "ability",
+      "name": "Pulverising Hailstorm"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:lore-of-the-everwinter:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c8b5c3e7-aa96-5bd4-9072-c45ef1a28072",
+      "kind": "ability",
+      "name": "Fortifying Hoarfrost"
     },
     {
       "aliases": [
@@ -65475,6 +65585,28 @@
     {
       "aliases": [
         {
+          "externalId": "BSData/age-of-sigmar-4th:option:lore-of-gut-magic",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:1db3f4d3-cd29-5fad-8297-7064009c24f8",
+      "kind": "content-group",
+      "name": "Lore of Gut Magic"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:lore-of-the-everwinter",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:a5b835e6-9e8d-5e09-aac2-df8716145845",
+      "kind": "content-group",
+      "name": "Lore of the Everwinter"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:maw-cult-fanatics",
           "publisher": "other"
         }
@@ -83049,6 +83181,17 @@
       "canonicalId": "publication:302bc5eb-c0ce-5cc7-b83c-bbd99db8108d",
       "kind": "publication",
       "name": "BSData Ogor Mawtribes catalogue (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:44edabd90d7a317bf12fcd3414f6ce48bc123b23532e9c2329cf0cc760edc046",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:2977bd81-cb3c-5889-896c-0017f42f24e3",
+      "kind": "publication",
+      "name": "BSData shared Lores catalogue — Ogor Mawtribes battletome lores (provisional community transcription, pending official verification)"
     },
     {
       "aliases": [

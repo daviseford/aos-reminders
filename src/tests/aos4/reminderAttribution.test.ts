@@ -70,7 +70,7 @@ describe('reminder source attribution (#1836)', () => {
       expect(reminder!.rulesModule).toBe('The Core Rules')
       expect(sourceLabels(reminder!)).toEqual([])
     })
-    const battleTrait = reminders.find(reminder => reminder.name === 'TRAMPLING CHARGE')
+    const battleTrait = reminders.find(reminder => reminder.name === 'Bull Charge')
     expect(battleTrait).toBeDefined()
     expect(battleTrait!.rulesModule).toBeUndefined()
   })

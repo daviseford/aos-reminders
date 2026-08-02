@@ -128,13 +128,30 @@ export interface CorpusCommunityWarscrollUnit {
 export interface CorpusCommunityFactionOption {
   /** The option name exactly as the BSData catalogue spells it; the official spelling wins. */
   name: string
-  optionType: 'battle-formation' | 'heroic-trait' | 'artefact-of-power'
-  /** The BSData selection-entry group the option must be found in. */
+  optionType:
+    | 'battle-formation'
+    | 'heroic-trait'
+    | 'artefact-of-power'
+    | 'spell-lore'
+    | 'prayer-lore'
+    | 'battle-trait'
+  /** The BSData selection-entry group (or, for lores and battle traits, the container) name. */
   groupName: string
   /** The catalogue section the extractor derives, e.g. `option:hunger-filled-tribe`. */
   section: string
   /** The pinned checksum of the extracted faction-option fact. */
   recordChecksum: string
+  /**
+   * The faction the option belongs to. Required for `battle-trait`, which no official
+   * roster-option fact establishes; every other kind derives its faction from the official fact.
+   */
+  faction?: string
+  /**
+   * The exact faction-page ability-type record the merged abilities attach to. Required whenever
+   * the faction carries several same-named types (e.g. the faction's `Battle Traits` beside an
+   * Army of Renown's); the merge fails closed on an ambiguous name either way.
+   */
+  typeSourceRecordId?: SourceRecordId
 }
 
 /**
@@ -1153,7 +1170,15 @@ const reviewDiagnostics = (
           option.groupName.trim() &&
           option.section.trim() &&
           /^[0-9a-f]{64}$/.test(option.recordChecksum) &&
-          ['battle-formation', 'heroic-trait', 'artefact-of-power'].includes(option.optionType)
+          [
+            'battle-formation',
+            'heroic-trait',
+            'artefact-of-power',
+            'spell-lore',
+            'prayer-lore',
+            'battle-trait',
+          ].includes(option.optionType) &&
+          (option.optionType !== 'battle-trait' || Boolean(option.faction?.trim()))
       ) && new Set(factionOptions.map(option => option.section)).size === factionOptions.length
     const scopeValid =
       source.units.length + factionOptions.length > 0 && unitsValid && factionOptionsValid
@@ -1436,14 +1461,33 @@ export const buildAos4Corpus = (
       publisher: 'other',
       rulesContextIds: currentReviewContextIds,
       sourceRefs: [
-        ...source.units.map(unit => unit.section),
-        ...(source.factionOptions ?? []).map(option => option.section),
-      ].map(section =>
-        sourceReference(
-          domainSourceRecordId('bsdata', `${source.artifact.checksum}:${section}`),
-          'provisional community transcription'
-        )
-      ),
+        ...[
+          ...source.units.map(unit => unit.section),
+          ...(source.factionOptions ?? [])
+            .filter(option => option.optionType !== 'battle-trait')
+            .map(option => option.section),
+        ].map(section =>
+          sourceReference(
+            domainSourceRecordId('bsdata', `${source.artifact.checksum}:${section}`),
+            'provisional community transcription'
+          )
+        ),
+        // A battle-trait option has no subtype or single-card wrapper carrying its fact-level
+        // record, so the publication cites the per-ability records the dataset actually holds.
+        ...(source.factionOptions ?? [])
+          .filter(option => option.optionType === 'battle-trait')
+          .flatMap(option =>
+            dataset.factionAbilities
+              .filter(
+                record =>
+                  record.meta.section === option.section &&
+                  record.meta.artifactId === artifactId(source.artifact.checksum)
+              )
+              .map(record =>
+                sourceReference(record.meta.sourceRecordId, 'provisional community transcription')
+              )
+          ),
+      ],
     } satisfies Publication)
   })
 

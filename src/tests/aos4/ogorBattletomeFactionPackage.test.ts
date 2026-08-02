@@ -12,9 +12,13 @@ import { resolveSelection } from '../../aos4/select'
  * admits the commit-pinned BSData main-branch transcriptions as provisional community facts.
  *
  * Official precedence also moves the superseded index-era options to the historical context:
- * the official document lists only the battletome set for the current context. The two new
- * lores (Lore of Gut Magic, Lore of the Everwinter) are NOT shipped: BSData has not transcribed
- * their spells or prayers yet, so the index-era lores remain current until a source exists.
+ * the official document lists only the battletome set for the current context.
+ *
+ * The 2026-08-02 revision extends the package (Discord beta report of index-era cards): the two
+ * battletome lores ship from the shared BSData Lores.cat catalogue (the earlier "dangling links"
+ * finding was a watch coverage gap — the faction catalogue only links to the shared file), and
+ * the army-wide battle traits ship from the same pinned faction catalogue, with the index-era
+ * battle traits and lores retired to the historical context by reviewed overrides.
  *
  * When Wahapedia publishes the battletome faction rules, the standard candidate intake replaces
  * these provisional facts and this test's expectations must move with that acceptance.
@@ -146,17 +150,70 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
     expect(oldArtefacts).toBeDefined()
   })
 
-  it('keeps the index-era lores current until a source carries the battletome lores', () => {
-    // BSData has not transcribed Lore of Gut Magic or Lore of the Everwinter (dangling links at
-    // the pinned commit), so the fallback tier cannot supply them and the index-era lores stay.
-    const spellLore = offeredGroups('spell-lore').find(group => group.name === 'Lore of Maw-magic')
+  it('ships the battletome lores provisionally and retires the index-era lores', () => {
+    const spellLore = offeredGroups('spell-lore').find(group => group.name === 'Lore of Gut Magic')
     expect(spellLore).toBeDefined()
     expect(spellLore!.rulesContextIds).toContain(standard.id)
-    const prayerLore = offeredGroups('prayer-lore').find(group => group.name === 'Everwinter Prayers')
+    expect(hasProvisionalCommunityAttribution(spellLore!)).toBe(true)
+    expect(membersOf(spellLore!).map(member => member.name).sort()).toEqual([
+      'Blood Feast',
+      'Shincruncher',
+      'Tallowflage',
+    ])
+
+    const prayerLore = offeredGroups('prayer-lore').find(group => group.name === 'Lore of the Everwinter')
     expect(prayerLore).toBeDefined()
     expect(prayerLore!.rulesContextIds).toContain(standard.id)
-    expect(
-      AOS4_CATALOG.entities.some(entity => entity.kind === 'content-group' && entity.name === 'Lore of Gut Magic')
-    ).toBe(false)
+    expect(hasProvisionalCommunityAttribution(prayerLore!)).toBe(true)
+    expect(membersOf(prayerLore!).map(member => member.name).sort()).toEqual([
+      'Fortifying Hoarfrost',
+      'Freezing Tailwinds',
+      'Pulverising Hailstorm',
+    ])
+
+    const oldSpellLore = offeredGroups('spell-lore').find(group => group.name === 'Lore of Maw-magic')
+    expect(oldSpellLore).toBeDefined()
+    expect(oldSpellLore!.rulesContextIds).toEqual([historical.id])
+    const oldPrayerLore = offeredGroups('prayer-lore').find(group => group.name === 'Everwinter Prayers')
+    expect(oldPrayerLore).toBeDefined()
+    expect(oldPrayerLore!.rulesContextIds).toEqual([historical.id])
+  })
+
+  it('ships the battletome battle traits provisionally and retires the index-era set', () => {
+    // Battle traits apply automatically: selecting the faction alone must produce the battletome
+    // reminders (the Discord beta report showed index-era Trampling Charge still firing).
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: [ogor.id],
+      rulesContextId: standard.id,
+    })
+    expect(selection.diagnostics).toEqual([])
+    const reminderNames = projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name)
+    ;["Eat 'Em Alive", 'Bull Charge', 'Jaws of the Beast', 'Closing the Jaws'].forEach(name =>
+      expect(reminderNames).toContain(name)
+    )
+    ;['TRAMPLING CHARGE', 'RAVENOUS BRUTES', 'FEAST ON FLESH'].forEach(name =>
+      expect(reminderNames).not.toContain(name)
+    )
+
+    const battleTraitAbilities = AOS4_CATALOG.entities.filter(
+      (entity): entity is Ability =>
+        entity.kind === 'ability' &&
+        ["Eat 'Em Alive", 'Bull Charge', 'Jaws of the Beast', 'Closing the Jaws'].includes(entity.name)
+    )
+    expect(battleTraitAbilities).toHaveLength(4)
+    battleTraitAbilities.forEach(ability => {
+      expect(ability.rulesContextIds).toContain(standard.id)
+      expect(hasProvisionalCommunityAttribution(ability)).toBe(true)
+    })
+
+    // The index-era set survives only in the historical context, never silently deleted.
+    const indexEra = AOS4_CATALOG.entities.filter(
+      (entity): entity is Ability =>
+        entity.kind === 'ability' &&
+        ['TRAMPLING CHARGE', 'RAVENOUS BRUTES', 'FEAST ON FLESH'].includes(entity.name) &&
+        entity.rulesContextIds.length === 1 &&
+        entity.rulesContextIds[0] === historical.id
+    )
+    expect(indexEra).toHaveLength(3)
   })
 })
