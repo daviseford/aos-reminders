@@ -1,6 +1,6 @@
 import { useTheme } from 'context/useTheme'
 import { FaTrash } from 'react-icons/fa'
-import { MdFileDownload, MdFileUpload, MdRefresh, MdSave, MdShare, MdVisibility } from 'react-icons/md'
+import { MdFileDownload, MdFileUpload, MdSave, MdShare, MdVisibility } from 'react-icons/md'
 
 interface ToolbarProps {
   hiddenCount: number
@@ -8,7 +8,6 @@ interface ToolbarProps {
   onDownloadPdf: () => void
   onImportArmy: () => void
   onOpenSavedArmies: () => void
-  onResetArmy: () => void
   onShareArmy: () => void
   onShowAll: () => void
   subscriberActionDisabled?: boolean
@@ -35,7 +34,6 @@ const Toolbar = ({
   onDownloadPdf,
   onImportArmy,
   onOpenSavedArmies,
-  onResetArmy,
   onShareArmy,
   onShowAll,
   subscriberActionDisabled,
@@ -46,12 +44,6 @@ const Toolbar = ({
         <ToolbarButton onClick={onClearArmy}>
           <FaTrash className="me-2" />
           Clear Army
-        </ToolbarButton>
-      </div>
-      <div className={buttonWrapperClass}>
-        <ToolbarButton onClick={onResetArmy}>
-          <MdRefresh className="me-2" />
-          Reset Army
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>

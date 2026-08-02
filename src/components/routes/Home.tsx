@@ -340,7 +340,6 @@ const HomeContent = () => {
           onDownloadPdf={() => setPrintModalIsOpen(true)}
           onImportArmy={() => setImportModalIsOpen(true)}
           onOpenSavedArmies={savedArmiesAction.run}
-          onResetArmy={() => setDocument(createDefaultAos4ArmyDocument())}
           onShareArmy={shareAction.run}
           onShowAll={showAll}
           subscriberActionDisabled={savedArmiesAction.disabled || shareAction.disabled}
