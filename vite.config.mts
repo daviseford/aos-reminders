@@ -229,6 +229,12 @@ self.addEventListener('activate', event => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  /*
+   * Emit imported JSON as JSON.parse("...") instead of a JS object literal. Engines parse JSON
+   * several times faster than JS source at scale, and the corpus chunk is ~12 MB — on a phone the
+   * literal form costs whole seconds of main-thread parse before Home can render.
+   */
+  json: { stringify: true },
   build: {
     rollupOptions: {
       output: {

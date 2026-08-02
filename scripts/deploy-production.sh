@@ -8,6 +8,9 @@ SITE_BUILD_DIR="${SITE_BUILD_DIR:-./dist}"
 CF_DIST_ID="${CF_DIST_ID:-E3OO9Y9QRVZ2L1}"
 DEPLOY_OWNER="${DEPLOY_OWNER:-manual:${USER:-unknown}@${HOSTNAME:-unknown}:$$}"
 DEPLOY_LOCK_KEY="${DEPLOY_LOCK_KEY:-_deploy/production.lock}"
+# CloudFront refuses to compress objects above ~10,000,000 bytes; anything larger must be stored
+# pre-gzipped. Overridable so the contract suite can exercise the path with small fixtures.
+PRECOMPRESS_THRESHOLD_BYTES="${PRECOMPRESS_THRESHOLD_BYTES:-9500000}"
 
 IMMUTABLE='public, max-age=31536000, immutable'
 MODERATE='public, max-age=86400'
@@ -188,11 +191,36 @@ for dependency in "${extras[@]}" "${workbox_dependencies[@]}"; do
   current_immutable_objects["${SITE_PREFIX}$(basename "$dependency")"]=1
 done
 
+# CloudFront only compresses responses up to ~10 MB, so any script above the threshold ships
+# uncompressed to every visitor unless it is stored gzipped with an explicit Content-Encoding.
+# The ~12 MB catalog chunk is the case that matters: 12.25 MiB raw vs 1.09 MiB gzipped.
+oversized_scripts=()
+while IFS= read -r -d '' oversized_script; do
+  oversized_scripts+=("$oversized_script")
+done < <(find "${SITE_BUILD_DIR}/assets" -type f -name '*.js' \
+  -size +"${PRECOMPRESS_THRESHOLD_BYTES}"c -print0)
+
 # Immutable content is published first. Current files are explicitly removed from the retirement
 # lifecycle before either mutable entry point can reference them.
+oversized_excludes=()
+for oversized_script in ${oversized_scripts[@]+"${oversized_scripts[@]}"}; do
+  oversized_excludes+=(--exclude "${oversized_script#"${SITE_BUILD_DIR%/}/assets/"}")
+done
 aws s3 cp "${SITE_BUILD_DIR}/assets" "${SITE_S3}/assets" \
   --recursive \
+  ${oversized_excludes[@]+"${oversized_excludes[@]}"} \
   --cache-control "$IMMUTABLE"
+
+for oversized_script in ${oversized_scripts[@]+"${oversized_scripts[@]}"}; do
+  relative_script="${oversized_script#"${SITE_BUILD_DIR%/}/assets/"}"
+  compressed_script=$(mktemp)
+  gzip -9 -c "$oversized_script" > "$compressed_script"
+  aws s3 cp "$compressed_script" "${SITE_S3}/assets/${relative_script}" \
+    --content-encoding gzip \
+    --content-type 'text/javascript; charset=utf-8' \
+    --cache-control "$IMMUTABLE"
+  rm -f "$compressed_script"
+done
 
 for dependency in "${extras[@]}" "${workbox_dependencies[@]}"; do
   aws s3 cp "$dependency" "${SITE_S3}/$(basename "$dependency")" \
