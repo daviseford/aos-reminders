@@ -47,6 +47,8 @@ describe('production deployment contract', () => {
 
     for (const [path, contents] of [
       ['assets/current-123.js', 'current'],
+      // Longer than the harness's PRECOMPRESS_THRESHOLD_BYTES so the pre-gzip path always runs.
+      ['assets/aos4-catalog-data-abc123.js', `const catalogCorpus = ${'"x"'.repeat(64)}`],
       ['index.html', '<!doctype html>'],
       ['site.webmanifest', '{}'],
       ['service-worker.js', 'importScripts("sw-extras-abc123.js")'],
@@ -209,6 +211,7 @@ echo '{}'
         AWS_REMOTE_WORKBOX_KEYS: 'workbox-abc123.js\tworkbox-already-retired.js\tworkbox-old.js',
         CF_DIST_ID: 'distribution-id',
         DEPLOY_OWNER: 'deployment-test',
+        PRECOMPRESS_THRESHOLD_BYTES: '100',
         SITE_BUILD_DIR: bashPath(buildDirectory),
         SITE_S3: 's3://test-bucket',
         ...extraEnvironment,
@@ -344,6 +347,36 @@ echo '{}'
         expect(line).toContain('public, max-age=31536000, immutable')
         expect(line).toContain('text/javascript; charset=utf-8')
       })
+  })
+
+  it('stores oversized scripts gzipped so CloudFront size limits cannot ship them raw', () => {
+    const harness = createHarness()
+    const result = harness.run()
+
+    expect(result.status, result.stderr).toBe(0)
+    const log = harness.log()
+    const recursiveAssetsUpload = log.find(
+      line => line.startsWith('s3 cp ') && line.includes('/assets --recursive')
+    )
+    expect(recursiveAssetsUpload).toBeDefined()
+    expect(recursiveAssetsUpload).toContain('--exclude aos4-catalog-data-abc123.js')
+    const compressedUpload = log.find(
+      line =>
+        line.startsWith('s3 cp ') &&
+        line.includes('s3://test-bucket/assets/aos4-catalog-data-abc123.js') &&
+        line.includes('--content-encoding gzip')
+    )
+    expect(compressedUpload).toBeDefined()
+    expect(compressedUpload).toContain('public, max-age=31536000, immutable')
+    expect(compressedUpload).toContain('text/javascript; charset=utf-8')
+    expect(
+      log.some(
+        line =>
+          line.startsWith('s3api put-object-tagging ') &&
+          line.includes('assets/aos4-catalog-data-abc123.js') &&
+          line.includes('retire,Value=false')
+      )
+    ).toBe(true)
   })
 
   it('force-copies unhashed public files with the moderate cache header', () => {
