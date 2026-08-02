@@ -729,6 +729,18 @@ export const parseCertificationManifest = (input: unknown): CertificationManifes
       issues.push(issue('invalid-shape', `manifest.inputs[${index}]`, 'Invalid certification input binding'))
     }
   })
+  if (
+    manifest.execution !== undefined &&
+    (!isRecord(manifest.execution) ||
+      !['full', 'incremental'].includes(manifest.execution.mode) ||
+      !isNonNegativeInteger(manifest.execution.totalPairs) ||
+      !isNonNegativeInteger(manifest.execution.reusedPairs) ||
+      !isNonNegativeInteger(manifest.execution.freshPairs) ||
+      manifest.execution.reusedPairs + manifest.execution.freshPairs !== manifest.execution.totalPairs ||
+      !isChecksum(manifest.execution.checksum))
+  ) {
+    issues.push(issue('invalid-shape', 'manifest.execution', 'Invalid certification execution'))
+  }
   issues.push(
     ...duplicateIssues(manifest.inputs ?? [], value => value.name, 'invalid-shape', 'manifest.inputs'),
     ...coverageIssues(manifest.coverage, 'manifest.coverage')

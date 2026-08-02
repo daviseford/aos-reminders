@@ -18,6 +18,7 @@ import {
   type ReviewCalibration,
   type ReviewFinding,
   type ReviewLedger,
+  type ReviewCampaignExecution,
   type ReviewerResult,
 } from './records'
 
@@ -60,6 +61,7 @@ export interface LoadedCertificationEvidence {
   protocol: ProtocolFile
   rubric: RubricFile
   inventory: SourceInventory
+  execution?: ReviewCampaignExecution
 }
 
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
@@ -167,5 +169,10 @@ export const loadCertificationEvidence = async (
     protocol: namedJson<ProtocolFile>('review-protocol', manifest.inputs, files),
     rubric: namedJson<RubricFile>('review-rubric', manifest.inputs, files),
     inventory: namedJson<SourceInventory>('source-inventory', manifest.inputs, files),
+    ...(manifest.inputs.some(input => input.name === 'review-execution')
+      ? {
+          execution: namedJson<ReviewCampaignExecution>('review-execution', manifest.inputs, files),
+        }
+      : {}),
   }
 }

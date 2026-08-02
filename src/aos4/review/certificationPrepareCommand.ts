@@ -35,9 +35,15 @@ import {
   type ReviewCalibration,
   type ReviewFinding,
   type ReviewLedger,
+  type ReviewCampaignExecution,
   type ReviewerMetadata,
   type ReviewerResult,
 } from './records'
+import {
+  certificationExecutionProjection,
+  createReviewCampaignExecution,
+  reviewCampaignExecutionIssues,
+} from './reviewReuse'
 
 const DEFAULT_INDEX = path.join('.cache', 'aos4', 'review', 'workspace', 'index.json')
 const DEFAULT_WORKSPACE = path.join('.cache', 'aos4', 'review', 'workspace', 'workspace.json')
@@ -70,6 +76,7 @@ const GENERATED_INPUT_FILES = {
   'review-findings': 'findings.json',
   'review-resolutions': 'resolutions.json',
   'review-verifications': 'verifications.json',
+  'review-execution': 'execution.json',
   'source-inventory': 'source-inventory.json',
 } as const
 
@@ -88,10 +95,15 @@ interface AdversarialResultIndex {
   schemaVersion: 1
   revision: string
   reviewer: ReviewerMetadata
-  assignmentId: ReviewAssignment['id']
+  assignmentId?: ReviewAssignment['id']
+  assignmentIds?: ReviewAssignment['id'][]
+  assignmentsPath?: string
+  calibrationsPath?: string
   calibrationResultPath: string
   calibrationResultCount: number
   calibrationResultsChecksum: string
+  executionPath?: string
+  executionChecksum?: string
   resultShards: Array<{
     path: string
     resultCount: number
@@ -220,20 +232,45 @@ const sameJson = (left: unknown, right: unknown): boolean =>
 const loadAdversarialLedger = async (
   reviewOutput: string,
   revision: string
-): Promise<{ ledger: ReviewLedger; calibrationResults: ReviewerResult[] }> => {
+): Promise<{
+  ledger: ReviewLedger
+  calibrationResults: ReviewerResult[]
+  execution?: ReviewCampaignExecution
+}> => {
   await assertCreateOnlyDirectoryComplete(reviewOutput)
-  const [assignment, calibration, resultIndex, persistedFindings] = await Promise.all([
-    readJson<ReviewAssignment>(path.join(reviewOutput, 'assignment.json')),
-    readJson<ReviewCalibration>(path.join(reviewOutput, 'calibration.json')),
+  const [resultIndex, persistedFindings] = await Promise.all([
     readJson<AdversarialResultIndex>(path.join(reviewOutput, 'results-index.json')),
     readJson<ReviewFinding[]>(path.join(reviewOutput, 'findings.json')),
   ])
-  if (
-    resultIndex.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION ||
-    resultIndex.revision !== revision ||
-    resultIndex.assignmentId !== assignment.id
-  ) {
+  if (resultIndex.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION || resultIndex.revision !== revision) {
     throw new Error('Adversarial review output does not match the prepared review index')
+  }
+  const multiAssignment = Boolean(
+    resultIndex.assignmentsPath && resultIndex.calibrationsPath && resultIndex.assignmentIds
+  )
+  const [assignments, calibrations, execution] = multiAssignment
+    ? await Promise.all([
+        readJson<ReviewAssignment[]>(withinDirectory(reviewOutput, resultIndex.assignmentsPath!)),
+        readJson<ReviewCalibration[]>(withinDirectory(reviewOutput, resultIndex.calibrationsPath!)),
+        resultIndex.executionPath
+          ? readJson<ReviewCampaignExecution>(withinDirectory(reviewOutput, resultIndex.executionPath))
+          : Promise.resolve(undefined),
+      ])
+    : await Promise.all([
+        readJson<ReviewAssignment>(path.join(reviewOutput, 'assignment.json')).then(value => [value]),
+        readJson<ReviewCalibration>(path.join(reviewOutput, 'calibration.json')).then(value => [value]),
+        Promise.resolve(undefined),
+      ])
+  const assignmentIds = assignments.map(value => value.id).sort()
+  const indexedAssignmentIds = (resultIndex.assignmentIds ?? [resultIndex.assignmentId!]).sort()
+  if (stableCompactJson(assignmentIds) !== stableCompactJson(indexedAssignmentIds)) {
+    throw new Error('Adversarial review assignments do not match their result index')
+  }
+  if (
+    execution &&
+    (!resultIndex.executionChecksum || checksumReviewRecord(execution) !== resultIndex.executionChecksum)
+  ) {
+    throw new Error('Adversarial review execution does not match its result index')
   }
 
   const calibrationResults = await readJson<ReviewerResult[]>(
@@ -275,14 +312,15 @@ const loadAdversarialLedger = async (
   return {
     ledger: {
       schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-      assignments: [assignment],
-      calibrations: [calibration],
+      assignments,
+      calibrations,
       results,
       findings,
       resolutions: [],
       verifications: [],
     },
     calibrationResults,
+    execution,
   }
 }
 
@@ -338,13 +376,18 @@ export const sourceSafeReviewerResults = (results: ReviewerResult[]): ReviewerRe
   results.map(result =>
     result.blindExpectedInterpretation === undefined
       ? result
-      : {
-          ...result,
-          blindExpectedInterpretation: {
-            interpretationChecksum: checksumReviewRecord(result.blindExpectedInterpretation),
-            shape: interpretationShape(result.blindExpectedInterpretation),
-          },
-        }
+      : typeof result.blindExpectedInterpretation === 'object' &&
+          result.blindExpectedInterpretation !== null &&
+          'interpretationChecksum' in result.blindExpectedInterpretation &&
+          'shape' in result.blindExpectedInterpretation
+        ? result
+        : {
+            ...result,
+            blindExpectedInterpretation: {
+              interpretationChecksum: checksumReviewRecord(result.blindExpectedInterpretation),
+              shape: interpretationShape(result.blindExpectedInterpretation),
+            },
+          }
   )
 
 export const sourceSafeReviewLedger = (ledger: ReviewLedger): ReviewLedger => ({
@@ -463,18 +506,39 @@ export const runCertificationPreparation = async (
   const reviewLedger = sourceSafeReviewLedger({
     ...loadedReview.ledger,
     calibrations: loadedReview.ledger.calibrations.map(calibration => {
-      const assignment = loadedReview.ledger.assignments.find(
-        value => reviewerConfigurationId(value.reviewer) === calibration.reviewerConfigurationId
-      )
-      if (!assignment) {
+      const assignments = calibration.evidence
+        ? loadedReview.ledger.assignments.filter(value => value.id === calibration.evidence?.assignmentId)
+        : loadedReview.ledger.assignments.filter(
+            value =>
+              reviewerConfigurationId(value.reviewer) === calibration.reviewerConfigurationId &&
+              calibrationResults.some(result => result.assignmentId === value.id)
+          )
+      if (assignments.length !== 1) {
         throw new Error('Calibration has no matching adversarial reviewer assignment')
       }
       return {
         ...calibration,
-        evidence: createCalibrationEvidenceReceipt(assignment.id, index, calibrationResults),
+        evidence: createCalibrationEvidenceReceipt(
+          assignments[0].id,
+          index,
+          calibrationResults.filter(result => result.assignmentId === assignments[0].id)
+        ),
       }
     }),
   })
+  const execution =
+    loadedReview.execution ??
+    createReviewCampaignExecution({
+      revision: index.revision,
+      campaignAt: reviewLedger.assignments[0].assignedAt,
+      reviewer: reviewLedger.assignments[0].reviewer,
+      reusedPairKeys: [],
+      freshPairKeys: index.entries
+        .filter(entry => entry.countsTowardCoverage && !entry.calibration)
+        .map(entry => entry.pairKey),
+      freshAssignmentId: reviewLedger.assignments[0].id,
+      contributingAssignmentIds: reviewLedger.assignments.map(value => value.id),
+    })
   const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
   const validationLedger = reviewLedgerWithResults(reviewLedger, calibrationResults)
   const ledgerIssues = validateReviewLedger(validationLedger, packets)
@@ -490,6 +554,15 @@ export const runCertificationPreparation = async (
       `Adversarial calibration evidence is invalid: ${calibrationIssues[0].code} ` +
         `${calibrationIssues[0].path}: ${calibrationIssues[0].message}`
     )
+  }
+  const executionIssues = reviewCampaignExecutionIssues(
+    execution,
+    index,
+    reviewLedger.assignments,
+    reviewLedger.results
+  )
+  if (executionIssues.length) {
+    throw new Error(`Adversarial review execution is invalid: ${executionIssues[0]}`)
   }
   const chronologyIssues = certificationChronologyIssues(
     arguments_.evaluatedAt,
@@ -520,6 +593,7 @@ export const runCertificationPreparation = async (
     'review-findings': ledger.findings,
     'review-resolutions': ledger.resolutions,
     'review-verifications': ledger.verifications,
+    'review-execution': execution,
     'source-inventory': inventory,
   } as const
   const outputRelative = repositoryPath(resolvedRoot, output)
@@ -560,25 +634,29 @@ export const runCertificationPreparation = async (
     )
   }
   const inventoryInput = generatedInputs.find(input => input.name === 'source-inventory')!
-  const manifest = createCertificationManifest({
-    evaluation,
-    inputs,
-    ledger,
-    inventory: {
-      checksum: inventoryInput.checksum,
-      observedAt: inventory.observedAt,
-      complete: inventory.complete,
-    },
-    certifiedAt: arguments_.evaluatedAt,
-    protocolVersion: protocol.protocolVersion,
-    rubricVersion: rubric.rubricVersion,
-  })
+  const manifest = {
+    ...createCertificationManifest({
+      evaluation,
+      inputs,
+      ledger,
+      inventory: {
+        checksum: inventoryInput.checksum,
+        observedAt: inventory.observedAt,
+        complete: inventory.complete,
+      },
+      certifiedAt: arguments_.evaluatedAt,
+      protocolVersion: protocol.protocolVersion,
+      rubricVersion: rubric.rubricVersion,
+    }),
+    execution: certificationExecutionProjection(execution),
+  }
   generatedTexts.set('manifest.json', stableJson(manifest))
   generatedTexts.set(
     'summary.json',
     stableJson({
       ...evaluation.summary,
       boundChecksums: manifest.inputs,
+      execution: manifest.execution,
     })
   )
   await writeCreateOnlyFilesDirectory(output, generatedTexts)

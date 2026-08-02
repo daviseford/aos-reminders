@@ -304,10 +304,15 @@ export const createCalibrationEvidenceReceipt = (
   return { ...receipt, receiptChecksum: checksumReviewRecord(receipt) }
 }
 
+const uniqueReviewFindings = (findings: ReviewFinding[]): ReviewFinding[] =>
+  Array.from(new Map(findings.map(finding => [finding.id, finding])).values()).sort((left, right) =>
+    left.id.localeCompare(right.id)
+  )
+
 export const reviewLedgerWithResults = (ledger: ReviewLedger, results: ReviewerResult[]): ReviewLedger => ({
   ...ledger,
   results: [...ledger.results, ...results],
-  findings: [...ledger.findings, ...results.flatMap(result => result.findings)],
+  findings: uniqueReviewFindings([...ledger.findings, ...results.flatMap(result => result.findings)]),
 })
 
 export const calibrationEvidenceIssues = (
@@ -330,7 +335,7 @@ export const calibrationEvidenceIssues = (
     assignments: ledger.assignments,
     calibrations: ledger.calibrations,
     results: calibrationResults,
-    findings: calibrationResults.flatMap(result => result.findings),
+    findings: uniqueReviewFindings(calibrationResults.flatMap(result => result.findings)),
     resolutions: [],
     verifications: [],
   })

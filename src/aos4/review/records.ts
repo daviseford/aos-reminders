@@ -168,6 +168,42 @@ export interface ReviewLedger {
   verifications: FindingVerification[]
 }
 
+export interface ReviewCampaignExecution {
+  schemaVersion: 1
+  revision: string
+  mode: 'full' | 'incremental'
+  campaignAt: string
+  reviewerConfigurationId: ReviewerConfigurationId
+  reviewEngineVersion: typeof AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION
+  reuseSource?: {
+    directory: string
+    manifestChecksum: string
+  }
+  pairSets: {
+    total: number
+    reused: string[]
+    fresh: string[]
+    reusedChecksum: string
+    freshChecksum: string
+  }
+  assignments: {
+    fresh: ReviewAssignmentId
+    contributing: ReviewAssignmentId[]
+  }
+  workers: {
+    requestedJobs: number
+    peakChildProcessCount: number
+  }
+}
+
+export interface CertificationExecutionProjection {
+  mode: ReviewCampaignExecution['mode']
+  totalPairs: number
+  reusedPairs: number
+  freshPairs: number
+  checksum: string
+}
+
 export const reviewCalibrationIdentity = (calibration: ReviewCalibration): string =>
   calibration.evidence
     ? `assignment:${calibration.evidence.assignmentId}`
@@ -231,6 +267,7 @@ export interface CertificationManifest {
   ledgerChecksum: string
   inventoryChecksum: string
   sourceObservedAt: string
+  execution?: CertificationExecutionProjection
 }
 
 type ReviewPacketDraft = Omit<ReviewPacket, 'schemaVersion' | 'id' | 'packetChecksum'> & {

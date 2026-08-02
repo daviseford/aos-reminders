@@ -10,9 +10,14 @@ import {
   AOS4_REVIEW_RUBRIC_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
   createReviewAssignment,
+  createReviewCampaignExecution,
+  certificationExecutionProjection,
+  checksumReviewRecord,
   loadReusableCertificationEvidence,
   partitionReusableReviewEvidence,
+  reviewCampaignExecutionIssues,
   reviewerConfigurationId,
+  validateReviewLedger,
   type PriorCertificationReviewEvidence,
   type ReviewAssignment,
   type ReviewCalibration,
@@ -91,29 +96,27 @@ const reviewResult = (
   ...overrides,
 })
 
-const calibration = (assignment: ReviewAssignment, withReceipt = true): ReviewCalibration => ({
-  schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-  reviewerConfigurationId: reviewerConfigurationId(assignment.reviewer),
-  rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
-  calibratedAt: '2026-08-02T12:00:00.000Z',
-  seededBlockerMajorDefects: 1,
-  foundSeededBlockerMajorDefects: 1,
-  unsupportedExpectedValues: 0,
-  insufficientEvidenceCases: 1,
-  correctCannotVerifyCases: 1,
-  passed: true,
-  ...(withReceipt
-    ? {
-        evidence: {
-          assignmentId: assignment.id,
-          blindResultsChecksum: digest(`${assignment.id}:controls:blind`),
-          comparisonResultsChecksum: digest(`${assignment.id}:controls:comparison`),
-          controlPairKeysChecksum: digest('controls'),
-          receiptChecksum: digest(`${assignment.id}:receipt`),
-        },
-      }
-    : {}),
-})
+const calibration = (assignment: ReviewAssignment, withReceipt = true): ReviewCalibration => {
+  const receipt = {
+    assignmentId: assignment.id,
+    blindResultsChecksum: digest(`${assignment.id}:controls:blind`),
+    comparisonResultsChecksum: digest(`${assignment.id}:controls:comparison`),
+    controlPairKeysChecksum: digest('controls'),
+  }
+  return {
+    schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+    reviewerConfigurationId: reviewerConfigurationId(assignment.reviewer),
+    rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+    calibratedAt: '2026-08-02T12:00:00.000Z',
+    seededBlockerMajorDefects: 1,
+    foundSeededBlockerMajorDefects: 1,
+    unsupportedExpectedValues: 0,
+    insufficientEvidenceCases: 1,
+    correctCannotVerifyCases: 1,
+    passed: true,
+    ...(withReceipt ? { evidence: { ...receipt, receiptChecksum: checksumReviewRecord(receipt) } } : {}),
+  }
+}
 
 const evidenceFor = (
   entries = [entry()],
@@ -264,6 +267,17 @@ describe('certification verdict reuse', () => {
     expect(partition.calibrations.map(value => value.evidence?.assignmentId)).toEqual(
       prior.assignments.map(value => value.id)
     )
+    expect(
+      validateReviewLedger({
+        schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+        assignments: prior.assignments,
+        calibrations: prior.calibrations,
+        results: prior.results,
+        findings: [],
+        resolutions: [],
+        verifications: [],
+      })
+    ).toEqual([])
   })
 
   it('keeps the single-assignment configuration/rubric fallback for legacy evidence', () => {
@@ -271,6 +285,55 @@ describe('certification verdict reuse', () => {
     const partition = partitionReusableReviewEvidence(index(), prior, reviewer())
     expect(partition.reusedEntries).toHaveLength(1)
     expect(partition.calibrations).toEqual(prior.calibrations)
+  })
+
+  it('binds a no-op campaign to exact pair sets and contributing assignments', () => {
+    const prior = evidenceFor()
+    const controlsOnlyAssignment = createReviewAssignment({
+      packetIds: [packetId('fresh-control')],
+      reviewer: reviewer(),
+      execution: 'local',
+      assignedAt: '2026-08-02T12:03:00.000Z',
+    })
+    const execution = createReviewCampaignExecution({
+      revision: prior.index.revision,
+      campaignAt: '2026-08-02T12:03:00.000Z',
+      reviewer: reviewer(),
+      reusedPairKeys: prior.index.entries.map(value => value.pairKey),
+      freshPairKeys: [],
+      freshAssignmentId: controlsOnlyAssignment.id,
+      contributingAssignmentIds: [prior.assignments[0].id, controlsOnlyAssignment.id],
+      reuseSource: {
+        directory: 'data/aos4/certifications/prior',
+        manifestChecksum: digest('prior manifest'),
+      },
+    })
+
+    expect(
+      reviewCampaignExecutionIssues(
+        execution,
+        prior.index,
+        [...prior.assignments, controlsOnlyAssignment],
+        prior.results
+      )
+    ).toEqual([])
+    expect(certificationExecutionProjection(execution)).toMatchObject({
+      mode: 'incremental',
+      totalPairs: 1,
+      reusedPairs: 1,
+      freshPairs: 0,
+      checksum: expect.stringMatching(/^[0-9a-f]{64}$/),
+    })
+
+    execution.pairSets.reusedChecksum = digest('tampered')
+    expect(
+      reviewCampaignExecutionIssues(
+        execution,
+        prior.index,
+        [...prior.assignments, controlsOnlyAssignment],
+        prior.results
+      )
+    ).toContain('execution reused and fresh pair sets do not partition the current live population')
   })
 
   it('rejects a reuse source whose internal file differs from its manifest binding', async () => {

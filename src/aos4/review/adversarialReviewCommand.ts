@@ -7,11 +7,13 @@ import {
   createAdversarialBlindResult,
   createAdversarialComparisonResult,
 } from './adversarialReview'
+import { createCalibrationEvidenceReceipt } from './certification'
 import {
   calibrationControlOutcomes,
   type CalibrationCaseKind,
   type ReviewPacketBatch,
   type ReviewPacketPair,
+  type ReviewPacketSafeIndex,
 } from './packets'
 import {
   AOS4_REVIEW_PROTOCOL_VERSION,
@@ -29,6 +31,11 @@ import {
   type ReviewerResult,
 } from './records'
 import { assertCreateOnlyDirectoryComplete, writeCreateOnlyDirectory } from './reviewWorkspace'
+import {
+  createReviewCampaignExecution,
+  loadReusableCertificationEvidence,
+  partitionReusableReviewEvidence,
+} from './reviewReuse'
 
 const REVIEW_CACHE = path.join('.cache', 'aos4', 'review')
 const DEFAULT_WORKSPACE = path.join(REVIEW_CACHE, 'workspace')
@@ -39,6 +46,7 @@ interface Arguments {
   output: string
   reviewerId: string
   campaignAt: string
+  reuseCertification?: string
 }
 
 interface PacketShard {
@@ -83,6 +91,9 @@ export const parseAdversarialReviewArguments = (values: string[]): Arguments => 
     } else if (value === '--campaign-at') {
       parsed.campaignAt = nextValue(values, index, value)
       index += 1
+    } else if (value === '--reuse-certification') {
+      parsed.reuseCertification = nextValue(values, index, value)
+      index += 1
     } else {
       throw new Error(`Unknown argument: ${value}`)
     }
@@ -100,6 +111,23 @@ const withinReviewCache = (value: string): string => {
     throw new Error(`Adversarial review artifacts must remain under ${REVIEW_CACHE}`)
   }
   return resolved
+}
+
+const withinRepository = (value: string): string => {
+  const root = path.resolve('.')
+  const resolved = path.resolve(value)
+  if (resolved !== root && !resolved.startsWith(`${root}${path.sep}`)) {
+    throw new Error(`Adversarial review path escapes the repository: ${value}`)
+  }
+  return resolved
+}
+
+const repositoryPath = (value: string): string => {
+  const relative = path.relative(path.resolve('.'), path.resolve(value))
+  if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new Error(`Adversarial review path is not repository-relative: ${value}`)
+  }
+  return relative.replaceAll(path.sep, '/')
 }
 
 const timestamp = (campaignAt: string, sequence: number): string =>
@@ -206,22 +234,43 @@ const calibrationFor = (
   }
 }
 
-const run = async (): Promise<void> => {
-  const arguments_ = parseAdversarialReviewArguments(process.argv.slice(2))
+export const runAdversarialReview = async (values = process.argv.slice(2)): Promise<void> => {
+  const arguments_ = parseAdversarialReviewArguments(values)
   const workspace = withinReviewCache(arguments_.workspace)
   const output = withinReviewCache(arguments_.output)
 
-  const manifest = await readJson<WorkspaceManifest>(path.join(workspace, 'workspace.json'))
+  const [manifest, safeIndex] = await Promise.all([
+    readJson<WorkspaceManifest>(path.join(workspace, 'workspace.json')),
+    readJson<ReviewPacketSafeIndex>(path.join(workspace, 'index.json')),
+  ])
   await assertCreateOnlyDirectoryComplete(workspace)
   if (
     manifest.schemaVersion !== 1 ||
     manifest.protocolVersion !== AOS4_REVIEW_PROTOCOL_VERSION ||
     manifest.rubricVersion !== AOS4_REVIEW_RUBRIC_VERSION ||
+    safeIndex.revision !== manifest.revision ||
+    safeIndex.protocolVersion !== manifest.protocolVersion ||
+    safeIndex.rubricVersion !== manifest.rubricVersion ||
     !Array.isArray(manifest.batches)
   ) {
     throw new Error('Prepared review workspace does not match the current protocol and rubric')
   }
   const reviewer = deterministicReviewerMetadata(arguments_.reviewerId)
+  const reuseSource = arguments_.reuseCertification
+    ? await loadReusableCertificationEvidence(withinRepository(arguments_.reuseCertification))
+    : undefined
+  const reusable = reuseSource
+    ? partitionReusableReviewEvidence(safeIndex, reuseSource, reviewer)
+    : {
+        reusedEntries: [],
+        freshEntries: safeIndex.entries.filter(entry => entry.countsTowardCoverage && !entry.calibration),
+        assignments: [],
+        calibrations: [],
+        calibrationResults: [],
+        results: [],
+      }
+  const freshPairKeys = new Set(reusable.freshEntries.map(entry => entry.pairKey))
+  const reusedResultsByPacketId = new Map(reusable.results.map(result => [result.packetId, result]))
   const campaignTimes = {
     assigned: timestamp(arguments_.campaignAt, 0),
     calibrationBlind: timestamp(arguments_.campaignAt, 2),
@@ -233,7 +282,7 @@ const run = async (): Promise<void> => {
   const calibrationPairs: ReviewPacketPair[] = []
   const calibrationBlindPacketIds = new Set<ReviewPacketId>()
   const liveBlindPacketIds = new Set<ReviewPacketId>()
-  const livePacketIds: ReviewerResult['packetId'][] = []
+  const freshPacketIds: ReviewerResult['packetId'][] = []
   let livePairCount = 0
   for (const shard of manifest.shards) {
     const packetShard = await readJson<PacketShard>(path.join(workspace, shard.path))
@@ -254,16 +303,25 @@ const run = async (): Promise<void> => {
         }
         livePairCount += 1
         liveBlindPacketIds.add(pair.blindPacket.id)
-        livePacketIds.push(pair.blindPacket.id, pair.comparisonPacket.id)
+        if (freshPairKeys.has(pair.pairKey)) {
+          freshPacketIds.push(pair.blindPacket.id, pair.comparisonPacket.id)
+        }
       })
   }
-  assertInterspersedCalibrationControls(manifest.batches, liveBlindPacketIds, calibrationBlindPacketIds)
+  const freshBlindPacketIds = new Set(reusable.freshEntries.map(entry => entry.blindPacketId))
+  const freshBatches = manifest.batches.map(batch => ({
+    ...batch,
+    packetIds: batch.packetIds.filter(
+      packetId => packetId === batch.calibrationControlPacketId || freshBlindPacketIds.has(packetId)
+    ),
+  }))
+  assertInterspersedCalibrationControls(freshBatches, freshBlindPacketIds, calibrationBlindPacketIds)
   const calibrationPacketIds = calibrationPairs.flatMap(pair => [
     pair.blindPacket.id,
     pair.comparisonPacket.id,
   ])
   const assignment = createReviewAssignment({
-    packetIds: [...livePacketIds, ...calibrationPacketIds],
+    packetIds: [...freshPacketIds, ...calibrationPacketIds],
     reviewer,
     execution: 'local',
     assignedAt: campaignTimes.assigned,
@@ -304,6 +362,39 @@ const run = async (): Promise<void> => {
     finding: 0,
     'cannot-verify': 0,
   }
+  const freshCalibration: ReviewCalibration = {
+    ...calibration,
+    evidence: createCalibrationEvidenceReceipt(assignment.id, safeIndex, calibrationResults),
+  }
+  const assignments = [...reusable.assignments, assignment].sort((left, right) =>
+    left.id.localeCompare(right.id)
+  )
+  const calibrations = [...reusable.calibrations, freshCalibration].sort((left, right) =>
+    (left.evidence?.assignmentId ?? assignment.id).localeCompare(
+      right.evidence?.assignmentId ?? assignment.id
+    )
+  )
+  const allCalibrationResults = [...reusable.calibrationResults, ...calibrationResults].sort(
+    (left, right) =>
+      left.assignmentId.localeCompare(right.assignmentId) || left.packetId.localeCompare(right.packetId)
+  )
+  const execution = createReviewCampaignExecution({
+    revision: manifest.revision,
+    campaignAt: arguments_.campaignAt,
+    reviewer,
+    reusedPairKeys: reusable.reusedEntries.map(entry => entry.pairKey),
+    freshPairKeys,
+    freshAssignmentId: assignment.id,
+    contributingAssignmentIds: assignments.map(value => value.id),
+    ...(reuseSource
+      ? {
+          reuseSource: {
+            directory: repositoryPath(reuseSource.directory),
+            manifestChecksum: checksumReviewRecord(reuseSource.manifest),
+          },
+        }
+      : {}),
+  })
   await writeCreateOnlyDirectory(output, async staging => {
     await Promise.all([
       mkdir(path.join(staging, 'blind-results'), { recursive: true }),
@@ -313,7 +404,8 @@ const run = async (): Promise<void> => {
     for (let shardIndex = 0; shardIndex < manifest.shards.length; shardIndex += 1) {
       const packetShard = await readJson<PacketShard>(path.join(workspace, manifest.shards[shardIndex].path))
       const pairs = packetShard.pairs.filter(pair => pair.countsTowardCoverage)
-      const blindResults = pairs.map(pair =>
+      const freshPairs = pairs.filter(pair => freshPairKeys.has(pair.pairKey))
+      const blindResults = freshPairs.map(pair =>
         createAdversarialBlindResult(pair, assignment.id, reviewer, campaignTimes.liveBlind)
       )
       processedBlindResults += blindResults.length
@@ -335,6 +427,14 @@ const run = async (): Promise<void> => {
       )
       const savedBlindByPacketId = new Map(savedBlindResults.results.map(result => [result.packetId, result]))
       const results = pairs.flatMap(pair => {
+        if (!freshPairKeys.has(pair.pairKey)) {
+          const blind = reusedResultsByPacketId.get(pair.blindPacket.id)
+          const comparison = reusedResultsByPacketId.get(pair.comparisonPacket.id)
+          if (!blind || !comparison) {
+            throw new Error(`Reusable review result is missing for ${pair.pairKey}`)
+          }
+          return [blind, comparison]
+        }
         const blind = savedBlindByPacketId.get(pair.blindPacket.id)
         if (!blind) throw new Error(`Saved blind result is missing for ${pair.blindPacket.id}`)
         return [
@@ -368,16 +468,18 @@ const run = async (): Promise<void> => {
         findingCount: results.reduce((total, result) => total + result.findings.length, 0),
       })
     }
-    if (processedBlindResults !== livePairCount) {
+    if (processedBlindResults !== reusable.freshEntries.length) {
       throw new Error(
-        `Adversarial review produced ${processedBlindResults}/${livePairCount} live blind results`
+        `Adversarial review produced ${processedBlindResults}/${reusable.freshEntries.length} ` +
+          'fresh live blind results'
       )
     }
     allFindings.sort((left, right) => left.id.localeCompare(right.id))
     await Promise.all([
-      writeFile(path.join(staging, 'assignment.json'), stableJson(assignment), 'utf8'),
-      writeFile(path.join(staging, 'calibration.json'), stableJson(calibration), 'utf8'),
-      writeFile(path.join(staging, 'calibration-results.json'), stableJson(calibrationResults), 'utf8'),
+      writeFile(path.join(staging, 'assignments.json'), stableJson(assignments), 'utf8'),
+      writeFile(path.join(staging, 'calibrations.json'), stableJson(calibrations), 'utf8'),
+      writeFile(path.join(staging, 'calibration-results.json'), stableJson(allCalibrationResults), 'utf8'),
+      writeFile(path.join(staging, 'execution.json'), stableJson(execution), 'utf8'),
       writeFile(path.join(staging, 'findings.json'), stableJson(allFindings), 'utf8'),
       writeFile(
         path.join(staging, 'results-index.json'),
@@ -385,10 +487,14 @@ const run = async (): Promise<void> => {
           schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
           revision: manifest.revision,
           reviewer,
-          assignmentId: assignment.id,
+          assignmentIds: assignments.map(value => value.id),
+          assignmentsPath: 'assignments.json',
+          calibrationsPath: 'calibrations.json',
           calibrationResultPath: 'calibration-results.json',
-          calibrationResultCount: calibrationResults.length,
-          calibrationResultsChecksum: checksumReviewRecord(calibrationResults),
+          calibrationResultCount: allCalibrationResults.length,
+          calibrationResultsChecksum: checksumReviewRecord(allCalibrationResults),
+          executionPath: 'execution.json',
+          executionChecksum: checksumReviewRecord(execution),
           resultShards,
           outcomeCounts,
         }),
@@ -397,14 +503,16 @@ const run = async (): Promise<void> => {
     ])
   })
   console.log(
-    `Adversarial review complete: ${livePairCount} pairs, ${outcomeCounts.pass} pass, ` +
+    `Adversarial review complete: ${livePairCount} pairs ` +
+      `(${reusable.reusedEntries.length} reused, ${reusable.freshEntries.length} fresh), ` +
+      `${outcomeCounts.pass} pass, ` +
       `${outcomeCounts.finding} finding, ${outcomeCounts['cannot-verify']} cannot-verify, ` +
       `${allFindings.length} findings`
   )
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  run().catch(error => {
+  runAdversarialReview().catch(error => {
     console.error(error)
     process.exitCode = 1
   })

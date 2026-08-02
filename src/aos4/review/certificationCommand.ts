@@ -37,15 +37,18 @@ import {
   type ReviewPacketSafeIndex,
 } from './packets'
 import { AOS4_GOLDEN_TRUTH_CASES } from './pathology'
+import { certificationExecutionProjection, reviewCampaignExecutionIssues } from './reviewReuse'
 import { assertCreateOnlyDirectoryComplete, loadReviewPacketPairs } from './reviewWorkspace'
 import {
   AOS4_REVIEW_SCHEMA_VERSION,
+  checksumReviewRecord,
   type CertificationInput,
   type FindingResolution,
   type FindingVerification,
   type ReviewAssignment,
   type ReviewCalibration,
   type ReviewFinding,
+  type ReviewCampaignExecution,
   type ReviewerResult,
 } from './records'
 
@@ -400,6 +403,9 @@ export const runCertificationCheck = async (
   const protocol = namedJson<ProtocolFile>('review-protocol', manifest.inputs, files)
   const rubric = namedJson<RubricFile>('review-rubric', manifest.inputs, files)
   const inventoryFile = namedJson<SourceInventory>('source-inventory', manifest.inputs, files)
+  const execution = manifest.inputs.some(input => input.name === 'review-execution')
+    ? namedJson<ReviewCampaignExecution>('review-execution', manifest.inputs, files)
+    : undefined
   const inventoryInput = currentInputs.find(value => value.name === 'source-inventory')
   if (!inventoryInput) throw new Error('Certification source inventory binding is missing')
   const inventoryBinding: CertificationInventoryBinding = {
@@ -439,6 +445,41 @@ export const runCertificationCheck = async (
     subject: issue.subject,
     message: issue.message,
   }))
+  const executionIssues: CertificationIssue[] = execution
+    ? [
+        ...reviewCampaignExecutionIssues(execution, index, ledger.assignments, ledger.results).map(
+          message => ({
+            code: 'invalid-review-index' as const,
+            path: 'review-execution',
+            message,
+            state: 'blocked' as const,
+            subject: 'review-execution',
+          })
+        ),
+        ...(checksumReviewRecord(certificationExecutionProjection(execution)) ===
+        checksumReviewRecord(manifest.execution)
+          ? []
+          : [
+              {
+                code: 'stale-input' as const,
+                path: 'manifest.execution',
+                message: 'Certification execution projection does not match its bound evidence',
+                state: 'stale' as const,
+                subject: 'manifest.execution',
+              },
+            ]),
+      ]
+    : manifest.execution
+      ? [
+          {
+            code: 'stale-input',
+            path: 'manifest.execution',
+            message: 'Certification execution projection has no bound evidence input',
+            state: 'stale',
+            subject: 'manifest.execution',
+          },
+        ]
+      : []
   const manifestIssues = verifyCertificationManifest({
     manifest,
     evaluation,
@@ -451,6 +492,7 @@ export const runCertificationCheck = async (
   const expectedCommittedSummary = {
     ...evaluation.summary,
     boundChecksums: manifest.inputs,
+    ...(execution ? { execution: certificationExecutionProjection(execution) } : {}),
   }
   const summaryIssues: CertificationIssue[] = []
   try {
@@ -479,6 +521,7 @@ export const runCertificationCheck = async (
     ...chronologyIssues,
     ...populationIssues,
     ...profileOnlyIssues,
+    ...executionIssues,
     ...manifestIssues,
     ...summaryIssues,
   ].sort(
@@ -492,6 +535,7 @@ export const runCertificationCheck = async (
     ...chronologyIssues,
     ...populationIssues,
     ...profileOnlyIssues,
+    ...executionIssues,
     ...manifestIssues,
     ...summaryIssues,
   ])
