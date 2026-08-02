@@ -46,7 +46,7 @@ describe('the provisional-verification watch', () => {
     )
     expect(checkedIn.watches.length).toBeGreaterThan(0)
     checkedIn.watches.forEach(watch => {
-      expect([1812, 1828]).toContain(watch.issueNumber)
+      expect([1812, 1828, 1850]).toContain(watch.issueNumber)
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)
     })
   })
