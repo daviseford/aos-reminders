@@ -12,6 +12,8 @@ export interface ITheme {
   modalSuccessClass: string
   noteBorder: string
   profileCardHeader: string
+  /** The gift-purchase table's surface, text, and divider treatment. */
+  purchaseTable: string
   reminderHeader: string
   reminderHr: string
   reminderTags: string

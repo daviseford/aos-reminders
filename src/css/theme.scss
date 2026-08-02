@@ -323,6 +323,23 @@ small,
     border-bottom: calc(var(--bs-border-width) * 2) solid var(--bs-table-border-color);
 }
 
+/*
+ * Bootstrap 5 paints every table cell from table-local CSS variables, so the inherited ITheme text
+ * class cannot theme this surface by itself. Keep the gift table on Paper in light mode and on the
+ * page's Midnight Slate in dark mode, with the Pale Gray divider used by other dark surfaces.
+ */
+.GiftPurchaseTable-Light {
+    --bs-table-color: #{$body-color};
+    --bs-table-bg: #{$white};
+    --bs-table-border-color: #{$table-border-color};
+}
+
+.GiftPurchaseTable-Dark {
+    --bs-table-color: #{$white};
+    --bs-table-bg: #{$themeDarkBlueSecondary};
+    --bs-table-border-color: #{$themeLightGray};
+}
+
 select.form-control {
     appearance: auto;
     /* 4.6 gave .form-control an explicit height; 5.x lets content size it, and a native select

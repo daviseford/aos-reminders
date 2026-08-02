@@ -16,6 +16,7 @@ const LightTheme: ITheme = {
   modalSuccessClass: `btn btn-success`,
   noteBorder: `NoteBorder`,
   profileCardHeader: `card-header bg-profileHeader text-dark`,
+  purchaseTable: `GiftPurchaseTable-Light`,
   reminderHeader: `bg-themeDarkBluePrimary`,
   reminderHr: `ReminderHr`,
   reminderTags: `ReminderTags-Light`,

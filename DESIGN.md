@@ -526,6 +526,9 @@ first render.
   drag it past the card and scroll the page sideways), inheriting theme background and text.
 - **Dropzone:** dashed 2px, `#eeeeee` on `#fafafa` in light and Pale Gray on black in dark, with a
   `#2196f3` border on focus and drag-over.
+- **Gift purchase table:** Paper with Ink text in light theme; Midnight Slate with Paper text and
+  Pale Gray dividers in dark theme. The quantity fields use the matching page surface so the table
+  never introduces a light island on the dark profile route.
 
 ### Loading and empty states
 

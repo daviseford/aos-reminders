@@ -4,6 +4,8 @@
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 import { act } from 'react'
 import { render, Simulate, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import DarkTheme from 'theme/dark'
+import LightTheme from 'theme/light'
 import { GiftedSubscriptionPlans } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -14,6 +16,16 @@ const stripe = vi.hoisted(() => ({
 const analytics = vi.hoisted(() => ({
   logBeginCheckout: vi.fn(),
   logClick: vi.fn(),
+}))
+
+const themeContext = vi.hoisted(() => ({
+  isDark: false,
+  theme: {
+    bgColor: 'bg-white',
+    genericButtonBlock: '',
+    purchaseTable: 'GiftPurchaseTable-Light',
+    text: 'text-dark',
+  },
 }))
 
 vi.mock('utils/analytics', () => analytics)
@@ -42,13 +54,7 @@ vi.mock('context/useSubscription', () => ({
 }))
 
 vi.mock('context/useTheme', () => ({
-  useTheme: () => ({
-    isDark: false,
-    theme: {
-      genericButtonBlock: '',
-      text: '',
-    },
-  }),
+  useTheme: () => themeContext,
 }))
 
 vi.mock('utils/hooks/useLogin', () => ({
@@ -64,6 +70,8 @@ describe('gift subscription checkout', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
+    themeContext.isDark = false
+    themeContext.theme = LightTheme
     stripe.redirectToCheckout.mockResolvedValue({})
     container = document.createElement('div')
     document.body.appendChild(container)
@@ -119,6 +127,25 @@ describe('gift subscription checkout', () => {
       mode: 'payment',
       successUrl:
         'https://aosreminders.com/profile?gifted=true&checkout_kind=gift_subscription&quantity=3&plan=1%20Month&checkout_session_id={CHECKOUT_SESSION_ID}',
+    })
+  })
+
+  it('uses dark-theme surfaces for the purchase table and quantity fields', async () => {
+    themeContext.isDark = true
+    themeContext.theme = DarkTheme
+
+    await act(async () => {
+      render(<GiftSubscriptions />, container)
+    })
+
+    const table = container.querySelector('table')
+    const quantities = Array.from(container.querySelectorAll<HTMLInputElement>('input[type="number"]'))
+
+    expect(table?.classList.contains('GiftPurchaseTable-Dark')).toBe(true)
+    expect(quantities).toHaveLength(GiftedSubscriptionPlans.length)
+    quantities.forEach(quantity => {
+      expect(quantity.classList.contains('bg-themeDarkBlueSecondary')).toBe(true)
+      expect(quantity.classList.contains('text-white')).toBe(true)
     })
   })
 })

@@ -138,7 +138,7 @@ const PurchaseTable = () => {
   return (
     <div className="row d-flex justify-content-center">
       <div className={COL_SIZE}>
-        <table className={`table ${theme.text} ${isMobile ? 'table-sm' : ''}`}>
+        <table className={`table ${theme.purchaseTable} ${isMobile ? 'table-sm' : ''}`}>
           <thead>
             <tr>
               <th scope="col">Plan</th>
@@ -186,6 +186,7 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
   const origin = `${supportPlan.title}-GiftedSubscription`
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin })
+  const { theme } = useTheme()
   const stripe = useStripe()
   const { isMobile } = useWindowSize()
   const [quantity, setQuantity] = useState(1)
@@ -245,7 +246,7 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       <td>
         <input
           style={{ maxWidth: '60px' }}
-          className="form-control"
+          className={`form-control ${theme.bgColor} ${theme.text}`}
           type="number"
           min={1}
           max={MAX_GIFT_QUANTITY}
