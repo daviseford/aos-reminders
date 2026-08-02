@@ -206,6 +206,10 @@ const isContainedPath = (root: string, target: string): boolean => {
   )
 }
 
+// Returns the canonical form of `target`. `target` must be expressed against the same form of
+// `root` that the caller passed in: this function canonicalizes, so feeding its own result back in
+// as a root while keeping a lexical target compares two spellings of one directory and rejects it.
+// That is not hypothetical — on macOS os.tmpdir() sits under /var, a symlink to /private/var.
 const ensureDirectoryInside = async (root: string, target: string): Promise<string> => {
   const absoluteRoot = path.resolve(root)
   const absoluteTarget = path.resolve(target)
@@ -214,7 +218,7 @@ const ensureDirectoryInside = async (root: string, target: string): Promise<stri
   }
   const canonicalRoot = await realpath(absoluteRoot)
   const relative = path.relative(absoluteRoot, absoluteTarget)
-  let cursor = absoluteRoot
+  let cursor = canonicalRoot
   for (const segment of relative.split(path.sep).filter(Boolean)) {
     cursor = path.join(cursor, segment)
     if (!(await pathExists(cursor))) await mkdir(cursor)
@@ -228,7 +232,7 @@ const ensureDirectoryInside = async (root: string, target: string): Promise<stri
       throw new Error(`Resolved output path escapes ${canonicalRoot}: ${cursor}`)
     }
   }
-  return realpath(absoluteTarget)
+  return realpath(cursor)
 }
 
 interface WriteListbotCorpusOptions {
@@ -257,8 +261,11 @@ export const writeListbotCorpus = async (options: WriteListbotCorpusOptions): Pr
   }
 
   const canonicalOutputRoot = await ensureDirectoryInside(options.workspaceRoot, outputRoot)
-  const outputParent = await ensureDirectoryInside(canonicalOutputRoot, path.dirname(output))
-  const safeOutput = path.join(outputParent, path.basename(output))
+  // Re-express the output against the canonical root before descending again, so both arguments
+  // share one spelling. The lexical relative path is already validated as non-escaping above.
+  const canonicalOutput = path.join(canonicalOutputRoot, lexicalRelative)
+  const outputParent = await ensureDirectoryInside(canonicalOutputRoot, path.dirname(canonicalOutput))
+  const safeOutput = path.join(outputParent, path.basename(canonicalOutput))
   const outputExists = await pathExists(safeOutput)
   if (outputExists) {
     const stats = await lstat(safeOutput)

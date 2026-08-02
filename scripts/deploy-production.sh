@@ -180,16 +180,28 @@ release_lock() {
 }
 trap release_lock EXIT
 
-declare -A current_immutable_objects=()
+# An indexed array rather than an associative one: macOS ships bash 3.2, so `declare -A` would
+# break the manual deploy in upload.sh. The membership scan below is linear over a few hundred
+# build artifacts, which costs nothing next to the AWS calls it guards.
+current_immutable_objects=()
 while IFS= read -r -d '' local_asset; do
   relative_asset="${local_asset#"${SITE_BUILD_DIR%/}/"}"
-  current_immutable_objects["${SITE_PREFIX}${relative_asset}"]=1
+  current_immutable_objects+=("${SITE_PREFIX}${relative_asset}")
 done < <(find "${SITE_BUILD_DIR}/assets" -type f -print0)
 [[ ${#current_immutable_objects[@]} -gt 0 ]] || fail "${SITE_BUILD_DIR}/assets contains no files"
 
-for dependency in "${extras[@]}" "${workbox_dependencies[@]}"; do
-  current_immutable_objects["${SITE_PREFIX}$(basename "$dependency")"]=1
+for dependency in "${extras[@]}" ${workbox_dependencies[@]+"${workbox_dependencies[@]}"}; do
+  current_immutable_objects+=("${SITE_PREFIX}$(basename "$dependency")")
 done
+
+is_current_immutable_object() {
+  local candidate="$1"
+  local known
+  for known in "${current_immutable_objects[@]}"; do
+    [[ "$known" == "$candidate" ]] && return 0
+  done
+  return 1
+}
 
 # CloudFront only compresses responses up to ~10 MB, so any script above the threshold ships
 # uncompressed to every visitor unless it is stored gzipped with an explicit Content-Encoding.
@@ -222,13 +234,13 @@ for oversized_script in ${oversized_scripts[@]+"${oversized_scripts[@]}"}; do
   rm -f "$compressed_script"
 done
 
-for dependency in "${extras[@]}" "${workbox_dependencies[@]}"; do
+for dependency in "${extras[@]}" ${workbox_dependencies[@]+"${workbox_dependencies[@]}"}; do
   aws s3 cp "$dependency" "${SITE_S3}/$(basename "$dependency")" \
     --cache-control "$IMMUTABLE" \
     --content-type 'text/javascript; charset=utf-8'
 done
 
-for immutable_key in "${!current_immutable_objects[@]}"; do
+for immutable_key in "${current_immutable_objects[@]}"; do
   aws s3api put-object-tagging \
     --bucket "$SITE_BUCKET" \
     --key "$immutable_key" \
@@ -287,7 +299,7 @@ while IFS= read -r remote_immutable; do
       ;;
     *) continue ;;
   esac
-  [[ -n "${current_immutable_objects[$remote_immutable]:-}" ]] && continue
+  is_current_immutable_object "$remote_immutable" && continue
 
   retire_tag=$(aws s3api get-object-tagging \
     --bucket "$SITE_BUCKET" \
