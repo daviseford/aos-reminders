@@ -150,8 +150,19 @@ if [[ "$1 $2" == "cloudfront get-distribution-config" ]]; then
 fi
 
 if [[ "$1 $2" == "s3api head-object" ]]; then
+  if [[ "$*" == *"CacheControl"* ]]; then
+    printf '%s\\t%s\\n' 'public, max-age=31536000, immutable' 'text/javascript; charset=utf-8'
+    exit 0
+  fi
   printf '%s\\t%s\\t%s\\n' '"held-etag"' 'held-owner' '2026-08-01T00:00:00+00:00'
   exit 0
+fi
+
+# Real S3 refuses an in-place copy that changes nothing but tags; only the REPLACE metadata
+# directive makes a self-copy legal. Enforce it so the script cannot regress to COPY.
+if [[ "$1 $2" == "s3api copy-object" && "$*" == *"--metadata-directive COPY"* ]]; then
+  echo 'An error occurred (InvalidRequest) when calling the CopyObject operation: illegal self-copy without metadata change' >&2
+  exit 254
 fi
 
 if [[ "$1 $2" == "s3api list-objects-v2" ]]; then
@@ -193,7 +204,9 @@ echo '{}'
         AWS_LOG: bashPath(logPath),
         AWS_REMOTE_ASSET_KEYS: 'assets/current-123.js\tassets/newly-superseded.js\tassets/already-retired.js',
         AWS_REMOTE_EXTRAS_KEYS: 'sw-extras-abc123.js\tsw-extras-old.js',
-        AWS_REMOTE_WORKBOX_KEYS: 'workbox-abc123.js\tworkbox-old.js\tworkbox-already-retired.js',
+        // A retirement-eligible key deliberately sits last: an unterminated final line from the
+        // key listing must still be processed, or the last object silently escapes retirement.
+        AWS_REMOTE_WORKBOX_KEYS: 'workbox-abc123.js\tworkbox-already-retired.js\tworkbox-old.js',
         CF_DIST_ID: 'distribution-id',
         DEPLOY_OWNER: 'deployment-test',
         SITE_BUILD_DIR: bashPath(buildDirectory),
@@ -324,6 +337,13 @@ echo '{}'
     expect(copiesFor('workbox-old.js')).toHaveLength(1)
     expect(copiesFor('assets/already-retired.js')).toHaveLength(0)
     expect(copiesFor('workbox-already-retired.js')).toHaveLength(0)
+    log
+      .filter(line => line.startsWith('s3api copy-object '))
+      .forEach(line => {
+        expect(line).toContain('--metadata-directive REPLACE')
+        expect(line).toContain('public, max-age=31536000, immutable')
+        expect(line).toContain('text/javascript; charset=utf-8')
+      })
   })
 
   it('force-copies unhashed public files with the moderate cache header', () => {
