@@ -217,12 +217,18 @@ const HomeContent = () => {
 
   // The faction's Armies of Renown, offered as the top-level choice under the faction selector.
   // Picking one replaces the faction's regular rules, so switching drops explicit selections the
-  // new army no longer offers (the established sub-faction switch behavior).
+  // new army no longer offers (the established sub-faction switch behavior). Legends armies
+  // (the White Dwarf Armies of Renown) stay offered under their own group header, like every
+  // other dropdown's overlay content; picking one derives the document's Legends flag.
   const armiesOfRenown = useMemo(
     () =>
       builder.options
-        .filter(option => option.groupType === 'army-of-renown' && !option.overlay)
-        .map(option => ({ label: option.name, value: option.id })),
+        .filter(option => option.groupType === 'army-of-renown')
+        .map(option => ({
+          label: option.name,
+          value: option.id,
+          ...(option.overlay ? { overlay: option.overlay } : {}),
+        })),
     [builder]
   )
   const armyOfRenownId =
