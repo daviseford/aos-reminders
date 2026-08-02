@@ -169,13 +169,7 @@ describe('certification verdict reuse', () => {
   })
 
   it('compacts incremental evidence before overlay ancestry can grow unbounded', () => {
-    expect([0, 1, 2, 3, 4].map(shouldCompactCertificationOverlay)).toEqual([
-      false,
-      false,
-      false,
-      true,
-      true,
-    ])
+    expect([0, 1, 2, 3, 4].map(shouldCompactCertificationOverlay)).toEqual([false, false, false, true, true])
   })
 
   it('reuses exact verdicts from a compact certification receipt without loading result bodies', () => {
@@ -220,6 +214,28 @@ describe('certification verdict reuse', () => {
     expect(
       partition.results.find(value => value.packetId === current.entries[0].blindPacketId)?.reviewedAt
     ).toBe('2026-08-02T12:01:00.000Z')
+  })
+
+  it('makes every live pair fresh when the calibration controls change', () => {
+    const one = entry('one')
+    const two = entry('two')
+    const control: ReviewPacketIndexEntry = {
+      ...entry('control'),
+      calibration: true,
+      calibrationKind: 'defect',
+      countsTowardCoverage: false,
+      projectsToRuntime: false,
+    }
+    const partition = partitionReusableReviewEvidence(
+      index([one, two, control]),
+      evidenceFor([one, two]),
+      reviewer()
+    )
+
+    expect(partition.reusedEntries).toEqual([])
+    expect(partition.freshEntries.map(value => value.pairKey)).toEqual([one.pairKey, two.pairKey])
+    expect(partition.assignments).toEqual([])
+    expect(partition.calibrations).toEqual([])
   })
 
   it.each([
@@ -398,6 +414,19 @@ describe('certification verdict reuse', () => {
         prior.results
       )
     ).toContain('execution reused and fresh pair sets do not partition the current live population')
+  })
+
+  it('reports malformed execution metadata instead of throwing', () => {
+    const prior = evidenceFor()
+
+    expect(
+      reviewCampaignExecutionIssues(
+        { schemaVersion: 1 } as never,
+        prior.index,
+        prior.assignments,
+        prior.results
+      )
+    ).toEqual(['execution metadata does not match the current review engine and revision'])
   })
 
   it('rejects a reuse source whose internal file differs from its manifest binding', async () => {

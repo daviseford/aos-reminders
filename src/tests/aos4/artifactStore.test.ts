@@ -238,7 +238,27 @@ describe('AoS 4 private artifact store', () => {
     ).rejects.toMatchObject({ code: 'remote-command-failed' })
     await expect(
       storeFor('An error occurred (AccessDenied) when calling the HeadObject operation').inspect(checksum)
-    ).rejects.toMatchObject({ code: 'remote-command-failed' })
+    ).rejects.toMatchObject({
+      code: 'remote-command-failed',
+      message: expect.stringContaining('AccessDenied'),
+    })
+    await expect(
+      storeFor('An error occurred (AccessDenied) when calling the PutObject operation').create(
+        checksum,
+        bytes('payload')
+      )
+    ).rejects.toMatchObject({
+      code: 'remote-command-failed',
+      message: expect.stringContaining('AccessDenied'),
+    })
+
+    const repeatedConflict = storeFor(
+      'An error occurred (ConditionalRequestConflict) when calling the PutObject operation'
+    )
+    await expect(repeatedConflict.create(checksum, bytes('payload'))).rejects.toMatchObject({
+      code: 'remote-conflict',
+      message: expect.stringContaining('ConditionalRequestConflict'),
+    })
   })
 
   it.each([

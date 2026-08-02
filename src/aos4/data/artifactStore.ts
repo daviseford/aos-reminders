@@ -156,6 +156,23 @@ const conditionalExists = (result: AwsCliResult): boolean =>
 const conditionalConflict = (result: AwsCliResult): boolean =>
   /(?:ConditionalRequestConflict|status code:\s*409|\(409\))/i.test(result.stderr)
 
+const awsErrorCode = (result: AwsCliResult): string | undefined => {
+  const match = /An error occurred \(([A-Za-z0-9._-]{1,64})\)/i.exec(result.stderr)
+  return match?.[1]
+}
+
+const remoteCommandError = (
+  operation: string,
+  result: AwsCliResult,
+  code: ArtifactStoreErrorCode = 'remote-command-failed'
+): ArtifactStoreError => {
+  const detail = awsErrorCode(result)
+  return new ArtifactStoreError(
+    code,
+    `Private artifact store ${operation} failed${detail ? ` (${detail})` : ''}`
+  )
+}
+
 const assertRemoteMetadata = (
   checksum: string,
   metadata: Record<string, unknown>,
@@ -224,7 +241,7 @@ export class AwsS3ArtifactStore implements ArtifactStore {
     ])
     if (result.exitCode !== 0) {
       if (missingObject(result)) return undefined
-      throw new ArtifactStoreError('remote-command-failed', 'Private artifact store metadata request failed')
+      throw remoteCommandError('metadata request', result)
     }
     return assertRemoteMetadata(checksum, parsedObject(result.stdout, 'metadata request'), 'metadata request')
   }
@@ -245,7 +262,7 @@ export class AwsS3ArtifactStore implements ArtifactStore {
       ])
       if (result.exitCode !== 0) {
         if (missingObject(result)) return undefined
-        throw new ArtifactStoreError('remote-command-failed', 'Private artifact store download failed')
+        throw remoteCommandError('download', result)
       }
       const metadata = assertRemoteMetadata(checksum, parsedObject(result.stdout, 'download'), 'download')
       const value = new Uint8Array(await readFile(destination))
@@ -287,7 +304,8 @@ export class AwsS3ArtifactStore implements ArtifactStore {
       if (conditionalConflict(result)) result = await this.runner(arguments_)
       if (result.exitCode === 0) return 'created'
       if (conditionalExists(result)) return 'exists'
-      throw new ArtifactStoreError('remote-conflict', 'Private artifact store upload failed')
+      if (conditionalConflict(result)) throw remoteCommandError('upload', result, 'remote-conflict')
+      throw remoteCommandError('upload', result)
     } finally {
       await rm(directory, { recursive: true, force: true })
     }

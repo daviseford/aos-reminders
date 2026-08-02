@@ -664,6 +664,18 @@ describe('AoS 4 certification evaluation', () => {
     expect(evaluateCertification(duplicate, { prevalidatedPassingLedger: true }).issues).toEqual(
       expect.arrayContaining([expect.objectContaining({ code: 'missing-comparison-result' })])
     )
+
+    const missingCalibration = passingInput()
+    missingCalibration.ledger.calibrations = []
+    expect(evaluateCertification(missingCalibration, { prevalidatedPassingLedger: true }).issues).toEqual(
+      expect.arrayContaining([expect.objectContaining({ code: 'missing-calibration' })])
+    )
+
+    const failedCalibration = passingInput()
+    failedCalibration.ledger.calibrations[0].passed = false
+    expect(evaluateCertification(failedCalibration, { prevalidatedPassingLedger: true }).issues).toEqual(
+      expect.arrayContaining([expect.objectContaining({ code: 'failed-calibration' })])
+    )
   })
 
   it('requires blind interpretation to precede comparison for the same reviewer', () => {

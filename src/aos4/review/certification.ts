@@ -278,6 +278,16 @@ const calibrationControlEntries = (index: ReviewPacketSafeIndex): ReviewPacketIn
     .filter(entry => entry.calibration)
     .sort((left, right) => compareText(left.pairKey, right.pairKey))
 
+export const calibrationControlSetChecksum = (index: ReviewPacketSafeIndex): string =>
+  checksumReviewRecord(
+    calibrationControlEntries(index).map(entry => ({
+      pairKey: entry.pairKey,
+      calibrationKind: entry.calibrationKind,
+      blindPacketId: entry.blindPacketId,
+      comparisonPacketId: entry.comparisonPacketId,
+    }))
+  )
+
 export const createCalibrationEvidenceReceipt = (
   assignmentId: ReviewAssignment['id'],
   index: ReviewPacketSafeIndex,
@@ -292,14 +302,7 @@ export const createCalibrationEvidenceReceipt = (
     assignmentId,
     blindResultsChecksum: checksumReviewRecord(blindResults),
     comparisonResultsChecksum: checksumReviewRecord(comparisonResults),
-    controlPairKeysChecksum: checksumReviewRecord(
-      entries.map(entry => ({
-        pairKey: entry.pairKey,
-        calibrationKind: entry.calibrationKind,
-        blindPacketId: entry.blindPacketId,
-        comparisonPacketId: entry.comparisonPacketId,
-      }))
-    ),
+    controlPairKeysChecksum: calibrationControlSetChecksum(index),
   }
   return { ...receipt, receiptChecksum: checksumReviewRecord(receipt) }
 }
@@ -853,10 +856,8 @@ const resultsByPacket = (ledger: ReviewLedger): Map<ReviewPacketId, ReviewerResu
   return results
 }
 
-const hasExactPassingLedgerCorrespondence = (
-  entries: ReviewPacketIndexEntry[],
-  ledger: ReviewLedger
-): boolean => {
+const hasExactPassingLedgerCorrespondence = (index: ReviewPacketSafeIndex, ledger: ReviewLedger): boolean => {
+  const entries = index.entries.filter(entry => entry.countsTowardCoverage && !entry.calibration)
   if (
     ledger.findings.length !== 0 ||
     ledger.resolutions.length !== 0 ||
@@ -885,10 +886,22 @@ const hasExactPassingLedgerCorrespondence = (
     if (blindResults?.length !== 1 || comparisonResults?.length !== 1) return false
     const blind = blindResults[0]
     const comparison = comparisonResults[0]
+    const assignment = assignments.get(blind.assignmentId)
+    const calibration = assignment
+      ? reviewCalibrationForAssignment(
+          ledger.calibrations,
+          assignment.id,
+          reviewerConfigurationId(assignment.reviewer),
+          index.rubricVersion,
+          ledger.assignments.length
+        )
+      : undefined
     if (
       !valid(blind, entry.blindPacketChecksum) ||
       !valid(comparison, entry.comparisonPacketChecksum) ||
-      (entry.blindDerivationRequired && blind.blindExpectedInterpretation === undefined)
+      (entry.blindDerivationRequired && blind.blindExpectedInterpretation === undefined) ||
+      calibration?.passed !== true ||
+      new Date(calibration.calibratedAt) > new Date(blind.reviewedAt)
     ) {
       return false
     }
@@ -1183,8 +1196,7 @@ export const evaluateCertification = (
   const inventory = input.inventory
   const liveEntries = index.entries.filter(entry => entry.countsTowardCoverage && !entry.calibration)
   const prevalidatedPassingLedger =
-    options.prevalidatedPassingLedger === true &&
-    hasExactPassingLedgerCorrespondence(liveEntries, ledger)
+    options.prevalidatedPassingLedger === true && hasExactPassingLedgerCorrespondence(index, ledger)
   const inventoryEntries = Array.isArray(inventory?.entries) ? inventory.entries : []
   const assignments = assignmentById(ledger)
   const resultIndex = prevalidatedPassingLedger ? new Map() : resultsByPacket(ledger)

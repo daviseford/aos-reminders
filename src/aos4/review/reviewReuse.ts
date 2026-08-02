@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import type { ReviewPacketIndexEntry, ReviewPacketSafeIndex } from './packets'
 import {
+  calibrationControlSetChecksum,
   calibrationEvidenceIssues,
   certificationChronologyIssues,
   checksumCertificationText,
@@ -215,6 +216,7 @@ export const reviewCampaignExecutionIssues = (
     execution.workers.peakChildProcessCount > execution.workers.requestedJobs
   ) {
     issues.push('execution metadata does not match the current review engine and revision')
+    return issues
   }
   if (
     execution.pairSets.total !== livePairKeys.length ||
@@ -741,6 +743,7 @@ export const partitionReusableReviewEvidence = (
   const compatibleIndex =
     prior.index.protocolVersion === currentIndex.protocolVersion &&
     prior.index.rubricVersion === currentIndex.rubricVersion &&
+    calibrationControlSetChecksum(prior.index) === calibrationControlSetChecksum(currentIndex) &&
     currentReviewer.model === AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION
   if (prior.reuseIndex) {
     const indexedEntries = new Map(prior.reuseIndex.entries.map(entry => [entry.pairKey, entry]))
