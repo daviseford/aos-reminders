@@ -95,7 +95,6 @@ extras=("${SITE_BUILD_DIR}"/sw-extras-*.js)
 [[ ${#extras[@]} -eq 1 ]] ||
   fail "expected exactly one content-hashed sw-extras-*.js dependency, found ${#extras[@]}"
 workbox_dependencies=("${SITE_BUILD_DIR}"/workbox-*.js)
-registration_dependencies=("${SITE_BUILD_DIR}"/registerSW.js)
 
 lock_body=$(mktemp)
 lock_error=$(mktemp)
@@ -214,19 +213,13 @@ aws s3 cp "$SITE_BUILD_DIR" "$SITE_S3" \
   --exclude '*build_log.txt' --exclude '*.idea*' --exclude '*.sh' \
   --exclude '*.git*' --exclude '*.DS_Store' \
   --exclude 'assets/*' --exclude 'index.html' --exclude 'site.webmanifest' \
-  --exclude 'service-worker.js' --exclude 'workbox-*.js' --exclude 'registerSW.js' \
+  --exclude 'service-worker.js' --exclude 'workbox-*.js' \
   --exclude 'sw-extras-*.js' \
   --cache-control "$MODERATE"
 
 aws s3 cp "${SITE_BUILD_DIR}/site.webmanifest" "${SITE_S3}/site.webmanifest" \
   --cache-control "$REVALIDATE" \
   --content-type 'application/manifest+json'
-
-for dependency in "${registration_dependencies[@]}"; do
-  aws s3 cp "$dependency" "${SITE_S3}/$(basename "$dependency")" \
-    --cache-control "$REVALIDATE" \
-    --content-type 'text/javascript; charset=utf-8'
-done
 
 # The app entry point is mutable and lands only after everything it can reference.
 aws s3 cp "${SITE_BUILD_DIR}/index.html" "${SITE_S3}/index.html" \
