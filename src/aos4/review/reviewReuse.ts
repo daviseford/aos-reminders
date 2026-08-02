@@ -73,6 +73,7 @@ export interface CertificationReuseIndex {
   rubricVersion: string
   reviewEngineVersion: string
   reviewIndexChecksum: string
+  calibrationControlSetChecksum: string
   assignments: ReviewAssignment[]
   calibrations: ReviewCalibration[]
   calibrationResults: ReviewerResult[]
@@ -301,6 +302,7 @@ const compactReuseIndexIssues = (
     value.rubricVersion !== manifest.protocol.rubricVersion ||
     value.reviewEngineVersion !== AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION ||
     !/^[0-9a-f]{64}$/.test(value.reviewIndexChecksum) ||
+    !/^[0-9a-f]{64}$/.test(value.calibrationControlSetChecksum) ||
     !Array.isArray(value.assignments) ||
     !Array.isArray(value.calibrations) ||
     !Array.isArray(value.calibrationResults) ||
@@ -672,6 +674,7 @@ export const createCertificationReuseIndex = (
     rubricVersion: index.rubricVersion,
     reviewEngineVersion: AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION,
     reviewIndexChecksum,
+    calibrationControlSetChecksum: calibrationControlSetChecksum(index),
     assignments,
     calibrations: ledger.calibrations.filter(calibration =>
       calibration.evidence ? retainedAssignmentIds.has(calibration.evidence.assignmentId) : false
@@ -705,7 +708,10 @@ export const createIncrementalCertificationReuseIndex = (
     calibration.evidence ? freshAssignmentIds.has(calibration.evidence.assignmentId) : false
   )
   const local = createCertificationReuseIndex(
-    { ...index, entries: freshEntries },
+    {
+      ...index,
+      entries: index.entries.filter(entry => entry.calibration || freshPairKeys.has(entry.pairKey)),
+    },
     {
       schemaVersion: ledger.schemaVersion,
       assignments: freshAssignments,
@@ -743,7 +749,8 @@ export const partitionReusableReviewEvidence = (
   const compatibleIndex =
     prior.index.protocolVersion === currentIndex.protocolVersion &&
     prior.index.rubricVersion === currentIndex.rubricVersion &&
-    calibrationControlSetChecksum(prior.index) === calibrationControlSetChecksum(currentIndex) &&
+    (prior.reuseIndex?.calibrationControlSetChecksum ?? calibrationControlSetChecksum(prior.index)) ===
+      calibrationControlSetChecksum(currentIndex) &&
     currentReviewer.model === AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION
   if (prior.reuseIndex) {
     const indexedEntries = new Map(prior.reuseIndex.entries.map(entry => [entry.pairKey, entry]))

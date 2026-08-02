@@ -200,6 +200,41 @@ describe('certification verdict reuse', () => {
     expect(partitionReusableReviewEvidence(index(), prior, reviewer()).freshEntries).toHaveLength(1)
   })
 
+  it('retains calibration compatibility when compact evidence omits packet-index entries', () => {
+    const live = entry('live')
+    const control: ReviewPacketIndexEntry = {
+      ...entry('control'),
+      calibration: true,
+      calibrationKind: 'defect',
+      countsTowardCoverage: false,
+      projectsToRuntime: false,
+    }
+    const current = index([live, control])
+    const prior = evidenceFor([live])
+    prior.index = current
+    prior.reuseIndex = createCertificationReuseIndex(
+      current,
+      {
+        schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+        assignments: prior.assignments,
+        calibrations: prior.calibrations,
+        results: prior.results,
+        findings: [],
+        resolutions: [],
+        verifications: [],
+      },
+      prior.calibrationResults,
+      { status: 'pass', revision: current.revision } as never
+    )
+    prior.index = { ...current, entries: [] }
+    prior.results = []
+
+    const partition = partitionReusableReviewEvidence(current, prior, reviewer())
+
+    expect(partition.reusedEntries.map(value => value.pairKey)).toEqual([live.pairKey])
+    expect(partition.freshEntries).toEqual([])
+  })
+
   it('reuses an exact passing pair without rewriting its evidence', () => {
     const current = index()
     const prior = evidenceFor()
