@@ -184,12 +184,27 @@ export interface CorpusUniversalFactionContent {
  * the faction-page ability-type group that is the army's root; generation types that root
  * `army-of-renown`, rewires its subgroups behind it, and emits `excludes` edges applying the
  * replacement to the faction's regular content groups.
+ *
+ * Every entry must target a group the source page itself classifies as an Army of Renown (the
+ * decoded record's `armyOfRenown` marker), and every source-classified group must have a reviewed
+ * entry — generation fails closed in both directions, so a new Army of Renown appearing on a
+ * faction page can never silently decode as a generic content group again (issue #1844).
  */
 export interface CorpusArmyOfRenown {
   /** Source record of the faction-page ability-type group that is the Army of Renown root. */
   sourceRecordId: SourceRecordId
   reason: string
   officialSourceRecordIds: SourceRecordId[]
+  /**
+   * Evidence basis for the classification. `official` (the default) requires at least one cited
+   * official source record naming the army. `secondary-provisional` classifies on the accepted
+   * secondary transcription's own explicit marking under the three-tier source policy
+   * (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844): battletome and
+   * White Dwarf Armies of Renown whose official naming is not in any free accepted document.
+   * Cited official records remain corroborating evidence; the entry is verified or upgraded when
+   * an official document naming the army is accepted.
+   */
+  evidenceTier?: 'official' | 'secondary-provisional'
 }
 
 export interface CorpusReview {
@@ -276,6 +291,7 @@ export type CorpusGenerationDiagnosticCode =
   | 'identity-not-found'
   | 'invalid-review'
   | 'missing-official-source-record'
+  | 'unclassified-army-of-renown'
   | 'unreviewed-normalization-diagnostic'
   | 'unreviewed-source-diagnostic'
 
@@ -1657,6 +1673,11 @@ export const buildAos4Corpus = (
       id,
     ])
   }
+  const sourceMarkedArmyOfRenownRecordIds = new Set(
+    dataset.factionAbilityTypes
+      .filter(record => record.armyOfRenown)
+      .map(record => record.meta.sourceRecordId)
+  )
   dataset.factionAbilityTypes.forEach(record => {
     const id = lookup('content-group', recordPublisher(record.meta), recordAlias(record.meta)) as
       | CanonicalId<'content-group'>
@@ -1664,6 +1685,17 @@ export const buildAos4Corpus = (
     if (!id) return
     typeGroupByKey.set(`${record.factionId}:${record.id}`, id)
     const armyOfRenown = armiesOfRenownBySourceRecordId.get(record.meta.sourceRecordId)
+    if (record.armyOfRenown && !armyOfRenown) {
+      // The source page classifies this group as an Army of Renown. Without a reviewed entry it
+      // would decode as a generic content group offering its replacement rules piecemeal — the
+      // #1844 bug class — so generation stops until the classification is reviewed.
+      diagnostics.push({
+        code: 'unclassified-army-of-renown',
+        severity: 'error',
+        subject: record.meta.sourceRecordId,
+        message: `Source-classified Army of Renown "${record.name.trim()}" has no reviewed armiesOfRenown entry`,
+      })
+    }
     if (armyOfRenown) matchedArmyOfRenownSourceRecordIds.add(armyOfRenown.sourceRecordId)
     const resolvedGroupType = armyOfRenown ? 'army-of-renown' : groupType(record.name)
     entities.push({
@@ -1696,17 +1728,29 @@ export const buildAos4Corpus = (
     trackReplaceable(record.factionId, id, resolvedGroupType)
   })
   ;(review.armiesOfRenown ?? []).forEach(entry => {
+    const requiresOfficialEvidence = (entry.evidenceTier ?? 'official') === 'official'
     if (
       !matchedArmyOfRenownSourceRecordIds.has(entry.sourceRecordId) ||
       !entry.reason.trim() ||
-      entry.officialSourceRecordIds.length === 0
+      (requiresOfficialEvidence && entry.officialSourceRecordIds.length === 0)
     ) {
       diagnostics.push({
         code: 'invalid-review',
         severity: 'error',
         subject: entry.sourceRecordId,
         message:
-          'Army of Renown classification must target an existing faction ability-type group and cite official evidence',
+          'Army of Renown classification must target an existing faction ability-type group and cite official evidence (or declare the secondary-provisional tier)',
+      })
+    }
+    if (!sourceMarkedArmyOfRenownRecordIds.has(entry.sourceRecordId)) {
+      // Both tiers require the source page's own classification: an entry targeting an unmarked
+      // group is a typo or a stale pin, never a valid classification.
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: entry.sourceRecordId,
+        message:
+          'Army of Renown classification targets a group the source page does not classify as an Army of Renown',
       })
     }
   })
