@@ -165,6 +165,13 @@ if [[ "$1 $2" == "s3api list-objects-v2" ]]; then
   exit 0
 fi
 
+# The real CLI validates local cp sources before any request; a phantom build artifact in the
+# script must fail here exactly as it would in production.
+if [[ "$1 $2" == "s3 cp" && "$3" != s3://* && ! -e "$3" ]]; then
+  echo "The user-provided path $3 does not exist." >&2
+  exit 255
+fi
+
 if [[ "$1 $2" == "s3api get-object-tagging" ]]; then
   if [[ "$*" == *"assets/already-retired.js"* || "$*" == *"workbox-already-retired.js"* ]]; then
     echo 'true'
