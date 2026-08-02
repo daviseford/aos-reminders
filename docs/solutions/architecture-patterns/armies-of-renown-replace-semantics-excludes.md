@@ -152,10 +152,43 @@ Inside `runPass`, suppression makes the target unreachable in every direction (r
 
 Deterministic regeneration (`yarn data:aos4:generate:candidate` byte-for-byte), full adversarial campaign 39,981 pairs / 79,962 pass / 0 findings / 0 cannot-verify, beta gate green, 1,219 tests passing, browser-verified against the live AoS 3 reference app run from git history. Shipped via issue #1834 / PR #1835 (open at time of writing), fixing #1833.
 
+## Extension: source-marked classification and the secondary-provisional tier (#1844, corpus-2026-08-01f)
+
+The classification scaled from the 12 seasonal armies to all 60 source-classified Armies of
+Renown. Two durable discoveries:
+
+- **The secondary source classifies AoRs machine-readably.** Every current battletome/seasonal
+  AoR section on a Wahapedia faction page carries `<div class="h2_ArmyOfRenown">Army of
+  Renown</div>` immediately before its `<h2>`; the White Dwarf (Legends) sections instead open
+  with the replace-rules sentence naming the army an Army of Renown (some but not all carry the
+  `#Armies-of-Renown` anchor link — match the text, not the link). The decoder captures this as a
+  derived `armyOfRenown` flag on the faction-group record, deliberately OUTSIDE the hashed record
+  value (`recordChecksum = sha256(JSON.stringify(value))` in wahapediaHtml/parse.ts), so record
+  identity never churns.
+- **Classification is now fail-closed in both directions** (corpus.ts): a source-marked group
+  without a reviewed `armiesOfRenown` entry is an `unclassified-army-of-renown` error — a new
+  battletome AoR appearing on a faction page stops generation until reviewed, so the "bogus
+  title-cased card offering piecemeal picks" bug class (#1844) cannot recur silently — and an
+  entry targeting an unmarked group is an `invalid-review` error (typo/stale-pin guard).
+- **`CorpusArmyOfRenown.evidenceTier`**: `official` (default, requires cited official naming
+  records) or `secondary-provisional` (classifies on the source's own marking under the
+  three-tier policy when no free accepted official document names the army; cited official
+  records remain corroboration). The Rules Updates FAQ compendium turned out to name many
+  battletome AoRs with explicit `ARMY OF RENOWN, <NAME>` errata headings — when hunting official
+  naming evidence, sweep the full text of ALL cached official PDFs, not just the obvious
+  document.
+- **Name collisions are real**: Sylvaneth has both a regular battle formation and an AoR named
+  "Lords of the Clan" (Battle Profiles p24's 0-point battle-formation row is the former, not AoR
+  evidence), and the same army can be a root on several faction pages (Big Waaagh! on Ironjawz +
+  Kruleboyz; The Duardin Ascendant on Kharadron Overlords + Cities of Sigmar + Fyreslayers).
+  Resolve roots by (faction, name) or by offer edges, never by name alone.
+
 ## Related
 
 - GitHub #1834 — feat: Armies of Renown as a top-level choice under the faction selector (the feature this documents; PR #1835)
 - GitHub #1833 — fix: Army of Renown content stacks with the regular faction rules it replaces (the bug the pattern fixes)
+- GitHub #1844 — battletome/Legends AoRs decoded as bogus builder cards; closed by the source-marked classification extension above (PR #1848)
 - GitHub #1783 (closed) — prior corpus-generation bug that lost Army of Renown formation groups; background context
 - GitHub #1828 / #1812 — adjacent Ogor battletome/supplement content intake (provisional BSData tier, provisional watch)
 - docs/plans/2026-08-01-001-feat-armies-of-renown-plan.md — the implementation plan for this work
+- docs/plans/2026-08-01-003-feat-battletome-aor-classification-plan.md — the #1844 extension plan
