@@ -25,6 +25,7 @@ import {
 } from './reviewWorkspace'
 import {
   AOS4_REVIEW_PROTOCOL_VERSION,
+  AOS4_REVIEW_PROMPT_VERSION,
   AOS4_REVIEW_RUBRIC_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
   checksumReviewRecord,
@@ -355,7 +356,7 @@ const protocolDefinition = (): ReviewProtocolDefinition => ({
   schemaVersion: 1,
   protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
   rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
-  promptVersion: 'aos4-review-prompt/v1',
+  promptVersion: AOS4_REVIEW_PROMPT_VERSION,
   evidenceHandling: 'untrusted-source-data',
   blindInterpretationRequired: true,
 })

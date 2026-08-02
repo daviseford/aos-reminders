@@ -4,6 +4,7 @@ import {
   AOS4_REVIEW_SCHEMA_VERSION,
   checksumReviewRecord,
   reviewerConfigurationId,
+  reviewCalibrationForAssignment,
   type CertificationCoverage,
   type CertificationInput,
   type CertificationManifest,
@@ -377,11 +378,7 @@ export const calibrationEvidenceIssues = (
       )
     )
   }
-  const resultsByPacketId = new Map<string, ReviewerResult[]>()
   calibrationResults.forEach((result, resultIndex) => {
-    const values = resultsByPacketId.get(result.packetId) ?? []
-    values.push(result)
-    resultsByPacketId.set(result.packetId, values)
     const reference = entryByPacketId.get(result.packetId)
     if (
       !reference ||
@@ -411,31 +408,6 @@ export const calibrationEvidenceIssues = (
           )
         )
       }
-    }
-  })
-  entries.forEach(entry => {
-    const blind = resultsByPacketId.get(entry.blindPacketId) ?? []
-    const comparison = resultsByPacketId.get(entry.comparisonPacketId) ?? []
-    const path = `index.calibrationControls.${entry.pairKey}`
-    if (blind.length !== 1 || comparison.length !== 1 || !entry.calibrationKind) {
-      issues.push(
-        issue(
-          'invalid-calibration-evidence',
-          path,
-          'Calibration control does not have exactly one blind and one comparison result'
-        )
-      )
-      return
-    }
-    const [expectedBlind, expectedComparison] = calibrationControlOutcomes(entry.calibrationKind)
-    if (blind[0].outcome !== expectedBlind || comparison[0].outcome !== expectedComparison) {
-      issues.push(
-        issue(
-          'invalid-calibration-evidence',
-          path,
-          `Calibration control ${entry.calibrationKind} has unexpected outcomes`
-        )
-      )
     }
   })
   const assignments = assignmentById(ledger)
@@ -487,6 +459,31 @@ export const calibrationEvidenceIssues = (
       relevantResults.find(
         result => result.packetId === (lane === 'blind' ? entry.blindPacketId : entry.comparisonPacketId)
       )
+    entries.forEach(entry => {
+      const blind = relevantResults.filter(result => result.packetId === entry.blindPacketId)
+      const comparison = relevantResults.filter(result => result.packetId === entry.comparisonPacketId)
+      const controlPath = `${path}.controls.${entry.pairKey}`
+      if (blind.length !== 1 || comparison.length !== 1 || !entry.calibrationKind) {
+        issues.push(
+          issue(
+            'invalid-calibration-evidence',
+            controlPath,
+            'Calibration control does not have exactly one blind and one comparison result'
+          )
+        )
+        return
+      }
+      const [expectedBlind, expectedComparison] = calibrationControlOutcomes(entry.calibrationKind)
+      if (blind[0].outcome !== expectedBlind || comparison[0].outcome !== expectedComparison) {
+        issues.push(
+          issue(
+            'invalid-calibration-evidence',
+            controlPath,
+            `Calibration control ${entry.calibrationKind} has unexpected outcomes`
+          )
+        )
+      }
+    })
     const defects = entries.filter(entry => entry.calibrationKind === 'defect')
     const insufficient = entries.filter(entry => entry.calibrationKind === 'insufficient-evidence')
     const foundDefects = defects.filter(entry => {
@@ -519,6 +516,27 @@ export const calibrationEvidenceIssues = (
           'invalid-calibration-evidence',
           path,
           'Calibration summary is not derivable from its committed control results'
+        )
+      )
+    }
+  })
+  calibrationResults.forEach((result, resultIndex) => {
+    const assignment = assignments.get(result.assignmentId)
+    if (
+      !assignment ||
+      !reviewCalibrationForAssignment(
+        ledger.calibrations,
+        result.assignmentId,
+        result.reviewerConfigurationId,
+        index.rubricVersion,
+        ledger.assignments.length
+      )
+    ) {
+      issues.push(
+        issue(
+          'invalid-calibration-evidence',
+          `calibrationResults[${resultIndex}].assignmentId`,
+          'Calibration result has no assignment-scoped calibration'
         )
       )
     }
@@ -982,17 +1000,17 @@ const categoryCoverage = (
 const calibrationIssues = (ledger: ReviewLedger, index: ReviewPacketSafeIndex): CertificationIssue[] => {
   const issues: CertificationIssue[] = []
   const assignments = assignmentById(ledger)
-  const calibrations = new Map(
-    ledger.calibrations.map(calibration => [
-      `${calibration.reviewerConfigurationId}:${calibration.rubricVersion}`,
-      calibration,
-    ])
-  )
   ledger.results.forEach((result, resultIndex) => {
     const assignment = assignments.get(result.assignmentId)
     if (!assignment) return
     const expectedConfiguration = reviewerConfigurationId(assignment.reviewer)
-    const calibration = calibrations.get(`${expectedConfiguration}:${index.rubricVersion}`)
+    const calibration = reviewCalibrationForAssignment(
+      ledger.calibrations,
+      result.assignmentId,
+      expectedConfiguration,
+      index.rubricVersion,
+      ledger.assignments.length
+    )
     const path = `ledger.results[${resultIndex}]`
     if (!calibration) {
       issues.push(

@@ -15,8 +15,10 @@ import {
 } from './packets'
 import {
   AOS4_REVIEW_PROTOCOL_VERSION,
+  AOS4_REVIEW_PROMPT_VERSION,
   AOS4_REVIEW_RUBRIC_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
+  AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION,
   checksumReviewRecord,
   createReviewAssignment,
   reviewerConfigurationId,
@@ -102,6 +104,15 @@ const withinReviewCache = (value: string): string => {
 
 const timestamp = (campaignAt: string, sequence: number): string =>
   new Date(new Date(campaignAt).valueOf() + sequence * 1_000).toISOString()
+
+export const deterministicReviewerMetadata = (id: string): ReviewerMetadata => ({
+  id,
+  kind: 'agent',
+  tool: 'aos4-deterministic-evidence-auditor',
+  model: AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION,
+  protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+  promptVersion: AOS4_REVIEW_PROMPT_VERSION,
+})
 
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
 
@@ -210,14 +221,7 @@ const run = async (): Promise<void> => {
   ) {
     throw new Error('Prepared review workspace does not match the current protocol and rubric')
   }
-  const reviewer: ReviewerMetadata = {
-    id: arguments_.reviewerId,
-    kind: 'agent',
-    tool: 'aos4-deterministic-evidence-auditor',
-    model: 'evidence-auditor/v2',
-    protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
-    promptVersion: 'aos4-review-prompt/v1',
-  }
+  const reviewer = deterministicReviewerMetadata(arguments_.reviewerId)
   const campaignTimes = {
     assigned: timestamp(arguments_.campaignAt, 0),
     calibrationBlind: timestamp(arguments_.campaignAt, 2),

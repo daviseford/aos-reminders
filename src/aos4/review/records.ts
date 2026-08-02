@@ -6,6 +6,8 @@ export const AOS4_REVIEW_SCHEMA_VERSION = 1 as const
 export const AOS4_CERTIFICATION_SCHEMA_VERSION = 1 as const
 export const AOS4_REVIEW_PROTOCOL_VERSION = 'aos4-review/v1' as const
 export const AOS4_REVIEW_RUBRIC_VERSION = 'aos4-rubric/v2' as const
+export const AOS4_REVIEW_PROMPT_VERSION = 'aos4-review-prompt/v1' as const
+export const AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION = 'evidence-auditor/v2' as const
 
 export type ReviewPacketId = `review-packet:sha256:${string}`
 export type ReviewAssignmentId = `review-assignment:sha256:${string}`
@@ -165,6 +167,33 @@ export interface ReviewLedger {
   resolutions: FindingResolution[]
   verifications: FindingVerification[]
 }
+
+export const reviewCalibrationIdentity = (calibration: ReviewCalibration): string =>
+  calibration.evidence
+    ? `assignment:${calibration.evidence.assignmentId}`
+    : `configuration:${calibration.reviewerConfigurationId}:${calibration.rubricVersion}`
+
+export const reviewCalibrationForAssignment = (
+  calibrations: ReviewCalibration[],
+  assignmentId: ReviewAssignmentId,
+  reviewerConfiguration: ReviewerConfigurationId,
+  rubricVersion: string,
+  assignmentCount: number
+): ReviewCalibration | undefined =>
+  calibrations.find(
+    calibration =>
+      calibration.evidence?.assignmentId === assignmentId &&
+      calibration.reviewerConfigurationId === reviewerConfiguration &&
+      calibration.rubricVersion === rubricVersion
+  ) ??
+  (assignmentCount === 1
+    ? calibrations.find(
+        calibration =>
+          !calibration.evidence &&
+          calibration.reviewerConfigurationId === reviewerConfiguration &&
+          calibration.rubricVersion === rubricVersion
+      )
+    : undefined)
 
 export interface CertificationInput {
   name: string
