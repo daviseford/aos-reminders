@@ -80,6 +80,7 @@ const DarkTheme: ITheme = {
    * the Signal Teal headers everywhere else. Dark supplies its own opaque value instead.
    */
   profileCardHeader: `card-header bg-profileHeader-dark text-white`,
+  purchaseTable: `GiftPurchaseTable-Dark`,
   reminderHeader: `bg-themeLightBlue`,
   reminderHr: `ReminderHr-Dark`,
   reminderTags: `ReminderTags-Dark`,
