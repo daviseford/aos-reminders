@@ -360,7 +360,7 @@ small {
     }
 }
 
-@mixin tag-tones($active, $reaction, $passive, $your, $enemy, $neutral, $usage) {
+@mixin tag-tones($active, $reaction, $passive, $your, $enemy, $neutral, $usage, $source) {
     .ReminderTag {
         &--kind-active {
             @include tag-tone($active...);
@@ -387,6 +387,9 @@ small {
             @include tag-tone($usage...);
             border-style: dashed;
         }
+        &--source {
+            @include tag-tone($source...);
+        }
     }
 }
 
@@ -404,7 +407,8 @@ small {
         (#e6f2ea, #1f5334, #bcdcc7),
         (#f9e8e8, #7c3535, #ecc9c9),
         (#eef0f2, #4d5a63, #d8dee2),
-        (transparent, #5b6b74, #b9c5cc)
+        (transparent, #5b6b74, #b9c5cc),
+        (#efeaf7, #543e7a, #d3c6e8)
     );
 }
 
@@ -416,7 +420,8 @@ small {
         (rgba(72, 160, 105, 0.24), #92d8ac, rgba(72, 160, 105, 0.45)),
         (rgba(190, 90, 90, 0.24), #f0a6a6, rgba(190, 90, 90, 0.45)),
         (rgba(255, 255, 255, 0.08), #b3c1ca, rgba(255, 255, 255, 0.18)),
-        (transparent, #a9bac3, rgba(255, 255, 255, 0.3))
+        (transparent, #a9bac3, rgba(255, 255, 255, 0.3)),
+        (rgba(132, 100, 190, 0.24), #cbb8ee, rgba(132, 100, 190, 0.45))
     );
 }
 

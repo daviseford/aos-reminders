@@ -116,6 +116,7 @@ const TAG_TONES: Record<PrintTagTone, PrintTagStyle> = {
   'turn-neutral': { text: [77, 90, 99], border: [77, 90, 99] },
   priority: { text: [121, 73, 13], border: [121, 73, 13] },
   usage: { text: [91, 107, 116], border: [91, 107, 116], dashed: true },
+  source: { text: [84, 62, 122], border: [84, 62, 122] },
 }
 
 export const STANDARD_PRESET: PrintPreset = {
