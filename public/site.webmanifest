@@ -1,6 +1,10 @@
 {
     "name": "AoS Reminders",
     "short_name": "AoS Reminders",
+    "description": "Never forget your Warhammer: Age of Sigmar abilities again! Generate helpful in-game reminders tailored to your AoS army.",
+    "id": "/",
+    "start_url": "/",
+    "scope": "/",
     "icons": [
         {
             "src": "/android-chrome-192x192.png?v=vMQB3wPOMa",
@@ -11,9 +15,15 @@
             "src": "/android-chrome-512x512.png?v=vMQB3wPOMa",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+            "src": "/maskable-icon-512x512.png?v=vMQB3wPOMa",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
-    "theme_color": "#ffffff",
+    "theme_color": "#063647",
     "background_color": "#ffffff",
     "display": "standalone"
 }

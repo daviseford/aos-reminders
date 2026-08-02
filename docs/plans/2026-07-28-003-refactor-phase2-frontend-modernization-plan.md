@@ -107,10 +107,12 @@ widths; deltas beyond documented Bootstrap 5 rendering differences are defects.
 
 **CRA and PWA cleanup**
 
-R13. The service worker layer is deleted: `src/service-worker.ts`,
-`src/serviceWorkerRegistration.ts`, registration calls in `src/main.tsx`, and
-`src/utils/installNewWorker.ts` if orphaned. An unregister shim ships for one release so existing
-installed clients release their stale worker.
+R13. Superseded 2026-07-31 by issue #1801. The orphaned CRA layer named here —
+`src/service-worker.ts`, `src/serviceWorkerRegistration.ts`, the registration call in
+`src/main.tsx`, and `src/utils/installNewWorker.ts` — was deleted as specified, but it is replaced
+by a vite-plugin-pwa worker rather than left absent, so no unregister shim ships. The new worker is
+named `service-worker.js` precisely so the stale registrations this requirement worried about are
+taken over in place. See `docs/plans/2026-07-31-002-feat-pwa-install-and-offline-plan.md`.
 R14. Remaining CRA remnants go: `PUBLIC_URL` references, `cra.link` comments, `homepage` in
 `package.json` if Vite config supersedes it.
 
@@ -182,10 +184,12 @@ surface, and ~42 JSX lines carry renamed utilities. The discipline is R12's live
 this decision supersedes `AGENTS.md`'s "treat every visible UI delta as a code smell" for
 Bootstrap-attributable deltas only (R24 amends it).
 
-KTD2. **Delete the service worker rather than rebuild it on vite-plugin-pwa.**
-(session-settled: user-directed — chosen over preserving PWA install/offline behavior: less to
-maintain and no stale-cache class of bugs, accepting loss of a live-site capability.) R13's
-unregister shim prevents existing installs from serving stale assets forever.
+KTD2. **Superseded 2026-07-31 — the service worker is rebuilt on vite-plugin-pwa, not deleted.**
+This entry previously recorded a user-directed decision to delete the worker outright, accepting the
+loss of install and offline behavior. Issue #1801 reverses it: the app is now an installable,
+offline-capable PWA. See `docs/plans/2026-07-31-002-feat-pwa-install-and-offline-plan.md`, which
+carries the current decisions, and `docs/pwa.md` for how the rebuilt worker is put together. The
+orphaned CRA layer named in R13 was still deleted; only the "and do not replace it" half is gone.
 
 KTD3. **Rewrite the print render loops on jsPDF 4.x, keeping `layout.ts`.**
 (session-settled: user-directed — chosen over switching to pdfmake: smallest blast radius; the
@@ -403,9 +407,10 @@ deltas is tractable per-change and hopeless in aggregate.
 **Verification.** Comparison log committed with zero unattributed deltas; `react-bootstrap`
 absent from the tree.
 
-### U7. CRA and PWA removal
+### U7. CRA removal
 
-**Goal.** No service worker, no CRA remnants.
+**Goal.** No CRA remnants. (Superseded in part 2026-07-31: the PWA-removal half is reversed — see
+KTD2. The worker is rebuilt, not left absent.)
 
 **Requirements.** R13, R14, R24; KTD2.
 
@@ -415,20 +420,21 @@ absent from the tree.
 `src/utils/installNewWorker.ts` (deleted if orphaned), `src/main.tsx`, `index.html`,
 `package.json`, `AGENTS.md` and `docs/` PWA references.
 
-**Approach.** Delete the worker and its registration; ship a minimal unregister call for one
-release so installed clients drop the stale worker and its caches (R13). Remove `PUBLIC_URL`
-references and `cra.link` comments; drop `homepage` if the built app's asset paths prove it
-redundant (verify against the deploy layout first). Update `AGENTS.md`/docs where they promise
-PWA behavior.
+**Approach.** Superseded 2026-07-31 by issue #1801 and delivered there — the CRA removal half of
+this unit is done. The orphaned worker, its registration, `installNewWorker`, the `PUBLIC_URL`
+references, the `cra.link` comments, and `homepage` are all gone, and `AGENTS.md`/docs are updated.
+No unregister shim ships: the worker is rebuilt on vite-plugin-pwa instead, keeping the
+`service-worker.js` path so stale registrations update in place. See
+`docs/plans/2026-07-31-002-feat-pwa-install-and-offline-plan.md`.
 
 **Test scenarios.**
-- A client with the old worker installed loses it after one load of the new build (verifiable in
-  devtools Application panel).
+- A client with the old worker installed is taken over by the rebuilt worker, which is served at the
+  same `/service-worker.js` path (verifiable in devtools Application panel).
 - Built asset URLs resolve correctly from the production deploy path.
-- No `PUBLIC_URL` or serviceWorker reference remains outside the unregister shim.
+- No `PUBLIC_URL` or CRA-era serviceWorker reference remains.
 
-**Verification.** Full gate green; fresh-profile load shows no worker registered; repeat-load
-shows the shim removed the old one.
+**Verification.** Full gate green; fresh-profile load registers the rebuilt worker; no `PUBLIC_URL`
+survives in the built bundle.
 
 ### U8. jsPDF 4 print rewrite
 
@@ -542,7 +548,7 @@ supports. Split into reviewable commits by directory if fallout is large.
 | Certification gate stalls; verified versions drift | Plan executes against stale targets | U1 re-verifies versions when the gate clears (recorded assumption) |
 | An R8 package lacks a React-19 release | U3 blocked on one dependency | U1 pins exact versions early; per-package decision (replace/vendor/defer) rather than silent pin |
 | Bootstrap 5 rendering deltas exceed "attributable" | Continuity gate fails, U6 balloons | Per-commit comparison discipline; variable port by name; the 42-line utility inventory bounds the class surface |
-| Service-worker removal strands installed clients on stale caches | Users see old app indefinitely | R13 unregister shim shipped for a release before final deletion |
+| Service-worker change strands installed clients on stale caches | Users see old app indefinitely | Resolved 2026-07-31: the rebuilt worker keeps the `/service-worker.js` path, so stale registrations update in place instead of being orphaned |
 | jsPDF 4 output differs subtly (fonts, metrics) | Print regression for subscribers | Test-first against existing suites; manual PDF diff; A4/inches setup preserved verbatim |
 | `target: es2020` breaks an old device someone uses | Runtime error unseen in CI | Browserslist production query already excludes dead browsers; U1 documents the supported floor |
 | Router 7 changes redirect semantics under Auth0 | Login loop or lost deep link | U4 characterizes current redirect behavior before migrating; manual auth-flow pass |

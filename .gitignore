@@ -101,3 +101,6 @@ src/tests/fixtures/intake/*
 
 # Vite writes these while loading an ESM config, and they can land mid-commit
 vite.config.*.timestamp-*
+
+# vite-plugin-pwa's dev-mode service worker output
+dev-dist/
