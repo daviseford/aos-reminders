@@ -174,6 +174,52 @@ describe('New Recruit .ros and .rosz import', () => {
     expect(liberators?.isLegends).toBeUndefined()
   })
 
+  /**
+   * New Recruit files each manifestation warscroll as a `unit` nested under the chosen
+   * manifestation lore, so the "units sit directly in a force" rule alone would drop them and the
+   * imported army would lose the manifestations' own abilities (#1854). The lore's `Summon X`
+   * upgrades stay out — the catalog's lore group already carries the summoning spells — and a
+   * `unit` nested inside an ordinary unit is still that unit's internals, not an army unit.
+   */
+  it('imports manifestation units nested under their lore, and only those', async () => {
+    const units = `
+      <selection id="manifestation-slot" name="Manifestation Lore" number="1" type="upgrade">
+        <selections>
+          <selection id="manifestation-lore" name="Manifestations of the Storm" number="1" type="upgrade"
+            from="group" group="Manifestation Lores">
+            <selections>
+              <selection id="manifestation-unit" name="Stormstrike Axe" number="1" type="unit"
+                from="group" group="Manifestations of the Storm" />
+              <selection id="manifestation-summon" name="Summon Stormstrike Axe" number="1" type="upgrade"
+                from="group" group="Manifestations of the Storm" />
+            </selections>
+          </selection>
+        </selections>
+      </selection>
+      <selection id="terrain" name="Zontari Endrin Dock" number="1" type="unit">
+        <selections>
+          <selection id="terrain-part" name="Auto-Endrin" number="1" type="unit" />
+        </selections>
+      </selection>`
+    const xml = rosterXml({ units })
+    const [fromXml, fromJson] = await Promise.all([
+      decodeAos4RosterFile(asRos(xml)),
+      decodeAos4RosterFile(asJson(xml)),
+    ])
+
+    expect(fromXml.diagnostics).toEqual([])
+    expect(fromXml.parsedRoster?.selections).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ label: 'Manifestations of the Storm', kindHint: 'manifestation-lore' }),
+        expect.objectContaining({ label: 'Stormstrike Axe', kindHint: 'warscroll' }),
+      ])
+    )
+    const labels = fromXml.parsedRoster?.selections.map(selection => selection.label)
+    expect(labels).not.toContain('Summon Stormstrike Axe')
+    expect(labels).not.toContain('Auto-Endrin')
+    expect(withoutLines(fromJson.parsedRoster)).toEqual(withoutLines(fromXml.parsedRoster))
+  })
+
   it('ignores harmless ZIP metadata but rejects multiple rosters and traversal names', async () => {
     const xml = strToU8(rosterXml())
     const metadata = await decodeAos4RosterFile(

@@ -158,11 +158,19 @@ export const parseAos4RosterTree = (root: RosterNode): Aos4ParsedRosterResult =>
     }
 
     const container = selection.parent
-    const force = container?.parent
+    const parent = container?.parent
+    /**
+     * A `unit` nested inside another selection is normally a model or a piece of the unit above
+     * it. The exception is a manifestation: New Recruit files each manifestation warscroll as a
+     * `unit` under the chosen manifestation lore, and those are warscrolls the player summons and
+     * fields, not parts of the lore (#1854).
+     */
+    const parentGroup = parent?.name === 'selection' ? parent.attribute('group')?.trim() : undefined
+    const isManifestationUnit = Boolean(parentGroup && groupKind(parentGroup) === 'manifestation-lore')
     if (
       selection.attribute('type') !== 'unit' ||
       container?.name !== 'selections' ||
-      force?.name !== 'force'
+      (parent?.name !== 'force' && !isManifestationUnit)
     ) {
       return
     }
