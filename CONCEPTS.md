@@ -54,6 +54,10 @@ The resolution of a player's explicit picks through the content graph: explicit 
 ### Reminder
 The product's output unit: one ability occurrence projected into the timing window where it fires, ordered by phase. Reminders derive from the selected army; hiding, notes, and ordering are player preferences layered on top.
 
+### Rules-Demanded Choice
+The test for whether something gets a builder card: the card exists only if the rules force the player to decide it. The AoS 3 app had a Spells selector because AoS 3 made each wizard choose one spell from the lore; AoS 4 removed that rule — picking a spell lore is the entire decision, and every wizard knows all of its spells — so the AoS 4 app deliberately has no individual-spell selector (settled 2026-08-01). A selector for a non-choice would mislead: deselecting a spell would look like the wizards no longer know it. Reminder decluttering belongs to hide preferences; spell provenance belongs to granting-source attribution.
+*Avoid:* Spells card, individual spell selection
+
 ## Sourcing & Review
 
 ### Source Tier
