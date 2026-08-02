@@ -603,12 +603,13 @@ const resolveRosterSelection = (
      *
      * Listbot has no regiment section: its game data files a regiment as a unit-shaped entry
      * (`isRor`), so the export writes `- 1 x Lord Skaldior's Chosen (530)` exactly like a
-     * warscroll. The name is still unambiguous — it belongs to a classified regiment group and
-     * to nothing else — so a warscroll-hinted label falls back to the regiments only after every
-     * warscroll attempt has found nothing. A real warscroll that shares its name with a regiment
-     * (Gotrek Gurnisson is both) therefore always wins the unit line, and the fallback can never
-     * divert it. A line already marked `isRegimentOfRenown` sits *inside* a regiment section, so
-     * it can only be a member warscroll — its parser records the bundle separately, and a member
+     * warscroll. The line resolves to whichever reading the faction can actually buy, in this
+     * precedence: a warscroll the faction is directly offered always wins; a warscroll that is
+     * only reachable — through a bought regiment's own `includes` edge — yields to a same-name
+     * regiment the faction may include (resolving to the member would lose the regiment's own
+     * ability); and when no warscroll attempt matches at all, the regiment reading is tried
+     * last. A line already marked `isRegimentOfRenown` sits *inside* a regiment section, so it
+     * can only be a member warscroll — its parser records the bundle separately, and a member
      * whose warscroll the corpus lacks (Mask of the Deceiver's Underworlds warband) must keep
      * failing closed instead of resolving to its own bundle a second time.
      */
@@ -693,15 +694,20 @@ const resolveRosterSelection = (
   const known = perContext.some(({ contextCandidates }) => contextCandidates.length > 0)
 
   /**
-   * A regiment of renown resolves outside the army's faction.
+   * A regiment of renown's *members* resolve outside the army's faction.
    *
    * The band is bought as a whole and brings units the army has no other way to field — an
    * Ironjawz list can hold Gloomspite, Ossiarch and Kharadron warscrolls through one. Reachability
    * is still tried first above, so a name the faction *can* reach resolves to its own version and
    * collisions are decided the same way as before; this only runs once that found nothing, and
    * still refuses to guess between two candidates.
+   *
+   * The regiment container itself is deliberately excluded: its inclusion list *is* the faction's
+   * `offers` edges, so a classified regiment the roster's faction may not include must fail as
+   * inapplicable rather than ride the members' cross-faction bypass into the army (a Sylvaneth
+   * list naming Lord Skaldior's Chosen would otherwise import the whole Chaos regiment cleanly).
    */
-  if (selection.isRegimentOfRenown && known) {
+  if (selection.isRegimentOfRenown && selection.kindHint !== 'regiment-of-renown' && known) {
     for (const { contextCandidates } of perContext) {
       if (contextCandidates.length === 1) return matched(contextCandidates[0])
       if (contextCandidates.length > 1) return ambiguous()

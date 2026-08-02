@@ -206,21 +206,27 @@ describe('official app list resolution', () => {
   })
 
   /**
-   * `Mask of the Deceiver` is both the regiment and its sole member warscroll. The bundle line
-   * resolves to the classified regiment group (issue #1858); the member line names an Underworlds
-   * warband warscroll the corpus does not carry, and that absence must keep failing closed
-   * rather than resolving the member to the group a second time.
+   * `Mask of the Deceiver` is both the regiment and its sole member warscroll, and the corpus
+   * currently carries neither in a usable form: the member is an Underworlds warband warscroll
+   * the collection pages lack, and with no meaningful content behind it the regiment group's
+   * `offers` edges are pruned. Both lines therefore fail closed with named diagnostics — the
+   * member as unknown, the container as inapplicable — rather than resolving the member to its
+   * own bundle or riding the members' cross-faction bypass into the army.
    */
-  it('ij-001-renown-heavy resolves the Mask of the Deceiver regiment but not its absent member warscroll', () => {
-    const { preview } = resolveFixture('ij-001-renown-heavy')
+  it('ij-001-renown-heavy fails both Mask of the Deceiver lines closed with named diagnostics', () => {
+    const { matched, preview } = resolveFixture('ij-001-renown-heavy')
 
-    const maskMatches = preview.matches.filter(match => match.label === 'Mask of the Deceiver')
-    expect(maskMatches).toHaveLength(1)
-    const entity = AOS4_CATALOG.entities.find(candidate => candidate.id === maskMatches[0].canonicalId)
-    expect(entity).toMatchObject({ kind: 'content-group', groupType: 'regiment-of-renown' })
+    expect(matched).not.toContain('Mask of the Deceiver')
     expect(preview.diagnostics).toContainEqual(
       expect.objectContaining({
         code: 'unknown-selection',
+        severity: 'warning',
+        message: expect.stringContaining('Mask of the Deceiver'),
+      })
+    )
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'inapplicable-selection',
         severity: 'warning',
         message: expect.stringContaining('Mask of the Deceiver'),
       })
@@ -261,6 +267,52 @@ describe('official app list resolution', () => {
 
     const reminders = projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name)
     expect(reminders).toContain('IRONCLAD DESPOILERS')
+  })
+
+  /**
+   * The regiment container respects its inclusion list even though its members do not.
+   *
+   * Members ride the cross-faction bypass by design — the band brings units the army cannot
+   * otherwise field. The container must not: its inclusion list *is* the faction's `offers`
+   * edges, so a Sylvaneth roster naming Lord Skaldior's Chosen (a regiment only six Chaos
+   * factions may include) has to surface inapplicable-selection instead of importing the whole
+   * Chaos regiment cleanly.
+   */
+  it('refuses the regiment container for a faction outside its inclusion list', () => {
+    const text = [
+      'Test 530/2000 pts',
+      '-----',
+      'Grand Alliance Order | Sylvaneth | Harvestboon',
+      '-----',
+      'Regiments of Renown',
+      "Lord Skaldior's Chosen (530)",
+      'Chaos Lord on Daemonic Mount',
+      'Chaos Knights',
+      'Chaos Warriors',
+      '-----',
+      'Created with Warhammer Age of Sigmar: The App',
+      'App: v1.36.0 (1) | Data: v466',
+    ].join('\n')
+    const { parsedRoster } = decodeAos4TextRoster(text)
+    expect(parsedRoster).toBeDefined()
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'army:sylvaneth-skaldior',
+    })
+
+    const labels = preview.matches.map(match => match.label)
+    expect(labels).not.toContain("Lord Skaldior's Chosen")
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'inapplicable-selection',
+        severity: 'warning',
+        message: expect.stringContaining("Lord Skaldior's Chosen"),
+      })
+    )
+    // The member bypass is untouched: the units the roster states still resolve cross-faction.
+    expect(labels).toContain('Chaos Lord on Daemonic Mount')
+    expect(labels).toContain('Chaos Knights')
+    expect(labels).toContain('Chaos Warriors')
   })
 
   /**
