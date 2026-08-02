@@ -1,5 +1,7 @@
 export * from './artifact'
+export * from './artifactStore'
 export * from './cache'
+export * from './cacheCommand'
 export * from './command'
 export * from './candidateAcquisition'
 export * from './http'
