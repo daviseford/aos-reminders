@@ -394,6 +394,10 @@ echo '{}'
     const firstResult = harness.run()
     expect(firstResult.status, firstResult.stderr).toBe(0)
     const firstLogLength = harness.log().length
+    writeFileSync(
+      harness.retirementStatePath,
+      `${readFileSync(harness.retirementStatePath, 'utf8')}assets/expired-and-removed.js\n`
+    )
 
     const secondResult = harness.run()
     expect(secondResult.status, secondResult.stderr).toBe(0)
@@ -413,6 +417,7 @@ echo '{}'
       )
     ).toHaveLength(4)
     expect(readFileSync(harness.retirementStatePath, 'utf8')).toContain('assets/newly-superseded.js')
+    expect(readFileSync(harness.retirementStatePath, 'utf8')).not.toContain('assets/expired-and-removed.js')
   })
 
   it('fails closed before publication when the retired-key inventory contains an unmanaged key', () => {

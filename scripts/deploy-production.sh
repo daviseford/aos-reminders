@@ -178,8 +178,6 @@ release_lock() {
   local deploy_status=$?
   local release_status=0
   trap - EXIT
-  [[ -z "$retirement_state_file" ]] || rm -f "$retirement_state_file"
-  [[ -z "$retirement_state_next_file" ]] || rm -f "$retirement_state_next_file"
   if ! aws s3api delete-object \
     --bucket "$SITE_BUCKET" \
     --key "$LOCK_OBJECT_KEY" \
@@ -187,6 +185,8 @@ release_lock() {
     echo "FATAL: failed to release production deploy lock ${DEPLOY_LOCK_ETAG}" >&2
     release_status=1
   fi
+  [[ -z "$retirement_state_file" ]] || rm -f "$retirement_state_file" || true
+  [[ -z "$retirement_state_next_file" ]] || rm -f "$retirement_state_next_file" || true
   if [[ $deploy_status -ne 0 ]]; then
     exit "$deploy_status"
   fi
@@ -224,6 +224,7 @@ is_current_immutable_object() {
 # inventory deliberately falls back to the complete S3 scan below, which bootstraps this cache and
 # also makes deleting the state object a safe recovery operation.
 known_retired_objects=()
+next_retired_objects=()
 if aws s3 cp "${SITE_S3}/${DEPLOY_RETIREMENT_STATE_KEY}" "$retirement_state_file" \
   --only-show-errors 2>/dev/null; then
   while IFS= read -r known_retired || [[ -n "$known_retired" ]]; do
@@ -256,7 +257,12 @@ is_known_retired_object() {
 
 record_retired_object() {
   local candidate="$1"
+  local recorded
   is_known_retired_object "$candidate" || known_retired_objects+=("$candidate")
+  for recorded in ${next_retired_objects[@]+"${next_retired_objects[@]}"}; do
+    [[ "$recorded" == "$candidate" ]] && return 0
+  done
+  next_retired_objects+=("$candidate")
 }
 
 # CloudFront only compresses responses up to ~10 MB, so any script above the threshold ships
@@ -356,7 +362,10 @@ while IFS= read -r remote_immutable; do
     *) continue ;;
   esac
   is_current_immutable_object "$remote_immutable" && continue
-  is_known_retired_object "$remote_immutable" && continue
+  if is_known_retired_object "$remote_immutable"; then
+    record_retired_object "$remote_immutable"
+    continue
+  fi
 
   retire_tag=$(aws s3api get-object-tagging \
     --bucket "$SITE_BUCKET" \
@@ -397,8 +406,8 @@ while IFS= read -r remote_immutable; do
 done < <(printf '%s\n' "$remote_immutable_output" | tr '\t' '\n')
 
 : > "$retirement_state_next_file"
-if [[ ${#known_retired_objects[@]} -gt 0 ]]; then
-  printf '%s\n' "${known_retired_objects[@]}" | LC_ALL=C sort -u > "$retirement_state_next_file"
+if [[ ${#next_retired_objects[@]} -gt 0 ]]; then
+  printf '%s\n' "${next_retired_objects[@]}" | LC_ALL=C sort -u > "$retirement_state_next_file"
 fi
 aws s3 cp "$retirement_state_next_file" "${SITE_S3}/${DEPLOY_RETIREMENT_STATE_KEY}" \
   --cache-control 'no-store' \
