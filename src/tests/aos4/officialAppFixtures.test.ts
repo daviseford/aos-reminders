@@ -168,6 +168,21 @@ describe('official app list resolution', () => {
     expect(resolveFixture(id).matched).toContain(lore)
   })
 
+  it("resolves a general's regiment and its GHB 2026-27 honours (issue #1853)", () => {
+    const { matched, preview } = resolveFixture('skv-002-generals-regiment-asterisk-bullets')
+
+    // The units that were silently dropped while `General's Regiment` was not a section header.
+    expect(matched).toContain('Thanquol on Boneripper')
+    expect(matched).toContain('Rat Ogors')
+    // The `*`-bulleted enhancements that surfaced as unknown warscrolls before the fix.
+    expect(matched).toContain('Anabolic Accelerators')
+    expect(matched).toContain('Foulhide')
+    expect(matched).toContain('Master of the Swarm')
+    // "Anabolic Accelerators" is both a content-group and the ability inside it; the pair must
+    // collapse to the offered group rather than fail as ambiguous.
+    expect(preview.diagnostics).toEqual([])
+  })
+
   /**
    * Names the corpus genuinely does not carry must keep failing closed.
    *

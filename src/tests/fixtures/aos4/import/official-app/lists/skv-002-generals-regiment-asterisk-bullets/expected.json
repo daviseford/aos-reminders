@@ -1,0 +1,95 @@
+{
+  "id": "skv-002-generals-regiment-asterisk-bullets",
+  "diagnostics": [],
+  "proposedName": "Daka Daka 2",
+  "declaredFaction": "Skaven",
+  "declaredContext": "General's Handbook 2026-27",
+  "allowsLegends": false,
+  "selections": [
+    {
+      "line": 3,
+      "kindHint": "battle-formation",
+      "label": "Warpcog Convocation"
+    },
+    {
+      "line": 6,
+      "kindHint": "spell-lore",
+      "label": "Lore of Ruin"
+    },
+    {
+      "line": 7,
+      "kindHint": "prayer-lore",
+      "label": "Noxious Prayers"
+    },
+    {
+      "line": 8,
+      "kindHint": "manifestation-lore",
+      "label": "Manifestations of Doom"
+    },
+    {
+      "line": 11,
+      "kindHint": "warscroll",
+      "label": "Thanquol on Boneripper"
+    },
+    {
+      "line": 13,
+      "kindHint": "warscroll",
+      "label": "Clanrats"
+    },
+    {
+      "line": 14,
+      "kindHint": "warscroll",
+      "label": "Clanrats"
+    },
+    {
+      "line": 15,
+      "kindHint": "warscroll",
+      "label": "Rat Ogors"
+    },
+    {
+      "line": 17,
+      "kindHint": "enhancement",
+      "label": "Anabolic Accelerators"
+    },
+    {
+      "line": 18,
+      "kindHint": "warscroll",
+      "label": "Ratling Guns"
+    },
+    {
+      "line": 21,
+      "kindHint": "warscroll",
+      "label": "Scourge of Aqshy: Grey Seer on Screaming Bell"
+    },
+    {
+      "line": 22,
+      "kindHint": "enhancement",
+      "label": "Foulhide"
+    },
+    {
+      "line": 23,
+      "kindHint": "enhancement",
+      "label": "Master of the Swarm"
+    },
+    {
+      "line": 24,
+      "kindHint": "warscroll",
+      "label": "Stormfiends"
+    },
+    {
+      "line": 28,
+      "kindHint": "warscroll",
+      "label": "Warlock Engineer"
+    },
+    {
+      "line": 29,
+      "kindHint": "warscroll",
+      "label": "Warplock Jezzails"
+    },
+    {
+      "line": 33,
+      "kindHint": "warscroll",
+      "label": "Gnawhole"
+    }
+  ]
+}
