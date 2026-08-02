@@ -9,10 +9,13 @@ import { createAos4BuilderViewModel } from '../../aos4/view'
 /**
  * Armies of Renown are a top-level choice that replaces the faction's regular rules (issue #1834;
  * official rule: "use the faction rules on these pages instead of the [faction] rules"). The
- * reviewed classification types the 12 official army roots `army-of-renown`, hangs their
- * subgroups behind the root, and emits `excludes` edges that suppress the faction's regular
- * rules-choice groups while a root is selected — fixing the stacking bug in #1833 where both
- * battle-trait sets fired reminders at once.
+ * reviewed classification types each army root `army-of-renown`, hangs its subgroups behind the
+ * root, and emits `excludes` edges that suppress the faction's regular rules-choice groups while
+ * a root is selected — fixing the stacking bug in #1833 where both battle-trait sets fired
+ * reminders at once. Issue #1844 extended the classification beyond the 12 seasonal armies to
+ * every battletome and White Dwarf (Legends) Army of Renown the source pages classify, on
+ * official naming evidence where a free accepted document carries it and on the reviewed
+ * secondary-provisional tier where none does.
  */
 
 const OFFICIAL_ARMIES_OF_RENOWN: Array<{ faction: string; name: string }> = [
@@ -28,6 +31,64 @@ const OFFICIAL_ARMIES_OF_RENOWN: Array<{ faction: string; name: string }> = [
   { faction: 'Ogor Mawtribes', name: 'The Roving Maw' },
   { faction: 'Ironjawz', name: 'Krazogg’s Grunta Stampede' },
   { faction: 'Sons of Behemat', name: 'King Brodd’s Stomp' },
+]
+
+// The battletome and White Dwarf Armies of Renown classified for issue #1844. `legends` marks the
+// White Dwarf transcriptions, which decode in the Legends context.
+const BATTLETOME_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legends?: true }> = [
+  { faction: 'Blades of Khorne', name: 'Gorechosen Champions' },
+  { faction: 'Blades of Khorne', name: 'The Baleful Lords' },
+  { faction: 'Cities of Sigmar', name: 'Allies of the Free Cities' },
+  { faction: 'Cities of Sigmar', name: 'The Duardin Ascendant', legends: true },
+  { faction: 'Cities of Sigmar', name: 'The Iron March' },
+  { faction: 'Daughters of Khaine', name: 'Champions of the Arena' },
+  { faction: 'Daughters of Khaine', name: 'Zainthar Kai' },
+  { faction: 'Disciples of Tzeentch', name: 'Change-Cult Uprising' },
+  { faction: 'Disciples of Tzeentch', name: 'Pyrofane Cult', legends: true },
+  { faction: 'Disciples of Tzeentch', name: 'The Oracles of Fate' },
+  { faction: 'Flesh-eater Courts', name: 'The Equinox Feast' },
+  { faction: 'Flesh-eater Courts', name: 'The Knights of New Summercourt' },
+  { faction: 'Fyreslayers', name: 'The Duardin Ascendant', legends: true },
+  { faction: 'Gloomspite Gitz', name: 'Da King’s Gitz' },
+  { faction: 'Gloomspite Gitz', name: 'Droggz’s Gitmob' },
+  { faction: 'Hedonites of Slaanesh', name: 'Court of the Godlings' },
+  { faction: 'Hedonites of Slaanesh', name: 'The Decadent Host' },
+  { faction: 'Helsmiths of Hashut', name: 'Taar’s Grand Forgehost' },
+  { faction: 'Helsmiths of Hashut', name: 'Ziggurat Stampede' },
+  { faction: 'Idoneth Deepkin', name: 'The First Phalanx of Ionrach' },
+  { faction: 'Idoneth Deepkin', name: 'Wardens of the Chorrileum' },
+  { faction: 'Ironjawz', name: 'Big Waaagh!' },
+  { faction: 'Ironjawz', name: 'Ironsunz', legends: true },
+  { faction: 'Ironjawz', name: 'Zoggrok’s Ironmongerz' },
+  { faction: 'Kharadron Overlords', name: 'Pioneer Outpost' },
+  { faction: 'Kharadron Overlords', name: 'The Duardin Ascendant', legends: true },
+  { faction: 'Kharadron Overlords', name: 'The Magnate’s Crew' },
+  { faction: 'Kruleboyz', name: 'Big Waaagh!' },
+  { faction: 'Kruleboyz', name: 'Murkvast Menagerie' },
+  { faction: 'Lumineth Realm-lords', name: 'Aelementiri Conclave' },
+  { faction: 'Lumineth Realm-lords', name: 'Vanari Paragons' },
+  { faction: 'Maggotkin of Nurgle', name: 'Cycle of Corruption' },
+  { faction: 'Maggotkin of Nurgle', name: 'The Gardeners of Nurgle' },
+  { faction: 'Nighthaunt', name: 'The Clattering Procession' },
+  { faction: 'Nighthaunt', name: 'The Eternal Nightmare' },
+  { faction: 'Ossiarch Bonereapers', name: 'Petrifex Elite', legends: true },
+  { faction: 'Ossiarch Bonereapers', name: 'The Lance of Ossia' },
+  { faction: 'Ossiarch Bonereapers', name: 'The Null Myriad' },
+  { faction: 'Skaven', name: 'Thanquol’s Mutated Menagerie' },
+  { faction: 'Skaven', name: 'The Great-Grand Gnawhorde' },
+  { faction: 'Slaves to Darkness', name: 'Legion of the First Prince' },
+  { faction: 'Soulblight Gravelords', name: 'Barrow Legion' },
+  { faction: 'Soulblight Gravelords', name: 'Knights of the Crimson Keep' },
+  { faction: 'Stormcast Eternals', name: 'Astral Templars', legends: true },
+  { faction: 'Stormcast Eternals', name: 'Heroes of the First-Forged' },
+  { faction: 'Stormcast Eternals', name: 'Ruination Brotherhood' },
+  { faction: 'Sylvaneth', name: 'Lords of the Clan' },
+  { faction: 'Sylvaneth', name: 'Soulpod Guardians' },
+]
+
+const ALL_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legends?: true }> = [
+  ...OFFICIAL_ARMIES_OF_RENOWN,
+  ...BATTLETOME_ARMIES_OF_RENOWN,
 ]
 
 const REPLACED_GROUP_TYPES = new Set([
@@ -58,36 +119,59 @@ const armyOfRenownRoots = AOS4_CATALOG.entities.filter(
     entity.kind === 'content-group' && entity.groupType === 'army-of-renown'
 )
 describe('Armies of Renown as a top-level replacing choice', () => {
-  it('classifies exactly the 12 official Armies of Renown with official evidence', () => {
+  it('classifies every source-classified Army of Renown with reviewed evidence', () => {
     expect(armyOfRenownRoots.map(root => root.name).sort()).toEqual(
-      OFFICIAL_ARMIES_OF_RENOWN.map(entry => entry.name).sort()
+      ALL_ARMIES_OF_RENOWN.map(entry => entry.name).sort()
     )
-    armyOfRenownRoots.forEach(root => {
-      expect(
-        root.sourceRefs.some(reference =>
-          String(reference.sourceRecordId).startsWith('source-record:games-workshop:')
-        )
-      ).toBe(true)
-    })
     const review = JSON.parse(
-      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01e.json'), 'utf8')
-    ) as { armiesOfRenown: Array<{ officialSourceRecordIds: string[]; reason: string }> }
-    expect(review.armiesOfRenown).toHaveLength(12)
+      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01f.json'), 'utf8')
+    ) as {
+      armiesOfRenown: Array<{
+        officialSourceRecordIds: string[]
+        reason: string
+        evidenceTier?: string
+      }>
+    }
+    expect(review.armiesOfRenown).toHaveLength(ALL_ARMIES_OF_RENOWN.length)
     review.armiesOfRenown.forEach(entry => {
-      expect(entry.reason).toMatch(/Armies of Renown/)
-      expect(entry.officialSourceRecordIds.length).toBeGreaterThan(0)
+      expect(entry.reason).toMatch(/Arm(y|ies) of Renown/)
+      if (entry.evidenceTier === undefined) {
+        // The official tier must cite official naming evidence.
+        expect(entry.officialSourceRecordIds.length).toBeGreaterThan(0)
+      } else {
+        // The only other tier is the reviewed secondary-provisional classification, which must
+        // state the policy basis; official records remain optional corroboration.
+        expect(entry.evidenceTier).toBe('secondary-provisional')
+        expect(entry.reason).toMatch(/three-tier source policy/)
+      }
     })
+    expect(review.armiesOfRenown.filter(entry => entry.evidenceTier === undefined)).toHaveLength(24)
   })
 
-  it.each(OFFICIAL_ARMIES_OF_RENOWN)('offers $name only through the $faction faction', ({ faction, name }) => {
-    const root = armyOfRenownRoots.find(candidate => candidate.name === name)!
-    const offeringFactions = AOS4_CATALOG.relationships
-      .filter(relationship => relationship.kind === 'offers' && relationship.to === root.id)
-      .flatMap(relationship => {
-        const entity = AOS4_CATALOG.entities.find(candidate => candidate.id === relationship.from)
-        return entity?.kind === 'faction' ? [entity.name] : []
+  it('offers each faction exactly its own Armies of Renown', () => {
+    const factionNameById = new Map(
+      AOS4_CATALOG.entities.flatMap(entity => (entity.kind === 'faction' ? [[entity.id, entity.name]] : []))
+    )
+    const offeredByFaction = new Map<string, string[]>()
+    AOS4_CATALOG.relationships
+      .filter(relationship => relationship.kind === 'offers')
+      .forEach(relationship => {
+        const faction = factionNameById.get(relationship.from as never)
+        const root = armyOfRenownRoots.find(candidate => candidate.id === relationship.to)
+        if (!faction || !root) return
+        offeredByFaction.set(faction, [...(offeredByFaction.get(faction) ?? []), root.name])
       })
-    expect(offeringFactions).toEqual([faction])
+    const expectedByFaction = new Map<string, string[]>()
+    ALL_ARMIES_OF_RENOWN.forEach(({ faction, name }) => {
+      expectedByFaction.set(faction, [...(expectedByFaction.get(faction) ?? []), name])
+    })
+    expectedByFaction.forEach((names, faction) => {
+      expect(offeredByFaction.get(faction)?.sort() ?? []).toEqual(names.sort())
+    })
+    // No faction offers an Army of Renown beyond its expected set.
+    offeredByFaction.forEach((names, faction) => {
+      expect(expectedByFaction.get(faction)?.sort() ?? []).toEqual(names.sort())
+    })
   })
 
   it('replaces the regular Ogor rules while The Roving Maw is selected (#1833)', () => {
@@ -119,14 +203,24 @@ describe('Armies of Renown as a top-level replacing choice', () => {
     expect(restored.availableIds).toEqual(regular.availableIds)
   })
 
-  it.each(OFFICIAL_ARMIES_OF_RENOWN)(
+  it.each(ALL_ARMIES_OF_RENOWN)(
     'suppresses every regular rules-choice group of $faction while $name is active',
-    ({ faction, name }) => {
+    ({ faction, name, legends }) => {
       const factionEntity = factionByName(faction)
-      const root = armyOfRenownRoots.find(candidate => candidate.name === name)!
+      // Resolve the root through the faction's own offer: names repeat across factions
+      // (Big Waaagh!, The Duardin Ascendant), so a name lookup alone is ambiguous.
+      const offeredRootIds = new Set(
+        AOS4_CATALOG.relationships
+          .filter(relationship => relationship.kind === 'offers' && relationship.from === factionEntity.id)
+          .map(relationship => relationship.to)
+      )
+      const root = armyOfRenownRoots.find(
+        candidate => candidate.name === name && offeredRootIds.has(candidate.id)
+      )!
       const selection = resolveSelection(AOS4_CATALOG, {
         explicitIds: [factionEntity.id, root.id],
         rulesContextId: standard.id,
+        ...(legends ? { allowsLegends: true } : {}),
       })
       expect(selection.diagnostics).toEqual([])
       // Nothing with a replaced group type is offered, and the only selected groups carrying one
@@ -191,9 +285,9 @@ describe('Armies of Renown as a top-level replacing choice', () => {
   })
 
   it('keeps a faction without an Army of Renown untouched', () => {
-    const skaven = factionByName('Skaven')
+    const seraphon = factionByName('Seraphon')
     const selection = resolveSelection(AOS4_CATALOG, {
-      explicitIds: [skaven.id],
+      explicitIds: [seraphon.id],
       rulesContextId: standard.id,
     })
     expect(selection.diagnostics).toEqual([])

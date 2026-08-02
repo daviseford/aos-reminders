@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 Version 6 is now an Age of Sigmar fourth-edition-only codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-01e` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-01f` snapshot
 - the AoS 3 faction corpus, rule utilities, Redux state, saved-army schema, importers, and fixtures
   have been removed
 - importing, cloud armies, and army sharing are rebuilt as AoS 4-native features: roster parsers in
@@ -35,7 +35,7 @@ Version 6 is now an Age of Sigmar fourth-edition-only codebase:
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
 - the accepted corpus contains 1,297 warscrolls, 1,013 battle profiles, 4,929 abilities,
-  2,280 weapons, 1,416 content groups, and 19,312 live source records
+  2,280 weapons, 1,416 content groups, and 19,321 live source records
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
   historical rules contexts isolate parallel and retired records; the browser defaults to the
   current 2026-27 seasonal context

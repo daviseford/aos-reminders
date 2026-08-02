@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-01e snapshot is defined by:
+The accepted 2026-08-01f snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
 | `data/aos4/manifests/accepted-2026-08-01d.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 2 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-01e.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/reviews/corpus-2026-08-01f.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-01e-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-01e-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-01f-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-01f-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -37,7 +37,7 @@ The strict report currently records:
 - 4,929 usable abilities
 - 2,280 weapons
 - 1,416 content groups, including 48 Spearhead force/unit wrappers
-- 244 source artifacts and 19,312 live source records
+- 244 source artifacts and 19,321 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -49,10 +49,16 @@ The strict report currently records:
   power) transcribed from two commit-pinned BSData catalogues under the fallback-tier source
   policy, with official battle-profile facts overriding every overlapping field; Lorai, Child of
   the Abyss completed the provisional-to-verified swap when Wahapedia published her datasheet
-- the 12 official Armies of Renown classified as `army-of-renown` roots (reviewed
-  `armiesOfRenown` input citing the official July 2026 Armies of Renown document) with replace
+- all 60 source-classified Armies of Renown classified as `army-of-renown` roots with replace
   semantics: `excludes` edges suppress the faction's regular rules-choice groups while a root is
-  selected, and the root's battle traits apply automatically (issues #1833/#1834)
+  selected, and the root's battle traits apply automatically (issues #1833/#1834/#1844). The 12
+  seasonal armies and 12 battletome armies carry official naming evidence (Armies of Renown,
+  Battle Profiles, and Rules Updates July 2026); the remaining 36 roots are classified on the
+  reviewed `secondary-provisional` evidence tier because the accepted faction pages themselves
+  classify the sections (the `h2_ArmyOfRenown` marker or the White Dwarf replace-rules intro) and
+  no free accepted official document names them. Generation fails closed in both directions: a
+  source-classified group without a reviewed entry, and a reviewed entry targeting an unmarked
+  group, are both errors
 
 The accepted current rules come from 27 faction `warscrolls.html` collection pages, 28 faction
 roots, and 17 current rules pages. Collection pages contribute 1,074 native faction warscrolls.
@@ -199,6 +205,24 @@ their subgroups behind the root (battle traits auto-included, enhancements offer
 enhancements, and lores — the official replacement semantic. Canonical identities are unchanged;
 only group typing and the relationship graph moved. `src/tests/aos4/armiesOfRenown.test.ts` pins
 the classification, the replacement, and the #1833 regression.
+
+The 2026-08-01f revision extends the classification to every battletome and White Dwarf (Legends)
+Army of Renown (issue #1844) on the same artifacts and manifest. The Wahapedia faction-page
+decoder now captures the source's own classification — the `h2_ArmyOfRenown` marker before a
+section heading, or the White Dwarf replace-rules intro sentence — as a derived flag outside the
+hashed record value, so record identities are unchanged. Forty-eight new `armiesOfRenown` entries
+classify the source-marked roots: twelve on official naming evidence (Battle Profiles pages 3-4,
+24, and 38; Rules Updates pages 4, 6, 12, 37, 39, 48, 53, 56, 69, and 73-74, which became
+reviewed source records), and thirty-six on the new `secondary-provisional` evidence tier, an
+extension of the standing three-tier source policy for classifications the secondary source makes
+explicitly while no free accepted official document names the army. The Lords of the Clan entry
+preserves an official discrepancy: Battle Profiles page 24 lists it as a 0-point battle formation
+of Battletome: Sylvaneth while the accepted transcription is an explicit replace-rules Army of
+Renown. Generation now fails closed on any source-classified group without a reviewed entry, so a
+new Army of Renown appearing on a faction page can never again decode as a generic content group
+(the #1844 bug class). The White Dwarf armies decode in the Legends context and surface under the
+masthead dropdown's Legends group header. `src/tests/aos4/armyPackageTriage.test.ts` pins the
+retirement of the interim builder triage this revision replaces.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
