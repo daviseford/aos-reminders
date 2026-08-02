@@ -400,14 +400,14 @@ const resolveFaction = (
 }
 
 /**
- * The parenthetical or bracketed qualifiers that merely restate the rules context being imported into.
+ * The parenthetical or bracketed qualifiers that restate the rules context being imported into.
  *
- * New Recruit distinguishes a warscroll's seasonal version in its display name — "Blood Warriors
- * (Scourge of Aqshy)" — but the catalog carries one warscroll whose seasonal differences live in
- * the rules context. Since "Scourge of Aqshy" *is* the battlepack of the context we resolved, the
- * suffix is redundant here and stripping it recovers the base warscroll.
- *
- * Listbot shortens the same battlepack qualifier to an acronym such as "[SoA]".
+ * New Recruit distinguishes a warscroll's seasonal version in its display name — "Killaboss with
+ * Stab-grot (Scourge of Aqshy)" — and Listbot shortens the same battlepack qualifier to an acronym
+ * such as "[SoA]". The catalog carries that seasonal replacement as its own warscroll named with
+ * the battlepack as a prefix ("Scourge of Aqshy Killaboss with Stab-grot"), so a qualified label
+ * is first rewritten into that prefixed form; only when no such variant exists is the qualifier
+ * treated as redundant and stripped to recover the base warscroll.
  *
  * Built from the resolved context only, so a qualifier naming some *other* season is left alone
  * and still fails closed rather than silently resolving to the wrong edition of a unit.
@@ -433,6 +433,27 @@ const stripContextQualifier = (label: string, qualifiers: Set<string>): string |
   const qualifier = parentheticalQualifier ?? bracketedQualifier
   if (!base.trim() || !qualifiers.has(normalizeImportLabel(qualifier))) return undefined
   return base.trim()
+}
+
+/**
+ * A qualified label rewritten to the catalog's name for the seasonal variant it points at.
+ *
+ * A General's Handbook replaces some warscrolls for its season, and those replacements are
+ * catalogued as distinct entities named with the battlepack prefixed — "Scourge of Aqshy
+ * Killaboss with Stab-grot" lives alongside the battletome "Killaboss with Stab-grot" in the same
+ * seasonal context. A roster that says "(Scourge of Aqshy)" or "[SoA]" means that replacement, so
+ * the qualifier is rewritten into the prefix the catalog uses. This must be attempted *before*
+ * the bare qualifier strip: stripping first resolves the battletome warscroll the variant merely
+ * shares a base name with, and the player gets the wrong unit's reminders (#1862).
+ */
+const prefixContextQualifier = (
+  label: string,
+  context: RulesContext,
+  qualifiers: Set<string>
+): string | undefined => {
+  const base = stripContextQualifier(label, qualifiers)
+  const battlepack = context.battlepack?.trim()
+  return base && battlepack ? `${battlepack} ${base}` : undefined
 }
 
 /**
@@ -530,13 +551,17 @@ const resolveRosterSelection = (
      * Labels to try, in descending order of confidence.
      *
      * The roster's own wording always wins. A reviewed alias is consulted only when that finds
-     * nothing, and the seasonal-qualifier strip last, so a name the catalog knows verbatim can
-     * never be diverted by a correction meant for a different spelling.
+     * nothing, then the seasonal qualifier rewritten as the catalog's battlepack prefix, and the
+     * bare qualifier strip last — so a name the catalog knows verbatim can never be diverted by a
+     * correction meant for a different spelling, and a seasonal replacement warscroll is preferred
+     * over the base warscroll it shares a name with.
      */
+    const qualifiers = contextQualifiers(context)
     const attempts = [
       selection.label,
       aliasedImportLabel(selection.label),
-      stripContextQualifier(selection.label, contextQualifiers(context)),
+      prefixContextQualifier(selection.label, context, qualifiers),
+      stripContextQualifier(selection.label, qualifiers),
     ].filter((label): label is string => Boolean(label))
 
     /**

@@ -1,3 +1,4 @@
+import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
 import { normalizeImportLabel, resolveParsedRoster, type ParsedRoster } from '../../aos4/import'
 import {
   createImportFixtureCatalog,
@@ -66,7 +67,29 @@ describe('AoS 4 parsed-roster resolution', () => {
     ])
   })
 
-  it("resolves Listbot's abbreviated seasonal qualifier in the selected context", () => {
+  /**
+   * A seasonal qualifier names the battlepack's replacement warscroll, not the base one.
+   *
+   * The catalog carries the replacement as its own entity with the battlepack prefixed
+   * ("Scourge of Tests Shared Guard") alongside the base warscroll in the same seasonal context.
+   * Resolving the qualified label to the base warscroll hands the player the wrong unit's
+   * reminders (#1862).
+   */
+  it("resolves New Recruit's parenthetical seasonal qualifier to the seasonal variant warscroll", () => {
+    const preview = resolve(
+      roster({
+        source: 'roster-xml',
+        selections: [{ line: 8, label: 'Shared Guard (Scourge of Tests)', kindHint: 'warscroll' }],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([
+      { line: 8, label: 'Shared Guard (Scourge of Tests)', canonicalId: importFixtureIds.alphaGuardSeasonal },
+    ])
+  })
+
+  it("resolves Listbot's abbreviated seasonal qualifier to the seasonal variant warscroll", () => {
     const preview = resolve(
       roster({
         source: 'listbot-text',
@@ -76,7 +99,26 @@ describe('AoS 4 parsed-roster resolution', () => {
 
     expect(preview.diagnostics).toEqual([])
     expect(preview.matches).toEqual([
-      { line: 8, label: 'Shared Guard [SoT]', canonicalId: importFixtureIds.alphaGuard },
+      { line: 8, label: 'Shared Guard [SoT]', canonicalId: importFixtureIds.alphaGuardSeasonal },
+    ])
+  })
+
+  /**
+   * Not every unit gains a seasonal replacement. When the catalog carries no battlepack-prefixed
+   * variant, the qualifier is redundant restatement of the context and stripping it recovers the
+   * one warscroll the roster can mean.
+   */
+  it('strips the seasonal qualifier when no seasonal variant warscroll exists', () => {
+    const preview = resolve(
+      roster({
+        source: 'listbot-text',
+        selections: [{ line: 8, label: 'Twin Era Guard [SoT]', kindHint: 'warscroll' }],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([
+      { line: 8, label: 'Twin Era Guard [SoT]', canonicalId: importFixtureIds.twinEraCurrent },
     ])
   })
 
@@ -497,5 +539,64 @@ describe('AoS 4 superseded-season resolution', () => {
 
     expect(preview.matches).toEqual([])
     expect(preview.proposedDocument?.allowsHistorical).toBeUndefined()
+  })
+})
+
+/**
+ * The report behind the fixtures: issue #1862.
+ *
+ * A New Recruit Kruleboyz roster named its hero "Killaboss with Stab-grot (Scourge of Aqshy)" and
+ * the importer stripped the qualifier straight to the battletome warscroll, so the player got the
+ * standard unit's reminders instead of the seasonal replacement's. Pinned against the shipped
+ * catalog because the fixture catalog can only prove the logic, not that the real corpus carries
+ * both warscrolls for the resolution to distinguish.
+ */
+describe('seasonal variant resolution against the shipped catalog (#1862)', () => {
+  const resolveShipped = (label: string) =>
+    resolveParsedRoster(
+      AOS4_CATALOG,
+      {
+        source: 'roster-xml',
+        proposedName: 'Issue 1862',
+        declaredContext: "General's Handbook 2026-27",
+        declaredFaction: 'Kruleboyz',
+        selections: [{ line: 1, label, kindHint: 'warscroll' }],
+      },
+      {
+        defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+        createDocumentId: () => 'army:issue-1862',
+      }
+    )
+
+  const warscrollIdByName = (name: string) => {
+    const entity = AOS4_CATALOG.entities.find(
+      candidate => candidate.kind === 'warscroll' && candidate.name === name
+    )
+    if (!entity) throw new Error(`expected the shipped catalog to carry the warscroll "${name}"`)
+    return entity.id
+  }
+
+  it('resolves the qualified label to the Scourge of Aqshy replacement warscroll', () => {
+    const preview = resolveShipped('Killaboss with Stab-grot (Scourge of Aqshy)')
+
+    expect(preview.matches).toEqual([
+      {
+        line: 1,
+        label: 'Killaboss with Stab-grot (Scourge of Aqshy)',
+        canonicalId: warscrollIdByName('Scourge of Aqshy Killaboss with Stab-grot'),
+      },
+    ])
+  })
+
+  it('still resolves the unqualified label to the battletome warscroll', () => {
+    const preview = resolveShipped('Killaboss with Stab-grot')
+
+    expect(preview.matches).toEqual([
+      {
+        line: 1,
+        label: 'Killaboss with Stab-grot',
+        canonicalId: warscrollIdByName('Killaboss with Stab-grot'),
+      },
+    ])
   })
 })
