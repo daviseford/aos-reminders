@@ -1,6 +1,6 @@
 {
   "authority": "games-workshop",
-  "generatedAt": "2026-08-02T06:30:00.000Z",
+  "generatedAt": "2026-08-02T22:00:00.000Z",
   "records": [
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
@@ -1585,7 +1585,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1610,7 +1610,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1635,7 +1635,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1660,7 +1660,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1685,7 +1685,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1710,7 +1710,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1735,7 +1735,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1760,7 +1760,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1785,7 +1785,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1810,7 +1810,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1835,7 +1835,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1860,7 +1860,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1885,7 +1885,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1910,7 +1910,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1935,7 +1935,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1960,7 +1960,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -1985,7 +1985,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2010,7 +2010,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2035,7 +2035,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2060,7 +2060,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2085,7 +2085,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2110,7 +2110,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2135,7 +2135,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2160,7 +2160,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2185,7 +2185,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2210,7 +2210,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2235,7 +2235,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2260,7 +2260,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2285,7 +2285,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2310,7 +2310,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2335,7 +2335,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2360,7 +2360,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2385,7 +2385,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2410,7 +2410,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2435,7 +2435,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2460,7 +2460,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2485,7 +2485,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2510,7 +2510,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2535,7 +2535,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2560,7 +2560,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2585,7 +2585,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2610,7 +2610,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2635,7 +2635,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2660,7 +2660,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2685,7 +2685,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2710,7 +2710,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2735,7 +2735,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2760,7 +2760,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2785,7 +2785,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2810,7 +2810,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2835,7 +2835,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2860,7 +2860,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2885,7 +2885,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2910,7 +2910,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2935,7 +2935,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2960,7 +2960,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -2985,7 +2985,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3010,7 +3010,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3035,7 +3035,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3060,7 +3060,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3085,7 +3085,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3110,7 +3110,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3135,7 +3135,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3160,7 +3160,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3185,7 +3185,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3210,7 +3210,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3235,7 +3235,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3260,7 +3260,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3285,7 +3285,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3310,7 +3310,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3335,7 +3335,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3360,7 +3360,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3385,7 +3385,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -3410,7 +3410,7 @@
     },
     {
       "artifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "disposition": "structured-reference",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -37877,13 +37877,13 @@
   ],
   "schemaVersion": 1,
   "summary": {
-    "appliedToRuntime": 939,
+    "appliedToRuntime": 1013,
     "effective": 1303,
     "profileOnly": 1,
     "records": 1350,
     "regimentsOfRenown": 76,
     "rosterOptions": 307,
-    "structuredReference": 363,
+    "structuredReference": 289,
     "superseded": 47,
     "units": 967
   }

@@ -16492,6 +16492,215 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Exile-Scavengers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f6e2ec61-dcb6-5b71-8d9c-e75534b47fb5",
+      "kind": "ability",
+      "name": "AN EYE FOR LOOT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Exile-Scavengers/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5daa69d0-63d1-5599-9578-cd80fe6600de",
+      "kind": "ability",
+      "name": "SWOOP IN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Exile-Scavengers/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a71d79b3-e519-5ded-94fd-02388f994fa2",
+      "kind": "ability",
+      "name": "WHAT’S YOURS IS MINE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Hargax-s-Pit-Beasts/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:90f426de-6950-536e-acac-f70da687bc62",
+      "kind": "ability",
+      "name": "BESTIAL DOMINATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Nurgle-s-Gift/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a6e301a6-2ccc-5496-9c1d-47f750dcc710",
+      "kind": "ability",
+      "name": "INCUBATION PERIOD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Nurgle-s-Gift/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:622e090f-3c1f-5305-a12f-faf7221d7c87",
+      "kind": "ability",
+      "name": "BURSTING WITH LIFE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:One-eyed-Grunnock/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7982f5d4-03ef-58f5-9f7c-f4bd379678c9",
+      "kind": "ability",
+      "name": "SHAKE THE EARTH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:One-eyed-Grunnock/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f22aee93-5cab-5b4c-8a11-7c1bd4f97521",
+      "kind": "ability",
+      "name": "TIMBERRRRR!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Phulgoth-s-Shudderhood/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:9afa1bab-98d0-5277-8620-241438eb55b3",
+      "kind": "ability",
+      "name": "FOG OF DESPAIR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Phulgoth-s-Shudderhood/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:28414e35-6507-5a1c-bd00-edc3de614dde",
+      "kind": "ability",
+      "name": "NAUSEATING CONVALESCENCE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Snerk-s-Trogg-Fer-Hire/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:1bdd9103-79f9-52b3-b692-cfe035173269",
+      "kind": "ability",
+      "name": "GO DAT WAY!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Snerk-s-Trogg-Fer-Hire/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b40ef954-86c0-5dbb-a761-1cbdfa4255fd",
+      "kind": "ability",
+      "name": "TAKTIKAL COWERING"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Stumblefoot-Gargant/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:855af8c6-870a-5abb-bbf4-c9f0f3f7d47c",
+      "kind": "ability",
+      "name": "PROJECTILE VOMIT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Stumblefoot-Gargant/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:0397e5f6-636e-5d9f-83ab-fda5566df9ff",
+      "kind": "ability",
+      "name": "BELLOWING MOCKERY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Stumblefoot-Gargant/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ce38c7e2-dc38-5abc-8c9d-244dc830e608",
+      "kind": "ability",
+      "name": "WHAT’RE YOU LOOKIN’ AT?"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:The-Coven-of-Thryx/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:774f6013-c3dd-5435-bdfc-783532c07001",
+      "kind": "ability",
+      "name": "SPARKS OF PROFANE POTENTIAL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:The-Coven-of-Thryx/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:76c16400-bdec-51f8-b337-703fff631eff",
+      "kind": "ability",
+      "name": "SKILLED SUMMONER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:The-Coven-of-Thryx/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:729548a7-2695-5965-962f-afae42ed2b29",
+      "kind": "ability",
+      "name": "FLICKERING WYRDFLAME"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:The-Coven-of-Thryx/ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:546fb141-9c18-599d-8dfc-cf63ccc63208",
+      "kind": "ability",
+      "name": "BOLT OF TZEENTCH"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/#faction-ability:Battle-Traits:ability:1",
           "publisher": "wahapedia"
         }
@@ -16591,6 +16800,94 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Brand-s-Oathbound/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:673912f5-2260-5b6f-8276-d2a3cdead47d",
+      "kind": "ability",
+      "name": "FAVOUR OF THE GODS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Diseased-Revellers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b0364ab2-eef8-5509-8c79-3626228ba88f",
+      "kind": "ability",
+      "name": "THE PIPER’S INFECTIOUS MELODIES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Godmarked-Ascendant/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e5de9dd4-256b-511f-8319-8289a8957c93",
+      "kind": "ability",
+      "name": "GODMARKED LEGION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Godmarked-Ascendant/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7d9e4562-e506-53ee-ba3b-9c38539acf8c",
+      "kind": "ability",
+      "name": "GIFTS OF CHAOS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Krittok-s-Clawpack/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:dba838f6-8a6d-5ae8-9edf-abde998e1cc1",
+      "kind": "ability",
+      "name": "FICKLE MOTIVES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Krittok-s-Clawpack/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b2df48fd-c9a8-58ec-b083-0d52b49c353b",
+      "kind": "ability",
+      "name": "ALWAYS THREE CLAWSTEPS AHEAD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Krittok-s-Clawpack/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:fe4a545f-6be9-5c6a-804d-7ba5aa794197",
+      "kind": "ability",
+      "name": "SKRYRE PAYLOADS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Lord-Skaldior-s-Chosen/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:bb8deae2-703a-5366-a888-c35ef4ddb92c",
+      "kind": "ability",
+      "name": "IRONCLAD DESPOILERS"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Scourge-of-Aqshy-Blood-Warriors/ability:1",
           "publisher": "wahapedia"
         }
@@ -16609,6 +16906,116 @@
       "canonicalId": "ability:b5ae5644-ee23-50f9-9cc6-84e8190c13a9",
       "kind": "ability",
       "name": "CEASELESS VIOLENCE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Seeker-of-the-Dread-Dirge/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5cccdf32-f517-5684-b7ac-112561a78db4",
+      "kind": "ability",
+      "name": "DIRGE OF DESOLATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Seeker-of-the-Dread-Dirge/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3d9f2c35-fd91-5ce4-be2d-bd36a5a5cf79",
+      "kind": "ability",
+      "name": "ALL-CONSUMING SEARCH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Squires-of-the-Everchosen/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ca7a40de-64dd-51c5-8588-1425231d4ba5",
+      "kind": "ability",
+      "name": "A DELUDED QUEST"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Squires-of-the-Everchosen/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8dc0036b-2afe-58d2-9e59-5e241f5e0937",
+      "kind": "ability",
+      "name": "A QUEST WELL DONE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:The-Curse-Steel-Battery/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:99e5cd2e-3c70-5602-820d-f7bb977fae9b",
+      "kind": "ability",
+      "name": "REINFORCE DAEMONSTEEL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:The-Curse-Steel-Battery/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4fdbc8b8-cb2f-5281-96c2-b552b86bb181",
+      "kind": "ability",
+      "name": "DISPLAY OF TOTAL POWER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:The-Pustules/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4f58bb20-5a58-5b8a-bacd-2f3c1113ed15",
+      "kind": "ability",
+      "name": "BLIGHTED GROWTH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:The-Pustules/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5cf25b66-99f5-5612-af9a-235ecd806de7",
+      "kind": "ability",
+      "name": "MULTITUDINOUS DISEASES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Volt-Klaw-s-Enginecoven/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ade99f62-fda5-5bec-9d5c-d5c379bdc2cd",
+      "kind": "ability",
+      "name": "BEHOLD MY GENIUS!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Volt-Klaw-s-Enginecoven/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:28451f2e-9323-5a88-9887-a7c1140a8cff",
+      "kind": "ability",
+      "name": "HIDE-SHELTER!"
     },
     {
       "aliases": [
@@ -16653,6 +17060,182 @@
       "canonicalId": "ability:1ea8c2cc-50ea-539d-b3c7-db624c9698ec",
       "kind": "ability",
       "name": "MONSTER HUNTERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Big-Drogg-Fort-Kicka/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5e4397fc-7fd6-572e-9ba0-73dd193d6eaa",
+      "kind": "ability",
+      "name": "GRIEVOUS HALITOSIS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Big-Drogg-Fort-Kicka/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b1634c11-890b-55a6-80b6-4634ba12aff1",
+      "kind": "ability",
+      "name": "TIMBERRRRR!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Big-Grikk-s-Kruleshots/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:bd73e040-5979-5a34-93db-002a01f37da0",
+      "kind": "ability",
+      "name": "SKEWER IT AGAIN!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Braggit-s-Bottle-Snatchaz/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6348010d-3f6e-57d5-8df2-3cee40862bdd",
+      "kind": "ability",
+      "name": "SNEAKY DISTRACTION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Braggit-s-Bottle-Snatchaz/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:99509880-3c46-5596-9d15-bb5e9dceac73",
+      "kind": "ability",
+      "name": "SUPER-SECRET TUNNELS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Braggit-s-Bottle-Snatchaz/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:51b4f73e-e111-55f6-bd5d-b14d152adf70",
+      "kind": "ability",
+      "name": "SUDDEN EMERGENCE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Bundo-Whalebiter/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:14ee6fd6-fec5-51f9-b1b2-78d452f346b6",
+      "kind": "ability",
+      "name": "DEAD CUNNING, FOR A GARGANT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Bundo-Whalebiter/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:009c5ebb-1472-554c-98df-b10d64fc5a69",
+      "kind": "ability",
+      "name": "TIMBERRRRR!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Da-Hurtlin-Hogz/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c36f7958-cc26-58fe-a06e-3a0ecd79cceb",
+      "kind": "ability",
+      "name": "GRUNTA WAAAGH!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Da-Hurtlin-Hogz/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6082aca2-796d-5917-9543-2b72a51ad92c",
+      "kind": "ability",
+      "name": "PULLIN’ AHEAD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Da-Kountin-Krew/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8ff96e48-7611-59da-aec0-8b6b746d7fb2",
+      "kind": "ability",
+      "name": "BOMBZ AWAY, LADZ!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Da-Kountin-Krew/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:55617827-3d45-5ae3-8972-bdb8ad519d93",
+      "kind": "ability",
+      "name": "SNATCH ’EM UP!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Goroan-Scions/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:936d9d97-ca3d-549c-b970-b23406646faa",
+      "kind": "ability",
+      "name": "GOROAN FORGECRAFT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Goroan-Scions/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3bed18c6-3f10-54fb-b088-cff131afc727",
+      "kind": "ability",
+      "name": "BELLOW OF GORKAMORKA"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Odo-Godswallow/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8796630f-2378-5faa-89e7-fd48f551d1cd",
+      "kind": "ability",
+      "name": "MIGHTY WALLOPER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Odo-Godswallow/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8326184b-9475-56e9-af78-60df0a41e0e3",
+      "kind": "ability",
+      "name": "TIMBERRRRR!"
     },
     {
       "aliases": [
@@ -17317,6 +17900,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Bloodthirsty-Shiver/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:18e8399f-281c-53ff-b694-1e7bfd583822",
+      "kind": "ability",
+      "name": "HUNT OF THE BLOODTHIRSTY SHIVER"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Callis-and-Toll/ability:1",
           "publisher": "wahapedia"
         }
@@ -17449,6 +18043,149 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Dawnrider-Lance/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2afdd7b1-75c7-5523-8368-09bfa32f7f8e",
+      "kind": "ability",
+      "name": "BLINDING CHARGE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Dawnrider-Lance/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:026369ea-6d38-531b-b119-09e299ff90fb",
+      "kind": "ability",
+      "name": "MASTERS OF ALL TERRAIN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Drekki-s-Privateers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3fe3d4e8-7d4c-53e7-8c2a-b20ba7893eb5",
+      "kind": "ability",
+      "name": "CRUISING INTO POSITION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Drekki-s-Privateers/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:597408d7-cec5-5716-ac30-50d2f47c8d1b",
+      "kind": "ability",
+      "name": "YOU CALL IT YOURS, I CALL IT MINE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Drekki-s-Privateers/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:25fc319d-4c7f-5d65-806f-6a9a09e59b5b",
+      "kind": "ability",
+      "name": "DAREDEVIL DEPLOYMENT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Drekki-s-Privateers/ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:161925a5-0ca7-50ea-8615-e5ab3550e977",
+      "kind": "ability",
+      "name": "THE GOOD SHIP AELSLING"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Drycha-s-Talons/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:33c71c9d-57c6-5600-af4f-9d29e7015f9e",
+      "kind": "ability",
+      "name": "BITTER ROOTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Drycha-s-Talons/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5090810a-4be5-501e-9364-322be1da6827",
+      "kind": "ability",
+      "name": "CONCEALED IN THE SHADOWS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Elthwin-s-Thorns/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6a9073c8-b022-59f7-b7c0-1f0638a3bced",
+      "kind": "ability",
+      "name": "GOSSAMID CHAMPION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Elthwin-s-Thorns/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:84f3b6c5-03af-56f4-a501-c90fafe7e05c",
+      "kind": "ability",
+      "name": "FLIGHT OF THE ZEPHYRSPITES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Enforcers-of-the-Tithe/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:251b1481-b5c6-5304-a553-43a7436d2354",
+      "kind": "ability",
+      "name": "COLLECT THE TITHE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Enforcers-of-the-Tithe/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e9e145fe-d385-5157-b65d-e21d4b308ec9",
+      "kind": "ability",
+      "name": "SOUL TAX"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Enforcers-of-the-Tithe/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:59344166-90ba-5a39-bba3-a9b0717870f4",
+      "kind": "ability",
+      "name": "REBUILD ON THE MARCH"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Erasmus-Zonn-the-Enlightened One/ability:1",
           "publisher": "wahapedia"
         }
@@ -17478,6 +18215,28 @@
       "canonicalId": "ability:7eb39616-b795-5031-a97f-554c7c6a33fe",
       "kind": "ability",
       "name": "THE FOUR CORNERS OF THE REALMS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Fjori-s-Flamebearers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4ad60d51-7c6b-5b94-8fc3-021fbfdbf4ce",
+      "kind": "ability",
+      "name": "TOE TO TOE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Fjori-s-Flamebearers/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8d4af2db-734d-54b3-9d01-ea00e02f1aaf",
+      "kind": "ability",
+      "name": "GRIMNIR’S DEFIANCE"
     },
     {
       "aliases": [
@@ -17669,6 +18428,28 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Heroes-of-The-Jade-Abbey/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:40ff0dc2-8abf-5e4e-862c-c2be37d19c7f",
+      "kind": "ability",
+      "name": "STRONGER TOGETHER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Heroes-of-The-Jade-Abbey/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:1727faec-c67a-5a78-9055-349559bd73f3",
+      "kind": "ability",
+      "name": "WATERS OF THE EVERSPRING"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Immolator-Cogfort/ability:1",
           "publisher": "wahapedia"
         }
@@ -17757,6 +18538,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Khinerai-Death-Flight/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:0789ea02-46da-5141-b4d2-36d7bf1600c5",
+      "kind": "ability",
+      "name": "FIERCE COMPETITION"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Linebreaker-Cogfort/ability:1",
           "publisher": "wahapedia"
         }
@@ -17819,6 +18611,28 @@
       "canonicalId": "ability:a91a3f0e-d2bd-5f8e-bc66-3f42615fa5e3",
       "kind": "ability",
       "name": "CONSECRATE THE LAND"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Namarti-Shore-Raid/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d97e6e6b-6cbb-5b10-8eac-e39fd01157c3",
+      "kind": "ability",
+      "name": "IN THE SHADOW OF THE ETHERSEA"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Namarti-Shore-Raid/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:72c7c841-650a-52f8-91ec-58b6164b4311",
+      "kind": "ability",
+      "name": "LAUNCH THE ATTACK"
     },
     {
       "aliases": [
@@ -17900,6 +18714,72 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Sigil-Convocation/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:36119bed-0fa3-50ce-86c9-15ac7b4b104e",
+      "kind": "ability",
+      "name": "CYCLE MANIFESTATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Sigil-Convocation/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ac02444c-0f2f-5f21-b970-0e46a2cbc968",
+      "kind": "ability",
+      "name": "SWIFT ERASURE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Sigil-Convocation/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6353f2b1-a559-5d82-a600-3ef98df475c5",
+      "kind": "ability",
+      "name": "ARCANE TAXONOMY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Sky-Port-Profiteers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4c82cc50-1f77-5aa2-aced-11ba9f415966",
+      "kind": "ability",
+      "name": "SUPPLIES DONT COME CHEAP"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Sky-Port-Profiteers/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8cb62c4e-635e-5a92-9698-519b79dfe6e4",
+      "kind": "ability",
+      "name": "NO ONE RIDES FOR FREE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Sky-Port-Profiteers/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b5f479ed-3c0e-59ad-930d-949efba9a4e5",
+      "kind": "ability",
+      "name": "LONG-RANGE SUPPORT"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Tahlia-Vedra-Lioness-of-the-Parch/ability:4",
           "publisher": "wahapedia"
         }
@@ -17907,6 +18787,94 @@
       "canonicalId": "ability:cf3357f5-2608-592e-9845-03365d97c8c8",
       "kind": "ability",
       "name": "COMBAT TACTICIAN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Blacktalons/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3bfcdc50-582b-5ac0-9681-1db7f82c78ab",
+      "kind": "ability",
+      "name": "JUSTICE WILL BE SERVED"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Crimson-Lash/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8a415f70-c05c-549c-9a2f-1556d0a8be56",
+      "kind": "ability",
+      "name": "SITE OF SLAUGHTER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Crimson-Lash/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:05d0b5a7-dcb0-5085-9505-6dbdd6641984",
+      "kind": "ability",
+      "name": "FINISHING MOVES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Horizon-Seekers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:114636ca-a29a-5827-94be-78d506e52cc7",
+      "kind": "ability",
+      "name": "HUNTER’S COHESION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Scarlet-Jury/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4711f117-255e-5ccf-adf4-3e3fd101b3a9",
+      "kind": "ability",
+      "name": "PUNISHMENT FITS THE CRIME"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Twisted-Branch/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8ef5e57c-c951-58ab-92c0-3c50e7207540",
+      "kind": "ability",
+      "name": "SEARCHING FOR REMEDIES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Twisted-Branch/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f3f405b0-54f3-520d-87f1-0fd4119ad1a8",
+      "kind": "ability",
+      "name": "SOOTHING PULSE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Valnir-s-Stormwing/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:11c5f491-985f-5f3f-b7ba-f7832124b016",
+      "kind": "ability",
+      "name": "HOUR OF RETRIBUTION"
     },
     {
       "aliases": [
@@ -18065,6 +19033,72 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Norgrimm-s-Rune-Throng/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4f2bc914-ebaa-5fb4-b357-0502b9835659",
+      "kind": "ability",
+      "name": "WRATH AND RUIN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Norgrimm-s-Rune-Throng/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:cfe9d0f0-a973-56ba-abae-6f7f8110c4e6",
+      "kind": "ability",
+      "name": "RUNE OF RESTORED HEARTH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Reinholt-s-Sharpshooters/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f9c6fde9-46b5-5c49-921b-68d39e66a8c7",
+      "kind": "ability",
+      "name": "FRIENDLY COMPETITION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Reinholt-s-Sharpshooters/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8cb5059e-545f-5943-b6e5-29bbf8fb0ce7",
+      "kind": "ability",
+      "name": "CASTLE UP!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Saviours-of-Cinderfall/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e515c5f5-e250-55fc-b02d-b01335a5d9da",
+      "kind": "ability",
+      "name": "SIGMAR’S JUSTICE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Saviours-of-Cinderfall/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:32c031df-cb2a-5026-8a39-67d95d55c4c7",
+      "kind": "ability",
+      "name": "DUTY BOUND"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Scourge-of-Aqshy-Khainite-Shadowstalkers/ability:1",
           "publisher": "wahapedia"
         }
@@ -18083,6 +19117,17 @@
       "canonicalId": "ability:7cfeaf0d-f305-5a58-b761-3e7f1c99aa95",
       "kind": "ability",
       "name": "FRENZIED SLAUGHTER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Ven-Denst-s-Hounds/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:14b36c20-3de6-56a5-8878-71d406357feb",
+      "kind": "ability",
+      "name": "SPELL HUNTERS"
     },
     {
       "aliases": [
@@ -18263,6 +19308,28 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:Mist-Clad-Revellers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:df5f958b-59db-59c5-a419-b85fc04dd057",
+      "kind": "ability",
+      "name": "LURKING THREAT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:Mist-Clad-Revellers/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8ef473f2-db39-5e58-9c5c-75e1195c8aa8",
+      "kind": "ability",
+      "name": "THE MISTS PART"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:Pyrofane-Fusil-Major-on-Ogor-Warhulk/ability:1",
           "publisher": "wahapedia"
         }
@@ -18391,6 +19458,50 @@
       "canonicalId": "ability:66e16cbd-98aa-50d4-8cc8-6d3e8a125665",
       "kind": "ability",
       "name": "DRAWN TO MAGIC"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:The-Accursed-Reflection/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e04ad39b-7d47-5a7f-8b49-ebd82dedbb24",
+      "kind": "ability",
+      "name": "SPEW FORTH SIN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:The-Exiled-One/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e3ad14f4-df0b-5a73-a3b0-c877e23619e2",
+      "kind": "ability",
+      "name": "HATRED FOR ALL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:The-Red-Revelation/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:0e55c957-7d93-5ed9-a736-a0e34be10efb",
+      "kind": "ability",
+      "name": "FRENZIED VIOLENCE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:The-Red-Revelation/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:be6137ae-97e4-53f9-9e62-d5386ba1c67d",
+      "kind": "ability",
+      "name": "GLIMPSE THE GOD"
     },
     {
       "aliases": [
@@ -18571,6 +19682,127 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Blades-of-the-Hollow-King/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:1c42f8f7-d1af-5e6e-8d21-98258a14cbcb",
+      "kind": "ability",
+      "name": "THE HUNGER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Casket-of-Resurrections/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:942d4f2e-c99b-5dd7-b808-c7984d9da9d7",
+      "kind": "ability",
+      "name": "DARK RESURRECTION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Casket-of-Resurrections/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5238e1bd-32a4-5972-bcd1-f4a4f39f3667",
+      "kind": "ability",
+      "name": "ETHEREAL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Craventhrone-Executioners/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:cc850332-c4fd-58e6-ab70-229e86c49088",
+      "kind": "ability",
+      "name": "ENEMY OF THE THRONE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Craventhrone-Executioners/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:372a726c-7867-5378-b639-6c3bc8c02080",
+      "kind": "ability",
+      "name": "ETHEREAL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Heralds-of-the-Bone-tithe/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2c23a467-9d93-5d2a-a772-8b838ce5d073",
+      "kind": "ability",
+      "name": "THE DECREE OF NAGASH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Karahtet-s-Siege-Breaker/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6cfae24e-5356-582d-9a26-e4f686005bcc",
+      "kind": "ability",
+      "name": "REINFORCE PAVISE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Neferata-s-Royal-Echelon/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:690ece59-9208-513d-b4b8-7d6d2ea7e6e8",
+      "kind": "ability",
+      "name": "SOULPIKE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Neferata-s-Royal-Echelon/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f683dce2-f330-523c-b79b-9949a1c25629",
+      "kind": "ability",
+      "name": "PREMEDITATED DEMISE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Neferata-s-Royal-Echelon/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:bc380234-5f30-57e6-8914-4e79ec85f4e4",
+      "kind": "ability",
+      "name": "THE BLOOD QUEEN’S WILL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Scions-of-the-Necropolis/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:12983803-630a-5ad7-8f1a-2039bb67ec06",
+      "kind": "ability",
+      "name": "BULWARK OF THE NECROPOLIS"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Scourge-of-Aqshy-Royal-Decapitator/ability:1",
           "publisher": "wahapedia"
         }
@@ -18611,6 +19843,149 @@
       "canonicalId": "ability:b378b6d3-5374-5c53-ab68-1615076e41d4",
       "kind": "ability",
       "name": "THE HOWLING SAINT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Beast-of-Castle-Sternieste/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8d563de5-eb0c-5e7c-a6d3-95ce559d4486",
+      "kind": "ability",
+      "name": "DEATHLESS MONSTROSITY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Liche-s-Hand/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ea71e51d-522d-5305-8523-a4ee4ff3bc3e",
+      "kind": "ability",
+      "name": "SKELETAL SPLINTERING"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Liche-s-Hand/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:59ba705d-b9c6-5b6b-bff0-522dab2a5f14",
+      "kind": "ability",
+      "name": "UNHOLY SACRAMENTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Lost-Song-Spirits/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:afb5a5fe-1550-517c-a8f2-0103c8086d76",
+      "kind": "ability",
+      "name": "ENDLESS WANDERING"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Lost-Song-Spirits/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:cfc31456-8871-5f98-92b4-183da2f34b1a",
+      "kind": "ability",
+      "name": "OMINOUS FOG"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Sorrowmourn-Choir/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:16873484-9050-575e-8ebd-72ea9eee3815",
+      "kind": "ability",
+      "name": "GHOSTLY PATHS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Sorrowmourn-Choir/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:544084d6-caec-5fe0-9d14-56c495a1ba4e",
+      "kind": "ability",
+      "name": "INSUBSTANTIAL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Sorrowmourn-Choir/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f46a13c8-a183-5aff-9968-1cf049c4d662",
+      "kind": "ability",
+      "name": "HARVESTERS OF SORROW"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Sternieste-Garrison/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7bb75bed-0323-519b-8bb5-5e90438aae01",
+      "kind": "ability",
+      "name": "STALKING BLADES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Sternieste-Garrison/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4c068e99-3613-519b-a851-db08f73fc372",
+      "kind": "ability",
+      "name": "ENGULFING SHADOWS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Sternieste-Garrison/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f3c8de41-7137-5e86-9179-a757bcc7dac2",
+      "kind": "ability",
+      "name": "COVER OF NIGHT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Veremord-s-Shamblers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:dfb4ebe7-fe3e-5358-8782-68aba4f72934",
+      "kind": "ability",
+      "name": "VITIATING VAPOURS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Veremord-s-Shamblers/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3782e209-257b-58da-972c-cbbfd93eda83",
+      "kind": "ability",
+      "name": "LEGEND AMONG GRAVEROBBERS"
     },
     {
       "aliases": [
@@ -19770,6 +21145,28 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#datasheet:Seekers-of-Silver/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c5babeab-dbc1-546d-8178-1ec009e152f5",
+      "kind": "ability",
+      "name": "SPLINTERS OF SORCERY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#datasheet:Seekers-of-Silver/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e94565ee-66ae-5d80-9050-85ea610576fc",
+      "kind": "ability",
+      "name": "BUBBLES OF UNREALITY"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#datasheet:Shalaxi-Helbane/ability:5",
           "publisher": "wahapedia"
         }
@@ -20503,6 +21900,39 @@
       "canonicalId": "ability:8c4a798c-7e83-5f5e-b1ab-13424cf7b90c",
       "kind": "ability",
       "name": "YOU AIN’T GONNA SHOW ME UP"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#datasheet:Skulkrik-s-Loonladz/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:341bef9b-68a5-5b4b-aa7b-c32bd435aaa4",
+      "kind": "ability",
+      "name": "ON DA MOON’S TRAIL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#datasheet:The-Shinestealaz/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7aaa2090-9552-5c81-9cce-217925085a46",
+      "kind": "ability",
+      "name": "SNEAKY PROWLIN’"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#datasheet:The-Shinestealaz/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:91b79120-8b16-5636-a8d4-d052b00748d9",
+      "kind": "ability",
+      "name": "AMBUSH TIME!"
     },
     {
       "aliases": [
@@ -21420,6 +22850,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:Jerrion-s-Delegation/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c4eda982-ba76-5f3d-a869-96a3a65044c3",
+      "kind": "ability",
+      "name": "URGENT MISSIVE"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:Scourge-of-Aqshy-Black-Coach/ability:1",
           "publisher": "wahapedia"
         }
@@ -21460,6 +22901,61 @@
       "canonicalId": "ability:d6e1ef6f-ee5b-5eb5-aa95-fd701bc8ab48",
       "kind": "ability",
       "name": "TERRIFYING SPECTRES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:The-Horror-of-Hallow-s-Watch/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:9e003880-b601-5c6c-8b10-4fc2c74f8314",
+      "kind": "ability",
+      "name": "DARK HUNT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:The-Horror-of-Hallow-s-Watch/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:fe3031ff-dc36-5925-b61e-9618d606c5e8",
+      "kind": "ability",
+      "name": "RAVENOUS SHRIEKS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:The-Summerking-s-Entourage/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d21a65bf-6426-56f5-9015-75f3442e4aff",
+      "kind": "ability",
+      "name": "DERANGED TRANSFORMATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:The-Summerking-s-Entourage/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3f360fc9-9979-5d42-8383-3ad4c2874a57",
+      "kind": "ability",
+      "name": "MADDENING RADIANCE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:The-Summerking-s-Entourage/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:84dafa28-a2d7-560c-9045-fc22f6bbec5c",
+      "kind": "ability",
+      "name": "SUMMON DELUDED THRONGS"
     },
     {
       "aliases": [
@@ -76794,6 +78290,94 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Exile-Scavengers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c9a674d1-9052-566c-8ea8-7a391c6b2fb4",
+      "kind": "content-group",
+      "name": "Exile Scavengers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Hargax-s-Pit-Beasts/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:30b2f654-c55a-5420-8245-862f6c565b0d",
+      "kind": "content-group",
+      "name": "Hargax’s Pit-Beasts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Nurgle-s-Gift/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:e95130a4-252e-5609-91d0-00c0aed45ea5",
+      "kind": "content-group",
+      "name": "Nurgle’s Gift"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:One-eyed-Grunnock/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:b007ac41-4abb-5d6b-a492-db38dbf3dd0d",
+      "kind": "content-group",
+      "name": "One-eyed Grunnock"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Phulgoth-s-Shudderhood/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c44cc348-b355-5cc4-97cd-65d2b3faef9d",
+      "kind": "content-group",
+      "name": "Phulgoth’s Shudderhood"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Snerk-s-Trogg-Fer-Hire/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:f339f0be-17c4-58d0-afe6-13ba9d117cc5",
+      "kind": "content-group",
+      "name": "Snerk’s Trogg-Fer-Hire"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:Stumblefoot-Gargant/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:25df0e21-bfff-517a-a754-0a3a64d297b7",
+      "kind": "content-group",
+      "name": "Stumblefoot Gargant"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#datasheet:The-Coven-of-Thryx/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:f9ec1625-2cbf-5f93-ad09-5f0dd744a841",
+      "kind": "content-group",
+      "name": "The Coven of Thryx"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/#datasheet:Bloodbound-Gore-Pilgrims/warscroll",
           "publisher": "wahapedia"
         }
@@ -76834,6 +78418,226 @@
       "canonicalId": "content-group:ab2f5661-c61a-5777-8dfe-101e11bad0b7",
       "kind": "content-group",
       "name": "Proclamations of Murder"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Brand-s-Oathbound/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:b159fa01-d3c0-5d54-9906-0686d924ccff",
+      "kind": "content-group",
+      "name": "Brand’s Oathbound"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Cogfort-Raiders/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:41c88ccb-84ad-561b-a073-ce342708e020",
+      "kind": "content-group",
+      "name": "Cogfort Raiders"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Diseased-Revellers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:362fe5e0-f268-5e51-bd3f-686bff9de8ca",
+      "kind": "content-group",
+      "name": "Diseased Revellers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Godmarked-Ascendant/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:a362a43e-6964-5809-afae-e8552ae42165",
+      "kind": "content-group",
+      "name": "Godmarked Ascendant"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Krittok-s-Clawpack/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:f6c32e45-58db-589a-91b2-a514e2fa8731",
+      "kind": "content-group",
+      "name": "Krittok’s Clawpack"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Lord-Skaldior-s-Chosen/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c4506990-4513-57ad-9bd0-c936cfad09cd",
+      "kind": "content-group",
+      "name": "Lord Skaldior’s Chosen"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Rogue-Engine/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:ee7889dd-3d7f-5c49-9d3b-53707a882540",
+      "kind": "content-group",
+      "name": "Rogue Engine"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Seeker-of-the-Dread-Dirge/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:347ccf68-8797-5bd4-9653-13dfc7daf34f",
+      "kind": "content-group",
+      "name": "Seeker of the Dread Dirge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Squires-of-the-Everchosen/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:d14ab734-5ff2-5ae1-af04-e25cb8188764",
+      "kind": "content-group",
+      "name": "Squires of the Everchosen"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:The-Curse-Steel-Battery/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:db15d3be-3dfb-58f3-92dd-7a7a324aeaed",
+      "kind": "content-group",
+      "name": "The Curse-Steel Battery"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:The-Pustules/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:454b6fde-9418-5aa7-a127-067562ef2409",
+      "kind": "content-group",
+      "name": "The Pustules"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Volt-Klaw-s-Enginecoven/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:aeeef83d-69ca-583a-bd25-65f846a6dd74",
+      "kind": "content-group",
+      "name": "Volt-Klaw’s Enginecoven"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Big-Drogg-Fort-Kicka/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:5451f021-f79e-581e-abf3-07ea49ec454d",
+      "kind": "content-group",
+      "name": "Big Drogg Fort-Kicka"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Big-Grikk-s-Kruleshots/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:4f1ea5fa-80c1-5aa0-a4a8-c88d0eb1641c",
+      "kind": "content-group",
+      "name": "Big Grikk’s Kruleshots"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Braggit-s-Bottle-Snatchaz/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:71a736e8-0dea-51f0-96bd-e10b45930f3c",
+      "kind": "content-group",
+      "name": "Braggit’s Bottle-Snatchaz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Bundo-Whalebiter/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:9b34fc84-669b-5732-be58-d184e5507dcd",
+      "kind": "content-group",
+      "name": "Bundo Whalebiter"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Da-Hurtlin-Hogz/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:88a2b57f-8cb9-56dd-b096-92a407adcb44",
+      "kind": "content-group",
+      "name": "Da Hurtlin’ Hogz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Da-Kountin-Krew/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:b9bdf46b-24ff-5045-a83c-ef4d611c06b5",
+      "kind": "content-group",
+      "name": "Da Kountin’ Krew"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Goroan-Scions/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:2bd9da2b-a630-5295-bfb2-0a5efca6c3cb",
+      "kind": "content-group",
+      "name": "Goroan Scions"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#datasheet:Odo-Godswallow/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c104eccb-979e-575f-b187-66224bb4d295",
+      "kind": "content-group",
+      "name": "Odo Godswallow"
     },
     {
       "aliases": [
@@ -77124,6 +78928,226 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Bloodthirsty-Shiver/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:07bb32da-808f-5840-834b-d21ae3620bbb",
+      "kind": "content-group",
+      "name": "Bloodthirsty Shiver"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Dawnrider-Lance/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:776d6730-96ba-5610-a390-1982d430e37c",
+      "kind": "content-group",
+      "name": "Dawnrider Lance"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Drekki-s-Privateers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:f9603540-a696-54eb-972a-bf3cce2a0c58",
+      "kind": "content-group",
+      "name": "Drekki’s Privateers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Drycha-s-Talons/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:9132308e-df10-55d5-8460-ad6c2bb4a2fe",
+      "kind": "content-group",
+      "name": "Drycha’s Talons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Elthwin-s-Thorns/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c1e46f43-a50d-554f-8e6b-bc9e1a68ddea",
+      "kind": "content-group",
+      "name": "Elthwin’s Thorns"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Enforcers-of-the-Tithe/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:40537739-2df0-5686-93c5-45f3e8f3e940",
+      "kind": "content-group",
+      "name": "Enforcers of the Tithe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Fjori-s-Flamebearers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:ea6c24f7-0a47-5c60-8f88-75990d0a860c",
+      "kind": "content-group",
+      "name": "Fjori’s Flamebearers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Gotrek-Gurnisson/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:ae141d5e-97b3-5c03-802f-abdc3800e52f",
+      "kind": "content-group",
+      "name": "Gotrek Gurnisson"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Heroes-of-The-Jade-Abbey/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:577676fa-efaf-5372-8022-9f199e4e009d",
+      "kind": "content-group",
+      "name": "Heroes of The Jade Abbey"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Khinerai-Death-Flight/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:3b6150ed-925a-5670-8003-3ff57ccf9ba7",
+      "kind": "content-group",
+      "name": "Khinerai Death Flight"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Mask-of-the-Deceiver/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:8f9df358-e2e4-57a6-81d2-23dc8c1cfa12",
+      "kind": "content-group",
+      "name": "Mask of the Deceiver"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Namarti-Shore-Raid/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:96d6a66c-e05a-5244-9aea-539ec113e9b1",
+      "kind": "content-group",
+      "name": "Namarti Shore Raid"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Sigil-Convocation/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:b1e568ad-1406-5c80-b198-120641c3df00",
+      "kind": "content-group",
+      "name": "Sigil Convocation"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Sky-Port-Profiteers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:d9982c2b-475f-55c4-b239-c8a009dd77a3",
+      "kind": "content-group",
+      "name": "Sky-Port Profiteers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Blacktalons/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:2452b425-8019-595e-aa7a-2b315debaa68",
+      "kind": "content-group",
+      "name": "The Blacktalons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Crimson-Lash/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:782287cb-515b-55fb-9398-4fe84a9fb6c3",
+      "kind": "content-group",
+      "name": "The Crimson Lash"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Horizon-Seekers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:12f6c599-2410-5779-bba8-11fceb47754c",
+      "kind": "content-group",
+      "name": "The Horizon Seekers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Scarlet-Jury/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c09f7a4f-4439-5f4e-936d-6a7e59ed8d5c",
+      "kind": "content-group",
+      "name": "The Scarlet Jury"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:The-Twisted-Branch/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:18bd8f7e-9d19-5e1f-9f96-8f9430aecfab",
+      "kind": "content-group",
+      "name": "The Twisted Branch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Valnir-s-Stormwing/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:7b9ad9c6-a27b-5ff0-8405-6771a4001613",
+      "kind": "content-group",
+      "name": "Valnir’s Stormwing"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/#datasheet:Heartflayer-Troupe/warscroll",
           "publisher": "wahapedia"
         }
@@ -77175,6 +79199,50 @@
       "canonicalId": "content-group:00a2e841-f4ae-5e3e-bb8e-36f532c5a8a8",
       "kind": "content-group",
       "name": "Paragons of Murder"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Norgrimm-s-Rune-Throng/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:38b46484-c2ad-5fc2-b75d-93393a5c389a",
+      "kind": "content-group",
+      "name": "Norgrimm’s Rune Throng"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Reinholt-s-Sharpshooters/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:95d104b4-b602-5e16-92f7-128ea46b23f1",
+      "kind": "content-group",
+      "name": "Reinholt’s Sharpshooters"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Saviours-of-Cinderfall/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:e99df145-1640-5472-ab31-b2fb870ed972",
+      "kind": "content-group",
+      "name": "Saviours of Cinderfall"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#datasheet:Ven-Denst-s-Hounds/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:45a2b993-5056-5533-a0f7-055877893bb7",
+      "kind": "content-group",
+      "name": "Ven Denst’s Hounds"
     },
     {
       "aliases": [
@@ -77234,6 +79302,50 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:Mist-Clad-Revellers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:5cd3786d-561a-5ae8-a914-8474bc7822b6",
+      "kind": "content-group",
+      "name": "Mist-Clad Revellers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:The-Accursed-Reflection/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:36c7bf8f-0449-5258-8825-4554d94d86f9",
+      "kind": "content-group",
+      "name": "The Accursed Reflection"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:The-Exiled-One/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:8a7339d3-0a38-5ac1-afe2-d85ac4a13e63",
+      "kind": "content-group",
+      "name": "The Exiled One"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#datasheet:The-Red-Revelation/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:08ca9469-6277-57ea-b233-347e0371dcd6",
+      "kind": "content-group",
+      "name": "The Red Revelation"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/#datasheet:Carrion-Retainers/warscroll",
           "publisher": "wahapedia"
         }
@@ -77285,6 +79397,149 @@
       "canonicalId": "content-group:41d4e9b0-feab-5d2f-9d9b-7788c3d6d0bc",
       "kind": "content-group",
       "name": "The Royal Treasury"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Blades-of-the-Hollow-King/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:a78e8b6f-c1ea-523a-a93a-253b86aa6d45",
+      "kind": "content-group",
+      "name": "Blades of the Hollow King"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Casket-of-Resurrections/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c266b61f-57d5-555c-bcaa-883cdfddc145",
+      "kind": "content-group",
+      "name": "Casket of Resurrections"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Craventhrone-Executioners/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:edadaccc-2c74-5a33-8298-5970c02740f8",
+      "kind": "content-group",
+      "name": "Craventhrone Executioners"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Heralds-of-the-Bone-tithe/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:03e1625e-6ebb-5058-903a-0aefdf82791d",
+      "kind": "content-group",
+      "name": "Heralds of the Bone-tithe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Karahtet-s-Siege-Breaker/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:6d1d9a04-753c-54db-8cb9-a4e5c4128c75",
+      "kind": "content-group",
+      "name": "Karahtet’s Siege Breaker"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Neferata-s-Royal-Echelon/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:a83cb9ed-e2b6-5bee-b34e-ab9a5d6f26ad",
+      "kind": "content-group",
+      "name": "Neferata’s Royal Echelon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Scions-of-the-Necropolis/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:2d4a5281-a74a-5920-87ae-82cfabf606a5",
+      "kind": "content-group",
+      "name": "Scions of the Necropolis"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Beast-of-Castle-Sternieste/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:eef37316-a1df-52c2-a0c1-04656dabdfe4",
+      "kind": "content-group",
+      "name": "The Beast of Castle Sternieste"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Liche-s-Hand/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:9abe09a1-51fe-53de-adcf-3dd07bd5abe6",
+      "kind": "content-group",
+      "name": "The Liche’s Hand"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Lost-Song-Spirits/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:f8c46549-9dfb-561d-9fcd-c16dffe95b78",
+      "kind": "content-group",
+      "name": "The Lost-Song Spirits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Sorrowmourn-Choir/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:a01e6385-d63e-5c1a-b67c-a986360d5abb",
+      "kind": "content-group",
+      "name": "The Sorrowmourn Choir"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:The-Sternieste-Garrison/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:46e773c2-bd27-5d68-b6ae-d1d9519099d1",
+      "kind": "content-group",
+      "name": "The Sternieste Garrison"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Veremord-s-Shamblers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:bbbfab32-46bc-53d8-906b-76cae48331c2",
+      "kind": "content-group",
+      "name": "Veremord’s Shamblers"
     },
     {
       "aliases": [
@@ -77619,6 +79874,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#datasheet:Seekers-of-Silver/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:5307b6a6-3fb5-5ad8-8111-6732689b859c",
+      "kind": "content-group",
+      "name": "Seekers of Silver"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/helsmiths-of-hashut/#datasheet:Helforge-Host/warscroll",
           "publisher": "wahapedia"
         }
@@ -77769,6 +80035,28 @@
       "canonicalId": "content-group:89d62f01-3053-5f44-95a8-4b1a19e2129b",
       "kind": "content-group",
       "name": "Da Boss’s Hoard"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#datasheet:Skulkrik-s-Loonladz/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:7465e266-2917-5c48-9d48-6949aabf8f43",
+      "kind": "content-group",
+      "name": "Skulkrik’s Loonladz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#datasheet:The-Shinestealaz/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:cc393b06-158e-536c-8e91-236173e7eee5",
+      "kind": "content-group",
+      "name": "The Shinestealaz"
     },
     {
       "aliases": [
@@ -78044,6 +80332,39 @@
       "canonicalId": "content-group:b6fc11a3-ca8b-59d3-ba7a-5c1a9246f875",
       "kind": "content-group",
       "name": "Relics of the Underworlds"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:Jerrion-s-Delegation/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:930ddf0e-932e-52cf-a436-ec1790e93438",
+      "kind": "content-group",
+      "name": "Jerrion’s Delegation"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:The-Horror-of-Hallow-s-Watch/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:5d1f3e3d-1e98-5979-8beb-91c5580e7fc7",
+      "kind": "content-group",
+      "name": "The Horror of Hallow’s Watch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#datasheet:The-Summerking-s-Entourage/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:18c9d300-84e3-5c3e-bdc6-da6247db97af",
+      "kind": "content-group",
+      "name": "The Summerking’s Entourage"
     },
     {
       "aliases": [
@@ -99879,6 +102200,39 @@
       "canonicalId": "weapon:790342bb-145f-579a-8ae7-9a017f92462f",
       "kind": "weapon",
       "name": "Lamprey Bite"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Blades-of-the-Hollow-King/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:100ba6e1-4a7d-58e0-92f6-2c7b358c9c8c",
+      "kind": "weapon",
+      "name": "Ezechiarian Greatsword"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Blades-of-the-Hollow-King/weapon:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:8ab2d2b2-1627-5e10-9eb6-a42918215dba",
+      "kind": "weapon",
+      "name": "Sissendra’s Twin Blades"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#datasheet:Blades-of-the-Hollow-King/weapon:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:89f7c720-65ef-5496-beca-f86969c028a6",
+      "kind": "weapon",
+      "name": "Kennistrix’s Fangs"
     },
     {
       "aliases": [

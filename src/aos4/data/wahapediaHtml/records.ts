@@ -43,11 +43,28 @@ export interface WahapediaHtmlAbilityRecord {
   meta: WahapediaHtmlRecordMeta
 }
 
+/**
+ * The Regiment of Renown structure a datasheet publishes: the INCLUSION block naming the factions
+ * whose armies may include the regiment, and the ORGANISATION block linking the member warscrolls
+ * the purchase brings.
+ */
+export interface WahapediaHtmlRegimentOfRenown {
+  inclusionFactionNames: string[]
+  members: Array<{ name: string; href: string }>
+}
+
 export interface WahapediaHtmlWarscrollRecord {
   recordKind: 'warscroll' | 'content-group'
   externalId: string
   parentExternalId?: string
   parentName?: string
+  /**
+   * The source page classifies this datasheet as a Regiment of Renown: its nails header reads
+   * `•REGIMENT OF RENOWN•`. Derived from page structure, not part of the hashed record value, so
+   * record identity is unchanged. Generation cross-checks the reviewed `regimentsOfRenown`
+   * classification against it (issue #1858).
+   */
+  regimentOfRenown?: WahapediaHtmlRegimentOfRenown
   name: string
   factionName: string
   sourceTitle: string
@@ -127,6 +144,7 @@ export type WahapediaHtmlDiagnosticCode =
   | 'orphan-faction-ability'
   | 'orphan-rules-ability'
   | 'missing-battle-profile'
+  | 'regiment-of-renown-variant'
 
 export interface WahapediaHtmlDiagnostic {
   code: WahapediaHtmlDiagnosticCode

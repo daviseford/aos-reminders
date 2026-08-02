@@ -244,6 +244,13 @@ const discrepancy = (
   }
 }
 
+/**
+ * Inclusion-list entries that are deliberately not factions. Wahapedia lists the Legion of the
+ * First Prince Army of Renown as an eligible taker of two regiments; Army-of-Renown-scoped
+ * availability is out of scope for the relationship graph, which models faction availability.
+ */
+const EXPECTED_NON_FACTION_INCLUSIONS = new Set(['legionofthefirstprince'])
+
 const generalRuleActor = (descriptionHtml: string): AbilityActor => {
   const text = normalizeSourceText(descriptionHtml).text
   if (/\bterrain feature\b/i.test(text)) return 'terrain'
@@ -371,15 +378,25 @@ export const mergeCurrentWahapediaWarscrollPages = (
         : []
       const canReuseWarscrollIdentity =
         pageIdentityCounts.get([page.factionName, page.context, page.name].map(canonical).join('|')) === 1
-      const old = canReuseWarscrollIdentity
-        ? (oldWarscrollByPath.get(pathFor(page.sourceUrl)) ??
-          (groupCandidates.length === 1
-            ? groupCandidates[0]
-            : nameCandidates.length === 1
-              ? nameCandidates[0]
-              : undefined))
-        : undefined
-      const facts = matchingFacts(page, officialUnits, isLegendsOldWarscroll(old, dataset))
+      /**
+       * A Regiment of Renown page never adopts an old CSV identity and never matches official
+       * unit facts: it is a purchasable bundle, not a unit. Its official anchor is the
+       * regiment-of-renown battle-profile row, which the reviewed classification cites, and a
+       * name shared with a real warscroll (Gotrek Gurnisson is both a Fyreslayers unit and a
+       * Regiment of Renown) must not cross-link the two.
+       */
+      const old =
+        canReuseWarscrollIdentity && !page.regimentOfRenown
+          ? (oldWarscrollByPath.get(pathFor(page.sourceUrl)) ??
+            (groupCandidates.length === 1
+              ? groupCandidates[0]
+              : nameCandidates.length === 1
+                ? nameCandidates[0]
+                : undefined))
+          : undefined
+      const facts = page.regimentOfRenown
+        ? []
+        : matchingFacts(page, officialUnits, isLegendsOldWarscroll(old, dataset))
       facts.forEach(fact => matchedOfficialFactChecksums.add(fact.factChecksum))
       const official = primaryFact(page, facts)
       const contextKinds = htmlContextKinds(page, facts)
@@ -403,6 +420,7 @@ export const mergeCurrentWahapediaWarscrollPages = (
       const factionId = factionIdByName.get(canonical(page.factionName)) ?? old?.factionId ?? ''
       const record: WahapediaWarscrollRecord = {
         id: warscrollId,
+        ...(page.regimentOfRenown ? { regimentOfRenown: true as const } : {}),
         name: official?.name ?? page.name,
         factionId,
         sourceId: old?.sourceId ?? '',
@@ -505,6 +523,39 @@ export const mergeCurrentWahapediaWarscrollPages = (
           ),
         })
       })
+
+      /**
+       * A Regiment of Renown's INCLUSION block is its availability: the regiment is offered by
+       * exactly the factions the datasheet names, never by the collection page that happened to
+       * carry the kept copy (a regiment's home faction is often not allowed to include it — Lord
+       * Skaldior's Chosen is Slaves to Darkness content that only six other factions may take).
+       * Wahapedia also lists the Legion of the First Prince Army of Renown in two inclusion
+       * blocks; an Army of Renown is not a faction, so that known entry is skipped and any other
+       * unknown name fails closed.
+       */
+      if (page.regimentOfRenown) {
+        page.regimentOfRenown.inclusionFactionNames.forEach(inclusionName => {
+          const inclusionFactionId = factionIdByName.get(canonical(inclusionName))
+          if (!inclusionFactionId) {
+            if (EXPECTED_NON_FACTION_INCLUSIONS.has(canonical(inclusionName))) return
+            throw new Error(
+              `Regiment of Renown ${page.name} names an unknown inclusion faction: ${inclusionName}`
+            )
+          }
+          const value = { warscrollId, factionId: inclusionFactionId, inclusion: inclusionName }
+          availability.push({
+            warscrollId,
+            factionId: inclusionFactionId,
+            meta: derivedMeta(
+              page,
+              'Warscrolls_RoRfactions.csv',
+              `availability:${inclusionFactionId}`,
+              value,
+              contextKinds
+            ),
+          })
+        })
+      }
     })
 
   pages.forEach(page => {
@@ -512,6 +563,48 @@ export const mergeCurrentWahapediaWarscrollPages = (
     const record = mergedRecordByPage.get(pageKey(page))
     const parentWarscrollId = mergedIdByPage.get(pageKey(page, page.parentExternalId))
     if (record && parentWarscrollId) record.parentWarscrollId = parentWarscrollId
+  })
+
+  /**
+   * Resolve each Regiment of Renown's ORGANISATION links to the member warscrolls' merged ids.
+   *
+   * A member link targets its warscroll's own collection anchor (`…/slaves-to-darkness/
+   * warscrolls.html#Chaos-Knights`), so resolution goes through the kept pages' anchors. A member
+   * whose datasheet is absent from the accepted current pages (the Cogfort crews link anchors the
+   * Cities of Sigmar collection does not carry) is retained by name for generation to surface,
+   * never silently invented.
+   */
+  const warscrollIdByAnchor = new Map<string, string>()
+  pages.forEach(page => {
+    if (page.regimentOfRenown) return
+    const id = mergedIdByPage.get(pageKey(page))
+    if (!id) return
+    try {
+      const url = new URL(page.sourceUrl)
+      warscrollIdByAnchor.set(`${url.pathname.toLowerCase()}${url.hash}`, id)
+    } catch {
+      /* a page without a parseable URL simply cannot be a member target */
+    }
+  })
+  pages.forEach(page => {
+    if (!page.regimentOfRenown) return
+    const record = mergedRecordByPage.get(pageKey(page))
+    if (!record) return
+    const memberIds: string[] = []
+    const unresolved: string[] = []
+    page.regimentOfRenown.members.forEach(member => {
+      try {
+        const url = new URL(member.href, 'https://wahapedia.ru')
+        const memberId = warscrollIdByAnchor.get(`${url.pathname.toLowerCase()}${url.hash}`)
+        if (memberId) memberIds.push(memberId)
+        else unresolved.push(member.name)
+      } catch {
+        unresolved.push(member.name)
+      }
+    })
+    const uniqueMemberIds = Array.from(new Set(memberIds))
+    if (uniqueMemberIds.length) record.regimentOfRenownMemberIds = uniqueMemberIds
+    if (unresolved.length) record.regimentOfRenownUnresolvedMembers = Array.from(new Set(unresolved))
   })
 
   const keptAbilities = dataset.warscrollAbilities.filter(record => retainedIds.has(record.warscrollId))

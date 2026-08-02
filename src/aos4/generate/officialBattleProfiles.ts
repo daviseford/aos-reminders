@@ -30,10 +30,23 @@ export interface OfficialBattleProfileCatalog {
   }
 }
 
+/**
+ * The name key used to match an official regiment-of-renown profile row to the runtime content
+ * group generated from its Wahapedia datasheet. Reviewed `officialProfileName` mappings cover the
+ * rows whose official spelling differs beyond punctuation and case.
+ */
+export const canonicalOfficialProfileName = (value: string): string =>
+  value
+    .normalize('NFKD')
+    .replace(/[‘’']/g, '')
+    .replace(/[^a-z0-9]+/gi, '')
+    .toLowerCase()
+
 export const createOfficialBattleProfileCatalog = (
   reviewed: ReviewedOfficialBattleProfileFact[],
   reconciliation: WahapediaHtmlReconciliation,
-  generatedAt: string
+  generatedAt: string,
+  appliedRegimentOfRenownNames: ReadonlySet<string> = new Set()
 ): OfficialBattleProfileCatalog => {
   const unmatched = new Set(reconciliation.unmatchedOfficialUnitFacts.map(record => record.factChecksum))
   const effectiveUnits = reviewed.filter(
@@ -52,11 +65,18 @@ export const createOfficialBattleProfileCatalog = (
       const disposition =
         record.status === 'superseded'
           ? ('superseded' as const)
-          : record.fact.kind !== 'unit'
-            ? ('structured-reference' as const)
-            : unmatched.has(record.fact.factChecksum)
-              ? ('profile-only' as const)
-              : ('applied-to-runtime' as const)
+          : record.fact.kind === 'regiment-of-renown'
+            ? // A regiment-of-renown row applies once its classified runtime content group exists
+              // (issue #1858); a row with no accepted rules source yet (Wahapedia lags Okar's
+              // Torrbad and Urrgar's Maulerguts) honestly remains a structured reference.
+              appliedRegimentOfRenownNames.has(canonicalOfficialProfileName(record.fact.name))
+              ? ('applied-to-runtime' as const)
+              : ('structured-reference' as const)
+            : record.fact.kind !== 'unit'
+              ? ('structured-reference' as const)
+              : unmatched.has(record.fact.factChecksum)
+                ? ('profile-only' as const)
+                : ('applied-to-runtime' as const)
       return { ...record, id, disposition }
     })
     .sort((left, right) => left.id.localeCompare(right.id))

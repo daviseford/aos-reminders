@@ -66,6 +66,32 @@ describe('official battle-profile catalog', () => {
         status: 'superseded',
         fact: unit('superseded', 'Superseded Unit', '4'.repeat(64)),
       },
+      // A regiment-of-renown row applies once its classified runtime content group exists
+      // (issue #1858); one with no accepted rules source remains a structured reference.
+      ...(
+        [
+          ['ror-applied', 'Lord Skaldior’s Chosen', '5'],
+          ['ror-lagging', 'Urrgar’s Maulerguts', '6'],
+        ] as const
+      ).map(([key, name, checksumDigit]) => ({
+        artifactChecksum: 'a'.repeat(64),
+        documentTitle: 'Battle Profiles',
+        status: 'effective' as const,
+        fact: {
+          kind: 'regiment-of-renown' as const,
+          key,
+          page: 61,
+          row: 1,
+          faction: 'Regiments of Renown' as const,
+          context: 'standard' as const,
+          name,
+          points: 530,
+          unitSummary: [],
+          notes: [],
+          sourceRecordId: sourceRecordId('games-workshop', `fixture:${key}`),
+          factChecksum: checksumDigit.repeat(64),
+        },
+      })),
     ]
 
     const catalog = createOfficialBattleProfileCatalog(
@@ -88,22 +114,29 @@ describe('official battle-profile catalog', () => {
         ],
         discrepancies: [],
       },
-      '2026-07-28T00:00:00.000Z'
+      '2026-07-28T00:00:00.000Z',
+      new Set(['lordskaldiorschosen'])
     )
 
     expect(catalog.records.map(record => record.disposition).sort()).toEqual([
       'applied-to-runtime',
+      'applied-to-runtime',
       'profile-only',
+      'structured-reference',
       'structured-reference',
       'superseded',
     ])
+    const dispositionByName = new Map(catalog.records.map(record => [record.fact.name, record.disposition]))
+    expect(dispositionByName.get('Lord Skaldior’s Chosen')).toBe('applied-to-runtime')
+    expect(dispositionByName.get('Urrgar’s Maulerguts')).toBe('structured-reference')
     expect(catalog.summary).toMatchObject({
-      records: 4,
-      effective: 3,
+      records: 6,
+      effective: 5,
       superseded: 1,
-      appliedToRuntime: 1,
+      regimentsOfRenown: 2,
+      appliedToRuntime: 2,
       profileOnly: 1,
-      structuredReference: 1,
+      structuredReference: 2,
     })
   })
 })

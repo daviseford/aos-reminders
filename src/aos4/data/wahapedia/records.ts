@@ -49,6 +49,16 @@ export interface WahapediaSourceRecord {
 export interface WahapediaWarscrollRecord {
   id: string
   parentWarscrollId?: string
+  /**
+   * The source datasheet classifies this record as a Regiment of Renown (issue #1858). Set by the
+   * current-HTML merge from the datasheet's `•REGIMENT OF RENOWN•` marker; generation fails
+   * closed until a reviewed `regimentsOfRenown` classification covers the record.
+   */
+  regimentOfRenown?: true
+  /** Merged dataset ids of the member warscrolls the regiment's ORGANISATION block links. */
+  regimentOfRenownMemberIds?: string[]
+  /** ORGANISATION members whose linked datasheet is absent from the accepted current pages. */
+  regimentOfRenownUnresolvedMembers?: string[]
   name: string
   factionId: string
   sourceId: string
