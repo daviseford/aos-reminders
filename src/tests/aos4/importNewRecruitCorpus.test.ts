@@ -147,6 +147,32 @@ describe('New Recruit corpus through the production importer', () => {
   })
 
   /**
+   * New Recruit nests each manifestation warscroll as a `unit` under the chosen manifestation
+   * lore rather than in the force itself. Dropping them loses the manifestations' own abilities —
+   * a Foot of Gork that never stomps in the movement phase (#1854) — so the nested units have to
+   * arrive as ordinary warscroll selections and resolve against the catalog.
+   */
+  it('imports the manifestation warscrolls nested under a chosen lore', async () => {
+    const result = await decode('bok-001-all-units', 'ros')
+    const parsedRoster = result.parsedRoster
+    if (!parsedRoster) throw new Error('expected the roster to parse')
+
+    const labels = parsedRoster.selections.map(selection => selection.label)
+    for (const manifestation of ['Bleeding Icon', 'Hexgorger Skulls', 'Wrath-axe']) {
+      expect(labels).toContain(manifestation)
+    }
+
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'manifestations',
+    })
+    const matched = new Set(preview.matches.map(match => match.label))
+    for (const manifestation of ['Bleeding Icon', 'Hexgorger Skulls', 'Wrath-axe']) {
+      expect(matched).toContain(manifestation)
+    }
+  })
+
+  /**
    * The captures were built with New Recruit's "Allow Legends" switch on, so the opt-in has to
    * survive the import and the Legends units have to arrive. A player who deliberately opted into
    * Legends gets the army they built, in the roster's own context, and the document remembers the
