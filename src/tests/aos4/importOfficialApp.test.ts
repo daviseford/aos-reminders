@@ -113,6 +113,51 @@ describe('official AoS app text import', () => {
       expect(parsed?.selections.find(s => s.label === 'Squig Herd')?.isLegends).toBeUndefined()
     })
 
+    it("reads the General's Regiment section and asterisk bullets", () => {
+      // GHB 2026-27 lists open with `General's Regiment` instead of a numbered regiment, and some
+      // platforms put the bullets on the clipboard as `*` rather than `•`. Before either was
+      // handled, every unit in the general's regiment was silently dropped and each `*` line
+      // surfaced as an unknown warscroll (issue #1853).
+      const parsed = decode(
+        'Grand Alliance Chaos | Skaven | Warpcog Convocation',
+        "General's Regiment",
+        'Thanquol on Boneripper (310)',
+        '* General',
+        'Rat Ogors (290)',
+        '* Reinforced',
+        '* Anabolic Accelerators',
+        'Regiment 1',
+        'Warplock Jezzails (240)'
+      )
+      expect(labelled(parsed, 'warscroll')).toEqual([
+        'Thanquol on Boneripper',
+        'Rat Ogors',
+        'Warplock Jezzails',
+      ])
+      expect(labelled(parsed, 'enhancement')).toEqual(['Anabolic Accelerators'])
+    })
+
+    it('drops weapon-loadout bullets that lead with a model count', () => {
+      const parsed = decode(
+        'Grand Alliance Chaos | Skaven | Warpcog Convocation',
+        'Regiment 1',
+        'Stormfiends (230)',
+        '* 1 Ratling Cannons and Clubbing Blows',
+        '* 1 Shock Gauntlets',
+        '• 3 x Ratling Cannon',
+        'Warlock Engineer (100)'
+      )
+      expect(labelled(parsed, 'warscroll')).toEqual(['Stormfiends', 'Warlock Engineer'])
+      expect(labelled(parsed, 'enhancement')).toEqual([])
+    })
+
+    it('honours a * Legends bullet the same as the • form', () => {
+      const parsed = decode("Gloomspite Gitz | Da King's Gitz", 'Regiment 1', 'Loonboss (70)', '* Legends')
+      expect(parsed?.allowsLegends).toBe(true)
+      expect(parsed?.selections.find(s => s.label === 'Loonboss')?.isLegends).toBe(true)
+      expect(labelled(parsed, 'enhancement')).toEqual([])
+    })
+
     it('splits a manifestation line into one selection per manifestation', () => {
       const parsed = decode(
         'Grand Alliance Order | Cities of Sigmar | Grudgebound War Throng',

@@ -539,10 +539,40 @@ const resolveRosterSelection = (
       stripContextQualifier(selection.label, contextQualifiers(context)),
     ].filter((label): label is string => Boolean(label))
 
-    const contextCandidates = [
-      ...attempts.map(label => () => matchLabel(label)),
-      ...attempts.map(label => () => matchQualifiedLabel(label)),
-    ].reduce<ContentEntity[]>((found, attempt) => (found.length ? found : attempt()), [])
+    /**
+     * Collapse a container and its own content matched under one name.
+     *
+     * A Moulder Mutation such as "Anabolic Accelerators" is modelled twice: a content-group the
+     * faction offers, and the ability inside it carrying the rules text. A roster line naming it
+     * means that one pick, not two rivals, so a candidate that `includes` another wins over what
+     * it contains — the same shape a hand-built army holds, where the offered group is the
+     * selectable and brings its ability along.
+     */
+    const collapseContainedCandidates = (found: ContentEntity[]): ContentEntity[] => {
+      if (found.length < 2) return found
+      const ids = new Set(found.map(entity => entity.id))
+      const contained = new Set(
+        catalog.relationships
+          .filter(
+            relationship =>
+              relationship.kind === 'includes' &&
+              relationshipIsApplicable(relationship, rulesContextId) &&
+              ids.has(relationship.from) &&
+              ids.has(relationship.to)
+          )
+          .map(relationship => relationship.to)
+      )
+      if (!contained.size) return found
+      const containers = found.filter(entity => !contained.has(entity.id))
+      return containers.length ? containers : found
+    }
+
+    const contextCandidates = collapseContainedCandidates(
+      [
+        ...attempts.map(label => () => matchLabel(label)),
+        ...attempts.map(label => () => matchQualifiedLabel(label)),
+      ].reduce<ContentEntity[]>((found, attempt) => (found.length ? found : attempt()), [])
+    )
     return { contextCandidates, candidates: contextCandidates.filter(entity => reachableIds.has(entity.id)) }
   }
 

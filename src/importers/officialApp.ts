@@ -15,14 +15,15 @@ const contextPattern = /^(?:General['’]s Handbook|GHB)\b/i
 const officialMetadataPattern =
   /^(?:Created with Warhammer Age of Sigmar: The App|App:|Exported with App Version:|Drops?:|Total:|Auxiliaries:|Battle Tactics? Cards?:|Army of Renown\s*$)/i
 const sectionPattern =
-  /^(?:REGIMENTS?|Regiment \d+|AUXILIARIES|AUXILIARY UNITS|FACTION TERRAIN|REGIMENTS OF RENOWN)$/i
+  /^(?:REGIMENTS?|Regiment \d+|General['’]s Regiment|AUXILIARIES|AUXILIARY UNITS|FACTION TERRAIN|REGIMENTS OF RENOWN)$/i
 /** The app pads its exports with runs of dashes between blocks. They carry no roster content. */
 const separatorPattern = /^[-–—]{3,}$/
 /**
  * A `• Legends` bullet is not an enhancement — it marks the warscroll above it as Legends content.
- * The app emits it per unit rather than declaring the opt-in once in the header.
+ * The app emits it per unit rather than declaring the opt-in once in the header. Some platforms
+ * put the bullets on the clipboard as `*` instead of `•`, so both count as the marker everywhere.
  */
-const legendsBulletPattern = /^[•]\s*Legends\s*$/i
+const legendsBulletPattern = /^[•*]\s*Legends\s*$/i
 
 /**
  * A bundled sub-unit — an unpointed line directly beneath a pointed one, covered by that unit's
@@ -34,7 +35,7 @@ const legendsBulletPattern = /^[•]\s*Legends\s*$/i
  * with a list marker, and carry no sentence punctuation. Colons are allowed — `Scourge of Aqshy:
  * Mancrusher Gargant` is a unit name.
  */
-const bundledWarscrollPattern = /^[^-•][^.!?;]*$/
+const bundledWarscrollPattern = /^[^-•*][^.!?;]*$/
 const MAX_BUNDLED_LABEL_LENGTH = 60
 
 type Section = 'none' | 'units' | 'faction-terrain' | 'regiment-of-renown'
@@ -117,12 +118,14 @@ const parseBundledWarscroll = (
 }
 
 const parseBullet = (line: Aos4ImportLine): ParsedRosterSelection | undefined => {
-  const match = line.text.match(/^[•]\s*(.+)$/)
+  const match = line.text.match(/^[•*]\s*(.+)$/)
   if (!match) return undefined
   const label = match[1].trim()
   if (
     /^(?:General|Reinforced)$/i.test(label) ||
-    /^\d+\s*[x×]\s+/i.test(label) ||
+    // A leading count is a weapon loadout — `1 Shock Gauntlets`, `3 x Ratling Cannon` — which is
+    // model configuration, not an enhancement.
+    /^\d+\s*[x×]?\s+/i.test(label) ||
     /\bx\d+\b/i.test(label) ||
     label.includes(';')
   ) {
