@@ -41,6 +41,8 @@ describe('official AoS app text import', () => {
       { line: 6, label: 'Knight-Vexillor', kindHint: 'warscroll' },
       { line: 8, label: 'Mirrorshield', kindHint: 'enhancement' },
       { line: 9, label: 'Annihilators', kindHint: 'warscroll', count: 3 },
+      // The pointed line is the regiment itself, recorded as its own selectable kind (#1858).
+      { line: 12, label: 'The Example Regiment', kindHint: 'regiment-of-renown', isRegimentOfRenown: true },
       // Dashed members are regiment of renown content too, and carry the cross-faction flag.
       { line: 13, label: 'Freeguild Fusiliers', kindHint: 'warscroll', isRegimentOfRenown: true },
       { line: 14, label: 'Freeguild Marshal', kindHint: 'warscroll', isRegimentOfRenown: true },
@@ -293,7 +295,7 @@ describe('official AoS app text import', () => {
       expect(labelled(parsed, 'warscroll')).toEqual(['Great Mawpot', 'Mawpit'])
     })
 
-    it('reads dashless regiment of renown members and drops the bundle itself', () => {
+    it('reads dashless regiment of renown members and the bundle as the regiment itself', () => {
       const parsed = decode(
         'Orruk Warclans | Ironjawz | Weirdfist',
         'Regiments of Renown',
@@ -303,15 +305,23 @@ describe('official AoS app text import', () => {
         'Big Drogg Fort-Kicka (450)',
         'Gatebreaker Mega-Gargant'
       )
-      // The bundle carries the points but has no warscroll of its own.
+      // The pointed line is the purchasable regiment: the catalog models it as a
+      // `regiment-of-renown` content group carrying the regiment's abilities (issue #1858).
+      expect(labelled(parsed, 'regiment-of-renown')).toEqual([
+        "Big Grikk's Kruleshots",
+        'Big Drogg Fort-Kicka',
+      ])
       expect(labelled(parsed, 'warscroll')).toEqual([
         'Beast-skewer Killbow',
         'Man-skewer Boltboyz',
         'Gatebreaker Mega-Gargant',
       ])
-      // Members are cross-faction by design; the flag is what lets them resolve outside Ironjawz.
+      // Members and the regiment are cross-faction by design; the flag lets them resolve outside
+      // Ironjawz.
       expect(
-        parsed?.selections.filter(s => s.kindHint === 'warscroll').every(s => s.isRegimentOfRenown)
+        parsed?.selections
+          .filter(s => s.kindHint === 'warscroll' || s.kindHint === 'regiment-of-renown')
+          .every(s => s.isRegimentOfRenown)
       ).toBe(true)
     })
 

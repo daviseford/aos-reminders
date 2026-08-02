@@ -109,6 +109,12 @@
       "label": "Weirdnob Shaman"
     },
     {
+      "line": 37,
+      "kindHint": "regiment-of-renown",
+      "label": "Big Grikk's Kruleshots",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 38,
       "kindHint": "warscroll",
       "label": "Beast-skewer Killbow",
@@ -127,9 +133,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 41,
+      "kindHint": "regiment-of-renown",
+      "label": "Big Drogg Fort-Kicka",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 42,
       "kindHint": "warscroll",
       "label": "Gatebreaker Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 43,
+      "kindHint": "regiment-of-renown",
+      "label": "Braggit's Bottle-Snatchaz",
       "isRegimentOfRenown": true
     },
     {
@@ -157,15 +175,33 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 48,
+      "kindHint": "regiment-of-renown",
+      "label": "Bundo Whalebiter",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 49,
       "kindHint": "warscroll",
       "label": "Kraken-eater Mega-Gargant",
       "isRegimentOfRenown": true
     },
     {
+      "line": 50,
+      "kindHint": "regiment-of-renown",
+      "label": "Cogfort Raiders",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 51,
       "kindHint": "warscroll",
       "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 52,
+      "kindHint": "regiment-of-renown",
+      "label": "Da Kountin' Krew",
       "isRegimentOfRenown": true
     },
     {
@@ -187,6 +223,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 56,
+      "kindHint": "regiment-of-renown",
+      "label": "Exile Scavengers",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 57,
       "kindHint": "warscroll",
       "label": "Endrinmaster with Dirigible Suit",
@@ -202,6 +244,12 @@
       "line": 59,
       "kindHint": "warscroll",
       "label": "Skywardens",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 60,
+      "kindHint": "regiment-of-renown",
+      "label": "Goroan Scions",
       "isRegimentOfRenown": true
     },
     {
@@ -223,9 +271,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 64,
+      "kindHint": "regiment-of-renown",
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 65,
       "kindHint": "warscroll",
       "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 66,
+      "kindHint": "regiment-of-renown",
+      "label": "Nurgle's Gift",
       "isRegimentOfRenown": true
     },
     {
@@ -241,9 +301,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 69,
+      "kindHint": "regiment-of-renown",
+      "label": "Odo Godswallow",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 70,
       "kindHint": "warscroll",
       "label": "Beast-smasher Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 71,
+      "kindHint": "regiment-of-renown",
+      "label": "One-eyed Grunnock",
       "isRegimentOfRenown": true
     },
     {
@@ -253,9 +325,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 73,
+      "kindHint": "regiment-of-renown",
+      "label": "Rogue Engine",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 74,
       "kindHint": "warscroll",
       "label": "Outlaw Cannonade Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 75,
+      "kindHint": "regiment-of-renown",
+      "label": "Snerk's Trogg-Fer-Hire",
       "isRegimentOfRenown": true
     },
     {
@@ -268,6 +352,12 @@
       "line": 77,
       "kindHint": "warscroll",
       "label": "Dankhold Troggoth",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 78,
+      "kindHint": "regiment-of-renown",
+      "label": "Skulkrik's Loonladz",
       "isRegimentOfRenown": true
     },
     {
@@ -289,9 +379,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 82,
+      "kindHint": "regiment-of-renown",
+      "label": "Stumblefoot Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 83,
       "kindHint": "warscroll",
       "label": "Mancrusher Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 84,
+      "kindHint": "regiment-of-renown",
+      "label": "The Scarlet Jury",
       "isRegimentOfRenown": true
     },
     {

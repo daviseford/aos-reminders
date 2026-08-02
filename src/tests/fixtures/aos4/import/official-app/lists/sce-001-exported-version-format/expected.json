@@ -28,6 +28,12 @@
       "count": 3
     },
     {
+      "line": 12,
+      "kindHint": "regiment-of-renown",
+      "label": "The Example Regiment",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 13,
       "kindHint": "warscroll",
       "label": "Freeguild Fusiliers",

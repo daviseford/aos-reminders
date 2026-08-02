@@ -482,6 +482,12 @@ const isLegendsOnly = (catalog: Aos4Catalog, label: string, kindHint: ParsedRost
 interface ResolutionContext {
   context: RulesContext
   reachableIds: Set<CanonicalId>
+  /**
+   * What the faction's own `offers` edges grant, before graph traversal widens it. A member
+   * warscroll a faction can only field inside a bought regiment is reachable but not directly
+   * offered, and that distinction decides what a bare unit line naming both means.
+   */
+  directlyOfferedIds: Set<CanonicalId>
 }
 
 const resolveRosterSelection = (
@@ -502,7 +508,7 @@ const resolveRosterSelection = (
   armiesOfRenown: ArmyOfRenownIndex,
   diagnostics: Aos4ImportDiagnostic[]
 ): Aos4ImportMatch | undefined => {
-  const matchInContext = ({ context, reachableIds }: ResolutionContext) => {
+  const matchInContext = ({ context, reachableIds, directlyOfferedIds }: ResolutionContext) => {
     const rulesContextId = context.id
     const eligible = catalog.entities.filter(
       entity =>
@@ -592,13 +598,76 @@ const resolveRosterSelection = (
       return containers.length ? containers : found
     }
 
-    const contextCandidates = collapseContainedCandidates(
-      [
+    /**
+     * A Regiment of Renown named on an ordinary unit line.
+     *
+     * Listbot has no regiment section: its game data files a regiment as a unit-shaped entry
+     * (`isRor`), so the export writes `- 1 x Lord Skaldior's Chosen (530)` exactly like a
+     * warscroll. The line resolves to whichever reading the faction can actually buy, in this
+     * precedence: a warscroll the faction is directly offered always wins; a warscroll that is
+     * only reachable — through a bought regiment's own `includes` edge — yields to a same-name
+     * regiment the faction may include (resolving to the member would lose the regiment's own
+     * ability); and when no warscroll attempt matches at all, the regiment reading is tried
+     * last. A line already marked `isRegimentOfRenown` sits *inside* a regiment section, so it
+     * can only be a member warscroll — its parser records the bundle separately, and a member
+     * whose warscroll the corpus lacks (Mask of the Deceiver's Underworlds warband) must keep
+     * failing closed instead of resolving to its own bundle a second time.
+     */
+    const matchRegimentOfRenown = (label: string): ContentEntity[] => {
+      if (selection.kindHint !== 'warscroll' || selection.isRegimentOfRenown) return []
+      const normalized = normalizeImportLabel(label)
+      return catalog.entities.filter(
+        entity =>
+          entity.kind === 'content-group' &&
+          entity.groupType === 'regiment-of-renown' &&
+          isApplicable(entity, rulesContextId) &&
+          normalizeImportLabel(entity.name) === normalized
+      )
+    }
+
+    const firstNonEmpty = (matchers: Array<() => ContentEntity[]>): ContentEntity[] =>
+      matchers.reduce<ContentEntity[]>((found, attempt) => (found.length ? found : attempt()), [])
+
+    const primary = collapseContainedCandidates(
+      firstNonEmpty([
         ...attempts.map(label => () => matchLabel(label)),
         ...attempts.map(label => () => matchQualifiedLabel(label)),
-      ].reduce<ContentEntity[]>((found, attempt) => (found.length ? found : attempt()), [])
+      ])
     )
-    return { contextCandidates, candidates: contextCandidates.filter(entity => reachableIds.has(entity.id)) }
+    const primaryReachable = primary.filter(entity => reachableIds.has(entity.id))
+    const reachableRegiments = () =>
+      firstNonEmpty(attempts.map(label => () => matchRegimentOfRenown(label))).filter(entity =>
+        reachableIds.has(entity.id)
+      )
+    if (primaryReachable.length) {
+      /**
+       * A unit line naming both a warscroll and a regiment means whichever one the faction can
+       * actually buy. Blades of the Hollow King is a Soulblight warscroll *and* a regiment three
+       * other factions may include; for Soulblight the line is the directly offered unit, while
+       * for Nighthaunt the warscroll is reachable only as the regiment's member — through the
+       * regiment's own `includes` edge — so the pointed line is the regiment purchase, and
+       * resolving it to the member would lose the regiment's own ability, the exact #1858 loss.
+       */
+      const regimentInstead =
+        primaryReachable.every(
+          entity => entity.kind === 'warscroll' && !directlyOfferedIds.has(entity.id)
+        ) && selection.kindHint === 'warscroll' && !selection.isRegimentOfRenown
+          ? reachableRegiments()
+          : []
+      if (regimentInstead.length) {
+        return { contextCandidates: regimentInstead, candidates: regimentInstead }
+      }
+      return { contextCandidates: primary, candidates: primaryReachable }
+    }
+    /**
+     * The regiment fallback also runs when the warscroll reading went nowhere *reachable*, not
+     * merely when nothing matched: an unreachable same-name warscroll must not shadow the
+     * regiment the roster actually bought.
+     */
+    const regiments = firstNonEmpty(attempts.map(label => () => matchRegimentOfRenown(label)))
+    const regimentsReachable = regiments.filter(entity => reachableIds.has(entity.id))
+    if (regimentsReachable.length) return { contextCandidates: regiments, candidates: regimentsReachable }
+    return { contextCandidates: primary.length ? primary : regiments, candidates: [] }
   }
 
   const ambiguous = (): undefined => {
@@ -625,15 +694,20 @@ const resolveRosterSelection = (
   const known = perContext.some(({ contextCandidates }) => contextCandidates.length > 0)
 
   /**
-   * A regiment of renown resolves outside the army's faction.
+   * A regiment of renown's *members* resolve outside the army's faction.
    *
    * The band is bought as a whole and brings units the army has no other way to field — an
    * Ironjawz list can hold Gloomspite, Ossiarch and Kharadron warscrolls through one. Reachability
    * is still tried first above, so a name the faction *can* reach resolves to its own version and
    * collisions are decided the same way as before; this only runs once that found nothing, and
    * still refuses to guess between two candidates.
+   *
+   * The regiment container itself is deliberately excluded: its inclusion list *is* the faction's
+   * `offers` edges, so a classified regiment the roster's faction may not include must fail as
+   * inapplicable rather than ride the members' cross-faction bypass into the army (a Sylvaneth
+   * list naming Lord Skaldior's Chosen would otherwise import the whole Chaos regiment cleanly).
    */
-  if (selection.isRegimentOfRenown && known) {
+  if (selection.isRegimentOfRenown && selection.kindHint !== 'regiment-of-renown' && known) {
     for (const { contextCandidates } of perContext) {
       if (contextCandidates.length === 1) return matched(contextCandidates[0])
       if (contextCandidates.length > 1) return ambiguous()
@@ -743,11 +817,27 @@ export const resolveParsedRoster = (
       buildReachableIds(catalog, faction.id, rulesContext.id, armiesOfRenown),
     ])
   )
+  const directlyOfferedByContextId = new Map(
+    [effectiveContext, ...overlayContexts].map(rulesContext => [
+      rulesContext.id,
+      new Set(
+        catalog.relationships
+          .filter(
+            relationship =>
+              relationship.kind === 'offers' &&
+              relationship.from === faction.id &&
+              relationshipIsApplicable(relationship, rulesContext.id)
+          )
+          .map(relationship => relationship.to)
+      ),
+    ])
+  )
   const resolutionContexts = (preferLegends: boolean): ResolutionContext[] =>
     (preferLegends ? [...overlayContexts, effectiveContext] : [effectiveContext, ...overlayContexts]).map(
       rulesContext => ({
         context: rulesContext,
         reachableIds: reachableByContextId.get(rulesContext.id) ?? new Set<CanonicalId>(),
+        directlyOfferedIds: directlyOfferedByContextId.get(rulesContext.id) ?? new Set<CanonicalId>(),
       })
     )
 

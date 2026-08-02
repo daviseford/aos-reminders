@@ -67,6 +67,12 @@
       "label": "Beast-smasher Mega-Gargant"
     },
     {
+      "line": 25,
+      "kindHint": "regiment-of-renown",
+      "label": "Enforcers of the Tithe",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 26,
       "kindHint": "warscroll",
       "label": "Mortisan Ossifector",

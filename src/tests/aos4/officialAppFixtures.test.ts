@@ -2,6 +2,8 @@ import fs from 'node:fs'
 
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID, AOS4_RUNTIME_PROJECTION } from '../../aos4/generated'
 import { buildArmyOfRenownIndex, resolveParsedRoster } from '../../aos4/import'
+import { projectReminders } from '../../aos4/reminders'
+import { resolveSelection } from '../../aos4/select'
 import { decodeAos4TextRoster } from '../../importers'
 import {
   decodeOfficialAppFixture,
@@ -186,23 +188,163 @@ describe('official app list resolution', () => {
   /**
    * Names the corpus genuinely does not carry must keep failing closed.
    *
-   * `Mask of the Deceiver` is a Regiment of Renown band rather than a warscroll — the importer
-   * resolves a band's members and never the bundle itself — and the official battle-profile
-   * ledger carries no bare `Freeguild Marshal`, only the Relic Envoy and Griffon variants.
-   * Resolving either to a neighbour would produce reminders for a unit the player never took.
+   * The official battle-profile ledger carries no bare `Freeguild Marshal`, only the Relic Envoy
+   * and Griffon variants. Resolving either to a neighbour would produce reminders for a unit the
+   * player never took.
    */
-  it.each([
-    ['ij-001-renown-heavy', 'Mask of the Deceiver'],
-    ['sce-001-exported-version-format', 'Freeguild Marshal'],
-  ])('%s reports "%s" rather than guessing at a near-miss', (id, label) => {
-    const { matched, preview } = resolveFixture(id)
+  it('sce-001-exported-version-format reports "Freeguild Marshal" rather than guessing at a near-miss', () => {
+    const { matched, preview } = resolveFixture('sce-001-exported-version-format')
 
-    expect(matched).not.toContain(label)
+    expect(matched).not.toContain('Freeguild Marshal')
     expect(preview.diagnostics).toContainEqual(
       expect.objectContaining({
         code: 'unknown-selection',
         severity: 'warning',
-        message: expect.stringContaining(label),
+        message: expect.stringContaining('Freeguild Marshal'),
+      })
+    )
+  })
+
+  /**
+   * `Mask of the Deceiver` is both the regiment and its sole member warscroll, and the corpus
+   * currently carries neither in a usable form: the member is an Underworlds warband warscroll
+   * the collection pages lack, and with no meaningful content behind it the regiment group's
+   * `offers` edges are pruned. Both lines therefore fail closed with named diagnostics — the
+   * member as unknown, the container as inapplicable — rather than resolving the member to its
+   * own bundle or riding the members' cross-faction bypass into the army.
+   */
+  it('ij-001-renown-heavy fails both Mask of the Deceiver lines closed with named diagnostics', () => {
+    const { matched, preview } = resolveFixture('ij-001-renown-heavy')
+
+    expect(matched).not.toContain('Mask of the Deceiver')
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'unknown-selection',
+        severity: 'warning',
+        message: expect.stringContaining('Mask of the Deceiver'),
+      })
+    )
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'inapplicable-selection',
+        severity: 'warning',
+        message: expect.stringContaining('Mask of the Deceiver'),
+      })
+    )
+  })
+
+  /**
+   * The issue #1858 repro list, verbatim: importing it must surface the regiment's own passive.
+   *
+   * The regiment bundle line used to be discarded as unresolvable scaffolding, so the import
+   * succeeded while silently losing IRONCLAD DESPOILERS. Now the bundle resolves to the
+   * classified `regiment-of-renown` content group, the import's selection state matches a manual
+   * builder pick, and the passive lands in the reminders alongside the members' own abilities.
+   */
+  it('skv-003-skaldior-regiment-ability imports the regiment and its passive lands in the reminders', () => {
+    const { matched, preview } = resolveFixture('skv-003-skaldior-regiment-ability')
+
+    expect(preview.diagnostics).toEqual([])
+    expect(matched).toContain("Lord Skaldior's Chosen")
+    expect(matched).toContain('Chaos Lord on Daemonic Mount')
+    expect(matched).toContain('Chaos Knights')
+    expect(matched).toContain('Chaos Warriors')
+
+    const document = preview.proposedDocument
+    expect(document).toBeDefined()
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: document!.explicitSelectionIds,
+      rulesContextId: document!.rulesContextId,
+    })
+    expect(selection.diagnostics).toEqual([])
+    const regiment = AOS4_CATALOG.entities.find(
+      entity =>
+        entity.kind === 'content-group' &&
+        entity.groupType === 'regiment-of-renown' &&
+        entity.name === 'Lord Skaldior’s Chosen'
+    )!
+    expect(selection.selectedIds).toContain(regiment.id)
+
+    const reminders = projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name)
+    expect(reminders).toContain('IRONCLAD DESPOILERS')
+  })
+
+  /**
+   * The regiment container respects its inclusion list even though its members do not.
+   *
+   * Members ride the cross-faction bypass by design — the band brings units the army cannot
+   * otherwise field. The container must not: its inclusion list *is* the faction's `offers`
+   * edges, so a Sylvaneth roster naming Lord Skaldior's Chosen (a regiment only six Chaos
+   * factions may include) has to surface inapplicable-selection instead of importing the whole
+   * Chaos regiment cleanly.
+   */
+  it('refuses the regiment container for a faction outside its inclusion list', () => {
+    const text = [
+      'Test 530/2000 pts',
+      '-----',
+      'Grand Alliance Order | Sylvaneth | Harvestboon',
+      '-----',
+      'Regiments of Renown',
+      "Lord Skaldior's Chosen (530)",
+      'Chaos Lord on Daemonic Mount',
+      'Chaos Knights',
+      'Chaos Warriors',
+      '-----',
+      'Created with Warhammer Age of Sigmar: The App',
+      'App: v1.36.0 (1) | Data: v466',
+    ].join('\n')
+    const { parsedRoster } = decodeAos4TextRoster(text)
+    expect(parsedRoster).toBeDefined()
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'army:sylvaneth-skaldior',
+    })
+
+    const labels = preview.matches.map(match => match.label)
+    expect(labels).not.toContain("Lord Skaldior's Chosen")
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'inapplicable-selection',
+        severity: 'warning',
+        message: expect.stringContaining("Lord Skaldior's Chosen"),
+      })
+    )
+    // The member bypass is untouched: the units the roster states still resolve cross-faction.
+    expect(labels).toContain('Chaos Lord on Daemonic Mount')
+    expect(labels).toContain('Chaos Knights')
+    expect(labels).toContain('Chaos Warriors')
+  })
+
+  /**
+   * A regiment the corpus does not yet carry must fail closed as a named diagnostic, never a
+   * silent drop or a guess. Okar's Torrbad and Urrgar's Maulerguts are the live case: their
+   * official battle-profile rows exist, but Wahapedia does not yet publish their rules, so no
+   * classified regiment group exists to resolve to.
+   */
+  it("reports an unclassified regiment (Okar's Torrbad) instead of dropping or guessing", () => {
+    const preview = resolveParsedRoster(
+      AOS4_CATALOG,
+      {
+        source: 'official-app-text',
+        proposedName: 'unclassified regiment probe',
+        declaredFaction: 'Ogor Mawtribes',
+        selections: [
+          {
+            line: 3,
+            label: "Okar's Torrbad",
+            kindHint: 'regiment-of-renown',
+            isRegimentOfRenown: true,
+          },
+        ],
+      },
+      { defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID, createDocumentId: () => 'army:probe' }
+    )
+    expect(preview.matches.map(match => match.label)).not.toContain("Okar's Torrbad")
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'unknown-selection',
+        severity: 'warning',
+        message: expect.stringContaining("Okar's Torrbad"),
       })
     )
   })

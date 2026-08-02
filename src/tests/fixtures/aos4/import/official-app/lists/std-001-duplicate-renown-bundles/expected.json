@@ -32,9 +32,21 @@
       "label": "Centaurion Marshal"
     },
     {
+      "line": 15,
+      "kindHint": "regiment-of-renown",
+      "label": "Cogfort Raiders",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 16,
       "kindHint": "warscroll",
       "label": "Outlaw Conqueror Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 17,
+      "kindHint": "regiment-of-renown",
+      "label": "Diseased Revellers",
       "isRegimentOfRenown": true
     },
     {
@@ -56,6 +68,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 21,
+      "kindHint": "regiment-of-renown",
+      "label": "Exile Scavengers",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 22,
       "kindHint": "warscroll",
       "label": "Endrinmaster with Dirigible Suit",
@@ -71,6 +89,12 @@
       "line": 24,
       "kindHint": "warscroll",
       "label": "Skywardens",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 25,
+      "kindHint": "regiment-of-renown",
+      "label": "Krittok's Clawpack",
       "isRegimentOfRenown": true
     },
     {
@@ -92,9 +116,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 29,
+      "kindHint": "regiment-of-renown",
+      "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 30,
       "kindHint": "warscroll",
       "label": "Mask of the Deceiver",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 31,
+      "kindHint": "regiment-of-renown",
+      "label": "Mist-Clad Revellers",
       "isRegimentOfRenown": true
     },
     {
@@ -110,6 +146,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 34,
+      "kindHint": "regiment-of-renown",
+      "label": "Nurgle's Gift",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 35,
       "kindHint": "warscroll",
       "label": "Nurglings",
@@ -122,9 +164,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 37,
+      "kindHint": "regiment-of-renown",
+      "label": "One-eyed Grunnock",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 38,
       "kindHint": "warscroll",
       "label": "Warstomper Mega-Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 39,
+      "kindHint": "regiment-of-renown",
+      "label": "Phulgoth's Shudderhood",
       "isRegimentOfRenown": true
     },
     {
@@ -146,9 +200,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 43,
+      "kindHint": "regiment-of-renown",
+      "label": "Rogue Engine",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 44,
       "kindHint": "warscroll",
       "label": "Outlaw Cannonade Cogfort",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 45,
+      "kindHint": "regiment-of-renown",
+      "label": "Seeker of the Dread Dirge",
       "isRegimentOfRenown": true
     },
     {
@@ -161,6 +227,12 @@
       "line": 47,
       "kindHint": "warscroll",
       "label": "Dominator Engine with Bane Maces",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 48,
+      "kindHint": "regiment-of-renown",
+      "label": "Seekers of Silver",
       "isRegimentOfRenown": true
     },
     {
@@ -182,6 +254,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 52,
+      "kindHint": "regiment-of-renown",
+      "label": "Snerk's Trogg-Fer-Hire",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 53,
       "kindHint": "warscroll",
       "label": "Loonboss",
@@ -191,6 +269,12 @@
       "line": 54,
       "kindHint": "warscroll",
       "label": "Dankhold Troggoth",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 55,
+      "kindHint": "regiment-of-renown",
+      "label": "Squires of the Everchosen",
       "isRegimentOfRenown": true
     },
     {
@@ -206,9 +290,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 58,
+      "kindHint": "regiment-of-renown",
+      "label": "Stumblefoot Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 59,
       "kindHint": "warscroll",
       "label": "Mancrusher Gargant",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 60,
+      "kindHint": "regiment-of-renown",
+      "label": "The Accursed Reflection",
       "isRegimentOfRenown": true
     },
     {
@@ -233,6 +329,12 @@
       "line": 64,
       "kindHint": "warscroll",
       "label": "Wheels of Excruciation",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 65,
+      "kindHint": "regiment-of-renown",
+      "label": "The Coven of Thryx",
       "isRegimentOfRenown": true
     },
     {
@@ -266,6 +368,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 71,
+      "kindHint": "regiment-of-renown",
+      "label": "The Curse-Steel Battery",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 72,
       "kindHint": "warscroll",
       "label": "Daemonsmith",
@@ -284,9 +392,21 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 75,
+      "kindHint": "regiment-of-renown",
+      "label": "The Exiled One",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 76,
       "kindHint": "warscroll",
       "label": "Skarbrand",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 77,
+      "kindHint": "regiment-of-renown",
+      "label": "The Pustules",
       "isRegimentOfRenown": true
     },
     {
@@ -308,6 +428,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 81,
+      "kindHint": "regiment-of-renown",
+      "label": "The Red Revelation",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 82,
       "kindHint": "warscroll",
       "label": "Slaughterpriest",
@@ -323,6 +449,12 @@
       "line": 84,
       "kindHint": "warscroll",
       "label": "Skullreapers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 85,
+      "kindHint": "regiment-of-renown",
+      "label": "The Scarlet Jury",
       "isRegimentOfRenown": true
     },
     {
@@ -344,6 +476,12 @@
       "isRegimentOfRenown": true
     },
     {
+      "line": 89,
+      "kindHint": "regiment-of-renown",
+      "label": "Volt-Klaw's Enginecoven",
+      "isRegimentOfRenown": true
+    },
+    {
       "line": 90,
       "kindHint": "warscroll",
       "label": "Warlock Galvaneer",
@@ -359,6 +497,12 @@
       "line": 92,
       "kindHint": "warscroll",
       "label": "Warpvolt Scourgers",
+      "isRegimentOfRenown": true
+    },
+    {
+      "line": 93,
+      "kindHint": "regiment-of-renown",
+      "label": "Volt-Klaw's Enginecoven",
       "isRegimentOfRenown": true
     },
     {
