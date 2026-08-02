@@ -89,6 +89,49 @@ describe('Sigdex text import', () => {
     )
   })
 
+  /**
+   * Every GHB 2026-27 Scars of War honour is catalogued twice — the content-group Stormcast
+   * Eternals offers and the same-named ability inside it — so each roster bullet naming one found
+   * two candidates and warned as ambiguous instead of importing (issue #1826). The pair must
+   * collapse to the offered group: the same single pick the manual builder's dropdown presents.
+   */
+  it('resolves Scars of War enhancement bullets to the offered group, not ambiguously (issue #1826)', () => {
+    const { parsedRoster, diagnostics } = decodeAos4TextRoster(
+      roster(
+        'Stormcast Eternals',
+        'Vanguard Wing',
+        "General's Handbook 2026-27",
+        "General's Regiment",
+        'Neave Blacktalon (280)',
+        '• General',
+        '• Veterans of Amberstone Watch (20)',
+        'Aetherwings (80)',
+        '• Uncaged Lightning (10)',
+        'Dracothian Guard Desolators (170)',
+        '• Pyrotechnic Souls (10)'
+      )
+    )
+    expect(diagnostics).toEqual([])
+
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'army:sigdex-scars-of-war',
+    })
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.proposedDocument).toBeDefined()
+
+    const honours = ['Veterans of Amberstone Watch', 'Uncaged Lightning', 'Pyrotechnic Souls']
+    const matchedIds = new Map(preview.matches.map(match => [match.label, match.canonicalId]))
+    for (const honour of honours) {
+      const canonicalId = matchedIds.get(honour)
+      expect(canonicalId, honour).toBeDefined()
+      // The offered container, never the ability it includes — one entity per pick.
+      expect(canonicalId, honour).toMatch(/^content-group:/)
+      const entity = AOS4_CATALOG.entities.find(candidate => candidate.id === canonicalId)
+      expect(entity?.kind === 'content-group' && entity.groupType, honour).toBe('scars-of-war')
+    }
+  })
+
   it('keeps enhancement bullets and strips their points', () => {
     const parsed = decode(
       'Ogor Mawtribes',
