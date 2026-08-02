@@ -82,6 +82,24 @@ export const IMPORT_LABEL_ALIASES: ImportLabelAlias[] = [
       '"Kurnoth" the other three variants show.',
   },
   {
+    from: 'Infernal Enrapturess, Herald of Slaanesh (Scourge of Aqshy)',
+    to: 'Scourge of Aqshy Infernal Enrapturess',
+    reason:
+      'Provider divergence: New Recruit marks the seasonal variant with a trailing parenthetical ' +
+      'on the full official title, while the catalog’s seasonal warscroll drops the ' +
+      '"Herald of Slaanesh" honorific that the battletome warscroll carries. Rewriting the ' +
+      'qualifier into the usual battlepack prefix therefore matches nothing without this entry.',
+  },
+  {
+    from: 'Scourge of Aqshy: Infernal Enrapturess, Herald of Slaanesh',
+    to: 'Scourge of Aqshy Infernal Enrapturess',
+    reason:
+      'Provider divergence: the official app writes the seasonal variant as a battlepack-prefixed ' +
+      'line with the full official title, while the catalog’s seasonal warscroll drops the ' +
+      '"Herald of Slaanesh" honorific. Same divergence as the New Recruit spelling above, in the ' +
+      'order the official app prints it.',
+  },
+  {
     from: 'Outlaw Conqueror Cogfort',
     to: 'Conqueror Cogfort',
     reason:

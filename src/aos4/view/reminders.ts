@@ -77,6 +77,7 @@ export type Aos4ReminderTagTone =
   | 'priority'
   | 'source'
   | 'provenance'
+  | 'keyword'
 
 export interface Aos4ReminderTag {
   label: string
@@ -314,6 +315,53 @@ const provenanceTag = (
 }
 
 /**
+ * Ability keywords collapse punctuation and pluralization when a rule refers back to them: the
+ * DIRTY TRICK keyword is governed by the battle trait named DIRTY TRICKS. Comparing on this key —
+ * uppercased alphanumerics with any trailing S dropped — is what lets the two meet without a
+ * per-faction table.
+ */
+const keywordMatchKey = (value: string): string =>
+  value
+    .normalize('NFKD')
+    .toUpperCase()
+    .replace(/[^A-Z0-9!]/g, '')
+    .replace(/S$/, '')
+
+const keywordLabel = (keyword: string): string =>
+  keyword
+    .toLowerCase()
+    .split(' ')
+    .map(part => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
+    .join(' ')
+
+/**
+ * Tags an ability's keywords, but only the ones another rule in the army answers to (issue #1855:
+ * NOISY RACKET is a DIRTY TRICK ability, and whether it works at all is decided by the DIRTY
+ * TRICKS battle trait's escalating roll — nothing on the reminder said so). The governing rule
+ * must be the army's own content: the core rules define abilities named RUN, CHARGE, and SHOOT
+ * that would otherwise claim the matching core keywords on every army, and that baseline is
+ * exactly the noise this tag must not add (so SPELL, CORE, and RAMPAGE stay untagged too — no
+ * rule names them at all). A keyword whose governing rule is this reminder itself attributes
+ * nothing and is dropped.
+ */
+const keywordTags = (
+  reminder: ProjectedReminder,
+  ruleNameByMatchKey: Map<string, string>
+): Aos4ReminderTag[] =>
+  reminder.keywords.flatMap(keyword => {
+    const ruleName = ruleNameByMatchKey.get(keywordMatchKey(keyword))
+    if (!ruleName || ruleName === reminder.name) return []
+    const label = keywordLabel(keyword)
+    return [
+      {
+        label,
+        tone: 'keyword' as const,
+        description: `This is a ${label} ability. See the ${ruleName} rule in your reminders for how ${label} abilities work.`,
+      },
+    ]
+  })
+
+/**
  * Names the game-wide rules module (The Core Rules, a General's Handbook) that carries a
  * faction-rooted reminder. MUSICIAN and STANDARD BEARER are not faction rules — they arrive
  * through a rules-module container every army includes. Kept as data alongside the quiet
@@ -338,7 +386,8 @@ const withPreferences = (
   reminder: ProjectedReminder,
   document: Aos4ArmyDocument,
   entityById: Map<CanonicalId, ContentEntity>,
-  seasonalContextIds: ReadonlySet<RulesContextId>
+  seasonalContextIds: ReadonlySet<RulesContextId>,
+  ruleNameByMatchKey: Map<string, string>
 ): Aos4ReminderViewModel => {
   const preference = document.reminderPreferences[reminder.id]
   const details = timingDetails(reminder.timing)
@@ -347,6 +396,7 @@ const withPreferences = (
   // A picked source already names the grant; provenance covers only the faction-automatic rest.
   const provenance = grantedBy.length ? undefined : provenanceTag(reminder, entityById, seasonalContextIds)
   const attribution = provenance ? [provenance] : grantedBy
+  const keyworded = keywordTags(reminder, ruleNameByMatchKey)
   const rulesModule = rulesModuleName(reminder, entityById)
   return {
     id: reminder.id,
@@ -354,10 +404,11 @@ const withPreferences = (
     windowKey: gameWindowKey(reminder.timing.window),
     windowLabel: label,
     typeLabel: details.join(' · '),
-    tags: [...attribution, ...timingTags(reminder.timing)],
+    tags: [...attribution, ...keyworded, ...timingTags(reminder.timing)],
     accessibleLabel: [
       reminder.name,
       ...attribution.map(tag => `From ${tag.label}`),
+      ...keyworded.map(tag => `${tag.label} ability`),
       label,
       ...details,
       ...(reminder.text.reactionTrigger ? [`Trigger: ${reminder.text.reactionTrigger}`] : []),
@@ -388,8 +439,14 @@ export const createAos4ReminderViewModel = (
   const seasonalContextIds: ReadonlySet<RulesContextId> = new Set(
     catalog.rulesContexts.filter(context => context.status === 'seasonal').map(context => context.id)
   )
-  const reminders = projectReminders(catalog, selection).map(reminder =>
-    withPreferences(reminder, document, entityById, seasonalContextIds)
+  const projected = projectReminders(catalog, selection)
+  const ruleNameByMatchKey = new Map(
+    projected
+      .filter(reminder => rulesModuleName(reminder, entityById) === undefined)
+      .map(reminder => [keywordMatchKey(reminder.name), reminder.name])
+  )
+  const reminders = projected.map(reminder =>
+    withPreferences(reminder, document, entityById, seasonalContextIds, ruleNameByMatchKey)
   )
   const baseOrder = new Map(reminders.map((reminder, index) => [reminder.id, index]))
   return reminders.sort((left, right) => {

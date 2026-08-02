@@ -120,6 +120,7 @@ const TAG_TONES: Record<PrintTagTone, PrintTagStyle> = {
   // The quiet cousin of `source`: names a game-wide origin (core rules, season, battle traits)
   // rather than a pick, so it keeps the same family hue at a more muted ink.
   provenance: { text: [107, 96, 133], border: [107, 96, 133] },
+  keyword: { text: [122, 46, 91], border: [122, 46, 91] },
 }
 
 export const STANDARD_PRESET: PrintPreset = {

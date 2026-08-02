@@ -11,9 +11,16 @@ import {
 } from '../../aos4/data'
 
 const warscrollHtml = (overrides: { sourceTitle?: string; health?: string; bodyCount?: number } = {}) => {
+  const keywordsStrip = `
+    <div class="abKeywords">
+      <table><tbody><tr>
+        <td class="abHeader abKeywordsBody"><span class="kwb">KEYWORDS</span></td>
+        <td class="abKeywordsBodyText abNoReaction"><span class="kwb">CORE</span>, <span class="kwb">DIRTY</span> <span class="kwb">TRICK</span></td>
+      </tr></tbody></table>
+    </div>`
   const bodies = Array.from({ length: overrides.bodyCount ?? 1 }, (_, index) =>
     index === 0
-      ? `<div class="abBody"><b>Stalwart Defenders:</b><span class="ShowFluff">Fluff.</span><p>Effect: Add 3 to this unit's control score.</p></div>`
+      ? `<div class="abBody"><b>Stalwart Defenders:</b><span class="ShowFluff">Fluff.</span><p>Effect: Add 3 to this unit's control score.</p></div>${keywordsStrip}`
       : `<div class="abBody"><b>Extra Ability:</b><p>Effect: Extra.</p></div>`
   ).join('')
   return `
@@ -125,7 +132,8 @@ describe('Wahapedia warscroll HTML decoding', () => {
       expect.objectContaining({
         name: 'Stalwart Defenders',
         isReaction: true,
-        keywordsHtml: 'CORE',
+        // From the KEYWORDS strip after the body — not the header's keyword mentions.
+        keywordsHtml: 'CORE, DIRTY TRICK',
         descriptionHtml: expect.not.stringContaining('ShowFluff'),
       }),
     ])

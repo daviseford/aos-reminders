@@ -1,4 +1,4 @@
-import { armyFactions, type CanonicalId, type SourceArtifact } from '../../aos4/domain'
+import { armyFactions, type CanonicalId } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID } from '../../aos4/generated'
 import type { PrintPageSize } from '../../aos4/print/presets'
 import type { PrintPreset } from '../../aos4/print/types'
@@ -12,11 +12,12 @@ import { resolveSelection } from '../../aos4/select'
 import { createAos4ArmyDocument, setAos4ReminderPreference, type Aos4ArmyDocument } from '../../aos4/state'
 import {
   createAos4BuilderViewModel,
+  createAos4ReminderSourceLinkResolver,
   createAos4ReminderViewModel,
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
 import AppBanner from 'components/info/banners/app_banner'
-import Reminders, { REMINDERS_ANCHOR_ID, type ReminderSourceLink } from 'components/info/reminders'
+import Reminders, { REMINDERS_ANCHOR_ID } from 'components/info/reminders'
 import ArmyBuilder from 'components/input/army_builder'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import Toolbar from 'components/input/toolbar/toolbar'
@@ -41,40 +42,12 @@ const loadDocument = (): Aos4ArmyDocument => {
   }
 }
 
-const sourceArtifactById = new Map(AOS4_CATALOG.sourceArtifacts.map(artifact => [artifact.id, artifact]))
-const sourceArtifactByRecordId = new Map(
-  AOS4_CATALOG.sourceRecords.flatMap(record => {
-    const artifact = sourceArtifactById.get(record.artifactId)
-    return artifact ? [[String(record.id), artifact] as const] : []
-  })
-)
-
-const sourceLabel = (artifact: SourceArtifact): string => {
-  if (artifact.publisher === 'games-workshop') return artifact.title || 'Games Workshop'
-  if (artifact.publisher === 'wahapedia') return artifact.title || 'Wahapedia'
-  return artifact.title || 'Source'
-}
-
-const reminderSources = (reminder: Aos4ReminderViewModel): ReminderSourceLink[] =>
-  Array.from(
-    new Map(
-      reminder.sourceRecordIds.flatMap(id => {
-        const artifact = sourceArtifactByRecordId.get(id)
-        if (!artifact) return []
-        return [
-          [
-            artifact.id,
-            {
-              id: artifact.id,
-              label: sourceLabel(artifact),
-              ...(artifact.sourceUrl.startsWith('http') ? { href: artifact.sourceUrl } : {}),
-              official: artifact.publisher === 'games-workshop',
-            },
-          ] as const,
-        ]
-      })
-    ).values()
-  )
+/*
+ * Warscroll-ability records deep-link to their unit's own Wahapedia page rather than the
+ * faction-wide warscrolls index they were read from (issue #1860). The resolver owns that URL
+ * derivation; see src/aos4/view/sourceLinks.ts.
+ */
+const reminderSources = createAos4ReminderSourceLinkResolver(AOS4_CATALOG)
 
 /*
  * Every decoded faction can name itself, but only the ones that field units are offered. A stored
