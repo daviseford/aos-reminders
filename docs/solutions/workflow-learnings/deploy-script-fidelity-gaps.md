@@ -79,8 +79,23 @@ resolves to `/bin/bash`. Every workflow is `ubuntu-latest`, so **CI can never ca
 Concretely, avoid `declare -A`, `mapfile`/`readarray`, `${var,,}` / `${var^^}`, and negative array
 indices. Guard element-expansions of possibly-empty arrays with `${arr[@]+"${arr[@]}"}` — bash 3.2
 treats a bare `"${arr[@]}"` on an empty array as an unbound variable under `set -u`, while bash 5
-does not. (Length expansions like `${#arr[@]}` are safe on both.) The cheap local check is
-`/bin/bash -n scripts/deploy-production.sh` on a Mac.
+does not. (Length expansions like `${#arr[@]}` are safe on both.)
+
+`bash -n` is **not** the check for this. It only parses, and every construct above fails bash 3.2 at
+*run* time, not at parse time: `declare -A` is an invalid option to a builtin that exists, `mapfile`
+is a builtin that does not exist, `${var,,}` is applied during expansion, and `${arr[-1]}` is
+evaluated as a subscript. `bash -n` exits 0 on all four, so it certifies exactly the defect it would
+be run to find. The cheap local check that can actually fail is a construct grep:
+
+```bash
+grep -nE '^[^#]*(declare -A|mapfile|readarray|\$\{[A-Za-z_][A-Za-z0-9_]*(,,|\^\^)|\[ *-[0-9])' \
+  scripts/deploy-production.sh
+```
+
+Expect no hits (the `^[^#]*` prefix keeps the comment that *names* `declare -A` from matching).
+Verified against #1842: it hits `declare -A` on the pre-fix script and is clean on the fixed one,
+while `bash -n` exits 0 on both. For real coverage, run the deployment-contract suite against a
+pinned `bash:3.2` container — see Known gaps below. Keep `bash -n` only as a syntax smoke test.
 
 **4. Would a test fail if this guard were wrong?** A guard whose inversion leaves the suite green is
 decoration. Two separate reviewers found exactly this in #1842: stubbing `is_current_immutable_object`
