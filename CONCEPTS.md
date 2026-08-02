@@ -37,6 +37,11 @@ An official army variant chosen at the top level, under the faction: picking one
 
 Choosing an Army of Renown grants its entire rules set at once — its battle traits apply automatically — while the faction's regular rules-choice groups become unavailable, including content visible through overlays. An explicit conflicting pick is surfaced as a diagnostic rather than silently discarded.
 
+Armies of Renown arrive through three publication flavors with identical semantics: the seasonal set (a free official document), battletome armies (one or two per battletome), and White Dwarf armies, which are Legends content and therefore appear under the overlay's Legends grouping. The same army can be a root under several factions (Big Waaagh!, The Duardin Ascendant), and an army may share its name with an unrelated regular content group of its faction (Lords of the Clan), so identity is the per-faction root, never the name.
+
+### Source-Marked Classification
+The contract that an Army of Renown classification must agree with the secondary source's own machine-readable marking of the section (a marker element on current sections, the replace-rules intro sentence on White Dwarf ones). Generation fails closed in both directions: a source-marked section without a reviewed classification blocks generation — a newly published army can never silently decode as a generic content group — and a reviewed classification of an unmarked section is an invalid review.
+
 ### Manifestation
 A summonable endless-spell-style unit belonging to a Manifestation Lore. Manifestations are a category of unit, not an army: universal lores are offered to every playable army rather than by any single faction.
 
@@ -66,6 +71,9 @@ The three-level authority hierarchy for rules facts: official Games Workshop pub
 ### Provisional Content
 Rules text admitted from the community fallback tier, pinned to an exact upstream revision and visibly attributed as provisional. Provisional facts must be replaced or verified through the standard intake as soon as a preferred source publishes the content; official facts override every overlapping field while they live.
 
+### Classification Evidence Tier
+The evidence basis for a reviewed classification (today: Armies of Renown). The official tier cites an accepted official record naming the thing classified; the secondary-provisional tier rests on the secondary source's own explicit marking when no free accepted official document names it, with official records as optional corroboration. Distinct from Provisional Content: here the rules text is ordinary preferred-secondary content — only the *classification* awaits official naming, which verifies or corrects the entry when accepted.
+
 ### Accuracy Campaign
 The named review process that certifies an accepted corpus revision: an independent, checksum-bound comparison of every source record against the generated output, with blind interpretation sealed before comparison and any finding blocking acceptance until corrected. A passing campaign is what the beta gate binds to; changing any bound input starts a new campaign.
 
@@ -76,3 +84,4 @@ The fail-closed check binding the shipped runtime to a completed Accuracy Campai
 
 - "Endless Spells" had been read as an army — it is a source container for universal Manifestations; only factions that field units are playable armies.
 - "Sub-faction" and "Army of Renown" had been used interchangeably — the settled term is Army of Renown (replaces the faction's rules); a Battle Formation is the additive within-army choice and is not a sub-faction.
+- "Provisional" covers two distinct states — Provisional Content (community-tier rules text awaiting a preferred source) and a secondary-provisional Classification Evidence Tier (preferred-secondary rules text whose classification awaits official naming). Say which one is meant.
