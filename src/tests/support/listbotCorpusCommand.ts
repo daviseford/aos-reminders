@@ -263,9 +263,9 @@ export const writeListbotCorpus = async (options: WriteListbotCorpusOptions): Pr
   const canonicalOutputRoot = await ensureDirectoryInside(options.workspaceRoot, outputRoot)
   // Re-express the output against the canonical root before descending again, so both arguments
   // share one spelling. The lexical relative path is already validated as non-escaping above.
-  const canonicalOutput = path.join(canonicalOutputRoot, lexicalRelative)
-  const outputParent = await ensureDirectoryInside(canonicalOutputRoot, path.dirname(canonicalOutput))
-  const safeOutput = path.join(outputParent, path.basename(canonicalOutput))
+  const canonicalOutputTarget = path.join(canonicalOutputRoot, lexicalRelative)
+  const outputParent = await ensureDirectoryInside(canonicalOutputRoot, path.dirname(canonicalOutputTarget))
+  const safeOutput = path.join(outputParent, path.basename(canonicalOutputTarget))
   const outputExists = await pathExists(safeOutput)
   if (outputExists) {
     const stats = await lstat(safeOutput)

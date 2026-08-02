@@ -98,6 +98,11 @@ extras=("${SITE_BUILD_DIR}"/sw-extras-*.js)
 [[ ${#extras[@]} -eq 1 ]] ||
   fail "expected exactly one content-hashed sw-extras-*.js dependency, found ${#extras[@]}"
 workbox_dependencies=("${SITE_BUILD_DIR}"/workbox-*.js)
+# dist/service-worker.js opens with define(["./workbox-<hash>"]), so a build with no workbox
+# runtime is broken. Without this check the deploy succeeds while never uploading the chunk the
+# worker requires, and then tags the live one retire=true for the lifecycle rule to delete.
+[[ ${#workbox_dependencies[@]} -ge 1 ]] ||
+  fail "expected at least one content-hashed workbox-*.js runtime, found 0"
 
 lock_body=$(mktemp)
 lock_error=$(mktemp)
@@ -181,8 +186,8 @@ release_lock() {
 trap release_lock EXIT
 
 # An indexed array rather than an associative one: macOS ships bash 3.2, so `declare -A` would
-# break the manual deploy in upload.sh. The membership scan below is linear over a few hundred
-# build artifacts, which costs nothing next to the AWS calls it guards.
+# break the manual deploy in upload.sh. The membership scan below is linear over the build's
+# immutable artifacts (~32 today), which costs nothing next to the per-object AWS calls it guards.
 current_immutable_objects=()
 while IFS= read -r -d '' local_asset; do
   relative_asset="${local_asset#"${SITE_BUILD_DIR%/}/"}"
