@@ -624,6 +624,7 @@ export const mergeCurrentWahapediaWarscrollPages = (
           id,
           name: group.name,
           descriptionHtml: '',
+          ...(group.armyOfRenown ? { armyOfRenown: true as const } : {}),
           meta: metaFromHtml(
             group.meta,
             'Faction_ability_types.csv',

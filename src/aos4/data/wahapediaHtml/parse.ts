@@ -660,6 +660,24 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
   let skipSubgroup = false
   const abilityCountByGroup = new Map<string, number>()
 
+  // The page classifies an Army of Renown section in one of two structural forms: current sections
+  // carry a `div.h2_ArmyOfRenown` marker immediately before the heading; Legends/White Dwarf
+  // sections open with the replace-rules sentence naming the army an Army of Renown (the
+  // core-rules anchor link is present on some but not all, so the text is the signature). Both
+  // forms are the source's own classification, so the flag is captured for review cross-checks —
+  // but outside the hashed record value, keeping record identity unchanged.
+  const isArmyOfRenownHeading = (heading: Element): boolean => {
+    const previous = heading.previousElementSibling
+    if (previous?.matches('div.h2_ArmyOfRenown')) return true
+    const intro = heading.nextElementSibling
+    if (!intro) return false
+    const introText = normalizedText(intro)
+    return (
+      /\bArmy of Renown\b/i.test(introText) &&
+      /use (?:the|these) faction rules (?:on these pages )?instead/i.test(introText)
+    )
+  }
+
   const addGroup = (
     heading: Element,
     parent?: WahapediaHtmlFactionGroupRecord
@@ -686,6 +704,7 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     }
     const group: WahapediaHtmlFactionGroupRecord = {
       ...value,
+      ...(!parent && isArmyOfRenownHeading(heading) ? { armyOfRenown: true as const } : {}),
       meta: recordMeta(input, `faction-group:${externalId}`, value),
     }
     groups.push(group)

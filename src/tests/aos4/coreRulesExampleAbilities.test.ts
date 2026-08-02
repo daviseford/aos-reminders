@@ -13,7 +13,7 @@ import { resolveSelection } from '../../aos4/select'
  * ability-card format, and the bounded rules-page parser ingested those example cards as real
  * abilities inside the universal "Spells" / "Prayers" groups.
  *
- * The correction is a reviewed input: the accepted review (`data/aos4/reviews/corpus-2026-08-01e.json`,
+ * The correction is a reviewed input: the accepted review (`data/aos4/reviews/corpus-2026-08-01f.json`,
  * carried forward from the prepared corpus-2026-07-31 revision) dispositions the six example-card
  * source records as ignored, and the shipped catalog no longer contains those entities. The
  * Ascension page's Mystic Shield and Resurrection are deliberately NOT excluded: there they are
@@ -43,7 +43,7 @@ const EXAMPLE_CARD_SOURCE_RECORD_IDS = [
 const EXAMPLE_CARD_NAMES = ['MYSTIC SHIELD', 'RESURRECTION']
 
 const acceptedReview = JSON.parse(
-  readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01e.json'), 'utf8')
+  readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-01f.json'), 'utf8')
 ) as AcceptedReview
 
 const exampleRecordIdSet = new Set(EXAMPLE_CARD_SOURCE_RECORD_IDS)
@@ -83,7 +83,7 @@ const reminderNames = (
 
 describe('core-rules example ability cards stay out of reminders (customer report 2026-07-31)', () => {
   it('dispositions every example-card source record as ignored in the accepted review revision', () => {
-    expect(acceptedReview.revision).toBe('aos4-corpus-2026-08-01e')
+    expect(acceptedReview.revision).toBe('aos4-corpus-2026-08-01f')
     const ignoredById = new Map(
       acceptedReview.ignoredSourceRecords.map(record => [record.sourceRecordId, record.reason])
     )

@@ -149,6 +149,12 @@ export interface WahapediaFactionAbilityTypeRecord {
   id: string
   name: string
   descriptionHtml: string
+  /**
+   * Carried from the decoded faction-page section when the source itself classifies the group as
+   * an Army of Renown (see WahapediaHtmlFactionGroupRecord.armyOfRenown). Absent on export-derived
+   * records. Generation cross-checks the reviewed `armiesOfRenown` classification against it.
+   */
+  armyOfRenown?: true
   meta: WahapediaRecordMeta
 }
 

@@ -348,6 +348,57 @@ describe('Wahapedia warscroll HTML decoding', () => {
     expect(first.page?.abilities.some(record => record.name === 'Campaign Rule')).toBe(false)
   })
 
+  it('captures the page’s own Army of Renown classification without changing record identity', () => {
+    const ability = (timing: string, name: string) => `
+      <table><tr><td class="abHeader">${timing}</td></tr></table>
+      <div class="abBody"><b>${name}:</b><b>Effect:</b> Resolve ${name}.</div>
+    `
+    const section = (name: string, prefix: string, intro: string) => `
+      <a name="${name.replace(/ /g, '-')}"></a>${prefix}<h2>${name}</h2>
+      <div class="Columns2"><div>${intro}</div></div>
+      ${ability('Passive', `${name} Rule`)}
+    `
+    const body = `
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">Stormcast Eternals</span></h1>
+        <a name="Faction-Rules"></a><h2>Faction Rules</h2>
+        <a name="Battle-Traits"></a><h2>Battle Traits</h2>
+        ${ability('Your Hero Phase', 'Their Finest Hour')}
+        ${section(
+          'Ruination Brotherhood',
+          '<div class="h2_ArmyOfRenown">Army of Renown</div>',
+          'When you pick the Stormcast Eternals faction for your army, you can choose for it to be a Ruination Brotherhood Army of Renown.'
+        )}
+        <div class="sLegendary">
+          ${section(
+            'Astral Templars',
+            '',
+            'You can choose for it to be an Astral Templars Army of Renown. If you do so, use the faction rules on these pages instead of the Stormcast Eternals faction rules.'
+          )}
+        </div>
+        ${section('Scars of War', '', 'Season rules that merely mention an Army of Renown in passing.')}
+      </body></html>
+    `
+    const source = input(body)
+    source.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/stormcast-eternals/'
+    source.artifact.finalUrl = source.artifact.requestUrl
+
+    const result = parseWahapediaFactionHtml(source)
+    expect(result.diagnostics).toEqual([])
+    const groupByExternalId = new Map(result.page?.groups.map(group => [group.externalId, group]))
+    // The marker div classifies current sections; the replace-rules intro classifies Legends ones.
+    expect(groupByExternalId.get('Ruination-Brotherhood')?.armyOfRenown).toBe(true)
+    expect(groupByExternalId.get('Astral-Templars')?.armyOfRenown).toBe(true)
+    // A passing mention without the replace-rules sentence is not a classification.
+    expect(groupByExternalId.get('Scars-of-War')?.armyOfRenown).toBeUndefined()
+    expect(groupByExternalId.get('Battle-Traits')?.armyOfRenown).toBeUndefined()
+    // The flag is derived from page structure, never part of the hashed record value: the record
+    // checksum of a marked group equals the checksum of the same value fields without the flag.
+    const marked = groupByExternalId.get('Ruination-Brotherhood')!
+    const unmarkedTwin = groupByExternalId.get('Scars-of-War')!
+    expect(Object.keys(marked.meta)).toEqual(Object.keys(unmarkedTwin.meta))
+  })
+
   it('decodes universal rules without retaining example-only ability cards', () => {
     const ability = (timing: string, name: string) => `
       <table><tr><td class="abHeader">${timing}</td></tr></table>

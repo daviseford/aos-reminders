@@ -52,14 +52,14 @@ import { createRuntimeProjection, serializeRuntimeProjection } from './runtimePr
 import { serializeAuditCatalog, stableJson } from './serialization'
 
 const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-01d.json')
-const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-01e.json')
+const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-01f.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
 const DEFAULT_AUDIT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_BATTLE_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaults.json')
-const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01e-summary.json')
-const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01e-reconciliation.json')
+const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01f-summary.json')
+const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-01f-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_BETA_READINESS = path.join('data', 'aos4', 'certifications', 'beta.json')
 const DEFAULT_PROFILE_ONLY_DEVIATIONS = path.join('data', 'aos4', 'reviews', 'profile-only-deviations.json')

@@ -23,63 +23,6 @@ export interface Aos4BuilderWarscroll {
   }
 }
 
-/**
- * Battletome and Legends Armies of Renown that the corpus has not yet classified (issue #1844).
- * Each is a Wahapedia faction-page army package whose subgroups (Battle Traits, lores, artefacts)
- * decode as pickable options under a bogus card named after the army. Offering them piecemeal is
- * rules-wrong — an Army of Renown replaces the faction's rules, and without the reviewed
- * classification there are no exclusion edges, so a picked subgroup would apply additively.
- * They are withheld from the builder until the corpus types them `army-of-renown`; at that point
- * generation renames the group type and the matching entry here goes dead. A subgroup already
- * selected in the player's document stays visible so the active rules can be seen and removed.
- */
-const UNCLASSIFIED_ARMY_PACKAGE_GROUP_TYPES = new Set([
-  'aelementiri-conclave',
-  'allies-of-the-free-cities',
-  'astral-templars',
-  'barrow-legion',
-  'big-waaagh',
-  'champions-of-the-arena',
-  'change-cult-uprising',
-  'court-of-the-godlings',
-  'cycle-of-corruption',
-  'da-kings-gitz',
-  'droggzs-gitmob',
-  'gorechosen-champions',
-  'heroes-of-the-first-forged',
-  'ironsunz',
-  'knights-of-the-crimson-keep',
-  'legion-of-the-first-prince',
-  'lords-of-the-clan',
-  'murkvast-menagerie',
-  'petrifex-elite',
-  'pioneer-outpost',
-  'ruination-brotherhood',
-  'soulpod-guardians',
-  'taars-grand-forgehost',
-  'thanquols-mutated-menagerie',
-  'the-baleful-lords',
-  'the-clattering-procession',
-  'the-decadent-host',
-  'the-duardin-ascendant',
-  'the-equinox-feast',
-  'the-eternal-nightmare',
-  'the-first-phalanx-of-ionrach',
-  'the-gardeners-of-nurgle',
-  'the-great-grand-gnawhorde',
-  'the-iron-march',
-  'the-knights-of-new-summercourt',
-  'the-lance-of-ossia',
-  'the-magnates-crew',
-  'the-null-myriad',
-  'the-oracles-of-fate',
-  'vanari-paragons',
-  'wardens-of-the-chorrileum',
-  'zainthar-kai',
-  'ziggurat-stampede',
-  'zoggroks-ironmongerz',
-])
-
 export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4ArmyDocument) => {
   // Every army offers its full catalog: current-standard content plus the Legends and historical
   // (Scourge of Ghyran) overlays. Options carry an `overlay` marker so the UI can group them
@@ -116,13 +59,6 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
   ).flatMap(id => {
     const entity = entityById.get(id)
     if (!entity) return []
-    if (
-      entity.kind === 'content-group' &&
-      UNCLASSIFIED_ARMY_PACKAGE_GROUP_TYPES.has(entity.groupType) &&
-      !selected.has(id)
-    ) {
-      return []
-    }
     const overlay = overlayFor(id)
     return [
       {

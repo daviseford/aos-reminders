@@ -80,6 +80,14 @@ export interface WahapediaHtmlFactionGroupRecord {
   context: WahapediaHtmlContext
   sourceTitle: string
   parentExternalId?: string
+  /**
+   * The source page explicitly classifies this section as an Army of Renown: current sections
+   * carry a `div.h2_ArmyOfRenown` marker before the heading, and Legends/White Dwarf sections
+   * open with the replace-rules sentence linking the core-rules `#Armies-of-Renown` anchor.
+   * Derived from page structure, not part of the hashed record value, so record identity is
+   * unchanged. Generation cross-checks the reviewed `armiesOfRenown` classification against it.
+   */
+  armyOfRenown?: true
   meta: WahapediaHtmlRecordMeta
 }
 

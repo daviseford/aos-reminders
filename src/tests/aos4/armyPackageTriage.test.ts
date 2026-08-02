@@ -1,16 +1,65 @@
-import type { CanonicalId, ContentGroup, Faction } from '../../aos4/domain'
+import type { CanonicalId, Faction } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
 import { createAos4ArmyDocument } from '../../aos4/state'
 import { createAos4BuilderViewModel } from '../../aos4/view'
 
 /**
- * Battletome and Legends Armies of Renown await their reviewed `armiesOfRenown` classification
- * (issue #1844). Until the corpus types them `army-of-renown`, their subgroups decode as pickable
- * options under a bogus builder card named after the army — and picking one would apply the
- * variant's rules additively, which is rules-wrong. The builder view model withholds them, except
- * for subgroups already selected in the document, which stay visible so the player can see and
- * remove the active rules.
+ * Battletome and Legends Armies of Renown once decoded as generic content groups whose subgroups
+ * rendered as pickable options under a bogus builder card named after the army (issue #1844) —
+ * rules-wrong, because an Army of Renown replaces the faction's rules. The interim triage
+ * withheld those cards from the view model; the reviewed `armiesOfRenown` classification now
+ * types every source-classified root `army-of-renown`, so the packages surface only through the
+ * masthead dropdown with replace semantics. This pins the regression: no package slug survives
+ * as a group type, and the classified armies are offered as top-level choices.
  */
+
+const RETIRED_PACKAGE_GROUP_TYPES = [
+  'aelementiri-conclave',
+  'allies-of-the-free-cities',
+  'astral-templars',
+  'barrow-legion',
+  'big-waaagh',
+  'champions-of-the-arena',
+  'change-cult-uprising',
+  'court-of-the-godlings',
+  'cycle-of-corruption',
+  'da-kings-gitz',
+  'droggzs-gitmob',
+  'gorechosen-champions',
+  'heroes-of-the-first-forged',
+  'ironsunz',
+  'knights-of-the-crimson-keep',
+  'legion-of-the-first-prince',
+  'lords-of-the-clan',
+  'murkvast-menagerie',
+  'petrifex-elite',
+  'pioneer-outpost',
+  'pyrofane-cult',
+  'ruination-brotherhood',
+  'soulpod-guardians',
+  'taars-grand-forgehost',
+  'thanquols-mutated-menagerie',
+  'the-baleful-lords',
+  'the-clattering-procession',
+  'the-decadent-host',
+  'the-duardin-ascendant',
+  'the-equinox-feast',
+  'the-eternal-nightmare',
+  'the-first-phalanx-of-ionrach',
+  'the-gardeners-of-nurgle',
+  'the-great-grand-gnawhorde',
+  'the-iron-march',
+  'the-knights-of-new-summercourt',
+  'the-lance-of-ossia',
+  'the-magnates-crew',
+  'the-null-myriad',
+  'the-oracles-of-fate',
+  'vanari-paragons',
+  'wardens-of-the-chorrileum',
+  'zainthar-kai',
+  'ziggurat-stampede',
+  'zoggroks-ironmongerz',
+]
 
 const factionByName = (name: string): Faction => {
   const entity = AOS4_CATALOG.entities.find(
@@ -31,54 +80,64 @@ const builderFor = (explicitSelectionIds: CanonicalId[]) =>
     })
   )
 
-describe('unclassified Army of Renown package triage (#1844)', () => {
-  it('withholds unclassified army packages from the builder options', () => {
-    const packageTypes = {
-      'Stormcast Eternals': ['heroes-of-the-first-forged', 'ruination-brotherhood', 'astral-templars'],
-      'Maggotkin of Nurgle': ['cycle-of-corruption', 'the-gardeners-of-nurgle'],
-      'Flesh-eater Courts': ['the-equinox-feast', 'the-knights-of-new-summercourt'],
-    }
-    Object.entries(packageTypes).forEach(([factionName, groupTypes]) => {
-      const builder = builderFor([factionByName(factionName).id])
-      const offeredTypes = new Set(
-        builder.options.filter(option => option.kind === 'content-group').map(option => option.groupType)
+describe('Army of Renown package classification (#1844)', () => {
+  it('leaves no army package decoded as a generic self-slugged content group', () => {
+    const groupTypes = new Set(
+      AOS4_CATALOG.entities.flatMap(entity =>
+        entity.kind === 'content-group' ? [entity.groupType] : []
       )
-      groupTypes.forEach(groupType => {
-        expect(offeredTypes).not.toContain(groupType)
-      })
+    )
+    RETIRED_PACKAGE_GROUP_TYPES.forEach(groupType => {
+      expect(groupTypes).not.toContain(groupType)
     })
   })
 
-  it('keeps regular category groups and classified Armies of Renown on offer', () => {
+  it('offers the battletome armies as top-level choices instead of builder cards', () => {
     const stormcast = builderFor([factionByName('Stormcast Eternals').id])
-    const stormcastTypes = new Set(
-      stormcast.options.filter(option => option.kind === 'content-group').map(option => option.groupType)
+    const armies = stormcast.options.filter(option => option.groupType === 'army-of-renown')
+    const byName = new Map(armies.map(option => [option.name, option]))
+    // Seasonal, battletome, and White Dwarf (Legends) armies all surface through the dropdown…
+    expect(byName.get('Draconith Skywing')?.overlay).toBeUndefined()
+    expect(byName.get('Heroes of the First-Forged')?.overlay).toBeUndefined()
+    expect(byName.get('Ruination Brotherhood')?.overlay).toBeUndefined()
+    expect(byName.get('Astral Templars')?.overlay).toBe('legends')
+    // …and never as a card of their own group type.
+    const cardTypes = new Set(
+      stormcast.options
+        .filter(option => option.kind === 'content-group' && option.groupType !== 'army-of-renown')
+        .map(option => option.groupType)
     )
+    RETIRED_PACKAGE_GROUP_TYPES.forEach(groupType => expect(cardTypes).not.toContain(groupType))
     ;['battle-formation', 'artefact-of-power', 'spell-lore', 'heroic-trait', 'scars-of-war'].forEach(
-      groupType => {
-        expect(stormcastTypes).toContain(groupType)
-      }
+      groupType => expect(cardTypes).toContain(groupType)
     )
-
-    // The Roving Maw carries the reviewed army-of-renown classification and must keep surfacing.
-    const ogor = builderFor([factionByName('Ogor Mawtribes').id])
-    const armyOfRenownNames = ogor.options
-      .filter(option => option.kind === 'content-group' && option.groupType === 'army-of-renown')
-      .map(option => option.name)
-    expect(armyOfRenownNames).toContain('The Roving Maw')
   })
 
-  it('keeps an already-selected package subgroup visible so it can be removed', () => {
-    const stormcast = factionByName('Stormcast Eternals')
-    const packageSubgroup = AOS4_CATALOG.entities.find(
-      (entity): entity is ContentGroup =>
-        entity.kind === 'content-group' && entity.groupType === 'ruination-brotherhood'
+  it('replaces the regular rules while a battletome army is selected', () => {
+    const nighthaunt = factionByName('Nighthaunt')
+    const withoutArmy = builderFor([nighthaunt.id])
+    const eternalNightmare = withoutArmy.options.find(
+      option => option.groupType === 'army-of-renown' && option.name === 'The Eternal Nightmare'
     )
-    expect(packageSubgroup).toBeDefined()
+    expect(eternalNightmare).toBeDefined()
 
-    const builder = builderFor([stormcast.id, packageSubgroup!.id])
-    const offered = builder.options.find(option => option.id === packageSubgroup!.id)
-    expect(offered).toBeDefined()
-    expect(offered!.selected).toBe(true)
+    const withArmy = builderFor([nighthaunt.id, eternalNightmare!.id])
+    // The faction's regular rules-choice groups are suppressed, not offered alongside.
+    const offeredGroups = withArmy.options.filter(
+      option =>
+        option.kind === 'content-group' &&
+        (option.available || option.selected) &&
+        ['battle-formation', 'spell-lore', 'heroic-trait', 'artefact-of-power'].includes(
+          option.groupType ?? ''
+        )
+    )
+    offeredGroups.forEach(option => expect(option.selected).toBe(true))
+    // Deselecting restores the regular offers.
+    const restored = builderFor([nighthaunt.id])
+    expect(
+      restored.options.some(
+        option => option.groupType === 'battle-formation' && option.available && !option.selected
+      )
+    ).toBe(true)
   })
 })

@@ -9,6 +9,7 @@ interface HeaderProps {
   armiesOfRenown: Array<{
     label: string
     value: CanonicalId
+    overlay?: 'legends' | 'historical'
   }>
   armyName: string
   armyOfRenownId: CanonicalId | null
@@ -39,9 +40,22 @@ export const Header = ({
   const { theme } = useTheme()
   const isMobile = useIsMobile()
   const option = factions.find(faction => faction.value === factionId) ?? null
-  const armyOfRenownOptions = [NO_ARMY_OF_RENOWN, ...armiesOfRenown]
+  // Current-standard armies list first; Legends (White Dwarf) and historical armies sit under
+  // their own group header so their provenance stays visible, like every builder dropdown.
+  const currentArmies = armiesOfRenown.filter(army => !army.overlay)
+  const legendsArmies = armiesOfRenown.filter(army => army.overlay === 'legends')
+  const historicalArmies = armiesOfRenown.filter(army => army.overlay === 'historical')
+  const armyOfRenownOptions = [
+    NO_ARMY_OF_RENOWN,
+    ...currentArmies,
+    ...(legendsArmies.length ? [{ label: 'Legends', options: legendsArmies }] : []),
+    ...(historicalArmies.length
+      ? [{ label: 'Scourge of Ghyran (2025-26)', options: historicalArmies }]
+      : []),
+  ]
   const armyOfRenownOption =
-    armyOfRenownOptions.find(candidate => candidate.value === armyOfRenownId) ?? NO_ARMY_OF_RENOWN
+    [NO_ARMY_OF_RENOWN, ...armiesOfRenown].find(candidate => candidate.value === armyOfRenownId) ??
+    NO_ARMY_OF_RENOWN
   /*
    * Bootstrap 5 dropped .jumbotron/.jumbotron-fluid. Nothing is lost here: after the utilities on
    * this same element (mb-0, pt-4, pb-2/pb-3, and theme.headerColor) the pair contributed only
