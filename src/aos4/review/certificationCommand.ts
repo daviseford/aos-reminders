@@ -20,6 +20,7 @@ import {
   type SourceInventory,
 } from './certification'
 import { parseCertificationManifest, parseReviewLedger, validateReviewLedger } from './findings'
+import { loadCertificationReviewerResults } from './certificationEvidence'
 import {
   DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH,
   loadProfileOnlyDeviationLedger,
@@ -93,6 +94,10 @@ interface ShardedReviewResults {
   kind: 'review-result-shards'
   revision: string
   shards: Array<{ inputName: string; results: number }>
+}
+
+interface OverlayReviewResults {
+  kind: 'review-result-overlay'
 }
 
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
@@ -390,11 +395,20 @@ export const runCertificationCheck = async (
     files
   )
   const review = namedJson<CorpusReview>('corpus-review', manifest.inputs, files)
+  const reviewResultDescriptor = namedJson<ReviewerResult[] | ShardedReviewResults | OverlayReviewResults>(
+    'review-results',
+    manifest.inputs,
+    files
+  )
+  const reviewResults =
+    !Array.isArray(reviewResultDescriptor) && reviewResultDescriptor.kind === 'review-result-overlay'
+      ? await loadCertificationReviewerResults(directory, repoRoot)
+      : reviewResultsFromInputs(manifest.inputs, files)
   const ledger = parseReviewLedger({
     schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
     assignments: namedJson<ReviewAssignment[]>('review-assignments', manifest.inputs, files),
     calibrations: namedJson<ReviewCalibration[]>('review-calibrations', manifest.inputs, files),
-    results: reviewResultsFromInputs(manifest.inputs, files),
+    results: reviewResults,
     findings: namedJson<ReviewFinding[]>('review-findings', manifest.inputs, files),
     resolutions: namedJson<FindingResolution[]>('review-resolutions', manifest.inputs, files),
     verifications: namedJson<FindingVerification[]>('review-verifications', manifest.inputs, files),

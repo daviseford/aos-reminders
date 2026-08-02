@@ -1,4 +1,4 @@
-import { access, mkdtemp, readFile, rm } from 'node:fs/promises'
+import { access, mkdtemp, readFile, readdir, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
@@ -8,11 +8,14 @@ import {
   balancedFreshShardGroups,
   createReviewAssignment,
   createReviewPacket,
+  defaultAdversarialReviewJobs,
   deterministicReviewerMetadata,
   parseAdversarialReviewArguments,
+  runFreshWorkers,
   runAdversarialReviewWorkerTask,
   serializeReviewRecord,
   writeCreateOnlyFilesDirectory,
+  writeCreateOnlyDirectory,
   type ReviewPacketPair,
   type ReviewerResult,
 } from '../../aos4/review'
@@ -120,6 +123,7 @@ describe('bounded adversarial review workers', () => {
     expect(() =>
       parseAdversarialReviewArguments(['--campaign-at', '2026-08-02T12:00:00.000Z', '--jobs', '0'])
     ).toThrow('--jobs requires an integer from 1 to 32')
+    expect([1, 2, 20].map(defaultAdversarialReviewJobs)).toEqual([1, 1, 8])
   })
 
   it('persists blind results before producing comparison results', async () => {
@@ -210,6 +214,54 @@ describe('bounded adversarial review workers', () => {
         )
       ).rejects.toThrow('missing fresh pairs')
       await expect(access(output)).rejects.toThrow()
+    } finally {
+      await rm(root, { recursive: true, force: true })
+    }
+  })
+
+  it('settles sibling processes before cleaning up a failed parallel run', async () => {
+    const root = await mkdtemp(path.join(tmpdir(), 'aos4-adversarial-worker-process-failure-'))
+    try {
+      const workspace = path.join(root, 'workspace')
+      const output = path.join(root, 'output')
+      const fixturePair = pair()
+      await writeCreateOnlyFilesDirectory(
+        workspace,
+        new Map([
+          ['packets/shard-0001.json', serializeReviewRecord({ schemaVersion: 1, pairs: [] })],
+          ['packets/shard-0002.json', serializeReviewRecord({ schemaVersion: 1, pairs: [fixturePair] })],
+        ])
+      )
+      const reviewer = deterministicReviewerMetadata('parallel-process-fixture')
+      const assignment = createReviewAssignment({
+        packetIds: [fixturePair.blindPacket.id, fixturePair.comparisonPacket.id],
+        reviewer,
+        execution: 'local',
+        assignedAt: '2026-08-02T12:00:00.000Z',
+      })
+
+      await expect(
+        writeCreateOnlyDirectory(output, async staging => {
+          await runFreshWorkers(
+            staging,
+            {
+              schemaVersion: 1,
+              revision: 'aos4-worker-process-fixture',
+              workspace,
+              assignmentId: assignment.id,
+              reviewer,
+              blindReviewedAt: '2026-08-02T12:01:00.000Z',
+              comparisonReviewedAt: '2026-08-02T12:02:00.000Z',
+            },
+            [
+              [{ index: 0, path: 'packets/shard-0001.json', freshPairKeys: ['missing-pair'] }],
+              [{ index: 1, path: 'packets/shard-0002.json', freshPairKeys: [fixturePair.pairKey] }],
+            ]
+          )
+        })
+      ).rejects.toThrow()
+      await expect(access(output)).rejects.toThrow()
+      expect((await readdir(root)).filter(name => name.includes('.staging-'))).toEqual([])
     } finally {
       await rm(root, { recursive: true, force: true })
     }

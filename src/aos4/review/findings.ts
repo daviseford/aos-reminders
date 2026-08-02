@@ -714,6 +714,7 @@ export const parseCertificationManifest = (input: unknown): CertificationManifes
     !isNonEmptyString(manifest.protocol.rubricVersion) ||
     !isChecksum(manifest.protocol.checksum) ||
     !isChecksum(manifest.ledgerChecksum) ||
+    (manifest.ledgerChecksumKind !== undefined && manifest.ledgerChecksumKind !== 'input-bindings/v1') ||
     !isChecksum(manifest.inventoryChecksum) ||
     !isIsoInstant(manifest.sourceObservedAt)
   ) {

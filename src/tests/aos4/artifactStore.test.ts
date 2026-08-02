@@ -37,6 +37,7 @@ class FakeArtifactStore implements ArtifactStore {
   readonly values = new Map<string, Uint8Array>()
   readonly metadata = new Map<string, ArtifactStoreMetadata>()
   raceOnCreate = false
+  failFirstRead = false
 
   seed(value: Uint8Array): void {
     const checksum = artifactChecksum(value)
@@ -50,6 +51,7 @@ class FakeArtifactStore implements ArtifactStore {
 
   async read(checksum: string): Promise<Uint8Array | undefined> {
     this.reads.push(checksum)
+    if (this.failFirstRead && this.reads.length === 1) throw new Error('injected read failure')
     return this.values.get(checksum)?.slice()
   }
 
@@ -123,6 +125,21 @@ describe('AoS 4 private artifact store', () => {
 
     await expect(pullArtifactManifest(manifest, cache, store)).rejects.toThrow(/remote artifact/i)
     expect(await cache.get(checksum)).toBeUndefined()
+  })
+
+  it('stops scheduling cache transfers after the first failure', async () => {
+    const values = ['one', 'two', 'three', 'four', 'five'].map(bytes)
+    const cache = new MemoryArtifactCache()
+    const store = new FakeArtifactStore()
+    values.forEach(value => store.seed(value))
+    store.failFirstRead = true
+
+    await expect(pullArtifactManifest(manifestFor(...values), cache, store, 2)).rejects.toThrow(
+      'injected read failure'
+    )
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(store.reads.length).toBeLessThan(values.length)
   })
 
   it('validates every local blob before pushing and accepts a validated create race', async () => {
@@ -200,6 +217,28 @@ describe('AoS 4 private artifact store', () => {
     expect(calls[1]).toContain('--checksum-sha256')
     expect(calls[1]).toContain('I59Z7VXnN8dxR89VrQwbAwttfudIp0JpUvm4UtWpNeU=')
     expect(calls[1]).toContain('--expected-bucket-owner')
+  })
+
+  it('distinguishes a missing object from a missing or inaccessible bucket', async () => {
+    const storeFor = (stderr: string) =>
+      new AwsS3ArtifactStore(
+        {
+          bucket: 'aos-reminders-corpus-cache',
+          expectedOwner: '123456789012',
+        },
+        async () => ({ exitCode: 1, stdout: '', stderr })
+      )
+    const checksum = artifactChecksum(bytes('payload'))
+
+    await expect(
+      storeFor('An error occurred (404) when calling the HeadObject operation: Not Found').inspect(checksum)
+    ).resolves.toBeUndefined()
+    await expect(
+      storeFor('An error occurred (NoSuchBucket) when calling the HeadObject operation').inspect(checksum)
+    ).rejects.toMatchObject({ code: 'remote-command-failed' })
+    await expect(
+      storeFor('An error occurred (AccessDenied) when calling the HeadObject operation').inspect(checksum)
+    ).rejects.toMatchObject({ code: 'remote-command-failed' })
   })
 
   it.each([

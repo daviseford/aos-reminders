@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises'
+import { copyFile, link, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { ArtifactManifest } from '../data'
@@ -17,10 +17,13 @@ import {
   type SourceInventory,
 } from './certification'
 import { validateReviewLedger } from './findings'
+import { loadCertificationReviewerResults } from './certificationEvidence'
 import { assertReviewIndexMatchesPacketPairs, type ReviewPacketSafeIndex } from './packets'
 import {
   assertCreateOnlyDirectoryComplete,
   loadReviewPacketPairs,
+  loadReviewPacketPairsByKey,
+  writeCreateOnlyDirectory,
   writeCreateOnlyFilesDirectory,
 } from './reviewWorkspace'
 import {
@@ -41,8 +44,13 @@ import {
 } from './records'
 import {
   certificationExecutionProjection,
+  createCertificationReuseIndex,
+  createIncrementalCertificationReuseIndex,
   createReviewCampaignExecution,
+  reviewerResultsFromReuseIndex,
   reviewCampaignExecutionIssues,
+  loadReusableCertificationEvidence,
+  type LoadedReusableCertificationEvidence,
 } from './reviewReuse'
 
 const DEFAULT_INDEX = path.join('.cache', 'aos4', 'review', 'workspace', 'index.json')
@@ -77,10 +85,31 @@ const GENERATED_INPUT_FILES = {
   'review-resolutions': 'resolutions.json',
   'review-verifications': 'verifications.json',
   'review-execution': 'execution.json',
+  'review-reuse-index': 'reuse-index.json',
   'source-inventory': 'source-inventory.json',
 } as const
 
 const CERTIFICATION_SHARD_SIZE = 5_000
+const MAX_INCREMENTAL_OVERLAY_DEPTH = 3
+
+export const shouldCompactCertificationOverlay = (sourceDepth: number): boolean =>
+  sourceDepth >= MAX_INCREMENTAL_OVERLAY_DEPTH
+
+export const canReuseCertificationShards = (input: {
+  hasReuseIndex: boolean
+  freshPairs: number
+  sourceReviewIndexChecksum?: string
+  currentReviewIndexChecksum: string
+  sourceInventoryChecksum?: string
+  currentInventoryChecksum: string
+  sourceAcceptedManifestChecksum?: string
+  currentAcceptedManifestChecksum: string
+}): boolean =>
+  input.hasReuseIndex &&
+  input.freshPairs === 0 &&
+  input.sourceReviewIndexChecksum === input.currentReviewIndexChecksum &&
+  input.sourceInventoryChecksum === input.currentInventoryChecksum &&
+  input.sourceAcceptedManifestChecksum === input.currentAcceptedManifestChecksum
 
 interface CertificationPreparationArguments {
   output: string
@@ -104,6 +133,10 @@ interface AdversarialResultIndex {
   calibrationResultsChecksum: string
   executionPath?: string
   executionChecksum?: string
+  reuseSource?: {
+    directory: string
+    manifestChecksum: string
+  }
   resultShards: Array<{
     path: string
     resultCount: number
@@ -132,6 +165,16 @@ interface ShardedReviewResults {
   schemaVersion: 1
   kind: 'review-result-shards'
   revision: string
+  shards: Array<{ inputName: string; results: number }>
+}
+
+interface OverlayReviewResults {
+  schemaVersion: 1
+  kind: 'review-result-overlay'
+  revision: string
+  reuseSource: { directory: string; manifestChecksum: string }
+  reusedPacketIds: string[]
+  reusedResults: number
   shards: Array<{ inputName: string; results: number }>
 }
 
@@ -236,6 +279,7 @@ const loadAdversarialLedger = async (
   ledger: ReviewLedger
   calibrationResults: ReviewerResult[]
   execution?: ReviewCampaignExecution
+  reuseSource?: LoadedReusableCertificationEvidence
 }> => {
   await assertCreateOnlyDirectoryComplete(reviewOutput)
   const [resultIndex, persistedFindings] = await Promise.all([
@@ -283,6 +327,36 @@ const loadAdversarialLedger = async (
     throw new Error('Adversarial calibration results do not match their result index')
   }
   const results: ReviewerResult[] = []
+  let reuseSource: LoadedReusableCertificationEvidence | undefined
+  let syntheticReuseOnly = false
+  let skipResultSort = false
+  if (resultIndex.reuseSource) {
+    if (
+      !execution?.reuseSource ||
+      stableCompactJson(resultIndex.reuseSource) !== stableCompactJson(execution.reuseSource)
+    ) {
+      throw new Error('Adversarial reuse source does not match its execution record')
+    }
+    const reused = await loadReusableCertificationEvidence(
+      withinRepository(path.resolve('.'), resultIndex.reuseSource.directory)
+    )
+    reuseSource = reused
+    if (checksumReviewRecord(reused.manifest) !== resultIndex.reuseSource.manifestChecksum) {
+      throw new Error('Adversarial reuse source manifest checksum has changed')
+    }
+    const reusedPairKeys = new Set(execution.pairSets.reused)
+    const reusedPacketIds = new Set(
+      (reused.reuseIndex?.entries ?? reused.index.entries)
+        .filter(entry => reusedPairKeys.has(entry.pairKey))
+        .flatMap(entry => [entry.blindPacketId, entry.comparisonPacketId])
+    )
+    const sourceResults = reused.reuseIndex
+      ? reviewerResultsFromReuseIndex(reused.reuseIndex, reusedPairKeys)
+      : reused.results
+    syntheticReuseOnly = Boolean(reused.reuseIndex && resultIndex.resultShards.length === 0)
+    skipResultSort = Boolean(reused.reuseIndex)
+    results.push(...sourceResults.filter(result => reusedPacketIds.has(result.packetId)))
+  }
   for (const reference of resultIndex.resultShards) {
     const shard = await readJson<ReviewerResultShard>(withinDirectory(reviewOutput, reference.path))
     const findingCount = shard.results.reduce((total, result) => total + result.findings.length, 0)
@@ -296,16 +370,21 @@ const loadAdversarialLedger = async (
     }
     results.push(...shard.results)
   }
-  results.sort(
-    (left, right) =>
-      left.assignmentId.localeCompare(right.assignmentId) || left.packetId.localeCompare(right.packetId)
-  )
-  if (!sameJson(collectionCounts(results), resultIndex.outcomeCounts)) {
-    throw new Error('Adversarial review outcome counts do not match its result shards')
+  if (!skipResultSort) {
+    results.sort(
+      (left, right) =>
+        left.assignmentId.localeCompare(right.assignmentId) || left.packetId.localeCompare(right.packetId)
+    )
   }
-  const findings = results
-    .flatMap(result => result.findings)
-    .sort((left, right) => left.id.localeCompare(right.id))
+  const countsMatch = syntheticReuseOnly
+    ? resultIndex.outcomeCounts.pass === results.length &&
+      resultIndex.outcomeCounts.finding === 0 &&
+      resultIndex.outcomeCounts['cannot-verify'] === 0
+    : sameJson(collectionCounts(results), resultIndex.outcomeCounts)
+  if (!countsMatch) throw new Error('Adversarial review outcome counts do not match its result shards')
+  const findings = syntheticReuseOnly
+    ? []
+    : results.flatMap(result => result.findings).sort((left, right) => left.id.localeCompare(right.id))
   if (!sameJson(findings, persistedFindings)) {
     throw new Error('Adversarial review findings do not match its result shards')
   }
@@ -321,6 +400,7 @@ const loadAdversarialLedger = async (
     },
     calibrationResults,
     execution,
+    ...(reuseSource ? { reuseSource } : {}),
   }
 }
 
@@ -431,10 +511,11 @@ const shardedCertificationFiles = (
   index: ReviewPacketSafeIndex,
   results: ReviewerResult[]
 ): {
-  indexManifest: ShardedReviewIndex
-  resultManifest: ShardedReviewResults
+  indexManifest: ShardedReviewIndex | ReviewPacketSafeIndex
+  resultManifest: ShardedReviewResults | OverlayReviewResults
   files: Map<string, string>
-  inputs: Array<{ name: string; fileName: string }>
+  inputs: Array<{ name: string; fileName: string; checksum?: string }>
+  linkedFiles?: Map<string, string>
 } => {
   const files = new Map<string, string>()
   const inputs: Array<{ name: string; fileName: string }> = []
@@ -475,6 +556,139 @@ const shardedCertificationFiles = (
   }
 }
 
+const reusableShardedCertificationFiles = async (
+  source: LoadedReusableCertificationEvidence,
+  repoRoot: string
+): Promise<ReturnType<typeof shardedCertificationFiles>> => {
+  const bindings = source.manifest.inputs.filter(
+    input => input.name.startsWith('review-index-shard-') || input.name.startsWith('review-results-shard-')
+  )
+  const inputByName = new Map(source.manifest.inputs.map(input => [input.name, input]))
+  const indexBinding = inputByName.get('review-index')
+  const resultBinding = inputByName.get('review-results')
+  if (!indexBinding || !resultBinding) {
+    throw new Error('Certification reuse source is missing sharded review evidence')
+  }
+  const [indexText, resultText] = await Promise.all([
+    readFile(withinRepository(repoRoot, indexBinding.path), 'utf8'),
+    readFile(withinRepository(repoRoot, resultBinding.path), 'utf8'),
+  ])
+  if (
+    checksumCertificationText(indexText) !== indexBinding.checksum ||
+    checksumCertificationText(resultText) !== resultBinding.checksum
+  ) {
+    throw new Error('Certification reuse source shard manifest checksum mismatch')
+  }
+  const linkedFiles = new Map<string, string>()
+  const inputs = bindings.map(binding => {
+    const fileName = path.basename(binding.path)
+    linkedFiles.set(fileName, withinRepository(repoRoot, binding.path))
+    return { name: binding.name, fileName, checksum: binding.checksum }
+  })
+  return {
+    indexManifest: JSON.parse(indexText) as ShardedReviewIndex | ReviewPacketSafeIndex,
+    resultManifest: JSON.parse(resultText) as ShardedReviewResults | OverlayReviewResults,
+    files: new Map(),
+    inputs,
+    linkedFiles,
+  }
+}
+
+const incrementalShardedCertificationFiles = (
+  index: ReviewPacketSafeIndex,
+  results: ReviewerResult[],
+  execution: ReviewCampaignExecution,
+  source: LoadedReusableCertificationEvidence
+): ReturnType<typeof shardedCertificationFiles> => {
+  if (!execution.reuseSource || !source.reuseIndex) {
+    throw new Error('Incremental certification is missing its compact reuse source')
+  }
+  const freshPairKeys = new Set(execution.pairSets.fresh)
+  const freshPacketIds = new Set(
+    index.entries
+      .filter(entry => freshPairKeys.has(entry.pairKey))
+      .flatMap(entry => [entry.blindPacketId, entry.comparisonPacketId])
+  )
+  const freshResults = results.filter(result => freshPacketIds.has(result.packetId))
+  if (freshResults.length !== execution.pairSets.fresh.length * 2) {
+    throw new Error('Incremental certification fresh result population is incomplete')
+  }
+  const files = new Map<string, string>()
+  const inputs: Array<{ name: string; fileName: string }> = []
+  const freshShards = chunked(freshResults, CERTIFICATION_SHARD_SIZE).map((values, shardIndex) => {
+    const suffix = String(shardIndex + 1).padStart(4, '0')
+    const name = `review-results-shard-${suffix}`
+    const fileName = `${name}.json`
+    files.set(fileName, stableCompactJson(values))
+    inputs.push({ name, fileName })
+    return { inputName: name, results: values.length }
+  })
+  const reusedPairKeys = new Set(execution.pairSets.reused)
+  const reusedPacketIds = source.reuseIndex.entries
+    .filter(entry => reusedPairKeys.has(entry.pairKey))
+    .flatMap(entry => [entry.blindPacketId, entry.comparisonPacketId])
+    .sort()
+  if (reusedPacketIds.length !== execution.pairSets.reused.length * 2) {
+    throw new Error('Incremental certification reused result population is incomplete')
+  }
+  return {
+    indexManifest: index,
+    resultManifest: {
+      schemaVersion: 1,
+      kind: 'review-result-overlay',
+      revision: index.revision,
+      reuseSource: execution.reuseSource,
+      reusedPacketIds,
+      reusedResults: reusedPacketIds.length,
+      shards: freshShards,
+    },
+    files,
+    inputs,
+    linkedFiles: new Map(),
+  }
+}
+
+const compactedCertificationResults = async (
+  index: ReviewPacketSafeIndex,
+  ledger: ReviewLedger,
+  execution: ReviewCampaignExecution,
+  source: LoadedReusableCertificationEvidence,
+  repoRoot: string
+): Promise<ReviewerResult[]> => {
+  if (!source.reuseIndex) throw new Error('Certification compaction requires a compact reuse source')
+  const reusedPairKeys = new Set(execution.pairSets.reused)
+  const expectedReusedAssignmentByPacket = new Map<string, string>()
+  source.reuseIndex.entries
+    .filter(entry => reusedPairKeys.has(entry.pairKey))
+    .forEach(entry => {
+      expectedReusedAssignmentByPacket.set(entry.blindPacketId, entry.assignmentId)
+      expectedReusedAssignmentByPacket.set(entry.comparisonPacketId, entry.assignmentId)
+    })
+  if (expectedReusedAssignmentByPacket.size !== execution.pairSets.reused.length * 2) {
+    throw new Error('Certification compaction reuse population is incomplete')
+  }
+  const reusedResults = (await loadCertificationReviewerResults(source.directory, repoRoot)).filter(
+    result => expectedReusedAssignmentByPacket.get(result.packetId) === result.assignmentId
+  )
+  if (reusedResults.length !== expectedReusedAssignmentByPacket.size) {
+    throw new Error('Certification compaction result evidence is incomplete')
+  }
+  const freshPairKeys = new Set(execution.pairSets.fresh)
+  const freshPacketIds = new Set(
+    index.entries
+      .filter(entry => freshPairKeys.has(entry.pairKey))
+      .flatMap(entry => [entry.blindPacketId, entry.comparisonPacketId])
+  )
+  const freshResults = ledger.results.filter(result => freshPacketIds.has(result.packetId))
+  if (freshResults.length !== execution.pairSets.fresh.length * 2) {
+    throw new Error('Certification compaction fresh result evidence is incomplete')
+  }
+  return [...reusedResults, ...freshResults].sort(
+    (left, right) =>
+      left.assignmentId.localeCompare(right.assignmentId) || left.packetId.localeCompare(right.packetId)
+  )
+}
+
 export const runCertificationPreparation = async (
   arguments_: CertificationPreparationArguments,
   repoRoot = process.cwd()
@@ -486,12 +700,13 @@ export const runCertificationPreparation = async (
   const workspacePath = withinRepository(resolvedRoot, arguments_.workspace)
   const inventoryPath = withinRepository(resolvedRoot, arguments_.inventory)
 
-  const [index, inventory, acceptedManifest, pairs] = await Promise.all([
-    readJson<ReviewPacketSafeIndex>(indexPath),
+  const [indexText, inventory, acceptedManifestText] = await Promise.all([
+    readFile(indexPath, 'utf8'),
     readJson<SourceInventory>(inventoryPath),
-    readJson<ArtifactManifest>(withinRepository(resolvedRoot, EXISTING_INPUTS['accepted-manifest'])),
-    loadReviewPacketPairs(workspacePath),
+    readFile(withinRepository(resolvedRoot, EXISTING_INPUTS['accepted-manifest']), 'utf8'),
   ])
+  const acceptedManifest = JSON.parse(acceptedManifestText) as ArtifactManifest
+  const index = JSON.parse(indexText) as ReviewPacketSafeIndex
   if (
     index.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION ||
     index.protocolVersion !== AOS4_REVIEW_PROTOCOL_VERSION ||
@@ -500,7 +715,6 @@ export const runCertificationPreparation = async (
   ) {
     throw new Error('Review index, source inventory, protocol, rubric, or revision do not match')
   }
-  assertReviewIndexMatchesPacketPairs(index, pairs)
   const loadedReview = await loadAdversarialLedger(reviewOutput, index.revision)
   const calibrationResults = sourceSafeReviewerResults(loadedReview.calibrationResults)
   const reviewLedger = sourceSafeReviewLedger({
@@ -539,9 +753,41 @@ export const runCertificationPreparation = async (
       freshAssignmentId: reviewLedger.assignments[0].id,
       contributingAssignmentIds: reviewLedger.assignments.map(value => value.id),
     })
+  const validationPairKeys =
+    execution.mode === 'incremental'
+      ? new Set([
+          ...execution.pairSets.fresh,
+          ...index.entries.filter(entry => entry.calibration).map(entry => entry.pairKey),
+        ])
+      : undefined
+  const pairs = validationPairKeys
+    ? await loadReviewPacketPairsByKey(
+        workspacePath,
+        validationPairKeys,
+        index.entries.map(entry => entry.pairKey)
+      )
+    : await loadReviewPacketPairs(workspacePath)
+  const validationIndex = validationPairKeys
+    ? { ...index, entries: index.entries.filter(entry => validationPairKeys.has(entry.pairKey)) }
+    : index
+  assertReviewIndexMatchesPacketPairs(validationIndex, pairs)
   const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
   const validationLedger = reviewLedgerWithResults(reviewLedger, calibrationResults)
-  const ledgerIssues = validateReviewLedger(validationLedger, packets)
+  const ledgerIssues = validateReviewLedger(validationLedger)
+  if (!ledgerIssues.length && validationPairKeys) {
+    const packetIds = new Set(packets.map(packet => packet.id))
+    ledgerIssues.push(
+      ...validateReviewLedger(
+        {
+          ...validationLedger,
+          results: validationLedger.results.filter(result => packetIds.has(result.packetId)),
+        },
+        packets
+      )
+    )
+  } else if (!ledgerIssues.length) {
+    ledgerIssues.push(...validateReviewLedger(validationLedger, packets))
+  }
   if (ledgerIssues.length) {
     throw new Error(
       `Adversarial review ledger is invalid: ${ledgerIssues[0].code} ` +
@@ -581,7 +827,101 @@ export const runCertificationPreparation = async (
 
   const protocol = protocolDefinition()
   const rubric = rubricDefinition()
-  const sharded = shardedCertificationFiles(index, ledger.results)
+  const reviewIndexChecksum = checksumCertificationText(indexText)
+  const sourceReuseIndex = loadedReview.reuseSource?.reuseIndex
+  const sourceInventoryBinding = loadedReview.reuseSource?.manifest.inputs.find(
+    input => input.name === 'source-inventory'
+  )
+  const sourceAcceptedManifestBinding = loadedReview.reuseSource?.manifest.inputs.find(
+    input => input.name === 'accepted-manifest'
+  )
+  const currentInventoryChecksum = checksumCertificationText(stableJson(inventory))
+  const canReuseShards = canReuseCertificationShards({
+    hasReuseIndex: Boolean(sourceReuseIndex),
+    freshPairs: execution.pairSets.fresh.length,
+    sourceReviewIndexChecksum: sourceReuseIndex?.reviewIndexChecksum,
+    currentReviewIndexChecksum: reviewIndexChecksum,
+    sourceInventoryChecksum: sourceInventoryBinding?.checksum,
+    currentInventoryChecksum,
+    sourceAcceptedManifestChecksum: sourceAcceptedManifestBinding?.checksum,
+    currentAcceptedManifestChecksum: checksumCertificationText(acceptedManifestText),
+  })
+  const evaluation = canReuseShards
+    ? {
+        ok: true,
+        status: 'pass' as const,
+        issues: [],
+        summary: sourceReuseIndex!.summary,
+      }
+    : evaluateCertification(
+        {
+          index,
+          ledger,
+          inventory,
+          acceptedArtifactChecksums: acceptedManifest.artifacts.map(artifact => artifact.checksum),
+        },
+        {
+          prevalidatedPassingLedger: Boolean(sourceReuseIndex),
+        }
+      )
+  if (!evaluation.ok) {
+    throw new Error(
+      `Certification preparation found a blocker: ${evaluation.issues[0].code} ` +
+        `${evaluation.issues[0].path}: ${evaluation.issues[0].message}`
+    )
+  }
+  const usesIncrementalOverlay = Boolean(
+    !canReuseShards && loadedReview.reuseSource?.reuseIndex && execution.pairSets.reused.length > 0
+  )
+  const compactsIncrementalOverlay = Boolean(
+    usesIncrementalOverlay &&
+      loadedReview.reuseSource &&
+      shouldCompactCertificationOverlay(loadedReview.reuseSource.overlayDepth)
+  )
+  const certificationLedger = compactsIncrementalOverlay
+    ? {
+        ...ledger,
+        results: await compactedCertificationResults(
+          index,
+          ledger,
+          execution,
+          loadedReview.reuseSource!,
+          resolvedRoot
+        ),
+      }
+    : ledger
+  const reuseIndex = canReuseShards
+    ? sourceReuseIndex!
+    : usesIncrementalOverlay && !compactsIncrementalOverlay
+      ? createIncrementalCertificationReuseIndex(
+          index,
+          ledger,
+          calibrationResults,
+          evaluation.summary,
+          reviewIndexChecksum,
+          execution
+        )
+      : createCertificationReuseIndex(
+          index,
+          certificationLedger,
+          calibrationResults,
+          evaluation.summary,
+          reviewIndexChecksum
+        )
+  const sharded = canReuseShards
+    ? await reusableShardedCertificationFiles(loadedReview.reuseSource!, resolvedRoot)
+    : usesIncrementalOverlay && !compactsIncrementalOverlay
+      ? incrementalShardedCertificationFiles(index, ledger.results, execution, loadedReview.reuseSource!)
+      : shardedCertificationFiles(index, certificationLedger.results)
+  const sourceReuseIndexBinding = canReuseShards
+    ? loadedReview.reuseSource!.manifest.inputs.find(input => input.name === 'review-reuse-index')
+    : undefined
+  const sourceReviewIndexBinding = canReuseShards
+    ? loadedReview.reuseSource!.manifest.inputs.find(input => input.name === 'review-index')
+    : undefined
+  if (canReuseShards && (!sourceReuseIndexBinding || !sourceReviewIndexBinding)) {
+    throw new Error('Certification reuse source is missing its reusable index bindings')
+  }
   const generatedValues = {
     'review-protocol': protocol,
     'review-rubric': rubric,
@@ -594,6 +934,7 @@ export const runCertificationPreparation = async (
     'review-resolutions': ledger.resolutions,
     'review-verifications': ledger.verifications,
     'review-execution': execution,
+    'review-reuse-index': reuseIndex,
     'source-inventory': inventory,
   } as const
   const outputRelative = repositoryPath(resolvedRoot, output)
@@ -607,12 +948,52 @@ export const runCertificationPreparation = async (
         ]
     ),
   ])
+  if (sourceReuseIndexBinding && sharded.linkedFiles) {
+    generatedTexts.delete(GENERATED_INPUT_FILES['review-reuse-index'])
+    sharded.linkedFiles.set(
+      GENERATED_INPUT_FILES['review-reuse-index'],
+      withinRepository(resolvedRoot, sourceReuseIndexBinding.path)
+    )
+  }
+  if (sourceReviewIndexBinding && sharded.linkedFiles) {
+    generatedTexts.delete(GENERATED_INPUT_FILES['review-index'])
+    sharded.linkedFiles.set(
+      GENERATED_INPUT_FILES['review-index'],
+      withinRepository(resolvedRoot, sourceReviewIndexBinding.path)
+    )
+  }
+  let linkedReviewIndexChecksum: string | undefined
+  if (usesIncrementalOverlay && sharded.linkedFiles) {
+    linkedReviewIndexChecksum = reviewIndexChecksum
+    generatedTexts.delete(GENERATED_INPUT_FILES['review-index'])
+    sharded.linkedFiles.set(GENERATED_INPUT_FILES['review-index'], indexPath)
+  }
   const generatedInputs = Object.entries(GENERATED_INPUT_FILES).map(([name, fileName]) =>
-    textInput(name, `${outputRelative}/${fileName}`, generatedTexts.get(fileName)!)
+    name === 'review-reuse-index' && sourceReuseIndexBinding
+      ? {
+          name,
+          path: `${outputRelative}/${fileName}`,
+          checksum: sourceReuseIndexBinding.checksum,
+        }
+      : name === 'review-index' && linkedReviewIndexChecksum
+        ? {
+            name,
+            path: `${outputRelative}/${fileName}`,
+            checksum: linkedReviewIndexChecksum,
+          }
+        : name === 'review-index' && sourceReviewIndexBinding
+          ? {
+              name,
+              path: `${outputRelative}/${fileName}`,
+              checksum: sourceReviewIndexBinding.checksum,
+            }
+          : textInput(name, `${outputRelative}/${fileName}`, generatedTexts.get(fileName)!)
   )
   generatedInputs.push(
-    ...sharded.inputs.map(({ name, fileName }) =>
-      textInput(name, `${outputRelative}/${fileName}`, generatedTexts.get(fileName)!)
+    ...sharded.inputs.map(({ name, fileName, checksum }) =>
+      checksum
+        ? { name, path: `${outputRelative}/${fileName}`, checksum }
+        : textInput(name, `${outputRelative}/${fileName}`, generatedTexts.get(fileName)!)
     )
   )
   const existingInputs: CertificationInput[] = []
@@ -621,24 +1002,12 @@ export const runCertificationPreparation = async (
     existingInputs.push(textInput(name, relativePath.replaceAll(path.sep, '/'), content))
   }
   const inputs = [...existingInputs, ...generatedInputs]
-  const evaluation = evaluateCertification({
-    index,
-    ledger,
-    inventory,
-    acceptedArtifactChecksums: acceptedManifest.artifacts.map(artifact => artifact.checksum),
-  })
-  if (!evaluation.ok) {
-    throw new Error(
-      `Certification preparation found a blocker: ${evaluation.issues[0].code} ` +
-        `${evaluation.issues[0].path}: ${evaluation.issues[0].message}`
-    )
-  }
   const inventoryInput = generatedInputs.find(input => input.name === 'source-inventory')!
   const manifest = {
     ...createCertificationManifest({
       evaluation,
       inputs,
-      ledger,
+      ledger: certificationLedger,
       inventory: {
         checksum: inventoryInput.checksum,
         observedAt: inventory.observedAt,
@@ -659,7 +1028,30 @@ export const runCertificationPreparation = async (
       execution: manifest.execution,
     })
   )
-  await writeCreateOnlyFilesDirectory(output, generatedTexts)
+  if (sharded.linkedFiles) {
+    const linkedFiles = sharded.linkedFiles
+    await writeCreateOnlyDirectory(output, async staging => {
+      await Promise.all([
+        ...Array.from(generatedTexts, async ([fileName, content]) => {
+          const target = withinDirectory(staging, fileName)
+          await mkdir(path.dirname(target), { recursive: true })
+          await writeFile(target, content, 'utf8')
+        }),
+        ...Array.from(linkedFiles, async ([fileName, source]) => {
+          const target = withinDirectory(staging, fileName)
+          await mkdir(path.dirname(target), { recursive: true })
+          await link(source, target).catch(async error => {
+            if (!['EXDEV', 'EPERM', 'EACCES'].includes((error as NodeJS.ErrnoException).code ?? '')) {
+              throw error
+            }
+            await copyFile(source, target)
+          })
+        }),
+      ])
+    })
+  } else {
+    await writeCreateOnlyFilesDirectory(output, generatedTexts)
+  }
   return { output: outputRelative, manifest, evaluation }
 }
 

@@ -408,6 +408,52 @@ yarn data:aos4:candidate `
 
 Offline replay fails when any checksum-addressed cache entry is missing or corrupt.
 
+### Restore the private immutable artifact cache
+
+Repeated refreshes should not download bytes that are already pinned by checksum. Configure a
+dedicated private S3 bucket or prefix, authenticate the AWS CLI with least-privilege `GetObject`
+and `PutObject` access, and set:
+
+```powershell
+$env:AOS4_ARTIFACT_STORE_BUCKET = '<private-bucket>'
+$env:AOS4_ARTIFACT_STORE_EXPECTED_OWNER = '<12-digit-aws-account-id>'
+$env:AOS4_ARTIFACT_STORE_PREFIX = 'aos4-artifacts' # optional
+$env:AWS_PROFILE = '<profile>'                     # optional
+$env:AWS_REGION = '<region>'                       # or AWS_DEFAULT_REGION
+```
+
+Restore or seed the bytes pinned by a reviewed manifest:
+
+```powershell
+yarn data:aos4:cache:pull `
+  --manifest data/aos4/manifests/accepted-2026-08-02.json `
+  --jobs 4
+
+yarn data:aos4:cache:push `
+  --manifest data/aos4/manifests/accepted-2026-08-02.json `
+  --jobs 4
+```
+
+The local cache remains the first tier. Accepted replay and generation restore a missing pinned
+blob from the private tier before failing; online candidate acquisition still revalidates remote
+sources, and `--offline` never contacts a source website. Objects live at
+`<prefix>/blobs/<sha256>`. Pull verifies the server checksum, byte length, and downloaded SHA-256
+before an atomic local publish. Push verifies local bytes and uses a create-only conditional write,
+so an existing checksum key is never silently replaced. A corrupt local or private object blocks
+the command.
+
+The bucket is operational infrastructure, not provisioned or seeded by this repository. Enable S3
+Block Public Access, require the expected owner, retain checksum objects with an appropriate
+lifecycle policy, and do not put credentials, pre-signed URLs, or bucket inventory in logs or PRs.
+To test recovery, pull into a new temporary cache with `--cache <temporary-directory>`, replay the
+accepted manifest offline from that cache, then remove only that verified temporary directory.
+
+Incremental certification overlays are also immutable dependency chains. Retain every certification
+directory named by a current descendant's `reuseSource`; deleting or relocating one makes the
+descendant unverifiable. The preparer automatically compacts after three overlay levels by resolving
+the retained evidence into a new self-contained certification, after which ancestors no longer named
+by any current certification may be archived under the normal release-retention policy.
+
 Fallback-tier BSData catalogues are acquired separately, always pinned to a full commit SHA so the
 bytes are immutable:
 
@@ -496,7 +542,11 @@ accepted. A full campaign must:
 
 Use the commands and file-handling boundaries in
 [`aos4-accuracy-review.md`](./aos4-accuracy-review.md). A changed bound checksum starts a new
-campaign. Do not copy forward an old result ledger.
+campaign. The campaign may carry forward an exact passing pair verdict only when its pair key,
+blind and comparison packet IDs/checksums, protocol, rubric, reviewer configuration, and review
+engine all match a prior passing certification. Use `--reuse-certification`; never copy, edit, or
+manually rebind an old ledger. Ambiguous or changed evidence becomes fresh work, and calibration
+controls are always rerun.
 
 ## Verification
 

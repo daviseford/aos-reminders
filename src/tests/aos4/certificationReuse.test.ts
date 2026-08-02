@@ -9,14 +9,19 @@ import {
   AOS4_REVIEW_PROTOCOL_VERSION,
   AOS4_REVIEW_RUBRIC_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
+  canReuseCertificationShards,
   createReviewAssignment,
+  createCertificationReuseIndex,
   createReviewCampaignExecution,
   certificationExecutionProjection,
   checksumReviewRecord,
+  checksumCertificationText,
+  loadCertificationReviewerResults,
   loadReusableCertificationEvidence,
   partitionReusableReviewEvidence,
   reviewCampaignExecutionIssues,
   reviewerConfigurationId,
+  shouldCompactCertificationOverlay,
   validateReviewLedger,
   type PriorCertificationReviewEvidence,
   type ReviewAssignment,
@@ -142,6 +147,65 @@ const evidenceFor = (
 }
 
 describe('certification verdict reuse', () => {
+  it('reuses unchanged shards only when every evaluation input remains bound', () => {
+    const unchanged = {
+      hasReuseIndex: true,
+      freshPairs: 0,
+      sourceReviewIndexChecksum: digest('index'),
+      currentReviewIndexChecksum: digest('index'),
+      sourceInventoryChecksum: digest('inventory'),
+      currentInventoryChecksum: digest('inventory'),
+      sourceAcceptedManifestChecksum: digest('manifest'),
+      currentAcceptedManifestChecksum: digest('manifest'),
+    }
+
+    expect(canReuseCertificationShards(unchanged)).toBe(true)
+    expect(
+      canReuseCertificationShards({
+        ...unchanged,
+        currentAcceptedManifestChecksum: digest('changed-manifest'),
+      })
+    ).toBe(false)
+  })
+
+  it('compacts incremental evidence before overlay ancestry can grow unbounded', () => {
+    expect([0, 1, 2, 3, 4].map(shouldCompactCertificationOverlay)).toEqual([
+      false,
+      false,
+      false,
+      true,
+      true,
+    ])
+  })
+
+  it('reuses exact verdicts from a compact certification receipt without loading result bodies', () => {
+    const prior = evidenceFor()
+    prior.reuseIndex = createCertificationReuseIndex(
+      prior.index,
+      {
+        schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+        assignments: prior.assignments,
+        calibrations: prior.calibrations,
+        results: prior.results,
+        findings: [],
+        resolutions: [],
+        verifications: [],
+      },
+      prior.calibrationResults,
+      { status: 'pass', revision: prior.index.revision } as never
+    )
+    prior.results = []
+
+    const partition = partitionReusableReviewEvidence(index(), prior, reviewer())
+
+    expect(partition.reusedEntries).toHaveLength(1)
+    expect(partition.freshEntries).toEqual([])
+    expect(partition.results).toEqual([])
+
+    prior.reuseIndex.entries[0].comparisonPacketChecksum = digest('changed')
+    expect(partitionReusableReviewEvidence(index(), prior, reviewer()).freshEntries).toHaveLength(1)
+  })
+
   it('reuses an exact passing pair without rewriting its evidence', () => {
     const current = index()
     const prior = evidenceFor()
@@ -365,6 +429,191 @@ describe('certification verdict reuse', () => {
 
       await expect(loadReusableCertificationEvidence(directory, repoRoot)).rejects.toThrow(
         'input checksum mismatch: accepted-manifest'
+      )
+    } finally {
+      await rm(repoRoot, { recursive: true, force: true })
+    }
+  })
+
+  it('rejects a cycle between compact certification reuse indexes', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'aos4-certification-reuse-cycle-'))
+    try {
+      const directories = [path.join(repoRoot, 'first'), path.join(repoRoot, 'second')]
+      await Promise.all(directories.map(directory => mkdir(directory)))
+      const prior = evidenceFor()
+      const baseReuseIndex = createCertificationReuseIndex(
+        prior.index,
+        {
+          schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+          assignments: prior.assignments,
+          calibrations: prior.calibrations,
+          results: prior.results,
+          findings: [],
+          resolutions: [],
+          verifications: [],
+        },
+        prior.calibrationResults,
+        { status: 'pass', revision: prior.index.revision } as never
+      )
+      const manifestFor = (directory: string, reuseIndexText: string) => ({
+        schemaVersion: 1,
+        revision: prior.index.revision,
+        status: 'pass',
+        certifiedAt: '2026-08-02T12:03:00.000Z',
+        inputs: [
+          {
+            name: 'review-reuse-index',
+            path: `${directory}/reuse-index.json`,
+            checksum: checksumCertificationText(reuseIndexText),
+          },
+        ],
+        protocol: {
+          protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+          rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+          checksum: digest('protocol'),
+        },
+        coverage: {
+          officialRecords: { reviewed: 0, expected: 0 },
+          reconciliationDiscrepancies: { reviewed: 0, expected: 0 },
+          profileOnlyFacts: { reviewed: 0, expected: 0 },
+          sourceRecords: { reviewed: 1, expected: 1 },
+          ignoredRecords: { reviewed: 0, expected: 0 },
+          factionContextStrata: { reviewed: 0, expected: 0 },
+          highRiskCohorts: { reviewed: 1, expected: 1 },
+        },
+        ledgerChecksum: digest('ledger'),
+        inventoryChecksum: digest('inventory'),
+        sourceObservedAt: '2026-08-02T12:00:00.000Z',
+      })
+      const firstReuseIndex = JSON.stringify({
+        ...baseReuseIndex,
+        entries: [],
+        reuseSource: { directory: 'second', manifestChecksum: digest('second manifest') },
+        reusedPairKeys: [prior.index.entries[0].pairKey],
+      })
+      const secondReuseIndex = JSON.stringify({
+        ...baseReuseIndex,
+        entries: [],
+        reuseSource: { directory: 'first', manifestChecksum: digest('first manifest') },
+        reusedPairKeys: [prior.index.entries[0].pairKey],
+      })
+      const manifests = [manifestFor('first', firstReuseIndex), manifestFor('second', secondReuseIndex)]
+      await Promise.all(
+        directories.flatMap((directory, index) => [
+          writeFile(path.join(directory, 'reuse-index.json'), [firstReuseIndex, secondReuseIndex][index]),
+          writeFile(path.join(directory, 'manifest.json'), JSON.stringify(manifests[index])),
+          writeFile(
+            path.join(directory, '.complete.json'),
+            '{"kind":"aos4-create-only-directory","schemaVersion":1}\n'
+          ),
+        ])
+      )
+
+      await expect(loadReusableCertificationEvidence(directories[0], repoRoot)).rejects.toThrow(
+        'reuse index overlay cycle detected'
+      )
+    } finally {
+      await rm(repoRoot, { recursive: true, force: true })
+    }
+  })
+
+  it('resolves checksum-bound result overlays and rejects mutated parent evidence', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'aos4-certification-overlay-'))
+    try {
+      const parentDirectory = path.join(repoRoot, 'parent')
+      const childDirectory = path.join(repoRoot, 'child')
+      await Promise.all([mkdir(parentDirectory), mkdir(childDirectory)])
+      const assignment = createReviewAssignment({
+        packetIds: [packetId('parent'), packetId('fresh')],
+        reviewer: reviewer(),
+        execution: 'local',
+        assignedAt: '2026-08-02T11:59:00.000Z',
+      })
+      const parentResults = [reviewResult(assignment, packetId('parent'), digest('parent'), 'blind')]
+      const freshResults = [reviewResult(assignment, packetId('fresh'), digest('fresh'), 'comparison')]
+      const parentText = JSON.stringify(parentResults)
+      await writeFile(path.join(parentDirectory, 'results.json'), parentText, 'utf8')
+      const manifestFor = (inputs: Array<{ name: string; path: string; checksum: string }>) => ({
+        schemaVersion: 1,
+        revision: 'overlay-fixture',
+        status: 'pass',
+        certifiedAt: '2026-08-02T12:03:00.000Z',
+        inputs,
+        protocol: {
+          protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+          rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+          checksum: digest('protocol'),
+        },
+        coverage: {
+          officialRecords: { reviewed: 0, expected: 0 },
+          reconciliationDiscrepancies: { reviewed: 0, expected: 0 },
+          profileOnlyFacts: { reviewed: 0, expected: 0 },
+          sourceRecords: { reviewed: 1, expected: 1 },
+          ignoredRecords: { reviewed: 0, expected: 0 },
+          factionContextStrata: { reviewed: 0, expected: 0 },
+          highRiskCohorts: { reviewed: 0, expected: 0 },
+        },
+        ledgerChecksum: digest('ledger'),
+        inventoryChecksum: digest('inventory'),
+        sourceObservedAt: '2026-08-02T12:00:00.000Z',
+      })
+      const parentManifest = manifestFor([
+        {
+          name: 'review-results',
+          path: 'parent/results.json',
+          checksum: checksumCertificationText(parentText),
+        },
+      ])
+      await writeFile(path.join(parentDirectory, 'manifest.json'), JSON.stringify(parentManifest), 'utf8')
+      const freshText = JSON.stringify(freshResults)
+      const overlay = {
+        schemaVersion: 1,
+        kind: 'review-result-overlay',
+        revision: 'overlay-fixture',
+        reuseSource: {
+          directory: 'parent',
+          manifestChecksum: checksumReviewRecord(parentManifest),
+        },
+        reusedPacketIds: [parentResults[0].packetId],
+        reusedResults: 1,
+        shards: [{ inputName: 'review-results-shard-0001', results: 1 }],
+      }
+      const overlayText = JSON.stringify(overlay)
+      await Promise.all([
+        writeFile(path.join(childDirectory, 'results.json'), overlayText, 'utf8'),
+        writeFile(path.join(childDirectory, 'fresh.json'), freshText, 'utf8'),
+      ])
+      const childManifest = manifestFor([
+        {
+          name: 'review-results',
+          path: 'child/results.json',
+          checksum: checksumCertificationText(overlayText),
+        },
+        {
+          name: 'review-results-shard-0001',
+          path: 'child/fresh.json',
+          checksum: checksumCertificationText(freshText),
+        },
+      ])
+      await writeFile(path.join(childDirectory, 'manifest.json'), JSON.stringify(childManifest), 'utf8')
+      await Promise.all(
+        [parentDirectory, childDirectory].map(directory =>
+          writeFile(
+            path.join(directory, '.complete.json'),
+            '{"kind":"aos4-create-only-directory","schemaVersion":1}\n',
+            'utf8'
+          )
+        )
+      )
+
+      await expect(loadCertificationReviewerResults(childDirectory, repoRoot)).resolves.toEqual([
+        ...parentResults,
+        ...freshResults,
+      ])
+
+      await writeFile(path.join(parentDirectory, 'results.json'), '[]', 'utf8')
+      await expect(loadCertificationReviewerResults(childDirectory, repoRoot)).rejects.toThrow(
+        'input checksum mismatch: review-results'
       )
     } finally {
       await rm(repoRoot, { recursive: true, force: true })

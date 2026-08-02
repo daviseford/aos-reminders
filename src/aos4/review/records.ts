@@ -265,6 +265,7 @@ export interface CertificationManifest {
   }
   coverage: CertificationCoverage
   ledgerChecksum: string
+  ledgerChecksumKind?: 'input-bindings/v1'
   inventoryChecksum: string
   sourceObservedAt: string
   execution?: CertificationExecutionProjection

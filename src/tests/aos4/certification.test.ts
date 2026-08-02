@@ -647,6 +647,25 @@ describe('AoS 4 certification evaluation', () => {
     })
   })
 
+  it('does not let the prevalidated shortcut bypass exact packet correspondence', () => {
+    const stale = passingInput()
+    stale.ledger.results[0].packetChecksum = digest('stale')
+    expect(evaluateCertification(stale, { prevalidatedPassingLedger: true })).toMatchObject({
+      status: 'stale',
+      issues: expect.arrayContaining([expect.objectContaining({ code: 'stale-packet' })]),
+    })
+
+    const duplicate = passingInput()
+    duplicate.ledger.results[1] = {
+      ...duplicate.ledger.results[1],
+      packetId: duplicate.ledger.results[0].packetId,
+      packetChecksum: duplicate.ledger.results[0].packetChecksum,
+    }
+    expect(evaluateCertification(duplicate, { prevalidatedPassingLedger: true }).issues).toEqual(
+      expect.arrayContaining([expect.objectContaining({ code: 'missing-comparison-result' })])
+    )
+  })
+
   it('requires blind interpretation to precede comparison for the same reviewer', () => {
     const input = passingInput()
     const agentComparison = input.ledger.results.find(
@@ -657,6 +676,9 @@ describe('AoS 4 certification evaluation', () => {
     agentComparison.reviewedAt = BLIND_REVIEWED_AT
 
     expect(evaluateCertification(input).issues).toContainEqual(
+      expect.objectContaining({ code: 'comparison-before-blind' })
+    )
+    expect(evaluateCertification(input, { prevalidatedPassingLedger: true }).issues).toContainEqual(
       expect.objectContaining({ code: 'comparison-before-blind' })
     )
   })

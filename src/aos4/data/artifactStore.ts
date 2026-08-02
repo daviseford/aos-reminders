@@ -143,8 +143,12 @@ const parsedObject = (value: string, operation: string): Record<string, unknown>
   )
 }
 
-const missingObject = (result: AwsCliResult): boolean =>
-  /(?:NoSuchKey|Not Found|status code:\s*404|\(404\))/i.test(result.stderr)
+const missingObject = (result: AwsCliResult): boolean => {
+  if (/(?:NoSuchBucket|AccessDenied|PermanentRedirect|AuthorizationHeaderMalformed)/i.test(result.stderr)) {
+    return false
+  }
+  return /(?:NoSuchKey|Not Found|status code:\s*404|\(404\))/i.test(result.stderr)
+}
 
 const conditionalExists = (result: AwsCliResult): boolean =>
   /(?:PreconditionFailed|status code:\s*412|\(412\))/i.test(result.stderr)
@@ -416,14 +420,20 @@ const mapBounded = async <T>(
     throw new ArtifactStoreError('invalid-store-configuration', 'Invalid artifact transfer concurrency')
   }
   let nextIndex = 0
+  let firstError: unknown
   const workers = Array.from({ length: Math.min(concurrency, values.length) }, async () => {
-    while (nextIndex < values.length) {
+    while (firstError === undefined && nextIndex < values.length) {
       const value = values[nextIndex]
       nextIndex += 1
-      await operation(value)
+      try {
+        await operation(value)
+      } catch (error) {
+        firstError ??= error
+      }
     }
   })
   await Promise.all(workers)
+  if (firstError !== undefined) throw firstError
 }
 
 export const pullArtifactManifest = async (
@@ -474,14 +484,12 @@ export const pushArtifactManifest = async (
   concurrency = 4
 ): Promise<ArtifactTransferSummary> => {
   const requirements = requirementsFor(manifest)
-  const localValues = new Map<string, Uint8Array>()
   for (const requirement of requirements) {
     const local = await cache.get(requirement.checksum)
     if (!local) {
       throw new ArtifactStoreError('local-missing', `Local artifact ${requirement.checksum} is missing`)
     }
     assertBytes(requirement, local, 'local')
-    localValues.set(requirement.checksum, local)
   }
 
   const summary: ArtifactTransferSummary = {
@@ -497,7 +505,15 @@ export const pushArtifactManifest = async (
       summary.reused += 1
       return
     }
-    const outcome = await store.create(requirement.checksum, localValues.get(requirement.checksum)!)
+    const local = await cache.get(requirement.checksum)
+    if (!local) {
+      throw new ArtifactStoreError(
+        'local-missing',
+        `Local artifact ${requirement.checksum} disappeared before upload`
+      )
+    }
+    assertBytes(requirement, local, 'local')
+    const outcome = await store.create(requirement.checksum, local)
     if (outcome === 'created') {
       summary.transferred += 1
       return

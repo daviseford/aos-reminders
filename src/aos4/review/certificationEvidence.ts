@@ -10,6 +10,7 @@ import type { ReviewPacketIndexEntry, ReviewPacketSafeIndex } from './packets'
 import { assertCreateOnlyDirectoryComplete } from './reviewWorkspace'
 import {
   AOS4_REVIEW_SCHEMA_VERSION,
+  checksumReviewRecord,
   type CertificationInput,
   type CertificationManifest,
   type FindingResolution,
@@ -47,6 +48,16 @@ interface ShardedReviewResults {
   shards: Array<{ inputName: string; results: number }>
 }
 
+interface OverlayReviewResults {
+  schemaVersion: 1
+  kind: 'review-result-overlay'
+  revision: string
+  reuseSource: { directory: string; manifestChecksum: string }
+  reusedPacketIds: string[]
+  reusedResults: number
+  shards: Array<{ inputName: string; results: number }>
+}
+
 export interface LoadedCertificationEvidence {
   manifest: CertificationManifest
   currentInputs: CertificationInput[]
@@ -63,6 +74,8 @@ export interface LoadedCertificationEvidence {
   inventory: SourceInventory
   execution?: ReviewCampaignExecution
 }
+
+const MAX_CERTIFICATION_OVERLAY_DEPTH = 256
 
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
 
@@ -105,27 +118,129 @@ const reviewIndexFromInputs = (
   return { ...index, entries }
 }
 
-const reviewResultsFromInputs = (
+const reviewResultsFromInputs = async (
   inputs: CertificationInput[],
-  files: ReadonlyMap<string, string>
-): ReviewerResult[] => {
-  const results = namedJson<ReviewerResult[] | ShardedReviewResults>('review-results', inputs, files)
+  files: ReadonlyMap<string, string>,
+  repoRoot: string
+): Promise<ReviewerResult[]> => {
+  const results = namedJson<ReviewerResult[] | ShardedReviewResults | OverlayReviewResults>(
+    'review-results',
+    inputs,
+    files
+  )
   if (Array.isArray(results)) return results
   if (
     results.schemaVersion !== 1 ||
-    results.kind !== 'review-result-shards' ||
+    !['review-result-shards', 'review-result-overlay'].includes(results.kind) ||
     !Array.isArray(results.shards)
   ) {
     throw new Error('Certification review-results shard manifest is invalid')
   }
-  return results.shards.flatMap(reference => {
+  const fresh = results.shards.flatMap(reference => {
     const shard = namedJson<ReviewerResult[]>(reference.inputName, inputs, files)
     if (!Array.isArray(shard) || shard.length !== reference.results) {
       throw new Error(`Certification review-results shard is invalid: ${reference.inputName}`)
     }
     return shard
   })
+  if (results.kind === 'review-result-shards') return fresh
+  if (!Array.isArray(results.reusedPacketIds) || results.reusedPacketIds.length !== results.reusedResults) {
+    throw new Error('Certification review-results overlay is invalid')
+  }
+  const sourceDirectory = repositoryPath(repoRoot, results.reuseSource.directory)
+  const sourceManifest = parseCertificationManifest(
+    await readJson<unknown>(path.join(sourceDirectory, 'manifest.json'))
+  )
+  if (checksumReviewRecord(sourceManifest) !== results.reuseSource.manifestChecksum) {
+    throw new Error('Certification review-results overlay source manifest has changed')
+  }
+  const reusedPacketIds = new Set(results.reusedPacketIds)
+  const reused = (await loadCertificationReviewerResults(sourceDirectory, repoRoot)).filter(result =>
+    reusedPacketIds.has(result.packetId)
+  )
+  if (reused.length !== results.reusedResults) {
+    throw new Error('Certification review-results overlay source population is incomplete')
+  }
+  return [...reused, ...fresh]
 }
+
+const loadCertificationReviewerResultsInternal = async (
+  directory: string,
+  repoRoot: string,
+  ancestors: ReadonlySet<string>
+): Promise<ReviewerResult[]> => {
+  const resolvedDirectory = path.resolve(directory)
+  if (ancestors.has(resolvedDirectory)) {
+    throw new Error(`Certification review-results overlay cycle detected: ${resolvedDirectory}`)
+  }
+  if (ancestors.size >= MAX_CERTIFICATION_OVERLAY_DEPTH) {
+    throw new Error(`Certification review-results overlay exceeds ${MAX_CERTIFICATION_OVERLAY_DEPTH} levels`)
+  }
+  const nextAncestors = new Set(ancestors).add(resolvedDirectory)
+  await assertCreateOnlyDirectoryComplete(resolvedDirectory)
+  const manifest = parseCertificationManifest(
+    await readJson<unknown>(path.join(resolvedDirectory, 'manifest.json'))
+  )
+  const readInput = async (name: string): Promise<string> => {
+    const binding = manifest.inputs.find(input => input.name === name)
+    if (!binding) throw new Error(`Certification input is missing: ${name}`)
+    const content = await readFile(repositoryPath(repoRoot, binding.path), 'utf8')
+    if (checksumCertificationText(content) !== binding.checksum) {
+      throw new Error(`Certification reuse source input checksum mismatch: ${name}`)
+    }
+    return content
+  }
+  const resultManifest = JSON.parse(await readInput('review-results')) as
+    | ReviewerResult[]
+    | ShardedReviewResults
+    | OverlayReviewResults
+  if (Array.isArray(resultManifest)) return resultManifest
+  if (
+    resultManifest.schemaVersion !== 1 ||
+    !['review-result-shards', 'review-result-overlay'].includes(resultManifest.kind) ||
+    !Array.isArray(resultManifest.shards)
+  ) {
+    throw new Error('Certification review-results shard manifest is invalid')
+  }
+  const shards = await Promise.all(
+    resultManifest.shards.map(async reference => {
+      const results = JSON.parse(await readInput(reference.inputName)) as ReviewerResult[]
+      if (!Array.isArray(results) || results.length !== reference.results) {
+        throw new Error(`Certification review-results shard is invalid: ${reference.inputName}`)
+      }
+      return results
+    })
+  )
+  const fresh = shards.flat()
+  if (resultManifest.kind === 'review-result-shards') return fresh
+  if (
+    !Array.isArray(resultManifest.reusedPacketIds) ||
+    resultManifest.reusedPacketIds.length !== resultManifest.reusedResults
+  ) {
+    throw new Error('Certification review-results overlay is invalid')
+  }
+  const sourceDirectory = repositoryPath(repoRoot, resultManifest.reuseSource.directory)
+  const sourceManifest = parseCertificationManifest(
+    await readJson<unknown>(path.join(sourceDirectory, 'manifest.json'))
+  )
+  if (checksumReviewRecord(sourceManifest) !== resultManifest.reuseSource.manifestChecksum) {
+    throw new Error('Certification review-results overlay source manifest has changed')
+  }
+  const reusedPacketIds = new Set(resultManifest.reusedPacketIds)
+  const reused = (
+    await loadCertificationReviewerResultsInternal(sourceDirectory, repoRoot, nextAncestors)
+  ).filter(result => reusedPacketIds.has(result.packetId))
+  if (reused.length !== resultManifest.reusedResults) {
+    throw new Error('Certification review-results overlay source population is incomplete')
+  }
+  return [...reused, ...fresh]
+}
+
+export const loadCertificationReviewerResults = async (
+  directory: string,
+  repoRoot = process.cwd()
+): Promise<ReviewerResult[]> =>
+  loadCertificationReviewerResultsInternal(directory, path.resolve(repoRoot), new Set())
 
 export const loadCertificationEvidence = async (
   directory: string,
@@ -146,11 +261,12 @@ export const loadCertificationEvidence = async (
     currentInputs.push({ name: input.name, path: input.path, checksum })
   }
   const index = reviewIndexFromInputs(manifest.inputs, files)
+  const reviewResults = await reviewResultsFromInputs(manifest.inputs, files, repoRoot)
   const ledger = parseReviewLedger({
     schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
     assignments: namedJson<ReviewAssignment[]>('review-assignments', manifest.inputs, files),
     calibrations: namedJson<ReviewCalibration[]>('review-calibrations', manifest.inputs, files),
-    results: reviewResultsFromInputs(manifest.inputs, files),
+    results: reviewResults,
     findings: namedJson<ReviewFinding[]>('review-findings', manifest.inputs, files),
     resolutions: namedJson<FindingResolution[]>('review-resolutions', manifest.inputs, files),
     verifications: namedJson<FindingVerification[]>('review-verifications', manifest.inputs, files),

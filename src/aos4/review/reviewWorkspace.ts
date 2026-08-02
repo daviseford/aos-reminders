@@ -177,7 +177,8 @@ export const loadReviewPacketPairs = async (workspacePath: string): Promise<Revi
 
 export const loadReviewPacketPairsByKey = async (
   workspacePath: string,
-  pairKeys: ReadonlySet<string>
+  pairKeys: ReadonlySet<string>,
+  orderedPairKeys?: readonly string[]
 ): Promise<ReviewPacketPair[]> => {
   const resolvedWorkspace = path.resolve(workspacePath)
   const workspace = await readJson<ReviewPacketWorkspace | ShardedReviewPacketWorkspace>(resolvedWorkspace)
@@ -189,7 +190,17 @@ export const loadReviewPacketPairsByKey = async (
   }
   const pairs: ReviewPacketPair[] = []
   const found = new Set<string>()
+  if (
+    orderedPairKeys &&
+    workspace.shards.reduce((total, reference) => total + reference.pairs, 0) !== orderedPairKeys.length
+  ) {
+    throw new Error('Review packet workspace shard counts do not match the ordered pair index')
+  }
+  let pairOffset = 0
   for (const reference of workspace.shards) {
+    const shardKeys = orderedPairKeys?.slice(pairOffset, pairOffset + reference.pairs)
+    pairOffset += reference.pairs
+    if (shardKeys && !shardKeys.some(pairKey => pairKeys.has(pairKey))) continue
     const shard = await readJson<ReviewPacketShard>(withinDirectory(directory, reference.path))
     if (shard.schemaVersion !== 1 || !Array.isArray(shard.pairs) || shard.pairs.length !== reference.pairs) {
       throw new Error(`Review packet shard does not match its workspace: ${reference.path}`)
@@ -203,6 +214,9 @@ export const loadReviewPacketPairsByKey = async (
       pairs.push(pair)
     })
     if (found.size === pairKeys.size) break
+  }
+  if (found.size !== pairKeys.size) {
+    throw new Error(`Review packet workspace contains ${found.size}/${pairKeys.size} requested pairs`)
   }
   return pairs
 }
