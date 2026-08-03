@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "discrepancies": [
+    {
+      "faction": "Ossiarch Bonereapers",
+      "context": "standard",
+      "officialName": "Shard of the Necris",
+      "runtimeName": "SHARD OF NECRIS",
+      "reason": "The official Battle Profiles document (checksum 5fbaa128…, the ledger source for the roster-option row) names the Ossiarch Bonereapers artefact 'Shard of the Necris' while the accepted Wahapedia ability is 'SHARD OF NECRIS'. A real GW-vs-Wahapedia wording difference preserved per issue #1851, not a runtime gap; the official-profile sweep accepts the pair while the names stay distinct.",
+      "recordedAt": "2026-08-02"
+    }
+  ]
+}

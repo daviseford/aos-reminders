@@ -4,8 +4,11 @@ import { canonicalOfficialProfileName } from '../../aos4/generate'
 import { AOS4_RUNTIME_PROJECTION } from '../../aos4/generated'
 import { canonicalNameKey, foldUnicodeName, normalizedNameText } from '../../aos4/normalize'
 import {
-  OFFICIAL_NAMING_DISCREPANCIES,
+  DEFAULT_OFFICIAL_NAMING_DISCREPANCIES_PATH,
+  parseOfficialNamingDiscrepancyLedger,
+  parseOfficialProfileSweepArguments,
   sweepOfficialRosterOptions,
+  type OfficialNamingDiscrepancy,
   type OfficialProfileSweepRecord,
 } from '../../aos4/review'
 
@@ -20,6 +23,26 @@ interface OfficialBattleProfileLedger {
 const ledger = JSON.parse(
   readFileSync(path.join(process.cwd(), 'data', 'aos4', 'catalog', 'official-battle-profiles.json'), 'utf8')
 ) as OfficialBattleProfileLedger
+
+const reviewedDiscrepancies = parseOfficialNamingDiscrepancyLedger(
+  JSON.parse(
+    readFileSync(path.join(process.cwd(), DEFAULT_OFFICIAL_NAMING_DISCREPANCIES_PATH), 'utf8')
+  ) as unknown
+).discrepancies
+
+const allRealNames = [
+  ...ledger.records.map(record => record.fact.name),
+  ...AOS4_RUNTIME_PROJECTION.entities.map(entity => entity.name),
+]
+
+const necrisDiscrepancy: OfficialNamingDiscrepancy = {
+  faction: 'Ossiarch Bonereapers',
+  context: 'standard',
+  officialName: 'Shard of the Necris',
+  runtimeName: 'SHARD OF NECRIS',
+  reason: 'GW-vs-Wahapedia wording difference preserved per issue #1851.',
+  recordedAt: '2026-08-02',
+}
 
 const rosterOption = (
   name: string,
@@ -71,7 +94,7 @@ describe('shared Unicode-hardened name key', () => {
     expect(foldUnicodeName('Dawner’s')).toBe("dawner's") // U+2019 right single quote
     expect(foldUnicodeName('‘quoted’')).toBe("'quoted'")
     expect(foldUnicodeName('“quoted”')).toBe('"quoted"')
-    expect(foldUnicodeName('Café')).toBe('cafe') // combining acute after NFKD
+    expect(foldUnicodeName('Café')).toBe('cafe') // composed e-acute, decomposed by NFKD
     expect(foldUnicodeName('Café')).toBe('cafe') // pre-decomposed combining acute
   })
 
@@ -99,15 +122,65 @@ describe('shared Unicode-hardened name key', () => {
         .replace(/[‘’']/g, '')
         .replace(/[^a-z0-9]+/gi, '')
         .toLowerCase()
-    const names = [
-      ...ledger.records.map(record => record.fact.name),
-      ...AOS4_RUNTIME_PROJECTION.entities.map(entity => entity.name),
-    ]
-    expect(names.length).toBeGreaterThan(1000)
-    names.forEach(name => {
+    expect(allRealNames.length).toBeGreaterThan(1000)
+    allRealNames.forEach(name => {
       expect(canonicalOfficialProfileName(name)).toBe(historical(name))
       expect(canonicalNameKey(name)).toBe(historical(name))
     })
+  })
+
+  it('produces the exact text the historical reconciliation normalizeName produced', () => {
+    // The reconciliation linker's normalizeName now delegates to normalizedNameText. The linker
+    // decides which candidate facts join which entities, so its comparison form must reproduce
+    // the pre-#1875 inline implementation byte-for-byte across every real name, or
+    // reconciliation matching - and therefore the generated corpus - could shift without a
+    // corpus review.
+    const combiningMarks = new RegExp(`[${String.fromCharCode(0x0300)}-${String.fromCharCode(0x036f)}]`, 'g')
+    const historical = (value: string): string =>
+      value
+        .normalize('NFKD')
+        .replace(combiningMarks, '')
+        .replace(/[’‘]/g, "'")
+        .replace(/[^a-z0-9]+/gi, ' ')
+        .trim()
+        .toLocaleLowerCase('en')
+    expect(allRealNames.length).toBeGreaterThan(1000)
+    allRealNames.forEach(name => {
+      expect(normalizedNameText(name)).toBe(historical(name))
+    })
+  })
+})
+
+describe('official naming-discrepancy ledger', () => {
+  it('carries the reviewed Shard of the Necris ruling with full traceability', () => {
+    expect(reviewedDiscrepancies).toEqual([
+      expect.objectContaining({
+        faction: 'Ossiarch Bonereapers',
+        context: 'standard',
+        officialName: 'Shard of the Necris',
+        runtimeName: 'SHARD OF NECRIS',
+        reason: expect.stringContaining('#1851'),
+        recordedAt: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+      }),
+    ])
+  })
+
+  it('rejects a malformed ledger', () => {
+    expect(() => parseOfficialNamingDiscrepancyLedger({ schemaVersion: 2, discrepancies: [] })).toThrow(
+      /incompatible schema/
+    )
+    expect(() =>
+      parseOfficialNamingDiscrepancyLedger({
+        schemaVersion: 1,
+        discrepancies: [{ ...necrisDiscrepancy, recordedAt: 'yesterday' }],
+      })
+    ).toThrow(/malformed/)
+    expect(() =>
+      parseOfficialNamingDiscrepancyLedger({
+        schemaVersion: 1,
+        discrepancies: [{ ...necrisDiscrepancy, faction: ' ' }],
+      })
+    ).toThrow(/malformed/)
   })
 })
 
@@ -141,17 +214,34 @@ describe('official-profile sweep', () => {
     const result = sweepOfficialRosterOptions(
       [rosterOption('Shard of the Necris', { faction: 'Ossiarch Bonereapers' })],
       runtime,
-      OFFICIAL_NAMING_DISCREPANCIES
+      [necrisDiscrepancy]
     )
     expect(result).toMatchObject({ matchedByName: 0, matchedByReviewedDiscrepancy: 1, findings: [] })
   })
 
-  it('reports a stale naming discrepancy whose runtime name vanished', () => {
-    const result = sweepOfficialRosterOptions(
-      [],
-      [{ name: 'HEAT-SEEKING AUTO‑ENDRIN' }],
-      OFFICIAL_NAMING_DISCREPANCIES
+  it('scopes a naming discrepancy to its own faction and context', () => {
+    // A future same-named option in another faction or context must never be silently absorbed
+    // by an unrelated reviewed entry.
+    const otherFaction = sweepOfficialRosterOptions(
+      [rosterOption('Shard of the Necris', { faction: 'Stormcast Eternals' })],
+      runtime,
+      [necrisDiscrepancy]
     )
+    expect(otherFaction.findings).toEqual([
+      expect.objectContaining({ code: 'unmatched-roster-option', name: 'Shard of the Necris' }),
+    ])
+    const otherContext = sweepOfficialRosterOptions(
+      [rosterOption('Shard of the Necris', { faction: 'Ossiarch Bonereapers', context: 'seasonal' })],
+      runtime,
+      [necrisDiscrepancy]
+    )
+    expect(otherContext.findings).toEqual([
+      expect.objectContaining({ code: 'unmatched-roster-option', context: 'seasonal' }),
+    ])
+  })
+
+  it('reports a stale naming discrepancy whose runtime name vanished', () => {
+    const result = sweepOfficialRosterOptions([], [{ name: 'HEAT-SEEKING AUTO‑ENDRIN' }], [necrisDiscrepancy])
     expect(result.findings).toEqual([
       expect.objectContaining({ code: 'stale-naming-discrepancy', officialName: 'Shard of the Necris' }),
     ])
@@ -161,7 +251,7 @@ describe('official-profile sweep', () => {
     const result = sweepOfficialRosterOptions(
       [],
       [{ name: 'Shard of the Necris' }, ...runtime],
-      [...OFFICIAL_NAMING_DISCREPANCIES]
+      [necrisDiscrepancy]
     )
     expect(result.findings).toEqual([
       expect.objectContaining({
@@ -189,7 +279,11 @@ describe('official-profile sweep', () => {
     // The re-run of #1851's 307-option sweep with the hardened matcher: every effective
     // officially-established roster option matches the runtime, with exactly one reviewed
     // naming discrepancy (Shard of the Necris) and no collisions.
-    const result = sweepOfficialRosterOptions(ledger.records, AOS4_RUNTIME_PROJECTION.entities)
+    const result = sweepOfficialRosterOptions(
+      ledger.records,
+      AOS4_RUNTIME_PROJECTION.entities,
+      reviewedDiscrepancies
+    )
     expect(result).toEqual({
       rosterOptionRecords: 307,
       comparedRosterOptions: 287,
@@ -205,12 +299,39 @@ describe('official-profile sweep', () => {
         record => record.fact.kind === 'roster-option' && record.fact.name === name
       )
       expect(rows.length).toBeGreaterThan(0)
-      return sweepOfficialRosterOptions(rows, AOS4_RUNTIME_PROJECTION.entities).findings
+      return sweepOfficialRosterOptions(rows, AOS4_RUNTIME_PROJECTION.entities, reviewedDiscrepancies)
+        .findings
     }
     expect(findingsFor('Heat-seeking Auto-endrin')).toEqual([])
     expect(findingsFor('Dawner’s Triumph')).toEqual([])
     expect(findingsFor('‘Fire, You Worms!’')).toEqual([])
     expect(findingsFor('Hegsson Solutions ‘Old Reliable’ Hullplates')).toEqual([])
     expect(findingsFor('Shard of the Necris')).toEqual([])
+  })
+})
+
+describe('official-profile sweep command', () => {
+  it('parses defaults and overrides', () => {
+    expect(parseOfficialProfileSweepArguments([])).toEqual({
+      officialProfilesPath: path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json'),
+      runtimePath: path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json'),
+      discrepanciesPath: DEFAULT_OFFICIAL_NAMING_DISCREPANCIES_PATH,
+    })
+    expect(
+      parseOfficialProfileSweepArguments([
+        '--official-battle-profiles',
+        'ledger.json',
+        '--runtime',
+        'runtime.json',
+        '--naming-discrepancies',
+        'discrepancies.json',
+      ])
+    ).toEqual({
+      officialProfilesPath: 'ledger.json',
+      runtimePath: 'runtime.json',
+      discrepanciesPath: 'discrepancies.json',
+    })
+    expect(() => parseOfficialProfileSweepArguments(['--runtime'])).toThrow(/requires a value/)
+    expect(() => parseOfficialProfileSweepArguments(['--bogus'])).toThrow(/Unknown argument/)
   })
 })
