@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 interface AppStatusValue {
-  hasNewContent: boolean
   isGameMode: boolean
   isOffline: boolean
   isOnline: boolean
@@ -13,7 +12,6 @@ const AppStatusContext = React.createContext<AppStatusValue | undefined>(undefin
 const AppStatusProvider = ({ children }: React.PropsWithChildren<object>) => {
   const [isGameMode, setIsGameMode] = useState(false)
   const [isOffline, setIsOffline] = useState(!navigator.onLine)
-  const [hasNewContent, setHasNewContent] = useState(false)
 
   const toggleGameMode = useCallback(() => {
     setIsGameMode(current => !current)
@@ -22,37 +20,26 @@ const AppStatusProvider = ({ children }: React.PropsWithChildren<object>) => {
   useEffect(() => {
     const setOnline = () => setIsOffline(false)
     const setOffline = () => setIsOffline(true)
-    const setContent = () => setHasNewContent(true)
-    let updateChannel: BroadcastChannel | null = null
 
-    if (typeof BroadcastChannel !== 'undefined') {
-      updateChannel = new BroadcastChannel('app-update')
-      updateChannel.addEventListener('message', setContent)
-    }
     window.addEventListener('online', setOnline)
     window.addEventListener('offline', setOffline)
     window.addEventListener('isOffline', setOffline)
-    window.addEventListener('hasNewContent', setContent)
 
     return () => {
-      updateChannel?.removeEventListener('message', setContent)
-      updateChannel?.close()
       window.removeEventListener('online', setOnline)
       window.removeEventListener('offline', setOffline)
       window.removeEventListener('isOffline', setOffline)
-      window.removeEventListener('hasNewContent', setContent)
     }
   }, [])
 
   const value = useMemo(
     () => ({
-      hasNewContent,
       isGameMode,
       isOffline,
       isOnline: !isOffline,
       toggleGameMode,
     }),
-    [hasNewContent, isGameMode, isOffline, toggleGameMode]
+    [isGameMode, isOffline, toggleGameMode]
   )
 
   return <AppStatusContext.Provider value={value}>{children}</AppStatusContext.Provider>
