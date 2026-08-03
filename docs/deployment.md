@@ -21,6 +21,7 @@ Every object is uploaded with an explicit `Cache-Control`.
 | Content-hashed | `assets/*`, `sw-extras-<hash>.js`, `workbox-<hash>.js` | `public, max-age=31536000, immutable` |
 | Unhashed public | icons, `favicon.ico`, `robots.txt`, `browserconfig.xml`, `safari-pinned-tab.svg`, `img/*` | `public, max-age=86400` |
 | Mutable entry points | `index.html`, `site.webmanifest`, `service-worker.js`, `registerSW.js` | `public, max-age=0, must-revalidate` |
+| Internal deploy state | `_deploy/retired-immutable-keys.txt` | `no-store` |
 
 The worker imports a content-hashed `sw-extras-<hash>.js`. Its immutable name is part of the
 worker's build identity: overwriting one fixed extras key would let an interrupted deploy change
@@ -100,6 +101,17 @@ lifecycle cannot expire the live release. After successful publication, the depl
 immutable files absent from the new build. A file not already retired is self-copied once with
 `retire=true`; that resets its `LastModified` at the transition and starts a full 30-day grace period.
 A file already tagged `retire=true` is untouched, so later deploys cannot extend its window.
+
+The deploy records those already-retired keys in `_deploy/retired-immutable-keys.txt`. Normal
+releases use this deployment-owned inventory to avoid one `GetObjectTagging` request for every
+historical object. The inventory is only an optimization: when it is absent, the deploy rechecks
+the complete bounded S3 inventory, reconstructs the file, and preserves the same one-time
+retirement behavior. An interrupted retirement also recovers safely because the next run checks
+the real tag for every key missing from the inventory before copying it. Invalid inventory entries
+fail closed before public files are uploaded, and keys removed by lifecycle expiration are pruned
+from the inventory on the next release. If a rollback makes a retired content hash current again,
+the deploy removes it from the inventory before publishing mutable entry points. This keeps a later
+interruption from leaving stale state that could prevent the object from being retired again.
 
 The production lifecycle configuration should have this shape:
 

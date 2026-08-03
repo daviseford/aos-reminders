@@ -8,6 +8,7 @@ SITE_BUILD_DIR="${SITE_BUILD_DIR:-./dist}"
 CF_DIST_ID="${CF_DIST_ID:-E3OO9Y9QRVZ2L1}"
 DEPLOY_OWNER="${DEPLOY_OWNER:-manual:${USER:-unknown}@${HOSTNAME:-unknown}:$$}"
 DEPLOY_LOCK_KEY="${DEPLOY_LOCK_KEY:-_deploy/production.lock}"
+DEPLOY_RETIREMENT_STATE_KEY="${DEPLOY_RETIREMENT_STATE_KEY:-_deploy/retired-immutable-keys.txt}"
 # CloudFront refuses to compress objects above ~10,000,000 bytes; anything larger must be stored
 # pre-gzipped. Overridable so the contract suite can exercise the path with small fixtures.
 PRECOMPRESS_THRESHOLD_BYTES="${PRECOMPRESS_THRESHOLD_BYTES:-9500000}"
@@ -24,6 +25,10 @@ fail() {
 [[ "$SITE_S3" == s3://* ]] || fail "SITE_S3 must be an s3:// URI"
 [[ "$DEPLOY_OWNER" =~ ^[A-Za-z0-9._:/@+-]+$ ]] ||
   fail "DEPLOY_OWNER contains characters that cannot be stored safely in lock metadata"
+[[ "$DEPLOY_RETIREMENT_STATE_KEY" =~ ^[A-Za-z0-9._/-]+$ &&
+  "$DEPLOY_RETIREMENT_STATE_KEY" != /* &&
+  "$DEPLOY_RETIREMENT_STATE_KEY" != *../* ]] ||
+  fail "DEPLOY_RETIREMENT_STATE_KEY must be a safe relative S3 key"
 command -v aws >/dev/null 2>&1 || fail "aws CLI is required"
 
 site_location="${SITE_S3#s3://}"
@@ -167,6 +172,8 @@ fi
 cleanup_local_lock_files
 trap - EXIT
 
+retirement_state_file=''
+retirement_state_next_file=''
 release_lock() {
   local deploy_status=$?
   local release_status=0
@@ -178,12 +185,16 @@ release_lock() {
     echo "FATAL: failed to release production deploy lock ${DEPLOY_LOCK_ETAG}" >&2
     release_status=1
   fi
+  [[ -z "$retirement_state_file" ]] || rm -f "$retirement_state_file" || true
+  [[ -z "$retirement_state_next_file" ]] || rm -f "$retirement_state_next_file" || true
   if [[ $deploy_status -ne 0 ]]; then
     exit "$deploy_status"
   fi
   exit "$release_status"
 }
 trap release_lock EXIT
+retirement_state_file=$(mktemp)
+retirement_state_next_file=$(mktemp)
 
 # An indexed array rather than an associative one: macOS ships bash 3.2, so `declare -A` would
 # break the manual deploy in upload.sh. The membership scan below is linear over the build's
@@ -206,6 +217,67 @@ is_current_immutable_object() {
     [[ "$known" == "$candidate" ]] && return 0
   done
   return 1
+}
+
+# Retirement is append-only until a content hash becomes current again. Keep a deployment-owned
+# inventory so normal releases do not re-read the retire tag on every historical object. A missing
+# inventory deliberately falls back to the complete S3 scan below, which bootstraps this cache and
+# also makes deleting the state object a safe recovery operation.
+known_retired_objects=()
+next_retired_objects=()
+reactivated_retired_object_found=0
+if aws s3 cp "${SITE_S3}/${DEPLOY_RETIREMENT_STATE_KEY}" "$retirement_state_file" \
+  --only-show-errors 2>/dev/null; then
+  while IFS= read -r known_retired || [[ -n "$known_retired" ]]; do
+    [[ -n "$known_retired" ]] || continue
+    [[ -z "$SITE_PREFIX" || "$known_retired" == "$SITE_PREFIX"* ]] ||
+      fail "retirement state contains a key outside the site prefix: $known_retired"
+    relative_retired="${known_retired#"$SITE_PREFIX"}"
+    case "$relative_retired" in
+      assets/*) ;;
+      sw-extras-*.js | workbox-*.js)
+        [[ "$relative_retired" != */* ]] ||
+          fail "retirement state contains an unmanaged key: $known_retired"
+        ;;
+      *) fail "retirement state contains an unmanaged key: $known_retired" ;;
+    esac
+    # Publishing a content hash again removes retire=true below. Do not carry stale state forward.
+    if is_current_immutable_object "$known_retired"; then
+      reactivated_retired_object_found=1
+      continue
+    fi
+    known_retired_objects+=("$known_retired")
+  done < "$retirement_state_file"
+fi
+
+is_known_retired_object() {
+  local candidate="$1"
+  local known
+  for known in ${known_retired_objects[@]+"${known_retired_objects[@]}"}; do
+    [[ "$known" == "$candidate" ]] && return 0
+  done
+  return 1
+}
+
+record_retired_object() {
+  local candidate="$1"
+  local recorded
+  is_known_retired_object "$candidate" || known_retired_objects+=("$candidate")
+  for recorded in ${next_retired_objects[@]+"${next_retired_objects[@]}"}; do
+    [[ "$recorded" == "$candidate" ]] && return 0
+  done
+  next_retired_objects+=("$candidate")
+}
+
+write_retirement_state() {
+  : > "$retirement_state_next_file"
+  if [[ $# -gt 0 ]]; then
+    printf '%s\n' "$@" | LC_ALL=C sort -u > "$retirement_state_next_file"
+  fi
+  aws s3 cp "$retirement_state_next_file" "${SITE_S3}/${DEPLOY_RETIREMENT_STATE_KEY}" \
+    --cache-control 'no-store' \
+    --content-type 'text/plain; charset=utf-8' \
+    --only-show-errors
 }
 
 # CloudFront only compresses responses up to ~10 MB, so any script above the threshold ships
@@ -251,6 +323,13 @@ for immutable_key in "${current_immutable_objects[@]}"; do
     --key "$immutable_key" \
     --tagging 'TagSet=[{Key=retire,Value=false}]' >/dev/null
 done
+
+# A rollback can make a previously retired content hash current again. Persist that removal before
+# publishing mutable entry points so a later state-write failure cannot leave the old inventory
+# claiming the now-live object is still retired.
+if [[ $reactivated_retired_object_found -eq 1 ]]; then
+  write_retirement_state ${known_retired_objects[@]+"${known_retired_objects[@]}"}
+fi
 
 # Unhashed public assets carry a query-version buster, not a content hash.
 aws s3 cp "$SITE_BUILD_DIR" "$SITE_S3" \
@@ -305,13 +384,20 @@ while IFS= read -r remote_immutable; do
     *) continue ;;
   esac
   is_current_immutable_object "$remote_immutable" && continue
+  if is_known_retired_object "$remote_immutable"; then
+    record_retired_object "$remote_immutable"
+    continue
+  fi
 
   retire_tag=$(aws s3api get-object-tagging \
     --bucket "$SITE_BUCKET" \
     --key "$remote_immutable" \
     --query "TagSet[?Key=='retire'].Value | [0]" \
     --output text)
-  [[ "$retire_tag" == 'true' ]] && continue
+  if [[ "$retire_tag" == 'true' ]]; then
+    record_retired_object "$remote_immutable"
+    continue
+  fi
 
   # S3 rejects a self-copy whose only change is tags, so the write needs the REPLACE metadata
   # directive to be legal — and REPLACE drops the object's stored headers unless they are restated.
@@ -336,8 +422,11 @@ while IFS= read -r remote_immutable; do
     ${retire_headers[@]+"${retire_headers[@]}"} \
     --tagging-directive REPLACE \
     --tagging 'retire=true' >/dev/null
+  record_retired_object "$remote_immutable"
 # %s\n, not %s: read never runs its body for a final unterminated line, which would silently
 # exempt the last listed object from retirement on every deploy.
 done < <(printf '%s\n' "$remote_immutable_output" | tr '\t' '\n')
+
+write_retirement_state ${next_retired_objects[@]+"${next_retired_objects[@]}"}
 
 echo 'Deployed to https://aosreminders.com/'
