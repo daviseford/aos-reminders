@@ -12,7 +12,7 @@ export interface Publication extends DomainEntity<'publication'> {
   publisher: SourceArtifact['publisher']
 }
 
-export interface Faction extends DomainEntity<'faction'> {}
+export type Faction = DomainEntity<'faction'>
 
 export interface WarscrollCharacteristics {
   move: string
