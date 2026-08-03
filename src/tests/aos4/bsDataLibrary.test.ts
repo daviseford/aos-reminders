@@ -1,7 +1,10 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { extractBsDataWarscrolls, mergeBsDataWarscrolls, parseXmlDocument } from '../../aos4/data/bsdata'
-import type { GamesWorkshopUnitProfileFact } from '../../aos4/data/gamesWorkshop'
+import type {
+  GamesWorkshopRosterOptionFact,
+  GamesWorkshopUnitProfileFact,
+} from '../../aos4/data/gamesWorkshop'
 import type { WahapediaDataset } from '../../aos4/data/wahapedia'
 import type { WahapediaHtmlReconciliation } from '../../aos4/data/wahapediaHtml'
 import type { CorpusCommunityWarscrollSource } from '../../aos4/generate/corpus'
@@ -386,9 +389,7 @@ describe('BSData warscroll replacement of superseded Wahapedia datasheets', () =
     )
     const warscroll = merged.dataset.warscrolls.find(record => record.name === 'Testfist Brute')!
     // Identity continuity: the community record keys its canonical ID on the replaced record.
-    expect(String(warscroll.meta.identitySourceRecordId)).toBe(
-      'source-record:wahapedia:html-old-datasheet'
-    )
+    expect(String(warscroll.meta.identitySourceRecordId)).toBe('source-record:wahapedia:html-old-datasheet')
     // The stale datasheet and its rows leave the live dataset as superseded dispositions.
     expect(merged.dataset.warscrolls.filter(record => record.id === 'old-1')).toEqual([])
     expect(merged.dataset.warscrollAbilities.filter(record => record.warscrollId === 'old-1')).toEqual([])
@@ -443,5 +444,82 @@ describe('BSData warscroll replacement of superseded Wahapedia datasheets', () =
         [official]
       )
     ).toThrow(/that record is named Wrongly Named Brute/)
+  })
+
+  it('replaces a renamed datasheet when the review pins the stale name (issue #1880)', () => {
+    const dataset = staleDataset()
+    ;(dataset.warscrolls[0] as { name: string }).name = 'Old Testfist Brute'
+    const source = [
+      {
+        ...sourceWith('source-record:wahapedia:html-old-datasheet')[0],
+        renamesBySection: { 'unit:testfist-brute': 'Old Testfist Brute' },
+      },
+    ]
+    const merged = mergeBsDataWarscrolls(dataset, emptyReconciliation, source, [official])
+    // The merged warscroll keeps the official name and adopts the renamed datasheet's identity.
+    const warscroll = merged.dataset.warscrolls.find(record => record.name === 'Testfist Brute')!
+    expect(String(warscroll.meta.identitySourceRecordId)).toBe('source-record:wahapedia:html-old-datasheet')
+    expect(merged.dataset.warscrolls.filter(record => record.id === 'old-1')).toEqual([])
+    // The official fact could never match the stale-named page: the rename pin is its match.
+    expect(merged.reconciliation.matchedOfficialUnitFacts).toBe(2)
+  })
+
+  it('still fails closed when the rename pin does not name the replaced record', () => {
+    const dataset = staleDataset()
+    ;(dataset.warscrolls[0] as { name: string }).name = 'Wrongly Named Brute'
+    const source = [
+      {
+        ...sourceWith('source-record:wahapedia:html-old-datasheet')[0],
+        renamesBySection: { 'unit:testfist-brute': 'Some Other Name' },
+      },
+    ]
+    expect(() => mergeBsDataWarscrolls(dataset, emptyReconciliation, source, [official])).toThrow(
+      /that record is named Wrongly Named Brute/
+    )
+  })
+
+  it('anchors faction terrain on an effective official roster-option fact (issue #1880)', () => {
+    const terrain: GamesWorkshopRosterOptionFact = {
+      kind: 'roster-option',
+      key: 'page:2:roster-option:20',
+      page: 2,
+      row: 20,
+      faction: 'Test Faction',
+      context: 'standard',
+      optionType: 'Faction Terrain',
+      name: 'Testfist Brute',
+      points: 0,
+      notes: ['Battletome: Test'],
+      sourceRecordId: 'source-record:games-workshop:official-terrain-page' as never,
+      factChecksum: 'terrain-fact',
+    }
+    const source = [
+      {
+        ...sourceWith('source-record:wahapedia:html-old-datasheet')[0],
+        terrainAnchorSections: ['unit:testfist-brute'],
+      },
+    ]
+    // No official unit fact at all: the roster-option fact alone establishes the terrain.
+    const merged = mergeBsDataWarscrolls(staleDataset(), emptyReconciliation, source, [terrain])
+    const warscroll = merged.dataset.warscrolls.find(record => record.name === 'Testfist Brute')!
+    expect(warscroll.unitSize).toBe('1')
+    expect(warscroll.cost).toBe('0')
+    expect(warscroll.notesHtml).toBe('Battletome: Test')
+    expect(merged.dataset.warscrollBases.map(record => record.base)).toEqual(['60mm'])
+    expect(String(warscroll.meta.identitySourceRecordId)).toBe('source-record:wahapedia:html-old-datasheet')
+    // A roster-option anchor is not an official unit fact: the unit-fact match count is unchanged.
+    expect(merged.reconciliation.matchedOfficialUnitFacts).toBe(1)
+  })
+
+  it('fails closed when terrain has no effective official Faction Terrain roster-option fact', () => {
+    const source = [
+      {
+        ...sourceWith('source-record:wahapedia:html-old-datasheet')[0],
+        terrainAnchorSections: ['unit:testfist-brute'],
+      },
+    ]
+    expect(() => mergeBsDataWarscrolls(staleDataset(), emptyReconciliation, source, [])).toThrow(
+      /matches 0 effective official Faction Terrain roster-option facts/
+    )
   })
 })

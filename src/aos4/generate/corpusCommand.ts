@@ -55,14 +55,14 @@ import { createRuntimeProjection, serializeRuntimeProjection } from './runtimePr
 import { serializeAuditCatalog, stableJson } from './serialization'
 
 const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-02.json')
-const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-02c.json')
+const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-03.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
 const DEFAULT_AUDIT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_BATTLE_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaults.json')
-const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-02c-summary.json')
-const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-02c-reconciliation.json')
+const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-08-03-summary.json')
+const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-08-03-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_BETA_READINESS = path.join('data', 'aos4', 'certifications', 'beta.json')
 const DEFAULT_PROFILE_ONLY_DEVIATIONS = path.join('data', 'aos4', 'reviews', 'profile-only-deviations.json')
@@ -405,18 +405,32 @@ const extractCommunityWarscrollFacts = async (
             `(${fact ? `${fact.section} ${fact.factChecksum}` : 'not extracted'})`
         )
       }
+      if (unit.renamesFrom && !unit.replacesSourceRecordId) {
+        throw new Error(
+          `Community warscroll ${unit.name} records a rename without a replacesSourceRecordId pin; ` +
+            'a rename is only meaningful on a reviewed datasheet replacement'
+        )
+      }
     })
     const replacesBySection = Object.fromEntries(
       source.units.flatMap(unit =>
         unit.replacesSourceRecordId ? [[unit.section, unit.replacesSourceRecordId] as const] : []
       )
     )
+    const renamesBySection = Object.fromEntries(
+      source.units.flatMap(unit => (unit.renamesFrom ? [[unit.section, unit.renamesFrom] as const] : []))
+    )
+    const terrainAnchorSections = source.units
+      .filter(unit => unit.anchor === 'faction-terrain')
+      .map(unit => unit.section)
     inputs.push({
       artifact: source.artifact,
       repository: source.repository,
       facts: extracted.facts,
       officialSourceRecordIds: source.officialSourceRecordIds,
       ...(Object.keys(replacesBySection).length ? { replacesBySection } : {}),
+      ...(Object.keys(renamesBySection).length ? { renamesBySection } : {}),
+      ...(terrainAnchorSections.length ? { terrainAnchorSections } : {}),
     })
   }
   return inputs
@@ -617,9 +631,7 @@ const loadWahapediaHtmlPages = async (
   const dedupedRegiments = dedupeWahapediaRegimentOfRenownPages(pages)
   pages.length = 0
   pages.push(...dedupedRegiments.pages)
-  warningCount += dedupedRegiments.diagnostics.filter(
-    diagnostic => diagnostic.severity === 'warning'
-  ).length
+  warningCount += dedupedRegiments.diagnostics.filter(diagnostic => diagnostic.severity === 'warning').length
 
   const reviewedHtml = review.currentWahapediaHtml
   const warscrolls = pages.filter(page => page.recordKind === 'warscroll').length

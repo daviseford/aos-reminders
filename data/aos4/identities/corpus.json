@@ -126928,6 +126928,83 @@
       "canonicalId": "weapon:ffe1a1ee-4123-51db-bb6e-3158c434ab55",
       "kind": "weapon",
       "name": "Bigteef’s Fists and Tail"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:great-mawpot:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:33c9adf7-73a2-5b0a-a7e3-6cacdcf2e68f",
+      "kind": "ability",
+      "name": "Battlebroth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:great-mawpot:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c4c39e91-a327-5e18-9a88-9c9ecd3627ef",
+      "kind": "ability",
+      "name": "Vessel of the Gulping God"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:great-mawpot:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:3c918cb1-f25c-548a-8443-fe653043172d",
+      "kind": "ability",
+      "name": "Throw 'Em In"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:8c8dd3f4-4cb0-532e-af6c-2131bdf488af",
+      "kind": "ability",
+      "name": "Hungry Sinkhole"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a4a15f4a-6d33-59b1-b364-85e30b499d82",
+      "kind": "ability",
+      "name": "Feed the Maw"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:0a158af5-2f03-5619-87b9-08f0ed2b4a4b",
+      "kind": "ability",
+      "name": "Step Away from the Maw"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:d11b97f8-86bb-58d9-bc3c-5cc7ce184040",
+      "kind": "weapon",
+      "name": "Ever-hungry Pit"
     }
   ],
   "schemaVersion": 1

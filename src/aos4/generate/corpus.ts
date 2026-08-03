@@ -132,9 +132,24 @@ export interface CorpusCommunityWarscrollUnit {
    * and the replaced datasheet's records (warscroll, abilities, weapons, keywords, bases) are
    * dispositioned superseded rather than left to serve last-book rules beside the rewrite. The
    * merge fails closed when the pin no longer matches an accepted datasheet of the same official
-   * name.
+   * name — unless the review explicitly records a rename through `renamesFrom`.
    */
   replacesSourceRecordId?: SourceRecordId
+  /**
+   * The stale name of the pinned Wahapedia datasheet when an official publication renamed the
+   * unit (issue #1880: the July 2026 battletome renamed "Ogor Gluttons" to "Gluttons"). The merge
+   * still fails closed unless this matches the replaced datasheet's name exactly; the merged
+   * warscroll keeps the official name and adopts the replaced record's identity.
+   */
+  renamesFrom?: string
+  /**
+   * Anchor on an effective official roster-option fact of type `Faction Terrain` instead of a
+   * unit fact (issue #1880). Faction terrain has no battle-profile unit row: the official Battle
+   * Profiles document establishes the terrain as a roster option, which is the official
+   * publication the fallback tier requires. The roster-option fact supplies name, faction,
+   * points, and notes; the community transcription supplies everything else.
+   */
+  anchor?: 'faction-terrain'
 }
 
 export interface CorpusCommunityFactionOption {
@@ -859,9 +874,7 @@ const sourceRulesContextIds = (
   const assign = (meta: WahapediaRecordMeta, contextIds: RulesContextId[]) =>
     bySourceRecordId.set(
       meta.sourceRecordId,
-      uniqueSorted(
-        overrideBySourceRecordId.get(meta.sourceRecordId) ?? contextIdsForMeta(meta) ?? contextIds
-      )
+      uniqueSorted(overrideBySourceRecordId.get(meta.sourceRecordId) ?? contextIdsForMeta(meta) ?? contextIds)
     )
 
   const factionContexts = new Map<string, RulesContextId[]>()
@@ -1241,8 +1254,7 @@ const reviewDiagnostics = (
           ].includes(option.optionType) &&
           (option.optionType !== 'battle-trait' || Boolean(option.faction?.trim()))
       ) && new Set(factionOptions.map(option => option.section)).size === factionOptions.length
-    const scopeValid =
-      source.units.length + factionOptions.length > 0 && unitsValid && factionOptionsValid
+    const scopeValid = source.units.length + factionOptions.length > 0 && unitsValid && factionOptionsValid
     if (
       communityChecksums.has(source.artifact.checksum) ||
       source.policyTier !== 'community-fallback' ||
@@ -1728,9 +1740,7 @@ export const buildAos4Corpus = (
         kind: 'content-group',
         revision: entityRevision(record.meta),
         name: record.name.trim(),
-        groupType: regimentOfRenown
-          ? 'regiment-of-renown'
-          : groupType(record.role || 'supplemental-content'),
+        groupType: regimentOfRenown ? 'regiment-of-renown' : groupType(record.role || 'supplemental-content'),
         rulesContextIds: contextsFor(record.meta),
         sourceRefs: regimentOfRenown
           ? sortedSourceReferences([
@@ -2198,9 +2208,7 @@ export const buildAos4Corpus = (
   // these pages instead of the [faction] rules").
   armyOfRenownRootsByExternalFactionId.forEach((rootIds, externalFactionId) => {
     const replaced = replaceableGroupsByExternalFactionId.get(externalFactionId) ?? []
-    rootIds.forEach(rootId =>
-      replaced.forEach(replacedId => addRelationship('excludes', rootId, replacedId))
-    )
+    rootIds.forEach(rootId => replaced.forEach(replacedId => addRelationship('excludes', rootId, replacedId)))
   })
   ;(dataset.generalRuleAbilities ?? []).forEach(record =>
     addRelationship(

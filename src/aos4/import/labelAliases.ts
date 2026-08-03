@@ -58,6 +58,14 @@ export const IMPORT_LABEL_ALIASES: ImportLabelAlias[] = [
       'title omits it.',
   },
   {
+    from: 'Ogor Gluttons',
+    to: 'Gluttons',
+    reason:
+      'Provider divergence: the July 2026 Battletome: Ogor Mawtribes renamed the unit "Gluttons", ' +
+      'but rosters written against the index-era warscroll (and exports from tools that have not ' +
+      'updated) still say "Ogor Gluttons". Same unit, same canonical warscroll identity (issue #1880).',
+  },
+  {
     from: 'Kurnoth Hunters with Kurnoth Greatswords',
     to: 'Kurnoth Hunters with Greatswords',
     reason:

@@ -8,16 +8,21 @@ import type { Aos4ArmyDocument } from '../../aos4/state'
 import { createAos4BuilderViewModel } from '../../aos4/view'
 
 /**
- * The July 2026 Ogor Mawtribes battletome adds ten new units. Their existence, points, unit
+ * The July 2026 Ogor Mawtribes battletome adds nine new units. Their existence, points, unit
  * sizes, bases, and roster notes are established by accepted official Battle Profiles documents,
  * but neither Wahapedia nor any accepted official document publishes their warscroll rules yet.
  *
  * Under the standing fallback-tier source policy (official Games Workshop publications are
  * authoritative, Wahapedia is the preferred secondary, BSData is an acceptable fallback only while
  * an official publication establishes the content and Wahapedia does not yet carry the rules),
- * the accepted `corpus-2026-08-01d` review admits the commit-pinned BSData `ogors`-branch
- * transcriptions of exactly these ten units as provisional community facts. Official facts win
- * every overlapping field, and the provisional status stays visible through source attribution.
+ * the accepted review admits the commit-pinned BSData `ogors`-branch transcriptions of these
+ * units as provisional community facts. Official facts win every overlapping field, and the
+ * provisional status stays visible through source attribution.
+ *
+ * Issue #1850 extended the intake to the battletome's legacy-unit rewrites, and issue #1880 to
+ * the renamed Gluttons datasheet and the two rewritten faction-terrain sheets: each community
+ * record replaces its stale Wahapedia datasheet and adopts that datasheet's canonical identity,
+ * so saved armies and share links keep resolving.
  *
  * Lorai, Child of the Abyss demonstrates the swap this test guards: she shipped provisionally in
  * `2026-08-01b`, Wahapedia then published her datasheet, and `2026-08-01d` replaced the BSData
@@ -35,7 +40,6 @@ interface ReconciliationReport {
 
 const OGOR_SUPPLEMENT_UNITS: Array<{ name: string; unitSize: number; points: number; reminders: number }> = [
   { name: 'Cleavers', unitSize: 3, points: 220, reminders: 1 },
-  { name: 'Gluttons', unitSize: 5, points: 200, reminders: 1 },
   { name: 'Grell Firefist', unitSize: 1, points: 150, reminders: 3 },
   { name: 'Gutseers', unitSize: 3, points: 200, reminders: 2 },
   { name: 'Hunters with Sabrefangs', unitSize: 5, points: 160, reminders: 2 },
@@ -48,7 +52,7 @@ const OGOR_SUPPLEMENT_UNITS: Array<{ name: string; unitSize: number; points: num
 
 const reconciliation = JSON.parse(
   readFileSync(
-    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-02-reconciliation.json'),
+    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-03-reconciliation.json'),
     'utf8'
   )
 ) as ReconciliationReport
@@ -160,6 +164,66 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     ])
   })
 
+  it('serves a single Gluttons warscroll under the renamed datasheet identity (#1880)', () => {
+    const gluttons = warscrollFor(ogor, 'Gluttons')
+    expect(gluttons).toBeDefined()
+    // Identity continuity: the battletome renamed "Ogor Gluttons" to "Gluttons", and the
+    // community replacement adopts the replaced datasheet's canonical identity.
+    expect(gluttons!.id).toBe('warscroll:1475b0a4-496b-52c8-8e16-c43d36ab04ce')
+    // The index-era duplicate is gone from the current contexts; only Spearhead keeps its own.
+    const stale = AOS4_CATALOG.entities.filter(
+      (entity): entity is Warscroll => entity.kind === 'warscroll' && entity.name === 'Ogor Gluttons'
+    )
+    const spearhead = AOS4_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
+    expect(stale).toHaveLength(1)
+    expect(stale[0].rulesContextIds).toEqual([spearhead.id])
+    // One battle profile at the official 200 points; the stale 220-point profile is gone.
+    const profiles = AOS4_CATALOG.entities.filter(
+      (entity): entity is BattleProfile =>
+        entity.kind === 'battle-profile' && entity.warscrollId === gluttons!.id
+    )
+    expect(profiles).toHaveLength(1)
+    expect(profiles[0]).toMatchObject({ unitSize: 5, points: 200 })
+    expect(hasProvisionalCommunityAttribution(gluttons!)).toBe(true)
+  })
+
+  it('serves the rewritten Mawpit and Great Mawpot terrain from the battletome (#1880)', () => {
+    const mawpit = warscrollFor(ogor, 'Mawpit')
+    expect(mawpit).toBeDefined()
+    expect(mawpit!.id).toBe('warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc')
+    expect(mawpit!.characteristics).toMatchObject({ health: '12', save: '4+' })
+    const mawpitSelection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: [ogor.id, mawpit!.id],
+      rulesContextId: standard.id,
+    })
+    expect(mawpitSelection.diagnostics).toEqual([])
+    const mawpitReminders = projectReminders(AOS4_CATALOG, mawpitSelection).filter(reminder =>
+      reminder.contributingEntityIds.includes(mawpit!.id)
+    )
+    // The battletome abilities; the index-era signature Throat of Ghur is gone.
+    expect(mawpitReminders.map(reminder => reminder.name).sort()).toEqual(
+      ['Feed the Maw', 'Hungry Sinkhole', 'Step Away from the Maw'].sort()
+    )
+    const mawpitProfile = AOS4_CATALOG.entities.find(
+      (entity): entity is BattleProfile =>
+        entity.kind === 'battle-profile' && entity.warscrollId === mawpit!.id
+    )
+    expect(mawpitProfile).toMatchObject({ unitSize: 1, points: 0 })
+    expect(hasProvisionalCommunityAttribution(mawpit!)).toBe(true)
+
+    const greatMawpot = warscrollFor(ogor, 'Great Mawpot')
+    expect(greatMawpot).toBeDefined()
+    expect(greatMawpot!.id).toBe('warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f')
+    // The official roster-option fact establishes the terrain at 20 points; the index sheet
+    // served 0.
+    const mawpotProfile = AOS4_CATALOG.entities.find(
+      (entity): entity is BattleProfile =>
+        entity.kind === 'battle-profile' && entity.warscrollId === greatMawpot!.id
+    )
+    expect(mawpotProfile).toMatchObject({ unitSize: 1, points: 20 })
+    expect(hasProvisionalCommunityAttribution(greatMawpot!)).toBe(true)
+  })
+
   it('keeps every pre-supplement Ogor warscroll selectable with at least one reminder', () => {
     const ogorWarscrolls = AOS4_CATALOG.entities.filter(
       (entity): entity is Warscroll => entity.kind === 'warscroll' && entity.factionIds.includes(ogor.id)
@@ -168,10 +232,11 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
       const context = AOS4_CATALOG.rulesContexts.find(predicate)!
       return ogorWarscrolls.filter(warscroll => warscroll.rulesContextIds.includes(context.id)).length
     }
-    // 45 pre-supplement standard warscrolls + 10 provisional supplement units; the two seasonal
-    // Scourge of Aqshy variants complete the 57 current warscrolls.
-    expect(byContext(context => context.mode === 'standard' && context.status === 'current')).toBe(55)
-    expect(byContext(context => context.status === 'seasonal')).toBe(57)
+    // 44 pre-supplement standard warscrolls + 9 provisional supplement units + the renamed
+    // Gluttons replacement; the two seasonal Scourge of Aqshy variants complete the 56 current
+    // warscrolls. The index-era "Ogor Gluttons" datasheet left the current contexts (#1880).
+    expect(byContext(context => context.mode === 'standard' && context.status === 'current')).toBe(54)
+    expect(byContext(context => context.status === 'seasonal')).toBe(56)
     expect(byContext(context => context.mode === 'spearhead')).toBe(9)
     expect(byContext(context => context.status === 'legends')).toBe(2)
     expect(byContext(context => context.status === 'historical')).toBe(2)
@@ -185,7 +250,7 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     expect(selection.diagnostics).toEqual([])
     const available = new Set(selection.availableIds)
     const availableWarscrolls = ogorWarscrolls.filter(warscroll => available.has(warscroll.id))
-    expect(availableWarscrolls).toHaveLength(59)
+    expect(availableWarscrolls).toHaveLength(58)
     availableWarscrolls.forEach(warscroll => {
       const withUnit = resolveSelection(AOS4_CATALOG, {
         explicitIds: [ogor.id, warscroll.id],
