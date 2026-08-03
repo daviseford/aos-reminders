@@ -14,7 +14,12 @@ import type {
   WahapediaWarscrollWeaponRecord,
 } from '../wahapedia'
 import type { WahapediaHtmlReconciliation } from '../wahapediaHtml'
-import type { BsDataAbilityFact, BsDataFactionOptionFact, BsDataFactionOptionType, BsDataWarscrollFact } from './records'
+import type {
+  BsDataAbilityFact,
+  BsDataFactionOptionFact,
+  BsDataFactionOptionType,
+  BsDataWarscrollFact,
+} from './records'
 
 /**
  * Merge reviewed BSData warscroll facts into the current dataset.
@@ -33,6 +38,13 @@ import type { BsDataAbilityFact, BsDataFactionOptionFact, BsDataFactionOptionTyp
  * identity, the stale rows are dispositioned superseded, the intake stays provisional with a
  * watch sentinel, and the pin fails closed on any mismatch. BSData still never overrides an
  * official fact, and never replaces Wahapedia text the official sources have not superseded.
+ *
+ * Issue #1880 extends the replacement shape twice (owner ruling 2026-08-03): a reviewed
+ * `renamesFrom` lets a pin replace a datasheet whose name the official publication changed
+ * ("Ogor Gluttons" → "Gluttons"), and a reviewed terrain anchor lets faction-terrain sheets
+ * replace on the strength of an effective official roster-option fact of type `Faction Terrain`
+ * — terrain has no battle-profile unit row, so the roster-option fact is the official
+ * publication that establishes the content.
  */
 
 export interface BsDataCommunitySourceInput {
@@ -49,11 +61,39 @@ export interface BsDataCommunitySourceInput {
    * `CorpusCommunityWarscrollUnit.replacesSourceRecordId`.
    */
   replacesBySection?: Record<string, SourceRecordId>
+  /**
+   * Stale names of replaced datasheets whose official name changed, by catalogue section
+   * (issue #1880). Each entry must pair with a `replacesBySection` pin; the merge fails closed
+   * unless the replaced record is named exactly this.
+   */
+  renamesBySection?: Record<string, string>
+  /**
+   * Catalogue sections anchored on an effective official `Faction Terrain` roster-option fact
+   * instead of a unit fact (issue #1880). Terrain has no battle-profile unit row; the
+   * roster-option fact supplies name, faction, points, and notes.
+   */
+  terrainAnchorSections?: string[]
 }
 
 export interface BsDataMergeResult {
   dataset: WahapediaDataset
   reconciliation: WahapediaHtmlReconciliation
+}
+
+/**
+ * The official fields a community warscroll merges against, regardless of whether the official
+ * anchor is a battle-profile unit fact or a `Faction Terrain` roster-option fact (issue #1880).
+ */
+interface OfficialAnchor {
+  name: string
+  faction: string
+  points: number
+  notes: string[]
+  unitSize: number
+  baseSizes: string[]
+  regimentOptions: string[]
+  sourceRecordId: SourceRecordId
+  factChecksum: string
 }
 
 const canonical = (value: string): string =>
@@ -291,7 +331,10 @@ export const mergeBsDataFactionOptions = (
               .replace(/[^A-Za-z0-9]+/g, '-')
               .replace(/^-+|-+$/g, '')
               .toLowerCase()}`
-            const groupSourceRecordId = sourceRecordId('bsdata', `${source.artifact.checksum}:${groupSection}`)
+            const groupSourceRecordId = sourceRecordId(
+              'bsdata',
+              `${source.artifact.checksum}:${groupSection}`
+            )
             shared = { id: bsDataGeneratedId(groupSourceRecordId), name: fact.groupName, lines: 0 }
             sharedSubtypes.set(key, shared)
             newSubtypes.push({
@@ -372,6 +415,10 @@ export const mergeBsDataWarscrolls = (
   const officialUnits = officialFacts.filter(
     (fact): fact is GamesWorkshopUnitProfileFact => fact.kind === 'unit'
   )
+  const officialTerrainOptions = officialFacts.filter(
+    (fact): fact is GamesWorkshopRosterOptionFact =>
+      fact.kind === 'roster-option' && fact.optionType === 'Faction Terrain'
+  )
   const factionIdByName = new Map(dataset.factions.map(faction => [canonical(faction.name), faction.id]))
   const matchedChecksums = new Set<string>()
   const discrepancies = [...reconciliation.discrepancies]
@@ -388,14 +435,50 @@ export const mergeBsDataWarscrolls = (
     ;[...source.facts]
       .sort((left, right) => left.section.localeCompare(right.section))
       .forEach(fact => {
-        const official = officialUnits.find(
-          candidate => candidate.context === 'standard' && canonical(candidate.name) === canonical(fact.name)
-        )
-        if (!official) {
-          throw new Error(
-            `BSData warscroll ${fact.name} has no matching effective official unit fact; ` +
-              'the community fallback tier requires an official publication establishing the content'
+        const terrainAnchor = source.terrainAnchorSections?.includes(fact.section) ?? false
+        let official: OfficialAnchor
+        if (terrainAnchor) {
+          /**
+           * Faction terrain has no battle-profile unit row: the effective official roster-option
+           * fact is the official publication that establishes it (issue #1880). That fact carries
+           * no unit size, bases, or regiment options — terrain is a single model with no regiment
+           * options, and the transcription supplies the bases no official field covers.
+           */
+          const matches = officialTerrainOptions.filter(
+            candidate =>
+              candidate.context === 'standard' && canonical(candidate.name) === canonical(fact.name)
           )
+          if (matches.length !== 1) {
+            throw new Error(
+              `BSData terrain ${fact.name} matches ${matches.length} effective official Faction Terrain ` +
+                'roster-option facts; the community fallback tier requires exactly one official ' +
+                'publication establishing the content'
+            )
+          }
+          const [option] = matches
+          official = {
+            name: option.name,
+            faction: option.faction,
+            points: option.points,
+            notes: option.notes,
+            unitSize: 1,
+            baseSizes: fact.baseSizes,
+            regimentOptions: [],
+            sourceRecordId: option.sourceRecordId,
+            factChecksum: option.factChecksum,
+          }
+        } else {
+          const unit = officialUnits.find(
+            candidate =>
+              candidate.context === 'standard' && canonical(candidate.name) === canonical(fact.name)
+          )
+          if (!unit) {
+            throw new Error(
+              `BSData warscroll ${fact.name} has no matching effective official unit fact; ` +
+                'the community fallback tier requires an official publication establishing the content'
+            )
+          }
+          official = unit
         }
         /**
          * A rewrite replaces an accepted Wahapedia datasheet (issue #1850): the community record
@@ -425,12 +508,21 @@ export const mergeBsDataWarscrolls = (
             )
           }
           if (canonical(replaced.name) !== canonical(official.name)) {
-            throw new Error(
-              `BSData warscroll ${fact.name} replaces ${replacePin}, but that record is named ${replaced.name}`
-            )
+            // A battletome rename (issue #1880) passes only when the review pins the stale name.
+            const renamedFrom = source.renamesBySection?.[fact.section]
+            if (!renamedFrom || canonical(replaced.name) !== canonical(renamedFrom)) {
+              throw new Error(
+                `BSData warscroll ${fact.name} replaces ${replacePin}, but that record is named ${replaced.name}`
+              )
+            }
           }
           replacedWarscrollIds.add(replaced.id)
-        } else {
+        }
+        if ((!replacePin || source.renamesBySection?.[fact.section]) && !terrainAnchor) {
+          // An unpinned community warscroll is the match for its official unit fact. A rename pin
+          // links an official fact the replaced page could never have matched (the page carries
+          // the stale name), so the community record is that match too and must be counted
+          // (issue #1880). Roster-option anchors are never official unit facts: do not count them.
           matchedChecksums.add(official.factChecksum)
         }
         const factionId = factionIdByName.get(canonical(official.faction))
@@ -586,7 +678,8 @@ export const mergeBsDataWarscrolls = (
    * exactly like the bulk CSV rows the current HTML replaced: retained for audit, unable to
    * enter the current runtime beside the rewrite that carries their identity forward.
    */
-  const keepRecord = (record: { warscrollId: string }): boolean => !replacedWarscrollIds.has(record.warscrollId)
+  const keepRecord = (record: { warscrollId: string }): boolean =>
+    !replacedWarscrollIds.has(record.warscrollId)
   const supersededMetas = [
     ...(dataset.supersededMetas ?? []),
     ...dataset.warscrolls.filter(record => replacedWarscrollIds.has(record.id)).map(record => record.meta),
@@ -595,7 +688,9 @@ export const mergeBsDataWarscrolls = (
     ...dataset.warscrollKeywords.filter(record => !keepRecord(record)).map(record => record.meta),
     ...dataset.warscrollBases.filter(record => !keepRecord(record)).map(record => record.meta),
     ...(dataset.warscrollOrganisation ?? []).filter(record => !keepRecord(record)).map(record => record.meta),
-    ...(dataset.regimentOfRenownFactions ?? []).filter(record => !keepRecord(record)).map(record => record.meta),
+    ...(dataset.regimentOfRenownFactions ?? [])
+      .filter(record => !keepRecord(record))
+      .map(record => record.meta),
   ]
 
   return {
