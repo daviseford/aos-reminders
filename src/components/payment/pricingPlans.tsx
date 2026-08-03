@@ -3,6 +3,7 @@ import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import GenericButton from 'components/input/generic_button'
 import { PaypalPostSubscribeModal } from 'components/modals/paypal_post_subscribe_modal'
+import { redirectToCheckout } from 'components/payment/legacyStripeCheckout'
 import PayPalButton from 'components/payment/paypal/paypalButton'
 import { IApprovalResponse } from 'components/payment/paypal/paypalTypes'
 import { PaypalProvider } from 'context/usePaypal'
@@ -100,7 +101,7 @@ export const PlanComponent = (props: IPlanProps) => {
       plan: supportPlan.title,
     })
 
-    const result = await stripe.redirectToCheckout({
+    const result = await redirectToCheckout(stripe, {
       items: [{ plan, quantity: 1 }],
       customerEmail: user.email,
       clientReferenceId: user.email,

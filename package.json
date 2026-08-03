@@ -6,8 +6,8 @@
   "dependencies": {
     "@auth0/auth0-react": "2.22.1",
     "@hello-pangea/dnd": "18.0.1",
-    "@stripe/react-stripe-js": "2.4.0",
-    "@stripe/stripe-js": "1.54.1",
+    "@stripe/react-stripe-js": "^6",
+    "@stripe/stripe-js": "^9",
     "bootstrap": "5.3.8",
     "core-js": "^3.49.0",
     "deepmerge": "4.3.1",
