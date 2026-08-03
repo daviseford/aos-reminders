@@ -326,9 +326,12 @@ trap is `wraps to the real column width, not to an implicit font-size-scaled wid
 - **The logo.** The legacy PDFs embedded a base64 logo on every page and a full-size one on the last
   page if it fitted. The current PDF has the `aosreminders.com` watermark and page numbers, but no
   logo.
-- **jsPDF 1.5.3** is still five years stale and still uses `setFontStyle` and the positional `text()`
-  signature, both removed in 2.x. The blast radius is now one file (`pdf.ts`) instead of three, but
-  it is still Phase 2 work.
+- **jsPDF is current (#1900).** `pdf.ts` and `measure.ts` run on `jspdf` 4.x — `setFont(family,
+  weight)` and the options-object `text()` signature. The official-PDF side of the same upgrade
+  (`pdfjs-dist` 6 in `data/gamesWorkshop/pdfText.ts`) extracts slightly different text than 2.4 did
+  (letterspaced display headings no longer gain fake spaces), so the accepted corpus's pinned
+  official-evidence checksums need a reviewed refresh before `data:aos4:generate:candidate` passes
+  again.
 - **A layout-engine library not taken.** `pdfmake` or `@react-pdf/renderer` would express "two
   columns, keep-together, repeat heading on break" as configuration rather than code. Rejected
   against AGENTS.md's "avoid dependency churn during Phase 1", but it is the natural landing spot if
