@@ -200,6 +200,24 @@ export default defineConfig({
    * literal form costs whole seconds of main-thread parse before Home can render.
    */
   json: { stringify: true },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        /*
+         * Bootstrap 5.3's own scss predates Dart Sass 1.80's deprecations (@import, if(), global
+         * built-ins, red()/green()/blue()); our two entry imports pull it in, so the warnings all
+         * originate in node_modules. quietDeps silences those rather than editing bootstrap.
+         *
+         * The two silenced ids are infrastructure, not our scss: Vite 5.3 still drives Sass through
+         * the legacy JS API (the modern-API option arrives in Vite 5.4), and our three @imports
+         * cannot become @use because bootstrap 5.3's scss is import-architecture and depends on
+         * shared global scope.
+         */
+        quietDeps: true,
+        silenceDeprecations: ['legacy-js-api', 'import'],
+      },
+    },
+  },
   build: {
     rollupOptions: {
       output: {

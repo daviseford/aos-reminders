@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 /* Theme Colors */
 $themeDarkBluePrimary: #063647;
 $themeDarkBlueSecondary: #182633;
@@ -13,7 +15,7 @@ $themeLightGray: #e9ecef;
  * `.card` keeps Bootstrap's white background in both themes, so a translucent value composites over
  * white and lands pale. Resolving the mix here keeps the two inputs visible and the result opaque.
  */
-$themeProfileHeaderDark: mix($themeLightBlue, $themeDarkBlueSecondary, 30%);
+$themeProfileHeaderDark: color.mix($themeLightBlue, $themeDarkBlueSecondary, 30%);
 
 /*
  * Muted secondary text in light theme — the timing-tag explainer and the import dropzone's
