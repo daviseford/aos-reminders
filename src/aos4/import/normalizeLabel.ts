@@ -2,7 +2,9 @@ const LEADING_BULLET_PATTERN = /^\s*[•*+-]\s*/
 const LEADING_COUNT_PATTERN = /^\s*\d+\s*[x×]\s+/i
 const TRAILING_MODEL_COUNT_PATTERN = /\s*\(\s*\d+\s+models?\s*\)\s*$/i
 const TRAILING_POINTS_PATTERN = /\s*(?:[-–—]\s*)?\(?\d+\s*(?:pts?|points)\)?\s*$/i
-const PUNCTUATION_PATTERN = /[^\p{Letter}\p{Number}]+/gu
+// Constructed via RegExp because the es5 `target` rejects the `u` flag in literals (TS1501)
+// even though the emit path (Vite/esbuild) targets modern browsers that fully support it.
+const PUNCTUATION_PATTERN = new RegExp('[^\\p{Letter}\\p{Number}]+', 'gu')
 
 const baseNormalize = (value: string): string =>
   value
