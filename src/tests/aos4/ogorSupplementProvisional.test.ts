@@ -224,6 +224,47 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     expect(hasProvisionalCommunityAttribution(greatMawpot!)).toBe(true)
   })
 
+  it('keeps the Scourge of Aqshy variants on Wahapedia text that already matches the battletome (#1850)', () => {
+    /**
+     * The July 2026 battletome did not rewrite the seasonal battlepack variants: verified
+     * 2026-08-03 against the commit-pinned BSData Ogor library (publication-pinned to the
+     * battletome) — characteristics, keywords, weapons, and ability texts are identical, so
+     * these two keep their preferred-secondary Wahapedia source with no provisional facts.
+     */
+    const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
+    const cases = [
+      {
+        name: 'Scourge of Aqshy Frostlord on Thundertusk',
+        points: 280,
+        abilities: ['BATTLE DAMAGED', 'COLD FURY', 'SNOW PLOUGH'],
+      },
+      {
+        name: 'Scourge of Aqshy Huskard on Thundertusk',
+        points: 260,
+        abilities: ['BATTLE DAMAGED', 'COOL TEMPERS', 'EVERWINTER’S IRE'],
+      },
+    ]
+    for (const { name, points, abilities } of cases) {
+      const warscroll = warscrollFor(ogor, name)
+      expect(warscroll).toBeDefined()
+      const profile = AOS4_CATALOG.entities.find(
+        (entity): entity is BattleProfile =>
+          entity.kind === 'battle-profile' && entity.warscrollId === warscroll!.id
+      )
+      expect(profile).toMatchObject({ unitSize: 1, points })
+      const selection = resolveSelection(AOS4_CATALOG, {
+        explicitIds: [ogor.id, warscroll!.id],
+        rulesContextId: seasonal.id,
+      })
+      expect(selection.diagnostics).toEqual([])
+      const reminders = projectReminders(AOS4_CATALOG, selection).filter(reminder =>
+        reminder.contributingEntityIds.includes(warscroll!.id)
+      )
+      expect(reminders.map(reminder => reminder.name).sort()).toEqual([...abilities].sort())
+      expect(hasProvisionalCommunityAttribution(warscroll!)).toBe(false)
+    }
+  })
+
   it('keeps every pre-supplement Ogor warscroll selectable with at least one reminder', () => {
     const ogorWarscrolls = AOS4_CATALOG.entities.filter(
       (entity): entity is Warscroll => entity.kind === 'warscroll' && entity.factionIds.includes(ogor.id)
