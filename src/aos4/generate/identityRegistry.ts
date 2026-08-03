@@ -20,10 +20,7 @@ export interface IdentityRegistry {
 }
 
 export type IdentityRegistryIssueCode =
-  | 'duplicate-canonical-id'
-  | 'duplicate-source-alias'
-  | 'canonical-kind-mismatch'
-  | 'missing-source-alias'
+  'duplicate-canonical-id' | 'duplicate-source-alias' | 'canonical-kind-mismatch' | 'missing-source-alias'
 
 export interface IdentityRegistryIssue {
   code: IdentityRegistryIssueCode

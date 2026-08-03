@@ -113,20 +113,24 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
       group => group.name === 'Traits of Endless Hunger' && group.rulesContextIds.includes(standard.id)
     )
     expect(traits).toBeDefined()
-    expect(membersOf(traits!).map(member => member.name).sort()).toEqual([...BATTLETOME_TRAITS].sort())
+    expect(
+      membersOf(traits!)
+        .map(member => member.name)
+        .sort()
+    ).toEqual([...BATTLETOME_TRAITS].sort())
     membersOf(traits!).forEach(member => expect(hasProvisionalCommunityAttribution(member)).toBe(true))
 
     const artefacts = offeredGroups('artefact-of-power').filter(
       group => group.name === 'Plunder of the Mawtribes' && group.rulesContextIds.includes(standard.id)
     )
     // The seasonal Scourge of Aqshy artefacts and the battletome artefacts share the group name.
-    const battletome = artefacts.find(group =>
-      membersOf(group).some(member => member.name === 'Trophy Rack')
-    )
+    const battletome = artefacts.find(group => membersOf(group).some(member => member.name === 'Trophy Rack'))
     expect(battletome).toBeDefined()
-    expect(membersOf(battletome!).map(member => member.name).sort()).toEqual(
-      [...BATTLETOME_ARTEFACTS].sort()
-    )
+    expect(
+      membersOf(battletome!)
+        .map(member => member.name)
+        .sort()
+    ).toEqual([...BATTLETOME_ARTEFACTS].sort())
   })
 
   it('moves the superseded index-era options to the historical context', () => {
@@ -139,11 +143,11 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
       group => group.name === 'Traits of Endless Hunger' && group.rulesContextIds.includes(historical.id)
     )
     expect(oldTraits).toBeDefined()
-    expect(membersOf(oldTraits!).map(member => member.name).sort()).toEqual([
-      'BOOMING ROAR',
-      'GREAT GUTLORD',
-      'TOUCHED BY THE EVERWINTER',
-    ])
+    expect(
+      membersOf(oldTraits!)
+        .map(member => member.name)
+        .sort()
+    ).toEqual(['BOOMING ROAR', 'GREAT GUTLORD', 'TOUCHED BY THE EVERWINTER'])
     const oldArtefacts = offeredGroups('artefact-of-power').find(
       group => group.name === 'Plunder of the Mawtribes' && group.rulesContextIds.includes(historical.id)
     )
@@ -155,21 +159,21 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
     expect(spellLore).toBeDefined()
     expect(spellLore!.rulesContextIds).toContain(standard.id)
     expect(hasProvisionalCommunityAttribution(spellLore!)).toBe(true)
-    expect(membersOf(spellLore!).map(member => member.name).sort()).toEqual([
-      'Blood Feast',
-      'Shincruncher',
-      'Tallowflage',
-    ])
+    expect(
+      membersOf(spellLore!)
+        .map(member => member.name)
+        .sort()
+    ).toEqual(['Blood Feast', 'Shincruncher', 'Tallowflage'])
 
     const prayerLore = offeredGroups('prayer-lore').find(group => group.name === 'Lore of the Everwinter')
     expect(prayerLore).toBeDefined()
     expect(prayerLore!.rulesContextIds).toContain(standard.id)
     expect(hasProvisionalCommunityAttribution(prayerLore!)).toBe(true)
-    expect(membersOf(prayerLore!).map(member => member.name).sort()).toEqual([
-      'Fortifying Hoarfrost',
-      'Freezing Tailwinds',
-      'Pulverising Hailstorm',
-    ])
+    expect(
+      membersOf(prayerLore!)
+        .map(member => member.name)
+        .sort()
+    ).toEqual(['Fortifying Hoarfrost', 'Freezing Tailwinds', 'Pulverising Hailstorm'])
 
     const oldSpellLore = offeredGroups('spell-lore').find(group => group.name === 'Lore of Maw-magic')
     expect(oldSpellLore).toBeDefined()

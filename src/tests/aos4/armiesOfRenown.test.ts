@@ -115,8 +115,7 @@ const groupById = new Map(
   )
 )
 const armyOfRenownRoots = AOS4_CATALOG.entities.filter(
-  (entity): entity is ContentGroup =>
-    entity.kind === 'content-group' && entity.groupType === 'army-of-renown'
+  (entity): entity is ContentGroup => entity.kind === 'content-group' && entity.groupType === 'army-of-renown'
 )
 describe('Armies of Renown as a top-level replacing choice', () => {
   it('classifies every source-classified Army of Renown with reviewed evidence', () => {
@@ -296,9 +295,7 @@ describe('Armies of Renown as a top-level replacing choice', () => {
       return group?.groupType === 'army-of-renown' ? [group.name] : []
     })
     expect(offered).toEqual([])
-    expect(
-      projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name).length
-    ).toBeGreaterThan(0)
+    expect(projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name).length).toBeGreaterThan(0)
   })
 
   it('diagnoses an explicit selection of replaced content instead of silently dropping it', () => {

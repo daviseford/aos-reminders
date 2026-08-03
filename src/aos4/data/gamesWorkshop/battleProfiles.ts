@@ -54,9 +54,7 @@ export interface GamesWorkshopRegimentOfRenownFact {
 }
 
 export type GamesWorkshopBattleProfileFact =
-  | GamesWorkshopUnitProfileFact
-  | GamesWorkshopRosterOptionFact
-  | GamesWorkshopRegimentOfRenownFact
+  GamesWorkshopUnitProfileFact | GamesWorkshopRosterOptionFact | GamesWorkshopRegimentOfRenownFact
 
 export interface GamesWorkshopBattleProfileExtractionResult {
   facts: GamesWorkshopBattleProfileFact[]
@@ -521,9 +519,7 @@ const extractUnitFacts = (
       row: rowIndex + 1,
       faction,
       context: (page >= 64 ? 'legends' : seasonal ? 'seasonal' : 'standard') as
-        | 'standard'
-        | 'seasonal'
-        | 'legends',
+        'standard' | 'seasonal' | 'legends',
       name,
       unitSize: row.value,
       points,

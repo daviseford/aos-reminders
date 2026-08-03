@@ -400,10 +400,9 @@ const loadCompactReusableCertificationEvidence = async (
         (calibration, index, values) =>
           Boolean(
             calibration.evidence &&
-              calibrationAssignmentIds.has(calibration.evidence.assignmentId) &&
-              values.findIndex(
-                value => value.evidence?.assignmentId === calibration.evidence?.assignmentId
-              ) === index
+            calibrationAssignmentIds.has(calibration.evidence.assignmentId) &&
+            values.findIndex(value => value.evidence?.assignmentId === calibration.evidence?.assignmentId) ===
+              index
           )
       ),
       calibrationResults: [...parent.reuseIndex.calibrationResults, ...reuseIndex.calibrationResults].filter(

@@ -75,12 +75,7 @@ export interface BsDataWarscrollFact {
  * anchor is the source-level evidence on the review entry.
  */
 export type BsDataFactionOptionType =
-  | 'battle-formation'
-  | 'heroic-trait'
-  | 'artefact-of-power'
-  | 'spell-lore'
-  | 'prayer-lore'
-  | 'battle-trait'
+  'battle-formation' | 'heroic-trait' | 'artefact-of-power' | 'spell-lore' | 'prayer-lore' | 'battle-trait'
 
 export interface BsDataFactionOptionFact {
   kind: 'faction-option'

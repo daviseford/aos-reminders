@@ -49,9 +49,7 @@ export const Header = ({
     NO_ARMY_OF_RENOWN,
     ...currentArmies,
     ...(legendsArmies.length ? [{ label: 'Legends', options: legendsArmies }] : []),
-    ...(historicalArmies.length
-      ? [{ label: 'Scourge of Ghyran (2025-26)', options: historicalArmies }]
-      : []),
+    ...(historicalArmies.length ? [{ label: 'Scourge of Ghyran (2025-26)', options: historicalArmies }] : []),
   ]
   const armyOfRenownOption =
     [NO_ARMY_OF_RENOWN, ...armiesOfRenown].find(candidate => candidate.value === armyOfRenownId) ??

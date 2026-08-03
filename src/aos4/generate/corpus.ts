@@ -156,12 +156,7 @@ export interface CorpusCommunityFactionOption {
   /** The option name exactly as the BSData catalogue spells it; the official spelling wins. */
   name: string
   optionType:
-    | 'battle-formation'
-    | 'heroic-trait'
-    | 'artefact-of-power'
-    | 'spell-lore'
-    | 'prayer-lore'
-    | 'battle-trait'
+    'battle-formation' | 'heroic-trait' | 'artefact-of-power' | 'spell-lore' | 'prayer-lore' | 'battle-trait'
   /** The BSData selection-entry group (or, for lores and battle traits, the container) name. */
   groupName: string
   /** The catalogue section the extractor derives, e.g. `option:hunger-filled-tribe`. */
@@ -416,9 +411,7 @@ export interface CorpusGenerationResult {
 }
 
 type AbilityRecord =
-  | WahapediaWarscrollAbilityRecord
-  | WahapediaFactionAbilityRecord
-  | WahapediaGeneralRuleAbilityRecord
+  WahapediaWarscrollAbilityRecord | WahapediaFactionAbilityRecord | WahapediaGeneralRuleAbilityRecord
 
 interface IdentityDefinition {
   kind: EntityKind
@@ -1473,8 +1466,7 @@ export const buildAos4Corpus = (
 
   dataset.sources.forEach(record => {
     const id = lookup('publication', 'wahapedia', recordAlias(record.meta)) as
-      | CanonicalId<'publication'>
-      | undefined
+      CanonicalId<'publication'> | undefined
     if (!id) return
     entities.push({
       id,
@@ -1488,8 +1480,7 @@ export const buildAos4Corpus = (
   })
   if (dataset.lastUpdate) {
     const id = lookup('publication', 'wahapedia', recordAlias(dataset.lastUpdate.meta)) as
-      | CanonicalId<'publication'>
-      | undefined
+      CanonicalId<'publication'> | undefined
     if (id) {
       entities.push({
         id,
@@ -1504,8 +1495,7 @@ export const buildAos4Corpus = (
   }
   review.officialDocuments.forEach(document => {
     const id = lookup('publication', 'games-workshop', `official:${document.artifact.checksum}`) as
-      | CanonicalId<'publication'>
-      | undefined
+      CanonicalId<'publication'> | undefined
     if (!id) return
     entities.push({
       id,
@@ -1524,8 +1514,7 @@ export const buildAos4Corpus = (
   ])
   ;(review.communityWarscrollSources ?? []).forEach(source => {
     const id = lookup('publication', 'other', `community:${source.artifact.checksum}`) as
-      | CanonicalId<'publication'>
-      | undefined
+      CanonicalId<'publication'> | undefined
     if (!id) return
     entities.push({
       id,
@@ -1758,8 +1747,7 @@ export const buildAos4Corpus = (
 
     if (profileExists && parentKind === 'warscroll') {
       const profileId = lookup('battle-profile', recordPublisher(record.meta), battleProfileAlias(record)) as
-        | CanonicalId<'battle-profile'>
-        | undefined
+        CanonicalId<'battle-profile'> | undefined
       if (profileId) {
         const points = integerValue(record.cost)
         entities.push({
@@ -1880,8 +1868,7 @@ export const buildAos4Corpus = (
   )
   dataset.factionAbilityTypes.forEach(record => {
     const id = lookup('content-group', recordPublisher(record.meta), recordAlias(record.meta)) as
-      | CanonicalId<'content-group'>
-      | undefined
+      CanonicalId<'content-group'> | undefined
     if (!id) return
     typeGroupByKey.set(`${record.factionId}:${record.id}`, id)
     const armyOfRenown = armiesOfRenownBySourceRecordId.get(record.meta.sourceRecordId)
@@ -1957,8 +1944,7 @@ export const buildAos4Corpus = (
   const subtypeGroupByKey = new Map<string, CanonicalId<'content-group'>>()
   dataset.factionAbilitySubtypes.forEach(record => {
     const id = lookup('content-group', recordPublisher(record.meta), recordAlias(record.meta)) as
-      | CanonicalId<'content-group'>
-      | undefined
+      CanonicalId<'content-group'> | undefined
     if (!id) return
     subtypeGroupByKey.set(`${record.factionId}:${record.id}`, id)
     const type = factionAbilityTypeByKey.get(`${record.factionId}:${record.typeId}`)
@@ -2000,16 +1986,14 @@ export const buildAos4Corpus = (
   const generalRulesPageIdByExternalId = new Map(
     (dataset.generalRulesPages ?? []).flatMap(record => {
       const id = lookup('content-group', 'wahapedia', recordAlias(record.meta)) as
-        | CanonicalId<'content-group'>
-        | undefined
+        CanonicalId<'content-group'> | undefined
       return id ? [[record.id, id] as const] : []
     })
   )
   const generalRuleGroupIdByExternalId = new Map(
     (dataset.generalRuleGroups ?? []).flatMap(record => {
       const id = lookup('content-group', 'wahapedia', recordAlias(record.meta)) as
-        | CanonicalId<'content-group'>
-        | undefined
+        CanonicalId<'content-group'> | undefined
       return id ? [[record.id, id] as const] : []
     })
   )
@@ -2085,8 +2069,7 @@ export const buildAos4Corpus = (
   const addAbility = (record: AbilityRecord, actor: Ability['actor']) => {
     if (ignoredSourceRecordIds.has(record.meta.sourceRecordId)) return
     const id = lookup('ability', recordPublisher(record.meta), recordAlias(record.meta)) as
-      | CanonicalId<'ability'>
-      | undefined
+      CanonicalId<'ability'> | undefined
     if (!id) return
     abilityIdBySource.set(record.meta.sourceRecordId, id)
     const normalized = normalizeWahapediaAbility(record, actor)
@@ -2186,8 +2169,7 @@ export const buildAos4Corpus = (
       return
     }
     const choiceId = lookup('content-group', 'wahapedia', choiceGroupAlias(record)) as
-      | CanonicalId<'content-group'>
-      | undefined
+      CanonicalId<'content-group'> | undefined
     if (!choiceId) return
     const wrapperGroupType = groupType(type?.name || record.typeName || 'other')
     entities.push({
@@ -2224,8 +2206,7 @@ export const buildAos4Corpus = (
   dataset.warscrollWeapons.forEach(record => {
     if (ignoredSourceRecordIds.has(record.meta.sourceRecordId)) return
     const id = lookup('weapon', recordPublisher(record.meta), recordAlias(record.meta)) as
-      | CanonicalId<'weapon'>
-      | undefined
+      CanonicalId<'weapon'> | undefined
     if (!id) return
     const normalized = normalizeWahapediaWeapon(record)
     normalized.diagnostics.forEach(diagnostic => {

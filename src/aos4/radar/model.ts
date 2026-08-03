@@ -102,12 +102,7 @@ export interface WahapediaRadarObservation {
 }
 
 export type BsDataComparisonStatus =
-  | 'identical'
-  | 'ahead'
-  | 'diverged'
-  | 'truncated'
-  | 'rate-limited'
-  | 'malformed'
+  'identical' | 'ahead' | 'diverged' | 'truncated' | 'rate-limited' | 'malformed'
 
 export interface BsDataObservation {
   schemaVersion: 1

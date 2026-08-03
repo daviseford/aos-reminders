@@ -605,7 +605,11 @@ describe('Regiment of Renown datasheets (issue #1858)', () => {
       </section>
     `
   }
-  const collectionInput = (sheets: string, faction = 'Skaven', url = 'https://wahapedia.ru/aos4/factions/skaven/warscrolls.html') => {
+  const collectionInput = (
+    sheets: string,
+    faction = 'Skaven',
+    url = 'https://wahapedia.ru/aos4/factions/skaven/warscrolls.html'
+  ) => {
     const source = input(`
       <html><body>
         <span class="page_header_span2">${faction}</span>
@@ -658,10 +662,7 @@ describe('Regiment of Renown datasheets (issue #1858)', () => {
     expect(result.pages).toEqual([khorne])
     // Non-regiment pages pass through untouched.
     const passthrough = { ...bystander, regimentOfRenown: undefined }
-    expect(dedupeWahapediaRegimentOfRenownPages([passthrough, khorne]).pages).toEqual([
-      passthrough,
-      khorne,
-    ])
+    expect(dedupeWahapediaRegimentOfRenownPages([passthrough, khorne]).pages).toEqual([passthrough, khorne])
   })
 
   it('keeps the majority variant when copies disagree on rules text, and surfaces the drift', () => {

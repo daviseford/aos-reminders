@@ -35,9 +35,7 @@ export interface ProfileOnlyDeviationLedger {
 }
 
 export type ProfileOnlyGateIssueCode =
-  | 'unaccepted-profile-only-unit'
-  | 'invalid-profile-only-deviation'
-  | 'stale-profile-only-deviation'
+  'unaccepted-profile-only-unit' | 'invalid-profile-only-deviation' | 'stale-profile-only-deviation'
 
 export interface ProfileOnlyGateIssue {
   code: ProfileOnlyGateIssueCode

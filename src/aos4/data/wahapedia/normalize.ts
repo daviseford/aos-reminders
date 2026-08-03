@@ -15,9 +15,7 @@ import type {
 } from './records'
 
 type WahapediaAbilityRecord =
-  | WahapediaWarscrollAbilityRecord
-  | WahapediaFactionAbilityRecord
-  | WahapediaGeneralRuleAbilityRecord
+  WahapediaWarscrollAbilityRecord | WahapediaFactionAbilityRecord | WahapediaGeneralRuleAbilityRecord
 
 export interface NormalizedWahapediaWeaponFact {
   sourceRecordId: WahapediaWarscrollWeaponRecord['meta']['sourceRecordId']

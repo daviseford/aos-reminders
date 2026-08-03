@@ -3,10 +3,7 @@ import type { ArtifactId, RulesContextId, SourceRecordId } from './identity'
 export type SourcePublisher = 'games-workshop' | 'wahapedia' | 'other'
 
 export type SourceClassification =
-  | { kind: 'official' }
-  | { kind: 'secondary' }
-  | { kind: 'community' }
-  | { kind: 'unknown'; raw: string }
+  { kind: 'official' } | { kind: 'secondary' } | { kind: 'community' } | { kind: 'unknown'; raw: string }
 
 export type SourceLocator =
   | { kind: 'page'; page: number; section?: string }

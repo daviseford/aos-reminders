@@ -43,13 +43,7 @@ export interface ContentGroup extends DomainEntity<'content-group'> {
 }
 
 export type ContentEntity =
-  | Publication
-  | Faction
-  | Warscroll
-  | BattleProfile
-  | Ability
-  | Weapon
-  | ContentGroup
+  Publication | Faction | Warscroll | BattleProfile | Ability | Weapon | ContentGroup
 
 export type ContentRelationshipKind = 'belongs-to' | 'offers' | 'requires' | 'includes' | 'excludes'
 

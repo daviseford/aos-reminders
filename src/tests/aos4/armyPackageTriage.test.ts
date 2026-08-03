@@ -83,9 +83,7 @@ const builderFor = (explicitSelectionIds: CanonicalId[]) =>
 describe('Army of Renown package classification (#1844)', () => {
   it('leaves no army package decoded as a generic self-slugged content group', () => {
     const groupTypes = new Set(
-      AOS4_CATALOG.entities.flatMap(entity =>
-        entity.kind === 'content-group' ? [entity.groupType] : []
-      )
+      AOS4_CATALOG.entities.flatMap(entity => (entity.kind === 'content-group' ? [entity.groupType] : []))
     )
     RETIRED_PACKAGE_GROUP_TYPES.forEach(groupType => {
       expect(groupTypes).not.toContain(groupType)
