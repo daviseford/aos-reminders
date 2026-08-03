@@ -56,15 +56,35 @@ describe('the provisional-verification watch', () => {
     expect(() =>
       validateProvisionalWatchConfig({
         schemaVersion: 1,
-        watches: [{ id: 'x', issueNumber: 1, reason: 'r', url: 'http://insecure/', sentinels: [{ label: 'l', needle: 'n' }] }],
+        watches: [
+          {
+            id: 'x',
+            issueNumber: 1,
+            reason: 'r',
+            url: 'http://insecure/',
+            sentinels: [{ label: 'l', needle: 'n' }],
+          },
+        ],
       })
     ).toThrow(/https/)
     expect(() =>
       validateProvisionalWatchConfig({
         schemaVersion: 1,
         watches: [
-          { id: 'x', issueNumber: 1, reason: 'r', url: 'https://a/', sentinels: [{ label: 'l', needle: 'n' }] },
-          { id: 'x', issueNumber: 2, reason: 'r', url: 'https://b/', sentinels: [{ label: 'l', needle: 'n' }] },
+          {
+            id: 'x',
+            issueNumber: 1,
+            reason: 'r',
+            url: 'https://a/',
+            sentinels: [{ label: 'l', needle: 'n' }],
+          },
+          {
+            id: 'x',
+            issueNumber: 2,
+            reason: 'r',
+            url: 'https://b/',
+            sentinels: [{ label: 'l', needle: 'n' }],
+          },
         ],
       })
     ).toThrow(/duplicated/)

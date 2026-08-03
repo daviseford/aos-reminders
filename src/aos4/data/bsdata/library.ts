@@ -278,11 +278,7 @@ export interface BsDataFactionOptionSpec {
  * prayers, and army-wide battle traits as one `selectionEntry` carrying every trait ability, so
  * those option kinds extract the whole container rather than a named entry inside a group.
  */
-const CONTAINER_OPTION_TYPES = new Set<BsDataFactionOptionType>([
-  'spell-lore',
-  'prayer-lore',
-  'battle-trait',
-])
+const CONTAINER_OPTION_TYPES = new Set<BsDataFactionOptionType>(['spell-lore', 'prayer-lore', 'battle-trait'])
 
 /**
  * Extract structured faction roster-option facts (battle formations, heroic traits, artefacts)

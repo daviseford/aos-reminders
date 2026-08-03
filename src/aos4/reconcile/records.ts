@@ -8,12 +8,7 @@ import type {
 } from '../domain'
 
 export type ReconciliationValue =
-  | null
-  | boolean
-  | number
-  | string
-  | ReconciliationValue[]
-  | { [key: string]: ReconciliationValue }
+  null | boolean | number | string | ReconciliationValue[] | { [key: string]: ReconciliationValue }
 
 export interface ReconciliationEntity {
   id: CanonicalId

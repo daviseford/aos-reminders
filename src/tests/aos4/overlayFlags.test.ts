@@ -82,7 +82,8 @@ describe('AoS 4 overlay flags follow the selections', () => {
 
 describe('AoS 4 builder offers overlay content by default', () => {
   const ogorFaction = AOS4_CATALOG.entities.find(
-    entity => entity.id.startsWith('faction:') && /ogor mawtribes/i.test((entity as { name?: string }).name ?? '')
+    entity =>
+      entity.id.startsWith('faction:') && /ogor mawtribes/i.test((entity as { name?: string }).name ?? '')
   )
 
   it('offers Scourge of Ghyran formations without any document flag (issue #1812)', () => {

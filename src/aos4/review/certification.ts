@@ -182,12 +182,7 @@ export interface ReviewRubricDefinition {
 }
 
 export type SourceInventoryStatus =
-  | 'matched'
-  | 'explicit-non-material'
-  | 'missing'
-  | 'unexpected'
-  | 'inaccessible'
-  | 'ambiguous'
+  'matched' | 'explicit-non-material' | 'missing' | 'unexpected' | 'inaccessible' | 'ambiguous'
 
 export interface SourceInventoryEntry {
   publisher: 'games-workshop' | 'wahapedia' | 'bsdata'
@@ -873,11 +868,11 @@ const hasExactPassingLedgerCorrespondence = (index: ReviewPacketSafeIndex, ledge
     const assignment = result ? assignments.get(result.assignmentId) : undefined
     return Boolean(
       result &&
-        assignment?.reviewer.kind === 'agent' &&
-        result.packetChecksum === checksum &&
-        result.reviewerConfigurationId === reviewerConfigurationId(assignment.reviewer) &&
-        result.outcome === 'pass' &&
-        result.findings.length === 0
+      assignment?.reviewer.kind === 'agent' &&
+      result.packetChecksum === checksum &&
+      result.reviewerConfigurationId === reviewerConfigurationId(assignment.reviewer) &&
+      result.outcome === 'pass' &&
+      result.findings.length === 0
     )
   }
   return entries.every(entry => {

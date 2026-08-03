@@ -705,7 +705,9 @@ export const dedupeWahapediaRegimentOfRenownPages = (
     }
   })
   return {
-    pages: pages.filter(page => !page.regimentOfRenown || keptByName.get(canonicalRegimentName(page.name)) === page),
+    pages: pages.filter(
+      page => !page.regimentOfRenown || keptByName.get(canonicalRegimentName(page.name)) === page
+    ),
     diagnostics,
   }
 }

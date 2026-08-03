@@ -89,7 +89,10 @@ export const deriveAos4OverlayFlags = (
     needsHistorical = Array.from(strict).some(id => !stillWithHistorical.has(id))
   }
 
-  if (Boolean(document.allowsLegends) === needsLegends && Boolean(document.allowsHistorical) === needsHistorical) {
+  if (
+    Boolean(document.allowsLegends) === needsLegends &&
+    Boolean(document.allowsHistorical) === needsHistorical
+  ) {
     return document
   }
   return createAos4ArmyDocument({

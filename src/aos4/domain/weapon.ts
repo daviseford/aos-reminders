@@ -3,13 +3,7 @@ import type { DomainEntity } from './entity'
 export type WeaponType = 'melee' | 'ranged'
 
 export type KnownWeaponKeyword =
-  | 'anti'
-  | 'charge'
-  | 'companion'
-  | 'crit-two-hits'
-  | 'crit-auto-wound'
-  | 'crit-mortal'
-  | 'shoot-in-combat'
+  'anti' | 'charge' | 'companion' | 'crit-two-hits' | 'crit-auto-wound' | 'crit-mortal' | 'shoot-in-combat'
 
 export interface WeaponKeyword {
   kind: KnownWeaponKeyword | 'other'

@@ -1,11 +1,5 @@
 export type EntityKind =
-  | 'publication'
-  | 'faction'
-  | 'warscroll'
-  | 'battle-profile'
-  | 'ability'
-  | 'weapon'
-  | 'content-group'
+  'publication' | 'faction' | 'warscroll' | 'battle-profile' | 'ability' | 'weapon' | 'content-group'
 
 declare const canonicalIdBrand: unique symbol
 declare const artifactIdBrand: unique symbol

@@ -145,8 +145,9 @@ const FaqSections: IFaqSection[] = [
         question: 'Does it work without Wifi?',
         answer: (
           <>
-            Partly, and I would not count on it. Your current army is kept in this browser, so a connection that drops
-            mid-game does not take your reminders with it. But there is no offline cache yet (coming soon). I advise printing the PDF.
+            Partly, and I would not count on it. Your current army is kept in this browser, so a connection
+            that drops mid-game does not take your reminders with it. But there is no offline cache yet
+            (coming soon). I advise printing the PDF.
           </>
         ),
       },

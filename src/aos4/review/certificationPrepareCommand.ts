@@ -875,8 +875,8 @@ export const runCertificationPreparation = async (
   )
   const compactsIncrementalOverlay = Boolean(
     usesIncrementalOverlay &&
-      loadedReview.reuseSource &&
-      shouldCompactCertificationOverlay(loadedReview.reuseSource.overlayDepth)
+    loadedReview.reuseSource &&
+    shouldCompactCertificationOverlay(loadedReview.reuseSource.overlayDepth)
   )
   const certificationLedger = compactsIncrementalOverlay
     ? {

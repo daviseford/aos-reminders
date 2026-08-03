@@ -191,9 +191,7 @@ const loadCertificationReviewerResultsInternal = async (
     return content
   }
   const resultManifest = JSON.parse(await readInput('review-results')) as
-    | ReviewerResult[]
-    | ShardedReviewResults
-    | OverlayReviewResults
+    ReviewerResult[] | ShardedReviewResults | OverlayReviewResults
   if (Array.isArray(resultManifest)) return resultManifest
   if (
     resultManifest.schemaVersion !== 1 ||

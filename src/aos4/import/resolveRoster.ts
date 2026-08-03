@@ -649,9 +649,9 @@ const resolveRosterSelection = (
        * resolving it to the member would lose the regiment's own ability, the exact #1858 loss.
        */
       const regimentInstead =
-        primaryReachable.every(
-          entity => entity.kind === 'warscroll' && !directlyOfferedIds.has(entity.id)
-        ) && selection.kindHint === 'warscroll' && !selection.isRegimentOfRenown
+        primaryReachable.every(entity => entity.kind === 'warscroll' && !directlyOfferedIds.has(entity.id)) &&
+        selection.kindHint === 'warscroll' &&
+        !selection.isRegimentOfRenown
           ? reachableRegiments()
           : []
       if (regimentInstead.length) {

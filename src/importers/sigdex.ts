@@ -32,7 +32,8 @@ import type { Aos4ImportLine } from './detectTextSource'
  * tables alike — the same treatment the official app's unlabeled bullets get.
  */
 
-const footerPattern = /^(?:Created with Sigdex:.*|App Version:\s*.+|Server Version:\s*.+|Data Version:\s*.+)$/i
+const footerPattern =
+  /^(?:Created with Sigdex:.*|App Version:\s*.+|Server Version:\s*.+|Data Version:\s*.+)$/i
 const rosterNamePattern = /^(.+?)\s+\d+\s*\/\s*\d+\s*(?:pts?|points?)\s*$/i
 const contextPattern = /^(?:General['’]s Handbook|GHB)\b/i
 const metadataPattern = /^(?:Drops?|Wounds?|Total|Points?)\s*:/i

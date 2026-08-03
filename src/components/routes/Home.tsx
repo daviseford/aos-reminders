@@ -224,8 +224,7 @@ const HomeContent = () => {
         createAos4ArmyDocument({
           ...current,
           explicitSelectionIds: nextExplicit.filter(
-            id =>
-              id === nextId || factionById.has(id as CanonicalId<'faction'>) || stillOffered.has(id)
+            id => id === nextId || factionById.has(id as CanonicalId<'faction'>) || stillOffered.has(id)
           ),
         })
       )

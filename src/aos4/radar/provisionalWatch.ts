@@ -87,7 +87,9 @@ export const validateProvisionalWatchConfig = (value: unknown): ProvisionalWatch
       !isNonEmptyString(watch?.url) ||
       !Array.isArray(watch?.sentinels) ||
       !watch.sentinels.length ||
-      watch.sentinels.some(sentinel => !isNonEmptyString(sentinel?.label) || !isNonEmptyString(sentinel?.needle))
+      watch.sentinels.some(
+        sentinel => !isNonEmptyString(sentinel?.label) || !isNonEmptyString(sentinel?.needle)
+      )
     ) {
       throw new Error(`Provisional watch entry ${index + 1} is malformed`)
     }

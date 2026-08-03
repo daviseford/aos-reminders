@@ -28,8 +28,7 @@ const regimentRoots = AOS4_CATALOG.entities.filter(
   (entity): entity is ContentGroup =>
     entity.kind === 'content-group' && entity.groupType === 'regiment-of-renown'
 )
-const regimentByName = (name: string): ContentGroup =>
-  regimentRoots.find(root => root.name === name)!
+const regimentByName = (name: string): ContentGroup => regimentRoots.find(root => root.name === name)!
 const offeringFactionNames = (groupId: string): string[] => {
   const factionNameById = new Map(
     AOS4_CATALOG.entities.flatMap(entity => (entity.kind === 'faction' ? [[entity.id, entity.name]] : []))
@@ -136,7 +135,10 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
 
   it('dispositions the official regiment-of-renown profile rows honestly', () => {
     const catalog = JSON.parse(
-      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'catalog', 'official-battle-profiles.json'), 'utf8')
+      readFileSync(
+        path.join(process.cwd(), 'data', 'aos4', 'catalog', 'official-battle-profiles.json'),
+        'utf8'
+      )
     ) as {
       records: Array<{ disposition: string; fact: { kind: string; name: string } }>
     }
