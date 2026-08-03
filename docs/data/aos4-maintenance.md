@@ -420,17 +420,20 @@ Offline replay fails when any checksum-addressed cache entry is missing or corru
 
 ### Restore the private immutable artifact cache
 
-Repeated refreshes should not download bytes that are already pinned by checksum. Configure a
-dedicated private S3 bucket or prefix, authenticate the AWS CLI with least-privilege `GetObject`
-and `PutObject` access, and set:
+Repeated refreshes should not download bytes that are already pinned by checksum. The store is
+provisioned as `aos-reminders-aos4-artifact-cache` in `us-east-1` under the `aos4-artifacts`
+prefix. Authenticate the AWS CLI with least-privilege `GetObject` and `PutObject` access, and set:
 
 ```powershell
-$env:AOS4_ARTIFACT_STORE_BUCKET = '<private-bucket>'
+$env:AOS4_ARTIFACT_STORE_BUCKET = 'aos-reminders-aos4-artifact-cache'
 $env:AOS4_ARTIFACT_STORE_EXPECTED_OWNER = '<12-digit-aws-account-id>'
-$env:AOS4_ARTIFACT_STORE_PREFIX = 'aos4-artifacts' # optional
+$env:AOS4_ARTIFACT_STORE_PREFIX = 'aos4-artifacts'
+$env:AWS_REGION = 'us-east-1'
 $env:AWS_PROFILE = '<profile>'                     # optional
-$env:AWS_REGION = '<region>'                       # or AWS_DEFAULT_REGION
 ```
+
+These are per-shell and do not persist. A shell without them falls back to the local cache alone,
+which is why a bare `cache:pull` reports that the bucket is required rather than doing nothing.
 
 Restore or seed the bytes pinned by a reviewed manifest:
 
@@ -452,11 +455,22 @@ before an atomic local publish. Push verifies local bytes and uses a create-only
 so an existing checksum key is never silently replaced. A corrupt local or private object blocks
 the command.
 
-The bucket is operational infrastructure, not provisioned or seeded by this repository. Enable S3
-Block Public Access, require the expected owner, retain checksum objects with an appropriate
-lifecycle policy, and do not put credentials, pre-signed URLs, or bucket inventory in logs or PRs.
-To test recovery, pull into a new temporary cache with `--cache <temporary-directory>`, replay the
-accepted manifest offline from that cache, then remove only that verified temporary directory.
+Both commands confirm the bucket with `head-bucket` before transferring anything. S3 answers
+`head-object` with a bare 404 when a bucket is missing or inaccessible — it will not say
+`NoSuchBucket`, because that would leak whether a bucket the caller cannot reach exists. Without
+the preflight a typo'd bucket, a wrong `--expected-owner`, or an unprovisioned store all reported
+as `Remote artifact <sha256> is missing`, pointing at the manifest instead of the configuration.
+A pull whose local cache already satisfies the manifest still contacts nothing.
+
+The bucket is operational infrastructure, not provisioned or seeded by this repository. It is
+configured with S3 Block Public Access on all four settings, `BucketOwnerEnforced` ownership,
+default SSE-S3 encryption with a bucket key, and a bucket policy denying both non-TLS requests and
+principals outside the owner account. Its lifecycle rule aborts incomplete multipart uploads after
+seven days and expires nothing — pinned checksum objects are retained indefinitely, since deleting
+one makes every manifest that names it unreplayable. Do not put credentials, pre-signed URLs, or
+bucket inventory in logs or PRs. To test recovery, pull into a new temporary cache with
+`--cache <temporary-directory>`, replay the accepted manifest offline from that cache, then remove
+only that verified temporary directory.
 
 Incremental certification overlays are also immutable dependency chains. Retain every certification
 directory named by a current descendant's `reuseSource`; deleting or relocating one makes the

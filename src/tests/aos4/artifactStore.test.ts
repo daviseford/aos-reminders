@@ -219,7 +219,9 @@ describe('AoS 4 private artifact store', () => {
     expect(calls[1]).toContain('--expected-bucket-owner')
   })
 
-  it('distinguishes a missing object from a missing or inaccessible bucket', async () => {
+  // Classification of whatever stderr the CLI returns. A bare 404 is genuinely ambiguous on this
+  // path — see the head-bucket preflight below for how a missing bucket is actually caught.
+  it('classifies per-object CLI failures by error code', async () => {
     const storeFor = (stderr: string) =>
       new AwsS3ArtifactStore(
         {
@@ -259,6 +261,67 @@ describe('AoS 4 private artifact store', () => {
       code: 'remote-conflict',
       message: expect.stringContaining('ConditionalRequestConflict'),
     })
+  })
+
+  it('reports an unreachable bucket instead of a manifest full of absent blobs', async () => {
+    // Real S3 answers HeadObject with a bare 404 when the bucket is missing or inaccessible — it
+    // never emits NoSuchBucket on that path, because doing so would leak whether a bucket the
+    // caller cannot access exists. Only the head-bucket preflight separates a misconfigured store
+    // from a store that is merely unseeded.
+    const calls: string[][] = []
+    const runner: AwsCliRunner = async arguments_ => {
+      calls.push(arguments_)
+      return {
+        exitCode: 1,
+        stdout: '',
+        stderr:
+          arguments_[1] === 'head-bucket'
+            ? 'An error occurred (404) when calling the HeadBucket operation: Not Found'
+            : 'An error occurred (404) when calling the HeadObject operation: Not Found',
+      }
+    }
+    const storeFor = () =>
+      new AwsS3ArtifactStore({ bucket: 'aos-reminders-corpus-cache', expectedOwner: '123456789012' }, runner)
+    const value = bytes('accepted bytes')
+    const manifest = manifestFor(value)
+
+    await expect(
+      pullArtifactManifest(manifest, new MemoryArtifactCache(), storeFor(), 2)
+    ).rejects.toMatchObject({
+      code: 'remote-unreachable',
+      message: expect.stringContaining('aos-reminders-corpus-cache'),
+    })
+
+    const seeded = new MemoryArtifactCache()
+    await seeded.put(artifactChecksum(value), value)
+    await expect(pushArtifactManifest(manifest, seeded, storeFor(), 2)).rejects.toMatchObject({
+      code: 'remote-unreachable',
+    })
+
+    // Both transfers stopped at the preflight rather than probing per-artifact keys.
+    expect(calls.map(call => call[1])).toEqual(['head-bucket', 'head-bucket'])
+  })
+
+  it('never contacts the private tier when the local cache already satisfies the manifest', async () => {
+    const value = bytes('already cached')
+    const cache = new MemoryArtifactCache()
+    await cache.put(artifactChecksum(value), value)
+    let invocations = 0
+    const store = new AwsS3ArtifactStore(
+      { bucket: 'aos-reminders-corpus-cache', expectedOwner: '123456789012' },
+      async () => {
+        invocations += 1
+        return { exitCode: 1, stdout: '', stderr: 'should never run' }
+      }
+    )
+
+    await expect(pullArtifactManifest(manifestFor(value), cache, store, 2)).resolves.toEqual({
+      total: 1,
+      transferred: 0,
+      reused: 1,
+      missing: 0,
+    })
+    expect(invocations).toBe(0)
   })
 
   it.each([
