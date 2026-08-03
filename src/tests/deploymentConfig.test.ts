@@ -1,6 +1,7 @@
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { chmodSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { spawnSync } from 'node:child_process'
 import { inspectDeploymentArtifact, validateDeploymentEndpoints } from '../../scripts/deploymentConfig'
 import { afterEach, describe, expect, it } from 'vitest'
 
@@ -8,6 +9,16 @@ const validEndpoints = {
   armyApiUrl: 'https://army123.execute-api.us-east-1.amazonaws.com',
   subscriptionApiUrl: 'https://subs123.execute-api.us-east-1.amazonaws.com',
 }
+
+const bashPath = (path: string) => {
+  if (process.platform !== 'win32') return path
+
+  const match = path.match(/^([A-Za-z]):\\(.*)$/)
+  if (!match) throw new Error(`Cannot convert ${path} to a WSL path`)
+
+  return `/mnt/${match[1].toLowerCase()}/${match[2].replaceAll('\\', '/')}`
+}
+const shellQuote = (value: string) => `'${value.replaceAll("'", `'"'"'`)}'`
 
 describe('production deployment configuration', () => {
   const temporaryDirectories: string[] = []
@@ -58,29 +69,91 @@ describe('production deployment configuration', () => {
   })
 
   it('defines one fail-closed release preparation contract', () => {
-    const preparation = readFileSync(
-      join(process.cwd(), 'scripts', 'prepare-production-release.sh'),
-      'utf8'
-    )
+    const preparation = readFileSync(join(process.cwd(), 'scripts', 'prepare-production-release.sh'), 'utf8')
 
     expect(preparation).toMatch(/set -euo pipefail/)
-    let previousCommandIndex = -1
     for (const command of [
       'yarn release:validate-config',
       'yarn lint',
       'yarn data:aos4:verify:beta',
-      'yarn tsc --noEmit',
       'yarn build',
       'yarn test --run',
       'yarn release:inspect-artifact',
     ]) {
-      const commandIndex = preparation.indexOf(command)
-      expect(commandIndex, `${command} is present`).toBeGreaterThan(-1)
-      expect(commandIndex, `${command} follows the previous release gate`).toBeGreaterThan(
-        previousCommandIndex
-      )
-      previousCommandIndex = commandIndex
+      expect(preparation, `${command} is present`).toContain(command)
     }
+    expect(preparation).not.toContain('yarn tsc --noEmit')
+  })
+
+  it('parallelizes independent release gates without testing an incomplete build', () => {
+    const directory = mkdtempSync(join(tmpdir(), 'aos-reminders-release-preparation-'))
+    temporaryDirectories.push(directory)
+    const fakeBin = join(directory, 'bin')
+    const logPath = join(directory, 'gates.log')
+    mkdirSync(fakeBin)
+
+    const fakeYarn = join(fakeBin, 'yarn')
+    writeFileSync(
+      fakeYarn,
+      `#!/usr/bin/env bash
+set -euo pipefail
+printf 'start:%s\\n' "$*" >> "$RELEASE_GATE_LOG"
+if [[ "\${RELEASE_FAIL_GATE:-}" == "$*" ]]; then
+  exit 23
+fi
+case "$*" in
+  'lint' | 'data:aos4:verify:beta' | 'build' | 'test --run' | 'release:inspect-artifact') sleep 1 ;;
+esac
+printf 'end:%s\\n' "$*" >> "$RELEASE_GATE_LOG"
+`,
+      'utf8'
+    )
+    chmodSync(fakeYarn, 0o755)
+
+    const fakeBinPath = bashPath(fakeBin)
+    const result = spawnSync(
+      'bash',
+      [
+        '-c',
+        `chmod +x ${shellQuote(`${fakeBinPath}/yarn`)}; ` +
+          `PATH=${shellQuote(fakeBinPath)}:/usr/local/bin:/usr/bin:/bin ` +
+          `RELEASE_GATE_LOG=${shellQuote(bashPath(logPath))} bash scripts/prepare-production-release.sh`,
+      ],
+      { cwd: process.cwd(), encoding: 'utf8' }
+    )
+
+    expect(result.status, result.stderr).toBe(0)
+    const log = readFileSync(logPath, 'utf8').trim().split('\n')
+    expect(log.slice(0, 2)).toEqual(['start:release:validate-config', 'end:release:validate-config'])
+
+    const phaseOne = ['lint', 'data:aos4:verify:beta', 'build']
+    const firstPhaseOneEnd = Math.min(...phaseOne.map(gate => log.indexOf(`end:${gate}`)))
+    expect(phaseOne.every(gate => log.indexOf(`start:${gate}`) < firstPhaseOneEnd)).toBe(true)
+
+    const lastPhaseOneEnd = Math.max(...phaseOne.map(gate => log.indexOf(`end:${gate}`)))
+    const phaseTwo = ['test --run', 'release:inspect-artifact']
+    expect(phaseTwo.every(gate => log.indexOf(`start:${gate}`) > lastPhaseOneEnd)).toBe(true)
+    const firstPhaseTwoEnd = Math.min(...phaseTwo.map(gate => log.indexOf(`end:${gate}`)))
+    expect(phaseTwo.every(gate => log.indexOf(`start:${gate}`) < firstPhaseTwoEnd)).toBe(true)
+
+    writeFileSync(logPath, '', 'utf8')
+    const failure = spawnSync(
+      'bash',
+      [
+        '-c',
+        `chmod +x ${shellQuote(`${fakeBinPath}/yarn`)}; ` +
+          `PATH=${shellQuote(fakeBinPath)}:/usr/local/bin:/usr/bin:/bin ` +
+          `RELEASE_GATE_LOG=${shellQuote(bashPath(logPath))} ` +
+          `RELEASE_FAIL_GATE=${shellQuote('data:aos4:verify:beta')} ` +
+          `bash scripts/prepare-production-release.sh`,
+      ],
+      { cwd: process.cwd(), encoding: 'utf8' }
+    )
+    expect(failure.status).not.toBe(0)
+    const failureLog = readFileSync(logPath, 'utf8')
+    expect(failureLog).toContain('start:data:aos4:verify:beta')
+    expect(failureLog).not.toContain('start:test --run')
+    expect(failureLog).not.toContain('start:release:inspect-artifact')
   })
 
   it('runs release preparation before publication from every production entry point', () => {
@@ -99,12 +172,8 @@ describe('production deployment configuration', () => {
       expect(installationIndex, `${entryPoint} installs dependencies`).toBeGreaterThan(-1)
       expect(preparationIndex, `${entryPoint} prepares the release`).toBeGreaterThan(-1)
       expect(publicationIndex, `${entryPoint} publishes the release`).toBeGreaterThan(-1)
-      expect(installationIndex, `${entryPoint} installs before preparation`).toBeLessThan(
-        preparationIndex
-      )
-      expect(preparationIndex, `${entryPoint} prepares before publication`).toBeLessThan(
-        publicationIndex
-      )
+      expect(installationIndex, `${entryPoint} installs before preparation`).toBeLessThan(preparationIndex)
+      expect(preparationIndex, `${entryPoint} prepares before publication`).toBeLessThan(publicationIndex)
     }
   })
 

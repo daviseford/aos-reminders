@@ -4,9 +4,12 @@ The production site is static files in the `aosreminders.com` S3 bucket, served 
 distribution `E3OO9Y9QRVZ2L1`.
 
 `scripts/prepare-production-release.sh` is the only production preparation contract. It validates
-the API configuration, lints, verifies the accepted AoS 4 beta corpus, type-checks, builds, tests,
-and inspects the artifact. `scripts/deploy-production.sh` is the only AWS publication contract.
-Three entry points install dependencies, run the shared preparation contract, then publish:
+the API configuration, lints, verifies the accepted AoS 4 beta corpus, type-checks and builds,
+tests, and inspects the artifact. The independent lint, beta-verification, and build gates run
+concurrently; the build's leading TypeScript compile is the single type-check. Tests and artifact
+inspection begin only after that phase completes, so the PWA tests always read a complete `dist/`
+tree. `scripts/deploy-production.sh` is the only AWS publication contract. Three entry points
+install dependencies, run the shared preparation contract, then publish:
 
 - `upload.sh` - manual deploy from a workstation
 - `CI-build.sh` - standalone CI deploy
