@@ -3,17 +3,17 @@ import 'css/index.scss' // organize-imports-ignore
 import './bootstrap/captureShareLink' // organize-imports-ignore
 import './bootstrap/registerServiceWorker' // organize-imports-ignore
 import { Auth0Provider } from '@auth0/auth0-react'
+import { router } from './bootstrap/router'
 import App from 'components/App'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import history from 'utils/history'
 import config from './auth_config.json'
 
 const onRedirectCallback = (appState?: { returnTo?: string }) => {
-  history.replace(appState?.returnTo || window.location.pathname)
+  router.navigate(appState?.returnTo || window.location.pathname, { replace: true })
 }
 
 /*

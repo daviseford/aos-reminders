@@ -4,7 +4,7 @@ import Contact from 'components/page/contact'
 import Footer from 'components/page/footer'
 import { useTheme } from 'context/useTheme'
 import { lazy, Suspense, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { GITHUB_URL, ROUTES } from 'utils/env'
 
 const Navbar = lazy(() => import('components/page/navbar'))

@@ -175,7 +175,10 @@ Parity Pin Rule"). React is on 19 (issue #1770): `createRoot`, and deliberately 
 wrapper — the app has never had one, and adding it would double-invoke every effect. PWA support is
 rebuilt on `vite-plugin-pwa` 1.3 (issue #1801): the app is installable and works offline after one
 online visit, the orphaned CRA worker layer is gone, and the production deploy sets per-file
-`Cache-Control` headers the worker depends on. See `docs/pwa.md` and `docs/deployment.md`. Vite,
+`Cache-Control` headers the worker depends on. See `docs/pwa.md` and `docs/deployment.md`. React
+Router is on 8 (issue #1444): a `createBrowserRouter` singleton in `src/bootstrap/router.tsx`
+replaces the v5 custom-history object — the Auth0 redirect callback navigates through it and
+analytics page-view tracking subscribes to it, deduping on the location key. Vite,
 TypeScript, Sass, Stripe, and react-dropzone remain pending. Checked-in plans live
 under `docs/plans/`. Preserve the completed AoS 4 domain, generated-data contracts, beta gate, and
 familiar interface while working through:

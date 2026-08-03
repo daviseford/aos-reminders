@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 
-import PrivateRoute from 'components/page/privateRoute'
+import { protectedRoute } from 'components/page/privateRoute'
 import Profile from 'components/routes/Profile'
 import Subscribe from 'components/routes/Subscribe'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, Route, Routes } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({
@@ -331,11 +331,15 @@ describe('established account routes', () => {
   })
 
   it('keeps Profile behind the Auth0 protected-route wrapper', () => {
+    const ProtectedProfile = protectedRoute(Profile)
+
     act(() => {
       render(
         <AppStatusProvider>
           <MemoryRouter initialEntries={['/profile']}>
-            <PrivateRoute path="/profile" component={Profile} />
+            <Routes>
+              <Route path="/profile" element={<ProtectedProfile />} />
+            </Routes>
           </MemoryRouter>
         </AppStatusProvider>,
         container
