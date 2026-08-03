@@ -1,4 +1,5 @@
 import type { RulesContextId } from '../domain'
+import { normalizedNameText } from '../normalize/nameKey'
 import type {
   CandidateFact,
   LinkedCandidateFact,
@@ -7,14 +8,10 @@ import type {
   ReconciliationEntity,
 } from './records'
 
-const normalizeName = (value: string): string =>
-  value
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[’‘]/g, "'")
-    .replace(/[^a-z0-9]+/gi, ' ')
-    .trim()
-    .toLocaleLowerCase('en')
+// The shared Unicode-hardened fold (issue #1875) produces the same output as the historical
+// inline normalizer for every input - both keep only `[a-z0-9]` and spaces - so
+// reconciliation matching, and therefore the generated corpus, is unchanged.
+const normalizeName = normalizedNameText
 
 const contextsOverlap = (left: RulesContextId[], right: RulesContextId[]): boolean =>
   !left.length || !right.length || left.some(id => right.includes(id))

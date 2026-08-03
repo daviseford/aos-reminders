@@ -1,4 +1,5 @@
 export * from './ability'
 export * from './diagnostics'
+export * from './nameKey'
 export * from './text'
 export * from './timing'
