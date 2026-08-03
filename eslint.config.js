@@ -20,4 +20,11 @@ export default [
   ...tseslint.configs.recommended,
   ...fixupConfigRules(pluginReactConfig),
   ...fixupConfigRules(jsxRuntimeConfig),
+  {
+    rules: {
+      // Added to eslint:recommended in the 9.x/10 line; keep pre-upgrade behavior rather than
+      // churning the data-pipeline commands that rethrow caught errors (#1891)
+      'preserve-caught-error': 'off',
+    },
+  },
 ]
