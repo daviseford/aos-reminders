@@ -19,11 +19,20 @@ import type { BsDataAbilityFact, BsDataFactionOptionFact, BsDataFactionOptionTyp
 /**
  * Merge reviewed BSData warscroll facts into the current dataset.
  *
- * BSData is the community fallback tier: it may only supply what neither an official document nor
- * Wahapedia provides — here, the rules text of units whose existence, points, unit sizes, bases,
- * and roster notes are already established by accepted official battle-profile facts. Every
- * overlapping field is taken from the official fact, and any disagreement is preserved as a
- * reconciliation discrepancy resolved official-side.
+ * BSData is the community fallback tier: it may only supply rules text Wahapedia does not
+ * currently provide — for units whose existence, points, unit sizes, bases, and roster notes are
+ * already established by accepted official battle-profile facts. Every overlapping field is taken
+ * from the official fact, and any disagreement is preserved as a reconciliation discrepancy
+ * resolved official-side.
+ *
+ * "Does not currently provide" has two reviewed shapes (owner ruling extended for issue #1850):
+ * a unit Wahapedia has never carried (the Ogor supplement units), and a unit whose accepted
+ * Wahapedia text an official publication has since superseded — a battletome rewrite Wahapedia
+ * demonstrably has not caught up with. The second requires a reviewed `replacesSourceRecordId`
+ * pin naming the stale current-standard datasheet: the community record adopts that datasheet's
+ * identity, the stale rows are dispositioned superseded, the intake stays provisional with a
+ * watch sentinel, and the pin fails closed on any mismatch. BSData still never overrides an
+ * official fact, and never replaces Wahapedia text the official sources have not superseded.
  */
 
 export interface BsDataCommunitySourceInput {
@@ -402,6 +411,11 @@ export const mergeBsDataWarscrolls = (
           if (!replaced) {
             throw new Error(
               `BSData warscroll ${fact.name} replaces ${replacePin}, which is not an accepted dataset record`
+            )
+          }
+          if (replacedWarscrollIds.has(replaced.id)) {
+            throw new Error(
+              `BSData warscroll ${fact.name} replaces ${replacePin}, which another reviewed unit already replaces`
             )
           }
           if (!(replaced.meta.rulesContextKinds ?? []).includes('standard')) {

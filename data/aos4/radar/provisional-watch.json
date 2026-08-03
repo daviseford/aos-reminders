@@ -150,6 +150,18 @@
     {
      "label": "Gnoblars / Frost Sabres — Gutless",
      "needle": "Gutless"
+    },
+    {
+     "label": "Gnoblar Scraplauncher — battletome Rain of Scrap wording",
+     "needle": "the target cannot use Run or Retreat abilities"
+    },
+    {
+     "label": "Mournfang Pack — battletome Alpha Cavalry wording",
+     "needle": "Charge (+1 Damage) weapon ability has no effect"
+    },
+    {
+     "label": "Tyrant — Big Name effect wording (name itself already appears on the page)",
+     "needle": "already been picked for another friendly Tyrant"
     }
    ]
   }

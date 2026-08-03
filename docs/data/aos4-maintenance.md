@@ -275,10 +275,20 @@ Sources form a three-tier hierarchy:
    `communityWarscrollSources` review entry marked `provisional-pending-official-verification`
    with per-unit checksums and their attribution visibly provisional, and **(d)** they are
    verified or replaced through the standard candidate intake as soon as Wahapedia or an
-   owner-supplied official source becomes available. BSData never overrides an official or
-   Wahapedia fact, and it never supplies battle-profile values (points, unit sizes, bases, roster
-   notes) that officialdom already provides. BSData also underpins much of the wider AoS tool
-   ecosystem, so alignment with it has value in itself — but only inside these conditions.
+   owner-supplied official source becomes available. BSData never overrides an official fact, and
+   it never supplies battle-profile values (points, unit sizes, bases, roster notes) that
+   officialdom already provides. It replaces accepted Wahapedia text in exactly one reviewed
+   shape (owner-approved extension for
+   [#1850](https://github.com/daviseford/aos-reminders/issues/1850)): when an official
+   publication has superseded that text — a battletome rewrite — and Wahapedia demonstrably still
+   serves the previous book's rules, a per-unit `replacesSourceRecordId` pin may swap in the
+   community transcription. The pin must name the stale current-standard datasheet by source
+   record; the community record adopts that datasheet's canonical identity so saved armies keep
+   resolving; the stale rows are dispositioned superseded; the intake remains provisional with a
+   watch sentinel per unit; and the merge fails closed on an unknown pin, a non-standard-context
+   record, or an official-name mismatch. Wahapedia text the official sources have not superseded
+   is never replaced. BSData also underpins much of the wider AoS tool ecosystem, so alignment
+   with it has value in itself — but only inside these conditions.
 
 Other sources may identify gaps but must not silently override any tier above them.
 
