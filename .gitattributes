@@ -4,6 +4,9 @@
 # Bash entry points are executed from Windows via WSL in the deployment contract tests.
 *.sh text eol=lf
 
+# Husky v9 hook files are extensionless shell scripts and must retain LF endings
+.husky/* text eol=lf
+
 # Create-only completion markers are byte-exact and must retain LF endings
 .complete.json text eol=lf
 

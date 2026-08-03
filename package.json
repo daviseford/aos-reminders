@@ -71,14 +71,10 @@
     "prepush": "yarn lint && yarn tsc --noEmit && yarn build && yarn test --run",
     "release:inspect-artifact": "vite-node --script scripts/validateDeploymentConfig.ts artifact dist",
     "release:validate-config": "vite-node --script scripts/validateDeploymentConfig.ts config",
+    "prepare": "husky",
     "start": "vite",
     "test": "cross-env TZ=UTC vitest",
     "up": "yarn install && yarn upgrade-interactive --latest"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged --pattern \"**/*.*(ts|tsx)\""
-    }
   },
   "browserslist": {
     "production": [
@@ -114,7 +110,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^17.9.0",
-    "husky": "4.3.8",
+    "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "prettier": "^3.9.6",
     "prettier-plugin-organize-imports": "^4.3.0",
