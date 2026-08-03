@@ -21,6 +21,7 @@ export type ArtifactStoreErrorCode =
   | 'remote-corrupt'
   | 'remote-conflict'
   | 'remote-command-failed'
+  | 'remote-unreachable'
   | 'local-missing'
   | 'local-corrupt'
 
@@ -44,6 +45,14 @@ export interface ArtifactStore {
   inspect(checksum: string): Promise<ArtifactStoreMetadata | undefined>
   read(checksum: string): Promise<Uint8Array | undefined>
   create(checksum: string, bytes: Uint8Array): Promise<'created' | 'exists'>
+  /**
+   * Confirm the configured bucket exists and is readable by the expected owner.
+   *
+   * S3 answers HeadObject with a bare 404 when the bucket is missing or inaccessible, so a
+   * misconfigured store is otherwise indistinguishable from a store that simply lacks the blob.
+   * Optional so in-memory test doubles stay valid stores.
+   */
+  assertReachable?(): Promise<void>
 }
 
 export interface ArtifactTransferSummary {
@@ -220,6 +229,28 @@ export class AwsS3ArtifactStore implements ArtifactStore {
       ...(this.configuration.profile ? ['--profile', this.configuration.profile] : []),
       ...(this.configuration.region ? ['--region', this.configuration.region] : []),
     ]
+  }
+
+  async assertReachable(): Promise<void> {
+    const result = await this.runner([
+      's3api',
+      'head-bucket',
+      '--bucket',
+      this.configuration.bucket,
+      '--expected-bucket-owner',
+      this.configuration.expectedOwner,
+      ...(this.configuration.profile ? ['--profile', this.configuration.profile] : []),
+      ...(this.configuration.region ? ['--region', this.configuration.region] : []),
+      '--output',
+      'json',
+    ])
+    if (result.exitCode === 0) return
+    throw new ArtifactStoreError(
+      'remote-unreachable',
+      `Private artifact store bucket ${this.configuration.bucket} is missing or inaccessible${
+        awsErrorCode(result) ? ` (${awsErrorCode(result)})` : ''
+      }`
+    )
   }
 
   async inspect(checksum: string): Promise<ArtifactStoreMetadata | undefined> {
@@ -467,13 +498,24 @@ export const pullArtifactManifest = async (
     reused: 0,
     missing: 0,
   }
+  const pending: ArtifactRequirement[] = []
   await mapBounded(requirements, concurrency, async requirement => {
     const local = await cache.get(requirement.checksum)
-    if (local) {
-      assertBytes(requirement, local, 'local')
-      summary.reused += 1
+    if (!local) {
+      pending.push(requirement)
       return
     }
+    assertBytes(requirement, local, 'local')
+    summary.reused += 1
+  })
+  if (!pending.length) return summary
+
+  // A complete local cache never contacts the private tier. A partial one confirms the bucket
+  // first, so a missing or misconfigured store reports itself instead of masquerading as a
+  // manifest full of absent blobs.
+  await store.assertReachable?.()
+  pending.sort((left, right) => left.checksum.localeCompare(right.checksum))
+  await mapBounded(pending, concurrency, async requirement => {
     const metadata = await store.inspect(requirement.checksum)
     if (!metadata) {
       summary.missing += 1
@@ -516,6 +558,7 @@ export const pushArtifactManifest = async (
     reused: 0,
     missing: 0,
   }
+  await store.assertReachable?.()
   await mapBounded(requirements, concurrency, async requirement => {
     const existing = await store.inspect(requirement.checksum)
     if (existing) {
