@@ -309,3 +309,139 @@ describe('the standing fallback-tier policy record in the accepted review', () =
     expect(optionNames).toContain('Lore of the Everwinter')
   })
 })
+
+/**
+ * The battletome-rewrite replacement mechanism (issue #1850): a reviewed
+ * `replacesSourceRecordId` pin swaps a stale Wahapedia datasheet for the community
+ * transcription, adopting the datasheet's canonical identity and dispositioning its rows
+ * superseded — and fails closed on every mismatched pin.
+ */
+describe('BSData warscroll replacement of superseded Wahapedia datasheets', () => {
+  const official: GamesWorkshopUnitProfileFact = {
+    kind: 'unit',
+    key: 'page:1:unit:1',
+    page: 1,
+    row: 1,
+    faction: 'Test Faction',
+    context: 'standard',
+    name: 'Testfist Brute',
+    unitSize: 3,
+    points: 210,
+    regimentOptions: ['Any Testers'],
+    relevantKeywords: [],
+    notes: [],
+    baseSizes: ['60mm'],
+    sourceRecordId: 'source-record:games-workshop:official-page' as never,
+    factChecksum: 'official-fact',
+  }
+  const replacedMeta = (extra: Record<string, unknown> = {}) => ({
+    file: 'Warscrolls.csv',
+    row: 0,
+    artifactId: 'artifact:sha256:old' as never,
+    sourceRecordId: 'source-record:wahapedia:html-old-datasheet' as never,
+    recordChecksum: 'old-checksum',
+    rulesContextKinds: ['standard'],
+    ...extra,
+  })
+  const staleDataset = (meta: Record<string, unknown> = {}) =>
+    ({
+      factions: [{ id: 'TF', name: 'Test Faction', link: '', meta: {} as never }],
+      warscrolls: [
+        {
+          id: 'old-1',
+          name: 'Testfist Brute',
+          factionId: 'TF',
+          sourceId: '',
+          meta: replacedMeta(meta),
+        },
+      ],
+      warscrollAbilities: [{ warscrollId: 'old-1', name: 'Old Ability', meta: replacedMeta() }],
+      warscrollWeapons: [],
+      warscrollKeywords: [],
+      warscrollBases: [],
+    }) as unknown as WahapediaDataset
+  const emptyReconciliation: WahapediaHtmlReconciliation = {
+    schemaVersion: 1,
+    pages: 0,
+    matchedOfficialUnitFacts: 1,
+    unmatchedOfficialUnitFacts: [],
+    discrepancies: [],
+  }
+  const sourceWith = (replacesSourceRecordId: string) => [
+    {
+      artifact: { checksum: CHECKSUM, finalUrl: 'https://example.invalid/x' } as never,
+      repository: 'BSData/test',
+      facts: extractBsDataWarscrolls(encode(FIXTURE), CHECKSUM, ['Testfist Brute']).facts,
+      officialSourceRecordIds: [official.sourceRecordId],
+      replacesBySection: { 'unit:testfist-brute': replacesSourceRecordId as never },
+    },
+  ]
+
+  it('adopts the replaced datasheet identity and supersedes its rows', () => {
+    const merged = mergeBsDataWarscrolls(
+      staleDataset(),
+      emptyReconciliation,
+      sourceWith('source-record:wahapedia:html-old-datasheet'),
+      [official]
+    )
+    const warscroll = merged.dataset.warscrolls.find(record => record.name === 'Testfist Brute')!
+    // Identity continuity: the community record keys its canonical ID on the replaced record.
+    expect(String(warscroll.meta.identitySourceRecordId)).toBe(
+      'source-record:wahapedia:html-old-datasheet'
+    )
+    // The stale datasheet and its rows leave the live dataset as superseded dispositions.
+    expect(merged.dataset.warscrolls.filter(record => record.id === 'old-1')).toEqual([])
+    expect(merged.dataset.warscrollAbilities.filter(record => record.warscrollId === 'old-1')).toEqual([])
+    expect((merged.dataset.supersededMetas ?? []).map(meta => String(meta.sourceRecordId))).toContain(
+      'source-record:wahapedia:html-old-datasheet'
+    )
+    // A replacement's official fact was already matched by the page it replaces: no double count.
+    expect(merged.reconciliation.matchedOfficialUnitFacts).toBe(1)
+  })
+
+  it('follows a CSV-era identity the replaced datasheet itself adopted', () => {
+    const merged = mergeBsDataWarscrolls(
+      staleDataset({ identitySourceRecordId: 'source-record:wahapedia:csv-era-alias' as never }),
+      emptyReconciliation,
+      sourceWith('source-record:wahapedia:html-old-datasheet'),
+      [official]
+    )
+    const warscroll = merged.dataset.warscrolls.find(record => record.name === 'Testfist Brute')!
+    expect(String(warscroll.meta.identitySourceRecordId)).toBe('source-record:wahapedia:csv-era-alias')
+  })
+
+  it('fails closed when the pin names no accepted dataset record', () => {
+    expect(() =>
+      mergeBsDataWarscrolls(
+        staleDataset(),
+        emptyReconciliation,
+        sourceWith('source-record:wahapedia:absent-record'),
+        [official]
+      )
+    ).toThrow(/not an accepted dataset record/)
+  })
+
+  it('fails closed when the pin names a record outside the current-standard context', () => {
+    expect(() =>
+      mergeBsDataWarscrolls(
+        staleDataset({ rulesContextKinds: ['spearhead'] }),
+        emptyReconciliation,
+        sourceWith('source-record:wahapedia:html-old-datasheet'),
+        [official]
+      )
+    ).toThrow(/not current-standard/)
+  })
+
+  it('fails closed when the replaced record is not the official name', () => {
+    const dataset = staleDataset()
+    ;(dataset.warscrolls[0] as { name: string }).name = 'Wrongly Named Brute'
+    expect(() =>
+      mergeBsDataWarscrolls(
+        dataset,
+        emptyReconciliation,
+        sourceWith('source-record:wahapedia:html-old-datasheet'),
+        [official]
+      )
+    ).toThrow(/that record is named Wrongly Named Brute/)
+  })
+})

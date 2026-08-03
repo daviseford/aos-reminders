@@ -123,6 +123,18 @@ export interface CorpusCommunityWarscrollUnit {
   section: string
   /** The pinned checksum of the extracted warscroll fact. */
   recordChecksum: string
+  /**
+   * The accepted Wahapedia datasheet record this community warscroll replaces (issue #1850).
+   *
+   * A battletome rewrite covers a unit Wahapedia already carries with the previous book's text.
+   * The community record then adopts the replaced datasheet's identity — so the canonical
+   * warscroll and battle-profile IDs that saved armies and share links reference are unchanged —
+   * and the replaced datasheet's records (warscroll, abilities, weapons, keywords, bases) are
+   * dispositioned superseded rather than left to serve last-book rules beside the rewrite. The
+   * merge fails closed when the pin no longer matches an accepted datasheet of the same official
+   * name.
+   */
+  replacesSourceRecordId?: SourceRecordId
 }
 
 export interface CorpusCommunityFactionOption {

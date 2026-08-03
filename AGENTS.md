@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 Version 6 is now an Age of Sigmar fourth-edition-only codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-02b` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-02c` snapshot
 - the AoS 3 faction corpus, rule utilities, Redux state, saved-army schema, importers, and fixtures
   have been removed
 - importing, cloud armies, and army sharing are rebuilt as AoS 4-native features: roster parsers in
@@ -34,8 +34,8 @@ Version 6 is now an Age of Sigmar fourth-edition-only codebase:
 - manifestations are a category of unit rather than an army: the five universal manifestation lores
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
-- the accepted corpus contains 1,297 warscrolls, 1,013 battle profiles, 5,075 abilities,
-  2,283 weapons, 1,493 content groups, and 20,111 live source records
+- the accepted corpus contains 1,297 warscrolls, 1,013 battle profiles, 5,077 abilities,
+  2,269 weapons, 1,493 content groups, and 20,096 live source records
 - the 75 Regiments of Renown on the accepted collection pages are classified
   `regiment-of-renown` content groups (reviewed `regimentsOfRenown` input), offered by exactly
   their inclusion factions with their regiment abilities and member warscrolls linked
@@ -43,8 +43,10 @@ Version 6 is now an Age of Sigmar fourth-edition-only codebase:
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
   historical rules contexts isolate parallel and retired records; the browser defaults to the
   current 2026-27 seasonal context
-- strict generation consumes every live record and separately dispositions 18,897 superseded
-  May 2026 bulk warscroll/faction-rule records so none can leak into runtime
+- strict generation consumes every live record and separately dispositions 19,083 superseded
+  records (the May 2026 bulk warscroll/faction-rule rows plus the fourteen index-era Ogor
+  datasheets the July 2026 battletome rewrites replaced, issue #1850) so none can leak into
+  runtime
 - all 1,350 extracted official battle-profile facts have an explicit disposition: 1,013 apply to
   runtime, 1 remains a profile-only gap, 289 remain structured references, and 47 are superseded
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current

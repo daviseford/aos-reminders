@@ -104,6 +104,66 @@
      "needle": "Maulbeast"
     }
    ]
+  },
+  {
+   "id": "wahapedia-ogor-battletome-warscroll-rewrites",
+   "issueNumber": 1850,
+   "reason": "The accepted corpus ships the July 2026 Ogor Mawtribes battletome rewrites of fourteen legacy-unit warscrolls provisionally from the pinned BSData library (each adopting its replaced Wahapedia datasheet identity). Any of these battletome-only ability names appearing on the Wahapedia Ogor warscroll collection satisfies the verification condition: replace the provisional records with the verified secondary text via a normal candidate.",
+   "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html",
+   "sentinels": [
+    {
+     "label": "Bloodpelt Hunter — Biggest-Game Hunter",
+     "needle": "Biggest-Game Hunter"
+    },
+    {
+     "label": "Butcher — Trogg Guts",
+     "needle": "Trogg Guts"
+    },
+    {
+     "label": "Frostlord on Stonehorn — Enraged Roar",
+     "needle": "Enraged Roar"
+    },
+    {
+     "label": "Frostlord on Thundertusk — Blessed of the Old Ice",
+     "needle": "Blessed of the Old Ice"
+    },
+    {
+     "label": "Huskard on Stonehorn — Primal Bellow",
+     "needle": "Primal Bellow"
+    },
+    {
+     "label": "Huskard on Thundertusk — Winter’s Cruelty (apostrophe-agnostic)",
+     "needle": "s Cruelty"
+    },
+    {
+     "label": "Ironblaster — Obliterating Blast",
+     "needle": "Obliterating Blast"
+    },
+    {
+     "label": "Ironguts — Displays of Might",
+     "needle": "Displays of Might"
+    },
+    {
+     "label": "Thundertusk Beastriders — Plough the Ice Path",
+     "needle": "Plough the Ice Path"
+    },
+    {
+     "label": "Gnoblars / Frost Sabres — Gutless",
+     "needle": "Gutless"
+    },
+    {
+     "label": "Gnoblar Scraplauncher — battletome Rain of Scrap wording",
+     "needle": "the target cannot use Run or Retreat abilities"
+    },
+    {
+     "label": "Mournfang Pack — battletome Alpha Cavalry wording",
+     "needle": "Charge (+1 Damage) weapon ability has no effect"
+    },
+    {
+     "label": "Tyrant — Big Name effect wording (name itself already appears on the page)",
+     "needle": "already been picked for another friendly Tyrant"
+    }
+   ]
   }
  ]
 }

@@ -19,11 +19,20 @@ import type { BsDataAbilityFact, BsDataFactionOptionFact, BsDataFactionOptionTyp
 /**
  * Merge reviewed BSData warscroll facts into the current dataset.
  *
- * BSData is the community fallback tier: it may only supply what neither an official document nor
- * Wahapedia provides — here, the rules text of units whose existence, points, unit sizes, bases,
- * and roster notes are already established by accepted official battle-profile facts. Every
- * overlapping field is taken from the official fact, and any disagreement is preserved as a
- * reconciliation discrepancy resolved official-side.
+ * BSData is the community fallback tier: it may only supply rules text Wahapedia does not
+ * currently provide — for units whose existence, points, unit sizes, bases, and roster notes are
+ * already established by accepted official battle-profile facts. Every overlapping field is taken
+ * from the official fact, and any disagreement is preserved as a reconciliation discrepancy
+ * resolved official-side.
+ *
+ * "Does not currently provide" has two reviewed shapes (owner ruling extended for issue #1850):
+ * a unit Wahapedia has never carried (the Ogor supplement units), and a unit whose accepted
+ * Wahapedia text an official publication has since superseded — a battletome rewrite Wahapedia
+ * demonstrably has not caught up with. The second requires a reviewed `replacesSourceRecordId`
+ * pin naming the stale current-standard datasheet: the community record adopts that datasheet's
+ * identity, the stale rows are dispositioned superseded, the intake stays provisional with a
+ * watch sentinel, and the pin fails closed on any mismatch. BSData still never overrides an
+ * official fact, and never replaces Wahapedia text the official sources have not superseded.
  */
 
 export interface BsDataCommunitySourceInput {
@@ -33,6 +42,13 @@ export interface BsDataCommunitySourceInput {
   facts: BsDataWarscrollFact[]
   /** Official page source records that establish this content (policy condition (a)). */
   officialSourceRecordIds: SourceRecordId[]
+  /**
+   * Accepted Wahapedia datasheet records the reviewed units replace, by catalogue section
+   * (issue #1850): the community record adopts the replaced record's identity and the replaced
+   * datasheet's records are dispositioned superseded. See
+   * `CorpusCommunityWarscrollUnit.replacesSourceRecordId`.
+   */
+  replacesBySection?: Record<string, SourceRecordId>
 }
 
 export interface BsDataMergeResult {
@@ -364,6 +380,8 @@ export const mergeBsDataWarscrolls = (
   const newWeapons: WahapediaWarscrollWeaponRecord[] = []
   const newKeywords: WahapediaDataset['warscrollKeywords'] = []
   const newBases: WahapediaDataset['warscrollBases'] = []
+  /** Dataset ids of the replaced Wahapedia warscroll records (issue #1850). */
+  const replacedWarscrollIds = new Set<string>()
 
   sources.forEach(source => {
     const sourceArtifactId = artifactId(source.artifact.checksum)
@@ -379,7 +397,42 @@ export const mergeBsDataWarscrolls = (
               'the community fallback tier requires an official publication establishing the content'
           )
         }
-        matchedChecksums.add(official.factChecksum)
+        /**
+         * A rewrite replaces an accepted Wahapedia datasheet (issue #1850): the community record
+         * adopts the replaced record's identity so canonical IDs are unchanged, and the replaced
+         * record's own rows leave the live dataset as superseded. The official fact was already
+         * matched by the page being replaced, so it is not counted a second time.
+         */
+        const replacePin = source.replacesBySection?.[fact.section]
+        const replaced = replacePin
+          ? dataset.warscrolls.find(record => record.meta.sourceRecordId === replacePin)
+          : undefined
+        if (replacePin) {
+          if (!replaced) {
+            throw new Error(
+              `BSData warscroll ${fact.name} replaces ${replacePin}, which is not an accepted dataset record`
+            )
+          }
+          if (replacedWarscrollIds.has(replaced.id)) {
+            throw new Error(
+              `BSData warscroll ${fact.name} replaces ${replacePin}, which another reviewed unit already replaces`
+            )
+          }
+          if (!(replaced.meta.rulesContextKinds ?? []).includes('standard')) {
+            throw new Error(
+              `BSData warscroll ${fact.name} replaces ${replacePin}, but that record is not current-standard ` +
+                '(a battletome rewrite replaces the current text, never a Spearhead or overlay record)'
+            )
+          }
+          if (canonical(replaced.name) !== canonical(official.name)) {
+            throw new Error(
+              `BSData warscroll ${fact.name} replaces ${replacePin}, but that record is named ${replaced.name}`
+            )
+          }
+          replacedWarscrollIds.add(replaced.id)
+        } else {
+          matchedChecksums.add(official.factChecksum)
+        }
         const factionId = factionIdByName.get(canonical(official.faction))
         if (!factionId) {
           throw new Error(`BSData warscroll ${fact.name} names an unknown faction ${official.faction}`)
@@ -429,6 +482,9 @@ export const mergeBsDataWarscrolls = (
           rulesContextKinds: contextKinds,
           ...(officialSourceRecordIds?.length ? { officialSourceRecordIds } : {}),
         })
+        const warscrollMeta = meta(fact.sourceRecordId, fact.factChecksum, 'BSDataLibrary.cat', [
+          official.sourceRecordId,
+        ])
         newWarscrolls.push({
           id: warscrollId,
           name: official.name,
@@ -449,7 +505,15 @@ export const mergeBsDataWarscrolls = (
           ward: '',
           unitSize: String(official.unitSize),
           cost: String(official.points),
-          meta: meta(fact.sourceRecordId, fact.factChecksum, 'BSDataLibrary.cat', [official.sourceRecordId]),
+          // Identity continuity: the rewrite keeps the replaced datasheet's canonical identity.
+          meta: replaced
+            ? {
+                ...warscrollMeta,
+                // Adopt the replaced record's own identity alias: an HTML datasheet that itself
+                // adopted a CSV-era identity keys its canonical ID on that alias, not on its URL.
+                identitySourceRecordId: replaced.meta.identitySourceRecordId ?? replaced.meta.sourceRecordId,
+              }
+            : warscrollMeta,
         })
         fact.abilities.forEach(ability => {
           const points = abilityPoints(ability)
@@ -517,14 +581,37 @@ export const mergeBsDataWarscrolls = (
       })
   })
 
+  /**
+   * A replaced datasheet's rows leave the live dataset and become superseded dispositions,
+   * exactly like the bulk CSV rows the current HTML replaced: retained for audit, unable to
+   * enter the current runtime beside the rewrite that carries their identity forward.
+   */
+  const keepRecord = (record: { warscrollId: string }): boolean => !replacedWarscrollIds.has(record.warscrollId)
+  const supersededMetas = [
+    ...(dataset.supersededMetas ?? []),
+    ...dataset.warscrolls.filter(record => replacedWarscrollIds.has(record.id)).map(record => record.meta),
+    ...dataset.warscrollAbilities.filter(record => !keepRecord(record)).map(record => record.meta),
+    ...dataset.warscrollWeapons.filter(record => !keepRecord(record)).map(record => record.meta),
+    ...dataset.warscrollKeywords.filter(record => !keepRecord(record)).map(record => record.meta),
+    ...dataset.warscrollBases.filter(record => !keepRecord(record)).map(record => record.meta),
+    ...(dataset.warscrollOrganisation ?? []).filter(record => !keepRecord(record)).map(record => record.meta),
+    ...(dataset.regimentOfRenownFactions ?? []).filter(record => !keepRecord(record)).map(record => record.meta),
+  ]
+
   return {
     dataset: {
       ...dataset,
-      warscrolls: [...dataset.warscrolls, ...newWarscrolls],
-      warscrollAbilities: [...dataset.warscrollAbilities, ...newAbilities],
-      warscrollWeapons: [...dataset.warscrollWeapons, ...newWeapons],
-      warscrollKeywords: [...dataset.warscrollKeywords, ...newKeywords],
-      warscrollBases: [...dataset.warscrollBases, ...newBases],
+      supersededMetas: Array.from(new Map(supersededMetas.map(meta => [meta.sourceRecordId, meta])).values()),
+      warscrolls: [
+        ...dataset.warscrolls.filter(record => !replacedWarscrollIds.has(record.id)),
+        ...newWarscrolls,
+      ],
+      warscrollAbilities: [...dataset.warscrollAbilities.filter(keepRecord), ...newAbilities],
+      warscrollWeapons: [...dataset.warscrollWeapons.filter(keepRecord), ...newWeapons],
+      warscrollKeywords: [...dataset.warscrollKeywords.filter(keepRecord), ...newKeywords],
+      warscrollBases: [...dataset.warscrollBases.filter(keepRecord), ...newBases],
+      warscrollOrganisation: (dataset.warscrollOrganisation ?? []).filter(keepRecord),
+      regimentOfRenownFactions: (dataset.regimentOfRenownFactions ?? []).filter(keepRecord),
     },
     reconciliation: {
       ...reconciliation,
