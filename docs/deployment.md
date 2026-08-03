@@ -109,7 +109,9 @@ the complete bounded S3 inventory, reconstructs the file, and preserves the same
 retirement behavior. An interrupted retirement also recovers safely because the next run checks
 the real tag for every key missing from the inventory before copying it. Invalid inventory entries
 fail closed before public files are uploaded, and keys removed by lifecycle expiration are pruned
-from the inventory on the next release.
+from the inventory on the next release. If a rollback makes a retired content hash current again,
+the deploy removes it from the inventory before publishing mutable entry points. This keeps a later
+interruption from leaving stale state that could prevent the object from being retired again.
 
 The production lifecycle configuration should have this shape:
 

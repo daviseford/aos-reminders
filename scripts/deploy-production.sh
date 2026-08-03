@@ -225,6 +225,7 @@ is_current_immutable_object() {
 # also makes deleting the state object a safe recovery operation.
 known_retired_objects=()
 next_retired_objects=()
+reactivated_retired_object_found=0
 if aws s3 cp "${SITE_S3}/${DEPLOY_RETIREMENT_STATE_KEY}" "$retirement_state_file" \
   --only-show-errors 2>/dev/null; then
   while IFS= read -r known_retired || [[ -n "$known_retired" ]]; do
@@ -241,7 +242,10 @@ if aws s3 cp "${SITE_S3}/${DEPLOY_RETIREMENT_STATE_KEY}" "$retirement_state_file
       *) fail "retirement state contains an unmanaged key: $known_retired" ;;
     esac
     # Publishing a content hash again removes retire=true below. Do not carry stale state forward.
-    is_current_immutable_object "$known_retired" && continue
+    if is_current_immutable_object "$known_retired"; then
+      reactivated_retired_object_found=1
+      continue
+    fi
     known_retired_objects+=("$known_retired")
   done < "$retirement_state_file"
 fi
@@ -263,6 +267,17 @@ record_retired_object() {
     [[ "$recorded" == "$candidate" ]] && return 0
   done
   next_retired_objects+=("$candidate")
+}
+
+write_retirement_state() {
+  : > "$retirement_state_next_file"
+  if [[ $# -gt 0 ]]; then
+    printf '%s\n' "$@" | LC_ALL=C sort -u > "$retirement_state_next_file"
+  fi
+  aws s3 cp "$retirement_state_next_file" "${SITE_S3}/${DEPLOY_RETIREMENT_STATE_KEY}" \
+    --cache-control 'no-store' \
+    --content-type 'text/plain; charset=utf-8' \
+    --only-show-errors
 }
 
 # CloudFront only compresses responses up to ~10 MB, so any script above the threshold ships
@@ -308,6 +323,13 @@ for immutable_key in "${current_immutable_objects[@]}"; do
     --key "$immutable_key" \
     --tagging 'TagSet=[{Key=retire,Value=false}]' >/dev/null
 done
+
+# A rollback can make a previously retired content hash current again. Persist that removal before
+# publishing mutable entry points so a later state-write failure cannot leave the old inventory
+# claiming the now-live object is still retired.
+if [[ $reactivated_retired_object_found -eq 1 ]]; then
+  write_retirement_state ${known_retired_objects[@]+"${known_retired_objects[@]}"}
+fi
 
 # Unhashed public assets carry a query-version buster, not a content hash.
 aws s3 cp "$SITE_BUILD_DIR" "$SITE_S3" \
@@ -405,13 +427,6 @@ while IFS= read -r remote_immutable; do
 # exempt the last listed object from retirement on every deploy.
 done < <(printf '%s\n' "$remote_immutable_output" | tr '\t' '\n')
 
-: > "$retirement_state_next_file"
-if [[ ${#next_retired_objects[@]} -gt 0 ]]; then
-  printf '%s\n' "${next_retired_objects[@]}" | LC_ALL=C sort -u > "$retirement_state_next_file"
-fi
-aws s3 cp "$retirement_state_next_file" "${SITE_S3}/${DEPLOY_RETIREMENT_STATE_KEY}" \
-  --cache-control 'no-store' \
-  --content-type 'text/plain; charset=utf-8' \
-  --only-show-errors
+write_retirement_state ${next_retired_objects[@]+"${next_retired_objects[@]}"}
 
 echo 'Deployed to https://aosreminders.com/'

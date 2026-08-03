@@ -189,6 +189,10 @@ if [[ "$1 $2" == "s3 cp" && "$3" == s3://*/_deploy/retired-immutable-keys.txt ]]
 fi
 
 if [[ "$1 $2" == "s3 cp" && "$4" == s3://*/_deploy/retired-immutable-keys.txt ]]; then
+  if [[ "\${AWS_FAIL_RETIREMENT_STATE_UPLOAD:-0}" == "1" ]]; then
+    echo 'Injected retirement state upload failure' >&2
+    exit 42
+  fi
   cp "$3" "$AWS_RETIREMENT_STATE"
   exit 0
 fi
@@ -430,6 +434,23 @@ echo '{}'
     expect(result.stderr).toMatch(/retirement state/i)
     const log = harness.log()
     expect(log.some(line => line.includes('/assets --recursive'))).toBe(false)
+    expect(
+      log.some(line => line.startsWith('s3api delete-object ') && line.includes('--if-match "acquired-etag"'))
+    ).toBe(true)
+  })
+
+  it('persists a reactivated key removal before publishing mutable entry points', () => {
+    const harness = createHarness()
+    writeFileSync(harness.retirementStatePath, 'assets/current-123.js\nassets/already-retired.js\n')
+
+    const result = harness.run({ AWS_FAIL_RETIREMENT_STATE_UPLOAD: '1' })
+
+    expect(result.status).not.toBe(0)
+    expect(result.stderr).toMatch(/retirement state upload failure/i)
+    const log = harness.log()
+    expect(log.some(line => line.includes('/assets --recursive'))).toBe(true)
+    expect(log.some(line => line.includes('/index.html'))).toBe(false)
+    expect(log.some(line => line.includes('/service-worker.js'))).toBe(false)
     expect(
       log.some(line => line.startsWith('s3api delete-object ') && line.includes('--if-match "acquired-etag"'))
     ).toBe(true)
