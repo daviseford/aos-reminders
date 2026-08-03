@@ -119,7 +119,6 @@ describe('AoS 4 legacy isolation', () => {
       'components/info/donate.tsx',
       'components/info/offline.tsx',
       'components/info/reminders.tsx',
-      'components/info/updateAvailable.tsx',
       'components/input/army_builder.tsx',
       'components/input/generic_button.tsx',
       'components/input/importArmy/failedImportReport.ts',

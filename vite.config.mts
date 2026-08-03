@@ -1,11 +1,9 @@
 import react from '@vitejs/plugin-react-swc'
 import { createHash } from 'node:crypto'
-import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { defineConfig, type Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { configDefaults } from 'vitest/config'
-import { SERVICE_WORKER_ACTIVATION_MESSAGE } from './src/bootstrap/serviceWorkerProtocol'
 
 /*
  * The generated corpus is 11.6 MiB as a built chunk, against Workbox's 2 MiB precache ceiling — and
@@ -70,39 +68,6 @@ const enforceInitialEntryChunkBudget = (): Plugin => ({
     })
   },
 })
-
-/*
- * Workbox's generated message handler accepts the generic `SKIP_WAITING` token. The CRA worker
- * currently controlling production tabs posts that token automatically when it sees an update,
- * which would bypass this release's user-facing prompt. Replace the generated handler's one token
- * with this app generation's private protocol, and fail closed if Workbox ever changes its output.
- */
-const privatizeServiceWorkerActivation = (): Plugin => {
-  let workerPath = path.resolve('dist/service-worker.js')
-
-  return {
-    name: 'private-service-worker-activation',
-    apply: 'build',
-    enforce: 'post',
-    configResolved(config) {
-      workerPath = path.resolve(config.root, config.build.outDir, 'service-worker.js')
-    },
-    async closeBundle() {
-      const source = await readFile(workerPath, 'utf8')
-      const genericToken = JSON.stringify('SKIP_WAITING')
-      const privateToken = JSON.stringify(SERVICE_WORKER_ACTIVATION_MESSAGE)
-      const occurrences = source.split(genericToken).length - 1
-
-      if (occurrences !== 1) {
-        this.error(
-          `Expected exactly one Workbox ${genericToken} activation token in ${workerPath}; found ${occurrences}.`
-        )
-      }
-
-      await writeFile(workerPath, source.replace(genericToken, privateToken))
-    },
-  }
-}
 
 /*
  * Emits the immutable `sw-extras-<hash>.js` that the generated worker imports. Two things have to
@@ -254,11 +219,12 @@ export default defineConfig({
     VitePWA({
       strategies: 'generateSW',
       /*
-       * `prompt`, not `autoUpdate`: autoUpdate reloads the page under the user mid-session, which is
-       * wrong for an app people read during a game turn. The app already owns the update channel
-       * (`hasNewContent` in context/useAppStatus) — src/bootstrap/registerServiceWorker.ts feeds it.
+       * `autoUpdate`: a newly installed worker activates immediately and every controlled tab
+       * reloads onto the new build (the plugin's register module calls onNeedReload; see
+       * src/bootstrap/registerServiceWorker.ts). No update banner. This is safe here because all
+       * army state persists to localStorage, so the reload loses nothing but scroll position.
        */
-      registerType: 'prompt',
+      registerType: 'autoUpdate',
       /*
        * Not the default `sw.js`. Clients still holding the pre-Vite CRA registration poll
        * `/service-worker.js` for updates; serving a real, changed script there takes those
@@ -272,8 +238,13 @@ export default defineConfig({
       workbox: {
         globIgnores: [CATALOG_CHUNK_GLOB, ...NON_APP_PRECACHE_GLOBS],
         importScripts: serviceWorkerExtrasImports,
-        // The worker still waits for an explicit SKIP_WAITING message. Once accepted, claim every
-        // controlled tab so each reloads onto the same build whose old caches activation prunes.
+        /*
+         * Activate the moment install finishes (which includes the catalog warm) and claim every
+         * controlled tab, so each reloads onto the same build whose old caches activation prunes.
+         * `skipWaiting` must be set here explicitly: the plugin only adds it for autoUpdate when
+         * injectRegister is left at its default, and this app registers explicitly.
+         */
+        skipWaiting: true,
         clientsClaim: true,
         runtimeCaching: [
           {
@@ -292,8 +263,6 @@ export default defineConfig({
         ],
       },
     }),
-    // Must run after vite-plugin-pwa writes the worker in closeBundle.
-    privatizeServiceWorkerActivation(),
     enforceInitialEntryChunkBudget(),
   ],
   resolve: {
