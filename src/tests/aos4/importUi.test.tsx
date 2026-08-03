@@ -9,7 +9,8 @@ import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { Simulate } from 'tests/support/reactTestHelpers'
 import { MemoryRouter, Route, Routes } from 'react-router'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
+import type { Aos4ArmyDocument } from '../../aos4/state'
 
 const logRosterImport = vi.hoisted(() => vi.fn())
 const auth = vi.hoisted(() => ({
@@ -210,8 +211,8 @@ describe('subscriber-only account action', () => {
 
 describe('AoS 4 import modal', () => {
   let container: HTMLDivElement
-  let onApply: ReturnType<typeof vi.fn>
-  let closeModal: ReturnType<typeof vi.fn>
+  let onApply: Mock<(document: Aos4ArmyDocument) => void>
+  let closeModal: Mock<() => void>
 
   const renderModal = () => {
     render(
