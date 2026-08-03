@@ -1,4 +1,5 @@
 import type { GamesWorkshopBattleProfileFact, WahapediaHtmlReconciliation } from '../data'
+import { canonicalNameKey } from '../normalize/nameKey'
 
 export interface ReviewedOfficialBattleProfileFact {
   artifactChecksum: string
@@ -34,13 +35,12 @@ export interface OfficialBattleProfileCatalog {
  * The name key used to match an official regiment-of-renown profile row to the runtime content
  * group generated from its Wahapedia datasheet. Reviewed `officialProfileName` mappings cover the
  * rows whose official spelling differs beyond punctuation and case.
+ *
+ * Delegates to the shared Unicode-hardened key (issue #1875); the shared key produces the same
+ * output as the historical inline implementation for every input, because both keep only
+ * `[a-z0-9]`, so reviewed dispositions cannot shift.
  */
-export const canonicalOfficialProfileName = (value: string): string =>
-  value
-    .normalize('NFKD')
-    .replace(/[‘’']/g, '')
-    .replace(/[^a-z0-9]+/gi, '')
-    .toLowerCase()
+export const canonicalOfficialProfileName = (value: string): string => canonicalNameKey(value)
 
 export const createOfficialBattleProfileCatalog = (
   reviewed: ReviewedOfficialBattleProfileFact[],
