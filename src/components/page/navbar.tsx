@@ -5,10 +5,10 @@ import NavbarWrapper from 'components/page/navbar_wrapper'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { max } from 'lodash'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { navbarStyles } from 'theme/helperClasses'
 import { logClick } from 'utils/analytics'
-import { BASE_URL, ROUTES } from 'utils/env'
+import { ROUTES } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { SubscriptionPlans } from 'utils/plans'
@@ -27,7 +27,7 @@ const Navbar = () => {
     if (isAuthenticated) {
       logClick('Navbar-Logout')
       localStorage.removeItem('theme')
-      return logout({ clientId: config.clientId, logoutParams: { returnTo: BASE_URL } })
+      return logout({ clientId: config.clientId, logoutParams: { returnTo: window.location.origin } })
     }
     return login()
   }

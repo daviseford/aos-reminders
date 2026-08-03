@@ -22,9 +22,9 @@ beforeEach(() => {
 describe('analytics collection boundary', () => {
   it('is inert on import and rejects non-production hosts', async () => {
     const analytics = await loadAnalytics()
-    const history = {
-      location: { pathname: '/' },
-      listen: vi.fn(() => vi.fn()),
+    const router = {
+      state: { location: { key: 'default', pathname: '/' } },
+      subscribe: vi.fn(() => vi.fn()),
     }
 
     expect(ga.initialize).not.toHaveBeenCalled()
@@ -34,8 +34,8 @@ describe('analytics collection boundary', () => {
     expect(analytics.canCollectAnalytics({ hostname: 'preview.aosreminders.com', isProduction: true })).toBe(
       false
     )
-    expect(analytics.startPageViewTracking(history)).toEqual(expect.any(Function))
-    expect(history.listen).not.toHaveBeenCalled()
+    expect(analytics.startPageViewTracking(router)).toEqual(expect.any(Function))
+    expect(router.subscribe).not.toHaveBeenCalled()
   })
 
   it.each(['aosreminders.com', 'www.aosreminders.com'])(
@@ -57,18 +57,20 @@ describe('analytics collection boundary', () => {
     const analytics = await loadAnalytics()
     analytics.initializeAnalytics({ hostname: 'aosreminders.com', isProduction: true })
 
-    let listener: ((location: { pathname: string }) => void) | undefined
-    const unlisten = vi.fn()
-    const history = {
-      location: { pathname: '/faq', search: '?army=secret', hash: '#private' },
-      listen: vi.fn((nextListener: (location: { pathname: string }) => void) => {
+    let listener: ((state: { location: { key: string; pathname: string } }) => void) | undefined
+    const unsubscribe = vi.fn()
+    const router = {
+      state: { location: { key: 'default', pathname: '/faq', search: '?army=secret', hash: '#private' } },
+      subscribe: vi.fn((nextListener: (state: { location: { key: string; pathname: string } }) => void) => {
         listener = nextListener
-        return unlisten
+        return unsubscribe
       }),
     }
 
-    expect(analytics.startPageViewTracking(history)).toBe(unlisten)
-    listener?.({ pathname: '/subscribe' })
+    expect(analytics.startPageViewTracking(router)).toBe(unsubscribe)
+    listener?.({ location: { key: 'nav-1', pathname: '/subscribe' } })
+    // Router state updates that are not navigations repeat the location key and must not re-log.
+    listener?.({ location: { key: 'nav-1', pathname: '/subscribe' } })
 
     expect(ga.send).toHaveBeenNthCalledWith(1, {
       hitType: 'pageview',
@@ -82,8 +84,9 @@ describe('analytics collection boundary', () => {
       page: '/subscribe',
       title: document.title,
     })
+    expect(ga.send).toHaveBeenCalledTimes(2)
     expect(JSON.stringify(ga.send.mock.calls)).not.toContain('secret')
-    expect(history.listen).toHaveBeenCalledTimes(1)
+    expect(router.subscribe).toHaveBeenCalledTimes(1)
   })
 })
 

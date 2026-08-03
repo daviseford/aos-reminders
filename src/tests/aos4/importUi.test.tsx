@@ -8,7 +8,7 @@ import { parseRosterXml, xmlToRosterJson } from 'tests/support/newRecruit'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { Simulate } from 'tests/support/reactTestHelpers'
-import { MemoryRouter, Route } from 'react-router-dom'
+import { MemoryRouter, Route, Routes } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const logRosterImport = vi.hoisted(() => vi.fn())
@@ -168,7 +168,9 @@ describe('subscriber-only account action', () => {
       render(
         <MemoryRouter initialEntries={['/']}>
           <SubscriberActionHarness onAuthorized={onAuthorized} />
-          <Route path="/subscribe">Subscribe destination</Route>
+          <Routes>
+            <Route path="/subscribe" element={<>Subscribe destination</>} />
+          </Routes>
         </MemoryRouter>,
         container
       )
@@ -627,14 +629,18 @@ describe('AoS 4 import modal', () => {
       Simulate.change(input)
       await new Promise(resolve => setTimeout(resolve, 0))
     })
-    expect(container.textContent).toContain('not a supported current official app, Listbot 4.0, or Sigdex export')
+    expect(container.textContent).toContain(
+      'not a supported current official app, Listbot 4.0, or Sigdex export'
+    )
 
     await act(async () => {
       firstRead.resolve(new Uint8Array([0x50, 0x4b, 0x03]).buffer)
       await new Promise(resolve => setTimeout(resolve, 0))
     })
 
-    expect(container.textContent).toContain('not a supported current official app, Listbot 4.0, or Sigdex export')
+    expect(container.textContent).toContain(
+      'not a supported current official app, Listbot 4.0, or Sigdex export'
+    )
     expect(container.textContent).not.toContain('not a valid ZIP archive')
 
     const createObjectUrl = vi.fn<(blob: Blob) => string>().mockReturnValue('blob:latest-import')

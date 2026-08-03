@@ -6,14 +6,16 @@ const source = (relativePath: string) => readFile(path.resolve(process.cwd(), re
 
 describe('initial bundle boundaries', () => {
   it('keeps the AoS 4 catalog out of the application bootstrap graph', async () => {
-    const [main, app, home, viteConfig] = await Promise.all([
+    const [main, router, home, viteConfig] = await Promise.all([
       source('src/main.tsx'),
-      source('src/components/App.tsx'),
+      source('src/bootstrap/router.tsx'),
       source('src/components/routes/Home.tsx'),
       source('vite.config.mts'),
     ])
 
-    expect(app).toMatch(/const Home = lazy\(\(\) => import\('components\/routes\/Home'\)\)/)
+    // The lazy route table lives in the router singleton so the Auth0 callback and analytics can
+    // share one data router; the catalog must stay behind those lazy boundaries.
+    expect(router).toMatch(/const Home = lazy\(\(\) => import\('components\/routes\/Home'\)\)/)
     expect(main).not.toContain("import { ArmyCollectionProvider } from 'context/useArmyCollection'")
     expect(home).toContain("import { ArmyCollectionProvider } from 'context/useArmyCollection'")
     expect(main.indexOf("import './bootstrap/captureShareLink'")).toBeLessThan(

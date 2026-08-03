@@ -8,7 +8,7 @@ import React from 'react'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { Simulate } from 'tests/support/reactTestHelpers'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({
@@ -20,7 +20,7 @@ const auth = vi.hoisted(() => ({
   user: undefined as { email: string } | undefined,
 }))
 const getSubscription = vi.hoisted(() => vi.fn())
-const historyPush = vi.hoisted(() => vi.fn())
+const navigate = vi.hoisted(() => vi.fn())
 
 vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => auth,
@@ -34,11 +34,11 @@ vi.mock('../../api/subscriptionApi', () => ({
   },
 }))
 
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom')
+vi.mock('react-router', async () => {
+  const actual = await vi.importActual<typeof import('react-router')>('react-router')
   return {
     ...actual,
-    useHistory: () => ({ push: historyPush }),
+    useNavigate: () => navigate,
   }
 })
 
@@ -105,7 +105,7 @@ describe('AoS 4 home presentation', () => {
     auth.getAccessTokenSilently.mockResolvedValue('audience-token')
     getSubscription.mockReset()
     getSubscription.mockRejectedValue({ status: 404 })
-    historyPush.mockReset()
+    navigate.mockReset()
     Object.defineProperty(window, 'localStorage', {
       configurable: true,
       value: new MemoryStorage(),
@@ -188,8 +188,8 @@ describe('AoS 4 home presentation', () => {
       Simulate.click(findButton('Share Army')!)
     })
 
-    expect(historyPush).toHaveBeenNthCalledWith(1, '/subscribe')
-    expect(historyPush).toHaveBeenNthCalledWith(2, '/subscribe')
+    expect(navigate).toHaveBeenNthCalledWith(1, '/subscribe')
+    expect(navigate).toHaveBeenNthCalledWith(2, '/subscribe')
 
     await act(async () => {
       Simulate.click(findButton('Import Army')!)

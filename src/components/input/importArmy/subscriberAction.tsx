@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useSubscription } from 'context/useSubscription'
 import { useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { ROUTES } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 
@@ -17,7 +17,7 @@ export const useSubscriberAction = ({
   const { isAuthenticated, isLoading } = useAuth0()
   const { isActive, subscriptionLoading } = useSubscription()
   const { isLoggingIn, login } = useLogin({ origin })
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const run = useCallback(() => {
     if (!isAuthenticated) {
@@ -25,11 +25,11 @@ export const useSubscriberAction = ({
       return
     }
     if (!isActive) {
-      history.push(ROUTES.SUBSCRIBE)
+      navigate(ROUTES.SUBSCRIBE)
       return
     }
     onAuthorized()
-  }, [history, isActive, isAuthenticated, login, onAuthorized])
+  }, [isActive, isAuthenticated, login, navigate, onAuthorized])
 
   return {
     disabled: isLoading || isLoggingIn || subscriptionLoading,

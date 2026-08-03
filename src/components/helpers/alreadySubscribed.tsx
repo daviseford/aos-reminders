@@ -1,6 +1,6 @@
 import Navbar from 'components/page/navbar'
 import { useTheme } from 'context/useTheme'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 

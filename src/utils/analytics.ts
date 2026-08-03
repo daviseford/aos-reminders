@@ -18,9 +18,13 @@ interface PageLocation {
   pathname: string
 }
 
-interface PageViewHistory {
-  location: PageLocation
-  listen: (listener: (location: PageLocation) => void) => () => void
+interface TrackedLocation extends PageLocation {
+  key: string
+}
+
+interface PageViewRouter {
+  state: { location: TrackedLocation }
+  subscribe: (listener: (state: { location: TrackedLocation }) => void) => () => void
 }
 
 export interface AnalyticsCommerceItem {
@@ -79,10 +83,20 @@ export const logPageView = ({ pathname }: PageLocation): void => {
   })
 }
 
-export const startPageViewTracking = (routerHistory: PageViewHistory): (() => void) => {
+/*
+ * router.subscribe fires on every router state update, not just navigations. The location key
+ * changes exactly once per navigation, which preserves the old history.listen semantics of one
+ * page view per navigation (and per the initial load).
+ */
+export const startPageViewTracking = (router: PageViewRouter): (() => void) => {
   if (!initialized) return () => undefined
-  logPageView(routerHistory.location)
-  return routerHistory.listen(location => logPageView(location))
+  logPageView(router.state.location)
+  let lastLocationKey = router.state.location.key
+  return router.subscribe(({ location }) => {
+    if (location.key === lastLocationKey) return
+    lastLocationKey = location.key
+    logPageView(location)
+  })
 }
 
 export const logClick = (interactionName: string): void => {
