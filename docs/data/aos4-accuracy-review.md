@@ -12,8 +12,8 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-02b`, generated from the 2026-08-01 source
-acquisition plus one additional commit-pinned BSData catalogue (manifest `accepted-2026-08-02`).
+The current revision is `aos4-corpus-2026-08-03`, generated from the 2026-08-01 source
+acquisition plus three commit-pinned BSData catalogues (manifest `accepted-2026-08-02`).
 Its automated review is complete:
 
 | Measure | Result |
@@ -21,12 +21,12 @@ Its automated review is complete:
 | Accepted artifacts independently inventoried | 245/245 |
 | Explicit non-material discovery entries | 9 |
 | Official battle-profile facts | 1,350/1,350 |
-| Final official/secondary reconciliation discrepancies | 414/414 |
+| Final official/secondary reconciliation discrepancies | 423/423 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 19,333/19,333 |
-| Ignored-record dispositions (superseded + explicit) | 18,903/18,903 |
-| Live review pairs | 40,002/40,002 |
-| Independent outcomes | 80,004 pass; 0 finding; 0 cannot-verify |
+| Live audit source records | 20,084/20,084 |
+| Ignored-record dispositions (superseded + explicit) | 19,119/19,119 |
+| Live review pairs | 40,978/40,978 |
+| Independent outcomes | 81,956 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 
@@ -34,6 +34,15 @@ The independent source inventory was observed on 2026-08-02: 245 entries matched
 checksums (including the three commit-pinned BSData catalogues, observed live by the
 `data:aos4:inventory:observe-bsdata` observer) and 9 discovery entries received explicit
 non-material dispositions carried forward from the 2026-08-01b review.
+
+The current certification is `aos4-corpus-2026-08-03-machine-r2` (2026-08-04). The pdfjs-dist 6
+upgrade (#1900) changed official-PDF text extraction, so 1,078 of the 1,090 pinned
+official-evidence page checksums in the corpus review were re-pinned to the faithful extraction
+(checksums only; no record or page changed) and one letterspacing artifact in the battle-profile
+ledger corrected itself (`Cr y ptguard` -> `Cryptguard`). The re-campaign reused the 2026-08-02
+inventory observations unchanged and evaluated all 40,978 pairs fresh against the r1 reuse offer —
+0 findings, 0 cannot-verify. Runtime products, identities, and the reconciliation report are
+byte-identical to machine-r1.
 
 Provisional community-tier records receive the same treatment as secondary ones: their source
 records are independently compared against the generated entities, their artifacts must carry the

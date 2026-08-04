@@ -206,7 +206,9 @@ export const defaultAdversarialReviewJobs = (parallelism = availableParallelism(
 const execFileAsync = promisify(execFile)
 const require = createRequire(import.meta.url)
 
-const viteNodeRuntime = (): string => require.resolve('vite-node/vite-node.mjs')
+// vite-node 6 dropped the root `vite-node.mjs` entry; `./cli` is the exported CLI path
+// (the same `dist/cli.mjs` the package.json data scripts invoke directly).
+const viteNodeRuntime = (): string => require.resolve('vite-node/cli')
 
 const workerResultPath = (output: string, relativePath: string): string => {
   if (path.isAbsolute(relativePath)) {

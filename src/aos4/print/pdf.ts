@@ -1,4 +1,4 @@
-import jsPDF from 'jspdf'
+import { jsPDF } from 'jspdf'
 import type { PlacedLine, PrintPlan, PrintRoleStyle } from './types'
 
 const BLACK: readonly [number, number, number] = [0, 0, 0]
@@ -7,8 +7,7 @@ const ACCENT: readonly [number, number, number] = [28, 117, 149]
 
 const applyStyle = (doc: jsPDF, style: PrintRoleStyle) => {
   const [red, green, blue] = style.color ?? BLACK
-  doc.setFont('helvetica')
-  doc.setFontStyle(style.weight)
+  doc.setFont('helvetica', style.weight)
   doc.setFontSize(style.sizePt)
   doc.setTextColor(red, green, blue)
 }
@@ -23,16 +22,16 @@ const drawLine = (doc: jsPDF, plan: PrintPlan, line: PlacedLine) => {
 
   if (line.label) {
     const labelText = `${line.label}: `
-    doc.setFontStyle('bold')
+    doc.setFont('helvetica', 'bold')
     doc.text(labelText, line.xIn, line.yIn)
     const labelWidthIn = doc.getTextWidth(labelText)
-    doc.setFontStyle(style.weight)
+    doc.setFont('helvetica', style.weight)
     doc.text(line.text, line.xIn + labelWidthIn, line.yIn)
     return
   }
 
   if (line.align === 'center') {
-    doc.text(line.text, line.xIn, line.yIn, null as never, null as never, 'center')
+    doc.text(line.text, line.xIn, line.yIn, { align: 'center' })
     return
   }
 
@@ -63,8 +62,7 @@ const drawTags = (doc: jsPDF, plan: PrintPlan, line: PlacedLine) => {
       doc.roundedRect(tag.xIn, top, tag.widthIn, boxHeightIn, 0.02, 0.02, 'S')
     }
 
-    doc.setFont('helvetica')
-    doc.setFontStyle(style.weight)
+    doc.setFont('helvetica', style.weight)
     doc.setFontSize(style.sizePt)
     doc.setTextColor(tone.text[0], tone.text[1], tone.text[2])
     doc.text(tag.label, tag.xIn + plan.preset.tagPaddingXIn, line.yIn - 0.008)
@@ -91,19 +89,13 @@ const drawPageFurniture = (doc: jsPDF, plan: PrintPlan, pageIndex: number) => {
   const y = Math.max(page.marginTopIn - 0.22, 0.18)
   const style = plan.preset.roles.footer
 
-  doc.setFont('helvetica')
-  doc.setFontStyle('normal')
+  doc.setFont('helvetica', 'normal')
   doc.setFontSize(Math.min(style.sizePt, 8))
   doc.setTextColor(FURNITURE[0], FURNITURE[1], FURNITURE[2])
   doc.text('aosreminders.com', page.marginLeftIn, y)
-  doc.text(
-    `${pageIndex + 1} / ${plan.pageCount}`,
-    page.widthIn - page.marginRightIn,
-    y,
-    null as never,
-    null as never,
-    'right'
-  )
+  doc.text(`${pageIndex + 1} / ${plan.pageCount}`, page.widthIn - page.marginRightIn, y, {
+    align: 'right',
+  })
   doc.setTextColor(BLACK[0], BLACK[1], BLACK[2])
 }
 
@@ -117,14 +109,14 @@ export interface RenderPdfOptions {
  */
 export const renderPrintPlanToPdf = (plan: PrintPlan, options: RenderPdfOptions): jsPDF => {
   const { page } = plan.preset
-  // jsPDF 1.x takes an explicit `format` array in points, whatever the document unit is.
-  const formatPt: [number, number] = [page.widthIn * 72, page.heightIn * 72]
-  const doc = new jsPDF({ unit: 'in', format: formatPt })
+  // jsPDF 2+ takes an explicit `format` array in the document unit (here inches).
+  const formatIn: [number, number] = [page.widthIn, page.heightIn]
+  const doc = new jsPDF({ unit: 'in', format: formatIn })
 
   doc.setProperties({ title: options.title })
 
   for (let pageIndex = 0; pageIndex < plan.pageCount; pageIndex += 1) {
-    if (pageIndex > 0) doc.addPage(formatPt)
+    if (pageIndex > 0) doc.addPage(formatIn)
     drawPageFurniture(doc, plan, pageIndex)
 
     plan.lines

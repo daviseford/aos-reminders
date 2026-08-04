@@ -1,4 +1,4 @@
-import jsPDF from 'jspdf'
+import { jsPDF } from 'jspdf'
 import type { PrintTextMeasurer } from './types'
 
 /**
@@ -14,8 +14,7 @@ export const createJsPdfMeasurer = (): PrintTextMeasurer => {
   return {
     widthIn: (text, style) => {
       if (!text) return 0
-      doc.setFont('helvetica')
-      doc.setFontStyle(style.weight)
+      doc.setFont('helvetica', style.weight)
       doc.setFontSize(style.sizePt)
       return doc.getTextWidth(text)
     },
