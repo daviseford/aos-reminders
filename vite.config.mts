@@ -334,7 +334,14 @@ export default defineConfig({
   },
   test: {
     ...configDefaults,
-    exclude: [...configDefaults.exclude, '**/.worktrees/**', '**/.claude/**'],
+    /*
+     * `.cache/` is the ignored acquisition tree, and parking a locked `node_modules` there under a
+     * name like `stale-node-modules-<stamp>/` is the documented Windows EPERM workaround. Vitest's
+     * default excludes only cover a directory literally named `node_modules`, so the parked copy's
+     * own test suites were collected as if they were ours -- 56 phantom failing files, none of them
+     * in this repository. Nothing under `.cache/` is ever a test of this project.
+     */
+    exclude: [...configDefaults.exclude, '**/.worktrees/**', '**/.claude/**', '**/.cache/**'],
     /**
      * Node by default, jsdom only for the component tests that render — those opt in with a
      * `// @vitest-environment jsdom` docblock at the top of the file (vitest 4 removed
