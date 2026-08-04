@@ -202,6 +202,31 @@ const abilityValue = (header: Element, body: Element, line: number) => {
       /\b(?:Your|Enemy|Any) (?:Start of Turn|Hero|Movement|Shooting|Charge|Combat|End of Turn)(?: Phase)?\b/i
     )?.[0] ?? ''
   const pointsMatch = condition.match(/\b(Spell|Prayer)\s*\((\d+)\)/i)
+  const textualPoints = pointsMatch ? { pointsType: pointsMatch[1], points: pointsMatch[2] } : undefined
+  // Wahapedia renders command costs, casting values, and chanting values with the same numeric
+  // badge. Keep the lookup inside this ability's header row, then use the ability's own keyword
+  // strip to classify the overloaded provider shape.
+  const badgeElement = header.closest('tr')?.querySelector('.abCommandPointsN') ?? null
+  const badgeText = normalizedText(badgeElement)
+  const badgePoints = /^[1-9]\d*$/.test(badgeText)
+    ? {
+        pointsType: /\bSPELL\b/i.test(keywordHtml)
+          ? 'Spell'
+          : /\bPRAYER\b/i.test(keywordHtml)
+            ? 'Prayer'
+            : (textualPoints?.pointsType ?? 'Command'),
+        points: badgeText,
+      }
+    : undefined
+  const pointsEvidence =
+    badgeElement && !badgePoints
+      ? undefined
+      : badgePoints &&
+          textualPoints &&
+          (badgePoints.pointsType.toLowerCase() !== textualPoints.pointsType.toLowerCase() ||
+            badgePoints.points !== textualPoints.points)
+        ? undefined
+        : (badgePoints ?? textualPoints)
   return {
     line,
     name,
@@ -211,8 +236,8 @@ const abilityValue = (header: Element, body: Element, line: number) => {
     abilityType: header.getAttribute('bgcolor') ?? '',
     abilityPhase: phase,
     isReaction: /\bReaction:/i.test(condition),
-    pointsType: pointsMatch?.[1] ?? '',
-    points: pointsMatch?.[2] ?? '',
+    pointsType: pointsEvidence?.pointsType ?? '',
+    points: pointsEvidence?.points ?? '',
   }
 }
 
