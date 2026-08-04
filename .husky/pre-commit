@@ -14,4 +14,4 @@ fi
 
 # Deliberately not `cd`-ing anywhere: git runs the hook from the top of the committing worktree, and
 # `--staged` reads whichever index that is. Only the binary comes from the owning checkout.
-"$pretty_quick" --staged --pattern "**/*.*(ts|tsx)"
+"$pretty_quick" --staged --pattern "**/*.*(js|jsx|ts|tsx|json|scss|css|yml|yaml|html)"

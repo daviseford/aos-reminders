@@ -1,11 +1,34 @@
-package.json
-tsconfig.json
 node_modules/
 build/*
 dist/*
-src/tests/fixtures/**/*.json
 *.md
 *.sh
 *.log
 *.lock
 .vscode/
+
+# Local tooling scratch, not part of this repository's sources.
+.context/
+
+# A Google site-verification token that happens to carry an .html extension. It is not markup, and
+# the verifier reads it byte for byte.
+public/google*.html
+
+# Yarn and tsc rewrite these on their own schedule; leave the formatting to the tools that own them.
+package.json
+tsconfig.json
+
+# Byte-pinned inputs. The New Recruit corpus is captured from opted-in accounts and self-checking,
+# and the remaining fixtures are provider-shape contracts. Reformatting them rewrites the evidence.
+src/tests/fixtures/
+
+# Written by the deterministic serializer in src/aos4/generate/serialization.ts, which emits
+# `JSON.stringify(value, null, 2)`. Prettier collapses short arrays and objects that form always
+# expands, so formatting these would rewrite every generated product.
+src/aos4/generated/
+
+# The whole data pipeline tree is checksum-bound, products and reviewed inputs alike:
+# data/aos4/certifications/*/manifest.json records a SHA-256 for the accepted manifest, corpus
+# review, catalog, official battle profiles, and reconciliation report, and `yarn
+# data:aos4:verify:beta` fails closed when any of them moves. Formatting here breaks the beta gate.
+data/aos4/
