@@ -1,4 +1,11 @@
-import type { Ability, AbilityText, Aos4Catalog, CanonicalId, SourceReference } from '../domain'
+import type {
+  Ability,
+  AbilityCost,
+  AbilityText,
+  Aos4Catalog,
+  CanonicalId,
+  SourceReference,
+} from '../domain'
 import type { ResolvedSelection, SelectionCause } from '../select'
 import { reminderOccurrenceId, semanticTimingKey } from './reminderIdentity'
 import { orderReminders } from './orderReminders'
@@ -26,8 +33,19 @@ const uniqueBy = <T>(values: Iterable<T>, key: (value: T) => string): T[] => {
 const textKey = (text: AbilityText): string =>
   JSON.stringify([text.declare ?? '', text.reactionTrigger ?? '', text.effect])
 
+const normalizedResourceKey = (resource: string): string =>
+  resource.normalize('NFKC').trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-US')
+
+const costKey = (cost: AbilityCost | undefined): string => {
+  if (!cost) return 'none'
+  if (cost.kind === 'faction-resource') {
+    return `${cost.kind}:${normalizedResourceKey(cost.resource)}:${cost.value}`
+  }
+  return `${cost.kind}:${cost.value}`
+}
+
 const displayKey = (ability: Ability, timingKey: string): string =>
-  JSON.stringify([ability.name, textKey(ability.text), timingKey])
+  JSON.stringify([ability.name, textKey(ability.text), timingKey, costKey(ability.cost)])
 
 const contributingIds = (causes: SelectionCause[], abilityIds: CanonicalId[]): CanonicalId[] =>
   Array.from(new Set([...abilityIds, ...causes.flatMap(cause => cause.entityPath)])).sort(compareIds)
@@ -88,6 +106,7 @@ export const projectReminders = (catalog: Aos4Catalog, selection: ResolvedSelect
           abilityIds: [ability.id],
           name: ability.name,
           text: ability.text,
+          ...(ability.cost ? { cost: ability.cost } : {}),
           timing,
           keywords: [...ability.keywords].sort(compareIds),
           lane: timing.kind,
