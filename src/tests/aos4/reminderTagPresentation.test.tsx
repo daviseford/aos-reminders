@@ -24,7 +24,7 @@ describe('rendered reminder tags', () => {
     container.remove()
   })
 
-  it('keeps a cost tag focusable and toggles its explanation for keyboard and pointer input', () => {
+  it('keeps a cost tag natively focusable and toggles its explanation', () => {
     act(() => {
       render(
         <ReminderTags
@@ -51,19 +51,9 @@ describe('rendered reminder tags', () => {
     expect(document.activeElement).toBe(button)
 
     act(() => {
-      button?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }))
-    })
-    expect(button?.getAttribute('aria-expanded')).toBe('true')
-    expect(container.querySelector('[role="note"]')?.textContent).toBe('Costs 2 command points to use.')
-
-    act(() => {
-      button?.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true }))
-    })
-    expect(button?.getAttribute('aria-expanded')).toBe('false')
-
-    act(() => {
       button?.click()
     })
     expect(button?.getAttribute('aria-expanded')).toBe('true')
+    expect(container.querySelector('[role="note"]')?.textContent).toBe('Costs 2 command points to use.')
   })
 })

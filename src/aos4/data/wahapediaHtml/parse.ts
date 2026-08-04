@@ -39,6 +39,12 @@ const normalizedText = (element: Element | null | undefined): string =>
       .trim() ?? ''
   )
 
+const abilityPointsType = (keywordHtml: string, textualType: string | undefined): string => {
+  if (/\bSPELL\b/i.test(keywordHtml)) return 'Spell'
+  if (/\bPRAYER\b/i.test(keywordHtml)) return 'Prayer'
+  return textualType ?? 'Command'
+}
+
 const characteristicText = (element: Element | null | undefined): string =>
   normalizedText(element) || (element?.querySelector('img') ? '*' : '')
 
@@ -210,11 +216,7 @@ const abilityValue = (header: Element, body: Element, line: number) => {
   const badgeText = normalizedText(badgeElement)
   const badgePoints = /^[1-9]\d*$/.test(badgeText)
     ? {
-        pointsType: /\bSPELL\b/i.test(keywordHtml)
-          ? 'Spell'
-          : /\bPRAYER\b/i.test(keywordHtml)
-            ? 'Prayer'
-            : (textualPoints?.pointsType ?? 'Command'),
+        pointsType: abilityPointsType(keywordHtml, textualPoints?.pointsType),
         points: badgeText,
       }
     : undefined

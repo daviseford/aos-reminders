@@ -248,6 +248,13 @@ const reviewEquivalentTimingSource = (value: string): string =>
     .replace(/\bYour Hero Quest\b/gi, 'Your Hero Phase')
     .replace(/\bEnd of Ypur Turn\b/gi, 'End of Your Turn')
 
+const abilityCostKind = (pointsType: string): string | undefined => {
+  if (pointsType.includes('spell')) return 'spell'
+  if (pointsType.includes('prayer')) return 'prayer'
+  if (pointsType.includes('command')) return 'command-points'
+  return undefined
+}
+
 const abilitySourceCostChecks = (source: Record<string, unknown>, generated: unknown): FailedCheck[] => {
   const sourceValue = {
     pointsType: String(source.pointsType ?? '').trim(),
@@ -257,14 +264,7 @@ const abilitySourceCostChecks = (source: Record<string, unknown>, generated: unk
 
   const normalizedPoints = sourceValue.points.replace(/\s+/g, '')
   const parsedPoints = /^\d+$/.test(normalizedPoints) ? Number.parseInt(normalizedPoints, 10) : undefined
-  const normalizedType = sourceValue.pointsType.toLowerCase()
-  const kind = normalizedType.includes('spell')
-    ? 'spell'
-    : normalizedType.includes('prayer')
-      ? 'prayer'
-      : normalizedType.includes('command')
-        ? 'command-points'
-        : undefined
+  const kind = abilityCostKind(sourceValue.pointsType.toLowerCase())
   if (!kind || parsedPoints === undefined || !Number.isSafeInteger(parsedPoints) || parsedPoints <= 0) {
     return [
       failed(
