@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import GenericButton from 'components/input/generic_button'
+import { redirectToCheckout } from 'components/payment/legacyStripeCheckout'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { capitalize } from 'lodash'
@@ -221,7 +222,7 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       quantity,
       plan: supportPlan.title,
     })
-    const result = await stripe.redirectToCheckout({
+    const result = await redirectToCheckout(stripe, {
       mode: 'payment',
       lineItems: [{ price, quantity }],
       customerEmail: user.email,

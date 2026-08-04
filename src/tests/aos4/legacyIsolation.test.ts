@@ -142,6 +142,7 @@ describe('AoS 4 legacy isolation', () => {
       'components/modals/paypal_post_subscribe_modal.tsx',
       'components/modals/stripe_cancellation_modal.tsx',
       'components/payment/giftSubscriptions.tsx',
+      'components/payment/legacyStripeCheckout.ts',
       'components/payment/paypal/paypalButton.tsx',
       'components/payment/paypal/paypalTypes.ts',
       'components/payment/pricingPlans.tsx',
