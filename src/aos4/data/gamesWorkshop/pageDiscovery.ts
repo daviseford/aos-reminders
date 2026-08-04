@@ -6,8 +6,7 @@ import type { GamesWorkshopDiagnostic, GamesWorkshopDiscoveryResult, GamesWorksh
 type Node = DefaultTreeAdapterMap['node']
 type Element = DefaultTreeAdapterMap['element']
 
-const isElement = (node: Node): node is Element =>
-  'tagName' in node && Array.isArray(node.attrs)
+const isElement = (node: Node): node is Element => 'tagName' in node && Array.isArray(node.attrs)
 
 const attribute = (element: Element, name: string): string | undefined =>
   element.attrs.find(item => item.name.toLowerCase() === name)?.value

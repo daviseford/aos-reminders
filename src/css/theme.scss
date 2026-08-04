@@ -29,20 +29,20 @@ $themeDropzoneAccent: #2196f3;
 
 /* Override default Bootstrap variables */
 $grid-breakpoints: (
-    xs: 0,
-    sm: 576px,
-    md: 768px,
-    lg: 1025px,
-    xl: 1200px,
-    xxl: 1900px,
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 1025px,
+  xl: 1200px,
+  xxl: 1900px,
 );
 
 $container-max-widths: (
-    sm: 540px,
-    md: 720px,
-    lg: 992px,
-    xl: 1140px,
-    xxl: 1610px,
+  sm: 540px,
+  md: 720px,
+  lg: 992px,
+  xl: 1140px,
+  xxl: 1610px,
 );
 
 /*
@@ -62,7 +62,7 @@ $container-max-widths: (
  * than hardcoding the resulting hexes. This defines no rules and emits no CSS; the full framework
  * is imported further down, and re-importing functions there is a no-op.
  */
-@import "bootstrap/scss/functions";
+@import 'bootstrap/scss/functions';
 
 /*
  * Responsive font sizes. 4.6 shipped RFS switched off ($enable-responsive-font-sizes: false); 5.x
@@ -109,8 +109,9 @@ $text-muted: #6c757d; // 5.3 default: var(--bs-secondary-color)
  * src/css/index.scss already paints on <body> keeps Bootstrap and the app in agreement, and keeps
  * every input rendering the font it renders today.
  */
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$font-family-sans-serif:
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+  'Droid Sans', 'Helvetica Neue', sans-serif;
 $small-font-size: 80%; // 5.3 default: .875em
 $code-font-size: 87.5%; // 5.3 default: $small-font-size
 $figure-caption-font-size: 90%; // 5.3 default: $small-font-size — the /subscribe demo-video caption
@@ -220,7 +221,7 @@ $hr-border-color: rgba(0, 0, 0, 0.1);
 $hr-opacity: 1;
 
 /* Import Bootstrap source */
-@import "bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
 
 /*
  * Reboot parity.
@@ -231,8 +232,8 @@ $hr-opacity: 1;
  * is a compatibility shim, not a new style — it reproduces 4.6's Reboot exactly.
  */
 label {
-    display: inline-block;
-    margin-bottom: 0.5rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
 }
 
 /*
@@ -242,7 +243,7 @@ label {
  * Without this the shim above pushes the print modal's radio rows 8px apart.
  */
 .form-check-label {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 /*
@@ -251,8 +252,8 @@ label {
  * so the Official marker and the sale flash keep their current shape.
  */
 .badge.rounded-pill {
-    padding-right: 0.6em;
-    padding-left: 0.6em;
+  padding-right: 0.6em;
+  padding-left: 0.6em;
 }
 
 /*
@@ -262,7 +263,7 @@ label {
  */
 small,
 .small {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 /*
@@ -283,7 +284,7 @@ small,
  *    inside dark-theme cards. `inherit` restores the 4.6 contract that ITheme relies on.
  */
 .card {
-    color: inherit;
+  color: inherit;
 }
 
 /*
@@ -294,11 +295,11 @@ small,
  * win instead and pad those rows 1.25rem all round.
  */
 .card-body:not(.list-group-item) {
-    padding: $card-spacer-x;
+  padding: $card-spacer-x;
 }
 
 .card-body {
-    color: inherit;
+  color: inherit;
 }
 
 /*
@@ -316,13 +317,13 @@ small,
  * padding is pinned above; this restores where the lines land.
  */
 .table > :not(caption) > * > * {
-    border-top: var(--bs-border-width) solid var(--bs-table-border-color);
-    border-bottom-width: 0;
+  border-top: var(--bs-border-width) solid var(--bs-table-border-color);
+  border-bottom-width: 0;
 }
 
 .table > thead > tr > th {
-    vertical-align: bottom;
-    border-bottom: calc(var(--bs-border-width) * 2) solid var(--bs-table-border-color);
+  vertical-align: bottom;
+  border-bottom: calc(var(--bs-border-width) * 2) solid var(--bs-table-border-color);
 }
 
 /*
@@ -331,22 +332,22 @@ small,
  * page's Midnight Slate in dark mode, with the Pale Gray divider used by other dark surfaces.
  */
 .GiftPurchaseTable-Light {
-    --bs-table-color: #{$body-color};
-    --bs-table-bg: #{$white};
-    --bs-table-border-color: #{$table-border-color};
+  --bs-table-color: #{$body-color};
+  --bs-table-bg: #{$white};
+  --bs-table-border-color: #{$table-border-color};
 }
 
 .GiftPurchaseTable-Dark {
-    --bs-table-color: #{$white};
-    --bs-table-bg: #{$themeDarkBlueSecondary};
-    --bs-table-border-color: #{$themeLightGray};
+  --bs-table-color: #{$white};
+  --bs-table-bg: #{$themeDarkBlueSecondary};
+  --bs-table-border-color: #{$themeLightGray};
 }
 
 select.form-control {
-    appearance: auto;
-    /* 4.6 gave .form-control an explicit height; 5.x lets content size it, and a native select
+  appearance: auto;
+  /* 4.6 gave .form-control an explicit height; 5.x lets content size it, and a native select
        lands a pixel short of the text inputs beside it. */
-    height: calc(1.5em + 0.75rem + 2px);
+  height: calc(1.5em + 0.75rem + 2px);
 }
 
 /*
@@ -360,11 +361,11 @@ select.form-control {
  * from `.row > *` and are untouched.
  */
 :not(.row) > .col,
-:not(.row) > [class^="col-"],
-:not(.row) > [class*=" col-"] {
-    position: relative;
-    padding-right: $grid-gutter-width * 0.5;
-    padding-left: $grid-gutter-width * 0.5;
+:not(.row) > [class^='col-'],
+:not(.row) > [class*=' col-'] {
+  position: relative;
+  padding-right: $grid-gutter-width * 0.5;
+  padding-left: $grid-gutter-width * 0.5;
 }
 
 /*
@@ -376,7 +377,7 @@ select.form-control {
  * the height, leaving the width to shrink to fit.
  */
 :not(.row) > .col {
-    width: 100%;
+  width: 100%;
 }
 
 /*
@@ -386,5 +387,5 @@ select.form-control {
  * still reaches .form-text). This restores 4.6's colour.
  */
 .text-muted {
-    color: $text-muted !important;
+  color: $text-muted !important;
 }

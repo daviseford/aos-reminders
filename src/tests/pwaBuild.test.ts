@@ -97,7 +97,11 @@ describe('web app manifest', () => {
 
   it('agrees with the masthead colour index.html sets', () => {
     // In standalone mode the manifest wins, so a mismatch puts the wrong chrome above a dark header.
-    const lightThemeColor = read('index.html').match(/<meta name="theme-color" content="([^"]+)">/)
+    // The optional slash keeps this off Prettier's void-tag style: index.html is formatted now, and
+    // an anchor on `">` silently stopped matching the moment the tag became self-closing, which read
+    // as "the manifest has no theme_color" rather than as a broken pattern.
+    const lightThemeColor = read('index.html').match(/<meta name="theme-color" content="([^"]+)"\s*\/?>/)
+    expect(lightThemeColor?.[1], 'index.html no longer declares a light theme-color').toBeDefined()
     expect(manifest.theme_color).toBe(lightThemeColor?.[1])
   })
 })

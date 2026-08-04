@@ -11,11 +11,7 @@ const virtualRegisterSW = vi.hoisted(() => vi.fn(() => vi.fn(async () => undefin
 
 vi.mock('virtual:pwa-register', () => ({ registerSW: virtualRegisterSW }))
 
-import {
-  APPLY_TIMEOUT_MS,
-  DISMISS_DURATION_MS,
-  UpdateAvailable,
-} from 'components/info/updateAvailable'
+import { APPLY_TIMEOUT_MS, DISMISS_DURATION_MS, UpdateAvailable } from 'components/info/updateAvailable'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { act } from 'react'
 import { render, Simulate, unmountComponentAtNode } from 'tests/support/reactTestHelpers'

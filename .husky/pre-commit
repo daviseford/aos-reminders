@@ -1,1 +1,17 @@
-pretty-quick --staged --pattern "**/*.*(ts|tsx)"
+# Husky prepends a *relative* `node_modules/.bin` to PATH, which resolves against the current
+# working directory. A worktree created by `git worktree add` has no `node_modules` of its own, so
+# every commit from one was rejected with `pretty-quick: command not found` (#1930).
+# `--git-common-dir` points at the owning checkout's `.git` from a worktree and a plain clone alike,
+# so derive the repository that actually holds the dependencies from it.
+repo_root="$(cd "$(dirname "$(git rev-parse --git-common-dir)")" && pwd)"
+pretty_quick="$repo_root/node_modules/.bin/pretty-quick"
+
+if [ ! -f "$pretty_quick" ]; then
+  echo "pre-commit: $pretty_quick not found" >&2
+  echo "pre-commit: run 'yarn install --frozen-lockfile' in $repo_root" >&2
+  exit 1
+fi
+
+# Deliberately not `cd`-ing anywhere: git runs the hook from the top of the committing worktree, and
+# `--staged` reads whichever index that is. Only the binary comes from the owning checkout.
+"$pretty_quick" --staged --pattern "**/*.*(js|jsx|mjs|cjs|ts|tsx|mts|cts|json|scss|css|yml|yaml|html)"
