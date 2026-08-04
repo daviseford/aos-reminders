@@ -35,7 +35,15 @@ checksums (including the three commit-pinned BSData catalogues, observed live by
 `data:aos4:inventory:observe-bsdata` observer) and 9 discovery entries received explicit
 non-material dispositions carried forward from the 2026-08-01b review.
 
-The current certification is `aos4-corpus-2026-08-03-machine-r2` (2026-08-04). The pdfjs-dist 6
+The current certification is `aos4-corpus-2026-08-03-machine-r3` (2026-08-04). It re-campaigns
+`machine-r2` because the command-point cost work (#1856) landed on top of the pdfjs-dist 6 upgrade,
+leaving a corpus that matches neither parent; a prior result is never inherited by a changed corpus,
+so all 40,978 pairs were evaluated fresh under `evidence-auditor/v3` — 81,956 checks, 0 findings,
+0 cannot-verify. It reused the 2026-08-02 inventory observations unchanged, exactly as `machine-r2`
+did, since no acquisition occurred. Generated ability costs are the only corpus-visible difference
+from `machine-r2`.
+
+`machine-r2` (2026-08-04) preceded it. The pdfjs-dist 6
 upgrade (#1900) changed official-PDF text extraction, so 1,078 of the 1,090 pinned
 official-evidence page checksums in the corpus review were re-pinned to the faithful extraction
 (checksums only; no record or page changed) and one letterspacing artifact in the battle-profile
