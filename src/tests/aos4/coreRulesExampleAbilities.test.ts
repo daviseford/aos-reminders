@@ -134,7 +134,10 @@ describe('core-rules example ability cards stay out of reminders (customer repor
         EXAMPLE_CARD_NAMES.forEach(name => expect(names).not.toContain(name))
       })
     })
-  })
+    // Every one of the 27 armies resolved across every rules context it declares, with both overlays
+    // on. ~3s on an idle machine, past the 5s default once the rest of the suite is competing for
+    // CPU -- a timeout here looked like a hang in reminder projection rather than a wide sweep.
+  }, 30_000)
 
   it('loses nothing except the example cards from a representative army', () => {
     const stormcast = AOS4_CATALOG.entities.find(

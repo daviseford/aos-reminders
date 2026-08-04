@@ -265,5 +265,10 @@ describe('bounded adversarial review workers', () => {
     } finally {
       await rm(root, { recursive: true, force: true })
     }
-  })
+    // The only case here that spawns real workers, and it spawns two: `runFreshWorkers` shells out
+    // to vite-node per group, so this pays two full runtime startups and then waits for the aborted
+    // sibling to settle before asserting the staging directory is gone. Measured at ~10s against the
+    // 5s default, which failed as a timeout and read like a hang in the abort path rather than a
+    // slow test. The other cases in this file never leave the process and finish in milliseconds.
+  }, 60_000)
 })

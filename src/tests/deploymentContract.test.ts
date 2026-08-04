@@ -5,16 +5,9 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { afterEach, describe, expect, it } from 'vitest'
+import { bashCommand, bashPath } from './support/bashHarness'
 
 const repoRoot = process.cwd()
-const bashPath = (path: string) => {
-  if (process.platform !== 'win32') return path
-
-  const match = path.match(/^([A-Za-z]):\\(.*)$/)
-  if (!match) throw new Error(`Cannot convert ${path} to a WSL path`)
-
-  return `/mnt/${match[1].toLowerCase()}/${match[2].replaceAll('\\', '/')}`
-}
 
 const readRepoFile = (path: string) => readFileSync(join(repoRoot, path), 'utf8')
 const shellQuote = (value: string) => `'${value.replaceAll("'", `'"'"'`)}'`
@@ -27,7 +20,15 @@ const cloudFrontPreflightQuery =
   ' DefaultCacheBehavior.MaxTTL, DefaultCacheBehavior.CachePolicyId,' +
   ' DefaultCacheBehavior.ResponseHeadersPolicyId, CacheBehaviors.Quantity]'
 
-describe('production deployment contract', () => {
+/*
+ * Every case here spawns a shell and runs the real `scripts/deploy-production.sh` end to end against
+ * stub binaries. That costs whole seconds before any assertion runs -- more under WSL, where each
+ * spawn crosses into the Linux VM -- and the cost scales with how loaded the machine is. Against the
+ * 5s default the suite passed when run alone and failed as a timeout under a full-suite run, which
+ * reads as a flaky deployment contract rather than as a per-case budget that was never sized for
+ * spawning a shell.
+ */
+describe('production deployment contract', { timeout: 60_000 }, () => {
   const temporaryDirectories: string[] = []
 
   afterEach(() => {
@@ -242,7 +243,7 @@ echo '{}'
       const fakeBinPath = bashPath(fakeBin)
 
       return spawnSync(
-        'bash',
+        bashCommand(),
         [
           '-c',
           `chmod +x ${shellQuote(`${fakeBinPath}/aws`)}; PATH=${shellQuote(fakeBinPath)}:/usr/local/bin:/usr/bin:/bin ${assignments} bash scripts/deploy-production.sh`,

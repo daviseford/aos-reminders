@@ -4,20 +4,13 @@ import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { inspectDeploymentArtifact, validateDeploymentEndpoints } from '../../scripts/deploymentConfig'
 import { afterEach, describe, expect, it } from 'vitest'
+import { bashCommand, bashPath } from './support/bashHarness'
 
 const validEndpoints = {
   armyApiUrl: 'https://army123.execute-api.us-east-1.amazonaws.com',
   subscriptionApiUrl: 'https://subs123.execute-api.us-east-1.amazonaws.com',
 }
 
-const bashPath = (path: string) => {
-  if (process.platform !== 'win32') return path
-
-  const match = path.match(/^([A-Za-z]):\\(.*)$/)
-  if (!match) throw new Error(`Cannot convert ${path} to a WSL path`)
-
-  return `/mnt/${match[1].toLowerCase()}/${match[2].replaceAll('\\', '/')}`
-}
 const shellQuote = (value: string) => `'${value.replaceAll("'", `'"'"'`)}'`
 
 describe('production deployment configuration', () => {
@@ -97,14 +90,33 @@ describe('production deployment configuration', () => {
       fakeYarn,
       `#!/usr/bin/env bash
 set -euo pipefail
-printf 'start:%s\\n' "$*" >> "$RELEASE_GATE_LOG"
+
+# The gates under test run three at a time, so three copies of this stub append to one log at once.
+# That is only safe where O_APPEND is atomic. On Linux and macOS it is, which is why CI never saw
+# this; under WSL the log sits on a DrvFs mount of the Windows drive, where concurrent appends
+# overwrite each other -- measured at five of eight lines lost. The surviving log then showed phase
+# two starting before phase one finished and failed the ordering assertion, blaming the release
+# script for a defect in the harness. flock makes the append atomic on every filesystem; the
+# fallback keeps this working anywhere flock is absent, which is exactly where it is not needed.
+log_gate() {
+  if command -v flock >/dev/null 2>&1; then
+    exec 9>>"$RELEASE_GATE_LOG"
+    flock 9
+    printf '%s\\n' "$1" >&9
+    exec 9>&-
+  else
+    printf '%s\\n' "$1" >> "$RELEASE_GATE_LOG"
+  fi
+}
+
+log_gate "start:$*"
 if [[ "\${RELEASE_FAIL_GATE:-}" == "$*" ]]; then
   exit 23
 fi
 case "$*" in
   'lint' | 'data:aos4:verify:beta' | 'build' | 'test --run' | 'release:inspect-artifact') sleep 1 ;;
 esac
-printf 'end:%s\\n' "$*" >> "$RELEASE_GATE_LOG"
+log_gate "end:$*"
 `,
       'utf8'
     )
@@ -112,7 +124,7 @@ printf 'end:%s\\n' "$*" >> "$RELEASE_GATE_LOG"
 
     const fakeBinPath = bashPath(fakeBin)
     const result = spawnSync(
-      'bash',
+      bashCommand(),
       [
         '-c',
         `chmod +x ${shellQuote(`${fakeBinPath}/yarn`)}; ` +
@@ -138,7 +150,7 @@ printf 'end:%s\\n' "$*" >> "$RELEASE_GATE_LOG"
 
     writeFileSync(logPath, '', 'utf8')
     const failure = spawnSync(
-      'bash',
+      bashCommand(),
       [
         '-c',
         `chmod +x ${shellQuote(`${fakeBinPath}/yarn`)}; ` +
@@ -154,7 +166,9 @@ printf 'end:%s\\n' "$*" >> "$RELEASE_GATE_LOG"
     expect(failureLog).toContain('start:data:aos4:verify:beta')
     expect(failureLog).not.toContain('start:test --run')
     expect(failureLog).not.toContain('start:release:inspect-artifact')
-  })
+    // Two runs of the real script, each with a one-second sleep per phase, plus the cost of spawning
+    // bash twice -- under WSL that spawn is slow enough on its own to crowd out the default 5s.
+  }, 30_000)
 
   it('runs release preparation before publication from every production entry point', () => {
     const entryPoints = [

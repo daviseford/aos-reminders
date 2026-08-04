@@ -2,17 +2,9 @@ import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, wr
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
+import { bashCommand, bashPath } from '../src/tests/support/bashHarness'
 
 const repoRoot = process.cwd()
-
-const bashPath = (path: string) => {
-  if (process.platform !== 'win32') return path
-
-  const match = path.match(/^([A-Za-z]):\\(.*)$/)
-  if (!match) throw new Error(`Cannot convert ${path} to a WSL path`)
-
-  return `/mnt/${match[1].toLowerCase()}/${match[2].replaceAll('\\', '/')}`
-}
 
 const shellQuote = (value: string) => `'${value.replaceAll("'", `'"'"'`)}'`
 const optionValue = (line: string, option: string) => {
@@ -270,7 +262,7 @@ exit 65
   const fakeBinPath = bashPath(fakeBin)
   const run = () =>
     spawnSync(
-      'bash',
+      bashCommand(),
       [
         '-c',
         `chmod +x ${shellQuote(`${fakeBinPath}/aws`)}; ` +
