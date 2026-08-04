@@ -372,6 +372,18 @@ it replaced as removed — a full lane of material events with nothing to intake
 `src/tests/aos4/rulesRadarCompare.test.ts` fails when either pointer is not the newest reviewed
 file of its kind.
 
+A BSData review starts by locating the corpus's own pins inside the signalled range, because the
+radar baseline and the accepted pins move independently: the accepted artifacts are pinned per file
+at their own commits, so most of a signalled range is usually content a prior intake already
+reviewed. Compare each pinned file's blob at its pin against the same path at the observed head —
+identical blobs mean no accepted byte moved and the review reduces to the remainder. The
+2026-08-04 review (`0d3eb56f` → `f6363c26`, issue #1757) is the worked example: all three pinned
+Ogor catalogues were byte-identical at head, the cross-faction points changes matched official
+facts the corpus already applied from the July 2026 Battle Profiles, and most remaining lines were
+apostrophe re-escaping. Community corrections to factions the corpus does not source from BSData
+are never adopted from the signal; they can only prompt a normal candidate against Wahapedia or an
+official document.
+
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
 or updates the beta certification pointer.
