@@ -303,7 +303,9 @@ the same `PrintDocument` that ships today.
 ### Using it
 
 The toolbar's **Download PDF** button opens a modal with layout (Standard/Compact), page size
-(A4/Letter), and a file name.
+(A4/Letter), a file name, and an "Include army summary" checkbox. Unchecking it drops the trailing
+warscroll-and-points summary: `createAos4PrintDocument` accepts `{ includeSummary: false }` and
+simply leaves `PrintDocument.summary` unset (#1602).
 
 Plain browser printing (`Ctrl+P`) still works against the live app DOM, using the pre-existing
 `@media print` rules and `d-print-none` classes in `css/index.scss`. It is not a designed print
