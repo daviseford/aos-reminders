@@ -78,7 +78,9 @@ describe('PDF download modal', () => {
       await Promise.resolve()
     })
 
-    expect(onDownloadPdf).toHaveBeenCalledWith('compact', 'a4', 'Stormcast_Reminders')
+    expect(onDownloadPdf).toHaveBeenCalledWith('compact', 'a4', 'Stormcast_Reminders', {
+      includeSummary: true,
+    })
     expect(findButton(container, 'Download PDF').disabled).toBe(true)
     expect(closeModal).not.toHaveBeenCalled()
 
@@ -88,6 +90,38 @@ describe('PDF download modal', () => {
     })
 
     expect(closeModal).toHaveBeenCalledTimes(1)
+  })
+
+  it('passes includeSummary false when the army summary checkbox is unchecked', async () => {
+    const onDownloadPdf = vi.fn().mockResolvedValue(undefined)
+    act(() => {
+      render(
+        <PrintModal
+          closeModal={vi.fn()}
+          defaultFileName="Stormcast_Reminders"
+          isOpen
+          onDownloadPdf={onDownloadPdf}
+        />,
+        container
+      )
+    })
+
+    const checkbox = container.querySelector<HTMLInputElement>('#printIncludeSummary')
+    expect(checkbox?.checked).toBe(true)
+
+    act(() => {
+      checkbox?.click()
+    })
+    expect(checkbox?.checked).toBe(false)
+
+    await act(async () => {
+      findButton(container, 'Download PDF').click()
+      await Promise.resolve()
+    })
+
+    expect(onDownloadPdf).toHaveBeenCalledWith('compact', 'a4', 'Stormcast_Reminders', {
+      includeSummary: false,
+    })
   })
 
   it('keeps the modal open and explains a failed PDF chunk load', async () => {

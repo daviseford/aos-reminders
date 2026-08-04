@@ -270,7 +270,9 @@ const buildBlocks = (document: PrintDocument, context: DraftContext): FlowBlock[
 
   blocks.push({
     id: 'footer',
-    lines: document.footer.flatMap(line => draftLines(context, 'footer', line, { blockId: 'footer' })),
+    lines: document.footer.flatMap(line =>
+      draftLines(context, 'footer', line, { blockId: 'footer', spansColumns: true })
+    ),
   })
 
   return blocks
@@ -324,6 +326,8 @@ export const planPrintLayout = (
    */
   const runFlow = (shortenedPage?: { page: number; bottomIn: number }) => {
     const lines: PlacedLine[] = []
+    // Deepest cursor reached per page/column, so page-spanning blocks can clear every column.
+    const columnBottomsIn = new Map<string, number>()
     let pageIndex = 0
     let columnIndex = 0
     let cursorY = page.marginTopIn
@@ -366,6 +370,7 @@ export const planPrintLayout = (
         ...(draft.paragraphIndex === undefined ? {} : { paragraphIndex: draft.paragraphIndex }),
       })
       cursorY += draft.spaceAfterIn
+      columnBottomsIn.set(`${pageIndex}/${columnIndex}`, cursorY)
     }
 
     bannerDrafts.forEach(emit)
@@ -391,6 +396,30 @@ export const planPrintLayout = (
 
     blocks.forEach((block, index) => {
       const blockHeightIn = heightOf(block.lines)
+
+      // A page-spanning block (the footer) is centred across the full text width, so it must sit
+      // below every column on the page, not just the column the flow happens to end in. If it
+      // cannot fit below the deepest column, it starts a fresh page rather than overlapping. The
+      // check uses the real page bottom even on a balancing-shortened last page: the shortened
+      // bottom is a content-balancing artifact, and the footer legitimately sits below it.
+      if (block.lines.some(line => line.spansColumns)) {
+        const deepestYIn = Math.max(
+          cursorY,
+          ...columnOriginsIn.map(
+            (_, column) => columnBottomsIn.get(`${pageIndex}/${column}`) ?? columnTopIn(pageIndex)
+          )
+        )
+        if (deepestYIn + blockHeightIn > pageBottomIn) {
+          pageIndex += 1
+          columnIndex = 0
+          cursorY = columnTopIn(pageIndex)
+        } else {
+          cursorY = deepestYIn
+        }
+        block.lines.forEach(emit)
+        return
+      }
+
       const next = blocks[index + 1]
       const keepWithNextIn = block.keepWithNext && next ? advanceOf(next.lines[0]) : 0
       const continuationHeadingIn =

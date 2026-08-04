@@ -1,3 +1,4 @@
+import type { PrintDocumentOptions } from '../../aos4/print/document'
 import { PRINT_PRESETS, type PrintPageSize } from '../../aos4/print/presets'
 import type { PrintPreset } from '../../aos4/print/types'
 import GenericModal from 'components/modals/generic/generic_modal'
@@ -9,7 +10,12 @@ interface PrintModalProps {
   closeModal: () => void
   defaultFileName: string
   isOpen: boolean
-  onDownloadPdf: (presetId: PrintPreset['id'], pageSize: PrintPageSize, fileName: string) => Promise<void>
+  onDownloadPdf: (
+    presetId: PrintPreset['id'],
+    pageSize: PrintPageSize,
+    fileName: string,
+    options: PrintDocumentOptions
+  ) => Promise<void>
 }
 
 const PAGE_SIZES: { id: PrintPageSize; label: string }[] = [
@@ -68,6 +74,7 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
   const [presetId, setPresetId] = useState<PrintPreset['id']>('compact')
   const [pageSize, setPageSize] = useState<PrintPageSize>('a4')
   const [fileName, setFileName] = useState(defaultFileName)
+  const [includeSummary, setIncludeSummary] = useState(true)
   const [downloadError, setDownloadError] = useState<string>()
   const [isDownloadingPdf, setIsDownloadingPdf] = useState(false)
 
@@ -81,7 +88,7 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
     setDownloadError(undefined)
     setIsDownloadingPdf(true)
     try {
-      await onDownloadPdf(presetId, pageSize, fileName.trim() || defaultFileName)
+      await onDownloadPdf(presetId, pageSize, fileName.trim() || defaultFileName, { includeSummary })
       setIsDownloadingPdf(false)
       closeModal()
     } catch {
@@ -140,6 +147,26 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
             placeholder="Enter file name"
             value={fileName}
           />
+        </div>
+      </div>
+
+      <div className={`row mx-3 mt-3 ${theme.text}`}>
+        <div className="col">
+          <div className="form-check">
+            <input
+              checked={includeSummary}
+              className="form-check-input"
+              id="printIncludeSummary"
+              onChange={event => setIncludeSummary(event.target.checked)}
+              type="checkbox"
+            />
+            <label className="form-check-label" htmlFor="printIncludeSummary">
+              <strong>Include army summary</strong>
+            </label>
+            <p className="small mb-0">
+              A list of the army&apos;s warscrolls and points at the end of the PDF.
+            </p>
+          </div>
         </div>
       </div>
 

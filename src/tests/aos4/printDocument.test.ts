@@ -104,6 +104,20 @@ describe('createAos4PrintDocument', () => {
     expect(document.summary?.heading).toBe('Hammers of Sigmar - 260 pts')
   })
 
+  it('omits the army summary when includeSummary is false', () => {
+    const document = createAos4PrintDocument(
+      [reminder({ id: 'a' })],
+      {
+        armyName: 'Hammers of Sigmar',
+        factionName: 'Stormcast Eternals',
+        warscrolls: [{ name: 'Liberators', profile: { points: 110, unitSize: 5 } }],
+      },
+      { includeSummary: false }
+    )
+
+    expect(document.summary).toBeUndefined()
+  })
+
   it('omits the subtitle when the army name is just the faction name', () => {
     const document = createAos4PrintDocument([reminder({ id: 'a' })], {
       armyName: 'Stormcast Eternals',

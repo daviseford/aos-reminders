@@ -207,6 +207,27 @@ describe.each(presets)('planPrintLayout (%s preset)', (_label, preset) => {
       })
     })
   })
+
+  it('centres the footer across the full text width, below every column on its page', () => {
+    const { page } = preset
+    const footerLines = result.lines.filter(line => line.blockId === 'footer')
+    expect(footerLines.length).toBeGreaterThan(0)
+
+    const centreIn = page.marginLeftIn + (page.widthIn - page.marginLeftIn - page.marginRightIn) / 2
+    footerLines.forEach(line => {
+      expect(line.spansColumns).toBe(true)
+      expect(line.align).toBe('center')
+      expect(line.xIn).toBeCloseTo(centreIn, 5)
+    })
+
+    const footerPage = footerLines[0].page
+    const contentBottomsIn = result.lines
+      .filter(line => line.page === footerPage && !line.spansColumns)
+      .map(line => line.yIn)
+    if (contentBottomsIn.length) {
+      expect(Math.min(...footerLines.map(line => line.yIn))).toBeGreaterThan(Math.max(...contentBottomsIn))
+    }
+  })
 })
 
 describe('planPrintLayout edge cases', () => {

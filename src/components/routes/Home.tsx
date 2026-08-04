@@ -1,5 +1,6 @@
 import { armyFactions, type CanonicalId } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID } from '../../aos4/generated'
+import type { PrintDocumentOptions } from '../../aos4/print/document'
 import type { PrintPageSize } from '../../aos4/print/presets'
 import type { PrintPreset } from '../../aos4/print/types'
 import {
@@ -118,7 +119,8 @@ const HomeContent = () => {
   const handleDownloadPdf = async (
     presetId: PrintPreset['id'],
     pageSize: PrintPageSize,
-    fileName: string
+    fileName: string,
+    options: PrintDocumentOptions
   ) => {
     const {
       COMPACT_PRESET,
@@ -129,11 +131,15 @@ const HomeContent = () => {
       renderPrintPlanToPdf,
       withPageSize,
     } = await import('../../aos4/print')
-    const printDocument = createAos4PrintDocument(reminders, {
-      armyName: document.name,
-      factionName,
-      warscrolls: builder.warscrolls,
-    })
+    const printDocument = createAos4PrintDocument(
+      reminders,
+      {
+        armyName: document.name,
+        factionName,
+        warscrolls: builder.warscrolls,
+      },
+      options
+    )
     const selectedPreset = presetId === 'compact' ? COMPACT_PRESET : STANDARD_PRESET
     const preset = withPageSize(selectedPreset, pageSize)
     const plan = planPrintLayout(printDocument, preset, createJsPdfMeasurer())

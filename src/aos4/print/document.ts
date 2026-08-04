@@ -33,6 +33,11 @@ export interface PrintArmyInput {
   warscrolls?: PrintWarscrollInput[]
 }
 
+export interface PrintDocumentOptions {
+  /** Defaults to true. Set false to omit the trailing warscroll summary from the print document. */
+  includeSummary?: boolean
+}
+
 /** Wrapping reproduces text by joining on single spaces, so collapse runs of whitespace up front. */
 const normalize = (value: string): string => value.replace(/\s+/g, ' ').trim()
 
@@ -87,7 +92,8 @@ const buildSummary = (army: PrintArmyInput) => {
  */
 export const createAos4PrintDocument = (
   reminders: PrintReminderInput[],
-  army: PrintArmyInput
+  army: PrintArmyInput,
+  options: PrintDocumentOptions = {}
 ): PrintDocument => {
   const sections = reminders
     .filter(reminder => !reminder.hidden)
@@ -103,7 +109,7 @@ export const createAos4PrintDocument = (
       ]
     }, [])
 
-  const summary = buildSummary(army)
+  const summary = options.includeSummary === false ? undefined : buildSummary(army)
 
   // An unnamed army falls back to the faction name, so don't print it twice.
   const showSubtitle = !!army.factionName && army.factionName.trim() !== army.armyName.trim()
