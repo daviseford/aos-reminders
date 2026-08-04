@@ -2,10 +2,10 @@ import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { UpdateAvailable } from 'components/info/updateAvailable'
 
 const WelcomeBanner = () => (
-  <NotificationBanner enableLog name="2026-aos4-welcome-back" variant="info">
+  <NotificationBanner enableLog name="2026-aos4-welcome-back-lists" variant="info">
     <span>
-      <strong>Welcome back!</strong> AoS Reminders is being updated to the latest and greatest. Please excuse
-      any bugs as we get the kinks sorted out.
+      <strong>Welcome back!</strong> AoS Reminders is being updated to the latest and greatest. We now support
+      importing Sigdex, Storm Forge, Listbot, and New Recruit lists!
     </span>
   </NotificationBanner>
 )
