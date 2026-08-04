@@ -108,6 +108,7 @@ const compactRoles: Record<PrintTextRole, PrintRoleStyle> = {
  * behind them; standing alone on white at 0.005in they would all but disappear.
  */
 const TAG_TONES: Record<PrintTagTone, PrintTagStyle> = {
+  cost: { text: [53, 92, 100], border: [53, 92, 100] },
   'kind-active': { text: [12, 74, 96], border: [12, 74, 96] },
   'kind-reaction': { text: [121, 73, 13], border: [121, 73, 13] },
   'kind-passive': { text: [70, 88, 95], border: [70, 88, 95] },

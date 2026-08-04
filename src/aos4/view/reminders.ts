@@ -67,6 +67,7 @@ const timingDetails = (timing: AbilityTiming): string[] => [
  * web theme and the PDF can disagree about the exact colour while agreeing about the meaning.
  */
 export type Aos4ReminderTagTone =
+  | 'cost'
   | 'kind-active'
   | 'kind-reaction'
   | 'kind-passive'
@@ -130,6 +131,16 @@ const perspectiveTone = (perspective: TimingPerspective): Aos4ReminderTagTone =>
       return 'turn-enemy'
     default:
       return 'turn-neutral'
+  }
+}
+
+const costTag = (reminder: ProjectedReminder): Aos4ReminderTag | undefined => {
+  const cost = reminder.cost
+  if (cost?.kind !== 'command-points') return undefined
+  return {
+    label: `${cost.value} CP`,
+    tone: 'cost',
+    description: `Costs ${cost.value} command point${cost.value === 1 ? '' : 's'} to use.`,
   }
 }
 
@@ -398,15 +409,17 @@ const withPreferences = (
   const attribution = provenance ? [provenance] : grantedBy
   const keyworded = keywordTags(reminder, ruleNameByMatchKey)
   const rulesModule = rulesModuleName(reminder, entityById)
+  const cost = costTag(reminder)
   return {
     id: reminder.id,
     name: reminder.name,
     windowKey: gameWindowKey(reminder.timing.window),
     windowLabel: label,
     typeLabel: details.join(' · '),
-    tags: [...attribution, ...keyworded, ...timingTags(reminder.timing)],
+    tags: [...(cost ? [cost] : []), ...attribution, ...keyworded, ...timingTags(reminder.timing)],
     accessibleLabel: [
       reminder.name,
+      ...(cost ? [cost.description] : []),
       ...attribution.map(tag => `From ${tag.label}`),
       ...keyworded.map(tag => `${tag.label} ability`),
       label,

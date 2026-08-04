@@ -121,6 +121,7 @@ describe('print tags', () => {
 
   it('resolves a tone for every tag in both presets', () => {
     const tones: PrintTag['tone'][] = [
+      'cost',
       'kind-active',
       'kind-reaction',
       'kind-passive',

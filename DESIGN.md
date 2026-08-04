@@ -480,9 +480,10 @@ The reminder timing tags — the one genuinely bespoke component in the system.
 
 - **Style:** uppercase 0.7rem/700 at `0.03em` tracking, `0.1rem 0.4rem` padding, 3px radius, 1px
   border, `cursor: help`.
-- **Tones:** semantic tones — active, reaction, passive, your-turn, enemy-turn, neutral, usage,
-  priority, source, and provenance — each defined *per theme* via the `tag-tones` mixin, never by
-  the tone class alone. Usage tags are dashed to separate a constraint from a classification.
+- **Tones:** semantic tones — cost, active, reaction, passive, your-turn, enemy-turn, neutral,
+  usage, priority, source, and provenance — each defined *per theme* via the `tag-tones` mixin,
+  never by the tone class alone. Cost is a quiet outline naming a resource spent to use the rule;
+  usage tags are dashed to separate a constraint from a classification.
   Source (filled purple) names something the player picked; provenance is its quieter outline-only
   cousin naming a game-wide origin — the core rules, the season, the battletome's battle traits.
 - **State:** each tag is a real `<button>` that toggles an inline expansion, because touch devices

@@ -360,8 +360,11 @@ small {
     }
 }
 
-@mixin tag-tones($active, $reaction, $passive, $your, $enemy, $neutral, $usage, $source, $provenance, $keyword) {
+@mixin tag-tones($cost, $active, $reaction, $passive, $your, $enemy, $neutral, $usage, $source, $provenance, $keyword) {
     .ReminderTag {
+        &--cost {
+            @include tag-tone($cost...);
+        }
         &--kind-active {
             @include tag-tone($active...);
         }
@@ -412,6 +415,7 @@ small {
 
 .ReminderTags-Light {
     @include tag-tones(
+        (transparent, #355c64, #9db8be),
         (#e0eff5, #0c4a60, #b4d7e4),
         (#f8ecd9, #79490d, #e6cda4),
         (#e9eef1, #46585f, #d0dade),
@@ -427,6 +431,7 @@ small {
 
 .ReminderTags-Dark {
     @include tag-tones(
+        (transparent, #a4cbd2, rgba(164, 203, 210, 0.48)),
         (rgba(28, 117, 149, 0.34), #86d3ea, rgba(28, 117, 149, 0.62)),
         (rgba(198, 144, 58, 0.26), #f2c982, rgba(198, 144, 58, 0.5)),
         (rgba(255, 255, 255, 0.1), #bccad2, rgba(255, 255, 255, 0.2)),

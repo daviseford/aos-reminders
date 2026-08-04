@@ -70,13 +70,18 @@ const RuleText = ({ label, text, muted = false }: { label?: string; text: string
  * mouse hover, `aria-label` covers assistive tech, and tapping toggles the expansion inline because
  * a touch device never fires hover.
  */
-const ReminderTags = ({ tags }: { tags: Aos4ReminderViewModel['tags'] }) => {
+export const ReminderTags = ({ tags }: { tags: Aos4ReminderViewModel['tags'] }) => {
   const { theme } = useTheme()
   const [explained, setExplained] = useState<string | null>(null)
 
   if (!tags.length) return null
 
   const handleToggle = (key: string) => setExplained(current => (current === key ? null : key))
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, key: string) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    event.preventDefault()
+    handleToggle(key)
+  }
 
   // The explainer is a sibling of the tag row, not a child: nesting it inside the row widens the
   // flex container and drags the right-aligned tags out of alignment when it opens.
@@ -93,6 +98,7 @@ const ReminderTags = ({ tags }: { tags: Aos4ReminderViewModel['tags'] }) => {
               title={tag.description}
               aria-label={`${tag.label}. ${tag.description}`}
               aria-expanded={explained === key}
+              onKeyDown={event => handleKeyDown(event, key)}
               onClick={() => handleToggle(key)}
             >
               {tag.label}

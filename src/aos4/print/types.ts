@@ -27,6 +27,7 @@ export interface PrintParagraph {
 
 /** Names the facet, not a colour. `PrintPreset.tagTones` maps it to ink. */
 export type PrintTagTone =
+  | 'cost'
   | 'kind-active'
   | 'kind-reaction'
   | 'kind-passive'
