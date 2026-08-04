@@ -6,6 +6,7 @@ import {
   validateCatalog,
   type Ability,
   type Aos4Catalog,
+  type CanonicalId,
   type Faction,
   type Warscroll,
 } from '../../aos4/domain'
@@ -189,7 +190,9 @@ describe('AoS 4 catalog generation integrity', () => {
       entity => entity.kind === 'faction' && entity.name === 'Endless Spells'
     )
     expect(container).toBeDefined()
-    const warscrollIds = new Set(
+    // Wide element type: TS 5.5+ infers a type predicate for the filter, which would narrow the
+    // Set to CanonicalId<'warscroll'> and reject the relationship's union-typed endpoint.
+    const warscrollIds = new Set<CanonicalId>(
       AOS4_CATALOG.entities.filter(entity => entity.kind === 'warscroll').map(entity => entity.id)
     )
     expect(

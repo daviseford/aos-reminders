@@ -216,7 +216,8 @@ const main = (): void => {
   }
 
   const costLimit = ((roster.costLimits ?? []) as Array<Record<string, unknown>>)[0]
-  const rulesContext = String(primaryForce.name ?? '').replace(/^[^\p{L}\p{N}]+\s*/u, '')
+  // RegExp constructor form: the es5 `target` rejects the `u` flag in literals (TS1501).
+  const rulesContext = String(primaryForce.name ?? '').replace(new RegExp('^[^\\p{L}\\p{N}]+\\s*', 'u'), '')
 
   const meta = {
     id: options.id,
