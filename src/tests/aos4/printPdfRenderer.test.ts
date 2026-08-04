@@ -64,7 +64,7 @@ describe('renderPrintPlanToPdf', () => {
     const plan = planPrintLayout(document(), COMPACT_PRESET, createJsPdfMeasurer())
     const doc = renderPrintPlanToPdf(plan, { title: 'Renderer Army' })
 
-    expect(doc.internal.getNumberOfPages()).toBe(plan.pageCount)
+    expect(doc.getNumberOfPages()).toBe(plan.pageCount)
   })
 
   it('sets the document title', () => {

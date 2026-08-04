@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import pdfjsLib from 'pdfjs-dist'
+import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs'
 import { artifactId, sourceRecordId, type RulesContextId, type SourceRecord } from '../../domain'
 import type {
   GamesWorkshopDiagnostic,
@@ -49,27 +49,27 @@ interface PdfJsPage {
 interface PdfJsDocument {
   numPages: number
   getPage(page: number): Promise<PdfJsPage>
-  destroy(): Promise<void>
 }
 
 interface PdfJsLoadingTask {
   promise: Promise<PdfJsDocument>
+  destroy(): Promise<void>
 }
 
 export const createPdfJsDocumentLoader = (): PdfDocumentLoader => ({
   async load(bytes) {
-    const library = pdfjsLib as unknown as {
-      getDocument(options: {
-        data: Uint8Array
-        disableWorker: boolean
-        isEvalSupported: boolean
-      }): PdfJsLoadingTask
-    }
-    const document = await library.getDocument({
-      data: bytes,
-      disableWorker: true,
+    // pdfjs-dist 6 runs the worker inline in Node (fake worker); `disableWorker` no longer exists,
+    // and `destroy()` moved from the document to the loading task. It also rejects Node Buffers
+    // outright, and the artifact cache hands out `readFile` Buffers, so copy into a plain
+    // Uint8Array here — the copy also keeps pdf.js from ever touching cached bytes.
+    const loadingTask = (getDocument as unknown as (options: {
+      data: Uint8Array
+      isEvalSupported: boolean
+    }) => PdfJsLoadingTask)({
+      data: new Uint8Array(bytes),
       isEvalSupported: false,
-    }).promise
+    })
+    const document = await loadingTask.promise
 
     return {
       numPages: document.numPages,
@@ -99,7 +99,7 @@ export const createPdfJsDocumentLoader = (): PdfDocumentLoader => ({
           },
         }
       },
-      destroy: () => document.destroy(),
+      destroy: () => loadingTask.destroy(),
     }
   },
 })

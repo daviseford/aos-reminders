@@ -632,8 +632,10 @@ const extractRegimentFacts = (
 ): GamesWorkshopRegimentOfRenownFact[] => {
   const rows = regimentRows(items)
   return rows.flatMap((row, rowIndex) => {
+    // The grand-alliance band header (e.g. CHAOS on page 61) attaches to the top row's name;
+    // tolerate both the letterspaced `CH AOS` and the faithful `CHAOS` extraction.
     const name = cleanName(textValue(nearestRowItems(items, rows, rowIndex, 30, 120))).replace(
-      /^CH\s+AOS\s+/i,
+      /^CH\s*AOS\s+/i,
       ''
     )
     if (!name) return []

@@ -11,26 +11,49 @@ import {
   shouldDisableServiceWorkerRegistration,
   type RegisterSWOptions,
 } from '../bootstrap/registerServiceWorker'
-import { SERVICE_WORKER_ROLLBACK_DISABLED_STORAGE_KEY } from '../bootstrap/serviceWorkerProtocol'
+import {
+  SERVICE_WORKER_ACTIVATION_MESSAGE,
+  SERVICE_WORKER_ROLLBACK_DISABLED_STORAGE_KEY,
+} from '../bootstrap/serviceWorkerProtocol'
 
 interface RegistrationHarness {
+  applyWaitingUpdate: () => void
   callbacks: RegisterSWOptions
+  controllerChanged: () => void
   reload: ReturnType<typeof vi.fn>
   registration: ServiceWorkerRegistration
   runPoll: () => Promise<void>
+  waitingWorker: { postMessage: ReturnType<typeof vi.fn> }
 }
 
-const createHarness = (registrationState: 'missing' | 'installing' | 'settled') => {
+interface SharedAcceptance {
+  accepted: boolean
+}
+
+const createHarness = (
+  registrationState: 'missing' | 'installing' | 'waiting' | 'settled',
+  acceptance: SharedAcceptance = { accepted: false }
+) => {
   let callbacks: RegisterSWOptions | undefined
+  let controllerChanged = () => {}
   let poll: (() => Promise<void>) | undefined
   const reload = vi.fn()
   const updateServiceWorker = vi.fn(async () => undefined)
+  const waitingWorker = { postMessage: vi.fn() }
   const registration = {
     installing: registrationState === 'installing' ? {} : null,
+    waiting: registrationState === 'waiting' ? waitingWorker : null,
     update: vi.fn(async () => undefined),
   } as unknown as ServiceWorkerRegistration
 
-  createServiceWorkerRegistrationController({
+  const applyWaitingUpdate = createServiceWorkerRegistrationController({
+    announceNewContent: vi.fn(),
+    listenForControllerChange: callback => {
+      controllerChanged = callback
+    },
+    markUpdateAccepted: () => {
+      acceptance.accepted = true
+    },
     register: options => {
       callbacks = options
       return updateServiceWorker
@@ -40,7 +63,8 @@ const createHarness = (registrationState: 'missing' | 'installing' | 'settled') 
       poll = callback
       return 1
     },
-  })
+    wasUpdateAccepted: () => acceptance.accepted,
+  }).applyWaitingUpdate
 
   callbacks!.onRegisteredSW?.(
     '/service-worker.js',
@@ -48,34 +72,84 @@ const createHarness = (registrationState: 'missing' | 'installing' | 'settled') 
   )
 
   return {
+    applyWaitingUpdate,
     callbacks: callbacks!,
+    controllerChanged,
     reload,
     registration,
     runPoll: async () => {
       await poll?.()
     },
+    waitingWorker,
   } satisfies RegistrationHarness
 }
 
 describe('service-worker registration controller', () => {
-  it('reloads every controlled tab when the plugin reports the update activated', () => {
-    const firstTab = createHarness('settled')
-    const secondTab = createHarness('settled')
+  it('does not reload either tab before a waiting update is explicitly accepted', () => {
+    const firstTab = createHarness('waiting')
+    const secondTab = createHarness('waiting')
 
-    firstTab.callbacks.onNeedReload?.()
-    secondTab.callbacks.onNeedReload?.()
+    firstTab.callbacks.onNeedRefresh?.()
+    secondTab.callbacks.onNeedRefresh?.()
+
+    expect(firstTab.reload).not.toHaveBeenCalled()
+    expect(secondTab.reload).not.toHaveBeenCalled()
+  })
+
+  it('reloads every controlled tab after one tab accepts and the worker takes control', () => {
+    const acceptance = { accepted: false }
+    const firstTab = createHarness('waiting', acceptance)
+    const secondTab = createHarness('waiting', acceptance)
+
+    firstTab.applyWaitingUpdate()
+    expect(firstTab.waitingWorker.postMessage).toHaveBeenCalledWith({
+      type: SERVICE_WORKER_ACTIVATION_MESSAGE,
+    })
+
+    firstTab.controllerChanged()
+    secondTab.controllerChanged()
 
     expect(firstTab.reload).toHaveBeenCalledTimes(1)
     expect(secondTab.reload).toHaveBeenCalledTimes(1)
   })
 
-  it('reloads at most once per tab no matter how often the event fires', () => {
+  it('reloads a tab opened after acceptance when the accepted worker takes control', () => {
+    const acceptance = { accepted: false }
+    const acceptingTab = createHarness('waiting', acceptance)
+    acceptingTab.applyWaitingUpdate()
+
+    const lateTab = createHarness('settled', acceptance)
+    lateTab.controllerChanged()
+
+    expect(lateTab.reload).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not reload for an unrelated controller change without update acceptance', () => {
     const tab = createHarness('settled')
 
+    tab.controllerChanged()
+
+    expect(tab.reload).not.toHaveBeenCalled()
+  })
+
+  it('reloads at most once when plugin and native controller events both fire', () => {
+    const acceptance = { accepted: false }
+    const tab = createHarness('waiting', acceptance)
+    tab.applyWaitingUpdate()
+
     tab.callbacks.onNeedReload?.()
-    tab.callbacks.onNeedReload?.()
+    tab.controllerChanged()
 
     expect(tab.reload).toHaveBeenCalledTimes(1)
+  })
+
+  it('reloads a stale second-tab banner immediately once no worker is waiting', () => {
+    const secondTab = createHarness('settled')
+
+    secondTab.applyWaitingUpdate()
+
+    expect(secondTab.reload).toHaveBeenCalledTimes(1)
+    expect(secondTab.waitingWorker.postMessage).not.toHaveBeenCalled()
   })
 
   it('does not create a polling interval without a registration', async () => {

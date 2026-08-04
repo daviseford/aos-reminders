@@ -195,8 +195,16 @@ familiar interface while working through:
 
 Keep framework migration separate from rules/data corrections where practical.
 
-The jsPDF upgrade (`1.5.3`, using APIs removed in 2.x) is outstanding Phase 2 work. It is now
-confined to `src/aos4/print/pdf.ts` and `src/aos4/print/measure.ts`.
+The jsPDF/pdfjs upgrade (#1900) moved the codebase to `jspdf` 4.2.1 for the print/PDF export
+(confined to `src/aos4/print/pdf.ts` and `src/aos4/print/measure.ts`) and `pdfjs-dist` 6.x for the
+Node-side official-PDF text extraction in `src/aos4/data/gamesWorkshop/pdfText.ts` (legacy ESM
+build; `destroy()` now lives on the loading task, and pdf.js 6 rejects Node Buffers, so cached
+artifact bytes are copied into a plain `Uint8Array` first). pdf.js 6 extracts letterspaced display
+headings without the fake spaces 2.4 inserted, so official-evidence page checksums and two
+battle-profile ledger facts pinned to the old extraction no longer reproduce: the accepted snapshot
+needs a reviewed evidence refresh before `data:aos4:generate:candidate` passes again. That refresh
+is a corpus review decision, not part of the dependency bump; `data:aos4:verify:beta` is unaffected
+because it checks checked-in products rather than re-extracting.
 
 The companion API services (`aos-reminders-rest-api`, `aos-reminders-subscription-api`) run on
 `nodejs22.x`/Serverless v4/AWS SDK v3 with characterization tests and CI (plan
