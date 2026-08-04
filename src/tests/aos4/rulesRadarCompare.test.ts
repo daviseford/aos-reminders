@@ -1,3 +1,5 @@
+import { readdirSync } from 'node:fs'
+import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import type { ArtifactManifest } from '../../aos4/data'
 import {
@@ -336,7 +338,28 @@ describe('AoS 4 Rules Radar comparison', () => {
     config.acceptedManifestPath = 'data/aos4/manifests/missing.json'
     expect(() => validateRulesRadarConfig(config, { rootPath: process.cwd() })).toThrow(/stale or missing/)
   })
+
+  it('compares against the current accepted snapshot and reviewed classifications', () => {
+    // The config only proves its paths exist, so an intake that accepts a newer manifest without
+    // moving these pointers leaves the radar diffing a superseded baseline: every publication the
+    // intake accepted reports as a new one, and everything it replaced reports as removed.
+    const config = readRulesRadarConfig('data/aos4/radar/config.json', process.cwd())
+
+    expect(config.acceptedManifestPath).toBe(newestReviewedFile('data/aos4/manifests', 'accepted-'))
+    expect(config.sourceClassificationsPath).toBe(
+      newestReviewedFile('data/aos4/reviews', 'source-observation-classifications-')
+    )
+  })
 })
+
+const newestReviewedFile = (directory: string, prefix: string): string => {
+  const newest = readdirSync(path.resolve(process.cwd(), directory))
+    .filter(name => name.startsWith(prefix) && name.endsWith('.json'))
+    .sort()
+    .at(-1)
+  if (!newest) throw new Error(`No ${prefix}* file exists in ${directory}`)
+  return `${directory}/${newest}`
+}
 
 const lane = (
   source: RadarLane['source'],

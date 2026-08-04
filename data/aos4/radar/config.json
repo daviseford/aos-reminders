@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "acceptedManifestPath": "data/aos4/manifests/accepted-2026-07-27.json",
-  "sourceClassificationsPath": "data/aos4/reviews/source-observation-classifications-2026-07-28.json",
+  "acceptedManifestPath": "data/aos4/manifests/accepted-2026-08-02.json",
+  "sourceClassificationsPath": "data/aos4/reviews/source-observation-classifications-2026-07-29.json",
   "wahapedia": {
     "rootUrl": "https://wahapedia.ru/",
     "navigationUrl": "https://wahapedia.ru/aos4/the-rules/data-export/",
