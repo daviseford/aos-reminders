@@ -241,6 +241,31 @@ const secondaryPair = (
   }
 }
 
+const secondaryAbilityCostPair = (
+  sourceCost: { pointsType?: unknown; points?: unknown },
+  generatedCost?: unknown
+): ReviewPacketPair =>
+  secondaryPair(
+    'warscroll-ability',
+    {
+      name: 'COSTED ABILITY',
+      conditionHtml: 'Your Hero Phase',
+      descriptionHtml: '<b>Effect:</b> Resolve this ability.',
+      keywordsHtml: '',
+      isReaction: false,
+      ...sourceCost,
+    },
+    {
+      kind: 'ability',
+      name: 'COSTED ABILITY',
+      abilityKind: 'active',
+      keywords: [],
+      text: { effect: 'Resolve this ability.' },
+      timings: [{ kind: 'active', raw: 'Your Hero Phase' }],
+      ...(generatedCost === undefined ? {} : { cost: generatedCost }),
+    }
+  )
+
 describe('AoS 4 deterministic adversarial reviewer', () => {
   it('passes an exact official fact application', () => {
     expect(assessAdversarialComparison(pair())).toMatchObject({
@@ -399,6 +424,96 @@ describe('AoS 4 deterministic adversarial reviewer', () => {
     expect(assessAdversarialComparison(reviewPair)).toMatchObject({
       outcome: 'pass',
       findings: [],
+    })
+  })
+
+  describe('secondary ability cost fidelity', () => {
+    it.each([
+      ['Command Points', '1', { kind: 'command-points', value: 1 }],
+      ['Spell Casting Value', '7', { kind: 'spell', value: 7 }],
+      ['Prayer', '4', { kind: 'prayer', value: 4 }],
+    ])('accepts %s %s cost evidence that matches the generated cost', (pointsType, points, cost) => {
+      expect(
+        assessAdversarialComparison(secondaryAbilityCostPair({ pointsType, points }, cost))
+      ).toMatchObject({
+        outcome: 'pass',
+        findings: [],
+      })
+    })
+
+    it.each([
+      ['absent', {}],
+      ['blank', { pointsType: ' ', points: '\t' }],
+    ])('does not assert cost absence when source fields are %s', (_label, sourceCost) => {
+      expect(
+        assessAdversarialComparison(
+          secondaryAbilityCostPair(sourceCost, { kind: 'command-points', value: 1 })
+        )
+      ).toMatchObject({ outcome: 'pass', findings: [] })
+    })
+
+    it.each([
+      ['partial points', { pointsType: 'Command', points: '' }],
+      ['partial type', { pointsType: '', points: '1' }],
+      ['zero', { pointsType: 'Command', points: '0' }],
+      ['non-integer', { pointsType: 'Command', points: '1.5' }],
+      ['unrecognized type', { pointsType: 'Faction Resource', points: '1' }],
+    ])('rejects %s source cost evidence', (_label, sourceCost) => {
+      const assessment = assessAdversarialComparison(secondaryAbilityCostPair(sourceCost))
+
+      expect(assessment).toMatchObject({
+        outcome: 'finding',
+        findings: [
+          {
+            severity: 'major',
+            subject: {
+              field: 'secondary.source-ability-cost',
+              sourceRecordId: SECONDARY_SOURCE_ID,
+            },
+            expectedValue: sourceCost,
+          },
+        ],
+      })
+    })
+
+    it.each([
+      ['missing', undefined],
+      ['non-record', '1 CP'],
+    ])('rejects a %s generated cost for valid source evidence', (_label, cost) => {
+      const assessment = assessAdversarialComparison(
+        secondaryAbilityCostPair({ pointsType: 'Command', points: '1' }, cost)
+      )
+
+      expect(assessment).toMatchObject({
+        outcome: 'finding',
+        findings: [
+          {
+            subject: { field: 'secondary.source-ability-cost' },
+            expectedValue: { kind: 'command-points', value: 1 },
+            ...(cost === undefined ? {} : { actualValue: cost }),
+          },
+        ],
+      })
+    })
+
+    it.each([
+      ['kind mismatch', { kind: 'spell', value: 1 }],
+      ['value mismatch', { kind: 'command-points', value: 2 }],
+    ])('rejects a generated cost with a %s', (_label, cost) => {
+      const assessment = assessAdversarialComparison(
+        secondaryAbilityCostPair({ pointsType: 'Command', points: '1' }, cost)
+      )
+
+      expect(assessment).toMatchObject({
+        outcome: 'finding',
+        findings: [
+          {
+            subject: { field: 'secondary.source-ability-cost' },
+            expectedValue: { kind: 'command-points', value: 1 },
+            actualValue: cost,
+          },
+        ],
+      })
     })
   })
 

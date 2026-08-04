@@ -248,6 +248,47 @@ const reviewEquivalentTimingSource = (value: string): string =>
     .replace(/\bYour Hero Quest\b/gi, 'Your Hero Phase')
     .replace(/\bEnd of Ypur Turn\b/gi, 'End of Your Turn')
 
+const abilitySourceCostChecks = (source: Record<string, unknown>, generated: unknown): FailedCheck[] => {
+  const sourceValue = {
+    pointsType: String(source.pointsType ?? '').trim(),
+    points: String(source.points ?? '').trim(),
+  }
+  if (!sourceValue.pointsType && !sourceValue.points) return []
+
+  const normalizedPoints = sourceValue.points.replace(/\s+/g, '')
+  const parsedPoints = /^\d+$/.test(normalizedPoints) ? Number.parseInt(normalizedPoints, 10) : undefined
+  const normalizedType = sourceValue.pointsType.toLowerCase()
+  const kind = normalizedType.includes('spell')
+    ? 'spell'
+    : normalizedType.includes('prayer')
+      ? 'prayer'
+      : normalizedType.includes('command')
+        ? 'command-points'
+        : undefined
+  if (!kind || parsedPoints === undefined || !Number.isSafeInteger(parsedPoints) || parsedPoints <= 0) {
+    return [
+      failed(
+        'secondary.source-ability-cost',
+        'Source ability cost evidence is incomplete, invalid, or unrecognized',
+        sourceValue,
+        generated
+      ),
+    ]
+  }
+
+  const expected = { kind, value: parsedPoints }
+  return isRecord(generated) && same(expected, generated)
+    ? []
+    : [
+        failed(
+          'secondary.source-ability-cost',
+          'Generated ability cost does not match the source-only record',
+          expected,
+          generated
+        ),
+      ]
+}
+
 const abilitySourceFidelityChecks = (
   source: Record<string, unknown>,
   ability: Record<string, unknown> | undefined,
@@ -292,6 +333,7 @@ const abilitySourceFidelityChecks = (
   if (expectedKind && !overrides.timing) {
     checks.push(...unsupportedSourceValue('ability-kind', expectedKind, ability.abilityKind))
   }
+  checks.push(...abilitySourceCostChecks(source, ability.cost))
   return checks
 }
 
