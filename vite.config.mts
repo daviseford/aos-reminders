@@ -1,11 +1,13 @@
-import react from '@vitejs/plugin-react-swc'
+import react from '@vitejs/plugin-react'
 import { createHash } from 'node:crypto'
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { defineConfig, type Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { configDefaults } from 'vitest/config'
-import { SERVICE_WORKER_ACTIVATION_MESSAGE } from './src/bootstrap/serviceWorkerProtocol'
+// Extension included deliberately: `configLoader: 'native'` hands this file to Node, which does not
+// resolve extensionless specifiers. See the resolve aliases below for the other half of that move.
+import { SERVICE_WORKER_ACTIVATION_MESSAGE } from './src/bootstrap/serviceWorkerProtocol.ts'
 
 /*
  * The generated corpus is 11.6 MiB as a built chunk, against Workbox's 2 MiB precache ceiling — and
@@ -317,13 +319,13 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      components: path.resolve(__dirname, 'src/components'),
-      context: path.resolve(__dirname, 'src/context'),
-      css: path.resolve(__dirname, 'src/css'),
-      tests: path.resolve(__dirname, 'src/tests'),
-      theme: path.resolve(__dirname, 'src/theme'),
-      types: path.resolve(__dirname, 'src/types'),
-      utils: path.resolve(__dirname, 'src/utils'),
+      components: path.resolve(import.meta.dirname, 'src/components'),
+      context: path.resolve(import.meta.dirname, 'src/context'),
+      css: path.resolve(import.meta.dirname, 'src/css'),
+      tests: path.resolve(import.meta.dirname, 'src/tests'),
+      theme: path.resolve(import.meta.dirname, 'src/theme'),
+      types: path.resolve(import.meta.dirname, 'src/types'),
+      utils: path.resolve(import.meta.dirname, 'src/utils'),
       // Add more aliases as needed
     },
   },
