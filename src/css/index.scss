@@ -1,10 +1,10 @@
-@import "./theme.scss";
+@import './theme.scss';
 
 /* Make sure our document fills the page - important for dark theme! */
 html,
 body {
-    margin: 0;
-    height: 100%;
+  margin: 0;
+  height: 100%;
 }
 
 /*
@@ -15,31 +15,32 @@ body {
  * and lets the box grow with the content on long ones.
  */
 #root {
-    margin: 0;
-    min-height: 100%;
+  margin: 0;
+  min-height: 100%;
 }
 
 /* Elements */
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-        "Droid Sans", "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 small {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 /* Custom Classes */
 
 .LoadingContainer {
-    padding-top: 35vh;
+  padding-top: 35vh;
 }
 
 /*
@@ -51,10 +52,10 @@ small {
  * lets it grow from the top on a short one.
  */
 .RedemptionContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 70vh;
 }
 
 /*
@@ -63,17 +64,17 @@ small {
  * ragged orphan is the most visible thing on the page. Browsers without it wrap as they do today.
  */
 .RedemptionColumn {
-    max-width: 38rem;
+  max-width: 38rem;
 
-    h1,
-    p {
-        text-wrap: balance;
-    }
+  h1,
+  p {
+    text-wrap: balance;
+  }
 }
 
 /* A coupon code is seven-ish characters. A full-width field promises a paragraph. */
 .RedemptionCodeField {
-    max-width: 18rem;
+  max-width: 18rem;
 }
 
 /*
@@ -83,7 +84,7 @@ small {
  * literal, so the surrounding theme slot stays the single source of the text colour.
  */
 .RedemptionErrorDetail {
-    color: inherit;
+  color: inherit;
 }
 
 /*
@@ -92,8 +93,8 @@ small {
  * the h4 these replaced; the breakpoint overrides further down are unchanged.
  */
 .CardHeaderTitle {
-    margin-bottom: 0;
-    font-size: 1.5rem;
+  margin-bottom: 0;
+  font-size: 1.5rem;
 }
 
 /*
@@ -101,22 +102,22 @@ small {
  * padding the .card-header used to own, so the whole header stays clickable and looks identical.
  */
 .CardHeaderToggle {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0.5rem 1.25rem;
-    border: 0;
-    background-color: transparent;
-    color: inherit;
-    font: inherit;
-    text-align: inherit;
-    -webkit-appearance: none;
-    appearance: none;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem 1.25rem;
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .CardHeaderToggle-Mobile {
-    @extend .CardHeaderToggle;
-    padding: 1rem;
+  @extend .CardHeaderToggle;
+  padding: 1rem;
 }
 
 /*
@@ -128,17 +129,17 @@ small {
  * unconstrained by neighbours, so it takes the full 44px.
  */
 .ReminderMenuToggle {
-    position: relative;
+  position: relative;
 
-    &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 40px;
-        height: 44px;
-        transform: translate(-50%, -50%);
-    }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /*
@@ -149,21 +150,21 @@ small {
  * value, so the chip matches every other control on the page.
  */
 .SkipLink:focus {
-    position: absolute;
-    z-index: 1030;
-    top: 0;
-    left: 0;
-    margin: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid currentcolor;
-    border-radius: $border-radius;
-    text-decoration: none;
+  position: absolute;
+  z-index: 1030;
+  top: 0;
+  left: 0;
+  margin: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid currentcolor;
+  border-radius: $border-radius;
+  text-decoration: none;
 }
 
 /* Reboot sizes <legend> at 1.5rem; these group labels replaced 1rem <label>s. */
 .FieldsetLegend {
-    margin-bottom: 0.25rem;
-    font-size: 1rem;
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
 }
 
 /*
@@ -172,7 +173,7 @@ small {
  * the floor; position and colour already make it subordinate.
  */
 .DisclaimerText {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 /*
@@ -181,13 +182,13 @@ small {
  * draws around a card; on Midnight Slate that hairline is invisible, so dark supplies its own.
  */
 .FaqEntry + .FaqEntry {
-    margin-block-start: 1.25rem;
-    padding-block-start: 1.25rem;
-    border-block-start: 1px solid rgba(0, 0, 0, 0.125);
+  margin-block-start: 1.25rem;
+  padding-block-start: 1.25rem;
+  border-block-start: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .FaqEntry-Dark + .FaqEntry-Dark {
-    border-block-start-color: rgba(255, 255, 255, 0.2);
+  border-block-start-color: rgba(255, 255, 255, 0.2);
 }
 
 /*
@@ -196,64 +197,64 @@ small {
  * for the controls that commit. The underline carries "this is a link" in both themes.
  */
 .FaqLink {
+  color: inherit;
+  text-decoration: underline;
+
+  &:hover,
+  &:focus {
     color: inherit;
     text-decoration: underline;
-
-    &:hover,
-    &:focus {
-        color: inherit;
-        text-decoration: underline;
-    }
+  }
 }
 
 .text-white-75 {
-    color: rgba(255, 255, 255, 0.75) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
 }
 
 .border-light-gray {
-    border: 1px solid $themeLightGray;
+  border: 1px solid $themeLightGray;
 }
 
 .bg-themeDarkBluePrimary {
-    background-color: $themeDarkBluePrimary;
+  background-color: $themeDarkBluePrimary;
 }
 .bg-themeDarkBlueSecondary {
-    background-color: $themeDarkBlueSecondary;
+  background-color: $themeDarkBlueSecondary;
 }
 .bg-themeLightBlue {
-    background-color: $themeLightBlue;
+  background-color: $themeLightBlue;
 }
 .bg-profileHeader {
-    background-color: rgba(28, 117, 149, 0.15);
+  background-color: rgba(28, 117, 149, 0.15);
 }
 /*
  * Dark's equivalent of the wash above — quieter than the full-strength Signal Teal on the reminder
  * card headers, which is the same distinction the light wash draws.
  */
 .bg-profileHeader-dark {
-    background-color: $themeProfileHeaderDark;
+  background-color: $themeProfileHeaderDark;
 }
 .bg-themeLightGray {
-    background-color: $themeLightGray;
+  background-color: $themeLightGray;
 }
 
 .text-light-gray {
-    color: $themeLightGray !important;
+  color: $themeLightGray !important;
 }
 
 .ReminderEntry {
-    font-size: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0;
-    margin-block-end: 0;
+  font-size: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+  margin-block-end: 0;
 }
 
 .ReminderHr {
-    background-color: rgba(255, 255, 255, 0.15);
-    &-Dark {
-        @extend .ReminderHr;
-        background-color: rgba(255, 255, 255, 0.2);
-    }
+  background-color: rgba(255, 255, 255, 0.15);
+  &-Dark {
+    @extend .ReminderHr;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }
 
 /**
@@ -264,17 +265,17 @@ small {
  * colours are set per theme below, never by the tone class alone, so light and dark can differ.
  */
 .ReminderHeadingRow {
-    display: flex;
-    align-items: baseline;
-    gap: 0.35rem;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex-wrap: wrap;
 }
 
 .ReminderTags {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-    align-items: baseline;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-items: baseline;
 }
 
 /**
@@ -283,35 +284,35 @@ small {
  * name's line box; without it the button chases the tallest element on the row.
  */
 .ReminderOptions {
-    display: flex;
-    align-items: center;
-    align-self: flex-start;
-    min-height: 1.5rem;
-    margin-inline-start: 0.85rem;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 1.5rem;
+  margin-inline-start: 0.85rem;
 }
 
 .ReminderHeadingRow > .ReminderTags {
-    margin-inline-start: auto;
+  margin-inline-start: auto;
 }
 
 .ReminderHeading > .ReminderTags {
-    margin-block-start: 0.25rem;
+  margin-block-start: 0.25rem;
 }
 
 .ReminderTag {
-    appearance: none;
-    font-family: inherit;
-    font-size: 0.7rem;
-    font-weight: 700;
-    line-height: 1.35;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    border: 1px solid transparent;
-    cursor: help;
-    /*
+  appearance: none;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  cursor: help;
+  /*
      * The chip renders 20px tall, under the 24px WCAG 2.5.8 floor, and there are 85 of them on the
      * default army. Growing the chip itself would trade away the density the reminders surface is
      * built on, so this widens the hit box only — the same approach .ReminderMenuToggle takes.
@@ -319,22 +320,22 @@ small {
      * 24px against a 20px chip overhangs 2px per side, and .ReminderTags sets a 0.25rem (4px) gap,
      * so vertically stacked overlays meet exactly and never overlap.
      */
-    position: relative;
+  position: relative;
 
-    &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        height: 24px;
-        transform: translateY(-50%);
-    }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    transform: translateY(-50%);
+  }
 
-    &:focus-visible {
-        outline: 2px solid $themeLightBlue;
-        outline-offset: 1px;
-    }
+  &:focus-visible {
+    outline: 2px solid $themeLightBlue;
+    outline-offset: 1px;
+  }
 }
 
 /**
@@ -342,383 +343,395 @@ small {
  * flex sibling of the tag row it wraps below without disturbing the row's right alignment.
  */
 .ReminderTagExplainer {
-    display: block;
-    flex-basis: 100%;
-    width: 100%;
-    margin-block-start: 0.2rem;
-    font-size: 0.78rem;
-    font-style: italic;
-    line-height: 1.35;
-    text-align: start;
+  display: block;
+  flex-basis: 100%;
+  width: 100%;
+  margin-block-start: 0.2rem;
+  font-size: 0.78rem;
+  font-style: italic;
+  line-height: 1.35;
+  text-align: start;
 
-    &.ReminderTags-Light {
-        color: $themeMutedInk;
-    }
+  &.ReminderTags-Light {
+    color: $themeMutedInk;
+  }
 
-    &.ReminderTags-Dark {
-        color: rgba(255, 255, 255, 0.78);
-    }
+  &.ReminderTags-Dark {
+    color: rgba(255, 255, 255, 0.78);
+  }
 }
 
-@mixin tag-tones($cost, $active, $reaction, $passive, $your, $enemy, $neutral, $usage, $source, $provenance, $keyword) {
-    .ReminderTag {
-        &--cost {
-            @include tag-tone($cost...);
-        }
-        &--kind-active {
-            @include tag-tone($active...);
-        }
-        &--kind-reaction {
-            @include tag-tone($reaction...);
-        }
-        &--kind-passive {
-            @include tag-tone($passive...);
-        }
-        &--turn-your {
-            @include tag-tone($your...);
-        }
-        &--turn-enemy {
-            @include tag-tone($enemy...);
-        }
-        &--turn-neutral {
-            @include tag-tone($neutral...);
-        }
-        &--priority {
-            @include tag-tone($reaction...);
-        }
-        &--usage {
-            @include tag-tone($usage...);
-            border-style: dashed;
-        }
-        &--source {
-            @include tag-tone($source...);
-        }
-        /*
+@mixin tag-tones(
+  $cost,
+  $active,
+  $reaction,
+  $passive,
+  $your,
+  $enemy,
+  $neutral,
+  $usage,
+  $source,
+  $provenance,
+  $keyword
+) {
+  .ReminderTag {
+    &--cost {
+      @include tag-tone($cost...);
+    }
+    &--kind-active {
+      @include tag-tone($active...);
+    }
+    &--kind-reaction {
+      @include tag-tone($reaction...);
+    }
+    &--kind-passive {
+      @include tag-tone($passive...);
+    }
+    &--turn-your {
+      @include tag-tone($your...);
+    }
+    &--turn-enemy {
+      @include tag-tone($enemy...);
+    }
+    &--turn-neutral {
+      @include tag-tone($neutral...);
+    }
+    &--priority {
+      @include tag-tone($reaction...);
+    }
+    &--usage {
+      @include tag-tone($usage...);
+      border-style: dashed;
+    }
+    &--source {
+      @include tag-tone($source...);
+    }
+    /*
          * The quiet cousin of --source: names a game-wide origin (core rules, the season, battle
          * traits) rather than something the player picked, so it keeps the source family's hue as
          * an outline instead of a fill (issue #1857).
          */
-        &--provenance {
-            @include tag-tone($provenance...);
-        }
-        &--keyword {
-            @include tag-tone($keyword...);
-        }
+    &--provenance {
+      @include tag-tone($provenance...);
     }
+    &--keyword {
+      @include tag-tone($keyword...);
+    }
+  }
 }
 
 @mixin tag-tone($bg, $fg, $border) {
-    background-color: $bg;
-    color: $fg;
-    border-color: $border;
+  background-color: $bg;
+  color: $fg;
+  border-color: $border;
 }
 
 .ReminderTags-Light {
-    @include tag-tones(
-        (transparent, #355c64, #9db8be),
-        (#e0eff5, #0c4a60, #b4d7e4),
-        (#f8ecd9, #79490d, #e6cda4),
-        (#e9eef1, #46585f, #d0dade),
-        (#e6f2ea, #1f5334, #bcdcc7),
-        (#f9e8e8, #7c3535, #ecc9c9),
-        (#eef0f2, #4d5a63, #d8dee2),
-        (transparent, #5b6b74, #b9c5cc),
-        (#efeaf7, #543e7a, #d3c6e8),
-        (transparent, #6b6085, #cfc4e2),
-        (#f7e9f1, #7a2e5b, #e6c3d8)
-    );
+  @include tag-tones(
+    (transparent, #355c64, #9db8be),
+    (#e0eff5, #0c4a60, #b4d7e4),
+    (#f8ecd9, #79490d, #e6cda4),
+    (#e9eef1, #46585f, #d0dade),
+    (#e6f2ea, #1f5334, #bcdcc7),
+    (#f9e8e8, #7c3535, #ecc9c9),
+    (#eef0f2, #4d5a63, #d8dee2),
+    (transparent, #5b6b74, #b9c5cc),
+    (#efeaf7, #543e7a, #d3c6e8),
+    (transparent, #6b6085, #cfc4e2),
+    (#f7e9f1, #7a2e5b, #e6c3d8)
+  );
 }
 
 .ReminderTags-Dark {
-    @include tag-tones(
-        (transparent, #a4cbd2, rgba(164, 203, 210, 0.48)),
-        (rgba(28, 117, 149, 0.34), #86d3ea, rgba(28, 117, 149, 0.62)),
-        (rgba(198, 144, 58, 0.26), #f2c982, rgba(198, 144, 58, 0.5)),
-        (rgba(255, 255, 255, 0.1), #bccad2, rgba(255, 255, 255, 0.2)),
-        (rgba(72, 160, 105, 0.24), #92d8ac, rgba(72, 160, 105, 0.45)),
-        (rgba(190, 90, 90, 0.24), #f0a6a6, rgba(190, 90, 90, 0.45)),
-        (rgba(255, 255, 255, 0.08), #b3c1ca, rgba(255, 255, 255, 0.18)),
-        (transparent, #a9bac3, rgba(255, 255, 255, 0.3)),
-        (rgba(132, 100, 190, 0.24), #cbb8ee, rgba(132, 100, 190, 0.45)),
-        (transparent, #b3a4cf, rgba(132, 100, 190, 0.45)),
-        (rgba(190, 90, 145, 0.24), #f0b1d4, rgba(190, 90, 145, 0.45))
-    );
+  @include tag-tones(
+    (transparent, #a4cbd2, rgba(164, 203, 210, 0.48)),
+    (rgba(28, 117, 149, 0.34), #86d3ea, rgba(28, 117, 149, 0.62)),
+    (rgba(198, 144, 58, 0.26), #f2c982, rgba(198, 144, 58, 0.5)),
+    (rgba(255, 255, 255, 0.1), #bccad2, rgba(255, 255, 255, 0.2)),
+    (rgba(72, 160, 105, 0.24), #92d8ac, rgba(72, 160, 105, 0.45)),
+    (rgba(190, 90, 90, 0.24), #f0a6a6, rgba(190, 90, 90, 0.45)),
+    (rgba(255, 255, 255, 0.08), #b3c1ca, rgba(255, 255, 255, 0.18)),
+    (transparent, #a9bac3, rgba(255, 255, 255, 0.3)),
+    (rgba(132, 100, 190, 0.24), #cbb8ee, rgba(132, 100, 190, 0.45)),
+    (transparent, #b3a4cf, rgba(132, 100, 190, 0.45)),
+    (rgba(190, 90, 145, 0.24), #f0b1d4, rgba(190, 90, 145, 0.45))
+  );
 }
 
 /** Browser print drops the fills; the border and weight carry the distinction on paper. */
 @media print {
-    .ReminderTag {
-        background-color: transparent !important;
-        color: black !important;
-        border-color: rgba(0, 0, 0, 0.45) !important;
-    }
+  .ReminderTag {
+    background-color: transparent !important;
+    color: black !important;
+    border-color: rgba(0, 0, 0, 0.45) !important;
+  }
 }
 
 .SelectArmy {
-    margin-block-start: 2rem;
-    margin-inline-end: 5%;
-    margin-inline-start: 5%;
-    text-align: center;
+  margin-block-start: 2rem;
+  margin-inline-end: 5%;
+  margin-inline-start: 5%;
+  text-align: center;
 }
 
 .SelectArmy-Row {
-    margin-block-end: 2px;
-    margin-block-start: 2px;
+  margin-block-end: 2px;
+  margin-block-start: 2px;
 }
 
 .ImportTextarea {
-    min-width: 45%;
-    width: 100%;
-    height: 7.6em !important;
-    resize: none;
-    overflow: hidden;
-    padding: 8px;
-    box-sizing: border-box;
+  min-width: 45%;
+  width: 100%;
+  height: 7.6em !important;
+  resize: none;
+  overflow: hidden;
+  padding: 8px;
+  box-sizing: border-box;
 
-    &-Dark {
-        @extend .ImportTextarea;
-        background-color: black !important;
-        color: white !important;
-        border-width: 2px;
-        border-color: $themeLightGray;
-    }
+  &-Dark {
+    @extend .ImportTextarea;
+    background-color: black !important;
+    color: white !important;
+    border-width: 2px;
+    border-color: $themeLightGray;
+  }
 }
 
 .NoteInput {
-    min-width: 45%;
-    width: 95%;
-    max-width: 100%;
-    height: 7em;
-    /* `both` let the textarea be dragged wider than the card, scrolling the whole page sideways. */
-    resize: vertical;
-    padding: 8px;
-    box-sizing: border-box;
+  min-width: 45%;
+  width: 95%;
+  max-width: 100%;
+  height: 7em;
+  /* `both` let the textarea be dragged wider than the card, scrolling the whole page sideways. */
+  resize: vertical;
+  padding: 8px;
+  box-sizing: border-box;
 }
 
 .NoteText {
-    font-style: italic;
+  font-style: italic;
 }
 
 .NoteBorder {
-    max-width: 95%;
-    width: max-content;
-    border: 1px dashed $themeDarkBlueSecondary;
-    border-width: 1px;
-    border-style: dashed;
-    border-color: $themeDarkBlueSecondary;
+  max-width: 95%;
+  width: max-content;
+  border: 1px dashed $themeDarkBlueSecondary;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: $themeDarkBlueSecondary;
 
-    &-Dark {
-        @extend .NoteBorder;
-        border-width: 2px;
-        border-color: $themeLightGray;
-    }
+  &-Dark {
+    @extend .NoteBorder;
+    border-width: 2px;
+    border-color: $themeLightGray;
+  }
 }
 
 .dropdown-toggle.btn-link::after {
-    display: none;
+  display: none;
 }
 
 /* Modal */
 .Modal-Light {
-    padding: 1.5%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid #000000;
-    background-color: rgba(255, 255, 255, 1);
-    /*
+  padding: 1.5%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #000000;
+  background-color: rgba(255, 255, 255, 1);
+  /*
      * The overlay is fixed and does not scroll, and the modal is centred with a translate. Without
      * these bounds any modal taller than the viewport pushes its own top above y=0 where it cannot
      * be reached — the print modal already exceeds a phone held in landscape.
      */
-    max-height: 90vh;
-    max-width: calc(100vw - 2rem);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+  max-height: 90vh;
+  max-width: calc(100vw - 2rem);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .Modal-Dark {
-    @extend .Modal-Light;
-    border: 1px solid $themeLightGray;
-    background-color: $themeDarkBlueSecondary;
+  @extend .Modal-Light;
+  border: 1px solid $themeLightGray;
+  background-color: $themeDarkBlueSecondary;
 }
 
 .Modal-Transparent {
-    @extend .Modal-Light;
-    background-color: rgba(0, 0, 0, 0);
+  @extend .Modal-Light;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .Modal-Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .aos4-import-modal {
-    width: min(42rem, calc(100vw - 4rem));
+  width: min(42rem, calc(100vw - 4rem));
 }
 
 .aos4-account-modal {
-    width: min(46rem, calc(100vw - 4rem));
+  width: min(46rem, calc(100vw - 4rem));
 }
 
 /* Dropzone */
 .dropzone {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border-width: 2px;
-    border-radius: 2px;
-    border-color: #eeeeee;
-    border-style: dashed;
-    background-color: #fafafa;
-    /*
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-width: 2px;
+  border-radius: 2px;
+  border-color: #eeeeee;
+  border-style: dashed;
+  background-color: #fafafa;
+  /*
      * Was #bdbdbd, which put the dropzone's own instructions at 1.80:1 against this background —
      * both the "Drag and drop your roster here" label and the accepted-formats line. This is the
      * same muted ink the timing-tag explainer uses, and measures 6.80:1 here.
      */
-    color: $themeMutedInk;
-    outline: none;
-    transition: border 0.24s ease-in-out;
+  color: $themeMutedInk;
+  outline: none;
+  transition: border 0.24s ease-in-out;
 }
 
 .dropzone:focus {
-    border-color: $themeDropzoneAccent;
+  border-color: $themeDropzoneAccent;
 }
 
 .dropzone.is-dragging {
-    border-color: $themeDropzoneAccent;
-    background-color: rgba($themeDropzoneAccent, 0.08);
+  border-color: $themeDropzoneAccent;
+  background-color: rgba($themeDropzoneAccent, 0.08);
 }
 
 .dropzone.disabled {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 /* Dropzone Dark Mode */
 .dropzone-dark {
-    @extend .dropzone;
-    background-color: black;
-    color: whitesmoke;
+  @extend .dropzone;
+  background-color: black;
+  color: whitesmoke;
 }
 
 .dropzone-dark:focus {
-    border-color: $themeDropzoneAccent;
+  border-color: $themeDropzoneAccent;
 }
 
 .dropzone-dark.disabled {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 /* IFrame sizes for stats */
 .StatsIFrame {
-    height: 900px;
+  height: 900px;
 }
 
 @media (max-width: 768px) {
-    .StatsIFrame {
-        height: 920px;
-    }
-    .Modal-Light {
-        padding-top: 4%;
-        padding-bottom: 4%;
-    }
+  .StatsIFrame {
+    height: 920px;
+  }
+  .Modal-Light {
+    padding-top: 4%;
+    padding-bottom: 4%;
+  }
 }
 
 @media (max-width: 575.98px) {
-    .CardHeaderTitle {
-        font-size: 1.1rem;
-    }
-    .ReminderCardBody {
-        padding-top: 0.75rem;
-        padding-bottom: 0.75rem;
-    }
-    .StatsIFrame {
-        height: 600px;
-    }
-    .Modal-Light {
-        padding-top: 6%;
-        padding-bottom: 6%;
-    }
+  .CardHeaderTitle {
+    font-size: 1.1rem;
+  }
+  .ReminderCardBody {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  .StatsIFrame {
+    height: 600px;
+  }
+  .Modal-Light {
+    padding-top: 6%;
+    padding-bottom: 6%;
+  }
 }
 
 @media (max-width: 395px) {
-    .CardHeaderTitle {
-        font-size: 1rem;
-    }
-    .StatsIFrame {
-        height: 540px;
-    }
-    .Modal-Light {
-        padding-top: 5%;
-        padding-bottom: 5%;
-    }
+  .CardHeaderTitle {
+    font-size: 1rem;
+  }
+  .StatsIFrame {
+    height: 540px;
+  }
+  .Modal-Light {
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
 }
 
 @media (max-width: 374px) {
-    .CardHeaderTitle {
-        font-size: 0.8rem;
-    }
-    .StatsIFrame {
-        height: 480px;
-    }
+  .CardHeaderTitle {
+    font-size: 0.8rem;
+  }
+  .StatsIFrame {
+    height: 480px;
+  }
 }
 
 /* Print styles/helpers below */
 .PageBreak {
-    page-break-inside: avoid !important;
+  page-break-inside: avoid !important;
 }
 
 @media print {
-    .text-white,
-    .text-light,
-    .text-white-50,
-    .text-white-75 {
-        color: black !important;
-    }
+  .text-white,
+  .text-light,
+  .text-white-50,
+  .text-white-75 {
+    color: black !important;
+  }
 
-    header > h1 {
-        font-size: 1.5rem;
-    }
+  header > h1 {
+    font-size: 1.5rem;
+  }
 
-    p {
-        margin-bottom: 0.5rem;
-    }
+  p {
+    margin-bottom: 0.5rem;
+  }
 
-    .CardHeaderTitle {
-        font-size: 1.1rem;
-    }
+  .CardHeaderTitle {
+    font-size: 1.1rem;
+  }
 
-    .card-header {
-        background: white;
-        padding: 0.5rem 1.25rem;
-    }
+  .card-header {
+    background: white;
+    padding: 0.5rem 1.25rem;
+  }
 
-    .card-body {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
+  .card-body {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
 
-    .ReminderCardBody {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
+  .ReminderCardBody {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 
-    .ReminderContainer {
-        flex: 0 0 90% !important;
-        max-width: 90% !important;
-    }
+  .ReminderContainer {
+    flex: 0 0 90% !important;
+    max-width: 90% !important;
+  }
 
-    .ReminderEntry {
-        font-size: 0.9rem;
-    }
+  .ReminderEntry {
+    font-size: 0.9rem;
+  }
 }

@@ -1,11 +1,4 @@
-import type {
-  Ability,
-  AbilityCost,
-  AbilityText,
-  Aos4Catalog,
-  CanonicalId,
-  SourceReference,
-} from '../domain'
+import type { Ability, AbilityCost, AbilityText, Aos4Catalog, CanonicalId, SourceReference } from '../domain'
 import type { ResolvedSelection, SelectionCause } from '../select'
 import { reminderOccurrenceId, semanticTimingKey } from './reminderIdentity'
 import { orderReminders } from './orderReminders'

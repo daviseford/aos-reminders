@@ -62,10 +62,9 @@ export const createPdfJsDocumentLoader = (): PdfDocumentLoader => ({
     // and `destroy()` moved from the document to the loading task. It also rejects Node Buffers
     // outright, and the artifact cache hands out `readFile` Buffers, so copy into a plain
     // Uint8Array here — the copy also keeps pdf.js from ever touching cached bytes.
-    const loadingTask = (getDocument as unknown as (options: {
-      data: Uint8Array
-      isEvalSupported: boolean
-    }) => PdfJsLoadingTask)({
+    const loadingTask = (
+      getDocument as unknown as (options: { data: Uint8Array; isEvalSupported: boolean }) => PdfJsLoadingTask
+    )({
       data: new Uint8Array(bytes),
       isEvalSupported: false,
     })

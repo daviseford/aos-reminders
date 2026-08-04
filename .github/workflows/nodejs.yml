@@ -2,16 +2,15 @@ name: Lint, Test, and Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 env:
   CI: true
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
