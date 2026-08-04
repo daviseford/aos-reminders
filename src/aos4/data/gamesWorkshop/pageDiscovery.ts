@@ -1,14 +1,18 @@
-import parse5 from 'parse5'
+import { parse } from 'parse5'
+import type { DefaultTreeAdapterMap } from 'parse5'
 import { GAMES_WORKSHOP_ASSET_ORIGIN, GAMES_WORKSHOP_DOWNLOADS_PAGE_URL } from './downloadCatalog'
 import type { GamesWorkshopDiagnostic, GamesWorkshopDiscoveryResult, GamesWorkshopDownload } from './records'
 
-const isElement = (node: parse5.Node): node is parse5.Element =>
+type Node = DefaultTreeAdapterMap['node']
+type Element = DefaultTreeAdapterMap['element']
+
+const isElement = (node: Node): node is Element =>
   'tagName' in node && Array.isArray(node.attrs)
 
-const attribute = (element: parse5.Element, name: string): string | undefined =>
+const attribute = (element: Element, name: string): string | undefined =>
   element.attrs.find(item => item.name.toLowerCase() === name)?.value
 
-const textContent = (node: parse5.Node): string => {
+const textContent = (node: Node): string => {
   if (node.nodeName === '#text' && 'value' in node) return node.value
   return 'childNodes' in node ? node.childNodes.map(textContent).join(' ') : ''
 }
@@ -72,11 +76,11 @@ const parseJsonScript = (value: string, found: DiscoveredLink[]): void => {
 }
 
 export const discoverGamesWorkshopDownloadsFromPage = (html: string): GamesWorkshopDiscoveryResult => {
-  const document = parse5.parse(html)
+  const document = parse(html)
   const found: DiscoveredLink[] = []
   const diagnostics: GamesWorkshopDiagnostic[] = []
 
-  const visit = (node: parse5.Node): void => {
+  const visit = (node: Node): void => {
     if (isElement(node)) {
       if (node.tagName.toLowerCase() === 'a') {
         const href = attribute(node, 'href')

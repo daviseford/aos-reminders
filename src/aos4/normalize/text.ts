@@ -1,4 +1,5 @@
-import parse5 from 'parse5'
+import { parseFragment } from 'parse5'
+import type { DefaultTreeAdapterMap } from 'parse5'
 import type { AbilityText } from '../domain'
 import type { NormalizationDiagnostic } from './diagnostics'
 
@@ -43,7 +44,10 @@ export interface SourceTextNormalizationResult {
   diagnostics: NormalizationDiagnostic[]
 }
 
-const isElement = (node: parse5.Node): node is parse5.Element =>
+type Node = DefaultTreeAdapterMap['node']
+type Element = DefaultTreeAdapterMap['element']
+
+const isElement = (node: Node): node is Element =>
   'tagName' in node && Array.isArray(node.attrs)
 
 const isUnsafeUrl = (value: string): boolean => {
@@ -63,11 +67,11 @@ const normalizeWhitespace = (value: string): string =>
     .trim()
 
 export const normalizeSourceText = (source: string): SourceTextNormalizationResult => {
-  const fragment = parse5.parseFragment(source)
+  const fragment = parseFragment(source)
   const output: string[] = []
   const diagnostics: NormalizationDiagnostic[] = []
 
-  const visit = (node: parse5.Node): void => {
+  const visit = (node: Node): void => {
     if (node.nodeName === '#text' && 'value' in node) {
       output.push(node.value)
       return
