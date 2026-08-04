@@ -365,6 +365,13 @@ reviewing its `.cat`/`.gst` diff against official sources. If the signal is unde
 normal PR. Likewise, accepted Games Workshop or Wahapedia baselines change only through the
 candidate-review-accept-generate-certify process below.
 
+Its `acceptedManifestPath` and `sourceClassificationsPath` are the Games Workshop lane's baseline
+and must move with every accepted snapshot. The config only proves those paths exist, so a
+superseded pointer reports each publication the intake accepted as a new one and each publication
+it replaced as removed — a full lane of material events with nothing to intake behind them.
+`src/tests/aos4/rulesRadarCompare.test.ts` fails when either pointer is not the newest reviewed
+file of its kind.
+
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
 or updates the beta certification pointer.
