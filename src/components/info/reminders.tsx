@@ -70,7 +70,7 @@ const RuleText = ({ label, text, muted = false }: { label?: string; text: string
  * mouse hover, `aria-label` covers assistive tech, and tapping toggles the expansion inline because
  * a touch device never fires hover.
  */
-const ReminderTags = ({ tags }: { tags: Aos4ReminderViewModel['tags'] }) => {
+export const ReminderTags = ({ tags }: { tags: Aos4ReminderViewModel['tags'] }) => {
   const { theme } = useTheme()
   const [explained, setExplained] = useState<string | null>(null)
 

@@ -1,4 +1,11 @@
-import type { AbilityText, AbilityTiming, CanonicalId, SourceReference, TimingKind } from '../domain'
+import type {
+  AbilityCost,
+  AbilityText,
+  AbilityTiming,
+  CanonicalId,
+  SourceReference,
+  TimingKind,
+} from '../domain'
 import type { SelectionCause } from '../select'
 
 declare const reminderOccurrenceIdBrand: unique symbol
@@ -13,6 +20,7 @@ export interface ProjectedReminder {
   abilityIds: CanonicalId<'ability'>[]
   name: string
   text: AbilityText
+  cost?: AbilityCost
   timing: AbilityTiming
   keywords: string[]
   lane: TimingKind

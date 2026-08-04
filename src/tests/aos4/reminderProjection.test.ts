@@ -5,6 +5,7 @@ import {
   rulesContextId,
   sourceRecordId,
   type Ability,
+  type AbilityCost,
   type AbilityTiming,
   type Aos4Catalog,
   type CanonicalId,
@@ -410,6 +411,57 @@ describe('AoS 4 reminder projection', () => {
     })
     expect(shared?.occurrenceIds).toHaveLength(2)
     expect(shared?.causes).toHaveLength(2)
+    expect(shared?.cost).toBeUndefined()
+  })
+
+  it('projects a cost and merges display-equivalent reminders when the complete cost matches', () => {
+    const catalog = createCatalog()
+    const sharedAbilities = catalog.entities.filter(
+      (candidate): candidate is Ability =>
+        candidate.kind === 'ability' && [ids.sharedA, ids.sharedB].includes(candidate.id)
+    )
+    sharedAbilities.forEach(candidate => {
+      candidate.cost = { kind: 'command-points', value: 1 }
+    })
+
+    const shared = projectCatalog(catalog).filter(reminder => reminder.name === 'Shared Ward')
+
+    expect(shared).toHaveLength(1)
+    expect(shared[0].cost).toEqual({ kind: 'command-points', value: 1 })
+    expect(shared[0].abilityIds).toEqual([ids.sharedA, ids.sharedB])
+  })
+
+  it.each<{
+    label: string
+    first: AbilityCost
+    second: AbilityCost
+  }>([
+    {
+      label: 'value',
+      first: { kind: 'command-points', value: 1 },
+      second: { kind: 'command-points', value: 2 },
+    },
+    {
+      label: 'kind',
+      first: { kind: 'spell', value: 1 },
+      second: { kind: 'prayer', value: 1 },
+    },
+    {
+      label: 'faction resource',
+      first: { kind: 'faction-resource', resource: 'Ritual points', value: 1 },
+      second: { kind: 'faction-resource', resource: 'Depravity points', value: 1 },
+    },
+  ])('does not merge display-equivalent reminders with a different cost $label', ({ first, second }) => {
+    const catalog = createCatalog()
+    const firstAbility = catalog.entities.find(candidate => candidate.id === ids.sharedA) as Ability
+    const secondAbility = catalog.entities.find(candidate => candidate.id === ids.sharedB) as Ability
+    firstAbility.cost = first
+    secondAbility.cost = second
+
+    const shared = projectCatalog(catalog).filter(reminder => reminder.name === 'Shared Ward')
+
+    expect(shared).toHaveLength(2)
+    expect(shared.map(reminder => reminder.cost)).toEqual([first, second])
   })
 
   it('omits abilities that are not reachable from the resolved selection', () => {

@@ -1,18 +1,18 @@
 [
   {
-    "calibratedAt": "2026-08-04T02:20:15.000Z",
+    "calibratedAt": "2026-08-04T00:59:22.565Z",
     "correctCannotVerifyCases": 1,
     "evidence": {
-      "assignmentId": "review-assignment:sha256:ec08f6e9dfdeb38d9e5275336134b15692ef952980446c0de538a5f5b529eaf6",
-      "blindResultsChecksum": "585a79f2023f1684e53ff024c0b29fdd1dc77466081601ccca819ae2a5b69baa",
-      "comparisonResultsChecksum": "ac586306e256b0d57e3219c216c4c8e9a8f89e703b4693da336dcd0733ecb49f",
-      "controlPairKeysChecksum": "314e2fe39bfdabc68d2bd33842ebe5aa45b96a6fee285ea96c9bce09f1706280",
-      "receiptChecksum": "c2bdc2127e189a12ac29e5bc74e2553d99ed49efe7b29af1e1d3997ff42cf66b"
+      "assignmentId": "review-assignment:sha256:e8cb3a98387dab62d851b4ce8828423c1eba9bb8c6c469c5126cfe307ff8fce3",
+      "blindResultsChecksum": "b804157af7be64315723f69af5d057ae94b96e8710708700a8b9a0454f6137c7",
+      "comparisonResultsChecksum": "3f31e2ad1bd81c27b45acada59e732c2709846b85264c289230b4b8f850b7dcc",
+      "controlPairKeysChecksum": "cc052425df4b7c4276ded3bc709915db520d1668807d16bd59f4975363b1edba",
+      "receiptChecksum": "f3d333d4e4c26fe63dd6acf1712b6ef280ec29ee6f8961b51fdef1dd9907da85"
     },
     "foundSeededBlockerMajorDefects": 1,
     "insufficientEvidenceCases": 1,
     "passed": true,
-    "reviewerConfigurationId": "reviewer-configuration:sha256:ba1e51643b9e68a06d39a87e1a672845bda9b1d69492ef626c983619048378f9",
+    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
     "rubricVersion": "aos4-rubric/v2",
     "schemaVersion": 1,
     "seededBlockerMajorDefects": 1,

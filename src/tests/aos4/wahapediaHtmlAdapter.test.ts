@@ -85,6 +85,30 @@ const input = (html: string) => {
   return { bytes, artifact }
 }
 
+const abilityCostWarscrollHtml = ({
+  badge,
+  condition = 'Your Hero Phase',
+  keywords,
+}: {
+  badge?: string
+  condition?: string
+  keywords?: string
+}) => {
+  const keywordStrip = keywords
+    ? `<div class="abKeywords"><span class="abKeywordsBodyText">${keywords}</span></div>`
+    : ''
+  const badgeCell =
+    badge === undefined
+      ? ''
+      : `<td class="abCommandPoints"><span class="abCommandPointsN">${badge}</span></td>`
+  return warscrollHtml()
+    .replace(
+      '<div class="abHeader" bgcolor="#fff">Reaction: You declared a FIGHT ability <span class="kwb">CORE</span></div>',
+      `<table><tbody><tr><td class="abHeader" bgcolor="#fff">${condition}</td>${badgeCell}</tr></tbody></table>`
+    )
+    .replace(/<div class="abKeywords">[\s\S]*?<\/div>/, keywordStrip)
+}
+
 describe('Wahapedia warscroll HTML decoding', () => {
   it('decodes a warscroll into provider records with stable section provenance', () => {
     const source = input(warscrollHtml())
@@ -145,6 +169,81 @@ describe('Wahapedia warscroll HTML decoding', () => {
     })
     expect(String(first.page?.weapons[0].meta.sourceRecordId)).toContain('weapon%3A1')
     expect(String(first.page?.abilities[0].meta.sourceRecordId)).toContain('ability%3A1')
+  })
+
+  describe('ability cost badges', () => {
+    it.each([
+      ['1', undefined, 'Command', '1'],
+      ['2', 'COMMAND', 'Command', '2'],
+      ['7', 'SPELL, UNLIMITED', 'Spell', '7'],
+      ['4', 'PRAYER', 'Prayer', '4'],
+    ])('decodes a %s badge with %s keywords as %s points', (badge, keywords, pointsType, points) => {
+      const result = parseWahapediaWarscrollHtml(input(abilityCostWarscrollHtml({ badge, keywords })))
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.page?.abilities[0]).toMatchObject({ pointsType, points })
+    })
+
+    it.each([
+      ['Spell (6)', 'Spell', '6'],
+      ['Prayer (3)', 'Prayer', '3'],
+    ])('preserves textual %s cost evidence without a badge', (condition, pointsType, points) => {
+      const result = parseWahapediaWarscrollHtml(input(abilityCostWarscrollHtml({ condition })))
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.page?.abilities[0]).toMatchObject({ pointsType, points })
+    })
+
+    it('uses matching textual evidence to classify a badge without a keyword strip', () => {
+      const result = parseWahapediaWarscrollHtml(
+        input(abilityCostWarscrollHtml({ badge: '7', condition: 'Spell (7)' }))
+      )
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.page?.abilities[0]).toMatchObject({ pointsType: 'Spell', points: '7' })
+    })
+
+    it('ignores a tooltip badge outside the current ability header row', () => {
+      const html = abilityCostWarscrollHtml({ badge: '1' }).replace(
+        '<span class="wsMove">',
+        '<div class="tooltip"><span class="abCommandPointsN">9</span></div><span class="wsMove">'
+      )
+      const result = parseWahapediaWarscrollHtml(input(html))
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.page?.abilities[0]).toMatchObject({ pointsType: 'Command', points: '1' })
+    })
+
+    it.each(['', '0', '-1', '1.5', 'one'])('rejects the malformed or non-positive badge value %j', badge => {
+      const result = parseWahapediaWarscrollHtml(input(abilityCostWarscrollHtml({ badge })))
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
+    })
+
+    it('does not use textual fallback when a malformed badge is present', () => {
+      const result = parseWahapediaWarscrollHtml(
+        input(abilityCostWarscrollHtml({ badge: '0', condition: 'Spell (7)' }))
+      )
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
+    })
+
+    it.each([
+      ['6', 'Spell (7)', 'SPELL'],
+      ['7', 'Spell (7)', 'PRAYER'],
+    ])(
+      'fails closed when badge %s conflicts with textual condition %s and keywords %s',
+      (badge, condition, keywords) => {
+        const result = parseWahapediaWarscrollHtml(
+          input(abilityCostWarscrollHtml({ badge, condition, keywords }))
+        )
+
+        expect(result.diagnostics).toEqual([])
+        expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
+      }
+    )
   })
 
   it.each([
