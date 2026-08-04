@@ -132,6 +132,7 @@ describe('print tags', () => {
       'priority',
       'source',
       'provenance',
+      'keyword',
     ]
     ;[STANDARD_PRESET, COMPACT_PRESET].forEach(preset => {
       tones.forEach(tone => {
