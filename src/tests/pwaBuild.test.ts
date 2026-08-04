@@ -3,6 +3,7 @@
 import fs from 'fs'
 import path from 'path'
 import { describe, expect, it } from 'vitest'
+import { SERVICE_WORKER_ACTIVATION_MESSAGE } from '../bootstrap/serviceWorkerProtocol'
 
 /**
  * Assertions over the built PWA output.
@@ -223,12 +224,12 @@ describe('generated service worker', () => {
     expect(extras).not.toContain('AbortSignal.timeout')
   })
 
-  it('activates and claims clients immediately, with no prompt path left in the worker', () => {
-    // autoUpdate: the worker skips waiting on its own and every controlled tab reloads onto the
-    // new build. A surviving SKIP_WAITING message handler would mean the worker still waits.
+  it('claims clients only after the prompt-controlled worker is explicitly activated', () => {
     expect(serviceWorkerSource).toContain('clientsClaim')
-    expect(serviceWorkerSource).toContain('skipWaiting()')
+    // The private token prevents legacy CRA clients from bypassing the new app's explicit prompt.
+    expect(serviceWorkerSource).toContain(JSON.stringify(SERVICE_WORKER_ACTIVATION_MESSAGE))
     expect(serviceWorkerSource).not.toContain('"SKIP_WAITING"')
+    expect(serviceWorkerSource.match(/skipWaiting\(\)/g)).toHaveLength(1)
   })
 
   it('ships a rollback worker that marks clients before navigating them', () => {

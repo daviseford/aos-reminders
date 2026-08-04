@@ -13,7 +13,7 @@ checked by hand.
 | Worker config | `vite.config.mts` (`VitePWA`, `generateSW`) |
 | Activation extras | generated `sw-extras-<content-hash>.js` — see the `service-worker-extras` plugin in `vite.config.mts` |
 | Registration | `src/bootstrap/registerServiceWorker.ts` |
-| Update flow | `registerType: 'autoUpdate'` in `vite.config.mts`; no user-facing prompt |
+| Update prompt | `src/components/info/updateAvailable.tsx`, mounted in `src/components/App.tsx` |
 | Emergency rollback | `public/rollback-service-worker.js` — see docs/deployment.md |
 | Build assertions | `src/tests/pwaBuild.test.ts` |
 
@@ -22,11 +22,11 @@ Clients that still hold the pre-Vite CRA registration poll that exact path, so
 keeping the name is what takes those registrations over rather than orphaning
 them. **Do not rename it.**
 
-Updates are automatic (`registerType: 'autoUpdate'`). A newly installed worker
-calls `skipWaiting()` itself, claims every controlled tab, and the plugin's
-register module reloads each tab onto the new build — no banner, no prompt. The
-reload is safe mid-session because all army state persists to localStorage; it
-costs scroll position at most.
+The generated worker accepts only the versioned activation message in
+`src/bootstrap/serviceWorkerProtocol.ts`, not Workbox's generic `SKIP_WAITING` token. This keeps
+pre-Vite CRA tabs from activating the replacement worker before a user accepts the new app's prompt.
+Once accepted, a short-lived origin-wide marker plus an unconditional `controllerchange` listener
+reloads every controlled tab, including one opened after acceptance but before activation.
 
 The generated catalog chunk is excluded from the precache and served by a
 `CacheFirst` runtime route instead. It is 11.6 MiB against Workbox's 2 MiB
@@ -77,18 +77,20 @@ The honest version of this test is to kill the origin, not to tick "offline" in
 DevTools:
 
 1. Load the app once online and wait for the worker to activate and take control.
-   `clientsClaim` claims the current page.
+   `clientsClaim` claims the current page; prompt mode still prevents an update
+   worker from activating until someone explicitly accepts it.
 2. Stop the preview server.
 3. Reload. The shell should render, the faction selector should populate, and
    `fetch('/assets/aos4-catalog-data-*.js')` should return 200 from cache.
 
-### Automatic update
+### Update prompt
 
 1. Build, load, and reload so a worker is controlling.
 2. Change something the build hashes (any source file), rebuild.
 3. Call `registration.update()` — this is what the hourly poll does.
-4. The new worker installs, warms the catalog, activates, and every open
-   controlled tab reloads itself onto the new build. No banner should appear.
+4. The banner should appear **without any page reloading itself**. Activate
+   Reload in one tab; every open controlled tab should then reload onto the new
+   build after the worker takes control.
 
 ### Cache contents
 
@@ -107,15 +109,18 @@ cache must degrade to "needs one online load", never to a broken app.
 
 ## Gotchas
 
-- **`autoUpdate`, not `prompt`.** The app reloads itself onto a new build the
-  moment the updated worker activates — mid-session if the hourly poll lands
-  then. That trade-off is deliberate: all army state persists to localStorage,
-  so the reload costs scroll position at most. Do not reintroduce a waiting
-  prompt without an explicit product decision.
-- **Legacy clients lag.** A client still controlled by the pre-Vite CRA worker
-  runs no current code and is served a stale shell. The replacement worker's
-  `skipWaiting` + `clientsClaim` takes it over as soon as the update lands;
-  until then it cannot be reached by anything this build does.
+- **`prompt`, not `autoUpdate`.** `autoUpdate` reloads the page under the user
+  mid-session, which is wrong for something people read during a game turn.
+  `clientsClaim` does not change that waiting policy: it claims clients only
+  after one tab explicitly posts the prompt's skip-waiting message.
+- **Dismissal is deliberately not persisted.** `NotificationBanner` stores
+  dismissal in localStorage keyed by name; reusing that here would suppress every
+  future build's prompt after one close.
+- **Legacy clients lag.** A client still controlled by the CRA worker is served a
+  stale shell, so it runs no current code and cannot show the prompt. It recovers
+  when its last tab closes. Do not restore the generic `SKIP_WAITING` activation
+  token or add an eager `skipWaiting` call — either would reload ordinary users
+  mid-session.
 - **Two writers, one cache.** `sw-extras-<content-hash>.js` owns the
   `aos4-catalog` cache and
   prunes it. Do not add an `ExpirationPlugin` to the runtime route as well;
