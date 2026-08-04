@@ -7,7 +7,7 @@ export const AOS4_CERTIFICATION_SCHEMA_VERSION = 1 as const
 export const AOS4_REVIEW_PROTOCOL_VERSION = 'aos4-review/v1' as const
 export const AOS4_REVIEW_RUBRIC_VERSION = 'aos4-rubric/v2' as const
 export const AOS4_REVIEW_PROMPT_VERSION = 'aos4-review-prompt/v1' as const
-export const AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION = 'evidence-auditor/v2' as const
+export const AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION = 'evidence-auditor/v3' as const
 
 export type ReviewPacketId = `review-packet:sha256:${string}`
 export type ReviewAssignmentId = `review-assignment:sha256:${string}`

@@ -308,7 +308,7 @@ describe('certification verdict reuse', () => {
   it.each([
     ['prompt', { promptVersion: 'aos4-review-prompt/v2' }],
     ['tool', { tool: 'different-auditor' }],
-    ['model and engine version', { model: 'evidence-auditor/v3' }],
+    ['prior model and engine version', { model: 'evidence-auditor/v2' }],
   ])('makes the pair fresh when the reviewer %s changes', (_label, overrides) => {
     const partition = partitionReusableReviewEvidence(index(), evidenceFor(), reviewer(overrides))
     expect(partition.reusedEntries).toEqual([])
