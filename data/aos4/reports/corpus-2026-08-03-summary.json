@@ -46,11 +46,11 @@
   "products": {
     "data/aos4/catalog/catalog.json": {
       "byteLength": 32535134,
-      "checksum": "3d74de1b860037dcc060be113f564ab8b3bdc2cacfc0796299bb8ef4c24948c1"
+      "checksum": "ba7bc89cf303ab1e14b14969cfa2f4588d1b518e8c5a500bc54091528b0ae922"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
-      "byteLength": 1427064,
-      "checksum": "1cc08f4375b58123022223adb976ec8a25049c5b56c24251380bd892798f1bf3"
+      "byteLength": 1427062,
+      "checksum": "e5d8273a628099a4089ebea1d43b5efb6731572fd2ff2452761b8bb404ce4c53"
     },
     "data/aos4/identities/corpus.json": {
       "byteLength": 3580763,

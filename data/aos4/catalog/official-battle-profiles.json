@@ -2914,7 +2914,7 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
-        "factChecksum": "59d5fd6376c9af760c896df6cd82103d881594a7511232d989a34c3fe8da524e",
+        "factChecksum": "edc6c6e7ea2953407fb380e1dbaeb01e9a38ec911fefedeb6764a2bae86f3f24",
         "faction": "Regiments of Renown",
         "key": "page:62:regiment-of-renown:11",
         "kind": "regiment-of-renown",
@@ -2927,7 +2927,7 @@
         "row": 11,
         "sourceRecordId": "source-record:games-workshop:5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2%3Apage%3A62",
         "unitSummary": [
-          "• Grand Justice Gormayne • 1 Royal Decapitator • 10 Cr y ptguard"
+          "• Grand Justice Gormayne • 1 Royal Decapitator • 10 Cryptguard"
         ]
       },
       "id": "games-workshop:5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2:regiment-of-renown:page:62:regiment-of-renown:11",
