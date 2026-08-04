@@ -208,13 +208,14 @@ export default defineConfig({
          * built-ins, red()/green()/blue()); our two entry imports pull it in, so the warnings all
          * originate in node_modules. quietDeps silences those rather than editing bootstrap.
          *
-         * The two silenced ids are infrastructure, not our scss: Vite 5.3 still drives Sass through
-         * the legacy JS API (the modern-API option arrives in Vite 5.4), and our three @imports
-         * cannot become @use because bootstrap 5.3's scss is import-architecture and depends on
-         * shared global scope.
+         * Vite 8 only drives Sass through the modern compiler API, so the legacy-js-api
+         * deprecation no longer applies. The remaining `import` silencing covers Bootstrap 5.3's
+         * internal @import usage — its scss is import-architecture and depends on shared global
+         * scope, so our three @imports cannot become @use either. Revisit when Bootstrap moves
+         * off @import.
          */
         quietDeps: true,
-        silenceDeprecations: ['legacy-js-api', 'import'],
+        silenceDeprecations: ['import'],
       },
     },
   },
@@ -304,20 +305,15 @@ export default defineConfig({
     ...configDefaults,
     exclude: [...configDefaults.exclude, '**/.worktrees/**', '**/.claude/**'],
     /**
-     * Node by default, jsdom only for the component tests that render.
+     * Node by default, jsdom only for the component tests that render — those opt in with a
+     * `// @vitest-environment jsdom` docblock at the top of the file (vitest 4 removed
+     * `environmentMatchGlobs`, which used to carry the split).
      *
      * Standing up a jsdom window for all 65 files dominated the run — most of them are pure
      * parsing, catalog and corpus logic that never touches the DOM. Paying for it everywhere
      * starved the CPU enough that short tests began tripping the default 5s timeout under load.
      */
     environment: 'node',
-    environmentMatchGlobs: [
-      ['**/*.test.tsx', 'jsdom'],
-      // Not component tests, but they still need a DOM: New Recruit rosters are parsed with
-      // DOMParser, and the print path builds its output against real nodes.
-      ['**/importNewRecruit.test.ts', 'jsdom'],
-      ['**/print*.test.ts', 'jsdom'],
-    ],
     globals: true,
   },
 })

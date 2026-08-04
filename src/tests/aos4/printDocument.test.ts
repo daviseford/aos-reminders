@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+
 import { describe, expect, it } from 'vitest'
 import { createAos4PrintDocument, type PrintReminderInput } from '../../aos4/print'
 
