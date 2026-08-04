@@ -261,8 +261,11 @@ small {
  * Timing facet tags.
  *
  * Above the mobile breakpoint the heading is a single row with the name on the left and the tags
- * pushed to the right; at or below it the tags wrap onto their own line beneath the name. Tone
- * colours are set per theme below, never by the tone class alone, so light and dark can differ.
+ * pushed to the right; when a long name leaves no room for every tag, the overflow wraps
+ * tag-by-tag onto flush-left lines beneath the name rather than dropping the whole strip as one
+ * right-aligned block. At or below the breakpoint the tags sit on their own line beneath the name.
+ * Tone colours are set per theme below, never by the tone class alone, so light and dark can
+ * differ.
  */
 .ReminderHeadingRow {
   display: flex;
@@ -291,8 +294,17 @@ small {
   margin-inline-start: 0.85rem;
 }
 
+/*
+ * Inside the heading row the tag span holds no box of its own, so each chip is a flex item in its
+ * own right and wraps individually. The first chip keeps the auto margin that pushes the strip to
+ * the right edge; chips that wrap start flush left beneath the name.
+ */
 .ReminderHeadingRow > .ReminderTags {
-  margin-inline-start: auto;
+  display: contents;
+
+  > .ReminderTag:first-child {
+    margin-inline-start: auto;
+  }
 }
 
 .ReminderHeading > .ReminderTags {
@@ -317,8 +329,9 @@ small {
      * default army. Growing the chip itself would trade away the density the reminders surface is
      * built on, so this widens the hit box only — the same approach .ReminderMenuToggle takes.
      *
-     * 24px against a 20px chip overhangs 2px per side, and .ReminderTags sets a 0.25rem (4px) gap,
-     * so vertically stacked overlays meet exactly and never overlap.
+     * 24px against a 20px chip overhangs 2px per side. The gaps between stacked chip lines —
+     * 0.35rem on the heading row, 0.25rem inside the mobile tag block — are at least 4px, so
+     * vertically stacked overlays meet without overlapping.
      */
   position: relative;
 
