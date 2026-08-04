@@ -7,6 +7,7 @@ const virtualRegisterSW = vi.hoisted(() => vi.fn(() => vi.fn(async () => undefin
 vi.mock('virtual:pwa-register', () => ({ registerSW: virtualRegisterSW }))
 
 import {
+  ACTIVATION_TIMEOUT_MS,
   createServiceWorkerRegistrationController,
   shouldDisableServiceWorkerRegistration,
   type RegisterSWOptions,
@@ -16,14 +17,21 @@ import {
   SERVICE_WORKER_ROLLBACK_DISABLED_STORAGE_KEY,
 } from '../bootstrap/serviceWorkerProtocol'
 
+interface WaitingWorkerStub {
+  activate: () => void
+  postMessage: ReturnType<typeof vi.fn>
+  state: ServiceWorkerState
+}
+
 interface RegistrationHarness {
   applyWaitingUpdate: () => void
   callbacks: RegisterSWOptions
   controllerChanged: () => void
   reload: ReturnType<typeof vi.fn>
   registration: ServiceWorkerRegistration
+  runActivationTimeout: () => void
   runPoll: () => Promise<void>
-  waitingWorker: { postMessage: ReturnType<typeof vi.fn> }
+  waitingWorker: WaitingWorkerStub
 }
 
 interface SharedAcceptance {
@@ -36,10 +44,20 @@ const createHarness = (
 ) => {
   let callbacks: RegisterSWOptions | undefined
   let controllerChanged = () => {}
+  const activationTimeouts: Array<{ callback: () => void; delayMs: number }> = []
   let poll: (() => Promise<void>) | undefined
   const reload = vi.fn()
   const updateServiceWorker = vi.fn(async () => undefined)
-  const waitingWorker = { postMessage: vi.fn() }
+  const workerStateChanged: Array<() => void> = []
+  const waitingWorker: WaitingWorkerStub = {
+    /** Drives the worker's own lifecycle, which is a reload signal independent of any claim. */
+    activate: () => {
+      waitingWorker.state = 'activated'
+      workerStateChanged.forEach(callback => callback())
+    },
+    postMessage: vi.fn(),
+    state: 'installed',
+  }
   const registration = {
     installing: registrationState === 'installing' ? {} : null,
     waiting: registrationState === 'waiting' ? waitingWorker : null,
@@ -51,6 +69,9 @@ const createHarness = (
     listenForControllerChange: callback => {
       controllerChanged = callback
     },
+    listenForWorkerStateChange: (_worker, callback) => {
+      workerStateChanged.push(callback)
+    },
     markUpdateAccepted: () => {
       acceptance.accepted = true
     },
@@ -59,6 +80,10 @@ const createHarness = (
       return updateServiceWorker
     },
     reload,
+    setActivationTimeout: (callback, delayMs) => {
+      activationTimeouts.push({ callback, delayMs })
+      return 2
+    },
     setPollInterval: callback => {
       poll = callback
       return 1
@@ -77,6 +102,12 @@ const createHarness = (
     controllerChanged,
     reload,
     registration,
+    /** Runs the next pending deadline, asserting the controller scheduled it at the stated window. */
+    runActivationTimeout: () => {
+      const next = activationTimeouts.shift()
+      expect(next?.delayMs).toBe(ACTIVATION_TIMEOUT_MS)
+      next?.callback()
+    },
     runPoll: async () => {
       await poll?.()
     },
@@ -150,6 +181,76 @@ describe('service-worker registration controller', () => {
 
     expect(secondTab.reload).toHaveBeenCalledTimes(1)
     expect(secondTab.waitingWorker.postMessage).not.toHaveBeenCalled()
+  })
+
+  /*
+   * `announceNewContent` broadcasts to every tab on the origin, and `register()` does not resolve
+   * until the window `load` event, so a tab can be showing the prompt with no registration of its
+   * own. Doing nothing here left the control reading "Reloading..." with no path out.
+   */
+  it('reloads rather than stalling when the accepting tab has no registration', () => {
+    const tab = createHarness('missing')
+
+    tab.applyWaitingUpdate()
+
+    expect(tab.reload).toHaveBeenCalledTimes(1)
+    expect(tab.waitingWorker.postMessage).not.toHaveBeenCalled()
+  })
+
+  /*
+   * The production failure of 2026-08-04: the message went to a worker that had been waiting for
+   * thirteen minutes, and no controller change ever came back. A waiting worker that idle has been
+   * terminated, so the first message had to cold-start it; the retry reaches a warm one.
+   */
+  it('asks a second time when the first activation message goes unanswered', () => {
+    const tab = createHarness('waiting')
+
+    tab.applyWaitingUpdate()
+    expect(tab.waitingWorker.postMessage).toHaveBeenCalledTimes(1)
+
+    tab.runActivationTimeout()
+
+    expect(tab.waitingWorker.postMessage).toHaveBeenCalledTimes(2)
+    expect(tab.waitingWorker.postMessage).toHaveBeenLastCalledWith({
+      type: SERVICE_WORKER_ACTIVATION_MESSAGE,
+    })
+    expect(tab.reload).not.toHaveBeenCalled()
+  })
+
+  it('reloads without the update once both activation windows have closed', () => {
+    const tab = createHarness('waiting')
+
+    tab.applyWaitingUpdate()
+    tab.runActivationTimeout()
+    expect(tab.reload).not.toHaveBeenCalled()
+
+    tab.runActivationTimeout()
+
+    expect(tab.reload).toHaveBeenCalledTimes(1)
+  })
+
+  /*
+   * `controllerchange` only fires if the claim reaches this client. The worker reporting its own
+   * activation is a second, independent signal that the accepted build is live.
+   */
+  it('reloads when the accepted worker activates without claiming this tab', () => {
+    const tab = createHarness('waiting')
+
+    tab.applyWaitingUpdate()
+    tab.waitingWorker.activate()
+
+    expect(tab.reload).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not reload a second time when a deadline passes after the worker took control', () => {
+    const tab = createHarness('waiting')
+
+    tab.applyWaitingUpdate()
+    tab.controllerChanged()
+    tab.runActivationTimeout()
+    tab.runActivationTimeout()
+
+    expect(tab.reload).toHaveBeenCalledTimes(1)
   })
 
   it('does not create a polling interval without a registration', async () => {

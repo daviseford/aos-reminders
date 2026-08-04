@@ -13,7 +13,7 @@ vi.mock('virtual:pwa-register', () => ({ registerSW: virtualRegisterSW }))
 
 import { APPLY_TIMEOUT_MS, DISMISS_DURATION_MS, UpdateAvailable } from 'components/info/updateAvailable'
 import { AppStatusProvider } from 'context/useAppStatus'
-import { act } from 'react'
+import { act, type ReactNode } from 'react'
 import { render, Simulate, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
@@ -21,11 +21,11 @@ describe('update-available banner', () => {
   let container: HTMLDivElement
   let onApply: ReturnType<typeof vi.fn<() => void>>
 
-  const mount = () => {
+  const mount = (fallback?: ReactNode) => {
     act(() => {
       render(
         <AppStatusProvider>
-          <UpdateAvailable onApply={onApply} />
+          <UpdateAvailable fallback={fallback} onApply={onApply} />
         </AppStatusProvider>,
         container
       )
@@ -187,6 +187,30 @@ describe('update-available banner', () => {
     announceNewContent()
 
     expect(banner()!.className).toContain('d-print-none')
+  })
+
+  /*
+   * The home screen has one banner slot under its masthead. Handing the slot's usual occupant in as
+   * a fallback is what lets the prompt take that slot over instead of stacking a second alert above
+   * the masthead.
+   */
+  it('takes over the host slot only while an update is being offered', () => {
+    mount(<p>slot occupant</p>)
+    expect(container.textContent).toBe('slot occupant')
+
+    announceNewContent()
+
+    expect(container.textContent).toContain('A new version of AoS Reminders is available.')
+    expect(container.textContent).not.toContain('slot occupant')
+  })
+
+  it('hands the host slot back when the prompt is dismissed', () => {
+    mount(<p>slot occupant</p>)
+    announceNewContent()
+
+    act(() => Simulate.click(dismissButton()!))
+
+    expect(container.textContent).toBe('slot occupant')
   })
 
   it('keeps the dismiss control above the minimum hit box', () => {

@@ -1,6 +1,6 @@
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { useAppStatus } from 'context/useAppStatus'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { applyWaitingUpdate } from '../../bootstrap/registerServiceWorker'
 
 /*
@@ -16,13 +16,20 @@ export const DISMISS_DURATION_MS = 60 * 60 * 1000
 /*
  * How long the accept control stays in its pending state before it re-enables.
  *
- * `applyWaitingUpdate` is a no-op when there is no worker actually waiting -- it activated on its
- * own, or workbox-window never loaded -- and in that case no reload ever comes. Without this the
- * button would sit disabled on "Reloading..." for the life of the page with no way to retry.
+ * `applyWaitingUpdate` now always ends in a reload, and it reaches that unconditionally after two
+ * ACTIVATION_TIMEOUT_MS windows, so this has to outlast both -- otherwise the control flips back to
+ * "Reload" in the moment before the page goes. It still matters where there is no controller to
+ * reach at all -- registration disabled for a rollback, or workbox-window never loaded -- because
+ * without it the button would sit disabled for the life of the page with no way to retry.
  */
-export const APPLY_TIMEOUT_MS = 10 * 1000
+export const APPLY_TIMEOUT_MS = 15 * 1000
 
 interface IUpdateAvailableProps {
+  /**
+   * Rendered in this component's place whenever no update is being offered. Lets one banner slot
+   * carry both this prompt and whatever the host would otherwise show there.
+   */
+  fallback?: ReactNode
   /** Injected in tests. Defaults to the real registration's skip-waiting call. */
   onApply?: () => void
 }
@@ -34,7 +41,7 @@ interface IUpdateAvailableProps {
  * rendered it -- the "you will be given an option in the UI" comment in the old entry point was
  * aspirational. This is that option.
  */
-export const UpdateAvailable = ({ onApply = applyWaitingUpdate }: IUpdateAvailableProps) => {
+export const UpdateAvailable = ({ fallback = null, onApply = applyWaitingUpdate }: IUpdateAvailableProps) => {
   const { hasNewContent } = useAppStatus()
   const [isDismissed, setIsDismissed] = useState(false)
   const [isApplying, setIsApplying] = useState(false)
@@ -76,7 +83,7 @@ export const UpdateAvailable = ({ onApply = applyWaitingUpdate }: IUpdateAvailab
     onApply()
   }
 
-  if (!hasNewContent || isDismissed) return null
+  if (!hasNewContent || isDismissed) return <>{fallback}</>
 
   return (
     <NotificationBanner

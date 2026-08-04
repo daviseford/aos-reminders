@@ -17,14 +17,27 @@ export type { RegisterSWOptions } from 'virtual:pwa-register'
  */
 const UPDATE_POLL_INTERVAL_MS = 60 * 60 * 1000
 
+/*
+ * How long an accepted update has to take control before the accept escalates.
+ *
+ * Two of these elapse between the click and an unconditional reload: one before the activation
+ * message is retried, one before the tab reloads without it. Activation normally claims the tab in
+ * well under a second, so this is not a timing budget -- it is the deadline after which the accept
+ * is honoured some other way. Long enough that a cold worker start on a phone finishes first, short
+ * enough that the control does not sit on "Reloading..." waiting for something that is not coming.
+ */
+export const ACTIVATION_TIMEOUT_MS = 5 * 1000
+
 type RegisterServiceWorker = typeof registerSW
 
 interface ServiceWorkerRegistrationDependencies {
   announceNewContent: () => void
   listenForControllerChange: (callback: () => void) => void
+  listenForWorkerStateChange: (worker: ServiceWorker, callback: () => void) => void
   markUpdateAccepted: () => void
   register: RegisterServiceWorker
   reload: () => void
+  setActivationTimeout: (callback: () => void, delayMs: number) => unknown
   setPollInterval: (callback: () => Promise<void>, intervalMs: number) => unknown
   wasUpdateAccepted: () => boolean
 }
@@ -153,22 +166,57 @@ export const createServiceWorkerRegistrationController = (
     },
   })
 
+  /*
+   * Asks one waiting worker to take over.
+   *
+   * `controllerchange` is the signal this is expected to come back on, but it only fires if the
+   * worker's claim actually reaches this client. Watching the worker's own state as well means an
+   * activation that never claims this tab still reloads it.
+   */
+  const requestActivation = (waiting: ServiceWorker) => {
+    dependencies.markUpdateAccepted()
+    dependencies.listenForWorkerStateChange(waiting, () => {
+      if (waiting.state === 'activated') reloadOnce()
+    })
+    waiting.postMessage({ type: SERVICE_WORKER_ACTIVATION_MESSAGE })
+  }
+
   return {
     applyWaitingUpdate: () => {
       /*
-       * Another tab may already have activated the worker while this tab's banner was still visible.
-       * Posting the activation message with no waiting worker is a no-op, so reload immediately
-       * instead of leaving the control disabled until its UI timeout.
+       * Nothing of ours to activate. Either another tab already activated the worker while this
+       * tab's banner was still up, or this tab never got a registration at all -- `register()` waits
+       * for the window `load` event before it resolves, registration can fail outright, and
+       * `announceNewContent` broadcasts to every tab on the origin, so a tab can be showing the
+       * prompt on the strength of another tab's waiting worker.
+       *
+       * Reload either way. This used to `return` in the no-registration case, leaving the control
+       * reading "Reloading..." with nothing behind it and no path out.
        */
-      if (registration && !registration.waiting) {
+      if (!registration?.waiting) {
         reloadOnce()
         return
       }
 
-      if (!registration?.waiting) return
+      requestActivation(registration.waiting)
 
-      dependencies.markUpdateAccepted()
-      registration.waiting.postMessage({ type: SERVICE_WORKER_ACTIVATION_MESSAGE })
+      dependencies.setActivationTimeout(() => {
+        /*
+         * Nothing took control inside the window. A worker that has been waiting more than a few
+         * seconds has been terminated for idleness, so the first message had to cold-start it before
+         * it could be handled; ask again now that it is warm. This is a mitigation, not a diagnosis
+         * -- observed in production on 2026-08-04, where a tab posted the activation message to a
+         * worker that had been waiting thirteen minutes and never saw a controller change.
+         */
+        if (registration?.waiting) requestActivation(registration.waiting)
+
+        /*
+         * And reload regardless when the second window closes. The user asked for a reload, the army
+         * document is already persisted, and a page that comes back still on the old build is far
+         * better than a control that says "Reloading..." forever.
+         */
+        dependencies.setActivationTimeout(reloadOnce, ACTIVATION_TIMEOUT_MS)
+      }, ACTIVATION_TIMEOUT_MS)
     },
   }
 }
@@ -192,9 +240,11 @@ const serviceWorkerRegistrationController = !registrationIsDisabledForRollback()
       announceNewContent,
       listenForControllerChange: callback =>
         navigator.serviceWorker?.addEventListener('controllerchange', callback),
+      listenForWorkerStateChange: (worker, callback) => worker.addEventListener('statechange', callback),
       markUpdateAccepted,
       register: registerSW,
       reload: () => window.location.reload(),
+      setActivationTimeout: (callback, delayMs) => setTimeout(callback, delayMs),
       setPollInterval: (callback, intervalMs) => setInterval(callback, intervalMs),
       wasUpdateAccepted,
     })

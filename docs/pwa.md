@@ -13,7 +13,7 @@ checked by hand.
 | Worker config | `vite.config.mts` (`VitePWA`, `generateSW`) |
 | Activation extras | generated `sw-extras-<content-hash>.js` — see the `service-worker-extras` plugin in `vite.config.mts` |
 | Registration | `src/bootstrap/registerServiceWorker.ts` |
-| Update prompt | `src/components/info/updateAvailable.tsx`, mounted in `src/components/App.tsx` |
+| Update prompt | `src/components/info/updateAvailable.tsx`, mounted in `src/components/info/banners/app_banner.tsx` on home and in `src/components/App.tsx` elsewhere |
 | Emergency rollback | `public/rollback-service-worker.js` — see docs/deployment.md |
 | Build assertions | `src/tests/pwaBuild.test.ts` |
 
@@ -88,9 +88,15 @@ DevTools:
 1. Build, load, and reload so a worker is controlling.
 2. Change something the build hashes (any source file), rebuild.
 3. Call `registration.update()` — this is what the hourly poll does.
-4. The banner should appear **without any page reloading itself**. Activate
-   Reload in one tab; every open controlled tab should then reload onto the new
-   build after the worker takes control.
+4. The banner should appear **without any page reloading itself**, and on home it
+   should take over the welcome banner's slot under the masthead rather than add
+   a second banner above it. Activate Reload in one tab; every open controlled
+   tab should then reload onto the new build after the worker takes control.
+
+Note that a source file whose only change is dead code will not produce a new
+worker: Rollup tree-shakes it back out, the precache manifest is unchanged, and
+the browser's byte-comparison finds nothing to install. Change something that
+reaches the output — `index.html`, or rendered copy.
 
 ### Cache contents
 
@@ -113,6 +119,22 @@ cache must degrade to "needs one online load", never to a broken app.
   mid-session, which is wrong for something people read during a game turn.
   `clientsClaim` does not change that waiting policy: it claims clients only
   after one tab explicitly posts the prompt's skip-waiting message.
+- **Accepting always ends in a reload.** Every path through `applyWaitingUpdate`
+  has to terminate, because the control tells the user it is reloading. A tab
+  with no registration of its own reloads immediately rather than posting into
+  the void. Otherwise it posts the activation message, watches both
+  `controllerchange` *and* the worker's own `statechange` — a claim does not
+  always reach the client that asked — and if neither has reloaded the tab
+  within `ACTIVATION_TIMEOUT_MS`, posts once more and then reloads regardless.
+  Do not collapse this back to a single post, and do not restore a branch that
+  returns without doing anything.
+
+  On 2026-08-04 a production tab posted the message to a worker that had been
+  waiting thirteen minutes and never saw a controller change; the button sat on
+  "Reloading..." indefinitely. A worker idle that long has been terminated, so
+  the retry exists on the theory that the first message was spent cold-starting
+  it. That cause is unconfirmed — the unconditional reload is the part that is
+  guaranteed to end the wait.
 - **Dismissal is deliberately not persisted.** `NotificationBanner` stores
   dismissal in localStorage keyed by name; reusing that here would suppress every
   future build's prompt after one close.

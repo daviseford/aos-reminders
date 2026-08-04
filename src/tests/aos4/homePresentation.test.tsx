@@ -26,6 +26,14 @@ vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => auth,
 }))
 
+/*
+ * Home's banner slot renders the update prompt, which reaches `applyWaitingUpdate` in
+ * bootstrap/registerServiceWorker and through it the plugin's `virtual:pwa-register`. That virtual
+ * module has no resolvable file on disk, so the test runner cannot import it -- stub it the same way
+ * registerServiceWorker.test.ts does.
+ */
+vi.mock('virtual:pwa-register', () => ({ registerSW: vi.fn(() => vi.fn(async () => undefined)) }))
+
 vi.mock('../../api/subscriptionApi', () => ({
   SubscriptionApi: {
     cancelSubscription: vi.fn(),
