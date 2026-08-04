@@ -64,7 +64,7 @@
     "fixtures:official-app": "vite-node --script src/tests/support/officialAppFixturesCommand.ts",
     "fixtures:new-recruit": "vite-node --script src/tests/support/newRecruitManifestCommand.ts",
     "fixtures:new-recruit:ingest": "vite-node --script src/tests/support/newRecruitIngestCommand.ts --",
-    "format": "yarn prettier --write \"**/*.*(js|jsx|ts|tsx|json|scss|css|yml|yaml|html)\"",
+    "format": "yarn prettier --write \"**/*.*(js|jsx|mjs|cjs|ts|tsx|mts|cts|json|scss|css|yml|yaml|html)\"",
     "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
     "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",
     "lint": "eslint src --max-warnings 0",
