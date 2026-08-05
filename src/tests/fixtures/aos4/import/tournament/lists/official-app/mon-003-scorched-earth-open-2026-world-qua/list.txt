@@ -1,0 +1,43 @@
+Nurgle V6 1990/2000 pts
+-----
+Grand Alliance Chaos | Maggotkin of Nurgle | Tallyband of Nurgle
+General's Handbook 2025-26
+Drops: 5
+Spell Lore - Lore of Malignance
+Prayer Lore - Bendictions of Sickness
+Manifestation Lore - Aetherwrought Machineries
+Battle Tactics Cards: Attuned to Ghyran and Wrathful Cycles
+-----
+General's Regiment
+Belga the Cystwitch (120)
+• General
+Lord of Blights (140)
+Pox-Wretches (100)
+Putrid Blightkings (260)
+• Reinforced
+---
+Regiment 1
+Harbinger of Decay (140)
+• Gift of Febrile Frenzy
+• Rustfang
+---
+Regiment 2
+Horticulous Slimux (140)
+Beast of Nurgle (120)
+Nurglings (100)
+---
+Regiment 3
+Shaman Foulhoof (110)
+Pestigors (260)
+• Reinforced
+Rotswords (400)
+• Reinforced
+---
+Regiment 4
+Lord of Plagues (100)
+-----
+Faction Terrain
+Feculent Gnarlmaw
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.26.0 (3) | Data: v400

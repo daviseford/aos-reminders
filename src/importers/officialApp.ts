@@ -8,7 +8,15 @@ import type { Aos4ImportLine } from './detectTextSource'
 
 const pointsLinePattern = /^(?:(\d+)\s*[x×]\s+)?(.+?)\s+\(\s*\d+\s*(?:pts?|points?)?\s*\)\s*$/i
 const pointsSuffixPattern = /\s*\(\s*\+?\d+\s*(?:pts?|points?)?\s*\)\s*$/i
-const rosterNamePattern = /^(.+?)\s+\d+\s*\/\s*\d+\s*(?:pts?|points?)\s*$/i
+/**
+ * The `2000/2000 pts` total the app writes directly beneath the roster name.
+ *
+ * The name is captured but optional, and the gap between the two is optional with it: players
+ * leave the name blank, run it straight into the total (`…John Cena!!2000/2000 pts`), or press
+ * enter inside the name field so the total lands on a line of its own. The capture is lazy so a
+ * bare total yields an empty name rather than swallowing the leading digits of the total itself.
+ */
+const rosterTotalPattern = /^(.*?)\s*\d+\s*\/\s*\d+\s*(?:pts?|points?)\s*$/i
 const lorePattern = /^(Spell Lore|Prayer Lore|Manifestation Lore)\s*[-:]\s*(.+)$/i
 const battleFormationPattern = /^Battle Formation\s*[-:]\s*(.+)$/i
 const contextPattern = /^(?:General['’]s Handbook|GHB)\b/i
@@ -153,16 +161,21 @@ const missingFaction = (line?: number): Aos4ImportDiagnostic => ({
 
 export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResult => {
   const populated = lines.filter(line => line.text)
-  const nameLine = populated.find(line => rosterNamePattern.test(line.text))
-  const nameMatch = nameLine?.text.match(rosterNamePattern)
+  const totalLine = populated.find(line => rosterTotalPattern.test(line.text))
+  const inlineName = totalLine?.text.match(rosterTotalPattern)?.[1]?.trim()
 
   // The header sits above the first section, so anything at or below one cannot be it. That keeps
   // the pipe-delimited `App: … | Data: …` footer from being read as a faction declaration.
+  //
+  // It also sits *below* the points total, which is what bounds it from above: a roster name the
+  // player spread over several lines is still roster name, and reading its first line as the
+  // faction is how `Big birds? Wack` became a faction declaration.
   const firstSectionLine = populated.find(line => sectionPattern.test(line.text))
   const headerCandidates = populated.filter(
     line =>
       (firstSectionLine === undefined || line.number < firstSectionLine.number) &&
-      !rosterNamePattern.test(line.text) &&
+      (totalLine === undefined || line.number > totalLine.number) &&
+      !rosterTotalPattern.test(line.text) &&
       !officialMetadataPattern.test(line.text) &&
       !contextPattern.test(line.text) &&
       !separatorPattern.test(line.text) &&
@@ -178,7 +191,7 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
   const formationLabel = pipeParts ? pipeParts[1] : headerCandidates[1]?.text
 
   if (!declaredFaction) {
-    return { diagnostics: [missingFaction(nameLine?.number)] }
+    return { diagnostics: [missingFaction(totalLine?.number)] }
   }
 
   const formation: ParsedRosterSelection | undefined = formationLabel
@@ -190,7 +203,7 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
     : undefined
 
   const headerLineNumbers = new Set(
-    [nameLine?.number, factionLine?.number, formation ? formationLine?.number : undefined].filter(
+    [totalLine?.number, factionLine?.number, formation ? formationLine?.number : undefined].filter(
       (number): number is number => number !== undefined
     )
   )
@@ -308,7 +321,7 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
   return {
     parsedRoster: {
       source: 'official-app-text',
-      proposedName: nameMatch?.[1].trim() || `${declaredFaction} imported army`,
+      proposedName: inlineName || `${declaredFaction} imported army`,
       declaredFaction,
       ...(contextLine ? { declaredContext: contextLine.text } : {}),
       ...(allowsLegends ? { allowsLegends: true } : {}),

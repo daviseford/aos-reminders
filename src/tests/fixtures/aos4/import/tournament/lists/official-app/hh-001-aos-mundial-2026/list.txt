@@ -1,0 +1,34 @@
+Torneo prueba 1990/2000 pts
+-----
+Grand Alliance Chaos | Helsmiths of Hashut | Domination Force
+General's Handbook 2025-26
+Drops: 3
+Spell Lore - Lore of Infernal Power
+Prayer Lore - Prayers of the Scorched Sect
+Manifestation Lore - Morbid Conjuration (20 Points)
+Battle Tactics Cards: Intercept and Recover and Restless Energy
+-----
+General's Regiment
+Urak Taar, the First Daemonsmith (340)
+* General
+Bull Centaurs (380)
+* Reinforced
+Bull Centaurs (190)
+Deathshrieker Rocket Battery (140)
+Dominator Engine with Bane Maces (160)
+* Overdrive Switch
+---
+Regiment 1
+Ashen Elder (120)
+* Scroll of Petrification
+Deathshrieker Rocket Battery (140)
+Deathshrieker Rocket Battery (140)
+Infernal Cohort with Hashutite Spears (100)
+---
+Regiment 2
+Daemonsmith (100)
+* An Eye for Weakness
+Dominator Engine with Bane Maces (160)
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.31.0 (1) | Data: v422

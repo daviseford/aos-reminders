@@ -1,0 +1,30 @@
+Truffle shuffle 1980/2000 pts
+-----
+Grand Alliance Chaos | Maggotkin of Nurgle | Plague Cyst
+Drops: 3
+Spell Lore - Lore of Malignance
+Manifestation Lore - Aetherwrought Machineries
+-----
+General's Regiment
+The Glottkin (510)
+• General
+Lord of Blights (130)
+• Gift of Febrile Frenzy
+• The Witherstave
+Putrid Blightkings (380)
+• Reinforced
+---
+Regiment 1
+Bloab Rotspawned (300)
+Putrid Blightkings (380)
+• Reinforced
+Rotmire Creed (130)
+---
+Regiment 2
+Horticulous Slimux (150)
+-----
+Faction Terrain
+Feculent Gnarlmaw
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.7.0 (1) | Data: v216

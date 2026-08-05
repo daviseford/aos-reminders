@@ -1,0 +1,42 @@
+2 droths and gotrek 2000/2000 pts
+
+Fyreslayers
+Scales of Vulcatrix
+General's Handbook 2026-27
+Drops: 4
+Wounds: 126
+Prayer Lore - Zharrgrim Blessings
+Manifestation Lore - Magmic Invocations
+
+Battle Tactic Cards: Burning for Vengeance, Siege of Ashes
+
+General's Regiment
+Auric Runefather on Magmadroth (320)
+• General
+Hearthguard Berzerkers with Flamestrike Poleaxes (220)
+• Reinforced
+Hearthguard Berzerkers with Flamestrike Poleaxes (220)
+• Reinforced
+Auric Runeson on Magmadroth (Scourge of Aqshy) (330)
+• Droth-helm
+• Ash-beard
+• Thickened Scales (20)
+
+Regiment 1
+Auric Runesmiter (90)
+Auric Hearthguard (200)
+• Reinforced
+Regiment 2
+Auric Runemaster (160)
+Vulkite Berzerkers with Fyresteel Weapons (120)
+
+Faction Terrain
+Magmic Battleforge
+Regiments of Renown
+Gotrek Gurnisson (320)
+Gotrek Gurnisson
+
+Created with Sigdex: sigdex.io
+App Version: 22.0.3
+Server Version: 3.0.51
+Data Version: v29

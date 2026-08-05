@@ -1,0 +1,38 @@
+Callis 2000/2000 pts
+-----
+Grand Alliance Order | Cities of Sigmar | Ironweld Guild Army
+Drops: 5
+Spell Lore - Spells of the Collegiate Arcane
+Prayer Lore - Scriptures of Sigmar
+Manifestation Lore - Aetherwrought Machineries
+-----
+General's Regiment
+Galen ven Denst (170)
+• General
+Doralia ven Denst
+Freeguild Fusiliers (240)
+• Reinforced
+---
+Regiment 1
+Runelord (120)
+• Brazier of Holy Flame
+Hammerers (320)
+• Reinforced
+---
+Regiment 2
+Runelord (120)
+Hammerers (320)
+• Reinforced
+---
+Regiment 3
+Sorceress (120)
+• Master of Ballistics
+Drakespawn Knights (360)
+• Reinforced
+---
+Regiment 4
+Callis and Toll (230)
+Toll's Companions
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.7.0 (1) | Data: v216

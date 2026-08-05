@@ -1,0 +1,29 @@
+Idoneth bash 1990/2000 pts
+-----
+Grand Alliance Order | Idoneth Deepkin | Akhelian Beastmasters
+Drops: 3
+Spell Lore - Lore of the Deeps
+Manifestation Lore - Krondspine Incarnate
+-----
+General's Regiment
+Eidolon of Mathlann, Aspect of the Storm (320)
+• General
+• Ancient Pride
+• Armour of the Cythai
+Akhelian Morrsarr Guard (340)
+• Reinforced
+---
+Regiment 1
+Eidolon of Mathlann, Aspect of the Sea (350)
+Akhelian Leviadon (480)
+---
+Regiment 2
+Akhelian King (160)
+Akhelian Morrsarr Guard (340)
+• Reinforced
+-----
+Faction Terrain
+Gloomtide Shipwreck
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.9.0 (5) | Data: v233

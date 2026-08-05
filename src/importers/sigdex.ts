@@ -34,7 +34,14 @@ import type { Aos4ImportLine } from './detectTextSource'
 
 const footerPattern =
   /^(?:Created with Sigdex:.*|App Version:\s*.+|Server Version:\s*.+|Data Version:\s*.+)$/i
-const rosterNamePattern = /^(.+?)\s+\d+\s*\/\s*\d+\s*(?:pts?|points?)\s*$/i
+/**
+ * The `2000/2000 pts` total the serializer writes beside the roster name. The name is captured
+ * but optional, and so is the gap before the total; the capture is lazy so a bare total yields an
+ * empty name instead of swallowing the total's own leading digits.
+ */
+const rosterTotalPattern = /^(.*?)\s*\d+\s*\/\s*\d+\s*(?:pts?|points?)\s*$/i
+/** How far into the export a wrapped roster name may push the points total. */
+const MAX_ROSTER_NAME_LINES = 10
 const contextPattern = /^(?:General['’]s Handbook|GHB)\b/i
 const metadataPattern = /^(?:Drops?|Wounds?|Total|Points?)\s*:/i
 const battleTacticsPattern = /^Battle Tactic Cards\s*:/i
@@ -79,11 +86,25 @@ const missingFaction = (line?: number): Aos4ImportDiagnostic => ({
 
 export const parseSigdexRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResult => {
   const populated = lines.filter(line => line.text && !footerPattern.test(line.text))
-  const nameLine = populated[0]
-  const nameMatch = nameLine?.text.match(rosterNamePattern)
-  if (!nameLine || !nameMatch) {
-    return { diagnostics: [missingFaction(nameLine?.number)] }
+
+  /*
+   * The header starts after the points total, not on the second line.
+   *
+   * The serializer writes `<name> <points>/<cap> pts` as one line, but the name is whatever the
+   * player typed: leave it blank and the total stands alone, or press enter inside it and the
+   * total lands below the part that wrapped. Everything up to and including the total is name,
+   * so anchoring on the total rather than on line one is what keeps a player's roster title from
+   * being read as the faction. Bounded to the opening lines so a body line can never be mistaken
+   * for the total.
+   */
+  const totalIndex = populated.findIndex(
+    (line, index) => index < MAX_ROSTER_NAME_LINES && rosterTotalPattern.test(line.text)
+  )
+  const nameLine = populated[totalIndex]
+  if (!nameLine) {
+    return { diagnostics: [missingFaction(populated[0]?.number)] }
   }
+  const inlineName = nameLine.text.match(rosterTotalPattern)?.[1]?.trim()
 
   const selections: ParsedRosterSelection[] = []
   let declaredFaction: string | undefined
@@ -91,7 +112,7 @@ export const parseSigdexRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResu
   let section: Section = 'header'
   let headerRow = 0
 
-  for (const line of populated.slice(1)) {
+  for (const line of populated.slice(totalIndex + 1)) {
     if (unitSectionPattern.test(line.text)) {
       section = 'units'
       continue
@@ -176,7 +197,7 @@ export const parseSigdexRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResu
   return {
     parsedRoster: {
       source: 'sigdex-text',
-      proposedName: nameMatch[1].trim(),
+      proposedName: inlineName || `${declaredFaction} imported army`,
       ...(declaredContext ? { declaredContext } : {}),
       declaredFaction,
       selections,

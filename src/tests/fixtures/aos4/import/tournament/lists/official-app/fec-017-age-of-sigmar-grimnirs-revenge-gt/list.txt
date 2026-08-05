@@ -1,0 +1,37 @@
+New GHB test (morg/horror) 2000/2000 pts
+-----
+Grand Alliance Death | Flesh-eater Courts | Lords of the Manor
+General's Handbook 2025-26
+Drops: 4
+Spell Lore - Lore of Madness
+Prayer Lore - Rites of Delusion
+Manifestation Lore - Manifested Insanity
+Intercept and Recover , Restless Energy
+-----
+General's Regiment
+Ushoran, Mortarch of Delusion (460)
+• General
+Crypt Haunter Courtier (120)
+Crypt Horrors (280)
+• Reinforced
+---
+Regiment 1
+Abhorrant Cardinal (130)
+---
+Regiment 2
+Varghulf Courtier (140)
+• Stronger In Madness
+Morbheg Knights (360)
+• Reinforced
+Morbheg Knights (360)
+• Reinforced
+---
+Regiment 3
+Marrowscroll Herald (150)
+• Charnel Vestments
+-----
+Faction Terrain
+Charnel Throne
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.16.2 (1) | Data: v305

@@ -1,0 +1,28 @@
+Skaven | Claw-horde
+Drops: 2
+Spell Lore - Lore of Ruin
+Prayer Lore - Noxious Prayers
+Manifestation Lore - Manifestions of Doom
+
+General's Regiment
+Vizzik Skour, Prophet of the Horned Rat (400)
+• General
+Clanrats (300)
+• Reinforced
+Clanrats (300）
+• Reinforced
+Clanrats (300)
+• Reinforced
+Deathmaster (120)
+• Short-tempered
+• Skavenbrew
+Regiment 1
+Grey Seer (120)
+Clanrats (150)
+Clanrats (150)
+Clanrats (150)
+
+Faction Terrain
+Gnawhole
+Created with Warhammer Age of Sigmar: The App
+App: 1.9.1 | Data: 235

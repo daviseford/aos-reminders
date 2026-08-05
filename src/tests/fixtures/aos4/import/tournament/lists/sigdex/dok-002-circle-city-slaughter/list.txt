@@ -1,0 +1,37 @@
+Now this is skill 1990/2000 pts
+
+Daughters of Khaine
+Frenzied Devotees
+General's Handbook 2025-26
+Drops: 2
+Wounds: 126
+Spell Lore - Lore of Shadows
+Prayer Lore - Prayers of the Khainite Cult
+Manifestation Lore - Manifestations of Khaine
+Battle Tactic Cards: Master the Paths, Restless Energy
+
+General's Regiment
+Morathi-Khaine (730)
+• General
+The Shadow Queen
+Blood Sisters (280)
+• Reinforced
+Blood Sisters (280)
+• Reinforced
+Blood Stalkers (150)
+
+Regiment 1
+Slaughter Queen (130)
+• Witchbrew
+Blood Hags (280)
+• Reinforced
+High Gladiatrix (120)
+• Murderous Duellist
+
+Faction Terrain
+Shrine of Dark Tribute (20)
+Created with Sigdex: sigdex.io
+App Version: 21.0.4
+Server Version: 3.0.29
+Data Version: v33
+```

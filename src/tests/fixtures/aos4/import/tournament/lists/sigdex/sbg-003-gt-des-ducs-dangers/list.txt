@@ -1,0 +1,35 @@
+Demat 2
+2000/2000 pts
+Soulblight Gravelords
+Bacchanal of Blood
+General's Handbook 2025-26
+Drops: 3
+Wounds: 128
+Spell Lore - Lore of Undeath
+Manifestation Lore - Manifestations of the Grave
+
+Battle Tactic Cards: Scouting Force, Restless Energy
+
+General's Regiment
+Prince Vhordrai (470)
+• General
+
+Regiment 1
+Vengorian Lord (220)
+• Shard of Night
+• Lash of the Sire (20)
+Deathrattle Skeletons (90)
+Deathrattle Skeletons (90)
+Deathrattle Skeletons (90)
+
+Regiment 2
+Radukar the Beast (250)
+Barrow Knights (210)
+Vargheists (120)
+Blood Knights (440)
+• Reinforced
+Faction Terrain
+Cursed Sepulchre
+Created with Sigdex: sigdex.io
+App Version: 18.0.12
+Data Version: v37
