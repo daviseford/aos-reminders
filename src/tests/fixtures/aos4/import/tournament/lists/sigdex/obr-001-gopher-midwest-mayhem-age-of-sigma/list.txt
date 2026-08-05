@@ -1,0 +1,43 @@
+Cult of the Wedge 2000/2000 pts
+
+Ossiarch Bonereapers
+Remorseless Conquerors
+General's Handbook 2025-26
+Drops: 3
+Wounds: 165
+Spell Lore - Lore of Ossian Sorcery
+Manifestation Lore - Horrors of the Necropolis
+
+Battle Tactic Cards: Scouting Force, Attuned to Ghyran
+
+General's Regiment
+Liege-Kavalos (180)
+• General
+• Amulet of Gnosis
+• Imperious Will
+Kavalos Deathriders (150)
+Kavalos Deathriders (150)
+Kavalos Deathriders (150)
+Kavalos Deathriders (150)
+
+Regiment 1
+Vokmortian, Master of the Bone-tithe (140)
+Kavalos Deathriders (150)
+Kavalos Deathriders (150)
+Teratic Cohort (90)
+
+Regiment 2
+Liege-Mortek (120)
+Mortek Guard (110)
+Mortek Triaxes (280)
+• Reinforced
+Mortis Reapers (180)
+• Reinforced
+
+Faction Terrain
+Bone-tithe Nexus
+Created with Sigdex: sigdex.io
+App Version: 20.0.3
+Server Version: 3.0.17
+Data Version: v33
+```

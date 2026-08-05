@@ -1,0 +1,40 @@
+Carson Whitlock: You're Next.
+2000/2000 pts
+Cities of Sigmar
+Zealous Hordes
+General's Handbook 2026-27
+Drops: 3
+Wounds: 152
+Spell Lore - Spells of the Collegiate Arcane
+Prayer Lore - Scriptures of Sigmar
+Manifestation Lore - Krondspine Incarnate
+Battle Tactic Cards: Blazing Onslaught, Burning for Vengeance
+
+General's Regiment
+Tahlia Vedra, Lioness of the Parch (340)
+• General
+Freeguild Cavalier-Marshal (120)
+• The Last Blade of Embergard
+• Beloved Leader
+Freeguild Cavaliers (300)
+• Reinforced
+Freeguild Cavaliers (300)
+• Reinforced
+Freeguild Fusiliers (240)
+• Reinforced
+Regiment 1
+Alchemite Warforger (130)
+Freeguild Grenadiers (140)
+Freeguild Steelhelms (90)
+Freeguild Steelhelms (90)
+
+Regiment 2
+Jorvan Kreel, Heir of the Kraken (120)
+Freeguild Gallants (130)
+
+Faction Terrain
+Dawner's Triumph
+Created with Sigdex: sigdex.io
+App Version: 22.0.2
+Server Version: 3.0.51
+Data Version: v47

@@ -1,0 +1,30 @@
+Throne list 1990/2000 pts
+-----
+Grand Alliance Chaos | Skaven | Warpcog Convocation
+Drops: 2
+Spell Lore - Lore of Ruin
+Prayer Lore - Noxious Prayers
+Manifestation Lore - Forbidden Power
+-----
+General's Regiment
+Lord Skreech Verminking (410)
+• General
+Deathmaster (120)
+Doom-Flayers (260)
+• Reinforced
+Ratling Guns (340)
+• Reinforced
+---
+Regiment 1
+Verminlord Deceiver (410)
+• Foulhide
+• Scurry Away
+Clanrats (150)
+Clanrats (150)
+Clanrats (150)
+-----
+Faction Terrain
+Gnawhole
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.12.0 (1) | Data: v259

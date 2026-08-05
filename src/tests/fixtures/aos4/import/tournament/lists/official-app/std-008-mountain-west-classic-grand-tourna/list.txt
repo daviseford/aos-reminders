@@ -1,0 +1,42 @@
+Control die control 1990/2000 pts
+-----
+Grand Alliance Chaos | Slaves to Darkness | Darkoath Horde
+General's Handbook 2025-26
+Drops: 4
+Spell Lore - Lore of the Damned
+Manifestation Lore - Aetherwrought Machineries
+Battle Tactics Cards: Intercept and Recover and Wrathful Cycles
+-----
+General's Regiment
+Be'lakor, the Dark Master (460)
+• General
+Ogroid Myrmidon (120)
+• Favoured of the Pantheon
+Ogroid Theridons (360)
+• Reinforced
+• The Banner of Screaming Flesh
+---
+Regiment 1
+Darkoath Warqueen (100)
+• Head of the Unworthy
+Darkoath Chieftain (80)
+Darkoath Marauders (160)
+• Reinforced
+Darkoath Marauders (160)
+• Reinforced
+---
+Regiment 2
+Darkoath Chieftain (80)
+Darkoath Wilderfiend (130)
+Darkoath Wilderfiend (130)
+---
+Regiment 3
+Gunnar Brand (210)
+Singri Brand
+The Oathsworn Kin
+-----
+Faction Terrain
+Nexus Chaotica
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.16.0 (3) | Data: v301

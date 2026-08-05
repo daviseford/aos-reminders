@@ -1,0 +1,38 @@
+SCE Sentinels 2000/2000 pts
+-----
+Grand Alliance Order | Stormcast Eternals | Sentinels of the Bleak Citadels
+Drops: 3
+Spell Lore - Lore of the Storm
+Prayer Lore - Prayers of the Stormhosts
+Manifestation Lore - Manifestations of the Storm
+-----
+General's Regiment
+Ionus Cryptborn, Warden of Lost Souls (400)
+• General
+Lord-Terminos (150)
+• Quicksilver Draught
+Reclusians (280)
+• Reinforced
+---
+Regiment 1
+Tornus the Redeemed (190)
+Reclusians (280)
+• Reinforced
+Reclusians (280)
+• Reinforced
+---
+Regiment 2
+Knight-Arcanum (120)
+• Envoy of the Heavens
+Liberators (100)
+• 1 Grandhammer
+Liberators (100)
+• 1 Grandhammer
+Liberators (100)
+• 1 Grandhammer
+-----
+Faction Terrain
+Stormreach Portal
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.10.0 (1) | Data: v241

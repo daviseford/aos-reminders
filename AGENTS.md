@@ -283,8 +283,14 @@ facts. Roster bracket suffixes such as New Recruit's `[LEGENDS]` are provenance,
 per-selection `Legends` category drives context handling. The checked-in New Recruit fixture
 corpus (`src/tests/fixtures/aos4/import/new-recruit/`) is byte-pinned, captured from opted-in
 accounts, and self-checking — all three formats must decode identically, and import fails closed
-on malformed files, never on illegal armies. Full source-derived import corpora belong under the
-ignored `data/aos4/import-corpus/` tree (`yarn corpus:listbot`), not in git.
+on malformed files, never on illegal armies. Generated source-derived import corpora belong under
+the ignored `data/aos4/import-corpus/` tree (`yarn corpus:listbot`), not in git.
+
+The checked-in tournament corpus (`src/tests/fixtures/aos4/import/tournament/`) is the exception,
+and is kept because it cannot be regenerated: 357 rosters captured verbatim from public 2025–2026
+event coverage, byte-pinned by manifest checksum. It tests the exports players actually send —
+blank roster names, prose in the name field, footers from sixty-odd app versions — rather than the
+ones we know how to make, and it carries no per-list goldens. See its README before adding to it.
 
 ### Games Workshop
 

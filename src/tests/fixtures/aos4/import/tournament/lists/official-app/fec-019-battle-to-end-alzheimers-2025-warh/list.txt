@@ -1,0 +1,40 @@
+NoUsh 1980/2000 pts
+-----
+Grand Alliance Death | Flesh-eater Courts | Lords of the Manor
+Drops: 4
+Spell Lore - Lore of Madness
+Prayer Lore - Rites of Delusion
+Manifestation Lore - Morbid Conjuration
+-----
+General’s Regiment
+Abhorrant Archregent (180)
+• General
+• Cruel Taskmaster
+Crypt Haunter Courtier (120)
+• Charnel Vestments
+---
+Regiment 1
+Abhorrant Cardinal (130)
+Crypt Ghouls (320)
+• Reinforced
+Crypt Horrors (280)
+• Reinforced
+Cryptguard (200)
+• Reinforced
+---
+Regiment 2
+Abhorrant Ghoul King (120)
+Grand Justice Gormayne (110)
+Royal Beastflayers (100)
+Royal Beastflayers (100)
+---
+Regiment 3
+Abhorrant Ghoul King (120)
+Royal Beastflayers (100)
+Royal Beastflayers (100)
+-----
+Faction Terrain
+Charnel Throne
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.12.0 (1) | Data: v259

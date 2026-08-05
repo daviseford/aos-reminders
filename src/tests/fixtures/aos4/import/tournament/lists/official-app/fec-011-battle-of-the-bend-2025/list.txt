@@ -1,0 +1,38 @@
+FEC shamblers 2000/2000 pts
+-----
+Grand Alliance Death | Flesh-eater Courts | Impassioned Serfs
+General's Handbook 2025-26
+Drops: 3
+Spell Lore - Lore of Madness
+Prayer Lore - Rites of Delusion
+Manifestation Lore - Aetherwrought Machineries
+Battle Tactics Cards: Restless Energy and Scouting Force
+-----
+Regiment 1
+Abhorrant Ghoul King on Royal Terrorgheist (350)
+• Savage Beyond Reason
+Cryptguard (240)
+• Reinforced
+Cryptguard (240)
+• Reinforced
+Royal Beastflayers (110)
+Royal Zombie Dragon (240)
+• Horribly Resilient
+---
+Regiment 2
+Abhorrant Cardinal (130)
+Crypt Haunter Courtier (140)
+• Charnel Vestments
+Crypt Horrors (320)
+• Reinforced
+-----
+Regiments of Renown
+Veremord's Shamblers (220)
+Corpse Cart
+Deadwalker Zombies
+-----
+Faction Terrain
+Charnel Throne (10)
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.20.0 (1) | Data: v345

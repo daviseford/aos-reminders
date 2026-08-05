@@ -1,0 +1,34 @@
+AoR ruin 2000/2000 pts
+-----
+Stormcast Eternals | Ruination Brotherhood
+Drops: 3
+Prayer Lore - Ruination Brotherhood Prayer Lore
+-----
+General's Regiment
+Iridan the Witness (290)
+• General
+Vanquishers (220)
+• Reinforced
+---
+Regiment 1
+Lord-Vigilant on Gryph-Stalker (180)
+Liberators (200)
+• Reinforced
+Lord-Terminos (150)
+• Hallowed Scrolls
+• Corven Lord
+Reclusians (280)
+• Reinforced
+---
+Regiment 2
+Lord-Veritant (120)
+Prosecutors (280)
+• Reinforced
+Prosecutors (280)
+• Reinforced
+-----
+Faction Terrain
+Stormreach Portal
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.10.0 (1) | Data: v241

@@ -1,0 +1,43 @@
+When you are forced to play a Tzeentch player make them into chicken nuggies
+
+```2000/2000 pts
+
+Ossiarch Bonereapers
+Remorseless Conquerors
+General's Handbook 2025-26
+Drops: 3
+Wounds: 144
+Spell Lore - Lore of Necrotheurgy
+Manifestation Lore - Horrors of the Necropolis
+
+Battle Tactic Cards: Attuned to Ghyran, Scouting Force
+
+General's Regiment
+Arkhan the Black, Mortarch of Sacrament (440)
+• General
+Kavalos Deathriders (150)
+Kavalos Deathriders (150)
+Kavalos Deathriders (150)
+Kavalos Deathriders (150)
+
+Regiment 1
+Liege-Kavalos (180)
+• Amulet of Gnosis
+• Imperious Will
+Mortis Reapers (90)
+Mortis Reapers (90)
+Teratic Cohort (90)
+
+Regiment 2
+Liege-Mortek (120)
+Mortek Triaxes (280)
+• Reinforced
+Mortek Guard (110)
+
+Faction Terrain
+Bone-tithe Nexus
+Created with Sigdex: sigdex.io
+App Version: 19.0.4
+Server Version: 3.0.15
+Data Version: v32
+```

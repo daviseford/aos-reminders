@@ -1,0 +1,39 @@
+Fortress-Kaltenberg Defenders 2000/2000 pts
+-----
+Grand Alliance Order | Cities of Sigmar | Fortress-city Defenders
+Drops: 5
+Spell Lore - Spells of the Collegiate Arcane
+Prayer Lore - Scriptures of Sigmar
+Manifestation Lore - Forbidden Power
+-----
+General's Regiment
+Callis and Toll (230)
+• General
+Toll's Companions
+---
+Regiment 1
+Fusil-Major on Ogor Warhulk (160)
+• Brazier of Holy Flame
+• Master of Ballistics
+Freeguild Cavaliers (300)
+• Reinforced
+Ironweld Great Cannon (110)
+Ironweld Great Cannon (110)
+---
+Regiment 2
+Pontifex Zenestra, Matriarch of the Great Wheel (170)
+Freeguild Cavaliers (150)
+Freeguild Cavaliers (150)
+---
+Regiment 3
+Alchemite Warforger (110)
+Freeguild Fusiliers (240)
+• Reinforced
+---
+Regiment 4
+Freeguild Marshal and Relic Envoy (110)
+• 1 Heirloom Warhammer
+Freeguild Command Corps (160)
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.15.0 (2) | Data: v274

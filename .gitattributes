@@ -12,3 +12,6 @@
 
 # Ignore fixture files when detecting languages for Github
 src/tests/fixtures/* linguist-vendored
+
+# Captured tournament roster text is byte-pinned provenance and must retain LF endings
+src/tests/fixtures/aos4/import/tournament/**/list.txt text eol=lf

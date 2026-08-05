@@ -1,0 +1,32 @@
+lo l 1980/2000 pts
+-----
+Grand Alliance Chaos | Hedonites of Slaanesh | Seeker Cavalcade
+Drops: 2
+Spell Lore - Lore of Extravagance
+Manifestation Lore - Forbidden Power
+-----
+General's Regiment
+Shardspeaker of Slaanesh (130)
+• General
+• Strongest Alone
+Blissbarb Archers (300)
+• Reinforced
+Blissbarb Archers (300)
+• Reinforced
+Blissbarb Seekers (320)
+• Reinforced
+Blissbarb Seekers (320)
+• Reinforced
+---
+Regiment 1
+Shardspeaker of Slaanesh (130)
+• Icon of Infinite Excess
+Blissbarb Seekers (160)
+Blissbarb Seekers (160)
+Blissbarb Seekers (160)
+-----
+Faction Terrain
+Fane of Slaanesh
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.7.0 (1) | Data: v216

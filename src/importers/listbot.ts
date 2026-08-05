@@ -7,6 +7,14 @@ const lorePattern = /^(Spell Lore|Prayer Lore|Manifestation Lore)\s*[-:]\s*(.+)$
 const pointsLinePattern =
   /^-\s*(?:(\d+)\s*[x×]\s+)?(.+?)\s+\(\s*\d+\s*(?:pts?|points?)?\s*\)\s*$|^(?:(\d+)\s*[x×]\s+)?(.+?)\s+\(\s*\d+\s*(?:pts?|points?)?\s*\)\s*$/i
 const metadataPattern = /^(?:Regiment|Auxiliary|Drops?:|Total:|Points?:)/i
+/**
+ * A bracketed enhancement may carry its cost — `[Bloodshadow Rites (20pts)]`. The cost is roster
+ * bookkeeping, and leaving it on the label is the difference between resolving the enhancement and
+ * silently dropping it.
+ */
+const pointsSuffixPattern = /\s*\(\s*\+?\d+\s*(?:pts?|points?)?\s*\)\s*$/i
+
+const stripPointsSuffix = (value: string): string => value.replace(pointsSuffixPattern, '').trim()
 
 const loreKind = (label: string): ParsedRosterSelectionKind => {
   if (/^Prayer Lore$/i.test(label)) return 'prayer-lore'
@@ -17,7 +25,7 @@ const loreKind = (label: string): ParsedRosterSelectionKind => {
 const parseBracket = (line: Aos4ImportLine): ParsedRosterSelection | undefined => {
   const match = line.text.match(/^\[(.+)\]$/)
   if (!match) return undefined
-  const label = match[1].trim()
+  const label = stripPointsSuffix(match[1])
   if (/^(?:General|Reinforced)$/i.test(label) || /\bx\d+\b/i.test(label) || label.includes(';')) {
     return undefined
   }
@@ -30,7 +38,7 @@ const parseBracket = (line: Aos4ImportLine): ParsedRosterSelection | undefined =
     : /^Heroic Trait$/i.test(typed[1])
       ? 'enhancement'
       : loreKind(typed[1])
-  return { line: line.number, label: typed[2].trim(), kindHint }
+  return { line: line.number, label: stripPointsSuffix(typed[2]), kindHint }
 }
 
 const parseWarscroll = (line: Aos4ImportLine): ParsedRosterSelection | undefined => {

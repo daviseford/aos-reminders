@@ -1,0 +1,38 @@
+1 Laser fox 1990/2000 pts
+-----
+Grand Alliance Order | Lumineth Realm-lords | Scinari Council
+General's Handbook 2025-26
+Drops: 5
+Spell Lore - Lore of Prismatic Resonance
+Manifestation Lore - Manifestations of Hysh
+Battle Tactics Cards: Intercept and Recover and Restless Energy
+-----
+General's Regiment
+Sevireth, Lord of the Seventh Wind (330)
+• General
+---
+Regiment 1
+Ellania and Ellathor, Eclipsian Warsages (280)
+Vanari Bladelords (280)
+• Reinforced
+Vanari Starshard Ballista (100)
+---
+Regiment 2
+Scinari Enlightener (180)
+• Flawless Commander
+Ydrilan Riverblades (160)
+---
+Regiment 3
+Scinari Cathallar (110)
+• Silver Wand
+Vanari Bladelords (280)
+• Reinforced
+---
+Regiment 4
+Scourge of Ghyran The Light of Eltharion (250)
+-----
+Faction Terrain
+Shrine Luminor (20)
+-----
+Created with Warhammer Age of Sigmar: The App
+App: v1.18.0 (1) | Data: v334

@@ -1,0 +1,26 @@
+5 alarm 1970/2000 pts
+
+Lumineth Realm-lords | Vanari Battlehost
+Drops: 2
+Spell Lore - Lore of Hysh
+Manifestation Lore - Primal Energy
+General's Regiment
+Ellania and Ellathor, Eclipsian Warsages (280)
+• General
+Hurakan Spirit of the Wind (250)
+Vanari Auralan Sentinels (320)
+• Reinforced
+Vanari Dawnriders (460)
+• Reinforced
+Ydrilan Riverblades (160)
+
+Regiment 1
+Scinari Enlightener (190)
+• Masterful Tactician
+• Silver Wand
+Vanari Auralan Wardens (150)
+Ydrilan Riverblades (160)
+Faction Terrain
+Shrine Luminor
+Created with Warhammer Age of Sigmar: The App
+App: 1.8.0 | Data: 227

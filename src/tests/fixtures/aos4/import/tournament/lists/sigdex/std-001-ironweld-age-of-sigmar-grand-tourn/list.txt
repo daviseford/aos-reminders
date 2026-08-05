@@ -1,0 +1,42 @@
+S2D - For those about to ROCK!
+
+2000/2000 pts
+
+Slaves to Darkness
+Despoilers
+General's Handbook 2026-27
+Drops: 3
+Wounds: 135
+Spell Lore - Lore of the Damned
+Manifestation Lore - Twilit Sorceries
+
+Battle Tactic Cards: Blazing Onslaught, Burning for Vengeance
+
+General's Regiment
+Chaos Sorcerer Lord (120)
+• General
+Chaos Chosen (500)
+• Reinforced
+• The Dread Banner
+Chaos Warriors (Scourge of Aqshy) (400)
+• Reinforced
+Regiment 1
+Daemon Prince (230)
+• Trophy Rack
+• Pledged to Nurgle
+• Rune of Murder
+• Deathmonger
+Chaos Knights (240)
+Chaos Lord on Daemonic Mount (130)
+Faction Terrain
+Nexus Chaotica
+Regiments of Renown
+The Curse-Steel Battery (380)
+Tormentor Bombard
+Deathshrieker Rocket Battery
+Daemonsmith
+
+Created with Sigdex: sigdex.io
+App Version: 22.0.2
+Server Version: 3.0.51
+Data Version: v50
