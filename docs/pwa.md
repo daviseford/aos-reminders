@@ -49,6 +49,39 @@ there: activation holds fetch events until `waitUntil` settles, and the page
 reloads the moment the worker takes control, so a download on that path would
 leave the reload on a blank screen.
 
+## Staying logged in across an app close
+
+An installed app is closed and reopened constantly, and each reopen is a cold JS
+context. Two `Auth0Provider` options in `src/bootstrap/auth0Options.ts` are the
+only reason a session survives that, and both are deliberate departures from the
+SDK defaults:
+
+- **`cacheLocation: 'localstorage'`.** The default `memory` cache dies with the
+  JS context, so every reopen starts with no tokens at all.
+- **`useRefreshTokens: true`,** with `useRefreshTokensFallback: false`. Without a
+  refresh token the only recovery path is `checkSession()` — a hidden iframe to
+  `/authorize?prompt=none` that needs the Auth0 session cookie readable in a
+  third-party context. Safari ITP blocks that, and an iOS standalone PWA gets a
+  storage jar separate from Safari, so the cookie the login popup set may not be
+  reachable at all. The fallback is pinned off because it is that already-blocked
+  path; a failed refresh should surface as an error, not hang on an iframe.
+
+This is a genuine tradeoff, not a free win: tokens in localStorage are reachable
+by XSS. It is accepted because refresh token rotation is on, which revokes a
+stolen token the next time the legitimate one is used.
+
+**Half of this configuration lives outside the repository.** If either tenant
+setting is turned off, the SPA is issued no refresh token, `auth0Options.ts`
+quietly does nothing, and users are signed out on reopen again:
+
+- Application → Settings → **Refresh Token Rotation**, with its absolute and
+  inactivity expiries — those are the real "stay logged in" window
+- API `https://api.aosreminders.com` → Settings → **Allow Offline Access**,
+  or `offline_access` is stripped from the grant
+
+`src/tests/aos4/authSessionPersistence.test.ts` guards the repository half. The
+tenant half can only be checked by hand — see below.
+
 ## What CI checks
 
 `src/tests/pwaBuild.test.ts` asserts manifest fields, icon existence, worker
@@ -82,6 +115,23 @@ DevTools:
 2. Stop the preview server.
 3. Reload. The shell should render, the faction selector should populate, and
    `fetch('/assets/aos4-catalog-data-*.js')` should return 200 from cache.
+
+### Staying logged in
+
+The one that matters is a real installed app on a real phone, because the
+storage-partitioning behaviour this configuration works around does not
+reproduce in a desktop dev browser — there the blocked iframe path still
+happens to succeed, and a broken configuration looks fine.
+
+1. Install to the home screen, launch standalone, and log in.
+2. Fully close the app — swipe it out of the app switcher, not just background it.
+3. Reopen. You should still be signed in, with `Profile` and `Log out` in the nav.
+4. In DevTools (remote-inspect the installed app), Application → Local Storage
+   should hold an `@@auth0spajs@@::…` entry. If it is missing, `cacheLocation`
+   regressed; if it is present but you were signed out anyway, the tenant is not
+   issuing a refresh token — check the two settings above.
+
+Worth repeating after a few days, alongside the iOS eviction check below.
 
 ### Update prompt
 
