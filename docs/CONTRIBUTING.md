@@ -79,8 +79,7 @@ then run the no-write command again. Never edit generated corpus JSON by hand.
 - Keep network and Node-only code out of React/runtime modules.
 - Never render downloaded HTML directly.
 
-`src/tests/aos4/architectureBoundaries.test.ts` guards the domain boundary and the presentation
-allowlist.
+`src/tests/aos4/architectureBoundaries.test.ts` guards the domain boundary.
 
 ## Tests
 

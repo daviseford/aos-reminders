@@ -67,9 +67,7 @@ Do not confuse these version numbers:
 - A push to `master` triggers production deployment. Never push or merge `master` without explicit
   user authorization.
 
-`src/tests/aos4/architectureBoundaries.test.ts` enforces the domain dependency boundary and an
-explicit allowlist of the presentation shell. Adding any file under `src/api/` or `src/components/`
-fails that test until the allowlist is updated deliberately.
+`src/tests/aos4/architectureBoundaries.test.ts` enforces the domain dependency boundary.
 
 ## Product and interface continuity
 
