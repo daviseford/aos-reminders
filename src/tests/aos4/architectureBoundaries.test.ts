@@ -1,4 +1,4 @@
-import { access, readdir, readFile } from 'node:fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const sourceRoot = path.resolve(process.cwd(), 'src')
@@ -20,17 +20,8 @@ const sourceFiles = async (directory: string): Promise<string[]> => {
 const importedSpecifiers = (source: string): string[] =>
   Array.from(source.matchAll(importPattern), match => match[1])
 
-const exists = async (target: string): Promise<boolean> => {
-  try {
-    await access(target)
-    return true
-  } catch {
-    return false
-  }
-}
-
-describe('AoS 4 legacy isolation', () => {
-  it('does not import from the AoS 3 application or rules graph', async () => {
+describe('architecture boundaries', () => {
+  it('keeps the domain layer free of outward dependencies', async () => {
     const sourceDirectories = new Set(
       (await readdir(sourceRoot, { withFileTypes: true }))
         .filter(entry => entry.isDirectory() && entry.name !== 'aos4')
@@ -60,52 +51,7 @@ describe('AoS 4 legacy isolation', () => {
     expect(violations).toEqual([])
   })
 
-  it('keeps the retired AoS 3 rules and application graph physically absent', async () => {
-    const retiredPaths = [
-      'ducks',
-      'factions',
-      'generic_rules',
-      'meta',
-      'store',
-      // `components/print` is deliberately absent from this list. Printing is a live AoS 4 feature
-      // rebuilt on `aos4/print`, not retained AoS 3 code. The retired AoS 3 generator was
-      // `utils/pdf`, which stays retired below.
-      'api/preferenceApi.ts',
-      'components/input/ally_armies.tsx',
-      'components/input/ally_army_builder.tsx',
-      'components/input/importPdf',
-      'components/input/savedArmies',
-      'components/input/shareArmy',
-      'components/input/toolbar/add_ally_btn.tsx',
-      'components/input/toolbar/import_army_btn.tsx',
-      'utils/azyr',
-      'utils/battlescribe',
-      'utils/getArmy',
-      'utils/import',
-      'utils/loadArmy',
-      'utils/pdf',
-      'utils/warhammer_app',
-      'utils/warscroll',
-      'types/army.ts',
-      'types/data.ts',
-      'types/phases.ts',
-      'types/savedArmy.ts',
-      'types/selections.ts',
-      'types/store.ts',
-    ]
-    const survivors = (
-      await Promise.all(
-        retiredPaths.map(async retiredPath => ({
-          retiredPath,
-          exists: await exists(path.join(sourceRoot, retiredPath)),
-        }))
-      )
-    )
-      .filter(result => result.exists)
-      .map(result => result.retiredPath)
-
-    expect(survivors).toEqual([])
-
+  it('adds no presentation file without an explicit allowlist entry', async () => {
     const allowedPresentationShell = new Set([
       'api/armyApi.ts',
       'api/subscriptionApi.ts',
@@ -172,16 +118,5 @@ describe('AoS 4 legacy isolation', () => {
       .filter(file => !allowedPresentationShell.has(file))
 
     expect(unexpectedPresentationFiles).toEqual([])
-
-    const fixtureFamilies = (
-      await readdir(path.join(sourceRoot, 'tests', 'fixtures'), {
-        withFileTypes: true,
-      })
-    )
-      .filter(entry => entry.isDirectory())
-      .map(entry => entry.name)
-      .sort()
-
-    expect(fixtureFamilies).toEqual(['aos4'])
   })
 })

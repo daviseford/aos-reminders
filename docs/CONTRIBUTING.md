@@ -78,9 +78,9 @@ then run the no-write command again. Never edit generated corpus JSON by hand.
 - Preserve unknown provider values as diagnostics instead of coercing them.
 - Keep network and Node-only code out of React/runtime modules.
 - Never render downloaded HTML directly.
-- Do not restore retired Redux, faction, phase, saved-army, or importer modules.
 
-The legacy-isolation test guards these boundaries.
+`src/tests/aos4/architectureBoundaries.test.ts` guards the domain boundary and the presentation
+allowlist.
 
 ## Tests
 

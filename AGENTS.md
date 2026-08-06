@@ -67,9 +67,9 @@ Do not confuse these version numbers:
 - A push to `master` triggers production deployment. Never push or merge `master` without explicit
   user authorization.
 
-`src/tests/aos4/legacyIsolation.test.ts` enforces the dependency boundary and an explicit allowlist
-of the presentation shell. Adding any file under `src/api/` or `src/components/` fails that test
-until the allowlist is updated deliberately.
+`src/tests/aos4/architectureBoundaries.test.ts` enforces the domain dependency boundary and an
+explicit allowlist of the presentation shell. Adding any file under `src/api/` or `src/components/`
+fails that test until the allowlist is updated deliberately.
 
 ## Product and interface continuity
 
@@ -462,7 +462,7 @@ in `dist/`, which is gitignored. `prepush` and CI use this order for the same re
 Focused examples:
 
 ```powershell
-yarn vitest run src/tests/aos4/legacyIsolation.test.ts
+yarn vitest run src/tests/aos4/architectureBoundaries.test.ts
 yarn vitest run src/tests/aos4/representativeSlice.test.ts
 yarn vitest run src/tests/aos4/importNewRecruitCorpus.test.ts
 yarn data:aos4:generate:candidate
