@@ -54,8 +54,9 @@ checked-in beta gate.
 Before merging #1717, confirm all of the following:
 
 - the PR title does not trip the WIP check and every required GitHub check is green;
-- the accepted beta pointer still resolves to
-  `data/aos4/certifications/aos4-corpus-2026-08-01b-machine-r1`;
+- the accepted beta pointer in `data/aos4/certifications/beta.json` resolves to the certification
+  directory for the currently accepted corpus, and `yarn data:aos4:verify:beta` passes. Do not
+  restate the directory name here — it changes with every accepted refresh;
 - the project owner explicitly authorizes the `master` merge and resulting frontend deployment;
 - the AoS 4-native army/share service through `aos-reminders-rest-api#11` is deployed to production
   with the production entitlement URL, Auth0 issuer/audience, share base URL, and CORS origins;
