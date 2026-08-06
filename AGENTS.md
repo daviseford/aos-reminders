@@ -13,19 +13,17 @@ or debugging in documented areas.
 
 AoS Reminders turns an Age of Sigmar army configuration into phase-ordered reminders.
 
-Version 6 is now an Age of Sigmar fourth-edition-only codebase:
+This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
 - the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-03` snapshot
-- the AoS 3 faction corpus, rule utilities, Redux state, saved-army schema, importers, and fixtures
-  have been removed
-- importing, cloud armies, and army sharing are rebuilt as AoS 4-native features: roster parsers in
+- importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
   client in `src/api/armyApi.ts`
 - an army document may opt into Legends units (`allowsLegends`); Legends applies as an overlay on
   the document's rules context during selection resolution
-- old browser state is deleted and replaced with a schema-valid AoS 4 document; it is never
+- unrecognized browser state is deleted and replaced with a schema-valid army document; it is never
   translated
 - the 27 decoded factions that field units are selectable through one source-complete relationship
   graph; the 28th row, `Endless Spells`, is a Wahapedia container for universal manifestations
@@ -51,41 +49,33 @@ Version 6 is now an Age of Sigmar fourth-edition-only codebase:
   runtime, 1 remains a profile-only gap, 289 remain structured references, and 47 are superseded
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
-- Phase 1 is complete and machine-verified for beta use; Phase 2 is underway — capability
-  restoration has delivered printing/PDF export and importing/cloud armies/sharing, while package
-  upgrades and broader framework modernization remain pending
 
 Do not confuse these version numbers:
 
 - `package.json` reports the application version (`6.0.0`)
 - “AoS 4” means the Games Workshop game edition released in 2024
-- the AoS 4 army-document and catalog schema versions are independent internal contracts
+- the army-document and catalog schema versions are independent internal contracts
 
-## Non-negotiable migration constraints
+## Non-negotiable constraints
 
-- Treat AoS 4 as a hard cutover. Do not recreate an AoS 3 compatibility path or dual-mode app.
-- No AoS 3 rule, timing, phase, category, alias, importer correction, fixture, or data shape is
-  evidence for an AoS 4 fact or design decision.
-- Do not restore deleted AoS 3 modules to make a feature convenient. Implement the feature against
-  stable AoS 4 IDs and current sources.
 - `src/aos4/` may depend only on its own modules, Node built-ins, and third-party packages.
   Application code may depend inward on `src/aos4/`; the domain layer must not depend outward.
 - Keep source acquisition and reconciliation out of React components.
 - Treat names as display text, never durable identity.
 - Do not hand-edit generated catalog modules as a substitute for the acquisition/review/generation
   process.
-- A temporarily incomplete AoS 4-only app is preferable to parallel live rule models.
 - A push to `master` triggers production deployment. Never push or merge `master` without explicit
   user authorization.
 
-`src/tests/aos4/legacyIsolation.test.ts` enforces the AoS 4 dependency boundary, the physical
-absence of retired AoS 3 paths, and an explicit allowlist of the AoS 4 presentation shell (print,
-import, sharing, and cloud-army modules).
+`src/tests/aos4/legacyIsolation.test.ts` enforces the dependency boundary and an explicit allowlist
+of the presentation shell. Adding any file under `src/api/` or `src/components/` fails that test
+until the allowlist is updated deliberately.
 
 ## Product and interface continuity
 
 The live application at `https://aosreminders.com/` is the visual and interaction baseline. The
-community trusts that experience; an AoS 4 data/domain migration does not authorize a redesign.
+community trusts that experience; data, dependency, and framework work does not authorize a
+redesign.
 
 - Preserve the established dark-blue masthead, typography, spacing, edit/play control, faction
   selector, teal selection cards, reminder cards, notes, hide/show behavior, responsive layout,
@@ -95,31 +85,17 @@ community trusts that experience; an AoS 4 data/domain migration does not author
   cancellation; and subscriber theme behavior.
 - Compare UI changes directly against the live site at desktop and mobile widths before accepting
   them. Browser snapshots and tests should guard recognizable landmarks and account navigation.
-- Treat any UI change the user did not explicitly ask for as a code smell. This applies in every
-  phase, not only Phase 1, and it does not relax as Phase 2 modernization work begins. Structural,
-  dependency, and framework work should leave navigation, authentication, subscription/profile flows,
-  FAQ, footer, typography, spacing, responsive behavior, and interaction labels unchanged.
+- Treat any UI change the user did not explicitly ask for as a code smell. Structural, dependency,
+  and framework work should leave navigation, authentication, subscription/profile flows, FAQ,
+  footer, typography, spacing, responsive behavior, and interaction labels unchanged.
 - An accessibility or correctness fix is not a licence to restyle. When a fix has a visible
   consequence, choose the variant that preserves the current appearance, state the delta explicitly,
   and let the user accept it. Prefer semantic and behavioral corrections that render identically.
-- The expected exceptions are data-driven: AoS 4 phase names, content-group cards, selections,
-  reminder text, and other fields whose source data or game structure genuinely changed. Reuse the
+- The expected exceptions are data-driven: phase names, content-group cards, selections, reminder
+  text, and other fields whose source data or game structure genuinely changed. Reuse the
   established visual primitives for those exceptions.
-- Bind the AoS 4 domain and army document to the established presentation with adapters/view
-  models. Do not restore AoS 3 rules, Redux, importers, or saved-army data merely to reuse the UI.
-- Remove or rewrite stale AoS 3 copy and feature claims while retaining the surrounding visual
-  hierarchy and interaction pattern.
-- Do not add a migration-workbench aesthetic, new visual language, or broad reskin unless the user
-  explicitly requests one.
-- **When in doubt about interaction shape, run the AoS 3 app and look.** The pre-cutover AoS 3
-  application is the UX ancestor this product deliberately mimics — users loved that experience,
-  and the goal is to stay very close to it while adapting only where fourth-edition rules
-  genuinely differ (the faction → sub-faction hierarchy, allegiance content auto-populating
-  reminders, and the builder card layout all originate there). It lives in git history: check out
-  the pre-merge commit into a worktree and run it beside the current app, e.g.
-  `git worktree add ../aos-reminders-aos3 b9791cb6~1`, then `yarn install --frozen-lockfile` and
-  `node_modules/.bin/vite --port 5174` inside the worktree. `CONCEPTS.md` records how the
-  faction / Army of Renown / battle-formation hierarchy maps onto that ancestry.
+- Bind the domain and army document to the established presentation with adapters/view models.
+- Do not add a new visual language or broad reskin unless the user explicitly requests one.
 
 The client sends the user's Auth0 bearer token for every subscription account operation, and for
 the `https://api.aosreminders.com` audience on the army/share client. Preserve the familiar account
@@ -129,40 +105,27 @@ Subscription, billing, and payment-provider work belongs to the private
 `aos-reminders-subscription-api` repository and is tracked in its issues. Do not open public issues,
 add public notes, or record billing/authorization detail in this repository.
 
-## Migration program
+## Data correctness and the beta gate
 
-### Phase 1: data and domain correctness
+The accepted `aos4-corpus-2026-08-03` snapshot is complete and machine-audited. The manifest, corpus
+review, stable identity registry, complete audit catalog, compact runtime projection, and generation
+report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
+duplicate identity, silent source conflict, or unreviewed source diagnostic.
 
-Phase 1 has two parts:
-
-1. Structural correctness: canonical phases/windows, abilities, reactions, usage limits, weapons,
-   warscrolls, profiles, relationships, selection, reminders, state, and the minimal runtime.
-2. Data retrieval and entry: safe acquisition, source-specific decoding, reconciliation, review,
-   stable identities, generation, and coverage/freshness reporting.
-
-The structural and machine-audit work is complete for the accepted
-`aos4-corpus-2026-08-03` snapshot. The manifest, corpus review, stable identity registry, complete
-audit catalog, compact runtime projection, and generation report are checked in. The strict gate
-has no unresolved timing, dangling reference, unsafe HTML, duplicate identity, silent source
-conflict, or unreviewed source diagnostic.
-
-Phase 1 is machine-verified for beta use. `data/aos4/certifications/beta.json` binds the accepted
-corpus to its complete machine review and source inventory, and `yarn data:aos4:verify:beta` fails
-closed on stale checksums, uncovered records, unresolved findings, or incomplete machine evidence.
-Phase 2 may proceed after that beta gate passes. Rules reports from beta testers must be reconciled
-against official sources through the normal candidate pipeline. See
+`data/aos4/certifications/beta.json` binds the accepted corpus to its complete machine review and
+source inventory, and `yarn data:aos4:verify:beta` fails closed on stale checksums, uncovered
+records, unresolved findings, or incomplete machine evidence. Rules reports from testers must be
+reconciled against official sources through the normal candidate pipeline. See
 `docs/data/aos4-accuracy-review.md`.
 
-Future data refreshes repeat Phase 1b's candidate-review-accept-generate workflow. Never replace the
-accepted snapshot merely because a newer download decoded successfully. Review changed diagnostics,
-official precedence, dispositions, identities, and generated checksums first.
+Data refreshes repeat the candidate-review-accept-generate workflow. Never replace the accepted
+snapshot merely because a newer download decoded successfully. Review changed diagnostics, official
+precedence, dispositions, identities, and generated checksums first. Avoid mixing dependency churn
+into rules/data corrections unless a package blocks correct data work, the build, or safe operation.
 
-For future Phase 1 data refreshes, avoid mixing dependency churn into rules/data corrections unless
-a package blocks correct data work, the build, or safe operation.
+## Package and codebase modernization
 
-### Phase 2: package and codebase modernization
-
-Phase 2 is underway. Capability restoration has delivered printing and PDF export
+Modernization is ongoing. Capability restoration has delivered printing and PDF export
 (`src/aos4/print/`, see `docs/printing.md`), importing, cloud armies, and sharing. The package track
 has delivered Bootstrap 5.3/react-bootstrap 2, React 19, React Router 8, PWA support on
 `vite-plugin-pwa` (`docs/pwa.md`, `docs/deployment.md`), the Vite, TypeScript, Sass, Stripe, and
@@ -177,15 +140,12 @@ Standing constraints carried out of that work:
 - `src/bootstrap/router.tsx` holds the `createBrowserRouter` singleton. The Auth0 redirect callback
   navigates through it, and analytics page-view tracking subscribes to it, deduping on location key.
 
-Remaining work, preserving the completed AoS 4 domain, generated-data contracts, beta gate, and
-familiar interface:
+Remaining work, preserving the domain, generated-data contracts, beta gate, and familiar interface:
 
 - tighten compiler and lint settings
 - address bundle and deployment architecture
-- rebuild the remaining capabilities the cutover removed against AoS 4 contracts, following the
-  pattern set by printing and importing
 
-Keep framework migration separate from rules/data corrections where practical.
+Keep framework upgrades separate from rules/data corrections where practical.
 
 `jspdf` is confined to `src/aos4/print/pdf.ts` and `src/aos4/print/measure.ts`; `pdfjs-dist` is
 confined to the Node-side official-PDF text extraction in
@@ -209,10 +169,7 @@ origin-scoped rather than per-user, so a cached response would outlive its sessi
 
 ## Branch and pull-request strategy
 
-`master` is the primary development branch and the normal PR target. The Version 6 release
-(PR #1717, `AoS Reminders 6.0.0 — Age of Sigmar fourth-edition release`) merged the retired
-`aos4-migration` integration branch into `master` on 2026-07-31; do not base new work on
-`aos4-migration` or target PRs at it.
+`master` is the primary development branch and the normal PR target.
 
 - Base normal work on the latest `origin/master` and target PRs at `master` unless the user
   explicitly establishes another integration branch.
@@ -461,30 +418,13 @@ Accuracy review is a separate fail-closed layer:
 Use `yarn data:aos4:review:prepare`, `yarn data:aos4:review:adversarial`,
 `yarn data:aos4:certify:prepare`, and `yarn data:aos4:verify:beta` for the beta gate.
 
-## Retired architecture
-
-The AoS 3 implementations below must remain absent. The features themselves are not retired:
-printing, importing, cloud armies, and sharing have AoS 4-native replacements at new paths, and
-`src/tests/aos4/legacyIsolation.test.ts` allowlists exactly those modules. Rebuild remaining
-capabilities the same way; never revive the AoS 3 code paths:
-
-- `src/factions/`, `src/generic_rules/`, `src/meta/`
-- `src/ducks/`, `src/store/`, Redux Persist state
-- old army/data/phase/selection/saved-army types
-- `processGame`, `processReminders`, `reminderUtils`, `getSideEffects`, `withSelect`
-- the AoS 3 Azyr, Battlescribe, Warscroll Builder, and Warhammer App importers
-- AoS 3 name/typo/deprecation lookup tables and historical importer fixtures
-  (`src/aos4/import/labelAliases.ts` is the reviewed AoS 4 import alias table, not a revival)
-- AoS 3 saved-army, import, and PDF logic; the established visual components may be adapted to
-  AoS 4
-
 Git history is the archive. Do not keep copied “reference” files in the working tree.
 
 ## Development conventions
 
 - Use Node `v22.23.2` from `.nvmrc` and Yarn Classic with the committed lockfile. CI workflows and
   the companion APIs (`nodejs22.x`) also run Node 22.
-- TypeScript is strict; `noImplicitAny` is still disabled pending Phase 2.
+- TypeScript is strict; `noImplicitAny` is still disabled and remains to be tightened.
 - Prettier uses two spaces, no semicolons, single quotes, 110 columns, and ES5 trailing commas.
 - Prefer `satisfies` for static dictionaries so keys stay narrow while values are checked.
 - Keep network logic, Node-only modules, and source bytes out of the browser bundle.
@@ -500,7 +440,7 @@ yarn install --frozen-lockfile
 ```
 
 **Reinstall from scratch after crossing the React 17/Bootstrap 4 boundary.** Switching between
-branches either side of the Phase 2 package track can leave a stale nested `@types/react`, which
+branches either side of the package upgrades can leave a stale nested `@types/react`, which
 produces `TS2786` JSX errors in files nobody touched. The code is fine and CI is green when this
 happens — do not "fix" those errors, and verify against a clean install before trusting any
 baseline error count. Diagnosis and fix:

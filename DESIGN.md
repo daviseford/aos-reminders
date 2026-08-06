@@ -645,5 +645,5 @@ to switch itself on during an upgrade.
   under time pressure, not a marketing page.
 - **Don't** restyle as a side effect of an accessibility or correctness fix. Choose the variant that
   renders identically, state the delta, and let the user accept it.
-- **Don't** introduce a second visual language for AoS 4 data, a "migration workbench" aesthetic, or
-  a broad reskin. The live site is the baseline and a redesign requires an explicit request.
+- **Don't** introduce a second visual language or a broad reskin. The live site is the baseline and
+  a redesign requires an explicit request.

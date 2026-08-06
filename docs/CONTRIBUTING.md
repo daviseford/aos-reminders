@@ -1,11 +1,8 @@
 # Contributing to AoS Reminders
 
-AoS Reminders version 6 is the clean fourth-edition cutover. Its data-and-domain phase is complete,
-capability restoration has delivered printing, importing, cloud armies, and sharing, and Phase 2
-package modernization continues. Read the root [AGENTS.md](../AGENTS.md) for current scope and
-constraints. The
-[Phase 1 plan](plans/2026-07-27-001-refactor-aos4-domain-and-data-pipeline-plan.md) is retained as
-completed requirements and decision history.
+AoS Reminders version 6 is an Age of Sigmar fourth-edition app. The data and domain work is
+complete, printing, importing, cloud armies, and sharing are delivered, and package modernization
+continues. Read the root [AGENTS.md](../AGENTS.md) for current scope and constraints.
 
 The accepted corpus is machine-verified for beta use. Beta reports do not justify direct edits to
 generated data: confirm each report against current official sources, correct the candidate
@@ -14,15 +11,14 @@ pipeline, add regression coverage, and produce a new checksum-bound certificatio
 ## Branching
 
 - Base ordinary work on `origin/master` and target pull requests at `master` unless a new
-  integration branch is explicitly established. The retired `aos4-migration` integration branch
-  merged into `master` with release PR #1717; do not base new work on it.
+  integration branch is explicitly established.
 - Never push `master` directly. A merge or push to `master` deploys production and requires explicit
   project-owner authorization.
-- Keep rules/data corrections separate from Phase 2 package modernization where practical.
+- Keep rules/data corrections separate from package modernization where practical.
 
 ## Data contributions
 
-Do not add hand-authored faction modules or copy AoS 3 structures from Git history.
+Do not add hand-authored faction modules or copy retired structures from Git history.
 
 Games Workshop sources are authoritative. Wahapedia AoS 4 exports and bounded current faction
 pages are the preferred coherent secondary sources. A data change should include:

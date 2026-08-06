@@ -66,9 +66,9 @@ verifies the reviewed absence (no generated entities, matching target, non-empty
 of demanding a generated entity.
 
 `data/aos4/certifications/beta.json` binds the accepted revision to this automated evidence.
-`yarn data:aos4:verify:beta` is the fail-closed beta gate. It passes for the current revision, which
-completes Phase 1 under the machine-verified beta standard and allows Phase 2 to proceed. Any bound
-corpus or evidence change must pass a new campaign before accepted generation or CI proceeds.
+`yarn data:aos4:verify:beta` is the fail-closed beta gate. It passes for the current revision under
+the machine-verified beta standard. Any bound corpus or evidence change must pass a new campaign
+before accepted generation or CI proceeds.
 
 The 129 faction/context strata are the combinations declared by each faction's catalog
 applicability, not a Cartesian product. A stratum counts as reviewed only when every live packet

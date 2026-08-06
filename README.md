@@ -26,24 +26,23 @@ The release provides:
 - a responsive AoS 4 builder/reminder screen with notes, hiding, focus mode, printing/PDF export,
   and local persistence
 - official-app, Listbot, and New Recruit `.ros`/`.rosz`/`.json` roster imports
-- Auth0-native cloud armies and opaque sharing, pending the coordinated production API rollout
+- Auth0-native cloud armies and opaque sharing
 - Bootstrap 5.3, React 19, maintained drag-and-drop, production-only GA4, and a quiet rules-source
-  radar while broader Phase 2 modernization continues
-- a hard clean cut: no AoS 3 rules, state, importers, or compatibility behavior remain
+  radar, with package modernization continuing
 
-| Program stage | Status |
+| Area | Status |
 | --- | --- |
-| Phase 1: AoS 4 data and domain | Complete and machine-verified for beta use |
-| Phase 2: capabilities and modernization | Capability restoration delivered; modernization underway |
-| Version 6 production launch | Release candidate; see [the release runbook](docs/release.md) |
+| AoS 4 data and domain | Complete and machine-verified |
+| Capabilities | Printing, importing, cloud armies, and sharing delivered |
+| Package modernization | Underway |
 
-The Phase 1 beta gate binds the accepted `aos4-corpus-2026-08-03` revision to a complete automated
+The beta gate binds the accepted `aos4-corpus-2026-08-03` revision to a complete automated
 review of 81,956 results across 40,982 source/generated pairs, with zero live findings and zero
 `cannot-verify` outcomes. Run `yarn data:aos4:verify:beta` to verify the committed evidence without
-network or cache access. Future beta reports and source updates reopen only the affected data
-through the candidate pipeline; they do not restart the completed migration.
+network or cache access. Future reports and source updates reopen only the affected data through the
+candidate pipeline.
 
-Phase 2 continues after this release while the accepted AoS 4 data contracts remain stable.
+Package modernization continues while the accepted data contracts remain stable.
 
 ## Sources
 
@@ -106,9 +105,7 @@ The AoS 4 implementation lives under `src/aos4/`:
 - `view/` — pure builder/reminder presentation models
 - `generate/` and `generated/` — deterministic accepted outputs
 
-Read [AGENTS.md](AGENTS.md) for the current Phase 2 scope and migration constraints. The
-[Phase 1 plan](docs/plans/2026-07-27-001-refactor-aos4-domain-and-data-pipeline-plan.md) remains the
-completed requirements and decision history.
+Read [AGENTS.md](AGENTS.md) for current scope and constraints.
 
 ## Companion repositories
 
