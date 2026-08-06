@@ -122,7 +122,7 @@ Every push to `master` builds and deploys the production site to S3/CloudFront, 
 pushing it requires explicit project-owner authorization.
 
 See [the release runbook](docs/release.md) for production gates and post-deploy validation, and
-[CONTRIBUTING.md](docs/CONTRIBUTING.md) for the normal contribution workflow.
+[AGENTS.md](AGENTS.md) for the contribution workflow and repository constraints.
 
 ## Community
 

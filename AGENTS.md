@@ -184,6 +184,14 @@ All issue tracking for this repository lives in GitHub Issues on `daviseford/aos
 - Open issues with `gh issue create`, and reference them by number (for example `#1754`) in commit
   messages and PR descriptions.
 
+### Pull-request descriptions
+
+State what cohort, contract, or structural behavior changed; which sources and effective dates were
+used; how conflicts and diagnostics were dispositioned; whether generated files changed and from
+which accepted inputs; which verification commands passed; and any known coverage gaps. Say
+explicitly whether a change affects production configuration or needs coordinated companion-service
+work.
+
 ## Source-of-truth policy
 
 Use this precedence:
