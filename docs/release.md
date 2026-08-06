@@ -63,10 +63,9 @@ Before merging #1717, confirm all of the following:
 - repository variables `PRODUCTION_ARMY_API_URL` and `PRODUCTION_SUBSCRIPTION_API_URL` contain the
   compatible production HTTP API endpoints. The deployment workflow maps them to the two Vite
   variables, validates them, and confirms both are embedded in the artifact;
-- the subscription-account authorization work in
-  [#1720](https://github.com/daviseford/aos-reminders/issues/1720) is resolved and its negative
-  authorization matrix passes. The public shared browser key is not an identity boundary and must
-  not be described as secure.
+- the subscription-account authorization work is resolved and its negative authorization matrix
+  passes. That work is tracked in the private `aos-reminders-subscription-api` repository; do not
+  restate its detail here.
 
 The last two bullets are production gates, not documentation warnings. Merging without them can
 publish paid-feature claims for capabilities that are unavailable or insufficiently authorized.
@@ -119,9 +118,10 @@ Validate the deployed commit rather than only the local build. Record the comple
 5. With two authenticated accounts, exercise cloud create/list/load/update/rename/delete and prove
    cross-account mutations fail. Create a share, open it signed out, and confirm the response and
    browser state contain no owner identity.
-6. Exercise subscription status, checkout, cancellation, redemption, and theme persistence. Follow
-   [#1731](https://github.com/daviseford/aos-reminders/issues/1731) for the first live Stripe and
-   PayPal delivery checks; test-mode verification is not proof of a live-money webhook.
+6. Exercise subscription status, checkout, cancellation, redemption, and theme persistence. The
+   first live-money provider delivery checks are tracked in the private
+   `aos-reminders-subscription-api` repository; test-mode verification is not proof of a live-money
+   webhook.
 7. Confirm GA4 receives one pathname-only page view per route from the production hostname, no
    localhost traffic, and the expected bounded event parameters.
 8. Confirm the service worker update prompt can move an already-open tab to the new release.

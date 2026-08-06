@@ -121,17 +121,13 @@ community trusts that experience; an AoS 4 data/domain migration does not author
   `node_modules/.bin/vite --port 5174` inside the worktree. `CONCEPTS.md` records how the
   faction / Army of Renown / battle-formation hierarchy maps onto that ancestry.
 
-The Version 6 launch-hardening client retires the shared browser key and sends the user's
-Auth0 bearer token for every subscription account operation. Production remains blocked until the
-companion subscription change in `aos-reminders-subscription-api#17` is reviewed, deployed, and
-live-verified: it must derive account ownership from verified claims, reject cross-account access,
-verify and deduplicate provider callbacks, review the private-repository credential history, and
-pass the negative authorization matrix. The repository history is not evidence of public credential
-exposure; rotate a credential only when access history, policy, or other evidence requires it.
-Preserve the familiar account UI while this work is tracked in issue #1720; do not describe the
-production subscription API as secure before those checks pass. The army/share client likewise
-sends the bearer token for the `https://api.aosreminders.com` audience; its private collection
-hardening and production rollout remain tracked in `aos-reminders-rest-api#11` and issue #1804.
+The client sends the user's Auth0 bearer token for every subscription account operation, and for
+the `https://api.aosreminders.com` audience on the army/share client. Preserve the familiar account
+UI.
+
+Subscription, billing, and payment-provider work belongs to the private
+`aos-reminders-subscription-api` repository and is tracked in its issues. Do not open public issues,
+add public notes, or record billing/authorization detail in this repository.
 
 ## Migration program
 
@@ -145,7 +141,7 @@ Phase 1 has two parts:
    stable identities, generation, and coverage/freshness reporting.
 
 The structural and machine-audit work is complete for the accepted
-`aos4-corpus-2026-07-30` snapshot. The manifest, corpus review, stable identity registry, complete
+`aos4-corpus-2026-08-03` snapshot. The manifest, corpus review, stable identity registry, complete
 audit catalog, compact runtime projection, and generation report are checked in. The strict gate
 has no unresolved timing, dangling reference, unsafe HTML, duplicate identity, silent source
 conflict, or unreviewed source diagnostic.
@@ -166,59 +162,48 @@ a package blocks correct data work, the build, or safe operation.
 
 ### Phase 2: package and codebase modernization
 
-Phase 2 is underway. Its capability-restoration track (plan `2026-07-29-001`) has delivered
-printing and PDF export (`src/aos4/print/`, documented in `docs/printing.md`) and importing, cloud
-armies, and sharing. Its package track has begun: Bootstrap is on 5.3 and react-bootstrap on 2.x
-(issue #1176), migrated for visual parity — `src/css/theme.scss` pins the Bootstrap 4.6 defaults the
-interface was built against, and those pins are part of the design system (see DESIGN.md, "The
-Parity Pin Rule"). React is on 19 (issue #1770): `createRoot`, and deliberately no `StrictMode`
-wrapper — the app has never had one, and adding it would double-invoke every effect. PWA support is
-rebuilt on `vite-plugin-pwa` 1.3 (issue #1801): the app is installable and works offline after one
-online visit, the orphaned CRA worker layer is gone, and the production deploy sets per-file
-`Cache-Control` headers the worker depends on. See `docs/pwa.md` and `docs/deployment.md`. React
-Router is on 8 (issue #1444): a `createBrowserRouter` singleton in `src/bootstrap/router.tsx`
-replaces the v5 custom-history object — the Auth0 redirect callback navigates through it and
-analytics page-view tracking subscribes to it, deduping on the location key. Vite,
-TypeScript, Sass, Stripe, and react-dropzone remain pending. Checked-in plans live
-under `docs/plans/`. Preserve the completed AoS 4 domain, generated-data contracts, beta gate, and
-familiar interface while working through:
+Phase 2 is underway. Capability restoration has delivered printing and PDF export
+(`src/aos4/print/`, see `docs/printing.md`), importing, cloud armies, and sharing. The package track
+has delivered Bootstrap 5.3/react-bootstrap 2, React 19, React Router 8, PWA support on
+`vite-plugin-pwa` (`docs/pwa.md`, `docs/deployment.md`), the Vite, TypeScript, Sass, Stripe, and
+react-dropzone upgrades, jsPDF 4/pdfjs-dist 6, and the removal of Redux and react-beautiful-dnd.
 
-- upgrade Vite, TypeScript, Sass, and the remaining supporting packages
-- remove packages made unused by the AoS 3 retirement (the four Redux packages are gone)
-- replace obsolete or unmaintained libraries (react-beautiful-dnd -> @hello-pangea/dnd is done)
+Standing constraints carried out of that work:
+
+- `src/css/theme.scss` pins the Bootstrap 4.6 defaults the interface was built against. Those pins
+  are part of the design system — see DESIGN.md, "The Parity Pin Rule".
+- There is deliberately no `StrictMode` wrapper. The app has never had one, and adding it would
+  double-invoke every effect.
+- `src/bootstrap/router.tsx` holds the `createBrowserRouter` singleton. The Auth0 redirect callback
+  navigates through it, and analytics page-view tracking subscribes to it, deduping on location key.
+
+Remaining work, preserving the completed AoS 4 domain, generated-data contracts, beta gate, and
+familiar interface:
+
 - tighten compiler and lint settings
-- redesign API/auth/subscription capabilities against AoS 4 contracts as needed (save and share
-  are delivered)
 - address bundle and deployment architecture
 - rebuild the remaining capabilities the cutover removed against AoS 4 contracts, following the
   pattern set by printing and importing
 
 Keep framework migration separate from rules/data corrections where practical.
 
-The jsPDF/pdfjs upgrade (#1900) moved the codebase to `jspdf` 4.2.1 for the print/PDF export
-(confined to `src/aos4/print/pdf.ts` and `src/aos4/print/measure.ts`) and `pdfjs-dist` 6.x for the
-Node-side official-PDF text extraction in `src/aos4/data/gamesWorkshop/pdfText.ts` (legacy ESM
-build; `destroy()` now lives on the loading task, and pdf.js 6 rejects Node Buffers, so cached
-artifact bytes are copied into a plain `Uint8Array` first). pdf.js 6 extracts letterspaced display
-headings without the fake spaces 2.4 inserted, so official-evidence page checksums and two
-battle-profile ledger facts pinned to the old extraction no longer reproduce: the accepted snapshot
-needs a reviewed evidence refresh before `data:aos4:generate:candidate` passes again. That refresh
-is a corpus review decision, not part of the dependency bump; `data:aos4:verify:beta` is unaffected
-because it checks checked-in products rather than re-extracting.
+`jspdf` is confined to `src/aos4/print/pdf.ts` and `src/aos4/print/measure.ts`; `pdfjs-dist` is
+confined to the Node-side official-PDF text extraction in
+`src/aos4/data/gamesWorkshop/pdfText.ts` (legacy ESM build; `destroy()` lives on the loading task,
+and pdf.js 6 rejects Node Buffers, so cached artifact bytes are copied into a plain `Uint8Array`
+first). pdf.js 6 extracts letterspaced display headings without the fake spaces 2.4 inserted, so
+official-evidence page checksums and two battle-profile ledger facts pinned to the old extraction no
+longer reproduce: **the accepted snapshot needs a reviewed evidence refresh before
+`data:aos4:generate:candidate` passes again.** That refresh is a corpus review decision, not part of
+the dependency bump. `data:aos4:verify:beta` is unaffected because it checks checked-in products
+rather than re-extracting.
 
 The companion API services (`aos-reminders-rest-api`, `aos-reminders-subscription-api`) run on
-`nodejs22.x`/Serverless v4/AWS SDK v3 with characterization tests and CI (plan
-`2026-07-28-002`, units U2/U3). Issue #1727 completed authenticated CI `serverless package` gates,
-dev verification, and the dev/prod runtime deploys. The later AoS 4-native army/share service in
-`aos-reminders-rest-api#10` is dev-validated; its private-read/production hardening merged in
-`aos-reminders-rest-api#11` but still needs the coordinated production deployment and frontend API
-configuration tracked in issue #1804. Subscription authorization and verified webhook handling
-merged in `aos-reminders-subscription-api#17` but remain a production gate under issue #1720. Live
-real-money Stripe and PayPal verification after the Version 6 frontend deploy remains tracked in
-issue #1731, and the full production smoke/operational handoff is issue #1805.
+`nodejs22.x`/Serverless v4/AWS SDK v3 with characterization tests and CI, and are deployed to dev
+and prod. Both are private repositories that own their own issue trackers; do not track their work
+here.
 
-Issue #1801 asked for PWA support in both this app and the subscription admin console. Only this
-app's half shipped; the console's is `aos-reminders-admin#9`, which scopes it to a manifest and
+The subscription admin console's PWA support is `aos-reminders-admin#9`, scoped to a manifest and
 icons with no service worker — that console renders live subscriber data, and browser caches are
 origin-scoped rather than per-user, so a cached response would outlive its session.
 
@@ -271,8 +256,7 @@ Acquisition bytes, normalized facts, accepted domain entities, and reminder proj
 separate layers. Never make a PDF/HTML/CSV provider shape the application’s permanent model.
 
 A quiet official-first rules radar (official and Wahapedia sentinels plus a lower-authority BSData
-observer) is planned but not implemented; see
-`docs/plans/2026-07-29-003-feat-quiet-official-rules-radar-plan.md`.
+observer) is planned but not implemented.
 
 ### Roster import sources
 
@@ -311,21 +295,8 @@ Start with the published export:
 
 `https://wahapedia.ru/aos4/the-rules/data-export/`
 
-Current export files:
-
-- `Factions.csv`
-- `Source.csv`
-- `Warscrolls.csv`
-- `Warscrolls_abilities.csv`
-- `Warscrolls_weapons.csv`
-- `Warscrolls_keywords.csv`
-- `Warscrolls_bases.csv`
-- `Warscrolls_organisation.csv`
-- `Warscrolls_RoRfactions.csv`
-- `Faction_ability_types.csv`
-- `Faction_ability_subtypes.csv`
-- `Faction_abilities.csv`
-- `Last_update.csv`
+`src/aos4/data/wahapedia/exportCatalog.ts` enumerates the 13 current export files; treat it as the
+list rather than restating it here.
 
 The files are UTF-8, pipe-delimited, and use string IDs and textual booleans. Descriptive fields may
 contain HTML. Normalize to safe text; never pass downloaded HTML directly to React.
@@ -528,26 +499,12 @@ Install:
 yarn install --frozen-lockfile
 ```
 
-**Reinstall from scratch after crossing the React 17/Bootstrap 4 boundary.** Branches that predate
-the Phase 2 package track resolve a different dependency tree, and Yarn Classic does not always
-prune the nested copies it no longer needs. The failure this produces is a stale
-`react-bootstrap/node_modules/@types/react` at 17.x sitting under a top-level 19.x: `tsc` then
-resolves react-bootstrap's *and* react-icons' JSX types through React 17's namespace and reports a
-handful of `TS2786 ... is not a valid JSX element type` errors in files nobody touched — typically
-`src/components/info/reminders.tsx` and `src/components/helpers/link.tsx`.
-
-Nothing is wrong with the code when this happens. `yarn.lock` carries a single `@types/react`, and
-`package.json` already pins it through `resolutions`, so CI installs clean and compiles with zero
-errors. Only the local tree is poisoned. Confirm with:
-
-```powershell
-Get-ChildItem -Recurse -Path node_modules -Filter package.json |
-  Where-Object { $_.FullName -match '@types\\react\\package.json$' }
-```
-
-More than one hit means the tree is stale; `rm -rf node_modules` and reinstall. Do not "fix" the
-reported type errors — verify against a clean install before believing any baseline error count,
-and before treating pre-existing errors as something a branch inherited.
+**Reinstall from scratch after crossing the React 17/Bootstrap 4 boundary.** Switching between
+branches either side of the Phase 2 package track can leave a stale nested `@types/react`, which
+produces `TS2786` JSX errors in files nobody touched. The code is fine and CI is green when this
+happens — do not "fix" those errors, and verify against a clean install before trusting any
+baseline error count. Diagnosis and fix:
+[docs/solutions/workflow-learnings/stale-nested-types-react-after-package-track.md](./docs/solutions/workflow-learnings/stale-nested-types-react-after-package-track.md).
 
 Run:
 
@@ -589,15 +546,13 @@ unit-test prerequisite.
 ## Current working sequence
 
 1. Keep the accepted AoS 4 corpus, runtime, UI continuity, and retirement boundary green.
-2. For a data refresh, acquire a new candidate without changing accepted output.
-3. Review changed cohorts and current official publications.
-4. Resolve or disposition every changed diagnostic and preserve official precedence.
-5. Update the accepted manifest/review inputs and regenerate; do not hand-edit products.
-6. Run deterministic generation, catalog integrity, provenance, selection, reminder, browser, and
+2. For a data refresh, run the candidate-review-accept-generate workflow above: acquire without
+   changing accepted output, review changed cohorts against current official publications,
+   disposition every changed diagnostic, update the accepted manifest/review inputs, and regenerate
+   without hand-editing products.
+3. Run deterministic generation, catalog integrity, provenance, selection, reminder, browser, and
    production-build checks.
-7. Repeat the checksum-bound machine review and update the beta-readiness pointer; a prior result
-   is never inherited by a changed corpus.
-8. Use normal PRs targeting `master`; never push `master` directly without explicit
-   authorization.
-9. Reconcile beta-tester rules reports against official sources and add regression coverage for
+4. Repeat the checksum-bound machine review and update the beta-readiness pointer. A prior result is
+   never inherited by a changed corpus.
+5. Reconcile beta-tester rules reports against official sources and add regression coverage for
    confirmed corrections.

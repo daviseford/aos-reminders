@@ -37,18 +37,13 @@ The release provides:
 | Phase 2: capabilities and modernization | Capability restoration delivered; modernization underway |
 | Version 6 production launch | Release candidate; see [the release runbook](docs/release.md) |
 
-The Phase 1 beta gate binds the accepted `aos4-corpus-2026-07-30` revision to a complete automated
-review of 79,598 results across 39,799 source/generated pairs, with zero live findings and zero
+The Phase 1 beta gate binds the accepted `aos4-corpus-2026-08-03` revision to a complete automated
+review of 81,956 results across 40,982 source/generated pairs, with zero live findings and zero
 `cannot-verify` outcomes. Run `yarn data:aos4:verify:beta` to verify the committed evidence without
 network or cache access. Future beta reports and source updates reopen only the affected data
 through the candidate pipeline; they do not restart the completed migration.
 
-Phase 2 continues after this release while the accepted AoS 4 data contracts remain stable. The
-Auth0 subscription and private army/share implementations are prepared in launch-hardening PRs,
-but their production rollout and live negative checks remain tracked in
-[#1720](https://github.com/daviseford/aos-reminders/issues/1720) and
-[#1804](https://github.com/daviseford/aos-reminders/issues/1804). Do not describe either production
-gate as complete until those checks pass.
+Phase 2 continues after this release while the accepted AoS 4 data contracts remain stable.
 
 ## Sources
 
