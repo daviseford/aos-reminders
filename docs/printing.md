@@ -76,8 +76,7 @@ The button also calls `saveArmyToS3(currentArmy)` as a side effect, and the moda
 - `doc.setFontStyle(style)` → replaced by `setFont(family, style)`
 - `doc.text(text, x, y, null, null, align)` → replaced by `text(text, x, y, { align })`
 
-Any upgrade is a rewrite of the render loops, not a version bump. Per AGENTS.md this belongs in
-Phase 2.
+Any upgrade is a rewrite of the render loops, not a version bump.
 
 The document is created with `new jsPDF({ unit: 'in', lineHeight: 1.2 })` — **inches**, and the
 default format, which is **A4**: 8.2678in × 11.6929in. Not US Letter, despite the audience.
@@ -335,6 +334,6 @@ trap is `wraps to the real column width, not to an implicit font-size-scaled wid
   official-evidence checksums need a reviewed refresh before `data:aos4:generate:candidate` passes
   again.
 - **A layout-engine library not taken.** `pdfmake` or `@react-pdf/renderer` would express "two
-  columns, keep-together, repeat heading on break" as configuration rather than code. Rejected
-  against AGENTS.md's "avoid dependency churn during Phase 1", but it is the natural landing spot if
-  `layout.ts` keeps growing.
+  columns, keep-together, repeat heading on break" as configuration rather than code. Rejected at
+  the time to avoid dependency churn during the data-correctness work, but it is the natural landing
+  spot if `layout.ts` keeps growing.

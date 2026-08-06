@@ -38,11 +38,9 @@ abilities those selections grant into discrete reminder occurrences, and orders 
 in which they fire — deployment, each of the seven turn phases, round boundaries, reactions, and
 phase-independent effects.
 
-**Version 6.0.0 is the AoS 4 launch release.** Phase 1 (data and domain correctness) is complete and
-machine-verified for beta. Capability restoration has delivered printing, importing, cloud armies,
-and sharing; Phase 2 package modernization continues after launch. Production readiness still
-requires the explicit API and configuration gates in `docs/release.md`, including the unresolved
-subscription-API authorization gap.
+**Version 6.0.0 is the AoS 4 launch release**, live since 2026-07-31. The data and domain work is
+complete and machine-verified, and printing, importing, cloud armies, and sharing are delivered.
+Package modernization continues. `docs/release.md` records the release gates.
 
 ## Positioning
 
@@ -110,14 +108,10 @@ Preserve it; do not change it as a side effect of other work.
 
 ### Durable constraints
 
-- **AoS 4 is a hard cutover.** No AoS 3 rule, timing, phase, category, alias, importer correction,
-  fixture, or data shape is evidence for an AoS 4 decision, and no AoS 3 module may be restored to
-  make a feature convenient. A temporarily incomplete AoS 4-only app is preferable to parallel live
-  rule models.
 - **The live application at `https://aosreminders.com/` is the interaction baseline.** The
-  community trusts that experience, and the data migration does not authorize a redesign. Treat any
-  interface change the user did not explicitly ask for as a code smell. Data-driven changes — phase
-  names, content-group cards, reminder text — are the expected exception.
+  community trusts that experience, and data or dependency work does not authorize a redesign. Treat
+  any interface change the user did not explicitly ask for as a code smell. Data-driven changes —
+  phase names, content-group cards, reminder text — are the expected exception.
 - **Source precedence**: Games Workshop publications are authoritative; Wahapedia exports and
   bounded faction pages are the preferred secondary discovery source; other community sources may
   identify gaps but never silently override official material. Preserve discrepancies rather than
@@ -171,9 +165,9 @@ occurrence, Legends, Spearhead, General's Handbook 2026-27 (`Scourge of Aqshy`).
 
 ## Evidence on Hand
 
-- **The accepted corpus** `aos4-corpus-2026-07-30`: 28 decoded source factions (27 playable armies
-  plus the Endless Spells container), 1,286 warscrolls, 1,002 battle profiles, 4,898 abilities,
-  2,260 weapons, 1,409 content groups, and 19,126 live source records. Checked in under
+- **The accepted corpus** `aos4-corpus-2026-08-03`: 28 decoded source factions (27 playable armies
+  plus the Endless Spells container), 1,296 warscrolls, 1,012 battle profiles, 5,074 abilities,
+  2,269 weapons, 1,493 content groups, and 20,084 live source records. Checked in under
   `src/aos4/generated/corpus/`.
 - **A beta certification** binding that corpus to a complete machine review — 79,598 results across
   39,799 source/generated pairs, zero live findings, zero `cannot-verify` outcomes. Verifiable

@@ -17,7 +17,9 @@ The migration branch completed its clean runtime cutover on 2026-07-27.
   hashes, importers, and historical rules fixtures are absent. The trusted visual/account shell is
   preserved through AoS 4 view models.
 - 1,116 tracked legacy files were removed in the retirement change.
-- `src/tests/aos4/legacyIsolation.test.ts` enforces both dependency direction and physical absence.
+- Dependency direction and physical absence were enforced by `legacyIsolation.test.ts`. The
+  physical-absence half was retired once the cutover shipped; the dependency boundary lives on in
+  `src/tests/aos4/architectureBoundaries.test.ts`.
 - TypeScript, AoS 4 tests, and the production build are the clean-cut gate.
 
 The initial representative Stormcast cohort proved the cutover. The accepted 2026-07-27 Phase 1

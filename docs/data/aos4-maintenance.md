@@ -619,4 +619,4 @@ reminder ordering, persistence, attribution, and deterministic serialization.
 The accepted snapshot is a reproducible data decision, not a claim that remote sources will never
 change. A newer Wahapedia export or Games Workshop publication starts a new candidate cycle. Keep
 the existing accepted files reproducible until the replacement passes the same strict gate, and
-keep rules/data changes separate from Phase 2 package modernization.
+keep rules/data changes separate from package modernization.
