@@ -78,29 +78,39 @@ small {
 }
 
 /*
- * The controls that take money, sized by the finger rather than by the label.
+ * Touch targets, sized by the finger rather than by the label.
  *
- * Bootstrap's button padding plus `py-2` lands these at 42px tall, under the 44px touch target
- * DESIGN.md sets for the phone-in-one-hand scene. Only the height needs correcting — every one of
- * them is already full-width or wider than 44px — so a min-height fixes it without moving anything
- * else on the card.
+ * DESIGN.md sets 44x44 for the phone-in-one-hand scene, with WCAG 2.5.8's 24x24 as the absolute
+ * floor. Bootstrap's own metrics land short of 44 almost everywhere: a `btn` with `py-2` is 42px,
+ * `btn-sm` is 31px, and a bare text link is whatever its line-height happens to be. These two rules
+ * correct the height only — every element carrying them is already wider than 44px — so nothing
+ * reflows horizontally.
+ *
+ * Two variants because the elements differ: `.TapTargetBlock` leaves an existing block or
+ * full-width button alone, while `.TapTarget` has to establish a box at all, since an inline
+ * element cannot take a height.
  */
-.CommitButton {
+/*
+ * Height only, deliberately. Every element carrying this is a Bootstrap `.btn` with `d-block`, whose
+ * `display: block !important` would beat any display declared here — so setting one would be a style
+ * that silently never applies. The button's own symmetric padding centres the label.
+ */
+.TapTargetBlock {
+  min-height: 44px;
+}
+
+.TapTarget {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 44px;
 }
 
 /*
- * A standalone text link that is its own tap target rather than a word inside a sentence.
- *
- * WCAG 2.5.8 exempts links set inline in a block of text — the sentence around them is the target —
- * but a link sitting alone on its own line gets no such help, and line-height alone leaves it around
- * 21px tall. This raises the box without changing the type.
+ * WCAG 2.5.8 exempts a link set inline in a block of text, because the sentence around it is the
+ * target. `.TapTarget` is for the other kind: a link alone on its own line, or one acting as a
+ * control, which gets no such help.
  */
-.TapTarget {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-}
 
 /*
  * Bootstrap's default `code` pink measures 3.82:1 on white — under AA — and it carries the one line

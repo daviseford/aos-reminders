@@ -19,7 +19,12 @@ const Navbar = lazy(() => import('components/page/navbar'))
  * two prose blocks starting 236px apart on a 1440px screen.
  */
 const contentClass = 'col-12 col-lg-8 col-xl-8 mx-auto'
-const headerClass = `${contentClass} pt-5`
+/*
+ * pt-4 below 576px, pt-5 above. On a phone the whole first screen was preamble — logo, heading,
+ * lead, bullets — and the first price did not appear until roughly 1,135px down. Every fixed unit
+ * above the plans is paid for by the visitor who has to scroll past it to find out what this costs.
+ */
+const headerClass = `${contentClass} pt-4 pt-sm-5`
 
 const Subscribe = () => {
   const { isLoading } = useAuth0()
@@ -54,7 +59,8 @@ const Subscribe = () => {
         A full-bleed band, not a .row: a bare row's -15px margins overflowed the viewport by 15px and
         scrolled the whole page sideways. PricingPlans supplies its own .container.
       */}
-      <div className={`py-5 ${theme.sectionBand} ${theme.text}`}>
+      {/* py-4 below 576px: band padding above the prices is pure scroll cost on a phone. */}
+      <div className={`py-4 py-sm-5 ${theme.sectionBand} ${theme.text}`}>
         {/*
           Nothing here used to read subscriptionLoading or subscriptionError, so an account whose
           lookup was still in flight — or had failed — was shown three live buy buttons. A subscriber
@@ -111,11 +117,17 @@ const Intro = () => {
 
   return (
     <div className={`${headerClass} ${theme.text}`}>
-      {/* height reserves the box before the image loads; the intrinsic ratio is 919x843. */}
+      {/*
+        height reserves the box before the image loads; the intrinsic ratio is 919x843.
+
+        Hidden below 576px. It is purely decorative — the masthead already identifies the product,
+        which is why it carries an empty alt — and on a phone it was ~150px of the one screen that
+        has to make the case, pushing the prices further down for no information gained.
+      */}
       <img
         alt=""
         aria-hidden="true"
-        className="d-block mx-auto mb-4 img-fluid rounded-circle bg-white"
+        className="d-none d-sm-block mx-auto mb-4 img-fluid rounded-circle bg-white"
         height="110"
         src="/img/logo_medium_padding.png"
         width="120"
@@ -130,7 +142,7 @@ const Intro = () => {
       */}
       <p className="lead">
         Your army is saved in this browser, and only this browser. A subscription keeps it on your account
-        instead, so it follows you to the phone in your hand at the table — and survives losing that phone.
+        instead — so it follows you to the table, and survives a lost phone.
       </p>
     </div>
   )
@@ -155,10 +167,6 @@ const CurrentFeatures = () => (
         <strong>Dark theme</strong> — stored against your account, so it follows you too.
       </li>
     </ul>
-    <p>
-      Everything else — the builder, importing, reminders, notes, hiding, reordering, and the PDF — is free,
-      and stays free. Subscribing is what keeps it that way.
-    </p>
   </div>
 )
 
@@ -210,6 +218,15 @@ const MoreQuestions = () => {
 
   return (
     <div className={`container ${theme.bgColor} ${theme.text} text-center pt-4`}>
+      {/*
+        The free-and-stays-free note lives here rather than above the plans. It is the closing
+        argument, not the offer, and every line above the prices is one the visitor has to scroll
+        past before learning what this costs.
+      */}
+      <p>
+        Everything else — the builder, importing, reminders, notes, hiding, reordering, and the PDF — is free,
+        and stays free. Subscribing is what keeps it that way.
+      </p>
       <p className="mb-1">
         <Link
           className="TapTarget"

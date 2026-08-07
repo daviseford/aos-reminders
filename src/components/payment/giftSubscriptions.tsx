@@ -264,7 +264,7 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       <td>${(parseFloat(supportPlan.cost) * quantity).toFixed(2)}</td>
       <td>
         <GenericButton
-          className={`btn ${isMobile ? 'btn-sm' : ''} d-block w-100 btn-primary CommitButton`}
+          className={`btn ${isMobile ? 'btn-sm' : ''} d-block w-100 btn-primary TapTargetBlock`}
           disabled={isAuthenticated && quantity < 1}
           onClick={isAuthenticated ? handleCheckout : login}
         >

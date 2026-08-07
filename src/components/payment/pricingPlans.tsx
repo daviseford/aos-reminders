@@ -56,7 +56,7 @@ const PricingPlansComponent = () => {
 }
 
 const TrustNote = () => (
-  <div className="row text-center justify-content-center mb-4">
+  <div className="row text-center justify-content-center mb-3 mb-sm-4">
     <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
       <small>
         <em>
@@ -217,7 +217,7 @@ export const PlanComponent = (props: IPlanProps) => {
           <IconContext.Provider value={{ size: '1.2em' }}>
             <GenericButton
               type="button"
-              className="btn d-block w-100 btn-primary CommitButton py-2"
+              className="btn d-block w-100 btn-primary TapTargetBlock py-2"
               disabled={isAuthenticated && (isRedirecting || !stripe)}
               onClick={isAuthenticated ? handleStripeCheckout : login}
             >

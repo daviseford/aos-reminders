@@ -91,7 +91,7 @@ const CancelBtn = () => {
   return (
     <>
       <GenericButton
-        className={`btn btn-sm btn${isLight ? '-outline-' : '-'}danger`}
+        className={`btn btn-sm btn${isLight ? '-outline-' : '-'}danger TapTarget`}
         onClick={() => setModalIsOpen(true)}
       >
         Cancel Subscription
