@@ -211,7 +211,11 @@ const MoreQuestions = () => {
   return (
     <div className={`container ${theme.bgColor} ${theme.text} text-center pt-4`}>
       <p className="mb-1">
-        <Link to={`${ROUTES.FAQ}#what-subscription-includes`} onClick={() => logClick('Subscribe-Faq')}>
+        <Link
+          className="TapTarget"
+          to={`${ROUTES.FAQ}#what-subscription-includes`}
+          onClick={() => logClick('Subscribe-Faq')}
+        >
           More about subscriptions in the FAQ
         </Link>
       </p>

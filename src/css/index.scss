@@ -90,6 +90,19 @@ small {
 }
 
 /*
+ * A standalone text link that is its own tap target rather than a word inside a sentence.
+ *
+ * WCAG 2.5.8 exempts links set inline in a block of text — the sentence around them is the target —
+ * but a link sitting alone on its own line gets no such help, and line-height alone leaves it around
+ * 21px tall. This raises the box without changing the type.
+ */
+.TapTarget {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/*
  * Bootstrap's default `code` pink measures 3.82:1 on white — under AA — and it carries the one line
  * of a failed redemption the player has to read back to us. The monospace face already marks the
  * string as the server's own words, so the colour was only decorating. Inherit rather than pick a
