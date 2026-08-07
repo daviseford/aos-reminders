@@ -78,6 +78,32 @@ export type SubscriptionPlan = ISubscriptionPlan
 
 export const MAX_GIFT_QUANTITY = 99
 
+/**
+ * The rate every other plan is discounted against — the highest monthly cost on offer, which is the
+ * shortest period billed at full price.
+ *
+ * Derived rather than written down: the annual plan really is half the monthly rate ($11.88 against
+ * $23.88 a year), and that was true and unstated on /subscribe for as long as the page existed.
+ * Computing it means the claim cannot drift away from the prices beside it.
+ */
+export const baselineMonthlyCost = (): number =>
+  Math.max(...SubscriptionPlans.map(plan => parseFloat(plan.monthly_cost)))
+
+/** Whole-percent saving against the baseline monthly rate. 0 for the baseline plan itself. */
+export const monthlySavingPct = (plan: ISubscriptionPlan): number => {
+  const baseline = baselineMonthlyCost()
+  const monthly = parseFloat(plan.monthly_cost)
+  if (!Number.isFinite(baseline) || !Number.isFinite(monthly) || monthly >= baseline) return 0
+  return Math.round((1 - monthly / baseline) * 100)
+}
+
+/** The plan that saves the most per month. Ties resolve to the first declared. */
+export const bestValuePlan = (): ISubscriptionPlan | undefined =>
+  SubscriptionPlans.reduce<ISubscriptionPlan | undefined>(
+    (best, plan) => (!best || monthlySavingPct(plan) > monthlySavingPct(best) ? plan : best),
+    undefined
+  )
+
 export const findSubscriptionPlan = (title: string): ISubscriptionPlan | undefined =>
   SubscriptionPlans.find(plan => plan.title === title)
 

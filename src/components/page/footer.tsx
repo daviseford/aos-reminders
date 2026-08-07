@@ -24,7 +24,11 @@ const Footer = () => (
   </footer>
 )
 
-const Disclaimer = () => {
+/*
+ * Exported because PRODUCT.md requires this on every page, and the account routes render their own
+ * layout rather than <Footer /> — /subscribe and /profile were shipping without it.
+ */
+export const Disclaimer = () => {
   const { theme } = useTheme()
 
   return (

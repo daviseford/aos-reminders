@@ -196,8 +196,12 @@ describe('AoS 4 home presentation', () => {
       Simulate.click(findButton('Share Army')!)
     })
 
-    expect(navigate).toHaveBeenNthCalledWith(1, '/subscribe')
-    expect(navigate).toHaveBeenNthCalledWith(2, '/subscribe')
+    /*
+     * The feature's display name travels with the navigation so /subscribe can name the control that
+     * sent them. It used to arrive with no context at all, at the highest-intent moment in the funnel.
+     */
+    expect(navigate).toHaveBeenNthCalledWith(1, '/subscribe', { state: { featureName: 'My Armies' } })
+    expect(navigate).toHaveBeenNthCalledWith(2, '/subscribe', { state: { featureName: 'Share Army' } })
 
     await act(async () => {
       Simulate.click(findButton('Import Army')!)

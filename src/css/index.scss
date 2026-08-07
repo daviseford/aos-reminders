@@ -78,6 +78,18 @@ small {
 }
 
 /*
+ * The controls that take money, sized by the finger rather than by the label.
+ *
+ * Bootstrap's button padding plus `py-2` lands these at 42px tall, under the 44px touch target
+ * DESIGN.md sets for the phone-in-one-hand scene. Only the height needs correcting — every one of
+ * them is already full-width or wider than 44px — so a min-height fixes it without moving anything
+ * else on the card.
+ */
+.CommitButton {
+  min-height: 44px;
+}
+
+/*
  * Bootstrap's default `code` pink measures 3.82:1 on white — under AA — and it carries the one line
  * of a failed redemption the player has to read back to us. The monospace face already marks the
  * string as the server's own words, so the colour was only decorating. Inherit rather than pick a

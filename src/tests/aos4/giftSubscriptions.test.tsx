@@ -118,15 +118,19 @@ describe('gift subscription checkout', () => {
       ],
       provider: 'stripe',
     })
+    /*
+     * Built from window.location.origin, matching the subscription checkout. The pair of hardcoded
+     * hosts this replaced pinned development to `localhost:3000` — the retired CRA port — so every
+     * gift checkout in dev returned to an address nothing was serving.
+     */
+    const baseUrl = window.location.origin
     expect(stripe.redirectToCheckout).toHaveBeenCalledWith({
-      cancelUrl:
-        'https://aosreminders.com?canceled=true&checkout_kind=gift_subscription&plan=1%20Month&quantity=3',
+      cancelUrl: `${baseUrl}?canceled=true&checkout_kind=gift_subscription&plan=1%20Month&quantity=3`,
       clientReferenceId: 'gifter@example.com',
       customerEmail: 'gifter@example.com',
       lineItems: [{ price: GiftedSubscriptionPlans[0].stripe_prod, quantity: 3 }],
       mode: 'payment',
-      successUrl:
-        'https://aosreminders.com/profile?gifted=true&checkout_kind=gift_subscription&quantity=3&plan=1%20Month&checkout_session_id={CHECKOUT_SESSION_ID}',
+      successUrl: `${baseUrl}/profile?gifted=true&checkout_kind=gift_subscription&quantity=3&plan=1%20Month&checkout_session_id={CHECKOUT_SESSION_ID}`,
     })
   })
 

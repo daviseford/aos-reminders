@@ -4,6 +4,7 @@ import GenericButton from 'components/input/generic_button'
 import { CancelPaypalSubscriptionModal } from 'components/modals/paypal_cancellation_modal'
 import { CancelStripeSubscriptionModal } from 'components/modals/stripe_cancellation_modal'
 import Contact from 'components/page/contact'
+import { Disclaimer } from 'components/page/footer'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
@@ -38,7 +39,15 @@ const Profile = () => {
           <Navbar />
         </Suspense>
       </div>
-      <div className={`container ${theme.bgColor} px-0`}>
+      {/*
+        No `px-0`. The container's gutter padding is what absorbs the .row's -15px margins; stripping
+        it ran the row 15px wider than the viewport and scrolled this page sideways at 390, 375, 335
+        and 320 — the exact failure DESIGN.md names under Layout, on the account screen, in the
+        one-handed phone scene. /redeem, /join and AlreadySubscribed all use the plain container; this
+        is that pattern. Visible delta: the card column gains the standard 15px side gutter it should
+        always have had, rather than touching the screen edge.
+      */}
+      <div className={`container ${theme.bgColor}`}>
         <div className="row d-flex justify-content-center">
           <div className="col-12 col-md-8 col-lg-6 col-xl-6">
             <UserCard />
@@ -46,6 +55,10 @@ const Profile = () => {
         </div>
       </div>
       <GiftSubscriptions />
+      {/* PRODUCT.md requires the Games Workshop disclaimer on every page; this route had none. */}
+      <div className={`container ${theme.bgColor} ${theme.text} pb-4`}>
+        <Disclaimer />
+      </div>
     </div>
   )
 }
@@ -233,7 +246,19 @@ const SubscriptionInfoBody = () => {
 
   if (isPending) return <p className="lead mb-0">Your subscription is pending activation.</p>
 
-  return <p className="lead mb-0">You do not have an active subscription.</p>
+  /* A dead end in the incumbent: it named the state and offered nothing to do about it. */
+  return (
+    <>
+      <p className="lead mb-2">You do not have an active subscription.</p>
+      <Link
+        to={ROUTES.SUBSCRIBE}
+        className={theme.genericButton}
+        onClick={() => logClick('Profile-Subscribe')}
+      >
+        See what a subscription includes
+      </Link>
+    </>
+  )
 }
 
 const SubscriptionInfo = () => {

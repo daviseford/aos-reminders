@@ -127,16 +127,20 @@ describe('established account routes', () => {
       await Promise.resolve()
     })
 
-    expect(container.textContent).toContain('Support AoS Reminders')
-    expect(container.textContent).toContain('What do you get when you subscribe?')
-    expect(container.textContent).toContain('Spare your eyes! Turn on dark mode!')
+    expect(container.textContent).toContain('Subscribe to AoS Reminders')
+    // Leads with what the subscription does; the support appeal is a closing note, not the offer.
+    expect(container.textContent).toContain('Your army is saved in this browser, and only this browser.')
+    expect(container.textContent).toContain('Subscribing is what keeps it that way.')
     expect(container.textContent).not.toContain(
       'Import current army lists from the AoS app, Listbot 4.0, and New Recruit.'
     )
     expect(container.textContent).toContain(
-      'Save, load, rename, update, and delete AoS 4 armies across your devices.'
+      'save, load, rename, update, and delete your AoS 4 armies, on every device you sign in on.'
     )
-    expect(container.textContent).toContain('Create read-only army links to share with your friends.')
+    expect(container.textContent).toContain(
+      'send a link a friend can open to take their own copy of your list.'
+    )
+    // PricingPlans is stubbed here; the plan cards themselves are covered by pricingPlans.test.tsx.
     expect(container.textContent).toContain('Subscription Plans')
     expect(container.textContent).toContain('Dark Mode')
     expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).not.toBeNull()
@@ -160,7 +164,16 @@ describe('established account routes', () => {
     expect(container.querySelector('[src="/img/save_load_demo.mp4"]')).toBeNull()
   })
 
-  it('does not leave an empty examples section on desktop', async () => {
+  /*
+   * The demo used to render below 576px only, which left desktop with an empty section band. It is
+   * the sole visual proof of a paid feature anywhere in the funnel, so the band is filled rather than
+   * removed: the video renders at every width now.
+   *
+   * It stays below the plans. Tried above, and a 550px-tall portrait video became the centre of the
+   * page and pushed all three prices under the fold — proof that costs the offer its position is a
+   * bad trade.
+   */
+  it('shows the dark mode demo on desktop, below the plans', async () => {
     await act(async () => {
       render(
         <AppStatusProvider>
@@ -173,8 +186,14 @@ describe('established account routes', () => {
       await Promise.resolve()
     })
 
-    expect(container.textContent).toContain('Spare your eyes! Turn on dark mode!')
-    expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).toBeNull()
+    const video = container.querySelector('[src="/img/dark_mode1.mp4"]')
+    expect(video).not.toBeNull()
+    expect(container.textContent).toContain('Dark Mode')
+
+    const plans = container.textContent?.indexOf('Subscription Plans') ?? -1
+    const demo = container.textContent?.indexOf('Dark Mode') ?? -1
+    expect(plans).toBeGreaterThan(-1)
+    expect(demo).toBeGreaterThan(plans)
   })
 
   it('shows the already-subscribed screen instead of the plans for an active subscriber', async () => {

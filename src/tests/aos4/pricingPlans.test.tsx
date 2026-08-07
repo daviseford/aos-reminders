@@ -5,7 +5,7 @@ import { PlanComponent } from 'components/payment/pricingPlans'
 import type { IApprovalResponse } from 'components/payment/paypal/paypalTypes'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
-import { SUBSCRIPTION_PLANS } from 'utils/plans'
+import { bestValuePlan, monthlySavingPct, SUBSCRIPTION_PLANS } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
@@ -149,6 +149,67 @@ describe('subscription pricing plans', () => {
     })
     expect(container.querySelector('button')?.textContent).toBe('Subscribe for 1 Month')
     expect(container.querySelector('[role="alert"]')).toBeNull()
+  })
+
+  /*
+   * The annual plan really is half the monthly rate, and the page never said so. The figure is
+   * derived from plans.ts rather than written into the markup, so it cannot drift from the prices
+   * printed beside it.
+   */
+  it('states the saving against the monthly rate and marks the best-value plan', async () => {
+    const yearly = SUBSCRIPTION_PLANS.find(plan => plan.title === '1 Year')!
+    expect(monthlySavingPct(yearly)).toBe(50)
+    expect(bestValuePlan()?.title).toBe('1 Year')
+    // The baseline plan discounts nothing, so it must not claim a saving.
+    expect(monthlySavingPct(SUBSCRIPTION_PLANS[0])).toBe(0)
+
+    await act(async () => {
+      render(
+        <PlanComponent
+          supportPlan={yearly}
+          isBestValue
+          paypalModalIsOpen={false}
+          setPaypalModalIsOpen={vi.fn()}
+        />,
+        container
+      )
+    })
+
+    expect(container.textContent).toContain('Save 50%')
+    // Never colour alone: the marker is a word, so it survives print and colour blindness.
+    expect(container.textContent).toContain('Best value')
+  })
+
+  /*
+   * A rejected redirect used to reach console.error and nothing else, so the visitor pressed the one
+   * button that takes money and watched the page do nothing at all.
+   */
+  it('surfaces a failed checkout redirect instead of only logging it', async () => {
+    stripe.redirectToCheckout.mockResolvedValue({ error: { message: 'nope' } })
+    vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+    await act(async () => {
+      render(
+        <PlanComponent
+          supportPlan={SUBSCRIPTION_PLANS[0]}
+          paypalModalIsOpen={false}
+          setPaypalModalIsOpen={vi.fn()}
+        />,
+        container
+      )
+    })
+
+    await act(async () => {
+      container.querySelector('button')!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    const alert = container.querySelector('[role="alert"]')
+    expect(alert).not.toBeNull()
+    expect(alert!.textContent).toContain('We could not open the checkout page')
+    // The control comes back rather than stranding the visitor on a dead button.
+    expect(container.querySelector('button')?.disabled).toBe(false)
   })
 
   it('reports the PayPal checkout lifecycle with the same stable commerce item', async () => {

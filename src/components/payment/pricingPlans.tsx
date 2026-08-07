@@ -15,44 +15,62 @@ import { logBeginCheckout, logCheckoutCancelled, logClick, logPurchase } from 'u
 import { useApiAccessToken } from 'utils/authToken'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
-import { ISubscriptionPlan, SubscriptionPlans, toSubscriptionAnalyticsItem } from 'utils/plans'
+import {
+  bestValuePlan,
+  ISubscriptionPlan,
+  monthlySavingPct,
+  SubscriptionPlans,
+  toSubscriptionAnalyticsItem,
+} from 'utils/plans'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
 const PricingPlansComponent = () => {
   const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)
+  const bestValue = bestValuePlan()
 
   return (
     <PaypalProvider>
       <div className="container">
         <PlansHeader />
+        {/*
+          Above the cards, not below them. These three sentences are the answer to what stops someone
+          committing — no card details here, cancel whenever, keep access to the end of the period —
+          and they used to sit in 12px italic underneath all three plans, arriving after the decision
+          they exist to unblock.
+        */}
+        <TrustNote />
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center text-center">
           {SubscriptionPlans.map(plan => (
             <PlanComponent
               supportPlan={plan}
+              isBestValue={plan.title === bestValue?.title}
               paypalModalIsOpen={paypalModalIsOpen}
               setPaypalModalIsOpen={setPaypalModalIsOpen}
               key={plan.title}
             />
           ))}
         </div>
-        <div className="row text-center justify-content-center">
-          <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
-            <small>
-              <em>
-                AoS Reminders does not store your credit card information.
-                <br />
-                Subscriptions are managed by Stripe and PayPal. They can be canceled at any time.
-                <br />
-                You will have access to all subscription features until the end of your subscription, even if
-                you cancel the recurring payments.
-              </em>
-            </small>
-          </div>
-        </div>
       </div>
     </PaypalProvider>
   )
 }
+
+const TrustNote = () => (
+  <div className="row text-center justify-content-center mb-4">
+    <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
+      <small>
+        <em>
+          AoS Reminders does not store your credit card information.
+          <br />
+          Subscriptions are managed by Stripe and PayPal. They can be canceled at any time.
+          <br />
+          You will have access to all subscription features until the end of your subscription, even if you
+          cancel the recurring payments.
+        </em>
+      </small>
+    </div>
+  </div>
+)
 
 const PlansHeader = () => {
   const hasSale = SubscriptionPlans.some(plan => plan.sale)
@@ -71,22 +89,30 @@ const PlansHeader = () => {
 
 interface IPlanProps {
   supportPlan: ISubscriptionPlan
+  isBestValue?: boolean
   paypalModalIsOpen: boolean
   setPaypalModalIsOpen: (isOpen: boolean) => void
 }
 
 export const PlanComponent = (props: IPlanProps) => {
-  const { supportPlan } = props
+  const { supportPlan, isBestValue } = props
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin: supportPlan.title })
   const { theme } = useTheme()
   const stripe = useStripe()
+  const [isRedirecting, setIsRedirecting] = useState(false)
+  const [checkoutError, setCheckoutError] = useState('')
+  const savingPct = monthlySavingPct(supportPlan)
 
-  if (!stripe) return null
+  /*
+   * No `if (!stripe) return null`. Stripe.js failing to load used to delete the entire card — taking
+   * the PayPal button rendered inside it with it — so a visitor who could have paid by PayPal was
+   * shown an empty pricing band and no explanation. The card stays; only the card button goes quiet.
+   */
 
   const handleStripeCheckout = async (event: React.MouseEvent) => {
     event.preventDefault()
-    if (!user) return
+    if (!user || !stripe || isRedirecting) return
 
     logClick(supportPlan.title)
     logBeginCheckout({
@@ -101,19 +127,36 @@ export const PlanComponent = (props: IPlanProps) => {
       plan: supportPlan.title,
     })
 
-    const result = await redirectToCheckout(stripe, {
-      items: [{ plan, quantity: 1 }],
-      customerEmail: user.email,
-      clientReferenceId: user.email,
-      successUrl: `${origin}/?${successQuery}&checkout_session_id={CHECKOUT_SESSION_ID}`,
-      cancelUrl: `${origin}/?${qs.stringify({
-        canceled: true,
-        checkout_kind: 'subscription',
-        plan: supportPlan.title,
-      })}`,
-    })
+    setIsRedirecting(true)
+    setCheckoutError('')
+    try {
+      const result = await redirectToCheckout(stripe, {
+        items: [{ plan, quantity: 1 }],
+        customerEmail: user.email,
+        clientReferenceId: user.email,
+        successUrl: `${origin}/?${successQuery}&checkout_session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: `${origin}/?${qs.stringify({
+          canceled: true,
+          checkout_kind: 'subscription',
+          plan: supportPlan.title,
+        })}`,
+      })
 
-    if (result.error) console.error(result.error)
+      /*
+       * A rejected redirect used to reach console.error and nothing else, so the visitor pressed the
+       * one button that takes money and watched the page do nothing at all.
+       */
+      if (result.error) {
+        console.error(result.error)
+        setCheckoutError('We could not open the checkout page. Please try again, or use PayPal below.')
+      }
+    } catch (error) {
+      console.error(error)
+      setCheckoutError('We could not open the checkout page. Please try again, or use PayPal below.')
+    } finally {
+      // Reached only when the redirect did not happen; a successful one has already left the page.
+      setIsRedirecting(false)
+    }
   }
 
   /*
@@ -122,13 +165,25 @@ export const PlanComponent = (props: IPlanProps) => {
    * `.row-cols-*`, so unlike the other opt-outs (see navbar_wrapper) this one must not touch it.
    */
   return (
-    <div className={`${theme.card} mb-4 shadow-sm px-0`}>
+    /*
+     * The best-value card is marked by a border and by the words "Best value" in its header, never by
+     * colour alone — DESIGN.md's rule that a tone always pairs with a text label, because the tone is
+     * gone in print and for colour-blind players.
+     */
+    <div className={`${theme.card} mb-4 shadow-sm px-0${isBestValue ? ' border-primary' : ''}`}>
       <div className="card-header bg-themeDarkBluePrimary text-light">
-        <h3 className="my-0 fw-normal">{supportPlan.title}</h3>
+        <h3 className="my-0 fw-normal">
+          {supportPlan.title}
+          {isBestValue && <span className="ms-2 badge rounded-pill bg-light text-dark">Best value</span>}
+        </h3>
       </div>
-      <div className={theme.cardBody}>
+      {/*
+        A flex column so the CTA can be pushed to the bottom. Without it the buttons sat at different
+        heights across the three cards, because only two of them carry a saving line above.
+      */}
+      <div className={`${theme.cardBody} d-flex flex-column`}>
         {/* A price is not a heading. The .h1 class keeps the type scale unchanged. */}
-        <p className="card-title pricing-card-title h1">
+        <p className="card-title h1">
           ${supportPlan.monthly_cost}
           {/*
             theme.textMuted, not text-muted: Bootstrap's #6c757d lands at 3.28:1 on the dark card
@@ -146,18 +201,48 @@ export const PlanComponent = (props: IPlanProps) => {
               </>
             )}
             Total: ${supportPlan.cost}
+            {/*
+              Derived from plans.ts, never written down: the figure and the prices above it cannot
+              drift apart. This is the page's strongest true claim and it went unsaid for years.
+            */}
+            {savingPct > 0 && (
+              <>
+                <br />
+                <strong>Save {savingPct}%</strong> against the monthly rate
+              </>
+            )}
           </li>
         </ul>
-        <div className="mx-3">
+        <div className="mx-3 mt-auto">
           <IconContext.Provider value={{ size: '1.2em' }}>
             <GenericButton
               type="button"
-              className="btn btn d-block w-100 btn-primary btn-pill py-2"
+              className="btn d-block w-100 btn-primary CommitButton py-2"
+              disabled={isAuthenticated && (isRedirecting || !stripe)}
               onClick={isAuthenticated ? handleStripeCheckout : login}
             >
-              Subscribe for {supportPlan.title}
+              {isRedirecting ? (
+                <>
+                  <span aria-hidden="true" className="spinner-border spinner-border-sm me-2" role="status" />
+                  Opening checkout&hellip;
+                </>
+              ) : (
+                `Subscribe for ${supportPlan.title}`
+              )}
             </GenericButton>
           </IconContext.Provider>
+          {checkoutError && (
+            <div className="alert alert-danger mt-2 mb-0 py-2" role="alert">
+              <small>{checkoutError}</small>
+            </div>
+          )}
+          {isAuthenticated && !stripe && !checkoutError && (
+            <p className="mt-2 mb-0">
+              <small className={theme.textMuted}>
+                Card checkout is still loading. PayPal is ready below.
+              </small>
+            </p>
+          )}
         </div>
         <PayPalComponent {...props} />
       </div>
@@ -205,7 +290,12 @@ const PayPalComponent = (props: IPlanProps) => {
   }
 
   return (
-    <div className="col mt-2">
+    /*
+     * `mt-2`, not `col mt-2`. This is a card body, not a row, so the `.col` was one of the
+     * outside-a-row columns theme.scss keeps a shim for — and inside the flex column it resolved to
+     * `flex: 1 0 0%`, absorbing the slack the CTA's `mt-auto` needs to sit at the card's bottom edge.
+     */
+    <div className="mt-2">
       {!props.paypalModalIsOpen && (
         <PayPalButton
           onClick={() => logBeginCheckout({ items: [analyticsItem], provider: 'paypal' })}

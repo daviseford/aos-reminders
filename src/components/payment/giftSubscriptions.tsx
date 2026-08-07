@@ -215,7 +215,12 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       provider: 'stripe',
     })
     const price = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
-    const url = isDev ? 'localhost:3000' : 'aosreminders.com'
+    /*
+     * window.location.origin, matching the subscription checkout. The old pair of hardcoded hosts
+     * pinned dev to `localhost:3000` — the CRA port, which no longer exists now the dev server is
+     * Vite — so every gift checkout in development returned to a dead address.
+     */
+    const baseUrl = window.location.origin
     const successQuery = qs.stringify({
       gifted: true,
       checkout_kind: 'gift_subscription',
@@ -227,8 +232,8 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       lineItems: [{ price, quantity }],
       customerEmail: user.email,
       clientReferenceId: user.email,
-      successUrl: `${window.location.protocol}//${url}/profile?${successQuery}&checkout_session_id={CHECKOUT_SESSION_ID}`,
-      cancelUrl: `${window.location.protocol}//${url}?${qs.stringify({
+      successUrl: `${baseUrl}/profile?${successQuery}&checkout_session_id={CHECKOUT_SESSION_ID}`,
+      cancelUrl: `${baseUrl}?${qs.stringify({
         canceled: true,
         checkout_kind: 'gift_subscription',
         plan: supportPlan.title,
@@ -259,7 +264,7 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       <td>${(parseFloat(supportPlan.cost) * quantity).toFixed(2)}</td>
       <td>
         <GenericButton
-          className={`btn ${isMobile ? 'btn-sm' : ''} d-block w-100 btn-primary`}
+          className={`btn ${isMobile ? 'btn-sm' : ''} d-block w-100 btn-primary CommitButton`}
           disabled={isAuthenticated && quantity < 1}
           onClick={isAuthenticated ? handleCheckout : login}
         >

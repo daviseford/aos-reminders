@@ -77,7 +77,17 @@ $enable-rfs: false;
  * 4.6 values as part of the product's palette (Action Blue, Success Green, Info Cyan), and $dark is
  * the toolbar's btn-outline-dark, the most repeated control on the game screen.
  */
-$blue: #007bff; // 5.3 default: #0d6efd
+/*
+ * Action Blue. Not a 4.6 pin any more: #007bff carries white text at 3.98:1, under the 4.5:1 floor
+ * this product treats as a correctness requirement, and it is the colour of every control that takes
+ * money — the Subscribe CTAs, gift purchase, and redemption. #0070e8 clears it at 4.69:1 and is the
+ * nearest hue that does, so the identity is unchanged at a glance.
+ *
+ * $primary derives from this, so the same fix reaches the `Official` badge (white on primary, and the
+ * only saturated colour on the reminders surface) and body links, which sat at the same failing ratio
+ * against white.
+ */
+$blue: #0070e8; // 4.6/live: #007bff (3.98:1) · 5.3 default: #0d6efd
 $green: #28a745; // 5.3 default: #198754
 $cyan: #17a2b8; // 5.3 default: #0dcaf0
 $dark: #343a40; // 5.3 default: $gray-900 (#212529)
@@ -90,9 +100,11 @@ $dark: #343a40; // 5.3 default: $gray-900 (#212529)
  * reproduces every one of 4.6's eight decisions exactly: white on primary/secondary/success/
  * danger/info/dark, black on warning/light.
  *
- * This lowers a contrast floor, so it is worth being explicit: it does not make anything less
- * legible than it is on the live site today — it keeps the existing rendering rather than changing
- * it. Raising the real contrast of these buttons is a design change, and a separate decision.
+ * This lowers a contrast floor, so it is worth being explicit: it decides which *text* colour sits on
+ * a filled button, not how legible the pair actually is. It is still 2.5 because raising it would
+ * flip warning and light to a different text colour than the live site renders. The real contrast of
+ * the commitment button was the separate decision this comment used to defer, and it has been taken:
+ * $blue above is now #0070e8, so white on primary measures 4.69:1 rather than 3.98:1.
  */
 $min-contrast-ratio: 2.5; // 5.3 default: 4.5
 
