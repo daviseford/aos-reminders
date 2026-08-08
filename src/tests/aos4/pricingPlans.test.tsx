@@ -15,10 +15,6 @@ interface PaypalButtonCallbacks {
   onSuccess: (data: IApprovalResponse) => Promise<void>
 }
 
-const stripe = vi.hoisted(() => ({
-  redirectToCheckout: vi.fn(),
-}))
-
 const paypal = vi.hoisted(() => ({
   callbacks: null as PaypalButtonCallbacks | null,
 }))
@@ -48,15 +44,6 @@ vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => auth,
 }))
 
-vi.mock('@stripe/react-stripe-js', () => ({
-  Elements: ({ children }: React.PropsWithChildren<object>) => children,
-  useStripe: () => stripe,
-}))
-
-vi.mock('@stripe/stripe-js', () => ({
-  loadStripe: vi.fn(() => Promise.resolve(null)),
-}))
-
 vi.mock('components/payment/paypal/paypalButton', () => ({
   default: (callbacks: PaypalButtonCallbacks) => {
     paypal.callbacks = callbacks
@@ -84,7 +71,6 @@ describe('subscription pricing plans', () => {
   let container: HTMLDivElement
 
   beforeEach(() => {
-    stripe.redirectToCheckout.mockReset()
     paypal.callbacks = null
     token.get.mockReset()
     token.get.mockResolvedValue('audience-token')
@@ -104,11 +90,10 @@ describe('subscription pricing plans', () => {
   })
 
   /*
-   * #1942: the click asks the API for a server-created Checkout Session first and simply navigates
-   * to its URL — no Stripe.js involved. The legacy client-only redirect survives only as the
-   * fallback for stages the endpoint has not deployed to yet.
+   * #1942: the click asks the API for a server-created Checkout Session and simply navigates to
+   * its URL — no Stripe.js involved. Since #1948 this is the only card checkout path.
    */
-  it('navigates to the server-created checkout session without touching the legacy redirect', async () => {
+  it('navigates to the server-created checkout session', async () => {
     const session = vi
       .spyOn(SubscriptionApi, 'createCheckoutSession')
       .mockResolvedValue({ body: { url: 'https://checkout.stripe.com/c/pay/cs_test_123' } })
@@ -139,7 +124,18 @@ describe('subscription pricing plans', () => {
 
       expect(session).toHaveBeenCalledWith({ kind: 'subscription', plan: '1 Month' }, 'audience-token')
       expect(assign).toHaveBeenCalledWith('https://checkout.stripe.com/c/pay/cs_test_123')
-      expect(stripe.redirectToCheckout).not.toHaveBeenCalled()
+      expect(analytics.logBeginCheckout).toHaveBeenCalledWith({
+        items: [
+          {
+            item_category: 'subscription',
+            item_id: 'subscription-1-month',
+            item_name: '1 Month',
+            price: 1.99,
+            quantity: 1,
+          },
+        ],
+        provider: 'stripe',
+      })
       // The page is unloading; a re-enabled button would read as failure.
       expect(container.querySelector('button')?.disabled).toBe(true)
     } finally {
@@ -147,18 +143,7 @@ describe('subscription pricing plans', () => {
     }
   })
 
-  it('keeps the established plan card stable while handing checkout to Stripe', async () => {
-    // The endpoint 404s on a stage it has not deployed to; the legacy redirect is the fallback.
-    vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockRejectedValue(
-      Object.assign(new Error('Not found'), { status: 404 })
-    )
-    stripe.redirectToCheckout.mockResolvedValue({})
-
-    /*
-     * Render and click must be separate act() blocks. A concurrent root schedules the render rather
-     * than performing it inline, so the button does not exist until act() flushes — under the old
-     * synchronous ReactDOM.render both could share one block.
-     */
+  it('keeps the established plan card stable', async () => {
     await act(async () => {
       render(
         <PlanComponent
@@ -170,38 +155,6 @@ describe('subscription pricing plans', () => {
       )
     })
 
-    const checkoutButton = container.querySelector('button')
-    expect(checkoutButton).not.toBeNull()
-
-    await act(async () => {
-      checkoutButton!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
-      await Promise.resolve()
-      await Promise.resolve()
-    })
-
-    expect(stripe.redirectToCheckout).toHaveBeenCalledTimes(1)
-    expect(stripe.redirectToCheckout).toHaveBeenCalledWith(
-      expect.objectContaining({
-        cancelUrl: 'https://preview.example.test/?canceled=true&checkout_kind=subscription&plan=1%20Month',
-        clientReferenceId: 'general@example.com',
-        customerEmail: 'general@example.com',
-        items: [{ plan: SUBSCRIPTION_PLANS[0].stripe_prod, quantity: 1 }],
-        successUrl:
-          'https://preview.example.test/?subscribed=true&checkout_kind=subscription&plan=1%20Month&checkout_session_id={CHECKOUT_SESSION_ID}',
-      })
-    )
-    expect(analytics.logBeginCheckout).toHaveBeenCalledWith({
-      items: [
-        {
-          item_category: 'subscription',
-          item_id: 'subscription-1-month',
-          item_name: '1 Month',
-          price: 1.99,
-          quantity: 1,
-        },
-      ],
-      provider: 'stripe',
-    })
     /*
      * The visible label is the wordmark alone, because the two payment rails sit side by side and
      * half a card cannot hold "Subscribe for 3 Months" as well. That makes the accessible name the
@@ -254,7 +207,6 @@ describe('subscription pricing plans', () => {
     })
 
     expect(loginHook.login).toHaveBeenCalledTimes(1)
-    expect(stripe.redirectToCheckout).not.toHaveBeenCalled()
   })
 
   /*
@@ -294,15 +246,14 @@ describe('subscription pricing plans', () => {
   })
 
   /*
-   * A rejected redirect used to reach console.error and nothing else, so the visitor pressed the one
-   * button that takes money and watched the page do nothing at all.
+   * With the legacy fallback gone (#1948), a failed session request has nowhere else to land: the
+   * visitor pressed the one button that takes money, so the failure must be said out loud and the
+   * button must come back rather than spinning forever.
    */
-  it('surfaces a failed checkout redirect instead of only logging it', async () => {
-    // The session endpoint is down as well, so the click runs the whole gauntlet to the alert.
+  it('surfaces a failed checkout session instead of only logging it', async () => {
     vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockRejectedValue(
-      Object.assign(new Error('Not found'), { status: 404 })
+      Object.assign(new Error('Service unavailable'), { status: 503 })
     )
-    stripe.redirectToCheckout.mockResolvedValue({ error: { message: 'nope' } })
     vi.spyOn(console, 'error').mockImplementation(() => undefined)
 
     await act(async () => {
@@ -318,8 +269,7 @@ describe('subscription pricing plans', () => {
 
     await act(async () => {
       container.querySelector('button')!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
-      // A macrotask, not microtask ticks: the handler now awaits the session attempt before the
-      // legacy fallback, and counting awaits is exactly what made the old form brittle.
+      // A macrotask, not microtask ticks: counting awaits is exactly what made the old form brittle.
       await new Promise(resolve => setTimeout(resolve, 0))
     })
 

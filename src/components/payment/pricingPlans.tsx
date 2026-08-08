@@ -1,21 +1,18 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { Elements, useStripe } from '@stripe/react-stripe-js'
 
 import GenericButton from 'components/input/generic_button'
 import { PaypalPostSubscribeModal } from 'components/modals/paypal_post_subscribe_modal'
-import { loadLegacyStripe, redirectToCheckout } from 'components/payment/legacyStripeCheckout'
 import PayPalButton from 'components/payment/paypal/paypalButton'
 import { IApprovalResponse } from 'components/payment/paypal/paypalTypes'
 import { PaypalProvider } from 'context/usePaypal'
 import { useTheme } from 'context/useTheme'
-import qs from 'qs'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
 import { FaStripe } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
 import { logBeginCheckout, logCheckoutCancelled, logClick, logPurchase } from 'utils/analytics'
 import { useApiAccessToken } from 'utils/authToken'
-import { isDev, STRIPE_KEY } from 'utils/env'
+import { isDev } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import {
   bestValuePlan,
@@ -26,7 +23,7 @@ import {
 } from 'utils/plans'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
-const PricingPlansComponent = () => {
+export const PricingPlans = () => {
   const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)
   const bestValue = bestValuePlan()
 
@@ -113,17 +110,10 @@ export const PlanComponent = (props: IPlanProps) => {
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin: supportPlan.title })
   const { theme } = useTheme()
-  const stripe = useStripe()
   const getAccessToken = useApiAccessToken()
   const [isRedirecting, setIsRedirecting] = useState(false)
   const [checkoutError, setCheckoutError] = useState('')
   const savingPct = monthlySavingPct(supportPlan)
-
-  /*
-   * No `if (!stripe) return null`. Stripe.js failing to load used to delete the entire card — taking
-   * the PayPal button rendered inside it with it — so a visitor who could have paid by PayPal was
-   * shown an empty pricing band and no explanation. The card stays; only the card button goes quiet.
-   */
 
   const handleStripeCheckout = async (event: React.MouseEvent) => {
     event.preventDefault()
@@ -139,9 +129,11 @@ export const PlanComponent = (props: IPlanProps) => {
     setCheckoutError('')
 
     /*
-     * Server-created Checkout Session first (#1942): the API chooses the price, the buyer identity,
-     * and the return URLs, and this navigation is the whole client-side job. `isRedirecting` is
-     * deliberately left on — the page is unloading, and re-enabling the button reads as failure.
+     * The API chooses the price, the buyer identity, and the return URLs (#1942), and this
+     * navigation is the whole client-side job. `isRedirecting` is deliberately left on after a
+     * successful hand-off — the page is unloading, and re-enabling the button reads as failure.
+     * A failed hand-off is the one place it must come back off, because there is no fallback
+     * checkout any more: the alert and a live button are all the visitor gets.
      */
     try {
       const token = await getAccessToken()
@@ -149,52 +141,11 @@ export const PlanComponent = (props: IPlanProps) => {
         { kind: 'subscription', plan: supportPlan.title },
         token
       )
-      if (body?.url) {
-        window.location.assign(body.url)
-        return
-      }
-      console.error('The checkout session endpoint answered without a URL.')
-    } catch (error) {
-      // A 404 is a stage the endpoint has not deployed to yet; anything else still falls back while
-      // the legacy surface exists at all. The fallback failing is what the visitor gets told about.
-      console.error(error)
-    }
-
-    const plan = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
-    const origin = window.location.origin
-    const successQuery = qs.stringify({
-      subscribed: true,
-      checkout_kind: 'subscription',
-      plan: supportPlan.title,
-    })
-
-    try {
-      if (!stripe) throw new Error('Stripe.js has not loaded.')
-      const result = await redirectToCheckout(stripe, {
-        items: [{ plan, quantity: 1 }],
-        customerEmail: user.email,
-        clientReferenceId: user.email,
-        successUrl: `${origin}/?${successQuery}&checkout_session_id={CHECKOUT_SESSION_ID}`,
-        cancelUrl: `${origin}/?${qs.stringify({
-          canceled: true,
-          checkout_kind: 'subscription',
-          plan: supportPlan.title,
-        })}`,
-      })
-
-      /*
-       * A rejected redirect used to reach console.error and nothing else, so the visitor pressed the
-       * one button that takes money and watched the page do nothing at all.
-       */
-      if (result.error) {
-        console.error(result.error)
-        setCheckoutError('We could not open the checkout page. Please try again, or use PayPal instead.')
-      }
+      if (!body?.url) throw new Error('The checkout session endpoint answered without a URL.')
+      window.location.assign(body.url)
     } catch (error) {
       console.error(error)
       setCheckoutError('We could not open the checkout page. Please try again, or use PayPal instead.')
-    } finally {
-      // Reached only when the redirect did not happen; a successful one has already left the page.
       setIsRedirecting(false)
     }
   }
@@ -309,10 +260,6 @@ export const PlanComponent = (props: IPlanProps) => {
                     type="button"
                     aria-label={`Subscribe for ${supportPlan.title} with Stripe`}
                     className="btn d-block btn-primary TapTargetBlock py-2 PaymentChoiceOption--stripe"
-                    /*
-                      Not gated on Stripe.js any more: the session endpoint needs no client script,
-                      so a blocked or slow js.stripe.com only matters if the fallback runs.
-                    */
                     disabled={isRedirecting}
                     onClick={handleStripeCheckout}
                   >
@@ -356,11 +303,6 @@ export const PlanComponent = (props: IPlanProps) => {
             <div className="alert alert-danger mt-2 mb-0 py-2" role="alert">
               <small>{checkoutError}</small>
             </div>
-          )}
-          {isAuthenticated && !stripe && !checkoutError && (
-            <p className="mt-2 mb-0">
-              <small className={theme.textMuted}>Card checkout is still loading. PayPal is ready.</small>
-            </p>
           )}
         </div>
       </div>
@@ -437,12 +379,3 @@ const PayPalComponent = (props: IPlanProps) => {
     </div>
   )
 }
-
-// The versioned loader is deliberately absent here: its runtime refuses redirectToCheckout.
-const stripePromise = loadLegacyStripe(STRIPE_KEY)
-
-export const PricingPlans = () => (
-  <Elements stripe={stripePromise}>
-    <PricingPlansComponent />
-  </Elements>
-)
