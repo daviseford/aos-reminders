@@ -114,6 +114,7 @@ export const PlanComponent = (props: IPlanProps) => {
   const { login } = useLogin({ origin: supportPlan.title })
   const { theme } = useTheme()
   const stripe = useStripe()
+  const getAccessToken = useApiAccessToken()
   const [isRedirecting, setIsRedirecting] = useState(false)
   const [checkoutError, setCheckoutError] = useState('')
   const savingPct = monthlySavingPct(supportPlan)
@@ -126,13 +127,39 @@ export const PlanComponent = (props: IPlanProps) => {
 
   const handleStripeCheckout = async (event: React.MouseEvent) => {
     event.preventDefault()
-    if (!user || !stripe || isRedirecting) return
+    if (!user || isRedirecting) return
 
     logClick(supportPlan.title)
     logBeginCheckout({
       items: [toSubscriptionAnalyticsItem(supportPlan)],
       provider: 'stripe',
     })
+
+    setIsRedirecting(true)
+    setCheckoutError('')
+
+    /*
+     * Server-created Checkout Session first (#1942): the API chooses the price, the buyer identity,
+     * and the return URLs, and this navigation is the whole client-side job. `isRedirecting` is
+     * deliberately left on — the page is unloading, and re-enabling the button reads as failure.
+     */
+    try {
+      const token = await getAccessToken()
+      const { body } = await SubscriptionApi.createCheckoutSession(
+        { kind: 'subscription', plan: supportPlan.title },
+        token
+      )
+      if (body?.url) {
+        window.location.assign(body.url)
+        return
+      }
+      console.error('The checkout session endpoint answered without a URL.')
+    } catch (error) {
+      // A 404 is a stage the endpoint has not deployed to yet; anything else still falls back while
+      // the legacy surface exists at all. The fallback failing is what the visitor gets told about.
+      console.error(error)
+    }
+
     const plan = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const origin = window.location.origin
     const successQuery = qs.stringify({
@@ -141,9 +168,8 @@ export const PlanComponent = (props: IPlanProps) => {
       plan: supportPlan.title,
     })
 
-    setIsRedirecting(true)
-    setCheckoutError('')
     try {
+      if (!stripe) throw new Error('Stripe.js has not loaded.')
       const result = await redirectToCheckout(stripe, {
         items: [{ plan, quantity: 1 }],
         customerEmail: user.email,
@@ -283,7 +309,11 @@ export const PlanComponent = (props: IPlanProps) => {
                     type="button"
                     aria-label={`Subscribe for ${supportPlan.title} with Stripe`}
                     className="btn d-block btn-primary TapTargetBlock py-2 PaymentChoiceOption--stripe"
-                    disabled={isRedirecting || !stripe}
+                    /*
+                      Not gated on Stripe.js any more: the session endpoint needs no client script,
+                      so a blocked or slow js.stripe.com only matters if the fallback runs.
+                    */
+                    disabled={isRedirecting}
                     onClick={handleStripeCheckout}
                   >
                     {isRedirecting ? (

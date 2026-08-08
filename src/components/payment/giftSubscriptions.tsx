@@ -13,6 +13,7 @@ import { FaCheck, FaGift, FaRegSmileBeam } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
 import { IGiftSubscription } from 'types/subscription'
 import { logBeginCheckout, logClick } from 'utils/analytics'
+import { useApiAccessToken } from 'utils/authToken'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
@@ -22,6 +23,7 @@ import {
   MAX_GIFT_QUANTITY,
   toGiftSubscriptionAnalyticsItem,
 } from 'utils/plans'
+import { SubscriptionApi } from '../../api/subscriptionApi'
 
 const COL_SIZE = 'col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6'
 const GiftSubscriptionsComponent = () => {
@@ -189,10 +191,11 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
   const { login } = useLogin({ origin })
   const { theme } = useTheme()
   const stripe = useStripe()
+  const getAccessToken = useApiAccessToken()
   const { isMobile } = useWindowSize()
   const [quantity, setQuantity] = useState(1)
 
-  if (!stripe || !user) return null
+  if (!user) return null
 
   /*
    * parseInt('') is NaN, which priced the row "$NaN" and — because the checkout guard only compared
@@ -214,6 +217,27 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       items: [toGiftSubscriptionAnalyticsItem(supportPlan, quantity)],
       provider: 'stripe',
     })
+
+    /*
+     * Server-created Checkout Session first (#1942); the legacy client-only redirect below is the
+     * fallback for stages the endpoint has not deployed to yet.
+     */
+    try {
+      const token = await getAccessToken()
+      const { body } = await SubscriptionApi.createCheckoutSession(
+        { kind: 'gift', plan: supportPlan.title, quantity },
+        token
+      )
+      if (body?.url) {
+        window.location.assign(body.url)
+        return
+      }
+      console.error('The checkout session endpoint answered without a URL.')
+    } catch (error) {
+      console.error(error)
+    }
+
+    if (!stripe) return console.error('Stripe.js has not loaded; the legacy fallback is unavailable.')
     const price = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     /*
      * window.location.origin, matching the subscription checkout. The old pair of hardcoded hosts

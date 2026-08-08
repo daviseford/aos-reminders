@@ -79,6 +79,16 @@ export const createSubscriptionApi = (endpoint: string, fetcher: Fetcher = fetch
 
   return {
     isConfigured: Boolean(baseUrl),
+    /*
+     * Server-created Stripe Checkout Sessions (#1942). The browser states an
+     * intent; the server chooses the price, the buyer identity, and the return
+     * URLs, and answers with the session URL to navigate to. Callers fall back
+     * to the legacy client-only redirect while stages without this route exist.
+     */
+    createCheckoutSession: (
+      data: { kind: 'subscription' | 'gift'; plan: string; quantity?: number },
+      token: string
+    ) => post<{ url?: string }>('/account/checkout-session', token, data),
     getSubscription: (token: string) => request('/account', token),
     cancelSubscription: (token: string) => post('/account/cancel', token),
     requestGrant: (data: { subscriptionId: string }, token: string) =>
