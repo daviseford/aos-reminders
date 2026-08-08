@@ -134,14 +134,17 @@ const Intro = () => {
       {/* Rendered at h2 size so the page gains a top-level heading without a visual change. */}
       <h1 className="h2">Subscribe to AoS Reminders</h1>
       {/*
-        Leads with what the subscription does rather than with an appeal for support. The old opening
-        — "those who wish to support AoS Reminders" — framed a hard paywall as a tip jar, and left the
-        three features it actually unlocks unsold. The support line survives, at the end, where it
-        reads as context rather than as the offer.
+        The one-person fact leads the page. It is the product's strongest trust signal in a niche
+        trained on hobbyist-made tools, and it colours how everything after it reads — the ask, the
+        prices, and the plain look of the page itself. The old opening buried it below the fold.
       */}
       <p className="lead">
+        <strong>AoS Reminders is built and run by one person</strong>, and subscriptions are what keep it
+        running.
+      </p>
+      <p className="lead">
         Your army is saved in this browser, and only this browser. A subscription keeps it on your account
-        instead — so it follows you to the table, and survives a lost phone.
+        instead, so it follows you to the table and survives a lost phone.
       </p>
     </div>
   )
@@ -156,14 +159,14 @@ const CurrentFeatures = () => (
   <div className={`${contentClass} mt-3`}>
     <ul className="lead">
       <li>
-        <strong>My Armies</strong> — save, load, rename, update, and delete your AoS 4 armies, on every device
+        <strong>My Armies</strong>: save, load, rename, update, and delete your AoS 4 armies, on every device
         you sign in on.
       </li>
       <li>
-        <strong>Share Army</strong> — send a link a friend can open to take their own copy of your list.
+        <strong>Share Army</strong>: send a link a friend can open to take their own copy of your list.
       </li>
       <li>
-        <strong>Dark theme</strong> — stored against your account, so it follows you too.
+        <strong>Dark theme</strong>: stored against your account, so it follows you too.
       </li>
     </ul>
   </div>
@@ -223,20 +226,20 @@ const MoreQuestions = () => {
         past before learning what this costs.
 
         The second paragraph follows the strongest finding in Wikimedia's published banner testing:
-        concrete facts about the thing being supported outperform sentiment roughly threefold, and a
-        personal voice carries them best. Both facts here are anchored: the price ceiling is derived
-        from plans.ts at render time, and the army count is pinned to the corpus by a test
-        (accountRoutes.test.tsx), so neither can drift from the truth silently. Stating the *maximum*
-        price is deliberate — "from $0.99" is the sales voice this product doesn't use.
+        concrete facts about the thing being supported outperform sentiment roughly threefold. Both
+        facts here are anchored: the price ceiling is derived from plans.ts at render time, and the
+        army count is pinned to the corpus by a test (accountRoutes.test.tsx), so neither can drift
+        from the truth silently. Stating the *maximum* price is deliberate — "from $0.99" is the
+        sales voice this product doesn't use. The one-person sentence itself lives in the intro now,
+        above the fold.
       */}
       <p>
-        Everything else — the builder, importing, reminders, notes, hiding, reordering, and the PDF — is free,
-        and stays free.
+        Everything else is free, and stays free: the builder, importing, reminders, notes, hiding, reordering,
+        and the PDF.
       </p>
       <p>
-        AoS Reminders is built and run by one person. Subscriptions — none more than $
-        {baselineMonthlyCost().toFixed(2)} a month — are what keep all 27 armies&apos; reminders free for
-        everyone.
+        No plan costs more than ${baselineMonthlyCost().toFixed(2)} a month, and subscriptions are what keep
+        all 27 armies&apos; reminders free for everyone.
       </p>
       {/*
         FaqLink on both: Action Blue was tuned for white backgrounds and measures 3.29:1 on Midnight

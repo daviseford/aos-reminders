@@ -35,8 +35,7 @@ export const CheckoutOutcomeBanner = () => {
       <span>
         {outcome.kind === 'subscribed' && (
           <>
-            <strong>Payment received.</strong> Thanks for subscribing. Activation can take a few moments —
-            your{' '}
+            <strong>Payment received.</strong> Thanks for subscribing. Activation can take a few moments. Your{' '}
             {/*
               alert-link, Bootstrap's own treatment for links inside alerts: plain Action Blue on the
               tinted alert-success background measures ~3.8:1, under the 4.5:1 floor.
@@ -55,8 +54,8 @@ export const CheckoutOutcomeBanner = () => {
           <>
             <strong>Payment received.</strong>{' '}
             {outcome.quantity > 1
-              ? `Your ${outcome.quantity} gift subscriptions are ready to send — copy a link below.`
-              : 'Your gift subscription is ready to send — copy its link below.'}
+              ? `Your ${outcome.quantity} gift subscriptions are ready to send. Copy a link below.`
+              : 'Your gift subscription is ready to send. Copy its link below.'}
           </>
         )}
         {outcome.kind === 'canceled' && (

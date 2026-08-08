@@ -132,8 +132,11 @@ describe('established account routes', () => {
 
     expect(container.textContent).toContain('Subscribe to AoS Reminders')
     // Leads with what the subscription does; the support appeal is a closing note, not the offer.
-    expect(container.textContent).toContain('Your army is saved in this browser, and only this browser.')
-    expect(container.textContent).toContain('AoS Reminders is built and run by one person.')
+    // The one-person fact leads the page, above the fold, ahead of the value proposition.
+    const onePerson = container.textContent?.indexOf('AoS Reminders is built and run by one person') ?? -1
+    const valueProp = container.textContent?.indexOf('Your army is saved in this browser') ?? -1
+    expect(onePerson).toBeGreaterThan(-1)
+    expect(valueProp).toBeGreaterThan(onePerson)
     expect(container.textContent).not.toContain(
       'Import current army lists from the AoS app, Listbot 4.0, and New Recruit.'
     )
@@ -200,7 +203,9 @@ describe('established account routes', () => {
      * (deriving it would pull the catalog chunk into the route), so this test is what fails when
      * the corpus next changes shape.
      */
-    expect(container.textContent).toContain(`none more than $${baselineMonthlyCost().toFixed(2)} a month`)
+    expect(container.textContent).toContain(
+      `No plan costs more than $${baselineMonthlyCost().toFixed(2)} a month`
+    )
     expect(container.textContent).toContain("all 27 armies' reminders free for everyone")
     expect(armyFactions(AOS4_CATALOG)).toHaveLength(27)
   })
