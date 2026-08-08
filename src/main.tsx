@@ -25,10 +25,20 @@ const onRedirectCallback = (appState?: { returnTo?: string }) => {
 const container = document.getElementById('root')
 if (!container) throw new Error('Root container #root is missing from index.html')
 
+/*
+ * `useRefreshTokens` and `cacheLocation` are both load-bearing. Without them the SDK defaults to an
+ * in-memory cache refilled by a hidden-iframe `prompt=none` call, which needs the Auth0 session
+ * cookie in a third-party context. Browsers no longer send that cookie, so every token renewal
+ * failed: signed-in users saw the subscription lookup error, and a reload dropped them to signed-out
+ * because nothing survived the page load. Refresh tokens do not depend on cookie policy, and
+ * localstorage is what carries the session across a reload.
+ */
 createRoot(container).render(
   <Auth0Provider
     domain={config.domain}
     clientId={config.clientId}
+    useRefreshTokens
+    cacheLocation="localstorage"
     authorizationParams={{
       audience: config.audience,
       redirect_uri: window.location.origin,
