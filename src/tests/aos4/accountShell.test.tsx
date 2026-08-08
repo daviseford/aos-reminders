@@ -142,8 +142,11 @@ describe('established account shell', () => {
     })
   })
 
-  it('uses the same Auth0 tenant configured for the established live account flow', () => {
-    expect(config.domain).toBe('dev-4yesv5fz.auth0.com')
+  it('reaches the tenant through the first-party custom domain', () => {
+    // A subdomain of the site, not the canonical dev-*.auth0.com host: same tenant either way, but
+    // only this one is same-site, so the Auth0 session cookie is first-party. Tokens minted here
+    // carry iss https://auth.aosreminders.com/, which both API Gateway JWT authorizers pin exactly.
+    expect(config.domain).toBe('auth.aosreminders.com')
     expect(config.clientId).toBeTruthy()
     expect(config.audience).toBe('https://api.aosreminders.com')
   })
