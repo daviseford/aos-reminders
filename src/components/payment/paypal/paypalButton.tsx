@@ -8,6 +8,8 @@ interface IStyle {
   layout?: 'vertical' | 'horizontal'
   color?: 'gold' | 'blue' | 'silver' | 'white' | 'black'
   shape?: 'pill' | 'rect'
+  /** PayPal accepts 25-55. Anything outside that range is rejected and the button fails to render. */
+  height?: number
   label?: 'paypal'
   tagline?: boolean
 }
@@ -43,10 +45,16 @@ interface IPayPalButtonProps {
   style?: IStyle
 }
 
+/*
+ * height: 44 is load-bearing. Left unset, PayPal sizes the button itself — it came out at 35px, so
+ * beside the 44px Stripe button the pair sat at two different heights with a 9px gap under PayPal.
+ * 44 is also the touch target DESIGN.md sets, and it is inside PayPal's own 25-55 range.
+ */
 const DEFAULT_STYLE: IStyle = {
   layout: 'vertical',
   color: 'gold',
   shape: 'rect',
+  height: 44,
   label: 'paypal',
   tagline: false,
 }

@@ -11,6 +11,8 @@ import { useTheme } from 'context/useTheme'
 import qs from 'qs'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
+import { FaStripe } from 'react-icons/fa'
+import { centerContentClass } from 'theme/helperClasses'
 import { logBeginCheckout, logCheckoutCancelled, logClick, logPurchase } from 'utils/analytics'
 import { useApiAccessToken } from 'utils/authToken'
 import { isDev, STRIPE_KEY } from 'utils/env'
@@ -200,37 +202,75 @@ export const PlanComponent = (props: IPlanProps) => {
                 <br />
               </>
             )}
-            Total: ${supportPlan.cost}
             {/*
               Derived from plans.ts, never written down: the figure and the prices above it cannot
               drift apart. This is the page's strongest true claim and it went unsaid for years.
             */}
-            {savingPct > 0 && (
+            {savingPct > 0 ? (
               <>
-                <br />
                 <strong>Save {savingPct}%</strong> against the monthly rate
               </>
+            ) : (
+              // The baseline plan discounts nothing, so the row would otherwise be empty.
+              <>Billed monthly</>
             )}
           </li>
         </ul>
-        <div className="mx-3 mt-auto">
-          <IconContext.Provider value={{ size: '1.2em' }}>
-            <GenericButton
-              type="button"
-              className="btn d-block w-100 btn-primary TapTargetBlock py-2"
-              disabled={isAuthenticated && (isRedirecting || !stripe)}
-              onClick={isAuthenticated ? handleStripeCheckout : login}
-            >
-              {isRedirecting ? (
-                <>
-                  <span aria-hidden="true" className="spinner-border spinner-border-sm me-2" role="status" />
-                  Opening checkout&hellip;
-                </>
-              ) : (
-                `Subscribe for ${supportPlan.title}`
-              )}
-            </GenericButton>
-          </IconContext.Provider>
+        {/*
+          No `mx-3`. That inset was sized for a single full-width button; with two rails beside each
+          other it cost 32px, which was exactly what pushed them past PayPal's 150px floor and wrapped
+          them at 1280 and 1440 — the two most common laptop widths. The card body's own 1.25rem
+          padding is the margin now.
+        */}
+        <div className="mt-auto">
+          {/*
+            The two rails sit side by side as equal choices rather than stacked with Stripe on top,
+            where PayPal read as an afterthought.
+
+            flex-wrap with a 150px flex-basis rather than a breakpoint: PayPal's SDK will not render
+            its button below 150px, and the card's own width varies with the 1/2/3-up plan grid, so
+            the pair drops to stacked exactly when there is no longer room for both — on a phone, and
+            in the narrowest desktop column — without guessing which viewport that happens at.
+          */}
+          <div className="d-flex flex-wrap align-items-start gap-2 PaymentChoice">
+            <IconContext.Provider value={{ size: '1.2em' }}>
+              {/*
+                The visible label is now just the wordmark, because half a card cannot hold "Subscribe
+                for 3 Months" as well. The accessible name carries the whole sentence, and the plan it
+                belongs to, since three cards of identical buttons would otherwise be indistinguishable.
+              */}
+              <GenericButton
+                type="button"
+                aria-label={`Subscribe for ${supportPlan.title} with Stripe`}
+                className="btn d-block btn-primary TapTargetBlock py-2 PaymentChoiceOption--stripe"
+                disabled={isAuthenticated && (isRedirecting || !stripe)}
+                onClick={isAuthenticated ? handleStripeCheckout : login}
+              >
+                {isRedirecting ? (
+                  <span className={centerContentClass}>
+                    <span
+                      aria-hidden="true"
+                      className="spinner-border spinner-border-sm me-2"
+                      role="status"
+                    />
+                    Opening&hellip;
+                  </span>
+                ) : (
+                  <span className={centerContentClass}>
+                    {/*
+                      The Stripe wordmark, from the react-icons Font Awesome brand set DESIGN.md
+                      already names as the product's icon source. aria-hidden because the accessible
+                      name above already says "Stripe" — announcing it twice is noise.
+                    */}
+                    <span className="StripeMark">
+                      <FaStripe size="3.4em" aria-hidden="true" />
+                    </span>
+                  </span>
+                )}
+              </GenericButton>
+            </IconContext.Provider>
+            <PayPalComponent {...props} />
+          </div>
           {checkoutError && (
             <div className="alert alert-danger mt-2 mb-0 py-2" role="alert">
               <small>{checkoutError}</small>
@@ -238,13 +278,10 @@ export const PlanComponent = (props: IPlanProps) => {
           )}
           {isAuthenticated && !stripe && !checkoutError && (
             <p className="mt-2 mb-0">
-              <small className={theme.textMuted}>
-                Card checkout is still loading. PayPal is ready below.
-              </small>
+              <small className={theme.textMuted}>Card checkout is still loading. PayPal is ready.</small>
             </p>
           )}
         </div>
-        <PayPalComponent {...props} />
       </div>
     </div>
   )
@@ -291,11 +328,15 @@ const PayPalComponent = (props: IPlanProps) => {
 
   return (
     /*
-     * `mt-2`, not `col mt-2`. This is a card body, not a row, so the `.col` was one of the
-     * outside-a-row columns theme.scss keeps a shim for — and inside the flex column it resolved to
+     * A flex item beside the Stripe button now, so it carries PaymentChoiceOption rather than any
+     * spacing of its own — the row's `gap-2` owns the space between the two rails.
+     *
+     * Historical note on what this used to be: `col mt-2`. This is a card body, not a row, so the
+     * `.col` was one of the outside-a-row columns theme.scss keeps a shim for — and inside the flex
+     * column it resolved to
      * `flex: 1 0 0%`, absorbing the slack the CTA's `mt-auto` needs to sit at the card's bottom edge.
      */
-    <div className="mt-2">
+    <div className="PaymentChoiceOption--paypal">
       {!props.paypalModalIsOpen && (
         <PayPalButton
           onClick={() => logBeginCheckout({ items: [analyticsItem], provider: 'paypal' })}

@@ -107,6 +107,54 @@ small {
 }
 
 /*
+ * The Stripe wordmark on the checkout button.
+ *
+ * Font Awesome's brand glyph sits in a 640x512 box with the mark occupying only the middle band, so
+ * sizing it large enough to read as a logo rather than as bold text inflated the button from 44px to
+ * 72px. This crops the empty vertical padding instead of shrinking the mark: the glyph keeps its
+ * size, the box claims only the height the mark actually needs, and the button stays at 44px.
+ */
+.StripeMark {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  height: 1.5em;
+
+  > svg {
+    flex-shrink: 0;
+  }
+}
+
+/*
+ * The two payment rails, side by side as equal choices.
+ *
+ * PayPal's SDK renders its button into a zoid iframe with a hard 200px floor — measured, not
+ * documented; below that it overflows its column rather than shrinking. Two 200px buttons plus the
+ * gap need 408px inside a plan card, and the 3-up grid gives roughly 300-340px at every ordinary
+ * laptop width, so a symmetric pair could only ever sit side by side above ~1500px.
+ *
+ * So the shortfall is given to Stripe, whose label is just the wordmark and reads fine narrow:
+ * PayPal holds its floor, Stripe takes whatever is left on the line. They still wrap to stacked if a
+ * card is ever narrower than the two of them together.
+ */
+/*
+ * The bases have to add up to less than the card, because flex wraps before it shrinks: two 200px
+ * bases would wrap to stacked at every ordinary width rather than squeezing onto one line. Stripe
+ * asks for 100 and grows into whatever is left; PayPal asks for its floor and neither grows nor
+ * shrinks past it. Below roughly 308px of card — a 320px phone — the pair still wraps, which is the
+ * right answer there.
+ */
+.PaymentChoiceOption--stripe {
+  flex: 1 1 100px;
+  min-width: 0;
+}
+
+.PaymentChoiceOption--paypal {
+  flex: 0 1 200px;
+  min-width: 200px;
+}
+
+/*
  * WCAG 2.5.8 exempts a link set inline in a block of text, because the sentence around it is the
  * target. `.TapTarget` is for the other kind: a link alone on its own line, or one acting as a
  * control, which gets no such help.

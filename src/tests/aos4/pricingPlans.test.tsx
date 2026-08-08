@@ -147,7 +147,18 @@ describe('subscription pricing plans', () => {
       ],
       provider: 'stripe',
     })
-    expect(container.querySelector('button')?.textContent).toBe('Subscribe for 1 Month')
+    /*
+     * The visible label is the wordmark alone, because the two payment rails sit side by side and
+     * half a card cannot hold "Subscribe for 3 Months" as well. That makes the accessible name the
+     * only thing carrying the plan: three cards of identically-marked buttons would otherwise be
+     * indistinguishable to a screen reader, since the plan name lives in a separate heading.
+     */
+    expect(container.querySelector('button')?.textContent).toBe('')
+    expect(container.querySelector('button')?.getAttribute('aria-label')).toBe(
+      'Subscribe for 1 Month with Stripe'
+    )
+    expect(container.querySelector('.StripeMark svg')).not.toBeNull()
+    expect(container.querySelector('.StripeMark svg')?.getAttribute('aria-hidden')).toBe('true')
     expect(container.querySelector('[role="alert"]')).toBeNull()
   })
 
@@ -178,6 +189,8 @@ describe('subscription pricing plans', () => {
     expect(container.textContent).toContain('Save 50%')
     // Never colour alone: the marker is a word, so it survives print and colour blindness.
     expect(container.textContent).toContain('Best value')
+    // The per-period total was removed from the card; Stripe's own checkout states the amount.
+    expect(container.textContent).not.toContain('Total:')
   })
 
   /*
