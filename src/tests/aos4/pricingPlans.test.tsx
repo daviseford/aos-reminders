@@ -103,7 +103,55 @@ describe('subscription pricing plans', () => {
     vi.restoreAllMocks()
   })
 
+  /*
+   * #1942: the click asks the API for a server-created Checkout Session first and simply navigates
+   * to its URL — no Stripe.js involved. The legacy client-only redirect survives only as the
+   * fallback for stages the endpoint has not deployed to yet.
+   */
+  it('navigates to the server-created checkout session without touching the legacy redirect', async () => {
+    const session = vi
+      .spyOn(SubscriptionApi, 'createCheckoutSession')
+      .mockResolvedValue({ body: { url: 'https://checkout.stripe.com/c/pay/cs_test_123' } })
+    const assign = vi.fn()
+    const originalLocation = window.location
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: { ...originalLocation, assign },
+    })
+
+    try {
+      await act(async () => {
+        render(
+          <PlanComponent
+            supportPlan={SUBSCRIPTION_PLANS[0]}
+            paypalModalIsOpen={false}
+            setPaypalModalIsOpen={vi.fn()}
+          />,
+          container
+        )
+      })
+
+      await act(async () => {
+        container.querySelector('button')!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+        await Promise.resolve()
+        await Promise.resolve()
+      })
+
+      expect(session).toHaveBeenCalledWith({ kind: 'subscription', plan: '1 Month' }, 'audience-token')
+      expect(assign).toHaveBeenCalledWith('https://checkout.stripe.com/c/pay/cs_test_123')
+      expect(stripe.redirectToCheckout).not.toHaveBeenCalled()
+      // The page is unloading; a re-enabled button would read as failure.
+      expect(container.querySelector('button')?.disabled).toBe(true)
+    } finally {
+      Object.defineProperty(window, 'location', { configurable: true, value: originalLocation })
+    }
+  })
+
   it('keeps the established plan card stable while handing checkout to Stripe', async () => {
+    // The endpoint 404s on a stage it has not deployed to; the legacy redirect is the fallback.
+    vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockRejectedValue(
+      Object.assign(new Error('Not found'), { status: 404 })
+    )
     stripe.redirectToCheckout.mockResolvedValue({})
 
     /*
@@ -250,6 +298,10 @@ describe('subscription pricing plans', () => {
    * button that takes money and watched the page do nothing at all.
    */
   it('surfaces a failed checkout redirect instead of only logging it', async () => {
+    // The session endpoint is down as well, so the click runs the whole gauntlet to the alert.
+    vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockRejectedValue(
+      Object.assign(new Error('Not found'), { status: 404 })
+    )
     stripe.redirectToCheckout.mockResolvedValue({ error: { message: 'nope' } })
     vi.spyOn(console, 'error').mockImplementation(() => undefined)
 
@@ -266,8 +318,9 @@ describe('subscription pricing plans', () => {
 
     await act(async () => {
       container.querySelector('button')!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
-      await Promise.resolve()
-      await Promise.resolve()
+      // A macrotask, not microtask ticks: the handler now awaits the session attempt before the
+      // legacy fallback, and counting awaits is exactly what made the old form brittle.
+      await new Promise(resolve => setTimeout(resolve, 0))
     })
 
     const alert = container.querySelector('[role="alert"]')
