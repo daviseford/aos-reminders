@@ -149,8 +149,14 @@ small {
   min-width: 0;
 }
 
+/*
+ * grow 1: on the shared line both rails split the spare space, and when the pair wraps on a narrow
+ * phone PayPal fills its own line instead of sitting at a fixed 200px under a full-width Stripe —
+ * two different widths, stacked, read as a rendering accident. The 200px basis (PayPal's measured
+ * render floor) still decides where the wrap happens.
+ */
 .PaymentChoiceOption--paypal {
-  flex: 0 1 200px;
+  flex: 1 1 200px;
   min-width: 200px;
 }
 

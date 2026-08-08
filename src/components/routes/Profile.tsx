@@ -427,7 +427,8 @@ const ToggleTheme = () => {
         {/* Standing guidance, present at first render — not an outcome worth announcing on load. */}
         {!isActive && (
           <div className="alert alert-info text-center mt-3">
-            <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick('SubscribeDarkTheme')}>
+            {/* alert-link: plain Action Blue on the tinted alert background sits under 4.5:1. */}
+            <Link className="alert-link" to={ROUTES.SUBSCRIBE} onClick={() => logClick('SubscribeDarkTheme')}>
               Subscribe now
             </Link>{' '}
             to use dark theme!

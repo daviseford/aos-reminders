@@ -37,7 +37,15 @@ export const CheckoutOutcomeBanner = () => {
           <>
             <strong>Payment received.</strong> Thanks for subscribing. Activation can take a few moments —
             your{' '}
-            <Link to={ROUTES.PROFILE} onClick={() => logClick('CheckoutBanner-Profile')}>
+            {/*
+              alert-link, Bootstrap's own treatment for links inside alerts: plain Action Blue on the
+              tinted alert-success background measures ~3.8:1, under the 4.5:1 floor.
+            */}
+            <Link
+              className="alert-link"
+              to={ROUTES.PROFILE}
+              onClick={() => logClick('CheckoutBanner-Profile')}
+            >
               Profile
             </Link>{' '}
             shows the current status.

@@ -69,9 +69,13 @@ export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen, retryGrant }
                 wrong with your payment.
               </p>
               <p className="mb-3">
-                It usually lands within a few minutes. Your <Link to={ROUTES.PROFILE}>Profile</Link> shows the
-                status, and it is worth checking there before paying again. If it has not appeared shortly,
-                please get in touch.
+                {/* FaqLink: Action Blue measures 3.29:1 on the dark modal surface. */}
+                It usually lands within a few minutes. Your{' '}
+                <Link className="FaqLink" to={ROUTES.PROFILE}>
+                  Profile
+                </Link>{' '}
+                shows the status, and it is worth checking there before paying again. If it has not appeared
+                shortly, please get in touch.
               </p>
               <Contact size="small" />
             </div>

@@ -38,11 +38,14 @@ vi.mock('utils/authToken', () => ({
   useApiAccessToken: () => token.get,
 }))
 
+// Mutable so individual tests can exercise the signed-out card, which renders a different control.
+const auth = vi.hoisted(() => ({
+  isAuthenticated: true,
+  user: { email: 'general@example.com' } as { email: string } | undefined,
+}))
+
 vi.mock('@auth0/auth0-react', () => ({
-  useAuth0: () => ({
-    isAuthenticated: true,
-    user: { email: 'general@example.com' },
-  }),
+  useAuth0: () => auth,
 }))
 
 vi.mock('@stripe/react-stripe-js', () => ({
@@ -71,8 +74,10 @@ vi.mock('context/useTheme', () => ({
   }),
 }))
 
+const loginHook = vi.hoisted(() => ({ login: vi.fn() }))
+
 vi.mock('utils/hooks/useLogin', () => ({
-  default: () => ({ login: vi.fn() }),
+  default: () => loginHook,
 }))
 
 describe('subscription pricing plans', () => {
@@ -83,6 +88,8 @@ describe('subscription pricing plans', () => {
     paypal.callbacks = null
     token.get.mockReset()
     token.get.mockResolvedValue('audience-token')
+    auth.isAuthenticated = true
+    auth.user = { email: 'general@example.com' }
     vi.clearAllMocks()
     container = document.createElement('div')
     document.body.appendChild(container)
@@ -159,7 +166,47 @@ describe('subscription pricing plans', () => {
     )
     expect(container.querySelector('.StripeMark svg')).not.toBeNull()
     expect(container.querySelector('.StripeMark svg')?.getAttribute('aria-hidden')).toBe('true')
+    // Both rails' visible labels are logos, so this line is the card's only visible verb.
+    expect(container.textContent).toContain('Subscribe with:')
     expect(container.querySelector('[role="alert"]')).toBeNull()
+  })
+
+  /*
+   * Signed out, PayPal cannot render (it needs the account e-mail), so the brand pair used to
+   * collapse to one lopsided wordmark button whose accessible name promised Stripe while its click
+   * opened the login popup. The signed-out card instead shows a single plainly-labelled button that
+   * carries the intent to login.
+   */
+  it('shows a truthfully-labelled login button when signed out, with no payment branding', async () => {
+    auth.isAuthenticated = false
+    auth.user = undefined
+
+    await act(async () => {
+      render(
+        <PlanComponent
+          supportPlan={SUBSCRIPTION_PLANS[0]}
+          paypalModalIsOpen={false}
+          setPaypalModalIsOpen={vi.fn()}
+        />,
+        container
+      )
+    })
+
+    const buttons = container.querySelectorAll('button')
+    expect(buttons).toHaveLength(1)
+    expect(buttons[0].textContent).toBe('Subscribe for 1 Month')
+    // No brand promise it cannot keep: the click opens login, not a Stripe checkout.
+    expect(buttons[0].getAttribute('aria-label')).toBeNull()
+    expect(container.querySelector('.StripeMark')).toBeNull()
+    expect(container.textContent).not.toContain('PayPal')
+    expect(container.textContent).not.toContain('Subscribe with:')
+
+    await act(async () => {
+      buttons[0].dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    expect(loginHook.login).toHaveBeenCalledTimes(1)
+    expect(stripe.redirectToCheckout).not.toHaveBeenCalled()
   })
 
   /*

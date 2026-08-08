@@ -125,20 +125,11 @@ const Intro = () => {
   return (
     <div className={`${headerClass} ${theme.text}`}>
       {/*
-        height reserves the box before the image loads; the intrinsic ratio is 919x843.
-
-        Hidden below 576px. It is purely decorative — the masthead already identifies the product,
-        which is why it carries an empty alt — and on a phone it was ~150px of the one screen that
-        has to make the case, pushing the prices further down for no information gained.
+        No logo. It was decorative — the masthead already identifies the product — and it had already
+        been hidden on mobile for exactly that reason; on desktop it was ~150px of the screen that has
+        to make the case, and in dark theme its white circle read as a rendering artifact. Removing it
+        finishes the decision the mobile hiding started.
       */}
-      <img
-        alt=""
-        aria-hidden="true"
-        className="d-none d-sm-block mx-auto mb-4 img-fluid rounded-circle bg-white"
-        height="110"
-        src="/img/logo_medium_padding.png"
-        width="120"
-      />
       {/* Rendered at h2 size so the page gains a top-level heading without a visual change. */}
       <h1 className="h2">Subscribe to AoS Reminders</h1>
       {/*
@@ -234,9 +225,14 @@ const MoreQuestions = () => {
         Everything else — the builder, importing, reminders, notes, hiding, reordering, and the PDF — is free,
         and stays free. Subscribing is what keeps it that way.
       </p>
+      {/*
+        FaqLink on both: Action Blue was tuned for white backgrounds and measures 3.29:1 on Midnight
+        Slate, under the 4.5:1 floor. FaqLink is the incumbent answer for links on themed surfaces —
+        inherit the theme's text colour and let the underline mark the link.
+      */}
       <p className="mb-1">
         <Link
-          className="TapTarget"
+          className="FaqLink TapTarget"
           to={`${ROUTES.FAQ}#what-subscription-includes`}
           onClick={() => logClick('Subscribe-Faq')}
         >
@@ -246,7 +242,7 @@ const MoreQuestions = () => {
       <p className="mb-0">
         <small>
           Already subscribed? You can buy gift subscriptions for friends from your{' '}
-          <Link to={ROUTES.PROFILE} onClick={() => logClick('Subscribe-GiftPointer')}>
+          <Link className="FaqLink" to={ROUTES.PROFILE} onClick={() => logClick('Subscribe-GiftPointer')}>
             Profile
           </Link>
           .

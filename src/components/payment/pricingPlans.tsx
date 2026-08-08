@@ -150,11 +150,11 @@ export const PlanComponent = (props: IPlanProps) => {
        */
       if (result.error) {
         console.error(result.error)
-        setCheckoutError('We could not open the checkout page. Please try again, or use PayPal below.')
+        setCheckoutError('We could not open the checkout page. Please try again, or use PayPal instead.')
       }
     } catch (error) {
       console.error(error)
-      setCheckoutError('We could not open the checkout page. Please try again, or use PayPal below.')
+      setCheckoutError('We could not open the checkout page. Please try again, or use PayPal instead.')
     } finally {
       // Reached only when the redirect did not happen; a successful one has already left the page.
       setIsRedirecting(false)
@@ -223,54 +223,80 @@ export const PlanComponent = (props: IPlanProps) => {
           padding is the margin now.
         */}
         <div className="mt-auto">
-          {/*
-            The two rails sit side by side as equal choices rather than stacked with Stripe on top,
-            where PayPal read as an afterthought.
-
-            flex-wrap with a 150px flex-basis rather than a breakpoint: PayPal's SDK will not render
-            its button below 150px, and the card's own width varies with the 1/2/3-up plan grid, so
-            the pair drops to stacked exactly when there is no longer room for both — on a phone, and
-            in the narrowest desktop column — without guessing which viewport that happens at.
-          */}
-          <div className="d-flex flex-wrap align-items-start gap-2 PaymentChoice">
-            <IconContext.Provider value={{ size: '1.2em' }}>
+          {!isAuthenticated ? (
+            /*
+             * Signed out, the payment rails are withheld entirely. PayPal cannot render without an
+             * account e-mail, so the brand pair collapsed to one lopsided wordmark button — and
+             * clicking it opened the login popup while its accessible name promised Stripe. One
+             * plain, truthfully-labelled button carries the intent; the rails appear after login,
+             * when each really is one click from its checkout.
+             */
+            <GenericButton
+              type="button"
+              className="btn d-block w-100 btn-primary TapTargetBlock py-2"
+              onClick={login}
+            >
+              Subscribe for {supportPlan.title}
+            </GenericButton>
+          ) : (
+            <>
               {/*
-                The visible label is now just the wordmark, because half a card cannot hold "Subscribe
-                for 3 Months" as well. The accessible name carries the whole sentence, and the plan it
-                belongs to, since three cards of identical buttons would otherwise be indistinguishable.
+                Names the action the brand marks below only imply. Both buttons' visible labels are
+                logos, so without this line the card ends in two wordmarks and no verb.
               */}
-              <GenericButton
-                type="button"
-                aria-label={`Subscribe for ${supportPlan.title} with Stripe`}
-                className="btn d-block btn-primary TapTargetBlock py-2 PaymentChoiceOption--stripe"
-                disabled={isAuthenticated && (isRedirecting || !stripe)}
-                onClick={isAuthenticated ? handleStripeCheckout : login}
-              >
-                {isRedirecting ? (
-                  <span className={centerContentClass}>
-                    <span
-                      aria-hidden="true"
-                      className="spinner-border spinner-border-sm me-2"
-                      role="status"
-                    />
-                    Opening&hellip;
-                  </span>
-                ) : (
-                  <span className={centerContentClass}>
-                    {/*
-                      The Stripe wordmark, from the react-icons Font Awesome brand set DESIGN.md
-                      already names as the product's icon source. aria-hidden because the accessible
-                      name above already says "Stripe" — announcing it twice is noise.
-                    */}
-                    <span className="StripeMark">
-                      <FaStripe size="3.4em" aria-hidden="true" />
-                    </span>
-                  </span>
-                )}
-              </GenericButton>
-            </IconContext.Provider>
-            <PayPalComponent {...props} />
-          </div>
+              <p className="mb-1">
+                <small className={theme.textMuted}>Subscribe with:</small>
+              </p>
+              {/*
+                The two rails sit side by side as equal choices rather than stacked with Stripe on
+                top, where PayPal read as an afterthought.
+
+                flex-wrap rather than a breakpoint: the card's own width varies with the 1/2/3-up
+                plan grid, so the pair drops to stacked exactly when there is no longer room for
+                both, without guessing which viewport that happens at.
+              */}
+              <div className="d-flex flex-wrap align-items-start gap-2 PaymentChoice">
+                <IconContext.Provider value={{ size: '1.2em' }}>
+                  {/*
+                    The visible label is just the wordmark, because half a card cannot hold
+                    "Subscribe for 3 Months" as well. The accessible name carries the whole sentence,
+                    and the plan it belongs to, since three cards of identical buttons would
+                    otherwise be indistinguishable.
+                  */}
+                  <GenericButton
+                    type="button"
+                    aria-label={`Subscribe for ${supportPlan.title} with Stripe`}
+                    className="btn d-block btn-primary TapTargetBlock py-2 PaymentChoiceOption--stripe"
+                    disabled={isRedirecting || !stripe}
+                    onClick={handleStripeCheckout}
+                  >
+                    {isRedirecting ? (
+                      <span className={centerContentClass}>
+                        <span
+                          aria-hidden="true"
+                          className="spinner-border spinner-border-sm me-2"
+                          role="status"
+                        />
+                        Opening&hellip;
+                      </span>
+                    ) : (
+                      <span className={centerContentClass}>
+                        {/*
+                          The Stripe wordmark, from the react-icons Font Awesome brand set DESIGN.md
+                          already names as the product's icon source. aria-hidden because the
+                          accessible name above already says "Stripe" — announcing it twice is noise.
+                        */}
+                        <span className="StripeMark">
+                          <FaStripe size="3.4em" aria-hidden="true" />
+                        </span>
+                      </span>
+                    )}
+                  </GenericButton>
+                </IconContext.Provider>
+                <PayPalComponent {...props} />
+              </div>
+            </>
+          )}
           {checkoutError && (
             <div className="alert alert-danger mt-2 mb-0 py-2" role="alert">
               <small>{checkoutError}</small>
