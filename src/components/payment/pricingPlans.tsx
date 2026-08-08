@@ -208,7 +208,7 @@ export const PlanComponent = (props: IPlanProps) => {
             */}
             {savingPct > 0 ? (
               <>
-                <strong>Save {savingPct}%</strong> against the monthly rate
+                <strong>Save {savingPct}%</strong>
               </>
             ) : (
               // The baseline plan discounts nothing, so the row would otherwise be empty.
