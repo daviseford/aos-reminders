@@ -82,8 +82,8 @@ export const createSubscriptionApi = (endpoint: string, fetcher: Fetcher = fetch
     /*
      * Server-created Stripe Checkout Sessions (#1942). The browser states an
      * intent; the server chooses the price, the buyer identity, and the return
-     * URLs, and answers with the session URL to navigate to. Callers fall back
-     * to the legacy client-only redirect while stages without this route exist.
+     * URLs, and answers with the session URL to navigate to. This is the only
+     * card checkout path — the legacy client-only redirect was removed (#1948).
      */
     createCheckoutSession: (
       data: { kind: 'subscription' | 'gift'; plan: string; quantity?: number },

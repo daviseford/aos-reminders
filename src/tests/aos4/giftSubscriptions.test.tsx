@@ -8,15 +8,14 @@ import DarkTheme from 'theme/dark'
 import LightTheme from 'theme/light'
 import { GiftedSubscriptionPlans } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-
-const stripe = vi.hoisted(() => ({
-  redirectToCheckout: vi.fn(),
-}))
+import { SubscriptionApi } from '../../api/subscriptionApi'
 
 const analytics = vi.hoisted(() => ({
   logBeginCheckout: vi.fn(),
   logClick: vi.fn(),
 }))
+
+const token = vi.hoisted(() => ({ get: vi.fn() }))
 
 const themeContext = vi.hoisted(() => ({
   isDark: false,
@@ -30,20 +29,15 @@ const themeContext = vi.hoisted(() => ({
 
 vi.mock('utils/analytics', () => analytics)
 
+vi.mock('utils/authToken', () => ({
+  useApiAccessToken: () => token.get,
+}))
+
 vi.mock('@auth0/auth0-react', () => ({
   useAuth0: () => ({
     isAuthenticated: true,
     user: { email: 'gifter@example.com' },
   }),
-}))
-
-vi.mock('@stripe/react-stripe-js', () => ({
-  Elements: ({ children }: React.PropsWithChildren<object>) => children,
-  useStripe: () => stripe,
-}))
-
-vi.mock('@stripe/stripe-js', () => ({
-  loadStripe: vi.fn(() => Promise.resolve(null)),
 }))
 
 vi.mock('context/useSubscription', () => ({
@@ -72,7 +66,7 @@ describe('gift subscription checkout', () => {
     vi.clearAllMocks()
     themeContext.isDark = false
     themeContext.theme = LightTheme
-    stripe.redirectToCheckout.mockResolvedValue({})
+    token.get.mockResolvedValue('audience-token')
     container = document.createElement('div')
     document.body.appendChild(container)
   })
@@ -82,56 +76,95 @@ describe('gift subscription checkout', () => {
       unmountComponentAtNode(container)
     })
     container.remove()
+    vi.restoreAllMocks()
   })
 
-  it('reports the selected quantity and keeps it in Stripe return URLs', async () => {
+  /*
+   * #1942: the click states an intent — plan and quantity — and the API answers with the session
+   * URL to navigate to; the server owns the price and the return URLs. Since #1948 this is the
+   * only card checkout path.
+   */
+  it('reports the selected quantity and sends it to the checkout session endpoint', async () => {
+    const session = vi
+      .spyOn(SubscriptionApi, 'createCheckoutSession')
+      .mockResolvedValue({ body: { url: 'https://checkout.stripe.com/c/pay/cs_test_gift' } })
+    const assign = vi.fn()
+    const originalLocation = window.location
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: { ...originalLocation, assign },
+    })
+
+    try {
+      await act(async () => {
+        render(<GiftSubscriptions />, container)
+      })
+
+      const quantity = container.querySelector<HTMLInputElement>(
+        'input[aria-label="Quantity of 1 Month gifts"]'
+      )
+      const purchase = container.querySelector<HTMLButtonElement>('tbody button')
+      expect(quantity).not.toBeNull()
+      expect(purchase).not.toBeNull()
+
+      await act(async () => {
+        quantity!.value = '3'
+        Simulate.change(quantity!)
+      })
+      await act(async () => {
+        purchase!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+        await Promise.resolve()
+        await Promise.resolve()
+      })
+
+      expect(analytics.logBeginCheckout).toHaveBeenCalledWith({
+        items: [
+          {
+            item_category: 'gift_subscription',
+            item_id: 'gift-subscription-1-month',
+            item_name: '1 Month',
+            price: 0.99,
+            quantity: 3,
+          },
+        ],
+        provider: 'stripe',
+      })
+      expect(session).toHaveBeenCalledWith({ kind: 'gift', plan: '1 Month', quantity: 3 }, 'audience-token')
+      expect(assign).toHaveBeenCalledWith('https://checkout.stripe.com/c/pay/cs_test_gift')
+      // The page is unloading; a re-enabled button would read as failure.
+      expect(container.querySelector<HTMLButtonElement>('tbody button')?.disabled).toBe(true)
+    } finally {
+      Object.defineProperty(window, 'location', { configurable: true, value: originalLocation })
+    }
+  })
+
+  /*
+   * With the legacy fallback gone (#1948), a failed session request has nowhere else to land: the
+   * failure must be said out loud and the button must come back rather than spinning forever.
+   */
+  it('surfaces a failed checkout session instead of only logging it', async () => {
+    vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockRejectedValue(
+      Object.assign(new Error('Service unavailable'), { status: 503 })
+    )
+    vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
     await act(async () => {
       render(<GiftSubscriptions />, container)
     })
 
-    const quantity = container.querySelector<HTMLInputElement>(
-      'input[aria-label="Quantity of 1 Month gifts"]'
-    )
     const purchase = container.querySelector<HTMLButtonElement>('tbody button')
-    expect(quantity).not.toBeNull()
     expect(purchase).not.toBeNull()
 
     await act(async () => {
-      quantity!.value = '3'
-      Simulate.change(quantity!)
-    })
-    await act(async () => {
       purchase!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
-      await Promise.resolve()
-      await Promise.resolve()
+      await new Promise(resolve => setTimeout(resolve, 0))
     })
 
-    expect(analytics.logBeginCheckout).toHaveBeenCalledWith({
-      items: [
-        {
-          item_category: 'gift_subscription',
-          item_id: 'gift-subscription-1-month',
-          item_name: '1 Month',
-          price: 0.99,
-          quantity: 3,
-        },
-      ],
-      provider: 'stripe',
-    })
-    /*
-     * Built from window.location.origin, matching the subscription checkout. The pair of hardcoded
-     * hosts this replaced pinned development to `localhost:3000` — the retired CRA port — so every
-     * gift checkout in dev returned to an address nothing was serving.
-     */
-    const baseUrl = window.location.origin
-    expect(stripe.redirectToCheckout).toHaveBeenCalledWith({
-      cancelUrl: `${baseUrl}?canceled=true&checkout_kind=gift_subscription&plan=1%20Month&quantity=3`,
-      clientReferenceId: 'gifter@example.com',
-      customerEmail: 'gifter@example.com',
-      lineItems: [{ price: GiftedSubscriptionPlans[0].stripe_prod, quantity: 3 }],
-      mode: 'payment',
-      successUrl: `${baseUrl}/profile?gifted=true&checkout_kind=gift_subscription&quantity=3&plan=1%20Month&checkout_session_id={CHECKOUT_SESSION_ID}`,
-    })
+    const alert = container.querySelector('[role="alert"]')
+    expect(alert).not.toBeNull()
+    expect(alert!.textContent).toContain('We could not open the checkout page')
+    // The control comes back rather than stranding the buyer on a dead button.
+    expect(container.querySelector<HTMLButtonElement>('tbody button')?.disabled).toBe(false)
   })
 
   it('uses dark-theme surfaces for the purchase table and quantity fields', async () => {

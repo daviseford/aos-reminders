@@ -1,12 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { Elements, useStripe } from '@stripe/react-stripe-js'
 
 import GenericButton from 'components/input/generic_button'
-import { loadLegacyStripe, redirectToCheckout } from 'components/payment/legacyStripeCheckout'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { capitalize } from 'lodash'
-import qs from 'qs'
 import React, { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaCheck, FaGift, FaRegSmileBeam } from 'react-icons/fa'
@@ -14,7 +11,6 @@ import { centerContentClass } from 'theme/helperClasses'
 import { IGiftSubscription } from 'types/subscription'
 import { logBeginCheckout, logClick } from 'utils/analytics'
 import { useApiAccessToken } from 'utils/authToken'
-import { isDev, STRIPE_KEY } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import {
@@ -26,10 +22,9 @@ import {
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
 const COL_SIZE = 'col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6'
-const GiftSubscriptionsComponent = () => {
-  const stripe = useStripe()
+export const GiftSubscriptions = () => {
   const { isActive } = useSubscription()
-  if (!stripe || !isActive) return null
+  if (!isActive) return null
 
   return (
     <div className="container">
@@ -190,10 +185,11 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin })
   const { theme } = useTheme()
-  const stripe = useStripe()
   const getAccessToken = useApiAccessToken()
   const { isMobile } = useWindowSize()
   const [quantity, setQuantity] = useState(1)
+  const [isRedirecting, setIsRedirecting] = useState(false)
+  const [checkoutError, setCheckoutError] = useState('')
 
   if (!user) return null
 
@@ -210,7 +206,7 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
 
   const handleCheckout = async (event: React.MouseEvent) => {
     event.preventDefault()
-    if (quantity < 1) return
+    if (quantity < 1 || isRedirecting) return
 
     logClick(origin)
     logBeginCheckout({
@@ -218,9 +214,15 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       provider: 'stripe',
     })
 
+    setIsRedirecting(true)
+    setCheckoutError('')
+
     /*
-     * Server-created Checkout Session first (#1942); the legacy client-only redirect below is the
-     * fallback for stages the endpoint has not deployed to yet.
+     * The API chooses the price, the buyer identity, and the return URLs (#1942), and this
+     * navigation is the whole client-side job. `isRedirecting` is deliberately left on after a
+     * successful hand-off — the page is unloading, and re-enabling the button reads as failure.
+     * A failed hand-off is the one place it must come back off, because there is no fallback
+     * checkout any more: the alert and a live button are all the buyer gets.
      */
     try {
       const token = await getAccessToken()
@@ -228,44 +230,13 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
         { kind: 'gift', plan: supportPlan.title, quantity },
         token
       )
-      if (body?.url) {
-        window.location.assign(body.url)
-        return
-      }
-      console.error('The checkout session endpoint answered without a URL.')
+      if (!body?.url) throw new Error('The checkout session endpoint answered without a URL.')
+      window.location.assign(body.url)
     } catch (error) {
       console.error(error)
+      setCheckoutError('We could not open the checkout page. Please try again.')
+      setIsRedirecting(false)
     }
-
-    if (!stripe) return console.error('Stripe.js has not loaded; the legacy fallback is unavailable.')
-    const price = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
-    /*
-     * window.location.origin, matching the subscription checkout. The old pair of hardcoded hosts
-     * pinned dev to `localhost:3000` — the CRA port, which no longer exists now the dev server is
-     * Vite — so every gift checkout in development returned to a dead address.
-     */
-    const baseUrl = window.location.origin
-    const successQuery = qs.stringify({
-      gifted: true,
-      checkout_kind: 'gift_subscription',
-      quantity,
-      plan: supportPlan.title,
-    })
-    const result = await redirectToCheckout(stripe, {
-      mode: 'payment',
-      lineItems: [{ price, quantity }],
-      customerEmail: user.email,
-      clientReferenceId: user.email,
-      successUrl: `${baseUrl}/profile?${successQuery}&checkout_session_id={CHECKOUT_SESSION_ID}`,
-      cancelUrl: `${baseUrl}?${qs.stringify({
-        canceled: true,
-        checkout_kind: 'gift_subscription',
-        plan: supportPlan.title,
-        quantity,
-      })}`,
-    })
-
-    if (result.error) console.error(result.error)
   }
 
   return (
@@ -289,21 +260,17 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
       <td>
         <GenericButton
           className={`btn ${isMobile ? 'btn-sm' : ''} d-block w-100 btn-primary TapTargetBlock`}
-          disabled={isAuthenticated && quantity < 1}
+          disabled={isAuthenticated && (quantity < 1 || isRedirecting)}
           onClick={isAuthenticated ? handleCheckout : login}
         >
-          {isMobile ? 'Buy' : 'Purchase'}
+          {isRedirecting ? 'Opening…' : isMobile ? 'Buy' : 'Purchase'}
         </GenericButton>
+        {checkoutError && (
+          <div className="alert alert-danger mt-2 mb-0 py-1" role="alert">
+            <small>{checkoutError}</small>
+          </div>
+        )}
       </td>
     </tr>
   )
 }
-
-// The versioned loader is deliberately absent here: its runtime refuses redirectToCheckout.
-const stripePromise = loadLegacyStripe(STRIPE_KEY)
-
-export const GiftSubscriptions = () => (
-  <Elements stripe={stripePromise}>
-    <GiftSubscriptionsComponent />
-  </Elements>
-)
