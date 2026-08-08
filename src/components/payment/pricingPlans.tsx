@@ -96,6 +96,18 @@ interface IPlanProps {
   setPaypalModalIsOpen: (isOpen: boolean) => void
 }
 
+/*
+ * How each plan actually charges, in words. The cards lead with a per-month figure, but two of the
+ * three plans do not bill monthly — and a page that shows only the per-month framing of an annually
+ * billed plan is the exact pattern the FTC's dark-patterns work names as drip pricing. One quiet
+ * line per card states the real charge before any checkout is opened.
+ */
+const billingCadence: Record<string, string> = {
+  '1 Month': 'billed monthly',
+  '3 Months': 'billed every 3 months',
+  '1 Year': 'billed once a year',
+}
+
 export const PlanComponent = (props: IPlanProps) => {
   const { supportPlan, isBestValue } = props
   const { user, isAuthenticated } = useAuth0()
@@ -195,25 +207,25 @@ export const PlanComponent = (props: IPlanProps) => {
           <small className={theme.textMuted}>/ month</small>
         </p>
         <ul className="list-unstyled mt-3 mb-4">
+          {!!supportPlan.discount_pct && (
+            <li>
+              <span className="badge rounded-pill bg-danger mb-2">{supportPlan.discount_pct}% off!</span>
+            </li>
+          )}
+          {/*
+            Derived from plans.ts, never written down: the figure and the prices above it cannot
+            drift apart. This is the page's strongest true claim and it went unsaid for years.
+          */}
+          {savingPct > 0 && (
+            <li>
+              <strong>Save {savingPct}%</strong>
+            </li>
+          )}
+          {/* The real charge, in the buyer's own units, before any checkout opens. */}
           <li>
-            {!!supportPlan.discount_pct && (
-              <>
-                <span className="badge rounded-pill bg-danger mb-2">{supportPlan.discount_pct}% off!</span>
-                <br />
-              </>
-            )}
-            {/*
-              Derived from plans.ts, never written down: the figure and the prices above it cannot
-              drift apart. This is the page's strongest true claim and it went unsaid for years.
-            */}
-            {savingPct > 0 ? (
-              <>
-                <strong>Save {savingPct}%</strong>
-              </>
-            ) : (
-              // The baseline plan discounts nothing, so the row would otherwise be empty.
-              <>Billed monthly</>
-            )}
+            <small className={theme.textMuted}>
+              ${supportPlan.cost}, {billingCadence[supportPlan.title] ?? 'billed up front'}
+            </small>
           </li>
         </ul>
         {/*

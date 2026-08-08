@@ -1,5 +1,7 @@
 // @vitest-environment jsdom
 
+import { armyFactions } from '../../aos4/domain'
+import { AOS4_CATALOG } from '../../aos4/generated'
 import { protectedRoute } from 'components/page/privateRoute'
 import Profile from 'components/routes/Profile'
 import Subscribe from 'components/routes/Subscribe'
@@ -7,6 +9,7 @@ import { AppStatusProvider } from 'context/useAppStatus'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { MemoryRouter, Route, Routes } from 'react-router'
+import { baselineMonthlyCost } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({
@@ -130,7 +133,7 @@ describe('established account routes', () => {
     expect(container.textContent).toContain('Subscribe to AoS Reminders')
     // Leads with what the subscription does; the support appeal is a closing note, not the offer.
     expect(container.textContent).toContain('Your army is saved in this browser, and only this browser.')
-    expect(container.textContent).toContain('Subscribing is what keeps it that way.')
+    expect(container.textContent).toContain('AoS Reminders is built and run by one person.')
     expect(container.textContent).not.toContain(
       'Import current army lists from the AoS app, Listbot 4.0, and New Recruit.'
     )
@@ -189,6 +192,17 @@ describe('established account routes', () => {
     expect(plans).toBeGreaterThan(-1)
     expect(closing).toBeGreaterThan(plans)
     expect(faq).toBeGreaterThan(closing)
+
+    /*
+     * The closing paragraph makes two factual claims, and PRODUCT.md treats stale copy on a paid
+     * surface as a blocking defect — so both are pinned to their sources of truth here. The price
+     * ceiling is derived from plans.ts at render time; the army count is hardcoded in the copy
+     * (deriving it would pull the catalog chunk into the route), so this test is what fails when
+     * the corpus next changes shape.
+     */
+    expect(container.textContent).toContain(`none more than $${baselineMonthlyCost().toFixed(2)} a month`)
+    expect(container.textContent).toContain("all 27 armies' reminders free for everyone")
+    expect(armyFactions(AOS4_CATALOG)).toHaveLength(27)
   })
 
   it('shows the already-subscribed screen instead of the plans for an active subscriber', async () => {

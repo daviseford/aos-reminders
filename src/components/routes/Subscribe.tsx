@@ -10,6 +10,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import { Link, useLocation } from 'react-router'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
+import { baselineMonthlyCost } from 'utils/plans'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -220,10 +221,22 @@ const MoreQuestions = () => {
         The free-and-stays-free note lives here rather than above the plans. It is the closing
         argument, not the offer, and every line above the prices is one the visitor has to scroll
         past before learning what this costs.
+
+        The second paragraph follows the strongest finding in Wikimedia's published banner testing:
+        concrete facts about the thing being supported outperform sentiment roughly threefold, and a
+        personal voice carries them best. Both facts here are anchored: the price ceiling is derived
+        from plans.ts at render time, and the army count is pinned to the corpus by a test
+        (accountRoutes.test.tsx), so neither can drift from the truth silently. Stating the *maximum*
+        price is deliberate — "from $0.99" is the sales voice this product doesn't use.
       */}
       <p>
         Everything else — the builder, importing, reminders, notes, hiding, reordering, and the PDF — is free,
-        and stays free. Subscribing is what keeps it that way.
+        and stays free.
+      </p>
+      <p>
+        AoS Reminders is built and run by one person. Subscriptions — none more than $
+        {baselineMonthlyCost().toFixed(2)} a month — are what keep all 27 armies&apos; reminders free for
+        everyone.
       </p>
       {/*
         FaqLink on both: Action Blue was tuned for white backgrounds and measures 3.29:1 on Midnight

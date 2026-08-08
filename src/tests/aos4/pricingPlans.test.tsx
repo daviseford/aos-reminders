@@ -236,7 +236,12 @@ describe('subscription pricing plans', () => {
     expect(container.textContent).toContain('Save 50%')
     // Never colour alone: the marker is a word, so it survives print and colour blindness.
     expect(container.textContent).toContain('Best value')
-    // The per-period total was removed from the card; Stripe's own checkout states the amount.
+    /*
+     * The card leads with a per-month figure, but this plan bills $11.88 once a year — and per-month
+     * framing with the real charge nowhere on the page is the pattern the FTC's dark-patterns work
+     * names as drip pricing. The fine print states the actual charge before any checkout opens.
+     */
+    expect(container.textContent).toContain('$11.88, billed once a year')
     expect(container.textContent).not.toContain('Total:')
   })
 
