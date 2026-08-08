@@ -5,7 +5,7 @@ import { PlanComponent } from 'components/payment/pricingPlans'
 import type { IApprovalResponse } from 'components/payment/paypal/paypalTypes'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
-import { SUBSCRIPTION_PLANS } from 'utils/plans'
+import { bestValuePlan, monthlySavingPct, SUBSCRIPTION_PLANS } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
@@ -38,11 +38,14 @@ vi.mock('utils/authToken', () => ({
   useApiAccessToken: () => token.get,
 }))
 
+// Mutable so individual tests can exercise the signed-out card, which renders a different control.
+const auth = vi.hoisted(() => ({
+  isAuthenticated: true,
+  user: { email: 'general@example.com' } as { email: string } | undefined,
+}))
+
 vi.mock('@auth0/auth0-react', () => ({
-  useAuth0: () => ({
-    isAuthenticated: true,
-    user: { email: 'general@example.com' },
-  }),
+  useAuth0: () => auth,
 }))
 
 vi.mock('@stripe/react-stripe-js', () => ({
@@ -71,8 +74,10 @@ vi.mock('context/useTheme', () => ({
   }),
 }))
 
+const loginHook = vi.hoisted(() => ({ login: vi.fn() }))
+
 vi.mock('utils/hooks/useLogin', () => ({
-  default: () => ({ login: vi.fn() }),
+  default: () => loginHook,
 }))
 
 describe('subscription pricing plans', () => {
@@ -83,6 +88,8 @@ describe('subscription pricing plans', () => {
     paypal.callbacks = null
     token.get.mockReset()
     token.get.mockResolvedValue('audience-token')
+    auth.isAuthenticated = true
+    auth.user = { email: 'general@example.com' }
     vi.clearAllMocks()
     container = document.createElement('div')
     document.body.appendChild(container)
@@ -147,8 +154,127 @@ describe('subscription pricing plans', () => {
       ],
       provider: 'stripe',
     })
-    expect(container.querySelector('button')?.textContent).toBe('Subscribe for 1 Month')
+    /*
+     * The visible label is the wordmark alone, because the two payment rails sit side by side and
+     * half a card cannot hold "Subscribe for 3 Months" as well. That makes the accessible name the
+     * only thing carrying the plan: three cards of identically-marked buttons would otherwise be
+     * indistinguishable to a screen reader, since the plan name lives in a separate heading.
+     */
+    expect(container.querySelector('button')?.textContent).toBe('')
+    expect(container.querySelector('button')?.getAttribute('aria-label')).toBe(
+      'Subscribe for 1 Month with Stripe'
+    )
+    expect(container.querySelector('.StripeMark svg')).not.toBeNull()
+    expect(container.querySelector('.StripeMark svg')?.getAttribute('aria-hidden')).toBe('true')
+    // Both rails' visible labels are logos, so this line is the card's only visible verb.
+    expect(container.textContent).toContain('Subscribe with:')
     expect(container.querySelector('[role="alert"]')).toBeNull()
+  })
+
+  /*
+   * Signed out, PayPal cannot render (it needs the account e-mail), so the brand pair used to
+   * collapse to one lopsided wordmark button whose accessible name promised Stripe while its click
+   * opened the login popup. The signed-out card instead shows a single plainly-labelled button that
+   * carries the intent to login.
+   */
+  it('shows a truthfully-labelled login button when signed out, with no payment branding', async () => {
+    auth.isAuthenticated = false
+    auth.user = undefined
+
+    await act(async () => {
+      render(
+        <PlanComponent
+          supportPlan={SUBSCRIPTION_PLANS[0]}
+          paypalModalIsOpen={false}
+          setPaypalModalIsOpen={vi.fn()}
+        />,
+        container
+      )
+    })
+
+    const buttons = container.querySelectorAll('button')
+    expect(buttons).toHaveLength(1)
+    expect(buttons[0].textContent).toBe('Subscribe for 1 Month')
+    // No brand promise it cannot keep: the click opens login, not a Stripe checkout.
+    expect(buttons[0].getAttribute('aria-label')).toBeNull()
+    expect(container.querySelector('.StripeMark')).toBeNull()
+    expect(container.textContent).not.toContain('PayPal')
+    expect(container.textContent).not.toContain('Subscribe with:')
+
+    await act(async () => {
+      buttons[0].dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    expect(loginHook.login).toHaveBeenCalledTimes(1)
+    expect(stripe.redirectToCheckout).not.toHaveBeenCalled()
+  })
+
+  /*
+   * The annual plan really is half the monthly rate, and the page never said so. The figure is
+   * derived from plans.ts rather than written into the markup, so it cannot drift from the prices
+   * printed beside it.
+   */
+  it('states the saving against the monthly rate and marks the best-value plan', async () => {
+    const yearly = SUBSCRIPTION_PLANS.find(plan => plan.title === '1 Year')!
+    expect(monthlySavingPct(yearly)).toBe(50)
+    expect(bestValuePlan()?.title).toBe('1 Year')
+    // The baseline plan discounts nothing, so it must not claim a saving.
+    expect(monthlySavingPct(SUBSCRIPTION_PLANS[0])).toBe(0)
+
+    await act(async () => {
+      render(
+        <PlanComponent
+          supportPlan={yearly}
+          isBestValue
+          paypalModalIsOpen={false}
+          setPaypalModalIsOpen={vi.fn()}
+        />,
+        container
+      )
+    })
+
+    expect(container.textContent).toContain('Save 50%')
+    // Never colour alone: the marker is a word, so it survives print and colour blindness.
+    expect(container.textContent).toContain('Best value')
+    /*
+     * The card leads with a per-month figure, but this plan bills $11.88 once a year — and per-month
+     * framing with the real charge nowhere on the page is the pattern the FTC's dark-patterns work
+     * names as drip pricing. The fine print states the actual charge before any checkout opens.
+     */
+    expect(container.textContent).toContain('$11.88, billed once a year')
+    expect(container.textContent).not.toContain('Total:')
+  })
+
+  /*
+   * A rejected redirect used to reach console.error and nothing else, so the visitor pressed the one
+   * button that takes money and watched the page do nothing at all.
+   */
+  it('surfaces a failed checkout redirect instead of only logging it', async () => {
+    stripe.redirectToCheckout.mockResolvedValue({ error: { message: 'nope' } })
+    vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+    await act(async () => {
+      render(
+        <PlanComponent
+          supportPlan={SUBSCRIPTION_PLANS[0]}
+          paypalModalIsOpen={false}
+          setPaypalModalIsOpen={vi.fn()}
+        />,
+        container
+      )
+    })
+
+    await act(async () => {
+      container.querySelector('button')!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    const alert = container.querySelector('[role="alert"]')
+    expect(alert).not.toBeNull()
+    expect(alert!.textContent).toContain('We could not open the checkout page')
+    // The control comes back rather than stranding the visitor on a dead button.
+    expect(container.querySelector('button')?.disabled).toBe(false)
   })
 
   it('reports the PayPal checkout lifecycle with the same stable commerce item', async () => {

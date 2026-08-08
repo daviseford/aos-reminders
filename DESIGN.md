@@ -10,7 +10,7 @@ colors:
   note-blue: "#1237c7"
   ink: "#212529"
   paper: "#ffffff"
-  action-blue: "#007bff"
+  action-blue: "#0070e8"
   success-green: "#28a745"
   danger-red: "#dc3545"
   warning-amber: "#ffc107"
@@ -245,10 +245,17 @@ Bootstrap's signal set, reached through utility classes in JSX rather than throu
 They do not appear on the reminders surface, which is the point: seeing one means something
 happened.
 
-- **Action Blue** (`#007bff`, `$primary`): `btn-primary` on every commitment control — the three
+- **Action Blue** (`#0070e8`, `$primary`): `btn-primary` on every commitment control — the three
   Subscribe CTAs, gift purchase, redemption. Also `badge bg-primary` on the `Official` marker beside a
   Games Workshop source link, which is the one place it appears on the reminders screen. It is the
   most saturated colour in the product and it means *this is the action* or *this is authoritative*.
+
+  It was `#007bff` — Bootstrap 4.6's `$blue`, pinned as a parity value — until that measured 3.98:1
+  against the white text it carries, under the 4.5:1 floor this product treats as correctness rather
+  than enhancement. `#0070e8` is the nearest hue clearing it, at 4.69:1. This is the one signal colour
+  that is *not* a 4.6 pin, and the ratio is the reason: a control that takes money is the last place
+  to inherit a framework's old default. Body links derive from the same token and were failing at the
+  same ratio; they clear it now too.
 - **Danger Red** (`#dc3545`): destructive confirmation buttons, `alert-danger` on failed saves,
   shares, and imports, and the `bg-danger` sale flash in the navbar and on plan cards.
 - **Success Green** (`#28a745`): confirmed saves and completed subscription state.

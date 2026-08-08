@@ -92,10 +92,12 @@ const HomeContent = () => {
   const [pendingShareId, setPendingShareId] = useState(() => consumePendingShareId())
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
   const savedArmiesAction = useSubscriberAction({
+    featureName: 'My Armies',
     onAuthorized: () => setSavedArmiesModalIsOpen(true),
     origin: 'SavedArmies',
   })
   const shareAction = useSubscriberAction({
+    featureName: 'Share Army',
     onAuthorized: () => setShareModalIsOpen(true),
     origin: 'ShareArmy',
   })

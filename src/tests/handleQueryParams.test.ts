@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { clearCheckoutOutcome, readCheckoutOutcome } from 'utils/checkoutOutcome'
 import { handleStripeCheckout } from 'utils/handleQueryParams'
 
 const analytics = vi.hoisted(() => ({
@@ -12,6 +13,7 @@ vi.mock('utils/analytics', () => analytics)
 
 beforeEach(() => {
   vi.clearAllMocks()
+  clearCheckoutOutcome()
   window.history.replaceState({}, '', '/')
 })
 
@@ -106,5 +108,81 @@ describe('Stripe checkout return handling', () => {
       provider: 'stripe',
     })
     expect(window.location.pathname + window.location.search).toBe('/')
+  })
+})
+
+/*
+ * The params are stripped from the URL the moment they are read, so without this store the buyer
+ * landed on a page identical to the one an abandoned checkout produces — no evidence the charge went
+ * through, at exactly the moment they most need it.
+ */
+describe('checkout outcome reported to the returning buyer', () => {
+  it('records a completed subscription', () => {
+    window.history.replaceState(
+      {},
+      '',
+      '/?subscribed=true&checkout_kind=subscription&plan=1%20Month&checkout_session_id=cs_live_123'
+    )
+
+    handleStripeCheckout()
+
+    expect(readCheckoutOutcome()).toEqual({ kind: 'subscribed' })
+  })
+
+  it('records a completed gift purchase with its quantity', () => {
+    window.history.replaceState(
+      {},
+      '',
+      '/profile?gifted=true&checkout_kind=gift_subscription&plan=3%20Months&quantity=3&checkout_session_id=cs_live_gift'
+    )
+
+    handleStripeCheckout()
+
+    expect(readCheckoutOutcome()).toEqual({ kind: 'gifted', quantity: 3 })
+  })
+
+  it('records an abandoned checkout, so the two returns stop being indistinguishable', () => {
+    window.history.replaceState({}, '', '/?canceled=true&checkout_kind=subscription&plan=1%20Year')
+
+    handleStripeCheckout()
+
+    expect(readCheckoutOutcome()).toEqual({ kind: 'canceled' })
+  })
+
+  /*
+   * Deliberately looser than the analytics gates: a purchase whose session id or plan lookup failed
+   * is still a purchase, and the one thing the buyer must not be told is nothing at all.
+   */
+  it('still confirms a purchase whose plan could not be resolved for analytics', () => {
+    window.history.replaceState(
+      {},
+      '',
+      '/?subscribed=true&checkout_kind=subscription&plan=Unknown&checkout_session_id=cs_live_bad'
+    )
+
+    handleStripeCheckout()
+
+    expect(analytics.logPurchase).not.toHaveBeenCalled()
+    expect(readCheckoutOutcome()).toEqual({ kind: 'subscribed' })
+  })
+
+  it('reports nothing for contradictory state that names both outcomes at once', () => {
+    window.history.replaceState(
+      {},
+      '',
+      '/?subscribed=true&canceled=true&checkout_kind=subscription&plan=1%20Month'
+    )
+
+    handleStripeCheckout()
+
+    expect(readCheckoutOutcome()).toBeNull()
+  })
+
+  it('reports nothing on an ordinary visit', () => {
+    window.history.replaceState({}, '', '/')
+
+    handleStripeCheckout()
+
+    expect(readCheckoutOutcome()).toBeNull()
   })
 })

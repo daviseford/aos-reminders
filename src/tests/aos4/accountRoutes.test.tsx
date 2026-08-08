@@ -1,5 +1,7 @@
 // @vitest-environment jsdom
 
+import { armyFactions } from '../../aos4/domain'
+import { AOS4_CATALOG } from '../../aos4/generated'
 import { protectedRoute } from 'components/page/privateRoute'
 import Profile from 'components/routes/Profile'
 import Subscribe from 'components/routes/Subscribe'
@@ -7,6 +9,7 @@ import { AppStatusProvider } from 'context/useAppStatus'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { MemoryRouter, Route, Routes } from 'react-router'
+import { baselineMonthlyCost } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({
@@ -127,19 +130,24 @@ describe('established account routes', () => {
       await Promise.resolve()
     })
 
-    expect(container.textContent).toContain('Support AoS Reminders')
-    expect(container.textContent).toContain('What do you get when you subscribe?')
-    expect(container.textContent).toContain('Spare your eyes! Turn on dark mode!')
+    expect(container.textContent).toContain('Subscribe to AoS Reminders')
+    // Leads with what the subscription does; the support appeal is a closing note, not the offer.
+    // The one-person fact leads the page, above the fold, ahead of the value proposition.
+    const onePerson = container.textContent?.indexOf('AoS Reminders is built and run by one person') ?? -1
+    const valueProp = container.textContent?.indexOf('Your army is saved in this browser') ?? -1
+    expect(onePerson).toBeGreaterThan(-1)
+    expect(valueProp).toBeGreaterThan(onePerson)
     expect(container.textContent).not.toContain(
       'Import current army lists from the AoS app, Listbot 4.0, and New Recruit.'
     )
     expect(container.textContent).toContain(
-      'Save, load, rename, update, and delete AoS 4 armies across your devices.'
+      'save, load, rename, update, and delete your AoS 4 armies, on every device you sign in on.'
     )
-    expect(container.textContent).toContain('Create read-only army links to share with your friends.')
+    expect(container.textContent).toContain(
+      'send a link a friend can open to take their own copy of your list.'
+    )
+    // PricingPlans is stubbed here; the plan cards themselves are covered by pricingPlans.test.tsx.
     expect(container.textContent).toContain('Subscription Plans')
-    expect(container.textContent).toContain('Dark Mode')
-    expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).not.toBeNull()
 
     const staleClaims = [
       'Import lists from the new Warhammer App!',
@@ -160,7 +168,12 @@ describe('established account routes', () => {
     expect(container.querySelector('[src="/img/save_load_demo.mp4"]')).toBeNull()
   })
 
-  it('does not leave an empty examples section on desktop', async () => {
+  /*
+   * The dark-mode demo is out for now and will return later, so this guards what its absence has to
+   * leave behind: no empty section band where it used to sit, and the closing block landing directly
+   * under the plans rather than 550px of video further down.
+   */
+  it('renders no demo video, and closes straight after the plans', async () => {
     await act(async () => {
       render(
         <AppStatusProvider>
@@ -173,8 +186,28 @@ describe('established account routes', () => {
       await Promise.resolve()
     })
 
-    expect(container.textContent).toContain('Spare your eyes! Turn on dark mode!')
+    expect(container.querySelector('video')).toBeNull()
     expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).toBeNull()
+
+    // Davis removed the FAQ link from the closing block by hand; the close is now the two facts
+    // and the gift pointer, and the ordering guard covers what remains.
+    const plans = container.textContent?.indexOf('Subscription Plans') ?? -1
+    const closing = container.textContent?.indexOf('is free, and stays free') ?? -1
+    expect(plans).toBeGreaterThan(-1)
+    expect(closing).toBeGreaterThan(plans)
+
+    /*
+     * The closing paragraph makes two factual claims, and PRODUCT.md treats stale copy on a paid
+     * surface as a blocking defect — so both are pinned to their sources of truth here. The price
+     * ceiling is derived from plans.ts at render time; the army count is hardcoded in the copy
+     * (deriving it would pull the catalog chunk into the route), so this test is what fails when
+     * the corpus next changes shape.
+     */
+    expect(container.textContent).toContain(
+      `No plan costs more than $${baselineMonthlyCost().toFixed(2)} a month`
+    )
+    expect(container.textContent).toContain("all 27 armies' reminders free for everyone")
+    expect(armyFactions(AOS4_CATALOG)).toHaveLength(27)
   })
 
   it('shows the already-subscribed screen instead of the plans for an active subscriber', async () => {

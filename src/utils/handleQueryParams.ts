@@ -1,4 +1,5 @@
 import { logCheckoutCancelled, logPurchase } from 'utils/analytics'
+import { setCheckoutOutcome } from 'utils/checkoutOutcome'
 import {
   findGiftedSubscriptionPlan,
   findSubscriptionPlan,
@@ -40,6 +41,13 @@ export const handleStripeCheckout = () => {
   const transactionId = searchParams.get('checkout_session_id')?.trim() ?? ''
   const checkoutKind = searchParams.get('checkout_kind')
 
+  /*
+   * The outcome is recorded on the flags alone, deliberately looser than the analytics gates below.
+   * A purchase whose session id or plan lookup failed is still a purchase the buyer made, and the
+   * one thing they must not be told is nothing at all.
+   */
+  if (subscribed && checkoutKind === 'subscription') setCheckoutOutcome({ kind: 'subscribed' })
+
   if (subscribed && checkoutKind === 'subscription' && transactionId) {
     const plan = findSubscriptionPlan(planTitle)
     if (plan) {
@@ -53,6 +61,11 @@ export const handleStripeCheckout = () => {
 
   const quantity = Number(searchParams.get('quantity'))
   const validGiftQuantity = Number.isInteger(quantity) && quantity >= 1 && quantity <= MAX_GIFT_QUANTITY
+
+  if (gifted && checkoutKind === 'gift_subscription') {
+    setCheckoutOutcome({ kind: 'gifted', quantity: validGiftQuantity ? quantity : 1 })
+  }
+
   if (gifted && checkoutKind === 'gift_subscription' && transactionId && validGiftQuantity) {
     const plan = findGiftedSubscriptionPlan(planTitle)
     if (plan) {
@@ -65,6 +78,8 @@ export const handleStripeCheckout = () => {
   }
 
   if (canceled) {
+    setCheckoutOutcome({ kind: 'canceled' })
+
     if (checkoutKind === 'gift_subscription') {
       const plan = findGiftedSubscriptionPlan(planTitle)
       if (plan) {

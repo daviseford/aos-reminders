@@ -78,6 +78,116 @@ small {
 }
 
 /*
+ * Touch targets, sized by the finger rather than by the label.
+ *
+ * DESIGN.md sets 44x44 for the phone-in-one-hand scene, with WCAG 2.5.8's 24x24 as the absolute
+ * floor. Bootstrap's own metrics land short of 44 almost everywhere: a `btn` with `py-2` is 42px,
+ * `btn-sm` is 31px, and a bare text link is whatever its line-height happens to be. These two rules
+ * correct the height only — every element carrying them is already wider than 44px — so nothing
+ * reflows horizontally.
+ *
+ * Two variants because the elements differ: `.TapTargetBlock` leaves an existing block or
+ * full-width button alone, while `.TapTarget` has to establish a box at all, since an inline
+ * element cannot take a height.
+ */
+/*
+ * Height only, deliberately. Every element carrying this is a Bootstrap `.btn` with `d-block`, whose
+ * `display: block !important` would beat any display declared here — so setting one would be a style
+ * that silently never applies. The button's own symmetric padding centres the label.
+ */
+.TapTargetBlock {
+  min-height: 44px;
+}
+
+.TapTarget {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+}
+
+/*
+ * The 44px hit area without the 44px visual box, for controls whose look must stay small — the
+ * navbar's Log in/Log out button drew its border at the full tap-target height and looked inflated
+ * beside the borderless links. A centred pseudo-element extends the clickable area to 44px while the
+ * border keeps the button's own size; the same approach .ReminderMenuToggle uses.
+ */
+.TapTargetOverlay {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    min-width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/*
+ * The Stripe wordmark on the checkout button.
+ *
+ * Font Awesome's brand glyph sits in a 640x512 box with the mark occupying only the middle band, so
+ * sizing it large enough to read as a logo rather than as bold text inflated the button from 44px to
+ * 72px. This crops the empty vertical padding instead of shrinking the mark: the glyph keeps its
+ * size, the box claims only the height the mark actually needs, and the button stays at 44px.
+ */
+.StripeMark {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  height: 1.5em;
+
+  > svg {
+    flex-shrink: 0;
+  }
+}
+
+/*
+ * The two payment rails, side by side as equal choices.
+ *
+ * PayPal's SDK renders its button into a zoid iframe with a hard 200px floor — measured, not
+ * documented; below that it overflows its column rather than shrinking. Two 200px buttons plus the
+ * gap need 408px inside a plan card, and the 3-up grid gives roughly 300-340px at every ordinary
+ * laptop width, so a symmetric pair could only ever sit side by side above ~1500px.
+ *
+ * So the shortfall is given to Stripe, whose label is just the wordmark and reads fine narrow:
+ * PayPal holds its floor, Stripe takes whatever is left on the line. They still wrap to stacked if a
+ * card is ever narrower than the two of them together.
+ */
+/*
+ * The bases have to add up to less than the card, because flex wraps before it shrinks: two 200px
+ * bases would wrap to stacked at every ordinary width rather than squeezing onto one line. Stripe
+ * asks for 100 and grows into whatever is left; PayPal asks for its floor and neither grows nor
+ * shrinks past it. Below roughly 308px of card — a 320px phone — the pair still wraps, which is the
+ * right answer there.
+ */
+.PaymentChoiceOption--stripe {
+  flex: 1 1 100px;
+  min-width: 0;
+}
+
+/*
+ * grow 1: on the shared line both rails split the spare space, and when the pair wraps on a narrow
+ * phone PayPal fills its own line instead of sitting at a fixed 200px under a full-width Stripe —
+ * two different widths, stacked, read as a rendering accident. The 200px basis (PayPal's measured
+ * render floor) still decides where the wrap happens.
+ */
+.PaymentChoiceOption--paypal {
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+
+/*
+ * WCAG 2.5.8 exempts a link set inline in a block of text, because the sentence around it is the
+ * target. `.TapTarget` is for the other kind: a link alone on its own line, or one acting as a
+ * control, which gets no such help.
+ */
+
+/*
  * Bootstrap's default `code` pink measures 3.82:1 on white — under AA — and it carries the one line
  * of a failed redemption the player has to read back to us. The monospace face already marks the
  * string as the server's own words, so the colour was only decorating. Inherit rather than pick a

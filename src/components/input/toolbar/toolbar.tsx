@@ -22,7 +22,18 @@ const ToolbarButton = ({
 }: React.PropsWithChildren<{ disabled?: boolean; onClick: () => void }>) => {
   const { theme } = useTheme()
   return (
-    <button type="button" className={theme.genericButtonBlock} disabled={disabled} onClick={onClick}>
+    /*
+     * TapTargetBlock: Bootstrap's default button padding left these at 38px tall, under the 44px
+     * DESIGN.md sets. This is the most-tapped row in the product and it is used mid-turn with one
+     * hand, so the six of them are sized by the finger. Applied here rather than on
+     * theme.genericButtonBlock, which is also the default for every GenericButton in the app.
+     */
+    <button
+      type="button"
+      className={`${theme.genericButtonBlock} TapTargetBlock`}
+      disabled={disabled}
+      onClick={onClick}
+    >
       <div className="d-flex align-items-center justify-content-center text-nowrap">{children}</div>
     </button>
   )

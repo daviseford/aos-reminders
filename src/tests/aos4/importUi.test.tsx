@@ -135,7 +135,11 @@ const deferred = <T,>() => {
 }
 
 const SubscriberActionHarness = ({ onAuthorized }: { onAuthorized: () => void }) => {
-  const action = useSubscriberAction({ onAuthorized, origin: 'SubscriberActionTest' })
+  const action = useSubscriberAction({
+    featureName: 'My Armies',
+    onAuthorized,
+    origin: 'SubscriberActionTest',
+  })
   return (
     <button disabled={action.disabled} onClick={action.run} type="button">
       Subscriber action
