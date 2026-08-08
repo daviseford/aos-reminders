@@ -400,6 +400,9 @@ describe('AoS 4 review packet preparation', () => {
 
   it('reports missing accepted cache artifacts without attempting network access', async () => {
     const cacheDirectory = await mkdtemp(path.join(os.tmpdir(), 'aos4-review-cache-'))
+    // An empty environment is what makes the name true. Inheriting the ambient one picks up any
+    // AOS4_ARTIFACT_STORE_* a maintainer has exported, which turns the cache miss below into a real
+    // S3 restore over the AWS CLI — slow enough to trip the timeout, and network access besides.
     await expect(
       assertReviewCacheComplete(
         {
@@ -417,7 +420,8 @@ describe('AoS 4 review packet preparation', () => {
             },
           ],
         },
-        cacheDirectory
+        cacheDirectory,
+        {}
       )
     ).rejects.toThrow(
       `Accepted artifact ${ARTIFACT_CHECKSUM} is missing from ${cacheDirectory}; populate the local accepted-source cache before preparing review packets`

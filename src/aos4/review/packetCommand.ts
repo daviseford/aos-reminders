@@ -56,11 +56,18 @@ const PACKET_SHARD_SIZE = 250
 const MAX_EXCERPT_LENGTH = 1_200
 export const identityAliasesRequireAdversarialReview = (aliasCount: number): boolean => aliasCount > 1
 
+/**
+ * `environment` is threaded through to `createArtifactCache`, which reads `AOS4_ARTIFACT_STORE_*` and
+ * upgrades a plain local cache into one that restores misses from S3 over the AWS CLI. Production
+ * wants that. A caller that must stay offline — a test asserting the missing-artifact message — has
+ * no other way to say so, because the default is the ambient process environment.
+ */
 export const assertReviewCacheComplete = async (
   manifest: ArtifactManifest,
-  cacheDirectory: string
+  cacheDirectory: string,
+  environment: Record<string, string | undefined> = process.env
 ): Promise<void> => {
-  const cache = createArtifactCache(cacheDirectory)
+  const cache = createArtifactCache(cacheDirectory, environment)
   for (const artifact of manifest.artifacts) {
     const bytes = await cache.get(artifact.checksum)
     if (!bytes) {
