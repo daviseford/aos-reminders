@@ -1,9 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Elements, useStripe } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+
 import GenericButton from 'components/input/generic_button'
 import { PaypalPostSubscribeModal } from 'components/modals/paypal_post_subscribe_modal'
-import { redirectToCheckout } from 'components/payment/legacyStripeCheckout'
+import { loadLegacyStripe, redirectToCheckout } from 'components/payment/legacyStripeCheckout'
 import PayPalButton from 'components/payment/paypal/paypalButton'
 import { IApprovalResponse } from 'components/payment/paypal/paypalTypes'
 import { PaypalProvider } from 'context/usePaypal'
@@ -185,11 +185,18 @@ export const PlanComponent = (props: IPlanProps) => {
      * gone in print and for colour-blind players.
      */
     <div className={`${theme.card} mb-4 shadow-sm px-0${isBestValue ? ' border-primary' : ''}`}>
-      <div className="card-header bg-themeDarkBluePrimary text-light">
-        <h3 className="my-0 fw-normal">
-          {supportPlan.title}
-          {isBestValue && <span className="ms-2 badge rounded-pill bg-light text-dark">Best value</span>}
-        </h3>
+      {/*
+        The badge sits absolutely at the header's right edge rather than inline in the heading, so
+        "1 Year" stays centred on the same axis as the other two titles instead of being pushed left
+        by the badge's width.
+      */}
+      <div className="card-header bg-themeDarkBluePrimary text-light position-relative">
+        <h3 className="my-0 fw-normal">{supportPlan.title}</h3>
+        {isBestValue && (
+          <span className="badge rounded-pill bg-light text-dark position-absolute top-50 end-0 translate-middle-y me-3">
+            Best value
+          </span>
+        )}
       </div>
       {/*
         A flex column so the CTA can be pushed to the bottom. Without it the buttons sat at different
@@ -206,28 +213,25 @@ export const PlanComponent = (props: IPlanProps) => {
           */}
           <small className={theme.textMuted}>/ month</small>
         </p>
-        <ul className="list-unstyled mt-3 mb-4">
-          {!!supportPlan.discount_pct && (
-            <li>
-              <span className="badge rounded-pill bg-danger mb-2">{supportPlan.discount_pct}% off!</span>
-            </li>
-          )}
-          {/*
-            Derived from plans.ts, never written down: the figure and the prices above it cannot
-            drift apart. This is the page's strongest true claim and it went unsaid for years.
-          */}
-          {savingPct > 0 && (
-            <li>
-              <strong>Save {savingPct}%</strong>
-            </li>
-          )}
-          {/* The real charge, in the buyer's own units, before any checkout opens. */}
-          <li>
-            <small className={theme.textMuted}>
-              ${supportPlan.cost}, {billingCadence[supportPlan.title] ?? 'billed up front'}
-            </small>
-          </li>
-        </ul>
+        {/* Rendered only when it has content; the baseline plan carries neither badge nor saving. */}
+        {(savingPct > 0 || !!supportPlan.discount_pct) && (
+          <ul className="list-unstyled mt-3 mb-4">
+            {!!supportPlan.discount_pct && (
+              <li>
+                <span className="badge rounded-pill bg-danger mb-2">{supportPlan.discount_pct}% off!</span>
+              </li>
+            )}
+            {/*
+              Derived from plans.ts, never written down: the figure and the prices above it cannot
+              drift apart. This is the page's strongest true claim and it went unsaid for years.
+            */}
+            {savingPct > 0 && (
+              <li>
+                <strong>Save {savingPct}%</strong>
+              </li>
+            )}
+          </ul>
+        )}
         {/*
           No `mx-3`. That inset was sized for a single full-width button; with two rails beside each
           other it cost 32px, which was exactly what pushed them past PayPal's 150px floor and wrapped
@@ -309,6 +313,15 @@ export const PlanComponent = (props: IPlanProps) => {
               </div>
             </>
           )}
+          {/*
+            The real charge, in the buyer's own units, directly under the controls that open a
+            checkout. Derived from plans.ts, so it cannot drift from the price above.
+          */}
+          <p className="mt-2 mb-0">
+            <small className={theme.textMuted}>
+              ${supportPlan.cost}, {billingCadence[supportPlan.title] ?? 'billed up front'}
+            </small>
+          </p>
           {checkoutError && (
             <div className="alert alert-danger mt-2 mb-0 py-2" role="alert">
               <small>{checkoutError}</small>
@@ -395,7 +408,8 @@ const PayPalComponent = (props: IPlanProps) => {
   )
 }
 
-const stripePromise = loadStripe(STRIPE_KEY)
+// The versioned loader is deliberately absent here: its runtime refuses redirectToCheckout.
+const stripePromise = loadLegacyStripe(STRIPE_KEY)
 
 export const PricingPlans = () => (
   <Elements stripe={stripePromise}>

@@ -246,15 +246,6 @@ const MoreQuestions = () => {
         Slate, under the 4.5:1 floor. FaqLink is the incumbent answer for links on themed surfaces —
         inherit the theme's text colour and let the underline mark the link.
       */}
-      <p className="mb-1">
-        <Link
-          className="FaqLink TapTarget"
-          to={`${ROUTES.FAQ}#what-subscription-includes`}
-          onClick={() => logClick('Subscribe-Faq')}
-        >
-          More about subscriptions in the FAQ
-        </Link>
-      </p>
       <p className="mb-0">
         <small>
           Already subscribed? You can buy gift subscriptions for friends from your{' '}

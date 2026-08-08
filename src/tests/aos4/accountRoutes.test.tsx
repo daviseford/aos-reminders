@@ -189,12 +189,12 @@ describe('established account routes', () => {
     expect(container.querySelector('video')).toBeNull()
     expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).toBeNull()
 
+    // Davis removed the FAQ link from the closing block by hand; the close is now the two facts
+    // and the gift pointer, and the ordering guard covers what remains.
     const plans = container.textContent?.indexOf('Subscription Plans') ?? -1
     const closing = container.textContent?.indexOf('is free, and stays free') ?? -1
-    const faq = container.textContent?.indexOf('More about subscriptions in the FAQ') ?? -1
     expect(plans).toBeGreaterThan(-1)
     expect(closing).toBeGreaterThan(plans)
-    expect(faq).toBeGreaterThan(closing)
 
     /*
      * The closing paragraph makes two factual claims, and PRODUCT.md treats stale copy on a paid

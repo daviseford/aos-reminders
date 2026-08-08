@@ -107,6 +107,27 @@ small {
 }
 
 /*
+ * The 44px hit area without the 44px visual box, for controls whose look must stay small — the
+ * navbar's Log in/Log out button drew its border at the full tap-target height and looked inflated
+ * beside the borderless links. A centred pseudo-element extends the clickable area to 44px while the
+ * border keeps the button's own size; the same approach .ReminderMenuToggle uses.
+ */
+.TapTargetOverlay {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    min-width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/*
  * The Stripe wordmark on the checkout button.
  *
  * Font Awesome's brand glyph sits in a 640x512 box with the mark occupying only the middle band, so

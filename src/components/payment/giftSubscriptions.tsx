@@ -1,8 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Elements, useStripe } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+
 import GenericButton from 'components/input/generic_button'
-import { redirectToCheckout } from 'components/payment/legacyStripeCheckout'
+import { loadLegacyStripe, redirectToCheckout } from 'components/payment/legacyStripeCheckout'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { capitalize } from 'lodash'
@@ -275,7 +275,8 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
   )
 }
 
-const stripePromise = loadStripe(STRIPE_KEY)
+// The versioned loader is deliberately absent here: its runtime refuses redirectToCheckout.
+const stripePromise = loadLegacyStripe(STRIPE_KEY)
 
 export const GiftSubscriptions = () => (
   <Elements stripe={stripePromise}>
