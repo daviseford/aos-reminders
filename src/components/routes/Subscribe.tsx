@@ -75,7 +75,14 @@ const Subscribe = () => {
           <PricingPlans />
         )}
       </div>
-      <ExamplesRow />
+      {/*
+        Directly under the plans. These three answer the questions the prices raise, so they belong
+        where the prices end.
+
+        The dark-mode demo video used to sit between them, which pushed all of this past 2,100px —
+        beyond the point anyone who had just read the prices was still reading. It is removed for now
+        and will come back later; `public/img/dark_mode1.mp4` is deliberately kept for that.
+      */}
       <MoreQuestions />
       <div className={`container ${theme.bgColor} ${theme.text} text-center py-4`}>
         <Contact size="small" />
@@ -246,67 +253,6 @@ const MoreQuestions = () => {
         </small>
       </p>
     </div>
-  )
-}
-
-/*
- * The only visual proof of a paid feature anywhere in the funnel. It used to render below 576px only,
- * so desktop got an empty section band and saw nothing at all — this now shows at every width.
- *
- * It stays *below* the plans rather than above them. Tried above, and a 550px-tall portrait video
- * became the centre of the page and pushed all three prices under the fold: proof that costs the
- * offer its position is a bad trade. Here it backs up the dark-theme line for anyone still deciding.
- */
-const ExamplesRow = () => {
-  const { theme } = useTheme()
-
-  return (
-    <div className={`py-5 px-3 ${theme.sectionBand} ${theme.text} text-center`}>
-      <DemoVideo videoUrl="/img/dark_mode1.mp4" description="Dark Mode" label="Demo-DarkMode" />
-    </div>
-  )
-}
-
-interface DemoVideoProps {
-  videoUrl: string
-  description: string
-  label: string
-}
-
-/**
- * The demo loops, so it needs a way to stop it (WCAG 2.2.2). The native controls provide that, and
- * their fullscreen button covers what the old wrapping link to the raw file was standing in for — a
- * link around the video would have swallowed every click the controls need.
- *
- * There is no .webm asset in public/img; the old `video/webm` source pointed at this same .mp4, and
- * the poster was a 1.8MB gif fronting an 862KB video. Both are gone.
- */
-const DemoVideo = ({ videoUrl, description, label }: DemoVideoProps) => {
-  const prefersReducedMotion =
-    typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-  return (
-    <figure className="figure">
-      {/* muted + playsInline are required for autoplay on iOS Safari and Android Chrome. */}
-      <video
-        aria-label={`${description} demo`}
-        autoPlay={!prefersReducedMotion}
-        className="figure-img img-fluid rounded img-thumbnail"
-        controls
-        height="550"
-        loop
-        muted
-        onClick={() => logClick(label)}
-        playsInline
-        preload="metadata"
-        width="320"
-      >
-        <source src={videoUrl} type="video/mp4" />
-      </video>
-      <figcaption className="figure-caption text-center">
-        <strong>{description}</strong>
-      </figcaption>
-    </figure>
   )
 }
 

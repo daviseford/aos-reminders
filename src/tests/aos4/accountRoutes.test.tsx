@@ -142,8 +142,6 @@ describe('established account routes', () => {
     )
     // PricingPlans is stubbed here; the plan cards themselves are covered by pricingPlans.test.tsx.
     expect(container.textContent).toContain('Subscription Plans')
-    expect(container.textContent).toContain('Dark Mode')
-    expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).not.toBeNull()
 
     const staleClaims = [
       'Import lists from the new Warhammer App!',
@@ -165,15 +163,11 @@ describe('established account routes', () => {
   })
 
   /*
-   * The demo used to render below 576px only, which left desktop with an empty section band. It is
-   * the sole visual proof of a paid feature anywhere in the funnel, so the band is filled rather than
-   * removed: the video renders at every width now.
-   *
-   * It stays below the plans. Tried above, and a 550px-tall portrait video became the centre of the
-   * page and pushed all three prices under the fold — proof that costs the offer its position is a
-   * bad trade.
+   * The dark-mode demo is out for now and will return later, so this guards what its absence has to
+   * leave behind: no empty section band where it used to sit, and the closing block landing directly
+   * under the plans rather than 550px of video further down.
    */
-  it('shows the dark mode demo on desktop, below the plans', async () => {
+  it('renders no demo video, and closes straight after the plans', async () => {
     await act(async () => {
       render(
         <AppStatusProvider>
@@ -186,14 +180,15 @@ describe('established account routes', () => {
       await Promise.resolve()
     })
 
-    const video = container.querySelector('[src="/img/dark_mode1.mp4"]')
-    expect(video).not.toBeNull()
-    expect(container.textContent).toContain('Dark Mode')
+    expect(container.querySelector('video')).toBeNull()
+    expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).toBeNull()
 
     const plans = container.textContent?.indexOf('Subscription Plans') ?? -1
-    const demo = container.textContent?.indexOf('Dark Mode') ?? -1
+    const closing = container.textContent?.indexOf('is free, and stays free') ?? -1
+    const faq = container.textContent?.indexOf('More about subscriptions in the FAQ') ?? -1
     expect(plans).toBeGreaterThan(-1)
-    expect(demo).toBeGreaterThan(plans)
+    expect(closing).toBeGreaterThan(plans)
+    expect(faq).toBeGreaterThan(closing)
   })
 
   it('shows the already-subscribed screen instead of the plans for an active subscriber', async () => {
