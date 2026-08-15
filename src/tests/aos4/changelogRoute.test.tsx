@@ -66,6 +66,15 @@ vi.mock('context/useTheme', () => ({
   }),
 }))
 
+/*
+ * UUID-shaped canonical ids, matching what the shipped artifact really carries: faction headings
+ * must come from the carried display names, never from title-casing the id. A slug-shaped fixture
+ * id would mask a page that renders the raw id.
+ */
+const STORMCAST = 'faction:6e6eb059-7938-5cef-b6db-9b694bad9e15'
+const KHORNE = 'faction:8f7c1a2e-3b4d-5e6f-a7b8-c9d0e1f2a3b4'
+const KORGHOS = 'warscroll:1c2d3e4f-5a6b-5c7d-8e9f-0a1b2c3d4e5f'
+
 const BATTLESCROLL = {
   publicationId: 'publication:battlescroll-embergard',
   name: 'Battlescroll: Embergard',
@@ -92,8 +101,8 @@ const populatedArtifact = {
       name: 'Champions of Order',
       changeKind: 'modified',
       attribution: { kind: 'publication', ...BATTLESCROLL },
-      predicate: { kind: 'faction', factionId: 'faction:stormcast-eternals' },
-      ownership: { factionIds: ['faction:stormcast-eternals'], contentGroupIds: [] },
+      predicate: { kind: 'faction', factionId: STORMCAST },
+      ownership: { factionIds: [STORMCAST], factionNames: ['Stormcast Eternals'], contentGroupIds: [] },
       fields: [{ field: 'text.effect', previous: 'Add 1 to save rolls.', next: 'Add 1 to ward rolls.' }],
     },
     {
@@ -102,8 +111,8 @@ const populatedArtifact = {
       name: 'Reckless Abandon',
       changeKind: 'removed',
       attribution: { kind: 'publication', ...CORE_FAQ },
-      predicate: { kind: 'faction', factionId: 'faction:blades-of-khorne' },
-      ownership: { factionIds: ['faction:blades-of-khorne'], contentGroupIds: [] },
+      predicate: { kind: 'faction', factionId: KHORNE },
+      ownership: { factionIds: [KHORNE], factionNames: ['Blades of Khorne'], contentGroupIds: [] },
       removedFacts: { 'text.effect': 'This unit can run and still charge.' },
     },
   ],
@@ -114,10 +123,11 @@ const populatedArtifact = {
       name: 'Skullreaver Axe',
       changeKind: 'modified',
       attribution: { kind: 'correction' },
-      predicate: { kind: 'warscroll', warscrollId: 'warscroll:korghos-khul' },
+      predicate: { kind: 'warscroll', warscrollId: KORGHOS },
       ownership: {
-        factionIds: ['faction:blades-of-khorne'],
-        warscrollId: 'warscroll:korghos-khul',
+        factionIds: [KHORNE],
+        factionNames: ['Blades of Khorne'],
+        warscrollId: KORGHOS,
         contentGroupIds: [],
       },
       fields: [{ field: 'attacks', previous: '5', next: '6' }],
@@ -195,9 +205,12 @@ describe('the /changelog route', () => {
     expect(container.textContent).toContain('2026-07-17')
     expect(container.textContent).toContain('FAQ: Core Rules')
 
-    // Records sit under their owning faction's display name, no catalog involved.
-    expect(container.textContent).toContain('Stormcast Eternals')
-    expect(container.textContent).toContain('Blades Of Khorne')
+    // Records head under the carried faction display names, no catalog and no id-derived slugs.
+    const factionHeadings = Array.from(container.querySelectorAll('h3')).map(h => h.textContent)
+    expect(factionHeadings).toContain('Stormcast Eternals')
+    expect(factionHeadings).toContain('Blades of Khorne')
+    // The UUID faction ids never surface, title-cased or otherwise.
+    expect(container.textContent).not.toContain('6e6eb059')
 
     // A modified record shows the old text and the new text.
     expect(container.textContent).toContain('Champions of Order')
@@ -235,6 +248,36 @@ describe('the /changelog route', () => {
     // The correction is not attributed to either publication's section.
     const battlescrollSection = container.querySelector('[id="publication:battlescroll-embergard"]')
     expect(battlescrollSection?.textContent).not.toContain('Skullreaver Axe')
+  })
+
+  it('renders an added record under its faction with its added facts, not struck through', async () => {
+    artifact.current = {
+      ...populatedArtifact,
+      records: [
+        {
+          entityId: 'ability:stormcall',
+          entityKind: 'ability',
+          name: 'Stormcall',
+          changeKind: 'added',
+          attribution: { kind: 'publication', ...BATTLESCROLL },
+          predicate: { kind: 'faction', factionId: STORMCAST },
+          ownership: { factionIds: [STORMCAST], factionNames: ['Stormcast Eternals'], contentGroupIds: [] },
+          addedFacts: { 'text.effect': 'Deals mortal wounds on a 6.' },
+        },
+      ],
+    }
+
+    await mount()
+
+    expect(container.textContent).toContain('Stormcall')
+    expect(container.textContent).toContain('Added')
+    expect(container.textContent).toContain('Deals mortal wounds on a 6.')
+
+    // Added facts render plainly, never struck through the way removed facts are.
+    const factItem = Array.from(container.querySelectorAll('li')).find(li =>
+      li.textContent?.includes('Deals mortal wounds on a 6.')
+    )
+    expect(factItem?.querySelector('del')).toBeNull()
   })
 
   it('renders a plain holding state for the empty artifact that ships today', async () => {

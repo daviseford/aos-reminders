@@ -46,11 +46,20 @@ export const createGitPriorProjectionResolver = (
 ): ChangelogCommandIo['resolvePriorProjectionBytes'] => {
   const blobPath = runtimePath.replaceAll('\\', '/')
   return async entry => {
-    const { stdout } = await execFileAsync('git', ['cat-file', 'blob', `${entry.prior.commit}:${blobPath}`], {
-      encoding: 'buffer',
-      maxBuffer: 256 * 1024 * 1024,
-    })
-    return new Uint8Array(stdout)
+    const revision = `${entry.prior.commit}:${blobPath}`
+    try {
+      const { stdout } = await execFileAsync('git', ['cat-file', 'blob', revision], {
+        encoding: 'buffer',
+        maxBuffer: 256 * 1024 * 1024,
+        timeout: 60_000,
+      })
+      return new Uint8Array(stdout)
+    } catch (error) {
+      throw new Error(
+        `git cat-file blob ${revision} failed while resolving the prior runtime projection for ` +
+          `changelog entry ${entry.id}: ${(error as Error).message}`
+      )
+    }
   }
 }
 
@@ -110,6 +119,13 @@ export const loadChangelogLedger = async (ledgerPath: string): Promise<Changelog
 const recordFilePath = (recordsDirectory: string, entryId: string): string =>
   path.join(recordsDirectory, `${entryId}.json`)
 
+/**
+ * SHA-256 of the canonical stable-JSON serialization of the full ledger entry (selectors and
+ * snapshot pins included), stamped into each record file so editing an entry after generation
+ * can never be paired with its stale records.
+ */
+const ledgerEntryChecksum = (entry: ChangelogLedgerEntry): string => checksumOfText(stableJson(entry))
+
 const readCheckedInRuntime = async (runtimePath: string): Promise<string> => {
   try {
     return normalizeEol(await readFile(runtimePath, 'utf8'))
@@ -167,6 +183,7 @@ const generateAcceptanceRecords = async (
   const records: ChangelogAcceptanceRecords = {
     schemaVersion: AOS4_CHANGELOG_SCHEMA_VERSION,
     entryId: entry.id,
+    ledgerEntrySha256: ledgerEntryChecksum(entry),
     priorGeneratedAt: diffed.priorGeneratedAt,
     currentGeneratedAt: diffed.currentGeneratedAt,
     publications: diffed.publications,
@@ -203,6 +220,12 @@ const loadAcceptanceRecords = async (
   if (!records) {
     const filePath = recordFilePath(recordsDirectory, entry.id)
     throw new Error(`Changelog record file is missing for entry ${entry.id}: ${filePath}`)
+  }
+  if (records.ledgerEntrySha256 !== ledgerEntryChecksum(entry)) {
+    throw new Error(
+      `Changelog record file for entry ${entry.id} no longer matches its ledger entry: the ledger ` +
+        `entry changed after its records were generated; restore the entry or regenerate with --write`
+    )
   }
   return records
 }
@@ -256,9 +279,19 @@ export const runChangelogCommand = async (
         ))
       for (const entry of entries) {
         const existing = await loadAcceptanceRecordsIfPresent(arguments_.recordsDirectory, entry)
-        if (existing) {
+        // A record file is only reusable while it still binds to its ledger entry; a stale file is
+        // regenerated when the entry's accepted snapshot is the checked-in runtime, and otherwise
+        // the prior snapshot pin is unrecoverable, so the write fails closed.
+        if (existing && existing.ledgerEntrySha256 === ledgerEntryChecksum(entry)) {
           preloadedRecords.set(entry.id, existing)
           continue
+        }
+        if (existing && entry.current.runtimeSha256 !== runtimeChecksum) {
+          throw new Error(
+            `Changelog ledger entry ${entry.id} changed after its acceptance records were generated, ` +
+              `and its snapshots are no longer recomputable against the checked-in runtime; restore ` +
+              `the entry or regenerate its records from a full clone`
+          )
         }
         const bytes = await generateAcceptanceRecords(entry, inflateCurrentCatalog, runtimeChecksum, io)
         await writeProduct(recordFilePath(arguments_.recordsDirectory, entry.id), bytes)

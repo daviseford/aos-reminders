@@ -33,6 +33,7 @@ const GROUP_FORMATION = contentGroupId('00000000-0000-4000-8000-000000000013')
 const ABILITY_FORMATION = abilityId('00000000-0000-4000-8000-000000000014')
 const GROUP_UNIVERSAL = contentGroupId('00000000-0000-4000-8000-000000000015')
 const ABILITY_CORE = abilityId('00000000-0000-4000-8000-000000000016')
+const ABILITY_NEW = abilityId('00000000-0000-4000-8000-000000000017')
 const PUBLICATION_BATTLESCROLL = publicationId('00000000-0000-4000-8000-000000000020')
 const PUBLICATION_FAQ = publicationId('00000000-0000-4000-8000-000000000021')
 
@@ -182,6 +183,10 @@ describe('AoS 4 changelog diff', () => {
         entityKind: 'ability',
         name: 'Shield Wall',
         predicate: { kind: 'warscroll', warscrollId: WARSCROLL_LIBERATORS },
+        ownership: expect.objectContaining({
+          factionIds: [FACTION_A],
+          factionNames: ['Fixture Host'],
+        }),
         attribution: {
           kind: 'publication',
           publicationId: PUBLICATION_BATTLESCROLL,
@@ -214,9 +219,41 @@ describe('AoS 4 changelog diff', () => {
         predicate: { kind: 'warscroll', warscrollId: WARSCROLL_LIBERATORS },
         ownership: expect.objectContaining({
           factionIds: [FACTION_A],
+          // Names for a removal resolve from the prior catalog, where the removed content lived.
+          factionNames: ['Fixture Host'],
           warscrollId: WARSCROLL_LIBERATORS,
         }),
         removedFacts: expect.objectContaining({ 'text.effect': 'Add 1 to save rolls for this unit.' }),
+      }),
+    ])
+  })
+
+  it('reports a genuinely new entity as an added record with its predicate, ownership, and addedFacts', () => {
+    const current = buildCatalog(catalog => {
+      catalog.entities.push(ability(ABILITY_NEW, 'Storm Sunder', 'Deals mortal wounds on a 6.'))
+      catalog.relationships.push(relationship(9, 'offers', FACTION_B, ABILITY_NEW))
+    })
+
+    const artifact = diffAos4Catalogs(buildCatalog(), current, acceptance())
+
+    expect(artifact.records).toEqual([
+      expect.objectContaining({
+        changeKind: 'added',
+        entityId: ABILITY_NEW,
+        entityKind: 'ability',
+        name: 'Storm Sunder',
+        // Not auto-granted by any faction (a plain "offers"), so the predicate falls back to the
+        // faction that offers it, resolved from the current catalog since the prior graph never
+        // described this entity.
+        predicate: { kind: 'faction', factionId: FACTION_B },
+        ownership: expect.objectContaining({
+          factionIds: [FACTION_B],
+          factionNames: ['Second Host'],
+        }),
+        addedFacts: expect.objectContaining({
+          name: 'Storm Sunder',
+          'text.effect': 'Deals mortal wounds on a 6.',
+        }),
       }),
     ])
   })

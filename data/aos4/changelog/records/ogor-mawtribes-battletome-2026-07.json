@@ -1,6 +1,7 @@
 {
   "currentGeneratedAt": "2026-08-03T13:00:00.000Z",
   "entryId": "ogor-mawtribes-battletome-2026-07",
+  "ledgerEntrySha256": "b5a9b1e15d07c480a41ead30053fde3bfe8dd9287354ce3f394d72886661f357",
   "priorGeneratedAt": "2026-08-02T22:00:00.000Z",
   "publications": [
     {
@@ -28,6 +29,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:786a5478-cdd5-5c9e-b99a-64abd300c3c2"
       },
@@ -77,6 +81,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:1475b0a4-496b-52c8-8e16-c43d36ab04ce"
       },
       "predicate": {
@@ -106,6 +113,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f"
       },
@@ -147,6 +157,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc"
       },
@@ -195,6 +208,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:472e3bb9-5ea1-5ac2-bc99-a0cfb79a90ef"
       },
       "predicate": {
@@ -242,6 +258,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
       "predicate": {
@@ -265,6 +284,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f"
       },
@@ -330,6 +352,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:36eed3f4-0504-5ae8-b030-a4a86afcdb39"
       },
       "predicate": {
@@ -353,6 +378,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:472e3bb9-5ea1-5ac2-bc99-a0cfb79a90ef"
       },
@@ -416,6 +444,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:f24b655d-09c0-5259-99ea-80bd6ad4e625"
       },
       "predicate": {
@@ -439,6 +470,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
@@ -487,6 +521,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
       "predicate": {
@@ -533,6 +570,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc"
       },
@@ -599,6 +639,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:79b9e61d-7f31-5f8e-90f4-a61b183a8713"
       },
       "predicate": {
@@ -640,6 +683,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f"
       },
       "predicate": {
@@ -663,6 +709,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
@@ -727,6 +776,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:be351b48-ccac-59be-9742-f92b12019f41"
       },
       "predicate": {
@@ -767,6 +819,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f"
       },
       "predicate": {
@@ -790,6 +845,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
@@ -838,6 +896,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
       "predicate": {
@@ -878,6 +939,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
       "predicate": {
@@ -917,6 +981,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:be351b48-ccac-59be-9742-f92b12019f41"
       },
@@ -983,6 +1050,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
       "predicate": {
@@ -1006,6 +1076,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ef5b7c18-a99f-5bd8-98f8-ceb3697859bd"
       },
@@ -1048,6 +1121,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
@@ -1096,6 +1172,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc"
       },
       "predicate": {
@@ -1136,6 +1215,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
@@ -1199,6 +1281,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
       "predicate": {
@@ -1246,6 +1331,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -1269,6 +1357,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
@@ -1317,6 +1408,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:199a251e-c6ef-551e-907e-e9497b6a11ab"
       },
       "predicate": {
@@ -1356,6 +1450,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:f24b655d-09c0-5259-99ea-80bd6ad4e625"
       },
@@ -1426,6 +1523,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
       "predicate": {
@@ -1449,6 +1549,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
@@ -1489,6 +1592,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
@@ -1553,6 +1659,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
       "predicate": {
@@ -1576,6 +1685,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f"
       },
@@ -1616,6 +1728,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:199a251e-c6ef-551e-907e-e9497b6a11ab"
       },
@@ -1680,6 +1795,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
       "predicate": {
@@ -1727,6 +1845,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc"
       },
       "predicate": {
@@ -1750,6 +1871,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:f24b655d-09c0-5259-99ea-80bd6ad4e625"
       },
@@ -1807,6 +1931,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
       "predicate": {
@@ -1847,6 +1974,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
       "predicate": {
@@ -1886,6 +2016,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ef5b7c18-a99f-5bd8-98f8-ceb3697859bd"
       },
@@ -1929,6 +2062,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc"
       },
       "predicate": {
@@ -1952,6 +2088,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:692e679f-4b67-59df-8986-15a2b19b266d"
       },
@@ -1992,6 +2131,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f"
       },
@@ -2034,6 +2176,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:692e679f-4b67-59df-8986-15a2b19b266d"
       },
@@ -2097,6 +2242,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:36eed3f4-0504-5ae8-b030-a4a86afcdb39"
       },
       "predicate": {
@@ -2120,6 +2268,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc"
       },
@@ -2177,6 +2328,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
       "predicate": {
@@ -2216,6 +2370,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
@@ -2259,6 +2416,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f"
       },
       "predicate": {
@@ -2282,6 +2442,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
@@ -2346,6 +2509,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
       "predicate": {
@@ -2369,6 +2535,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc"
       },
@@ -2411,6 +2580,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
@@ -2475,6 +2647,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
       "predicate": {
@@ -2510,6 +2685,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:1475b0a4-496b-52c8-8e16-c43d36ab04ce"
       },
       "predicate": {
@@ -2533,6 +2711,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f"
       },
@@ -2590,6 +2771,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:199a251e-c6ef-551e-907e-e9497b6a11ab"
       },
       "predicate": {
@@ -2613,6 +2797,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:79b9e61d-7f31-5f8e-90f4-a61b183a8713"
       },
@@ -2655,6 +2842,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:ef5b7c18-a99f-5bd8-98f8-ceb3697859bd"
       },
       "predicate": {
@@ -2695,6 +2885,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:36eed3f4-0504-5ae8-b030-a4a86afcdb39"
       },
       "predicate": {
@@ -2734,6 +2927,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
@@ -2791,6 +2987,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
       "predicate": {
@@ -2830,6 +3029,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:199a251e-c6ef-551e-907e-e9497b6a11ab"
       },
@@ -2872,6 +3074,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:ef5b7c18-a99f-5bd8-98f8-ceb3697859bd"
       },
       "predicate": {
@@ -2912,6 +3117,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:be351b48-ccac-59be-9742-f92b12019f41"
       },
       "predicate": {
@@ -2935,6 +3143,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:79b9e61d-7f31-5f8e-90f4-a61b183a8713"
       },
@@ -3001,6 +3212,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
       "predicate": {
@@ -3024,6 +3238,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:1475b0a4-496b-52c8-8e16-c43d36ab04ce"
       },
@@ -3081,6 +3298,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:692e679f-4b67-59df-8986-15a2b19b266d"
       },
       "predicate": {
@@ -3120,6 +3340,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
@@ -3161,6 +3384,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -3184,6 +3410,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
@@ -3248,6 +3477,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -3288,6 +3520,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:f24b655d-09c0-5259-99ea-80bd6ad4e625"
       },
       "predicate": {
@@ -3311,6 +3546,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
@@ -3359,6 +3597,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:1475b0a4-496b-52c8-8e16-c43d36ab04ce"
       },
       "predicate": {
@@ -3395,6 +3636,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:36eed3f4-0504-5ae8-b030-a4a86afcdb39"
       },
       "predicate": {
@@ -3418,6 +3662,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:786a5478-cdd5-5c9e-b99a-64abd300c3c2"
       },
@@ -3460,6 +3707,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
       "predicate": {
@@ -3490,6 +3740,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f"
       },
@@ -3532,6 +3785,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc"
       },
       "predicate": {
@@ -3562,6 +3818,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ef5b7c18-a99f-5bd8-98f8-ceb3697859bd"
       },
@@ -3594,6 +3853,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:f24b655d-09c0-5259-99ea-80bd6ad4e625"
       },
       "predicate": {
@@ -3617,6 +3879,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:be351b48-ccac-59be-9742-f92b12019f41"
       },
@@ -3654,6 +3919,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
       "predicate": {
@@ -3677,6 +3945,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
@@ -3714,6 +3985,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
       "predicate": {
@@ -3743,6 +4017,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:692e679f-4b67-59df-8986-15a2b19b266d"
       },
@@ -3774,6 +4051,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:36eed3f4-0504-5ae8-b030-a4a86afcdb39"
       },
       "predicate": {
@@ -3803,6 +4083,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
@@ -3834,6 +4117,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:ef5b7c18-a99f-5bd8-98f8-ceb3697859bd"
       },
       "predicate": {
@@ -3857,6 +4143,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
@@ -3888,6 +4177,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:692e679f-4b67-59df-8986-15a2b19b266d"
       },
       "predicate": {
@@ -3918,6 +4210,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -3947,6 +4242,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ef5b7c18-a99f-5bd8-98f8-ceb3697859bd"
       },
@@ -3984,6 +4282,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
       "predicate": {
@@ -4007,6 +4308,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:199a251e-c6ef-551e-907e-e9497b6a11ab"
       },
@@ -4037,6 +4341,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:472e3bb9-5ea1-5ac2-bc99-a0cfb79a90ef"
       },
@@ -4074,6 +4381,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
       "predicate": {
@@ -4097,6 +4407,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
@@ -4128,6 +4441,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
       "predicate": {
@@ -4157,6 +4473,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
@@ -4188,6 +4507,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
       "predicate": {
@@ -4217,6 +4539,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
@@ -4248,6 +4573,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -4277,6 +4605,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ef5b7c18-a99f-5bd8-98f8-ceb3697859bd"
       },
@@ -4314,6 +4645,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
       "predicate": {
@@ -4337,6 +4671,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
@@ -4374,6 +4711,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:472e3bb9-5ea1-5ac2-bc99-a0cfb79a90ef"
       },
       "predicate": {
@@ -4397,6 +4737,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
@@ -4434,6 +4777,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
       "predicate": {
@@ -4457,6 +4803,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
@@ -4494,6 +4843,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
       "predicate": {
@@ -4517,6 +4869,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
@@ -4559,6 +4914,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:1475b0a4-496b-52c8-8e16-c43d36ab04ce"
       },
       "predicate": {
@@ -4589,6 +4947,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:be351b48-ccac-59be-9742-f92b12019f41"
       },
       "predicate": {
@@ -4612,6 +4973,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
@@ -4642,6 +5006,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:472e3bb9-5ea1-5ac2-bc99-a0cfb79a90ef"
       },
@@ -4679,6 +5046,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -4702,6 +5072,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
@@ -4733,6 +5106,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
       "predicate": {
@@ -4762,6 +5138,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:79b9e61d-7f31-5f8e-90f4-a61b183a8713"
       },
@@ -4799,6 +5178,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:199a251e-c6ef-551e-907e-e9497b6a11ab"
       },
       "predicate": {
@@ -4822,6 +5204,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
@@ -4852,6 +5237,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
@@ -4889,6 +5277,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:692e679f-4b67-59df-8986-15a2b19b266d"
       },
       "predicate": {
@@ -4912,6 +5303,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
@@ -4942,6 +5336,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
@@ -4979,6 +5376,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
       "predicate": {
@@ -5002,6 +5402,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:1475b0a4-496b-52c8-8e16-c43d36ab04ce"
       },
@@ -5039,6 +5442,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -5062,6 +5468,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ef5b7c18-a99f-5bd8-98f8-ceb3697859bd"
       },
@@ -5099,6 +5508,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -5128,6 +5540,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
@@ -5159,6 +5574,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:f24b655d-09c0-5259-99ea-80bd6ad4e625"
       },
       "predicate": {
@@ -5188,6 +5606,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:472e3bb9-5ea1-5ac2-bc99-a0cfb79a90ef"
       },
@@ -5219,6 +5640,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
       "predicate": {
@@ -5248,6 +5672,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
@@ -5279,6 +5706,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:79b9e61d-7f31-5f8e-90f4-a61b183a8713"
       },
       "predicate": {
@@ -5302,6 +5732,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
@@ -5332,6 +5765,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:692e679f-4b67-59df-8986-15a2b19b266d"
       },
@@ -5369,6 +5805,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:be351b48-ccac-59be-9742-f92b12019f41"
       },
       "predicate": {
@@ -5398,6 +5837,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc"
       },
@@ -5429,6 +5871,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
       "predicate": {
@@ -5452,6 +5897,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:36eed3f4-0504-5ae8-b030-a4a86afcdb39"
       },
@@ -5483,6 +5931,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -5512,6 +5963,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:e1ec7068-976b-522a-80a5-5df218df29f1"
       },
@@ -5549,6 +6003,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:79b9e61d-7f31-5f8e-90f4-a61b183a8713"
       },
       "predicate": {
@@ -5572,6 +6029,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:076c7f72-2235-553e-a9ed-82ea3972378d"
       },
@@ -5603,6 +6063,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:472e3bb9-5ea1-5ac2-bc99-a0cfb79a90ef"
       },
       "predicate": {
@@ -5632,6 +6095,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:692e679f-4b67-59df-8986-15a2b19b266d"
       },
@@ -5663,6 +6129,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:6c4732e6-ddbd-5eaf-88ac-d4af7c13c054"
       },
       "predicate": {
@@ -5693,6 +6162,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -5722,6 +6194,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:f24b655d-09c0-5259-99ea-80bd6ad4e625"
       },
@@ -5759,6 +6234,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:472e3bb9-5ea1-5ac2-bc99-a0cfb79a90ef"
       },
       "predicate": {
@@ -5782,6 +6260,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:96962359-3fab-5813-b662-2400c832a560"
       },
@@ -5812,6 +6293,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:79b9e61d-7f31-5f8e-90f4-a61b183a8713"
       },
@@ -5849,6 +6333,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:dade16da-e6d0-5470-9aad-cef6bf9c639b"
       },
       "predicate": {
@@ -5879,6 +6366,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:08236398-cfc8-569d-9838-4b9f91bddd1c"
       },
       "predicate": {
@@ -5902,6 +6392,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:472e3bb9-5ea1-5ac2-bc99-a0cfb79a90ef"
       },
@@ -5933,6 +6426,9 @@
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
         ],
+        "factionNames": [
+          "Ogor Mawtribes"
+        ],
         "warscrollId": "warscroll:79b9e61d-7f31-5f8e-90f4-a61b183a8713"
       },
       "predicate": {
@@ -5962,6 +6458,9 @@
         "contentGroupIds": [],
         "factionIds": [
           "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15"
+        ],
+        "factionNames": [
+          "Ogor Mawtribes"
         ],
         "warscrollId": "warscroll:be351b48-ccac-59be-9742-f92b12019f41"
       },

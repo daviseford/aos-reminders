@@ -6,6 +6,7 @@ import { vi } from 'vitest'
 import {
   AOS4_CHANGELOG_RETAINED_ACCEPTANCES,
   AOS4_CHANGELOG_SCHEMA_VERSION,
+  validateChangelogLedger,
   type Aos4PublishedChangelog,
   type ChangelogLedgerEntry,
   type ChangelogPublicationInput,
@@ -137,6 +138,7 @@ const ledgerEntry = (
   override: Partial<ChangelogLedgerEntry> = {}
 ): ChangelogLedgerEntry => ({
   id: `acceptance-${index}`,
+  previousEntryId: index > 1 ? `acceptance-${index - 1}` : null,
   prior: { commit: `commit-${index}`, runtimeBlobSha256: sha256(prior) },
   current: { runtimeSha256: sha256(current) },
   publications: [publication(index)],
@@ -237,6 +239,7 @@ describe('AoS 4 changelog generation command', () => {
     expect(artifact).toEqual({
       schemaVersion: AOS4_CHANGELOG_SCHEMA_VERSION,
       revision: 'acceptance-1',
+      knownEntryIds: ['acceptance-1'],
       retainedEntryIds: ['acceptance-1'],
       retainedPublicationIds: [publication(1).publicationId],
       publications: [
@@ -422,6 +425,7 @@ describe('AoS 4 changelog generation command', () => {
 
     const artifact = await readArtifact(workspace)
     expect(artifact.revision).toBe('acceptance-7')
+    expect(artifact.knownEntryIds).toEqual([1, 2, 3, 4, 5, 6, 7].map(index => `acceptance-${index}`))
     expect(artifact.retainedEntryIds).toEqual([
       'acceptance-7',
       'acceptance-6',
@@ -443,6 +447,107 @@ describe('AoS 4 changelog generation command', () => {
     await expect(runChangelogCommand(commandArguments(workspace), unusedResolver())).rejects.toThrow(
       /acceptance-3/
     )
+  })
+
+  it('rejects a ledger whose previousEntryId chain is reordered, spliced, or broken', async () => {
+    const prior = projectionBytes(catalogAtRevision(0))
+    const current = projectionBytes(catalogAtRevision(1))
+    const first = ledgerEntry(1, prior, current)
+    const second = ledgerEntry(2, prior, current)
+    expect(validateChangelogLedger([first, second])).toHaveLength(2)
+    // Reordered: the moved entry still names its old predecessor.
+    expect(() => validateChangelogLedger([second, first])).toThrow(/previousEntryId/)
+    // Spliced: an entry inserted before the tail breaks the tail's link.
+    const inserted = ledgerEntry(3, prior, current, { previousEntryId: 'acceptance-1' })
+    expect(() => validateChangelogLedger([first, inserted, second])).toThrow(/previousEntryId/)
+    // Broken: a non-first entry may not restart the chain.
+    expect(() => validateChangelogLedger([first, { ...second, previousEntryId: null }])).toThrow(
+      /previousEntryId/
+    )
+  })
+
+  it('fails write and verify closed when a ledger entry changes after its records were generated', async () => {
+    const workspace = await createWorkspace()
+    const snapshots = [0, 1, 2].map(revision => projectionBytes(catalogAtRevision(revision)))
+    const first = ledgerEntry(1, snapshots[0], snapshots[1])
+    const second = ledgerEntry(2, snapshots[1], snapshots[2])
+    await writeRuntime(workspace, snapshots[1])
+    await writeLedger(workspace, [first])
+    await runChangelogCommand(
+      commandArguments(workspace, true),
+      createResolver({ 'acceptance-1': snapshots[0] })
+    )
+    await writeRuntime(workspace, snapshots[2])
+    await writeLedger(workspace, [first, second])
+    await runChangelogCommand(
+      commandArguments(workspace, true),
+      createResolver({ 'acceptance-2': snapshots[1] })
+    )
+    await expect(runChangelogCommand(commandArguments(workspace), unusedResolver())).resolves.toBeUndefined()
+
+    // Editing an attribution selector after generation must never pass with the stale record file:
+    // the first entry's accepted snapshot is no longer the checked-in runtime, so it cannot be
+    // re-diffed either.
+    const edited: ChangelogLedgerEntry = {
+      ...first,
+      cohorts: [{ name: 'drop-1', disposition: 'rules-driven', selector: { entityIds: [ABILITY] } }],
+    }
+    await writeLedger(workspace, [edited, second])
+    await expect(runChangelogCommand(commandArguments(workspace), unusedResolver())).rejects.toThrow(
+      /acceptance-1.*changed after its records were generated/
+    )
+    await expect(runChangelogCommand(commandArguments(workspace, true), unusedResolver())).rejects.toThrow(
+      /no longer recomputable/
+    )
+  })
+
+  it('regenerates a stale record file when the entry still pins the checked-in runtime', async () => {
+    const workspace = await createWorkspace()
+    const prior = projectionBytes(catalogAtRevision(0))
+    const current = projectionBytes(catalogAtRevision(1))
+    await writeRuntime(workspace, current)
+    const entry = ledgerEntry(1, prior, current)
+    await writeLedger(workspace, [entry])
+    await runChangelogCommand(commandArguments(workspace, true), createResolver({ 'acceptance-1': prior }))
+    const recordPath = path.join(workspace.recordsDirectory, 'acceptance-1.json')
+    const before = await readFile(recordPath, 'utf8')
+
+    const renamed: ChangelogLedgerEntry = {
+      ...entry,
+      publications: [{ ...publication(1), name: 'Battlescroll 1 (renamed)' }],
+    }
+    await writeLedger(workspace, [renamed])
+    await runChangelogCommand(commandArguments(workspace, true), createResolver({ 'acceptance-1': prior }))
+    expect(await readFile(recordPath, 'utf8')).not.toBe(before)
+    const artifact = await readArtifact(workspace)
+    expect(artifact.publications.map(item => item.name)).toEqual(['Battlescroll 1 (renamed)'])
+    await expect(runChangelogCommand(commandArguments(workspace), unusedResolver())).resolves.toBeUndefined()
+  })
+
+  it('publishes knownEntryIds for every ledger entry, including non-rules-driven acceptances', async () => {
+    const workspace = await createWorkspace()
+    const snapshots = [0, 1, 2].map(revision => projectionBytes(catalogAtRevision(revision)))
+    const first = ledgerEntry(1, snapshots[0], snapshots[1])
+    const correctionOnly = ledgerEntry(2, snapshots[1], snapshots[2], {
+      cohorts: [{ name: 'dedup-2', disposition: 'correction' }],
+    })
+    await writeRuntime(workspace, snapshots[1])
+    await writeLedger(workspace, [first])
+    await runChangelogCommand(
+      commandArguments(workspace, true),
+      createResolver({ 'acceptance-1': snapshots[0] })
+    )
+    await writeRuntime(workspace, snapshots[2])
+    await writeLedger(workspace, [first, correctionOnly])
+    await runChangelogCommand(
+      commandArguments(workspace, true),
+      createResolver({ 'acceptance-2': snapshots[1] })
+    )
+
+    const artifact = await readArtifact(workspace)
+    expect(artifact.revision).toBe('acceptance-2')
+    expect(artifact.knownEntryIds).toEqual(['acceptance-1', 'acceptance-2'])
+    expect(artifact.retainedEntryIds).toEqual(['acceptance-1'])
   })
 
   it('ships a checked-in seed with at least one publication-attributed rules-driven entry', async () => {
@@ -483,6 +588,7 @@ describe('AoS 4 changelog generation command', () => {
     expect(await readArtifact(workspace)).toEqual({
       schemaVersion: AOS4_CHANGELOG_SCHEMA_VERSION,
       revision: null,
+      knownEntryIds: [],
       retainedEntryIds: [],
       retainedPublicationIds: [],
       publications: [],

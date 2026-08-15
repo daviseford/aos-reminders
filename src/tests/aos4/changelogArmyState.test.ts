@@ -7,6 +7,7 @@ import { AOS4_ARMY_STORAGE_KEY, loadAos4ArmyDocument, saveAos4ArmyDocument } fro
 import {
   acknowledgeAos4Publication,
   advanceAos4ChangelogStamp,
+  catchUpAos4Changelog,
   createAos4ArmyDocument,
   deserializeAos4ArmyDocument,
   recordAos4RemovedSelection,
@@ -127,6 +128,35 @@ describe('AoS 4 army changelog state', () => {
     )
   })
 
+  it('drops a changelog field of the wrong type with a warning instead of rejecting the document', () => {
+    const value = JSON.parse(serializeAos4ArmyDocument(createStampedDocument()))
+    value.changelog = 'garbage'
+
+    const restored = deserializeAos4ArmyDocument(JSON.stringify(value), AOS4_CATALOG)
+
+    expect(restored.document).toBeDefined()
+    expect(restored.document?.changelog).toBeUndefined()
+    expect(restored.document?.explicitSelectionIds).toEqual(createDocument().explicitSelectionIds)
+    expect(restored.document?.reminderPreferences).toEqual(createDocument().reminderPreferences)
+    expect(restored.diagnostics).toEqual([
+      expect.objectContaining({ code: 'invalid-changelog-state', severity: 'warning' }),
+    ])
+  })
+
+  it('drops a changelog whose inner field has the wrong type, keeping the rest of the document', () => {
+    const value = JSON.parse(serializeAos4ArmyDocument(createStampedDocument()))
+    value.changelog = { acknowledgedPublicationIds: 'nope' }
+
+    const restored = deserializeAos4ArmyDocument(JSON.stringify(value), AOS4_CATALOG)
+
+    expect(restored.document).toBeDefined()
+    expect(restored.document?.changelog).toBeUndefined()
+    expect(restored.document?.explicitSelectionIds).toEqual(createDocument().explicitSelectionIds)
+    expect(restored.diagnostics).toEqual([
+      expect.objectContaining({ code: 'invalid-changelog-state', severity: 'warning' }),
+    ])
+  })
+
   it('survives a selection the catalog no longer carries, filtering it with a warning', () => {
     const value = JSON.parse(serializeAos4ArmyDocument(createDocument()))
     value.explicitSelectionIds.push(DEAD_SELECTION_ID)
@@ -236,6 +266,77 @@ describe('AoS 4 army changelog state', () => {
     expect(advanced.changelog?.lastSeenRevision).toBe(REVISION_AUGUST)
   })
 
+  it('prunes evicted attributed removal records when the stamp advances', () => {
+    const document = createAos4ArmyDocument({
+      ...createDocument(),
+      changelog: {
+        removedSelections: [
+          {
+            selectionId: DEAD_SELECTION_ID,
+            detectedAtRevision: REVISION_JULY,
+            publicationId: PUBLICATION_JULY,
+          },
+        ],
+      },
+    })
+
+    // While the publication is retained the record survives the advance, awaiting acknowledgement.
+    const stillRetained = advanceAos4ChangelogStamp(document, {
+      currentRevision: REVISION_AUGUST,
+      retainedPublicationIds: [PUBLICATION_JULY],
+      affectingPublicationIds: [],
+    })
+    expect(stillRetained.changelog?.lastSeenRevision).toBe(REVISION_AUGUST)
+    expect(stillRetained.changelog?.removedSelections).toEqual(document.changelog?.removedSelections)
+
+    // Once the publication left retention no roll-up can show or acknowledge the record any more,
+    // so the advance clears it instead of leaving it permanently unreachable.
+    const evicted = advanceAos4ChangelogStamp(document, {
+      currentRevision: REVISION_AUGUST,
+      retainedPublicationIds: [PUBLICATION_AUGUST],
+      affectingPublicationIds: [],
+    })
+    expect(evicted.changelog?.lastSeenRevision).toBe(REVISION_AUGUST)
+    expect(evicted.changelog?.removedSelections).toBeUndefined()
+  })
+
+  it('catches up in one step: stamp, retained acknowledgements, and removal records', () => {
+    const document = createAos4ArmyDocument({
+      ...createDocument(),
+      changelog: {
+        lastSeenRevision: REVISION_JULY,
+        acknowledgedPublicationIds: [PUBLICATION_JULY],
+        removedSelections: [
+          {
+            selectionId: DEAD_SELECTION_ID,
+            detectedAtRevision: REVISION_JULY,
+            publicationId: PUBLICATION_JULY,
+          },
+          {
+            selectionId: 'warscroll:eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',
+            detectedAtRevision: REVISION_JULY,
+          },
+        ],
+      },
+    })
+
+    const caughtUp = catchUpAos4Changelog(document, {
+      revision: REVISION_AUGUST,
+      retainedPublicationIds: [PUBLICATION_JULY, PUBLICATION_AUGUST],
+    })
+
+    expect(caughtUp.changelog).toEqual({
+      lastSeenRevision: REVISION_AUGUST,
+      acknowledgedPublicationIds: [PUBLICATION_AUGUST, PUBLICATION_JULY],
+    })
+    expect(
+      catchUpAos4Changelog(caughtUp, {
+        revision: REVISION_AUGUST,
+        retainedPublicationIds: [PUBLICATION_JULY, PUBLICATION_AUGUST],
+      })
+    ).toBe(caughtUp)
+  })
+
   it('round-trips changelog state through browser storage save and load', () => {
     const storage = new MemoryStorage()
     const document = createStampedDocument()
@@ -246,6 +347,22 @@ describe('AoS 4 army changelog state', () => {
     expect(result.source).toBe('storage')
     expect(result.diagnostics).toEqual([])
     expect(result.document).toEqual(document)
+  })
+
+  it('loads a stored army with a corrupt changelog without resetting it to the default document', () => {
+    const storage = new MemoryStorage()
+    const value = JSON.parse(serializeAos4ArmyDocument(createStampedDocument()))
+    value.changelog = { acknowledgedPublicationIds: 'nope' }
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, `${JSON.stringify(value, null, 2)}\n`)
+
+    const result = loadAos4ArmyDocument(storage, AOS4_CATALOG)
+
+    expect(result.source).toBe('storage')
+    expect(result.document.explicitSelectionIds).toEqual(createDocument().explicitSelectionIds)
+    expect(result.document.changelog).toBeUndefined()
+    expect(result.diagnostics).toEqual([
+      expect.objectContaining({ code: 'invalid-changelog-state', severity: 'warning' }),
+    ])
   })
 
   it('no longer resets stored armies whose selection an update removed', () => {

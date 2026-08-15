@@ -28,8 +28,20 @@ export interface Aos4RemovedSelection {
  * Per-army changelog state. Optional and serialized only when non-empty, so documents that never
  * saw a changelog round-trip byte-identically to schema 1 output written before the field existed.
  * Old clients drop the field on round-trip; that document simply re-enters the rollout rule
- * (stamped current on next new-client load, no banner) — a deliberate degrade, never a false
- * banner.
+ * (caught up on next new-client load, no banner) — a deliberate degrade, never a false banner.
+ *
+ * The contract:
+ *
+ * - `lastSeenRevision` advances only through `advanceAos4ChangelogStamp` (every retained
+ *   publication affecting this army is acknowledged) or `catchUpAos4Changelog` (the explicit
+ *   "I've seen the changelog" act: the behind banner's link, or the silent rollout for documents
+ *   that predate the changelog). Both acknowledge everything they skip past, so a stamped army's
+ *   roll-up shows exactly the publications accepted after the stamp — a publication suppressed at
+ *   stamp time can never resurface as news at a later acceptance.
+ * - `removedSelections` records clear when their publication is acknowledged, when the stamp
+ *   advances past their detection revision (unattributed records), when the advance prunes a
+ *   record whose publication left retention (evicted: no roll-up can show or acknowledge it any
+ *   more), and wholesale on catch-up.
  */
 export interface Aos4ChangelogState {
   /** The changelog artifact revision this army has fully caught up to. */
@@ -75,6 +87,7 @@ export type Aos4ArmyDocumentDiagnosticCode =
   | 'missing-rules-context'
   | 'missing-selection'
   | 'invalid-reminder-preference'
+  | 'invalid-changelog-state'
 
 export interface Aos4ArmyDocumentDiagnostic {
   code: Aos4ArmyDocumentDiagnosticCode
@@ -238,8 +251,7 @@ export const deserializeAos4ArmyDocument = (
     (value.allowsHistorical !== undefined && typeof value.allowsHistorical !== 'boolean') ||
     !Array.isArray(value.explicitSelectionIds) ||
     value.explicitSelectionIds.some(id => typeof id !== 'string') ||
-    !isObject(value.reminderPreferences) ||
-    (value.changelog !== undefined && !isChangelogState(value.changelog))
+    !isObject(value.reminderPreferences)
   ) {
     return {
       diagnostics: [
@@ -282,6 +294,23 @@ export const deserializeAos4ArmyDocument = (
     return false
   }) as CanonicalId[]
 
+  // Malformed changelog state must not cost the user their army either: it is auxiliary metadata,
+  // so an invalid shape is dropped with a warning and the document loads without it. Treating the
+  // field as absent re-enters the rollout rule (the banner simply re-shows), which this file
+  // documents as the safe direction — never a reset over the user's selections and preferences.
+  let changelog: Aos4ChangelogState | undefined
+  if (value.changelog !== undefined) {
+    if (isChangelogState(value.changelog)) {
+      changelog = value.changelog
+    } else {
+      diagnostics.push({
+        code: 'invalid-changelog-state',
+        severity: 'warning',
+        message: 'Army document has an invalid changelog state',
+      })
+    }
+  }
+
   const reminderPreferences = Object.fromEntries(
     Object.entries(value.reminderPreferences).flatMap(([id, preference]) => {
       if (!id.startsWith('reminder:') || !isReminderPreference(preference)) {
@@ -310,7 +339,7 @@ export const deserializeAos4ArmyDocument = (
       ...(value.allowsHistorical === true ? { allowsHistorical: true } : {}),
       explicitSelectionIds,
       reminderPreferences,
-      ...(value.changelog !== undefined ? { changelog: value.changelog as Aos4ChangelogState } : {}),
+      ...(changelog !== undefined ? { changelog } : {}),
     }),
     diagnostics,
   }
@@ -413,7 +442,10 @@ export interface AdvanceAos4ChangelogStampInput {
 /**
  * Advances `lastSeenRevision` to the current revision once no retained publication affecting this
  * army remains unacknowledged; while one does, the document is returned unchanged so the banner
- * keeps pointing at it. Pure — the caller supplies the live artifact values.
+ * keeps pointing at it. Advancing also prunes removal records whose publication has left the
+ * artifact's retention (evicted): no roll-up can show or acknowledge them any more, so holding
+ * them would leave them permanently unclearable. Pure — the caller supplies the live artifact
+ * values.
  */
 export const advanceAos4ChangelogStamp = (
   document: Aos4ArmyDocument,
@@ -422,5 +454,57 @@ export const advanceAos4ChangelogStamp = (
   const acknowledged = new Set(document.changelog?.acknowledgedPublicationIds ?? [])
   const affecting = new Set(input.affectingPublicationIds)
   const blocked = input.retainedPublicationIds.some(id => affecting.has(id) && !acknowledged.has(id))
-  return blocked ? document : stampAos4ChangelogRevision(document, input.currentRevision)
+  if (blocked) return document
+  const retained = new Set(input.retainedPublicationIds)
+  const changelog = document.changelog ?? {}
+  const removedSelections = (changelog.removedSelections ?? []).filter(
+    record => record.publicationId === undefined || retained.has(record.publicationId)
+  )
+  const pruned =
+    removedSelections.length === (changelog.removedSelections ?? []).length
+      ? document
+      : createAos4ArmyDocument({ ...document, changelog: { ...changelog, removedSelections } })
+  return stampAos4ChangelogRevision(pruned, input.currentRevision)
+}
+
+export interface CatchUpAos4ChangelogInput {
+  /** The changelog artifact revision the client is currently running against. */
+  revision: string
+  /** Publication IDs the changelog artifact still retains. */
+  retainedPublicationIds: string[]
+}
+
+/**
+ * Marks the army as explicitly caught up with the whole changelog in one step: the stamp moves to
+ * the current revision, every retained publication is acknowledged, and every removal record —
+ * attributed or not — is cleared. This is the "I've seen the changelog" act behind the generic
+ * behind banner's link and the silent rollout stamp for documents that predate the changelog.
+ * Stamping without the acknowledgements would let the publications suppressed today resurface as
+ * news at the next acceptance, contradicting the caught-up contract.
+ */
+export const catchUpAos4Changelog = (
+  document: Aos4ArmyDocument,
+  input: CatchUpAos4ChangelogInput
+): Aos4ArmyDocument => {
+  const changelog = document.changelog ?? {}
+  const previouslyAcknowledged = changelog.acknowledgedPublicationIds ?? []
+  const acknowledgedPublicationIds = Array.from(
+    new Set([...previouslyAcknowledged, ...input.retainedPublicationIds])
+  )
+  if (
+    changelog.lastSeenRevision === input.revision &&
+    acknowledgedPublicationIds.length === previouslyAcknowledged.length &&
+    !(changelog.removedSelections ?? []).length
+  ) {
+    return document
+  }
+  return createAos4ArmyDocument({
+    ...document,
+    changelog: {
+      ...changelog,
+      lastSeenRevision: input.revision,
+      acknowledgedPublicationIds,
+      removedSelections: [],
+    },
+  })
 }

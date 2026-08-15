@@ -53,7 +53,9 @@ import type { Aos4PublishedChangelog } from '../../aos4/changelog'
 import {
   computeAos4PublicationImpacts,
   evaluateAos4ChangePredicate,
+  findAos4ExplainingRemovedRecord,
   isAos4ChangelogStampBehind,
+  resolveAos4ChangelogStampStatus,
   totalAos4ChangelogImpact,
   unacknowledgedAos4PublicationIds,
 } from '../../aos4/changelog'
@@ -65,6 +67,7 @@ import {
 } from '../../aos4/generated'
 import { AOS4_ARMY_STORAGE_KEY, createDefaultAos4ArmyDocument } from '../../aos4/runtime'
 import {
+  catchUpAos4Changelog,
   createAos4ArmyDocument,
   deserializeAos4ArmyDocument,
   serializeAos4ArmyDocument,
@@ -85,6 +88,7 @@ const IDS = REPRESENTATIVE_IDS
 
 const REV_0 = 'acceptance-2026-05'
 const REV_1 = 'acceptance-2026-07'
+const REV_CHURN = 'acceptance-2026-07-churn'
 const REV_2 = 'acceptance-2026-08'
 const REV_3 = 'acceptance-2026-09'
 
@@ -147,10 +151,17 @@ const liberatorsPoints = {
   fields: [{ field: 'points', previous: 140, next: 160 }],
 }
 
+/*
+ * `knownEntryIds` is the artifact's full acceptance memory, oldest first, all dispositions —
+ * REV_CHURN is a churn-only acceptance that no rules-driven retention window ever carries. REV_0
+ * is deliberately absent: it simulates a stamp the ledger has no memory of, the only state the
+ * generic behind banner is for.
+ */
 const makeArtifact = (records: unknown[], overrides: Record<string, unknown> = {}): Aos4PublishedChangelog =>
   ({
     schemaVersion: 1,
     revision: REV_2,
+    knownEntryIds: [REV_1, REV_CHURN, REV_2],
     retainedEntryIds: [REV_2, REV_1],
     retainedPublicationIds: [P1.publicationId, P2.publicationId],
     publications: [P1, P2],
@@ -265,6 +276,26 @@ describe('changelog army matching', () => {
     expect(battlescroll?.total).toBe(1)
   })
 
+  it('counts a removed record matched directly by predicate, with no document removal record involved', () => {
+    // The warscroll itself stays selected; only one of its abilities was removed, so no selection
+    // ever went missing and the document carries no removedSelections at all.
+    const removedAbility = {
+      entityId: 'ability:90000000-0000-4000-8000-0000000000bb',
+      entityKind: 'ability',
+      name: 'Stalwart Banner',
+      changeKind: 'removed',
+      attribution: { kind: 'publication', ...P1 },
+      predicate: { kind: 'warscroll', warscrollId: IDS.warscrolls.liberators },
+      ownership: { factionIds: [IDS.faction], warscrollId: IDS.warscrolls.liberators, contentGroupIds: [] },
+      removedFacts: { 'text.effect': 'Add 1 to hit rolls.' },
+    }
+    const impacts = computeAos4PublicationImpacts(makeArtifact([removedAbility]), armyInput(makeDocument()))
+    const battlescroll = impacts.find(impact => impact.publication.publicationId === P1.publicationId)
+    expect(battlescroll?.removals).toHaveLength(1)
+    expect(battlescroll?.unexplainedRemovedSelections).toHaveLength(0)
+    expect(battlescroll?.total).toBe(1)
+  })
+
   it('reports unacknowledged retained publications for a document', () => {
     const artifact = makeArtifact([])
     expect(unacknowledgedAos4PublicationIds(artifact, makeDocument())).toEqual([
@@ -275,12 +306,52 @@ describe('changelog army matching', () => {
     expect(unacknowledgedAos4PublicationIds(artifact, acknowledged)).toEqual([P2.publicationId])
   })
 
-  it('detects a stamp that fell behind the retained window', () => {
+  it('treats only a stamp the artifact has no memory of as behind', () => {
     const artifact = makeArtifact([])
     expect(isAos4ChangelogStampBehind(artifact, makeDocument({ lastSeenRevision: REV_0 }))).toBe(true)
     expect(isAos4ChangelogStampBehind(artifact, makeDocument({ lastSeenRevision: REV_1 }))).toBe(false)
+    // Known churn-only acceptance: never the generic behind path, even though it is not retained.
+    expect(isAos4ChangelogStampBehind(artifact, makeDocument({ lastSeenRevision: REV_CHURN }))).toBe(false)
     expect(isAos4ChangelogStampBehind(artifact, makeDocument({ lastSeenRevision: REV_2 }))).toBe(false)
     expect(isAos4ChangelogStampBehind(artifact, makeDocument())).toBe(false)
+  })
+
+  it('resolves a stamp to current, known with pending retained entries, or unknown', () => {
+    const artifact = makeArtifact([])
+    expect(resolveAos4ChangelogStampStatus(artifact, REV_2)).toEqual({ kind: 'current' })
+    expect(resolveAos4ChangelogStampStatus(artifact, REV_CHURN)).toEqual({
+      kind: 'known',
+      pendingRetainedEntryIds: [REV_2],
+    })
+    expect(resolveAos4ChangelogStampStatus(artifact, REV_1)).toEqual({
+      kind: 'known',
+      pendingRetainedEntryIds: [REV_2],
+    })
+    expect(resolveAos4ChangelogStampStatus(artifact, REV_0)).toEqual({ kind: 'unknown' })
+  })
+
+  it('finds the removed record explaining a filtered selection, by entity or owning warscroll', () => {
+    const removedChariotAbility = {
+      ...removedChariot,
+      entityId: 'ability:90000000-0000-4000-8000-0000000000aa',
+      entityKind: 'ability',
+      name: 'Celestial Charge',
+    }
+    const byEntity = makeArtifact([modifiedStalwart, removedChariot]).records
+    expect(findAos4ExplainingRemovedRecord(byEntity, DEAD_WARSCROLL)).toMatchObject({
+      changeKind: 'removed',
+      name: 'Celestial Chariots',
+    })
+
+    const byOwnership = makeArtifact([removedChariotAbility]).records
+    expect(findAos4ExplainingRemovedRecord(byOwnership, DEAD_WARSCROLL)).toMatchObject({
+      name: 'Celestial Charge',
+    })
+
+    // Modified records never explain a removal, and unrelated ids find nothing.
+    const noRemovals = makeArtifact([modifiedStalwart]).records
+    expect(findAos4ExplainingRemovedRecord(noRemovals, DEAD_WARSCROLL)).toBeUndefined()
+    expect(findAos4ExplainingRemovedRecord(byEntity, IDS.warscrolls.liberators)).toBeUndefined()
   })
 })
 
@@ -396,6 +467,26 @@ describe('the in-army changelog banner', () => {
 
     expect(banner()).toBeNull()
     expect(container.textContent).toBe('welcome fallback')
+  })
+
+  it('AE4: falls back to generic wording for a document removal no artifact record explains', () => {
+    mount({
+      // No removed record in the artifact at all, so nothing can explain the document's removal.
+      artifact: makeArtifact([]),
+      initialDocument: makeDocument({
+        lastSeenRevision: REV_1,
+        removedSelections: [
+          { selectionId: DEAD_WARSCROLL, detectedAtRevision: REV_2, publicationId: P1.publicationId },
+        ],
+      }),
+    })
+
+    expect(banner()).not.toBeNull()
+    expect(container.textContent).toContain('1 change')
+
+    expandDetails()
+
+    expect(container.textContent).toContain('A unit or option this army had selected is no longer available.')
   })
 
   it('AE5: counts a removal and shows the removed text in the per-publication detail', () => {
@@ -542,24 +633,97 @@ describe('the in-army changelog banner', () => {
       unmountComponentAtNode(container)
     })
     mount({
-      artifact: makeArtifact([], { revision: REV_3, retainedEntryIds: [REV_3, REV_2] }),
+      artifact: makeArtifact([], {
+        revision: REV_3,
+        knownEntryIds: [REV_1, REV_CHURN, REV_2, REV_3],
+        retainedEntryIds: [REV_3, REV_2],
+      }),
       initialDocument,
     })
     expect(banner()).not.toBeNull()
     expect(container.textContent).toContain('last reviewed several updates ago')
   })
 
-  it('advances the stamp to current when the behind banner link is followed', () => {
+  it('rolls up only the still-unacknowledged publications for a churn-only stamp, never behind', () => {
+    // The army was stamped while a churn-only acceptance was newest; a rules-driven acceptance
+    // (REV_2) has landed since. The artifact still knows the churn entry, so the roll-up applies —
+    // and it names only the publication the army has not acknowledged, not the pre-stamp one.
     mount({
-      artifact: makeArtifact([]),
-      initialDocument: makeDocument({ lastSeenRevision: REV_0 }),
+      artifact: makeArtifact([modifiedStalwart, liberatorsPoints]),
+      initialDocument: makeDocument({
+        lastSeenRevision: REV_CHURN,
+        acknowledgedPublicationIds: [P1.publicationId],
+      }),
+      projectedAbilityIds: [IDS.abilities.stalwartDefenders],
+    })
+
+    expect(banner()).not.toBeNull()
+    expect(container.textContent).not.toContain('last reviewed several updates ago')
+    expect(container.textContent).toContain(P2.name)
+    expect(container.textContent).not.toContain(P1.name)
+  })
+
+  it('banners only the genuinely new publication at the acceptance after a catch-up', () => {
+    const P3 = {
+      publicationId: 'publication:battlescroll-second-wind',
+      name: 'Battlescroll: Second Wind',
+      source: 'battlescroll',
+    }
+    const newerStalwart = {
+      ...modifiedStalwart,
+      attribution: { kind: 'publication', ...P3 },
+      fields: [{ field: 'text.effect', previous: 'Add 1 to ward rolls.', next: 'Add 2 to ward rolls.' }],
+    }
+    // The document went through a catch-up (rollout or behind-link) against the current artifact...
+    const caughtUp = catchUpAos4Changelog(makeDocument(), {
+      revision: REV_2,
+      retainedPublicationIds: [P1.publicationId, P2.publicationId],
+    })
+
+    // ...then a new acceptance lands. Only its publication may banner: the ones the catch-up
+    // acknowledged stay suppressed instead of resurfacing as news.
+    mount({
+      artifact: makeArtifact([modifiedStalwart, liberatorsPoints, newerStalwart], {
+        revision: REV_3,
+        knownEntryIds: [REV_1, REV_CHURN, REV_2, REV_3],
+        retainedEntryIds: [REV_3, REV_2, REV_1],
+        retainedPublicationIds: [P3.publicationId, P1.publicationId, P2.publicationId],
+        publications: [P3, P1, P2],
+      }),
+      initialDocument: caughtUp,
+      projectedAbilityIds: [IDS.abilities.stalwartDefenders],
+    })
+
+    expect(banner()).not.toBeNull()
+    expect(container.textContent).toContain(P3.name)
+    expect(container.textContent).not.toContain(P1.name)
+    expect(container.textContent).not.toContain(P2.name)
+  })
+
+  it('catches the army up when the behind banner link is followed', () => {
+    mount({
+      artifact: makeArtifact([removedChariot]),
+      initialDocument: makeDocument({
+        lastSeenRevision: REV_0,
+        removedSelections: [
+          { selectionId: DEAD_WARSCROLL, detectedAtRevision: REV_1, publicationId: P1.publicationId },
+          { selectionId: 'warscroll:90000000-0000-4000-8000-0000000000ee', detectedAtRevision: REV_0 },
+        ],
+      }),
     })
 
     const link = container.querySelector('a')
     expect(link).not.toBeNull()
     act(() => Simulate.click(link!))
 
+    // One step: stamp advanced, every retained publication acknowledged, removal records cleared —
+    // so nothing suppressed behind the generic banner resurfaces at the next acceptance.
     expect(latest.document?.changelog?.lastSeenRevision).toBe(REV_2)
+    expect(latest.document?.changelog?.acknowledgedPublicationIds).toEqual([
+      P1.publicationId,
+      P2.publicationId,
+    ])
+    expect(latest.document?.changelog?.removedSelections).toBeUndefined()
     expect(banner()).toBeNull()
   })
 })
@@ -601,7 +765,16 @@ class MemoryStorage implements Storage {
 describe('Home changelog wiring', () => {
   let container: HTMLDivElement
 
-  const renderHome = async () => {
+  // The mocked dynamic import still travels the async module loader, so pump until it lands.
+  const pump = async () => {
+    for (let pass = 0; pass < 10; pass += 1) {
+      await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0))
+      })
+    }
+  }
+
+  const mountHome = async () => {
     await act(async () => {
       render(
         <AppStatusProvider>
@@ -617,12 +790,11 @@ describe('Home changelog wiring', () => {
       )
       await Promise.resolve()
     })
-    // The mocked dynamic import still travels the async module loader, so pump until it lands.
-    for (let pass = 0; pass < 10; pass += 1) {
-      await act(async () => {
-        await new Promise(resolve => setTimeout(resolve, 0))
-      })
-    }
+  }
+
+  const renderHome = async () => {
+    await mountHome()
+    await pump()
   }
 
   const storedDocument = () => {
@@ -654,10 +826,16 @@ describe('Home changelog wiring', () => {
     container.remove()
   })
 
-  it('stamps a fresh document to the current revision without showing a banner (rollout)', async () => {
+  it('catches a fresh document up to the current revision without showing a banner (rollout)', async () => {
     await renderHome()
 
     expect(storedDocument().changelog?.lastSeenRevision).toBe(REV_2)
+    // The rollout acknowledges every retained publication alongside the stamp: the updates it
+    // silently skips must not resurface as "new" at the next acceptance.
+    expect(storedDocument().changelog?.acknowledgedPublicationIds).toEqual([
+      P1.publicationId,
+      P2.publicationId,
+    ])
     expect(container.textContent).not.toContain('rules update')
     expect(container.textContent).toContain('Welcome back!')
   })
@@ -696,5 +874,62 @@ describe('Home changelog wiring', () => {
     // The removal blocks the stamp and surfaces the publication in the banner.
     expect(storedDocument().changelog?.lastSeenRevision).toBe(REV_1)
     expect(container.textContent).toContain(P1.name)
+  })
+
+  it('does not resurrect a removal record whose publication was already acknowledged', async () => {
+    // The user saw the removal and dismissed P1 in an earlier session, which cleared the record.
+    // The dead selection id rides the stored document into this load (a cloud sync or an old
+    // client can reintroduce it), so the load re-detects it; the bookkeeping must not write the
+    // record back, or it would be resurrected with no acknowledgement path left to clear it.
+    const seeded = createDefaultAos4ArmyDocument()
+    window.localStorage.setItem(
+      AOS4_ARMY_STORAGE_KEY,
+      serializeAos4ArmyDocument(
+        createAos4ArmyDocument({
+          ...seeded,
+          explicitSelectionIds: [...seeded.explicitSelectionIds, DEAD_WARSCROLL as never],
+          changelog: { lastSeenRevision: REV_1, acknowledgedPublicationIds: [P1.publicationId] },
+        })
+      )
+    )
+
+    await renderHome()
+
+    expect(storedDocument().changelog?.removedSelections).toBeUndefined()
+    expect(container.textContent).not.toContain(P1.name)
+    // Nothing unacknowledged affects the army any more, so the stamp advances.
+    expect(storedDocument().changelog?.lastSeenRevision).toBe(REV_2)
+  })
+
+  it('writes no removal records to a replacement army applied before the artifact resolves', async () => {
+    const seeded = createDefaultAos4ArmyDocument()
+    window.localStorage.setItem(
+      AOS4_ARMY_STORAGE_KEY,
+      serializeAos4ArmyDocument(
+        createAos4ArmyDocument({
+          ...seeded,
+          explicitSelectionIds: [...seeded.explicitSelectionIds, DEAD_WARSCROLL as never],
+          changelog: { lastSeenRevision: REV_1 },
+        })
+      )
+    )
+
+    // Mount without pumping the async module loader, so the artifact chunk is still in flight.
+    await mountHome()
+    // Precondition, not the claim under test: were the loader ever to resolve this early, the
+    // assertion after the replacement below would be testing nothing — fail loudly here instead.
+    expect(storedDocument().changelog?.removedSelections).toBeUndefined()
+
+    // The user replaces the army before the artifact lands.
+    const clearButton = Array.from(container.querySelectorAll('button')).find(button =>
+      button.textContent?.includes('Clear Army')
+    )
+    expect(clearButton).toBeDefined()
+    act(() => Simulate.click(clearButton!))
+
+    await pump()
+
+    // The load-time diagnostics belonged to the replaced document; the replacement stays clean.
+    expect(storedDocument().changelog?.removedSelections).toBeUndefined()
   })
 })

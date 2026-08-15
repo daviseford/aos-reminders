@@ -1,6 +1,7 @@
 [
   {
     "id": "ogor-mawtribes-battletome-2026-07",
+    "previousEntryId": null,
     "prior": {
       "commit": "012ac3be94db6b03f680ddd8bee930b838aed1cd",
       "runtimeBlobSha256": "4284ebb2667481a51abbaa3520e9d223a9ba796d4d5adf2edb85f026ed27e0ed"

@@ -11,7 +11,7 @@ import {
 import {
   acknowledgeAos4Publication,
   advanceAos4ChangelogStamp,
-  stampAos4ChangelogRevision,
+  catchUpAos4Changelog,
   type Aos4ArmyDocument,
 } from '../../../aos4/state'
 import {
@@ -108,9 +108,20 @@ export const ChangelogBanner = ({
   if (mode === 'none') return <>{fallback}</>
 
   if (mode === 'behind') {
+    /*
+     * Following the link is the explicit "I've seen the changelog" act: the catch-up stamps the
+     * army AND acknowledges every retained publication (clearing removal records with them), so
+     * the updates suppressed behind this generic banner never resurface as news at the next
+     * acceptance.
+     */
     const handleFollowLink = () => {
-      if (revision === null) return
-      setDocument(current => stampAos4ChangelogRevision(current, revision))
+      if (!artifact || revision === null) return
+      setDocument(current =>
+        catchUpAos4Changelog(current, {
+          revision,
+          retainedPublicationIds: artifact.retainedPublicationIds,
+        })
+      )
     }
     const handleDismiss = () => {
       logBannerClose('changelog:behind')

@@ -143,8 +143,18 @@ const ownershipOf = (view: CatalogView, entity: ContentEntity): ChangeRecordOwne
     })
   }
 
+  const sortedFactionIds = Array.from(factionIds).sort(compareIds)
+  /*
+   * Source-faithful display names, index-parallel to the IDs. The view supplies them: the current
+   * catalog for added and modified records, the prior catalog for removals (whose factions may no
+   * longer exist). Omitted, never synthesized, if a faction entity is somehow missing.
+   */
+  const names = sortedFactionIds.map(id => view.entitiesById.get(id)?.name)
+  const factionNames = names.every((name): name is string => name !== undefined) ? names : undefined
+
   return {
-    factionIds: Array.from(factionIds).sort(compareIds),
+    factionIds: sortedFactionIds,
+    ...(factionNames ? { factionNames } : {}),
     ...(warscrollId ? { warscrollId } : {}),
     contentGroupIds: Array.from(contentGroupIds).sort(compareIds),
   }

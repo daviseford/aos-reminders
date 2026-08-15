@@ -224,16 +224,20 @@ const CorrectionsSection = ({ corrections }: { corrections: ChangeRecord[] }) =>
 }
 
 /*
- * Ownership carries canonical faction IDs; their slugs are the display names in kebab form, so the
- * heading is derived the same way the army builder titles its selector groups. A record owned by
- * several factions appears once, under the joined heading, rather than duplicated per faction.
+ * Ownership carries source-faithful faction names index-parallel to the canonical faction IDs, so
+ * the heading never needs the catalog. The IDs are opaque UUIDs; the titleCase transform is only a
+ * defensive fallback for records missing a carried name. A record owned by several factions appears
+ * once, under the joined heading, rather than duplicated per faction.
  */
 const factionDisplayName = (factionId: string): string => titleCase(factionId.replace(/^faction:/, ''))
 
-const factionHeading = (record: ChangeRecord): string =>
-  record.ownership.factionIds.length
-    ? record.ownership.factionIds.map(factionDisplayName).join(' / ')
-    : 'Every army'
+const factionHeading = (record: ChangeRecord): string => {
+  const { factionIds, factionNames } = record.ownership
+  if (!factionIds.length) return 'Every army'
+  return factionIds
+    .map((factionId, index) => factionNames?.[index] ?? factionDisplayName(factionId))
+    .join(' / ')
+}
 
 const groupByFaction = (records: ChangeRecord[]): { heading: string; records: ChangeRecord[] }[] => {
   const groups = new Map<string, ChangeRecord[]>()

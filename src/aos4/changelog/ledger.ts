@@ -21,6 +21,8 @@ export const AOS4_CHANGELOG_RETAINED_ACCEPTANCES = 6
  */
 export interface ChangelogLedgerEntry {
   id: string
+  /** The id of the immediately preceding ledger entry; null (or omitted) only on the first entry. */
+  previousEntryId?: string | null
   prior: { commit: string; runtimeBlobSha256: string }
   current: { runtimeSha256: string }
   publications: ChangelogPublicationInput[]
@@ -31,6 +33,12 @@ export interface ChangelogLedgerEntry {
 export interface ChangelogAcceptanceRecords {
   schemaVersion: typeof AOS4_CHANGELOG_SCHEMA_VERSION
   entryId: string
+  /**
+   * SHA-256 of the stable-JSON serialization of the full ledger entry this file was generated
+   * from, binding the records to the entry's selectors and snapshot pins. Editing the entry after
+   * generation invalidates the file instead of silently keeping stale attribution.
+   */
+  ledgerEntrySha256: string
   priorGeneratedAt: string
   currentGeneratedAt: string
   publications: ChangelogPublication[]
@@ -42,6 +50,11 @@ export interface Aos4PublishedChangelog {
   schemaVersion: typeof AOS4_CHANGELOG_SCHEMA_VERSION
   /** The newest ledger entry id, or null while the ledger is empty. */
   revision: string | null
+  /**
+   * Every ledger entry id in acceptance order (all dispositions, not just rules-driven), letting
+   * clients distinguish an army stamped at a churn-only acceptance from one genuinely behind.
+   */
+  knownEntryIds: string[]
   /** Retained rules-driven acceptance ids, newest first. */
   retainedEntryIds: string[]
   /** Every retained acceptance's publication ids, newest acceptance first. */
@@ -151,6 +164,7 @@ const validateCohorts = (
 export const validateChangelogLedger = (value: unknown): ChangelogLedgerEntry[] => {
   if (!Array.isArray(value)) fail('the ledger must be an array of acceptance entries')
   const seen = new Set<string>()
+  let previousId: string | null = null
   return (value as unknown[]).map((candidate, index) => {
     if (!isRecord(candidate)) fail(`entries[${index}] must be an object`)
     const entry = candidate as Record<string, unknown>
@@ -160,6 +174,17 @@ export const validateChangelogLedger = (value: unknown): ChangelogLedgerEntry[] 
     }
     if (seen.has(id)) fail(`entry id ${id} appears more than once`)
     seen.add(id)
+    if (index === 0) {
+      if (entry.previousEntryId !== undefined && entry.previousEntryId !== null) {
+        fail(`entries[0].previousEntryId must be null or omitted: the first entry has no predecessor`)
+      }
+    } else if (entry.previousEntryId !== previousId) {
+      fail(
+        `entries[${index}].previousEntryId must name the immediately preceding entry ${previousId}: ` +
+          `the append-only ledger cannot be reordered or spliced`
+      )
+    }
+    previousId = id
     if (!isRecord(entry.prior)) fail(`entries[${index}].prior must be an object`)
     const prior = entry.prior as Record<string, unknown>
     requireString(prior.commit, `entries[${index}].prior.commit`)
@@ -219,6 +244,7 @@ export const buildAos4PublishedChangelog = (
   return {
     schemaVersion: AOS4_CHANGELOG_SCHEMA_VERSION,
     revision: entries.length ? entries[entries.length - 1].id : null,
+    knownEntryIds: entries.map(entry => entry.id),
     retainedEntryIds: retained.map(entry => entry.id),
     retainedPublicationIds,
     publications,

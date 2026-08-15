@@ -1,4 +1,9 @@
-import { computeAos4PublicationImpacts, type Aos4PublishedChangelog } from '../../aos4/changelog'
+import {
+  computeAos4PublicationImpacts,
+  findAos4ExplainingRemovedRecord,
+  resolveAos4ChangelogStampStatus,
+  type Aos4PublishedChangelog,
+} from '../../aos4/changelog'
 import { armyFactions, type CanonicalId } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID } from '../../aos4/generated'
 import type { PrintDocumentOptions } from '../../aos4/print/document'
@@ -13,10 +18,10 @@ import {
 import { resolveSelection } from '../../aos4/select'
 import {
   advanceAos4ChangelogStamp,
+  catchUpAos4Changelog,
   createAos4ArmyDocument,
   recordAos4RemovedSelection,
   setAos4ReminderPreference,
-  stampAos4ChangelogRevision,
   type Aos4ArmyDocument,
 } from '../../aos4/state'
 import {
@@ -109,6 +114,14 @@ const SkipToReminders = () => (
 const HomeContent = () => {
   const [initialLoad] = useState(loadDocument)
   const [document, setDocument] = useState(initialLoad.document)
+  /*
+   * Load-time missing-selection diagnostics belong to the document the load produced, and to it
+   * alone. They wait here until the changelog artifact resolves, are consumed exactly once, and
+   * are discarded by every explicit document replacement (import, share, cloud load, clear army,
+   * faction select) — so removal records are never written to a replacement army, and a record the
+   * user acknowledged is never re-recorded by a later re-run of the bookkeeping effect.
+   */
+  const pendingMissingSelectionIdsRef = useRef(initialLoad.missingSelectionIds)
   const [changelogArtifact, setChangelogArtifact] = useState<Aos4PublishedChangelog>()
   const [isGameMode, setIsGameMode] = useState(false)
   const [importModalIsOpen, setImportModalIsOpen] = useState(false)
@@ -289,37 +302,44 @@ const HomeContent = () => {
 
   /*
    * Changelog bookkeeping rides the normal setDocument path, so it persists through the save
-   * effect above, and every document entry point (default doc, faction select, import, share,
-   * cloud load) is covered because they all funnel through setDocument. Three idempotent steps:
-   * removal records for selections the load path filtered, the silent rollout stamp for documents
-   * that predate the changelog, and the advance that clears the stamp once nothing affecting this
-   * army remains unacknowledged. A stamp behind the retained window is left alone: the banner owns
-   * that catch-up path.
+   * effect above. Three idempotent steps: removal records for selections the load path filtered
+   * (consumed from the pending ref exactly once, and only for the document that produced them),
+   * the silent rollout catch-up for documents that predate the changelog (stamp AND acknowledge,
+   * so nothing skipped today resurfaces as news later), and the advance that clears the stamp
+   * once nothing affecting this army remains unacknowledged. A stamp the artifact has no memory
+   * of is left alone: the behind banner owns that catch-up path.
    */
   useEffect(() => {
     const artifact = changelogArtifact
     if (!artifact || artifact.revision === null) return
     const revision = artifact.revision
+    const missingSelectionIds = pendingMissingSelectionIdsRef.current
+    pendingMissingSelectionIdsRef.current = []
     setDocument(current => {
       let next = current
-      initialLoad.missingSelectionIds.forEach(selectionId => {
-        const explanation = artifact.records.find(
-          record =>
-            record.changeKind === 'removed' &&
-            record.attribution.kind === 'publication' &&
-            (record.entityId === selectionId || record.ownership.warscrollId === selectionId)
-        )
+      missingSelectionIds.forEach(selectionId => {
+        const explanation = findAos4ExplainingRemovedRecord(artifact.records, selectionId)
+        const publicationId =
+          explanation?.attribution.kind === 'publication' ? explanation.attribution.publicationId : undefined
+        // A record whose publication was already acknowledged must stay cleared: re-recording it
+        // here would resurrect it with no acknowledgement path left to clear it again.
+        if (publicationId && (current.changelog?.acknowledgedPublicationIds ?? []).includes(publicationId)) {
+          return
+        }
         next = recordAos4RemovedSelection(next, {
           selectionId,
           detectedAtRevision: revision,
-          ...(explanation && explanation.attribution.kind === 'publication'
-            ? { publicationId: explanation.attribution.publicationId }
-            : {}),
+          ...(publicationId ? { publicationId } : {}),
         })
       })
       const stamp = next.changelog?.lastSeenRevision
-      if (!stamp) return stampAos4ChangelogRevision(next, revision)
-      if (stamp !== revision && !artifact.retainedEntryIds.includes(stamp)) return next
+      if (!stamp) {
+        return catchUpAos4Changelog(next, {
+          revision,
+          retainedPublicationIds: artifact.retainedPublicationIds,
+        })
+      }
+      if (resolveAos4ChangelogStampStatus(artifact, stamp).kind === 'unknown') return next
       const impacts = computeAos4PublicationImpacts(artifact, { document: next, projectedAbilityIds })
       return advanceAos4ChangelogStamp(next, {
         currentRevision: revision,
@@ -347,7 +367,17 @@ const HomeContent = () => {
     })
   }
 
+  /*
+   * Every explicit document replacement flows through here (or clears the ref itself), so pending
+   * load-time diagnostics can never be written onto an army that did not produce them.
+   */
+  const replaceDocument = (nextDocument: Aos4ArmyDocument) => {
+    pendingMissingSelectionIdsRef.current = []
+    setDocument(nextDocument)
+  }
+
   const clearArmy = () => {
+    pendingMissingSelectionIdsRef.current = []
     setDocument(current =>
       createAos4ArmyDocument({
         ...current,
@@ -360,6 +390,7 @@ const HomeContent = () => {
   const selectFaction = (nextFactionId: CanonicalId<'faction'>) => {
     const faction = factionById.get(nextFactionId)
     logFactionSelection(nextFactionId, faction?.name ?? 'Unknown faction')
+    pendingMissingSelectionIdsRef.current = []
     setDocument(current =>
       createAos4ArmyDocument({
         ...current,
@@ -528,7 +559,7 @@ const HomeContent = () => {
             closeModal={() => setImportModalIsOpen(false)}
             isOpen={importModalIsOpen}
             onApply={nextDocument => {
-              setDocument(nextDocument)
+              replaceDocument(nextDocument)
               setImportModalIsOpen(false)
             }}
           />
@@ -541,7 +572,7 @@ const HomeContent = () => {
             closeModal={() => setSavedArmiesModalIsOpen(false)}
             currentDocument={document}
             isOpen={savedArmiesModalIsOpen}
-            onApply={setDocument}
+            onApply={replaceDocument}
           />
         </Suspense>
       )}
@@ -561,7 +592,7 @@ const HomeContent = () => {
           <SharedArmyModal
             closeModal={() => setPendingShareId(undefined)}
             isOpen
-            onApply={setDocument}
+            onApply={replaceDocument}
             shareId={pendingShareId}
           />
         </Suspense>

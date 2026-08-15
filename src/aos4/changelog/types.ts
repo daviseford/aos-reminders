@@ -103,6 +103,12 @@ export interface ChangeFieldDelta {
 /** Owning IDs carried on every record so consumers never need a catalog to scope a change. */
 export interface ChangeRecordOwnership {
   factionIds: CanonicalId<'faction'>[]
+  /**
+   * Source-faithful faction display names, index-parallel to `factionIds`, so consumers can head a
+   * change with its faction without a catalog. Omitted only when a faction entity could not be
+   * resolved at diff time; consumers fall back defensively.
+   */
+  factionNames?: string[]
   warscrollId?: CanonicalId<'warscroll'>
   contentGroupIds: CanonicalId<'content-group'>[]
 }

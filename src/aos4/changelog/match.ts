@@ -3,6 +3,7 @@ import type { Aos4ArmyDocument, Aos4RemovedSelection } from '../state'
 import type { Aos4PublishedChangelog } from './ledger'
 import type {
   ChangelogPublication,
+  ChangeRecord,
   ChangeSelectionPredicate,
   ModifiedChangeRecord,
   RemovedChangeRecord,
@@ -57,8 +58,22 @@ export interface Aos4PublicationImpact {
   total: number
 }
 
-const explainsSelection = (record: RemovedChangeRecord, selection: Aos4RemovedSelection): boolean =>
-  selection.selectionId === record.entityId || selection.selectionId === record.ownership.warscrollId
+const explainsSelection = (record: RemovedChangeRecord, selectionId: string): boolean =>
+  selectionId === record.entityId || selectionId === record.ownership.warscrollId
+
+/**
+ * The first removed-change record that explains why `selectionId` no longer resolves: either the
+ * selection itself was removed, or the warscroll that owned it was. Home uses this to attribute a
+ * load-time missing-selection diagnostic to a publication without re-deriving the predicate.
+ */
+export const findAos4ExplainingRemovedRecord = (
+  records: readonly ChangeRecord[],
+  selectionId: string
+): RemovedChangeRecord | undefined =>
+  records.find(
+    (record): record is RemovedChangeRecord =>
+      record.changeKind === 'removed' && explainsSelection(record, selectionId)
+  )
 
 /**
  * Computes each retained publication's impact on one army, in the artifact's newest-first order.
@@ -107,14 +122,14 @@ export const computeAos4PublicationImpacts = (
       // Removed: the predicate can no longer match a selection the update itself deleted, so a
       // document removal record attributed to this publication applies the record too.
       if (
-        attributedRemovals.some(selection => explainsSelection(record, selection)) ||
+        attributedRemovals.some(selection => explainsSelection(record, selection.selectionId)) ||
         evaluateAos4ChangePredicate(record.predicate, selectionIds)
       ) {
         removals.push(record)
       }
     })
     const unexplainedRemovedSelections = attributedRemovals.filter(
-      selection => !removals.some(record => explainsSelection(record, selection))
+      selection => !removals.some(record => explainsSelection(record, selection.selectionId))
     )
     const total =
       reminderChanges.length + profileChanges.length + removals.length + unexplainedRemovedSelections.length
@@ -131,9 +146,39 @@ export const unacknowledgedAos4PublicationIds = (
   return artifact.retainedPublicationIds.filter(publicationId => !acknowledged.has(publicationId))
 }
 
+export type Aos4ChangelogStampStatus =
+  { kind: 'current' } | { kind: 'known'; pendingRetainedEntryIds: string[] } | { kind: 'unknown' }
+
 /**
- * True when the army's stamp names an acceptance the artifact no longer retains: the per-change
- * roll-up cannot be reconstructed, so the banner degrades to a generic pointer at /changelog.
+ * Places an army's stamp against the artifact's append-only entry knowledge (`knownEntryIds`).
+ *
+ * - `current`: the stamp names the newest acceptance; nothing is pending.
+ * - `known`: the artifact remembers the acceptance, whatever its disposition — an army stamped at
+ *   a churn-only acceptance lands here after the next rules-driven one, never in the behind path.
+ *   `pendingRetainedEntryIds` lists the retained rules-driven acceptances after the stamp, newest
+ *   first: their publications are enumerable, so the normal per-publication roll-up applies.
+ * - `unknown`: the artifact has no memory of the acceptance, so what happened since cannot be
+ *   enumerated and the banner degrades to the generic pointer at /changelog.
+ */
+export const resolveAos4ChangelogStampStatus = (
+  artifact: Aos4PublishedChangelog,
+  stamp: string
+): Aos4ChangelogStampStatus => {
+  if (artifact.revision !== null && stamp === artifact.revision) return { kind: 'current' }
+  const position = artifact.knownEntryIds.indexOf(stamp)
+  if (position === -1) return { kind: 'unknown' }
+  const after = new Set(artifact.knownEntryIds.slice(position + 1))
+  return {
+    kind: 'known',
+    pendingRetainedEntryIds: artifact.retainedEntryIds.filter(entryId => after.has(entryId)),
+  }
+}
+
+/**
+ * True when the army's stamp names an acceptance the artifact has no memory of: what happened
+ * since cannot be enumerated, so the banner degrades to a generic pointer at /changelog. A known
+ * stamp — retained, aged out, or churn-only — is never behind: its pending publications flow the
+ * normal roll-up instead.
  */
 export const isAos4ChangelogStampBehind = (
   artifact: Aos4PublishedChangelog,
@@ -141,7 +186,7 @@ export const isAos4ChangelogStampBehind = (
 ): boolean => {
   const stamp = document.changelog?.lastSeenRevision
   if (!stamp || artifact.revision === null) return false
-  return stamp !== artifact.revision && !artifact.retainedEntryIds.includes(stamp)
+  return resolveAos4ChangelogStampStatus(artifact, stamp).kind === 'unknown'
 }
 
 export const totalAos4ChangelogImpact = (impacts: readonly Aos4PublicationImpact[]): number =>
