@@ -126,21 +126,28 @@ Preserve it; do not change it as a side effect of other work.
   integration branch is explicitly established. Merging or pushing `master` requires explicit
   authorization.
 
-### Known launch gates
+### Launch gates (both cleared in the 2026-07-31 release window)
 
-**Production launch is blocked on subscription-API authorization.** The restored subscription API
-uses a public shared browser key and does not verify the user's Auth0 token or derive account
-ownership server-side. An Auth0-protected route is not API authorization. Launch requires
-server-side bearer-token verification, server-derived ownership, rejection of cross-account access,
-key rotation, and passing negative authorization tests. Do not describe the subscription API as
-secure. The separate army/share API (`src/api/armyApi.ts`) does send the user's Auth0 bearer token
-on every account operation.
+**Subscription-API authorization is resolved.** The subscription service verifies the caller's
+Auth0 bearer token, derives account ownership server-side, and verifies Stripe and PayPal callbacks
+against provider signatures; the shared browser key, caller-supplied account identifiers, and the
+legacy public routes were removed. `src/api/subscriptionApi.ts` sends `Authorization: Bearer` on
+every account call and fails closed without a token, as `src/api/armyApi.ts` already did. The work
+landed and was deployed to production on 2026-07-31 from the private
+`aos-reminders-subscription-api` repository; keep authorization and billing detail there rather than
+restating it here.
 
-**Cloud armies and sharing also require a coordinated production rollout.** The AoS 4-native
-army/share service was dev-validated, but the production frontend build must receive
-`VITE_ARMY_API_URL` and target a production deployment of that service. The current deployment
-workflow does not provide the variable. Until both sides are configured and smoke-tested, the
-capability is implemented but not production-ready; the coordinated work is tracked in #1804.
+**Cloud armies and sharing are configured and live.** `.github/workflows/deploy.yml` supplies
+`VITE_ARMY_API_URL` and `VITE_SUBSCRIPTION_API_URL` from the `PRODUCTION_ARMY_API_URL` and
+`PRODUCTION_SUBSCRIPTION_API_URL` repository variables, `scripts/deploymentConfig.ts` fails the
+build closed when either is missing or malformed, and the production smoke matrix recorded in #1805
+exercised create/list/update/load/delete plus opaque sharing against the live service. #1804 closed
+2026-08-02.
+
+Standing residue rather than launch gates: the operator-gated verification items (a second Auth0
+account for two-account negative matrices, a PayPal sandbox app for the valid-signature dev path,
+and live-money checkout observations) are follow-up coverage, not blockers on shipping or on paid
+messaging.
 
 ### Terminology
 
