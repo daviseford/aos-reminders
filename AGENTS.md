@@ -424,6 +424,11 @@ Accuracy review is a separate fail-closed layer:
 Use `yarn data:aos4:review:prepare`, `yarn data:aos4:review:adversarial`,
 `yarn data:aos4:certify:prepare`, and `yarn data:aos4:verify:beta` for the beta gate.
 
+The army changelog rides the same acceptance workflow: each accepted revision gets an append-only
+ledger entry (`data/aos4/changelog/ledger.json`) dispositioning changed cohorts as rules-driven,
+correction, or churn, and `yarn data:aos4:changelog:write` / `yarn data:aos4:changelog` generate
+and verify the shipped artifact. See [docs/data/aos4-changelog.md](./docs/data/aos4-changelog.md).
+
 Git history is the archive. Do not keep copied “reference” files in the working tree.
 
 ## Development conventions

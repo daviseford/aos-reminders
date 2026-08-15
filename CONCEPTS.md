@@ -28,6 +28,17 @@ The matched-play record for a unit — unit size, points, base sizes, and roster
 ### Content Group
 A named grouping of rules choices a faction offers — battle formations, spell/prayer lores, heroic traits, artefacts of power, and similar. Selecting a group brings its member abilities into the army.
 
+### Changelog Ledger
+The append-only reviewed input (`data/aos4/changelog/ledger.json`) that drives the army changelog:
+one entry per corpus acceptance, pinning the prior and current runtime revisions by checksum and
+dispositioning every changed cohort as rules-driven (attributed to exactly one causing
+publication), correction (our own data fix, labeled and never publication-attributed), or churn
+(engineering regeneration, excluded). The generated artifact ships the newest six rules-driven
+acceptances.
+
+### Battle Tactic
+The AoS 4 matched-play scoring mechanic: both players use an identical seasonal deck of dual-use cards (score the tactic at end of turn, or spend the card as a one-shot command), holding a hand of up to 3. The corpus holds the rules sections about the mechanic (general-rules content groups, including the current GHB 2026-27 section) and the faction abilities that interact with the deck, but not the individual cards — acquiring a season's card deck is unstarted future work.
+
 ### Battle Formation
 An additive army-structure choice within a faction: the player picks one formation and gains its ability alongside the faction's regular rules. Contrast with Army of Renown, which replaces rather than adds.
 

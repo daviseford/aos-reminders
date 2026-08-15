@@ -47,6 +47,16 @@ new event names.
 The item catalog in `src/utils/plans.ts` owns stable analytics item IDs and numeric unit prices.
 Subscription and gift items use the categories `subscription` and `gift_subscription`.
 
+Changelog surfaces reuse the fixed events above with bounded parameter values:
+
+- The in-army changelog banner logs `banner_view`/`banner_close` with `banner_name` values of the
+  form `changelog:<publicationId>` (publication IDs come from the reviewed ledger, a bounded set)
+  or `changelog:behind` for the behind-window banner.
+- Expanding a reminder's changed marker logs `ui_interaction` with
+  `interaction_name: changelog_marker_expand`. Collapse logs nothing.
+- The `/changelog` page needs no bespoke event; the router subscription reports its `page_view`.
+- Change detail (old and new rules text) is rules text and must never ride an event parameter.
+
 ## Custom definitions
 
 The following event-scoped custom dimensions are registered in GA4 Admin. Names mirror their event
