@@ -1,3 +1,4 @@
+import { computeAos4PublicationImpacts, type Aos4PublishedChangelog } from '../../aos4/changelog'
 import { armyFactions, type CanonicalId } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID } from '../../aos4/generated'
 import type { PrintDocumentOptions } from '../../aos4/print/document'
@@ -10,7 +11,14 @@ import {
   saveAos4ArmyDocument,
 } from '../../aos4/runtime'
 import { resolveSelection } from '../../aos4/select'
-import { createAos4ArmyDocument, setAos4ReminderPreference, type Aos4ArmyDocument } from '../../aos4/state'
+import {
+  advanceAos4ChangelogStamp,
+  createAos4ArmyDocument,
+  recordAos4RemovedSelection,
+  setAos4ReminderPreference,
+  stampAos4ChangelogRevision,
+  type Aos4ArmyDocument,
+} from '../../aos4/state'
 import {
   createAos4BuilderViewModel,
   createAos4ReminderSourceLinkResolver,
@@ -35,11 +43,23 @@ const SavedArmiesModal = lazy(() => import('components/input/cloudArmies/savedAr
 const ShareArmyModal = lazy(() => import('components/input/armySharing/shareArmyModal'))
 const SharedArmyModal = lazy(() => import('components/input/armySharing/sharedArmyModal'))
 
-const loadDocument = (): Aos4ArmyDocument => {
+interface LoadedArmyDocument {
+  document: Aos4ArmyDocument
+  /** Selection IDs the deserializer filtered because the catalog no longer carries them. */
+  missingSelectionIds: string[]
+}
+
+const loadDocument = (): LoadedArmyDocument => {
   try {
-    return loadAos4ArmyDocument(window.localStorage, AOS4_CATALOG).document
+    const { document, diagnostics } = loadAos4ArmyDocument(window.localStorage, AOS4_CATALOG)
+    return {
+      document,
+      missingSelectionIds: diagnostics.flatMap(diagnostic =>
+        diagnostic.code === 'missing-selection' && diagnostic.subject ? [diagnostic.subject] : []
+      ),
+    }
   } catch {
-    return createDefaultAos4ArmyDocument()
+    return { document: createDefaultAos4ArmyDocument(), missingSelectionIds: [] }
   }
 }
 
@@ -84,7 +104,9 @@ const SkipToReminders = () => (
 )
 
 const HomeContent = () => {
-  const [document, setDocument] = useState(loadDocument)
+  const [initialLoad] = useState(loadDocument)
+  const [document, setDocument] = useState(initialLoad.document)
+  const [changelogArtifact, setChangelogArtifact] = useState<Aos4PublishedChangelog>()
   const [isGameMode, setIsGameMode] = useState(false)
   const [importModalIsOpen, setImportModalIsOpen] = useState(false)
   const [savedArmiesModalIsOpen, setSavedArmiesModalIsOpen] = useState(false)
@@ -111,6 +133,19 @@ const HomeContent = () => {
   )
   const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
   const reminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
+  const projectedAbilityIds = useMemo(
+    () => Array.from(new Set(reminders.flatMap(reminder => reminder.projected.abilityIds))).sort(),
+    [reminders]
+  )
+  const hiddenAbilityIds = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          reminders.filter(reminder => reminder.hidden).flatMap(reminder => reminder.projected.abilityIds)
+        )
+      ).sort(),
+    [reminders]
+  )
   const hiddenCount = reminders.filter(reminder => reminder.hidden).length
   const selectedFactionId = document.explicitSelectionIds.find(id =>
     factionById.has(id as CanonicalId<'faction'>)
@@ -156,6 +191,68 @@ const HomeContent = () => {
       // Browser storage can be unavailable in privacy modes. The in-memory document remains usable.
     }
   }, [document])
+
+  /*
+   * The changelog artifact arrives by dynamic import so its bytes stay out of the entry chunk, and
+   * it fails open: a rejected import means no banner and no bookkeeping, never a broken screen.
+   */
+  useEffect(() => {
+    let cancelled = false
+    import('../../aos4/generated/changelog/changelog.json')
+      .then(module => {
+        if (!cancelled) setChangelogArtifact(module.default as Aos4PublishedChangelog)
+      })
+      .catch(error => {
+        if (import.meta.env.DEV) console.warn('AoS4 changelog artifact failed to load', error)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  /*
+   * Changelog bookkeeping rides the normal setDocument path, so it persists through the save
+   * effect above, and every document entry point (default doc, faction select, import, share,
+   * cloud load) is covered because they all funnel through setDocument. Three idempotent steps:
+   * removal records for selections the load path filtered, the silent rollout stamp for documents
+   * that predate the changelog, and the advance that clears the stamp once nothing affecting this
+   * army remains unacknowledged. A stamp behind the retained window is left alone: the banner owns
+   * that catch-up path.
+   */
+  useEffect(() => {
+    const artifact = changelogArtifact
+    if (!artifact || artifact.revision === null) return
+    const revision = artifact.revision
+    setDocument(current => {
+      let next = current
+      initialLoad.missingSelectionIds.forEach(selectionId => {
+        const explanation = artifact.records.find(
+          record =>
+            record.changeKind === 'removed' &&
+            record.attribution.kind === 'publication' &&
+            (record.entityId === selectionId || record.ownership.warscrollId === selectionId)
+        )
+        next = recordAos4RemovedSelection(next, {
+          selectionId,
+          detectedAtRevision: revision,
+          ...(explanation && explanation.attribution.kind === 'publication'
+            ? { publicationId: explanation.attribution.publicationId }
+            : {}),
+        })
+      })
+      const stamp = next.changelog?.lastSeenRevision
+      if (!stamp) return stampAos4ChangelogRevision(next, revision)
+      if (stamp !== revision && !artifact.retainedEntryIds.includes(stamp)) return next
+      const impacts = computeAos4PublicationImpacts(artifact, { document: next, projectedAbilityIds })
+      return advanceAos4ChangelogStamp(next, {
+        currentRevision: revision,
+        retainedPublicationIds: artifact.retainedPublicationIds,
+        affectingPublicationIds: impacts
+          .filter(impact => impact.total > 0)
+          .map(impact => impact.publication.publicationId),
+      })
+    })
+  }, [changelogArtifact, initialLoad, projectedAbilityIds])
 
   const setSelections = (groupIds: CanonicalId[], selectedIds: CanonicalId[]) => {
     setDocument(current => {
@@ -309,7 +406,16 @@ const HomeContent = () => {
         onToggleGameMode={toggleGameMode}
       />
 
-      <AppBanner />
+      <AppBanner
+        changelog={{
+          artifact: changelogArtifact,
+          document,
+          hiddenAbilityIds,
+          isGameMode,
+          projectedAbilityIds,
+          setDocument,
+        }}
+      />
 
       {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
 
