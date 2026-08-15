@@ -20,9 +20,12 @@ import {
   type Aos4ArmyDocument,
 } from '../../aos4/state'
 import {
+  aos4ReminderChangesByAbilityId,
   createAos4BuilderViewModel,
   createAos4ReminderSourceLinkResolver,
   createAos4ReminderViewModel,
+  migrateAos4ReminderPreferences,
+  withAos4ReminderChanges,
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
 import AppBanner from 'components/info/banners/app_banner'
@@ -132,19 +135,37 @@ const HomeContent = () => {
     [document.rulesContextId]
   )
   const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
-  const reminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
+  /*
+   * Undecorated view models: what the print export and the projection-derived ID lists consume.
+   * The changed markers are layered on separately below, because deriving them needs the projected
+   * ability IDs this list defines — decorating in one pass would be circular.
+   */
+  const baseReminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
   const projectedAbilityIds = useMemo(
-    () => Array.from(new Set(reminders.flatMap(reminder => reminder.projected.abilityIds))).sort(),
-    [reminders]
+    () => Array.from(new Set(baseReminders.flatMap(reminder => reminder.projected.abilityIds))).sort(),
+    [baseReminders]
   )
   const hiddenAbilityIds = useMemo(
     () =>
       Array.from(
         new Set(
-          reminders.filter(reminder => reminder.hidden).flatMap(reminder => reminder.projected.abilityIds)
+          baseReminders.filter(reminder => reminder.hidden).flatMap(reminder => reminder.projected.abilityIds)
         )
       ).sort(),
-    [reminders]
+    [baseReminders]
+  )
+  const reminderChanges = useMemo(
+    () =>
+      changelogArtifact
+        ? aos4ReminderChangesByAbilityId(
+            computeAos4PublicationImpacts(changelogArtifact, { document, projectedAbilityIds })
+          )
+        : undefined,
+    [changelogArtifact, document, projectedAbilityIds]
+  )
+  const reminders = useMemo(
+    () => withAos4ReminderChanges(baseReminders, reminderChanges),
+    [baseReminders, reminderChanges]
   )
   const hiddenCount = reminders.filter(reminder => reminder.hidden).length
   const selectedFactionId = document.explicitSelectionIds.find(id =>
@@ -168,8 +189,9 @@ const HomeContent = () => {
       renderPrintPlanToPdf,
       withPageSize,
     } = await import('../../aos4/print')
+    // Undecorated: a printed sheet must not carry the transient rules-update markers.
     const printDocument = createAos4PrintDocument(
-      reminders,
+      baseReminders,
       {
         armyName: document.name,
         factionName,
@@ -191,6 +213,20 @@ const HomeContent = () => {
       // Browser storage can be unavailable in privacy modes. The in-memory document remains usable.
     }
   }, [document])
+
+  /*
+   * A rules update that moves an ability's timing moves its reminder occurrence ID, stranding any
+   * hidden/note/order preference keyed on the old one. The migration is idempotent and returns the
+   * same document instance when nothing is stranded, so riding setDocument here persists a remap
+   * through the save effect above without ever looping.
+   */
+  useEffect(() => {
+    const occurrences = baseReminders.map(reminder => ({
+      id: reminder.id,
+      abilityIds: reminder.projected.abilityIds,
+    }))
+    setDocument(current => migrateAos4ReminderPreferences(current, occurrences))
+  }, [baseReminders])
 
   /*
    * The changelog artifact arrives by dynamic import so its bytes stay out of the entry chunk, and

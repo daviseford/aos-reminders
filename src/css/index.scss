@@ -484,6 +484,17 @@ small {
   }
 }
 
+/**
+ * The changed marker's expanded old → new rows, one per field delta. They mirror the RuleText rows
+ * beneath them — upright, one per line — inside the italic explainer, with the old value carried by
+ * a native <del> exactly as the public /changelog page renders the same record.
+ */
+.ReminderChangeDelta {
+  display: block;
+  margin-block-start: 0.2rem;
+  font-style: normal;
+}
+
 @mixin tag-tones(
   $cost,
   $active,
@@ -495,7 +506,8 @@ small {
   $usage,
   $source,
   $provenance,
-  $keyword
+  $keyword,
+  $changed
 ) {
   .ReminderTag {
     &--cost {
@@ -540,6 +552,13 @@ small {
     &--keyword {
       @include tag-tone($keyword...);
     }
+    /*
+         * The rules-update marker (issue: army changelog). A filled gold chip so an updated rule is
+         * findable at a glance without shouting over the timing tones.
+         */
+    &--changed {
+      @include tag-tone($changed...);
+    }
   }
 }
 
@@ -561,7 +580,8 @@ small {
     (transparent, #5b6b74, #b9c5cc),
     (#efeaf7, #543e7a, #d3c6e8),
     (transparent, #6b6085, #cfc4e2),
-    (#f7e9f1, #7a2e5b, #e6c3d8)
+    (#f7e9f1, #7a2e5b, #e6c3d8),
+    (#fbf3cd, #6d5606, #e7d795)
   );
 }
 
@@ -577,7 +597,8 @@ small {
     (transparent, #a9bac3, rgba(255, 255, 255, 0.3)),
     (rgba(132, 100, 190, 0.24), #cbb8ee, rgba(132, 100, 190, 0.45)),
     (transparent, #b3a4cf, rgba(132, 100, 190, 0.45)),
-    (rgba(190, 90, 145, 0.24), #f0b1d4, rgba(190, 90, 145, 0.45))
+    (rgba(190, 90, 145, 0.24), #f0b1d4, rgba(190, 90, 145, 0.45)),
+    (rgba(212, 180, 60, 0.26), #ecd27f, rgba(212, 180, 60, 0.5))
   );
 }
 

@@ -122,6 +122,8 @@ const TAG_TONES: Record<PrintTagTone, PrintTagStyle> = {
   // rather than a pick, so it keeps the same family hue at a more muted ink.
   provenance: { text: [107, 96, 133], border: [107, 96, 133] },
   keyword: { text: [122, 46, 91], border: [122, 46, 91] },
+  // Screen-only in practice (Home prints undecorated reminders); defined so the record stays total.
+  changed: { text: [109, 86, 6], border: [109, 86, 6] },
 }
 
 export const STANDARD_PRESET: PrintPreset = {
