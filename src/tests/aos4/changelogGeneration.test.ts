@@ -445,6 +445,35 @@ describe('AoS 4 changelog generation command', () => {
     )
   })
 
+  it('ships a checked-in seed with at least one publication-attributed rules-driven entry', async () => {
+    // Guards the real published artifact, not fixtures: the changelog must launch with a genuine
+    // rules-driven acceptance, and a correction-only seed is not enough.
+    const artifact = JSON.parse(
+      await readFile(path.join('src', 'aos4', 'generated', 'changelog', 'changelog.json'), 'utf8')
+    ) as Aos4PublishedChangelog
+    expect(artifact.schemaVersion).toBe(AOS4_CHANGELOG_SCHEMA_VERSION)
+    expect(artifact.revision).not.toBeNull()
+    expect(artifact.retainedEntryIds.length).toBeGreaterThan(0)
+    expect(artifact.publications.length).toBeGreaterThan(0)
+    expect(artifact.records.length).toBeGreaterThan(0)
+    const publicationIds = new Set(artifact.publications.map(publication => publication.publicationId))
+    artifact.publications.forEach(publication => {
+      expect(publication.name).toBeTruthy()
+      expect(publication.source).toBeTruthy()
+    })
+    artifact.records.forEach(record => {
+      expect(record.attribution.kind).toBe('publication')
+      if (record.attribution.kind === 'publication') {
+        expect(publicationIds.has(record.attribution.publicationId)).toBe(true)
+      }
+      expect(record.name).toBeTruthy()
+    })
+    artifact.corrections.forEach(record => {
+      expect(record.attribution).toEqual({ kind: 'correction' })
+      expect(record.name).toBeTruthy()
+    })
+  })
+
   it('produces a valid empty artifact from an empty ledger that verifies green', async () => {
     const workspace = await createWorkspace()
     await writeRuntime(workspace, projectionBytes(buildCatalog()))

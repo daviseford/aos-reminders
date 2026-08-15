@@ -1,5 +1,21 @@
 {
-  "corrections": [
+  "currentGeneratedAt": "2026-08-03T13:00:00.000Z",
+  "entryId": "ogor-mawtribes-battletome-2026-07",
+  "priorGeneratedAt": "2026-08-02T22:00:00.000Z",
+  "publications": [
+    {
+      "name": "Battle Profiles - Ogor Mawtribes",
+      "publicationId": "publication:battle-profiles-ogor-mawtribes-2026-07",
+      "source": "https://assets.warhammer-community.com/eng_15-07_aos_battle_profiles_ogor_mawtribes-xyrqrriy18-i8lyby0m4w.pdf"
+    },
+    {
+      "effectiveDate": "2026-07-29",
+      "name": "Battletome Supplement: Ogor Mawtribes",
+      "publicationId": "publication:battletome-supplement-ogor-mawtribes-2026-07",
+      "source": "https://assets.warhammer-community.com/eng_29-07_warhammer_age_of_sigmar_battletome_supplement_ogor_mawtribes-ivueka6svf-jdttrqk7mn.pdf"
+    }
+  ],
+  "records": [
     {
       "attribution": {
         "kind": "correction"
@@ -27,22 +43,7 @@
         "points": 200,
         "unitSize": 5
       }
-    }
-  ],
-  "publications": [
-    {
-      "name": "Battle Profiles - Ogor Mawtribes",
-      "publicationId": "publication:battle-profiles-ogor-mawtribes-2026-07",
-      "source": "https://assets.warhammer-community.com/eng_15-07_aos_battle_profiles_ogor_mawtribes-xyrqrriy18-i8lyby0m4w.pdf"
     },
-    {
-      "effectiveDate": "2026-07-29",
-      "name": "Battletome Supplement: Ogor Mawtribes",
-      "publicationId": "publication:battletome-supplement-ogor-mawtribes-2026-07",
-      "source": "https://assets.warhammer-community.com/eng_29-07_warhammer_age_of_sigmar_battletome_supplement_ogor_mawtribes-ivueka6svf-jdttrqk7mn.pdf"
-    }
-  ],
-  "records": [
     {
       "attribution": {
         "kind": "publication",
@@ -5976,13 +5977,5 @@
       }
     }
   ],
-  "retainedEntryIds": [
-    "ogor-mawtribes-battletome-2026-07"
-  ],
-  "retainedPublicationIds": [
-    "publication:battle-profiles-ogor-mawtribes-2026-07",
-    "publication:battletome-supplement-ogor-mawtribes-2026-07"
-  ],
-  "revision": "ogor-mawtribes-battletome-2026-07",
   "schemaVersion": 1
 }
