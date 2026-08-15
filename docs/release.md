@@ -51,25 +51,28 @@ corrupt private bytes are a no-go for offline replay; do not fall back to an unr
 during a release. A UI-only release does not need to restore the source cache, but it still runs the
 checked-in beta gate.
 
-Before merging #1717, confirm all of the following:
+Before merging a release into `master`, confirm all of the following:
 
 - the PR title does not trip the WIP check and every required GitHub check is green;
 - the accepted beta pointer in `data/aos4/certifications/beta.json` resolves to the certification
   directory for the currently accepted corpus, and `yarn data:aos4:verify:beta` passes. Do not
   restate the directory name here — it changes with every accepted refresh;
 - the project owner explicitly authorizes the `master` merge and resulting frontend deployment;
-- the AoS 4-native army/share service through `aos-reminders-rest-api#11` is deployed to production
-  with the production entitlement URL, Auth0 issuer/audience, share base URL, and CORS origins;
-  [#1804](https://github.com/daviseford/aos-reminders/issues/1804) tracks the coordinated rollout;
 - repository variables `PRODUCTION_ARMY_API_URL` and `PRODUCTION_SUBSCRIPTION_API_URL` contain the
   compatible production HTTP API endpoints. The deployment workflow maps them to the two Vite
   variables, validates them, and confirms both are embedded in the artifact;
-- the subscription-account authorization work is resolved and its negative authorization matrix
-  passes. That work is tracked in the private `aos-reminders-subscription-api` repository; do not
-  restate its detail here.
+- any companion-service revision the release depends on is already deployed to production, so no
+  build advertises a capability the live services cannot serve.
 
-The last two bullets are production gates, not documentation warnings. Merging without them can
-publish paid-feature claims for capabilities that are unavailable or insufficiently authorized.
+Those are production gates, not documentation warnings. Merging without them can publish
+paid-feature claims for capabilities that are unavailable or insufficiently authorized.
+
+The two one-time 6.0.0 gates are closed and should not be restated as open work: the
+subscription-account authorization work shipped and deployed on 2026-07-31 (private
+`aos-reminders-subscription-api` repository; do not restate its detail here), and the coordinated
+army/share rollout tracked in
+[#1804](https://github.com/daviseford/aos-reminders/issues/1804) closed 2026-08-02 with both
+repository variables set and the production smoke matrix recorded in #1805.
 
 ## Cutover evidence record
 
