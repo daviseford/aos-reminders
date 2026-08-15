@@ -36,7 +36,7 @@ import Toolbar from 'components/input/toolbar/toolbar'
 import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
 import { ArmyCollectionProvider } from 'context/useArmyCollection'
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { logFactionSelection, logGameModeChange, logPdfDownload } from 'utils/analytics'
 import { consumePendingShareId } from 'utils/shareLink'
 
@@ -141,9 +141,21 @@ const HomeContent = () => {
    * ability IDs this list defines — decorating in one pass would be circular.
    */
   const baseReminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
-  const projectedAbilityIds = useMemo(
-    () => Array.from(new Set(baseReminders.flatMap(reminder => reminder.projected.abilityIds))).sort(),
+  /*
+   * The projected ability IDs are memoized on a cheap string signature rather than baseReminders,
+   * so unrelated document edits (notes, hidden, order) keep the same array reference while the
+   * projection's contents are unchanged.
+   */
+  const projectedAbilityIdsSignature = useMemo(
+    () =>
+      Array.from(new Set(baseReminders.flatMap(reminder => reminder.projected.abilityIds)))
+        .sort()
+        .join('\n'),
     [baseReminders]
+  )
+  const projectedAbilityIds = useMemo(
+    () => (projectedAbilityIdsSignature ? projectedAbilityIdsSignature.split('\n') : []),
+    [projectedAbilityIdsSignature]
   )
   const hiddenAbilityIds = useMemo(
     () =>
@@ -154,18 +166,46 @@ const HomeContent = () => {
       ).sort(),
     [baseReminders]
   )
-  const reminderChanges = useMemo(
+  /*
+   * The impacts are computed once here and shared by the reminder markers and the banner. The memo
+   * reads the current document through a ref while keying on string signatures of the two document
+   * fields the computation actually reads (explicit selections and changelog state), so note,
+   * hidden, and order edits keep the previous impacts array.
+   */
+  const documentRef = useRef(document)
+  documentRef.current = document
+  const explicitSelectionsSignature = document.explicitSelectionIds.join('\n')
+  const changelogStateSignature = JSON.stringify(document.changelog ?? null)
+  const publicationImpacts = useMemo(
     () =>
       changelogArtifact
-        ? aos4ReminderChangesByAbilityId(
-            computeAos4PublicationImpacts(changelogArtifact, { document, projectedAbilityIds })
-          )
+        ? computeAos4PublicationImpacts(changelogArtifact, {
+            document: documentRef.current,
+            projectedAbilityIds,
+          })
         : undefined,
-    [changelogArtifact, document, projectedAbilityIds]
+    [changelogArtifact, changelogStateSignature, explicitSelectionsSignature, projectedAbilityIds]
+  )
+  const reminderChanges = useMemo(
+    () => (publicationImpacts ? aos4ReminderChangesByAbilityId(publicationImpacts) : undefined),
+    [publicationImpacts]
   )
   const reminders = useMemo(
     () => withAos4ReminderChanges(baseReminders, reminderChanges),
     [baseReminders, reminderChanges]
+  )
+  // Memoized so AppBanner is not handed a fresh prop object literal on every render.
+  const changelogBannerProps = useMemo(
+    () => ({
+      artifact: changelogArtifact,
+      document,
+      hiddenAbilityIds,
+      impacts: publicationImpacts,
+      isGameMode,
+      projectedAbilityIds,
+      setDocument,
+    }),
+    [changelogArtifact, document, hiddenAbilityIds, isGameMode, projectedAbilityIds, publicationImpacts]
   )
   const hiddenCount = reminders.filter(reminder => reminder.hidden).length
   const selectedFactionId = document.explicitSelectionIds.find(id =>
@@ -236,7 +276,8 @@ const HomeContent = () => {
     let cancelled = false
     import('../../aos4/generated/changelog/changelog.json')
       .then(module => {
-        if (!cancelled) setChangelogArtifact(module.default as Aos4PublishedChangelog)
+        // The JSON import infers plain-string literal types; the ledger owns the real branded shape.
+        if (!cancelled) setChangelogArtifact(module.default as unknown as Aos4PublishedChangelog)
       })
       .catch(error => {
         if (import.meta.env.DEV) console.warn('AoS4 changelog artifact failed to load', error)
@@ -442,16 +483,7 @@ const HomeContent = () => {
         onToggleGameMode={toggleGameMode}
       />
 
-      <AppBanner
-        changelog={{
-          artifact: changelogArtifact,
-          document,
-          hiddenAbilityIds,
-          isGameMode,
-          projectedAbilityIds,
-          setDocument,
-        }}
-      />
+      <AppBanner changelog={changelogBannerProps} />
 
       {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
 

@@ -1,6 +1,7 @@
 import type { CanonicalId } from '../domain'
 import {
   AOS4_CHANGELOG_SCHEMA_VERSION,
+  toChangelogPublication,
   type ChangeRecord,
   type ChangelogCohortInput,
   type ChangelogFactSelector,
@@ -181,13 +182,6 @@ const isRulesDriven = (entry: ChangelogLedgerEntry): boolean =>
 export const retainedLedgerEntries = (entries: ChangelogLedgerEntry[]): ChangelogLedgerEntry[] =>
   entries.filter(isRulesDriven).slice(-AOS4_CHANGELOG_RETAINED_ACCEPTANCES).reverse()
 
-const publishedPublication = (publication: ChangelogPublicationInput): ChangelogPublication => ({
-  publicationId: publication.publicationId,
-  name: publication.name,
-  source: publication.source,
-  ...(publication.effectiveDate ? { effectiveDate: publication.effectiveDate } : {}),
-})
-
 /**
  * Deterministically merges the retained acceptances' record files into the published artifact.
  * Verification recomputes this from the checked-in ledger and record files alone, so it never
@@ -219,7 +213,7 @@ export const buildAos4PublishedChangelog = (
         if (seenPublicationIds.has(publication.publicationId)) return
         seenPublicationIds.add(publication.publicationId)
         retainedPublicationIds.push(publication.publicationId)
-        publications.push(publishedPublication(publication))
+        publications.push(toChangelogPublication(publication))
       })
   })
   return {

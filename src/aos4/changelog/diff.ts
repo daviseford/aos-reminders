@@ -2,6 +2,7 @@ import type { AbilityTiming, Aos4Catalog, CanonicalId, ContentEntity, ContentRel
 import { stableCompactJson } from '../generate/serialization'
 import {
   AOS4_CHANGELOG_SCHEMA_VERSION,
+  toChangelogPublication,
   type ChangeAttribution,
   type ChangeFieldDelta,
   type ChangeRecord,
@@ -9,6 +10,7 @@ import {
   type ChangeSelectionPredicate,
   type ChangelogAcceptance,
   type ChangelogArtifact,
+  type ChangelogCohortInput,
   type ChangelogFactSelector,
   type ChangelogJsonValue,
   type ChangelogPublication,
@@ -219,20 +221,35 @@ type DistributiveOmit<T, TKey extends PropertyKey> = T extends unknown
 /** A change record before cohort disposition assigns (or withholds) its attribution. */
 type PendingRecord = DistributiveOmit<ChangeRecord, 'attribution'>
 
-const matchesSelector = (selector: ChangelogFactSelector | undefined, record: PendingRecord): boolean => {
+/** A fact selector with its ID lists resolved to Sets for O(1) membership checks. */
+interface ResolvedFactSelector {
+  entityIds?: Set<string>
+  factionIds?: Set<string>
+  warscrollIds?: Set<string>
+}
+
+const resolveSelector = (selector: ChangelogFactSelector | undefined): ResolvedFactSelector | undefined =>
+  selector && {
+    ...(selector.entityIds ? { entityIds: new Set<string>(selector.entityIds) } : {}),
+    ...(selector.factionIds ? { factionIds: new Set<string>(selector.factionIds) } : {}),
+    ...(selector.warscrollIds ? { warscrollIds: new Set<string>(selector.warscrollIds) } : {}),
+  }
+
+const matchesSelector = (selector: ResolvedFactSelector | undefined, record: PendingRecord): boolean => {
   if (!selector) return true
-  if (selector.entityIds?.includes(record.entityId)) return true
+  const { entityIds, factionIds, warscrollIds } = selector
+  if (entityIds?.has(record.entityId)) return true
   if (
-    selector.factionIds?.some(
-      factionId => factionId === record.entityId || record.ownership.factionIds.includes(factionId)
-    )
+    factionIds &&
+    (factionIds.has(record.entityId) ||
+      record.ownership.factionIds.some(factionId => factionIds.has(factionId)))
   ) {
     return true
   }
   if (
-    selector.warscrollIds?.some(
-      warscrollId => warscrollId === record.entityId || record.ownership.warscrollId === warscrollId
-    )
+    warscrollIds &&
+    (warscrollIds.has(record.entityId) ||
+      (record.ownership.warscrollId !== undefined && warscrollIds.has(record.ownership.warscrollId)))
   ) {
     return true
   }
@@ -241,18 +258,22 @@ const matchesSelector = (selector: ChangelogFactSelector | undefined, record: Pe
 
 const publicationAttribution = (publication: ChangelogPublicationInput): ChangeAttribution => ({
   kind: 'publication',
-  publicationId: publication.publicationId,
-  name: publication.name,
-  source: publication.source,
-  ...(publication.effectiveDate ? { effectiveDate: publication.effectiveDate } : {}),
+  ...toChangelogPublication(publication),
 })
+
+/** Resolved selectors keyed by the cohort or publication that declared them, built once per diff. */
+type ResolvedSelectors = ReadonlyMap<
+  ChangelogCohortInput | ChangelogPublicationInput,
+  ResolvedFactSelector | undefined
+>
 
 const attributeRecord = (
   record: PendingRecord,
   acceptance: ChangelogAcceptance,
-  publicationsById: Map<CanonicalId<'publication'>, ChangelogPublicationInput>
+  publicationsById: Map<CanonicalId<'publication'>, ChangelogPublicationInput>,
+  resolvedSelectors: ResolvedSelectors
 ): ChangeAttribution | undefined => {
-  const cohorts = acceptance.cohorts.filter(cohort => matchesSelector(cohort.selector, record))
+  const cohorts = acceptance.cohorts.filter(cohort => matchesSelector(resolvedSelectors.get(cohort), record))
   if (cohorts.length !== 1) {
     throw new Error(
       `Change record for ${record.entityId} matched ${cohorts.length} acceptance cohorts; every change must belong to exactly one cohort`
@@ -276,7 +297,9 @@ const attributeRecord = (
   }
   if (publications.length === 1) return publicationAttribution(publications[0])
 
-  const matches = publications.filter(publication => matchesSelector(publication.selector, record))
+  const matches = publications.filter(publication =>
+    matchesSelector(resolvedSelectors.get(publication), record)
+  )
   if (matches.length !== 1) {
     throw new Error(
       `Rules-driven change for ${record.entityId} matched ${matches.length} publication selectors in cohort "${cohort.name}"; expected exactly one`
@@ -301,6 +324,14 @@ export const diffAos4Catalogs = (
   const currentView = createView(current)
   const publicationsById = new Map(
     acceptance.publications.map(publication => [publication.publicationId, publication])
+  )
+  const resolvedSelectors = new Map<
+    ChangelogCohortInput | ChangelogPublicationInput,
+    ResolvedFactSelector | undefined
+  >()
+  acceptance.cohorts.forEach(cohort => resolvedSelectors.set(cohort, resolveSelector(cohort.selector)))
+  acceptance.publications.forEach(publication =>
+    resolvedSelectors.set(publication, resolveSelector(publication.selector))
   )
 
   const entityIds = Array.from(
@@ -367,7 +398,7 @@ export const diffAos4Catalogs = (
 
   const records: ChangeRecord[] = []
   pending.forEach(record => {
-    const attribution = attributeRecord(record, acceptance, publicationsById)
+    const attribution = attributeRecord(record, acceptance, publicationsById, resolvedSelectors)
     if (!attribution) return
     records.push({ ...record, attribution } as ChangeRecord)
   })
@@ -385,12 +416,7 @@ export const diffAos4Catalogs = (
 
   const publications: ChangelogPublication[] = [...acceptance.publications]
     .sort((left, right) => compareIds(left.publicationId, right.publicationId))
-    .map(publication => ({
-      publicationId: publication.publicationId,
-      name: publication.name,
-      source: publication.source,
-      ...(publication.effectiveDate ? { effectiveDate: publication.effectiveDate } : {}),
-    }))
+    .map(toChangelogPublication)
 
   return {
     schemaVersion: AOS4_CHANGELOG_SCHEMA_VERSION,

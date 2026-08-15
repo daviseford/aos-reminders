@@ -1,5 +1,4 @@
 import { execFile } from 'node:child_process'
-import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -13,6 +12,7 @@ import {
   type ChangelogAcceptanceRecords,
   type ChangelogLedgerEntry,
 } from '../changelog'
+import { artifactChecksum } from '../data/artifact'
 import type { Aos4Catalog } from '../domain'
 import { inflateRuntimeProjection } from '../runtimeProjection/inflate'
 import { stableJson } from './serialization'
@@ -88,9 +88,7 @@ export const parseChangelogCommandArguments = (arguments_: string[]): ChangelogC
   return parsed
 }
 
-const sha256Hex = (bytes: Uint8Array): string => createHash('sha256').update(bytes).digest('hex')
-
-const checksumOfText = (content: string): string => sha256Hex(new TextEncoder().encode(content))
+const checksumOfText = (content: string): string => artifactChecksum(new TextEncoder().encode(content))
 
 // Git's text checkout may materialize committed LF JSON as CRLF on Windows. Ledger pins,
 // product checksums, and drift comparisons are all LF-normalized.
@@ -142,7 +140,7 @@ const inflateCatalog = (content: string, label: string): Aos4Catalog => {
 
 const generateAcceptanceRecords = async (
   entry: ChangelogLedgerEntry,
-  currentRuntime: string,
+  inflateCurrentCatalog: (entryId: string) => Aos4Catalog,
   runtimeChecksum: string,
   io: ChangelogCommandIo
 ): Promise<string> => {
@@ -150,7 +148,7 @@ const generateAcceptanceRecords = async (
   // checked-in one; older acceptances keep their append-only record files instead.
   assertCurrentRuntimePin(entry, runtimeChecksum)
   const priorBytes = await io.resolvePriorProjectionBytes(entry)
-  const priorChecksum = sha256Hex(priorBytes)
+  const priorChecksum = artifactChecksum(priorBytes)
   if (priorChecksum !== entry.prior.runtimeBlobSha256) {
     throw new Error(
       `Prior runtime blob for changelog entry ${entry.id} has checksum ${priorChecksum}; the ledger ` +
@@ -161,10 +159,7 @@ const generateAcceptanceRecords = async (
     new TextDecoder().decode(priorBytes),
     `Prior runtime projection for changelog entry ${entry.id} is invalid`
   )
-  const current = inflateCatalog(
-    currentRuntime,
-    `Checked-in runtime projection for changelog entry ${entry.id} is invalid`
-  )
+  const current = inflateCurrentCatalog(entry.id)
   const diffed = diffAos4Catalogs(prior, current, {
     publications: entry.publications,
     cohorts: entry.cohorts,
@@ -180,18 +175,17 @@ const generateAcceptanceRecords = async (
   return stableJson(records)
 }
 
-const loadAcceptanceRecords = async (
+/** Loads and validates one acceptance's record file, or returns null when the file is absent. */
+const loadAcceptanceRecordsIfPresent = async (
   recordsDirectory: string,
   entry: ChangelogLedgerEntry
-): Promise<ChangelogAcceptanceRecords> => {
+): Promise<ChangelogAcceptanceRecords | null> => {
   const filePath = recordFilePath(recordsDirectory, entry.id)
   let content: string
   try {
     content = await readFile(filePath, 'utf8')
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-      throw new Error(`Changelog record file is missing for entry ${entry.id}: ${filePath}`)
-    }
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return null
     throw error
   }
   const value = JSON.parse(content) as ChangelogAcceptanceRecords
@@ -201,14 +195,17 @@ const loadAcceptanceRecords = async (
   return value
 }
 
-const fileExists = async (filePath: string): Promise<boolean> =>
-  readFile(filePath, 'utf8').then(
-    () => true,
-    error => {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') return false
-      throw error
-    }
-  )
+const loadAcceptanceRecords = async (
+  recordsDirectory: string,
+  entry: ChangelogLedgerEntry
+): Promise<ChangelogAcceptanceRecords> => {
+  const records = await loadAcceptanceRecordsIfPresent(recordsDirectory, entry)
+  if (!records) {
+    const filePath = recordFilePath(recordsDirectory, entry.id)
+    throw new Error(`Changelog record file is missing for entry ${entry.id}: ${filePath}`)
+  }
+  return records
+}
 
 const writeProduct = async (filePath: string, bytes: string): Promise<void> => {
   await mkdir(path.dirname(filePath), { recursive: true })
@@ -243,21 +240,38 @@ export const runChangelogCommand = async (
 ): Promise<void> => {
   const entries = await loadChangelogLedger(arguments_.ledgerPath)
   const newest = entries.length ? entries[entries.length - 1] : undefined
+  // Record files the write pass already read or generated, so each file is read at most once.
+  const preloadedRecords = new Map<string, ChangelogAcceptanceRecords>()
   if (newest) {
     const currentRuntime = await readCheckedInRuntime(arguments_.runtimePath)
     const runtimeChecksum = checksumOfText(currentRuntime)
     assertCurrentRuntimePin(newest, runtimeChecksum)
     if (arguments_.write) {
+      // The checked-in runtime is inflated at most once, shared by every entry missing a record file.
+      let currentCatalog: Aos4Catalog | undefined
+      const inflateCurrentCatalog = (entryId: string): Aos4Catalog =>
+        (currentCatalog ??= inflateCatalog(
+          currentRuntime,
+          `Checked-in runtime projection for changelog entry ${entryId} is invalid`
+        ))
       for (const entry of entries) {
-        if (await fileExists(recordFilePath(arguments_.recordsDirectory, entry.id))) continue
-        const bytes = await generateAcceptanceRecords(entry, currentRuntime, runtimeChecksum, io)
+        const existing = await loadAcceptanceRecordsIfPresent(arguments_.recordsDirectory, entry)
+        if (existing) {
+          preloadedRecords.set(entry.id, existing)
+          continue
+        }
+        const bytes = await generateAcceptanceRecords(entry, inflateCurrentCatalog, runtimeChecksum, io)
         await writeProduct(recordFilePath(arguments_.recordsDirectory, entry.id), bytes)
+        preloadedRecords.set(entry.id, JSON.parse(bytes) as ChangelogAcceptanceRecords)
       }
     }
   }
   const recordsByEntryId = new Map<string, ChangelogAcceptanceRecords>()
   for (const entry of retainedLedgerEntries(entries)) {
-    recordsByEntryId.set(entry.id, await loadAcceptanceRecords(arguments_.recordsDirectory, entry))
+    recordsByEntryId.set(
+      entry.id,
+      preloadedRecords.get(entry.id) ?? (await loadAcceptanceRecords(arguments_.recordsDirectory, entry))
+    )
   }
   const artifactBytes = stableJson(buildAos4PublishedChangelog(entries, recordsByEntryId))
   if (arguments_.write) {

@@ -1,4 +1,5 @@
 export * from './diff'
+export * from './format'
 export * from './ledger'
 export * from './match'
 export * from './types'

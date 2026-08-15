@@ -308,6 +308,10 @@ const Harness = ({
 }: HarnessProps) => {
   const [document, setDocument] = useState(initialDocument)
   latest.document = document
+  // Home owns the impact computation and hands the banner the result; the harness does the same.
+  const impacts = artifact
+    ? computeAos4PublicationImpacts(artifact, { document, projectedAbilityIds })
+    : undefined
   return (
     <MemoryRouter>
       <ChangelogBanner
@@ -315,6 +319,7 @@ const Harness = ({
         document={document}
         fallback={<p>welcome fallback</p>}
         hiddenAbilityIds={hiddenAbilityIds}
+        impacts={impacts}
         isGameMode={isGameMode}
         projectedAbilityIds={projectedAbilityIds}
         setDocument={setDocument}

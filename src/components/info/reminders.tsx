@@ -1,4 +1,4 @@
-import type { ChangelogJsonValue } from '../../aos4/changelog'
+import { formatChangelogValue } from '../../aos4/changelog'
 import type { Aos4ReminderChange, Aos4ReminderViewModel } from '../../aos4/view'
 import { CollapsibleCardHeader } from 'components/helpers/collapsibleCardHeader'
 import { logClick } from 'utils/analytics'
@@ -64,13 +64,6 @@ const RuleText = ({ label, text, muted = false }: { label?: string; text: string
   )
 }
 
-/** Mirrors the public Changelog page's value rendering, adapted to the tag explainer. */
-const formatChangeValue = (value: ChangelogJsonValue | undefined): string => {
-  if (value === undefined || value === null) return '(none)'
-  if (typeof value === 'string') return value
-  return JSON.stringify(value)
-}
-
 /**
  * The timing facets as discrete tags. Tag text is real text rather than decoration, so a screen
  * reader announces the same words the flattened prefix used to supply.
@@ -131,7 +124,7 @@ export const ReminderTags = ({
           {explainedTag.tone === 'changed' &&
             change?.fields.map(delta => (
               <span key={delta.field} className={`ReminderChangeDelta ${theme.text}`}>
-                <del>{formatChangeValue(delta.previous)}</del> &rarr; {formatChangeValue(delta.next)}
+                <del>{formatChangelogValue(delta.previous)}</del> &rarr; {formatChangelogValue(delta.next)}
               </span>
             ))}
         </span>

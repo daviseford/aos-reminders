@@ -3,8 +3,10 @@ import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import Footer from 'components/page/footer'
 import { useTheme } from 'context/useTheme'
 import { lazy, Suspense, useEffect, useState } from 'react'
+import { formatChangelogValue } from '../../aos4/changelog/format'
 import type { Aos4PublishedChangelog } from '../../aos4/changelog/ledger'
 import type { ChangeFieldDelta, ChangelogJsonValue, ChangeRecord } from '../../aos4/changelog/types'
+import { titleCase } from '../../aos4/view/reminders'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -33,8 +35,10 @@ const Changelog = () => {
     setState({ status: 'loading' })
     import('../../aos4/generated/changelog/changelog.json')
       .then(module => {
-        // The empty seed artifact types its arrays as never[]; the ledger owns the real shape.
-        if (!cancelled) setState({ status: 'loaded', changelog: module.default as Aos4PublishedChangelog })
+        // The JSON import infers plain-string literal types; the ledger owns the real branded shape.
+        if (!cancelled) {
+          setState({ status: 'loaded', changelog: module.default as unknown as Aos4PublishedChangelog })
+        }
       })
       .catch(() => {
         if (!cancelled) setState({ status: 'error' })
@@ -125,6 +129,13 @@ const LoadedChangelog = ({ changelog }: { changelog: Aos4PublishedChangelog }) =
 
   const newest = changelog.publications[0]
 
+  const recordsByPublication = new Map<string, ChangeRecord[]>()
+  changelog.records.forEach(record => {
+    if (record.attribution.kind !== 'publication') return
+    const { publicationId } = record.attribution
+    recordsByPublication.set(publicationId, [...(recordsByPublication.get(publicationId) ?? []), record])
+  })
+
   return (
     <>
       {newest && (
@@ -134,11 +145,7 @@ const LoadedChangelog = ({ changelog }: { changelog: Aos4PublishedChangelog }) =
         <PublicationSection
           key={publication.publicationId}
           publication={publication}
-          records={changelog.records.filter(
-            record =>
-              record.attribution.kind === 'publication' &&
-              record.attribution.publicationId === publication.publicationId
-          )}
+          records={recordsByPublication.get(publication.publicationId) ?? []}
         />
       ))}
       {changelog.corrections.length > 0 && <CorrectionsSection corrections={changelog.corrections} />}
@@ -221,12 +228,7 @@ const CorrectionsSection = ({ corrections }: { corrections: ChangeRecord[] }) =>
  * heading is derived the same way the army builder titles its selector groups. A record owned by
  * several factions appears once, under the joined heading, rather than duplicated per faction.
  */
-const factionDisplayName = (factionId: string): string =>
-  factionId
-    .replace(/^faction:/, '')
-    .split('-')
-    .map(part => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
-    .join(' ')
+const factionDisplayName = (factionId: string): string => titleCase(factionId.replace(/^faction:/, ''))
 
 const factionHeading = (record: ChangeRecord): string =>
   record.ownership.factionIds.length
@@ -262,12 +264,6 @@ const changeKindLabel: Record<ChangeRecord['changeKind'], string> = {
   removed: 'Removed',
 }
 
-const formatValue = (value: ChangelogJsonValue | undefined): string => {
-  if (value === undefined || value === null) return '(none)'
-  if (typeof value === 'string') return value
-  return JSON.stringify(value)
-}
-
 const RecordEntry = ({ record }: { record: ChangeRecord }) => {
   const { theme } = useTheme()
 
@@ -292,7 +288,7 @@ const FieldDeltas = ({ fields }: { fields: ChangeFieldDelta[] }) => {
       {fields.map(delta => (
         <li key={delta.field}>
           <small className={theme.textMuted}>{delta.field}: </small>
-          <del>{formatValue(delta.previous)}</del> &rarr; {formatValue(delta.next)}
+          <del>{formatChangelogValue(delta.previous)}</del> &rarr; {formatChangelogValue(delta.next)}
         </li>
       ))}
     </ul>
@@ -307,7 +303,7 @@ const FactList = ({ facts, removed }: { facts: Record<string, ChangelogJsonValue
       {Object.entries(facts).map(([field, value]) => (
         <li key={field}>
           <small className={theme.textMuted}>{field}: </small>
-          {removed ? <del>{formatValue(value)}</del> : formatValue(value)}
+          {removed ? <del>{formatChangelogValue(value)}</del> : formatChangelogValue(value)}
         </li>
       ))}
     </ul>

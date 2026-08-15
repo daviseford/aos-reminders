@@ -40,6 +40,14 @@ export interface ChangelogPublicationInput extends ChangelogPublication {
   selector?: ChangelogFactSelector
 }
 
+/** Narrows a publication input to the published projection, dropping the attribution selector. */
+export const toChangelogPublication = (publication: ChangelogPublicationInput): ChangelogPublication => ({
+  publicationId: publication.publicationId,
+  name: publication.name,
+  source: publication.source,
+  ...(publication.effectiveDate ? { effectiveDate: publication.effectiveDate } : {}),
+})
+
 export interface ChangelogCohortInput {
   name: string
   disposition: ChangeDisposition

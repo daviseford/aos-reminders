@@ -49,7 +49,8 @@ const windowLabel = (timing: AbilityTiming): string => {
   }
 }
 
-const titleCase = (value: string): string =>
+/** Capitalizes each hyphen-separated part, joined with spaces: kebab slugs become display names. */
+export const titleCase = (value: string): string =>
   value
     .split('-')
     .map(part => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)

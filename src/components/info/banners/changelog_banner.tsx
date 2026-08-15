@@ -1,12 +1,12 @@
 import {
   computeAos4PublicationImpacts,
+  formatChangelogValue,
   isAos4ChangelogStampBehind,
   totalAos4ChangelogImpact,
   unacknowledgedAos4PublicationIds,
   type Aos4PublicationImpact,
   type Aos4PublishedChangelog,
   type ChangeFieldDelta,
-  type ChangelogJsonValue,
 } from '../../../aos4/changelog'
 import {
   acknowledgeAos4Publication,
@@ -36,6 +36,8 @@ export interface ChangelogBannerProps {
   fallback?: ReactNode
   /** Canonical ability IDs hidden in this army's reminders, so their changes can be labeled. */
   hiddenAbilityIds: readonly string[]
+  /** Precomputed per-publication impacts for this army and artifact; absent while the artifact is. */
+  impacts?: readonly Aos4PublicationImpact[]
   isGameMode: boolean
   /** Canonical ability IDs this army's reminder projection carries, hidden ones included. */
   projectedAbilityIds: readonly string[]
@@ -43,12 +45,6 @@ export interface ChangelogBannerProps {
 }
 
 const changeNoun = (count: number): string => (count === 1 ? '1 change' : `${count} changes`)
-
-const formatValue = (value: ChangelogJsonValue | undefined): string => {
-  if (value === undefined || value === null) return '(none)'
-  if (typeof value === 'string') return value
-  return JSON.stringify(value)
-}
 
 /**
  * The in-army rules update banner for the home screen's single banner slot.
@@ -62,6 +58,7 @@ export const ChangelogBanner = ({
   document,
   fallback = null,
   hiddenAbilityIds,
+  impacts,
   isGameMode,
   projectedAbilityIds,
   setDocument,
@@ -82,10 +79,10 @@ export const ChangelogBanner = ({
   const activeImpacts = useMemo(() => {
     if (!artifact || revision === null || !stamp || behind || stamp === revision || isGameMode) return []
     const unacknowledged = new Set<string>(unacknowledgedAos4PublicationIds(artifact, document))
-    return computeAos4PublicationImpacts(artifact, { document, projectedAbilityIds }).filter(
+    return (impacts ?? []).filter(
       impact => impact.total > 0 && unacknowledged.has(impact.publication.publicationId)
     )
-  }, [artifact, behind, document, isGameMode, projectedAbilityIds, revision, stamp])
+  }, [artifact, behind, document, impacts, isGameMode, revision, stamp])
 
   let mode: 'none' | 'behind' | 'rollup' = 'none'
   if (!isGameMode && artifact && revision !== null && stamp) {
@@ -106,7 +103,7 @@ export const ChangelogBanner = ({
       loggedViews.current.add(name)
       logBannerView(name)
     })
-  })
+  }, [activeImpacts, mode])
 
   if (mode === 'none') return <>{fallback}</>
 
@@ -198,7 +195,7 @@ const FieldList = ({ fields }: { fields: ChangeFieldDelta[] }) => (
     {fields.map(delta => (
       <li key={delta.field}>
         <small>{delta.field}: </small>
-        <del>{formatValue(delta.previous)}</del> &rarr; {formatValue(delta.next)}
+        <del>{formatChangelogValue(delta.previous)}</del> &rarr; {formatChangelogValue(delta.next)}
       </li>
     ))}
   </ul>
@@ -251,7 +248,7 @@ const PublicationDetail = ({
             {Object.entries(record.removedFacts).map(([field, value]) => (
               <li key={field}>
                 <small>{field}: </small>
-                <del>{formatValue(value)}</del>
+                <del>{formatChangelogValue(value)}</del>
               </li>
             ))}
           </ul>
