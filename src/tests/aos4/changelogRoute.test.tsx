@@ -13,9 +13,12 @@ const artifact = vi.hoisted(() => ({
 }))
 
 /*
- * A getter, because vi.resetModules() leaves the mock registry cached: the factory only runs once
- * per file, so per-test control has to live at property-access time. A throwing access surfaces to
- * the page exactly where a rejected chunk import would: in its load promise's catch.
+ * A getter, because the factory only runs once per file and its result is cached: per-test control
+ * has to live at property-access time. A throwing access surfaces to the page exactly where a
+ * rejected chunk import would: in its load promise's catch. Never pair this with
+ * `vi.resetModules()` — forcing vitest 4's module runner to re-fetch the mocked JSON per test
+ * races its fetch phase under CI contention and can resolve the real artifact instead of this
+ * mock (vitest-dev/vitest#8815; it turned changelogBanner.test.tsx red on CI).
  */
 vi.mock('../../aos4/generated/changelog/changelog.json', () => ({
   get default() {
@@ -151,8 +154,8 @@ describe('the /changelog route', () => {
   /*
    * Vitest resolves even a mocked dynamic import through its async module loader, which takes more
    * than one microtask, so the page is pumped until it leaves its loading placeholder. The bound is
-   * a wall-clock deadline rather than a pass count: under parallel-worker CPU contention a
-   * post-reset module re-import can outlast any fixed number of timer ticks.
+   * a wall-clock deadline rather than a pass count: under parallel-worker CPU contention the
+   * module fetch can outlast any fixed number of timer ticks.
    */
   const settle = async () => {
     const deadline = Date.now() + 5000
@@ -177,7 +180,6 @@ describe('the /changelog route', () => {
   }
 
   beforeEach(() => {
-    vi.resetModules()
     vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined)
     artifact.current = populatedArtifact
     artifact.fail = false
@@ -344,9 +346,9 @@ describe('the /changelog route', () => {
     )
     expect(retry).toBeDefined()
 
-    // The connection comes back: the same control re-runs the import and the page loads.
+    // The connection comes back: the retry re-runs the import, and the cached mock's getter now
+    // answers with the artifact instead of throwing — no module reset needed.
     artifact.fail = false
-    vi.resetModules()
     await act(async () => {
       Simulate.click(retry as Element)
       await Promise.resolve()

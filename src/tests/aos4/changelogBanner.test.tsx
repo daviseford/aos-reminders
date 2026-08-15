@@ -6,15 +6,23 @@ import { vi } from 'vitest'
  * Home loads the changelog artifact with a dynamic import so the JSON stays out of the entry
  * chunk. The import is mocked the same way changelogRoute.test.tsx does: a hoisted control object
  * the mocked module reads through a getter, so each test picks its own artifact and a throwing
- * access surfaces exactly where a rejected chunk import would.
+ * access surfaces exactly where a rejected chunk import would. The getter runs on every access,
+ * which is what lets one cached mock serve every test — never call `vi.resetModules()` here: the
+ * statically imported Home tree is not re-evaluated by it anyway, and forcing vitest 4's module
+ * runner to re-fetch the mocked JSON per test races its fetch phase under CI contention, which
+ * intermittently resolved the real artifact instead of this mock (vitest-dev/vitest#8815).
+ * `reads` counts getter accesses so absence assertions can wait for proof Home consumed the
+ * artifact instead of guessing at timing.
  */
 const artifactControl = vi.hoisted(() => ({
   current: null as unknown,
   fail: false,
+  reads: 0,
 }))
 
 vi.mock('../../aos4/generated/changelog/changelog.json', () => ({
   get default() {
+    artifactControl.reads += 1
     if (artifactControl.fail) throw new Error('changelog artifact unavailable')
     return artifactControl.current
   },
@@ -774,7 +782,22 @@ class MemoryStorage implements Storage {
 describe('Home changelog wiring', () => {
   let container: HTMLDivElement
 
-  // The mocked dynamic import still travels the async module loader, so pump until it lands.
+  /*
+   * The mocked dynamic import still travels the async module loader, which takes more than one
+   * microtask. The bound is a wall-clock deadline on an observable condition rather than a fixed
+   * pass count: under parallel-worker CPU contention the module fetch can outlast any fixed
+   * number of timer ticks (this is what turned these tests red on CI while green locally).
+   */
+  const settle = async (until: () => boolean) => {
+    const deadline = Date.now() + 5000
+    while (!until() && Date.now() < deadline) {
+      await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0))
+      })
+    }
+  }
+
+  // A short unconditional drain for the microtasks that follow a settled condition.
   const pump = async () => {
     for (let pass = 0; pass < 10; pass += 1) {
       await act(async () => {
@@ -801,9 +824,9 @@ describe('Home changelog wiring', () => {
     })
   }
 
-  const renderHome = async () => {
+  const renderHome = async (until: () => boolean) => {
     await mountHome()
-    await pump()
+    await settle(until)
   }
 
   const storedDocument = () => {
@@ -812,14 +835,20 @@ describe('Home changelog wiring', () => {
     return JSON.parse(serialized!)
   }
 
+  // A non-throwing reader for settle predicates, safe before the first document write lands.
+  const storedChangelog = (): Aos4ChangelogState | undefined => {
+    const serialized = window.localStorage.getItem(AOS4_ARMY_STORAGE_KEY)
+    return serialized ? JSON.parse(serialized).changelog : undefined
+  }
+
   beforeEach(() => {
-    vi.resetModules()
     auth.isAuthenticated = false
     auth.user = undefined
     getSubscription.mockReset()
     getSubscription.mockRejectedValue({ status: 404 })
     artifactControl.current = makeArtifact([removedChariot])
     artifactControl.fail = false
+    artifactControl.reads = 0
     Object.defineProperty(window, 'localStorage', {
       configurable: true,
       value: new MemoryStorage(),
@@ -836,7 +865,7 @@ describe('Home changelog wiring', () => {
   })
 
   it('catches a fresh document up to the current revision without showing a banner (rollout)', async () => {
-    await renderHome()
+    await renderHome(() => storedChangelog()?.lastSeenRevision !== undefined)
 
     expect(storedDocument().changelog?.lastSeenRevision).toBe(REV_2)
     // The rollout acknowledges every retained publication alongside the stamp: the updates it
@@ -852,7 +881,10 @@ describe('Home changelog wiring', () => {
   it('fails open when the artifact import rejects: no banner, no stamp, no crash', async () => {
     artifactControl.fail = true
 
-    await renderHome()
+    // Settle on the mock access itself: the absence assertions below are only meaningful once
+    // Home has provably consumed (and been thrown) the artifact, not merely not-yet loaded it.
+    await renderHome(() => artifactControl.reads > 0)
+    await pump()
 
     expect(container.textContent).toContain('Welcome back!')
     expect(storedDocument().changelog).toBeUndefined()
@@ -871,7 +903,7 @@ describe('Home changelog wiring', () => {
       )
     )
 
-    await renderHome()
+    await renderHome(() => storedChangelog()?.removedSelections !== undefined)
 
     expect(storedDocument().changelog?.removedSelections).toEqual([
       {
@@ -902,7 +934,8 @@ describe('Home changelog wiring', () => {
       )
     )
 
-    await renderHome()
+    // The advance to the current revision is the positive signal that the bookkeeping effect ran.
+    await renderHome(() => storedChangelog()?.lastSeenRevision === REV_2)
 
     expect(storedDocument().changelog?.removedSelections).toBeUndefined()
     expect(container.textContent).not.toContain(P1.name)
@@ -936,7 +969,9 @@ describe('Home changelog wiring', () => {
     expect(clearButton).toBeDefined()
     act(() => Simulate.click(clearButton!))
 
-    await pump()
+    // The fresh replacement document has no stamp, so the rollout catch-up stamping it to the
+    // current revision is the positive signal that the artifact landed and the effect ran.
+    await settle(() => storedChangelog()?.lastSeenRevision === REV_2)
 
     // The load-time diagnostics belonged to the replaced document; the replacement stays clean.
     expect(storedDocument().changelog?.removedSelections).toBeUndefined()
