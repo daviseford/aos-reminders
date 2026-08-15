@@ -10,6 +10,10 @@
 # Create-only completion markers are byte-exact and must retain LF endings
 .complete.json text eol=lf
 
+# Changelog ledger, acceptance records, and generated artifact are byte-compared LF content
+data/aos4/changelog/**/*.json text eol=lf
+src/aos4/generated/changelog/*.json text eol=lf
+
 # Ignore fixture files when detecting languages for Github
 src/tests/fixtures/* linguist-vendored
 
