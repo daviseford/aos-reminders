@@ -10,6 +10,7 @@ import {
   catchUpAos4Changelog,
   createAos4ArmyDocument,
   deserializeAos4ArmyDocument,
+  discardAos4RemovedSelections,
   recordAos4RemovedSelection,
   serializeAos4ArmyDocument,
   stampAos4ChangelogRevision,
@@ -199,6 +200,37 @@ describe('AoS 4 army changelog state', () => {
 
     expect(recordAos4RemovedSelection(recorded, record)).toBe(recorded)
     expect(recorded.changelog?.removedSelections).toEqual([record])
+  })
+
+  it('discards removal records on explicit list replacement, keeping stamp and acknowledgements', () => {
+    const document = createAos4ArmyDocument({
+      ...createDocument(),
+      changelog: {
+        lastSeenRevision: REVISION_JULY,
+        acknowledgedPublicationIds: [PUBLICATION_JULY],
+        removedSelections: [{ selectionId: DEAD_SELECTION_ID, detectedAtRevision: REVISION_AUGUST }],
+      },
+    })
+
+    const replaced = createAos4ArmyDocument({
+      ...document,
+      changelog: discardAos4RemovedSelections(document.changelog),
+    })
+
+    expect(replaced.changelog).toEqual({
+      lastSeenRevision: REVISION_JULY,
+      acknowledgedPublicationIds: [PUBLICATION_JULY],
+    })
+    // A records-only changelog empties entirely, and normalization erases the empty field.
+    expect(
+      createAos4ArmyDocument({
+        ...document,
+        changelog: discardAos4RemovedSelections({
+          removedSelections: [{ selectionId: DEAD_SELECTION_ID, detectedAtRevision: REVISION_AUGUST }],
+        }),
+      }).changelog
+    ).toBeUndefined()
+    expect(discardAos4RemovedSelections(undefined)).toBeUndefined()
   })
 
   it('acknowledges a publication idempotently and clears the removals attributed to it', () => {

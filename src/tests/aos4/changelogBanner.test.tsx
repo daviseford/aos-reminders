@@ -943,7 +943,15 @@ describe('Home changelog wiring', () => {
     expect(storedDocument().changelog?.lastSeenRevision).toBe(REV_2)
   })
 
-  it('writes no removal records to a replacement army applied before the artifact resolves', async () => {
+  const clickClearArmy = () => {
+    const clearButton = Array.from(container.querySelectorAll('button')).find(button =>
+      button.textContent?.includes('Clear Army')
+    )
+    expect(clearButton).toBeDefined()
+    act(() => Simulate.click(clearButton!))
+  }
+
+  it('writes no removal records to an army the user replaced (either side of the artifact race)', async () => {
     const seeded = createDefaultAos4ArmyDocument()
     window.localStorage.setItem(
       AOS4_ARMY_STORAGE_KEY,
@@ -956,24 +964,45 @@ describe('Home changelog wiring', () => {
       )
     )
 
-    // Mount without pumping the async module loader, so the artifact chunk is still in flight.
+    // Mount without pumping the async module loader, biasing toward the replace-before-artifact
+    // ordering. The cached mock can still land first, and both orderings must converge: pending
+    // load-time diagnostics are dropped on replacement, and a record already written to the
+    // replaced document is discarded by the clear-army scrub.
     await mountHome()
-    // Precondition, not the claim under test: were the loader ever to resolve this early, the
-    // assertion after the replacement below would be testing nothing — fail loudly here instead.
-    expect(storedDocument().changelog?.removedSelections).toBeUndefined()
+    clickClearArmy()
 
-    // The user replaces the army before the artifact lands.
-    const clearButton = Array.from(container.querySelectorAll('button')).find(button =>
-      button.textContent?.includes('Clear Army')
-    )
-    expect(clearButton).toBeDefined()
-    act(() => Simulate.click(clearButton!))
-
-    // The fresh replacement document has no stamp, so the rollout catch-up stamping it to the
-    // current revision is the positive signal that the artifact landed and the effect ran.
-    await settle(() => storedChangelog()?.lastSeenRevision === REV_2)
+    // Once Home has provably consumed the artifact, the bookkeeping has had its input; a short
+    // drain then flushes its writes. Post-click, no ordering can leave a record behind.
+    await settle(() => artifactControl.reads > 0)
+    await pump()
 
     // The load-time diagnostics belonged to the replaced document; the replacement stays clean.
     expect(storedDocument().changelog?.removedSelections).toBeUndefined()
+  })
+
+  it('discards a removal record already written when the user then clears the army', async () => {
+    const seeded = createDefaultAos4ArmyDocument()
+    window.localStorage.setItem(
+      AOS4_ARMY_STORAGE_KEY,
+      serializeAos4ArmyDocument(
+        createAos4ArmyDocument({
+          ...seeded,
+          explicitSelectionIds: [...seeded.explicitSelectionIds, DEAD_WARSCROLL as never],
+          changelog: { lastSeenRevision: REV_1 },
+        })
+      )
+    )
+
+    // Deterministic ordering: let the artifact land and the bookkeeping write the record first.
+    await renderHome(() => storedChangelog()?.removedSelections !== undefined)
+    expect(storedDocument().changelog?.removedSelections).toHaveLength(1)
+
+    clickClearArmy()
+    await pump()
+
+    // The record described the replaced selection list and goes with it; the stamp is the user's
+    // seen-state and survives.
+    expect(storedDocument().changelog?.removedSelections).toBeUndefined()
+    expect(storedDocument().changelog?.lastSeenRevision).toBeDefined()
   })
 })

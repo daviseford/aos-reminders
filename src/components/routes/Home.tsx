@@ -20,6 +20,7 @@ import {
   advanceAos4ChangelogStamp,
   catchUpAos4Changelog,
   createAos4ArmyDocument,
+  discardAos4RemovedSelections,
   recordAos4RemovedSelection,
   setAos4ReminderPreference,
   type Aos4ArmyDocument,
@@ -381,6 +382,7 @@ const HomeContent = () => {
     setDocument(current =>
       createAos4ArmyDocument({
         ...current,
+        changelog: discardAos4RemovedSelections(current.changelog),
         explicitSelectionIds: [factionId],
         reminderPreferences: {},
       })
@@ -394,6 +396,7 @@ const HomeContent = () => {
     setDocument(current =>
       createAos4ArmyDocument({
         ...current,
+        changelog: discardAos4RemovedSelections(current.changelog),
         name: faction?.name ?? current.name,
         explicitSelectionIds: [nextFactionId],
         reminderPreferences: {},

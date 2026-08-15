@@ -41,7 +41,10 @@ export interface Aos4RemovedSelection {
  * - `removedSelections` records clear when their publication is acknowledged, when the stamp
  *   advances past their detection revision (unattributed records), when the advance prunes a
  *   record whose publication left retention (evicted: no roll-up can show or acknowledge it any
- *   more), and wholesale on catch-up.
+ *   more), and wholesale on catch-up. They describe the selection list that produced them, so an
+ *   explicit list replacement (clear army, switch faction) discards them via
+ *   `discardAos4RemovedSelections` — the stamp and acknowledgements are the user's seen-state,
+ *   not the list's, and survive the replacement.
  */
 export interface Aos4ChangelogState {
   /** The changelog artifact revision this army has fully caught up to. */
@@ -400,6 +403,16 @@ export const recordAos4RemovedSelection = (
     changelog: { ...changelog, removedSelections: [...removedSelections, record] },
   })
 }
+
+/**
+ * The changelog state a document keeps when the user explicitly replaces its selection list
+ * (clear army, switch faction): removal records describe the list that produced them and are
+ * discarded; the stamp and acknowledged publications are the user's seen-state and survive.
+ * Normalization in `createAos4ArmyDocument` erases the emptied field.
+ */
+export const discardAos4RemovedSelections = (
+  changelog: Aos4ChangelogState | undefined
+): Aos4ChangelogState | undefined => (changelog ? { ...changelog, removedSelections: [] } : undefined)
 
 /**
  * Acknowledges a publication for this army, idempotently, and clears the removal records
