@@ -9,6 +9,7 @@ export const PAYPAL_CLIENT_ID = isProd
 export const GITHUB_URL = '//github.com/daviseford/aos-reminders'
 
 export const ROUTES = {
+  CHANGELOG: '/changelog',
   FAQ: '/faq',
   HOME: '/',
   JOIN: '/join',

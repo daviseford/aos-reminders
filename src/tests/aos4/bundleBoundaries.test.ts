@@ -28,6 +28,22 @@ describe('initial bundle boundaries', () => {
     expect(viteConfig).toContain("name: 'initial-entry-chunk-budget'")
   })
 
+  it('keeps the changelog artifact and the catalog out of the /changelog static import graph', async () => {
+    const [router, changelog] = await Promise.all([
+      source('src/bootstrap/router.tsx'),
+      source('src/components/routes/Changelog.tsx'),
+    ])
+
+    // The page itself is a lazy route, like every other screen.
+    expect(router).toMatch(/const Changelog = lazy\(\(\) => import\('components\/routes\/Changelog'\)\)/)
+    // The artifact arrives via dynamic import only, so its bytes become their own lazy chunk.
+    expect(changelog).toContain("import('../../aos4/generated/changelog/changelog.json')")
+    expect(changelog).not.toMatch(/^import\s[^\n]*changelog\.json/m)
+    // Records carry display names, so the page never needs the 11 MB catalog chunk.
+    expect(changelog).not.toContain('AOS4_CATALOG')
+    expect(changelog).not.toMatch(/^import\s[^\n]*generated\/corpus/m)
+  })
+
   it('loads import and PDF implementation only when their controls are used', async () => {
     const home = await source('src/components/routes/Home.tsx')
 
