@@ -3,7 +3,7 @@ import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import Footer from 'components/page/footer'
 import { useTheme } from 'context/useTheme'
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { formatChangelogValue } from '../../aos4/changelog/format'
+import { displayableChangeFacts, formatChangelogValue } from '../../aos4/changelog/format'
 import type { Aos4PublishedChangelog } from '../../aos4/changelog/ledger'
 import type { ChangeFieldDelta, ChangelogJsonValue, ChangeRecord } from '../../aos4/changelog/types'
 import { titleCase } from '../../aos4/view/reminders'
@@ -123,11 +123,25 @@ const ChangelogUnavailable = ({ onRetry }: { onRetry: () => void }) => {
   )
 }
 
+/*
+ * The currency line anchors on the newest effective date any retained publication carries:
+ * publication order is not date order, and a date-less publication must never outrank a dated one.
+ * The name fallback only applies when no retained publication is dated at all. ISO dates compare
+ * correctly as strings.
+ */
+const currentThroughLabel = (publications: Aos4PublishedChangelog['publications']): string | undefined => {
+  const dates = publications
+    .map(publication => publication.effectiveDate)
+    .filter((date): date is string => Boolean(date))
+  if (dates.length) return dates.reduce((a, b) => (a > b ? a : b))
+  return publications[0]?.name
+}
+
 const LoadedChangelog = ({ changelog }: { changelog: Aos4PublishedChangelog }) => {
   const isEmpty = !changelog.publications.length && !changelog.records.length && !changelog.corrections.length
   if (isEmpty) return <EmptyChangelog />
 
-  const newest = changelog.publications[0]
+  const currentThrough = currentThroughLabel(changelog.publications)
 
   const recordsByPublication = new Map<string, ChangeRecord[]>()
   changelog.records.forEach(record => {
@@ -138,9 +152,7 @@ const LoadedChangelog = ({ changelog }: { changelog: Aos4PublishedChangelog }) =
 
   return (
     <>
-      {newest && (
-        <p className="text-center">Rules data current through {newest.effectiveDate ?? newest.name}.</p>
-      )}
+      {currentThrough && <p className="text-center">Rules data current through {currentThrough}.</p>}
       {changelog.publications.map(publication => (
         <PublicationSection
           key={publication.publicationId}
@@ -302,9 +314,13 @@ const FieldDeltas = ({ fields }: { fields: ChangeFieldDelta[] }) => {
 const FactList = ({ facts, removed }: { facts: Record<string, ChangelogJsonValue>; removed: boolean }) => {
   const { theme } = useTheme()
 
+  // Only player-meaningful facts render; internal fields like availability and timings never do.
+  const entries = displayableChangeFacts(facts)
+  if (!entries.length) return null
+
   return (
     <ul className="mb-0">
-      {Object.entries(facts).map(([field, value]) => (
+      {entries.map(([field, value]) => (
         <li key={field}>
           <small className={theme.textMuted}>{field}: </small>
           {removed ? <del>{formatChangelogValue(value)}</del> : formatChangelogValue(value)}

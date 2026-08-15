@@ -1,5 +1,6 @@
 import {
   computeAos4PublicationImpacts,
+  displayableChangeFacts,
   formatChangelogValue,
   isAos4ChangelogStampBehind,
   totalAos4ChangelogImpact,
@@ -256,7 +257,8 @@ const PublicationDetail = ({
         <li key={`removed:${record.entityId}`}>
           <strong>{record.name}</strong> <small>Removed</small>
           <ul className="mb-0">
-            {Object.entries(record.removedFacts).map(([field, value]) => (
+            {/* Only player-meaningful facts render; internal fields like availability never do. */}
+            {displayableChangeFacts(record.removedFacts).map(([field, value]) => (
               <li key={field}>
                 <small>{field}: </small>
                 <del>{formatChangelogValue(value)}</del>

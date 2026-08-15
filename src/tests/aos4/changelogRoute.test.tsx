@@ -150,11 +150,13 @@ describe('the /changelog route', () => {
 
   /*
    * Vitest resolves even a mocked dynamic import through its async module loader, which takes more
-   * than one microtask, so the page is pumped until it leaves its loading placeholder.
+   * than one microtask, so the page is pumped until it leaves its loading placeholder. The bound is
+   * a wall-clock deadline rather than a pass count: under parallel-worker CPU contention a
+   * post-reset module re-import can outlast any fixed number of timer ticks.
    */
   const settle = async () => {
-    for (let pass = 0; pass < 50; pass += 1) {
-      if (!container.textContent?.includes('Loading rules updates')) return
+    const deadline = Date.now() + 5000
+    while (container.textContent?.includes('Loading rules updates') && Date.now() < deadline) {
       await act(async () => {
         await new Promise(resolve => setTimeout(resolve, 0))
       })
@@ -262,7 +264,14 @@ describe('the /changelog route', () => {
           attribution: { kind: 'publication', ...BATTLESCROLL },
           predicate: { kind: 'faction', factionId: STORMCAST },
           ownership: { factionIds: [STORMCAST], factionNames: ['Stormcast Eternals'], contentGroupIds: [] },
-          addedFacts: { 'text.effect': 'Deals mortal wounds on a 6.' },
+          // The full canonical fact set: internal fields ride along with the player-facing ones.
+          addedFacts: {
+            name: 'Stormcall',
+            'text.effect': 'Deals mortal wounds on a 6.',
+            points: 120,
+            availability: ['includes:warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc'],
+            timings: [{ kind: 'active', perspective: 'your', window: { start: 'x', end: 'y' } }],
+          },
         },
       ],
     }
@@ -272,12 +281,44 @@ describe('the /changelog route', () => {
     expect(container.textContent).toContain('Stormcall')
     expect(container.textContent).toContain('Added')
     expect(container.textContent).toContain('Deals mortal wounds on a 6.')
+    expect(container.textContent).toContain('points')
+    expect(container.textContent).toContain('120')
+
+    // Internal facts never render: no canonical ids, no serialized objects, no redundant name row.
+    expect(container.textContent).not.toContain('availability')
+    expect(container.textContent).not.toContain('timings')
+    expect(container.textContent).not.toContain('includes:warscroll:')
+    expect(container.textContent).not.toContain('name:')
 
     // Added facts render plainly, never struck through the way removed facts are.
     const factItem = Array.from(container.querySelectorAll('li')).find(li =>
       li.textContent?.includes('Deals mortal wounds on a 6.')
     )
     expect(factItem?.querySelector('del')).toBeNull()
+  })
+
+  it('anchors the currency line on the newest effective date, not the first-listed publication', async () => {
+    // The date-less FAQ lists first; the dated battlescroll must still anchor the line.
+    artifact.current = {
+      ...populatedArtifact,
+      publications: [CORE_FAQ, BATTLESCROLL],
+    }
+
+    await mount()
+
+    expect(container.textContent).toContain('Rules data current through 2026-07-17.')
+    expect(container.textContent).not.toContain('current through FAQ: Core Rules')
+  })
+
+  it('falls back to a publication name only when no retained publication carries a date', async () => {
+    artifact.current = {
+      ...populatedArtifact,
+      publications: [CORE_FAQ],
+    }
+
+    await mount()
+
+    expect(container.textContent).toContain('Rules data current through FAQ: Core Rules.')
   })
 
   it('renders a plain holding state for the empty artifact that ships today', async () => {

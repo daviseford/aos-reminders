@@ -137,7 +137,11 @@ const removedChariot = {
   attribution: { kind: 'publication', ...P1 },
   predicate: { kind: 'warscroll', warscrollId: DEAD_WARSCROLL },
   ownership: { factionIds: [IDS.faction], warscrollId: DEAD_WARSCROLL, contentGroupIds: [] },
-  removedFacts: { name: 'Celestial Chariots', 'text.effect': 'This unit flies.' },
+  removedFacts: {
+    name: 'Celestial Chariots',
+    'text.effect': 'This unit flies.',
+    availability: ['includes:warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc'],
+  },
 }
 
 const liberatorsPoints = {
@@ -508,6 +512,11 @@ describe('the in-army changelog banner', () => {
     expect(container.textContent).toContain('Celestial Chariots')
     expect(container.textContent).toContain('This unit flies.')
     expect(container.textContent).toContain('Removed')
+
+    // Internal facts never render in the detail: no canonical ids, no redundant name row.
+    expect(container.textContent).not.toContain('availability')
+    expect(container.textContent).not.toContain('includes:warscroll:')
+    expect(container.textContent).not.toContain('name:')
   })
 
   it('rolls two retained publications into one banner and keeps a dismissal across reload', () => {
