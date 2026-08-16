@@ -28,10 +28,12 @@ import { Header } from 'components/page/homeHeader'
 import { ArmyCollectionProvider, messageForError, useArmyCollection } from 'context/useArmyCollection'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { logFactionSelection, logGameModeChange, logPdfDownload } from 'utils/analytics'
+import { clearCloudArmyLink, readCloudArmyLink, writeCloudArmyLink } from 'utils/cloudArmyLink'
 import { consumePendingShareId } from 'utils/shareLink'
 
 const ImportArmyModal = lazy(() => import('components/input/importArmy/importArmyModal'))
 const PrintModal = lazy(() => import('components/print/printModal'))
+const ClearArmyModal = lazy(() => import('components/modals/generic/generic_destructive_modal'))
 const SaveArmyModal = lazy(() => import('components/input/cloudArmies/saveArmyModal'))
 const SavedArmiesModal = lazy(() => import('components/input/cloudArmies/savedArmiesModal'))
 const ShareArmyModal = lazy(() => import('components/input/armySharing/shareArmyModal'))
@@ -86,22 +88,29 @@ const SkipToReminders = () => (
 )
 
 const HomeContent = () => {
-  const { updateArmy } = useArmyCollection()
+  const { armies, updateArmy } = useArmyCollection()
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
   const [importModalIsOpen, setImportModalIsOpen] = useState(false)
   const [savedArmiesModalIsOpen, setSavedArmiesModalIsOpen] = useState(false)
   const [saveArmyModalIsOpen, setSaveArmyModalIsOpen] = useState(false)
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
+  const [clearArmyModalIsOpen, setClearArmyModalIsOpen] = useState(false)
   const [pendingShareId, setPendingShareId] = useState(() => consumePendingShareId())
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
   /*
-   * Which cloud army the current document is a copy of, if any. Held in memory only: it starts a
-   * session unlinked, links through the save/load flows, and unlinks when the document stops being
-   * that army (clear, faction switch, import, incoming share, remote delete). It decides whether
-   * the toolbar offers one-click Update Army alongside Save As, or a single Save Army.
+   * Which cloud army the current document is a copy of, if any. It links through the save/load
+   * flows and unlinks when the document stops being that army (clear, faction switch, import,
+   * incoming share, remote delete). It decides whether the toolbar offers one-click Update Army
+   * alongside Save As, or a single Save Army.
+   *
+   * Persisted, because the document it describes is. Holding it in memory alone meant every reload
+   * — a service-worker update, a backgrounded tab, a phone reclaiming the page — silently dropped
+   * back to Save Army, and the next save forked a duplicate of the army the player thought they
+   * were updating. See utils/cloudArmyLink.
    */
-  const [cloudArmyId, setCloudArmyId] = useState<string>()
+  const [cloudArmyLink, setCloudArmyLink] = useState(readCloudArmyLink)
+  const cloudArmyId = cloudArmyLink?.id
   const [updateArmyStatus, setUpdateArmyStatus] = useState<'idle' | 'updating' | 'updated'>('idle')
   const [updateArmyError, setUpdateArmyError] = useState<string>()
   const savedArmiesAction = useSubscriberAction({
@@ -136,8 +145,15 @@ const HomeContent = () => {
     onAuthorized: () => void updateCloudArmy(),
     origin: 'UpdateArmy',
   })
+  const linkCloudArmy = (id: string, name: string) => {
+    const link = { id, name }
+    setCloudArmyLink(link)
+    writeCloudArmyLink(link)
+    setUpdateArmyError(undefined)
+  }
   const unlinkCloudArmy = () => {
-    setCloudArmyId(undefined)
+    setCloudArmyLink(undefined)
+    clearCloudArmyLink()
     setUpdateArmyError(undefined)
   }
 
@@ -146,6 +162,27 @@ const HomeContent = () => {
     const timer = window.setTimeout(() => setUpdateArmyStatus('idle'), 2500)
     return () => window.clearTimeout(timer)
   }, [updateArmyStatus])
+
+  /*
+   * A link restored from storage can name an army deleted on another device. Reconciled only
+   * against a collection that actually loaded — an empty list is what a failed fetch looks like
+   * too, and unlinking on that would undo the persistence this exists to provide.
+   */
+  const cloudArmyName = cloudArmyLink?.name
+  useEffect(() => {
+    if (!cloudArmyId || armies.length === 0) return
+    const linked = armies.find(army => army.id === cloudArmyId)
+    if (!linked) {
+      setCloudArmyLink(undefined)
+      clearCloudArmyLink()
+      return
+    }
+    // A rename in My Armies must reach the label the toolbar shows for the same record.
+    if (linked.document.name === cloudArmyName) return
+    const link = { id: cloudArmyId, name: linked.document.name }
+    setCloudArmyLink(link)
+    writeCloudArmyLink(link)
+  }, [armies, cloudArmyId, cloudArmyName])
   const factions = useMemo(
     () =>
       selectableFactions
@@ -377,8 +414,9 @@ const HomeContent = () => {
       {!isGameMode && (
         <Toolbar
           cloudArmyLinked={Boolean(cloudArmyId)}
+          {...(cloudArmyName ? { cloudArmyName } : {})}
           hiddenCount={hiddenCount}
-          onClearArmy={clearArmy}
+          onClearArmy={() => setClearArmyModalIsOpen(true)}
           onDownloadPdf={() => setPrintModalIsOpen(true)}
           onImportArmy={() => setImportModalIsOpen(true)}
           onOpenSavedArmies={savedArmiesAction.run}
@@ -441,9 +479,12 @@ const HomeContent = () => {
             closeModal={() => setSavedArmiesModalIsOpen(false)}
             currentDocument={document}
             isOpen={savedArmiesModalIsOpen}
+            {...(cloudArmyId ? { linkedCloudArmyId: cloudArmyId } : {})}
             onApply={setDocument}
-            onDeleted={deletedId => setCloudArmyId(current => (current === deletedId ? undefined : current))}
-            onLinked={setCloudArmyId}
+            onDeleted={deletedId => {
+              if (deletedId === cloudArmyId) unlinkCloudArmy()
+            }}
+            onLinked={linkCloudArmy}
           />
         </Suspense>
       )}
@@ -454,9 +495,9 @@ const HomeContent = () => {
             closeModal={() => setSaveArmyModalIsOpen(false)}
             currentDocument={document}
             isOpen={saveArmyModalIsOpen}
-            onSaved={(savedDocument, savedCloudArmyId) => {
+            onSaved={(savedDocument, savedCloudArmyId, savedName) => {
               setDocument(savedDocument)
-              setCloudArmyId(savedCloudArmyId)
+              linkCloudArmy(savedCloudArmyId, savedName)
             }}
           />
         </Suspense>
@@ -482,6 +523,25 @@ const HomeContent = () => {
               setDocument(nextDocument)
             }}
             shareId={pendingShareId}
+          />
+        </Suspense>
+      )}
+
+      {/*
+       * Clear Army fired on one tap and took the notes, hidden flags and ordering with it — the
+       * only content on this screen the player wrote themselves, and the only one with no copy
+       * anywhere else. It is the one action here that earns an interruption.
+       */}
+      {clearArmyModalIsOpen && (
+        <Suspense fallback={null}>
+          <ClearArmyModal
+            bodyText="This empties the builder and discards the notes, hidden reminders, and ordering you set for this army. Armies saved to your account are not affected."
+            closeModal={() => setClearArmyModalIsOpen(false)}
+            confirmText="Clear army"
+            denyText="Keep it"
+            headerText="Clear this army?"
+            isOpen={clearArmyModalIsOpen}
+            onConfirm={clearArmy}
           />
         </Suspense>
       )}

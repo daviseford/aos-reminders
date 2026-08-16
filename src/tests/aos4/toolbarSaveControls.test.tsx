@@ -5,8 +5,14 @@ import { act } from 'react'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+// The real values from src/theme/light.ts. `btn-block` was Bootstrap 4 and no longer exists.
 vi.mock('context/useTheme', () => ({
-  useTheme: () => ({ theme: { genericButtonBlock: 'btn btn-block btn-outline-dark' } }),
+  useTheme: () => ({
+    theme: {
+      genericButtonBlock: 'btn btn-outline-dark d-block w-100',
+      textMuted: 'text-muted',
+    },
+  }),
 }))
 
 const findButton = (container: HTMLElement, label: string): HTMLButtonElement | undefined =>
@@ -69,6 +75,20 @@ describe('toolbar save controls', () => {
 
     act(() => findButton(container, 'Save As')!.click())
     expect(baseProps.onSaveArmy).toHaveBeenCalledTimes(1)
+  })
+
+  it('names the cloud army Update Army writes to, and only while one is linked', () => {
+    act(() => {
+      render(<Toolbar {...baseProps} cloudArmyName="Kruleboyz Tourney" />, container)
+    })
+    // Unlinked: there is no Update Army, so there is nothing to name.
+    expect(container.textContent).not.toContain('Kruleboyz Tourney')
+
+    act(() => {
+      render(<Toolbar {...baseProps} cloudArmyLinked cloudArmyName="Kruleboyz Tourney" />, container)
+    })
+    expect(container.textContent).toContain('Cloud army:')
+    expect(container.textContent).toContain('Kruleboyz Tourney')
   })
 
   it('reports update progress and completion on the Update Army button itself', () => {

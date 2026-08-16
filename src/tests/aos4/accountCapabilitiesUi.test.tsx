@@ -27,6 +27,7 @@ vi.mock('context/useArmyCollection', () => ({
 
 vi.mock('context/useTheme', () => ({
   useTheme: () => ({
+    isDark: false,
     theme: {
       bgColor: 'bg-white',
       cardBody: 'card-body',
@@ -35,6 +36,7 @@ vi.mock('context/useTheme', () => ({
       modalDangerClass: 'btn btn-danger',
       modalSuccessClass: 'btn btn-success',
       text: 'text-dark',
+      textMuted: 'text-muted',
     },
   }),
 }))
@@ -56,6 +58,9 @@ const findButton = (container: HTMLElement, label: string): HTMLButtonElement =>
   return button
 }
 
+const queryButton = (container: HTMLElement, label: string) =>
+  Array.from(container.querySelectorAll('button')).find(candidate => candidate.textContent?.trim() === label)
+
 describe('saved-army and sharing controls', () => {
   let container: HTMLDivElement
   const currentDocument = createDefaultAos4ArmyDocument()
@@ -66,6 +71,14 @@ describe('saved-army and sharing controls', () => {
     updatedAt: 2,
     document: savedDocument,
   }
+  const otherArmy = {
+    id: 'cloud-2',
+    createdAt: 1,
+    updatedAt: 3,
+    document: { ...currentDocument, name: 'Kruleboyz Tourney' },
+  }
+
+  const rows = () => Array.from(container.querySelectorAll<HTMLLIElement>('li.list-group-item'))
 
   beforeEach(() => {
     container = document.createElement('div')
@@ -99,51 +112,138 @@ describe('saved-army and sharing controls', () => {
     vi.restoreAllMocks()
   })
 
-  it('saves explicitly, previews before load, and confirms delete', async () => {
-    const closeModal = vi.fn()
-    const onApply = vi.fn()
-    const onDeleted = vi.fn()
-    const onLinked = vi.fn()
+  const renderSavedArmies = (props: Partial<React.ComponentProps<typeof SavedArmiesModal>> = {}) => {
+    const handlers = {
+      closeModal: vi.fn(),
+      onApply: vi.fn(),
+      onDeleted: vi.fn(),
+      onLinked: vi.fn(),
+    }
     act(() => {
       render(
-        <SavedArmiesModal
-          closeModal={closeModal}
-          currentDocument={currentDocument}
-          isOpen
-          onApply={onApply}
-          onDeleted={onDeleted}
-          onLinked={onLinked}
-        />,
+        <SavedArmiesModal currentDocument={currentDocument} isOpen {...handlers} {...props} />,
         container
       )
     })
+    return handlers
+  }
 
-    const saveName = container.querySelector<HTMLInputElement>('#saved-army-name')!
-    saveName.value = 'Tournament Army'
-    act(() => Simulate.change(saveName))
+  it('confirms a load inside the row that raised it, and never prints a canonical id', () => {
+    const { closeModal, onApply, onLinked } = renderSavedArmies()
+
+    const [row] = rows()
+    act(() => findButton(row, 'Load').click())
+
+    /*
+     * The structural guard, not a cosmetic one. The confirmation used to render after the whole
+     * list, where with eight saved armies it landed hundreds of pixels below the visible modal and
+     * "Load" appeared to do nothing at all.
+     */
+    const confirm = findButton(container, 'Load this army')
+    expect(row.contains(confirm)).toBe(true)
+    expect(row.textContent).toContain('Load Saved Stormhost?')
+    expect(container.textContent).not.toContain('rules-context:')
+
+    act(() => confirm.click())
+    expect(onApply).toHaveBeenLastCalledWith(savedDocument)
+    expect(onLinked).toHaveBeenLastCalledWith('cloud-1', 'Saved Stormhost')
+    expect(closeModal).toHaveBeenCalled()
+  })
+
+  it('confirms before overwriting a saved army, and keeps that army its own name', async () => {
+    const { onApply, onLinked } = renderSavedArmies()
+
+    const [row] = rows()
+    act(() => findButton(row, 'Replace with current').click())
+    expect(collection.updateArmy).not.toHaveBeenCalled()
+    expect(row.textContent).toContain('Replace Saved Stormhost with the army on screen?')
+
     await act(async () => {
-      findButton(container, 'Save new').click()
+      findButton(container, 'Replace saved army').click()
       await Promise.resolve()
     })
-    expect(collection.createArmy).toHaveBeenCalledWith(expect.objectContaining({ name: 'Tournament Army' }))
-    expect(onLinked).toHaveBeenLastCalledWith('cloud-1')
+    expect(collection.updateArmy).toHaveBeenCalledWith(
+      'cloud-1',
+      expect.objectContaining({ name: 'Saved Stormhost' })
+    )
+    expect(onApply).toHaveBeenLastCalledWith(expect.objectContaining({ name: 'Saved Stormhost' }))
+    expect(onLinked).toHaveBeenLastCalledWith('cloud-1', 'Saved Stormhost')
+  })
 
-    act(() => findButton(container, 'Load').click())
-    expect(container.textContent).toContain('Replace the current army with Saved Stormhost?')
-    act(() => findButton(container, 'Replace current army').click())
-    expect(onApply).toHaveBeenLastCalledWith(savedDocument)
-    expect(onLinked).toHaveBeenLastCalledWith('cloud-1')
+  it('confirms a delete in place and names what is being deleted', async () => {
+    const { onDeleted } = renderSavedArmies()
 
-    act(() => findButton(container, 'Delete').click())
+    const [row] = rows()
+    act(() => findButton(row, 'Delete').click())
+    expect(collection.deleteArmy).not.toHaveBeenCalled()
+    expect(row.textContent).toContain('Delete Saved Stormhost?')
+
     await act(async () => {
-      findButton(container, 'Confirm delete').click()
+      findButton(container, 'Delete this army').click()
       await Promise.resolve()
     })
     expect(collection.deleteArmy).toHaveBeenCalledWith('cloud-1')
     expect(onDeleted).toHaveBeenCalledWith('cloud-1')
   })
 
-  it('saves the current army from the dedicated Save Army dialog and links the result', async () => {
+  it('renames through an explicit edit, and refuses a rename that changes nothing', async () => {
+    renderSavedArmies()
+
+    const [row] = rows()
+    act(() => findButton(row, 'Rename').click())
+
+    const input = container.querySelector<HTMLInputElement>('#army-name-cloud-1')!
+    expect(input.value).toBe('Saved Stormhost')
+    // Unchanged, so there is nothing to save — the previous version reported success for a no-op.
+    expect(findButton(container, 'Save name').disabled).toBe(true)
+
+    input.value = 'Grand Alliance Order'
+    act(() => Simulate.change(input))
+    expect(findButton(container, 'Save name').disabled).toBe(false)
+
+    await act(async () => {
+      Simulate.submit(container.querySelector('form')!)
+      await Promise.resolve()
+    })
+    expect(collection.updateArmy).toHaveBeenCalledWith(
+      'cloud-1',
+      expect.objectContaining({ name: 'Grand Alliance Order' })
+    )
+  })
+
+  it('keeps one decision open at a time across rows', () => {
+    collection.armies = [remoteArmy, otherArmy]
+    renderSavedArmies()
+
+    const [first, second] = rows()
+    act(() => findButton(first, 'Delete').click())
+    expect(queryButton(container, 'Delete this army')).toBeTruthy()
+
+    act(() => findButton(second, 'Load').click())
+    expect(queryButton(container, 'Delete this army')).toBeUndefined()
+    expect(second.contains(findButton(container, 'Load this army'))).toBe(true)
+  })
+
+  it('marks the army the on-screen document came from', () => {
+    collection.armies = [remoteArmy, otherArmy]
+    renderSavedArmies({ linkedCloudArmyId: 'cloud-2' })
+
+    const [first, second] = rows()
+    expect(first.textContent).not.toContain('On screen now')
+    expect(second.textContent).toContain('On screen now')
+  })
+
+  it('offers no way to create an army from the list, and guides an empty account to the toolbar', () => {
+    collection.armies = []
+    renderSavedArmies()
+
+    expect(container.querySelector('#saved-army-name')).toBeNull()
+    expect(queryButton(container, 'Save new')).toBeUndefined()
+    expect(container.textContent).toContain('No armies saved yet')
+    expect(container.textContent).toContain('Save Army')
+  })
+
+  it('saves the current army from the dedicated Save Army dialog and links the result by name', async () => {
     const closeModal = vi.fn()
     const onSaved = vi.fn()
     collection.createArmy.mockResolvedValue({ ...remoteArmy, id: 'cloud-9' })
@@ -157,14 +257,46 @@ describe('saved-army and sharing controls', () => {
     const nameInput = container.querySelector<HTMLInputElement>('#save-army-name')!
     nameInput.value = 'Tournament Army'
     act(() => Simulate.change(nameInput))
+    // Submitting the form, because a phone keyboard's "Go" has to reach the same action as the button.
     await act(async () => {
-      findButton(container, 'Save').click()
+      Simulate.submit(container.querySelector('form')!)
       await Promise.resolve()
     })
 
     expect(collection.createArmy).toHaveBeenCalledWith(expect.objectContaining({ name: 'Tournament Army' }))
-    expect(onSaved).toHaveBeenCalledWith(expect.objectContaining({ name: 'Tournament Army' }), 'cloud-9')
+    expect(onSaved).toHaveBeenCalledWith(
+      expect.objectContaining({ name: 'Tournament Army' }),
+      'cloud-9',
+      'Tournament Army'
+    )
     expect(closeModal).toHaveBeenCalled()
+  })
+
+  it('warns when the name is already taken and offers to overwrite that army instead', async () => {
+    const onSaved = vi.fn()
+    act(() => {
+      render(
+        <SaveArmyModal closeModal={vi.fn()} currentDocument={currentDocument} isOpen onSaved={onSaved} />,
+        container
+      )
+    })
+
+    expect(queryButton(container, 'Overwrite it instead')).toBeUndefined()
+
+    const nameInput = container.querySelector<HTMLInputElement>('#save-army-name')!
+    nameInput.value = 'Saved Stormhost'
+    act(() => Simulate.change(nameInput))
+    expect(container.textContent).toContain('You already have a saved army called')
+
+    await act(async () => {
+      findButton(container, 'Overwrite it instead').click()
+      await Promise.resolve()
+    })
+    expect(collection.createArmy).not.toHaveBeenCalled()
+    expect(collection.updateArmy).toHaveBeenCalledWith(
+      'cloud-1',
+      expect.objectContaining({ name: 'Saved Stormhost' })
+    )
   })
 
   it('keeps the Save Army dialog open and shows the service error when saving fails', async () => {

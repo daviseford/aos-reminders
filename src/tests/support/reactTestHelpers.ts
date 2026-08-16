@@ -79,6 +79,15 @@ export const Simulate = {
     element.dispatchEvent(new Event(changeEventFor(element), { bubbles: true, cancelable: true }))
   },
 
+  /*
+   * Dispatched directly rather than by clicking the submit button: jsdom logs a "not implemented"
+   * error when a real form submission reaches navigation, and React's own handler is what the
+   * assertion is about.
+   */
+  submit: (element: Element): void => {
+    element.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
+  },
+
   drop: (element: Element, eventData: { dataTransfer: unknown }): void => {
     const event = new Event('drop', { bubbles: true, cancelable: true })
     Object.defineProperty(event, 'dataTransfer', { value: eventData.dataTransfer })
