@@ -7,21 +7,30 @@ import { createDefaultAos4ArmyDocument } from '../../aos4/runtime'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { Simulate } from 'tests/support/reactTestHelpers'
+import type { ArmyCollectionContextValue } from 'context/useArmyCollection'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-const collection = vi.hoisted(() => ({
-  armies: [] as unknown[],
-  collectionError: null as string | null,
-  collectionLoaded: true,
-  collectionLoading: false,
-  configured: true,
-  createArmy: vi.fn(),
-  createShare: vi.fn(),
-  deleteArmy: vi.fn(),
-  ensureArmiesLoaded: vi.fn(),
-  refreshArmies: vi.fn(),
-  updateArmy: vi.fn(),
-}))
+/*
+ * Keyed on the real context type rather than hand-rolled: a member added to
+ * `ArmyCollectionContextValue` and forgotten here becomes a compile error instead of an
+ * `undefined` the components only trip over at runtime.
+ */
+const collection = vi.hoisted(
+  () =>
+    ({
+      armies: [] as unknown[],
+      collectionError: null as string | null,
+      collectionLoaded: true,
+      collectionLoading: false,
+      configured: true,
+      createArmy: vi.fn(),
+      createShare: vi.fn(),
+      deleteArmy: vi.fn(),
+      ensureArmiesLoaded: vi.fn(),
+      refreshArmies: vi.fn(),
+      updateArmy: vi.fn(),
+    }) satisfies Record<keyof ArmyCollectionContextValue, unknown>
+)
 
 vi.mock('context/useArmyCollection', () => ({
   useArmyCollection: () => collection,
