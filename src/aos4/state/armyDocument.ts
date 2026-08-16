@@ -182,12 +182,18 @@ export const deserializeAos4ArmyDocument = (
     })
   }
 
+  /*
+   * A selection the catalog no longer carries is a rules update's doing, not the user's: a
+   * battletome rewrite can retire a warscroll the army legitimately held. Filtering the dead ID
+   * with a warning keeps the rest of the army alive; failing the whole document here used to reset
+   * a stored army to the default the moment one of its units left the catalog.
+   */
   const entityIds = new Set(catalog.entities.map(entity => entity.id))
   const explicitSelectionIds = (value.explicitSelectionIds as string[]).filter(id => {
     if (entityIds.has(id as CanonicalId)) return true
     diagnostics.push({
       code: 'missing-selection',
-      severity: 'error',
+      severity: 'warning',
       message: `Army document refers to missing selection ${id}`,
       subject: id,
     })
