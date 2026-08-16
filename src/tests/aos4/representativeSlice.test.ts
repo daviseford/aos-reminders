@@ -259,7 +259,7 @@ describe('AoS 4 representative vertical slice', () => {
     }
   })
 
-  it('rejects incompatible or dangling army documents without calling a remote API', () => {
+  it('rejects incompatible schemas and survives dangling selections without calling a remote API', () => {
     expect(deserializeAos4ArmyDocument(JSON.stringify({ schemaVersion: 0 }), AOS4_CATALOG)).toEqual({
       diagnostics: [
         expect.objectContaining({
@@ -269,12 +269,19 @@ describe('AoS 4 representative vertical slice', () => {
       ],
     })
 
+    // A catalog update that removed a selected entity must not cost the user their army: the dead
+    // selection is filtered with a warning and the document survives (the storage-level round trip
+    // lives in armySurvival.test.ts).
     const document = JSON.parse(serializeAos4ArmyDocument(createDocument()))
     document.explicitSelectionIds.push('warscroll:ffffffff-ffff-4fff-8fff-ffffffffffff')
     const result = deserializeAos4ArmyDocument(JSON.stringify(document), AOS4_CATALOG)
-    expect(result.document).toBeUndefined()
+    expect(result.document?.explicitSelectionIds).toEqual(createDocument().explicitSelectionIds)
     expect(result.diagnostics).toContainEqual(
-      expect.objectContaining({ code: 'missing-selection', severity: 'error' })
+      expect.objectContaining({
+        code: 'missing-selection',
+        severity: 'warning',
+        subject: 'warscroll:ffffffff-ffff-4fff-8fff-ffffffffffff',
+      })
     )
   })
 })
