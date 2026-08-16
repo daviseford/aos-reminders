@@ -103,6 +103,7 @@ const MissingRedemption = () => (
 
 const RedeemSection = () => {
   const { user } = useAuth0()
+  const { theme } = useTheme()
   const getAccessToken = useApiAccessToken()
   /*
    * Captured once. It used to be re-read on every render while handleRedeem cleared the cache
@@ -165,7 +166,7 @@ const RedeemSection = () => {
       </p>
       <p className="lead">If you&apos;re ready to redeem this gifted subscription, click the button below!</p>
       {/* Disabled while the request is in flight, so a second click cannot spend the gift twice. */}
-      <GenericButton className="btn btn-primary btn-lg" disabled={!canRedeem} onClick={handleRedeem}>
+      <GenericButton className={`${theme.commitButton} btn-lg`} disabled={!canRedeem} onClick={handleRedeem}>
         {isRedeeming ? (
           <>
             <span aria-hidden="true" className="spinner-border spinner-border-sm me-2" role="status" />

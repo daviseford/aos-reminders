@@ -97,16 +97,11 @@ const SavedArmiesModal = ({
   const cancelButton = `${theme.genericButton} btn-sm TapTarget`
   /*
    * Filled, because these are the controls that commit — outline is for everything reversible. Both
-   * fills are literal Bootstrap signal classes rather than theme slots, so a confirmation reads the
-   * same in light and dark: the slots are asymmetric (`modalSuccessClass` is filled in one theme and
-   * outlined in the other), which would give the same decision two different weights.
-   *
-   * `btn-primary` and not `btn-success`: Action Blue carries white text at 4.68:1 and Bootstrap's
-   * green at 3.13:1, under the 4.5:1 this product treats as correctness. `btn-danger` clears it at
-   * 4.53:1. This is the same reasoning that moved $primary off Bootstrap's default — see DESIGN.md.
+   * slots are theme-invariant by construction (see `invariantButtons` in theme/helperClasses), so a
+   * confirmation reads with the same weight in light and dark.
    */
-  const commitButton = 'btn btn-primary btn-sm TapTarget'
-  const destroyButton = 'btn btn-danger btn-sm TapTarget'
+  const commitButton = `${theme.commitButton} btn-sm TapTarget`
+  const destroyButton = `${theme.destructiveButton} btn-sm TapTarget`
 
   const renderActions = (army: RemoteArmy) => {
     const isPending = pending?.id === army.id

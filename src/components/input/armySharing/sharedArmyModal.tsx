@@ -1,6 +1,7 @@
 import { ArmyApi, type SharedArmy } from '../../../api/armyApi'
 import { AOS4_CATALOG } from '../../../aos4/generated'
 import { createAos4ArmyDocument, type Aos4ArmyDocument } from '../../../aos4/state'
+import { summarizeCloudArmy } from 'components/input/cloudArmies/armySummary'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useTheme } from 'context/useTheme'
 import { useEffect, useMemo, useState } from 'react'
@@ -31,6 +32,7 @@ const SharedArmyModal = ({
       share?.document.rulesContextId,
     [share?.document.rulesContextId]
   )
+  const summary = useMemo(() => (share ? summarizeCloudArmy(share.document) : { unitCount: 0 }), [share])
 
   useEffect(() => {
     let active = true
@@ -76,11 +78,20 @@ const SharedArmyModal = ({
         {share && (
           <>
             <p className="lead mb-1">{share.document.name}</p>
-            <dl>
-              <dt>Rules context</dt>
-              <dd>{contextName}</dd>
-              <dt>Selections</dt>
-              <dd>{share.document.explicitSelectionIds.length}</dd>
+            {/*
+             * The same three facts the import preview shows, in the same shape, because import and
+             * share are the two ways a roster built elsewhere arrives. This was "Rules context" and
+             * a raw "Selections" count — `explicitSelectionIds.length`, an internal field name and a
+             * number that counts factions and battle formations alongside units, so it matched
+             * nothing the player could see. "Ruleset" is the word the import preview already uses.
+             */}
+            <dl className="row mb-2">
+              <dt className="col-4">Faction</dt>
+              <dd className="col-8">{summary.factionName ?? 'Not declared'}</dd>
+              <dt className="col-4">Units</dt>
+              <dd className="col-8">{summary.unitCount}</dd>
+              <dt className="col-4">Ruleset</dt>
+              <dd className="col-8">{contextName}</dd>
             </dl>
             <p className="small">
               Loading creates a new local copy. It does not change the shared army or save it to your cloud
@@ -90,13 +101,17 @@ const SharedArmyModal = ({
         )}
         <div className="row mt-3">
           <div className="col-6">
-            <button className={`${theme.modalDangerClass} d-block w-100`} onClick={closeModal} type="button">
+            {/*
+             * Outline, not `btn-danger`: keeping the army you already have is the reversible way out
+             * of this modal, and it was the loudest control on the screen in dark theme.
+             */}
+            <button className={`${theme.genericButton} d-block w-100`} onClick={closeModal} type="button">
               Keep current army
             </button>
           </div>
           <div className="col-6">
             <button
-              className={`${theme.modalSuccessClass} d-block w-100`}
+              className={`${theme.commitButton} d-block w-100`}
               disabled={!share}
               onClick={apply}
               type="button"

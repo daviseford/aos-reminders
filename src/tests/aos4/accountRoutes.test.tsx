@@ -42,15 +42,15 @@ const subscription = vi.hoisted(() => ({
 }))
 
 const theme = {
+  alertActionButton: 'btn btn-sm btn-outline-dark',
   bgColor: 'bg-light',
   card: 'card',
   cardBody: 'card-body',
+  commitButton: 'btn btn-primary',
+  destructiveButton: 'btn btn-danger',
   genericButton: 'btn btn-light',
   headerColor: 'header',
-  modalConfirmClass: 'btn btn-primary',
-  modalDangerClass: 'btn btn-danger',
   profileCardHeader: 'card-header',
-  secondaryButton: 'btn btn-sm btn-outline-secondary',
   text: 'text-dark',
 }
 

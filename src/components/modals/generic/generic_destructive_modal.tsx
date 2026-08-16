@@ -77,10 +77,16 @@ const GenericDestructiveModal = ({
         </div>
       </div>
       <div className="d-flex flex-row justify-content-around">
-        <GenericButton className={`${theme.modalDangerClass} ${btnResponsiveClass}`} onClick={handleConfirm}>
+        {/*
+         * Filled danger on the confirm, outline on the deny. This is the one modal where red is
+         * correct — it is named `Destructive` and the confirm is what destroys — and it now matches
+         * the row confirmations in `My Armies`. The pair used to render outline-danger beside
+         * outline-dark in light theme, which gave the destroy and the escape the same weight.
+         */}
+        <GenericButton className={`${theme.destructiveButton} ${btnResponsiveClass}`} onClick={handleConfirm}>
           <FaCheck className="me-2" /> {confirmText}
         </GenericButton>
-        <GenericButton className={`${theme.modalConfirmClass} ${btnResponsiveClass}`} onClick={handleDeny}>
+        <GenericButton className={`${theme.genericButton} ${btnResponsiveClass}`} onClick={handleDeny}>
           {denyText}
         </GenericButton>
       </div>

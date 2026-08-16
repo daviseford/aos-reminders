@@ -183,13 +183,17 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
       */}
       <div className="row mx-3 mt-4 pb-3">
         <div className="col-12 pb-2">
-          <button className={`${theme.modalDangerClass} d-block w-100`} onClick={closeModal} type="button">
+          <button className={`${theme.genericButton} d-block w-100`} onClick={closeModal} type="button">
             Cancel
           </button>
         </div>
         <div className="col-12 pb-2">
+          {/*
+           * Filled: Download PDF is what this modal exists to do, and Cancel sits directly above it
+           * in the same column. With both outlined, the two read as equal weight.
+           */}
           <button
-            className={`${theme.modalConfirmClass} d-block w-100`}
+            className={`${theme.commitButton} d-block w-100`}
             disabled={isDownloadingPdf}
             onClick={() => void handleDownload()}
             type="button"

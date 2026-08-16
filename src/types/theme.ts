@@ -1,15 +1,21 @@
 export interface ITheme {
+  /**
+   * A recovery control that sits on a Bootstrap `alert-*`. Theme-invariant, because an alert's
+   * palette stays light in both themes — see The Alert Surface Rule in DESIGN.md.
+   */
+  alertActionButton: string
   bgColor: string
   card: string
   cardBody: string
   cardHeader: string
+  /** The one filled control that commits. Theme-invariant, so the decision reads the same weight in both themes. */
+  commitButton: string
+  /** The filled control that destroys data. Theme-invariant, for the same reason as `commitButton`. */
+  destructiveButton: string
   dropzone: string
   genericButton: string
   genericButtonBlock: string
   headerColor: string
-  modalConfirmClass: string
-  modalDangerClass: string
-  modalSuccessClass: string
   noteBorder: string
   profileCardHeader: string
   /** The gift-purchase table's surface, text, and divider treatment. */
@@ -17,7 +23,6 @@ export interface ITheme {
   reminderHeader: string
   reminderHr: string
   reminderTags: string
-  secondaryButton: string
   /** A recessed full-bleed band that separates a section from the page around it. */
   sectionBand: string
   selectTheme: Record<string, string>

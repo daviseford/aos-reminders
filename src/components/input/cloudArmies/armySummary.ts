@@ -2,13 +2,15 @@ import { AOS4_CATALOG } from '../../../aos4/generated'
 import type { Aos4ArmyDocument } from '../../../aos4/state'
 
 /*
- * What a saved army looks like in a list.
+ * What an army the player did not build on screen looks like when it is described back to them —
+ * a row in `My Armies`, or the header of an incoming shared link.
  *
- * The rows used to read "15 selections", which is `explicitSelectionIds.length` — the internal
- * field name, and a number no player recognises. A player recognises the faction they brought and
- * roughly how many units are in it, so that is what a row says now. Both are read off the canonical
- * ID prefix (`faction:`, `warscroll:`) rather than by resolving the selection, because a row is
- * rendered once per saved army and resolution is the builder's much heavier job.
+ * Both used to read off `explicitSelectionIds.length` ("15 selections") — the internal field name,
+ * and a number that counts the faction and battle formation alongside the units, so it matched
+ * nothing the player could count. A player recognises the faction they brought and roughly how many
+ * units are in it, so that is what they get. Both are read off the canonical ID prefix (`faction:`,
+ * `warscroll:`) rather than by resolving the selection, because this renders once per army in a
+ * list and resolution is the builder's much heavier job.
  */
 const entityNames = new Map(AOS4_CATALOG.entities.map(entity => [entity.id as string, entity.name]))
 

@@ -70,6 +70,7 @@ const Preamble = () => (
 
 const RedeemSection = () => {
   const { user } = useAuth0()
+  const { theme } = useTheme()
   const getAccessToken = useApiAccessToken()
   const [couponId, setCouponId] = useState('')
   const [isRedeeming, setIsRedeeming] = useState(false)
@@ -150,7 +151,7 @@ const RedeemSection = () => {
           long enough, so a short code left the page with no visible way forward and nothing to
           explain why. Disabling it while the request is in flight stops a double redemption.
         */}
-        <GenericButton className="btn btn-primary btn-lg" disabled={!canRedeem} type="submit">
+        <GenericButton className={`${theme.commitButton} btn-lg`} disabled={!canRedeem} type="submit">
           {isRedeeming ? (
             <>
               <span aria-hidden="true" className="spinner-border spinner-border-sm me-2" role="status" />

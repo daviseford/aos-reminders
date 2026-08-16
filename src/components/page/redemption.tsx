@@ -1,5 +1,6 @@
 import GenericButton from 'components/input/generic_button'
 import Contact from 'components/page/contact'
+import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import { ROUTES } from 'utils/env'
@@ -7,34 +8,49 @@ import { ROUTES } from 'utils/env'
 export const RedemptionLogin = ({
   children,
   handleClick,
-}: React.PropsWithChildren<{ handleClick: (event: React.MouseEvent) => unknown }>) => (
-  <div>
-    {children}
-    {/* Standing account-flow guidance, so it takes the same .lead voice as the preamble above it. */}
-    <p className="lead">
-      First, you&apos;re going to need to create an account and log in. Once you&apos;ve done that, we&apos;ll
-      set your subscription up!
-    </p>
-    <GenericButton className="btn btn-primary btn-lg" onClick={handleClick}>
-      Log In / Sign Up
-    </GenericButton>
-  </div>
-)
+}: React.PropsWithChildren<{ handleClick: (event: React.MouseEvent) => unknown }>) => {
+  const { theme } = useTheme()
 
-export const RedemptionSuccess = () => (
-  // The outcome replaces the form in place, so it has to announce itself.
-  <div role="status">
-    {/* Sized by class, not by heading level: this sits under the page <h1>, so it is an <h2>. */}
-    <h2 className="h5">Woohoo! You&apos;re all set!</h2>
-    {/* The glyph was an <h2> whose only content was a decorative icon — an empty heading. */}
-    <div className="h2 my-2">
-      <FaRegSmileBeam aria-hidden="true" />
+  return (
+    <div>
+      {children}
+      {/* Standing account-flow guidance, so it takes the same .lead voice as the preamble above it. */}
+      <p className="lead">
+        First, you&apos;re going to need to create an account and log in. Once you&apos;ve done that,
+        we&apos;ll set your subscription up!
+      </p>
+      <GenericButton className={`${theme.commitButton} btn-lg`} onClick={handleClick}>
+        Log In / Sign Up
+      </GenericButton>
     </div>
-    <GenericButton className="btn btn-success btn-lg" onClick={() => window.location.replace(ROUTES.PROFILE)}>
-      Take me to my Profile!
-    </GenericButton>
-  </div>
-)
+  )
+}
+
+export const RedemptionSuccess = () => {
+  const { theme } = useTheme()
+
+  return (
+    // The outcome replaces the form in place, so it has to announce itself.
+    <div role="status">
+      {/* Sized by class, not by heading level: this sits under the page <h1>, so it is an <h2>. */}
+      <h2 className="h5">Woohoo! You&apos;re all set!</h2>
+      {/* The glyph was an <h2> whose only content was a decorative icon — an empty heading. */}
+      <div className="h2 my-2">
+        <FaRegSmileBeam aria-hidden="true" />
+      </div>
+      {/*
+       * Was `btn-success`, whose white text measures 3.13:1. This is the same control the login step
+       * above renders, one screen later, so it takes the same commit colour at 4.69:1.
+       */}
+      <GenericButton
+        className={`${theme.commitButton} btn-lg`}
+        onClick={() => window.location.replace(ROUTES.PROFILE)}
+      >
+        Take me to my Profile!
+      </GenericButton>
+    </div>
+  )
+}
 
 export const RedemptionError = ({ error, showButton }: { error: string; showButton: boolean }) => (
   <>

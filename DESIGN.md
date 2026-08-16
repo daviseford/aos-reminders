@@ -277,21 +277,46 @@ Muted text is expressed as opacity rather than a separate token: `text-white-75`
 (`theme.cardBody`, `theme.text`, `theme.reminderHeader`), and light and dark supply their own
 values. A literal hex in a component is a defect — it will be wrong in one of the two themes.
 
+Three slots are deliberately the *same string* in both themes and are declared once, in
+`invariantButtons` in `theme/helperClasses`, so the two theme files cannot drift apart:
+`theme.commitButton` (`btn-primary`), `theme.destructiveButton` (`btn-danger`), and
+`theme.alertActionButton` (`btn-sm btn-outline-dark`). The first two carry a *decision*, and a
+decision must read with the same weight in both themes; the third lives on an alert, below. A
+`themeButtonSlots` test asserts the invariance, because the failure it prevents is invisible in
+whichever theme you happen to be developing in.
+
+That is the whole invariant set. Everything else that varies by surface still varies by theme.
+
 **The Alert Surface Rule.** A Bootstrap `alert-*` keeps its light palette in *both* themes. Nothing
 in this product sets `data-bs-theme`, so the alert backgrounds never invert — `alert-info` is
 `#d1ecf1` on a Midnight Slate page exactly as it is on a white one.
 
 An alert is therefore the one surface where the Slot Rule runs backwards. A slot exists so light and
 dark can supply their own value; on an alert, the dark value is resolved against a light ground and
-the contrast inverts. `theme.genericButton` and `theme.modalConfirmClass` are both
-`btn-outline-light` in dark theme, and on `alert-info` they measured **1.17:1** — the Load
-confirmation in `My Armies` was invisible to every dark-theme subscriber until #1963.
+the contrast inverts. `theme.genericButton` was `btn-outline-light` in dark theme, and on
+`alert-info` it measured **1.17:1** — the Load confirmation in `My Armies` was invisible to every
+dark-theme subscriber until #1963.
 
-So an alert may only carry colours that do not vary by theme: its own text, and a control whose
-class is the same string in both themes (`theme.secondaryButton`, or a literal Bootstrap signal
-class like `btn-danger`). Never a slot that differs between `light.ts` and `dark.ts` — check the two
-files before putting any slot on an alert, and prefer moving the control onto the surrounding themed
-surface instead.
+A control on an alert therefore has to clear **two** bars, and the second is the one that is easy to
+miss:
+
+1. **Theme-invariant.** Its class must be the same string in both themes — `theme.alertActionButton`,
+   `theme.commitButton`, `theme.destructiveButton`, or a literal Bootstrap signal class. Never a slot
+   that differs between `light.ts` and `dark.ts`; check the two files before putting any slot on an
+   alert.
+2. **4.5:1 against the alert's own fixed background.** Invariance only guarantees the control is
+   equally wrong in both themes. `btn-outline-secondary` draws its ink at `#6c757d`, which on
+   `alert-warning` `#fff3cd` measures **4.23:1** — theme-invariant, and still under the floor. It
+   was the retry control on `/profile` and `/subscribe` until this was written down. `btn-success`
+   fails the same way from the other direction: white on `#28a745` is **3.13:1**, and it was the
+   `Resubscribe` link on the expired-subscription alert.
+
+`theme.alertActionButton` exists to be the answer to both: `btn-outline-dark` puts `#343a40` ink on
+`alert-warning` at 10.4:1, and clears every other alert background by at least 8.6:1. (`$dark` is
+pinned to 4.6's `$gray-800`, so the ink is `#343a40` and not Bootstrap 5's `#212529` — a small
+reminder to measure in the compiled bundle rather than from the framework's documented default.)
+Where the control does not recover from what the alert reports, prefer moving it onto the
+surrounding themed surface instead.
 
 **The Meaning-Only Colour Rule.** Colour marks structure (Signal Teal = section header) or
 authorship (Note Blue = the player's own words). It never decorates, and it never carries
@@ -484,10 +509,28 @@ varies; the instruments do not.
   `me-2` and a `text-nowrap` label. Outline rather than filled because seven of them sit in one
   row — seven filled buttons would out-shout the reminders below.
 - **Navbar:** `btn btn-outline-light btn-sm mx-2` against the teal masthead.
-- **Commitment (`btn-primary`, Action Blue):** the only *filled* buttons in the product, reserved
-  for the moment money or an account changes — the three Subscribe CTAs, gift purchase, redemption.
-  Filled-vs-outline is the hierarchy: outline for everything reversible, filled for the one control
-  that commits. `btn-success` and `btn-danger` fill likewise for confirm and destroy in modals.
+- **Commitment (`theme.commitButton`, `btn-primary`, Action Blue):** the only *filled* buttons in
+  the product, reserved for the one control in a view that commits — the three Subscribe CTAs, gift
+  purchase, redemption, and in the modal family `Save`, `Import Army`, `Load a copy`,
+  `Load this army`, `Download PDF`, `Create share link`. Filled-vs-outline is the hierarchy: outline
+  for everything reversible, filled for the one control that commits. `theme.destructiveButton`
+  (`btn-danger`) fills likewise for the control that destroys — the row `Delete` in `My Armies`,
+  `Overwrite it instead` in `Save Army`, and the confirm in `GenericDestructiveModal`.
+  `btn-success` fills nothing: white on Bootstrap's green measures 3.13:1, under the 4.5:1 floor,
+  and green as a *commit* colour also collided with green as a *confirmed-write* colour on alerts.
+- **Cancel and close:** always `theme.genericButton`, or `btn-close` where a modal has a corner
+  dismiss. Red is for destroying data, never for leaving. Four controls whose job was cancel or
+  close — in `Import Army` (twice), `Shared Army`, and `Print` — carried `modalDangerClass` and
+  rendered as filled red in dark theme, which made the way out of each modal its loudest element.
+- **Segmented / pressed:** Bootstrap's own `.active` on `theme.genericButton`, alongside
+  `aria-pressed` — the `Paste roster` / `Upload roster` pair in `Import Army`. The selected segment
+  fills with the outline button's own ink (11.5:1 in light, 19.9:1 in dark) rather than taking a
+  signal colour, so "the one you picked" does not read as a status. It was `btn-info`, at 3.04:1.
+- **The filled signal classes that are not used:** `btn-success` (3.13:1) and `btn-info` (3.04:1)
+  both put white on a mid-tone at ratios under the floor, and neither appears in the codebase.
+  `btn-warning` and `btn-light` take dark text and pass, but have no role here. If a new filled
+  colour is ever needed, measure it in the compiled bundle first — `$min-contrast-ratio` is pinned
+  to 2.5 to preserve 4.6's text-colour choices, so Bootstrap will *not* stop you.
 - **Width:** full-width is the dominant shape — `d-block w-100`, 14 uses (Bootstrap 5 dropped
   `.btn-block`). Buttons in this product are full-width in
   their column far more often than they are inline.
@@ -539,13 +582,21 @@ sits where the failure happened. They carry `role="alert"` where the content is 
 first render.
 
 An alert may carry a control that recovers from what it reports — the retry on `/profile` and
-`/subscribe`, the dismiss on the notification banner — and its class must be theme-invariant, per
-The Alert Surface Rule.
+`/subscribe` (`theme.alertActionButton`), the dismiss on the notification banner. Its class must
+clear both bars in The Alert Surface Rule: theme-invariant *and* 4.5:1 against the alert's own
+background.
 
 It never carries a *decision*. A confirmation goes on the themed surface of whatever it is
 confirming, adjacent to the control that raised it, for two reasons: the alert's live-region role
 announces its text without moving focus to anything inside it, and an alert placed after the list it
 refers to can be arbitrarily far from the row that raised it. `My Armies` did both until #1963.
+
+One live exception, and it is unresolved rather than blessed: `Overwrite it instead` in `Save Army`
+is a decision sitting on an `alert-warning`. It is placed there because the duplicate-name warning
+is the only place the alternative makes sense, and the alert wraps its message in `role="status"`
+with the button *outside* the live region so focus can reach it. It clears both contrast bars
+(`theme.destructiveButton`, 4.53:1). It still contradicts this paragraph, and the honest fix is
+probably to move the pair onto the modal's own surface. Treat it as open.
 
 ### Inputs / Fields
 
@@ -569,7 +620,9 @@ refers to can be arbitrarily far from the row that raised it. `My Armies` did bo
   accompanied by `visually-hidden` "Loading..." text under `role="status"`, so the state is announced and
   not merely animated.
 - **Suspense fallbacks:** `LoadingHeader` and `LoadingBody` stand in for the navbar and routed
-  content, so the masthead does not collapse while a lazy route resolves.
+  content, so the masthead does not collapse while a lazy route resolves. `LoadingBody` is two
+  static lines and stays that way — a pulse and a fade were built for it and deliberately rejected.
+  See The Dead Class Rule.
 
 ### Cards / Containers
 
@@ -607,30 +660,40 @@ the opposite mode is a dead stop in the tab order.
 ### Named Rules
 
 **The Dead Class Rule.** A class in JSX that no rule defines is a design intention that silently
-never happened, and this codebase has a habit of them. Checked against the compiled bundle, five
+never happened, and this codebase has a habit of them. Checked against the compiled bundle, three
 are live in `src/components/` today:
 
 | Class | Where | What was intended |
 | --- | --- | --- |
-| `pulsate-fwd` | `helpers/suspenseFallbacks.tsx` | A pulse on the loading heading |
-| `fade-out` | `helpers/suspenseFallbacks.tsx` | A fade on "Loading…" |
 | `btn-pill` | `payment/pricingPlans.tsx` | A rounded Subscribe CTA (`rounded-pill` is the real class) |
 | `btn-md` | `routes/Profile.tsx` | A medium button; Bootstrap only ships `btn-sm`/`btn-lg` |
 | `pricing-card-title` | `payment/pricingPlans.tsx` | Carried over from a Bootstrap example |
 
-The first two matter most to this record. The product has essentially no motion — the only
-transition in the stylesheet is the dropzone's border on drag-over — and that reads as a deliberate
-choice fitting the use scene. But the loading screen *asked* for a pulse and a fade and got neither,
-so the absence of motion there is an accident, not a decision. Treat it as open rather than settled.
+`pulsate-fwd` and `fade-out` on the suspense fallback left this table by being **removed**, and that
+closes the one question this record used to carry as open. It said the loading screen "asked for a
+pulse and a fade and got neither, so the absence of motion there is an accident, not a decision",
+and to treat it as unsettled.
+
+It is settled: the loading screen holds still. Both animations were built and reviewed against the
+real fallback in both themes before the call was made, so this is a decision about the product and
+not an omission — the pulse read as more presence than a two-line placeholder wants, and the
+product's stillness turned out to be worth more than the reassurance it bought. The classes are
+gone from `suspenseFallbacks.tsx` rather than left sitting there, because a dead class is exactly
+what would let this switch itself back on during a future stylesheet change.
+
+So the product has essentially no motion, and now by decision at every point: the only transition in
+the stylesheet is the dropzone's border on drag-over. Do not define `pulsate-fwd` or `fade-out`.
+Adding motion anywhere is a design change that needs asking for, and the reminders surface is the
+last place to try it.
 
 Verify a new utility class exists before relying on it — `grep` the compiled CSS, not your memory of
-which Bootstrap version this is. A seventh entry, `g-0` on the FAQ row, left this table in the 5.3
-upgrade: it was Bootstrap 5 syntax written while the project was still on 4.6, so it had never done
-anything, and the upgrade would have brought it to life and narrowed every FAQ card. It was deleted
-rather than honoured, because reviving a style that has never shipped is a design change. An eighth,
-`h-md-250` on the same row, left with the FAQ rebuild that replaced that layout outright. That is
-the general remedy for this table: a dead class is removed or implemented deliberately, never left
-to switch itself on during an upgrade.
+which Bootstrap version this is. Two more entries left this table the same way. `g-0` on the FAQ row
+was Bootstrap 5 syntax written while the project was still on 4.6, so it had never done anything,
+and the 5.3 upgrade would have brought it to life and narrowed every FAQ card. It was deleted rather
+than honoured, because reviving a style that has never shipped is a design change — the same
+reasoning that retired `pulsate-fwd` and `fade-out`. `h-md-250` on the same row left with the FAQ
+rebuild that replaced that layout outright. That is the general remedy for this table: a dead class
+is removed or implemented deliberately, never left to switch itself on during an upgrade.
 
 ## Do's and Don'ts
 
@@ -664,7 +727,9 @@ to switch itself on during an upgrade.
   `$themeDarkBlueTertiary` — they are declared but unused and are not part of the system.
 - **Don't** put a theme-varying slot inside a Bootstrap `alert-*`, or a decision of any kind. Alert
   palettes stay light in both themes, so `btn-outline-light` vanishes on one — this shipped at
-  1.17:1. See The Alert Surface Rule.
+  1.17:1. And don't stop at invariance: `btn-outline-secondary` (4.23:1 on `alert-warning`) and
+  `btn-success` (3.13:1) are the same string in both themes and both shipped under the floor. Reach
+  for `theme.alertActionButton`. See The Alert Surface Rule.
 - **Don't** change heading level to change text size. Set the size in `.CardHeaderTitle`.
 - **Don't** use uppercase outside the timing tags.
 - **Don't** use a filled button for a reversible action. Filled (`btn-primary`) is reserved for the
