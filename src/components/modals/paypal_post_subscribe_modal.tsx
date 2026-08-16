@@ -99,7 +99,7 @@ export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen, retryGrant }
       </div>
       <div className="row text-center">
         <div className="col px-0">
-          <GenericButton className={theme.modalConfirmClass} onClick={closeModal}>
+          <GenericButton className={theme.genericButton} onClick={closeModal}>
             Close
           </GenericButton>
         </div>

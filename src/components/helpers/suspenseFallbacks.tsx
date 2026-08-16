@@ -52,9 +52,16 @@ export const LoadingBody = () => {
 
   return (
     <div className={containerClass}>
+      {/*
+       * No motion here, deliberately — see The Dead Class Rule in DESIGN.md. The heading and the
+       * "Loading..." line carried `pulsate-fwd` and `fade-out` for years with no rule defining
+       * either. The question of whether to honour them or drop them was settled in favour of
+       * dropping them: this screen holds still like the rest of the product. Do not re-add the
+       * classes, and do not define those names in the stylesheet.
+       */}
       <div className="col text-center">
-        <h3 className={`pulsate-fwd ${theme.text}`}>AoS Reminders</h3>
-        <p className={`lead ${theme.textMuted} fade-out`}>Loading...</p>
+        <h3 className={theme.text}>AoS Reminders</h3>
+        <p className={`lead ${theme.textMuted}`}>Loading...</p>
       </div>
     </div>
   )

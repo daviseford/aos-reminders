@@ -96,15 +96,8 @@ const SaveArmyModal = ({ closeModal, currentDocument, isOpen, onSaved }: SaveArm
               onChange={event => setSaveName(event.target.value)}
               value={saveName}
             />
-            {/*
-             * `btn-primary`, not `theme.modalSuccessClass`. That slot is filled green in light
-             * theme and outlined in dark, so the one control that commits carried two different
-             * weights depending on the theme — and its filled form put white text on Bootstrap's
-             * green at 3.13:1, under the 4.5:1 floor. Action Blue is DESIGN.md's commit colour and
-             * measures 4.68:1.
-             */}
             <button
-              className="btn btn-primary TapTarget"
+              className={`${theme.commitButton} TapTarget`}
               disabled={!configured || !trimmedName || isSaving}
               type="submit"
             >
@@ -132,7 +125,7 @@ const SaveArmyModal = ({ closeModal, currentDocument, isOpen, onSaved }: SaveArm
               <p className="small mb-2">Saving now adds a second army with the same name.</p>
             </div>
             <button
-              className="btn btn-danger btn-sm TapTarget"
+              className={`${theme.destructiveButton} btn-sm TapTarget`}
               disabled={isSaving}
               onClick={() => void updateExisting()}
               type="button"

@@ -43,10 +43,8 @@ vi.mock('context/useTheme', () => ({
     theme: {
       bgColor: 'bg-white',
       dropzone: 'dropzone',
+      commitButton: 'btn btn-primary',
       genericButton: 'btn btn-outline-dark',
-      modalConfirmClass: 'btn btn-outline-dark',
-      modalDangerClass: 'btn btn-outline-danger',
-      modalSuccessClass: 'btn btn-success',
       text: 'text-dark',
     },
   }),
@@ -292,6 +290,45 @@ describe('AoS 4 import modal', () => {
       selectionCount: 3,
       source: 'official-app-text',
     })
+  })
+
+  /*
+   * Import is the main entry path — most rosters are built elsewhere — and until this pass its
+   * three most prominent controls were all mis-weighted: Close was `modalDangerClass` (filled red
+   * in dark theme, the loudest thing in the modal), Import Army was `modalSuccessClass` (white on
+   * Bootstrap green at 3.13:1 in light theme, and merely outlined in dark), and Cancel was red
+   * beside it.
+   */
+  it('weights close, cancel, and commit by what each one does', () => {
+    const close = container.querySelector('button[aria-label="Close import"]')
+    expect(close?.className).toContain('btn-close')
+    expect(close?.className).not.toContain('btn-danger')
+
+    expect(findButton(container, 'Cancel').className).toContain('btn-outline-dark')
+    expect(findButton(container, 'Cancel').className).not.toContain('btn-danger')
+
+    const apply = findButton(container, 'Import Army')
+    expect(apply.className).toContain('btn-primary')
+    expect(apply.className).not.toContain('btn-success')
+  })
+
+  /*
+   * The selected source segment fills with Bootstrap's `.active` rather than `btn-info`, whose
+   * white text measured 3.04:1 — and which read as a status rather than as the pressed state.
+   */
+  it('marks the selected import source with the pressed state, not a signal colour', () => {
+    // The modal opens on the upload zone.
+    expect(findButton(container, 'Upload roster').getAttribute('aria-pressed')).toBe('true')
+    expect(findButton(container, 'Upload roster').className).toContain('active')
+    expect(findButton(container, 'Upload roster').className).not.toContain('btn-info')
+    expect(findButton(container, 'Paste roster').className).not.toContain('active')
+
+    act(() => {
+      Simulate.click(findButton(container, 'Paste roster'))
+    })
+
+    expect(findButton(container, 'Paste roster').className).toContain('active')
+    expect(findButton(container, 'Upload roster').className).not.toContain('active')
   })
 
   it('opens a reproducible GitHub report and downloads the exact failed pasted roster', async () => {

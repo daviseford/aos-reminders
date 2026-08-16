@@ -217,7 +217,7 @@ const SubscriptionInfoBody = () => {
         <br />
         <button
           type="button"
-          className={`${theme.secondaryButton} mt-2`}
+          className={`${theme.alertActionButton} mt-2`}
           onClick={() => void getSubscription()}
         >
           Check again
@@ -439,15 +439,28 @@ const ToggleTheme = () => {
   )
 }
 
-const SubscriptionExpired = () => (
-  /* `btn-md` was a dead class — Bootstrap 4.6 ships only btn-sm and btn-lg, so this was default size. */
-  <div className="alert alert-danger text-center mb-0" role="alert">
-    <strong>Your subscription has expired!</strong>
-    <br />
-    <Link to={ROUTES.SUBSCRIBE} className="btn btn-success mt-2" onClick={() => logClick('Resubscribe')}>
-      Resubscribe now!
-    </Link>
-  </div>
-)
+const SubscriptionExpired = () => {
+  const { theme } = useTheme()
+
+  return (
+    /* `btn-md` was a dead class — Bootstrap 4.6 ships only btn-sm and btn-lg, so this was default size. */
+    <div className="alert alert-danger text-center mb-0" role="alert">
+      <strong>Your subscription has expired!</strong>
+      <br />
+      {/*
+       * Action Blue, not `btn-success`. Both are theme-invariant, so both satisfy The Alert Surface
+       * Rule — but white on Bootstrap's green measures 3.13:1 and on $blue 4.69:1, and this control
+       * resubscribes, which is the commit colour's own job.
+       */}
+      <Link
+        to={ROUTES.SUBSCRIBE}
+        className={`${theme.commitButton} mt-2`}
+        onClick={() => logClick('Resubscribe')}
+      >
+        Resubscribe now!
+      </Link>
+    </div>
+  )
+}
 
 export default Profile

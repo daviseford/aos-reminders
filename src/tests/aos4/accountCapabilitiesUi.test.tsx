@@ -31,10 +31,9 @@ vi.mock('context/useTheme', () => ({
     theme: {
       bgColor: 'bg-white',
       cardBody: 'card-body',
+      commitButton: 'btn btn-primary',
+      destructiveButton: 'btn btn-danger',
       genericButton: 'btn btn-outline-dark',
-      modalConfirmClass: 'btn btn-info',
-      modalDangerClass: 'btn btn-danger',
-      modalSuccessClass: 'btn btn-success',
       text: 'text-dark',
       textMuted: 'text-muted',
     },

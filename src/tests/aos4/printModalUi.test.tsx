@@ -8,8 +8,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 vi.mock('context/useTheme', () => ({
   useTheme: () => ({
     theme: {
-      modalConfirmClass: 'btn btn-info',
-      modalDangerClass: 'btn btn-danger',
+      commitButton: 'btn btn-primary',
+      genericButton: 'btn btn-outline-dark',
       text: 'text-dark',
     },
   }),
@@ -90,6 +90,29 @@ describe('PDF download modal', () => {
     })
 
     expect(closeModal).toHaveBeenCalledTimes(1)
+  })
+
+  /*
+   * Cancel sits directly above Download PDF in the same full-width column — the modal is
+   * shrink-to-fit, so they cannot share a row. With both outlined they read as equal weight, and
+   * Cancel was the *redder* of the two (`modalDangerClass`, filled in dark theme).
+   */
+  it('fills the download and leaves cancel outlined', () => {
+    act(() => {
+      render(
+        <PrintModal
+          closeModal={vi.fn()}
+          defaultFileName="Stormcast_Reminders"
+          isOpen
+          onDownloadPdf={vi.fn().mockResolvedValue(undefined)}
+        />,
+        container
+      )
+    })
+
+    expect(findButton(container, 'Download PDF').className).toContain('btn-primary')
+    expect(findButton(container, 'Cancel').className).toContain('btn-outline-dark')
+    expect(findButton(container, 'Cancel').className).not.toContain('btn-danger')
   })
 
   it('passes includeSummary false when the army summary checkbox is unchecked', async () => {

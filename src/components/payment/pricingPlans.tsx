@@ -226,7 +226,7 @@ export const PlanComponent = (props: IPlanProps) => {
              */
             <GenericButton
               type="button"
-              className="btn d-block w-100 btn-primary TapTargetBlock py-2"
+              className={`${theme.commitButton} d-block w-100 TapTargetBlock py-2`}
               onClick={login}
             >
               Subscribe for {supportPlan.title}
@@ -259,7 +259,7 @@ export const PlanComponent = (props: IPlanProps) => {
                   <GenericButton
                     type="button"
                     aria-label={`Subscribe for ${supportPlan.title} with Stripe`}
-                    className="btn d-block btn-primary TapTargetBlock py-2 PaymentChoiceOption--stripe"
+                    className={`${theme.commitButton} d-block TapTargetBlock py-2 PaymentChoiceOption--stripe`}
                     disabled={isRedirecting}
                     onClick={handleStripeCheckout}
                   >

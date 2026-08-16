@@ -120,7 +120,7 @@ const ShareArmyModal = ({ closeModal, document, isOpen }: ShareArmyModalProps) =
             </div>
 
             <button
-              className="btn btn-primary d-block w-100 mt-3 TapTargetBlock"
+              className={`${theme.commitButton} d-block w-100 mt-3 TapTargetBlock`}
               onClick={() => void copy()}
               type="button"
             >
@@ -137,7 +137,7 @@ const ShareArmyModal = ({ closeModal, document, isOpen }: ShareArmyModalProps) =
           </>
         ) : (
           <button
-            className="btn btn-primary d-block w-100 TapTargetBlock"
+            className={`${theme.commitButton} d-block w-100 TapTargetBlock`}
             disabled={!configured}
             onClick={() => void create()}
             type="button"

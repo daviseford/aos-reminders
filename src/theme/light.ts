@@ -1,8 +1,11 @@
+import { invariantButtons } from 'theme/helperClasses'
 import { ITheme } from 'types/theme'
 
 const bgColor = `bg-white`
 
 const LightTheme: ITheme = {
+  // `alertActionButton`, `commitButton`, `destructiveButton` — identical in both themes by design.
+  ...invariantButtons,
   bgColor,
   card: `card`,
   cardBody: `card-body ${bgColor}`,
@@ -11,16 +14,12 @@ const LightTheme: ITheme = {
   genericButton: `btn btn-outline-dark`,
   genericButtonBlock: `btn btn-outline-dark d-block w-100`,
   headerColor: `bg-themeDarkBluePrimary`,
-  modalConfirmClass: `btn btn-outline-dark`,
-  modalDangerClass: `btn btn-outline-danger`,
-  modalSuccessClass: `btn btn-success`,
   noteBorder: `NoteBorder`,
   profileCardHeader: `card-header bg-profileHeader text-dark`,
   purchaseTable: `GiftPurchaseTable-Light`,
   reminderHeader: `bg-themeDarkBluePrimary`,
   reminderHr: `ReminderHr`,
   reminderTags: `ReminderTags-Light`,
-  secondaryButton: `btn btn-sm btn-outline-secondary`,
   sectionBand: `bg-light`,
   selectTheme: {},
   text: `text-dark`,

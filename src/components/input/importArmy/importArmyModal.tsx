@@ -44,7 +44,7 @@ const ImportArmyModal = ({
   isOpen,
   onApply,
 }: ImportArmyModalProps) => {
-  const { theme } = useTheme()
+  const { isDark, theme } = useTheme()
   const [mode, setMode] = useState<ImportMode>('upload')
   const [text, setText] = useState('')
   const [decoded, setDecoded] = useState<Aos4ParsedRosterResult>()
@@ -188,20 +188,31 @@ const ImportArmyModal = ({
               Recruit .ros/.rosz/.json file.
             </p>
           </div>
+          {/*
+           * `btn-close`, the same control Save Army and My Armies use. It was
+           * `theme.modalDangerClass` — a filled red button in dark theme, which made Close the
+           * loudest thing in a modal whose job is to accept a roster. The glyph was a literal `×`
+           * with no accessible name of its own; `btn-close` draws the mark itself.
+           */}
           <button
             aria-label="Close import"
-            className={theme.modalDangerClass}
+            className={`btn-close TapTargetOverlay flex-shrink-0 ${isDark ? 'btn-close-white' : ''}`}
             onClick={closeModal}
             type="button"
-          >
-            ×
-          </button>
+          />
         </div>
 
+        {/*
+         * Bootstrap's own `.active`, not a signal colour. The selected segment was `btn-info`, whose
+         * white text on Info Cyan measures 3.04:1 — and cyan on this surface also read as a status,
+         * not as "this is the one you picked". `.active` fills the outline button the group is
+         * already made of: 11.5:1 in light theme, 19.9:1 in dark, and the pressed state is drawn by
+         * the same rule that draws `aria-pressed`.
+         */}
         <div aria-label="Import source" className="btn-group w-100 mb-3" role="group">
           <button
             aria-pressed={mode === 'paste'}
-            className={mode === 'paste' ? 'btn btn-info' : theme.genericButton}
+            className={`${theme.genericButton}${mode === 'paste' ? ' active' : ''}`}
             onClick={() => chooseMode('paste')}
             type="button"
           >
@@ -209,7 +220,7 @@ const ImportArmyModal = ({
           </button>
           <button
             aria-pressed={mode === 'upload'}
-            className={mode === 'upload' ? 'btn btn-info' : theme.genericButton}
+            className={`${theme.genericButton}${mode === 'upload' ? ' active' : ''}`}
             onClick={() => chooseMode('upload')}
             type="button"
           >
@@ -232,8 +243,12 @@ const ImportArmyModal = ({
               rows={10}
               value={text}
             />
+            {/*
+             * Outline: previewing is a look, not the commit. Filled belongs to `Import Army` below,
+             * which is the control that replaces the army on screen.
+             */}
             <button
-              className={`${theme.modalConfirmClass} d-block w-100 mt-3`}
+              className={`${theme.genericButton} d-block w-100 mt-3`}
               disabled={!text.trim()}
               onClick={previewText}
               type="button"
@@ -303,13 +318,13 @@ const ImportArmyModal = ({
 
         <div className="row mt-4">
           <div className="col-6">
-            <button className={`${theme.modalDangerClass} d-block w-100`} onClick={closeModal} type="button">
+            <button className={`${theme.genericButton} d-block w-100`} onClick={closeModal} type="button">
               Cancel
             </button>
           </div>
           <div className="col-6">
             <button
-              className={`${theme.modalSuccessClass} d-block w-100`}
+              className={`${theme.commitButton} d-block w-100`}
               disabled={!canApply}
               onClick={apply}
               type="button"

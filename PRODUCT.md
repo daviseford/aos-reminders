@@ -185,10 +185,19 @@ occurrence, Legends, Spearhead, General's Handbook 2026-27 (`Scourge of Aqshy`).
   (`src/tests/fixtures/aos4/import/new-recruit/`), captured from opted-in accounts and
   self-checking across all three formats.
 - **A mobile and accessibility audit**, `docs/design/2026-07-30-mobile-accessibility-audit.md`
-  (score 14/20), superseding the 2026-07-28 pass (11/20), which is retained as history. It closes
-  17 of the prior 23 findings including the sole P0, and leaves two P1s: target sizes below the
-  24px WCAG 2.5.8 floor across 85 timing tags, the mode switch, and the navbar; and a 1.42MB
-  gzipped initial chunk carrying the generated corpus. Neither is a data or rules defect.
+  (score 14/20), superseding the 2026-07-28 pass (11/20), which is retained as history. It closed
+  17 of the prior 23 findings including the sole P0, and left two P1s. Re-measured against the
+  compiled bundle on 2026-08-16, both have moved and neither is closed:
+  - **Target sizes below the 24px WCAG 2.5.8 floor.** The 85 timing tags and the navbar are
+    fixed — the tags carry a 24px `::after` hit box that leaves the 20px chip's density intact,
+    and the navbar takes `.TapTarget`/`.TapTargetOverlay` to 44px. **The Edit/Play switch is
+    still 20px tall** (`react-switch`, `height={20} width={80}`), which is the whole of what
+    remains of this P1 — and it is the product's one mode control, on the one-handed screen.
+  - **The initial chunk.** Now 1.21MB gzipped (`aos4-catalog-data`, 12.7MB raw), down from
+    1.42MB. It is not in the entry HTML, but it is a static dependency of the lazily-loaded
+    `Home` route, so every player still waits for it before the reminders surface renders.
+
+  Neither is a data or rules defect.
 
 **Absences that future work must not fabricate**: there are no testimonials, no case studies, no
 press, no usage or subscriber metrics, and no benchmark data. Nothing in this repository supports a

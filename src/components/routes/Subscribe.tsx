@@ -199,7 +199,11 @@ const SubscriptionUnavailable = ({ error, onRetry }: { error: string; onRetry: (
             <br />
             We have not shown the plans, in case you are already subscribed.
             <br />
-            <button type="button" className={`${theme.secondaryButton} mt-2`} onClick={() => void onRetry()}>
+            <button
+              type="button"
+              className={`${theme.alertActionButton} mt-2`}
+              onClick={() => void onRetry()}
+            >
               Check again
             </button>
           </div>

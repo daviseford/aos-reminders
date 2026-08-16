@@ -1,3 +1,4 @@
+import { invariantButtons } from 'theme/helperClasses'
 import { ITheme } from 'types/theme'
 
 const selectTheme = {
@@ -62,6 +63,8 @@ const selectTheme = {
 const bgColor = `bg-themeDarkBlueSecondary`
 
 const DarkTheme: ITheme = {
+  // `alertActionButton`, `commitButton`, `destructiveButton` — identical in both themes by design.
+  ...invariantButtons,
   bgColor,
   card: `card border border-dark`,
   cardBody: `card-body ${bgColor}`,
@@ -70,9 +73,6 @@ const DarkTheme: ITheme = {
   genericButton: `btn btn-outline-light`,
   genericButtonBlock: `btn btn-outline-light d-block w-100`,
   headerColor: bgColor,
-  modalConfirmClass: `btn btn-outline-light`,
-  modalDangerClass: `btn btn-danger`,
-  modalSuccessClass: `btn btn-outline-success`,
   noteBorder: `NoteBorder-Dark`,
   /*
    * `.card` never gets a themed background, so the light theme's 15% wash composites over Bootstrap's
@@ -84,7 +84,6 @@ const DarkTheme: ITheme = {
   reminderHeader: `bg-themeLightBlue`,
   reminderHr: `ReminderHr-Dark`,
   reminderTags: `ReminderTags-Dark`,
-  secondaryButton: `btn btn-sm btn-outline-secondary`,
   /*
    * Light theme separates this band with a tonal shelf; dark theme separates with the card borders
    * instead, so the band takes the page colour. $themeDarkBluePrimary was the obvious candidate but
