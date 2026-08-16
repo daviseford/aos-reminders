@@ -119,17 +119,53 @@ describe('AoS 4 army API client', () => {
     const fetcher = vi.fn().mockResolvedValue(jsonResponse([remoteArmy]))
     const armies = await createArmyApi('https://army.example', fetcher).listArmies('token')
     expect(armies).toEqual([remoteArmy])
+  })
 
-    const strippedFetcher = vi.fn().mockResolvedValue(
-      jsonResponse([
-        {
-          ...remoteArmy,
-          document: { ...legendsDocument, allowsLegends: undefined },
-        },
-      ])
-    )
-    await expect(
-      createArmyApi('https://army.example', strippedFetcher).listArmies('token')
-    ).rejects.toMatchObject({ status: 502 })
+  /*
+   * A selection that deserializes but no longer resolves in its rules context is a legitimately
+   * stale army, not service corruption: a catalog update that supersedes an enhancement table does
+   * this to every army that picked from the replaced table (the GHB 2026-27 replacement did, for
+   * eighteen factions), and the builder tolerates the pick by ignoring it. Rejecting it here
+   * bricked saving that army and poisoned the whole cloud list — one stale army made My Armies
+   * unusable. The Legends-only warscroll without its overlay flag reproduces the same state.
+   */
+  it('parses an army whose selection no longer resolves in its context instead of failing the list', async () => {
+    const legendsSelection = (() => {
+      for (const faction of AOS4_CATALOG.entities.filter(entity => entity.id.startsWith('faction:'))) {
+        const strict = resolveSelection(AOS4_CATALOG, {
+          explicitIds: [faction.id],
+          rulesContextId: document.rulesContextId,
+        })
+        const relaxed = resolveSelection(AOS4_CATALOG, {
+          explicitIds: [faction.id],
+          rulesContextId: document.rulesContextId,
+          allowsLegends: true,
+        })
+        const strictAvailable = new Set(strict.availableIds)
+        const legendsOnly = relaxed.availableIds.find(
+          id => id.startsWith('warscroll:') && !strictAvailable.has(id)
+        )
+        if (legendsOnly) return { factionId: faction.id, warscrollId: legendsOnly }
+      }
+      throw new Error('The catalog has no Legends-only warscroll to exercise')
+    })()
+
+    const staleDocument = {
+      ...document,
+      explicitSelectionIds: [legendsSelection.factionId, legendsSelection.warscrollId],
+    }
+    const remoteArmy = { id: 'cloud-stale', createdAt: 1, updatedAt: 2, document: staleDocument }
+
+    const listFetcher = vi.fn().mockResolvedValue(jsonResponse([remoteArmy]))
+    const armies = await createArmyApi('https://army.example', listFetcher).listArmies('token')
+    expect(armies).toEqual([remoteArmy])
+
+    const saveFetcher = vi
+      .fn()
+      .mockResolvedValue(
+        jsonResponse({ id: 'cloud-stale', createdAt: 1, updatedAt: 1, document: staleDocument }, 201)
+      )
+    const saved = await createArmyApi('https://army.example', saveFetcher).createArmy(staleDocument, 'token')
+    expect(saved.document).toEqual(staleDocument)
   })
 })

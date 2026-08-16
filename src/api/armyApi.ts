@@ -1,5 +1,4 @@
 import { AOS4_CATALOG } from '../aos4/generated'
-import { resolveSelection } from '../aos4/select'
 import { deserializeAos4ArmyDocument, type Aos4ArmyDocument } from '../aos4/state'
 
 export interface RemoteArmy {
@@ -33,19 +32,17 @@ type Fetcher = typeof fetch
 
 const configuredEndpoint = (import.meta.env.VITE_ARMY_API_URL || '').replace(/\/+$/, '')
 
+/*
+ * Structural validation only. A stored army can hold a selection that no longer resolves in its
+ * rules context — a catalog update superseding an enhancement table does this to every army that
+ * picked from the replaced table — and the builder already tolerates such picks by ignoring them.
+ * Rejecting them here instead bricked saving and, worse, one stale army poisoned the whole cloud
+ * list. So a well-formed document always parses; selection resolution is the builder's concern.
+ */
 const parseDocument = (value: unknown): Aos4ArmyDocument => {
   const restored = deserializeAos4ArmyDocument(JSON.stringify(value), AOS4_CATALOG)
   if (!restored.document || restored.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     throw new ArmyApiError('The service returned an incompatible army document.', 502)
-  }
-  const selection = resolveSelection(AOS4_CATALOG, {
-    explicitIds: restored.document.explicitSelectionIds,
-    rulesContextId: restored.document.rulesContextId,
-    ...(restored.document.allowsLegends ? { allowsLegends: true } : {}),
-    ...(restored.document.allowsHistorical ? { allowsHistorical: true } : {}),
-  })
-  if (selection.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
-    throw new ArmyApiError('The service returned an invalid army selection.', 502)
   }
   return restored.document
 }
