@@ -109,6 +109,14 @@ small {
   .ToolbarButtonCell {
     min-width: 9rem;
   }
+
+  /*
+   * The Update Army cell alone reserves the width of its widest label, so the swap through
+   * "Updating…" and "Updated" cannot resize the cell and slide the centred row sideways.
+   */
+  .ToolbarButtonCell--status {
+    min-width: 11rem;
+  }
 }
 
 .TapTarget {
@@ -695,11 +703,6 @@ small {
   background-color: $themeDarkBlueSecondary;
 }
 
-.Modal-Transparent {
-  @extend .Modal-Light;
-  background-color: rgba(0, 0, 0, 0);
-}
-
 .Modal-Overlay {
   position: fixed;
   top: 0;
@@ -715,6 +718,67 @@ small {
 
 .aos4-account-modal {
   width: min(46rem, calc(100vw - 4rem));
+}
+
+/*
+ * A modal keeps its own surface while a request is in flight, and the spinner sits over it. The
+ * previous treatment swapped the box to a fully transparent variant and `hidden` the content, so
+ * the whole dialog appeared to vanish mid-save.
+ */
+.ModalContent {
+  position: relative;
+}
+
+.ModalContent-Busy {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.ModalContent-Spinner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+ * Saved-army rows.
+ *
+ * The three save-shaped actions pack from the left and Delete is pushed to the far end of whichever
+ * line it lands on. On a phone the strip wraps, and the previous flat order put Delete immediately
+ * beside the overwrite action with 8px between them — the two controls a player must never confuse,
+ * adjacent, in the one-hand-and-dice scene the product is designed for.
+ */
+.CloudArmyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.CloudArmyDelete {
+  margin-left: auto;
+}
+
+/*
+ * Confirmations render in the row that raised them, so they inherit its surface and need no box of
+ * their own — and crucially no Bootstrap `alert-*`, whose light background is identical in both
+ * themes and rendered the outline-light confirm buttons at 1.17:1 in dark.
+ */
+.CloudArmyConfirm {
+  padding-top: 0.25rem;
+}
+
+.CloudArmyEmpty {
+  padding: 1rem 0;
+}
+
+/* The share link copies when clicked, so it has to look clickable rather than like a dead field. */
+.CopyableLink {
+  cursor: pointer;
 }
 
 /* Dropzone */

@@ -5,8 +5,14 @@ import { act } from 'react'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+// The real values from src/theme/light.ts. `btn-block` was Bootstrap 4 and no longer exists.
 vi.mock('context/useTheme', () => ({
-  useTheme: () => ({ theme: { genericButtonBlock: 'btn btn-block btn-outline-dark' } }),
+  useTheme: () => ({
+    theme: {
+      genericButtonBlock: 'btn btn-outline-dark d-block w-100',
+      textMuted: 'text-muted',
+    },
+  }),
 }))
 
 const findButton = (container: HTMLElement, label: string): HTMLButtonElement | undefined =>
@@ -58,7 +64,7 @@ describe('toolbar save controls', () => {
 
   it('splits saving into Update Army and Save As once the army mirrors a cloud army', () => {
     act(() => {
-      render(<Toolbar {...baseProps} cloudArmyLinked />, container)
+      render(<Toolbar {...baseProps} cloudArmyLinked cloudArmyHasChanges />, container)
     })
 
     expect(findButton(container, 'Save Army')).toBeUndefined()
@@ -69,6 +75,57 @@ describe('toolbar save controls', () => {
 
     act(() => findButton(container, 'Save As')!.click())
     expect(baseProps.onSaveArmy).toHaveBeenCalledTimes(1)
+  })
+
+  it('offers Update Army only while the army differs from the saved copy', () => {
+    act(() => {
+      render(<Toolbar {...baseProps} cloudArmyLinked cloudArmyName="Kruleboyz Tourney" />, container)
+    })
+    // Nothing to write, so the control is absent rather than disabled — the Show Hidden rule.
+    expect(findButton(container, 'Update Army')).toBeUndefined()
+    expect(findButton(container, 'Save As')).not.toBeUndefined()
+    expect(container.textContent).toContain('up to date')
+
+    act(() => {
+      render(
+        <Toolbar {...baseProps} cloudArmyLinked cloudArmyName="Kruleboyz Tourney" cloudArmyHasChanges />,
+        container
+      )
+    })
+    expect(findButton(container, 'Update Army')).not.toBeUndefined()
+    expect(container.textContent).toContain('unsaved changes')
+  })
+
+  it('keeps Update Army through its own confirmation, so the save does not hide its own result', () => {
+    // The army is clean the instant the write lands; without this the "Updated" flash never shows.
+    act(() => {
+      render(<Toolbar {...baseProps} cloudArmyLinked updateArmyStatus="updating" />, container)
+    })
+    expect(findButton(container, 'Updating…')).not.toBeUndefined()
+
+    act(() => {
+      render(<Toolbar {...baseProps} cloudArmyLinked updateArmyStatus="updated" />, container)
+    })
+    expect(findButton(container, 'Updated')).not.toBeUndefined()
+
+    act(() => {
+      render(<Toolbar {...baseProps} cloudArmyLinked updateArmyStatus="idle" />, container)
+    })
+    expect(findButton(container, 'Update Army')).toBeUndefined()
+  })
+
+  it('names the cloud army Update Army writes to, and only while one is linked', () => {
+    act(() => {
+      render(<Toolbar {...baseProps} cloudArmyName="Kruleboyz Tourney" />, container)
+    })
+    // Unlinked: there is no Update Army, so there is nothing to name.
+    expect(container.textContent).not.toContain('Kruleboyz Tourney')
+
+    act(() => {
+      render(<Toolbar {...baseProps} cloudArmyLinked cloudArmyName="Kruleboyz Tourney" />, container)
+    })
+    expect(container.textContent).toContain('Cloud army:')
+    expect(container.textContent).toContain('Kruleboyz Tourney')
   })
 
   it('reports update progress and completion on the Update Army button itself', () => {

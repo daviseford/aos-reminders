@@ -1,64 +1,73 @@
 import type { RemoteArmy } from '../../../api/armyApi'
 import type { Aos4ArmyDocument } from '../../../aos4/state'
+import { describeCloudArmy } from './armySummary'
 import { withName } from './withName'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useArmyCollection } from 'context/useArmyCollection'
 import { useTheme } from 'context/useTheme'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface SavedArmiesModalProps {
   closeModal: () => void
-  currentDocument: Aos4ArmyDocument
   isOpen: boolean
+  /** The cloud army the on-screen document is a copy of, so its row can say so. */
+  linkedCloudArmyId?: string
   onApply: (document: Aos4ArmyDocument) => void
-  /** The current document became a copy of this cloud army (saved, updated from current, or loaded). */
-  onLinked?: (cloudArmyId: string) => void
+  /** The current document became a copy of this cloud army, and is exactly `document`. */
+  onLinked?: (cloudArmyId: string, name: string, document: Aos4ArmyDocument) => void
   onDeleted?: (cloudArmyId: string) => void
+}
+
+/*
+ * One decision at a time. `load` and `delete` each swap the row's action strip for a confirmation
+ * *in that row*; `rename` swaps it for an edit field. Holding them in one value rather than
+ * independent pieces of state is what makes them mutually exclusive — the previous version could
+ * have a load confirmation open on one row and a delete confirmation on another, on top of a stale
+ * success alert.
+ */
+type PendingKind = 'load' | 'delete' | 'rename'
+interface PendingAction {
+  id: string
+  kind: PendingKind
 }
 
 const SavedArmiesModal = ({
   closeModal,
-  currentDocument,
   isOpen,
+  linkedCloudArmyId,
   onApply,
   onDeleted,
   onLinked,
 }: SavedArmiesModalProps) => {
-  const {
-    armies,
-    collectionError,
-    collectionLoading,
-    configured,
-    createArmy,
-    deleteArmy,
-    refreshArmies,
-    updateArmy,
-  } = useArmyCollection()
-  const { theme } = useTheme()
-  const [saveName, setSaveName] = useState(currentDocument.name)
-  const [draftNames, setDraftNames] = useState<Record<string, string>>({})
-  const [pendingLoad, setPendingLoad] = useState<RemoteArmy>()
-  const [pendingDeleteId, setPendingDeleteId] = useState<string>()
+  const { armies, collectionError, collectionLoading, configured, deleteArmy, refreshArmies, updateArmy } =
+    useArmyCollection()
+  const { isDark, theme } = useTheme()
+  const [pending, setPending] = useState<PendingAction>()
+  const [renameDraft, setRenameDraft] = useState('')
   const [isMutating, setIsMutating] = useState(false)
   const [message, setMessage] = useState<string>()
-
-  useEffect(() => {
-    setDraftNames(current =>
-      Object.fromEntries(armies.map(army => [army.id, current[army.id] ?? army.document.name]))
-    )
-  }, [armies])
 
   useEffect(() => {
     if (isOpen) void refreshArmies()
   }, [isOpen, refreshArmies])
 
-  const selectedCount = useMemo(() => pendingLoad?.document.explicitSelectionIds.length ?? 0, [pendingLoad])
+  /*
+   * A report of what just happened must never outlive the thing it describes. Opening any new
+   * decision clears it, so the player is never reading "Army saved." while looking at a delete
+   * confirmation for a different army.
+   */
+  const openPending = (id: string, kind: PendingKind, currentName = '') => {
+    setMessage(undefined)
+    setRenameDraft(currentName)
+    setPending({ id, kind })
+  }
 
   const mutate = async (operation: () => Promise<void>, success: string) => {
     setIsMutating(true)
     setMessage(undefined)
     try {
       await operation()
+      setPending(undefined)
       setMessage(success)
     } catch {
       // The collection context exposes the service error beside the controls.
@@ -67,34 +76,151 @@ const SavedArmiesModal = ({
     }
   }
 
-  const saveNew = () =>
-    mutate(async () => {
-      const savedDocument = withName(currentDocument, saveName)
-      const created = await createArmy(savedDocument)
-      onApply(savedDocument)
-      onLinked?.(created.id)
-    }, 'Army saved.')
-
   const rename = (army: RemoteArmy) =>
     mutate(async () => {
-      await updateArmy(army.id, withName(army.document, draftNames[army.id] ?? army.document.name))
-    }, 'Saved army renamed.')
-
-  const updateFromCurrent = (army: RemoteArmy) =>
-    mutate(async () => {
-      const savedDocument = withName(currentDocument, draftNames[army.id] ?? currentDocument.name)
-      await updateArmy(army.id, savedDocument)
-      onApply(savedDocument)
-      onLinked?.(army.id)
-    }, 'Saved army updated from the current army.')
+      await updateArmy(army.id, withName(army.document, renameDraft))
+    }, `Renamed to ${renameDraft.trim()}.`)
 
   const confirmDelete = (army: RemoteArmy) =>
     mutate(async () => {
       await deleteArmy(army.id)
-      setPendingDeleteId(undefined)
-      if (pendingLoad?.id === army.id) setPendingLoad(undefined)
       onDeleted?.(army.id)
-    }, 'Saved army deleted.')
+    }, `Deleted ${army.document.name}.`)
+
+  const confirmLoad = (army: RemoteArmy) => {
+    onApply(army.document)
+    onLinked?.(army.id, army.document.name, army.document)
+    closeModal()
+  }
+
+  const rowButton = `${theme.genericButton} btn-sm TapTarget`
+  const cancelButton = `${theme.genericButton} btn-sm TapTarget`
+  /*
+   * Filled, because these are the controls that commit — outline is for everything reversible. Both
+   * fills are literal Bootstrap signal classes rather than theme slots, so a confirmation reads the
+   * same in light and dark: the slots are asymmetric (`modalSuccessClass` is filled in one theme and
+   * outlined in the other), which would give the same decision two different weights.
+   *
+   * `btn-primary` and not `btn-success`: Action Blue carries white text at 4.68:1 and Bootstrap's
+   * green at 3.13:1, under the 4.5:1 this product treats as correctness. `btn-danger` clears it at
+   * 4.53:1. This is the same reasoning that moved $primary off Bootstrap's default — see DESIGN.md.
+   */
+  const commitButton = 'btn btn-primary btn-sm TapTarget'
+  const destroyButton = 'btn btn-danger btn-sm TapTarget'
+
+  const renderActions = (army: RemoteArmy) => {
+    const isPending = pending?.id === army.id
+
+    if (isPending && pending.kind === 'rename') {
+      return (
+        <form
+          className="CloudArmyConfirm"
+          onSubmit={event => {
+            event.preventDefault()
+            void rename(army)
+          }}
+        >
+          <label className="visually-hidden" htmlFor={`army-name-${army.id}`}>
+            New name for {army.document.name}
+          </label>
+          <input
+            autoFocus
+            className={`form-control form-control-sm ${theme.bgColor} ${theme.text}`}
+            id={`army-name-${army.id}`}
+            maxLength={200}
+            onChange={event => setRenameDraft(event.target.value)}
+            value={renameDraft}
+          />
+          <div className="CloudArmyActions mt-2">
+            <button
+              className={commitButton}
+              disabled={isMutating || !renameDraft.trim() || renameDraft.trim() === army.document.name}
+              type="submit"
+            >
+              Save name
+            </button>
+            <button className={cancelButton} onClick={() => setPending(undefined)} type="button">
+              Cancel
+            </button>
+          </div>
+        </form>
+      )
+    }
+
+    if (isPending && pending.kind !== 'rename') {
+      /*
+       * Every confirmation renders here, inside the row it belongs to. The version this replaced put
+       * the load confirmation after the whole list, where with eight saved armies it landed 198px
+       * below the modal on a desktop and 822px below on a phone — so "Load" looked like it did
+       * nothing. It also sat in a Bootstrap `alert-info`, whose light background is the same in both
+       * themes, so the outline-light buttons on it measured 1.17:1 in dark theme.
+       */
+      const confirmations = {
+        load: {
+          prompt: `Load ${army.document.name}?`,
+          detail: 'The army on screen is replaced. Anything unsaved on it is lost.',
+          action: 'Load this army',
+          className: commitButton,
+          run: () => confirmLoad(army),
+        },
+        delete: {
+          prompt: `Delete ${army.document.name}?`,
+          detail: 'It is removed from your account on every device. This cannot be undone.',
+          action: 'Delete this army',
+          className: destroyButton,
+          run: () => void confirmDelete(army),
+        },
+      }[pending.kind]
+
+      return (
+        <div aria-label={confirmations.prompt} className="CloudArmyConfirm" role="group">
+          <p className="mb-1 fw-bold">{confirmations.prompt}</p>
+          <p className={`small mb-2 ${theme.textMuted}`}>{confirmations.detail}</p>
+          <div className="CloudArmyActions">
+            <button
+              autoFocus
+              className={confirmations.className}
+              disabled={isMutating}
+              onClick={confirmations.run}
+              type="button"
+            >
+              {confirmations.action}
+            </button>
+            <button className={cancelButton} onClick={() => setPending(undefined)} type="button">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <div className="CloudArmyActions">
+        <button className={rowButton} onClick={() => openPending(army.id, 'load')} type="button">
+          Load
+        </button>
+        <button
+          className={rowButton}
+          onClick={() => openPending(army.id, 'rename', army.document.name)}
+          type="button"
+        >
+          Rename
+        </button>
+        {/*
+         * Pushed away from the three save-shaped actions rather than tinted red. Separation is what
+         * stops a mis-tap on a phone, where these wrap to two lines; the colour is spent on the
+         * confirmation instead, so nothing is loud until something is about to be destroyed.
+         */}
+        <button
+          className={`${rowButton} CloudArmyDelete`}
+          onClick={() => openPending(army.id, 'delete')}
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+    )
+  }
 
   return (
     <GenericModal closeModal={closeModal} isOpen={isOpen} isProcessing={isMutating} label="My Armies">
@@ -102,11 +228,19 @@ const SavedArmiesModal = ({
         <div className="d-flex align-items-start justify-content-between mb-3">
           <div>
             <h2 className="h4 mb-1">My Armies</h2>
-            <p className="small mb-0">Save and load AoS 4 armies across your devices.</p>
+            <p className="small mb-0">Load a saved army, or manage the ones on your account.</p>
           </div>
-          <button aria-label="Close saved armies" className={theme.modalDangerClass} onClick={closeModal}>
-            ×
-          </button>
+          {/*
+           * `btn-close`, the same control the notification banner uses. It was `theme.modalDangerClass`,
+           * which is a filled red button in dark theme — making Close the loudest control in the modal
+           * and visually identical to Delete.
+           */}
+          <button
+            aria-label="Close My Armies"
+            className={`btn-close TapTargetOverlay flex-shrink-0 ${isDark ? 'btn-close-white' : ''}`}
+            onClick={closeModal}
+            type="button"
+          />
         </div>
 
         {!configured && (
@@ -125,139 +259,37 @@ const SavedArmiesModal = ({
           </div>
         )}
 
-        <div className="card mb-3">
-          <div className={`card-body ${theme.cardBody}`}>
-            <label className="fw-bold" htmlFor="saved-army-name">
-              Save current army
-            </label>
-            <div className="input-group">
-              <input
-                className={`form-control ${theme.bgColor} ${theme.text}`}
-                id="saved-army-name"
-                maxLength={200}
-                onChange={event => setSaveName(event.target.value)}
-                value={saveName}
-              />
-              {/*
-                Bootstrap 5 removed the .input-group-append wrapper: an input group's children are
-                now direct flex items, and the trailing control's square inner corners come from
-                `.input-group > :not(:first-child)`. The button is unchanged.
-              */}
-              <button
-                className={theme.modalSuccessClass}
-                disabled={!configured || !saveName.trim()}
-                onClick={() => void saveNew()}
-                type="button"
-              >
-                Save new
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {collectionLoading ? (
+        {collectionLoading && armies.length === 0 ? (
           <p role="status">Loading saved armies…</p>
         ) : armies.length === 0 ? (
-          <p className="small">No cloud armies saved yet.</p>
+          <div className="CloudArmyEmpty">
+            <p className="mb-1 fw-bold">No armies saved yet.</p>
+            <p className={`small mb-0 ${theme.textMuted}`}>
+              Build an army, then choose <strong>Save Army</strong> in the toolbar. It will be here on every
+              device you sign in on.
+            </p>
+          </div>
         ) : (
-          <div aria-label="Saved armies" className="list-group">
+          <ul aria-label="Saved armies" className="list-group">
             {armies.map(army => (
-              <div className={`list-group-item ${theme.cardBody} ${theme.text}`} key={army.id}>
-                <label className="visually-hidden" htmlFor={`army-name-${army.id}`}>
-                  Saved army name
-                </label>
-                <input
-                  className={`form-control form-control-sm mb-2 ${theme.bgColor} ${theme.text}`}
-                  id={`army-name-${army.id}`}
-                  maxLength={200}
-                  onChange={event =>
-                    setDraftNames(current => ({ ...current, [army.id]: event.target.value }))
-                  }
-                  value={draftNames[army.id] ?? army.document.name}
-                />
-                <p className="small mb-2">
-                  {army.document.explicitSelectionIds.length} selections · updated{' '}
-                  {new Date(army.updatedAt).toLocaleDateString()}
-                </p>
-                <div className="d-flex flex-wrap">
-                  <button
-                    className={`${theme.genericButton} btn-sm me-2 mb-2`}
-                    onClick={() => setPendingLoad(army)}
-                    type="button"
-                  >
-                    Load
-                  </button>
-                  <button
-                    className={`${theme.genericButton} btn-sm me-2 mb-2`}
-                    onClick={() => void rename(army)}
-                    type="button"
-                  >
-                    Rename
-                  </button>
-                  <button
-                    className={`${theme.genericButton} btn-sm me-2 mb-2`}
-                    onClick={() => void updateFromCurrent(army)}
-                    type="button"
-                  >
-                    Update from current
-                  </button>
-                  {pendingDeleteId === army.id ? (
-                    <>
-                      <button
-                        className={`${theme.modalDangerClass} btn-sm me-2 mb-2`}
-                        onClick={() => void confirmDelete(army)}
-                        type="button"
-                      >
-                        Confirm delete
-                      </button>
-                      <button
-                        className={`${theme.genericButton} btn-sm mb-2`}
-                        onClick={() => setPendingDeleteId(undefined)}
-                        type="button"
-                      >
-                        Cancel
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      className={`${theme.modalDangerClass} btn-sm mb-2`}
-                      onClick={() => setPendingDeleteId(army.id)}
-                      type="button"
-                    >
-                      Delete
-                    </button>
+              <li className={`list-group-item ${theme.cardBody} ${theme.text}`} key={army.id}>
+                <div className="d-flex align-items-baseline flex-wrap gap-2">
+                  <h3 className="h6 mb-0">{army.document.name}</h3>
+                  {army.id === linkedCloudArmyId && (
+                    /*
+                     * Plain text, not a badge: this is a state readout rather than an attention
+                     * marker, and the saturated tones stay reserved for meaning elsewhere.
+                     */
+                    <span className={`small fw-bold ${theme.textMuted}`}>On screen now</span>
                   )}
                 </div>
-              </div>
+                <p className={`small mb-2 ${theme.textMuted}`}>
+                  {describeCloudArmy(army.document, army.updatedAt)}
+                </p>
+                {renderActions(army)}
+              </li>
             ))}
-          </div>
-        )}
-
-        {pendingLoad && (
-          <div className="alert alert-info mt-3" role="alert">
-            <strong>Replace the current army with {pendingLoad.document.name}?</strong>
-            <p className="small mb-2">
-              {selectedCount} selections in {pendingLoad.document.rulesContextId}
-            </p>
-            <button
-              className={`${theme.modalConfirmClass} btn-sm me-2`}
-              onClick={() => {
-                onApply(pendingLoad.document)
-                onLinked?.(pendingLoad.id)
-                closeModal()
-              }}
-              type="button"
-            >
-              Replace current army
-            </button>
-            <button
-              className={`${theme.genericButton} btn-sm`}
-              onClick={() => setPendingLoad(undefined)}
-              type="button"
-            >
-              Keep current army
-            </button>
-          </div>
+          </ul>
         )}
       </div>
     </GenericModal>
