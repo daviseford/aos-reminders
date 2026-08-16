@@ -1,17 +1,30 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { ArmyApi, ArmyApiError, type CreatedShare, type RemoteArmy } from '../api/armyApi'
 import type { Aos4ArmyDocument } from '../aos4/state'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { useApiAccessToken } from 'utils/authToken'
 
 interface ArmyCollectionContextValue {
   armies: RemoteArmy[]
   collectionError: string | null
+  /**
+   * Whether `armies` is a list the account actually returned, rather than the empty array it starts
+   * as. An account can legitimately hold no armies, so emptiness cannot stand in for this: a caller
+   * that reads absence from the list — "the record I am linked to is gone" — would read the same
+   * absence from a list nobody has fetched, and from one whose fetch failed.
+   */
+  collectionLoaded: boolean
   collectionLoading: boolean
   configured: boolean
   createArmy: (document: Aos4ArmyDocument) => Promise<RemoteArmy>
   createShare: (document: Aos4ArmyDocument) => Promise<CreatedShare>
   deleteArmy: (id: string) => Promise<void>
+  /**
+   * Load the collection once, for a caller that needs it to answer a question rather than to show
+   * it. Unlike `refreshArmies` this is a no-op when the list is already loaded or already asked
+   * for, so it can sit in an effect without turning a failed fetch into a retry loop.
+   */
+  ensureArmiesLoaded: () => Promise<void>
   refreshArmies: () => Promise<void>
   updateArmy: (id: string, document: Aos4ArmyDocument) => Promise<RemoteArmy>
 }
@@ -29,12 +42,22 @@ export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<obj
   const getAccessToken = useApiAccessToken()
   const [armies, setArmies] = useState<RemoteArmy[]>([])
   const [collectionError, setCollectionError] = useState<string | null>(null)
+  const [collectionLoaded, setCollectionLoaded] = useState(false)
   const [collectionLoading, setCollectionLoading] = useState(false)
+  /*
+   * Whether `ensureArmiesLoaded` has already spent its one attempt. A ref rather than state: it must
+   * not re-render anything, and it must be readable by the very call that sets it.
+   */
+  const loadRequestedRef = useRef(false)
 
   const refreshArmies = useCallback(async () => {
     if (!isAuthenticated) {
       setArmies([])
       setCollectionError(null)
+      // Signing out invalidates the list rather than emptying it. Anything asking whether a record
+      // is still on the account must go back to not knowing.
+      setCollectionLoaded(false)
+      loadRequestedRef.current = false
       return
     }
     setCollectionLoading(true)
@@ -42,12 +65,28 @@ export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<obj
     try {
       const token = await getAccessToken()
       setArmies(await ArmyApi.listArmies(token))
+      setCollectionLoaded(true)
     } catch (error) {
       setCollectionError(messageForError(error))
+      // Deliberately not cleared: a failed refresh leaves the last good list in place, and that list
+      // is still a real answer. Only signing out takes the answer away.
     } finally {
       setCollectionLoading(false)
     }
   }, [getAccessToken, isAuthenticated])
+
+  /*
+   * The collection is deliberately not fetched on mount — most visits never touch cloud armies, and
+   * the fetch costs a token round-trip. This is the one exception: a caller holding a question that
+   * only the list can answer. The authentication guard sits before the ref so an early call, made
+   * while Auth0 is still resolving the session, does not burn the attempt.
+   */
+  const ensureArmiesLoaded = useCallback(async () => {
+    if (!isAuthenticated || !ArmyApi.isConfigured) return
+    if (collectionLoaded || loadRequestedRef.current) return
+    loadRequestedRef.current = true
+    await refreshArmies()
+  }, [collectionLoaded, isAuthenticated, refreshArmies])
 
   const createArmy = useCallback(
     async (document: Aos4ArmyDocument) => {
@@ -120,21 +159,25 @@ export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<obj
     () => ({
       armies,
       collectionError,
+      collectionLoaded,
       collectionLoading,
       configured: ArmyApi.isConfigured,
       createArmy,
       createShare,
       deleteArmy,
+      ensureArmiesLoaded,
       refreshArmies,
       updateArmy,
     }),
     [
       armies,
       collectionError,
+      collectionLoaded,
       collectionLoading,
       createArmy,
       createShare,
       deleteArmy,
+      ensureArmiesLoaded,
       refreshArmies,
       updateArmy,
     ]

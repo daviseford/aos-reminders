@@ -12,11 +12,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 const collection = vi.hoisted(() => ({
   armies: [] as unknown[],
   collectionError: null as string | null,
+  collectionLoaded: true,
   collectionLoading: false,
   configured: true,
   createArmy: vi.fn(),
   createShare: vi.fn(),
   deleteArmy: vi.fn(),
+  ensureArmiesLoaded: vi.fn(),
   refreshArmies: vi.fn(),
   updateArmy: vi.fn(),
 }))
