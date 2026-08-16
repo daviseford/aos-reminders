@@ -11,14 +11,16 @@ import {
   type UsageLimit,
   type UsageScope,
 } from '../domain'
+import type { Aos4PublicationImpact, ChangeFieldDelta } from '../changelog'
 import {
   gameWindowKey,
   projectReminders,
+  reminderOccurrenceAbilityId,
   type ProjectedReminder,
   type ReminderOccurrenceId,
 } from '../reminders'
 import { resolveSelection } from '../select'
-import type { Aos4ArmyDocument } from '../state'
+import { createAos4ArmyDocument, type Aos4ArmyDocument } from '../state'
 
 const phaseNames = new Map(TURN_PHASES.map(phase => [phase.id, phase.name]))
 
@@ -47,7 +49,8 @@ const windowLabel = (timing: AbilityTiming): string => {
   }
 }
 
-const titleCase = (value: string): string =>
+/** Capitalizes each hyphen-separated part, joined with spaces: kebab slugs become display names. */
+export const titleCase = (value: string): string =>
   value
     .split('-')
     .map(part => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
@@ -79,6 +82,7 @@ export type Aos4ReminderTagTone =
   | 'source'
   | 'provenance'
   | 'keyword'
+  | 'changed'
 
 export interface Aos4ReminderTag {
   label: string
@@ -187,6 +191,15 @@ const timingTags = (timing: AbilityTiming): Aos4ReminderTag[] => [
     : []),
 ]
 
+/**
+ * What a retained rules update did to a reminder's ability: the publication that changed it and the
+ * field-level old → new deltas, straight off the changelog artifact's modified record.
+ */
+export interface Aos4ReminderChange {
+  publicationName: string
+  fields: ChangeFieldDelta[]
+}
+
 export interface Aos4ReminderViewModel {
   id: ReminderOccurrenceId
   name: string
@@ -207,6 +220,8 @@ export interface Aos4ReminderViewModel {
   /** The game-wide rules module carrying this reminder, when one does. Text-only provenance data;
    * the tag row renders the quieter `provenance` tone instead (see `provenanceTag`). */
   rulesModule?: string
+  /** Present when a retained rules update modified this reminder's ability (see `withAos4ReminderChanges`). */
+  change?: Aos4ReminderChange
   projected: ProjectedReminder
 }
 
@@ -438,9 +453,112 @@ const withPreferences = (
   }
 }
 
+/**
+ * Collapses per-publication impacts into one lookup for the reminder markers: canonical ability ID
+ * to the change that touched it. Impacts arrive newest-first from the artifact, so an ability two
+ * retained updates both modified keeps the newest publication's record.
+ */
+export const aos4ReminderChangesByAbilityId = (
+  impacts: readonly Aos4PublicationImpact[]
+): Map<string, Aos4ReminderChange> => {
+  const changes = new Map<string, Aos4ReminderChange>()
+  impacts.forEach(impact => {
+    impact.reminderChanges.forEach(record => {
+      if (!changes.has(record.entityId)) {
+        changes.set(record.entityId, { publicationName: impact.publication.name, fields: record.fields })
+      }
+    })
+  })
+  return changes
+}
+
+const changedTag = (change: Aos4ReminderChange): Aos4ReminderTag => ({
+  label: 'Updated',
+  tone: 'changed',
+  description: `A rules update changed this ability. Updated by ${change.publicationName}.`,
+})
+
+/**
+ * Attaches changed markers to the reminders a rules update touched. Matching is by canonical
+ * ability ID from the projected reminder — never by occurrence ID, which a timing change moves.
+ * Returns the input array untouched when there is nothing to mark, so callers can memoize on
+ * reference identity.
+ */
+export const withAos4ReminderChanges = (
+  reminders: Aos4ReminderViewModel[],
+  changesByAbilityId?: ReadonlyMap<string, Aos4ReminderChange>
+): Aos4ReminderViewModel[] => {
+  if (!changesByAbilityId?.size) return reminders
+  let marked = false
+  const decorated = reminders.map(reminder => {
+    const change = reminder.projected.abilityIds
+      .map(abilityId => changesByAbilityId.get(abilityId))
+      .find(candidate => candidate !== undefined)
+    if (!change) return reminder
+    marked = true
+    return { ...reminder, change, tags: [changedTag(change), ...reminder.tags] }
+  })
+  return marked ? decorated : reminders
+}
+
+/** One projected reminder occurrence, as the preference migration needs to see it. */
+export interface Aos4ReminderOccurrence {
+  id: ReminderOccurrenceId
+  abilityIds: readonly CanonicalId<'ability'>[]
+}
+
+/**
+ * Re-keys hidden/note/order preferences a timing change stranded: the occurrence ID embeds the
+ * semantic timing, so when a rules update moves an ability's timing the stored preference points at
+ * an occurrence that no longer projects.
+ *
+ * The rule: a stale preference migrates only when its ability currently projects EXACTLY ONE
+ * occurrence and that occurrence carries no preference of its own. An ability projecting several
+ * timings is ambiguous — there is no way to know which occurrence the user meant — so the stale
+ * preference is kept untouched rather than guessed at (it keys nothing and is harmless, and it
+ * comes back to life if the occurrence returns). Returns the same document instance when nothing
+ * migrates, so callers can apply it through setState-style updates without looping.
+ */
+export const migrateAos4ReminderPreferences = (
+  document: Aos4ArmyDocument,
+  occurrences: readonly Aos4ReminderOccurrence[]
+): Aos4ArmyDocument => {
+  const entries = Object.entries(document.reminderPreferences)
+  if (!entries.length) return document
+  const currentIds = new Set<string>(occurrences.map(occurrence => occurrence.id))
+  const occurrencesByAbilityId = new Map<string, Aos4ReminderOccurrence[]>()
+  occurrences.forEach(occurrence =>
+    occurrence.abilityIds.forEach(abilityId => {
+      occurrencesByAbilityId.set(abilityId, [...(occurrencesByAbilityId.get(abilityId) ?? []), occurrence])
+    })
+  )
+  let migrated = false
+  const preferences = { ...document.reminderPreferences }
+  entries.forEach(([occurrenceId, preference]) => {
+    if (!preference || currentIds.has(occurrenceId)) return
+    const abilityId = reminderOccurrenceAbilityId(occurrenceId)
+    if (!abilityId) return
+    const candidates = occurrencesByAbilityId.get(abilityId) ?? []
+    if (candidates.length !== 1) return
+    const target = candidates[0]
+    if (preferences[target.id]) return
+    delete preferences[occurrenceId as ReminderOccurrenceId]
+    preferences[target.id] = preference
+    migrated = true
+  })
+  if (!migrated) return document
+  return createAos4ArmyDocument({ ...document, reminderPreferences: preferences })
+}
+
+export interface Aos4ReminderViewModelOptions {
+  /** Canonical ability ID to its retained rules-update change; see `aos4ReminderChangesByAbilityId`. */
+  changesByAbilityId?: ReadonlyMap<string, Aos4ReminderChange>
+}
+
 export const createAos4ReminderViewModel = (
   catalog: Aos4Catalog,
-  document: Aos4ArmyDocument
+  document: Aos4ArmyDocument,
+  options?: Aos4ReminderViewModelOptions
 ): Aos4ReminderViewModel[] => {
   const selection = resolveSelection(catalog, {
     explicitIds: document.explicitSelectionIds,
@@ -462,7 +580,7 @@ export const createAos4ReminderViewModel = (
     withPreferences(reminder, document, entityById, seasonalContextIds, ruleNameByMatchKey)
   )
   const baseOrder = new Map(reminders.map((reminder, index) => [reminder.id, index]))
-  return reminders.sort((left, right) => {
+  const sorted = reminders.sort((left, right) => {
     if (left.windowKey !== right.windowKey) {
       return (baseOrder.get(left.id) ?? 0) - (baseOrder.get(right.id) ?? 0)
     }
@@ -471,6 +589,7 @@ export const createAos4ReminderViewModel = (
       left.id.localeCompare(right.id)
     )
   })
+  return withAos4ReminderChanges(sorted, options?.changesByAbilityId)
 }
 
 export const createPrintableAos4Reminders = (

@@ -5,6 +5,7 @@ import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router'
 import { ROUTES } from 'utils/env'
 
+const Changelog = lazy(() => import('components/routes/Changelog'))
 const Faq = lazy(() => import('components/routes/Faq'))
 const Home = lazy(() => import('components/routes/Home'))
 const Join = lazy(() => import('components/routes/Join'))
@@ -29,6 +30,7 @@ const lazyScreen = (Screen: ComponentType): ReactNode => (
  */
 export const router = createBrowserRouter([
   { path: ROUTES.HOME, element: lazyScreen(Home) },
+  { path: ROUTES.CHANGELOG, element: lazyScreen(Changelog) },
   { path: ROUTES.FAQ, element: lazyScreen(Faq) },
   { path: ROUTES.JOIN, element: lazyScreen(Join) },
   { path: ROUTES.REDEEM, element: lazyScreen(Redeem) },

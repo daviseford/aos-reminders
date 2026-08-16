@@ -10,9 +10,7 @@ vi.mock('context/useTheme', () => ({
 }))
 
 const findButton = (container: HTMLElement, label: string): HTMLButtonElement | undefined =>
-  Array.from(container.querySelectorAll('button')).find(
-    candidate => candidate.textContent?.trim() === label
-  )
+  Array.from(container.querySelectorAll('button')).find(candidate => candidate.textContent?.trim() === label)
 
 describe('toolbar save controls', () => {
   let container: HTMLDivElement

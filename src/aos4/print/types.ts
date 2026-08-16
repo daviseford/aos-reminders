@@ -39,6 +39,12 @@ export type PrintTagTone =
   | 'usage'
   | 'priority'
   | 'provenance'
+  /*
+   * The transient changed marker from the reminders screen. Home prints from the undecorated view
+   * models, so this tone never reaches paper today; it exists so the screen and print tone unions
+   * stay assignable.
+   */
+  | 'changed'
 
 export interface PrintTag {
   label: string

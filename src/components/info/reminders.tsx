@@ -1,5 +1,7 @@
-import type { Aos4ReminderViewModel } from '../../aos4/view'
+import { formatChangelogValue } from '../../aos4/changelog'
+import type { Aos4ReminderChange, Aos4ReminderViewModel } from '../../aos4/view'
 import { CollapsibleCardHeader } from 'components/helpers/collapsibleCardHeader'
+import { logClick } from 'utils/analytics'
 import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import { Fragment, useEffect, useMemo, useState } from 'react'
@@ -69,14 +71,30 @@ const RuleText = ({ label, text, muted = false }: { label?: string; text: string
  * The abbreviated labels are not self-explanatory, so each tag carries its expansion. `title` covers
  * mouse hover, `aria-label` covers assistive tech, and tapping toggles the expansion inline because
  * a touch device never fires hover.
+ *
+ * The `changed` tone is the rules-update marker: its expansion additionally lists the old → new
+ * field deltas from `change`, with the old value struck through the way the public /changelog page
+ * renders the same record.
  */
-export const ReminderTags = ({ tags }: { tags: Aos4ReminderViewModel['tags'] }) => {
+export const ReminderTags = ({
+  change,
+  tags,
+}: {
+  change?: Aos4ReminderChange
+  tags: Aos4ReminderViewModel['tags']
+}) => {
   const { theme } = useTheme()
   const [explained, setExplained] = useState<string | null>(null)
 
   if (!tags.length) return null
 
-  const handleToggle = (key: string) => setExplained(current => (current === key ? null : key))
+  const handleToggle = (tag: Aos4ReminderViewModel['tags'][number]) => {
+    const key = `${tag.tone}:${tag.label}`
+    if (tag.tone === 'changed' && explained !== key) logClick('changelog_marker_expand')
+    setExplained(current => (current === key ? null : key))
+  }
+
+  const explainedTag = tags.find(tag => `${tag.tone}:${tag.label}` === explained)
 
   // The explainer is a sibling of the tag row, not a child: nesting it inside the row widens the
   // flex container and drags the right-aligned tags out of alignment when it opens.
@@ -93,16 +111,22 @@ export const ReminderTags = ({ tags }: { tags: Aos4ReminderViewModel['tags'] }) 
               title={tag.description}
               aria-label={`${tag.label}. ${tag.description}`}
               aria-expanded={explained === key}
-              onClick={() => handleToggle(key)}
+              onClick={() => handleToggle(tag)}
             >
               {tag.label}
             </button>
           )
         })}
       </span>
-      {explained && (
+      {explainedTag && (
         <span className={`ReminderTagExplainer ${theme.reminderTags}`} role="note">
-          {tags.find(tag => `${tag.tone}:${tag.label}` === explained)?.description}
+          {explainedTag.description}
+          {explainedTag.tone === 'changed' &&
+            change?.fields.map(delta => (
+              <span key={delta.field} className={`ReminderChangeDelta ${theme.text}`}>
+                <del>{formatChangelogValue(delta.previous)}</del> &rarr; {formatChangelogValue(delta.next)}
+              </span>
+            ))}
         </span>
       )}
     </>
@@ -140,9 +164,9 @@ const ReminderEntry = ({
           <span className="ReminderHeadingRow">
             <strong className={theme.text}>{reminder.name}</strong>
             {reminder.hidden && <MdVisibilityOff className={`${theme.text} ms-2`} />}
-            {!isMobile && <ReminderTags tags={reminder.tags} />}
+            {!isMobile && <ReminderTags change={reminder.change} tags={reminder.tags} />}
           </span>
-          {isMobile && <ReminderTags tags={reminder.tags} />}
+          {isMobile && <ReminderTags change={reminder.change} tags={reminder.tags} />}
         </div>
         <div className="flex-shrink-0 ReminderOptions d-print-none">
           <Dropdown>

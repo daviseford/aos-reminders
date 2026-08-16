@@ -1,3 +1,4 @@
+import { ChangelogBanner, type ChangelogBannerProps } from 'components/info/banners/changelog_banner'
 import { CheckoutOutcomeBanner } from 'components/info/banners/checkout_outcome_banner'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { UpdateAvailable } from 'components/info/updateAvailable'
@@ -12,6 +13,9 @@ const WelcomeBanner = () => (
   </NotificationBanner>
 )
 
+/** Everything the changelog banner needs from the host screen; see ChangelogBannerProps. */
+export type AppBannerChangelogProps = Omit<ChangelogBannerProps, 'fallback'>
+
 /**
  * The home screen's single banner slot, directly under the masthead.
  *
@@ -21,11 +25,18 @@ const WelcomeBanner = () => (
  * A return from checkout outranks both. It reports something that just happened to the visitor's
  * money, it cannot be recovered once dismissed, and it is the reason this screen was loaded at all —
  * where the other two will still be true on the next visit.
+ *
+ * The in-army changelog roll-up sits below both of those and above the welcome fallback: it is
+ * army-specific and durable (its dismissals live on the army document), so it can wait a visit,
+ * while the welcome banner says nothing the player has not seen before.
  */
-const AppBanner = () => {
+const AppBanner = ({ changelog }: { changelog?: AppBannerChangelogProps }) => {
   const outcome = useCheckoutOutcome()
   if (outcome) return <CheckoutOutcomeBanner />
-  return <UpdateAvailable fallback={<WelcomeBanner />} />
+  const welcome = <WelcomeBanner />
+  return (
+    <UpdateAvailable fallback={changelog ? <ChangelogBanner {...changelog} fallback={welcome} /> : welcome} />
+  )
 }
 
 export default AppBanner
