@@ -253,6 +253,19 @@ trait abilities subtype-less on the faction's mandatory Battle Traits type). Rev
 `contextOverrides` retire the index-era battle traits and lores to the historical context. Every
 Wahapedia and Games Workshop artifact is byte-identical to the 2026-08-01 pins.
 
+The 2026-08-16 regeneration (beta report: two "Devious Machinations" heroic-trait options in the
+Skaven builder) is a generation-logic change on the same artifacts, manifest, and review. The
+2026-08-03 snapshot's faction pages carry both a battletome enhancement table and the General's
+Handbook 2026-27 replacement section under the same table name — 18 tables across 18 factions —
+and generation offered both in the seasonal context because a `standard` section spans the current
+and seasonal contexts. Generation now applies the replacement structurally: a standard subtype
+(and its abilities) drops the seasonal context whenever a seasonal subtype shares its faction,
+parent group, and name, with reviewed `contextOverrides` still outranking the rule. The importer
+names the boundary when a roster carries a replaced battletome enhancement instead of reporting it
+unknown. `src/tests/aos4/seasonalEnhancementSupersede.test.ts` pins a corpus-wide invariant — no
+faction offers two identically named groups of one category in the same context — and the machine
+review recertified as `aos4-corpus-2026-08-03-machine-r4` (72 fresh pairs, r3 evidence reused).
+
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
 the current runtime.

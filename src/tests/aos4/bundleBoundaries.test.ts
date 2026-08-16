@@ -16,8 +16,8 @@ describe('initial bundle boundaries', () => {
     // The lazy route table lives in the router singleton so the Auth0 callback and analytics can
     // share one data router; the catalog must stay behind those lazy boundaries.
     expect(router).toMatch(/const Home = lazy\(\(\) => import\('components\/routes\/Home'\)\)/)
-    expect(main).not.toContain("import { ArmyCollectionProvider } from 'context/useArmyCollection'")
-    expect(home).toContain("import { ArmyCollectionProvider } from 'context/useArmyCollection'")
+    expect(main).not.toContain("from 'context/useArmyCollection'")
+    expect(home).toMatch(/import \{ ArmyCollectionProvider[^}]*\} from 'context\/useArmyCollection'/)
     expect(main.indexOf("import './bootstrap/captureShareLink'")).toBeLessThan(
       main.indexOf("import App from 'components/App'")
     )

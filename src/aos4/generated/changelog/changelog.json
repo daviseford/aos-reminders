@@ -33,7 +33,8 @@
     }
   ],
   "knownEntryIds": [
-    "ogor-mawtribes-battletome-2026-07"
+    "ogor-mawtribes-battletome-2026-07",
+    "ghb-2026-27-enhancement-context-2026-08"
   ],
   "publications": [
     {
@@ -6484,6 +6485,6 @@
     "publication:battle-profiles-ogor-mawtribes-2026-07",
     "publication:battletome-supplement-ogor-mawtribes-2026-07"
   ],
-  "revision": "ogor-mawtribes-battletome-2026-07",
+  "revision": "ghb-2026-27-enhancement-context-2026-08",
   "schemaVersion": 1
 }

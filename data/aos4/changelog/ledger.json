@@ -476,5 +476,99 @@
         }
       }
     ]
+  },
+  {
+    "id": "ghb-2026-27-enhancement-context-2026-08",
+    "previousEntryId": "ogor-mawtribes-battletome-2026-07",
+    "prior": {
+      "commit": "9eb9bade468e38da42a1b9711ebeca7dc0e4eaf1",
+      "runtimeBlobSha256": "a43de99a0746881d399c66f822ef879a7bc990090b4e471823588404b6fc8dcc"
+    },
+    "current": {
+      "runtimeSha256": "6c840f02fbc616c902b74a5e3a5c65188fb4bdc4fa5978edc3882a7ec04ea82e"
+    },
+    "publications": [],
+    "cohorts": [
+      {
+        "name": "ghb-2026-27-enhancement-table-context",
+        "disposition": "correction",
+        "selector": {
+          "entityIds": [
+            "ability:01e6bbdf-e5cd-5057-927b-e1df1254b2ee",
+            "ability:02ee6328-0fc8-56bd-9a3d-c7b646d652f0",
+            "ability:04fb00d4-b61f-5742-a9fb-1230d440db00",
+            "ability:2567c738-d70a-521e-9edd-bd1e8ddc3639",
+            "ability:2582fe1a-ab0d-55ea-b4ee-c25f85393370",
+            "ability:2f5a2230-cd69-5da3-adc4-a368a960395f",
+            "ability:357cc78a-560a-55f3-805d-1e5c747da770",
+            "ability:3b66747a-5dfa-52fa-8a22-afa25c18b341",
+            "ability:3c10ec46-f8a6-57ed-80b8-1c29c05b3f20",
+            "ability:3e3c126a-7be7-569c-9027-2faf5a866651",
+            "ability:4906084f-ddd9-5f37-bc17-55db98efb8b7",
+            "ability:50315170-5a82-5a31-b68c-56c10757d9ad",
+            "ability:507c3372-21f0-5707-8dde-dbc8fbd7413f",
+            "ability:51bc4b2e-ce34-56b6-8c0e-f74413cb1e09",
+            "ability:5769ec0e-2164-5ccc-bfec-90b5fa038db9",
+            "ability:6a0dbae0-849d-5d25-841b-66c7ef543673",
+            "ability:70b6eaa5-a045-5cfe-bb79-0b3bde0faef2",
+            "ability:74e9849f-ceb5-521c-871f-41748eef6e94",
+            "ability:7cf2974a-8194-54fd-a43c-9e5d46670dcd",
+            "ability:84a633e9-5a27-5427-a08b-c72479dc3fcf",
+            "ability:8ce66a9f-029a-5621-bb03-1d1c88cced87",
+            "ability:8f084df2-4d49-5e55-b982-c3b9fe54f8ca",
+            "ability:9011f4a2-3226-5131-8879-5f7668eb1996",
+            "ability:9d54f498-399f-5df8-803f-59a3aae08269",
+            "ability:a1220149-5f64-545c-acb8-41ecab64c124",
+            "ability:a5a21b1d-2b66-571c-b50c-e9b387d37cdc",
+            "ability:a89e7335-45ac-57c9-a81a-218ef27c7a4a",
+            "ability:a9e8822b-5ae2-5f15-aad7-b3dcba20b8a2",
+            "ability:aac02e11-b717-5440-a708-69badcca48fc",
+            "ability:aafa479b-eb52-5bce-80f8-6e3104428a63",
+            "ability:ad59c053-551e-51c8-aea9-0c79b7b037f8",
+            "ability:adc6e021-dc95-5d22-894d-7b239a0c18f1",
+            "ability:b0ba2d6e-1a1e-56ac-b1ff-9f43ed49339a",
+            "ability:b3dc537c-d394-5305-8cc5-211fc1d6338f",
+            "ability:befa06dd-43bd-5d97-a6d5-fb9cf7b9234c",
+            "ability:c6154ddd-a6e3-5eb0-9903-8cf4e63ff025",
+            "ability:c790b0dc-7e64-561f-9708-d6f57862069c",
+            "ability:d026415e-cd0f-5065-a908-615a01627ce9",
+            "ability:d71fa84e-61fc-5661-bff6-538cd4f55771",
+            "ability:d7e934bf-9a60-5500-8001-01a9e1f290f2",
+            "ability:ddfd9b1d-9bf4-5b41-869f-7b5c0fcef1e2",
+            "ability:e4650f92-089f-5e34-ba04-ec639038aa14",
+            "ability:e7978cd8-1743-5608-bea8-c12565f57f34",
+            "ability:e7c2ceac-0e5b-5453-8b78-74a2b2bc161e",
+            "ability:e9805951-58da-5afc-a35d-3c71ed7f5c64",
+            "ability:e9e977c8-334b-5fb0-87d2-d0e622f3fc44",
+            "ability:f1a19f7e-1fd3-56f5-af77-9600d5c2d21d",
+            "ability:f2b937d2-1418-5839-b09c-c54a4a44b07c",
+            "ability:f8011ff4-124f-58ab-9ac2-810f3218e0ca",
+            "ability:f84d3a2d-ad30-5ea5-a751-b20b50878a08",
+            "ability:f8795a21-c513-5ce4-8e35-fa01c79ee56c",
+            "ability:fb7a3c6f-f669-5892-ae72-cd387ff3f443",
+            "ability:fbd692f0-a3d9-5dca-97f8-9003dccad768",
+            "ability:fe5d6dce-7933-50c3-9c17-e192c4c95936",
+            "content-group:5668220b-0a05-564d-ad38-19e0ed89bed1",
+            "content-group:5d97b80b-0a6a-5229-92b8-990aabad2d6c",
+            "content-group:66d0255e-c6f3-52e2-aae0-24f9ee96763b",
+            "content-group:6b2f63f2-2385-5ae3-be81-d55cd044d4fd",
+            "content-group:8511280a-8df2-5ca4-87cf-a74557d56eab",
+            "content-group:8753b412-a027-523a-a86f-115a72e8fc86",
+            "content-group:883006d0-fa78-52eb-824c-d8113ddfde9b",
+            "content-group:89f763df-52bf-594a-a87d-261120a69d90",
+            "content-group:90d746f8-af72-5ac5-80b9-026c818d1e40",
+            "content-group:a27a04eb-cbb4-5229-97e2-cb039759d912",
+            "content-group:a2e8234a-57b6-5334-8ded-7146617ffeff",
+            "content-group:a62d328a-f34d-5aee-9af7-bc6b57b0a70f",
+            "content-group:a8b2ad0f-9198-520a-a136-937246c3e45a",
+            "content-group:b2f6b14b-4fdf-590c-8eec-dc2497db2abc",
+            "content-group:bee2f76b-047a-560e-a6cb-43cd5a8972a0",
+            "content-group:eac13983-b25c-58c8-a67d-1b931bc819e9",
+            "content-group:ee7789c5-2630-5899-9e00-494dcbc44efd",
+            "content-group:ef55a927-2dd2-56ff-8790-df06a637e2f7"
+          ]
+        }
+      }
+    ]
   }
 ]

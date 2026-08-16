@@ -478,6 +478,37 @@ const isLegendsOnly = (catalog: Aos4Catalog, label: string, kindHint: ParsedRost
   )
 }
 
+/**
+ * Is this name something the catalog carries only outside the contexts this roster resolves in?
+ *
+ * A seasonal battlepack replaces a battletome's enhancement tables for the season, so the
+ * battletome originals live only in the core standard context while the document sits in the
+ * seasonal one. A roster naming one of them — built before the season, or built for core play —
+ * is at a rules boundary, not a data gap, and saying *which* boundary and how to cross it is the
+ * difference between a player understanding the season's replacement and assuming the importer
+ * lost their artefact. Returns the context the name resolves in, for the diagnostic to point at.
+ */
+const supersededElsewhere = (
+  catalog: Aos4Catalog,
+  label: string,
+  kindHint: ParsedRosterSelectionKind,
+  triedContextIds: ReadonlySet<RulesContextId>
+): RulesContext | undefined => {
+  const core = catalog.rulesContexts.find(
+    context => context.mode === 'standard' && context.status === 'current' && !triedContextIds.has(context.id)
+  )
+  if (!core) return undefined
+  const normalized = normalizeImportLabel(label)
+  const matches = catalog.entities.some(
+    entity =>
+      kindMatches(entity, kindHint) &&
+      normalizeImportLabel(entity.name) === normalized &&
+      entity.rulesContextIds.includes(core.id) &&
+      !entity.rulesContextIds.some(id => triedContextIds.has(id))
+  )
+  return matches ? core : undefined
+}
+
 /** A rules context a selection may resolve in, with what this faction can reach inside it. */
 interface ResolutionContext {
   context: RulesContext
@@ -726,12 +757,22 @@ const resolveRosterSelection = (
    */
   if (!known) {
     const legendsOnly = !allowsLegends && isLegendsOnly(catalog, selection.label, selection.kindHint)
+    const supersededIn = legendsOnly
+      ? undefined
+      : supersededElsewhere(
+          catalog,
+          selection.label,
+          selection.kindHint,
+          new Set(resolutionContexts.map(resolutionContext => resolutionContext.context.id))
+        )
     diagnostics.push({
       code: 'unknown-selection',
       severity: 'warning',
       message: legendsOnly
         ? `"${selection.label}" is Legends content, but this roster does not opt into Legends, so it was not imported.`
-        : `Couldn't find a ${selection.kindHint} named "${selection.label}", so it was not imported.`,
+        : supersededIn
+          ? `"${selection.label}" has been replaced for the current season, so it was not imported. Switch the rules context to ${supersededIn.name} to use it.`
+          : `Couldn't find a ${selection.kindHint} named "${selection.label}", so it was not imported.`,
       line: selection.line,
     })
     return undefined

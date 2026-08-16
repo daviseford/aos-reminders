@@ -18,7 +18,7 @@ interface ArmyCollectionContextValue {
 
 const ArmyCollectionContext = React.createContext<ArmyCollectionContextValue | undefined>(undefined)
 
-const messageForError = (error: unknown): string => {
+export const messageForError = (error: unknown): string => {
   if (error instanceof ArmyApiError && error.status === 401) return 'Please log in again to continue.'
   if (error instanceof Error) return error.message
   return 'Cloud armies are temporarily unavailable.'
