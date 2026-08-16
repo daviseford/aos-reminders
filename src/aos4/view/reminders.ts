@@ -14,11 +14,12 @@ import {
 import {
   gameWindowKey,
   projectReminders,
+  reminderOccurrenceAbilityId,
   type ProjectedReminder,
   type ReminderOccurrenceId,
 } from '../reminders'
 import { resolveSelection } from '../select'
-import type { Aos4ArmyDocument } from '../state'
+import { createAos4ArmyDocument, type Aos4ArmyDocument } from '../state'
 
 const phaseNames = new Map(TURN_PHASES.map(phase => [phase.id, phase.name]))
 
@@ -478,3 +479,52 @@ export const createPrintableAos4Reminders = (
   document: Aos4ArmyDocument
 ): Aos4ReminderViewModel[] =>
   createAos4ReminderViewModel(catalog, document).filter(reminder => !reminder.hidden)
+
+/** One projected reminder occurrence, as the preference migration needs to see it. */
+export interface Aos4ReminderOccurrence {
+  id: ReminderOccurrenceId
+  abilityIds: readonly CanonicalId<'ability'>[]
+}
+
+/**
+ * Re-keys hidden/note/order preferences a timing change stranded: the occurrence ID embeds the
+ * semantic timing, so when a rules update moves an ability's timing the stored preference points at
+ * an occurrence that no longer projects.
+ *
+ * The rule: a stale preference migrates only when its ability currently projects EXACTLY ONE
+ * occurrence and that occurrence carries no preference of its own. An ability projecting several
+ * timings is ambiguous — there is no way to know which occurrence the user meant — so the stale
+ * preference is kept untouched rather than guessed at (it keys nothing and is harmless, and it
+ * comes back to life if the occurrence returns). Returns the same document instance when nothing
+ * migrates, so callers can apply it through setState-style updates without looping.
+ */
+export const migrateAos4ReminderPreferences = (
+  document: Aos4ArmyDocument,
+  occurrences: readonly Aos4ReminderOccurrence[]
+): Aos4ArmyDocument => {
+  const entries = Object.entries(document.reminderPreferences)
+  if (!entries.length) return document
+  const currentIds = new Set<string>(occurrences.map(occurrence => occurrence.id))
+  const occurrencesByAbilityId = new Map<string, Aos4ReminderOccurrence[]>()
+  occurrences.forEach(occurrence =>
+    occurrence.abilityIds.forEach(abilityId => {
+      occurrencesByAbilityId.set(abilityId, [...(occurrencesByAbilityId.get(abilityId) ?? []), occurrence])
+    })
+  )
+  let migrated = false
+  const preferences = { ...document.reminderPreferences }
+  entries.forEach(([occurrenceId, preference]) => {
+    if (!preference || currentIds.has(occurrenceId)) return
+    const abilityId = reminderOccurrenceAbilityId(occurrenceId)
+    if (!abilityId) return
+    const candidates = occurrencesByAbilityId.get(abilityId) ?? []
+    if (candidates.length !== 1) return
+    const target = candidates[0]
+    if (preferences[target.id]) return
+    delete preferences[occurrenceId as ReminderOccurrenceId]
+    preferences[target.id] = preference
+    migrated = true
+  })
+  if (!migrated) return document
+  return createAos4ArmyDocument({ ...document, reminderPreferences: preferences })
+}

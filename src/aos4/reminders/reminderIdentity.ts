@@ -30,3 +30,12 @@ export const reminderOccurrenceId = (
   abilityId: CanonicalId<'ability'>,
   timing: AbilityTiming
 ): ReminderOccurrenceId => `reminder:${abilityId}@${semanticTimingKey(timing)}` as ReminderOccurrenceId
+
+/**
+ * The canonical ability ID an occurrence ID embeds, or undefined for a foreign shape. Ability IDs
+ * carry no `@`, so the first `@` always separates identity from the semantic timing key.
+ */
+export const reminderOccurrenceAbilityId = (occurrenceId: string): CanonicalId<'ability'> | undefined => {
+  const match = /^reminder:(ability:[^@]+)@./.exec(occurrenceId)
+  return match ? (match[1] as CanonicalId<'ability'>) : undefined
+}
