@@ -27,7 +27,13 @@ interface ToolbarProps {
   updateArmyStatus: 'idle' | 'updating' | 'updated'
 }
 
-const buttonWrapperClass = 'col-6 col-sm-4 col-lg px-2 pb-2'
+/*
+ * `col-lg-auto`, not `col-lg`: equal-split columns made any button that wrapped onto its own line
+ * grow to the full container width. Content-sized cells keep a wrapped button chip-sized and
+ * centred; the `.ToolbarButtonCell` floor in index.scss keeps the chips visually even across
+ * labels as short as "Save As".
+ */
+const buttonWrapperClass = 'col-6 col-sm-4 col-lg-auto px-2 pb-2 ToolbarButtonCell'
 
 const ToolbarButton = ({
   children,
@@ -131,12 +137,15 @@ const Toolbar = ({
           Share Army
         </ToolbarButton>
       </div>
-      <div className={buttonWrapperClass}>
-        <ToolbarButton disabled={!hiddenCount} onClick={onShowAll}>
-          <MdVisibility className="me-2" />
-          Show Hidden{hiddenCount ? ` (${hiddenCount})` : ''}
-        </ToolbarButton>
-      </div>
+      {/* Absent, not disabled, until a reminder is hidden: a control with nothing to act on is noise. */}
+      {hiddenCount > 0 && (
+        <div className={buttonWrapperClass}>
+          <ToolbarButton onClick={onShowAll}>
+            <MdVisibility className="me-2" />
+            Show Hidden ({hiddenCount})
+          </ToolbarButton>
+        </div>
+      )}
     </div>
   </div>
 )
