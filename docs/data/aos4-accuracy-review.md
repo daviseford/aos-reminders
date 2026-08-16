@@ -175,6 +175,10 @@ Incremental result overlays retain their referenced certification directories as
 Keep every referenced ancestor while a descendant remains current. The preparer limits generated
 chains to three overlay levels; the next sparse campaign resolves the source evidence once and writes
 a self-contained result set, so verification cost and retention ancestry cannot grow without bound.
+Run `yarn data:aos4:certify:prune` after accepting a new certification to list the directories that
+fell out of the live chain; `--apply` stages their deletion with `git rm -r`. The command keeps the
+`beta.json` target plus every certification directory its evidence mentions, so it over-retains
+rather than risking the live chain.
 
 ### 4. Prepare and verify beta evidence
 

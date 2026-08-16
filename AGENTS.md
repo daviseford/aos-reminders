@@ -422,7 +422,9 @@ Accuracy review is a separate fail-closed layer:
   and corrected through a new candidate; never patch generated runtime data directly
 
 Use `yarn data:aos4:review:prepare`, `yarn data:aos4:review:adversarial`,
-`yarn data:aos4:certify:prepare`, and `yarn data:aos4:verify:beta` for the beta gate.
+`yarn data:aos4:certify:prepare`, and `yarn data:aos4:verify:beta` for the beta gate. After
+accepting a new certification, run `yarn data:aos4:certify:prune` to list the certification
+directories that fell out of the live beta chain (`--apply` stages their deletion with `git rm`).
 
 Git history is the archive. Do not keep copied “reference” files in the working tree.
 
