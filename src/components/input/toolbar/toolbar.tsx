@@ -1,16 +1,30 @@
 import { useTheme } from 'context/useTheme'
 import { FaTrash } from 'react-icons/fa'
-import { MdFileDownload, MdFileUpload, MdSave, MdShare, MdVisibility } from 'react-icons/md'
+import {
+  MdCloud,
+  MdCloudUpload,
+  MdFileDownload,
+  MdFileUpload,
+  MdSave,
+  MdSaveAs,
+  MdShare,
+  MdVisibility,
+} from 'react-icons/md'
 
 interface ToolbarProps {
+  /** The current army mirrors a cloud army, so saving splits into Update Army and Save As. */
+  cloudArmyLinked: boolean
   hiddenCount: number
   onClearArmy: () => void
   onDownloadPdf: () => void
   onImportArmy: () => void
   onOpenSavedArmies: () => void
+  onSaveArmy: () => void
   onShareArmy: () => void
   onShowAll: () => void
+  onUpdateArmy: () => void
   subscriberActionDisabled?: boolean
+  updateArmyStatus: 'idle' | 'updating' | 'updated'
 }
 
 const buttonWrapperClass = 'col-6 col-sm-4 col-lg px-2 pb-2'
@@ -39,15 +53,25 @@ const ToolbarButton = ({
   )
 }
 
+const updateArmyLabel = (status: ToolbarProps['updateArmyStatus']): string => {
+  if (status === 'updating') return 'Updating…'
+  if (status === 'updated') return 'Updated'
+  return 'Update Army'
+}
+
 const Toolbar = ({
+  cloudArmyLinked,
   hiddenCount,
   onClearArmy,
   onDownloadPdf,
   onImportArmy,
   onOpenSavedArmies,
+  onSaveArmy,
   onShareArmy,
   onShowAll,
+  onUpdateArmy,
   subscriberActionDisabled,
+  updateArmyStatus,
 }: ToolbarProps) => (
   <div className="container d-print-none">
     <div className="row justify-content-center pt-3">
@@ -69,9 +93,35 @@ const Toolbar = ({
           Import Army
         </ToolbarButton>
       </div>
+      {cloudArmyLinked ? (
+        <>
+          <div className={buttonWrapperClass}>
+            <ToolbarButton
+              disabled={subscriberActionDisabled || updateArmyStatus === 'updating'}
+              onClick={onUpdateArmy}
+            >
+              <MdCloudUpload className="me-2" />
+              {updateArmyLabel(updateArmyStatus)}
+            </ToolbarButton>
+          </div>
+          <div className={buttonWrapperClass}>
+            <ToolbarButton disabled={subscriberActionDisabled} onClick={onSaveArmy}>
+              <MdSaveAs className="me-2" />
+              Save As
+            </ToolbarButton>
+          </div>
+        </>
+      ) : (
+        <div className={buttonWrapperClass}>
+          <ToolbarButton disabled={subscriberActionDisabled} onClick={onSaveArmy}>
+            <MdSave className="me-2" />
+            Save Army
+          </ToolbarButton>
+        </div>
+      )}
       <div className={buttonWrapperClass}>
         <ToolbarButton disabled={subscriberActionDisabled} onClick={onOpenSavedArmies}>
-          <MdSave className="me-2" />
+          <MdCloud className="me-2" />
           My Armies
         </ToolbarButton>
       </div>

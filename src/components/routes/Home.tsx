@@ -24,13 +24,14 @@ import { useSubscriberAction } from 'components/input/importArmy/subscriberActio
 import Toolbar from 'components/input/toolbar/toolbar'
 import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
-import { ArmyCollectionProvider } from 'context/useArmyCollection'
+import { ArmyCollectionProvider, messageForError, useArmyCollection } from 'context/useArmyCollection'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { logFactionSelection, logGameModeChange, logPdfDownload } from 'utils/analytics'
 import { consumePendingShareId } from 'utils/shareLink'
 
 const ImportArmyModal = lazy(() => import('components/input/importArmy/importArmyModal'))
 const PrintModal = lazy(() => import('components/print/printModal'))
+const SaveArmyModal = lazy(() => import('components/input/cloudArmies/saveArmyModal'))
 const SavedArmiesModal = lazy(() => import('components/input/cloudArmies/savedArmiesModal'))
 const ShareArmyModal = lazy(() => import('components/input/armySharing/shareArmyModal'))
 const SharedArmyModal = lazy(() => import('components/input/armySharing/sharedArmyModal'))
@@ -63,7 +64,7 @@ const selectableFactions = armyFactions(AOS4_CATALOG)
 const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'AoS'}_Reminders`
 
 /*
- * The masthead, mode switch, faction select, builder cards, and the seven toolbar buttons all sit
+ * The masthead, mode switch, faction select, builder cards, and the toolbar buttons all sit
  * between the top of the document and the reminders, so reaching the content by keyboard means
  * tabbing past roughly a dozen controls. The link targets the reminders rather than <main>, because
  * <main> wraps the routed tree from the navbar down and skipping to it would move nothing.
@@ -84,13 +85,24 @@ const SkipToReminders = () => (
 )
 
 const HomeContent = () => {
+  const { updateArmy } = useArmyCollection()
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
   const [importModalIsOpen, setImportModalIsOpen] = useState(false)
   const [savedArmiesModalIsOpen, setSavedArmiesModalIsOpen] = useState(false)
+  const [saveArmyModalIsOpen, setSaveArmyModalIsOpen] = useState(false)
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
   const [pendingShareId, setPendingShareId] = useState(() => consumePendingShareId())
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
+  /*
+   * Which cloud army the current document is a copy of, if any. Held in memory only: it starts a
+   * session unlinked, links through the save/load flows, and unlinks when the document stops being
+   * that army (clear, faction switch, import, incoming share, remote delete). It decides whether
+   * the toolbar offers one-click Update Army alongside Save As, or a single Save Army.
+   */
+  const [cloudArmyId, setCloudArmyId] = useState<string>()
+  const [updateArmyStatus, setUpdateArmyStatus] = useState<'idle' | 'updating' | 'updated'>('idle')
+  const [updateArmyError, setUpdateArmyError] = useState<string>()
   const savedArmiesAction = useSubscriberAction({
     featureName: 'My Armies',
     onAuthorized: () => setSavedArmiesModalIsOpen(true),
@@ -101,6 +113,38 @@ const HomeContent = () => {
     onAuthorized: () => setShareModalIsOpen(true),
     origin: 'ShareArmy',
   })
+  const saveArmyAction = useSubscriberAction({
+    featureName: 'Save Army',
+    onAuthorized: () => setSaveArmyModalIsOpen(true),
+    origin: 'SaveArmy',
+  })
+  const updateCloudArmy = async () => {
+    if (!cloudArmyId) return
+    setUpdateArmyStatus('updating')
+    setUpdateArmyError(undefined)
+    try {
+      await updateArmy(cloudArmyId, document)
+      setUpdateArmyStatus('updated')
+    } catch (error) {
+      setUpdateArmyStatus('idle')
+      setUpdateArmyError(messageForError(error))
+    }
+  }
+  const updateArmyAction = useSubscriberAction({
+    featureName: 'Update Army',
+    onAuthorized: () => void updateCloudArmy(),
+    origin: 'UpdateArmy',
+  })
+  const unlinkCloudArmy = () => {
+    setCloudArmyId(undefined)
+    setUpdateArmyError(undefined)
+  }
+
+  useEffect(() => {
+    if (updateArmyStatus !== 'updated') return
+    const timer = window.setTimeout(() => setUpdateArmyStatus('idle'), 2500)
+    return () => window.clearTimeout(timer)
+  }, [updateArmyStatus])
   const factions = useMemo(
     () =>
       selectableFactions
@@ -174,6 +218,7 @@ const HomeContent = () => {
   }
 
   const clearArmy = () => {
+    unlinkCloudArmy()
     setDocument(current =>
       createAos4ArmyDocument({
         ...current,
@@ -186,6 +231,7 @@ const HomeContent = () => {
   const selectFaction = (nextFactionId: CanonicalId<'faction'>) => {
     const faction = factionById.get(nextFactionId)
     logFactionSelection(nextFactionId, faction?.name ?? 'Unknown faction')
+    unlinkCloudArmy()
     setDocument(current =>
       createAos4ArmyDocument({
         ...current,
@@ -315,15 +361,27 @@ const HomeContent = () => {
 
       {!isGameMode && (
         <Toolbar
+          cloudArmyLinked={Boolean(cloudArmyId)}
           hiddenCount={hiddenCount}
           onClearArmy={clearArmy}
           onDownloadPdf={() => setPrintModalIsOpen(true)}
           onImportArmy={() => setImportModalIsOpen(true)}
           onOpenSavedArmies={savedArmiesAction.run}
+          onSaveArmy={saveArmyAction.run}
           onShareArmy={shareAction.run}
           onShowAll={showAll}
+          onUpdateArmy={updateArmyAction.run}
           subscriberActionDisabled={savedArmiesAction.disabled || shareAction.disabled}
+          updateArmyStatus={updateArmyStatus}
         />
+      )}
+
+      {!isGameMode && updateArmyError && (
+        <div className="container d-print-none">
+          <div className="alert alert-danger" role="alert">
+            {updateArmyError}
+          </div>
+        </div>
       )}
 
       <Reminders
@@ -354,6 +412,7 @@ const HomeContent = () => {
             closeModal={() => setImportModalIsOpen(false)}
             isOpen={importModalIsOpen}
             onApply={nextDocument => {
+              unlinkCloudArmy()
               setDocument(nextDocument)
               setImportModalIsOpen(false)
             }}
@@ -368,6 +427,24 @@ const HomeContent = () => {
             currentDocument={document}
             isOpen={savedArmiesModalIsOpen}
             onApply={setDocument}
+            onDeleted={deletedId =>
+              setCloudArmyId(current => (current === deletedId ? undefined : current))
+            }
+            onLinked={setCloudArmyId}
+          />
+        </Suspense>
+      )}
+
+      {saveArmyModalIsOpen && (
+        <Suspense fallback={null}>
+          <SaveArmyModal
+            closeModal={() => setSaveArmyModalIsOpen(false)}
+            currentDocument={document}
+            isOpen={saveArmyModalIsOpen}
+            onSaved={(savedDocument, savedCloudArmyId) => {
+              setDocument(savedDocument)
+              setCloudArmyId(savedCloudArmyId)
+            }}
           />
         </Suspense>
       )}
@@ -387,7 +464,10 @@ const HomeContent = () => {
           <SharedArmyModal
             closeModal={() => setPendingShareId(undefined)}
             isOpen
-            onApply={setDocument}
+            onApply={nextDocument => {
+              unlinkCloudArmy()
+              setDocument(nextDocument)
+            }}
             shareId={pendingShareId}
           />
         </Suspense>
