@@ -46,6 +46,22 @@ describe('cloud army link', () => {
     expect(storage.entries()).toEqual({})
   })
 
+  it('carries the saved signature, which is what lets the toolbar tell saved from changed', () => {
+    const storage = createStorage()
+    writeCloudArmyLink({ id: 'cloud-1', name: 'Kruleboyz Tourney', savedSignature: '{"a":1}' }, storage)
+
+    expect(readCloudArmyLink(storage)?.savedSignature).toBe('{"a":1}')
+  })
+
+  it('reads a link written before signatures existed, and reports no signature', () => {
+    // Absent rather than wrong: the caller treats "no signature" as changed, which offers a save
+    // that may be unnecessary instead of hiding one that is not.
+    const key = 'aos-reminders:aos4:cloud-army-link:v1'
+    const stored = createStorage({ [key]: '{"id":"cloud-1","name":"Kruleboyz Tourney"}' })
+
+    expect(readCloudArmyLink(stored)).toEqual({ id: 'cloud-1', name: 'Kruleboyz Tourney' })
+  })
+
   it('ignores stored values that are not a link rather than trusting a partial one', () => {
     const key = 'aos-reminders:aos4:cloud-army-link:v1'
     expect(readCloudArmyLink(createStorage({ [key]: 'not json' }))).toBeUndefined()

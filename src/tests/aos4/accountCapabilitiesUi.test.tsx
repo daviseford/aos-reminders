@@ -143,7 +143,8 @@ describe('saved-army and sharing controls', () => {
 
     act(() => confirm.click())
     expect(onApply).toHaveBeenLastCalledWith(savedDocument)
-    expect(onLinked).toHaveBeenLastCalledWith('cloud-1', 'Saved Stormhost')
+    // The document travels with the link so the caller can record it as the saved baseline.
+    expect(onLinked).toHaveBeenLastCalledWith('cloud-1', 'Saved Stormhost', savedDocument)
     expect(closeModal).toHaveBeenCalled()
   })
 

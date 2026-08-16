@@ -10,7 +10,12 @@ import {
   saveAos4ArmyDocument,
 } from '../../aos4/runtime'
 import { resolveSelection } from '../../aos4/select'
-import { createAos4ArmyDocument, setAos4ReminderPreference, type Aos4ArmyDocument } from '../../aos4/state'
+import {
+  createAos4ArmyDocument,
+  serializeAos4ArmyDocument,
+  setAos4ReminderPreference,
+  type Aos4ArmyDocument,
+} from '../../aos4/state'
 import {
   createAos4BuilderViewModel,
   createAos4ReminderSourceLinkResolver,
@@ -111,6 +116,15 @@ const HomeContent = () => {
    */
   const [cloudArmyLink, setCloudArmyLink] = useState(readCloudArmyLink)
   const cloudArmyId = cloudArmyLink?.id
+  const cloudArmyName = cloudArmyLink?.name
+  /*
+   * Whether the army on screen has moved away from the copy on the account. Update Army is offered
+   * only when it has something to write — the same absent-rather-than-disabled rule Show Hidden
+   * follows. A link stored before signatures existed has none, and reports changed: offering a save
+   * that may be unnecessary is the safe side of that guess.
+   */
+  const cloudArmyHasChanges =
+    Boolean(cloudArmyId) && serializeAos4ArmyDocument(document) !== cloudArmyLink?.savedSignature
   const [updateArmyStatus, setUpdateArmyStatus] = useState<'idle' | 'updating' | 'updated'>('idle')
   const [updateArmyError, setUpdateArmyError] = useState<string>()
   const savedArmiesAction = useSubscriberAction({
@@ -128,12 +142,25 @@ const HomeContent = () => {
     onAuthorized: () => setSaveArmyModalIsOpen(true),
     origin: 'SaveArmy',
   })
+  /*
+   * Called at every point the local document becomes a copy of a cloud army — loaded, saved, saved
+   * as, or updated — and records what that copy looked like, so the toolbar can tell later whether
+   * it has moved.
+   */
+  const linkCloudArmy = (id: string, name: string, savedDocument: Aos4ArmyDocument) => {
+    const link = { id, name, savedSignature: serializeAos4ArmyDocument(savedDocument) }
+    setCloudArmyLink(link)
+    writeCloudArmyLink(link)
+    setUpdateArmyError(undefined)
+  }
   const updateCloudArmy = async () => {
-    if (!cloudArmyId) return
+    if (!cloudArmyId || !cloudArmyName) return
     setUpdateArmyStatus('updating')
     setUpdateArmyError(undefined)
     try {
       await updateArmy(cloudArmyId, document)
+      // The army on screen is now what the account holds, so it becomes the new baseline.
+      linkCloudArmy(cloudArmyId, cloudArmyName, document)
       setUpdateArmyStatus('updated')
     } catch (error) {
       setUpdateArmyStatus('idle')
@@ -145,12 +172,6 @@ const HomeContent = () => {
     onAuthorized: () => void updateCloudArmy(),
     origin: 'UpdateArmy',
   })
-  const linkCloudArmy = (id: string, name: string) => {
-    const link = { id, name }
-    setCloudArmyLink(link)
-    writeCloudArmyLink(link)
-    setUpdateArmyError(undefined)
-  }
   const unlinkCloudArmy = () => {
     setCloudArmyLink(undefined)
     clearCloudArmyLink()
@@ -168,7 +189,6 @@ const HomeContent = () => {
    * against a collection that actually loaded — an empty list is what a failed fetch looks like
    * too, and unlinking on that would undo the persistence this exists to provide.
    */
-  const cloudArmyName = cloudArmyLink?.name
   useEffect(() => {
     if (!cloudArmyId || armies.length === 0) return
     const linked = armies.find(army => army.id === cloudArmyId)
@@ -177,11 +197,15 @@ const HomeContent = () => {
       clearCloudArmyLink()
       return
     }
-    // A rename in My Armies must reach the label the toolbar shows for the same record.
+    // A rename in My Armies must reach the label the toolbar shows for the same record. The
+    // signature is left alone: renaming the saved army does not change the army on screen.
     if (linked.document.name === cloudArmyName) return
-    const link = { id: cloudArmyId, name: linked.document.name }
-    setCloudArmyLink(link)
-    writeCloudArmyLink(link)
+    setCloudArmyLink(current => {
+      if (!current) return current
+      const link = { ...current, name: linked.document.name }
+      writeCloudArmyLink(link)
+      return link
+    })
   }, [armies, cloudArmyId, cloudArmyName])
   const factions = useMemo(
     () =>
@@ -415,6 +439,7 @@ const HomeContent = () => {
         <Toolbar
           cloudArmyLinked={Boolean(cloudArmyId)}
           {...(cloudArmyName ? { cloudArmyName } : {})}
+          cloudArmyHasChanges={cloudArmyHasChanges}
           hiddenCount={hiddenCount}
           onClearArmy={() => setClearArmyModalIsOpen(true)}
           onDownloadPdf={() => setPrintModalIsOpen(true)}
@@ -496,7 +521,7 @@ const HomeContent = () => {
             isOpen={saveArmyModalIsOpen}
             onSaved={(savedDocument, savedCloudArmyId, savedName) => {
               setDocument(savedDocument)
-              linkCloudArmy(savedCloudArmyId, savedName)
+              linkCloudArmy(savedCloudArmyId, savedName, savedDocument)
             }}
           />
         </Suspense>

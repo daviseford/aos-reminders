@@ -18,6 +18,15 @@ export interface CloudArmyLink {
   id: string
   /** Last known name of the cloud record, so the toolbar can name the target before the list loads. */
   name: string
+  /**
+   * The serialized document as it stands on the account, so the toolbar can tell whether the army
+   * on screen has moved away from it. `serializeAos4ArmyDocument` normalizes sort order and drops
+   * empty preferences, so this compares by content and never reports a difference that isn't one.
+   *
+   * Optional: a link written before this field existed reports "changed", which is the safe
+   * default — it offers a save that may be unnecessary rather than hiding one that is not.
+   */
+  savedSignature?: string
 }
 
 const isLink = (value: unknown): value is CloudArmyLink =>
@@ -25,7 +34,8 @@ const isLink = (value: unknown): value is CloudArmyLink =>
   value !== null &&
   typeof (value as CloudArmyLink).id === 'string' &&
   Boolean((value as CloudArmyLink).id) &&
-  typeof (value as CloudArmyLink).name === 'string'
+  typeof (value as CloudArmyLink).name === 'string' &&
+  ['string', 'undefined'].includes(typeof (value as CloudArmyLink).savedSignature)
 
 export const readCloudArmyLink = (
   storage: Pick<Storage, 'getItem'> = window.localStorage
@@ -34,7 +44,12 @@ export const readCloudArmyLink = (
     const stored = storage.getItem(CLOUD_ARMY_LINK_STORAGE_KEY)
     if (!stored) return undefined
     const parsed: unknown = JSON.parse(stored)
-    return isLink(parsed) ? { id: parsed.id, name: parsed.name } : undefined
+    if (!isLink(parsed)) return undefined
+    return {
+      id: parsed.id,
+      name: parsed.name,
+      ...(parsed.savedSignature ? { savedSignature: parsed.savedSignature } : {}),
+    }
   } catch {
     // Browser storage can be unavailable in privacy modes, and a hand-edited value is not ours.
     return undefined

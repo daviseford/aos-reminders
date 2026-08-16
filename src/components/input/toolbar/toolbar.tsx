@@ -16,6 +16,8 @@ interface ToolbarProps {
   cloudArmyLinked: boolean
   /** Name of that cloud army, so Update Army is never a write to an unnamed target. */
   cloudArmyName?: string
+  /** The army on screen differs from the saved copy, so Update Army has something to write. */
+  cloudArmyHasChanges?: boolean
   hiddenCount: number
   onClearArmy: () => void
   onDownloadPdf: () => void
@@ -70,6 +72,7 @@ const updateArmyLabel = (status: ToolbarProps['updateArmyStatus']): string => {
 const Toolbar = ({
   cloudArmyLinked,
   cloudArmyName,
+  cloudArmyHasChanges,
   hiddenCount,
   onClearArmy,
   onDownloadPdf,
@@ -83,6 +86,12 @@ const Toolbar = ({
   updateArmyStatus,
 }: ToolbarProps) => {
   const { theme } = useTheme()
+  /*
+   * Absent, not disabled, when there is nothing to save — the rule Show Hidden follows. It stays
+   * through "Updating…" and "Updated" so the confirmation is not yanked away by the very save that
+   * earned it; the button then leaves, and the line below says the army is up to date.
+   */
+  const showUpdateArmy = cloudArmyLinked && (cloudArmyHasChanges || updateArmyStatus !== 'idle')
 
   return (
     <div className="container d-print-none">
@@ -107,20 +116,22 @@ const Toolbar = ({
         </div>
         {cloudArmyLinked ? (
           <>
-            {/*
-             * A wider floor than its siblings, because this is the one cell whose label changes.
-             * "Updating…" and "Updated" are both narrower than "Update Army", so a content-sized cell
-             * shrank mid-save and the centred row slid every other button 8px sideways, twice.
-             */}
-            <div className={`${buttonWrapperClass} ToolbarButtonCell--status`}>
-              <ToolbarButton
-                disabled={subscriberActionDisabled || updateArmyStatus === 'updating'}
-                onClick={onUpdateArmy}
-              >
-                <MdCloudUpload className="me-2" />
-                {updateArmyLabel(updateArmyStatus)}
-              </ToolbarButton>
-            </div>
+            {showUpdateArmy && (
+              /*
+               * A wider floor than its siblings, because this is the one cell whose label changes.
+               * "Updating…" and "Updated" are both narrower than "Update Army", so a content-sized
+               * cell shrank mid-save and the centred row slid every other button 8px sideways.
+               */
+              <div className={`${buttonWrapperClass} ToolbarButtonCell--status`}>
+                <ToolbarButton
+                  disabled={subscriberActionDisabled || updateArmyStatus === 'updating'}
+                  onClick={onUpdateArmy}
+                >
+                  <MdCloudUpload className="me-2" />
+                  {updateArmyLabel(updateArmyStatus)}
+                </ToolbarButton>
+              </div>
+            )}
             <div className={buttonWrapperClass}>
               <ToolbarButton disabled={subscriberActionDisabled} onClick={onSaveArmy}>
                 <MdSaveAs className="me-2" />
@@ -167,6 +178,11 @@ const Toolbar = ({
       {cloudArmyLinked && cloudArmyName && (
         <p className={`small text-center mb-0 pb-2 ${theme.textMuted}`}>
           Cloud army: <strong>{cloudArmyName}</strong>
+          {/*
+           * Said in words, because the absence of a button is not a message. Without this, an army
+           * that is already saved and one whose Update Army has simply gone missing look the same.
+           */}
+          {cloudArmyHasChanges ? ' · unsaved changes' : ' · up to date'}
         </p>
       )}
     </div>

@@ -13,8 +13,8 @@ interface SavedArmiesModalProps {
   /** The cloud army the on-screen document is a copy of, so its row can say so. */
   linkedCloudArmyId?: string
   onApply: (document: Aos4ArmyDocument) => void
-  /** The current document became a copy of this cloud army. */
-  onLinked?: (cloudArmyId: string, name: string) => void
+  /** The current document became a copy of this cloud army, and is exactly `document`. */
+  onLinked?: (cloudArmyId: string, name: string, document: Aos4ArmyDocument) => void
   onDeleted?: (cloudArmyId: string) => void
 }
 
@@ -89,7 +89,7 @@ const SavedArmiesModal = ({
 
   const confirmLoad = (army: RemoteArmy) => {
     onApply(army.document)
-    onLinked?.(army.id, army.document.name)
+    onLinked?.(army.id, army.document.name, army.document)
     closeModal()
   }
 
