@@ -10,9 +10,7 @@ vi.mock('context/useTheme', () => ({
 }))
 
 const findButton = (container: HTMLElement, label: string): HTMLButtonElement | undefined =>
-  Array.from(container.querySelectorAll('button')).find(
-    candidate => candidate.textContent?.trim() === label
-  )
+  Array.from(container.querySelectorAll('button')).find(candidate => candidate.textContent?.trim() === label)
 
 describe('toolbar save controls', () => {
   let container: HTMLDivElement
@@ -83,5 +81,25 @@ describe('toolbar save controls', () => {
       render(<Toolbar {...baseProps} cloudArmyLinked updateArmyStatus="updated" />, container)
     })
     expect(findButton(container, 'Updated')?.disabled).toBe(false)
+  })
+  it('offers Show Hidden only once a reminder is hidden, absent rather than disabled at zero', () => {
+    act(() => {
+      render(<Toolbar {...baseProps} />, container)
+    })
+    expect(
+      Array.from(container.querySelectorAll('button')).find(button =>
+        button.textContent?.includes('Show Hidden')
+      )
+    ).toBeUndefined()
+
+    act(() => {
+      render(<Toolbar {...baseProps} hiddenCount={3} />, container)
+    })
+    const showHidden = findButton(container, 'Show Hidden (3)')
+    expect(showHidden).not.toBeUndefined()
+    expect(showHidden!.disabled).toBe(false)
+
+    act(() => showHidden!.click())
+    expect(baseProps.onShowAll).toHaveBeenCalledTimes(1)
   })
 })

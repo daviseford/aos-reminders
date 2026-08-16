@@ -99,6 +99,18 @@ small {
   min-height: 44px;
 }
 
+/*
+ * At the large breakpoint the toolbar cells are content-sized (`col-lg-auto`) so a button that
+ * wraps onto its own line stays chip-sized instead of growing to the full container width, which
+ * is what equal-split `col-lg` columns did once the row gained its seventh and eighth buttons.
+ * The floor keeps the chips visually even, since labels range from "Save As" to "Download PDF".
+ */
+@media (min-width: 992px) {
+  .ToolbarButtonCell {
+    min-width: 9rem;
+  }
+}
+
 .TapTarget {
   display: inline-flex;
   align-items: center;
