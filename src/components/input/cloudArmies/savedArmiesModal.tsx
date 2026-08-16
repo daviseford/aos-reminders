@@ -9,24 +9,23 @@ import { useEffect, useState } from 'react'
 
 interface SavedArmiesModalProps {
   closeModal: () => void
-  currentDocument: Aos4ArmyDocument
   isOpen: boolean
   /** The cloud army the on-screen document is a copy of, so its row can say so. */
   linkedCloudArmyId?: string
   onApply: (document: Aos4ArmyDocument) => void
-  /** The current document became a copy of this cloud army (loaded, or replaced from current). */
+  /** The current document became a copy of this cloud army. */
   onLinked?: (cloudArmyId: string, name: string) => void
   onDeleted?: (cloudArmyId: string) => void
 }
 
 /*
- * One decision at a time. `load`, `replace` and `delete` each swap the row's action strip for a
- * confirmation *in that row*; `rename` swaps it for an edit field. Holding them in one value rather
- * than three independent pieces of state is what makes them mutually exclusive — the previous
- * version could have a load confirmation open on one row and a delete confirmation on another, on
- * top of a stale success alert.
+ * One decision at a time. `load` and `delete` each swap the row's action strip for a confirmation
+ * *in that row*; `rename` swaps it for an edit field. Holding them in one value rather than
+ * independent pieces of state is what makes them mutually exclusive — the previous version could
+ * have a load confirmation open on one row and a delete confirmation on another, on top of a stale
+ * success alert.
  */
-type PendingKind = 'load' | 'replace' | 'delete' | 'rename'
+type PendingKind = 'load' | 'delete' | 'rename'
 interface PendingAction {
   id: string
   kind: PendingKind
@@ -34,7 +33,6 @@ interface PendingAction {
 
 const SavedArmiesModal = ({
   closeModal,
-  currentDocument,
   isOpen,
   linkedCloudArmyId,
   onApply,
@@ -82,19 +80,6 @@ const SavedArmiesModal = ({
     mutate(async () => {
       await updateArmy(army.id, withName(army.document, renameDraft))
     }, `Renamed to ${renameDraft.trim()}.`)
-
-  /*
-   * The saved army keeps its own name and takes the on-screen army's contents, so a row never
-   * silently retitles itself. The local document then takes that name too, because after this the
-   * two really are the same army — which is the claim the toolbar's Update Army rests on.
-   */
-  const replaceFromCurrent = (army: RemoteArmy) =>
-    mutate(async () => {
-      const replacement = withName(currentDocument, army.document.name)
-      await updateArmy(army.id, replacement)
-      onApply(replacement)
-      onLinked?.(army.id, army.document.name)
-    }, `${army.document.name} now matches the army on screen.`)
 
   const confirmDelete = (army: RemoteArmy) =>
     mutate(async () => {
@@ -178,13 +163,6 @@ const SavedArmiesModal = ({
           className: commitButton,
           run: () => confirmLoad(army),
         },
-        replace: {
-          prompt: `Replace ${army.document.name} with the army on screen?`,
-          detail: 'The saved copy is overwritten and cannot be recovered.',
-          action: 'Replace saved army',
-          className: destroyButton,
-          run: () => void replaceFromCurrent(army),
-        },
         delete: {
           prompt: `Delete ${army.document.name}?`,
           detail: 'It is removed from your account on every device. This cannot be undone.',
@@ -227,9 +205,6 @@ const SavedArmiesModal = ({
           type="button"
         >
           Rename
-        </button>
-        <button className={rowButton} onClick={() => openPending(army.id, 'replace')} type="button">
-          Replace with current
         </button>
         {/*
          * Pushed away from the three save-shaped actions rather than tinted red. Separation is what

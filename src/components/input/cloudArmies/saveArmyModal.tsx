@@ -119,12 +119,18 @@ const SaveArmyModal = ({ closeModal, currentDocument, isOpen, onSaved }: SaveArm
            * the thing that pays for a careless duplicate, so the alternative is offered here rather
            * than discovered later in a list of same-named rows.
            */
-          <div className="alert alert-warning mt-3" role="status">
-            <p className="mb-1">
-              You already have a saved army called <strong>{existing.document.name}</strong>, saved{' '}
-              {formatSavedAt(existing.updatedAt)}.
-            </p>
-            <p className="small mb-2">Saving now adds a second army with the same name.</p>
+          <div className="alert alert-warning mt-3">
+            {/*
+             * The live region wraps the message, not the control: an announced region containing a
+             * focusable button is read out without focus ever reaching it.
+             */}
+            <div role="status">
+              <p className="mb-1">
+                You already have a saved army called <strong>{existing.document.name}</strong>, saved{' '}
+                {formatSavedAt(existing.updatedAt)}.
+              </p>
+              <p className="small mb-2">Saving now adds a second army with the same name.</p>
+            </div>
             <button
               className="btn btn-danger btn-sm TapTarget"
               disabled={isSaving}

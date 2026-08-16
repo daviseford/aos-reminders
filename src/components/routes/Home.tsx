@@ -477,7 +477,6 @@ const HomeContent = () => {
         <Suspense fallback={null}>
           <SavedArmiesModal
             closeModal={() => setSavedArmiesModalIsOpen(false)}
-            currentDocument={document}
             isOpen={savedArmiesModalIsOpen}
             {...(cloudArmyId ? { linkedCloudArmyId: cloudArmyId } : {})}
             onApply={setDocument}

@@ -120,10 +120,7 @@ describe('saved-army and sharing controls', () => {
       onLinked: vi.fn(),
     }
     act(() => {
-      render(
-        <SavedArmiesModal currentDocument={currentDocument} isOpen {...handlers} {...props} />,
-        container
-      )
+      render(<SavedArmiesModal isOpen {...handlers} {...props} />, container)
     })
     return handlers
   }
@@ -150,24 +147,19 @@ describe('saved-army and sharing controls', () => {
     expect(closeModal).toHaveBeenCalled()
   })
 
-  it('confirms before overwriting a saved army, and keeps that army its own name', async () => {
-    const { onApply, onLinked } = renderSavedArmies()
+  it('offers no way to overwrite a saved army from the list', () => {
+    renderSavedArmies()
 
+    /*
+     * Removed deliberately. It answered a question nobody asks — "overwrite that saved army with
+     * this different one" — while being the only unrecoverable action in the modal. Updating the
+     * army you are actually working on is the toolbar's Update Army, which now has a durable and
+     * named target; overwriting a same-named army is offered by Save Army where it is unambiguous.
+     */
     const [row] = rows()
-    act(() => findButton(row, 'Replace with current').click())
+    expect(queryButton(row, 'Replace with current')).toBeUndefined()
+    expect(row.textContent).not.toContain('Replace')
     expect(collection.updateArmy).not.toHaveBeenCalled()
-    expect(row.textContent).toContain('Replace Saved Stormhost with the army on screen?')
-
-    await act(async () => {
-      findButton(container, 'Replace saved army').click()
-      await Promise.resolve()
-    })
-    expect(collection.updateArmy).toHaveBeenCalledWith(
-      'cloud-1',
-      expect.objectContaining({ name: 'Saved Stormhost' })
-    )
-    expect(onApply).toHaveBeenLastCalledWith(expect.objectContaining({ name: 'Saved Stormhost' }))
-    expect(onLinked).toHaveBeenLastCalledWith('cloud-1', 'Saved Stormhost')
   })
 
   it('confirms a delete in place and names what is being deleted', async () => {
@@ -343,5 +335,62 @@ describe('saved-army and sharing controls', () => {
       'https://aosreminders.com/?army=abcdefghijklmnopqrstuvwx'
     )
     expect(container.textContent).toContain('Copied')
+  })
+
+  it('copies the share link from the field itself and from the icon beside it', async () => {
+    const clipboard = { writeText: vi.fn().mockResolvedValue(undefined) }
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: clipboard })
+    act(() => {
+      render(<ShareArmyModal closeModal={vi.fn()} document={currentDocument} isOpen />, container)
+    })
+    await act(async () => {
+      findButton(container, 'Create share link').click()
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    // Icon-only, so it is found by its accessible name rather than its text.
+    const iconButton = container.querySelector<HTMLButtonElement>('button[aria-label="Copy share link"]')
+    expect(iconButton).not.toBeNull()
+
+    const field = container.querySelector<HTMLInputElement>('#share-army-url')!
+    await act(async () => {
+      Simulate.click(field)
+      await Promise.resolve()
+    })
+    expect(clipboard.writeText).toHaveBeenCalledTimes(1)
+    // The name follows the state, so the confirmation reaches a screen reader too.
+    expect(iconButton!.getAttribute('aria-label')).toBe('Share link copied')
+
+    await act(async () => {
+      iconButton!.click()
+      await Promise.resolve()
+    })
+    expect(clipboard.writeText).toHaveBeenCalledTimes(2)
+    expect(clipboard.writeText).toHaveBeenLastCalledWith(
+      'https://aosreminders.com/?army=abcdefghijklmnopqrstuvwx'
+    )
+    expect(container.textContent).toContain('Link copied to your clipboard.')
+  })
+
+  it('tells the player to copy by hand when the browser blocks the clipboard', async () => {
+    const clipboard = { writeText: vi.fn().mockRejectedValue(new Error('denied')) }
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: clipboard })
+    act(() => {
+      render(<ShareArmyModal closeModal={vi.fn()} document={currentDocument} isOpen />, container)
+    })
+    await act(async () => {
+      findButton(container, 'Create share link').click()
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    await act(async () => {
+      findButton(container, 'Copy link').click()
+      await Promise.resolve()
+    })
+    // The Clipboard API needs a secure context, which a venue's captive portal will not give.
+    expect(container.textContent).toContain('copy it yourself')
+    expect(container.textContent).not.toContain('Copied')
   })
 })

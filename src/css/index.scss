@@ -776,6 +776,11 @@ small {
   padding: 1rem 0;
 }
 
+/* The share link copies when clicked, so it has to look clickable rather than like a dead field. */
+.CopyableLink {
+  cursor: pointer;
+}
+
 /* Dropzone */
 .dropzone {
   flex: 1;

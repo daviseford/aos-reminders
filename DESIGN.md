@@ -277,6 +277,22 @@ Muted text is expressed as opacity rather than a separate token: `text-white-75`
 (`theme.cardBody`, `theme.text`, `theme.reminderHeader`), and light and dark supply their own
 values. A literal hex in a component is a defect — it will be wrong in one of the two themes.
 
+**The Alert Surface Rule.** A Bootstrap `alert-*` keeps its light palette in *both* themes. Nothing
+in this product sets `data-bs-theme`, so the alert backgrounds never invert — `alert-info` is
+`#d1ecf1` on a Midnight Slate page exactly as it is on a white one.
+
+An alert is therefore the one surface where the Slot Rule runs backwards. A slot exists so light and
+dark can supply their own value; on an alert, the dark value is resolved against a light ground and
+the contrast inverts. `theme.genericButton` and `theme.modalConfirmClass` are both
+`btn-outline-light` in dark theme, and on `alert-info` they measured **1.17:1** — the Load
+confirmation in `My Armies` was invisible to every dark-theme subscriber until #1963.
+
+So an alert may only carry colours that do not vary by theme: its own text, and a control whose
+class is the same string in both themes (`theme.secondaryButton`, or a literal Bootstrap signal
+class like `btn-danger`). Never a slot that differs between `light.ts` and `dark.ts` — check the two
+files before putting any slot on an alert, and prefer moving the control onto the surrounding themed
+surface instead.
+
 **The Meaning-Only Colour Rule.** Colour marks structure (Signal Teal = section header) or
 authorship (Note Blue = the player's own words). It never decorates, and it never carries
 information alone: the reminder tags pair every tone with a distinct text label, because the tone
@@ -522,6 +538,15 @@ standing guidance. They render inline in the modal or panel that owns the action
 sits where the failure happened. They carry `role="alert"` where the content is not present at
 first render.
 
+An alert may carry a control that recovers from what it reports — the retry on `/profile` and
+`/subscribe`, the dismiss on the notification banner — and its class must be theme-invariant, per
+The Alert Surface Rule.
+
+It never carries a *decision*. A confirmation goes on the themed surface of whatever it is
+confirming, adjacent to the control that raised it, for two reasons: the alert's live-region role
+announces its text without moving focus to anything inside it, and an alert placed after the list it
+refers to can be arbitrarily far from the row that raised it. `My Armies` did both until #1963.
+
 ### Inputs / Fields
 
 - **Text inputs:** Bootstrap `form-control` (12 uses), `form-control-sm` in dense modal rows. Always
@@ -637,6 +662,9 @@ to switch itself on during an upgrade.
   visible keyboard-focus indicator.
 - **Don't** hardcode a hex in a component, or reach for `$themeRed`, `$themeYellow`, or
   `$themeDarkBlueTertiary` — they are declared but unused and are not part of the system.
+- **Don't** put a theme-varying slot inside a Bootstrap `alert-*`, or a decision of any kind. Alert
+  palettes stay light in both themes, so `btn-outline-light` vanishes on one — this shipped at
+  1.17:1. See The Alert Surface Rule.
 - **Don't** change heading level to change text size. Set the size in `.CardHeaderTitle`.
 - **Don't** use uppercase outside the timing tags.
 - **Don't** use a filled button for a reversible action. Filled (`btn-primary`) is reserved for the
