@@ -473,10 +473,15 @@ describe('certification verdict reuse', () => {
         await readFile(
           path.join(
             process.cwd(),
-            'data/aos4/certifications/aos4-corpus-2026-08-02-machine-r2/manifest.json'
+            'data/aos4/certifications/aos4-corpus-2026-08-03-machine-r3/manifest.json'
           ),
           'utf8'
         )
+      )
+      // The retained manifests bind a compact reuse index, which the loader reads before the
+      // general inputs; drop it so the corrupted accepted-manifest binding is reached first.
+      manifest.inputs = manifest.inputs.filter(
+        (input: { name: string }) => input.name !== 'review-reuse-index'
       )
       manifest.inputs[0] = {
         ...manifest.inputs[0],

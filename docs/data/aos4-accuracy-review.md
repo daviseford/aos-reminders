@@ -176,6 +176,11 @@ Keep every referenced ancestor while a descendant remains current. The preparer 
 chains to three overlay levels; the next sparse campaign resolves the source evidence once and writes
 a self-contained result set, so verification cost and retention ancestry cannot grow without bound.
 
+Retention: keep the certification `beta.json` points at plus every ancestor its overlay references,
+and delete the remaining superseded directories when a new certification is accepted. Verification
+resolves only that live chain, and git history preserves the deleted evidence, so retiring a
+superseded directory loses no provenance.
+
 ### 4. Prepare and verify beta evidence
 
 ```powershell
