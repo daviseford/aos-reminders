@@ -165,7 +165,7 @@ describe('Sigdex text import', () => {
       'Neave Blacktalon (280)',
       '• General',
       '• Staunch Defender',
-      '• Quicksilver Draught',
+      '• Blade of the Six Smiths',
       'Aetherwings (80)'
     )
     const preview = resolveParsedRoster(AOS4_CATALOG, parsed!, {
@@ -184,7 +184,7 @@ describe('Sigdex text import', () => {
         rulesContextId: document.rulesContextId,
       })
     ).map(reminder => reminder.name)
-    expect(reminders).toContain('QUICKSILVER DRAUGHT')
+    expect(reminders).toContain('BLADE OF THE SIX SMITHS')
     expect(reminders).toContain('STAUNCH DEFENDER')
 
     // ...and the builder cards show the same picks as selected, filed on the right card. The
@@ -193,11 +193,44 @@ describe('Sigdex text import', () => {
     const builder = createAos4BuilderViewModel(AOS4_CATALOG, document)
     const selectedChips = (category: string) =>
       builder.options.filter(option => option.groupType === category && option.selected)
-    expect(selectedChips('artefact-of-power').map(option => option.name)).toEqual(['Quicksilver Draught'])
+    expect(selectedChips('artefact-of-power').map(option => option.name)).toEqual(['Blade of the Six Smiths'])
     expect(selectedChips('heroic-trait').map(option => option.name)).toEqual(['Staunch Defender'])
     // Current-context enhancements must not be misfiled under an overlay group header.
     expect(selectedChips('artefact-of-power')[0].overlay).toBeUndefined()
     expect(selectedChips('heroic-trait')[0].overlay).toBeUndefined()
+  })
+
+  /**
+   * The General's Handbook 2026-27 replaces each battletome's enhancement table for the season, so
+   * a roster built before the season — or built for core play — can name an artefact the seasonal
+   * context no longer offers. The importer never guesses, but the diagnostic must say which
+   * boundary was hit and how to cross it rather than reading as a data gap.
+   */
+  it('explains a battletome enhancement the season has replaced instead of reporting it unknown', () => {
+    const parsed = decode(
+      'Stormcast Eternals',
+      'Vanguard Wing',
+      "General's Handbook 2026-27",
+      "General's Regiment",
+      'Neave Blacktalon (280)',
+      '• General',
+      '• Quicksilver Draught',
+      'Aetherwings (80)'
+    )
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsed!, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'army:sigdex-superseded-artefact',
+    })
+    expect(preview.diagnostics).toEqual([
+      expect.objectContaining({
+        code: 'unknown-selection',
+        severity: 'warning',
+        message:
+          '"Quicksilver Draught" has been replaced for the current season, so it was not imported. ' +
+          'Switch the rules context to Age of Sigmar Fourth Edition to use it.',
+      }),
+    ])
+    expect(preview.proposedDocument).toBeDefined()
   })
 
   it('parses an Army of Renown header into faction plus formation-style selection', () => {

@@ -8,6 +8,7 @@ import {
   type WahapediaDecodeResult,
   type WahapediaDiagnostic,
   type WahapediaFactionAbilityRecord,
+  type WahapediaFactionAbilitySubtypeRecord,
   type WahapediaGeneralRuleAbilityRecord,
   type WahapediaRecordMeta,
   type WahapediaSourceRecord,
@@ -863,6 +864,36 @@ const sourceRulesContextIds = (
       typeContexts.get(`${record.factionId}:${record.typeId}`) ?? currentContextIds,
     ])
   )
+  /**
+   * A seasonal replacement table supersedes the same-named table it shadows, for the season. The
+   * General's Handbook 2026-27 hands a faction its replacement enhancement table under the
+   * battletome table's own name, and Wahapedia keeps both sections — the battletome section
+   * applies as `standard` (current + seasonal) while the replacement is marked seasonal — so
+   * without precedence the seasonal context offers both identically named groups (two "Devious
+   * Machinations" heroic-trait options for Skaven). The standard subtype and its abilities drop
+   * the seasonal context whenever a seasonal subtype shares its faction, parent group, and name.
+   */
+  const typeLabelByKey = new Map(
+    dataset.factionAbilityTypes.map(record => [`${record.factionId}:${record.id}`, contextLabel(record.name)])
+  )
+  const subtypeIdentity = (record: WahapediaFactionAbilitySubtypeRecord): string =>
+    [
+      record.factionId,
+      typeLabelByKey.get(`${record.factionId}:${record.typeId}`) ?? '',
+      contextLabel(record.name),
+    ].join('|')
+  const isSeasonalMeta = (meta: WahapediaRecordMeta): boolean =>
+    (meta.rulesContextKinds ?? (meta.rulesContextKind ? [meta.rulesContextKind] : [])).includes('seasonal')
+  const seasonalSubtypeIdentities = new Set(
+    dataset.factionAbilitySubtypes.filter(record => isSeasonalMeta(record.meta)).map(subtypeIdentity)
+  )
+  const supersededSubtypeKeys = new Set(
+    dataset.factionAbilitySubtypes
+      .filter(
+        record => !isSeasonalMeta(record.meta) && seasonalSubtypeIdentities.has(subtypeIdentity(record))
+      )
+      .map(record => `${record.factionId}:${record.id}`)
+  )
   const bySourceRecordId = new Map<SourceRecordId, RulesContextId[]>()
   const assign = (meta: WahapediaRecordMeta, contextIds: RulesContextId[]) =>
     bySourceRecordId.set(
@@ -947,6 +978,26 @@ const sourceRulesContextIds = (
     ...(dataset.generalRuleGroups ?? []),
     ...(dataset.generalRuleAbilities ?? []),
   ].forEach(record => assign(record.meta, currentContextIds))
+  if (seasonalContextId && supersededSubtypeKeys.size) {
+    // A reviewed context override still outranks the structural precedence, and a record that
+    // would end up with no context at all (a seasonal-only ability inside a superseded group)
+    // keeps what it has rather than vanishing from every context.
+    const dropSeasonalContext = (meta: WahapediaRecordMeta) => {
+      if (overrideBySourceRecordId.has(meta.sourceRecordId)) return
+      const contextIds = bySourceRecordId.get(meta.sourceRecordId)
+      if (!contextIds?.includes(seasonalContextId)) return
+      const remaining = contextIds.filter(id => id !== seasonalContextId)
+      if (remaining.length) bySourceRecordId.set(meta.sourceRecordId, remaining)
+    }
+    dataset.factionAbilitySubtypes.forEach(record => {
+      if (supersededSubtypeKeys.has(`${record.factionId}:${record.id}`)) dropSeasonalContext(record.meta)
+    })
+    dataset.factionAbilities.forEach(record => {
+      if (supersededSubtypeKeys.has(`${record.factionId}:${record.subtypeId}`)) {
+        dropSeasonalContext(record.meta)
+      }
+    })
+  }
   return bySourceRecordId
 }
 
