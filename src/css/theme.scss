@@ -315,6 +315,16 @@ small,
 }
 
 /*
+ * Bootstrap's `.form-control:focus` is more specific than a background utility and repaints an
+ * explicitly dark-themed input with the light body background. The text utility remains white, so
+ * the focused value disappears. Keep the override coupled to the explicit dark background class;
+ * light-theme controls retain Bootstrap's normal focus treatment.
+ */
+.form-control.bg-themeDarkBlueSecondary:focus {
+  background-color: $themeDarkBlueSecondary;
+}
+
+/*
  * 5.x added `appearance: none` to .form-control (to normalise date inputs in Safari). 4.6 did not,
  * and the import preview's ruleset picker is a <select class="form-control"> — under 5.x it loses
  * its native dropdown arrow and stops looking like a control at all. Bootstrap 5's answer is
