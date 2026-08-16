@@ -15,6 +15,7 @@ import {
   createAos4BuilderViewModel,
   createAos4ReminderSourceLinkResolver,
   createAos4ReminderViewModel,
+  migrateAos4ReminderPreferences,
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
 import AppBanner from 'components/info/banners/app_banner'
@@ -200,6 +201,20 @@ const HomeContent = () => {
       // Browser storage can be unavailable in privacy modes. The in-memory document remains usable.
     }
   }, [document])
+
+  /*
+   * A rules update that moves an ability's timing moves its reminder occurrence ID, stranding any
+   * hidden/note/order preference keyed on the old one. The migration is idempotent and returns the
+   * same document instance when nothing is stranded, so riding setDocument here persists a remap
+   * through the save effect above without ever looping.
+   */
+  useEffect(() => {
+    const occurrences = reminders.map(reminder => ({
+      id: reminder.id,
+      abilityIds: reminder.projected.abilityIds,
+    }))
+    setDocument(current => migrateAos4ReminderPreferences(current, occurrences))
+  }, [reminders])
 
   const setSelections = (groupIds: CanonicalId[], selectedIds: CanonicalId[]) => {
     setDocument(current => {
@@ -427,9 +442,7 @@ const HomeContent = () => {
             currentDocument={document}
             isOpen={savedArmiesModalIsOpen}
             onApply={setDocument}
-            onDeleted={deletedId =>
-              setCloudArmyId(current => (current === deletedId ? undefined : current))
-            }
+            onDeleted={deletedId => setCloudArmyId(current => (current === deletedId ? undefined : current))}
             onLinked={setCloudArmyId}
           />
         </Suspense>
