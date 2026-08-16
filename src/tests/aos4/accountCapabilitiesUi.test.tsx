@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 
+import SaveArmyModal from 'components/input/cloudArmies/saveArmyModal'
 import SavedArmiesModal from 'components/input/cloudArmies/savedArmiesModal'
 import ShareArmyModal from 'components/input/armySharing/shareArmyModal'
 import { createDefaultAos4ArmyDocument } from '../../aos4/runtime'
@@ -101,6 +102,8 @@ describe('saved-army and sharing controls', () => {
   it('saves explicitly, previews before load, and confirms delete', async () => {
     const closeModal = vi.fn()
     const onApply = vi.fn()
+    const onDeleted = vi.fn()
+    const onLinked = vi.fn()
     act(() => {
       render(
         <SavedArmiesModal
@@ -108,6 +111,8 @@ describe('saved-army and sharing controls', () => {
           currentDocument={currentDocument}
           isOpen
           onApply={onApply}
+          onDeleted={onDeleted}
+          onLinked={onLinked}
         />,
         container
       )
@@ -121,11 +126,13 @@ describe('saved-army and sharing controls', () => {
       await Promise.resolve()
     })
     expect(collection.createArmy).toHaveBeenCalledWith(expect.objectContaining({ name: 'Tournament Army' }))
+    expect(onLinked).toHaveBeenLastCalledWith('cloud-1')
 
     act(() => findButton(container, 'Load').click())
     expect(container.textContent).toContain('Replace the current army with Saved Stormhost?')
     act(() => findButton(container, 'Replace current army').click())
     expect(onApply).toHaveBeenLastCalledWith(savedDocument)
+    expect(onLinked).toHaveBeenLastCalledWith('cloud-1')
 
     act(() => findButton(container, 'Delete').click())
     await act(async () => {
@@ -133,6 +140,51 @@ describe('saved-army and sharing controls', () => {
       await Promise.resolve()
     })
     expect(collection.deleteArmy).toHaveBeenCalledWith('cloud-1')
+    expect(onDeleted).toHaveBeenCalledWith('cloud-1')
+  })
+
+  it('saves the current army from the dedicated Save Army dialog and links the result', async () => {
+    const closeModal = vi.fn()
+    const onSaved = vi.fn()
+    collection.createArmy.mockResolvedValue({ ...remoteArmy, id: 'cloud-9' })
+    act(() => {
+      render(
+        <SaveArmyModal closeModal={closeModal} currentDocument={currentDocument} isOpen onSaved={onSaved} />,
+        container
+      )
+    })
+
+    const nameInput = container.querySelector<HTMLInputElement>('#save-army-name')!
+    nameInput.value = 'Tournament Army'
+    act(() => Simulate.change(nameInput))
+    await act(async () => {
+      findButton(container, 'Save').click()
+      await Promise.resolve()
+    })
+
+    expect(collection.createArmy).toHaveBeenCalledWith(expect.objectContaining({ name: 'Tournament Army' }))
+    expect(onSaved).toHaveBeenCalledWith(expect.objectContaining({ name: 'Tournament Army' }), 'cloud-9')
+    expect(closeModal).toHaveBeenCalled()
+  })
+
+  it('keeps the Save Army dialog open and shows the service error when saving fails', async () => {
+    const closeModal = vi.fn()
+    const onSaved = vi.fn()
+    collection.createArmy.mockRejectedValue(new Error('Cloud armies are temporarily unavailable.'))
+    act(() => {
+      render(
+        <SaveArmyModal closeModal={closeModal} currentDocument={currentDocument} isOpen onSaved={onSaved} />,
+        container
+      )
+    })
+
+    await act(async () => {
+      findButton(container, 'Save').click()
+      await Promise.resolve()
+    })
+
+    expect(onSaved).not.toHaveBeenCalled()
+    expect(closeModal).not.toHaveBeenCalled()
   })
 
   it('creates an opaque share link only after confirmation and copies it', async () => {

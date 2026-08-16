@@ -149,6 +149,7 @@ describe('AoS 4 home presentation', () => {
     // `master` shipped a Download PDF toolbar button, not a browser-print one.
     expect(container.textContent).toContain('Download PDF')
     expect(container.textContent).toContain('Import Army')
+    expect(container.textContent).toContain('Save Army')
     expect(container.textContent).toContain('My Armies')
     expect(container.textContent).toContain('Share Army')
     expect(container.textContent).toContain('Subscribe')
@@ -194,6 +195,7 @@ describe('AoS 4 home presentation', () => {
     act(() => {
       Simulate.click(findButton('My Armies')!)
       Simulate.click(findButton('Share Army')!)
+      Simulate.click(findButton('Save Army')!)
     })
 
     /*
@@ -202,6 +204,7 @@ describe('AoS 4 home presentation', () => {
      */
     expect(navigate).toHaveBeenNthCalledWith(1, '/subscribe', { state: { featureName: 'My Armies' } })
     expect(navigate).toHaveBeenNthCalledWith(2, '/subscribe', { state: { featureName: 'Share Army' } })
+    expect(navigate).toHaveBeenNthCalledWith(3, '/subscribe', { state: { featureName: 'Save Army' } })
 
     await act(async () => {
       Simulate.click(findButton('Import Army')!)

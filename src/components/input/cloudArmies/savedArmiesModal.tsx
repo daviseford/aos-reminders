@@ -1,5 +1,6 @@
 import type { RemoteArmy } from '../../../api/armyApi'
-import { createAos4ArmyDocument, type Aos4ArmyDocument } from '../../../aos4/state'
+import type { Aos4ArmyDocument } from '../../../aos4/state'
+import { withName } from './withName'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useArmyCollection } from 'context/useArmyCollection'
 import { useTheme } from 'context/useTheme'
@@ -10,12 +11,19 @@ interface SavedArmiesModalProps {
   currentDocument: Aos4ArmyDocument
   isOpen: boolean
   onApply: (document: Aos4ArmyDocument) => void
+  /** The current document became a copy of this cloud army (saved, updated from current, or loaded). */
+  onLinked?: (cloudArmyId: string) => void
+  onDeleted?: (cloudArmyId: string) => void
 }
 
-const withName = (document: Aos4ArmyDocument, name: string): Aos4ArmyDocument =>
-  createAos4ArmyDocument({ ...document, name: name.trim() || document.name })
-
-const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: SavedArmiesModalProps) => {
+const SavedArmiesModal = ({
+  closeModal,
+  currentDocument,
+  isOpen,
+  onApply,
+  onDeleted,
+  onLinked,
+}: SavedArmiesModalProps) => {
   const {
     armies,
     collectionError,
@@ -62,8 +70,9 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
   const saveNew = () =>
     mutate(async () => {
       const savedDocument = withName(currentDocument, saveName)
-      await createArmy(savedDocument)
+      const created = await createArmy(savedDocument)
       onApply(savedDocument)
+      onLinked?.(created.id)
     }, 'Army saved.')
 
   const rename = (army: RemoteArmy) =>
@@ -76,6 +85,7 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
       const savedDocument = withName(currentDocument, draftNames[army.id] ?? currentDocument.name)
       await updateArmy(army.id, savedDocument)
       onApply(savedDocument)
+      onLinked?.(army.id)
     }, 'Saved army updated from the current army.')
 
   const confirmDelete = (army: RemoteArmy) =>
@@ -83,6 +93,7 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
       await deleteArmy(army.id)
       setPendingDeleteId(undefined)
       if (pendingLoad?.id === army.id) setPendingLoad(undefined)
+      onDeleted?.(army.id)
     }, 'Saved army deleted.')
 
   return (
@@ -232,6 +243,7 @@ const SavedArmiesModal = ({ closeModal, currentDocument, isOpen, onApply }: Save
               className={`${theme.modalConfirmClass} btn-sm me-2`}
               onClick={() => {
                 onApply(pendingLoad.document)
+                onLinked?.(pendingLoad.id)
                 closeModal()
               }}
               type="button"
