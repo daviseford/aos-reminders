@@ -37,17 +37,28 @@ const currentDocument = createDefaultAos4ArmyDocument()
 const remoteArmy = { id: 'cloud-1', createdAt: 1, updatedAt: 2, document: currentDocument }
 
 const Probe = () => {
-  const { armies, collectionError, createArmy, deleteArmy, refreshArmies, updateArmy } = useArmyCollection()
+  const {
+    armies,
+    collectionError,
+    collectionLoaded,
+    createArmy,
+    deleteArmy,
+    ensureArmiesLoaded,
+    refreshArmies,
+    updateArmy,
+  } = useArmyCollection()
   return (
     <div>
       <span data-testid="armies">{armies.map(army => army.id).join(',')}</span>
       <span data-testid="error">{collectionError}</span>
+      <span data-testid="loaded">{String(collectionLoaded)}</span>
       <button onClick={() => void refreshArmies()}>Refresh</button>
       <button onClick={() => void createArmy({ ...currentDocument, name: 'Created' })}>Create</button>
       <button onClick={() => void updateArmy('cloud-1', { ...currentDocument, name: 'Updated' })}>
         Update
       </button>
       <button onClick={() => void deleteArmy('cloud-1')}>Delete</button>
+      <button onClick={() => void ensureArmiesLoaded()}>Ensure</button>
     </div>
   )
 }
@@ -146,5 +157,91 @@ describe('cloud army collection state', () => {
 
     expect(container.querySelector('[data-testid="error"]')?.textContent).toBe('Network unavailable')
     expect(container.querySelector('[data-testid="armies"]')?.textContent).toBe('')
+  })
+
+  /*
+   * The Save Army modal refreshes when it opens, and its Save button is not gated on that refresh
+   * finishing. So a list request that predates the save can resolve after it. If that stale list
+   * wins, the created army disappears from state while the collection reports itself loaded, and
+   * the reconciler in Home unlinks a record that exists — forking a duplicate on the next save.
+   */
+  it('discards a list response that a later mutation has already superseded', async () => {
+    let resolveList: (armies: unknown[]) => void = () => undefined
+    armyApi.listArmies.mockReturnValue(
+      new Promise(resolve => {
+        resolveList = resolve as (armies: unknown[]) => void
+      })
+    )
+    await renderProbe()
+
+    // The modal's on-open refresh starts and stays in flight.
+    await act(async () => {
+      container.querySelectorAll('button')[0].click()
+      await Promise.resolve()
+    })
+
+    // The save completes while it is still pending.
+    await act(async () => {
+      container.querySelectorAll('button')[1].click()
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+    expect(container.querySelector('[data-testid="armies"]')?.textContent).toBe('cloud-2')
+
+    // The pre-save list lands last and must not resurrect the account as it was before the save.
+    await act(async () => {
+      resolveList([])
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    expect(container.querySelector('[data-testid="armies"]')?.textContent).toBe('cloud-2')
+    expect(container.querySelector('[data-testid="loaded"]')?.textContent).toBe('false')
+  })
+
+  it('spends only one ensureArmiesLoaded attempt even when the load fails', async () => {
+    armyApi.listArmies.mockRejectedValue(new Error('Network unavailable'))
+    await renderProbe()
+
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      await act(async () => {
+        container.querySelectorAll('button')[4].click()
+        await Promise.resolve()
+        await Promise.resolve()
+      })
+    }
+
+    expect(armyApi.listArmies).toHaveBeenCalledTimes(1)
+    // A background load owes the player no message; only a refresh they asked for does.
+    expect(container.querySelector('[data-testid="error"]')?.textContent).toBe('')
+  })
+
+  /*
+   * The guard order in `ensureArmiesLoaded` puts the authentication check before the one-shot ref,
+   * so a call made while Auth0 is still resolving must not spend the attempt. Without that order,
+   * anyone signing in after mount loses load-time reconciliation for the whole session.
+   */
+  it('does not spend its attempt on a call made before authentication resolves', async () => {
+    auth.isAuthenticated = false
+    await renderProbe()
+
+    await act(async () => {
+      container.querySelectorAll('button')[4].click()
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    expect(armyApi.listArmies).not.toHaveBeenCalled()
+
+    // Auth0 settles while the same provider stays mounted, so its one-shot ref is not reset by a
+    // remount -- the attempt must still be available.
+    auth.isAuthenticated = true
+    await renderProbe()
+
+    await act(async () => {
+      container.querySelectorAll('button')[4].click()
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    expect(armyApi.listArmies).toHaveBeenCalledTimes(1)
+    expect(container.querySelector('[data-testid="loaded"]')?.textContent).toBe('true')
   })
 })

@@ -93,7 +93,7 @@ const SkipToReminders = () => (
 )
 
 const HomeContent = () => {
-  const { armies, updateArmy } = useArmyCollection()
+  const { armies, collectionLoaded, ensureArmiesLoaded, updateArmy } = useArmyCollection()
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
   const [importModalIsOpen, setImportModalIsOpen] = useState(false)
@@ -185,16 +185,33 @@ const HomeContent = () => {
   }, [updateArmyStatus])
 
   /*
-   * A link restored from storage can name an army deleted on another device. Reconciled only
-   * against a collection that actually loaded — an empty list is what a failed fetch looks like
-   * too, and unlinking on that would undo the persistence this exists to provide.
+   * Nothing else on this screen needs the collection, and it is deliberately not fetched on mount,
+   * so a link restored from storage would sit unreconciled until the player happened to open a
+   * modal — offering Update Army against a record deleted on another device, and failing with
+   * "Army not found." every time it was pressed. The link is the one thing here that has a question
+   * only the account can answer, so it is the one thing that asks (issue #1965).
    */
   useEffect(() => {
-    if (!cloudArmyId || armies.length === 0) return
+    if (!cloudArmyId) return
+    void ensureArmiesLoaded()
+  }, [cloudArmyId, ensureArmiesLoaded])
+
+  /*
+   * A link restored from storage can name an army deleted on another device. Reconciled only
+   * against a collection that actually loaded — an empty list is also what a failed fetch and an
+   * unfetched one look like, and unlinking on that would undo the persistence this exists to
+   * provide. `collectionLoaded` separates those from an account that genuinely holds no armies,
+   * which is exactly the state left behind when the linked record was the last one deleted.
+   */
+  useEffect(() => {
+    if (!cloudArmyId || !collectionLoaded) return
     const linked = armies.find(army => army.id === cloudArmyId)
     if (!linked) {
       setCloudArmyLink(undefined)
       clearCloudArmyLink()
+      // The banner names a write to this record. Once the record is gone the banner is about
+      // nothing, and it has no dismiss of its own.
+      setUpdateArmyError(undefined)
       return
     }
     // A rename in My Armies must reach the label the toolbar shows for the same record. The
@@ -206,7 +223,7 @@ const HomeContent = () => {
       writeCloudArmyLink(link)
       return link
     })
-  }, [armies, cloudArmyId, cloudArmyName])
+  }, [armies, cloudArmyId, cloudArmyName, collectionLoaded])
   const factions = useMemo(
     () =>
       selectableFactions
