@@ -52,7 +52,7 @@ const OGOR_SUPPLEMENT_UNITS: Array<{ name: string; unitSize: number; points: num
 
 const reconciliation = JSON.parse(
   readFileSync(
-    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-03-reconciliation.json'),
+    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-18-reconciliation.json'),
     'utf8'
   )
 ) as ReconciliationReport

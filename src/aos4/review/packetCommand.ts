@@ -43,8 +43,8 @@ import {
 import { AOS4_REVIEW_PROTOCOL_VERSION, AOS4_REVIEW_RUBRIC_VERSION } from './records'
 import { writeCreateOnlyDirectory } from './reviewWorkspace'
 
-const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-02.json')
-const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-03.json')
+const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-08-18.json')
+const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-08-18.json')
 const DEFAULT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
@@ -748,7 +748,7 @@ const buildReconciliationCandidates = (
       ],
       generatedDestinations: [
         {
-          path: 'data/aos4/reports/corpus-2026-08-03-reconciliation.json',
+          path: 'data/aos4/reports/corpus-2026-08-18-reconciliation.json',
           field: `discrepancies[${index}]`,
           value: discrepancy,
         },
@@ -781,7 +781,7 @@ const buildReconciliationCandidates = (
       ],
       generatedDestinations: [
         {
-          path: 'data/aos4/reports/corpus-2026-08-03-reconciliation.json',
+          path: 'data/aos4/reports/corpus-2026-08-18-reconciliation.json',
           field: `unmatchedOfficialUnitFacts[${index}]`,
           value: fact,
         },

@@ -20,8 +20,8 @@ The accepted 2026-08-02 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-02.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-02b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-18.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-08-18.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
@@ -267,7 +267,8 @@ parent group, and name, with reviewed `contextOverrides` still outranking the ru
 names the boundary when a roster carries a replaced battletome enhancement instead of reporting it
 unknown. `src/tests/aos4/seasonalEnhancementSupersede.test.ts` pins a corpus-wide invariant — no
 faction offers two identically named groups of one category in the same context — and the machine
-review recertified as `aos4-corpus-2026-08-03-machine-r4` (72 fresh pairs, r3 evidence reused).
+review recertified as `aos4-corpus-2026-08-03-machine-r4` (72 fresh pairs, r3 evidence reused);
+`aos4-corpus-2026-08-18-machine-r1` has since superseded both.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
@@ -392,6 +393,21 @@ new or changed source lanes update it, unresolved lanes survive partial observat
 the final lane closes it. Operational failures remain separate from material rules-source changes,
 notification is attempted after candidate failures, and the workflow still ends in failure.
 
+On top of the managed issue, non-report-only runs send a loud material alarm email to the
+maintainer (`aosreminders@gmail.com`, subject prefix `🚨 AoS Rules Radar`) over SMTP via
+`dawidd6/action-send-mail`, authenticated by the `SMTP_USERNAME` and `SMTP_PASSWORD` repository
+secrets (a Gmail app password on `smtp.gmail.com:465`). The alarm fires only when issue
+synchronization observes *new material state*: the decision keys on the report's material
+fingerprint — the material events only, not the aggregate fingerprint — so a re-run that observes
+the same state, or one where only transient operational events churn beneath an unchanged material
+event, does not re-alarm. Report-only runs never send, and missing or blank SMTP secrets skip the
+send with a warning rather than failing the run, so a notification-config gap never masks the
+radar's own result. The email body carries the per-lane material events and links to the managed
+issue, workflow run, and curated artifacts; the decision and the exact subject and body are
+uploaded as `alarm.json`, `alarm-subject.txt`, and `alarm-body.md` beside the report. Operational
+failures keep their own separate channel — the workflow failure email — so the material alarm
+keeps meaning exactly one thing.
+
 The issue body contains a machine state marker. If notification reports a malformed machine state,
 do not guess at or partially edit its encoded value. Compare the issue with the uploaded
 `managed-issue-body.md`. Either restore the complete uploaded managed body or remove the Rules Radar
@@ -507,11 +523,11 @@ Restore or seed the bytes pinned by a reviewed manifest:
 
 ```powershell
 yarn data:aos4:cache:pull `
-  --manifest data/aos4/manifests/accepted-2026-08-02.json `
+  --manifest data/aos4/manifests/accepted-2026-08-18.json `
   --jobs 4
 
 yarn data:aos4:cache:push `
-  --manifest data/aos4/manifests/accepted-2026-08-02.json `
+  --manifest data/aos4/manifests/accepted-2026-08-18.json `
   --jobs 4
 ```
 
