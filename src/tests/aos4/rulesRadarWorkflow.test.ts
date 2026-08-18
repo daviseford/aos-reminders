@@ -58,6 +58,29 @@ describe('AoS 4 Rules Radar workflow contract', () => {
     expect(workflow).toMatch(/name: Preserve Rules Radar failure[\s\S]{0,80}if: always\(\)/)
   })
 
+  it('sends a gated, deduplicated material alarm email after issue synchronization', () => {
+    const workflow = fs.readFileSync(workflowPath, 'utf8')
+
+    expect(workflow).toMatch(/name: Synchronize Rules Radar issue[\s\S]+name: Evaluate material alarm email/)
+    expect(workflow).toMatch(/name: Evaluate material alarm email[\s\S]{0,80}if: always\(\)/)
+    // Report-only smoke runs are evidence gathering and must never send.
+    expect(workflow).toMatch(/report_only[\s\S]{0,40}== "true"[\s\S]{0,120}never sends/)
+    // The send keys on the alarm decision artifact produced by issue synchronization.
+    expect(workflow).toContain('alarm.json')
+    expect(workflow).toContain('alarm-subject.txt')
+    expect(workflow).toContain('alarm-body.md')
+    // Missing or blank SMTP secrets skip with a warning instead of failing the run.
+    expect(workflow).toContain('secrets.SMTP_USERNAME')
+    expect(workflow).toContain('secrets.SMTP_PASSWORD')
+    expect(workflow).toMatch(/::warning::SMTP_USERNAME\/SMTP_PASSWORD secrets are missing or blank/)
+    expect(workflow).toMatch(
+      /name: Send material alarm email[\s\S]{0,120}if: always\(\) && steps\.alarm\.outputs\.send == 'true'[\s\S]{0,400}dawidd6\/action-send-mail@v3/
+    )
+    expect(workflow).toContain('to: aosreminders@gmail.com')
+    expect(workflow).toMatch(/\$\{\{ steps\.alarm\.outcome \}\}/)
+    expect(workflow).toMatch(/\$\{\{ steps\.alarm_email\.outcome \}\}/)
+  })
+
   it('documents dry runs, baseline review, issue recovery, and default-branch activation', () => {
     const runbook = fs.readFileSync(runbookPath, 'utf8')
 

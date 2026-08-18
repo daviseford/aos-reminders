@@ -1,6 +1,6 @@
-import type { RadarEvent, RadarReport, RadarSource } from './model'
+import type { RadarEvent, RadarLane, RadarReport, RadarSource } from './model'
 
-const SOURCE_LABELS = {
+export const SOURCE_LABELS = {
   'games-workshop': 'Games Workshop (official)',
   wahapedia: 'Wahapedia (secondary)',
   bsdata: 'BSData (community signal)',
@@ -90,6 +90,10 @@ const renderEvent = (event: RadarEvent): string[] => [
   ...(event.observedFingerprint ? [`  - Observed: \`${event.observedFingerprint}\``] : []),
   ...evidenceLines(event),
 ]
+
+/** Renders only a lane's material events, for channels that must not mix in operational noise. */
+export const renderRadarMaterialEventLines = (lane: RadarLane): string[] =>
+  lane.events.filter(event => event.class === 'material').flatMap(renderEvent)
 
 export const renderRulesRadarIssueBody = (report: RadarReport): string => {
   const lines = [

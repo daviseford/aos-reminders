@@ -1,3 +1,4 @@
+export * from './alarm'
 export * from './compare'
 export * from './config'
 export * from './githubIssue'

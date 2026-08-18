@@ -497,6 +497,14 @@ export const mergeRadarLanes = (existing: RadarLane[], observed: RadarLane[]): R
   })
 }
 
+/**
+ * Fingerprint of a report's material events only. Unlike the aggregate fingerprint, this is
+ * stable across operational-event churn, so the material alarm email keys on it to re-alarm
+ * exactly when there is new material state to review.
+ */
+export const createRadarMaterialFingerprint = (report: RadarReport): string =>
+  hash(report.events.filter(event => event.class === 'material').map(eventProjection))
+
 export const createRadarReport = (lanes: RadarLane[]): RadarReport => {
   const normalizedLanes = mergeRadarLanes([], lanes)
   if (!normalizedLanes.length) throw new Error('Rules Radar report requires at least one source lane')
