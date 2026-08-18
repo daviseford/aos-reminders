@@ -47,6 +47,8 @@ export interface RulesRadarIssueSynchronization {
   action: 'noop' | 'created' | 'updated' | 'reopened' | 'closed'
   issue?: RulesRadarGitHubIssue
   report: RadarReport
+  /** The managed issue's previous report, when one existed; null on first synchronization. */
+  previousReport: RadarReport | null
 }
 
 const count = (value: string, search: string): number => value.split(search).length - 1
@@ -146,7 +148,7 @@ export const synchronizeRulesRadarIssue = async (
   const existing = matching[0]
   if (!existing) {
     if (!observedReport.events.length) {
-      return { action: 'noop', report: observedReport }
+      return { action: 'noop', report: observedReport, previousReport: null }
     }
     const issue = await client.createIssue({
       title: ISSUE_TITLE,
@@ -154,7 +156,7 @@ export const synchronizeRulesRadarIssue = async (
       labels,
       assignees: [options.assignee.trim()],
     })
-    return { action: 'created', issue, report: observedReport }
+    return { action: 'created', issue, report: observedReport, previousReport: null }
   }
 
   const previousReport = parseManagedReport(existing.body)
@@ -165,7 +167,7 @@ export const synchronizeRulesRadarIssue = async (
     unchanged &&
     ((shouldBeOpen && existing.state === 'open') || (!shouldBeOpen && existing.state === 'closed'))
   ) {
-    return { action: 'noop', issue: existing, report: mergedReport }
+    return { action: 'noop', issue: existing, report: mergedReport, previousReport }
   }
 
   await ensureDeltaComment(client, existing.number, mergedReport)
@@ -180,6 +182,7 @@ export const synchronizeRulesRadarIssue = async (
     action: shouldBeOpen ? (existing.state === 'closed' ? 'reopened' : 'updated') : 'closed',
     issue,
     report: mergedReport,
+    previousReport,
   }
 }
 

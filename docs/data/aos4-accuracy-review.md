@@ -12,8 +12,11 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-03`, generated from the 2026-08-01 source
-acquisition plus three commit-pinned BSData catalogues (manifest `accepted-2026-08-02`).
+The current revision is `aos4-corpus-2026-08-18`, generated from the 2026-08-01 source
+acquisition plus three commit-pinned BSData catalogues (manifest `accepted-2026-08-18`). It
+re-pins the Ogor Mawtribes library catalogue from `c8e1b1c9` (branch `ogors`) to `301477a3` on
+`main`; the only content that moved is Thundertusk Beastriders' Chilling Onslaught, corrected
+upstream to "subtract 1 from hit rolls".
 Its automated review is complete:
 
 | Measure | Result |
@@ -30,12 +33,18 @@ Its automated review is complete:
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed on 2026-08-02: 245 entries matched accepted
+The independent source inventory was observed on 2026-08-18: 245 entries matched accepted
 checksums (including the three commit-pinned BSData catalogues, observed live by the
-`data:aos4:inventory:observe-bsdata` observer) and 9 discovery entries received explicit
-non-material dispositions carried forward from the 2026-08-01b review.
+`data:aos4:inventory:observe-bsdata` observer at both pinned commits) and 9 discovery entries
+received explicit non-material dispositions carried forward from the 2026-08-01b review.
 
-The current certification is `aos4-corpus-2026-08-03-machine-r3` (2026-08-04). It re-campaigns
+The current certification is `aos4-corpus-2026-08-18-machine-r1` (2026-08-18). The re-pinned Ogor
+library artifact re-keys the 323 source records that carry its checksum, so no prior pair verdict
+survives: all 40,978 pairs were evaluated fresh under the standalone campaign — 81,956 checks, 0
+findings, 0 cannot-verify. Because it reuses nothing, `certify:prune` retired both 2026-08-03
+directories (314.0 MB); git history preserves them.
+
+`aos4-corpus-2026-08-03-machine-r3` (2026-08-04) preceded it. It re-campaigned
 `machine-r2` because the command-point cost work (#1856) landed on top of the pdfjs-dist 6 upgrade,
 leaving a corpus that matches neither parent; a prior result is never inherited by a changed corpus,
 so all 40,978 pairs were evaluated fresh under `evidence-auditor/v3` — 81,956 checks, 0 findings,

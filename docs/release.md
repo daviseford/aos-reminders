@@ -40,7 +40,7 @@ cache before the offline generation/certification gates:
 
 ```powershell
 yarn data:aos4:cache:pull `
-  --manifest data/aos4/manifests/accepted-2026-08-02.json `
+  --manifest data/aos4/manifests/accepted-2026-08-18.json `
   --jobs 4
 yarn data:aos4:generate:candidate
 yarn data:aos4:verify:beta

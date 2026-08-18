@@ -12,6 +12,12 @@ import { createHash } from 'node:crypto'
  *
  * Like the Rules Radar, the watch is evidence, not acceptance: a hit means "start the standard
  * candidate intake", never an automatic data change.
+ *
+ * Policy note (owner decision 2026-08-18, issue #1757): BSData was raised from fallback to a peer
+ * secondary alongside Wahapedia, so community-sourced facts are accepted as fact and carry no
+ * pending-verification obligation. The watch therefore reports disagreement and coverage rather
+ * than a replacement queue; the `provisional` vocabulary here is legacy until the tier is
+ * flattened in the review schema.
  */
 
 export interface ProvisionalWatchSentinel {
@@ -107,10 +113,11 @@ const notificationBody = (findings: ProvisionalWatchFinding[], marker: string): 
   const lines: string[] = [
     '## Provisional-verification watch',
     '',
-    'A watched source now carries content that the accepted corpus ships provisionally (or is',
-    'still missing from the community fallback tier). This is evidence, not acceptance: run the',
-    'standard candidate intake per `docs/data/aos4-maintenance.md` to replace or verify the',
-    'provisional facts.',
+    'A watched source now carries content that the accepted corpus ships from a secondary source',
+    '(or that the corpus is still missing). This is evidence, not acceptance: run the standard',
+    'candidate intake per `docs/data/aos4-maintenance.md` to reconcile the accepted facts with',
+    'the watched source. Accepted secondary facts stay accepted; nothing here obliges a',
+    'replacement.',
     '',
   ]
   findings.forEach(finding => {

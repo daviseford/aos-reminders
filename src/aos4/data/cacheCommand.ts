@@ -7,10 +7,11 @@ import {
   pushArtifactManifest,
   type AwsS3ArtifactStoreConfiguration,
 } from './artifactStore'
+import { ACCEPTED_MANIFEST_PATH } from './acceptedRevision'
 import { FileArtifactCache } from './cache'
 import type { ArtifactManifest } from './manifest'
 
-const DEFAULT_ACCEPTED_MANIFEST = 'data/aos4/manifests/accepted-2026-08-02.json'
+const DEFAULT_ACCEPTED_MANIFEST = ACCEPTED_MANIFEST_PATH
 const DEFAULT_CACHE_DIRECTORY = '.cache/aos4/artifacts'
 const DEFAULT_CONCURRENCY = 4
 

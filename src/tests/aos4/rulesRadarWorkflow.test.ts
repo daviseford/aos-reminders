@@ -58,6 +58,47 @@ describe('AoS 4 Rules Radar workflow contract', () => {
     expect(workflow).toMatch(/name: Preserve Rules Radar failure[\s\S]{0,80}if: always\(\)/)
   })
 
+  it('sends a gated, deduplicated material alarm email after issue synchronization', () => {
+    const workflow = fs.readFileSync(workflowPath, 'utf8')
+
+    expect(workflow).toMatch(/name: Synchronize Rules Radar issue[\s\S]+name: Evaluate material alarm email/)
+    expect(workflow).toMatch(/name: Evaluate material alarm email[\s\S]{0,80}if: always\(\)/)
+    // Report-only smoke runs are evidence gathering and must never send.
+    expect(workflow).toMatch(/report_only[\s\S]{0,40}== "true"[\s\S]{0,120}never sends/)
+    // The send keys on the alarm decision artifact produced by issue synchronization: the
+    // Evaluate step must itself read alarm.json and alarm-subject.txt (a bare filename listed in
+    // the unrelated Upload step must not satisfy these), and only the artifact's absence — never
+    // the notify step's exit code — may suppress the evaluation, because the notify command exits
+    // nonzero on operational events after the issue state has already advanced.
+    expect(workflow).toMatch(
+      /name: Evaluate material alarm email[\s\S]{0,900}alarm_file="\$report_directory\/alarm\.json"/
+    )
+    expect(workflow).toMatch(/name: Evaluate material alarm email[\s\S]{0,1600}alarm-subject\.txt/)
+    expect(workflow).not.toContain('Issue synchronization failed; skipping the material alarm email.')
+    expect(workflow).not.toMatch(/name: Evaluate material alarm email[\s\S]{0,1600}steps\.notify\.outcome/)
+    // Missing or blank SMTP secrets skip with a warning instead of failing the run.
+    expect(workflow).toContain('secrets.SMTP_USERNAME')
+    expect(workflow).toContain('secrets.SMTP_PASSWORD')
+    expect(workflow).toMatch(/::warning::SMTP_USERNAME\/SMTP_PASSWORD secrets are missing or blank/)
+    // The mail action is SHA-pinned (it receives the SMTP credentials, so a mutable tag would be
+    // a supply-chain hole) and the send step mails the rendered alarm body.
+    expect(workflow).toMatch(
+      /name: Send material alarm email[\s\S]{0,120}if: always\(\) && steps\.alarm\.outputs\.send == 'true'[\s\S]{0,400}dawidd6\/action-send-mail@2cea9617b09d79a095af21254fbcb7ae95903dde # v3\.12\.0/
+    )
+    expect(workflow).not.toMatch(/dawidd6\/action-send-mail@v3\b/)
+    expect(workflow).toMatch(
+      /name: Send material alarm email[\s\S]{0,700}body: file:\/\/\$\{\{ steps\.final_report\.outputs\.directory \}\}\/alarm-body\.md/
+    )
+    // A transient SMTP failure gets exactly one delayed same-run retry.
+    expect(workflow).toMatch(
+      /name: Retry material alarm email[\s\S]{0,200}if: always\(\) && steps\.alarm\.outputs\.send == 'true' && steps\.alarm_email\.outcome == 'failure'/
+    )
+    expect(workflow).toMatch(/\$\{\{ steps\.alarm_email_retry\.outcome \}\}/)
+    expect(workflow).toContain('to: aosreminders@gmail.com')
+    expect(workflow).toMatch(/\$\{\{ steps\.alarm\.outcome \}\}/)
+    expect(workflow).toMatch(/\$\{\{ steps\.alarm_email\.outcome \}\}/)
+  })
+
   it('documents dry runs, baseline review, issue recovery, and default-branch activation', () => {
     const runbook = fs.readFileSync(runbookPath, 'utf8')
 
