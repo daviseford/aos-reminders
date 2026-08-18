@@ -218,8 +218,9 @@ Every accepted fact must be traceable to:
 Acquisition bytes, normalized facts, accepted domain entities, and reminder projections are
 separate layers. Never make a PDF/HTML/CSV provider shape the application’s permanent model.
 
-A quiet official-first rules radar (official and Wahapedia sentinels plus a lower-authority BSData
-observer) is planned but not implemented.
+A quiet official-first rules radar watches the official, Wahapedia, and BSData sentinels and
+reports material source changes through a managed GitHub issue. The two secondaries rank equally:
+BSData was raised from fallback to peer secondary on 2026-08-18 (#1757).
 
 ### Roster import sources
 

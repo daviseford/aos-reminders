@@ -66,10 +66,10 @@ The test for whether something gets a builder card: the card exists only if the 
 ## Sourcing & Review
 
 ### Source Tier
-The three-level authority hierarchy for rules facts: official Games Workshop publications are authoritative, Wahapedia is the preferred secondary, and community transcriptions (BSData) are an acceptable fallback only while an official publication establishes the content and the secondary does not yet carry it.
+The authority hierarchy for rules facts: official Games Workshop publications are authoritative, and Wahapedia and BSData are co-equal preferred secondaries whose rules text is accepted as fact. BSData was raised from fallback to peer by owner decision on 2026-08-18 (#1757), retiring the former three-level hierarchy. Official publications still win every conflict, and neither secondary supplies battle-profile values officialdom already provides.
 
 ### Provisional Content
-Rules text admitted from the community fallback tier, pinned to an exact upstream revision and visibly attributed as provisional. Provisional facts must be replaced or verified through the standard intake as soon as a preferred source publishes the content; official facts override every overlapping field while they live.
+Legacy vocabulary from the pre-2026-08-18 three-tier policy: rules text admitted from the community fallback tier, pinned to an exact upstream revision, visibly attributed as provisional, and obliged to be replaced or verified once a preferred source published it. BSData is now a peer secondary (see Source Tier), so nothing new is admitted on those terms; accepted entries keep the provisional wording only until the `policyTier`/`status` vocabulary is flattened in code. Official facts override every overlapping field either way.
 
 ### Classification Evidence Tier
 The evidence basis for a reviewed classification (today: Armies of Renown). The official tier cites an accepted official record naming the thing classified; the secondary-provisional tier rests on the secondary source's own explicit marking when no free accepted official document names it, with official records as optional corroboration. Distinct from Provisional Content: here the rules text is ordinary preferred-secondary content — only the *classification* awaits official naming, which verifies or corrects the entry when accepted.

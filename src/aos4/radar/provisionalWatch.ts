@@ -12,6 +12,12 @@ import { createHash } from 'node:crypto'
  *
  * Like the Rules Radar, the watch is evidence, not acceptance: a hit means "start the standard
  * candidate intake", never an automatic data change.
+ *
+ * Policy note (owner decision 2026-08-18, issue #1757): BSData was raised from fallback to a peer
+ * secondary alongside Wahapedia, so community-sourced facts are accepted as fact and carry no
+ * pending-verification obligation. The watch therefore reports disagreement and coverage rather
+ * than a replacement queue; the `provisional` vocabulary here is legacy until the tier is
+ * flattened in the review schema.
  */
 
 export interface ProvisionalWatchSentinel {

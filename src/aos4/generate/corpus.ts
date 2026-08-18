@@ -178,13 +178,17 @@ export interface CorpusCommunityFactionOption {
 }
 
 /**
- * A reviewed community warscroll source under the standing fallback-tier source policy.
+ * A reviewed community warscroll source.
  *
  * The source hierarchy is: official Games Workshop publications (authoritative), then Wahapedia
- * (preferred secondary), then BSData as an acceptable fallback — only when an official publication
- * establishes the content, Wahapedia does not yet carry the rules, the facts are marked
- * provisional/community, and they are verified or replaced when Wahapedia or an owner-supplied
- * official source becomes available. Community facts never override official or Wahapedia facts.
+ * and BSData as co-equal preferred secondaries whose rules text is accepted as fact (owner
+ * decision 2026-08-18, issue #1757). Neither secondary overrides an official fact or supplies
+ * battle-profile values officialdom already provides; where the two disagree and no official
+ * publication settles it, the reviewer records the decision and preserves the competing fact.
+ *
+ * The `policyTier` / `status` literals below are the superseded three-tier vocabulary, still
+ * required by the validation in this module so accepted review inputs keep verifying. Flattening
+ * them is follow-up work; the wording no longer describes a live verification obligation.
  */
 export interface CorpusCommunityWarscrollSource {
   artifact: ArtifactManifestEntry

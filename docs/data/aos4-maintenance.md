@@ -47,10 +47,10 @@ The strict report currently records:
 - 10 provisional community warscrolls (the Ogor Mawtribes supplement units) and 13 provisional
   Ogor Mawtribes battletome faction-package entries (4 battle formations, 3 heroic traits,
   3 artefacts of power, the army-wide battle traits, and the Lore of Gut Magic and Lore of the
-  Everwinter) transcribed from three commit-pinned BSData catalogues under the fallback-tier
-  source policy, with official battle-profile facts overriding every overlapping field; Lorai,
-  Child of the Abyss completed the provisional-to-verified swap when Wahapedia published her
-  datasheet
+  Everwinter) transcribed from three commit-pinned BSData catalogues under the then-current
+  fallback-tier source policy (superseded 2026-08-18), with official battle-profile facts
+  overriding every overlapping field; Lorai, Child of the Abyss completed the
+  provisional-to-verified swap when Wahapedia published her datasheet
 - all 60 source-classified Armies of Renown classified as `army-of-renown` roots with replace
   semantics: `excludes` edges suppress the faction's regular rules-choice groups while a root is
   selected, and the root's battle traits apply automatically (issues #1833/#1834/#1844). The 12
@@ -87,8 +87,8 @@ and checksum but does not invent reminders, and the accepted gap is recorded in 
 deviation ledger described below. The official July 2026 Rules Updates supplies reviewed
 ability-text and timing corrections where the accepted secondary pages have not yet caught up.
 When an official publication introduces units whose rules no accepted source carries, reviewed
-intake — extraction from the official publication itself, or the BSData fallback tier when its
-conditions hold — is the primary path and starts immediately; it is not an option to weigh, and
+intake — extraction from the official publication itself, or a BSData catalogue on its peer
+secondary footing — is the primary path and starts immediately; it is not an option to weigh, and
 an official document is never merely reference evidence for content it introduces. Official pages
 that introduce no new content remain reviewer evidence and do not invent structured runtime facts.
 
@@ -112,8 +112,8 @@ managed issue states this obligation whenever it observes a new or replaced offi
 
 The ten July 2026 Ogor Mawtribes battletome units (Redd the Maw, Tyrant on Glutthorn, Morga the
 Mighty, Grell Firefist, Gutseers, Cleavers, Gluttons, Hunters with Sabrefangs, Maulbeast Cavalry,
-and Maulbeast Raiders) ship provisionally under
-the fallback-tier source policy: their existence, points, unit sizes, bases, and roster notes are
+and Maulbeast Raiders) were admitted under the then-current fallback-tier source policy
+(superseded 2026-08-18): their existence, points, unit sizes, bases, and roster notes are
 established by accepted official Battle Profiles documents, Wahapedia still lists only the
 pre-supplement warscrolls, and the free official "Battletome Supplement: Ogor Mawtribes" PDF
 contains only the legacy-unit warscrolls. Their rules text therefore comes from the commit-pinned
@@ -121,10 +121,12 @@ BSData Ogor library catalogue (`BSData/age-of-sigmar-4th@c8e1b1c9`, branch `ogor
 `communityWarscrollSources` review entries — commit-pinned, per-unit checksum-pinned, marked
 `provisional-pending-official-verification`, and visibly attributed as provisional community
 transcriptions in the reminder source links. The five BSData/official base-size formatting
-disagreements are logged reconciliation discrepancies resolved official-side. When Wahapedia or an
-owner-supplied official source publishes the warscrolls, the standard candidate intake replaces
-these provisional facts; `src/tests/aos4/ogorSupplementProvisional.test.ts` and
-`src/tests/aos4/bsDataLibrary.test.ts` pin the boundary and the policy record until then.
+disagreements are logged reconciliation discrepancies resolved official-side. Since BSData became
+a peer secondary on 2026-08-18 this text is accepted as fact rather than awaiting replacement:
+a later Wahapedia or official publication is reconciled against it through the standard candidate
+intake, like any other secondary disagreement.
+`src/tests/aos4/ogorSupplementProvisional.test.ts` and `src/tests/aos4/bsDataLibrary.test.ts` pin
+the boundary and the policy record.
 
 The battletome's replacement roster options ship the same way (beta report #1828, snapshot
 2026-08-01c): the official Battle Profiles - Ogor Mawtribes document establishes four battle
@@ -150,7 +152,8 @@ battle traits (Eat 'Em Alive, Bull Charge, Jaws of the Beast, Closing the Jaws) 
 battle-profile row of their own; their fallback-tier anchor is the source-level official evidence
 on the review entry — the same document's per-option "Battletome: Ogor Mawtribes" notes establish
 that the battletome package replaced the index-era faction rules for the current context. This is
-a deliberate, owner-reviewed extension of fallback condition (a) for exactly this content class.
+a deliberate, owner-reviewed extension of fallback condition (a), which the 2026-08-18 tier change
+retired along with the rest of the fallback conditions.
 Reviewed `contextOverrides` retire the index-era battle traits and both index-era lores to the
 historical context. Big Names remain absent: nothing official establishes a battletome Big Names
 package. `src/tests/aos4/ogorBattletomeFactionPackage.test.ts` pins this boundary, including the
@@ -191,9 +194,9 @@ the shipped selection graph drops exactly the example cards.
 
 The 2026-08-01b revision extends that snapshot on the same acquisition: it adds the two
 commit-pinned BSData catalogues and the `communityWarscrollSources` review entries that ship the
-Ogor supplement units and Lorai provisionally under the fallback-tier source policy described in
-the Source policy section. Every Wahapedia and Games Workshop artifact is byte-identical to the
-2026-08-01 pins.
+Ogor supplement units and Lorai under the then-current fallback-tier source policy, since
+superseded by the peer-secondary policy in the Source policy section. Every Wahapedia and Games
+Workshop artifact is byte-identical to the 2026-08-01 pins.
 
 The 2026-08-01c revision extends 2026-08-01b the same way for the battletome roster options
 (beta report #1828): it adds one commit-pinned BSData faction catalogue, the `factionOptions`
@@ -272,38 +275,59 @@ the current runtime.
 
 ## Source policy
 
-Sources form a three-tier hierarchy:
+Sources form a two-tier hierarchy:
 
 1. **Official Games Workshop publications are authoritative.** Use the newest applicable
-   publication; it wins every conflict.
-2. **Wahapedia is the preferred secondary.** Use
+   publication; it wins every conflict with either secondary.
+2. **Wahapedia and BSData are co-equal preferred secondaries.** Use
    [Wahapedia's AoS 4 exports](https://wahapedia.ru/aos4/the-rules/data-export/) and bounded
-   current faction pages as the coherent secondary datasets for discovery, joins, and coverage.
-3. **BSData is an acceptable fallback**, by owner decision (2026-08-01, see
-   [#1812](https://github.com/daviseford/aos-reminders/issues/1812)): community-transcribed rules
-   from [BSData/age-of-sigmar-4th](https://github.com/BSData/age-of-sigmar-4th) may enter the
-   accepted corpus only when **(a)** an official Games Workshop publication establishes the
-   content (the unit exists in an accepted official battle-profile fact), **(b)** Wahapedia does
-   not yet carry the rules, **(c)** the facts are recorded as a commit-pinned
-   `communityWarscrollSources` review entry marked `provisional-pending-official-verification`
-   with per-unit checksums and their attribution visibly provisional, and **(d)** they are
-   verified or replaced through the standard candidate intake as soon as Wahapedia or an
-   owner-supplied official source becomes available. BSData never overrides an official fact, and
-   it never supplies battle-profile values (points, unit sizes, bases, roster notes) that
-   officialdom already provides. It replaces accepted Wahapedia text in exactly one reviewed
-   shape (owner-approved extension for
-   [#1850](https://github.com/daviseford/aos-reminders/issues/1850)): when an official
-   publication has superseded that text — a battletome rewrite — and Wahapedia demonstrably still
-   serves the previous book's rules, a per-unit `replacesSourceRecordId` pin may swap in the
-   community transcription. The pin must name the stale current-standard datasheet by source
-   record; the community record adopts that datasheet's canonical identity so saved armies keep
-   resolving; the stale rows are dispositioned superseded; the intake remains provisional with a
-   watch sentinel per unit; and the merge fails closed on an unknown pin, a non-standard-context
-   record, or an official-name mismatch. Wahapedia text the official sources have not superseded
-   is never replaced. BSData also underpins much of the wider AoS tool ecosystem, so alignment
-   with it has value in itself — but only inside these conditions.
+   current faction pages, and commit-pinned catalogues from
+   [BSData/age-of-sigmar-4th](https://github.com/BSData/age-of-sigmar-4th), as the coherent
+   secondary datasets for discovery, joins, and coverage. Either may supply accepted rules text as
+   fact.
 
-Other sources may identify gaps but must not silently override any tier above them.
+BSData was raised from fallback to peer secondary by owner decision (2026-08-18, see
+[#1757](https://github.com/daviseford/aos-reminders/issues/1757)), superseding the three-tier
+policy of 2026-08-01 ([#1812](https://github.com/daviseford/aos-reminders/issues/1812)) and its
+2026-08-02 extension ([#1850](https://github.com/daviseford/aos-reminders/issues/1850)). The
+former fallback conditions no longer gate intake: community-transcribed rules no longer require an
+official publication to establish the content first, no longer wait on Wahapedia's absence, are no
+longer marked provisional, and carry no pending-verification obligation. BSData edits are accepted
+as fact. Alignment with BSData also has value in itself, since it underpins much of the wider AoS
+tool ecosystem.
+
+Peer standing changes which source may be believed, not the evidentiary discipline every source
+owes. Both secondaries remain subject to:
+
+- **Official precedence.** Neither secondary overrides an official fact, and neither supplies
+  battle-profile values (points, unit sizes, bases, roster notes) that officialdom already
+  provides. Official spellings win every name conflict.
+- **Immutable pinning.** BSData bytes are pinned to a full commit SHA and Wahapedia bytes to a
+  retrieved artifact checksum, with per-record checksums, so every accepted fact replays exactly.
+- **Reviewed intake.** Nothing enters the corpus without the candidate → review → accept →
+  generate → certify cycle below. Peer standing is not automatic ingestion, and the Rules Radar
+  still produces evidence rather than acceptance.
+- **Reconciliation on disagreement.** Where the two secondaries disagree and no official
+  publication settles it, the reviewer picks one, records the rationale, and preserves the
+  competing fact — neither silently overwrites the other.
+- **Attribution.** Wahapedia-derived features retain `Powered by Wahapedia`; BSData-derived facts
+  retain their repository, branch, and commit in the reminder source links.
+
+A `communityWarscrollSources` review entry may still name the official records that establish its
+content, and may still replace superseded secondary text through a per-unit
+`replacesSourceRecordId` pin — the community record adopts the replaced datasheet's canonical
+identity so saved armies and share links keep resolving, the stale rows are dispositioned
+superseded, and the merge fails closed on an unknown pin, a non-standard-context record, or an
+official-name mismatch. Under the new policy those are review tools, not admission requirements.
+
+**Migration status.** The enforcement code still implements the superseded three-tier gate: a
+`communityWarscrollSources` entry must carry `policyTier: 'community-fallback'`,
+`status: 'provisional-pending-official-verification'`, a title matching `/provisional/i`, a
+non-empty `verificationCondition`, and at least one establishing official source record
+(`src/aos4/generate/corpus.ts`). Accepted entries therefore still read as provisional until that
+vocabulary is flattened; treat the wording as legacy, not as a live obligation to re-verify.
+
+Other sources may identify gaps but must not silently override either tier above them.
 
 Every accepted fact must retain:
 
@@ -323,14 +347,16 @@ The Rules Radar is a quiet, official-first source-change sentinel. The workflow 
 Workshop daily at minute 17 and checks Wahapedia plus BSData weekly at minute 43. A changed
 Wahapedia sentinel expands to the existing bounded full observation before candidate evidence is
 prepared. Within the Rules Radar, BSData is a change signal; BSData bytes enter a candidate only
-through the fallback-tier source policy above (commit-pinned, provisional, official-established),
-never through radar automation.
+through the reviewed intake above, commit-pinned and checksum-pinned, never through radar
+automation.
 
 The companion **AoS 4 Provisional Watch** workflow (`aos4-provisional-watch.yml`, daily at
-14:07 UTC) checks the concrete pages where the corpus's provisional community-fallback content
-would be verified or replaced — the Wahapedia pages named by each `communityWarscrollSources`
-verification condition, plus the moving BSData files for transcriptions the fallback tier is
-still missing. The reviewed sentinel list is `data/aos4/radar/provisional-watch.json`; a hit
+14:07 UTC) checks the concrete pages that would corroborate or contradict the corpus's
+community-sourced content — the Wahapedia pages named by each `communityWarscrollSources`
+verification condition, plus the moving BSData files for transcriptions the corpus does not yet
+carry. Since BSData became a peer secondary the watch is a disagreement-and-coverage sentinel
+rather than a pending-verification queue: a hit starts a reconciliation, not a mandatory
+replacement. The reviewed sentinel list is `data/aos4/radar/provisional-watch.json`; a hit
 comments once per finding-set on the tracking issue (deduplicated by a fingerprint marker) so the
 standard candidate intake can run. Like the radar, the watch is evidence, not acceptance. Run it
 locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`.
@@ -393,9 +419,19 @@ identical blobs mean no accepted byte moved and the review reduces to the remain
 2026-08-04 review (`0d3eb56f` → `f6363c26`, issue #1757) is the worked example: all three pinned
 Ogor catalogues were byte-identical at head, the cross-faction points changes matched official
 facts the corpus already applied from the July 2026 Battle Profiles, and most remaining lines were
-apostrophe re-escaping. Community corrections to factions the corpus does not source from BSData
-are never adopted from the signal; they can only prompt a normal candidate against Wahapedia or an
-official document.
+apostrophe re-escaping.
+
+The 2026-08-18 review (`f6363c26` → `301477a3`, same issue) is the counter-example, where the
+reduction does not apply: `Ogor Mawtribes.cat` was byte-identical at head, but `Lores.cat` and
+`Ogor Mawtribes - Library.cat` both moved. Normalizing the wholesale CRLF→LF and `'`→`&apos;`
+churn (`&apos;` and `'` decode identically, so escaping alone never moves a record checksum) left
+a handful of real edits: in the library, one shipped correction — Thundertusk Beastriders'
+`Chilling Onslaught` gaining the missing word in `subtract 1 from hit rolls` — plus three
+indentation fixes; in `Lores.cat`, a Khorne summon range, an `Ability (Spell)` → `Ability (Prayer)`
+retype, and two Champions of the Arena prayer fixes, none of them inside the two Ogor lores the
+corpus takes from that file. Corrections to factions the corpus does not source from BSData still
+need their own reviewed intake before they ship — peer standing makes BSData believable, not
+automatically ingested.
 
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
@@ -510,8 +546,8 @@ descendant unverifiable. The preparer automatically compacts after three overlay
 the retained evidence into a new self-contained certification, after which ancestors no longer named
 by any current certification may be archived under the normal release-retention policy.
 
-Fallback-tier BSData catalogues are acquired separately, always pinned to a full commit SHA so the
-bytes are immutable:
+BSData catalogues are acquired separately, always pinned to a full commit SHA so the bytes are
+immutable:
 
 ```powershell
 yarn data:aos4:candidate:bsdata `
@@ -523,8 +559,8 @@ yarn data:aos4:candidate:bsdata `
 
 The command verifies the commit exists, caches the pinned bytes by SHA-256, and writes a
 `bsdata-manifest.json` plus provenance record. Like every acquisition, it proves retrieval only;
-acceptance happens through a reviewed `communityWarscrollSources` entry that satisfies the
-fallback-tier conditions.
+acceptance happens through a reviewed `communityWarscrollSources` entry, on the same secondary
+footing as a Wahapedia intake.
 
 ## Review and acceptance
 

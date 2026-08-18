@@ -24,7 +24,12 @@ import type {
 /**
  * Merge reviewed BSData warscroll facts into the current dataset.
  *
- * BSData is the community fallback tier: it may only supply rules text Wahapedia does not
+ * Policy note (owner decision 2026-08-18, issue #1757): BSData is now a peer secondary alongside
+ * Wahapedia and its edits are accepted as fact. The conditions described below are the superseded
+ * three-tier policy, which this module still enforces until the review schema's `policyTier` /
+ * `status` vocabulary is flattened; they are legacy gates, not a live source-authority claim.
+ *
+ * BSData was the community fallback tier: it may only supply rules text Wahapedia does not
  * currently provide — for units whose existence, points, unit sizes, bases, and roster notes are
  * already established by accepted official battle-profile facts. Every overlapping field is taken
  * from the official fact, and any disagreement is preserved as a reconciliation discrepancy
