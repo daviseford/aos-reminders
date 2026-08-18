@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { ArtifactManifest } from '../data'
+import { ACCEPTED_MANIFEST_PATH } from '../data/acceptedRevision'
 import { stableJson } from '../generate/serialization'
 import { createSourceInventory, type IndependentSourceObservation } from './sourceInventory'
 
@@ -20,7 +21,7 @@ const nextValue = (values: string[], index: number, flag: string): string => {
 
 export const parseSourceInventoryArguments = (values: string[]): Arguments => {
   const parsed: Arguments = {
-    acceptedManifestPath: path.join('data', 'aos4', 'manifests', 'accepted-2026-08-18.json'),
+    acceptedManifestPath: ACCEPTED_MANIFEST_PATH,
     revision: '',
     observationPaths: [],
     outputPath: path.join('.cache', 'aos4', 'review', 'source-inventory.json'),

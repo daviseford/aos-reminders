@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises'
+import { readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { stableCompactJson, stableJson } from '../generate/serialization'
@@ -102,6 +102,12 @@ export const validateRulesRadarReport = (value: unknown): RadarReport => {
 const writeNew = (filePath: string, contents: string): Promise<void> =>
   writeFile(filePath, contents, { encoding: 'utf8', flag: 'wx' })
 
+// Alarm artifacts overwrite: the managed issue may already carry the new material fingerprint
+// by the time these are written, so a create-exclusive collision with a stale file would turn
+// a rerun into a permanently lost alarm.
+const writeReplace = (filePath: string, contents: string): Promise<void> =>
+  writeFile(filePath, contents, { encoding: 'utf8', flag: 'w' })
+
 const managedIssueUrl = (
   repository: string | undefined,
   issueNumber: number | undefined
@@ -119,7 +125,7 @@ const writeAlarmArtifacts = async (
   issueUrl: string | undefined
 ): Promise<void> => {
   const writes: Promise<void>[] = [
-    writeNew(
+    writeReplace(
       path.join(directory, 'alarm.json'),
       stableJson({
         ...decision,
@@ -129,8 +135,14 @@ const writeAlarmArtifacts = async (
   ]
   if (report.materialEventCount > 0) {
     writes.push(
-      writeNew(path.join(directory, 'alarm-subject.txt'), `${renderRulesRadarAlarmSubject(report)}\n`),
-      writeNew(path.join(directory, 'alarm-body.md'), renderRulesRadarAlarmBody(report, { issueUrl }))
+      writeReplace(path.join(directory, 'alarm-subject.txt'), `${renderRulesRadarAlarmSubject(report)}\n`),
+      writeReplace(path.join(directory, 'alarm-body.md'), renderRulesRadarAlarmBody(report, { issueUrl }))
+    )
+  } else {
+    // A stale subject/body beside a no-send alarm.json would let the workflow mail the wrong text.
+    writes.push(
+      rm(path.join(directory, 'alarm-subject.txt'), { force: true }),
+      rm(path.join(directory, 'alarm-body.md'), { force: true })
     )
   }
   await Promise.all(writes)
@@ -159,12 +171,21 @@ export const runRulesRadarNotification = async (
   }
   const synchronization = await synchronizeRulesRadarIssue(report, dependencies.client!, input.issueOptions)
   const alarm = decideRulesRadarAlarm(synchronization.previousReport, synchronization.report)
-  await writeAlarmArtifacts(
-    alarmOutputDirectory,
-    synchronization.report,
-    alarm,
-    managedIssueUrl(input.repository, synchronization.issue?.number)
-  )
+  try {
+    await writeAlarmArtifacts(
+      alarmOutputDirectory,
+      synchronization.report,
+      alarm,
+      managedIssueUrl(input.repository, synchronization.issue?.number)
+    )
+  } catch (error) {
+    // The issue body already advanced, so later runs will read "material state unchanged" and
+    // never re-send this alarm; name the divergence instead of failing like a generic sync error.
+    console.error(
+      `Rules Radar alarm artifacts failed to persist after the managed issue advanced to material fingerprint ${alarm.materialFingerprint}; the alarm for this state will not re-send on later runs.`
+    )
+    throw error
+  }
   return {
     action: synchronization.action,
     report: synchronization.report,

@@ -505,6 +505,16 @@ export const mergeRadarLanes = (existing: RadarLane[], observed: RadarLane[]): R
 export const createRadarMaterialFingerprint = (report: RadarReport): string =>
   hash(report.events.filter(event => event.class === 'material').map(eventProjection))
 
+/**
+ * Stable per-event keys for a report's material events — the same projection the material
+ * fingerprint hashes, kept individually so the alarm can tell genuinely new material state
+ * apart from removal-only churn (an event resolving while the survivors are unchanged).
+ */
+export const createRadarMaterialEventKeys = (report: RadarReport): string[] =>
+  report.events
+    .filter(event => event.class === 'material')
+    .map(event => stableCompactJson(eventProjection(event)))
+
 export const createRadarReport = (lanes: RadarLane[]): RadarReport => {
   const normalizedLanes = mergeRadarLanes([], lanes)
   if (!normalizedLanes.length) throw new Error('Rules Radar report requires at least one source lane')

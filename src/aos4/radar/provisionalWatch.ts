@@ -113,10 +113,11 @@ const notificationBody = (findings: ProvisionalWatchFinding[], marker: string): 
   const lines: string[] = [
     '## Provisional-verification watch',
     '',
-    'A watched source now carries content that the accepted corpus ships provisionally (or is',
-    'still missing from the community fallback tier). This is evidence, not acceptance: run the',
-    'standard candidate intake per `docs/data/aos4-maintenance.md` to replace or verify the',
-    'provisional facts.',
+    'A watched source now carries content that the accepted corpus ships from a secondary source',
+    '(or that the corpus is still missing). This is evidence, not acceptance: run the standard',
+    'candidate intake per `docs/data/aos4-maintenance.md` to reconcile the accepted facts with',
+    'the watched source. Accepted secondary facts stay accepted; nothing here obliges a',
+    'replacement.',
     '',
   ]
   findings.forEach(finding => {

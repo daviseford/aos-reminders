@@ -1303,6 +1303,9 @@ const reviewDiagnostics = (
           (option.optionType !== 'battle-trait' || Boolean(option.faction?.trim()))
       ) && new Set(factionOptions.map(option => option.section)).size === factionOptions.length
     const scopeValid = source.units.length + factionOptions.length > 0 && unitsValid && factionOptionsValid
+    // Legacy three-tier gate (superseded 2026-08-18, #1757): the policyTier/status/provisional
+    // wording and the official-record requirement below stay enforced until the review schema is
+    // flattened. See the Migration status note in docs/data/aos4-maintenance.md.
     if (
       communityChecksums.has(source.artifact.checksum) ||
       source.policyTier !== 'community-fallback' ||

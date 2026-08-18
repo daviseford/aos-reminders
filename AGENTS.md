@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-03` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-18` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -105,7 +105,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-08-03` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-08-18` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.
@@ -197,8 +197,9 @@ work.
 Use this precedence:
 
 1. Games Workshop publications and official Warhammer Community downloads are authoritative.
-2. Wahapedia AoS 4 exports and bounded faction pages are the preferred coherent discovery and
-   coverage sources.
+2. Wahapedia AoS 4 exports and bounded faction pages, and commit-pinned BSData catalogues, are
+   co-equal preferred secondary sources (BSData was raised from fallback to peer secondary on
+   2026-08-18, #1757). Neither overrides official material.
 3. Other community sources may identify gaps but may not silently override official material.
 
 When sources disagree, preserve the discrepancy. Resolve it in favor of the newest applicable

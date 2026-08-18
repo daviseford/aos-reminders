@@ -2,6 +2,11 @@ import { copyFile, link, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { ArtifactManifest } from '../data'
+import {
+  ACCEPTED_MANIFEST_PATH,
+  ACCEPTED_RECONCILIATION_REPORT_PATH,
+  ACCEPTED_REVIEW_PATH,
+} from '../data/acceptedRevision'
 import { stableCompactJson, stableJson } from '../generate/serialization'
 import { assertAgentBlindDerivations } from './adversarialReview'
 import {
@@ -59,10 +64,10 @@ const DEFAULT_REVIEW_OUTPUT = path.join('.cache', 'aos4', 'review', 'adversarial
 const DEFAULT_INVENTORY = path.join('.cache', 'aos4', 'review', 'source-inventory.json')
 
 const EXISTING_INPUTS = {
-  'accepted-manifest': path.join('data', 'aos4', 'manifests', 'accepted-2026-08-18.json'),
-  'corpus-review': path.join('data', 'aos4', 'reviews', 'corpus-2026-08-18.json'),
+  'accepted-manifest': ACCEPTED_MANIFEST_PATH,
+  'corpus-review': ACCEPTED_REVIEW_PATH,
   'audit-catalog': path.join('data', 'aos4', 'catalog', 'catalog.json'),
-  'reconciliation-report': path.join('data', 'aos4', 'reports', 'corpus-2026-08-18-reconciliation.json'),
+  'reconciliation-report': ACCEPTED_RECONCILIATION_REPORT_PATH,
   'official-ledger': path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json'),
   'runtime-catalog': path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json'),
   'source-observation-classifications': path.join(

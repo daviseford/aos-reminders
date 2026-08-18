@@ -211,8 +211,6 @@ jobs:
           alarm_file="$report_directory/alarm.json"
           if [[ "${{ steps.scope.outputs.report_only }}" == "true" ]]; then
             echo "Report-only run: the material alarm email never sends."
-          elif [[ "${{ steps.notify.outcome }}" != "success" ]]; then
-            echo "::warning::Issue synchronization failed; skipping the material alarm email."
           elif [[ ! -f "$alarm_file" ]]; then
             echo "::warning::No alarm decision artifact was produced; skipping the material alarm email."
           elif [[ "$(node -p "String(JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8')).send)" "$alarm_file")" != "true" ]]; then
@@ -231,7 +229,30 @@ jobs:
         id: alarm_email
         if: always() && steps.alarm.outputs.send == 'true'
         continue-on-error: true
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@2cea9617b09d79a095af21254fbcb7ae95903dde # v3.12.0
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: ${{ steps.alarm.outputs.subject }}
+          body: file://${{ steps.final_report.outputs.directory }}/alarm-body.md
+          html_body: file://${{ steps.final_report.outputs.directory }}/alarm-body.md
+          convert_markdown: true
+          priority: high
+          to: aosreminders@gmail.com
+          from: AoS Rules Radar
+
+      - name: Wait before retrying the material alarm email
+        if: always() && steps.alarm.outputs.send == 'true' && steps.alarm_email.outcome == 'failure'
+        shell: bash
+        run: sleep 30
+
+      - name: Retry material alarm email
+        id: alarm_email_retry
+        if: always() && steps.alarm.outputs.send == 'true' && steps.alarm_email.outcome == 'failure'
+        continue-on-error: true
+        uses: dawidd6/action-send-mail@2cea9617b09d79a095af21254fbcb7ae95903dde # v3.12.0
         with:
           server_address: smtp.gmail.com
           server_port: 465
@@ -299,7 +320,7 @@ jobs:
             echo "- Candidate preparation: \`${{ steps.candidate.outcome }}\`"
             echo "- GitHub issue synchronization: \`${{ steps.notify.outcome }}\`"
             echo "- Material alarm evaluation: \`${{ steps.alarm.outcome }}\`"
-            echo "- Material alarm email: \`${{ steps.alarm_email.outcome }}\` (send: \`${{ steps.alarm.outputs.send }}\`)"
+            echo "- Material alarm email: \`${{ steps.alarm_email.outcome }}\` (send: \`${{ steps.alarm.outputs.send }}\`, retry: \`${{ steps.alarm_email_retry.outcome }}\`)"
             report_directory="${{ steps.final_report.outputs.directory }}"
             if [[ -n "$report_directory" && -f "$report_directory/material-event-count.txt" ]]; then
               echo "- Material events: \`$(tr -d '\r\n' < "$report_directory/material-event-count.txt")\`"
@@ -321,7 +342,7 @@ jobs:
             "${{ steps.final_report.outcome }}"
             "${{ steps.notify.outcome }}"
             "${{ steps.alarm.outcome }}"
-            "${{ steps.alarm_email.outcome }}"
+            "${{ steps.alarm_email_retry.outcome }}"
             "${{ steps.upload.outcome }}"
             "${{ steps.summary.outcome }}"
           )

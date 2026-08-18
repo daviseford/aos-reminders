@@ -130,6 +130,50 @@ describe('AoS 4 Rules Radar material alarm', () => {
     expect(decision.reason).toBe('material state unchanged')
   })
 
+  it('does not re-alarm when material state only shrinks (an event resolves)', () => {
+    const surviving = event(
+      'wahapedia',
+      'secondary',
+      'export-changed',
+      'https://wahapedia.ru/aos4/Last_update.csv'
+    )
+    const previous = reportWith([
+      createRadarLane('wahapedia', observedAt, [
+        surviving,
+        event('wahapedia', 'secondary', 'new-faction', 'https://wahapedia.ru/aos4/factions/new-faction'),
+      ]),
+    ])
+    const shrunk = reportWith([
+      createRadarLane('wahapedia', laterObservedAt, [{ ...surviving, observedAt: laterObservedAt }]),
+    ])
+    expect(createRadarMaterialFingerprint(shrunk)).not.toBe(createRadarMaterialFingerprint(previous))
+
+    const decision = decideRulesRadarAlarm(previous, shrunk)
+
+    expect(decision.send).toBe(false)
+    expect(decision.reason).toBe('material state shrank without new events')
+    expect(decision.materialEventCount).toBe(1)
+  })
+
+  it('re-alarms when one material event is replaced by another at the same count', () => {
+    const previous = reportWith([
+      createRadarLane('wahapedia', observedAt, [
+        event('wahapedia', 'secondary', 'export-changed', 'https://wahapedia.ru/aos4/Last_update.csv'),
+      ]),
+    ])
+    const replaced = reportWith([
+      createRadarLane('wahapedia', laterObservedAt, [
+        event('wahapedia', 'secondary', 'new-faction', 'https://wahapedia.ru/aos4/factions/new-faction'),
+      ]),
+    ])
+    expect(replaced.materialEventCount).toBe(previous.materialEventCount)
+
+    const decision = decideRulesRadarAlarm(previous, replaced)
+
+    expect(decision.send).toBe(true)
+    expect(decision.reason).toBe('material state changed')
+  })
+
   it('re-alarms when the material state itself changes', () => {
     const previous = reportWith([
       createRadarLane('wahapedia', observedAt, [

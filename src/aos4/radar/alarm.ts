@@ -1,4 +1,4 @@
-import { createRadarMaterialFingerprint } from './compare'
+import { createRadarMaterialEventKeys, createRadarMaterialFingerprint } from './compare'
 import type { RadarReport } from './model'
 import { SOURCE_LABELS, renderRadarMaterialEventLines } from './report'
 
@@ -20,7 +20,10 @@ export interface RulesRadarAlarmLinks {
  * The material alarm means exactly one thing: there is new material rules-source state to
  * review. It keys on the material fingerprint rather than the aggregate fingerprint so
  * operational-event churn (a transient rate-limit appearing and clearing) never re-alarms
- * while an unchanged material event stays open.
+ * while an unchanged material event stays open. A send therefore requires at least one
+ * material event absent from the previous managed state: a removal-only change (an event
+ * resolving while the survivors are unchanged) shifts the fingerprint but carries nothing
+ * new to review, so it does not alarm — the managed issue update already records it.
  */
 export const decideRulesRadarAlarm = (
   previous: RadarReport | null,
@@ -34,15 +37,17 @@ export const decideRulesRadarAlarm = (
   if (report.materialEventCount === 0) {
     return { send: false, reason: 'no material events', ...base }
   }
-  const previousFingerprint = previous === null ? null : createRadarMaterialFingerprint(previous)
-  if (previousFingerprint === base.materialFingerprint) {
+  if (previous === null) {
+    return { send: true, reason: 'no previous managed state', ...base }
+  }
+  if (createRadarMaterialFingerprint(previous) === base.materialFingerprint) {
     return { send: false, reason: 'material state unchanged', ...base }
   }
-  return {
-    send: true,
-    reason: previous === null ? 'no previous managed state' : 'material state changed',
-    ...base,
+  const previousKeys = new Set(createRadarMaterialEventKeys(previous))
+  if (createRadarMaterialEventKeys(report).every(key => previousKeys.has(key))) {
+    return { send: false, reason: 'material state shrank without new events', ...base }
   }
+  return { send: true, reason: 'material state changed', ...base }
 }
 
 export const renderRulesRadarAlarmSubject = (report: RadarReport): string => {

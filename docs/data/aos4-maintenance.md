@@ -16,7 +16,7 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-02 snapshot is defined by:
+The accepted 2026-08-18 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
@@ -27,13 +27,13 @@ The accepted 2026-08-02 snapshot is defined by:
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-02b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-02b-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-18-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-18-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
-- 1,297 warscrolls and 1,013 battle profiles
+- 1,296 warscrolls and 1,012 battle profiles
 - 4,939 usable abilities
 - 2,280 weapons
 - 1,418 content groups, including 48 Spearhead force/unit wrappers
@@ -117,7 +117,8 @@ and Maulbeast Raiders) were admitted under the then-current fallback-tier source
 established by accepted official Battle Profiles documents, Wahapedia still lists only the
 pre-supplement warscrolls, and the free official "Battletome Supplement: Ogor Mawtribes" PDF
 contains only the legacy-unit warscrolls. Their rules text therefore comes from the commit-pinned
-BSData Ogor library catalogue (`BSData/age-of-sigmar-4th@c8e1b1c9`, branch `ogors`) recorded as
+BSData Ogor library catalogue (`BSData/age-of-sigmar-4th@301477a3`, branch `main`; originally
+admitted at `c8e1b1c9` on branch `ogors`, re-pinned 2026-08-18) recorded as
 `communityWarscrollSources` review entries — commit-pinned, per-unit checksum-pinned, marked
 `provisional-pending-official-verification`, and visibly attributed as provisional community
 transcriptions in the reminder source links. The five BSData/official base-size formatting
@@ -233,7 +234,8 @@ hashed record value, so record identities are unchanged. Forty-eight new `armies
 classify the source-marked roots: twelve on official naming evidence (Battle Profiles pages 3-4,
 24, and 38; Rules Updates pages 4, 6, 12, 37, 39, 48, 53, 56, 69, and 73-74, which became
 reviewed source records), and thirty-six on the new `secondary-provisional` evidence tier, an
-extension of the standing three-tier source policy for classifications the secondary source makes
+extension of the then-standing three-tier source policy (since flattened to the two-tier
+peer-secondary policy, 2026-08-18) for classifications the secondary source makes
 explicitly while no free accepted official document names the army. The Lords of the Clan entry
 preserves an official discrepancy: Battle Profiles page 24 lists it as a 0-point battle formation
 of Battletome: Sylvaneth while the accepted transcription is an explicit replace-rules Army of
@@ -290,11 +292,12 @@ Sources form a two-tier hierarchy:
 BSData was raised from fallback to peer secondary by owner decision (2026-08-18, see
 [#1757](https://github.com/daviseford/aos-reminders/issues/1757)), superseding the three-tier
 policy of 2026-08-01 ([#1812](https://github.com/daviseford/aos-reminders/issues/1812)) and its
-2026-08-02 extension ([#1850](https://github.com/daviseford/aos-reminders/issues/1850)). The
-former fallback conditions no longer gate intake: community-transcribed rules no longer require an
-official publication to establish the content first, no longer wait on Wahapedia's absence, are no
-longer marked provisional, and carry no pending-verification obligation. BSData edits are accepted
-as fact. Alignment with BSData also has value in itself, since it underpins much of the wider AoS
+2026-08-02 extension ([#1850](https://github.com/daviseford/aos-reminders/issues/1850)). Most of
+the former fallback conditions no longer gate intake: community-transcribed rules no longer wait
+on Wahapedia's absence, are no longer treated as provisional, and carry no pending-verification
+obligation. BSData edits are accepted as fact. One admission condition remains enforced: every
+`communityWarscrollSources` entry must still name at least one establishing official source
+record — the validator rejects an entry without one (see Migration status below). Alignment with BSData also has value in itself, since it underpins much of the wider AoS
 tool ecosystem.
 
 Peer standing changes which source may be believed, not the evidentiary discipline every source
@@ -314,19 +317,23 @@ owes. Both secondaries remain subject to:
 - **Attribution.** Wahapedia-derived features retain `Powered by Wahapedia`; BSData-derived facts
   retain their repository, branch, and commit in the reminder source links.
 
-A `communityWarscrollSources` review entry may still name the official records that establish its
-content, and may still replace superseded secondary text through a per-unit
+A `communityWarscrollSources` review entry names the official records that establish its
+content (a hard admission requirement the validator still enforces — see Migration status
+below), and may replace superseded secondary text through a per-unit
 `replacesSourceRecordId` pin — the community record adopts the replaced datasheet's canonical
 identity so saved armies and share links keep resolving, the stale rows are dispositioned
 superseded, and the merge fails closed on an unknown pin, a non-standard-context record, or an
-official-name mismatch. Under the new policy those are review tools, not admission requirements.
+official-name mismatch. Under the new policy the replacement machinery is a review tool rather
+than a fallback-only escape hatch.
 
 **Migration status.** The enforcement code still implements the superseded three-tier gate: a
 `communityWarscrollSources` entry must carry `policyTier: 'community-fallback'`,
 `status: 'provisional-pending-official-verification'`, a title matching `/provisional/i`, a
 non-empty `verificationCondition`, and at least one establishing official source record
-(`src/aos4/generate/corpus.ts`). Accepted entries therefore still read as provisional until that
-vocabulary is flattened; treat the wording as legacy, not as a live obligation to re-verify.
+(`src/aos4/generate/corpus.ts`; `src/aos4/data/bsdata/merge.ts` enforces the same gate at its
+throw sites when merging community facts). Accepted entries therefore still read as provisional
+until that vocabulary is flattened; treat the wording as legacy, not as a live obligation to
+re-verify.
 
 Other sources may identify gaps but must not silently override either tier above them.
 
@@ -365,8 +372,11 @@ locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`.
 Scheduled workflows run only from the repository's default branch, so the Rules Radar becomes
 active when Version 6 reaches `master`. Immediately after launch, first run `AoS 4 Rules Radar`
 manually with `source: all` and `report_only: true`. Inspect the uploaded lanes, report, event
-counts, fingerprints, URL lists, and managed issue body. Then inspect the first daily and weekly
-scheduled runs before relying on issue lifecycle automation.
+counts, fingerprints, URL lists, and managed issue body — including `alarm.json` (a report-only
+run records `send: false` with reason `report-only dry run`). Then inspect the first daily and
+weekly scheduled runs before relying on issue lifecycle automation, and once the
+`SMTP_USERNAME`/`SMTP_PASSWORD` secrets are configured, verify the first live material alarm
+email actually arrives.
 
 For a local report-only smoke run, use a new output directory:
 

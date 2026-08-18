@@ -61,6 +61,11 @@ describe('AoS 4 Rules Radar notification command', () => {
     expect(body).toContain(RULES_RADAR_ISSUE_MARKER)
     expect(body).toContain(renderRulesRadarIssueBody(report))
     expect(client.calls).toBe(0)
+    // No material events: the decision artifact exists, but the mailable subject/body must not.
+    const decision = JSON.parse(await readFile(path.join(directory, 'alarm.json'), 'utf8'))
+    expect(decision).toMatchObject({ send: false, materialEventCount: 0 })
+    await expect(readFile(path.join(directory, 'alarm-subject.txt'), 'utf8')).rejects.toThrow()
+    await expect(readFile(path.join(directory, 'alarm-body.md'), 'utf8')).rejects.toThrow()
   })
 
   it('requires an injected GitHub client before enabling mutations', async () => {
