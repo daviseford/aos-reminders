@@ -24,7 +24,7 @@ related_components:
   - "src/aos4/view/builder.ts"
   - "src/components/page/homeHeader.tsx"
   - "src/components/input/army_builder.tsx"
-  - "data/aos4/reviews/corpus-2026-08-01e.json"
+  - "data/aos4/reviews/corpus-2026-08-18.json"
 tags: [army-of-renown, excludes-relationship, two-pass-selection, rules-context-scoping, replacement-semantics, grounding-audit, corpus-generation, subfaction-modeling]
 ---
 
@@ -50,18 +50,18 @@ Several first attempts failed in instructive ways (detailed in Examples):
 
 When official content **replaces** other content rather than adding to it, model the replacement in the relationship graph — never by flattening, renaming, or ad-hoc grouping.
 
-**1. Classification lives in the review file.** The `armiesOfRenown` array in data/aos4/reviews/corpus-2026-08-01e.json names each AoR root by faction-group source record and must cite official evidence — generation validates that each entry targets an existing group, has a reason, and has `officialSourceRecordIds` (corpus.ts:1698-1712).
+**1. Classification lives in the review file.** The `armiesOfRenown` array in data/aos4/reviews/corpus-2026-08-18.json names each AoR root by faction-group source record and must cite official evidence — generation validates that each entry targets an existing group, has a reason, and has `officialSourceRecordIds` (corpus.ts:1975-2001).
 
 **2. Generation (src/aos4/generate/corpus.ts):**
-- The classified root's `groupType` becomes `'army-of-renown'` (corpus.ts:1668); the faction *offers* the root — it is the top-level choice, never auto-included (corpus.ts:1687-1695).
-- The root auto-INCLUDES every subgroup — picking the army grants the whole rules set (corpus.ts:1738-1741); abilities sitting directly on the root are likewise included (corpus.ts:1937-1943).
-- Subgroups keep their **real** rules category as `groupType` (`spell-lore`, `heroic-trait`, …) and their exact source names — "the army context is carried by the relationship graph", not the name (comment at corpus.ts:1722-1728).
-- `excludes` edges go from each root to every regular faction rules-choice group; the replaced set is `ARMY_OF_RENOWN_REPLACED_GROUP_TYPES` = battle-trait, battle-formation, heroic-trait, artefact-of-power, spell-lore, prayer-lore, monstrous-traits, big-names (corpus.ts:461-470, emission at corpus.ts:1962-1970). Universal manifestation lores and general rules modules are army-agnostic and remain (comment at corpus.ts:455-460).
-- **`excludes` relationships carry the UNION of endpoint contexts**, unlike every other kind (intersection); see the before/after in Examples (corpus.ts:2086-2102).
+- The classified root's `groupType` becomes `'army-of-renown'` (corpus.ts:1945); the faction *offers* the root — it is the top-level choice, never auto-included (corpus.ts:1964-1972).
+- The root auto-INCLUDES every subgroup — picking the army grants the whole rules set (corpus.ts:2026-2030); abilities sitting directly on the root are likewise included (corpus.ts:2222-2228).
+- Subgroups keep their **real** rules category as `groupType` (`spell-lore`, `heroic-trait`, …) and their exact source names — "the army context is carried by the relationship graph", not the name (comment at corpus.ts:2010-2013).
+- `excludes` edges go from each root to every regular faction rules-choice group; the replaced set is `ARMY_OF_RENOWN_REPLACED_GROUP_TYPES` = battle-trait, battle-formation, heroic-trait, artefact-of-power, spell-lore, prayer-lore, monstrous-traits, big-names (corpus.ts:558-567, emission at corpus.ts:2246-2252). Universal manifestation lores and general rules modules are army-agnostic and remain (comment at corpus.ts:552-557).
+- **`excludes` relationships carry the UNION of endpoint contexts**, unlike every other kind (intersection); see the before/after in Examples (corpus.ts:2363-2384).
 
 **3. Selection (src/aos4/select/resolveSelection.ts): two-pass resolution.** Pass 1 resolves normally; any `excludes` edge whose source is then selected suppresses its target for pass 2 — the target and everything reachable only through it disappear from selected and available (a suppressed entity is unreachable: "not offered, not auto-included", resolveSelection.ts:201-202). An EXPLICIT selection of an excluded target is never silently suppressed — it stays selected and surfaces as an `excluded-selection` diagnostic (resolveSelection.ts:252-284).
 
-**4. View (src/aos4/view/builder.ts):** granted content never reaches `availableIds`, so the view walks `selection.causes` from explicit `army-of-renown` roots and emits each granted ability as a selected chip in its parent's real category card (builder.ts:76-119; `GRANTED_CHIP_CATEGORIES` = artefact-of-power, heroic-trait, prayer-lore, spell-lore at builder.ts:83; names title-cased via `chipCase`, builder.ts:85-94). Battle traits stay reminder-only, like every army's battle traits. src/components/input/army_builder.tsx admits ability-kind options with a groupType and filters out the `army-of-renown` root itself — the masthead dropdown owns it (army_builder.tsx:173-176). src/components/page/homeHeader.tsx renders the AoR dropdown directly under the faction select, only for factions that have one (homeHeader.tsx:141-169).
+**4. View (src/aos4/view/builder.ts):** granted content never reaches `availableIds`, so the view walks `selection.causes` from explicit `army-of-renown` roots and emits each granted ability as a selected chip in its parent's real category card (builder.ts:141-172; `ABILITY_CHIP_CATEGORIES` = artefact-of-power, heroic-trait, prayer-lore, spell-lore at builder.ts:41 — renamed and broadened since this learning was written: the same set now also serves imported-roster enhancement chips, #1827; names title-cased via `chipCase`, builder.ts:43-55). Battle traits stay reminder-only, like every army's battle traits. src/components/input/army_builder.tsx admits ability-kind options with a groupType and filters out the `army-of-renown` root itself — the masthead dropdown owns it (army_builder.tsx:170-176). src/components/page/homeHeader.tsx renders the AoR dropdown directly under the faction select, only for factions that have one (homeHeader.tsx:153-181).
 
 **5. Importer (src/aos4/import/armiesOfRenown.ts):** the structural army index recognises classified roots first-class (`container.groupType === 'army-of-renown'`) before falling back to the legacy slug heuristic for Regiments of Renown and similar (armiesOfRenown.ts:162-169).
 
@@ -76,7 +76,7 @@ When official content **replaces** other content rather than adding to it, model
 ## When to Apply
 
 - Adding or reclassifying an Army of Renown (or any official variant that replaces faction rules): review entry in data/aos4/reviews/corpus-*.json `armiesOfRenown`, citing official evidence.
-- Introducing a new relationship kind in corpus generation: decide explicitly whether its `rulesContextIds` should be endpoint intersection (containment-like) or union (replacement/exclusion-like) — corpus.ts:2082-2103 is the seam.
+- Introducing a new relationship kind in corpus generation: decide explicitly whether its `rulesContextIds` should be endpoint intersection (containment-like) or union (replacement/exclusion-like) — corpus.ts:2363-2384 is the seam.
 - Any bug where mutually exclusive rule sets both appear in reminders: check for missing `excludes` edges, then check the two-pass suppression in resolveSelection.ts.
 - Surfacing auto-included content in the builder: extend the causes walk in builder.ts and verify the option kind survives army_builder.tsx's filter.
 - Tempted to rename a generated entity for display context: don't — the grounding auditor compares names to source records exactly (comparable-text). Carry context in relationships or view logic.
@@ -100,7 +100,7 @@ const contextualRelationships = relationships.flatMap(relationship => {
 })
 ```
 
-After (corpus.ts:2086-2102) — `excludes` carries the union, everything else keeps the intersection:
+After (corpus.ts:2363-2384) — `excludes` carries the union, everything else keeps the intersection:
 
 ```ts
 if (relationship.kind === 'excludes') {
@@ -143,10 +143,10 @@ Inside `runPass`, suppression makes the target unreachable in every direction (r
 
 ### Failure modes preserved
 
-- **Stacking bug (#1833)**: no `excludes` edges → AoR battle traits + faction battle traits both in reminders. Regression-covered in src/tests/aos4/armiesOfRenown.test.ts (29 tests: classification, per-faction replacement, chips, the #1833 regression).
-- **Offer-not-include**: root offering subgroups reproduced the rejected army-slug card UX; the accepted shape is root includes subgroups (corpus.ts:1738-1741) and the masthead dropdown is the only place the army itself appears (army_builder.tsx:176 filters `groupType !== 'army-of-renown'`).
-- **Auditor-rejected renames**: "Trugg's Troggherd Battle Traits"-style qualified names → 12+ major `secondary.source-*` findings from `unsupportedSourceValue` (adversarialReview.ts:203-224). Names stay exactly the source's heading (corpus.ts:1733, comment at 1722-1728).
-- **Invisible granted chips**: builder options derive from explicit + available IDs only; granted (included) abilities needed the causes walk (builder.ts:101-118) AND the army_builder.tsx kind filter widened to `option.kind === 'ability' && Boolean(option.groupType)` (army_builder.tsx:173-176) before anything rendered.
+- **Stacking bug (#1833)**: no `excludes` edges → AoR battle traits + faction battle traits both in reminders. Regression-covered in src/tests/aos4/armiesOfRenown.test.ts:120-301 (classification, per-faction replacement, granted chips, the #1833 regression, and the explicit-pick diagnostic).
+- **Offer-not-include**: root offering subgroups reproduced the rejected army-slug card UX; the accepted shape is root includes subgroups (corpus.ts:2026-2030) and the masthead dropdown is the only place the army itself appears (army_builder.tsx:175 filters `groupType !== 'army-of-renown'`).
+- **Auditor-rejected renames**: "Trugg's Troggherd Battle Traits"-style qualified names → 12+ major `secondary.source-*` findings from `unsupportedSourceValue` (adversarialReview.ts:203-224). Names stay exactly the source's heading (corpus.ts:2021, comment at 2010-2013).
+- **Invisible granted chips**: builder options derive from explicit + available IDs only; granted (included) abilities needed the causes walk (builder.ts:154-171) AND the army_builder.tsx kind filter widened to `option.kind === 'ability' && Boolean(option.groupType)` (army_builder.tsx:174-175) before anything rendered.
 
 ### Verification of the accepted solution
 
@@ -171,9 +171,15 @@ Renown. Two durable discoveries:
   title-cased card offering piecemeal picks" bug class (#1844) cannot recur silently — and an
   entry targeting an unmarked group is an `invalid-review` error (typo/stale-pin guard).
 - **`CorpusArmyOfRenown.evidenceTier`**: `official` (default, requires cited official naming
-  records) or `secondary-provisional` (classifies on the source's own marking under the
-  three-tier policy when no free accepted official document names the army; cited official
-  records remain corroboration). The Rules Updates FAQ compendium turned out to name many
+  records) or `secondary-provisional` (classifies on the source's own marking when no free
+  accepted official document names the army; cited official records remain corroboration).
+  This Classification Evidence Tier was introduced under the then-current three-tier source
+  policy (owner ruling 2026-08-01, #1812), which was superseded on 2026-08-18 by #1757 — a
+  two-tier hierarchy with BSData as a co-equal peer secondary. **The tier itself is unaffected
+  and still live**: it is orthogonal to the retired source-tier "Provisional Content" (see
+  CONCEPTS.md, "Classification Evidence Tier", and the flagged ambiguity distinguishing the two
+  senses of "provisional"). The "three-tier" wording survives in corpus.ts and in accepted
+  review entries as legacy vocabulary pending a schema flattening. The Rules Updates FAQ compendium turned out to name many
   battletome AoRs with explicit `ARMY OF RENOWN, <NAME>` errata headings — when hunting official
   naming evidence, sweep the full text of ALL cached official PDFs, not just the obvious
   document.
@@ -189,6 +195,6 @@ Renown. Two durable discoveries:
 - GitHub #1833 — fix: Army of Renown content stacks with the regular faction rules it replaces (the bug the pattern fixes)
 - GitHub #1844 — battletome/Legends AoRs decoded as bogus builder cards; closed by the source-marked classification extension above (PR #1848)
 - GitHub #1783 (closed) — prior corpus-generation bug that lost Army of Renown formation groups; background context
-- GitHub #1828 / #1812 — adjacent Ogor battletome/supplement content intake (provisional BSData tier, provisional watch)
+- GitHub #1828 / #1812 — adjacent Ogor battletome/supplement content intake (then-current provisional BSData fallback tier and provisional watch; that fallback tier was superseded 2026-08-18 by #1757, which raised BSData to a co-equal peer secondary — see src/aos4/radar/provisionalWatch.ts:16-20)
 - docs/plans/2026-08-01-001-feat-armies-of-renown-plan.md — the implementation plan for this work
 - docs/plans/2026-08-01-003-feat-battletome-aor-classification-plan.md — the #1844 extension plan

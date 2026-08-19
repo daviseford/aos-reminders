@@ -25,6 +25,9 @@ The per-unit datasheet: a unit's characteristics, weapons, and abilities. Warscr
 ### Battle Profile
 The matched-play record for a unit — unit size, points, base sizes, and roster notes. Kept distinct from the Warscroll because it comes from a different official publication cadence and only exists where the governing Rules Context defines points.
 
+### Battle Profile Disposition
+The reviewed verdict on what each extracted official profile fact is for: applied to the shipped runtime, kept as a structured reference the runtime does not serve, superseded by a later publication, or recorded as a profile-only gap where the profile exists but no rules text has been sourced yet. Every extracted fact carries exactly one, so a fact is never silently dropped — the ones that do not reach players are explained rather than absent.
+
 ### Content Group
 A named grouping of rules choices a faction offers — battle formations, spell/prayer lores, heroic traits, artefacts of power, and similar. Selecting a group brings its member abilities into the army.
 
@@ -39,8 +42,15 @@ Choosing an Army of Renown grants its entire rules set at once — its battle tr
 
 Armies of Renown arrive through three publication flavors with identical semantics: the seasonal set (a free official document), battletome armies (one or two per battletome), and White Dwarf armies, which are Legends content and therefore appear under the overlay's Legends grouping. The same army can be a root under several factions (Big Waaagh!, The Duardin Ascendant), and an army may share its name with an unrelated regular content group of its faction (Lords of the Clan), so identity is the per-faction root, never the name.
 
+### Regiment of Renown
+A purchasable cross-faction bundle: a fixed set of units bought whole, offered to the factions its own rules name rather than to the faction whose page happens to carry it. Contrast with Army of Renown, which replaces a faction's rules; a Regiment of Renown adds units and is available by inclusion.
+
+Availability comes only from the regiment's own inclusion list, never from the page it was found on — the carrying faction gains no claim on it, and does not become current merely by hosting a current regiment. Because the secondary source republishes the same regiment on every eligible faction's page, the duplicates are collapsed to one entity before acceptance; where the republished copies disagree, the majority text wins and the disagreement is recorded for review.
+
 ### Source-Marked Classification
-The contract that an Army of Renown classification must agree with the secondary source's own machine-readable marking of the section (a marker element on current sections, the replace-rules intro sentence on White Dwarf ones). Generation fails closed in both directions: a source-marked section without a reviewed classification blocks generation — a newly published army can never silently decode as a generic content group — and a reviewed classification of an unmarked section is an invalid review.
+The contract that a classification must agree with the secondary source's own machine-readable marking of the section — for Armies of Renown (a marker element on current sections, the replace-rules intro sentence on White Dwarf ones) and equally for Regiments of Renown (a nails header on the datasheet). Generation fails closed in both directions: a source-marked section without a reviewed classification blocks generation — newly published content can never silently decode as a generic content group — and a reviewed classification of an unmarked section is an invalid review.
+
+The marking is derived metadata held outside the hashed record value, so adding or changing it never churns record identity.
 
 ### Manifestation
 A summonable endless-spell-style unit belonging to a Manifestation Lore. Manifestations are a category of unit, not an army: universal lores are offered to every playable army rather than by any single faction.
@@ -69,7 +79,7 @@ The test for whether something gets a builder card: the card exists only if the 
 The authority hierarchy for rules facts: official Games Workshop publications are authoritative, and Wahapedia and BSData are co-equal preferred secondaries whose rules text is accepted as fact. BSData was raised from fallback to peer by owner decision on 2026-08-18 (#1757), retiring the former three-level hierarchy. Official publications still win every conflict, and neither secondary supplies battle-profile values officialdom already provides.
 
 ### Provisional Content
-Legacy vocabulary from the pre-2026-08-18 three-tier policy: rules text admitted from the community fallback tier, pinned to an exact upstream revision, visibly attributed as provisional, and obliged to be replaced or verified once a preferred source published it. BSData is now a peer secondary (see Source Tier), so nothing new is admitted on those terms; accepted entries keep the provisional wording only until the `policyTier`/`status` vocabulary is flattened in code. Official facts override every overlapping field either way.
+Legacy vocabulary from the pre-2026-08-18 three-tier policy: rules text admitted from the community fallback tier, pinned to an exact upstream revision, visibly attributed as provisional, and obliged to be replaced or verified once a preferred source published it. BSData is now a peer secondary (see Source Tier), so nothing new is admitted on those terms; accepted entries keep the provisional wording only until the legacy tier vocabulary is flattened in code. Official facts override every overlapping field either way.
 
 ### Classification Evidence Tier
 The evidence basis for a reviewed classification (today: Armies of Renown). The official tier cites an accepted official record naming the thing classified; the secondary-provisional tier rests on the secondary source's own explicit marking when no free accepted official document names it, with official records as optional corroboration. Distinct from Provisional Content: here the rules text is ordinary preferred-secondary content — only the *classification* awaits official naming, which verifies or corrects the entry when accepted.
@@ -79,6 +89,16 @@ The named review process that certifies an accepted corpus revision: an independ
 
 ### Beta Gate
 The fail-closed check binding the shipped runtime to a completed Accuracy Campaign. It fails on stale checksums, uncovered records, or unresolved findings, and it runs in deployment — a corpus change cannot ship without a fresh passing campaign.
+
+### Rules Radar
+The standing watch over the rules sources, which reports what changed upstream as evidence and never as acceptance — a hit starts the normal candidate intake, and nothing reaches the corpus because the radar saw it.
+
+The radar keeps its own state between runs in a managed tracking issue, so each run reports against what the previous run already recorded. Observations divide into Material and Operational Events, and only the material ones raise a maintainer alarm.
+
+### Material Event
+A radar observation that shipped rules text may now be wrong: a source the corpus depends on actually changed. Its counterpart, an Operational Event, records trouble with the observation itself — a rate limit, a truncated comparison — and says nothing about whether the rules are correct.
+
+The distinction is what makes the alarm trustworthy. Alarms key on material state alone, so operational churn cannot re-raise one, and an unchanged material state never re-sends. That deliberate at-most-once behavior has a cost worth knowing: the alarm has no natural redelivery, so anything that loses it between the recorded state advancing and the message arriving loses it permanently.
 
 ## Flagged ambiguities
 
