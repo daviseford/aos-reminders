@@ -10,8 +10,11 @@ DEPLOY_OWNER="${DEPLOY_OWNER:-manual:${USER:-unknown}@${HOSTNAME:-unknown}:$$}"
 DEPLOY_LOCK_KEY="${DEPLOY_LOCK_KEY:-_deploy/production.lock}"
 DEPLOY_RETIREMENT_STATE_KEY="${DEPLOY_RETIREMENT_STATE_KEY:-_deploy/retired-immutable-keys.txt}"
 # CloudFront refuses to compress objects above ~10,000,000 bytes; anything larger must be stored
-# pre-gzipped. Overridable so the contract suite can exercise the path with small fixtures.
-PRECOMPRESS_THRESHOLD_BYTES="${PRECOMPRESS_THRESHOLD_BYTES:-9500000}"
+# pre-gzipped. The threshold sits well below that ceiling rather than tracking it directly: it only
+# needs to catch the built assets that are actually large, and the two aos4-catalog-data chunks (a
+# few MB each) are the sole assets anywhere near this size, with the next largest built asset well
+# under 1 MB. Overridable so the contract suite can exercise the path with small fixtures.
+PRECOMPRESS_THRESHOLD_BYTES="${PRECOMPRESS_THRESHOLD_BYTES:-2000000}"
 
 IMMUTABLE='public, max-age=31536000, immutable'
 MODERATE='public, max-age=86400'
@@ -280,9 +283,12 @@ write_retirement_state() {
     --only-show-errors
 }
 
-# CloudFront only compresses responses up to ~10 MB, so any script above the threshold ships
-# uncompressed to every visitor unless it is stored gzipped with an explicit Content-Encoding.
-# The ~12 MB catalog chunk is the case that matters: 12.25 MiB raw vs 1.09 MiB gzipped.
+# Anything above the threshold is stored gzipped with an explicit Content-Encoding rather than left
+# to CloudFront's on-the-fly compression, which this script never verifies is enabled. The two
+# aos4-catalog-data-*.js chunks are the case that matters: a few MB raw each, gzipping down
+# substantially, and both individually well under CloudFront's ~10,000,000-byte compression ceiling
+# -- so without this path they would ship raw to every visitor if that CloudFront setting were ever
+# off.
 oversized_scripts=()
 while IFS= read -r -d '' oversized_script; do
   oversized_scripts+=("$oversized_script")
