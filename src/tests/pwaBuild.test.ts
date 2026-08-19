@@ -216,6 +216,54 @@ describe('generated service worker', () => {
     expect(extras).toContain('caches.delete') // the CRA-era `images` cache
   })
 
+  it('emits the catalog as two content-hashed chunks under one prefix', () => {
+    /*
+     * The source records ship separately so a session that never opens a source menu never parses
+     * them. Both names share the `aos4-catalog-data` prefix on purpose — that is what keeps the
+     * precache glob, the runtime-cache route, and the filter above matching both with no change.
+     */
+    const chunks = fs
+      .readdirSync(path.join(distDir, 'assets'))
+      .filter(file => file.startsWith('aos4-catalog-data') && file.endsWith('.js'))
+      .sort()
+
+    expect(chunks).toHaveLength(2)
+    expect(chunks[0]).toMatch(/^aos4-catalog-data-[^.]+\.js$/)
+    expect(chunks[1]).toMatch(/^aos4-catalog-data-sources-[^.]+\.js$/)
+    expect(catalogEntries(precached)).toEqual([])
+  })
+
+  it('warms the catalog on install and the source records without holding activation', () => {
+    expect(extrasImports).toHaveLength(1)
+    const extras = read(extrasImports[0])
+
+    const sourcesUrl = extras.match(/SOURCES_URL = "([^"]+)"/)?.[1]
+    expect(sourcesUrl).toMatch(/^\/assets\/aos4-catalog-data-sources-.+\.js$/)
+    expect(exists(sourcesUrl!.replace(/^\//, ''))).toBe(true)
+
+    // The catalog keeps the abort-on-failure contract: a failed warm must reject install rather than
+    // activate a build that cannot load army data offline.
+    expect(extras).toMatch(/waitUntil\(warmChunk\(CATALOG_URL\)\)/)
+
+    /*
+     * The source records must not join it. Activation holds fetch events until waitUntil settles and
+     * the page reloads the moment the worker takes control, so awaiting a 7 MB fetch there would
+     * strand that reload on a blank screen — and blocking the whole app update on data most sessions
+     * never open would widen the abort surface out of proportion to what it protects.
+     */
+    expect(extras).toMatch(/warmChunk\(SOURCES_URL\)\.catch\(/)
+    expect(extras).not.toMatch(/waitUntil\([^)]*SOURCES_URL/)
+  })
+
+  it('prunes to the current build across both chunks', () => {
+    const extras = read(extrasImports[0])
+
+    // One cache holds both entries, so the prune is a membership test. Single-URL equality would
+    // delete whichever chunk it was not written against on every activation.
+    expect(extras).toContain('CURRENT_URLS.includes')
+    expect(extras).toMatch(/CURRENT_URLS = \[CATALOG_URL, SOURCES_URL\]/)
+  })
+
   it('bounds the catalog warm on browsers without AbortSignal.timeout', () => {
     expect(extrasImports).toHaveLength(1)
     const extras = read(extrasImports[0])

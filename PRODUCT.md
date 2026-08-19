@@ -193,9 +193,13 @@ occurrence, Legends, Spearhead, General's Handbook 2026-27 (`Scourge of Aqshy`).
     and the navbar takes `.TapTarget`/`.TapTargetOverlay` to 44px. **The Edit/Play switch is
     still 20px tall** (`react-switch`, `height={20} width={80}`), which is the whole of what
     remains of this P1 — and it is the product's one mode control, on the one-handed screen.
-  - **The initial chunk.** Now 1.21MB gzipped (`aos4-catalog-data`, 12.7MB raw), down from
-    1.42MB. It is not in the entry HTML, but it is a static dependency of the lazily-loaded
-    `Home` route, so every player still waits for it before the reminders surface renders.
+  - **The initial chunk.** Now 0.99MB gzipped (`aos4-catalog-data`, 6.4MB raw), down from
+    1.42MB. Two changes since the audit: the corpus finally ships as `JSON.parse` rather than a
+    JavaScript object literal, which is what #1843 intended and did not get, and the source
+    records — 53% of it, read only by the source menu on a reminder card — moved to a second
+    chunk fetched the first time a player opens one. **It is still a static dependency of the
+    lazily-loaded `Home` route**, so every player still waits for it before the reminders
+    surface renders. That last part is what remains of this P1.
 
   Neither is a data or rules defect.
 
