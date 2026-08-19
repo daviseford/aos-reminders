@@ -235,8 +235,16 @@ export default defineConfig({
    * Emit imported JSON as JSON.parse("...") instead of a JS object literal. Engines parse JSON
    * several times faster than JS source at scale, and the corpus chunk is ~12 MB — on a phone the
    * literal form costs whole seconds of main-thread parse before Home can render.
+   *
+   * `namedExports: false` is load-bearing, not tidying. Vite resolves this option as
+   * `stringify === true && namedExports !== true`, and `namedExports` defaults to true — so
+   * `stringify: true` on its own is a silent no-op. It was set alone from #1843 until #1845, and the
+   * corpus shipped as a 12.7 MB object literal the whole time: no error, no warning, just a slower
+   * first render. Every JSON import in src/ and scripts/ is a default import, so turning named
+   * exports off costs nothing. src/tests/aos4/catalogChunkForm.test.ts asserts the built form,
+   * because the config reads correct in both states.
    */
-  json: { stringify: true },
+  json: { stringify: true, namedExports: false },
   css: {
     preprocessorOptions: {
       scss: {
