@@ -8,12 +8,23 @@ import { act } from 'react'
 import { MemoryRouter } from 'react-router'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { CanonicalId, RulesContextId } from '../../aos4/domain'
+import defaultsJson from '../../aos4/generated/corpus/defaults.json'
+import { AOS4_FACTION_INDEX } from '../../aos4/generated/corpus/factionIndex'
+import { AOS4_ARMY_STORAGE_KEY } from '../../aos4/runtime'
+import { createAos4ArmyDocument, serializeAos4ArmyDocument } from '../../aos4/state'
 
 /*
  * The shell window: what a player has on screen after Home's own chunk paints and before the
  * catalog-bound half arrives. Held open by a child module import that never settles, which is the
  * only way to observe a state that lasts milliseconds in a browser and none at all in a test that
  * awaits the import.
+ *
+ * Nothing in this file may import the catalog: every expectation below is either about markup the
+ * shell owns or is computed from the generated faction index, which is what the shell itself reads.
+ * `corpusArtifacts` holds the index to the catalog — playable rows against `armyFactions`, rules
+ * contexts against the entities, `hasArmiesOfRenown` against the builder — so the two halves of
+ * "the same factions as today" are asserted where each one belongs.
  */
 
 vi.mock('components/routes/HomeCatalogBound', () => new Promise<never>(() => {}))
@@ -67,17 +78,38 @@ class MemoryStorage implements Storage {
   }
 }
 
+const defaults = defaultsJson as unknown as {
+  defaultFactionId: CanonicalId<'faction'>
+  rulesContextId: RulesContextId
+}
+
+const rowNamed = (name: string) => {
+  const row = AOS4_FACTION_INDEX.factions.find(faction => faction.name === name)
+  if (!row) throw new Error(`No faction index row named ${name}`)
+  return row
+}
+
+// The three shapes the masthead has to tell apart, named rather than positional so a regenerated
+// index that reorders its rows does not silently change what is under test.
+const FLESH_EATER_COURTS = rowNamed('Flesh-eater Courts')
+const SERAPHON = rowNamed('Seraphon')
+const ENDLESS_SPELLS = rowNamed('Endless Spells')
+
+const storedArmy = (factionId: CanonicalId<'faction'>, name: string) =>
+  serializeAos4ArmyDocument(
+    createAos4ArmyDocument({
+      id: 'army:shell-window-test',
+      name,
+      rulesContextId: defaults.rulesContextId,
+      explicitSelectionIds: [factionId],
+    })
+  )
+
 describe('the Home shell while the catalog-bound half is still loading', () => {
   let container: HTMLDivElement
+  let storage: MemoryStorage
 
-  beforeEach(async () => {
-    Object.defineProperty(window, 'localStorage', {
-      configurable: true,
-      value: new MemoryStorage(),
-    })
-    container = document.createElement('div')
-    document.body.appendChild(container)
-
+  const renderHome = async () => {
     await act(async () => {
       render(
         <AppStatusProvider>
@@ -93,6 +125,55 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
       )
       await new Promise(resolve => setTimeout(resolve, 0))
     })
+  }
+
+  const factionSlot = () => {
+    const input = container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')
+    expect(input).not.toBeNull()
+    return input!.closest('.col-12') as HTMLElement
+  }
+
+  const selectedFactionName = () =>
+    factionSlot().querySelector('[class*="singleValue"]')?.textContent?.trim() ?? null
+
+  const offeredFactions = async () => {
+    const input = container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')
+    await act(async () => {
+      input!.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
+      )
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    return Array.from(container.querySelectorAll('[role="option"]'), option => option.textContent?.trim())
+  }
+
+  const pickFaction = async (name: string) => {
+    const offered = await offeredFactions()
+    expect(offered).toContain(name)
+    const option = Array.from(container.querySelectorAll('[role="option"]')).find(
+      candidate => candidate.textContent?.trim() === name
+    )
+    await act(async () => {
+      option!.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+  }
+
+  const toggleToPlayMode = async () => {
+    const modeSwitch = container.querySelector<HTMLInputElement>('#game-mode-switch')
+    expect(modeSwitch).not.toBeNull()
+    await act(async () => {
+      modeSwitch!.click()
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+  }
+
+  beforeEach(() => {
+    storage = new MemoryStorage()
+    Object.defineProperty(window, 'localStorage', { configurable: true, value: storage })
+    Object.defineProperty(window, 'sessionStorage', { configurable: true, value: new MemoryStorage() })
+    container = document.createElement('div')
+    document.body.appendChild(container)
   })
 
   afterEach(() => {
@@ -102,7 +183,9 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
     container.remove()
   })
 
-  it('paints the chrome it owns and announces the pending region', () => {
+  it('paints the chrome it owns and announces the pending region', async () => {
+    await renderHome()
+
     expect(container.querySelector('footer')).not.toBeNull()
 
     const status = container.querySelector('[role="status"]')
@@ -111,16 +194,144 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
   })
 
   /*
+   * The masthead is the reason the state moved up here. Before it did, the loading window showed the
+   * fallback and the footer with nothing above them — no navbar, no product name, no way to pick a
+   * faction — where the route-level fallback it replaced had at least held the space.
+   */
+  it('paints the masthead, the navbar, and a working faction selector before the catalog exists', async () => {
+    await renderHome()
+
+    expect(container.querySelector('.bg-themeDarkBluePrimary.d-print-none')).not.toBeNull()
+    expect(container.textContent).toContain('Age of Sigmar Reminders')
+    expect(container.textContent).toContain('Select your faction to get started:')
+    expect(container.querySelector('nav')).not.toBeNull()
+    expect(container.querySelector('input[aria-label="Faction"]')).not.toBeNull()
+    expect(container.querySelector('#game-mode-switch')).not.toBeNull()
+  })
+
+  it('offers exactly the factions the catalog-bound selector offers, in the same order', async () => {
+    await renderHome()
+
+    const expected = AOS4_FACTION_INDEX.factions
+      .filter(faction => faction.playable && faction.rulesContextIds.includes(defaults.rulesContextId))
+      .map(faction => faction.name)
+      .sort((left, right) => left.localeCompare(right))
+
+    const offered = await offeredFactions()
+    expect(offered).toEqual(expected)
+    // `Endless Spells` is a Factions.csv container for universal manifestations, not an army
+    // (#1796); it is the one decoded faction the index marks unplayable.
+    expect(offered).not.toContain('Endless Spells')
+    expect(offered).toContain('Stormcast Eternals')
+  })
+
+  it('names the stored army and its faction on first paint', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
+
+    await renderHome()
+
+    expect(selectedFactionName()).toBe('Flesh-eater Courts')
+
+    await toggleToPlayMode()
+    expect(container.querySelector('h2')?.textContent).toBe('Grand Court Nightblades')
+  })
+
+  /*
+   * Every decoded faction can name itself; only the ones that field units are offered. A document
+   * naming one that is no longer on offer keeps its own name and leaves the selector empty, which is
+   * what the catalog-bound masthead did with the same document.
+   */
+  it('lets a stored non-playable faction name itself while leaving the selector empty', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(ENDLESS_SPELLS.id, 'Endless Spells'))
+
+    await renderHome()
+
+    expect(selectedFactionName()).toBeNull()
+    expect(factionSlot().querySelector('[class*="placeholder"]')?.textContent).toBe('Select...')
+
+    await toggleToPlayMode()
+    expect(container.querySelector('h2')?.textContent).toBe('Endless Spells')
+  })
+
+  it('falls back to the generated default faction when nothing is stored', async () => {
+    await renderHome()
+
+    const defaultName = AOS4_FACTION_INDEX.factions.find(
+      faction => faction.id === defaults.defaultFactionId
+    )?.name
+    expect(defaultName).toBeDefined()
+    expect(selectedFactionName()).toBe(defaultName)
+  })
+
+  /*
+   * KTD6. The shell read the stored document without a catalog, so it cannot tell a live selection
+   * from one a battletome rewrite retired. Writing it back would put the unpruned copy over the
+   * stored one — pruned a moment later by the child, but only after the stored version was gone.
+   */
+  it('does not write the army document back before the catalog-validated load lands', async () => {
+    const stored = storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades')
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, stored)
+
+    await renderHome()
+    expect(storage.getItem(AOS4_ARMY_STORAGE_KEY)).toBe(stored)
+
+    // Not even a change the player makes during the wait: the child's load is what unlocks the save.
+    await pickFaction('Fyreslayers')
+
+    expect(selectedFactionName()).toBe('Fyreslayers')
+    expect(storage.getItem(AOS4_ARMY_STORAGE_KEY)).toBe(stored)
+  })
+
+  // KTD8. The row is rendered conditionally, so a shell that never reserved it would have the label
+  // and select inserted when the catalog landed, pushing the whole page down.
+  it('reserves the Army of Renown row for a faction that has one', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Flesh-eater Courts'))
+    expect(FLESH_EATER_COURTS.hasArmiesOfRenown).toBe(true)
+
+    await renderHome()
+
+    expect(container.textContent).toContain('Army of Renown:')
+    const placeholder = container.querySelector<HTMLInputElement>('input[aria-label="Army of Renown"]')
+    expect(placeholder).not.toBeNull()
+    expect(placeholder!.disabled).toBe(true)
+    expect(placeholder!.closest('[aria-busy="true"]')).not.toBeNull()
+  })
+
+  it('reserves nothing for a faction that has no Armies of Renown', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(SERAPHON.id, 'Seraphon'))
+    expect(SERAPHON.hasArmiesOfRenown).toBe(false)
+
+    await renderHome()
+
+    expect(container.textContent).not.toContain('Army of Renown:')
+    expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
+  })
+
+  /*
    * `LoadingBody` was the obvious thing to reuse and is the wrong shape here: its 35vh top padding
    * is sized for a bare route, and its own product-name heading would repeat the masthead's and
    * skip from <h1> to <h3> on the way.
    */
-  it('does not reuse the page-centered route fallback or repeat the product name', () => {
+  it('does not reuse the page-centered route fallback or repeat the product name', async () => {
+    await renderHome()
+
     expect(container.querySelector('.LoadingContainer')).toBeNull()
 
     const headings = Array.from(container.querySelectorAll('h1, h2, h3, h4, h5, h6')).map(heading =>
       heading.textContent?.trim()
     )
     expect(headings).not.toContain('AoS Reminders')
+  })
+
+  /*
+   * The skip link's target is `#aos4-reminders`, which the catalog-bound half owns. Offering the
+   * link before that exists would put a control at the very top of the tab order that moves focus
+   * nowhere — worse than not offering it, because it is the first thing a keyboard user meets.
+   */
+  it('withholds the skip link while its target does not exist', async () => {
+    await renderHome()
+
+    expect(container.querySelector('a.SkipLink')).toBeNull()
+    expect(container.querySelector('#aos4-reminders')).toBeNull()
   })
 })

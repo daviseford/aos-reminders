@@ -92,9 +92,10 @@ describe('initial bundle boundaries', () => {
    * `runtime.sources.json` from the shell would put all 7 MB of citations on the first-paint path.
    *
    * Two files under the directory are deliberately exempt, which is why this is a file list and not
-   * a directory prefix: `corpus/defaults.json` is 130 bytes and is imported from the shell today
-   * (see armyStorage), and `corpus/faction-index.json` is ~10 KB and the Home shell will import it
-   * in a later PR. Filtering on the directory would forbid the very edges the split exists to allow.
+   * a directory prefix: `corpus/defaults.json` is 130 bytes and is imported from the shell (see
+   * armyStorage), and `corpus/faction-index.json` is ~10 KB and is how the shell names all 28
+   * factions before the corpus arrives. Filtering on the directory would forbid the very edges the
+   * split exists to allow.
    */
   const CORPUS_MODULES =
     /^src\/aos4\/generated\/(index\.ts|catalog\.ts|corpus\/(index\.ts|catalog\.ts|sources\.ts|runtime\.json|runtime\.core\.json|runtime\.sources\.json))$/
@@ -145,5 +146,13 @@ describe('initial bundle boundaries', () => {
     expect(shell).toContain('src/components/page/footer.tsx')
     expect(shell.filter(file => CORPUS_MODULES.test(file))).toEqual([])
     expect(catalogBound.filter(file => CORPUS_MODULES.test(file)).length).toBeGreaterThan(0)
+
+    /*
+     * The masthead's faction names come from the generated index, and the index module has to be
+     * deep-imported: `aos4/generated/corpus/index.ts` re-exports it through `./catalog`, so a
+     * tidy-looking barrel import here would pull the whole corpus back onto the first-paint path.
+     */
+    expect(shell).toContain('src/aos4/generated/corpus/factionIndex.ts')
+    expect(shell).toContain('src/aos4/generated/corpus/faction-index.json')
   })
 })

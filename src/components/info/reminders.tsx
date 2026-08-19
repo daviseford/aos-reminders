@@ -1,5 +1,6 @@
 import type { Aos4ReminderViewModel } from '../../aos4/view'
 import { CollapsibleCardHeader } from 'components/helpers/collapsibleCardHeader'
+import { REMINDERS_ANCHOR_ID } from 'components/info/remindersAnchor'
 import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
@@ -13,8 +14,8 @@ import { Dropdown } from 'react-bootstrap'
 import { FaEllipsisH } from 'react-icons/fa'
 import { MdVisibilityOff } from 'react-icons/md'
 
-/** The skip link's destination. Exported so the anchor and its target cannot drift apart. */
-export const REMINDERS_ANCHOR_ID = 'aos4-reminders'
+/** The skip link's destination. Re-exported so the anchor and its target cannot drift apart. */
+export { REMINDERS_ANCHOR_ID }
 
 export interface ReminderSourceLink {
   id: string

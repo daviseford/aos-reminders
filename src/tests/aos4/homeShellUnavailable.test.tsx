@@ -128,7 +128,14 @@ describe('the Home shell when the catalog-bound half cannot be loaded', () => {
     const control = document.createElement('div')
     document.body.appendChild(control)
     const root = createRoot(control, { onUncaughtError: () => {} })
-    const CatalogBound = lazy(() => import('components/routes/HomeCatalogBound'))
+    /*
+     * The import is what fails, so the module's own props never come into it — the stand-in keeps
+     * this control render free of the shell's whole prop contract.
+     */
+    const CatalogBound = lazy(async () => {
+      await import('components/routes/HomeCatalogBound')
+      return { default: () => null }
+    })
 
     let escaped: unknown
     try {

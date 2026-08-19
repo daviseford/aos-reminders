@@ -1,5 +1,5 @@
-import { armyFactions, type CanonicalId } from '../../aos4/domain'
-import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID, loadAos4SourceData } from '../../aos4/generated'
+import type { CanonicalId } from '../../aos4/domain'
+import { AOS4_CATALOG, loadAos4SourceData } from '../../aos4/generated'
 import type { PrintDocumentOptions } from '../../aos4/print/document'
 import type { PrintPageSize } from '../../aos4/print/presets'
 import type { PrintPreset } from '../../aos4/print/types'
@@ -7,7 +7,6 @@ import {
   createDefaultAos4ArmyDocument,
   deriveAos4OverlayFlags,
   loadAos4ArmyDocument,
-  saveAos4ArmyDocument,
 } from '../../aos4/runtime'
 import { resolveSelection } from '../../aos4/select'
 import {
@@ -23,24 +22,34 @@ import {
   migrateAos4ReminderPreferences,
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
-import AppBanner from 'components/info/banners/app_banner'
-import Reminders, { REMINDERS_ANCHOR_ID, type ReminderSourceLink } from 'components/info/reminders'
+import Reminders, { type ReminderSourceLink } from 'components/info/reminders'
 import ArmyBuilder from 'components/input/army_builder'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import Toolbar from 'components/input/toolbar/toolbar'
-import { Header } from 'components/page/homeHeader'
 import { messageForError, useArmyCollection } from 'context/useArmyCollection'
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { logFactionSelection, logGameModeChange, logPdfDownload } from 'utils/analytics'
+import {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from 'react'
+import { logPdfDownload } from 'utils/analytics'
 import { clearCloudArmyLink, readCloudArmyLink, writeCloudArmyLink } from 'utils/cloudArmyLink'
-import { consumePendingShareId } from 'utils/shareLink'
 
 /*
  * Everything on Home shaped `f(catalog, …)`. Home itself is the catalog-free shell that loads this
  * behind `lazy()`, so the rules corpus is off the route chunk's static import graph and off the
- * first-paint path. Nothing here is new: the module-scope derivations, the state, and the tree are
- * what Home rendered inline before the split, moved across whole so a rendering regression would
- * have to come from the boundary rather than from an edit.
+ * first-paint path.
+ *
+ * The document, the faction, the game mode, and the incoming share id all belong to the shell,
+ * which paints the masthead from them before this half exists; they arrive here as props. What
+ * travels the other way is the Armies of Renown slot and the cloud-army unlink — what the shell's
+ * own masthead needs and only the catalog can produce — published upward as one object.
  */
 
 const ImportArmyModal = lazy(() => import('components/input/importArmy/importArmyModal'))
@@ -83,44 +92,53 @@ const reminderSources = (reminder: Aos4ReminderViewModel): Promise<ReminderSourc
 const factionById = new Map(
   AOS4_CATALOG.entities.flatMap(entity => (entity.kind === 'faction' ? [[entity.id, entity] as const] : []))
 )
-const selectableFactions = armyFactions(AOS4_CATALOG)
 
 const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'AoS'}_Reminders`
 
-/*
- * The masthead, mode switch, faction select, builder cards, and the toolbar buttons all sit
- * between the top of the document and the reminders, so reaching the content by keyboard means
- * tabbing past roughly a dozen controls. The link targets the reminders rather than <main>, because
- * <main> wraps the routed tree from the navbar down and skipping to it would move nothing.
- *
- * It lives here rather than in the shell because `#aos4-reminders` does not exist until this
- * component mounts, and a skip link pointing at nothing moves focus nowhere.
+/**
+ * What the shell's masthead needs from this half. `armiesOfRenown` is derived from
+ * `builder.options` and the change handler resolves a selection against the catalog, so neither can
+ * be computed in a shell that has no catalog; `unlinkCloudArmy` is here because the toolbar state
+ * it clears is here. They publish as one object so a change costs the shell a single render.
  */
-const SkipToReminders = () => (
-  /*
-   * A light chip in both themes rather than a theme slot. The link reveals itself over the masthead,
-   * and the masthead is dark in each theme — Deep Harbour Teal in light, Midnight Slate in dark — so
-   * `theme.bgColor` would paint it Midnight Slate on Midnight Slate and hide it exactly when a
-   * keyboard user needs to see it.
-   */
-  <a
-    className="SkipLink visually-hidden-focusable bg-light text-dark d-print-none"
-    href={`#${REMINDERS_ANCHOR_ID}`}
-  >
-    Skip to reminders
-  </a>
-)
+export interface Aos4CatalogBoundBindings {
+  armiesOfRenown: Array<{
+    label: string
+    value: CanonicalId
+    overlay?: 'legends' | 'historical'
+  }>
+  armyOfRenownId: CanonicalId | null
+  onArmyOfRenownChange: (armyOfRenownId: CanonicalId | null) => void
+  unlinkCloudArmy: () => void
+}
 
-const HomeCatalogBound = () => {
+interface HomeCatalogBoundProps {
+  document: Aos4ArmyDocument
+  factionId: CanonicalId<'faction'>
+  isGameMode: boolean
+  onBindingsChange: (bindings: Aos4CatalogBoundBindings) => void
+  onDismissPendingShare: () => void
+  onDocumentChange: Dispatch<SetStateAction<Aos4ArmyDocument>>
+  onDocumentValidated: (document: Aos4ArmyDocument) => void
+  pendingShareId: string | undefined
+}
+
+const HomeCatalogBound = ({
+  document,
+  factionId,
+  isGameMode,
+  onBindingsChange,
+  onDismissPendingShare,
+  onDocumentChange: setDocument,
+  onDocumentValidated,
+  pendingShareId,
+}: HomeCatalogBoundProps) => {
   const { armies, collectionLoaded, ensureArmiesLoaded, updateArmy } = useArmyCollection()
-  const [document, setDocument] = useState(loadDocument)
-  const [isGameMode, setIsGameMode] = useState(false)
   const [importModalIsOpen, setImportModalIsOpen] = useState(false)
   const [savedArmiesModalIsOpen, setSavedArmiesModalIsOpen] = useState(false)
   const [saveArmyModalIsOpen, setSaveArmyModalIsOpen] = useState(false)
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
   const [clearArmyModalIsOpen, setClearArmyModalIsOpen] = useState(false)
-  const [pendingShareId, setPendingShareId] = useState(() => consumePendingShareId())
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
   /*
    * Which cloud army the current document is a copy of, if any. It links through the save/load
@@ -191,11 +209,13 @@ const HomeCatalogBound = () => {
     onAuthorized: () => void updateCloudArmy(),
     origin: 'UpdateArmy',
   })
-  const unlinkCloudArmy = () => {
+  // Stable, because the shell holds on to it: a faction picked in the masthead has to unlink the
+  // cloud army, and the masthead is above this component.
+  const unlinkCloudArmy = useCallback(() => {
     setCloudArmyLink(undefined)
     clearCloudArmyLink()
     setUpdateArmyError(undefined)
-  }
+  }, [])
 
   useEffect(() => {
     if (updateArmyStatus !== 'updated') return
@@ -243,21 +263,21 @@ const HomeCatalogBound = () => {
       return link
     })
   }, [armies, cloudArmyId, cloudArmyName, collectionLoaded])
-  const factions = useMemo(
-    () =>
-      selectableFactions
-        .filter(faction => faction.rulesContextIds.includes(document.rulesContextId))
-        .map(faction => ({ label: faction.name, value: faction.id }))
-        .sort((left, right) => left.label.localeCompare(right.label)),
-    [document.rulesContextId]
-  )
+
+  /*
+   * The catalog's own answer to what storage held, run once on mount. The shell painted from a
+   * document deserialized without a catalog — no rules-context check, no pruning of selections a
+   * battletome rewrite has retired — so this is the first point at which either can happen. The
+   * shell decides whether to take it: a faction the player picked while waiting is newer than
+   * anything storage holds.
+   */
+  useEffect(() => {
+    onDocumentValidated(loadDocument())
+  }, [onDocumentValidated])
+
   const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
   const reminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
   const hiddenCount = reminders.filter(reminder => reminder.hidden).length
-  const selectedFactionId = document.explicitSelectionIds.find(id =>
-    factionById.has(id as CanonicalId<'faction'>)
-  )
-  const factionId = (selectedFactionId as CanonicalId<'faction'> | undefined) ?? AOS4_DEFAULT_FACTION_ID
   const factionName = factionById.get(factionId)?.name ?? 'Age of Sigmar 4'
 
   const handleDownloadPdf = async (
@@ -290,14 +310,6 @@ const HomeCatalogBound = () => {
     renderPrintPlanToPdf(plan, { title: printDocument.title }).save(`${fileName}.pdf`)
     logPdfDownload(presetId, pageSize)
   }
-
-  useEffect(() => {
-    try {
-      saveAos4ArmyDocument(window.localStorage, document)
-    } catch {
-      // Browser storage can be unavailable in privacy modes. The in-memory document remains usable.
-    }
-  }, [document])
 
   /*
    * A rules update that moves an ability's timing moves its reminder occurrence ID, stranding any
@@ -340,20 +352,6 @@ const HomeCatalogBound = () => {
     )
   }
 
-  const selectFaction = (nextFactionId: CanonicalId<'faction'>) => {
-    const faction = factionById.get(nextFactionId)
-    logFactionSelection(nextFactionId, faction?.name ?? 'Unknown faction')
-    unlinkCloudArmy()
-    setDocument(current =>
-      createAos4ArmyDocument({
-        ...current,
-        name: faction?.name ?? current.name,
-        explicitSelectionIds: [nextFactionId],
-        reminderPreferences: {},
-      })
-    )
-  }
-
   // The faction's Armies of Renown, offered as the top-level choice under the faction selector.
   // Picking one replaces the faction's regular rules, so switching drops explicit selections the
   // new army no longer offers (the established sub-faction switch behavior). Legends armies
@@ -373,35 +371,46 @@ const HomeCatalogBound = () => {
   const armyOfRenownId =
     document.explicitSelectionIds.find(id => armiesOfRenown.some(option => option.value === id)) ?? null
 
-  const selectArmyOfRenown = (nextId: CanonicalId | null) => {
-    setDocument(current => {
-      const rootIds = new Set(armiesOfRenown.map(option => option.value))
-      const withoutRoots = current.explicitSelectionIds.filter(id => !rootIds.has(id))
-      const nextExplicit = nextId ? [...withoutRoots, nextId] : withoutRoots
-      const probe = resolveSelection(AOS4_CATALOG, {
-        explicitIds: nextExplicit,
-        rulesContextId: current.rulesContextId,
-        allowsLegends: true,
-        allowsHistorical: true,
-      })
-      const stillOffered = new Set(probe.availableIds)
-      return deriveAos4OverlayFlags(
-        AOS4_CATALOG,
-        createAos4ArmyDocument({
-          ...current,
-          explicitSelectionIds: nextExplicit.filter(
-            id => id === nextId || factionById.has(id as CanonicalId<'faction'>) || stillOffered.has(id)
-          ),
+  const selectArmyOfRenown = useCallback(
+    (nextId: CanonicalId | null) => {
+      setDocument(current => {
+        const rootIds = new Set(armiesOfRenown.map(option => option.value))
+        const withoutRoots = current.explicitSelectionIds.filter(id => !rootIds.has(id))
+        const nextExplicit = nextId ? [...withoutRoots, nextId] : withoutRoots
+        const probe = resolveSelection(AOS4_CATALOG, {
+          explicitIds: nextExplicit,
+          rulesContextId: current.rulesContextId,
+          allowsLegends: true,
+          allowsHistorical: true,
         })
-      )
-    })
-  }
+        const stillOffered = new Set(probe.availableIds)
+        return deriveAos4OverlayFlags(
+          AOS4_CATALOG,
+          createAos4ArmyDocument({
+            ...current,
+            explicitSelectionIds: nextExplicit.filter(
+              id => id === nextId || factionById.has(id as CanonicalId<'faction'>) || stillOffered.has(id)
+            ),
+          })
+        )
+      })
+    },
+    [armiesOfRenown, setDocument]
+  )
 
-  const toggleGameMode = () => {
-    const nextMode = !isGameMode
-    setIsGameMode(nextMode)
-    logGameModeChange(nextMode)
-  }
+  /*
+   * A layout effect rather than an effect, because this also fires on every faction switch: an
+   * effect would let the browser paint the outgoing faction's Armies of Renown once — or its row
+   * disappearing a frame late — before the new list reached the masthead.
+   */
+  useLayoutEffect(() => {
+    onBindingsChange({
+      armiesOfRenown,
+      armyOfRenownId,
+      onArmyOfRenownChange: selectArmyOfRenown,
+      unlinkCloudArmy,
+    })
+  }, [armiesOfRenown, armyOfRenownId, onBindingsChange, selectArmyOfRenown, unlinkCloudArmy])
 
   const showAll = () => {
     setDocument(current =>
@@ -453,22 +462,6 @@ const HomeCatalogBound = () => {
 
   return (
     <>
-      <SkipToReminders />
-
-      <Header
-        armiesOfRenown={armiesOfRenown}
-        armyName={document.name}
-        armyOfRenownId={armyOfRenownId}
-        factionId={factionId}
-        factions={factions}
-        isGameMode={isGameMode}
-        onArmyOfRenownChange={selectArmyOfRenown}
-        onFactionChange={selectFaction}
-        onToggleGameMode={toggleGameMode}
-      />
-
-      <AppBanner />
-
       {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
 
       {!isGameMode && (
@@ -574,7 +567,7 @@ const HomeCatalogBound = () => {
       {pendingShareId && (
         <Suspense fallback={null}>
           <SharedArmyModal
-            closeModal={() => setPendingShareId(undefined)}
+            closeModal={onDismissPendingShare}
             isOpen
             onApply={nextDocument => {
               unlinkCloudArmy()

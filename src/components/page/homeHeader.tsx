@@ -2,7 +2,7 @@ import Navbar from 'components/page/navbar'
 import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import Switch from 'react-switch'
-import Select from 'react-select'
+import Select, { type Theme as SelectTheme } from 'react-select'
 import type { CanonicalId } from '../../aos4/domain'
 
 interface HeaderProps {
@@ -22,6 +22,16 @@ interface HeaderProps {
   onArmyOfRenownChange: (armyOfRenownId: CanonicalId | null) => void
   onFactionChange: (factionId: CanonicalId<'faction'>) => void
   onToggleGameMode: () => void
+  /**
+   * Hold the Army of Renown row open while `armiesOfRenown` is still empty because the catalog has
+   * not arrived, rather than because the faction has none.
+   *
+   * The row is rendered conditionally, so a shell that passed `[]` for a faction that does have
+   * Armies of Renown would have the label and select *inserted* the moment the catalog landed,
+   * pushing the builder and every reminder below it down the page. The faction index carries a
+   * `hasArmiesOfRenown` flag for exactly this: reserve on the flag, fill in on the real list.
+   */
+  reserveArmyOfRenownSlot?: boolean
 }
 
 const NO_ARMY_OF_RENOWN = { label: 'None', value: null }
@@ -36,6 +46,7 @@ export const Header = ({
   onArmyOfRenownChange,
   onFactionChange,
   onToggleGameMode,
+  reserveArmyOfRenownSlot = false,
 }: HeaderProps) => {
   const { theme } = useTheme()
   const isMobile = useIsMobile()
@@ -63,6 +74,15 @@ export const Header = ({
   const mastheadClass = `text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
     isMobile ? 'pb-2' : 'pb-3'
   }`
+  // Both selects in the masthead take the same slot overrides, and the reserved placeholder has to
+  // take them too or it renders react-select's own palette next to the faction select's.
+  const selectColors = (defaultTheme: SelectTheme) => ({
+    ...defaultTheme,
+    colors: {
+      ...defaultTheme.colors,
+      ...theme.selectTheme,
+    },
+  })
 
   return (
     <div className={theme.headerColor}>
@@ -140,13 +160,7 @@ export const Header = ({
                     onChange={selected => selected && onFactionChange(selected.value)}
                     isClearable={false}
                     className={theme.text}
-                    theme={defaultTheme => ({
-                      ...defaultTheme,
-                      colors: {
-                        ...defaultTheme.colors,
-                        ...theme.selectTheme,
-                      },
-                    })}
+                    theme={selectColors}
                   />
                 </div>
               </div>
@@ -155,26 +169,48 @@ export const Header = ({
                 rules, so the choice sits directly under the faction rather than among the
                 content cards. Rendered only for factions that have one.
               */}
-              {armiesOfRenown.length > 0 ? (
+              {armiesOfRenown.length > 0 || reserveArmyOfRenownSlot ? (
                 <>
                   <span className="text-white">Army of Renown:</span>
-                  <div className="d-flex pt-3 pb-2 justify-content-center">
+                  {/*
+                    `aria-busy` sits on the wrapper rather than the control: react-select forwards
+                    only the aria attributes it knows about to its input, and the busy state belongs
+                    to the row anyway, not to the one element inside it.
+                  */}
+                  <div
+                    className="d-flex pt-3 pb-2 justify-content-center"
+                    {...(armiesOfRenown.length === 0 ? { 'aria-busy': true } : {})}
+                  >
                     <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-start">
-                      <Select
-                        aria-label="Army of Renown"
-                        value={armyOfRenownOption}
-                        options={armyOfRenownOptions}
-                        onChange={selected => onArmyOfRenownChange(selected?.value ?? null)}
-                        isClearable={false}
-                        className={theme.text}
-                        theme={defaultTheme => ({
-                          ...defaultTheme,
-                          colors: {
-                            ...defaultTheme.colors,
-                            ...theme.selectTheme,
-                          },
-                        })}
-                      />
+                      {armiesOfRenown.length > 0 ? (
+                        <Select
+                          aria-label="Army of Renown"
+                          value={armyOfRenownOption}
+                          options={armyOfRenownOptions}
+                          onChange={selected => onArmyOfRenownChange(selected?.value ?? null)}
+                          isClearable={false}
+                          className={theme.text}
+                          theme={selectColors}
+                        />
+                      ) : (
+                        /*
+                          The same control, minus the answer. It keeps the live select's accessible
+                          name so a screen reader meets one Army of Renown control rather than two,
+                          and the same theme slots so its disabled surface stays dark in dark theme
+                          — react-select's default disabled background is near-white, which is the
+                          one inversion DESIGN.md's Slot Rule exists to prevent.
+                        */
+                        <Select
+                          aria-label="Army of Renown"
+                          value={null}
+                          options={[]}
+                          isDisabled
+                          isClearable={false}
+                          placeholder="Loading..."
+                          className={theme.text}
+                          theme={selectColors}
+                        />
+                      )}
                     </div>
                   </div>
                 </>

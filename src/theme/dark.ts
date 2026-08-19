@@ -10,6 +10,16 @@ const selectTheme = {
   neutral0: '#182633', // $themeDarkBlueSecondary in theme.scss
 
   /*
+   * control/backgroundColor(disabled)
+   *
+   * react-select defaults this to a near-white grey, so a disabled select rendered the one bright
+   * box on a dark page — and with `neutral50` below set to white, its placeholder was white on
+   * near-white. The Home masthead's reserved Army of Renown slot is the first disabled select the
+   * app renders, so the slot gets a value rather than the default.
+   */
+  neutral5: '#182633',
+
+  /*
    * control/borderColor(disabled)
    * multiValue/backgroundColor
    * indicators(separator)/backgroundColor(disabled)
