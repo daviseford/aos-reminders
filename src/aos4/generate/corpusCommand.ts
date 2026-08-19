@@ -40,8 +40,18 @@ import {
   type WahapediaDecodeResult,
   type WahapediaExportInputs,
 } from '../data/wahapedia'
-import { validateCatalog, type RulesContextId, type SourceRecordId } from '../domain'
+import {
+  armyFactions,
+  validateCatalog,
+  type Aos4Catalog,
+  type CanonicalId,
+  type Faction,
+  type RulesContextId,
+  type SourceRecordId,
+} from '../domain'
+import type { Aos4FactionIndex } from '../generated/corpus/factionIndex'
 import { runCertificationCheck } from '../review/certificationCommand'
+import { resolveSelection } from '../select'
 import { buildAos4Corpus, createCorpusIdentityRegistry, type CorpusReview } from './corpus'
 import { validateIdentityRegistry, type IdentityRegistry } from './identityRegistry'
 import { validateGenerationIntegrity } from './integrity'
@@ -52,7 +62,7 @@ import {
   type ReviewedOfficialBattleProfileFact,
 } from './officialBattleProfiles'
 import { createRuntimeProjection, serializeRuntimeProjection } from './runtimeProjection'
-import { serializeAuditCatalog, stableJson } from './serialization'
+import { serializeAuditCatalog, stableCompactJson, stableJson } from './serialization'
 import {
   ACCEPTED_MANIFEST_PATH,
   ACCEPTED_RECONCILIATION_REPORT_PATH,
@@ -66,6 +76,15 @@ const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json'
 const DEFAULT_AUDIT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
 const DEFAULT_OFFICIAL_BATTLE_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
+/**
+ * The runtime projection also ships split in two, plus a faction index, so the app can render its
+ * army selector and parse only the half it renders from. These are derived from the same
+ * projection `runtime.json` serializes, and are additive: `runtime.json` keeps its path and bytes
+ * because accepted certification evidence pins it by both.
+ */
+const DEFAULT_RUNTIME_CORE = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.core.json')
+const DEFAULT_RUNTIME_SOURCES = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.sources.json')
+const DEFAULT_FACTION_INDEX = path.join('src', 'aos4', 'generated', 'corpus', 'faction-index.json')
 const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaults.json')
 const DEFAULT_REPORT = ACCEPTED_SUMMARY_REPORT_PATH
 const DEFAULT_RECONCILIATION = ACCEPTED_RECONCILIATION_REPORT_PATH
@@ -80,6 +99,9 @@ interface CorpusCommandArguments {
   auditCatalogPath: string
   officialBattleProfilesPath: string
   runtimePath: string
+  runtimeCorePath: string
+  runtimeSourcesPath: string
+  factionIndexPath: string
   defaultsPath: string
   reportPath: string
   reconciliationPath: string
@@ -821,6 +843,42 @@ const ensureNoErrors = (
   )
 }
 
+/**
+ * The faction rows the app renders before the corpus arrives: every decoded faction, whether a
+ * player can field it, and whether its Army of Renown select must be reserved.
+ *
+ * Both flags need the relationship graph, which is exactly what a catalog-free caller does not
+ * have, so they are decided here. `hasArmiesOfRenown` is resolved through `resolveSelection` under
+ * the same overlays the builder uses, so the flag and the list the header eventually shows are
+ * derived from one rule rather than two that can drift apart.
+ */
+const createFactionIndex = (catalog: Aos4Catalog, rulesContextId: RulesContextId): Aos4FactionIndex => {
+  const playableIds = new Set(armyFactions(catalog).map(faction => faction.id))
+  const armyOfRenownIds = new Set<CanonicalId>(
+    catalog.entities.flatMap(entity =>
+      entity.kind === 'content-group' && entity.groupType === 'army-of-renown' ? [entity.id] : []
+    )
+  )
+  return {
+    schemaVersion: 1,
+    factions: catalog.entities
+      .filter((entity): entity is Faction => entity.kind === 'faction')
+      .sort((left, right) => left.id.localeCompare(right.id))
+      .map(faction => ({
+        id: faction.id,
+        name: faction.name,
+        rulesContextIds: [...faction.rulesContextIds].sort((left, right) => left.localeCompare(right)),
+        playable: playableIds.has(faction.id),
+        hasArmiesOfRenown: resolveSelection(catalog, {
+          explicitIds: [faction.id],
+          rulesContextId,
+          allowsLegends: true,
+          allowsHistorical: true,
+        }).availableIds.some(id => armyOfRenownIds.has(id)),
+      })),
+  }
+}
+
 const writeProduct = async (product: GeneratedProduct): Promise<void> => {
   await mkdir(path.dirname(product.path), { recursive: true })
   await writeFile(product.path, product.bytes, 'utf8')
@@ -857,6 +915,9 @@ export const parseCorpusCommandArguments = (arguments_: string[]): CorpusCommand
     auditCatalogPath: DEFAULT_AUDIT_CATALOG,
     officialBattleProfilesPath: DEFAULT_OFFICIAL_BATTLE_PROFILES,
     runtimePath: DEFAULT_RUNTIME,
+    runtimeCorePath: DEFAULT_RUNTIME_CORE,
+    runtimeSourcesPath: DEFAULT_RUNTIME_SOURCES,
+    factionIndexPath: DEFAULT_FACTION_INDEX,
     defaultsPath: DEFAULT_DEFAULTS,
     reportPath: DEFAULT_REPORT,
     reconciliationPath: DEFAULT_RECONCILIATION,
@@ -873,6 +934,9 @@ export const parseCorpusCommandArguments = (arguments_: string[]): CorpusCommand
     '--audit-catalog': 'auditCatalogPath',
     '--official-battle-profiles': 'officialBattleProfilesPath',
     '--runtime': 'runtimePath',
+    '--runtime-core': 'runtimeCorePath',
+    '--runtime-sources': 'runtimeSourcesPath',
+    '--faction-index': 'factionIndexPath',
     '--defaults': 'defaultsPath',
     '--report': 'reportPath',
     '--reconciliation': 'reconciliationPath',
@@ -980,18 +1044,24 @@ export const generateCorpusProducts = async (
       appliedRegimentOfRenownNames
     )
   )
-  const runtime = serializeRuntimeProjection(
-    createRuntimeProjection(generated.catalog, generated.summary.attribution)
-  )
+  const projection = createRuntimeProjection(generated.catalog, generated.summary.attribution)
+  const runtime = serializeRuntimeProjection(projection)
+  // The split is a partition of the same projection, so `{ ...core, ...sources }` reconstructs it
+  // exactly; `src/tests/aos4/corpusArtifacts.test.ts` holds that.
+  const { sourceArtifacts, sourceRecords, ...projectionCore } = projection
+  const runtimeCore = stableCompactJson(projectionCore)
+  const runtimeSources = stableCompactJson({ sourceArtifacts, sourceRecords })
   const defaultFaction = generated.catalog.entities.find(
     entity => entity.kind === 'faction' && entity.name === 'Stormcast Eternals'
   )
   if (!defaultFaction) throw new Error('Stormcast Eternals is missing from the accepted corpus')
+  const defaultRulesContextId = review.defaultRulesContextId ?? review.rulesContext.id
   const defaults = stableJson({
     schemaVersion: 1,
-    rulesContextId: review.defaultRulesContextId ?? review.rulesContext.id,
+    rulesContextId: defaultRulesContextId,
     defaultFactionId: defaultFaction.id,
   })
+  const factionIndex = stableCompactJson(createFactionIndex(generated.catalog, defaultRulesContextId))
   const reportWithoutProducts = {
     schemaVersion: 1,
     status: generated.summary.status,
@@ -1029,6 +1099,9 @@ export const generateCorpusProducts = async (
       bytes: officialBattleProfileCatalog,
     },
     { path: arguments_.runtimePath, bytes: runtime },
+    { path: arguments_.runtimeCorePath, bytes: runtimeCore },
+    { path: arguments_.runtimeSourcesPath, bytes: runtimeSources },
+    { path: arguments_.factionIndexPath, bytes: factionIndex },
     { path: arguments_.defaultsPath, bytes: defaults },
     {
       path: arguments_.reconciliationPath,
