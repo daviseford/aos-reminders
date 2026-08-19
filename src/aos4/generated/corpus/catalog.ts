@@ -1,61 +1,48 @@
-import type {
-  Aos4Catalog,
-  CanonicalId,
-  ContentEntity,
-  ContentRelationship,
-  SourceArtifact,
-  SourceRecord,
-} from '../../domain'
+import type { Aos4Catalog, CanonicalId, ContentEntity, ContentRelationship } from '../../domain'
 import type { Aos4RuntimeProjection } from '../../generate'
 import defaultsJson from './defaults.json'
-import runtimeJson from './runtime.json'
+import runtimeCoreJson from './runtime.core.json'
 
-const projection = runtimeJson as unknown as Aos4RuntimeProjection
+/**
+ * The half of the runtime projection the app renders from. The source artifacts and records live in
+ * `./runtime.sources.json` and load through `./sources`, because nothing on the first-paint or
+ * reminder-render path reads them and parsing 20,078 citations to draw a card was the largest cost
+ * Home paid before it could show anything.
+ */
+export type Aos4RuntimeCore = Omit<Aos4RuntimeProjection, 'sourceArtifacts' | 'sourceRecords'>
+
+const projection = runtimeCoreJson as unknown as Aos4RuntimeCore
 const defaults = defaultsJson as unknown as {
   schemaVersion: 1
   rulesContextId: Aos4Catalog['rulesContexts'][number]['id']
   defaultFactionId: CanonicalId<'faction'>
 }
 
-const sourceArtifacts: SourceArtifact[] = projection.sourceArtifacts.map(artifact => ({
-  id: artifact.id,
-  publisher: artifact.publisher,
-  authority: {
-    kind:
-      artifact.publisher === 'games-workshop'
-        ? 'official'
-        : artifact.publisher === 'wahapedia'
-          ? 'secondary'
-          : 'community',
-  },
-  title: artifact.title,
-  edition: '4',
-  language: 'en',
-  retrievedAt: projection.generatedAt,
-  sourceUrl: artifact.url,
-  checksum: artifact.id.slice('artifact:sha256:'.length),
-  mediaType: 'application/octet-stream',
-}))
-
-const sourceRecords: SourceRecord[] = projection.sourceRecords.map(record => ({
-  id: record.id,
-  artifactId: record.artifactId,
-  locator: record.locator,
-  recordChecksum: 'runtime-projection',
-  rulesContextIds: record.rulesContextIndexes.map(index => projection.rulesContexts[index].id),
-}))
+const sourceRecordIndexesByEntityId = new Map<CanonicalId, readonly number[]>()
 
 const entities: ContentEntity[] = projection.entities.map(entity => {
   const { rulesContextIndexes, sourceRecordIndexes, ...content } = entity
+  sourceRecordIndexesByEntityId.set(entity.id as CanonicalId, sourceRecordIndexes)
   return {
     ...content,
     revision: 'runtime-projection',
     rulesContextIds: rulesContextIndexes.map(index => projection.rulesContexts[index].id),
-    sourceRefs: sourceRecordIndexes.map(index => ({
-      sourceRecordId: projection.sourceRecords[index].id,
-    })),
+    // Provenance travels beside the catalog in AOS4_SOURCE_RECORD_INDEXES rather than as ID strings
+    // here: materializing them is what forced every source record into this chunk.
+    sourceRefs: [],
   } as ContentEntity
 })
+
+/**
+ * Every entity's source records, as indexes into the sources artifact's `sourceRecords`.
+ *
+ * Keyed by entity ID and covering all of them, not just the abilities a reminder cites: weapons,
+ * warscrolls, content groups, battle profiles, publications, and factions all carry provenance, and
+ * the guarantee that each one keeps it is a product commitment (see PRODUCT.md). Resolve an index
+ * against `loadAos4SourceData()` from `./sources`.
+ */
+export const AOS4_SOURCE_RECORD_INDEXES: ReadonlyMap<CanonicalId, readonly number[]> =
+  sourceRecordIndexesByEntityId
 
 const relationships: ContentRelationship[] = projection.relationships.map((relationship, index) => ({
   id: `relationship:runtime-${index}`,
@@ -85,8 +72,9 @@ export const AOS4_CATALOG: Aos4Catalog = {
   schemaVersion: projection.catalogSchemaVersion,
   generatedAt: projection.generatedAt,
   rulesContexts: projection.rulesContexts,
-  sourceArtifacts,
-  sourceRecords,
+  // Empty by design: see AOS4_SOURCE_RECORD_INDEXES and `./sources`.
+  sourceArtifacts: [],
+  sourceRecords: [],
   entities,
   relationships,
 }

@@ -1,0 +1,1891 @@
+[
+  {
+    "faction": "Kruleboyz",
+    "reminders": [
+      {
+        "id": "reminder:ability:086897dd-a4b0-5274-add0-526823fa079f@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Swampboss-Skumdrekk\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Swampboss-Skumdrekk"
+        ]
+      },
+      {
+        "id": "reminder:ability:d86dcbde-9e3e-5b6c-90ae-797a490ff3e2@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:26a233ca-96db-51af-bbf1-773ee88a67fa@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:925adcfc-4d01-571c-a761-0c2c2fb91887@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:17b4f51a-6b9f-53d1-bf33-cdfd296fa9d9@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Swampboss-Skumdrekk\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Swampboss-Skumdrekk"
+        ]
+      },
+      {
+        "id": "reminder:ability:4d6f5a36-3bc2-5a22-9d85-6a96d80c10b6@deployment|active|neutral|normal|1:battle:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:91d188ab-3dc5-54ed-9be4-70b25ac92bd9@battle-round-start|active|neutral|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:2e2b26c1-6c7d-5192-9ccf-4e8fb4bbaddc@turn-phase:start-of-turn|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:7292ff04-55f8-5ec6-a1ec-f4bc7d0e278a@turn-phase:start-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Breaka-boss-on-Mirebrute-Troggoth\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Breaka-boss-on-Mirebrute-Troggoth",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Marshcrawla-Sloggoth\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Marshcrawla-Sloggoth"
+        ]
+      },
+      {
+        "id": "reminder:ability:dc64ada5-02dc-5ace-a602-b942caf7e09c@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Great-Gnashtoof\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Great-Gnashtoof"
+        ]
+      },
+      {
+        "id": "reminder:ability:302d1112-d78c-571b-b9b0-75e0a70063a7@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal"
+        ]
+      },
+      {
+        "id": "reminder:ability:9166a0d2-eebb-592c-9b37-5bfc70e57556@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:074be6cf-f9f2-5962-8301-e2fba1a0c045@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Gork-Roara\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Gork-Roara"
+        ]
+      },
+      {
+        "id": "reminder:ability:e08b19c3-4991-5445-ab5e-2f3fd3d526b2@turn-phase:hero|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Swampcalla-Shaman-with-Pot-grot\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Swampcalla-Shaman-with-Pot-grot"
+        ]
+      },
+      {
+        "id": "reminder:ability:9308e686-baa1-56aa-b1ec-0795737d525d@turn-phase:hero|active|your|normal|1:turn:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Chronomantic-Cogs\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Chronomantic-Cogs"
+        ]
+      },
+      {
+        "id": "reminder:ability:a89234c6-b4b0-5a92-af47-e046f6e57bb8@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:40955d1e-8e07-52f8-902c-e5dc1eef9df9@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Snatchaboss-on-Sludgeraker-Beast\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Snatchaboss-on-Sludgeraker-Beast"
+        ]
+      },
+      {
+        "id": "reminder:ability:16a8be90-75cb-55e6-a0dc-85120d96c1ad@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork"
+        ]
+      },
+      {
+        "id": "reminder:ability:63cb8f9c-81f8-5a98-b1c6-8fc1e0402cb0@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Skaregob-Totem\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Skaregob-Totem"
+        ]
+      },
+      {
+        "id": "reminder:ability:8a82ab28-b78f-5d34-b209-f58d5f1349d8@turn-phase:hero|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:774b4081-71a3-5ab9-8d39-afd046d3ff58@turn-phase:hero|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: kruleboyz\thttps://wahapedia.ru/aos4/factions/kruleboyz/\tartifact:sha256:05a21ea54a5a98f4ae2174b2c4a0a0a50766f1807373c42e3e5c2fe178d795f3#https://wahapedia.ru/aos4/factions/kruleboyz/"
+        ]
+      },
+      {
+        "id": "reminder:ability:8a16aa1a-6a8f-56d3-b66d-ad0154c05bb3@turn-phase:hero|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: kruleboyz\thttps://wahapedia.ru/aos4/factions/kruleboyz/\tartifact:sha256:05a21ea54a5a98f4ae2174b2c4a0a0a50766f1807373c42e3e5c2fe178d795f3#https://wahapedia.ru/aos4/factions/kruleboyz/"
+        ]
+      },
+      {
+        "id": "reminder:ability:ebc5ec8c-496e-5942-b793-5cc1efce7f44@turn-phase:hero|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:11b95757-2790-5b75-9e31-e44c5492a8f7@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm"
+        ]
+      },
+      {
+        "id": "reminder:ability:a53ced43-b0f6-52c9-83df-c3f0e1537008@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge"
+        ]
+      },
+      {
+        "id": "reminder:ability:a20694fa-c2c0-5cd5-9b8c-2af40624e42c@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish"
+        ]
+      },
+      {
+        "id": "reminder:ability:0a974371-8430-599d-aab6-aafda07fe2de@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Skaregob-Totem\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Skaregob-Totem"
+        ]
+      },
+      {
+        "id": "reminder:ability:5e59818f-2afb-5ad9-9924-a83b9c051a00@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:6c2ca0e5-6af5-5e93-be4c-a4b29d75acd2@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr"
+        ]
+      },
+      {
+        "id": "reminder:ability:802b0470-cc72-5976-a5ba-f6ce29840bd5@turn-phase:movement|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Scourge-of-Aqshy-Killaboss-on-Great-Gnashtoof\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Scourge-of-Aqshy-Killaboss-on-Great-Gnashtoof"
+        ]
+      },
+      {
+        "id": "reminder:ability:466065b9-9885-5ab9-b9f2-fae4de5ec8c6@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Suffocating-Gravetide\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Suffocating-Gravetide"
+        ]
+      },
+      {
+        "id": "reminder:ability:b8d934e3-dbba-5918-b559-a554eb590e16@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:105b4ef1-0edd-5944-b967-042d860b9ac8@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:e35c45a7-ae61-53d7-97f0-bfb01c6ca11e@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Lauchon-the-Soulseeker\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Lauchon-the-Soulseeker"
+        ]
+      },
+      {
+        "id": "reminder:ability:7fceac6e-b5de-55b0-93e1-31ef89840416@turn-phase:movement|active|your|normal|1:turn:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Foot-of-Gork\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Foot-of-Gork"
+        ]
+      },
+      {
+        "id": "reminder:ability:be5095cc-512f-5735-9806-721bf4c20973@turn-phase:movement|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum"
+        ]
+      },
+      {
+        "id": "reminder:ability:c5426590-5797-58bf-bbed-f867b0f9ff70@turn-phase:movement|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:a7a7d985-f7c2-5695-8626-cfded6cf3efa@turn-phase:shooting|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Beast-skewer-Killbow\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Beast-skewer-Killbow",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Man-skewer-Boltboyz\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Man-skewer-Boltboyz"
+        ]
+      },
+      {
+        "id": "reminder:ability:31ba5a11-583b-5497-bca9-0cf4f206b48d@turn-phase:shooting|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:48d6572e-6878-5c99-89d3-7015895ec4c0@turn-phase:shooting|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Beast-skewer-Killbow\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Beast-skewer-Killbow"
+        ]
+      },
+      {
+        "id": "reminder:ability:935ba56c-564e-58ad-b52c-d16497494685@turn-phase:shooting|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Horrorghast\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Horrorghast"
+        ]
+      },
+      {
+        "id": "reminder:ability:52837635-29a5-50b9-9564-669c52f90bd6@turn-phase:shooting|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:4fa34498-6bd1-5dd6-ae5c-6b983d02e82f@turn-phase:charge|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:8972495e-c1fc-5125-bd9e-7c16387b0507@turn-phase:charge|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1"
+        ]
+      },
+      {
+        "id": "reminder:ability:aafec5be-699e-5622-96e6-f6f695cc7b7f@turn-phase:charge|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: kruleboyz\thttps://wahapedia.ru/aos4/factions/kruleboyz/\tartifact:sha256:05a21ea54a5a98f4ae2174b2c4a0a0a50766f1807373c42e3e5c2fe178d795f3#https://wahapedia.ru/aos4/factions/kruleboyz/"
+        ]
+      },
+      {
+        "id": "reminder:ability:5c87a16f-939f-56b8-9a95-5427c08f16d6@turn-phase:charge|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1"
+        ]
+      },
+      {
+        "id": "reminder:ability:06e6e2ce-56b2-5b13-b4eb-734eb1f94cba@turn-phase:charge|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Ravenak-s-Gnashing-Jaws\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Ravenak-s-Gnashing-Jaws"
+        ]
+      },
+      {
+        "id": "reminder:ability:0320a964-9c8b-5d53-b62d-edaf07fcffb5@turn-phase:charge|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Corpse-rippa-Vulcha\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Corpse-rippa-Vulcha"
+        ]
+      },
+      {
+        "id": "reminder:ability:8ce98082-5e64-5aad-89b9-72231d67ffc0@turn-phase:charge|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:c6aecc3f-6532-5c21-b44c-e162a9a59b34@turn-phase:combat|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Scourge-of-Aqshy-Killaboss-on-Great-Gnashtoof\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Scourge-of-Aqshy-Killaboss-on-Great-Gnashtoof"
+        ]
+      },
+      {
+        "id": "reminder:ability:95026943-9dcb-58e8-8b9e-e6e5c2b76fec@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Breaka-boss-on-Mirebrute-Troggoth\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Breaka-boss-on-Mirebrute-Troggoth"
+        ]
+      },
+      {
+        "id": "reminder:ability:a0cf2917-bde3-5766-b2ee-dcc9a29f8a16@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Murknob-with-Belcha-banna\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Murknob-with-Belcha-banna"
+        ]
+      },
+      {
+        "id": "reminder:ability:dd0f41c2-322d-5562-97ac-e35b0aac88e9@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork"
+        ]
+      },
+      {
+        "id": "reminder:ability:6845a1f7-f5f5-5eeb-80bd-64aaab4b8209@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:cb8054ce-8f00-5dc9-8058-de0df6b79d94@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Scourge-of-Aqshy-Killaboss-with-Stab-grot\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Scourge-of-Aqshy-Killaboss-with-Stab-grot"
+        ]
+      },
+      {
+        "id": "reminder:ability:688f6f13-1b7c-574f-a883-1af880374c7f@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: kruleboyz\thttps://wahapedia.ru/aos4/factions/kruleboyz/\tartifact:sha256:05a21ea54a5a98f4ae2174b2c4a0a0a50766f1807373c42e3e5c2fe178d795f3#https://wahapedia.ru/aos4/factions/kruleboyz/"
+        ]
+      },
+      {
+        "id": "reminder:ability:5166abe0-dfcb-58e1-8dc8-d1fb1d828638@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Gutrippaz\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Gutrippaz"
+        ]
+      },
+      {
+        "id": "reminder:ability:556c42b4-1bdc-550d-97a3-05cbca4a31a6@turn-phase:combat|active|any|normal|1:battle:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Hobgrot-Slittaboss\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Hobgrot-Slittaboss"
+        ]
+      },
+      {
+        "id": "reminder:ability:baf14486-4b5c-5593-a104-dd797fe35269@turn-phase:combat|active|any|normal|1:battle:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-with-Stab-grot\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-with-Stab-grot"
+        ]
+      },
+      {
+        "id": "reminder:ability:c1379641-2243-5a91-980a-59c7825a6ca3@turn-phase:end-of-turn|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Swampboss-Skumdrekk\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Swampboss-Skumdrekk"
+        ]
+      },
+      {
+        "id": "reminder:ability:1c7ea8de-07e5-57e7-a11f-7c80db971628@turn-phase:end-of-turn|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:0ffb0303-4e28-5560-961f-3a92afbf4e6b@turn-phase:end-of-turn|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Snatchaboss-on-Sludgeraker-Beast\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Snatchaboss-on-Sludgeraker-Beast"
+        ]
+      },
+      {
+        "id": "reminder:ability:e89c73ba-429b-5086-a8a7-1c282117e80b@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom"
+        ]
+      },
+      {
+        "id": "reminder:ability:9b4349e2-2ae2-5459-8ca6-31cb14fcaa35@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:f8016e77-af90-51d4-b4d5-a455161dc60c@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm"
+        ]
+      },
+      {
+        "id": "reminder:ability:f3fb6da1-264f-5ac8-acee-2eb13f6dbbe6@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Hobgrot-Slittaz\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Hobgrot-Slittaz"
+        ]
+      },
+      {
+        "id": "reminder:ability:edaffc38-5489-5de6-8f7e-834a3ef55072@turn-phase:end-of-turn|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Breaka-boss-on-Mirebrute-Troggoth\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Breaka-boss-on-Mirebrute-Troggoth"
+        ]
+      },
+      {
+        "id": "reminder:ability:57694975-d3e4-51fc-ab6c-a6d0ed861dec@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:79af02c0-2d45-52f5-8e3e-2e6d548777de@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:54c7b46a-3683-5e1b-8716-15f22984e879@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:f561a67d-e0ba-5269-9371-1f262e41532e@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Corpse-rippa-Vulcha\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Corpse-rippa-Vulcha"
+        ]
+      },
+      {
+        "id": "reminder:ability:fcad7057-b638-5692-bc9b-093b41d7a566@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:50065dda-6165-5165-9cf4-7c6ad9d80a3b@reaction|reaction|neutral|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Scourge-of-Aqshy-Killaboss-with-Stab-grot\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Scourge-of-Aqshy-Killaboss-with-Stab-grot"
+        ]
+      },
+      {
+        "id": "reminder:ability:f32d7356-d6f5-5082-ab9b-2b396dfc832e@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-with-Stab-grot\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-with-Stab-grot"
+        ]
+      },
+      {
+        "id": "reminder:ability:defdc861-f1fb-5d3e-95bf-6ab4d5705d5e@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Hobgrot-Slittaboss\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Hobgrot-Slittaboss"
+        ]
+      },
+      {
+        "id": "reminder:ability:9c95a746-05b3-52c5-831d-0eaf77e4131a@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork"
+        ]
+      },
+      {
+        "id": "reminder:ability:4a5d5ff8-0fb8-50d8-b95c-6a441cdd6192@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1"
+        ]
+      },
+      {
+        "id": "reminder:ability:49cc25e2-52ae-55ad-905e-cb375a39e7fd@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:0ccd6a62-a0da-50b1-bbaf-1c5fbd0be8dd@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1"
+        ]
+      },
+      {
+        "id": "reminder:ability:76def17a-a8db-5835-ac27-fde66c20ead0@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Corpse-rippa-Vulcha\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Corpse-rippa-Vulcha"
+        ]
+      },
+      {
+        "id": "reminder:ability:5e79aa31-4579-5dfb-ac9e-268781685f7b@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork"
+        ]
+      },
+      {
+        "id": "reminder:ability:85c734ae-9083-52a6-8043-0e4631422c18@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Swampboss-Skumdrekk\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Swampboss-Skumdrekk"
+        ]
+      },
+      {
+        "id": "reminder:ability:b75767f4-a10e-5801-98e1-3927e73ed176@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Kragnos-the-End-of-Empires-1"
+        ]
+      },
+      {
+        "id": "reminder:ability:ffe616be-594a-590d-b03d-53ceef12c2d2@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Snatchaboss-on-Sludgeraker-Beast\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Snatchaboss-on-Sludgeraker-Beast"
+        ]
+      },
+      {
+        "id": "reminder:ability:4445ee2e-6e15-5a07-9482-a3866c6a0d1d@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#The-Burning-Head\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#The-Burning-Head"
+        ]
+      },
+      {
+        "id": "reminder:ability:863cd74f-9e22-5180-8996-b00bfa1bae5c@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:1345c64a-4638-5ce3-99cb-b9b41cddd692@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: kruleboyz\thttps://wahapedia.ru/aos4/factions/kruleboyz/\tartifact:sha256:05a21ea54a5a98f4ae2174b2c4a0a0a50766f1807373c42e3e5c2fe178d795f3#https://wahapedia.ru/aos4/factions/kruleboyz/"
+        ]
+      },
+      {
+        "id": "reminder:ability:616b468e-ec9c-5b63-bc22-7f654fedb9ef@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr"
+        ]
+      },
+      {
+        "id": "reminder:ability:8a2b2e27-3b03-52c2-8ea0-d46f883fe5c5@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:e4375ab2-90a1-54f5-8c9a-eb16532c9b6e@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:92bc8839-12a7-5024-ae2e-71865b69b515@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Morkspit-Marsh\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Morkspit-Marsh"
+        ]
+      },
+      {
+        "id": "reminder:ability:1411a208-8a59-5bda-9fbe-1a53c854a7d2@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:2e6e58f9-c825-5c4e-bee8-10f63fdf5d3e@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Skaregob-Totem\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Skaregob-Totem"
+        ]
+      },
+      {
+        "id": "reminder:ability:f3b59a49-a028-5c22-b102-3495383ab3bb@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Man-skewer-Boltboyz\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Man-skewer-Boltboyz"
+        ]
+      },
+      {
+        "id": "reminder:ability:88c53279-6b5d-5637-87eb-bca3d8a33efc@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Gobsprakk-the-Mouth-of-Mork"
+        ]
+      },
+      {
+        "id": "reminder:ability:13b6510f-1e07-543a-ac46-cbb7140fdbe9@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr",
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge",
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal"
+        ]
+      },
+      {
+        "id": "reminder:ability:65f3a46a-9725-5976-ab4d-3eaf9d455eb7@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Foot-of-Gork\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Foot-of-Gork"
+        ]
+      },
+      {
+        "id": "reminder:ability:b0668ed1-c741-5052-965e-003daee4d298@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Geminids-of-Uhl-Gysh\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Geminids-of-Uhl-Gysh"
+        ]
+      },
+      {
+        "id": "reminder:ability:ab110f00-1ceb-5f8c-a246-0418f5b3a9cf@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:c190c5a5-1e08-5a3c-a990-455cd67e3993@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom"
+        ]
+      },
+      {
+        "id": "reminder:ability:9048f427-c376-5059-b80e-97b31f849af5@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Marshcrawla-Sloggoth\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Marshcrawla-Sloggoth"
+        ]
+      },
+      {
+        "id": "reminder:ability:3ca482ff-ee72-52c4-9674-90228a8f1180@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Swampcalla-Shaman-with-Pot-grot\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Swampcalla-Shaman-with-Pot-grot"
+        ]
+      },
+      {
+        "id": "reminder:ability:d1c7df7e-b85d-581d-bd74-b5ac137eb2b7@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Murknob-with-Belcha-banna\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Murknob-with-Belcha-banna"
+        ]
+      },
+      {
+        "id": "reminder:ability:caab41b9-1631-54cb-a0fd-bb948fed032b@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish"
+        ]
+      },
+      {
+        "id": "reminder:ability:383ca4ef-313d-515f-804d-0eeced3b713a@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Skaregob-Totem\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Skaregob-Totem"
+        ]
+      },
+      {
+        "id": "reminder:ability:d4f2145c-fff8-5181-b90d-66e456f107ff@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-with-Stab-grot\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-with-Stab-grot"
+        ]
+      },
+      {
+        "id": "reminder:ability:3b3045a5-74b1-5bd2-912b-04c88c56b869@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:3e0cf837-7a5a-5958-bcb2-9f90dc627db7@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Geminids-of-Uhl-Gysh\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Geminids-of-Uhl-Gysh"
+        ]
+      },
+      {
+        "id": "reminder:ability:4a1ce45f-dee9-5c51-8027-21ff44683e0b@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Great-Gnashtoof\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Killaboss-on-Great-Gnashtoof"
+        ]
+      },
+      {
+        "id": "reminder:ability:b61fce6f-5d4f-5def-9cd9-db89c953b862@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum"
+        ]
+      },
+      {
+        "id": "reminder:ability:f37f66a6-a3ae-5e92-820d-5755791ac360@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/kruleboyz/Morkspit-Marsh\tartifact:sha256:9cf73f62a7b6cdc17b325859a16f6f97842e0b4d07bcb23d8fc26ec728e3a8dd#https://wahapedia.ru/aos4/factions/kruleboyz/Morkspit-Marsh"
+        ]
+      },
+      {
+        "id": "reminder:ability:b0e43ddf-eaa3-571c-9783-8fc41c00b338@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      }
+    ]
+  },
+  {
+    "faction": "Sons of Behemat",
+    "reminders": [
+      {
+        "id": "reminder:ability:d86dcbde-9e3e-5b6c-90ae-797a490ff3e2@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:26a233ca-96db-51af-bbf1-773ee88a67fa@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:925adcfc-4d01-571c-a761-0c2c2fb91887@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:4d6f5a36-3bc2-5a22-9d85-6a96d80c10b6@deployment|active|neutral|normal|1:battle:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:91d188ab-3dc5-54ed-9be4-70b25ac92bd9@battle-round-start|active|neutral|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:2e2b26c1-6c7d-5192-9ccf-4e8fb4bbaddc@turn-phase:start-of-turn|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:302d1112-d78c-571b-b9b0-75e0a70063a7@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal"
+        ]
+      },
+      {
+        "id": "reminder:ability:9166a0d2-eebb-592c-9b37-5bfc70e57556@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:79d932c1-600f-5ada-ba75-4623e4886729@turn-phase:hero|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:141f4670-597b-525c-b4f6-a62bbea4c72c@turn-phase:hero|active|your|normal|1:battle:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:9308e686-baa1-56aa-b1ec-0795737d525d@turn-phase:hero|active|your|normal|1:turn:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Chronomantic-Cogs\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Chronomantic-Cogs"
+        ]
+      },
+      {
+        "id": "reminder:ability:4958eefe-b74b-5773-9f27-f5b3f92c7969@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd"
+        ]
+      },
+      {
+        "id": "reminder:ability:a89234c6-b4b0-5a92-af47-e046f6e57bb8@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:488a9d3b-c1fc-5875-a979-04423ad1ca16@turn-phase:hero|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Soulsnare-Shackles\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Soulsnare-Shackles"
+        ]
+      },
+      {
+        "id": "reminder:ability:8a82ab28-b78f-5d34-b209-f58d5f1349d8@turn-phase:hero|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:ebc5ec8c-496e-5942-b793-5cc1efce7f44@turn-phase:hero|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:11b95757-2790-5b75-9e31-e44c5492a8f7@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm"
+        ]
+      },
+      {
+        "id": "reminder:ability:a53ced43-b0f6-52c9-83df-c3f0e1537008@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge"
+        ]
+      },
+      {
+        "id": "reminder:ability:a20694fa-c2c0-5cd5-9b8c-2af40624e42c@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish"
+        ]
+      },
+      {
+        "id": "reminder:ability:5e59818f-2afb-5ad9-9924-a83b9c051a00@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:d3faee4a-6a26-5845-9d0c-1613d67ed7ec@turn-phase:movement|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:6c2ca0e5-6af5-5e93-be4c-a4b29d75acd2@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr"
+        ]
+      },
+      {
+        "id": "reminder:ability:466065b9-9885-5ab9-b9f2-fae4de5ec8c6@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Suffocating-Gravetide\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Suffocating-Gravetide"
+        ]
+      },
+      {
+        "id": "reminder:ability:b8d934e3-dbba-5918-b559-a554eb590e16@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:105b4ef1-0edd-5944-b967-042d860b9ac8@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:e35c45a7-ae61-53d7-97f0-bfb01c6ca11e@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Lauchon-the-Soulseeker\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Lauchon-the-Soulseeker"
+        ]
+      },
+      {
+        "id": "reminder:ability:be5095cc-512f-5735-9806-721bf4c20973@turn-phase:movement|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum"
+        ]
+      },
+      {
+        "id": "reminder:ability:c5426590-5797-58bf-bbed-f867b0f9ff70@turn-phase:movement|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:31ba5a11-583b-5497-bca9-0cf4f206b48d@turn-phase:shooting|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:378d78a2-0485-56c5-9921-afd24f79ae94@turn-phase:shooting|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Mancrusher-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Mancrusher-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:935ba56c-564e-58ad-b52c-d16497494685@turn-phase:shooting|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Horrorghast\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Horrorghast"
+        ]
+      },
+      {
+        "id": "reminder:ability:52837635-29a5-50b9-9564-669c52f90bd6@turn-phase:shooting|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:4fa34498-6bd1-5dd6-ae5c-6b983d02e82f@turn-phase:charge|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:0620cad6-a0d5-59d0-9f0f-ebf888de3ee9@turn-phase:charge|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires"
+        ]
+      },
+      {
+        "id": "reminder:ability:41383ca0-7320-543d-a8a9-4498c2297015@turn-phase:charge|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
+        ]
+      },
+      {
+        "id": "reminder:ability:d685b45c-de84-56e1-91ea-7014bfab7884@turn-phase:charge|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires"
+        ]
+      },
+      {
+        "id": "reminder:ability:06e6e2ce-56b2-5b13-b4eb-734eb1f94cba@turn-phase:charge|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Ravenak-s-Gnashing-Jaws\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Ravenak-s-Gnashing-Jaws"
+        ]
+      },
+      {
+        "id": "reminder:ability:8ce98082-5e64-5aad-89b9-72231d67ffc0@turn-phase:charge|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:bef87fcc-743c-5e58-9eb1-4bce9f1050bd@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:d6ea6bfe-2718-5dbb-a2c5-b67afce5bc0f@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
+        ]
+      },
+      {
+        "id": "reminder:ability:bf3b29a5-2991-59b4-a8da-448ca2b7c4b6@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
+        ]
+      },
+      {
+        "id": "reminder:ability:6845a1f7-f5f5-5eeb-80bd-64aaab4b8209@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:bd98f8dd-b784-5805-9c7f-4fb140f3aa91@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:44044eb5-f44b-5713-8247-a05ca340ab50@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
+        ]
+      },
+      {
+        "id": "reminder:ability:06b04246-4152-504e-9c2c-342d75bd4272@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:78c191e0-0698-5843-8aeb-a5c37ab10bae@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:bfbe8cad-ad63-5ac7-9be4-d490126bbe16@turn-phase:combat|active|any|normal|1:turn:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Gargant-1\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Gargant-1",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob"
+        ]
+      },
+      {
+        "id": "reminder:ability:cc9c6db7-5176-5135-9175-956becbfc2e6@turn-phase:combat|active|any|normal|1:turn:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:bbb5d16d-7b1f-5a92-bca3-25ce0762967f@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Krondspine-Incarnate-of-Ghur\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Krondspine-Incarnate-of-Ghur"
+        ]
+      },
+      {
+        "id": "reminder:ability:1c7ea8de-07e5-57e7-a11f-7c80db971628@turn-phase:end-of-turn|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:e89c73ba-429b-5086-a8a7-1c282117e80b@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom"
+        ]
+      },
+      {
+        "id": "reminder:ability:9b4349e2-2ae2-5459-8ca6-31cb14fcaa35@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:f8016e77-af90-51d4-b4d5-a455161dc60c@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm"
+        ]
+      },
+      {
+        "id": "reminder:ability:57694975-d3e4-51fc-ab6c-a6d0ed861dec@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:79af02c0-2d45-52f5-8e3e-2e6d548777de@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:54c7b46a-3683-5e1b-8716-15f22984e879@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:fcad7057-b638-5692-bc9b-093b41d7a566@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:ef509458-5ff3-54a9-a588-deec3b6ec0da@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires"
+        ]
+      },
+      {
+        "id": "reminder:ability:49cc25e2-52ae-55ad-905e-cb375a39e7fd@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:c03149fc-9292-59a8-b0cb-9101f2cb5010@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob"
+        ]
+      },
+      {
+        "id": "reminder:ability:ecb5405b-f475-54a4-a3a0-47a16e683c1c@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Krondspine-Incarnate-of-Ghur\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Krondspine-Incarnate-of-Ghur"
+        ]
+      },
+      {
+        "id": "reminder:ability:21644575-409f-5935-a711-e91a1dc83cd8@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires"
+        ]
+      },
+      {
+        "id": "reminder:ability:0120e73a-cfd7-5832-bc37-03c497f8104d@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:4e160dfc-706e-5d7e-96a9-5f3c0f3feb20@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:5073e8fe-cd0b-5a8a-9553-6d8798b0e958@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kragnos-the-End-of-Empires"
+        ]
+      },
+      {
+        "id": "reminder:ability:7f1a899a-2b44-5f91-9a8c-ed0abac0c518@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:befe82b4-49d4-5232-a492-41da791b08d9@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:ca710e02-cc92-5074-9353-01e8f6fbc2fb@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd"
+        ]
+      },
+      {
+        "id": "reminder:ability:6ebf0bda-9719-555b-b53e-08fd9b6e7281@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:928cc241-fedb-543d-94dd-a9632d60c744@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Prismatic-Palisade\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Prismatic-Palisade"
+        ]
+      },
+      {
+        "id": "reminder:ability:4445ee2e-6e15-5a07-9482-a3866c6a0d1d@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#The-Burning-Head\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#The-Burning-Head"
+        ]
+      },
+      {
+        "id": "reminder:ability:863cd74f-9e22-5180-8996-b00bfa1bae5c@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:2be4a39a-ffd7-5305-95d5-b0f80c850976@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd"
+        ]
+      },
+      {
+        "id": "reminder:ability:d40142ba-52f9-5cba-b8fa-57a975590999@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Quicksilver-Swords\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Quicksilver-Swords"
+        ]
+      },
+      {
+        "id": "reminder:ability:616b468e-ec9c-5b63-bc22-7f654fedb9ef@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr"
+        ]
+      },
+      {
+        "id": "reminder:ability:8a2b2e27-3b03-52c2-8ea0-d46f883fe5c5@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:e4375ab2-90a1-54f5-8c9a-eb16532c9b6e@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:1411a208-8a59-5bda-9fbe-1a53c854a7d2@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:bc98d612-db29-50b3-8add-8760a0338160@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Gargant-1\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Gargant-1",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob"
+        ]
+      },
+      {
+        "id": "reminder:ability:45555c38-eae9-5353-b0cd-0650355ac804@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:13b6510f-1e07-543a-ac46-cbb7140fdbe9@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr",
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge",
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal"
+        ]
+      },
+      {
+        "id": "reminder:ability:a5052dbd-bc38-5688-addd-a8abe374e8fc@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Soulsnare-Shackles\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Soulsnare-Shackles"
+        ]
+      },
+      {
+        "id": "reminder:ability:b0668ed1-c741-5052-965e-003daee4d298@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Geminids-of-Uhl-Gysh\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Geminids-of-Uhl-Gysh"
+        ]
+      },
+      {
+        "id": "reminder:ability:ab110f00-1ceb-5f8c-a246-0418f5b3a9cf@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:c190c5a5-1e08-5a3c-a990-455cd67e3993@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom"
+        ]
+      },
+      {
+        "id": "reminder:ability:caab41b9-1631-54cb-a0fd-bb948fed032b@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish"
+        ]
+      },
+      {
+        "id": "reminder:ability:4166ffc4-634a-5f7f-a412-4334cee5e5ee@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:6c6f5570-07f9-58dc-9218-e4885d1ac965@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:897bd2f9-879e-53f4-922c-f68c0f3d9adf@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:3b3045a5-74b1-5bd2-912b-04c88c56b869@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:3e0cf837-7a5a-5958-bcb2-9f90dc627db7@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Geminids-of-Uhl-Gysh\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Geminids-of-Uhl-Gysh"
+        ]
+      },
+      {
+        "id": "reminder:ability:b61fce6f-5d4f-5def-9cd9-db89c953b862@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum"
+        ]
+      },
+      {
+        "id": "reminder:ability:b31d7031-c272-5df8-9840-885aed75fd90@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
+        ]
+      },
+      {
+        "id": "reminder:ability:1e61ca54-4d9e-530b-9e81-0e447e084b1d@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:b0e43ddf-eaa3-571c-9783-8fc41c00b338@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:53f762b2-88ec-57c9-98b0-742b07f1e99e@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Krondspine-Incarnate-of-Ghur\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Krondspine-Incarnate-of-Ghur"
+        ]
+      }
+    ]
+  },
+  {
+    "faction": "Lumineth Realm-lords",
+    "reminders": [
+      {
+        "id": "reminder:ability:d86dcbde-9e3e-5b6c-90ae-797a490ff3e2@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:26a233ca-96db-51af-bbf1-773ee88a67fa@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:925adcfc-4d01-571c-a761-0c2c2fb91887@deployment|active|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:4d6f5a36-3bc2-5a22-9d85-6a96d80c10b6@deployment|active|neutral|normal|1:battle:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:bed35732-ddff-583c-bbaa-b662289355e6@battle-round-start|active|neutral|normal|1:battle-round:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: lumineth realm lords\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/\tartifact:sha256:d443b6fe3ccbb1b4035fd36341087a3e62f1bd9ef4d582a6e023df3e51bad5b2#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/"
+        ]
+      },
+      {
+        "id": "reminder:ability:c1c9d231-be8f-5404-813a-aee46e383f0d@battle-round-start|active|neutral|normal|1:battle:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh"
+        ]
+      },
+      {
+        "id": "reminder:ability:91d188ab-3dc5-54ed-9be4-70b25ac92bd9@battle-round-start|active|neutral|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:2e2b26c1-6c7d-5192-9ccf-4e8fb4bbaddc@turn-phase:start-of-turn|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:302d1112-d78c-571b-b9b0-75e0a70063a7@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal"
+        ]
+      },
+      {
+        "id": "reminder:ability:bb856bdf-a593-5191-983a-c74f03149bcb@turn-phase:hero|active|your|normal|1:turn:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh"
+        ]
+      },
+      {
+        "id": "reminder:ability:9166a0d2-eebb-592c-9b37-5bfc70e57556@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:36f0a406-17bb-5a77-9c6a-99df620a5c38@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scinari-Enlightener\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scinari-Enlightener"
+        ]
+      },
+      {
+        "id": "reminder:ability:8cb6c3d0-ac1f-55ee-a40b-60642f7e94dd@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scourge-of-Aqshy-Alarith-Stonemage\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scourge-of-Aqshy-Alarith-Stonemage"
+        ]
+      },
+      {
+        "id": "reminder:ability:895f0f27-ffb4-5b9e-8c8d-4cfa4f4a8efa@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ellania-and-Ellathor-Eclipsian-Warsages\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ellania-and-Ellathor-Eclipsian-Warsages"
+        ]
+      },
+      {
+        "id": "reminder:ability:1d61f45b-b763-54ec-b4ce-6391e9bc68bd@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Lyrior-Uthralle-Warden-of-Ymetrica\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Lyrior-Uthralle-Warden-of-Ymetrica"
+        ]
+      },
+      {
+        "id": "reminder:ability:2b23e2c1-8d7c-530b-acd9-2da3e0fadcd4@turn-phase:hero|active|your|normal|1:battle:unit",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Lord-Regent-on-Lightcourser\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Lord-Regent-on-Lightcourser"
+        ]
+      },
+      {
+        "id": "reminder:ability:28df62ac-f692-533b-b23d-62e887f3bb56@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Stonemage\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Stonemage"
+        ]
+      },
+      {
+        "id": "reminder:ability:a89234c6-b4b0-5a92-af47-e046f6e57bb8@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:9589f412-4640-596b-8716-494a7a1157a0@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh"
+        ]
+      },
+      {
+        "id": "reminder:ability:1191bfd4-0255-573b-9174-3583e00b77e8@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ellania-and-Ellathor-Eclipsian-Warsages\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ellania-and-Ellathor-Eclipsian-Warsages"
+        ]
+      },
+      {
+        "id": "reminder:ability:b5b03464-1737-5e10-9ea7-cecec81e303f@turn-phase:hero|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hurakan-Windmage\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hurakan-Windmage"
+        ]
+      },
+      {
+        "id": "reminder:ability:8a82ab28-b78f-5d34-b209-f58d5f1349d8@turn-phase:hero|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:b54cc2c5-c740-5696-b75c-f291599ab178@turn-phase:hero|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Rune-of-Petrification\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Rune-of-Petrification"
+        ]
+      },
+      {
+        "id": "reminder:ability:ebc5ec8c-496e-5942-b793-5cc1efce7f44@turn-phase:hero|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:11b95757-2790-5b75-9e31-e44c5492a8f7@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm"
+        ]
+      },
+      {
+        "id": "reminder:ability:a53ced43-b0f6-52c9-83df-c3f0e1537008@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge"
+        ]
+      },
+      {
+        "id": "reminder:ability:a20694fa-c2c0-5cd5-9b8c-2af40624e42c@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish"
+        ]
+      },
+      {
+        "id": "reminder:ability:5e59818f-2afb-5ad9-9924-a83b9c051a00@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:6c2ca0e5-6af5-5e93-be4c-a4b29d75acd2@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr"
+        ]
+      },
+      {
+        "id": "reminder:ability:466065b9-9885-5ab9-b9f2-fae4de5ec8c6@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Suffocating-Gravetide\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Suffocating-Gravetide"
+        ]
+      },
+      {
+        "id": "reminder:ability:b8d934e3-dbba-5918-b559-a554eb590e16@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:105b4ef1-0edd-5944-b967-042d860b9ac8@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:a9edf373-3e07-5e33-9e08-4de7b53c1717@turn-phase:movement|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ydrilan-Riverblades\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ydrilan-Riverblades"
+        ]
+      },
+      {
+        "id": "reminder:ability:e35c45a7-ae61-53d7-97f0-bfb01c6ca11e@turn-phase:movement|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Lauchon-the-Soulseeker\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Lauchon-the-Soulseeker"
+        ]
+      },
+      {
+        "id": "reminder:ability:089c2d25-6fd5-5c9a-a93c-aae9af95ae3d@turn-phase:movement|active|your|normal|1:battle:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hurakan-Windmage\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hurakan-Windmage"
+        ]
+      },
+      {
+        "id": "reminder:ability:be5095cc-512f-5735-9806-721bf4c20973@turn-phase:movement|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum"
+        ]
+      },
+      {
+        "id": "reminder:ability:c5426590-5797-58bf-bbed-f867b0f9ff70@turn-phase:movement|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:31ba5a11-583b-5497-bca9-0cf4f206b48d@turn-phase:shooting|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:935ba56c-564e-58ad-b52c-d16497494685@turn-phase:shooting|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Horrorghast\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Horrorghast"
+        ]
+      },
+      {
+        "id": "reminder:ability:3bab01ec-4e07-546f-b4b3-9f8c4862f5f8@turn-phase:shooting|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sevireth-Lord-of-the-Seventh-Wind\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sevireth-Lord-of-the-Seventh-Wind"
+        ]
+      },
+      {
+        "id": "reminder:ability:52837635-29a5-50b9-9564-669c52f90bd6@turn-phase:shooting|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:4fa34498-6bd1-5dd6-ae5c-6b983d02e82f@turn-phase:charge|active|your|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:06e6e2ce-56b2-5b13-b4eb-734eb1f94cba@turn-phase:charge|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Ravenak-s-Gnashing-Jaws\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Ravenak-s-Gnashing-Jaws"
+        ]
+      },
+      {
+        "id": "reminder:ability:8ce98082-5e64-5aad-89b9-72231d67ffc0@turn-phase:charge|active|enemy|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:6845a1f7-f5f5-5eeb-80bd-64aaab4b8209@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:85b9c1d5-bda1-5c11-ba89-55eee6df9a19@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Spirit-of-the-Mountain\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Spirit-of-the-Mountain"
+        ]
+      },
+      {
+        "id": "reminder:ability:ac5dc5d9-6bd0-5660-be5e-758519ffdd59@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ydrilan-Riverblades\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ydrilan-Riverblades"
+        ]
+      },
+      {
+        "id": "reminder:ability:f855fd35-85e9-53b5-be08-135dd0505d38@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sevireth-Lord-of-the-Seventh-Wind\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sevireth-Lord-of-the-Seventh-Wind"
+        ]
+      },
+      {
+        "id": "reminder:ability:3013a051-cf2f-5cd0-acf3-189d4c4b0a6b@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Stonemage\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Stonemage"
+        ]
+      },
+      {
+        "id": "reminder:ability:492676ff-5a33-5a92-bd02-936ab41b4eb0@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Avalenor-The-Stoneheart-King\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Avalenor-The-Stoneheart-King"
+        ]
+      },
+      {
+        "id": "reminder:ability:f42ed0fe-c39b-5fe9-a563-6eea96572e09@turn-phase:combat|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/The-Light-of-Eltharion\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/The-Light-of-Eltharion"
+        ]
+      },
+      {
+        "id": "reminder:ability:77dba731-0eb0-5a4f-b997-e78a653d72b5@turn-phase:combat|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Lord-Regent\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Lord-Regent"
+        ]
+      },
+      {
+        "id": "reminder:ability:1c7ea8de-07e5-57e7-a11f-7c80db971628@turn-phase:end-of-turn|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:e89c73ba-429b-5086-a8a7-1c282117e80b@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom"
+        ]
+      },
+      {
+        "id": "reminder:ability:9b4349e2-2ae2-5459-8ca6-31cb14fcaa35@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:f8016e77-af90-51d4-b4d5-a455161dc60c@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Emerald-Lifeswarm"
+        ]
+      },
+      {
+        "id": "reminder:ability:1801cacd-a4a2-5880-8eb6-4fc0b17642c0@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ellania-and-Ellathor-Eclipsian-Warsages\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Ellania-and-Ellathor-Eclipsian-Warsages"
+        ]
+      },
+      {
+        "id": "reminder:ability:57694975-d3e4-51fc-ab6c-a6d0ed861dec@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:79af02c0-2d45-52f5-8e3e-2e6d548777de@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:54c7b46a-3683-5e1b-8716-15f22984e879@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:fcad7057-b638-5692-bc9b-093b41d7a566@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:55d2eb79-546b-5552-9364-4faf54c1d2e8@reaction|reaction|neutral|normal|1:battle:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scinari-Calligrave\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scinari-Calligrave"
+        ]
+      },
+      {
+        "id": "reminder:ability:5d2d94aa-9ca2-59f1-9650-d26d8b3203a5@reaction|reaction|neutral|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hyshian-Twinstones\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hyshian-Twinstones"
+        ]
+      },
+      {
+        "id": "reminder:ability:f289879c-6b38-5a3b-86ec-13a3ab5023ae@reaction|reaction|neutral|normal|1:turn:army",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scinari-Enlightener\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scinari-Enlightener"
+        ]
+      },
+      {
+        "id": "reminder:ability:49cc25e2-52ae-55ad-905e-cb375a39e7fd@reaction|reaction|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:696ea41f-1e6a-5097-be63-b5537da471cc@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Auralan-Wardens\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Auralan-Wardens"
+        ]
+      },
+      {
+        "id": "reminder:ability:9d9d0df5-0a0f-55e6-ba33-c19eff8b0ac2@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh"
+        ]
+      },
+      {
+        "id": "reminder:ability:17c0cbf7-b312-55d3-8995-2bf88f8c12be@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Archmage-Teclis-and-Celennar-Spirit-of-Hysh"
+        ]
+      },
+      {
+        "id": "reminder:ability:1e7b79fc-c73c-5096-9785-d7126f253d12@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Spirit-of-the-Mountain\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Spirit-of-the-Mountain"
+        ]
+      },
+      {
+        "id": "reminder:ability:c394d5f3-9732-5482-9b3c-9c66cb82b48a@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Avalenor-The-Stoneheart-King\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Avalenor-The-Stoneheart-King"
+        ]
+      },
+      {
+        "id": "reminder:ability:4445ee2e-6e15-5a07-9482-a3866c6a0d1d@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#The-Burning-Head\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#The-Burning-Head"
+        ]
+      },
+      {
+        "id": "reminder:ability:d4c730c6-d001-583c-bf1b-5ca7863c487e@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Avalenor-The-Stoneheart-King\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Avalenor-The-Stoneheart-King"
+        ]
+      },
+      {
+        "id": "reminder:ability:d45ab65d-8d7d-50a8-b129-d1755493ac46@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sevireth-Lord-of-the-Seventh-Wind\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sevireth-Lord-of-the-Seventh-Wind"
+        ]
+      },
+      {
+        "id": "reminder:ability:863cd74f-9e22-5180-8996-b00bfa1bae5c@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:5605920b-fd02-523f-87d6-54a7ca4e2a9b@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Lyrior-Uthralle-Warden-of-Ymetrica\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Lyrior-Uthralle-Warden-of-Ymetrica"
+        ]
+      },
+      {
+        "id": "reminder:ability:82c3c34e-dba5-519d-bc1f-c39c3aaeb9cc@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Dawnriders\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Dawnriders"
+        ]
+      },
+      {
+        "id": "reminder:ability:96f44ed5-53ed-5617-9007-a8684d97a206@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scourge-of-Aqshy-Alarith-Stonemage\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Scourge-of-Aqshy-Alarith-Stonemage"
+        ]
+      },
+      {
+        "id": "reminder:ability:616b468e-ec9c-5b63-bc22-7f654fedb9ef@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr"
+        ]
+      },
+      {
+        "id": "reminder:ability:8a2b2e27-3b03-52c2-8ea0-d46f883fe5c5@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: general s handbook 2026 27\thttps://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/\tartifact:sha256:ee0feb16b5a25c74469faddbec71bd092527203b3166047d30f09f0173e64471#https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+        ]
+      },
+      {
+        "id": "reminder:ability:e4375ab2-90a1-54f5-8c9a-eb16532c9b6e@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:826ff987-d3b1-5e33-8377-5a8826eecaf7@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Stoneguard\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Stoneguard"
+        ]
+      },
+      {
+        "id": "reminder:ability:1411a208-8a59-5bda-9fbe-1a53c854a7d2@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:6e124fe7-0673-5679-ace2-81a58120e12e@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Bladelords\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Bladelords"
+        ]
+      },
+      {
+        "id": "reminder:ability:d76e7554-1109-57d3-ad01-e823ce27a085@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hurakan-Windchargers\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hurakan-Windchargers"
+        ]
+      },
+      {
+        "id": "reminder:ability:22e1b18c-ea16-5a05-99b2-f97ed3d78653@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Lord-Regent-on-Lightcourser\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Lord-Regent-on-Lightcourser"
+        ]
+      },
+      {
+        "id": "reminder:ability:96ac4d6a-c1ef-5e85-9157-2005a9fb5316@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Bladelords\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Bladelords"
+        ]
+      },
+      {
+        "id": "reminder:ability:13b6510f-1e07-543a-ac46-cbb7140fdbe9@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Shards-of-Valagharr",
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge",
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Umbral-Spellportal"
+        ]
+      },
+      {
+        "id": "reminder:ability:bddd8bbb-f30b-5dbb-98de-0771271b1394@always|passive|neutral|normal|unlimited",
+        "links": [
+          "official\tRules Updates\thttps://assets.warhammer-community.com/eng_29-07_warhammer_age_of_sigmar_core_rules_rules_updates-aittiy7gbv-sobi7rwdr7.pdf\tartifact:sha256:f22149076e05dd6c450a5390c8d11dd72a8bf62663dd9a4df6ab99dad621acd2#https://assets.warhammer-community.com/eng_29-07_warhammer_age_of_sigmar_core_rules_rules_updates-aittiy7gbv-sobi7rwdr7.pdf",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sanctum-of-Amyntok\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sanctum-of-Amyntok"
+        ]
+      },
+      {
+        "id": "reminder:ability:ab110f00-1ceb-5f8c-a246-0418f5b3a9cf@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:c190c5a5-1e08-5a3c-a990-455cd67e3993@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Malevolent-Maelstrom"
+        ]
+      },
+      {
+        "id": "reminder:ability:caab41b9-1631-54cb-a0fd-bb948fed032b@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish"
+        ]
+      },
+      {
+        "id": "reminder:ability:0ba99835-e993-5871-b34c-325ca4cc02dd@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hyshian-Twinstones\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Hyshian-Twinstones"
+        ]
+      },
+      {
+        "id": "reminder:ability:2c55c340-2d87-509e-8c80-cd60e5a01bd1@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Lord-Regent\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Lord-Regent"
+        ]
+      },
+      {
+        "id": "reminder:ability:4d42b9d9-0cf0-5514-8ddc-6c8273062e1a@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sanctum-of-Amyntok\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Sanctum-of-Amyntok"
+        ]
+      },
+      {
+        "id": "reminder:ability:3b3045a5-74b1-5bd2-912b-04c88c56b869@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:0f600a69-1f59-5976-842e-a4b7111ac9dd@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/The-Light-of-Eltharion\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/The-Light-of-Eltharion"
+        ]
+      },
+      {
+        "id": "reminder:ability:b61fce6f-5d4f-5def-9cd9-db89c953b862@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum\tartifact:sha256:b4b9a262cdb7cbefabe3e30272d72e4a3fe311acf0e37f0a461690f7d03b3486#https://wahapedia.ru/aos4/factions/endless-spells/#Aethervoid-Pendulum"
+        ]
+      },
+      {
+        "id": "reminder:ability:b0e43ddf-eaa3-571c-9783-8fc41c00b338@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:03d55ca9-571e-50e9-ad38-7c08cb550a8f@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Spirit-of-the-Mountain\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Alarith-Spirit-of-the-Mountain"
+        ]
+      },
+      {
+        "id": "reminder:ability:f699124c-eb82-5c84-ad9b-7e07b9ce86cb@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Avalenor-The-Stoneheart-King\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Avalenor-The-Stoneheart-King"
+        ]
+      },
+      {
+        "id": "reminder:ability:6a584887-208a-5603-8628-20df4be1fc50@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Bannerblade\tartifact:sha256:2153026f610bbb2c227f63837d7302b0be5a502f70358e5ed866bea89fbfd441#https://wahapedia.ru/aos4/factions/lumineth-realm-lords/Vanari-Bannerblade"
+        ]
+      }
+    ]
+  }
+]

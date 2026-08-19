@@ -11,6 +11,7 @@ import {
   type UsageLimit,
   type UsageScope,
 } from '../domain'
+import { AOS4_SOURCE_RECORD_INDEXES } from '../generated/corpus/catalog'
 import {
   gameWindowKey,
   projectReminders,
@@ -204,7 +205,12 @@ export interface Aos4ReminderViewModel {
   hidden: boolean
   note?: string
   order?: number
-  sourceRecordIds: string[]
+  /**
+   * The reminder's source records as indexes into the sources artifact, resolved to links only when
+   * a card's source menu is opened. Indexes rather than IDs so nothing on the render path has to
+   * have parsed the 20,078 records that carry those IDs.
+   */
+  sourceRecordIndexes: number[]
   /** The game-wide rules module carrying this reminder, when one does. Text-only provenance data;
    * the tag row renders the quieter `provenance` tone instead (see `provenanceTag`). */
   rulesModule?: string
@@ -433,7 +439,18 @@ const withPreferences = (
     hidden: preference?.hidden ?? false,
     ...(preference?.note ? { note: preference.note } : {}),
     ...(preference?.order !== undefined ? { order: preference.order } : {}),
-    sourceRecordIds: reminder.sourceRefs.map(reference => String(reference.sourceRecordId)),
+    /*
+     * From the side table rather than `reminder.sourceRefs`, which the runtime catalog now ships
+     * empty. Ability IDs are entity IDs, so the entity-keyed table serves this directly, and the
+     * union covers the abilities that merged into one reminder during projection.
+     *
+     * Sorted ascending because `projectReminders` deduped its references by source-record ID and
+     * the projection emits records in that same ID order — so index order is the order the menu
+     * has always listed citations in.
+     */
+    sourceRecordIndexes: Array.from(
+      new Set(reminder.abilityIds.flatMap(id => AOS4_SOURCE_RECORD_INDEXES.get(id) ?? []))
+    ).sort((left, right) => left - right),
     ...(rulesModule ? { rulesModule } : {}),
     projected: reminder,
   }

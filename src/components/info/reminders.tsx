@@ -24,7 +24,11 @@ export interface ReminderSourceLink {
 }
 
 interface RemindersProps {
-  getSources: (reminder: Aos4ReminderViewModel) => ReminderSourceLink[]
+  /**
+   * Resolves a reminder's citations. Asynchronous because the source records live in their own
+   * chunk, fetched the first time a player opens a source menu rather than when an army renders.
+   */
+  getSources: (reminder: Aos4ReminderViewModel) => Promise<ReminderSourceLink[]>
   isGameMode: boolean
   onHide: (reminder: Aos4ReminderViewModel) => void
   onNote: (reminder: Aos4ReminderViewModel, note: string) => void
@@ -109,6 +113,77 @@ export const ReminderTags = ({ tags }: { tags: Aos4ReminderViewModel['tags'] }) 
   )
 }
 
+/**
+ * What the source menu knows about a reminder's citations. `idle` until the menu is first opened —
+ * react-bootstrap does not mount `Dropdown.Menu` children before then, and nothing outside it asks.
+ */
+type SourceState =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'ready'; links: ReminderSourceLink[] }
+  | { status: 'unavailable' }
+
+/**
+ * The citation region of a reminder's menu. It sits below every action the menu already offered, so
+ * a state change here never moves the items above it — the loading row holds the place the links
+ * arrive into, per DESIGN.md's loading-state convention.
+ */
+const ReminderSources = ({ state }: { state: SourceState }) => {
+  if (state.status === 'idle') return null
+
+  if (state.status === 'loading') {
+    return (
+      <>
+        <Dropdown.Divider />
+        <Dropdown.ItemText>
+          <span className="spinner-border spinner-border-sm" role="status">
+            <span className="visually-hidden">Loading sources</span>
+          </span>
+        </Dropdown.ItemText>
+      </>
+    )
+  }
+
+  // Offline, or the chunk simply could not be fetched. The failure is not cached, so reopening the
+  // menu tries again rather than leaving the card permanently without its citations.
+  if (state.status === 'unavailable') {
+    return (
+      <>
+        <Dropdown.Divider />
+        <Dropdown.ItemText>Sources unavailable offline</Dropdown.ItemText>
+      </>
+    )
+  }
+
+  if (!state.links.length) return null
+
+  return (
+    <>
+      <Dropdown.Divider />
+      <Dropdown.Header>Source{state.links.length > 1 ? 's' : ''}:</Dropdown.Header>
+      {state.links.map(source =>
+        source.href ? (
+          <a
+            key={source.id}
+            className="dropdown-item"
+            href={source.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {source.official && <span className="badge bg-primary rounded-pill me-2">Official</span>}
+            {source.label}
+          </a>
+        ) : (
+          <Dropdown.ItemText key={source.id}>
+            {source.official && <span className="badge bg-primary rounded-pill me-2">Official</span>}
+            {source.label}
+          </Dropdown.ItemText>
+        )
+      )}
+    </>
+  )
+}
+
 const ReminderEntry = ({
   getSources,
   isGameMode,
@@ -127,7 +202,21 @@ const ReminderEntry = ({
   const { theme } = useTheme()
   const isMobile = useIsMobile()
   const [editingNote, setEditingNote] = useState(false)
-  const sources = getSources(reminder)
+  const [sources, setSources] = useState<SourceState>({ status: 'idle' })
+
+  /*
+   * Opening the menu is what pays for the sources chunk. Resolving in the component body instead
+   * charged every rendered reminder for citations almost nobody opens. A menu that has already
+   * resolved keeps its links; one that failed retries on the next open.
+   */
+  const handleToggle = (nextShow: boolean) => {
+    if (!nextShow || sources.status === 'loading' || sources.status === 'ready') return
+    setSources({ status: 'loading' })
+    getSources(reminder).then(
+      links => setSources({ status: 'ready', links }),
+      () => setSources({ status: 'unavailable' })
+    )
+  }
 
   return (
     <div
@@ -145,7 +234,7 @@ const ReminderEntry = ({
           {isMobile && <ReminderTags tags={reminder.tags} />}
         </div>
         <div className="flex-shrink-0 ReminderOptions d-print-none">
-          <Dropdown>
+          <Dropdown onToggle={handleToggle}>
             <Dropdown.Toggle
               as="button"
               className={`ReminderMenuToggle btn btn-link border-0 p-0 ${theme.text}`}
@@ -162,27 +251,7 @@ const ReminderEntry = ({
                   {reminder.note ? 'Edit note' : 'Add note'}
                 </Dropdown.Item>
               )}
-              {!!sources.length && <Dropdown.Divider />}
-              {!!sources.length && <Dropdown.Header>Source{sources.length > 1 ? 's' : ''}:</Dropdown.Header>}
-              {sources.map(source =>
-                source.href ? (
-                  <a
-                    key={source.id}
-                    className="dropdown-item"
-                    href={source.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {source.official && <span className="badge bg-primary rounded-pill me-2">Official</span>}
-                    {source.label}
-                  </a>
-                ) : (
-                  <Dropdown.ItemText key={source.id}>
-                    {source.official && <span className="badge bg-primary rounded-pill me-2">Official</span>}
-                    {source.label}
-                  </Dropdown.ItemText>
-                )
-              )}
+              <ReminderSources state={sources} />
             </Dropdown.Menu>
           </Dropdown>
         </div>

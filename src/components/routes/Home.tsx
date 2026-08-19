@@ -1,5 +1,5 @@
 import { armyFactions, type CanonicalId } from '../../aos4/domain'
-import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID } from '../../aos4/generated'
+import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID, loadAos4SourceData } from '../../aos4/generated'
 import type { PrintDocumentOptions } from '../../aos4/print/document'
 import type { PrintPageSize } from '../../aos4/print/presets'
 import type { PrintPreset } from '../../aos4/print/types'
@@ -24,7 +24,7 @@ import {
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
 import AppBanner from 'components/info/banners/app_banner'
-import Reminders, { REMINDERS_ANCHOR_ID } from 'components/info/reminders'
+import Reminders, { REMINDERS_ANCHOR_ID, type ReminderSourceLink } from 'components/info/reminders'
 import ArmyBuilder from 'components/input/army_builder'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import Toolbar from 'components/input/toolbar/toolbar'
@@ -56,8 +56,17 @@ const loadDocument = (): Aos4ArmyDocument => {
  * Warscroll-ability records deep-link to their unit's own Wahapedia page rather than the
  * faction-wide warscrolls index they were read from (issue #1860). The resolver owns that URL
  * derivation; see src/aos4/view/sourceLinks.ts.
+ *
+ * The records themselves ship in their own chunk, fetched the first time a player opens a source
+ * menu. Both `loadAos4SourceData` and the resolver are built once and shared from then on, so the
+ * hundredth menu costs a map lookup.
  */
-const reminderSources = createAos4ReminderSourceLinkResolver(AOS4_CATALOG)
+let resolveSourceLinks: ReturnType<typeof createAos4ReminderSourceLinkResolver> | undefined
+const reminderSources = (reminder: Aos4ReminderViewModel): Promise<ReminderSourceLink[]> =>
+  loadAos4SourceData().then(sources => {
+    resolveSourceLinks ??= createAos4ReminderSourceLinkResolver(sources)
+    return resolveSourceLinks(reminder)
+  })
 
 /*
  * Every decoded faction can name itself, but only the ones that field units are offered. A stored

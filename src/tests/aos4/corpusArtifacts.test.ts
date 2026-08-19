@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { armyFactions } from '../../aos4/domain'
 import type { Aos4RuntimeProjection } from '../../aos4/generate'
@@ -74,6 +74,54 @@ describe('AoS 4 derived corpus artifacts', () => {
       entity.sourceRecordIndexes.some(index => !Number.isInteger(index) || index < 0 || index >= bound)
     )
     expect(unaddressable.map(entity => entity.id)).toEqual([])
+  })
+
+  /**
+   * A static edge from `catalog.ts` to the sources artifact would put all 7 MB of citations back in
+   * the chunk Home renders from, undoing the split without failing anything else. Walking the real
+   * static import graph — rather than matching source text — keeps the check anchored to what the
+   * bundler follows.
+   */
+  const staticSpecifiers = (source: string): string[] => [
+    ...Array.from(source.matchAll(/\b(?:import|export)\s[^;]*?\bfrom\s*['"]([^'"]+)['"]/g), m => m[1]),
+    ...Array.from(source.matchAll(/\bimport\s+['"]([^'"]+)['"]/g), m => m[1]),
+  ]
+
+  const resolveModule = (fromFile: string, specifier: string): string | undefined => {
+    if (!specifier.startsWith('.')) return undefined
+    const base = path.resolve(path.dirname(fromFile), specifier)
+    return [base, `${base}.ts`, `${base}.tsx`, `${base}.json`, path.join(base, 'index.ts')].find(
+      candidate => existsSync(candidate) && statSync(candidate).isFile()
+    )
+  }
+
+  const staticGraphFrom = (entry: string): Set<string> => {
+    const seen = new Set<string>()
+    const queue = [entry]
+    while (queue.length) {
+      const file = queue.shift()!
+      if (seen.has(file) || file.endsWith('.json')) {
+        seen.add(file)
+        continue
+      }
+      seen.add(file)
+      staticSpecifiers(readFileSync(file, 'utf8')).forEach(specifier => {
+        const resolved = resolveModule(file, specifier)
+        if (resolved && !seen.has(resolved)) queue.push(resolved)
+      })
+    }
+    return seen
+  }
+
+  it('never reaches the sources artifact through a static import from the catalog', () => {
+    const graph = staticGraphFrom(corpusPath('catalog.ts'))
+    expect(graph).toContain(corpusPath('runtime.core.json'))
+    expect(graph).not.toContain(corpusPath('runtime.sources.json'))
+    expect(graph).not.toContain(corpusPath('sources.ts'))
+    // And the loader reaches it only dynamically, which is what gives it its own chunk.
+    const loader = readFileSync(corpusPath('sources.ts'), 'utf8')
+    expect(staticSpecifiers(loader)).not.toContain('./runtime.sources.json')
+    expect(loader).toContain("import('./runtime.sources.json')")
   })
 
   it('indexes every decoded faction and flags the ones a player can field', () => {

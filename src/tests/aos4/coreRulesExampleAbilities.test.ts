@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { armyFactions, type Aos4Catalog, type Faction } from '../../aos4/domain'
-import { AOS4_CATALOG } from '../../aos4/generated'
+import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 import { projectReminders } from '../../aos4/reminders'
 import { resolveSelection } from '../../aos4/select'
 
@@ -50,7 +50,7 @@ const exampleRecordIdSet = new Set(EXAMPLE_CARD_SOURCE_RECORD_IDS)
 
 /** The shipped catalog is generated from the accepted review, so nothing should remain to drop. */
 const excludedEntityIds = new Set(
-  AOS4_CATALOG.entities
+  AOS4_FULL_CATALOG.entities
     .filter(
       entity =>
         entity.sourceRefs.length > 0 &&
@@ -60,9 +60,9 @@ const excludedEntityIds = new Set(
 )
 
 const correctedCatalog: Aos4Catalog = {
-  ...AOS4_CATALOG,
-  entities: AOS4_CATALOG.entities.filter(entity => !excludedEntityIds.has(entity.id)),
-  relationships: AOS4_CATALOG.relationships.filter(
+  ...AOS4_FULL_CATALOG,
+  entities: AOS4_FULL_CATALOG.entities.filter(entity => !excludedEntityIds.has(entity.id)),
+  relationships: AOS4_FULL_CATALOG.relationships.filter(
     relationship => !excludedEntityIds.has(relationship.from) && !excludedEntityIds.has(relationship.to)
   ),
 }
@@ -106,7 +106,7 @@ describe('core-rules example ability cards stay out of reminders (customer repor
   })
 
   it('targets only the illustrative Mystic Shield and Resurrection cards', () => {
-    const targeted = AOS4_CATALOG.entities.filter(entity =>
+    const targeted = AOS4_FULL_CATALOG.entities.filter(entity =>
       entity.sourceRefs.some(reference => exampleRecordIdSet.has(reference.sourceRecordId))
     )
     // The accepted catalog is generated from the review, so the list is expected to be empty.
@@ -140,19 +140,19 @@ describe('core-rules example ability cards stay out of reminders (customer repor
   }, 30_000)
 
   it('loses nothing except the example cards from a representative army', () => {
-    const stormcast = AOS4_CATALOG.entities.find(
+    const stormcast = AOS4_FULL_CATALOG.entities.find(
       (entity): entity is Faction => entity.kind === 'faction' && entity.name === 'Stormcast Eternals'
     )
     expect(stormcast).toBeDefined()
     stormcast!.rulesContextIds.forEach(rulesContextId => {
-      const before = reminderNames(AOS4_CATALOG, stormcast!, rulesContextId)
+      const before = reminderNames(AOS4_FULL_CATALOG, stormcast!, rulesContextId)
       const after = reminderNames(correctedCatalog, stormcast!, rulesContextId)
       expect(after).toEqual(before.filter(name => !EXAMPLE_CARD_NAMES.includes(name)))
       EXAMPLE_CARD_NAMES.forEach(name => expect(after).not.toContain(name))
     })
 
     // The real universal abilities from the same core-rules page survive the exclusion.
-    const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
+    const seasonal = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
     const seasonalNames = reminderNames(correctedCatalog, stormcast!, seasonal.id)
     ;['SACRED RITES', 'UNBIND', 'BANISH MANIFESTATION', 'ALL-OUT ATTACK', 'RALLY'].forEach(name =>
       expect(seasonalNames).toContain(name)
