@@ -3,6 +3,12 @@
 import { createDefaultAos4ArmyDocument, saveAos4ArmyDocument } from '../../aos4/runtime'
 import { serializeAos4ArmyDocument } from '../../aos4/state'
 import Home from 'components/routes/Home'
+/*
+ * Home's catalog-bound half is behind `lazy()`, and resolving it means parsing the whole rules
+ * corpus — seconds, not a flush. Loading it statically here puts that cost in module evaluation
+ * where no per-test timeout applies, so the awaits below are about React and not about JSON.
+ */
+import 'components/routes/HomeCatalogBound'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
@@ -108,6 +114,11 @@ const remoteArmy = (id: string, name: string) => ({
 describe('cloud army link reconciliation on load', () => {
   let container: HTMLDivElement
 
+  /*
+   * The reconciliation lives in Home's catalog-bound half, which is behind `lazy()` — so the render
+   * has to get past the shell's Suspense boundary before the effects under test have even mounted.
+   * The second flush covers the collection fetch those effects start.
+   */
   const renderHome = async () => {
     await act(async () => {
       render(
@@ -122,6 +133,9 @@ describe('cloud army link reconciliation on load', () => {
         </AppStatusProvider>,
         container
       )
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 0))
     })
   }

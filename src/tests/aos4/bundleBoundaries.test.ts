@@ -70,15 +70,20 @@ describe('initial bundle boundaries', () => {
     expect(viteConfig).toContain("name: 'initial-entry-chunk-budget'")
   })
 
+  /*
+   * The modals and the PDF renderer moved with the rest of the catalog-bound tree when Home split
+   * into a shell and a lazily-loaded child, so the boundary they cross is asserted where they now
+   * live. The shell itself is checked below: it may not reach any of this statically.
+   */
   it('loads import and PDF implementation only when their controls are used', async () => {
-    const home = await source('src/components/routes/Home.tsx')
+    const catalogBound = await source('src/components/routes/HomeCatalogBound.tsx')
 
-    expect(home).toContain(
+    expect(catalogBound).toContain(
       "const ImportArmyModal = lazy(() => import('components/input/importArmy/importArmyModal'))"
     )
-    expect(home).toContain("const PrintModal = lazy(() => import('components/print/printModal'))")
-    expect(home).toContain("await import('../../aos4/print')")
-    expect(home).not.toMatch(/^import\s+\{[^}]*renderPrintPlanToPdf[^}]*\}\s+from\s+['"]/m)
+    expect(catalogBound).toContain("const PrintModal = lazy(() => import('components/print/printModal'))")
+    expect(catalogBound).toContain("await import('../../aos4/print')")
+    expect(catalogBound).not.toMatch(/^import\s+\{[^}]*renderPrintPlanToPdf[^}]*\}\s+from\s+['"]/m)
   })
 
   /*
@@ -122,5 +127,23 @@ describe('initial bundle boundaries', () => {
 
     expect(graph).toContain('src/bootstrap/router.tsx')
     expect(graph.filter(file => CORPUS_MODULES.test(file))).toEqual([])
+  })
+
+  /*
+   * The point of the shell. Home's own chunk paints the screen, and the corpus may only arrive
+   * through the `lazy()` edge to HomeCatalogBound — which the walker does not follow, because a
+   * dynamic import is the boundary rather than a leak through it. Anchored on the child being
+   * dirty as well as the shell being clean: a walk that resolved nothing would otherwise report
+   * a shell that statically imports the catalog as a clean one.
+   */
+  it('keeps the generated catalog out of the Home shell graph', async () => {
+    const [shell, catalogBound] = await Promise.all([
+      staticGraphFrom('src/components/routes/Home.tsx'),
+      staticGraphFrom('src/components/routes/HomeCatalogBound.tsx'),
+    ])
+
+    expect(shell).toContain('src/components/page/footer.tsx')
+    expect(shell.filter(file => CORPUS_MODULES.test(file))).toEqual([])
+    expect(catalogBound.filter(file => CORPUS_MODULES.test(file)).length).toBeGreaterThan(0)
   })
 })

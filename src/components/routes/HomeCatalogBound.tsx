@@ -1,0 +1,610 @@
+import { armyFactions, type CanonicalId } from '../../aos4/domain'
+import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID, loadAos4SourceData } from '../../aos4/generated'
+import type { PrintDocumentOptions } from '../../aos4/print/document'
+import type { PrintPageSize } from '../../aos4/print/presets'
+import type { PrintPreset } from '../../aos4/print/types'
+import {
+  createDefaultAos4ArmyDocument,
+  deriveAos4OverlayFlags,
+  loadAos4ArmyDocument,
+  saveAos4ArmyDocument,
+} from '../../aos4/runtime'
+import { resolveSelection } from '../../aos4/select'
+import {
+  createAos4ArmyDocument,
+  serializeAos4ArmyDocument,
+  setAos4ReminderPreference,
+  type Aos4ArmyDocument,
+} from '../../aos4/state'
+import {
+  createAos4BuilderViewModel,
+  createAos4ReminderSourceLinkResolver,
+  createAos4ReminderViewModel,
+  migrateAos4ReminderPreferences,
+  type Aos4ReminderViewModel,
+} from '../../aos4/view'
+import AppBanner from 'components/info/banners/app_banner'
+import Reminders, { REMINDERS_ANCHOR_ID, type ReminderSourceLink } from 'components/info/reminders'
+import ArmyBuilder from 'components/input/army_builder'
+import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
+import Toolbar from 'components/input/toolbar/toolbar'
+import { Header } from 'components/page/homeHeader'
+import { messageForError, useArmyCollection } from 'context/useArmyCollection'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { logFactionSelection, logGameModeChange, logPdfDownload } from 'utils/analytics'
+import { clearCloudArmyLink, readCloudArmyLink, writeCloudArmyLink } from 'utils/cloudArmyLink'
+import { consumePendingShareId } from 'utils/shareLink'
+
+/*
+ * Everything on Home shaped `f(catalog, …)`. Home itself is the catalog-free shell that loads this
+ * behind `lazy()`, so the rules corpus is off the route chunk's static import graph and off the
+ * first-paint path. Nothing here is new: the module-scope derivations, the state, and the tree are
+ * what Home rendered inline before the split, moved across whole so a rendering regression would
+ * have to come from the boundary rather than from an edit.
+ */
+
+const ImportArmyModal = lazy(() => import('components/input/importArmy/importArmyModal'))
+const PrintModal = lazy(() => import('components/print/printModal'))
+const ClearArmyModal = lazy(() => import('components/modals/generic/generic_destructive_modal'))
+const SaveArmyModal = lazy(() => import('components/input/cloudArmies/saveArmyModal'))
+const SavedArmiesModal = lazy(() => import('components/input/cloudArmies/savedArmiesModal'))
+const ShareArmyModal = lazy(() => import('components/input/armySharing/shareArmyModal'))
+const SharedArmyModal = lazy(() => import('components/input/armySharing/sharedArmyModal'))
+
+const loadDocument = (): Aos4ArmyDocument => {
+  try {
+    return loadAos4ArmyDocument(window.localStorage, AOS4_CATALOG).document
+  } catch {
+    return createDefaultAos4ArmyDocument()
+  }
+}
+
+/*
+ * Warscroll-ability records deep-link to their unit's own Wahapedia page rather than the
+ * faction-wide warscrolls index they were read from (issue #1860). The resolver owns that URL
+ * derivation; see src/aos4/view/sourceLinks.ts.
+ *
+ * The records themselves ship in their own chunk, fetched the first time a player opens a source
+ * menu. Both `loadAos4SourceData` and the resolver are built once and shared from then on, so the
+ * hundredth menu costs a map lookup.
+ */
+let resolveSourceLinks: ReturnType<typeof createAos4ReminderSourceLinkResolver> | undefined
+const reminderSources = (reminder: Aos4ReminderViewModel): Promise<ReminderSourceLink[]> =>
+  loadAos4SourceData().then(sources => {
+    resolveSourceLinks ??= createAos4ReminderSourceLinkResolver(sources)
+    return resolveSourceLinks(reminder)
+  })
+
+/*
+ * Every decoded faction can name itself, but only the ones that field units are offered. A stored
+ * document naming a faction that is no longer on offer keeps its own name and leaves the selector
+ * empty, the same way one from another rules context already does.
+ */
+const factionById = new Map(
+  AOS4_CATALOG.entities.flatMap(entity => (entity.kind === 'faction' ? [[entity.id, entity] as const] : []))
+)
+const selectableFactions = armyFactions(AOS4_CATALOG)
+
+const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'AoS'}_Reminders`
+
+/*
+ * The masthead, mode switch, faction select, builder cards, and the toolbar buttons all sit
+ * between the top of the document and the reminders, so reaching the content by keyboard means
+ * tabbing past roughly a dozen controls. The link targets the reminders rather than <main>, because
+ * <main> wraps the routed tree from the navbar down and skipping to it would move nothing.
+ *
+ * It lives here rather than in the shell because `#aos4-reminders` does not exist until this
+ * component mounts, and a skip link pointing at nothing moves focus nowhere.
+ */
+const SkipToReminders = () => (
+  /*
+   * A light chip in both themes rather than a theme slot. The link reveals itself over the masthead,
+   * and the masthead is dark in each theme — Deep Harbour Teal in light, Midnight Slate in dark — so
+   * `theme.bgColor` would paint it Midnight Slate on Midnight Slate and hide it exactly when a
+   * keyboard user needs to see it.
+   */
+  <a
+    className="SkipLink visually-hidden-focusable bg-light text-dark d-print-none"
+    href={`#${REMINDERS_ANCHOR_ID}`}
+  >
+    Skip to reminders
+  </a>
+)
+
+const HomeCatalogBound = () => {
+  const { armies, collectionLoaded, ensureArmiesLoaded, updateArmy } = useArmyCollection()
+  const [document, setDocument] = useState(loadDocument)
+  const [isGameMode, setIsGameMode] = useState(false)
+  const [importModalIsOpen, setImportModalIsOpen] = useState(false)
+  const [savedArmiesModalIsOpen, setSavedArmiesModalIsOpen] = useState(false)
+  const [saveArmyModalIsOpen, setSaveArmyModalIsOpen] = useState(false)
+  const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
+  const [clearArmyModalIsOpen, setClearArmyModalIsOpen] = useState(false)
+  const [pendingShareId, setPendingShareId] = useState(() => consumePendingShareId())
+  const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
+  /*
+   * Which cloud army the current document is a copy of, if any. It links through the save/load
+   * flows and unlinks when the document stops being that army (clear, faction switch, import,
+   * incoming share, remote delete). It decides whether the toolbar offers one-click Update Army
+   * alongside Save As, or a single Save Army.
+   *
+   * Persisted, because the document it describes is. Holding it in memory alone meant every reload
+   * — a service-worker update, a backgrounded tab, a phone reclaiming the page — silently dropped
+   * back to Save Army, and the next save forked a duplicate of the army the player thought they
+   * were updating. See utils/cloudArmyLink.
+   */
+  const [cloudArmyLink, setCloudArmyLink] = useState(readCloudArmyLink)
+  const cloudArmyId = cloudArmyLink?.id
+  const cloudArmyName = cloudArmyLink?.name
+  /*
+   * Whether the army on screen has moved away from the copy on the account. Update Army is offered
+   * only when it has something to write — the same absent-rather-than-disabled rule Show Hidden
+   * follows. A link stored before signatures existed has none, and reports changed: offering a save
+   * that may be unnecessary is the safe side of that guess.
+   */
+  const cloudArmyHasChanges =
+    Boolean(cloudArmyId) && serializeAos4ArmyDocument(document) !== cloudArmyLink?.savedSignature
+  const [updateArmyStatus, setUpdateArmyStatus] = useState<'idle' | 'updating' | 'updated'>('idle')
+  const [updateArmyError, setUpdateArmyError] = useState<string>()
+  const savedArmiesAction = useSubscriberAction({
+    featureName: 'My Armies',
+    onAuthorized: () => setSavedArmiesModalIsOpen(true),
+    origin: 'SavedArmies',
+  })
+  const shareAction = useSubscriberAction({
+    featureName: 'Share Army',
+    onAuthorized: () => setShareModalIsOpen(true),
+    origin: 'ShareArmy',
+  })
+  const saveArmyAction = useSubscriberAction({
+    featureName: 'Save Army',
+    onAuthorized: () => setSaveArmyModalIsOpen(true),
+    origin: 'SaveArmy',
+  })
+  /*
+   * Called at every point the local document becomes a copy of a cloud army — loaded, saved, saved
+   * as, or updated — and records what that copy looked like, so the toolbar can tell later whether
+   * it has moved.
+   */
+  const linkCloudArmy = (id: string, name: string, savedDocument: Aos4ArmyDocument) => {
+    const link = { id, name, savedSignature: serializeAos4ArmyDocument(savedDocument) }
+    setCloudArmyLink(link)
+    writeCloudArmyLink(link)
+    setUpdateArmyError(undefined)
+  }
+  const updateCloudArmy = async () => {
+    if (!cloudArmyId || !cloudArmyName) return
+    setUpdateArmyStatus('updating')
+    setUpdateArmyError(undefined)
+    try {
+      await updateArmy(cloudArmyId, document)
+      // The army on screen is now what the account holds, so it becomes the new baseline.
+      linkCloudArmy(cloudArmyId, cloudArmyName, document)
+      setUpdateArmyStatus('updated')
+    } catch (error) {
+      setUpdateArmyStatus('idle')
+      setUpdateArmyError(messageForError(error))
+    }
+  }
+  const updateArmyAction = useSubscriberAction({
+    featureName: 'Update Army',
+    onAuthorized: () => void updateCloudArmy(),
+    origin: 'UpdateArmy',
+  })
+  const unlinkCloudArmy = () => {
+    setCloudArmyLink(undefined)
+    clearCloudArmyLink()
+    setUpdateArmyError(undefined)
+  }
+
+  useEffect(() => {
+    if (updateArmyStatus !== 'updated') return
+    const timer = window.setTimeout(() => setUpdateArmyStatus('idle'), 2500)
+    return () => window.clearTimeout(timer)
+  }, [updateArmyStatus])
+
+  /*
+   * Nothing else on this screen needs the collection, and it is deliberately not fetched on mount,
+   * so a link restored from storage would sit unreconciled until the player happened to open a
+   * modal — offering Update Army against a record deleted on another device, and failing with
+   * "Army not found." every time it was pressed. The link is the one thing here that has a question
+   * only the account can answer, so it is the one thing that asks (issue #1965).
+   */
+  useEffect(() => {
+    if (!cloudArmyId) return
+    void ensureArmiesLoaded()
+  }, [cloudArmyId, ensureArmiesLoaded])
+
+  /*
+   * A link restored from storage can name an army deleted on another device. Reconciled only
+   * against a collection that actually loaded — an empty list is also what a failed fetch and an
+   * unfetched one look like, and unlinking on that would undo the persistence this exists to
+   * provide. `collectionLoaded` separates those from an account that genuinely holds no armies,
+   * which is exactly the state left behind when the linked record was the last one deleted.
+   */
+  useEffect(() => {
+    if (!cloudArmyId || !collectionLoaded) return
+    const linked = armies.find(army => army.id === cloudArmyId)
+    if (!linked) {
+      setCloudArmyLink(undefined)
+      clearCloudArmyLink()
+      // The banner names a write to this record. Once the record is gone the banner is about
+      // nothing, and it has no dismiss of its own.
+      setUpdateArmyError(undefined)
+      return
+    }
+    // A rename in My Armies must reach the label the toolbar shows for the same record. The
+    // signature is left alone: renaming the saved army does not change the army on screen.
+    if (linked.document.name === cloudArmyName) return
+    setCloudArmyLink(current => {
+      if (!current) return current
+      const link = { ...current, name: linked.document.name }
+      writeCloudArmyLink(link)
+      return link
+    })
+  }, [armies, cloudArmyId, cloudArmyName, collectionLoaded])
+  const factions = useMemo(
+    () =>
+      selectableFactions
+        .filter(faction => faction.rulesContextIds.includes(document.rulesContextId))
+        .map(faction => ({ label: faction.name, value: faction.id }))
+        .sort((left, right) => left.label.localeCompare(right.label)),
+    [document.rulesContextId]
+  )
+  const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
+  const reminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
+  const hiddenCount = reminders.filter(reminder => reminder.hidden).length
+  const selectedFactionId = document.explicitSelectionIds.find(id =>
+    factionById.has(id as CanonicalId<'faction'>)
+  )
+  const factionId = (selectedFactionId as CanonicalId<'faction'> | undefined) ?? AOS4_DEFAULT_FACTION_ID
+  const factionName = factionById.get(factionId)?.name ?? 'Age of Sigmar 4'
+
+  const handleDownloadPdf = async (
+    presetId: PrintPreset['id'],
+    pageSize: PrintPageSize,
+    fileName: string,
+    options: PrintDocumentOptions
+  ) => {
+    const {
+      COMPACT_PRESET,
+      STANDARD_PRESET,
+      createAos4PrintDocument,
+      createJsPdfMeasurer,
+      planPrintLayout,
+      renderPrintPlanToPdf,
+      withPageSize,
+    } = await import('../../aos4/print')
+    const printDocument = createAos4PrintDocument(
+      reminders,
+      {
+        armyName: document.name,
+        factionName,
+        warscrolls: builder.warscrolls,
+      },
+      options
+    )
+    const selectedPreset = presetId === 'compact' ? COMPACT_PRESET : STANDARD_PRESET
+    const preset = withPageSize(selectedPreset, pageSize)
+    const plan = planPrintLayout(printDocument, preset, createJsPdfMeasurer())
+    renderPrintPlanToPdf(plan, { title: printDocument.title }).save(`${fileName}.pdf`)
+    logPdfDownload(presetId, pageSize)
+  }
+
+  useEffect(() => {
+    try {
+      saveAos4ArmyDocument(window.localStorage, document)
+    } catch {
+      // Browser storage can be unavailable in privacy modes. The in-memory document remains usable.
+    }
+  }, [document])
+
+  /*
+   * A rules update that moves an ability's timing moves its reminder occurrence ID, stranding any
+   * hidden/note/order preference keyed on the old one. The migration is idempotent and returns the
+   * same document instance when nothing is stranded, so riding setDocument here persists a remap
+   * through the save effect above without ever looping.
+   */
+  useEffect(() => {
+    const occurrences = reminders.map(reminder => ({
+      id: reminder.id,
+      abilityIds: reminder.projected.abilityIds,
+    }))
+    setDocument(current => migrateAos4ReminderPreferences(current, occurrences))
+  }, [reminders])
+
+  const setSelections = (groupIds: CanonicalId[], selectedIds: CanonicalId[]) => {
+    setDocument(current => {
+      const group = new Set(groupIds)
+      return deriveAos4OverlayFlags(
+        AOS4_CATALOG,
+        createAos4ArmyDocument({
+          ...current,
+          explicitSelectionIds: [
+            ...current.explicitSelectionIds.filter(id => !group.has(id)),
+            ...selectedIds,
+          ],
+        })
+      )
+    })
+  }
+
+  const clearArmy = () => {
+    unlinkCloudArmy()
+    setDocument(current =>
+      createAos4ArmyDocument({
+        ...current,
+        explicitSelectionIds: [factionId],
+        reminderPreferences: {},
+      })
+    )
+  }
+
+  const selectFaction = (nextFactionId: CanonicalId<'faction'>) => {
+    const faction = factionById.get(nextFactionId)
+    logFactionSelection(nextFactionId, faction?.name ?? 'Unknown faction')
+    unlinkCloudArmy()
+    setDocument(current =>
+      createAos4ArmyDocument({
+        ...current,
+        name: faction?.name ?? current.name,
+        explicitSelectionIds: [nextFactionId],
+        reminderPreferences: {},
+      })
+    )
+  }
+
+  // The faction's Armies of Renown, offered as the top-level choice under the faction selector.
+  // Picking one replaces the faction's regular rules, so switching drops explicit selections the
+  // new army no longer offers (the established sub-faction switch behavior). Legends armies
+  // (the White Dwarf Armies of Renown) stay offered under their own group header, like every
+  // other dropdown's overlay content; picking one derives the document's Legends flag.
+  const armiesOfRenown = useMemo(
+    () =>
+      builder.options
+        .filter(option => option.groupType === 'army-of-renown')
+        .map(option => ({
+          label: option.name,
+          value: option.id,
+          ...(option.overlay ? { overlay: option.overlay } : {}),
+        })),
+    [builder]
+  )
+  const armyOfRenownId =
+    document.explicitSelectionIds.find(id => armiesOfRenown.some(option => option.value === id)) ?? null
+
+  const selectArmyOfRenown = (nextId: CanonicalId | null) => {
+    setDocument(current => {
+      const rootIds = new Set(armiesOfRenown.map(option => option.value))
+      const withoutRoots = current.explicitSelectionIds.filter(id => !rootIds.has(id))
+      const nextExplicit = nextId ? [...withoutRoots, nextId] : withoutRoots
+      const probe = resolveSelection(AOS4_CATALOG, {
+        explicitIds: nextExplicit,
+        rulesContextId: current.rulesContextId,
+        allowsLegends: true,
+        allowsHistorical: true,
+      })
+      const stillOffered = new Set(probe.availableIds)
+      return deriveAos4OverlayFlags(
+        AOS4_CATALOG,
+        createAos4ArmyDocument({
+          ...current,
+          explicitSelectionIds: nextExplicit.filter(
+            id => id === nextId || factionById.has(id as CanonicalId<'faction'>) || stillOffered.has(id)
+          ),
+        })
+      )
+    })
+  }
+
+  const toggleGameMode = () => {
+    const nextMode = !isGameMode
+    setIsGameMode(nextMode)
+    logGameModeChange(nextMode)
+  }
+
+  const showAll = () => {
+    setDocument(current =>
+      createAos4ArmyDocument({
+        ...current,
+        reminderPreferences: Object.fromEntries(
+          Object.entries(current.reminderPreferences).flatMap(([id, preference]) => {
+            if (!preference) return []
+            return [[id, { ...preference, hidden: false }]]
+          })
+        ),
+      })
+    )
+  }
+
+  const toggleReminder = (reminder: Aos4ReminderViewModel) => {
+    setDocument(current =>
+      setAos4ReminderPreference(current, reminder.id, {
+        hidden: !reminder.hidden,
+      })
+    )
+  }
+
+  const setReminderNote = (reminder: Aos4ReminderViewModel, note: string) => {
+    setDocument(current =>
+      setAos4ReminderPreference(current, reminder.id, {
+        note,
+      })
+    )
+  }
+
+  const reorderReminders = (ordered: Aos4ReminderViewModel[]) => {
+    setDocument(current =>
+      createAos4ArmyDocument({
+        ...current,
+        reminderPreferences: ordered.reduce(
+          (preferences, reminder, order) => ({
+            ...preferences,
+            [reminder.id]: {
+              ...preferences[reminder.id],
+              order,
+            },
+          }),
+          current.reminderPreferences
+        ),
+      })
+    )
+  }
+
+  return (
+    <>
+      <SkipToReminders />
+
+      <Header
+        armiesOfRenown={armiesOfRenown}
+        armyName={document.name}
+        armyOfRenownId={armyOfRenownId}
+        factionId={factionId}
+        factions={factions}
+        isGameMode={isGameMode}
+        onArmyOfRenownChange={selectArmyOfRenown}
+        onFactionChange={selectFaction}
+        onToggleGameMode={toggleGameMode}
+      />
+
+      <AppBanner />
+
+      {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
+
+      {!isGameMode && (
+        <Toolbar
+          cloudArmyLinked={Boolean(cloudArmyId)}
+          {...(cloudArmyName ? { cloudArmyName } : {})}
+          cloudArmyHasChanges={cloudArmyHasChanges}
+          hiddenCount={hiddenCount}
+          onClearArmy={() => setClearArmyModalIsOpen(true)}
+          onDownloadPdf={() => setPrintModalIsOpen(true)}
+          onImportArmy={() => setImportModalIsOpen(true)}
+          onOpenSavedArmies={savedArmiesAction.run}
+          onSaveArmy={saveArmyAction.run}
+          onShareArmy={shareAction.run}
+          onShowAll={showAll}
+          onUpdateArmy={updateArmyAction.run}
+          subscriberActionDisabled={savedArmiesAction.disabled || shareAction.disabled}
+          updateArmyStatus={updateArmyStatus}
+        />
+      )}
+
+      {!isGameMode && updateArmyError && (
+        <div className="container d-print-none">
+          <div className="alert alert-danger" role="alert">
+            {updateArmyError}
+          </div>
+        </div>
+      )}
+
+      <Reminders
+        getSources={reminderSources}
+        isGameMode={isGameMode}
+        onHide={toggleReminder}
+        onNote={setReminderNote}
+        onReorder={reorderReminders}
+        reminders={reminders}
+      />
+
+      {printModalIsOpen && (
+        <Suspense fallback={null}>
+          <PrintModal
+            closeModal={() => setPrintModalIsOpen(false)}
+            defaultFileName={toFileName(document.name)}
+            isOpen={printModalIsOpen}
+            onDownloadPdf={handleDownloadPdf}
+          />
+        </Suspense>
+      )}
+
+      {importModalIsOpen && (
+        <Suspense fallback={null}>
+          <ImportArmyModal
+            closeModal={() => setImportModalIsOpen(false)}
+            isOpen={importModalIsOpen}
+            onApply={nextDocument => {
+              unlinkCloudArmy()
+              setDocument(nextDocument)
+              setImportModalIsOpen(false)
+            }}
+          />
+        </Suspense>
+      )}
+
+      {savedArmiesModalIsOpen && (
+        <Suspense fallback={null}>
+          <SavedArmiesModal
+            closeModal={() => setSavedArmiesModalIsOpen(false)}
+            isOpen={savedArmiesModalIsOpen}
+            {...(cloudArmyId ? { linkedCloudArmyId: cloudArmyId } : {})}
+            onApply={setDocument}
+            onDeleted={deletedId => {
+              if (deletedId === cloudArmyId) unlinkCloudArmy()
+            }}
+            onLinked={linkCloudArmy}
+          />
+        </Suspense>
+      )}
+
+      {saveArmyModalIsOpen && (
+        <Suspense fallback={null}>
+          <SaveArmyModal
+            closeModal={() => setSaveArmyModalIsOpen(false)}
+            currentDocument={document}
+            isOpen={saveArmyModalIsOpen}
+            onSaved={(savedDocument, savedCloudArmyId, savedName) => {
+              setDocument(savedDocument)
+              linkCloudArmy(savedCloudArmyId, savedName, savedDocument)
+            }}
+          />
+        </Suspense>
+      )}
+
+      {shareModalIsOpen && (
+        <Suspense fallback={null}>
+          <ShareArmyModal
+            closeModal={() => setShareModalIsOpen(false)}
+            document={document}
+            isOpen={shareModalIsOpen}
+          />
+        </Suspense>
+      )}
+
+      {pendingShareId && (
+        <Suspense fallback={null}>
+          <SharedArmyModal
+            closeModal={() => setPendingShareId(undefined)}
+            isOpen
+            onApply={nextDocument => {
+              unlinkCloudArmy()
+              setDocument(nextDocument)
+            }}
+            shareId={pendingShareId}
+          />
+        </Suspense>
+      )}
+
+      {/*
+       * Clear Army fired on one tap and took the notes, hidden flags and ordering with it — the
+       * only content on this screen the player wrote themselves, and the only one with no copy
+       * anywhere else. It is the one action here that earns an interruption.
+       */}
+      {clearArmyModalIsOpen && (
+        <Suspense fallback={null}>
+          <ClearArmyModal
+            bodyText="This empties the builder and discards the notes, hidden reminders, and ordering you set for this army. Armies saved to your account are not affected."
+            closeModal={() => setClearArmyModalIsOpen(false)}
+            confirmText="Clear army"
+            denyText="Keep it"
+            headerText="Clear this army?"
+            isOpen={clearArmyModalIsOpen}
+            onConfirm={clearArmy}
+          />
+        </Suspense>
+      )}
+    </>
+  )
+}
+
+export default HomeCatalogBound
