@@ -84,6 +84,21 @@ const dataPath = (...segments: string[]): string => path.join(process.cwd(), 'da
 
 const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPath(...segments), 'utf8')) as T
 
+/**
+ * The certified whole, read straight off disk rather than through anything the split produced.
+ *
+ * `runtime.json` is pinned by checksum in accepted certification evidence (see
+ * `corpusArtifacts.test.ts`), and it still carries both each entity's `sourceRecordIndexes` and the
+ * full `sourceRecords`. That makes it the one description of provenance that neither the side table
+ * nor the reattachment helper can influence — so a correspondence check against it can actually fail.
+ */
+const certifiedRuntime = JSON.parse(
+  readFileSync(path.join(process.cwd(), 'src', 'aos4', 'generated', 'corpus', 'runtime.json'), 'utf8')
+) as {
+  entities: Array<{ id: CanonicalId; sourceRecordIndexes: number[] }>
+  sourceRecords: Array<{ id: string }>
+}
+
 const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-18.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
 const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-18-summary.json')
@@ -113,14 +128,36 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
       AOS4_CATALOG.entities.filter(entity => !AOS4_SOURCE_RECORD_INDEXES.get(entity.id)?.length)
     ).toEqual([])
     expect(new Set(AOS4_CATALOG.entities.map(entity => entity.kind)).size).toBeGreaterThan(1)
-    // Each entry names real records, and the reattached catalog reproduces the citations the
-    // certified projection carries — the property every case below leans on.
-    AOS4_FULL_CATALOG.entities.forEach(entity => {
-      const indexes = AOS4_SOURCE_RECORD_INDEXES.get(entity.id) ?? []
-      expect(entity.sourceRefs.map(reference => reference.sourceRecordId)).toEqual(
-        indexes.map(index => AOS4_FULL_CATALOG.sourceRecords[index].id)
+
+    /*
+     * Both halves against the certified projection, not against each other. Comparing the side table
+     * to the catalog it built would be a tautology: each entry names the indexes the certified
+     * projection recorded for that entity, and reattaching them reproduces the record IDs it cited.
+     * A bug in either the table or the reattachment helper fails here.
+     */
+    const reattachedById = new Map(AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity]))
+    expect(certifiedRuntime.entities).toHaveLength(AOS4_CATALOG.entities.length)
+    certifiedRuntime.entities.forEach(certified => {
+      expect(AOS4_SOURCE_RECORD_INDEXES.get(certified.id) ?? []).toEqual(certified.sourceRecordIndexes)
+      expect(reattachedById.get(certified.id)?.sourceRefs.map(reference => reference.sourceRecordId)).toEqual(
+        certified.sourceRecordIndexes.map(index => certifiedRuntime.sourceRecords[index].id)
       )
     })
+  })
+
+  /**
+   * The catalog a browser actually renders from. Every other case validates the reattached one, so
+   * without this a structural regression in the shipped half — a dangling rules context, a
+   * relationship pointing at nothing — would only be caught once provenance was glued back on.
+   *
+   * The expected shape is exactly one issue per entity and no other code: `sourceRefs` is empty by
+   * design here, and the deferred citations are what `AOS4_SOURCE_RECORD_INDEXES` carries instead.
+   */
+  it('ships a render catalog that is structurally valid apart from the provenance it defers', () => {
+    const issues = validateCatalog(AOS4_CATALOG)
+
+    expect(new Set(issues.map(issue => issue.code))).toEqual(new Set(['missing-entity-provenance']))
+    expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
   it('reports no missing provenance for any of the 11,453 entities', () => {

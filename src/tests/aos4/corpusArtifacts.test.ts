@@ -3,7 +3,9 @@ import path from 'node:path'
 import { armyFactions } from '../../aos4/domain'
 import type { Aos4RuntimeProjection } from '../../aos4/generate'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
+import type { Aos4RuntimeCore } from '../../aos4/generated/corpus/catalog'
 import { AOS4_FACTION_INDEX } from '../../aos4/generated/corpus/factionIndex'
+import type { Aos4RuntimeSources } from '../../aos4/generated/corpus/sources'
 import { checksumCertificationText } from '../../aos4/review/certification'
 import { createAos4BuilderViewModel } from '../../aos4/view'
 
@@ -14,9 +16,12 @@ import { createAos4BuilderViewModel } from '../../aos4/view'
  * derived halves drifting away from the certified whole.
  */
 
-type CoreArtifact = Omit<Aos4RuntimeProjection, 'sourceArtifacts' | 'sourceRecords'>
-type SourcesArtifact = Pick<Aos4RuntimeProjection, 'sourceArtifacts' | 'sourceRecords'>
-
+/*
+ * The halves are read through the production types — `Aos4RuntimeCore` from the catalog module and
+ * `Aos4RuntimeSources` from the loader — rather than through local `Omit`/`Pick` aliases. A local
+ * copy of the split would let this file's idea of where the seam falls drift from the code's and
+ * still pass, which is exactly the drift these cases exist to catch.
+ */
 const corpusPath = (file: string): string =>
   path.join(process.cwd(), 'src', 'aos4', 'generated', 'corpus', file)
 
@@ -25,8 +30,8 @@ const readCorpus = (file: string): string => readFileSync(corpusPath(file), 'utf
 const readCorpusJson = <T>(file: string): T => JSON.parse(readCorpus(file)) as T
 
 const runtime = readCorpusJson<Aos4RuntimeProjection>('runtime.json')
-const core = readCorpusJson<CoreArtifact>('runtime.core.json')
-const sources = readCorpusJson<SourcesArtifact>('runtime.sources.json')
+const core = readCorpusJson<Aos4RuntimeCore>('runtime.core.json')
+const sources = readCorpusJson<Aos4RuntimeSources>('runtime.sources.json')
 
 const certificationManifest = JSON.parse(
   readFileSync(

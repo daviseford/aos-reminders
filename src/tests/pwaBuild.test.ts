@@ -62,6 +62,31 @@ const precachedUrls = (source: string) =>
 /** The invariant the catalog exclusion exists to hold. Shared so it can be tested against itself. */
 const catalogEntries = (urls: string[]) => urls.filter(url => url.includes('aos4-catalog-data'))
 
+/**
+ * Every `waitUntil(...)` argument in a worker source, matched with balanced parentheses.
+ *
+ * A regex cannot do this: `waitUntil\([^)]*X` stops at the first `)`, so anything nested inside the
+ * argument — an `await` of a call, an IIFE — hides the rest of it from the assertion. Scanning for
+ * the matching paren is what makes "nothing in here mentions the sources chunk" mean it.
+ */
+const waitUntilArguments = (source: string): string[] => {
+  const opener = /waitUntil\(/g
+  const args: string[] = []
+  let match: RegExpExecArray | null
+  while ((match = opener.exec(source)) !== null) {
+    const start = match.index + match[0].length
+    let cursor = start
+    let depth = 1
+    while (cursor < source.length && depth > 0) {
+      if (source[cursor] === '(') depth += 1
+      else if (source[cursor] === ')') depth -= 1
+      cursor += 1
+    }
+    args.push(source.slice(start, cursor - 1))
+  }
+  return args
+}
+
 const precached = precachedUrls(serviceWorkerSource)
 
 describe('web app manifest', () => {
@@ -210,9 +235,14 @@ describe('generated service worker', () => {
 
     const extras = read(extrasImports[0])
     const catalogUrl = extras.match(/CATALOG_URL = "([^"]+)"/)?.[1]
+    const sourcesUrl = extras.match(/SOURCES_URL = "([^"]+)"/)?.[1]
 
-    expect(catalogUrl).toMatch(/^\/assets\/aos4-catalog-data-.+\.js$/)
+    // The negative lookahead is load-bearing: both chunks share the `aos4-catalog-data` prefix, so
+    // without it `aos4-catalog-data-sources-<hash>.js` matches too and two swapped URLs pass.
+    expect(catalogUrl).toMatch(/^\/assets\/aos4-catalog-data-(?!sources-)[^/]+\.js$/)
     expect(exists(catalogUrl!.replace(/^\//, ''))).toBe(true)
+    expect(sourcesUrl).toBeTruthy()
+    expect(catalogUrl).not.toBe(sourcesUrl)
     expect(extras).toContain('caches.delete') // the CRA-era `images` cache
   })
 
@@ -251,8 +281,12 @@ describe('generated service worker', () => {
      * strand that reload on a blank screen — and blocking the whole app update on data most sessions
      * never open would widen the abort surface out of proportion to what it protects.
      */
-    expect(extras).toMatch(/warmChunk\(SOURCES_URL\)\.catch\(/)
-    expect(extras).not.toMatch(/waitUntil\([^)]*SOURCES_URL/)
+    expect(extras).toMatch(/^\s*if \(SOURCES_URL\) warmChunk\(SOURCES_URL\)\.catch\(\(\) => \{\}\)\s*$/m)
+
+    // Both lifecycle handlers hold something, so an empty scan cannot make the filter below vacuous.
+    const heldWork = waitUntilArguments(extras)
+    expect(heldWork).toHaveLength(2)
+    expect(heldWork.filter(argument => argument.includes('SOURCES_URL'))).toEqual([])
   })
 
   it('prunes to the current build across both chunks', () => {

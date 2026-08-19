@@ -52,10 +52,17 @@ const wahapediaHrefs = (reminder: Aos4ReminderViewModel): string[] =>
 
 /**
  * The characterization capture. `reminderSourceLinks.capture.json` records every link three
- * representative armies resolve today, and it is checked in so a refactor of the resolution path
- * has to reproduce it byte for byte rather than merely stay self-consistent. The URL derivation
- * below is subtle enough to break silently: regenerate the fixture only when a deliberate product
- * change to source links has been reviewed.
+ * representative armies resolve, and from here on a refactor of the resolution path has to reproduce
+ * it byte for byte rather than merely stay self-consistent — the URL derivation is subtle enough to
+ * break silently.
+ *
+ * What it does *not* prove is equivalence with the pre-split resolver: it was captured from the
+ * post-split path and committed alongside it, so on its own it is a record of internal consistency.
+ * It guards the derivation and the link content. The *order* is guarded by "emits source records in
+ * ID order" below, which pins the invariant that makes ascending index order reproduce the order
+ * `projectReminders` used to dedupe in — `uniqueBy` on `sourceReferenceKey`, record ID first.
+ *
+ * Regenerate the fixture only when a deliberate product change to source links has been reviewed.
  */
 const CAPTURED_WARSCROLLS_PER_FACTION = 40
 
@@ -173,6 +180,9 @@ describe('the sources artifact behind the links', () => {
    * the order the menu shows them in. That reproduces the order source records were deduped in
    * before the split — by record ID — only because the projection emits them in ID order. Pin it:
    * an unsorted artifact would silently reshuffle every card's source list.
+   *
+   * This case, not the capture above, is what carries the pre/post ordering equivalence: the capture
+   * records the post-split order rather than comparing against the old resolver.
    */
   it('emits source records in ID order, which is what makes index order the menu order', async () => {
     const { sourceRecords } = await loadAos4SourceData()

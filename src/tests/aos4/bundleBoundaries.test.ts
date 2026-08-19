@@ -82,12 +82,17 @@ describe('initial bundle boundaries', () => {
   })
 
   /*
-   * The corpus modules, as opposed to everything generated. `corpus/defaults.json` is 130 bytes and
-   * is deliberately importable from the shell (see armyStorage) — filtering on the directory would
-   * forbid the very edge that replaced the barrel import.
+   * The corpus modules, as opposed to everything generated. The corpus now arrives in halves, so the
+   * sources loader and both derived artifacts are named alongside the certified whole — an import of
+   * `runtime.sources.json` from the shell would put all 7 MB of citations on the first-paint path.
+   *
+   * Two files under the directory are deliberately exempt, which is why this is a file list and not
+   * a directory prefix: `corpus/defaults.json` is 130 bytes and is imported from the shell today
+   * (see armyStorage), and `corpus/faction-index.json` is ~10 KB and the Home shell will import it
+   * in a later PR. Filtering on the directory would forbid the very edges the split exists to allow.
    */
   const CORPUS_MODULES =
-    /^src\/aos4\/generated\/(index\.ts|catalog\.ts|corpus\/(index\.ts|catalog\.ts|runtime\.json))$/
+    /^src\/aos4\/generated\/(index\.ts|catalog\.ts|corpus\/(index\.ts|catalog\.ts|sources\.ts|runtime\.json|runtime\.core\.json|runtime\.sources\.json))$/
 
   /*
    * Cloud armies are reachable from the shell — the provider wraps Home — so nothing in that subtree

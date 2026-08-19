@@ -57,8 +57,14 @@ let pending: Promise<Aos4SourceData> | undefined
  * a rendered army never pays for citations nobody opened. Concurrent and repeated callers share one
  * in-flight promise, so a screen full of reminder menus still fetches the chunk once.
  *
- * A failure is *not* kept: the memo is cleared so the next caller retries, rather than leaving the
- * menu permanently unavailable because one fetch happened while the network was down.
+ * A failure is *not* kept here: the memo is cleared so the next caller re-enters rather than being
+ * handed a rejected promise this module is holding on to. That is the half we control. The browser's
+ * module map is the other half, and it records a failed module as errored — a later `import()` of
+ * the same specifier can re-throw that without going back to the network, in which case recovery
+ * takes a reload. So treat reopening the menu as worth trying, not as a guarantee.
+ *
+ * The real offline mechanism is upstream of both: the service worker warms this chunk after
+ * activation, and the runtime CacheFirst route keeps whatever it fetched. See docs/pwa.md.
  */
 export const loadAos4SourceData = (): Promise<Aos4SourceData> => {
   pending ??= import('./runtime.sources.json')

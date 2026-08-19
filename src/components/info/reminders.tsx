@@ -2,7 +2,7 @@ import type { Aos4ReminderViewModel } from '../../aos4/view'
 import { CollapsibleCardHeader } from 'components/helpers/collapsibleCardHeader'
 import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 /*
  * @hello-pangea/dnd is the maintained fork of react-beautiful-dnd, which Atlassian deprecated in
  * October 2024 at 13.1.1 — a release whose peer range stops at React 18. The fork keeps the same
@@ -205,16 +205,39 @@ const ReminderEntry = ({
   const [sources, setSources] = useState<SourceState>({ status: 'idle' })
 
   /*
+   * The fetch outlives the card. Hiding a rule, reordering a group, switching to game mode, or
+   * loading another army all unmount a reminder, and any of them can happen while its sources chunk
+   * is still in flight — this is a multi-megabyte download over venue wifi. Start as mounted rather
+   * than waiting for the effect: a resolution that lands before passive effects flush is still a
+   * resolution for a live card.
+   */
+  const isMounted = useRef(true)
+  useEffect(() => {
+    isMounted.current = true
+    return () => {
+      isMounted.current = false
+    }
+  }, [])
+
+  /*
    * Opening the menu is what pays for the sources chunk. Resolving in the component body instead
    * charged every rendered reminder for citations almost nobody opens. A menu that has already
-   * resolved keeps its links; one that failed retries on the next open.
+   * resolved keeps its links; one that failed re-attempts on the next open, and one still loading
+   * does not ask again — closing and reopening mid-flight must not start a second resolution.
+   *
+   * "Re-attempts", not "recovers": the loader clears its own memo, but a browser that recorded the
+   * failed module in its module map can re-throw without refetching. See aos4/generated/corpus/sources.
    */
   const handleToggle = (nextShow: boolean) => {
     if (!nextShow || sources.status === 'loading' || sources.status === 'ready') return
     setSources({ status: 'loading' })
     getSources(reminder).then(
-      links => setSources({ status: 'ready', links }),
-      () => setSources({ status: 'unavailable' })
+      links => {
+        if (isMounted.current) setSources({ status: 'ready', links })
+      },
+      () => {
+        if (isMounted.current) setSources({ status: 'unavailable' })
+      }
     )
   }
 

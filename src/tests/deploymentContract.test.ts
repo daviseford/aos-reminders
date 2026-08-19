@@ -528,27 +528,32 @@ echo '{}'
    * threshold: both real ~6-7 MB catalog chunks would silently stop being pre-gzipped in production
    * while this file stayed green. This pins the literal default so a revert is caught here too.
    */
-  it('defaults PRECOMPRESS_THRESHOLD_BYTES to 2,000,000, below both real catalog chunks', () => {
-    const script = readRepoFile('scripts/deploy-production.sh')
-    const defaultMatch = script.match(
+  const precompressThresholdDefault = (): string | undefined =>
+    readRepoFile('scripts/deploy-production.sh').match(
       /PRECOMPRESS_THRESHOLD_BYTES="\$\{PRECOMPRESS_THRESHOLD_BYTES:-(\d+)\}"/
-    )
+    )?.[1]
 
-    expect(defaultMatch?.[1]).toBe('2000000')
+  it('defaults PRECOMPRESS_THRESHOLD_BYTES to 2,000,000', () => {
+    expect(precompressThresholdDefault()).toBe('2000000')
+  })
 
+  /*
+   * The other half of the pin: 2,000,000 is the right literal only while it actually sits below both
+   * real chunks, which needs a build to check. This file is deliberately runnable without one — its
+   * other cases spawn against stub binaries — so the missing build skips this case *visibly* rather
+   * than returning early, which reported green on a checkout that had never measured anything. CI
+   * builds before it tests (see .github/workflows/deploy.yml), so it always runs there.
+   */
+  it('keeps that default below both real catalog chunks', ({ skip }) => {
     const distAssetsDirectory = join(repoRoot, 'dist', 'assets')
-    if (!existsSync(distAssetsDirectory)) {
-      // dist/ is not guaranteed to exist when this file runs on its own; CI always builds first (see
-      // .github/workflows/deploy.yml), so this half of the pin still runs there even when the literal
-      // default check above is the only one that fires locally.
-      return
-    }
+    skip(!existsSync(distAssetsDirectory), 'dist/assets is missing; run `yarn build` to measure the chunks')
+
     const catalogChunkSizes = readdirSync(distAssetsDirectory)
       .filter(file => file.startsWith('aos4-catalog-data') && file.endsWith('.js'))
       .map(file => statSync(join(distAssetsDirectory, file)).size)
 
     expect(catalogChunkSizes.length).toBeGreaterThanOrEqual(2)
-    expect(Number(defaultMatch?.[1])).toBeLessThan(Math.min(...catalogChunkSizes))
+    expect(Number(precompressThresholdDefault())).toBeLessThan(Math.min(...catalogChunkSizes))
   })
 
   it('force-copies unhashed public files with the moderate cache header', () => {
