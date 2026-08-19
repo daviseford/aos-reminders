@@ -845,36 +845,70 @@ const ensureNoErrors = (
 
 /**
  * The faction rows the app renders before the corpus arrives: every decoded faction, whether a
- * player can field it, and whether its Army of Renown select must be reserved.
+ * player can field it, and — per rules context — whether its Army of Renown select must be
+ * reserved.
  *
- * Both flags need the relationship graph, which is exactly what a catalog-free caller does not
- * have, so they are decided here. `hasArmiesOfRenown` is resolved through `resolveSelection` under
- * the same overlays the builder uses, so the flag and the list the header eventually shows are
- * derived from one rule rather than two that can drift apart.
+ * All of it needs the relationship graph, which is exactly what a catalog-free caller does not
+ * have, so it is decided here. The Army of Renown answer is resolved through `resolveSelection`
+ * under the same overlays `createAos4BuilderViewModel` uses, so the reservation and the list the
+ * header eventually shows are derived from one rule rather than two that can drift apart.
+ *
+ * It is resolved once per context rather than once per faction, because the answer genuinely
+ * differs by context: a battletome faction that offers four Armies of Renown in matched play offers
+ * none in Spearhead or Legends. A single flag taken from the default context made the shell reserve
+ * a row on those documents that the arriving child then removed — a shift in the exact direction the
+ * reservation exists to prevent (#1845).
+ *
+ * Contexts are carried as indexes into one top-level `rulesContextIds` array rather than as UUIDs
+ * per row. Each id is 47 bytes and most rows repeat most of them; spelling them out twice per row
+ * would roughly triple an artifact whose whole point is to arrive before the corpus does, and
+ * `src/tests/aos4/corpusArtifacts.test.ts` holds a byte ceiling on it.
  */
-const createFactionIndex = (catalog: Aos4Catalog, rulesContextId: RulesContextId): Aos4FactionIndex => {
+const createFactionIndex = (catalog: Aos4Catalog): Aos4FactionIndex => {
   const playableIds = new Set(armyFactions(catalog).map(faction => faction.id))
   const armyOfRenownIds = new Set<CanonicalId>(
     catalog.entities.flatMap(entity =>
       entity.kind === 'content-group' && entity.groupType === 'army-of-renown' ? [entity.id] : []
     )
   )
+  const rulesContextIds = catalog.rulesContexts
+    .map(context => context.id)
+    .sort((left, right) => left.localeCompare(right))
+  const contextIndexById = new Map(rulesContextIds.map((id, index) => [id, index] as const))
+  const contextIndexes = (ids: readonly RulesContextId[]): number[] =>
+    ids
+      .flatMap(id => {
+        const index = contextIndexById.get(id)
+        return index === undefined ? [] : [index]
+      })
+      .sort((left, right) => left - right)
   return {
     schemaVersion: 1,
+    rulesContextIds,
     factions: catalog.entities
       .filter((entity): entity is Faction => entity.kind === 'faction')
       .sort((left, right) => left.id.localeCompare(right.id))
       .map(faction => ({
         id: faction.id,
         name: faction.name,
-        rulesContextIds: [...faction.rulesContextIds].sort((left, right) => left.localeCompare(right)),
+        rulesContextIndexes: contextIndexes(faction.rulesContextIds),
         playable: playableIds.has(faction.id),
-        hasArmiesOfRenown: resolveSelection(catalog, {
-          explicitIds: [faction.id],
-          rulesContextId,
-          allowsLegends: true,
-          allowsHistorical: true,
-        }).availableIds.some(id => armyOfRenownIds.has(id)),
+        /*
+         * Asked of every context, not only the ones the faction declares itself applicable in: the
+         * builder answers for whatever context the stored document names, so the index has to be
+         * able to answer for the same set or the two can disagree on exactly the rows nobody looks
+         * at until they shift.
+         */
+        armiesOfRenownContextIndexes: rulesContextIds.flatMap((rulesContextId, index) =>
+          resolveSelection(catalog, {
+            explicitIds: [faction.id],
+            rulesContextId,
+            allowsLegends: true,
+            allowsHistorical: true,
+          }).availableIds.some(id => armyOfRenownIds.has(id))
+            ? [index]
+            : []
+        ),
       })),
   }
 }
@@ -1061,7 +1095,7 @@ export const generateCorpusProducts = async (
     rulesContextId: defaultRulesContextId,
     defaultFactionId: defaultFaction.id,
   })
-  const factionIndex = stableCompactJson(createFactionIndex(generated.catalog, defaultRulesContextId))
+  const factionIndex = stableCompactJson(createFactionIndex(generated.catalog))
   const reportWithoutProducts = {
     schemaVersion: 1,
     status: generated.summary.status,

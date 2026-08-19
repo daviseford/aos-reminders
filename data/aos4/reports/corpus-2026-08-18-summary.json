@@ -65,8 +65,8 @@
       "checksum": "56f2897a563b6a9e6a31e83ce8ffd9e3d361d12aa0a8890bf24d374264ffb0a6"
     },
     "src/aos4/generated/corpus/faction-index.json": {
-      "byteLength": 10802,
-      "checksum": "c83ff2cf081522849743ae3e215a105d2a78d8c3f4ca8cb470b05457b49ea88b"
+      "byteLength": 4982,
+      "checksum": "db89eafc8a989c781dd6f3f4699294374e81617ffb12145bbc6e5d76f8d0728d"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
       "byteLength": 6385184,

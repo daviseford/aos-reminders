@@ -41,7 +41,7 @@ import {
  *
  * The masthead is here rather than there because it is the whole point: a player opening the app
  * gets the navbar, the mode switch, and a faction selector carrying the real army names while the
- * corpus is still on the wire. Naming 28 factions needs a 10 KB generated index, not 13 MB of
+ * corpus is still on the wire. Naming 28 factions needs a 5 KB generated index, not 13 MB of
  * rules, so the state the masthead reads — the document, the faction, the game mode — lives here
  * and travels down to the child as props.
  */
@@ -163,13 +163,23 @@ const Home = () => {
    */
   const [catalogBound, setCatalogBound] = useState<Aos4CatalogBoundBindings>()
 
+  /*
+   * The document's rules context, as the index the generated rows address contexts by. `-1` for a
+   * context the corpus no longer carries, which reads as "in nothing" everywhere below — the same
+   * answer an unrecognized id gave before, and the safe one for the reservation in particular.
+   */
+  const rulesContextIndex = useMemo(
+    () => AOS4_FACTION_INDEX.rulesContextIds.indexOf(armyDocument.rulesContextId),
+    [armyDocument.rulesContextId]
+  )
+
   const factions = useMemo(
     () =>
       selectableFactions
-        .filter(faction => faction.rulesContextIds.includes(armyDocument.rulesContextId))
+        .filter(faction => faction.rulesContextIndexes.includes(rulesContextIndex))
         .map(faction => ({ label: faction.name, value: faction.id }))
         .sort((left, right) => left.label.localeCompare(right.label)),
-    [armyDocument.rulesContextId]
+    [rulesContextIndex]
   )
   /*
    * `Aos4ArmyDocument` stores selections, not a faction: the faction is whichever selection carries
@@ -255,11 +265,15 @@ const Home = () => {
           onFactionChange={selectFaction}
           onToggleGameMode={toggleGameMode}
           /*
-           * Only while the catalog has yet to answer. Once it has, its list is the truth — a
-           * faction the index flags but whose current rules context offers none must not be left
-           * holding a placeholder that never fills.
+           * Only while the catalog has yet to answer, and only for the document's own rules
+           * context: the same faction offers four Armies of Renown in matched play and none in
+           * Spearhead or Legends, so a context-blind reservation would put a row on a Spearhead
+           * document that the arriving child then removes — a shift in the direction reserving is
+           * meant to prevent. Once the catalog has answered, its list is the truth.
            */
-          reserveArmyOfRenownSlot={!catalogBound && Boolean(faction?.hasArmiesOfRenown)}
+          reserveArmyOfRenownSlot={
+            !catalogBound && Boolean(faction?.armiesOfRenownContextIndexes.includes(rulesContextIndex))
+          }
         />
 
         <AppBanner />

@@ -28,8 +28,11 @@ interface HeaderProps {
    *
    * The row is rendered conditionally, so a shell that passed `[]` for a faction that does have
    * Armies of Renown would have the label and select *inserted* the moment the catalog landed,
-   * pushing the builder and every reminder below it down the page. The faction index carries a
-   * `hasArmiesOfRenown` flag for exactly this: reserve on the flag, fill in on the real list.
+   * pushing the builder and every reminder below it down the page. The faction index carries
+   * `armiesOfRenownContextIndexes` for exactly this: reserve when the document's own rules context
+   * is in that list, fill in on the real list. Answering per context matters — the same faction has
+   * several in matched play and none in Spearhead — because a row reserved and then *removed*
+   * shifts the page just as far as one inserted.
    */
   reserveArmyOfRenownSlot?: boolean
 }

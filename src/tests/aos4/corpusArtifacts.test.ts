@@ -144,6 +144,20 @@ describe('AoS 4 derived corpus artifacts', () => {
     ).toEqual(armyFactions(AOS4_CATALOG).map(faction => ({ id: faction.id, name: faction.name })))
   })
 
+  /**
+   * Both index arrays on a row address `rulesContextIds`, so a row that resolved against a stale or
+   * reordered copy of that array would still typecheck and still describe *some* context. This is
+   * the case that pins the addressing space itself to the catalog's.
+   */
+  it('addresses rules contexts by index into the catalog list itself', () => {
+    expect(AOS4_FACTION_INDEX.rulesContextIds).toEqual(
+      AOS4_CATALOG.rulesContexts.map(context => context.id).sort()
+    )
+  })
+
+  const contextIdsOf = (indexes: number[]): string[] =>
+    indexes.map(index => AOS4_FACTION_INDEX.rulesContextIds[index])
+
   it('carries the rules contexts each faction is applicable in', () => {
     const contextIdsByFactionId = new Map(
       AOS4_CATALOG.entities.flatMap(entity =>
@@ -151,37 +165,66 @@ describe('AoS 4 derived corpus artifacts', () => {
       )
     )
     expect(
-      AOS4_FACTION_INDEX.factions.map(row => [row.id, [...row.rulesContextIds].sort()] as const)
+      AOS4_FACTION_INDEX.factions.map(row => [row.id, contextIdsOf(row.rulesContextIndexes).sort()] as const)
     ).toEqual(AOS4_FACTION_INDEX.factions.map(row => [row.id, contextIdsByFactionId.get(row.id)] as const))
   })
 
-  it('flags Armies of Renown exactly where the builder offers them', () => {
-    const offeredByBuilder = AOS4_FACTION_INDEX.factions.map(row => {
-      const builder = createAos4BuilderViewModel(AOS4_CATALOG, {
-        id: 'faction-index',
-        name: 'faction-index',
-        rulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
-        explicitSelectionIds: [row.id],
-        reminderPreferences: {},
-      } as never)
-      return {
-        id: row.id,
-        hasArmiesOfRenown: builder.options.some(option => option.groupType === 'army-of-renown'),
-      }
-    })
+  /**
+   * Every faction against every rules context, not just the default one.
+   *
+   * The default context is the one context where a context-blind answer cannot be wrong, so a case
+   * that only drove it passed while the shell reserved an Army of Renown row on 17 of 25 Spearhead
+   * factions and 16 of 26 Legends factions that have none there — a row the arriving child then
+   * removed, shifting the page in the direction the reservation exists to prevent. Sweeping the
+   * whole product is what makes that class of drift impossible to reintroduce silently.
+   */
+  it('names the rules contexts each faction offers Armies of Renown in, in every context', () => {
+    const offeredByBuilder = AOS4_FACTION_INDEX.factions.map(row => ({
+      id: row.id,
+      contextIds: AOS4_FACTION_INDEX.rulesContextIds.filter(rulesContextId => {
+        const builder = createAos4BuilderViewModel(AOS4_CATALOG, {
+          id: 'faction-index',
+          name: 'faction-index',
+          rulesContextId,
+          explicitSelectionIds: [row.id],
+          reminderPreferences: {},
+        } as never)
+        return builder.options.some(option => option.groupType === 'army-of-renown')
+      }),
+    }))
     expect(
       AOS4_FACTION_INDEX.factions.map(row => ({
         id: row.id,
-        hasArmiesOfRenown: row.hasArmiesOfRenown,
+        contextIds: contextIdsOf(row.armiesOfRenownContextIndexes),
       }))
     ).toEqual(offeredByBuilder)
-    // KTD8 reserves the Army of Renown slot off this flag; a flag nobody sets would reserve nothing.
-    expect(offeredByBuilder.filter(row => row.hasArmiesOfRenown)).toHaveLength(24)
+
+    /*
+     * And the shape of the answer, so a regeneration that emptied the field — reserving nothing,
+     * anywhere — or that flattened it back to one context's answer for all of them fails here. The
+     * two matched-play contexts agree at 24; the three that do not are exactly what the old flag
+     * got wrong.
+     */
+    expect(
+      AOS4_FACTION_INDEX.rulesContextIds.map(
+        rulesContextId => offeredByBuilder.filter(row => row.contextIds.includes(rulesContextId)).length
+      )
+    ).toEqual([24, 7, 7, 7, 24])
+  }, 120_000)
+
+  it('reserves the Army of Renown row on the default context exactly as the builder fills it', () => {
+    const defaultIndex = AOS4_FACTION_INDEX.rulesContextIds.indexOf(AOS4_DEFAULT_RULES_CONTEXT_ID)
+    expect(defaultIndex).toBeGreaterThanOrEqual(0)
+    // KTD8 reserves the slot off this list; a list nobody is in would reserve nothing at all.
+    expect(
+      AOS4_FACTION_INDEX.factions.filter(row => row.armiesOfRenownContextIndexes.includes(defaultIndex))
+    ).toHaveLength(24)
   })
 
   it('stays small enough to load ahead of the corpus', () => {
-    // Most of the index is repeated rules-context UUIDs, which gzip crushes; the ceiling is here to
-    // catch a row gaining catalog-sized content, not to police a few hundred bytes.
+    // 4,982 bytes as of this commit. The rules-context UUIDs that used to dominate the file are
+    // written once at the top and addressed by index from the rows, so the ceiling is here to catch
+    // a row gaining catalog-sized content, not to police a few hundred bytes.
     expect(readCorpus('faction-index.json').length).toBeLessThan(16_384)
   })
 })

@@ -23,8 +23,8 @@ import { createAos4ArmyDocument, serializeAos4ArmyDocument } from '../../aos4/st
  * Nothing in this file may import the catalog: every expectation below is either about markup the
  * shell owns or is computed from the generated faction index, which is what the shell itself reads.
  * `corpusArtifacts` holds the index to the catalog — playable rows against `armyFactions`, rules
- * contexts against the entities, `hasArmiesOfRenown` against the builder — so the two halves of
- * "the same factions as today" are asserted where each one belongs.
+ * contexts against the entities, `armiesOfRenownContextIndexes` against the builder in every
+ * context — so the two halves of "the same factions as today" are asserted where each one belongs.
  */
 
 vi.mock('components/routes/HomeCatalogBound', () => new Promise<never>(() => {}))
@@ -95,12 +95,34 @@ const FLESH_EATER_COURTS = rowNamed('Flesh-eater Courts')
 const SERAPHON = rowNamed('Seraphon')
 const ENDLESS_SPELLS = rowNamed('Endless Spells')
 
-const storedArmy = (factionId: CanonicalId<'faction'>, name: string) =>
+const DEFAULT_CONTEXT_INDEX = AOS4_FACTION_INDEX.rulesContextIds.indexOf(defaults.rulesContextId)
+
+/*
+ * A rules context the faction can be played in but offers no Army of Renown in — Spearhead, in the
+ * checked-in corpus, where a battletome faction's whole Armies of Renown list is simply absent.
+ *
+ * Derived rather than named by id because the id is a UUID that says nothing, and derived rather
+ * than asked of the catalog because this file may not load one. `corpusArtifacts` is what proves
+ * the index tells the truth about each context; here it is taken as given.
+ */
+const contextWithoutArmiesOfRenown = (row: typeof FLESH_EATER_COURTS): RulesContextId => {
+  const index = row.rulesContextIndexes.find(
+    candidate => !row.armiesOfRenownContextIndexes.includes(candidate)
+  )
+  if (index === undefined) throw new Error(`${row.name} offers Armies of Renown in every context`)
+  return AOS4_FACTION_INDEX.rulesContextIds[index]
+}
+
+const storedArmy = (
+  factionId: CanonicalId<'faction'>,
+  name: string,
+  rulesContextId: RulesContextId = defaults.rulesContextId
+) =>
   serializeAos4ArmyDocument(
     createAos4ArmyDocument({
       id: 'army:shell-window-test',
       name,
-      rulesContextId: defaults.rulesContextId,
+      rulesContextId,
       explicitSelectionIds: [factionId],
     })
   )
@@ -213,7 +235,7 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
     await renderHome()
 
     const expected = AOS4_FACTION_INDEX.factions
-      .filter(faction => faction.playable && faction.rulesContextIds.includes(defaults.rulesContextId))
+      .filter(faction => faction.playable && faction.rulesContextIndexes.includes(DEFAULT_CONTEXT_INDEX))
       .map(faction => faction.name)
       .sort((left, right) => left.localeCompare(right))
 
@@ -286,7 +308,7 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
   // and select inserted when the catalog landed, pushing the whole page down.
   it('reserves the Army of Renown row for a faction that has one', async () => {
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Flesh-eater Courts'))
-    expect(FLESH_EATER_COURTS.hasArmiesOfRenown).toBe(true)
+    expect(FLESH_EATER_COURTS.armiesOfRenownContextIndexes).toContain(DEFAULT_CONTEXT_INDEX)
 
     await renderHome()
 
@@ -299,10 +321,33 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
 
   it('reserves nothing for a faction that has no Armies of Renown', async () => {
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(SERAPHON.id, 'Seraphon'))
-    expect(SERAPHON.hasArmiesOfRenown).toBe(false)
+    expect(SERAPHON.armiesOfRenownContextIndexes).toEqual([])
 
     await renderHome()
 
+    expect(container.textContent).not.toContain('Army of Renown:')
+    expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
+  })
+
+  /*
+   * The same faction, the same stored selection, a different rules context — and the opposite
+   * answer. Reserving is a bet about what the catalog will say, and a bet made from the default
+   * context is wrong for most of Spearhead and Legends: the row goes up, then comes back out when
+   * the child mounts, which shifts the page the way reserving is supposed to stop.
+   */
+  it('reserves nothing for a faction whose Armies of Renown do not exist in the stored context', async () => {
+    const rulesContextId = contextWithoutArmiesOfRenown(FLESH_EATER_COURTS)
+    // Non-default by construction: this faction does have them under the default context, which is
+    // exactly why a context-blind flag reserved a row here.
+    expect(rulesContextId).not.toBe(defaults.rulesContextId)
+    storage.setItem(
+      AOS4_ARMY_STORAGE_KEY,
+      storedArmy(FLESH_EATER_COURTS.id, 'Flesh-eater Courts', rulesContextId)
+    )
+
+    await renderHome()
+
+    expect(selectedFactionName()).toBe('Flesh-eater Courts')
     expect(container.textContent).not.toContain('Army of Renown:')
     expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
   })

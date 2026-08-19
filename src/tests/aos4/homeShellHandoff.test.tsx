@@ -155,12 +155,29 @@ const rowNamed = (name: string) => {
 
 const FLESH_EATER_COURTS = rowNamed('Flesh-eater Courts')
 
-const storedArmy = (factionId: CanonicalId<'faction'>, name: string) =>
+/*
+ * A rules context this faction is playable in but offers no Army of Renown in — Spearhead, in the
+ * checked-in corpus. Derived from the index rather than named by its UUID so a corpus that retires
+ * or renumbers a context fails loudly here instead of quietly testing nothing.
+ */
+const contextWithoutArmiesOfRenown = (row: typeof FLESH_EATER_COURTS): RulesContextId => {
+  const index = row.rulesContextIndexes.find(
+    candidate => !row.armiesOfRenownContextIndexes.includes(candidate)
+  )
+  if (index === undefined) throw new Error(`${row.name} offers Armies of Renown in every context`)
+  return AOS4_FACTION_INDEX.rulesContextIds[index]
+}
+
+const storedArmy = (
+  factionId: CanonicalId<'faction'>,
+  name: string,
+  rulesContextId: RulesContextId = defaults.rulesContextId
+) =>
   serializeAos4ArmyDocument(
     createAos4ArmyDocument({
       id: 'army:handoff-test',
       name,
-      rulesContextId: defaults.rulesContextId,
+      rulesContextId,
       explicitSelectionIds: [factionId],
     })
   )
@@ -382,6 +399,32 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
 
     await landTheCatalog()
     expect(armyOfRenownRow()).toBeNull()
+  })
+
+  /*
+   * The regression the reservation was capable of causing itself. Flesh-eater Courts has Armies of
+   * Renown under the default context and none under Spearhead, so a reservation decided from the
+   * default context put a row on this document that the catalog then took away — the same shift the
+   * reservation exists to prevent, just in the other direction and only for players not on the
+   * default context, which is why the browser check that signed the split off never saw it.
+   */
+  it('reserves nothing on a context where the faction has no Armies of Renown, and lands with none', async () => {
+    const rulesContextId = contextWithoutArmiesOfRenown(FLESH_EATER_COURTS)
+    expect(rulesContextId).not.toBe(defaults.rulesContextId)
+    storage.setItem(
+      AOS4_ARMY_STORAGE_KEY,
+      storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades', rulesContextId)
+    )
+
+    await renderHome()
+    expect(selectedFactionName()).toBe('Flesh-eater Courts')
+    expect(armyOfRenownRow()).toBeNull()
+
+    // The catalog is the arbiter, and it agrees: nothing was reserved and nothing arrives, so the
+    // row never enters or leaves the layout.
+    await landTheCatalog()
+    expect(armyOfRenownRow()).toBeNull()
+    expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
   })
 
   /*
