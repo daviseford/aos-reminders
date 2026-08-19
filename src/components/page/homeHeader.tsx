@@ -13,6 +13,18 @@ interface HeaderProps {
   }>
   armyName: string
   armyOfRenownId: CanonicalId | null
+  /**
+   * The catalog-bound half failed to load, so no faction change can be honoured: resolving a pick
+   * means rebuilding the army against a catalog that is not here, and the shell has no way to hold
+   * one until it is — the save guard it would have to cross is the same one that stops an unvalidated
+   * document reaching storage.
+   *
+   * Mounted and disabled rather than removed, the way `Join`'s redeem button is. The select is the
+   * only thing on this screen naming the army the player has, and taking it away would leave a
+   * masthead that says nothing while the region below it says the load failed. Disabled, it keeps
+   * the name and stops offering a choice that would quietly evaporate.
+   */
+  catalogUnavailable?: boolean
   factionId: CanonicalId<'faction'>
   factions: Array<{
     label: string
@@ -43,6 +55,7 @@ export const Header = ({
   armiesOfRenown,
   armyName,
   armyOfRenownId,
+  catalogUnavailable = false,
   factionId,
   factions,
   isGameMode,
@@ -162,6 +175,7 @@ export const Header = ({
                     options={factions}
                     onChange={selected => selected && onFactionChange(selected.value)}
                     isClearable={false}
+                    isDisabled={catalogUnavailable}
                     className={theme.text}
                     theme={selectColors}
                   />
@@ -176,14 +190,13 @@ export const Header = ({
                 <>
                   <span className="text-white">Army of Renown:</span>
                   {/*
-                    `aria-busy` sits on the wrapper rather than the control: react-select forwards
-                    only the aria attributes it knows about to its input, and the busy state belongs
-                    to the row anyway, not to the one element inside it.
+                    No `aria-busy` here. It sat on this wrapper because react-select would not
+                    forward it to the control — which is precisely why it did nothing: a plain
+                    <div> carrying a busy state is not a widget, and assistive technology has no
+                    reason to look at it. Home announces the pending, ready, and failed states once,
+                    properly, through a live region it owns for its whole life.
                   */}
-                  <div
-                    className="d-flex pt-3 pb-2 justify-content-center"
-                    {...(armiesOfRenown.length === 0 ? { 'aria-busy': true } : {})}
-                  >
+                  <div className="d-flex pt-3 pb-2 justify-content-center">
                     <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-start">
                       {armiesOfRenown.length > 0 ? (
                         <Select

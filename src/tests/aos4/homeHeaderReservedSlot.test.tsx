@@ -141,12 +141,11 @@ describe('the masthead Army of Renown slot', () => {
     expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
   })
 
-  it('keeps the reserved placeholder disabled, busy, and named like the control it replaces', async () => {
+  it('keeps the reserved placeholder disabled and named like the control it replaces', async () => {
     await renderHeader({ reserveArmyOfRenownSlot: true })
 
     const row = armyOfRenownRow()
     expect(row).not.toBeNull()
-    expect(row!.getAttribute('aria-busy')).toBe('true')
 
     const input = container.querySelector<HTMLInputElement>('input[aria-label="Army of Renown"]')
     expect(input).not.toBeNull()
@@ -154,14 +153,47 @@ describe('the masthead Army of Renown slot', () => {
     expect(row!.querySelector('[class*="placeholder"]')?.textContent).toBe('Loading...')
   })
 
+  /*
+   * `aria-busy` used to sit on this row's wrapper. react-select never forwarded it to the control,
+   * so it decorated a plain <div> that assistive technology has no reason to inspect — the pending
+   * state is reported by the live region Home owns instead. It is asserted absent so it cannot
+   * quietly come back as a substitute for that region.
+   */
+  it('does not decorate the row with an inert aria-busy', async () => {
+    await renderHeader({ reserveArmyOfRenownSlot: true })
+
+    expect(armyOfRenownRow()!.getAttribute('aria-busy')).toBeNull()
+    expect(container.querySelector('[aria-busy]')).toBeNull()
+  })
+
   it('drops the reservation the moment a real list arrives', async () => {
     await renderHeader({ armiesOfRenown: ARMIES_OF_RENOWN, reserveArmyOfRenownSlot: true })
 
-    const row = armyOfRenownRow()!
-    expect(row.getAttribute('aria-busy')).toBeNull()
     expect(container.querySelector<HTMLInputElement>('input[aria-label="Army of Renown"]')!.disabled).toBe(
       false
     )
+  })
+
+  /*
+   * A faction change needs a catalog to resolve against, and on the failed screen there is not one
+   * coming. Offering the control anyway meant a pick that changed the masthead, never reached
+   * storage — the save guard is held shut until a catalog-validated load lands — and vanished on
+   * the next reload.
+   */
+  it('disables the faction selector when the catalog could not be loaded', async () => {
+    await renderHeader({ catalogUnavailable: true })
+
+    const faction = container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')
+    expect(faction).not.toBeNull()
+    expect(faction!.disabled).toBe(true)
+    // Disabled, not removed: the army the player has is still named.
+    expect(container.textContent).toContain('Test Faction')
+  })
+
+  it('leaves the faction selector live while the catalog is merely pending', async () => {
+    await renderHeader({ reserveArmyOfRenownSlot: true })
+
+    expect(container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')!.disabled).toBe(false)
   })
 
   /*

@@ -75,18 +75,21 @@ export const LoadingBody = () => {
  * skip a heading level on the way.
  *
  * So: no page-centering, no product name, one `lead` line where the builder and reminders will be.
- * Still no motion, per The Dead Class Rule in DESIGN.md. The line is `aria-hidden` and the announced
- * text is the `visually-hidden` one, so `role="status"` reports the state once rather than twice.
+ * Still no motion, per The Dead Class Rule in DESIGN.md.
+ *
+ * Purely visual: no `role="status"` and no announced text of its own. This element is unmounted at
+ * the exact moment worth announcing — the handoff, or the failure — and a live region that vanishes
+ * cannot report what replaced it. Home owns one persistent region for the whole pending/ready/failed
+ * story instead, which is also why the line stays `aria-hidden`: the state is reported once.
  */
 export const LoadingArmy = () => {
   const { theme } = useTheme()
 
   return (
-    <div className={`container ${theme.bgColor} text-center py-5`} role="status">
+    <div className={`container ${theme.bgColor} text-center py-5`}>
       <p className={`lead mb-0 ${theme.textMuted}`} aria-hidden="true">
         Loading your army...
       </p>
-      <span className="visually-hidden">Loading your army</span>
     </div>
   )
 }
@@ -96,16 +99,21 @@ export const LoadingArmy = () => {
  * that would not load took the whole screen down, so the failure was at least visible; behind a
  * lazy boundary it would otherwise leave chrome that looks finished and never produces a reminder.
  *
- * It borrows the offline vocabulary the navbar already uses — the same disabled `OfflineBtn` — so a
- * player meets one word for "this could not be fetched" rather than two.
+ * The copy names the state and the button names the action, and nothing here names an action it does
+ * not offer. It used to read "Reload to try again." above a *disabled* `OfflineBtn` — a sentence
+ * that told a player to do the one thing the screen had no control for. Reloading is the only thing
+ * that can help, so the screen does it: the chunk is fetched again from a clean document, and a
+ * failure caused by a retired asset resolves into the deploy the tab has not picked up yet.
  */
 export const OfflineArmy = () => {
   const { theme } = useTheme()
 
   return (
     <div className={`container ${theme.bgColor} text-center py-5`}>
-      <p className={`lead ${theme.textMuted}`}>Your army could not be loaded. Reload to try again.</p>
-      <OfflineBtn />
+      <p className={`lead ${theme.textMuted}`}>Your army could not be loaded.</p>
+      <GenericButton type="button" onClick={() => window.location.reload()}>
+        Reload
+      </GenericButton>
     </div>
   )
 }

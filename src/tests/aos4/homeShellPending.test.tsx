@@ -316,7 +316,6 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
     const placeholder = container.querySelector<HTMLInputElement>('input[aria-label="Army of Renown"]')
     expect(placeholder).not.toBeNull()
     expect(placeholder!.disabled).toBe(true)
-    expect(placeholder!.closest('[aria-busy="true"]')).not.toBeNull()
   })
 
   it('reserves nothing for a faction that has no Armies of Renown', async () => {

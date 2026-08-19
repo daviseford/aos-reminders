@@ -18,7 +18,7 @@ import {
 } from 'react'
 import { logFactionSelection, logGameModeChange } from 'utils/analytics'
 import { clearCloudArmyLink } from 'utils/cloudArmyLink'
-import { consumePendingShareId } from 'utils/shareLink'
+import { clearPendingShareId, readPendingShareId } from 'utils/shareLink'
 import type { CanonicalId } from '../../aos4/domain'
 import defaultsJson from '../../aos4/generated/corpus/defaults.json'
 import { AOS4_FACTION_INDEX } from '../../aos4/generated/corpus/factionIndex'
@@ -121,11 +121,26 @@ const SkipToReminders = () => (
  * open tab is still asking for — would leave chrome that looks complete and silently never produce
  * a reminder. The failure goes back where the builder and reminders belong instead.
  */
-class CatalogBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+class CatalogBoundary extends Component<{ children: ReactNode; onFailed: () => void }, { failed: boolean }> {
   state = { failed: false }
 
   static getDerivedStateFromError() {
     return { failed: true }
+  }
+
+  /*
+   * The failure has to leave this subtree. Catching it here and rendering `OfflineArmy` covers the
+   * region, but the shell above still owns a masthead that was drawn for a *pending* catalog — a
+   * reserved Army of Renown row saying "Loading..." and a faction selector whose picks nothing can
+   * honour. Without this the two halves disagree forever: one says it failed, the other says it is
+   * still coming.
+   *
+   * `componentDidCatch` rather than `getDerivedStateFromError`, because the latter runs during
+   * render and may not commit; telling the parent from there would report a failure React might
+   * still retry.
+   */
+  componentDidCatch() {
+    this.props.onFailed()
   }
 
   render() {
@@ -149,11 +164,14 @@ const Home = () => {
   const [documentValidated, setDocumentValidated] = useState(false)
   const [isGameMode, setIsGameMode] = useState(false)
   /*
-   * Consumed here, once. `consumePendingShareId` removes the sessionStorage key as it reads it, so
-   * holding it in a component that can remount — and a lazily-loaded child behind Suspense and an
-   * error boundary is exactly that — would drop an incoming share on the first remount.
+   * Read here, once, and deliberately *without* clearing: the shell is the only component that
+   * cannot remount under this route, so it is the right place to hold the id, but it is also the
+   * half that cannot open a share. Removing the key at shell mount destroyed the share whenever the
+   * child never arrived — the id was gone from session storage and the modal that consumes it had
+   * never existed, so even a reload had nothing to recover. The key is cleared once the child is up
+   * (below), which is the first moment anything can actually act on it.
    */
-  const [pendingShareId, setPendingShareId] = useState(consumePendingShareId)
+  const [pendingShareId, setPendingShareId] = useState(readPendingShareId)
   /*
    * The upward half of the split: what the masthead needs that only the catalog can answer.
    * `armiesOfRenown` comes from `builder.options`, the change handler runs `resolveSelection`, and
@@ -162,6 +180,16 @@ const Home = () => {
    * and the skip link below.
    */
   const [catalogBound, setCatalogBound] = useState<Aos4CatalogBoundBindings>()
+  /*
+   * The other terminal state, published upward by the boundary. Absent bindings alone cannot tell
+   * "not yet" from "never": both look like `undefined`, and everything the shell reserves — the
+   * Army of Renown row, the live region, the faction selector — is a promise that the catalog is
+   * still on its way. Once this is set the shell stops making that promise.
+   */
+  const [catalogFailed, setCatalogFailed] = useState(false)
+  // Stable, because `CatalogBoundary` holds it as a prop and must not be re-created into a boundary
+  // that has already caught.
+  const handleCatalogFailed = useCallback(() => setCatalogFailed(true), [])
 
   /*
    * The document's rules context, as the index the generated rows address contexts by. `-1` for a
@@ -232,13 +260,40 @@ const Home = () => {
     setDocumentValidated(true)
   }, [])
 
-  const dismissPendingShare = useCallback(() => setPendingShareId(undefined), [])
+  const dismissPendingShare = useCallback(() => {
+    clearPendingShareId()
+    setPendingShareId(undefined)
+  }, [])
+
+  /*
+   * The moment the id stops being recoverable, and the earliest one at which losing it costs
+   * nothing: the child is mounted, so the share modal it owns is on screen with the id in hand.
+   * Keyed on the boolean rather than on `catalogBound` itself, whose identity changes on every
+   * faction switch — clearing an already-cleared key is harmless, but re-running for a reason
+   * unrelated to the share would misdescribe why this exists.
+   */
+  const catalogHasMounted = Boolean(catalogBound)
+  useEffect(() => {
+    if (!catalogHasMounted) return
+    clearPendingShareId()
+  }, [catalogHasMounted])
 
   /*
    * Suppressed until the child's validated load has landed. The document the shell starts from was
    * read without a catalog, so writing it back would put selections the catalog has since retired
    * over the stored copy — pruned a moment later, but only after the unpruned version had already
    * replaced what was on disk.
+   *
+   * A failed catalog therefore never writes at all, and that is deliberate. `loadAos4ArmyDocument`
+   * used to persist the default document for a first-run player and now runs only in the child, so
+   * the case this gives up is: storage empty, chunk unfetchable, nothing saved. Nothing is lost by
+   * it. `createDefaultAos4ArmyDocument` is a constant — same id, same faction, same context every
+   * time — so the next load that succeeds recreates the identical document, and the only edit that
+   * could have made this player's copy differ from that constant is a faction change, which the
+   * masthead stops offering once `catalogFailed` is set. Writing here would trade that nothing for
+   * something real: the shell's structural read cannot tell a live selection from a retired one, so
+   * a returning player whose chunk failed would have their unpruned document written back over the
+   * stored one with no catalog-validated pass ever coming to repair it.
    */
   useEffect(() => {
     if (!documentValidated) return
@@ -252,12 +307,28 @@ const Home = () => {
   return (
     <ArmyCollectionProvider>
       <div>
+        {/*
+         * One region for the whole handoff, mounted for the shell's entire life and only ever
+         * updated. It used to live inside `LoadingArmy`, which is unmounted at exactly the moment
+         * worth announcing: a live region that disappears announces nothing, and one created with
+         * its text already in it is announced unreliably. So the announcements a player actually
+         * needs — that the wait ended, and how — were the two this never made.
+         */}
+        <span role="status" className="visually-hidden">
+          {catalogFailed
+            ? 'Your army could not be loaded'
+            : catalogBound
+              ? 'Your army is ready'
+              : 'Loading your army'}
+        </span>
+
         {catalogBound && <SkipToReminders />}
 
         <Header
           armiesOfRenown={catalogBound?.armiesOfRenown ?? NO_ARMIES_OF_RENOWN}
           armyName={armyDocument.name}
           armyOfRenownId={catalogBound?.armyOfRenownId ?? null}
+          catalogUnavailable={catalogFailed}
           factionId={factionId}
           factions={factions}
           isGameMode={isGameMode}
@@ -270,15 +341,22 @@ const Home = () => {
            * Spearhead or Legends, so a context-blind reservation would put a row on a Spearhead
            * document that the arriving child then removes — a shift in the direction reserving is
            * meant to prevent. Once the catalog has answered, its list is the truth.
+           *
+           * A catalog that failed has answered too, in its way: there is no list coming, so holding
+           * the row open leaves a disabled `aria-busy` "Loading..." control claiming a wait that
+           * ended. Reserving is a promise about the near future and a failure is the one state that
+           * cannot keep it.
            */
           reserveArmyOfRenownSlot={
-            !catalogBound && Boolean(faction?.armiesOfRenownContextIndexes.includes(rulesContextIndex))
+            !catalogBound &&
+            !catalogFailed &&
+            Boolean(faction?.armiesOfRenownContextIndexes.includes(rulesContextIndex))
           }
         />
 
         <AppBanner />
 
-        <CatalogBoundary>
+        <CatalogBoundary onFailed={handleCatalogFailed}>
           <Suspense fallback={<LoadingArmy />}>
             <HomeCatalogBound
               document={armyDocument}

@@ -116,7 +116,7 @@ interface HomeCatalogBoundProps {
   document: Aos4ArmyDocument
   factionId: CanonicalId<'faction'>
   isGameMode: boolean
-  onBindingsChange: (bindings: Aos4CatalogBoundBindings) => void
+  onBindingsChange: (bindings: Aos4CatalogBoundBindings | undefined) => void
   onDismissPendingShare: () => void
   onDocumentChange: Dispatch<SetStateAction<Aos4ArmyDocument>>
   onDocumentValidated: (document: Aos4ArmyDocument) => void
@@ -411,6 +411,21 @@ const HomeCatalogBound = ({
       unlinkCloudArmy,
     })
   }, [armiesOfRenown, armyOfRenownId, onBindingsChange, selectArmyOfRenown, unlinkCloudArmy])
+
+  /*
+   * Withdraw them on the way out. Publishing upward means the shell holds handlers and a list that
+   * only make sense while this component is mounted, and a component behind an error boundary can
+   * stop being mounted after it has already published — a render that throws here leaves the shell
+   * still offering a live Army of Renown select over a region showing `OfflineArmy`, and a skip link
+   * pointing at an `#aos4-reminders` that no longer exists.
+   *
+   * A separate mount/unmount effect, and not a cleanup on the layout effect above, deliberately.
+   * That one re-runs on every faction switch, so its cleanup would blank the bindings and flash the
+   * shell's reserved "Loading..." placeholder back into the masthead each time — reintroducing the
+   * layout shift the reservation exists to prevent. This one depends on a setter the shell keeps
+   * stable, so it runs exactly twice in a mount's life.
+   */
+  useEffect(() => () => onBindingsChange(undefined), [onBindingsChange])
 
   const showAll = () => {
     setDocument(current =>

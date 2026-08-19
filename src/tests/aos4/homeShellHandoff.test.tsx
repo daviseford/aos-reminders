@@ -60,7 +60,29 @@ const gate = vi.hoisted(() => {
   }
 })
 
+/*
+ * The other way the child can go away: not a chunk that never arrived, but one that mounted,
+ * published its bindings, and then threw. Fired from outside through a subscription so the throw
+ * happens in a real re-render of the real child, which is what makes its unmount path — and the
+ * bindings the shell is still holding — the thing under test.
+ */
+const bomb = vi.hoisted(() => {
+  const listeners = new Set<() => void>()
+  return {
+    fire() {
+      listeners.forEach(listener => listener())
+    },
+    subscribe(listener: () => void) {
+      listeners.add(listener)
+      return () => {
+        listeners.delete(listener)
+      }
+    },
+  }
+})
+
 vi.mock('components/routes/HomeCatalogBound', async () => {
+  const { useEffect, useState } = await import('react')
   const actual = await vi.importActual<typeof import('components/routes/HomeCatalogBound')>(
     'components/routes/HomeCatalogBound'
   )
@@ -68,7 +90,10 @@ vi.mock('components/routes/HomeCatalogBound', async () => {
   return {
     ...actual,
     default: (props: Parameters<typeof CatalogBound>[0]) => {
+      const [detonated, setDetonated] = useState(false)
+      useEffect(() => bomb.subscribe(() => setDetonated(true)), [])
       gate.waitDuringRender()
+      if (detonated) throw new Error('the catalog-bound half failed after mounting')
       return <CatalogBound {...props} />
     },
   }
@@ -385,7 +410,6 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
       minHeight: getComputedStyle(live.querySelector<HTMLElement>('[class*="-control"]')!).minHeight,
     }).toEqual(before)
 
-    expect(live.getAttribute('aria-busy')).toBeNull()
     expect(container.querySelector<HTMLInputElement>('input[aria-label="Army of Renown"]')!.disabled).toBe(
       false
     )
@@ -428,18 +452,18 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
   })
 
   /*
-   * `consumePendingShareId` removes the sessionStorage key as it reads it, so wherever it is called
-   * is the one component that may ever hold the result. In the child — which sits behind Suspense
-   * and an error boundary, and can be torn down and rebuilt — one remount would have dropped an
-   * incoming share with nothing left to recover it from.
+   * The id is held by the shell — the one component under this route that cannot remount — so a
+   * child torn down and rebuilt behind Suspense and the error boundary never drops it. But the read
+   * is non-destructive: the shell cannot open a share, only the child can, so the sessionStorage
+   * copy stays until the child that consumes it is actually on screen.
    */
-  it('consumes an incoming share id in the shell and still opens it when the child arrives', async () => {
+  it('holds an incoming share id in the shell and clears the key only once the child arrives', async () => {
     session.setItem(PENDING_SHARE_STORAGE_KEY, 'a'.repeat(32))
 
     await renderHome()
 
-    // Read before the child exists at all, which is what puts it out of reach of a child remount.
-    expect(session.getItem(PENDING_SHARE_STORAGE_KEY)).toBeNull()
+    // Read before the child exists at all, and left where a reload can find it again.
+    expect(session.getItem(PENDING_SHARE_STORAGE_KEY)).toBe('a'.repeat(32))
     expect(container.querySelector('[role="dialog"][aria-label="Shared Army"]')).toBeNull()
 
     await landTheCatalog()
@@ -447,6 +471,8 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
     expect(container.querySelector('[role="dialog"][aria-label="Shared Army"]')?.textContent).toBe(
       `Loading share ${'a'.repeat(32)}`
     )
+    // The modal has it now, so the key has done its job.
+    expect(session.getItem(PENDING_SHARE_STORAGE_KEY)).toBeNull()
   })
 
   /*
@@ -481,5 +507,65 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
 
     await togglePlayMode()
     expect(container.querySelector('h2')?.textContent).toBe('Seraphon')
+  })
+
+  /*
+   * The announcement of the handoff itself. It used to live inside `LoadingArmy` — the one element
+   * guaranteed to be gone at the moment worth announcing — so the transition a player waits for was
+   * never reported. One region, owned by the shell, alive across both halves, only ever updated.
+   */
+  it('announces the pending state and then the handoff, through one region that never remounts', async () => {
+    const region = container.querySelector('[role="status"]')
+    expect(region).toBeNull()
+
+    await renderHome()
+
+    const pending = container.querySelector('[role="status"]')
+    expect(pending).not.toBeNull()
+    expect(pending!.textContent).toBe('Loading your army')
+
+    await landTheCatalog()
+
+    // The same node, with new text. A live region that is created already containing what it has to
+    // say is announced unreliably; one that is updated in place is not.
+    expect(container.querySelector('[role="status"]')).toBe(pending)
+    expect(pending!.textContent).toBe('Your army is ready')
+  })
+
+  /*
+   * The failure that arrives *after* the handoff, which the split had no answer for at all. The
+   * boundary swaps the region for `OfflineArmy`, but the shell was still holding bindings the child
+   * published on its way in: a skip link aimed at an `#aos4-reminders` that no longer exists, and a
+   * live Army of Renown select whose handler resolves against a catalog nothing is rendering.
+   */
+  it('withdraws the skip link and the live Army of Renown control when the child fails after mounting', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
+
+    await renderHome()
+    await landTheCatalog()
+
+    expect(container.querySelector('a.SkipLink')).not.toBeNull()
+    expect(container.querySelector('#aos4-reminders')).not.toBeNull()
+    expect(container.querySelector<HTMLInputElement>('input[aria-label="Army of Renown"]')!.disabled).toBe(
+      false
+    )
+
+    await act(async () => {
+      bomb.fire()
+      await flush()
+    })
+
+    expect(container.textContent).toContain('Your army could not be loaded.')
+    // A skip link whose target went with the child moves focus nowhere, and it is the first thing a
+    // keyboard user meets.
+    expect(container.querySelector('a.SkipLink')).toBeNull()
+    expect(container.querySelector('#aos4-reminders')).toBeNull()
+    // The row goes too, rather than falling back to the reserved "Loading..." placeholder: there is
+    // no list coming.
+    expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
+    expect(container.textContent).not.toContain('Army of Renown:')
+    expect(container.querySelector('[aria-busy]')).toBeNull()
+    expect(container.querySelector('[role="status"]')!.textContent).toBe('Your army could not be loaded')
+    expect(container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')!.disabled).toBe(true)
   })
 })
