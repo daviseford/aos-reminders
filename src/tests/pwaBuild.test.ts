@@ -163,6 +163,19 @@ describe('generated service worker', () => {
     // 11.6 MiB, against a 2 MiB ceiling the plugin throws on. Precaching it would also block
     // activation on the venue wifi that motivates offline support.
     expect(catalogEntries(precached)).toEqual([])
+
+    /*
+     * The obvious inversion — rename a catalog chunk out of the `aos4-catalog-data` prefix so the
+     * exclusion glob stops matching it — cannot be run as a red assertion here, and not only for the
+     * reason 'would fail if the catalog ever entered the precache manifest' gives below. It never
+     * reaches the manifest at all: it fails the *build*.
+     *
+     * Observed, not reasoned about. With `manualChunks` no longer matching, the corpus inlined into
+     * the Home chunk at 6.68 MB and the build stopped with `Configure
+     * "workbox.maximumFileSizeToCacheInBytes"`, naming both oversized assets. Each catalog chunk is
+     * roughly 3x Workbox's 2,097,152-byte ceiling, so any misnaming that puts one in front of the
+     * precache glob is loud at build time and leaves no `dist/` for this file to read.
+     */
   })
 
   it('leaves the non-app files out of the precache manifest', () => {

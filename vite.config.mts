@@ -58,11 +58,13 @@ const NON_APP_PRECACHE_GLOBS = ['sw-extras-*.js', 'rollback-service-worker.js', 
 
 /*
  * The entry chunk is what the browser must parse before the app shell exists. Splitting the
- * generated corpus out took it from 12,516 kB to 795 kB raw (1,418 kB to 259 kB gzipped), and this
- * budget keeps it there.
+ * generated corpus out took it from 12,516 kB to 795 kB raw, and moving Home's catalog-bound half
+ * behind a lazy boundary (#1845) took it to roughly 425 kB.
  *
- * The 850 kB limit leaves the current entry only modest headroom and fails the build the next time
- * something large lands there by accident.
+ * The 850 kB limit is therefore a ceiling with real headroom rather than a tight fit — it exists to
+ * fail the build the next time something large lands in the entry by accident, not to track the
+ * current size. src/tests/aos4/bundleBoundaries.test.ts asserts the built entry against the same
+ * number independently, so raising this one does not quietly raise that one too.
  */
 const INITIAL_ENTRY_CHUNK_LIMIT_BYTES = 850 * 1024
 
