@@ -82,9 +82,21 @@ describe('initial bundle boundaries', () => {
   })
 
   /*
+   * The corpus modules, as opposed to everything generated. `corpus/defaults.json` is 130 bytes and
+   * is deliberately importable from the shell (see armyStorage) — filtering on the directory would
+   * forbid the very edge that replaced the barrel import.
+   */
+  const CORPUS_MODULES =
+    /^src\/aos4\/generated\/(index\.ts|catalog\.ts|corpus\/(index\.ts|catalog\.ts|runtime\.json))$/
+
+  /*
    * Cloud armies are reachable from the shell — the provider wraps Home — so nothing in that subtree
    * may drag the corpus in. Walked transitively rather than string-matched on one file, because the
    * edge is worth catching wherever in the subtree it reappears, not only where it last was.
+   *
+   * Preparatory, not a load-time win on its own: Home still imports the catalog statically, so the
+   * corpus is on the first-render path regardless of this subtree. What this holds is that cutting
+   * Home's own edge will be sufficient — that no second path reintroduces the corpus behind it.
    */
   it('keeps the generated catalog out of the cloud army context graph', async () => {
     const graph = await staticGraphFrom('src/context/useArmyCollection.tsx')
@@ -92,6 +104,18 @@ describe('initial bundle boundaries', () => {
     // The walk is only meaningful if it actually resolved the module the catalog used to arrive
     // through; without this a broken resolver would report an empty graph as a clean one.
     expect(graph).toContain('src/api/armyApi.ts')
-    expect(graph.filter(file => file.startsWith('src/aos4/generated/'))).toEqual([])
+    expect(graph.filter(file => CORPUS_MODULES.test(file))).toEqual([])
+  })
+
+  /*
+   * The entry itself, which is the graph that actually decides first-paint cost. It is clean today
+   * only because Home is lazy; asserting it here means the Home split cannot quietly hoist the
+   * corpus back into the entry chunk while the subtree assertion above still passes.
+   */
+  it('keeps the generated catalog out of the application entry graph', async () => {
+    const graph = await staticGraphFrom('src/main.tsx')
+
+    expect(graph).toContain('src/bootstrap/router.tsx')
+    expect(graph.filter(file => CORPUS_MODULES.test(file))).toEqual([])
   })
 })

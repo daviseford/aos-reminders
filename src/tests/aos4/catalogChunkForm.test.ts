@@ -30,7 +30,7 @@ const assetsDir = path.join(distDir, 'assets')
  * telling you nothing about the current config, which is exactly the regression this file exists to
  * catch.
  */
-const BUILD_INPUTS = ['vite.config.mts']
+const BUILD_INPUTS = ['vite.config.mts', 'package.json', 'yarn.lock']
 
 if (!fs.existsSync(assetsDir)) {
   throw new Error('dist/assets is missing. These assertions read build output — run `yarn build` first.')

@@ -2,6 +2,7 @@ import { AOS4_CATALOG } from '../../aos4/generated'
 import {
   AOS4_ARMY_STORAGE_KEY,
   AOS3_BROWSER_STORAGE_KEYS,
+  createDefaultAos4ArmyDocument,
   loadAos4ArmyDocument,
   saveAos4ArmyDocument,
 } from '../../aos4/runtime'
@@ -90,5 +91,19 @@ describe('AoS 4 browser persistence', () => {
     saveAos4ArmyDocument(storage, document)
 
     expect(storage.getItem(AOS4_ARMY_STORAGE_KEY)).toBe(serializeAos4ArmyDocument(document))
+  })
+
+  /*
+   * armyStorage reads the two default ids straight from defaults.json rather than through the
+   * generated barrel, which would pull the whole corpus into any graph that stores an army. That
+   * leaves two derivations of the same value — here and in the barrel — so pin them together: this
+   * fails if either side changes alone. Test files may import the barrel freely; the boundary rule
+   * constrains the app graph, not the suite.
+   */
+  it('derives the same defaults as the generated catalog exports', () => {
+    const document = createDefaultAos4ArmyDocument()
+
+    expect(document.rulesContextId).toBe(AOS4_DEFAULT_RULES_CONTEXT_ID)
+    expect(document.explicitSelectionIds).toEqual(AOS4_DEFAULT_SELECTION_IDS)
   })
 })

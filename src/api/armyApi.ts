@@ -42,8 +42,20 @@ const parseDocument = async (value: unknown): Promise<Aos4ArmyDocument> => {
   // The catalog is loaded here rather than imported: every caller is already behind a network round
   // trip, and a static import would put the whole corpus in the graph of anything holding a cloud
   // army — the shell included, since the collection provider wraps the page.
-  const { AOS4_CATALOG } = await import('../aos4/generated')
-  const restored = deserializeAos4ArmyDocument(JSON.stringify(value), AOS4_CATALOG)
+  //
+  // The catch is not currently reachable: Home imports the catalog statically, so the module is
+  // always in the registry before any cloud call runs. It becomes live once Home loads the catalog
+  // lazily (#1845), at which point this is a real network fetch that can fail on a rotated hash or a
+  // cold cache offline — and an unwrapped module-loading error would reach messageForError as
+  // "Failed to fetch dynamically imported module ...". Same message and default status as the fetch
+  // failure above, because to a caller it is the same class of outage.
+  let generated: typeof import('../aos4/generated')
+  try {
+    generated = await import('../aos4/generated')
+  } catch {
+    throw new ArmyApiError('Cloud armies are temporarily unavailable.')
+  }
+  const restored = deserializeAos4ArmyDocument(JSON.stringify(value), generated.AOS4_CATALOG)
   if (!restored.document || restored.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     throw new ArmyApiError('The service returned an incompatible army document.', 502)
   }
