@@ -53,7 +53,8 @@ and the 76 official regiment-of-renown battle-profile rows sat dispositioned
 
 1. **Marker, not heuristics.** `parseDatasheet` marks a datasheet `regimentOfRenown` from its
    `•REGIMENT OF RENOWN•` nails header and captures the INCLUSION faction list and ORGANISATION
-   member links, all outside the hashed record value so identity is unchanged. The native filter
+   member links, all outside the hashed record value (`recordChecksum = sha256(JSON.stringify(value))`,
+   `parse.ts:62`) so identity is unchanged. The native filter
    keeps marked sheets; generation fails closed (`unclassified-regiment-of-renown`) until a
    reviewed `regimentsOfRenown` entry covers each kept record, in both directions.
 2. **Dedup before merge, by name, majority variant wins.** Every collection republishes each
@@ -91,5 +92,6 @@ and the 76 official regiment-of-renown battle-profile rows sat dispositioned
 
 `army_builder.tsx` already carried a `regiment-of-renown` card title (AoS3 parity); the builder
 derives cards from `groupType`, so classified regiments surfaced as a working selector the moment
-the data existed. Import wiring (resolving the roster's bundle header line) is the deliberate
-follow-up phase of #1858.
+the data existed. Import wiring (resolving the roster's bundle header line) was the deliberate
+follow-up phase of #1858 and shipped in PR #1872 — see the bundle-line resolution at
+`src/aos4/import/resolveRoster.ts:633-741`.
