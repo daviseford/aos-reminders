@@ -1,5 +1,5 @@
-import type { Aos4Catalog } from '../domain'
-import { AOS4_DEFAULT_RULES_CONTEXT_ID, AOS4_DEFAULT_SELECTION_IDS } from '../generated'
+import type { Aos4Catalog, CanonicalId } from '../domain'
+import defaultsJson from '../generated/corpus/defaults.json'
 import { resolveSelection } from '../select'
 import {
   createAos4ArmyDocument,
@@ -8,6 +8,17 @@ import {
   type Aos4ArmyDocument,
   type Aos4ArmyDocumentDiagnostic,
 } from '../state'
+
+/*
+ * The two default ids come from the generated defaults file rather than the generated barrel that
+ * also exports them: the barrel re-exports the whole corpus, so reading a couple of hundred bytes
+ * of ids through it would pull the 13 MB catalog into every graph that stores an army.
+ */
+const defaults = defaultsJson as unknown as {
+  rulesContextId: Aos4Catalog['rulesContexts'][number]['id']
+  defaultFactionId: CanonicalId<'faction'>
+}
+const defaultSelectionIds = [defaults.defaultFactionId]
 
 export const AOS4_ARMY_STORAGE_KEY = 'aos-reminders:aos4:army:v1'
 
@@ -28,8 +39,8 @@ export const createDefaultAos4ArmyDocument = (): Aos4ArmyDocument =>
   createAos4ArmyDocument({
     id: 'army:aos4-migration-preview',
     name: 'Stormcast Eternals',
-    rulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
-    explicitSelectionIds: AOS4_DEFAULT_SELECTION_IDS,
+    rulesContextId: defaults.rulesContextId,
+    explicitSelectionIds: defaultSelectionIds,
   })
 
 export const saveAos4ArmyDocument = (storage: Storage, document: Aos4ArmyDocument): void => {
