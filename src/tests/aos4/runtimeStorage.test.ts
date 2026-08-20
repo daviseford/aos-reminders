@@ -8,34 +8,7 @@ import {
 } from '../../aos4/runtime'
 import { createAos4ArmyDocument, serializeAos4ArmyDocument } from '../../aos4/state'
 import { AOS4_DEFAULT_RULES_CONTEXT_ID, AOS4_DEFAULT_SELECTION_IDS } from '../../aos4/generated'
-
-class MemoryStorage implements Storage {
-  private readonly values = new Map<string, string>()
-
-  get length() {
-    return this.values.size
-  }
-
-  clear() {
-    this.values.clear()
-  }
-
-  getItem(key: string) {
-    return this.values.get(key) ?? null
-  }
-
-  key(index: number) {
-    return Array.from(this.values.keys())[index] ?? null
-  }
-
-  removeItem(key: string) {
-    this.values.delete(key)
-  }
-
-  setItem(key: string, value: string) {
-    this.values.set(key, value)
-  }
-}
+import { MemoryStorage } from 'tests/support/memoryStorage'
 
 const createStoredDocument = () =>
   createAos4ArmyDocument({
