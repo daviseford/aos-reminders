@@ -67,7 +67,10 @@ const catalogEntries = (urls: string[]) => urls.filter(url => url.includes('aos4
  *
  * A regex cannot do this: `waitUntil\([^)]*X` stops at the first `)`, so anything nested inside the
  * argument — an `await` of a call, an IIFE — hides the rest of it from the assertion. Scanning for
- * the matching paren is what makes "nothing in here mentions the sources chunk" mean it.
+ * the matching paren is what makes "nothing in here mentions the sources chunk" mean it. Throws if
+ * the parens never balance, because `depth > 0` at end-of-file means the close paren was never
+ * found and `slice(start, cursor - 1)` would silently hand back "the rest of the file" as if it
+ * were the argument: a malformed scan that still satisfies whatever the caller compares it against.
  */
 const waitUntilArguments = (source: string): string[] => {
   const opener = /waitUntil\(/g
@@ -81,6 +84,9 @@ const waitUntilArguments = (source: string): string[] => {
       if (source[cursor] === '(') depth += 1
       else if (source[cursor] === ')') depth -= 1
       cursor += 1
+    }
+    if (depth !== 0) {
+      throw new Error('A `waitUntil(` call has unbalanced parens — this scan pins an unterminated argument.')
     }
     args.push(source.slice(start, cursor - 1))
   }

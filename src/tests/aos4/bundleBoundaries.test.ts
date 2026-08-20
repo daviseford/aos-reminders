@@ -259,11 +259,11 @@ describe('initial bundle boundaries', () => {
    * the only places the calls are allowed, so a call added to a branch that test's fixtures never
    * render still fails here.
    *
-   * Residual: `\bgetSources\(` only catches a plain call. `getSources?.(reminder)` (an optional call)
-   * or a call through a local alias (`const go = getSources; go(reminder)`) would both add a second
-   * call site that this pattern cannot see — landing outside `resolveSources` either would silently
+   * Residual: a call through a local alias (`const go = getSources; go(reminder)`) would add a
+   * second call site this pattern cannot see — landing outside `resolveSources` it would silently
    * clear the assertions below rather than fail one of them. Not fixed here; the prop is not
-   * currently optional and is not currently aliased, so the gap is recorded rather than closed.
+   * currently aliased, so the gap is recorded rather than closed. The optional-call form
+   * (`getSources?.(reminder)`) *is* covered, by the `(?:\?\.)?` below.
    */
   it('resolves reminder sources from the menu toggle and never from a render body', async () => {
     const reminders = await source('src/components/info/reminders.tsx')
@@ -272,8 +272,8 @@ describe('initial bundle boundaries', () => {
 
     // Calls, not references: `getSources={getSources}` passes the prop down and `getSources:` in the
     // prop types declares it, and neither costs a fetch.
-    const fetchCalls = Array.from(reminders.matchAll(/\bgetSources\(/g))
-    const inResolver = Array.from(resolver.matchAll(/\bgetSources\(/g))
+    const fetchCalls = Array.from(reminders.matchAll(/\bgetSources(?:\?\.)?\(/g))
+    const inResolver = Array.from(resolver.matchAll(/\bgetSources(?:\?\.)?\(/g))
 
     // The pinned shape, stated rather than inferred: exactly one fetching call, and it lives in
     // `resolveSources`. `fetchCalls` alone could shrink to zero calls anywhere and still equal

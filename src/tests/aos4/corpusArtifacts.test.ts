@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { armyFactions } from '../../aos4/domain'
 import type { Aos4RuntimeProjection } from '../../aos4/generate'
@@ -129,6 +129,29 @@ describe('AoS 4 derived corpus artifacts', () => {
     expect(loader).toContain("import('./runtime.sources.json')")
   })
 
+  /*
+   * The loader memoizes one in-flight fetch; a second `import()` of the artifact anywhere else in
+   * the shipped code would bypass the memo and the chunk-form assumptions above without failing any
+   * graph assertion, because the graph walk starts at the catalog. Tests and the generator may read
+   * the file directly — they are Node-side and never shipped — so the walk skips `src/tests`.
+   */
+  it('is imported only by the loader', () => {
+    const importPattern = /import(?:\s[^'"]*from\s*|\s*\(\s*)['"][^'"]*runtime\.sources\.json['"]/
+    const importers: string[] = []
+    const walk = (dir: string) => {
+      readdirSync(dir, { withFileTypes: true }).forEach(entry => {
+        const file = path.join(dir, entry.name)
+        if (entry.isDirectory()) {
+          if (entry.name !== 'tests') walk(file)
+        } else if (/\.tsx?$/.test(entry.name) && importPattern.test(readFileSync(file, 'utf8'))) {
+          importers.push(file)
+        }
+      })
+    }
+    walk(path.join(process.cwd(), 'src'))
+    expect(importers).toEqual([corpusPath('sources.ts')])
+  })
+
   it('indexes every decoded faction and flags the ones a player can field', () => {
     expect(AOS4_FACTION_INDEX.factions).toHaveLength(28)
     expect(AOS4_FACTION_INDEX.factions.filter(row => row.playable)).toHaveLength(27)
@@ -225,6 +248,6 @@ describe('AoS 4 derived corpus artifacts', () => {
     // 4,982 bytes as of this commit. The rules-context UUIDs that used to dominate the file are
     // written once at the top and addressed by index from the rows, so the ceiling is here to catch
     // a row gaining catalog-sized content, not to police a few hundred bytes.
-    expect(readCorpus('faction-index.json').length).toBeLessThan(16_384)
+    expect(Buffer.byteLength(readCorpus('faction-index.json'), 'utf8')).toBeLessThan(16_384)
   })
 })

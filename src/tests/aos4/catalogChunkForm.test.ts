@@ -48,8 +48,21 @@ const builtAt = Math.min(...catalogChunks.map(name => fs.statSync(path.join(asse
 const staleAgainst = BUILD_INPUTS.filter(
   file => fs.statSync(path.resolve(process.cwd(), file)).mtimeMs > builtAt
 )
-if (staleAgainst.length > 0) {
-  throw new Error(`dist/ predates ${staleAgainst.join(', ')} — run \`yarn build\` first.`)
+/*
+ * The config files are not the only inputs: the corpus itself lives under `src/aos4/generated/`,
+ * and a regenerated artifact newer than `dist/` would pass these assertions while describing a
+ * chunk that no longer exists. The negative assertion reads the corpus's own keys, so its content
+ * is as much a build input as the config that decides its form.
+ */
+const generatedDir = path.resolve(process.cwd(), 'src/aos4/generated')
+const generatedInputs = fs
+  .readdirSync(generatedDir, { recursive: true })
+  .map(entry => path.join(generatedDir, entry.toString()))
+  .filter(file => fs.statSync(file).isFile() && fs.statSync(file).mtimeMs > builtAt)
+if (staleAgainst.length > 0 || generatedInputs.length > 0) {
+  throw new Error(
+    `dist/ predates ${[...staleAgainst, ...generatedInputs].join(', ')} — run \`yarn build\` first.`
+  )
 }
 
 /*
