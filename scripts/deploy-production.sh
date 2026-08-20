@@ -407,18 +407,21 @@ while IFS= read -r remote_immutable; do
 
   # S3 rejects a self-copy whose only change is tags, so the write needs the REPLACE metadata
   # directive to be legal — and REPLACE drops the object's stored headers unless they are restated.
-  # Losing Content-Type would break any straggler still loading this module from a stale shell.
+  # Losing Content-Type would break any straggler still loading this module from a stale shell, and
+  # losing Content-Encoding on a pre-gzipped chunk would serve raw gzip bytes as text/javascript.
   retire_metadata=$(aws s3api head-object \
     --bucket "$SITE_BUCKET" \
     --key "$remote_immutable" \
-    --query '[CacheControl, ContentType]' \
+    --query '[CacheControl, ContentType, ContentEncoding]' \
     --output text) || fail "could not read headers for $remote_immutable before retirement"
-  IFS=$'\t' read -r retire_cache_control retire_content_type <<< "$retire_metadata"
+  IFS=$'\t' read -r retire_cache_control retire_content_type retire_content_encoding <<< "$retire_metadata"
   retire_headers=()
   [[ -n "$retire_cache_control" && "$retire_cache_control" != 'None' ]] &&
     retire_headers+=(--cache-control "$retire_cache_control")
   [[ -n "$retire_content_type" && "$retire_content_type" != 'None' ]] &&
     retire_headers+=(--content-type "$retire_content_type")
+  [[ -n "$retire_content_encoding" && "$retire_content_encoding" != 'None' ]] &&
+    retire_headers+=(--content-encoding "$retire_content_encoding")
 
   aws s3api copy-object \
     --bucket "$SITE_BUCKET" \

@@ -169,7 +169,9 @@ fi
 
 if [[ "$1 $2" == "s3api head-object" ]]; then
   if [[ "$*" == *"CacheControl"* ]]; then
-    printf '%s\\t%s\\n' 'public, max-age=31536000, immutable' 'text/javascript; charset=utf-8'
+    retire_encoding='None'
+    [[ "$*" == *"gzipped"* ]] && retire_encoding='gzip'
+    printf '%s\\t%s\\t%s\\n' 'public, max-age=31536000, immutable' 'text/javascript; charset=utf-8' "$retire_encoding"
     exit 0
   fi
   printf '%s\\t%s\\t%s\\n' '"held-etag"' 'held-owner' '2026-08-01T00:00:00+00:00'
@@ -406,6 +408,35 @@ echo '{}'
         expect(line).toContain('public, max-age=31536000, immutable')
         expect(line).toContain('text/javascript; charset=utf-8')
       })
+  })
+
+  it('restates Content-Encoding when retiring a pre-gzipped chunk', () => {
+    const harness = createHarness()
+    const result = harness.run({
+      AWS_REMOTE_ASSET_KEYS:
+        'assets/current-123.js\tassets/newly-superseded-gzipped.js\tassets/newly-superseded.js',
+    })
+
+    expect(result.status, result.stderr).toBe(0)
+    const log = harness.log()
+    // REPLACE drops every header the self-copy does not restate; the head-object must ask for
+    // Content-Encoding or a retired pre-gzipped chunk silently loses it.
+    log
+      .filter(line => line.startsWith('s3api head-object ') && line.includes('CacheControl'))
+      .forEach(line => expect(line).toContain('ContentEncoding'))
+    const gzippedCopies = log.filter(
+      line => line.startsWith('s3api copy-object ') && line.includes('assets/newly-superseded-gzipped.js')
+    )
+    expect(gzippedCopies).toHaveLength(1)
+    expect(gzippedCopies[0]).toContain('--content-encoding gzip')
+    const rawCopies = log.filter(
+      line =>
+        line.startsWith('s3api copy-object ') &&
+        line.includes('assets/newly-superseded.js') &&
+        !line.includes('gzipped')
+    )
+    expect(rawCopies).toHaveLength(1)
+    expect(rawCopies[0]).not.toContain('--content-encoding')
   })
 
   it('reuses the retired-key inventory instead of re-reading every historical object tag', () => {
