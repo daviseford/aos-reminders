@@ -216,19 +216,27 @@ const HomeCatalogBound = ({
     Boolean(cloudArmyId) && serializeAos4ArmyDocument(document) !== cloudArmyLink?.savedSignature
   const [updateArmyStatus, setUpdateArmyStatus] = useState<'idle' | 'updating' | 'updated'>('idle')
   const [updateArmyError, setUpdateArmyError] = useState<string>()
+  /*
+   * A chunk warning describes the attempt that failed. Opening another modal is a new attempt,
+   * so it clears the warning; if that chunk fails too, its boundary sets the warning again.
+   */
+  const openModal = (setOpen: (open: boolean) => void) => {
+    setModalLoadError(undefined)
+    setOpen(true)
+  }
   const savedArmiesAction = useSubscriberAction({
     featureName: 'My Armies',
-    onAuthorized: () => setSavedArmiesModalIsOpen(true),
+    onAuthorized: () => openModal(setSavedArmiesModalIsOpen),
     origin: 'SavedArmies',
   })
   const shareAction = useSubscriberAction({
     featureName: 'Share Army',
-    onAuthorized: () => setShareModalIsOpen(true),
+    onAuthorized: () => openModal(setShareModalIsOpen),
     origin: 'ShareArmy',
   })
   const saveArmyAction = useSubscriberAction({
     featureName: 'Save Army',
-    onAuthorized: () => setSaveArmyModalIsOpen(true),
+    onAuthorized: () => openModal(setSaveArmyModalIsOpen),
     origin: 'SaveArmy',
   })
   /*
@@ -339,6 +347,18 @@ const HomeCatalogBound = ({
     fileName: string,
     options: PrintDocumentOptions
   ) => {
+    // The print chunk is a module fetch like any modal's own, but it happens after the modal is
+    // open — outside the boundary guarding that import. A retired hash lands here instead, and
+    // the module map can hold the rejection until a reload, which is the advice the alert gives.
+    let printModule: typeof import('../../aos4/print')
+    try {
+      printModule = await import('../../aos4/print')
+    } catch (error) {
+      console.error(error)
+      setPrintModalIsOpen(false)
+      setModalLoadError(MODAL_CHUNK_ERROR)
+      return
+    }
     const {
       COMPACT_PRESET,
       STANDARD_PRESET,
@@ -347,7 +367,7 @@ const HomeCatalogBound = ({
       planPrintLayout,
       renderPrintPlanToPdf,
       withPageSize,
-    } = await import('../../aos4/print')
+    } = printModule
     const printDocument = createAos4PrintDocument(
       reminders,
       {
@@ -557,9 +577,9 @@ const HomeCatalogBound = ({
           {...(cloudArmyName ? { cloudArmyName } : {})}
           cloudArmyHasChanges={cloudArmyHasChanges}
           hiddenCount={hiddenCount}
-          onClearArmy={() => setClearArmyModalIsOpen(true)}
-          onDownloadPdf={() => setPrintModalIsOpen(true)}
-          onImportArmy={() => setImportModalIsOpen(true)}
+          onClearArmy={() => openModal(setClearArmyModalIsOpen)}
+          onDownloadPdf={() => openModal(setPrintModalIsOpen)}
+          onImportArmy={() => openModal(setImportModalIsOpen)}
           onOpenSavedArmies={savedArmiesAction.run}
           onSaveArmy={saveArmyAction.run}
           onShareArmy={shareAction.run}

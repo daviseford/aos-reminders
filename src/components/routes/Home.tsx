@@ -315,6 +315,12 @@ const Home = () => {
    * something real: the shell's structural read cannot tell a live selection from a retired one, so
    * a returning player whose chunk failed would have their unpruned document written back over the
    * stored one with no catalog-validated pass ever coming to repair it.
+   *
+   * The same guard covers the window before the failure: a faction picked while the chunk was still
+   * loading is newer than storage but never catalog-validated, and `documentValidated` stays false
+   * once the chunk fails, so that pick is never written either. It holds for the session — the
+   * screen keeps showing it — and reverts on the next load, which is the honest outcome: the
+   * alternative is persisting a document no catalog pass ever confirmed.
    */
   useEffect(() => {
     if (!documentValidated) return
