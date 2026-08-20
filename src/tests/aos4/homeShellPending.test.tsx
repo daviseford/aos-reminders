@@ -7,6 +7,7 @@ import { ThemeProvider } from 'context/useTheme'
 import { act } from 'react'
 import { MemoryRouter } from 'react-router'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { MemoryStorage } from 'tests/support/memoryStorage'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { CanonicalId, RulesContextId } from '../../aos4/domain'
 import defaultsJson from '../../aos4/generated/corpus/defaults.json'
@@ -29,54 +30,22 @@ import { createAos4ArmyDocument, serializeAos4ArmyDocument } from '../../aos4/st
 
 vi.mock('components/routes/HomeCatalogBound', () => new Promise<never>(() => {}))
 
-vi.mock('@auth0/auth0-react', () => ({
-  useAuth0: () => ({
-    getAccessTokenSilently: vi.fn(),
-    isAuthenticated: false,
-    isLoading: false,
-    loginWithPopup: vi.fn(),
-    logout: vi.fn(),
-    user: undefined,
-  }),
-}))
+// See tests/support/homeTestMocks.ts for why these are `await import()`ed inside the factory rather
+// than imported and passed to `vi.mock` directly.
+vi.mock('@auth0/auth0-react', async () => {
+  const { auth0DisabledMockValue } = await import('tests/support/homeTestMocks')
+  return { useAuth0: auth0DisabledMockValue }
+})
 
-vi.mock('../../api/subscriptionApi', () => ({
-  SubscriptionApi: {
-    cancelSubscription: vi.fn(),
-    getSubscription: vi.fn().mockRejectedValue({ status: 404 }),
-    updateTheme: vi.fn(),
-  },
-}))
+vi.mock('../../api/subscriptionApi', async () => {
+  const { subscriptionApiNotFoundMockValue } = await import('tests/support/homeTestMocks')
+  return { SubscriptionApi: subscriptionApiNotFoundMockValue() }
+})
 
-vi.mock('virtual:pwa-register', () => ({ registerSW: vi.fn(() => vi.fn(async () => undefined)) }))
-
-class MemoryStorage implements Storage {
-  private readonly values = new Map<string, string>()
-
-  get length() {
-    return this.values.size
-  }
-
-  clear() {
-    this.values.clear()
-  }
-
-  getItem(key: string) {
-    return this.values.get(key) ?? null
-  }
-
-  key(index: number) {
-    return Array.from(this.values.keys())[index] ?? null
-  }
-
-  removeItem(key: string) {
-    this.values.delete(key)
-  }
-
-  setItem(key: string, value: string) {
-    this.values.set(key, value)
-  }
-}
+vi.mock('virtual:pwa-register', async () => {
+  const { pwaRegisterMockValue } = await import('tests/support/homeTestMocks')
+  return pwaRegisterMockValue()
+})
 
 const defaults = defaultsJson as unknown as {
   defaultFactionId: CanonicalId<'faction'>

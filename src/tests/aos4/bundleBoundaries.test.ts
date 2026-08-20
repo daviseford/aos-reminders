@@ -1,5 +1,5 @@
 import { existsSync, statSync } from 'node:fs'
-import { readFile } from 'node:fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
@@ -60,7 +60,11 @@ const INITIAL_ENTRY_CHUNK_LIMIT_BYTES = 850 * 1024
  * A regex cannot do this: `handleToggle[^}]*` stops at the first `}`, so the first object literal,
  * template hole, or nested arrow inside the handler hides the rest of it. Scanning for the matching
  * brace is what makes "every call to this lives in here" mean it. Throws rather than returning
- * nothing when the declaration is gone, because a scan over an empty string passes every filter.
+ * nothing when the declaration is gone, because a scan over an empty string passes every filter —
+ * and throws again if the braces never balance, because `depth > 0` at end-of-file means the loop
+ * exhausted `contents` looking for a close that was never there, and `slice(start, cursor)` would
+ * then silently hand back "the rest of the file" as if it were "the declaration's body": a malformed
+ * scan that still satisfies whatever the caller compares it against.
  */
 const arrowFunctionBody = (contents: string, declaration: string): string => {
   const start = contents.indexOf(declaration)
@@ -72,7 +76,27 @@ const arrowFunctionBody = (contents: string, declaration: string): string => {
     else if (contents[cursor] === '}') depth -= 1
     cursor += 1
   }
+  if (depth !== 0) {
+    throw new Error(`\`${declaration}\`'s braces never balance — this scan pins an unterminated body.`)
+  }
   return contents.slice(start, cursor)
+}
+
+/**
+ * The newest mtime under a directory, walked once. Shared by every freshness guard below so a
+ * source-only change — nothing under `vite.config.mts` or `package.json` — cannot pass a stale
+ * `dist/` the way a two-file mtime comparison did before this.
+ */
+const newestMtimeUnder = async (dir: string): Promise<number> => {
+  const entries = await readdir(dir, { withFileTypes: true })
+  const mtimes = await Promise.all(
+    entries.map(async entry => {
+      const entryPath = path.join(dir, entry.name)
+      if (entry.isDirectory()) return newestMtimeUnder(entryPath)
+      return statSync(entryPath).mtimeMs
+    })
+  )
+  return mtimes.reduce((newest, candidate) => Math.max(newest, candidate), 0)
 }
 
 describe('initial bundle boundaries', () => {
@@ -231,6 +255,12 @@ describe('initial bundle boundaries', () => {
    * behaviourally, by rendering twelve cards against a spy. This is the structural half — it names
    * the one place the call is allowed, so a call added to a branch that test's fixtures never render
    * still fails here.
+   *
+   * Residual: `\bgetSources\(` only catches a plain call. `getSources?.(reminder)` (an optional call)
+   * or a call through a local alias (`const go = getSources; go(reminder)`) would both add a second
+   * call site that this pattern cannot see — landing outside `handleToggle` either would silently
+   * clear both assertions below rather than fail one of them. Not fixed here; the prop is not
+   * currently optional and is not currently aliased, so the gap is recorded rather than closed.
    */
   it('resolves reminder sources from the menu toggle and never from a render body', async () => {
     const reminders = await source('src/components/info/reminders.tsx')
@@ -241,8 +271,27 @@ describe('initial bundle boundaries', () => {
     const callSites = Array.from(reminders.matchAll(/\bgetSources\(/g))
     const inHandler = Array.from(handler.matchAll(/\bgetSources\(/g))
 
+    // The pinned shape, stated rather than inferred: exactly one call, and it lives in the handler.
+    // `callSites` alone could shrink to zero calls anywhere and still equal `inHandler.length` (also
+    // zero) — asserting a literal count is what makes "the call still exists" part of what this test
+    // covers, not just "wherever it is, it's inside the handler."
+    expect(callSites).toHaveLength(1)
     expect(inHandler.length).toBeGreaterThan(0)
     expect(callSites).toHaveLength(inHandler.length)
+  })
+
+  /*
+   * The other half of the split: `reminders.tsx` itself must stay out of the shell's static graph.
+   * `REMINDERS_ANCHOR_ID` moved to its own module for exactly this reason — Home needs the anchor id
+   * but not the drag-and-drop library, react-bootstrap's Dropdown, or the two icon packs that come
+   * attached to the component that owns it. Importing the constant from `reminders.tsx` directly
+   * instead of from `remindersAnchor.ts` would satisfy the compiler and silently fail this.
+   */
+  it('keeps reminders.tsx out of the Home shell graph', async () => {
+    const shell = await staticGraphFrom('src/components/routes/Home.tsx')
+
+    expect(shell).toContain('src/components/info/remindersAnchor.ts')
+    expect(shell).not.toContain('src/components/info/reminders.tsx')
   })
 
   /*
@@ -264,9 +313,21 @@ describe('initial bundle boundaries', () => {
      * reason: a `dist/` left over from another branch satisfies a size assertion while telling you
      * nothing about the current source. Repeated rather than shared because the two files depend on
      * different build inputs, and one shared list would make each carry the other's staleness.
+     *
+     * `vite.config.mts` and `package.json` alone used to be the whole check, which only catches a
+     * change to the *build's own inputs* — a source-only change that bloats the entry chunk (a new
+     * static import, a component that grew) left `dist/` stale and this test kept passing against
+     * it. Walking `src/` closes that: any file newer than the build fails the same way a stale
+     * config does.
      */
-    if (statSync(path.resolve(process.cwd(), 'vite.config.mts')).mtimeMs > statSync(indexHtmlPath).mtimeMs) {
-      throw new Error('dist/ predates vite.config.mts — run `yarn build` first.')
+    const distMtimeMs = statSync(indexHtmlPath).mtimeMs
+    const buildInputMtimeMs = Math.max(
+      statSync(path.resolve(process.cwd(), 'vite.config.mts')).mtimeMs,
+      statSync(path.resolve(process.cwd(), 'package.json')).mtimeMs,
+      await newestMtimeUnder(SOURCE_ROOT)
+    )
+    if (buildInputMtimeMs > distMtimeMs) {
+      throw new Error('dist/ predates a source, config, or dependency change — run `yarn build` first.')
     }
 
     const entryChunk = (await readFile(indexHtmlPath, 'utf8')).match(/src="\/(assets\/[^"]+\.js)"/)?.[1]

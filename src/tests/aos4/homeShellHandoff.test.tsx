@@ -7,6 +7,7 @@ import { ThemeProvider } from 'context/useTheme'
 import { act } from 'react'
 import { MemoryRouter } from 'react-router'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { MemoryStorage } from 'tests/support/memoryStorage'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { CanonicalId, RulesContextId } from '../../aos4/domain'
 /*
@@ -109,60 +110,28 @@ vi.mock('utils/analytics', async () => {
   return { ...actual, ...analytics }
 })
 
-vi.mock('@auth0/auth0-react', () => ({
-  useAuth0: () => ({
-    getAccessTokenSilently: vi.fn(),
-    isAuthenticated: false,
-    isLoading: false,
-    loginWithPopup: vi.fn(),
-    logout: vi.fn(),
-    user: undefined,
-  }),
-}))
+// See tests/support/homeTestMocks.ts for why these are `await import()`ed inside the factory rather
+// than imported and passed to `vi.mock` directly.
+vi.mock('@auth0/auth0-react', async () => {
+  const { auth0DisabledMockValue } = await import('tests/support/homeTestMocks')
+  return { useAuth0: auth0DisabledMockValue }
+})
 
-vi.mock('../../api/subscriptionApi', () => ({
-  SubscriptionApi: {
-    cancelSubscription: vi.fn(),
-    getSubscription: vi.fn().mockRejectedValue({ status: 404 }),
-    updateTheme: vi.fn(),
-  },
-}))
+vi.mock('../../api/subscriptionApi', async () => {
+  const { subscriptionApiNotFoundMockValue } = await import('tests/support/homeTestMocks')
+  return { SubscriptionApi: subscriptionApiNotFoundMockValue() }
+})
 
-vi.mock('virtual:pwa-register', () => ({ registerSW: vi.fn(() => vi.fn(async () => undefined)) }))
+vi.mock('virtual:pwa-register', async () => {
+  const { pwaRegisterMockValue } = await import('tests/support/homeTestMocks')
+  return pwaRegisterMockValue()
+})
 
 vi.mock('components/input/armySharing/sharedArmyModal', () => ({
   default: ({ shareId }: { shareId: string }) => (
     <div aria-label="Shared Army" role="dialog">{`Loading share ${shareId}`}</div>
   ),
 }))
-
-class MemoryStorage implements Storage {
-  private readonly values = new Map<string, string>()
-
-  get length() {
-    return this.values.size
-  }
-
-  clear() {
-    this.values.clear()
-  }
-
-  getItem(key: string) {
-    return this.values.get(key) ?? null
-  }
-
-  key(index: number) {
-    return Array.from(this.values.keys())[index] ?? null
-  }
-
-  removeItem(key: string) {
-    this.values.delete(key)
-  }
-
-  setItem(key: string, value: string) {
-    this.values.set(key, value)
-  }
-}
 
 const CLOUD_ARMY_LINK_STORAGE_KEY = 'aos-reminders:aos4:cloud-army-link:v1'
 const PENDING_SHARE_STORAGE_KEY = 'aos-reminders:aos4:pending-share'

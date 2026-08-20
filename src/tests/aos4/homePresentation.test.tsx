@@ -14,6 +14,7 @@ import React from 'react'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { Simulate } from 'tests/support/reactTestHelpers'
+import { MemoryStorage } from 'tests/support/memoryStorage'
 import { MemoryRouter } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -36,9 +37,13 @@ vi.mock('@auth0/auth0-react', () => ({
  * Home's banner slot renders the update prompt, which reaches `applyWaitingUpdate` in
  * bootstrap/registerServiceWorker and through it the plugin's `virtual:pwa-register`. That virtual
  * module has no resolvable file on disk, so the test runner cannot import it -- stub it the same way
- * registerServiceWorker.test.ts does.
+ * registerServiceWorker.test.ts does. Shared with every other Home suite via `homeTestMocks` — see
+ * that module for why the `await import()` is inside the factory rather than at the top of the file.
  */
-vi.mock('virtual:pwa-register', () => ({ registerSW: vi.fn(() => vi.fn(async () => undefined)) }))
+vi.mock('virtual:pwa-register', async () => {
+  const { pwaRegisterMockValue } = await import('tests/support/homeTestMocks')
+  return pwaRegisterMockValue()
+})
 
 vi.mock('../../api/subscriptionApi', () => ({
   SubscriptionApi: {
@@ -64,34 +69,6 @@ vi.mock('components/input/importArmy/importArmyModal', () => ({
       </div>
     ) : null,
 }))
-
-class MemoryStorage implements Storage {
-  private readonly values = new Map<string, string>()
-
-  get length() {
-    return this.values.size
-  }
-
-  clear() {
-    this.values.clear()
-  }
-
-  getItem(key: string) {
-    return this.values.get(key) ?? null
-  }
-
-  key(index: number) {
-    return Array.from(this.values.keys())[index] ?? null
-  }
-
-  removeItem(key: string) {
-    this.values.delete(key)
-  }
-
-  setItem(key: string, value: string) {
-    this.values.set(key, value)
-  }
-}
 
 describe('AoS 4 home presentation', () => {
   let container: HTMLDivElement

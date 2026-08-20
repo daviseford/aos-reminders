@@ -8,6 +8,7 @@ import { act } from 'react'
 import { MemoryRouter } from 'react-router'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { MemoryStorage } from 'tests/support/memoryStorage'
 import type { CanonicalId } from '../../aos4/domain'
 
 /*
@@ -20,54 +21,22 @@ import type { CanonicalId } from '../../aos4/domain'
  * control rather than a decoration.
  */
 
-vi.mock('@auth0/auth0-react', () => ({
-  useAuth0: () => ({
-    getAccessTokenSilently: vi.fn(),
-    isAuthenticated: false,
-    isLoading: false,
-    loginWithPopup: vi.fn(),
-    logout: vi.fn(),
-    user: undefined,
-  }),
-}))
+// See tests/support/homeTestMocks.ts for why these are `await import()`ed inside the factory rather
+// than imported and passed to `vi.mock` directly.
+vi.mock('@auth0/auth0-react', async () => {
+  const { auth0DisabledMockValue } = await import('tests/support/homeTestMocks')
+  return { useAuth0: auth0DisabledMockValue }
+})
 
-vi.mock('../../api/subscriptionApi', () => ({
-  SubscriptionApi: {
-    cancelSubscription: vi.fn(),
-    getSubscription: vi.fn().mockRejectedValue({ status: 404 }),
-    updateTheme: vi.fn(),
-  },
-}))
+vi.mock('../../api/subscriptionApi', async () => {
+  const { subscriptionApiNotFoundMockValue } = await import('tests/support/homeTestMocks')
+  return { SubscriptionApi: subscriptionApiNotFoundMockValue() }
+})
 
-vi.mock('virtual:pwa-register', () => ({ registerSW: vi.fn(() => vi.fn(async () => undefined)) }))
-
-class MemoryStorage implements Storage {
-  private readonly values = new Map<string, string>()
-
-  get length() {
-    return this.values.size
-  }
-
-  clear() {
-    this.values.clear()
-  }
-
-  getItem(key: string) {
-    return this.values.get(key) ?? null
-  }
-
-  key(index: number) {
-    return Array.from(this.values.keys())[index] ?? null
-  }
-
-  removeItem(key: string) {
-    this.values.delete(key)
-  }
-
-  setItem(key: string, value: string) {
-    this.values.set(key, value)
-  }
-}
+vi.mock('virtual:pwa-register', async () => {
+  const { pwaRegisterMockValue } = await import('tests/support/homeTestMocks')
+  return pwaRegisterMockValue()
+})
 
 const FACTION_ID = 'faction:test-faction' as CanonicalId<'faction'>
 const ARMY_OF_RENOWN_ID = 'content-group:test-army-of-renown' as CanonicalId
@@ -232,8 +201,16 @@ describe('the masthead Army of Renown slot', () => {
    * defaults to a near-white grey — and the dark theme sets the placeholder colour to white. The
    * reserved slot was the app's first disabled select, so it was also the first place that pair
    * could render white on near-white.
+   *
+   * `neutral5` (this control's background) and `neutral0` (the live control's background) are both
+   * Midnight Slate in dark theme — the Slot Rule names one dark surface, not two — so the two
+   * controls' backgrounds are expected to match. What has to differ is the *disabled* affordance:
+   * this control carries `styles={{ control: opacity: 0.65 }}` and the live one does not, so
+   * asserting equal backgrounds would pass on a reserved slot indistinguishable from a live one.
+   * Opacity is what a screen can show a colour-blind or colour-off (printed-page-habituated) player
+   * that mirrors an equal background never would.
    */
-  it('does not invert in dark theme', async () => {
+  it('reads as disabled against the live control, on the shared dark surface', async () => {
     await renderHeader({ reserveArmyOfRenownSlot: true }, { dark: true })
 
     const reserved = controlIn(armyOfRenownRow()!)
@@ -242,8 +219,26 @@ describe('the masthead Army of Renown slot', () => {
       .closest('.col-12')!
       .querySelector<HTMLElement>('[class*="-control"]')!
 
-    const background = getComputedStyle(reserved).backgroundColor
-    expect(background).toBe(getComputedStyle(factionControl).backgroundColor)
-    expect(background).not.toBe('')
+    const reservedStyle = getComputedStyle(reserved)
+    const factionStyle = getComputedStyle(factionControl)
+
+    // Same surface: both controls read `neutral5`/`neutral0`, and both resolve to Midnight Slate.
+    expect(reservedStyle.backgroundColor).toBe(factionStyle.backgroundColor)
+    expect(reservedStyle.backgroundColor).not.toBe('')
+    // Different affordance: only the reserved control fades, so it cannot be mistaken for live.
+    expect(reservedStyle.opacity).toBe('0.65')
+    expect(factionStyle.opacity).not.toBe('0.65')
+  })
+
+  /*
+   * The layout-shift guarantee has to survive the opacity fix above: `styles.control` composes with
+   * (rather than replaces) react-select's own emotion styles, so it must not perturb the box the
+   * placeholder-vs-live test already pins.
+   */
+  it('keeps its box even with the disabled-opacity style applied', async () => {
+    await renderHeader({ reserveArmyOfRenownSlot: true }, { dark: true })
+
+    const control = controlIn(armyOfRenownRow()!)
+    expect(getComputedStyle(control).minHeight).toBe('38px')
   })
 })

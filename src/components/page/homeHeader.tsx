@@ -215,6 +215,15 @@ export const Header = ({
                           and the same theme slots so its disabled surface stays dark in dark theme
                           — react-select's default disabled background is near-white, which is the
                           one inversion DESIGN.md's Slot Rule exists to prevent.
+
+                          `neutral5` (the disabled control's background) is the same value as
+                          `neutral0` (the live control's background) in dark theme, because both are
+                          Midnight Slate — the one surface DESIGN.md's Slot Rule names for this
+                          theme. That leaves nothing in the *palette* to mark this control as
+                          disabled, so the affordance comes from opacity instead: 0.65 is
+                          `$btn-disabled-opacity`, the same fade every other disabled control in the
+                          product already reads. Scoped to this Select's own `styles` prop rather than
+                          a theme slot, because the live control one row up must stay at full opacity.
                         */
                         <Select
                           aria-label="Army of Renown"
@@ -225,6 +234,7 @@ export const Header = ({
                           placeholder="Loading..."
                           className={theme.text}
                           theme={selectColors}
+                          styles={{ control: base => ({ ...base, opacity: 0.65 }) }}
                         />
                       )}
                     </div>

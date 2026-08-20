@@ -7,6 +7,7 @@ import { ThemeProvider } from 'context/useTheme'
 import { act } from 'react'
 import { MemoryRouter } from 'react-router'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { MemoryStorage } from 'tests/support/memoryStorage'
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 
 /*
@@ -39,27 +40,23 @@ vi.mock('../../aos4/generated/corpus/sources', async () => {
 })
 
 // The standard preamble for a suite that renders Home: Auth0 and the subscription API are network
-// surfaces, and `virtual:pwa-register` has no file on disk for the resolver to find.
-vi.mock('@auth0/auth0-react', () => ({
-  useAuth0: () => ({
-    getAccessTokenSilently: vi.fn(),
-    isAuthenticated: false,
-    isLoading: false,
-    loginWithPopup: vi.fn(),
-    logout: vi.fn(),
-    user: undefined,
-  }),
-}))
+// surfaces, and `virtual:pwa-register` has no file on disk for the resolver to find. See
+// tests/support/homeTestMocks.ts for why these are `await import()`ed inside the factory rather than
+// imported and passed to `vi.mock` directly.
+vi.mock('@auth0/auth0-react', async () => {
+  const { auth0DisabledMockValue } = await import('tests/support/homeTestMocks')
+  return { useAuth0: auth0DisabledMockValue }
+})
 
-vi.mock('../../api/subscriptionApi', () => ({
-  SubscriptionApi: {
-    cancelSubscription: vi.fn(),
-    getSubscription: vi.fn().mockRejectedValue({ status: 404 }),
-    updateTheme: vi.fn(),
-  },
-}))
+vi.mock('../../api/subscriptionApi', async () => {
+  const { subscriptionApiNotFoundMockValue } = await import('tests/support/homeTestMocks')
+  return { SubscriptionApi: subscriptionApiNotFoundMockValue() }
+})
 
-vi.mock('virtual:pwa-register', () => ({ registerSW: vi.fn(() => vi.fn(async () => undefined)) }))
+vi.mock('virtual:pwa-register', async () => {
+  const { pwaRegisterMockValue } = await import('tests/support/homeTestMocks')
+  return pwaRegisterMockValue()
+})
 
 // Resolving the catalog-bound half parses the whole corpus. Warm it in module evaluation, where no
 // per-test timeout applies, so a slow first parse cannot read as a failure.
@@ -74,29 +71,6 @@ afterEach(() => {
   container = null
   loadAos4SourceData.mockClear()
 })
-
-/** jsdom's own localStorage is not installed here, and ThemeProvider reads it during render. */
-class MemoryStorage implements Storage {
-  private readonly values = new Map<string, string>()
-  get length() {
-    return this.values.size
-  }
-  clear() {
-    this.values.clear()
-  }
-  getItem(key: string) {
-    return this.values.get(key) ?? null
-  }
-  key(index: number) {
-    return Array.from(this.values.keys())[index] ?? null
-  }
-  removeItem(key: string) {
-    this.values.delete(key)
-  }
-  setItem(key: string, value: string) {
-    this.values.set(key, value)
-  }
-}
 
 const renderHome = async () => {
   Object.defineProperty(window, 'localStorage', { configurable: true, value: new MemoryStorage() })
