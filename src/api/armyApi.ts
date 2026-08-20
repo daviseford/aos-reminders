@@ -52,7 +52,13 @@ const parseDocument = async (value: unknown): Promise<Aos4ArmyDocument> => {
   let generated: typeof import('../aos4/generated')
   try {
     generated = await import('../aos4/generated')
-  } catch {
+  } catch (error) {
+    // Logged before wrapping, because the wrapped message erases the one distinction that matters
+    // when this fires: a network failure and an eval-time defect in the catalog chunk both land
+    // here, and only the console can tell them apart. "Temporarily" is also browser-dependent — a
+    // module map that cached the rejection re-throws without refetching until a reload; see
+    // aos4/generated/corpus/sources for the same caveat on the sources chunk.
+    console.error(error)
     throw new ArmyApiError('Cloud armies are temporarily unavailable.')
   }
   const restored = deserializeAos4ArmyDocument(JSON.stringify(value), generated.AOS4_CATALOG)
