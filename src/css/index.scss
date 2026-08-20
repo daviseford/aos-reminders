@@ -721,6 +721,17 @@ small {
 }
 
 /*
+ * A confirmation carries a heading, a sentence and two buttons, and nothing else. The dialog sizes
+ * itself off the `.container` inside `GenericModal`, which is a Bootstrap container and therefore
+ * takes the breakpoint max-width — 1140px at `xl` — when nothing narrower is asked for. The other
+ * modals hold roster text and account lists and declare their own width; this one did not, so a
+ * two-line question rendered a metre wide on a desktop. Read length, not the breakpoint, sets it.
+ */
+.aos4-confirm-modal {
+  width: min(30rem, calc(100vw - 4rem));
+}
+
+/*
  * A modal keeps its own surface while a request is in flight, and the spinner sits over it. The
  * previous treatment swapped the box to a fully transparent variant and `hidden` the content, so
  * the whole dialog appeared to vanish mid-save.
