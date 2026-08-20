@@ -28,14 +28,17 @@ import { useSubscriberAction } from 'components/input/importArmy/subscriberActio
 import Toolbar from 'components/input/toolbar/toolbar'
 import { messageForError, useArmyCollection } from 'context/useArmyCollection'
 import {
+  Component,
   lazy,
   Suspense,
   useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
+  useRef,
   useState,
   type Dispatch,
+  type ReactNode,
   type SetStateAction,
 } from 'react'
 import { logPdfDownload } from 'utils/analytics'
@@ -60,13 +63,51 @@ const SavedArmiesModal = lazy(() => import('components/input/cloudArmies/savedAr
 const ShareArmyModal = lazy(() => import('components/input/armySharing/shareArmyModal'))
 const SharedArmyModal = lazy(() => import('components/input/armySharing/sharedArmyModal'))
 
-const loadDocument = (): Aos4ArmyDocument => {
+const loadDocument = (): { document: Aos4ArmyDocument; unchangedFromStorage: boolean } => {
   try {
-    return loadAos4ArmyDocument(window.localStorage, AOS4_CATALOG).document
+    const result = loadAos4ArmyDocument(window.localStorage, AOS4_CATALOG)
+    return {
+      document: result.document,
+      /*
+       * The common case, named so the shell does not have to serialize two documents to detect it:
+       * the same stored bytes the shell already parsed structurally, canonicalized the same way,
+       * with nothing pruned and no context complaint — value-identical to what is on screen.
+       */
+      unchangedFromStorage: result.source === 'storage' && result.diagnostics.length === 0,
+    }
   } catch {
-    return createDefaultAos4ArmyDocument()
+    return { document: createDefaultAos4ArmyDocument(), unchangedFromStorage: false }
   }
 }
+
+/*
+ * Every modal on this screen is its own lazy chunk, and each fails on its own terms. Without this
+ * boundary, a modal chunk that could not be fetched — a tab one deploy behind asking for a retired
+ * asset — threw past the modal's `Suspense` to `CatalogBoundary`, which unmounted a fully working
+ * army, announced "Your army could not be loaded", and disabled the faction selector for good. The
+ * army was fine; only the modal was missing, and that is all the failure is allowed to mean now.
+ *
+ * Mounted only while its modal is open, so closing discards the caught state and the next open
+ * starts clean. `lazy()` retains a rejected import for the life of the module, so the honest way
+ * back is the reload the alert names.
+ */
+class ModalBoundary extends Component<{ children: ReactNode; onFailed: () => void }, { failed: boolean }> {
+  state = { failed: false }
+
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+
+  componentDidCatch() {
+    this.props.onFailed()
+  }
+
+  render() {
+    return this.state.failed ? null : this.props.children
+  }
+}
+
+const MODAL_CHUNK_ERROR = 'That window could not be opened. Reload the page and try again.'
 
 /*
  * Warscroll-ability records deep-link to their unit's own Wahapedia page rather than the
@@ -95,6 +136,16 @@ const factionById = new Map(
 
 const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'AoS'}_Reminders`
 
+const sameArmiesOfRenown = (
+  left: Aos4CatalogBoundBindings['armiesOfRenown'],
+  right: Aos4CatalogBoundBindings['armiesOfRenown']
+) =>
+  left.length === right.length &&
+  left.every((army, index) => {
+    const other = right[index]
+    return army.label === other.label && army.value === other.value && army.overlay === other.overlay
+  })
+
 /**
  * What the shell's masthead needs from this half. `armiesOfRenown` is derived from
  * `builder.options` and the change handler resolves a selection against the catalog, so neither can
@@ -119,7 +170,7 @@ interface HomeCatalogBoundProps {
   onBindingsChange: (bindings: Aos4CatalogBoundBindings | undefined) => void
   onDismissPendingShare: () => void
   onDocumentChange: Dispatch<SetStateAction<Aos4ArmyDocument>>
-  onDocumentValidated: (document: Aos4ArmyDocument) => void
+  onDocumentValidated: (document: Aos4ArmyDocument, unchangedFromStorage: boolean) => void
   pendingShareId: string | undefined
 }
 
@@ -140,6 +191,7 @@ const HomeCatalogBound = ({
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
   const [clearArmyModalIsOpen, setClearArmyModalIsOpen] = useState(false)
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
+  const [modalLoadError, setModalLoadError] = useState<string>()
   /*
    * Which cloud army the current document is a copy of, if any. It links through the save/load
    * flows and unlinks when the document stops being that army (clear, faction switch, import,
@@ -272,7 +324,8 @@ const HomeCatalogBound = ({
    * anything storage holds.
    */
   useEffect(() => {
-    onDocumentValidated(loadDocument())
+    const { document: validated, unchangedFromStorage } = loadDocument()
+    onDocumentValidated(validated, unchangedFromStorage)
   }, [onDocumentValidated])
 
   const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
@@ -403,13 +456,32 @@ const HomeCatalogBound = ({
    * effect would let the browser paint the outgoing faction's Armies of Renown once — or its row
    * disappearing a frame late — before the new list reached the masthead.
    */
+  const publishedBindings = useRef<Aos4CatalogBoundBindings | undefined>(undefined)
   useLayoutEffect(() => {
-    onBindingsChange({
+    /*
+     * Publish by value, not by identity. The list is rebuilt — a fresh array — for every document
+     * change, so publishing unconditionally cost the shell (and this whole half under it, which is
+     * not memoized) a synchronous extra render pass per keystroke commit, hide, and reorder.
+     * Skipping leaves the shell holding the previous change handler, which closed over a
+     * value-identical list, so nothing observable is withheld.
+     */
+    const previous = publishedBindings.current
+    if (
+      previous &&
+      previous.armyOfRenownId === armyOfRenownId &&
+      previous.unlinkCloudArmy === unlinkCloudArmy &&
+      sameArmiesOfRenown(previous.armiesOfRenown, armiesOfRenown)
+    ) {
+      return
+    }
+    const bindings = {
       armiesOfRenown,
       armyOfRenownId,
       onArmyOfRenownChange: selectArmyOfRenown,
       unlinkCloudArmy,
-    })
+    }
+    publishedBindings.current = bindings
+    onBindingsChange(bindings)
   }, [armiesOfRenown, armyOfRenownId, onBindingsChange, selectArmyOfRenown, unlinkCloudArmy])
 
   /*
@@ -506,6 +578,14 @@ const HomeCatalogBound = ({
         </div>
       )}
 
+      {modalLoadError && (
+        <div className="container d-print-none">
+          <div className="alert alert-warning" role="alert">
+            {modalLoadError}
+          </div>
+        </div>
+      )}
+
       <Reminders
         getSources={reminderSources}
         isGameMode={isGameMode}
@@ -516,81 +596,123 @@ const HomeCatalogBound = ({
       />
 
       {printModalIsOpen && (
-        <Suspense fallback={null}>
-          <PrintModal
-            closeModal={() => setPrintModalIsOpen(false)}
-            defaultFileName={toFileName(document.name)}
-            isOpen={printModalIsOpen}
-            onDownloadPdf={handleDownloadPdf}
-          />
-        </Suspense>
+        <ModalBoundary
+          onFailed={() => {
+            setPrintModalIsOpen(false)
+            setModalLoadError(MODAL_CHUNK_ERROR)
+          }}
+        >
+          <Suspense fallback={null}>
+            <PrintModal
+              closeModal={() => setPrintModalIsOpen(false)}
+              defaultFileName={toFileName(document.name)}
+              isOpen={printModalIsOpen}
+              onDownloadPdf={handleDownloadPdf}
+            />
+          </Suspense>
+        </ModalBoundary>
       )}
 
       {importModalIsOpen && (
-        <Suspense fallback={null}>
-          <ImportArmyModal
-            closeModal={() => setImportModalIsOpen(false)}
-            isOpen={importModalIsOpen}
-            onApply={nextDocument => {
-              unlinkCloudArmy()
-              setDocument(nextDocument)
-              setImportModalIsOpen(false)
-            }}
-          />
-        </Suspense>
+        <ModalBoundary
+          onFailed={() => {
+            setImportModalIsOpen(false)
+            setModalLoadError(MODAL_CHUNK_ERROR)
+          }}
+        >
+          <Suspense fallback={null}>
+            <ImportArmyModal
+              closeModal={() => setImportModalIsOpen(false)}
+              isOpen={importModalIsOpen}
+              onApply={nextDocument => {
+                unlinkCloudArmy()
+                setDocument(nextDocument)
+                setImportModalIsOpen(false)
+              }}
+            />
+          </Suspense>
+        </ModalBoundary>
       )}
 
       {savedArmiesModalIsOpen && (
-        <Suspense fallback={null}>
-          <SavedArmiesModal
-            closeModal={() => setSavedArmiesModalIsOpen(false)}
-            isOpen={savedArmiesModalIsOpen}
-            {...(cloudArmyId ? { linkedCloudArmyId: cloudArmyId } : {})}
-            onApply={setDocument}
-            onDeleted={deletedId => {
-              if (deletedId === cloudArmyId) unlinkCloudArmy()
-            }}
-            onLinked={linkCloudArmy}
-          />
-        </Suspense>
+        <ModalBoundary
+          onFailed={() => {
+            setSavedArmiesModalIsOpen(false)
+            setModalLoadError(MODAL_CHUNK_ERROR)
+          }}
+        >
+          <Suspense fallback={null}>
+            <SavedArmiesModal
+              closeModal={() => setSavedArmiesModalIsOpen(false)}
+              isOpen={savedArmiesModalIsOpen}
+              {...(cloudArmyId ? { linkedCloudArmyId: cloudArmyId } : {})}
+              onApply={setDocument}
+              onDeleted={deletedId => {
+                if (deletedId === cloudArmyId) unlinkCloudArmy()
+              }}
+              onLinked={linkCloudArmy}
+            />
+          </Suspense>
+        </ModalBoundary>
       )}
 
       {saveArmyModalIsOpen && (
-        <Suspense fallback={null}>
-          <SaveArmyModal
-            closeModal={() => setSaveArmyModalIsOpen(false)}
-            currentDocument={document}
-            isOpen={saveArmyModalIsOpen}
-            onSaved={(savedDocument, savedCloudArmyId, savedName) => {
-              setDocument(savedDocument)
-              linkCloudArmy(savedCloudArmyId, savedName, savedDocument)
-            }}
-          />
-        </Suspense>
+        <ModalBoundary
+          onFailed={() => {
+            setSaveArmyModalIsOpen(false)
+            setModalLoadError(MODAL_CHUNK_ERROR)
+          }}
+        >
+          <Suspense fallback={null}>
+            <SaveArmyModal
+              closeModal={() => setSaveArmyModalIsOpen(false)}
+              currentDocument={document}
+              isOpen={saveArmyModalIsOpen}
+              onSaved={(savedDocument, savedCloudArmyId, savedName) => {
+                setDocument(savedDocument)
+                linkCloudArmy(savedCloudArmyId, savedName, savedDocument)
+              }}
+            />
+          </Suspense>
+        </ModalBoundary>
       )}
 
       {shareModalIsOpen && (
-        <Suspense fallback={null}>
-          <ShareArmyModal
-            closeModal={() => setShareModalIsOpen(false)}
-            document={document}
-            isOpen={shareModalIsOpen}
-          />
-        </Suspense>
+        <ModalBoundary
+          onFailed={() => {
+            setShareModalIsOpen(false)
+            setModalLoadError(MODAL_CHUNK_ERROR)
+          }}
+        >
+          <Suspense fallback={null}>
+            <ShareArmyModal
+              closeModal={() => setShareModalIsOpen(false)}
+              document={document}
+              isOpen={shareModalIsOpen}
+            />
+          </Suspense>
+        </ModalBoundary>
       )}
 
       {pendingShareId && (
-        <Suspense fallback={null}>
-          <SharedArmyModal
-            closeModal={onDismissPendingShare}
-            isOpen
-            onApply={nextDocument => {
-              unlinkCloudArmy()
-              setDocument(nextDocument)
-            }}
-            shareId={pendingShareId}
-          />
-        </Suspense>
+        /*
+         * The one failure handler here that must not close what it guards: dismissing the share
+         * clears the sessionStorage id, and losing the chunk is not the player declining. The id
+         * stays put, so the reload the alert asks for finds the share and offers it again.
+         */
+        <ModalBoundary onFailed={() => setModalLoadError(MODAL_CHUNK_ERROR)}>
+          <Suspense fallback={null}>
+            <SharedArmyModal
+              closeModal={onDismissPendingShare}
+              isOpen
+              onApply={nextDocument => {
+                unlinkCloudArmy()
+                setDocument(nextDocument)
+              }}
+              shareId={pendingShareId}
+            />
+          </Suspense>
+        </ModalBoundary>
       )}
 
       {/*
@@ -599,17 +721,24 @@ const HomeCatalogBound = ({
        * anywhere else. It is the one action here that earns an interruption.
        */}
       {clearArmyModalIsOpen && (
-        <Suspense fallback={null}>
-          <ClearArmyModal
-            bodyText="This empties the builder and discards the notes, hidden reminders, and ordering you set for this army. Armies saved to your account are not affected."
-            closeModal={() => setClearArmyModalIsOpen(false)}
-            confirmText="Clear army"
-            denyText="Keep it"
-            headerText="Clear this army?"
-            isOpen={clearArmyModalIsOpen}
-            onConfirm={clearArmy}
-          />
-        </Suspense>
+        <ModalBoundary
+          onFailed={() => {
+            setClearArmyModalIsOpen(false)
+            setModalLoadError(MODAL_CHUNK_ERROR)
+          }}
+        >
+          <Suspense fallback={null}>
+            <ClearArmyModal
+              bodyText="This empties the builder and discards the notes, hidden reminders, and ordering you set for this army. Armies saved to your account are not affected."
+              closeModal={() => setClearArmyModalIsOpen(false)}
+              confirmText="Clear army"
+              denyText="Keep it"
+              headerText="Clear this army?"
+              isOpen={clearArmyModalIsOpen}
+              onConfirm={clearArmy}
+            />
+          </Suspense>
+        </ModalBoundary>
       )}
     </>
   )

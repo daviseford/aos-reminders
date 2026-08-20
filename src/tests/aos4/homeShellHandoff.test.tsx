@@ -127,10 +127,30 @@ vi.mock('virtual:pwa-register', async () => {
   return pwaRegisterMockValue()
 })
 
+// The share modal's own failure mode, separately from the child's: it is its own lazy chunk, so it
+// can fail to arrive after the child has. Throwing from the mock reaches the same ModalBoundary an
+// import rejection would.
+const shareModalGate = vi.hoisted(() => ({ broken: false }))
+
 vi.mock('components/input/armySharing/sharedArmyModal', () => ({
-  default: ({ shareId }: { shareId: string }) => (
-    <div aria-label="Shared Army" role="dialog">{`Loading share ${shareId}`}</div>
-  ),
+  default: ({ closeModal, shareId }: { closeModal: () => void; shareId: string }) => {
+    if (shareModalGate.broken) throw new Error('the share modal chunk failed to load')
+    return (
+      <div aria-label="Shared Army" role="dialog">
+        {`Loading share ${shareId}`}
+        <button onClick={closeModal} type="button">
+          Keep current army
+        </button>
+      </div>
+    )
+  },
+}))
+
+// Broken for the whole file, standing in for a retired chunk; only the modal-failure case opens it.
+vi.mock('components/print/printModal', () => ({
+  default: () => {
+    throw new Error('the print modal chunk failed to load')
+  },
 }))
 
 const CLOUD_ARMY_LINK_STORAGE_KEY = 'aos-reminders:aos4:cloud-army-link:v1'
@@ -272,6 +292,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
 
   beforeEach(() => {
     gate.arm()
+    shareModalGate.broken = false
     analytics.logFactionSelection.mockClear()
     analytics.logGameModeChange.mockClear()
     storage = new MemoryStorage()
@@ -422,11 +443,12 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
 
   /*
    * The id is held by the shell — the one component under this route that cannot remount — so a
-   * child torn down and rebuilt behind Suspense and the error boundary never drops it. But the read
-   * is non-destructive: the shell cannot open a share, only the child can, so the sessionStorage
-   * copy stays until the child that consumes it is actually on screen.
+   * child torn down and rebuilt behind Suspense and the error boundary never drops it. And the read
+   * is non-destructive all the way to the modal's own answer: the child mounting is not enough,
+   * because the share modal is its own lazy chunk, and clearing at child mount lost the share
+   * whenever that chunk failed to arrive after the child had.
    */
-  it('holds an incoming share id in the shell and clears the key only once the child arrives', async () => {
+  it('holds an incoming share id in the shell until the share modal takes responsibility for it', async () => {
     session.setItem(PENDING_SHARE_STORAGE_KEY, 'a'.repeat(32))
 
     await renderHome()
@@ -437,11 +459,69 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
 
     await landTheCatalog()
 
-    expect(container.querySelector('[role="dialog"][aria-label="Shared Army"]')?.textContent).toBe(
+    expect(container.querySelector('[role="dialog"][aria-label="Shared Army"]')?.textContent).toContain(
       `Loading share ${'a'.repeat(32)}`
     )
-    // The modal has it now, so the key has done its job.
+    // The modal is on screen, but until the player answers it, a reload must still find the key.
+    expect(session.getItem(PENDING_SHARE_STORAGE_KEY)).toBe('a'.repeat(32))
+
+    // Declining is an answer: something has taken responsibility for the id, so the key goes.
+    await act(async () => {
+      Array.from(container.querySelectorAll('button'))
+        .find(button => button.textContent === 'Keep current army')!
+        .click()
+      await flush()
+    })
+
+    expect(container.querySelector('[role="dialog"][aria-label="Shared Army"]')).toBeNull()
     expect(session.getItem(PENDING_SHARE_STORAGE_KEY)).toBeNull()
+  })
+
+  /*
+   * A modal chunk failing is not the catalog failing. Before each modal had its own boundary, a
+   * retired modal asset threw past the modal's `Suspense` to `CatalogBoundary`, which unmounted a
+   * fully working army, announced "Your army could not be loaded", and disabled the faction
+   * selector with no way back. The army was fine; only the modal was missing.
+   */
+  it('keeps the army and the masthead alive when a modal chunk fails', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
+
+    await renderHome()
+    await landTheCatalog()
+
+    await act(async () => {
+      Array.from(container.querySelectorAll('button'))
+        .find(button => button.textContent?.trim() === 'Download PDF')!
+        .click()
+      await flush()
+    })
+
+    expect(container.textContent).toContain('That window could not be opened.')
+    // The failure stayed a modal failure: the region below is still the army, the live region still
+    // says so, and the masthead still takes picks.
+    expect(container.querySelector('#aos4-reminders')).not.toBeNull()
+    expect(container.textContent).not.toContain('Your army could not be loaded.')
+    expect(container.querySelector('[role="status"]')!.textContent).toBe('Your army is ready')
+    expect(container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')!.disabled).toBe(false)
+  })
+
+  /*
+   * The same failure on the one modal that opens itself: the share modal consumes an id the player
+   * cannot re-mint — the URL param was stripped at capture — so losing the chunk must not also
+   * lose the id. The key stays in session storage, where the reload the alert asks for finds it.
+   */
+  it('keeps the share id recoverable when the share modal chunk fails after the child arrived', async () => {
+    shareModalGate.broken = true
+    session.setItem(PENDING_SHARE_STORAGE_KEY, 'a'.repeat(32))
+
+    await renderHome()
+    await landTheCatalog()
+
+    expect(container.textContent).toContain('That window could not be opened.')
+    expect(session.getItem(PENDING_SHARE_STORAGE_KEY)).toBe('a'.repeat(32))
+    // And the army behind the modal is untouched.
+    expect(container.querySelector('#aos4-reminders')).not.toBeNull()
+    expect(container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')!.disabled).toBe(false)
   })
 
   /*

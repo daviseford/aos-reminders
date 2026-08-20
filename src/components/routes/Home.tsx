@@ -19,7 +19,7 @@ import {
 import { logFactionSelection, logGameModeChange } from 'utils/analytics'
 import { clearCloudArmyLink } from 'utils/cloudArmyLink'
 import { clearPendingShareId, readPendingShareId } from 'utils/shareLink'
-import type { CanonicalId } from '../../aos4/domain'
+import type { CanonicalId, RulesContextId } from '../../aos4/domain'
 import defaultsJson from '../../aos4/generated/corpus/defaults.json'
 import { AOS4_FACTION_INDEX } from '../../aos4/generated/corpus/factionIndex'
 import {
@@ -51,9 +51,14 @@ const HomeCatalogBound = lazy(() => import('components/routes/HomeCatalogBound')
  * The default faction comes from the generated defaults file rather than the generated barrel that
  * also exports it: the barrel re-exports the whole corpus.
  */
-const defaults = defaultsJson as unknown as { defaultFactionId: CanonicalId<'faction'> }
+const defaults = defaultsJson as unknown as {
+  defaultFactionId: CanonicalId<'faction'>
+  rulesContextId: RulesContextId
+}
 
 const factionIndexById = new Map(AOS4_FACTION_INDEX.factions.map(faction => [faction.id, faction] as const))
+
+const DEFAULT_RULES_CONTEXT_INDEX = AOS4_FACTION_INDEX.rulesContextIds.indexOf(defaults.rulesContextId)
 
 /*
  * Every decoded faction can name itself, but only the ones that field units are offered. `playable`
@@ -168,8 +173,10 @@ const Home = () => {
    * cannot remount under this route, so it is the right place to hold the id, but it is also the
    * half that cannot open a share. Removing the key at shell mount destroyed the share whenever the
    * child never arrived — the id was gone from session storage and the modal that consumes it had
-   * never existed, so even a reload had nothing to recover. The key is cleared once the child is up
-   * (below), which is the first moment anything can actually act on it.
+   * never existed, so even a reload had nothing to recover. The key is cleared only in
+   * `dismissPendingShare`, which the share modal calls when the player applies or declines the
+   * share: the child mounting is not enough, because the modal is its own lazy chunk and can still
+   * fail to arrive after the child has.
    */
   const [pendingShareId, setPendingShareId] = useState(readPendingShareId)
   /*
@@ -201,13 +208,23 @@ const Home = () => {
     [armyDocument.rulesContextId]
   )
 
+  /*
+   * The selector's context, with one fallback the raw index must not have: a stored context the
+   * corpus no longer carries would filter the options down to nothing — an empty selector for the
+   * whole chunk wait, and a permanently empty disabled one if the chunk then failed. The
+   * catalog-bound load resets such a document to the default context anyway, so the selector offers
+   * the default context's factions rather than a promise of nothing. The Army of Renown reservation
+   * below deliberately keeps reading the raw `-1`: no row is the right reservation for a document
+   * about to be reset.
+   */
+  const factionRulesContextIndex = rulesContextIndex === -1 ? DEFAULT_RULES_CONTEXT_INDEX : rulesContextIndex
   const factions = useMemo(
     () =>
       selectableFactions
-        .filter(faction => faction.rulesContextIndexes.includes(rulesContextIndex))
+        .filter(faction => faction.rulesContextIndexes.includes(factionRulesContextIndex))
         .map(faction => ({ label: faction.name, value: faction.id }))
         .sort((left, right) => left.label.localeCompare(right.label)),
-    [rulesContextIndex]
+    [factionRulesContextIndex]
   )
   /*
    * `Aos4ArmyDocument` stores selections, not a faction: the faction is whichever selection carries
@@ -233,6 +250,9 @@ const Home = () => {
       createAos4ArmyDocument({
         ...current,
         name: nextFaction?.name ?? current.name,
+        // A pick made from the fallback list above is a pick in the default context; carrying the
+        // retired context id forward would pair it with a faction that was never offered there.
+        rulesContextId: rulesContextIndex === -1 ? defaults.rulesContextId : current.rulesContextId,
         explicitSelectionIds: [nextFactionId],
         reminderPreferences: {},
       })
@@ -250,33 +270,34 @@ const Home = () => {
    * has not touched. A faction picked during the wait is newer than anything storage holds, and the
    * shell has not written it there yet, so taking the stored answer would silently undo the pick.
    */
-  const handleDocumentValidated = useCallback((validated: Aos4ArmyDocument) => {
-    setArmyDocument(current => {
-      if (current !== structuralDocument.current) return current
-      // The same army, freshly deserialized: swapping the instance would rebuild the builder and
-      // every reminder view model to land on what is already on screen.
-      return serializeAos4ArmyDocument(current) === serializeAos4ArmyDocument(validated) ? current : validated
-    })
-    setDocumentValidated(true)
-  }, [])
+  const handleDocumentValidated = useCallback(
+    (validated: Aos4ArmyDocument, unchangedFromStorage: boolean) => {
+      setArmyDocument(current => {
+        if (current !== structuralDocument.current) return current
+        // The same army, freshly deserialized: swapping the instance would rebuild the builder and
+        // every reminder view model to land on what is already on screen. The child already knows the
+        // common case — same stored bytes, canonicalized the same way, nothing pruned — so the
+        // serialize-and-compare runs only when validation actually reported something.
+        if (unchangedFromStorage) return current
+        return serializeAos4ArmyDocument(current) === serializeAos4ArmyDocument(validated)
+          ? current
+          : validated
+      })
+      setDocumentValidated(true)
+    },
+    []
+  )
 
+  /*
+   * The one place the sessionStorage key is removed. The share modal calls this when the player
+   * applies or declines the share — the first moment something has genuinely taken responsibility
+   * for the id. Clearing any earlier (the child mounting used to do it) races the modal's own lazy
+   * chunk: a fetch that failed after the clear left the id nowhere, and the URL param is long gone.
+   */
   const dismissPendingShare = useCallback(() => {
     clearPendingShareId()
     setPendingShareId(undefined)
   }, [])
-
-  /*
-   * The moment the id stops being recoverable, and the earliest one at which losing it costs
-   * nothing: the child is mounted, so the share modal it owns is on screen with the id in hand.
-   * Keyed on the boolean rather than on `catalogBound` itself, whose identity changes on every
-   * faction switch — clearing an already-cleared key is harmless, but re-running for a reason
-   * unrelated to the share would misdescribe why this exists.
-   */
-  const catalogHasMounted = Boolean(catalogBound)
-  useEffect(() => {
-    if (!catalogHasMounted) return
-    clearPendingShareId()
-  }, [catalogHasMounted])
 
   /*
    * Suppressed until the child's validated load has landed. The document the shell starts from was
