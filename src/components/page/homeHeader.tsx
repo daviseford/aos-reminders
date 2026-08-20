@@ -198,45 +198,40 @@ export const Header = ({
                   */}
                   <div className="d-flex pt-3 pb-2 justify-content-center">
                     <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-start">
-                      {armiesOfRenown.length > 0 ? (
-                        <Select
-                          aria-label="Army of Renown"
-                          value={armyOfRenownOption}
-                          options={armyOfRenownOptions}
-                          onChange={selected => onArmyOfRenownChange(selected?.value ?? null)}
-                          isClearable={false}
-                          className={theme.text}
-                          theme={selectColors}
-                        />
-                      ) : (
-                        /*
-                          The same control, minus the answer. It keeps the live select's accessible
-                          name so a screen reader meets one Army of Renown control rather than two,
-                          and the same theme slots so its disabled surface stays dark in dark theme
-                          — react-select's default disabled background is near-white, which is the
-                          one inversion DESIGN.md's Slot Rule exists to prevent.
+                      {/*
+                        One control, live or reserved. While the list is still empty it renders
+                        disabled with no answer — the same element, so it keeps the live select's
+                        accessible name (a screen reader meets one Army of Renown control rather
+                        than two) and the same theme slots (react-select's default disabled
+                        background is near-white, the one inversion DESIGN.md's Slot Rule exists to
+                        prevent), and a masthead styling or a11y change cannot land on one variant
+                        and miss the other.
 
-                          `neutral5` (the disabled control's background) is the same value as
-                          `neutral0` (the live control's background) in dark theme, because both are
-                          Midnight Slate — the one surface DESIGN.md's Slot Rule names for this
-                          theme. That leaves nothing in the *palette* to mark this control as
-                          disabled, so the affordance comes from opacity instead: 0.65 is
-                          `$btn-disabled-opacity`, the same fade every other disabled control in the
-                          product already reads. Scoped to this Select's own `styles` prop rather than
-                          a theme slot, because the live control one row up must stay at full opacity.
-                        */
-                        <Select
-                          aria-label="Army of Renown"
-                          value={null}
-                          options={[]}
-                          isDisabled
-                          isClearable={false}
-                          placeholder="Loading..."
-                          className={theme.text}
-                          theme={selectColors}
-                          styles={{ control: base => ({ ...base, opacity: 0.65 }) }}
-                        />
-                      )}
+                        `neutral5` (the disabled control's background) is the same value as
+                        `neutral0` (the live control's background) in dark theme, because both are
+                        Midnight Slate — the one surface DESIGN.md's Slot Rule names for this
+                        theme. That leaves nothing in the *palette* to mark the reserved control as
+                        disabled, so the affordance comes from opacity instead: 0.65 is
+                        `$btn-disabled-opacity`, the same fade every other disabled control in the
+                        product already reads. Scoped to the reserved state's `styles` prop rather
+                        than a theme slot, because the live state must stay at full opacity.
+                      */}
+                      <Select
+                        aria-label="Army of Renown"
+                        value={armiesOfRenown.length > 0 ? armyOfRenownOption : null}
+                        options={armiesOfRenown.length > 0 ? armyOfRenownOptions : []}
+                        onChange={selected => onArmyOfRenownChange(selected?.value ?? null)}
+                        isClearable={false}
+                        isDisabled={armiesOfRenown.length === 0}
+                        placeholder="Loading..."
+                        className={theme.text}
+                        theme={selectColors}
+                        styles={
+                          armiesOfRenown.length === 0
+                            ? { control: base => ({ ...base, opacity: 0.65 }) }
+                            : undefined
+                        }
+                      />
                     </div>
                   </div>
                 </>
