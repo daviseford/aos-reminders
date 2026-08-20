@@ -276,7 +276,7 @@ describe('generated service worker', () => {
     expect(catalogEntries(precached)).toEqual([])
   })
 
-  it('warms the catalog on install and the source records without holding activation', () => {
+  it('warms both chunks on install, aborting the update only for the catalog', () => {
     expect(extrasImports).toHaveLength(1)
     const extras = read(extrasImports[0])
 
@@ -289,17 +289,28 @@ describe('generated service worker', () => {
     expect(extras).toMatch(/waitUntil\(warmChunk\(CATALOG_URL\)\)/)
 
     /*
-     * The source records must not join it. Activation holds fetch events until waitUntil settles and
-     * the page reloads the moment the worker takes control, so awaiting a 7 MB fetch there would
-     * strand that reload on a blank screen — and blocking the whole app update on data most sessions
-     * never open would widen the abort surface out of proportion to what it protects.
+     * The source records warm under install's waitUntil too, but caught. The waitUntil is what
+     * stops the browser terminating the worker mid-fetch — a fire-and-forget warm in activate had
+     * no lifetime extension, so a completed update did not guarantee citations offline and the
+     * swallowed failure never retried for that build. The catch is what keeps best-effort data from
+     * aborting an update the catalog warm survived. Install, not activate: activation holds fetch
+     * events until waitUntil settles, so a 7 MB fetch there would strand the post-activation reload
+     * on a blank screen, while install runs with the previous worker still serving the page.
      */
-    expect(extras).toMatch(/^\s*if \(SOURCES_URL\) warmChunk\(SOURCES_URL\)\.catch\(\(\) => \{\}\)\s*$/m)
+    expect(extras).toMatch(
+      /if \(SOURCES_URL\) event\.waitUntil\(warmChunk\(SOURCES_URL\)\.catch\(\(\) => \{\}\)\)/
+    )
 
-    // Both lifecycle handlers hold something, so an empty scan cannot make the filter below vacuous.
+    // All three held tasks are seen by the scan, so the filters below cannot pass vacuously.
     const heldWork = waitUntilArguments(extras)
-    expect(heldWork).toHaveLength(2)
-    expect(heldWork.filter(argument => argument.includes('SOURCES_URL'))).toEqual([])
+    expect(heldWork).toHaveLength(3)
+    const sourcesHeld = heldWork.filter(argument => argument.includes('SOURCES_URL'))
+    expect(sourcesHeld).toHaveLength(1)
+    expect(sourcesHeld[0]).toContain('.catch')
+    // The uncaught catalog warm is the only held task allowed to reject its waitUntil.
+    expect(
+      heldWork.filter(argument => argument.includes('warmChunk') && !argument.includes('.catch'))
+    ).toEqual(['warmChunk(CATALOG_URL)'])
   })
 
   it('prunes to the current build across both chunks', () => {

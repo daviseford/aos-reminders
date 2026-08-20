@@ -198,13 +198,22 @@ const warmChunk = async url => {
 }
 
 /*
- * Deliberately unguarded: a rejection here rejects install's waitUntil, which aborts the update and
- * leaves the client on its previous worker -- one that still has its own catalog cached and still
- * works offline. Swallowing the failure instead would activate a build that cannot load army data
- * offline, which is worse than not updating. The hourly poll retries.
+ * The catalog warm is deliberately unguarded: a rejection here rejects install's waitUntil, which
+ * aborts the update and leaves the client on its previous worker -- one that still has its own
+ * catalog cached and still works offline. Swallowing the failure instead would activate a build
+ * that cannot load army data offline, which is worse than not updating. The hourly poll retries.
+ *
+ * The source records warm here too, but caught: best-effort data must not abort an update the
+ * catalog warm survived. They used to warm fire-and-forget in activate, which had no lifetime
+ * extension at all -- the browser could terminate the newly-activated worker mid-fetch, the
+ * swallowed failure never retried for that build, and a completed update stopped guaranteeing
+ * citations offline. Install's waitUntil restores the guarantee without the cost that kept the
+ * warm out of activate's: install does not hold fetch events, so the page keeps running on the
+ * previous worker while the 7 MB fetch (bounded by WARM_TIMEOUT_MS) completes.
  */
 self.addEventListener('install', event => {
   event.waitUntil(warmChunk(CATALOG_URL))
+  if (SOURCES_URL) event.waitUntil(warmChunk(SOURCES_URL).catch(() => {}))
 })
 
 self.addEventListener('activate', event => {
@@ -229,15 +238,6 @@ self.addEventListener('activate', event => {
       }
     })()
   )
-
-  /*
-   * Source records warm outside waitUntil, and best-effort. Two reasons they are not held to the
-   * install contract above: activation holds fetch events until waitUntil settles, so awaiting a
-   * 7 MB fetch here would strand the post-activation reload on a blank screen; and blocking the whole
-   * app update on data most sessions never open would widen the abort surface out of proportion to
-   * what it protects. A failure just means the first source menu fetches it over the network.
-   */
-  if (SOURCES_URL) warmChunk(SOURCES_URL).catch(() => {})
 })
 `
     const sourceHash = createHash('sha256').update(source).digest('hex').slice(0, 16)

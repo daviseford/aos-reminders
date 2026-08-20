@@ -49,10 +49,11 @@ Warming on `activate` would commit the client to a build it cannot run offline,
 because activation cannot be refused. A failed warm therefore means "this update
 did not land", and the hourly poll retries.
 
-The **source records** warm best-effort after activation and deliberately not
-under `waitUntil`. They are held to a weaker contract than the catalog for two
-reasons: awaiting a 7 MiB fetch there would strand the post-activation reload on
-a blank screen, and blocking the whole app update on data most sessions never
+The **source records** warm on `install` too, but under a *caught* `waitUntil`:
+the lifetime extension stops the browser terminating the worker mid-fetch (a
+fire-and-forget warm could be killed silently, and install never re-fires for
+that build), while the catch keeps best-effort data from aborting an update the
+catalog warm survived. Blocking the whole update on data most sessions never
 open would widen the abort surface out of proportion to what it protects. A
 failed warm just means the first source menu fetches over the network; the
 `CacheFirst` route still populates the cache on that first real use.
