@@ -351,6 +351,18 @@ const Home = () => {
 
         {catalogBound && <SkipToReminders />}
 
+        {/*
+         * The splash is an overlay held by the shell, not the Suspense fallback, because the two
+         * lift at different moments: the fallback goes away when the chunk arrives, but the child's
+         * bindings land one commit later — and with them the masthead's real Army of Renown row.
+         * Holding the overlay until `catalogBound` (or the boundary's failure) makes the reveal a
+         * single commit: splash, then the finished screen. While it is up it covers the masthead
+         * too, so the faction selector cannot be used mid-load the way the split used to allow;
+         * that is the trade the full-screen splash asks for, and the document is still written
+         * only after validation either way.
+         */}
+        {!catalogBound && !catalogFailed && <LoadingArmy />}
+
         <Header
           armiesOfRenown={catalogBound?.armiesOfRenown ?? NO_ARMIES_OF_RENOWN}
           armyName={armyDocument.name}
@@ -384,7 +396,12 @@ const Home = () => {
         <AppBanner />
 
         <CatalogBoundary onFailed={handleCatalogFailed}>
-          <Suspense fallback={<LoadingArmy />}>
+          {/*
+           * No fallback of its own: the splash overlay above covers the whole wait, and a second
+           * stand-in here would only flash in the gap between the chunk landing and the bindings
+           * commit that lifts the overlay.
+           */}
+          <Suspense fallback={null}>
             <HomeCatalogBound
               document={armyDocument}
               factionId={factionId}

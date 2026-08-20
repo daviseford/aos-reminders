@@ -321,19 +321,24 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
   })
 
   /*
-   * `LoadingBody` was the obvious thing to reuse and is the wrong shape here: its 35vh top padding
-   * is sized for a bare route, and its own product-name heading would repeat the masthead's and
-   * skip from <h1> to <h3> on the way.
+   * The pending state is a full-screen splash — the route-level fallback's old job, restored: the
+   * product name and "Loading..." on the theme background, edge to edge, with nothing half-painted
+   * around it. It is an overlay the shell holds until the bound child commits rather than the
+   * Suspense fallback, because the fallback lifts when the chunk arrives and the bindings — the
+   * masthead's real Army of Renown row among them — land one commit later.
    */
-  it('does not reuse the page-centered route fallback or repeat the product name', async () => {
+  it('covers the whole screen with the splash until the army is ready', async () => {
     await renderHome()
 
-    expect(container.querySelector('.LoadingContainer')).toBeNull()
+    const splash = container.querySelector('.LoadingSplash')
+    expect(splash).not.toBeNull()
+    expect(splash!.getAttribute('aria-hidden')).toBe('true')
+    expect(splash!.textContent).toContain('AoS Reminders')
+    expect(splash!.textContent).toContain('Loading...')
 
-    const headings = Array.from(container.querySelectorAll('h1, h2, h3, h4, h5, h6')).map(heading =>
-      heading.textContent?.trim()
-    )
-    expect(headings).not.toContain('AoS Reminders')
+    // The chrome is already painted underneath; the overlay is what stands between it and the
+    // player, so the reveal is one commit instead of a band swapping for content.
+    expect(container.querySelector('nav')).not.toBeNull()
   })
 
   /*

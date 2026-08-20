@@ -68,32 +68,40 @@ export const LoadingBody = () => {
 }
 
 /*
- * The stand-in for Home's catalog-bound half while its chunk loads. Deliberately not `LoadingBody`:
- * that one is `.LoadingContainer { padding-top: 35vh }`, sized for a bare route with nothing above
- * it, so under an already-painted masthead it pushes the only loading signal off a 667px viewport.
- * It also renders its own `<h3>AoS Reminders</h3>`, which would repeat the masthead's `<h1>` and
- * skip a heading level on the way.
+ * Home's full-screen splash while the catalog chunk is on the wire: the same two static lines as
+ * `LoadingBody` — the job the route-level fallback did before the shell split, restored. The player
+ * sees the product name and "Loading..." on the theme background, edge to edge, and nothing else
+ * until the army UI is ready. A spinner band under an already-painted masthead read as a half-built
+ * page, and a band's theme background stopping mid-screen read as a broken one.
  *
- * So: the design system's one loading idiom (DESIGN.md, "Loading and empty states") — a large
- * spinner, centered in a region tall enough to read as the content area it is standing in for. A
- * bare line of muted text under the banner read as an unfinished page, not a loading one.
+ * It is a fixed overlay rather than the Suspense fallback so it outlives the child's first commit:
+ * the fallback lifts the moment the chunk arrives, while the masthead's reserved Army of Renown row
+ * and the freshly mounted builder are still settling into their bound shape. Home keeps this up
+ * until the child has published its bindings — or the boundary reports the failure — so the reveal
+ * is a single commit: splash, then the finished screen.
  *
  * Purely visual: `aria-hidden`, with no announced text of its own. This element is unmounted at the
  * exact moment worth announcing — the handoff, or the failure — and a live region that vanishes
  * cannot report what replaced it. Home owns one persistent region for the whole pending/ready/failed
- * story instead, which is why the spinner's own `role="status"` stays hidden here: the state is
- * reported once.
+ * story instead: the state is reported once.
  */
 export const LoadingArmy = () => {
-  const { isDark, theme } = useTheme()
+  const { theme } = useTheme()
 
   return (
-    <div
-      className={`container ${theme.bgColor} d-flex align-items-center justify-content-center`}
-      style={{ minHeight: '40vh' }}
-      aria-hidden="true"
-    >
-      <Spinner variant={isDark ? 'light-gray' : 'secondary'} size="large" />
+    <div className={`LoadingSplash ${theme.bgColor}`} aria-hidden="true">
+      {/*
+       * No motion here, deliberately — The Dead Class Rule in DESIGN.md settled it for `LoadingBody`
+       * and the same answer holds here: this screen holds still like the rest of the product.
+       *
+       * No `col` on the wrapper: this container is a flex column centering its children, and
+       * Bootstrap's `.col` is `flex-grow: 1` — it would stretch to fill the viewport height and
+       * pin the text to the top, which is the opposite of what the centering is for.
+       */}
+      <div className="text-center">
+        <h3 className={theme.text}>AoS Reminders</h3>
+        <p className={`lead ${theme.textMuted}`}>Loading...</p>
+      </div>
     </div>
   )
 }
