@@ -30,11 +30,16 @@ export const capturePendingShareId = (
  * actually taken responsibility for the id.
  */
 export const readPendingShareId = (
-  storage: Pick<Storage, 'getItem'> = window.sessionStorage
+  storage: Pick<Storage, 'getItem' | 'removeItem'> = window.sessionStorage
 ): string | undefined => {
   try {
     const shareId = storage.getItem(PENDING_SHARE_STORAGE_KEY)?.trim()
-    return shareId && SHARE_ID_PATTERN.test(shareId) ? shareId : undefined
+    if (!shareId) return undefined
+    if (SHARE_ID_PATTERN.test(shareId)) return shareId
+    // A stored value that fails the pattern can never open a share; leaving it would let a
+    // tampered or truncated entry shadow the slot for the rest of the session.
+    storage.removeItem(PENDING_SHARE_STORAGE_KEY)
+    return undefined
   } catch {
     return undefined
   }

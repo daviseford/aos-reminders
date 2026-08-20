@@ -57,4 +57,15 @@ describe('public share-link handoff', () => {
     expect(history.replaceState).toHaveBeenCalledWith({}, document.title, '/')
     expect(storage.setItem).not.toHaveBeenCalled()
   })
+
+  it('evicts a malformed stored value rather than letting it shadow the slot', () => {
+    const values = new Map<string, string>([['aos-reminders:aos4:pending-share', 'not-valid']])
+    const storage = {
+      getItem: (key: string) => values.get(key) ?? null,
+      removeItem: (key: string) => values.delete(key),
+    }
+
+    expect(readPendingShareId(storage)).toBeUndefined()
+    expect(values.size).toBe(0)
+  })
 })
