@@ -43,12 +43,14 @@ const parseDocument = async (value: unknown): Promise<Aos4ArmyDocument> => {
   // trip, and a static import would put the whole corpus in the graph of anything holding a cloud
   // army — the shell included, since the collection provider wraps the page.
   //
-  // The catch is not currently reachable: Home imports the catalog statically, so the module is
-  // always in the registry before any cloud call runs. It becomes live once Home loads the catalog
-  // lazily (#1845), at which point this is a real network fetch that can fail on a rotated hash or a
-  // cold cache offline — and an unwrapped module-loading error would reach messageForError as
-  // "Failed to fetch dynamically imported module ...". Same message and default status as the fetch
-  // failure above, because to a caller it is the same class of outage.
+  // Every call site sits under HomeCatalogBound, which statically imports the catalog, so the module
+  // is in the registry before any cloud call runs and the catch normally never fires. It stays
+  // because the registry is only primed when the catalog chunk itself loaded: a first visit whose
+  // cached chunk went stale, or a future caller outside that subtree, makes this a real network
+  // fetch that can fail on a rotated hash or a cold cache offline — and an unwrapped module-loading
+  // error would reach messageForError as "Failed to fetch dynamically imported module ...". Same
+  // message and default status as the fetch failure above, because to a caller it is the same class
+  // of outage.
   let generated: typeof import('../aos4/generated')
   try {
     generated = await import('../aos4/generated')

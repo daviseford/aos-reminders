@@ -18,7 +18,9 @@ import { SERVICE_WORKER_ACTIVATION_MESSAGE } from './src/bootstrap/serviceWorker
  * So both are excluded from the precache manifest and served by a runtime route instead. They are
  * content-hashed, so CacheFirst is safe: a new build is a new URL and therefore a miss. The generated
  * `sw-extras-<hash>.js` warms the catalog during install so an update does not leave the user one
- * online fetch short, and warms the source records after activation without holding it.
+ * online fetch short, and warms the source records there too — under a caught `waitUntil`, so a
+ * failed warm cannot abort an update the catalog warm survived. Install does not hold fetch events,
+ * so the page keeps running on the previous worker while the extra fetch completes.
  */
 const CATALOG_CHUNK_NAME = 'aos4-catalog-data'
 /*
@@ -26,7 +28,7 @@ const CATALOG_CHUNK_NAME = 'aos4-catalog-data'
  * one surface, the source menu on a reminder card. They ship separately so a session that never
  * opens one never parses them (#1845).
  *
- * The name is a suffix of the core chunk's on purpose: the precache glob, the runtime-cache route,
+ * The name extends the core chunk's on purpose: the precache glob, the runtime-cache route,
  * and pwaBuild's filter all match on the `aos4-catalog-data` prefix, so one naming choice keeps
  * three separate contracts working for both chunks with no further change.
  */

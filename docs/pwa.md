@@ -36,7 +36,7 @@ time a player opens one. Both are far above Workbox's 2 MiB ceiling, and
 precaching either would download it before the worker could activate — the worst
 case on exactly the bad venue wifi that makes offline support worth having.
 
-The second name is a suffix of the first deliberately: the precache glob, the
+The second name extends the first deliberately: the precache glob, the
 runtime-cache route, and the build assertions all match on the
 `aos4-catalog-data` prefix, so one naming choice covers both.
 

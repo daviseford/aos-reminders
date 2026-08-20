@@ -63,8 +63,9 @@ let pending: Promise<Aos4SourceData> | undefined
  * the same specifier can re-throw that without going back to the network, in which case recovery
  * takes a reload. So treat reopening the menu as worth trying, not as a guarantee.
  *
- * The real offline mechanism is upstream of both: the service worker warms this chunk after
- * activation, and the runtime CacheFirst route keeps whatever it fetched. See docs/pwa.md.
+ * The real offline mechanism is upstream of both: the service worker warms this chunk during
+ * install — best-effort, so a failed warm cannot abort the update — and the runtime CacheFirst
+ * route keeps whatever it fetched. See docs/pwa.md.
  */
 export const loadAos4SourceData = (): Promise<Aos4SourceData> => {
   pending ??= import('./runtime.sources.json')
