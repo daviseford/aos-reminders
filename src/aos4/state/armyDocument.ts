@@ -217,6 +217,21 @@ const readReminderPreferences = (
     })
   ) as Aos4ArmyDocument['reminderPreferences']
 
+/*
+ * The membership Set over all 11,453 entity IDs, built once per catalog rather than once per
+ * deserialize: the cloud-army list runs this deserializer once per army, and the catalog-bound
+ * mount runs it again over storage the shell already read structurally.
+ */
+const entityIdSetByCatalog = new WeakMap<Aos4Catalog, Set<CanonicalId>>()
+const entityIdSet = (catalog: Aos4Catalog): Set<CanonicalId> => {
+  let ids = entityIdSetByCatalog.get(catalog)
+  if (!ids) {
+    ids = new Set(catalog.entities.map(entity => entity.id))
+    entityIdSetByCatalog.set(catalog, ids)
+  }
+  return ids
+}
+
 export const deserializeAos4ArmyDocument = (
   serialized: string,
   catalog: Aos4Catalog
@@ -242,7 +257,7 @@ export const deserializeAos4ArmyDocument = (
    * with a warning keeps the rest of the army alive; failing the whole document here used to reset
    * a stored army to the default the moment one of its units left the catalog.
    */
-  const entityIds = new Set(catalog.entities.map(entity => entity.id))
+  const entityIds = entityIdSet(catalog)
   const explicitSelectionIds = shape.explicitSelectionIds.filter(id => {
     if (entityIds.has(id as CanonicalId)) return true
     diagnostics.push({
