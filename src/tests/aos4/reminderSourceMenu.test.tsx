@@ -28,7 +28,7 @@ vi.mock('utils/hooks/useIsMobile', () => ({ useIsMobile: () => false }))
  * offline state that lets the next open try again.
  */
 
-const reminder = (id: string): Aos4ReminderViewModel =>
+const reminder = (id: string, sourceRecordIndexes: number[] = [1]): Aos4ReminderViewModel =>
   ({
     id,
     name: `Ability ${id}`,
@@ -39,7 +39,7 @@ const reminder = (id: string): Aos4ReminderViewModel =>
     accessibleLabel: `Ability ${id}`,
     effect: 'Do the thing.',
     hidden: false,
-    sourceRecordIndexes: [1],
+    sourceRecordIndexes,
   }) as unknown as Aos4ReminderViewModel
 
 const link = (id: string, official = false): ReminderSourceLink => ({
@@ -216,6 +216,44 @@ describe('reminder source menu', () => {
       []
     )
     consoleError.mockRestore()
+  })
+
+  it('re-resolves a resolved menu when a merge grows the records behind it, and only then', async () => {
+    /*
+     * A unit added later can merge its ability into an existing reminder without changing
+     * `reminder.id` — the entry is keyed by that id, so it never remounts — while the merge grows
+     * `sourceRecordIndexes` under it. A menu that already resolved must not keep serving the old
+     * citation list for the rest of the session.
+     */
+    const getSources = vi.fn(async (target: Aos4ReminderViewModel) =>
+      target.sourceRecordIndexes.map(index => link(`record-${index}`))
+    )
+    renderReminders(getSources, [reminder('reminder:one', [1]), reminder('reminder:two', [3])])
+
+    await act(async () => {
+      Simulate.click(toggles()[0])
+    })
+    expect(sourceHrefs()).toEqual(['https://example.test/record-1'])
+
+    await act(async () => {
+      render(
+        <Reminders
+          getSources={getSources}
+          isGameMode={false}
+          onHide={() => {}}
+          onNote={() => {}}
+          onReorder={() => {}}
+          reminders={[reminder('reminder:one', [1, 2]), reminder('reminder:two', [3, 4])]}
+        />,
+        container
+      )
+    })
+
+    // The opened menu re-resolved against the grown set; the never-opened one stayed idle, because
+    // the open is still what pays for the chunk.
+    expect(getSources).toHaveBeenCalledTimes(2)
+    expect(getSources.mock.calls.every(([target]) => String(target.id) === 'reminder:one')).toBe(true)
+    expect(sourceHrefs()).toEqual(['https://example.test/record-1', 'https://example.test/record-2'])
   })
 
   it('says so when the chunk cannot be fetched, and retries on the next open', async () => {

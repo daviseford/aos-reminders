@@ -220,6 +220,18 @@ const ReminderEntry = ({
     }
   }, [])
 
+  const resolveSources = () => {
+    setSources({ status: 'loading' })
+    getSources(reminder).then(
+      links => {
+        if (isMounted.current) setSources({ status: 'ready', links })
+      },
+      () => {
+        if (isMounted.current) setSources({ status: 'unavailable' })
+      }
+    )
+  }
+
   /*
    * Opening the menu is what pays for the sources chunk. Resolving in the component body instead
    * charged every rendered reminder for citations almost nobody opens. A menu that has already
@@ -231,16 +243,23 @@ const ReminderEntry = ({
    */
   const handleToggle = (nextShow: boolean) => {
     if (!nextShow || sources.status === 'loading' || sources.status === 'ready') return
-    setSources({ status: 'loading' })
-    getSources(reminder).then(
-      links => {
-        if (isMounted.current) setSources({ status: 'ready', links })
-      },
-      () => {
-        if (isMounted.current) setSources({ status: 'unavailable' })
-      }
-    )
+    resolveSources()
   }
+
+  /*
+   * The one way "already resolved" goes stale without this entry remounting: a unit added later can
+   * merge its ability into this reminder under the same `reminder.id` — the entry is keyed by that
+   * id — growing the records behind the menu while the resolved links still describe the old set.
+   * A menu that has resolved (or is resolving against the old set) re-resolves; an idle one stays
+   * idle, because the open is still what pays for the chunk.
+   */
+  // Keyed on the indexes alone, deliberately: re-running on the resolution state too would turn
+  // every arrival of links into another resolution.
+  const sourceKey = reminder.sourceRecordIndexes.join()
+  useEffect(() => {
+    if (sources.status === 'idle') return
+    resolveSources()
+  }, [sourceKey])
 
   return (
     <div

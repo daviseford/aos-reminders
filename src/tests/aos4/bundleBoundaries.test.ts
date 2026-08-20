@@ -248,36 +248,50 @@ describe('initial bundle boundaries', () => {
 
   /*
    * The sources chunk is fetched by `getSources`, so where that prop is *called* decides whether a
-   * screen of reminders costs one 7 MB download or none. It belongs to the dropdown's toggle: called
-   * from a render body it would refetch on every pass and hand the deferral back.
+   * screen of reminders costs one 7 MB download or none. The one fetching call lives in
+   * `resolveSources`, and `resolveSources` may be invoked from exactly two places: the dropdown's
+   * toggle, which is what pays for the chunk, and the merge-refresh effect, which only re-resolves a
+   * menu the toggle already paid for (it returns before resolving while the state is `idle`).
+   * Called from a render body, either would refetch on every pass and hand the deferral back.
    *
    * reminderSourceMenu's 'never resolves sources while an army merely renders' already holds this
    * behaviourally, by rendering twelve cards against a spy. This is the structural half — it names
-   * the one place the call is allowed, so a call added to a branch that test's fixtures never render
-   * still fails here.
+   * the only places the calls are allowed, so a call added to a branch that test's fixtures never
+   * render still fails here.
    *
    * Residual: `\bgetSources\(` only catches a plain call. `getSources?.(reminder)` (an optional call)
    * or a call through a local alias (`const go = getSources; go(reminder)`) would both add a second
-   * call site that this pattern cannot see — landing outside `handleToggle` either would silently
-   * clear both assertions below rather than fail one of them. Not fixed here; the prop is not
+   * call site that this pattern cannot see — landing outside `resolveSources` either would silently
+   * clear the assertions below rather than fail one of them. Not fixed here; the prop is not
    * currently optional and is not currently aliased, so the gap is recorded rather than closed.
    */
   it('resolves reminder sources from the menu toggle and never from a render body', async () => {
     const reminders = await source('src/components/info/reminders.tsx')
+    const resolver = arrowFunctionBody(reminders, 'const resolveSources = () => {')
     const handler = arrowFunctionBody(reminders, 'const handleToggle = (nextShow: boolean) => {')
 
     // Calls, not references: `getSources={getSources}` passes the prop down and `getSources:` in the
     // prop types declares it, and neither costs a fetch.
-    const callSites = Array.from(reminders.matchAll(/\bgetSources\(/g))
-    const inHandler = Array.from(handler.matchAll(/\bgetSources\(/g))
+    const fetchCalls = Array.from(reminders.matchAll(/\bgetSources\(/g))
+    const inResolver = Array.from(resolver.matchAll(/\bgetSources\(/g))
 
-    // The pinned shape, stated rather than inferred: exactly one call, and it lives in the handler.
-    // `callSites` alone could shrink to zero calls anywhere and still equal `inHandler.length` (also
-    // zero) — asserting a literal count is what makes "the call still exists" part of what this test
-    // covers, not just "wherever it is, it's inside the handler."
-    expect(callSites).toHaveLength(1)
-    expect(inHandler.length).toBeGreaterThan(0)
-    expect(callSites).toHaveLength(inHandler.length)
+    // The pinned shape, stated rather than inferred: exactly one fetching call, and it lives in
+    // `resolveSources`. `fetchCalls` alone could shrink to zero calls anywhere and still equal
+    // `inResolver.length` (also zero) — asserting a literal count is what makes "the call still
+    // exists" part of what this test covers, not just "wherever it is, it's inside the resolver."
+    expect(fetchCalls).toHaveLength(1)
+    expect(inResolver.length).toBeGreaterThan(0)
+    expect(fetchCalls).toHaveLength(inResolver.length)
+
+    // And `resolveSources` itself is invoked from the toggle, from the merge-refresh effect, and
+    // from nowhere else. (`resolveSources\(` cannot match the declaration — that reads
+    // `resolveSources = (` — so two matches are exactly the two invocations.)
+    const invocations = Array.from(reminders.matchAll(/\bresolveSources\(/g))
+    expect(invocations).toHaveLength(2)
+    expect(Array.from(handler.matchAll(/\bresolveSources\(\)/g))).toHaveLength(1)
+    // The effect's invocation is guarded: an idle entry — a menu never opened — must stay unfetched.
+    const effect = reminders.slice(reminders.indexOf('const sourceKey'))
+    expect(effect).toContain("if (sources.status === 'idle') return")
   })
 
   /*
