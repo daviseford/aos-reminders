@@ -74,22 +74,26 @@ export const LoadingBody = () => {
  * It also renders its own `<h3>AoS Reminders</h3>`, which would repeat the masthead's `<h1>` and
  * skip a heading level on the way.
  *
- * So: no page-centering, no product name, one `lead` line where the builder and reminders will be.
- * Still no motion, per The Dead Class Rule in DESIGN.md.
+ * So: the design system's one loading idiom (DESIGN.md, "Loading and empty states") — a large
+ * spinner, centered in a region tall enough to read as the content area it is standing in for. A
+ * bare line of muted text under the banner read as an unfinished page, not a loading one.
  *
- * Purely visual: no `role="status"` and no announced text of its own. This element is unmounted at
- * the exact moment worth announcing — the handoff, or the failure — and a live region that vanishes
+ * Purely visual: `aria-hidden`, with no announced text of its own. This element is unmounted at the
+ * exact moment worth announcing — the handoff, or the failure — and a live region that vanishes
  * cannot report what replaced it. Home owns one persistent region for the whole pending/ready/failed
- * story instead, which is also why the line stays `aria-hidden`: the state is reported once.
+ * story instead, which is why the spinner's own `role="status"` stays hidden here: the state is
+ * reported once.
  */
 export const LoadingArmy = () => {
-  const { theme } = useTheme()
+  const { isDark, theme } = useTheme()
 
   return (
-    <div className={`container ${theme.bgColor} text-center py-5`}>
-      <p className={`lead mb-0 ${theme.textMuted}`} aria-hidden="true">
-        Loading your army...
-      </p>
+    <div
+      className={`container ${theme.bgColor} d-flex align-items-center justify-content-center`}
+      style={{ minHeight: '40vh' }}
+      aria-hidden="true"
+    >
+      <Spinner variant={isDark ? 'light-gray' : 'secondary'} size="large" />
     </div>
   )
 }

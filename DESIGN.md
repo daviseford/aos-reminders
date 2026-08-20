@@ -622,7 +622,10 @@ probably to move the pair onto the modal's own surface. Treat it as open.
 - **Suspense fallbacks:** `LoadingHeader` and `LoadingBody` stand in for the navbar and routed
   content, so the masthead does not collapse while a lazy route resolves. `LoadingBody` is two
   static lines and stays that way — a pulse and a fade were built for it and deliberately rejected.
-  See The Dead Class Rule.
+  See The Dead Class Rule. Home's catalog-bound half is the exception shape: it suspends behind an
+  already-painted masthead, where `LoadingBody`'s bare-route geometry and duplicate heading don't
+  apply, so `LoadingArmy` instead reserves the content area with the standard spinner, centered and
+  large. A single muted text line there read as an unfinished page, not a loading one.
 
 ### Cards / Containers
 
