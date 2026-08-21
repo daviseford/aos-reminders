@@ -273,21 +273,24 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
     expect(storage.getItem(AOS4_ARMY_STORAGE_KEY)).toBe(stored)
   })
 
-  // KTD8. The row is rendered conditionally, so a shell that never reserved it would have the label
-  // and select inserted when the catalog landed, pushing the whole page down.
-  it('reserves the Army of Renown row for a faction that has one', async () => {
+  /*
+   * KTD8, retired shape. The reservation existed so the row would not be inserted under the player
+   * when the catalog landed; the splash covers the masthead for the whole wait, so nothing needs
+   * reserving — the row's first visible appearance is the reveal, where it arrives complete. What
+   * remains worth pinning in the pending state is that the shell offers no half-answer: no row,
+   * for any faction, whatever its context list says.
+   */
+  it('shows no Army of Renown row while the catalog is pending, whatever the faction', async () => {
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Flesh-eater Courts'))
     expect(FLESH_EATER_COURTS.armiesOfRenownContextIndexes).toContain(DEFAULT_CONTEXT_INDEX)
 
     await renderHome()
 
-    expect(container.textContent).toContain('Army of Renown:')
-    const placeholder = container.querySelector<HTMLInputElement>('input[aria-label="Army of Renown"]')
-    expect(placeholder).not.toBeNull()
-    expect(placeholder!.disabled).toBe(true)
+    expect(container.textContent).not.toContain('Army of Renown:')
+    expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
   })
 
-  it('reserves nothing for a faction that has no Armies of Renown', async () => {
+  it('shows no Army of Renown row while pending for a faction that has none', async () => {
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(SERAPHON.id, 'Seraphon'))
     expect(SERAPHON.armiesOfRenownContextIndexes).toEqual([])
 
@@ -298,12 +301,11 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
   })
 
   /*
-   * The same faction, the same stored selection, a different rules context — and the opposite
-   * answer. Reserving is a bet about what the catalog will say, and a bet made from the default
-   * context is wrong for most of Spearhead and Legends: the row goes up, then comes back out when
-   * the child mounts, which shifts the page the way reserving is supposed to stop.
+   * The same faction, the same stored selection, a different rules context — the case the retired
+   * context-blind reservation got wrong. With nothing reserved there is nothing to get wrong; this
+   * stays as a guard against the reservation coming back without its per-context answer.
    */
-  it('reserves nothing for a faction whose Armies of Renown do not exist in the stored context', async () => {
+  it('shows no Army of Renown row while pending on a context where the faction has none', async () => {
     const rulesContextId = contextWithoutArmiesOfRenown(FLESH_EATER_COURTS)
     // Non-default by construction: this faction does have them under the default context, which is
     // exactly why a context-blind flag reserved a row here.

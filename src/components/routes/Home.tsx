@@ -33,11 +33,12 @@ import { createAos4ArmyDocument, deserializeAos4ArmyDocumentStructure, type Aos4
  * reminders, and the modals — sits in the child behind this boundary, so nothing in the route
  * chunk's static import graph reaches the rules corpus.
  *
- * The masthead is here rather than there because it is the whole point: a player opening the app
- * gets the navbar, the mode switch, and a faction selector carrying the real army names while the
- * corpus is still on the wire. Naming 28 factions needs a 5 KB generated index, not 13 MB of
- * rules, so the state the masthead reads — the document, the faction, the game mode — lives here
- * and travels down to the child as props.
+ * The masthead is here rather than there because it is the whole point: it needs to name the
+ * stored army and offer the faction selector without waiting for the corpus. Naming 28 factions
+ * needs a 5 KB generated index, not 13 MB of rules, so the state the masthead reads — the
+ * document, the faction, the game mode — lives here and travels down to the child as props. While
+ * the corpus is on the wire the splash overlay covers the masthead, so what this buys is a first
+ * commit that is already complete when the overlay lifts, not a half-painted page to wait in.
  */
 const HomeCatalogBound = lazy(() => import('components/routes/HomeCatalogBound'))
 
@@ -129,10 +130,9 @@ class CatalogBoundary extends Component<{ children: ReactNode; onFailed: () => v
 
   /*
    * The failure has to leave this subtree. Catching it here and rendering `OfflineArmy` covers the
-   * region, but the shell above still owns a masthead that was drawn for a *pending* catalog — a
-   * reserved Army of Renown row saying "Loading..." and a faction selector whose picks nothing can
-   * honour. Without this the two halves disagree forever: one says it failed, the other says it is
-   * still coming.
+   * region, but the shell above still owns a masthead that was drawn for a *pending* catalog — the
+   * splash is up, the faction selector's picks nothing can honour. Without this the two halves
+   * disagree forever: one says it failed, the other says it is still coming.
    *
    * `componentDidCatch` rather than `getDerivedStateFromError`, because the latter runs during
    * render and may not commit; telling the parent from there would report a failure React might
@@ -171,15 +171,14 @@ const Home = () => {
    * The upward half of the split: what the masthead needs that only the catalog can answer.
    * `armiesOfRenown` comes from `builder.options`, the change handler runs `resolveSelection`, and
    * the cloud-army unlink owns state the toolbar reads, so none of the three can live here. Absent
-   * means the child has not mounted yet, which is also what drives the reserved Army of Renown slot
-   * and the skip link below.
+   * means the child has not mounted yet, which is also what holds the splash up and withholds the
+   * skip link below.
    */
   const [catalogBound, setCatalogBound] = useState<Aos4CatalogBoundBindings>()
   /*
    * The other terminal state, published upward by the boundary. Absent bindings alone cannot tell
-   * "not yet" from "never": both look like `undefined`, and everything the shell reserves — the
-   * Army of Renown row, the live region, the faction selector — is a promise that the catalog is
-   * still on its way. Once this is set the shell stops making that promise.
+   * "not yet" from "never": both look like `undefined`, and the splash is a promise that the
+   * catalog is still on its way. Once this is set the shell stops making that promise.
    */
   const [catalogFailed, setCatalogFailed] = useState(false)
   // Stable, because `CatalogBoundary` holds it as a prop and must not be re-created into a boundary
@@ -189,7 +188,7 @@ const Home = () => {
   /*
    * The document's rules context, as the index the generated rows address contexts by. `-1` for a
    * context the corpus no longer carries, which reads as "in nothing" everywhere below — the same
-   * answer an unrecognized id gave before, and the safe one for the reservation in particular.
+   * answer an unrecognized id gave before.
    */
   const rulesContextIndex = useMemo(
     () => AOS4_FACTION_INDEX.rulesContextIds.indexOf(armyDocument.rulesContextId),
@@ -201,9 +200,7 @@ const Home = () => {
    * corpus no longer carries would filter the options down to nothing — an empty selector for the
    * whole chunk wait, and a permanently empty disabled one if the chunk then failed. The
    * catalog-bound load resets such a document to the default context anyway, so the selector offers
-   * the default context's factions rather than a promise of nothing. The Army of Renown reservation
-   * below deliberately keeps reading the raw `-1`: no row is the right reservation for a document
-   * about to be reset.
+   * the default context's factions rather than a promise of nothing.
    */
   const factionRulesContextIndex = rulesContextIndex === -1 ? DEFAULT_RULES_CONTEXT_INDEX : rulesContextIndex
   const factions = useMemo(
@@ -221,7 +218,6 @@ const Home = () => {
    */
   const selectedFactionId = armyDocument.explicitSelectionIds.find(id => id.startsWith('faction:'))
   const factionId = (selectedFactionId as CanonicalId<'faction'> | undefined) ?? defaults.defaultFactionId
-  const faction = factionIndexById.get(factionId)
 
   /*
    * Before the child exists there is no in-memory link to drop, only the persisted one; once it has
@@ -345,23 +341,6 @@ const Home = () => {
           onArmyOfRenownChange={catalogBound?.onArmyOfRenownChange ?? noop}
           onFactionChange={selectFaction}
           onToggleGameMode={toggleGameMode}
-          /*
-           * Only while the catalog has yet to answer, and only for the document's own rules
-           * context: the same faction offers four Armies of Renown in matched play and none in
-           * Spearhead or Legends, so a context-blind reservation would put a row on a Spearhead
-           * document that the arriving child then removes — a shift in the direction reserving is
-           * meant to prevent. Once the catalog has answered, its list is the truth.
-           *
-           * A catalog that failed has answered too, in its way: there is no list coming, so holding
-           * the row open leaves a disabled `aria-busy` "Loading..." control claiming a wait that
-           * ended. Reserving is a promise about the near future and a failure is the one state that
-           * cannot keep it.
-           */
-          reserveArmyOfRenownSlot={
-            !catalogBound &&
-            !catalogFailed &&
-            Boolean(faction?.armiesOfRenownContextIndexes.includes(rulesContextIndex))
-          }
         />
 
         <AppBanner />

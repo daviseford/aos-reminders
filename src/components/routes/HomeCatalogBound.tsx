@@ -512,10 +512,10 @@ const HomeCatalogBound = ({
    * pointing at an `#aos4-reminders` that no longer exists.
    *
    * A separate mount/unmount effect, and not a cleanup on the layout effect above, deliberately.
-   * That one re-runs on every faction switch, so its cleanup would blank the bindings and flash the
-   * shell's reserved "Loading..." placeholder back into the masthead each time — reintroducing the
-   * layout shift the reservation exists to prevent. This one depends on a setter the shell keeps
-   * stable, so it runs exactly twice in a mount's life.
+   * That one re-runs on every faction switch, so its cleanup would blank the bindings on each one —
+   * and with no bindings the shell shows the splash, so every faction switch would flash the
+   * full-screen loading overlay. This one depends on a setter the shell keeps stable, so it runs
+   * exactly twice in a mount's life.
    */
   useEffect(() => () => onBindingsChange(undefined), [onBindingsChange])
 

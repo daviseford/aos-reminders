@@ -6,10 +6,9 @@ const selectTheme = {
    * control/backgroundColor(disabled)
    *
    * react-select defaults this to a near-white grey — a second, dingier white next to the live
-   * select's background. The only disabled selects the app renders are the Home masthead's reserved
-   * Army of Renown slot and its catalog-failed faction select, and both take their disabled cue
-   * from the control's opacity (see homeHeader), so the palette value just matches the live
-   * background. Dark theme's longer rationale for this slot applies here too (theme/dark.ts).
+   * select's background. The only disabled select the app renders is the Home masthead's
+   * catalog-failed faction select, so the palette value just matches the live background. Dark
+   * theme's longer rationale for this slot applies here too (theme/dark.ts).
    */
   neutral5: 'white',
 }

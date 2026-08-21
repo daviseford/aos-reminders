@@ -25,8 +25,10 @@ import { createAos4ArmyDocument, serializeAos4ArmyDocument } from '../../aos4/st
  * The half of it that the split shipped without: the failure reached the *region* but never the
  * shell above it, so the masthead went on advertising a wait that had already ended — a reserved
  * "Loading..." row, a faction selector whose picks nothing could honour, and a share id already
- * spent on a child that never arrived. Nothing in this file may import the catalog; every
- * expectation is about markup the shell owns, computed from the generated faction index.
+ * spent on a child that never arrived. (The reserved row has since retired with the full-screen
+ * splash; the selector and share-id halves of this remain.) Nothing in this file may import the
+ * catalog; every expectation is about markup the shell owns, computed from the generated faction
+ * index.
  */
 
 vi.mock('components/routes/HomeCatalogBound', () =>
@@ -64,9 +66,9 @@ const rowNamed = (name: string) => {
 }
 
 /*
- * A faction that does have Armies of Renown under the stored context, so the shell would reserve
- * the row if it still believed the catalog were coming. Chosen precisely because it is the case
- * that fails loudly rather than the one that never had a row to begin with.
+ * A faction that does have Armies of Renown under the stored context. Chosen precisely because it
+ * is the case that would fail loudly if a placeholder row ever came back, rather than one that
+ * never had a row to begin with.
  */
 const FLESH_EATER_COURTS = rowNamed('Flesh-eater Courts')
 
@@ -159,10 +161,10 @@ describe('the Home shell when the catalog-bound half cannot be loaded', () => {
 
   /*
    * The masthead's half of the failure. `CatalogBoundary` renders `OfflineArmy` in the region, but
-   * the shell decides the reservation, so without the boundary telling it, the row sat there
-   * disabled and busy claiming a load that had definitively stopped.
+   * the shell decides what the masthead promises, so without the boundary telling it, a pending
+   * splash would stay up forever claiming a load that had definitively stopped.
    */
-  it('stops reserving the Army of Renown row for a faction that has one', async () => {
+  it('shows no Army of Renown row and no lingering busy state for a faction that has one', async () => {
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
     const defaultContext = AOS4_FACTION_INDEX.rulesContextIds.indexOf(defaults.rulesContextId)
     expect(FLESH_EATER_COURTS.armiesOfRenownContextIndexes).toContain(defaultContext)

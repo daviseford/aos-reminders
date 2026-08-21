@@ -845,19 +845,19 @@ const ensureNoErrors = (
 
 /**
  * The faction rows the app renders before the corpus arrives: every decoded faction, whether a
- * player can field it, and — per rules context — whether its Army of Renown select must be
- * reserved.
+ * player can field it, and — per rules context — whether it offers Armies of Renown.
  *
  * All of it needs the relationship graph, which is exactly what a catalog-free caller does not
  * have, so it is decided here. The Army of Renown answer is resolved through `resolveSelection`
- * under the same overlays `createAos4BuilderViewModel` uses, so the reservation and the list the
- * header eventually shows are derived from one rule rather than two that can drift apart.
+ * under the same overlays `createAos4BuilderViewModel` uses, so the index and the list the header
+ * eventually shows are derived from one rule rather than two that can drift apart.
  *
  * It is resolved once per context rather than once per faction, because the answer genuinely
  * differs by context: a battletome faction that offers four Armies of Renown in matched play offers
- * none in Spearhead or Legends. A single flag taken from the default context made the shell reserve
- * a row on those documents that the arriving child then removed — a shift in the exact direction the
- * reservation exists to prevent (#1845).
+ * none in Spearhead or Legends (#1845). The shell's reserved-slot consumer is gone — the splash
+ * covers the masthead until the real list arrives — so nothing in the runtime reads
+ * `armiesOfRenownContextIndexes` anymore; it stays in the artifact because the audit tests hold it
+ * to the builder and removing a field is a generation decision, not a UI one.
  *
  * Contexts are carried as indexes into one top-level `rulesContextIds` array rather than as UUIDs
  * per row. Each id is 47 bytes and most rows repeat most of them; spelling them out twice per row

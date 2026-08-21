@@ -89,8 +89,8 @@ export const LoadingBody = () => {
  * background stopping mid-screen read as a broken one.
  *
  * It is a fixed overlay rather than the Suspense fallback so it outlives the child's first commit:
- * the fallback lifts the moment the chunk arrives, while the masthead's reserved Army of Renown row
- * and the freshly mounted builder are still settling into their bound shape. Home keeps this up
+ * the fallback lifts the moment the chunk arrives, while the freshly mounted builder and the
+ * masthead's real Army of Renown list are still settling into their bound shape. Home keeps this up
  * until the child has published its bindings — or the boundary reports the failure — so the reveal
  * is a single commit: splash, then the finished screen.
  *

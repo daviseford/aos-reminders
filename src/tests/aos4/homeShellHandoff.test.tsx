@@ -372,42 +372,31 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
   })
 
   /*
-   * KTD8. The row is the one piece of masthead the shell cannot fill in, so it is the one that
-   * could shift the page when the catalog lands. It has to be in the same place, in the same box,
-   * before and after — only its contents may change.
+   * KTD8, retired shape. The row used to need a reserved placeholder so it would not shift the page
+   * when the catalog landed; the splash now covers the masthead for the whole wait, so the row's
+   * first *visible* appearance is the reveal itself — complete, with the real list, in the same
+   * commit as everything else. What is worth pinning is that nothing half-formed is ever on screen:
+   * no row before the bindings, a live one after.
    */
-  it('fills the reserved Army of Renown slot in place, without moving the row', async () => {
+  it('shows no Army of Renown row during the wait and a complete one at the reveal', async () => {
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
 
     await renderHome()
-    const reserved = armyOfRenownRow()
-    expect(reserved).not.toBeNull()
-    const before = {
-      row: reserved!.className,
-      column: reserved!.firstElementChild!.className,
-      // Which child of the masthead container the row is, so an inserted or reordered sibling is
-      // caught as well as a resized one.
-      index: Array.from(reserved!.parentElement!.children).indexOf(reserved!),
-      minHeight: getComputedStyle(reserved!.querySelector<HTMLElement>('[class*="-control"]')!).minHeight,
-    }
-    expect(before.minHeight).toBe('38px')
+    expect(armyOfRenownRow()).toBeNull()
 
     await landTheCatalog()
 
     const live = armyOfRenownRow()!
-    expect({
-      row: live.className,
-      column: live.firstElementChild!.className,
-      index: Array.from(live.parentElement!.children).indexOf(live),
-      minHeight: getComputedStyle(live.querySelector<HTMLElement>('[class*="-control"]')!).minHeight,
-    }).toEqual(before)
-
+    expect(live).not.toBeNull()
+    // jsdom resolves react-select's emotion styles to a real box; an empty string here would mean
+    // the measurement compared nothing.
+    expect(getComputedStyle(live.querySelector<HTMLElement>('[class*="-control"]')!).minHeight).toBe('38px')
     expect(container.querySelector<HTMLInputElement>('input[aria-label="Army of Renown"]')!.disabled).toBe(
       false
     )
   })
 
-  it('reserves nothing, and grows nothing, for a faction with no Armies of Renown', async () => {
+  it('shows no Army of Renown row before or after, for a faction that has none', async () => {
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(rowNamed('Seraphon').id, 'Seraphon'))
 
     await renderHome()
@@ -418,13 +407,12 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
   })
 
   /*
-   * The regression the reservation was capable of causing itself. Flesh-eater Courts has Armies of
-   * Renown under the default context and none under Spearhead, so a reservation decided from the
-   * default context put a row on this document that the catalog then took away — the same shift the
-   * reservation exists to prevent, just in the other direction and only for players not on the
-   * default context, which is why the browser check that signed the split off never saw it.
+   * A stored Spearhead document for a faction that has Armies of Renown only in matched play. The
+   * retired reservation answered this from the wrong context and put up a row the catalog then
+   * removed; with no reservation at all there is nothing to get wrong, but the context distinction
+   * is still the one most likely to surprise, so the row's absence at the reveal is pinned here.
    */
-  it('reserves nothing on a context where the faction has no Armies of Renown, and lands with none', async () => {
+  it('lands with no Army of Renown row for a context where the faction has none', async () => {
     const rulesContextId = contextWithoutArmiesOfRenown(FLESH_EATER_COURTS)
     expect(rulesContextId).not.toBe(defaults.rulesContextId)
     storage.setItem(
@@ -434,10 +422,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
 
     await renderHome()
     expect(selectedFactionName()).toBe('Flesh-eater Courts')
-    expect(armyOfRenownRow()).toBeNull()
 
-    // The catalog is the arbiter, and it agrees: nothing was reserved and nothing arrives, so the
-    // row never enters or leaves the layout.
     await landTheCatalog()
     expect(armyOfRenownRow()).toBeNull()
     expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
@@ -611,8 +596,8 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
     // keyboard user meets.
     expect(container.querySelector('a.SkipLink')).toBeNull()
     expect(container.querySelector('#aos4-reminders')).toBeNull()
-    // The row goes too, rather than falling back to the reserved "Loading..." placeholder: there is
-    // no list coming.
+    // The row goes too: with the bindings withdrawn there is no list coming, and no reserved
+    // placeholder left to fall back to.
     expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
     expect(container.textContent).not.toContain('Army of Renown:')
     expect(container.querySelector('[aria-busy]')).toBeNull()

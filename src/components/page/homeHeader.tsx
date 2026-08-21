@@ -34,19 +34,6 @@ interface HeaderProps {
   onArmyOfRenownChange: (armyOfRenownId: CanonicalId | null) => void
   onFactionChange: (factionId: CanonicalId<'faction'>) => void
   onToggleGameMode: () => void
-  /**
-   * Hold the Army of Renown row open while `armiesOfRenown` is still empty because the catalog has
-   * not arrived, rather than because the faction has none.
-   *
-   * The row is rendered conditionally, so a shell that passed `[]` for a faction that does have
-   * Armies of Renown would have the label and select *inserted* the moment the catalog landed,
-   * pushing the builder and every reminder below it down the page. The faction index carries
-   * `armiesOfRenownContextIndexes` for exactly this: reserve when the document's own rules context
-   * is in that list, fill in on the real list. Answering per context matters — the same faction has
-   * several in matched play and none in Spearhead — because a row reserved and then *removed*
-   * shifts the page just as far as one inserted.
-   */
-  reserveArmyOfRenownSlot?: boolean
 }
 
 const NO_ARMY_OF_RENOWN = { label: 'None', value: null }
@@ -62,7 +49,6 @@ export const Header = ({
   onArmyOfRenownChange,
   onFactionChange,
   onToggleGameMode,
-  reserveArmyOfRenownSlot = false,
 }: HeaderProps) => {
   const { theme } = useTheme()
   const isMobile = useIsMobile()
@@ -90,8 +76,9 @@ export const Header = ({
   const mastheadClass = `text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
     isMobile ? 'pb-2' : 'pb-3'
   }`
-  // Both selects in the masthead take the same slot overrides, and the reserved placeholder has to
-  // take them too or it renders react-select's own palette next to the faction select's.
+  // Both selects in the masthead take the same slot overrides — including the faction select's
+  // disabled state on the catalog-failed screen, which would otherwise render react-select's own
+  // palette beside its live neighbours.
   const selectColors = (defaultTheme: SelectTheme) => ({
     ...defaultTheme,
     colors: {
@@ -184,53 +171,23 @@ export const Header = ({
               {/*
                 The sub-faction slot, reborn: an Army of Renown replaces the faction's regular
                 rules, so the choice sits directly under the faction rather than among the
-                content cards. Rendered only for factions that have one.
+                content cards. Rendered only for factions that have one. The splash covers the
+                masthead until the catalog's list arrives, so there is no reserved placeholder:
+                the row is simply part of the finished screen when it appears.
               */}
-              {armiesOfRenown.length > 0 || reserveArmyOfRenownSlot ? (
+              {armiesOfRenown.length > 0 ? (
                 <>
                   <span className="text-white">Army of Renown:</span>
-                  {/*
-                    No `aria-busy` here. It sat on this wrapper because react-select would not
-                    forward it to the control — which is precisely why it did nothing: a plain
-                    <div> carrying a busy state is not a widget, and assistive technology has no
-                    reason to look at it. Home announces the pending, ready, and failed states once,
-                    properly, through a live region it owns for its whole life.
-                  */}
                   <div className="d-flex pt-3 pb-2 justify-content-center">
                     <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-start">
-                      {/*
-                        One control, live or reserved. While the list is still empty it renders
-                        disabled with no answer — the same element, so it keeps the live select's
-                        accessible name (a screen reader meets one Army of Renown control rather
-                        than two) and the same theme slots (react-select's default disabled
-                        background is near-white, the one inversion DESIGN.md's Slot Rule exists to
-                        prevent), and a masthead styling or a11y change cannot land on one variant
-                        and miss the other.
-
-                        `neutral5` (the disabled control's background) is the same value as
-                        `neutral0` (the live control's background) in dark theme, because both are
-                        Midnight Slate — the one surface DESIGN.md's Slot Rule names for this
-                        theme. That leaves nothing in the *palette* to mark the reserved control as
-                        disabled, so the affordance comes from opacity instead: 0.65 is
-                        `$btn-disabled-opacity`, the same fade every other disabled control in the
-                        product already reads. Scoped to the reserved state's `styles` prop rather
-                        than a theme slot, because the live state must stay at full opacity.
-                      */}
                       <Select
                         aria-label="Army of Renown"
-                        value={armiesOfRenown.length > 0 ? armyOfRenownOption : null}
-                        options={armiesOfRenown.length > 0 ? armyOfRenownOptions : []}
+                        value={armyOfRenownOption}
+                        options={armyOfRenownOptions}
                         onChange={selected => onArmyOfRenownChange(selected?.value ?? null)}
                         isClearable={false}
-                        isDisabled={armiesOfRenown.length === 0}
-                        placeholder="Loading..."
                         className={theme.text}
                         theme={selectColors}
-                        styles={
-                          armiesOfRenown.length === 0
-                            ? { control: base => ({ ...base, opacity: 0.65 }) }
-                            : undefined
-                        }
                       />
                     </div>
                   </div>
