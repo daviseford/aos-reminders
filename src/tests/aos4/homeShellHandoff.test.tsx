@@ -311,9 +311,11 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
   })
 
   /*
-   * R5. The pick is the whole reason the document moved up into the shell: before, a player who
-   * chose a faction during the wait was choosing in a control the arriving child was about to
-   * overwrite from storage.
+   * The splash covers the masthead while the catalog is in flight, so reaching the selector during
+   * the wait is not a path the UI offers — but the state holding a pick is the same state either
+   * way, and the handoff must not drop it: when the stored bytes round-trip clean the shell keeps
+   * its own (picked) instance, and only now does the pick reach storage, because only now has a
+   * catalog-validated load landed.
    */
   it('keeps a faction picked during the wait, and applies it exactly once when the child lands', async () => {
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))

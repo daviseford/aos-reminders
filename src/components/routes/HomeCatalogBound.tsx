@@ -327,9 +327,9 @@ const HomeCatalogBound = ({
   /*
    * The catalog's own answer to what storage held, run once on mount. The shell painted from a
    * document deserialized without a catalog — no rules-context check, no pruning of selections a
-   * battletome rewrite has retired — so this is the first point at which either can happen. The
-   * shell decides whether to take it: a faction the player picked while waiting is newer than
-   * anything storage holds.
+   * battletome rewrite has retired — so this is the first point at which either can happen, and
+   * its answer wins: the splash covers the screen until this lands, so the document cannot have
+   * been touched in the meantime.
    */
   useEffect(() => {
     const { document: validated, unchangedFromStorage } = loadDocument()

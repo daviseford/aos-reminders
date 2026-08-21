@@ -12,7 +12,6 @@ import {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
   type ReactNode,
 } from 'react'
@@ -27,12 +26,7 @@ import {
   createDefaultAos4ArmyDocument,
   saveAos4ArmyDocument,
 } from '../../aos4/runtime'
-import {
-  createAos4ArmyDocument,
-  deserializeAos4ArmyDocumentStructure,
-  serializeAos4ArmyDocument,
-  type Aos4ArmyDocument,
-} from '../../aos4/state'
+import { createAos4ArmyDocument, deserializeAos4ArmyDocumentStructure, type Aos4ArmyDocument } from '../../aos4/state'
 
 /*
  * Home is the catalog-free shell. Everything shaped `f(catalog, …)` — the builder, the toolbar, the
@@ -155,17 +149,11 @@ class CatalogBoundary extends Component<{ children: ReactNode; onFailed: () => v
 
 const Home = () => {
   /*
-   * The army document lives in the shell so the masthead can name the stored army on first paint,
-   * and so a faction picked before the corpus lands is held rather than dropped (R5). Everything
-   * that reads it *against* the catalog stays in the child and receives it as a prop.
+   * The army document lives in the shell so the masthead can name the stored army and offer the
+   * faction selector without waiting for the corpus. Everything that reads it *against* the
+   * catalog stays in the child and receives it as a prop.
    */
   const [armyDocument, setArmyDocument] = useState(loadStructuralDocument)
-  /*
-   * The instance the shell started from, kept so `handleDocumentValidated` can tell an untouched
-   * document — which the child's validated load may replace outright — from one the player has
-   * already changed, which it must not.
-   */
-  const structuralDocument = useRef(armyDocument)
   const [documentValidated, setDocumentValidated] = useState(false)
   const [isGameMode, setIsGameMode] = useState(false)
   /*
@@ -266,27 +254,16 @@ const Home = () => {
   }
 
   /*
-   * R3. The child's catalog-validated load is authoritative — but only over a document the player
-   * has not touched. A faction picked during the wait is newer than anything storage holds, and the
-   * shell has not written it there yet, so taking the stored answer would silently undo the pick.
+   * The child's catalog-validated load is authoritative, full stop: the splash covers the screen
+   * until it lands, so the document cannot have been touched in the meantime. When the stored
+   * bytes round-tripped clean, the instance on screen is already value-identical to the validated
+   * one, and keeping it saves rebuilding the builder and every reminder view model for no visible
+   * change.
    */
-  const handleDocumentValidated = useCallback(
-    (validated: Aos4ArmyDocument, unchangedFromStorage: boolean) => {
-      setArmyDocument(current => {
-        if (current !== structuralDocument.current) return current
-        // The same army, freshly deserialized: swapping the instance would rebuild the builder and
-        // every reminder view model to land on what is already on screen. The child already knows the
-        // common case — same stored bytes, canonicalized the same way, nothing pruned — so the
-        // serialize-and-compare runs only when validation actually reported something.
-        if (unchangedFromStorage) return current
-        return serializeAos4ArmyDocument(current) === serializeAos4ArmyDocument(validated)
-          ? current
-          : validated
-      })
-      setDocumentValidated(true)
-    },
-    []
-  )
+  const handleDocumentValidated = useCallback((validated: Aos4ArmyDocument, unchangedFromStorage: boolean) => {
+    if (!unchangedFromStorage) setArmyDocument(validated)
+    setDocumentValidated(true)
+  }, [])
 
   /*
    * The one place the sessionStorage key is removed. The share modal calls this when the player
@@ -315,12 +292,6 @@ const Home = () => {
    * something real: the shell's structural read cannot tell a live selection from a retired one, so
    * a returning player whose chunk failed would have their unpruned document written back over the
    * stored one with no catalog-validated pass ever coming to repair it.
-   *
-   * The same guard covers the window before the failure: a faction picked while the chunk was still
-   * loading is newer than storage but never catalog-validated, and `documentValidated` stays false
-   * once the chunk fails, so that pick is never written either. It holds for the session — the
-   * screen keeps showing it — and reverts on the next load, which is the honest outcome: the
-   * alternative is persisting a document no catalog pass ever confirmed.
    */
   useEffect(() => {
     if (!documentValidated) return
