@@ -94,9 +94,8 @@ export const LoadingArmy = () => {
        * No motion here, deliberately — The Dead Class Rule in DESIGN.md settled it for `LoadingBody`
        * and the same answer holds here: this screen holds still like the rest of the product.
        *
-       * No `col` on the wrapper: this container is a flex column centering its children, and
-       * Bootstrap's `.col` is `flex-grow: 1` — it would stretch to fill the viewport height and
-       * pin the text to the top, which is the opposite of what the centering is for.
+       * No `col` on the wrapper: this container is a flex column, and Bootstrap's `.col` is
+       * `flex-grow: 1` — it would stretch to fill the viewport height for no visual gain.
        */}
       <div className="text-center">
         <h3 className={theme.text}>AoS Reminders</h3>

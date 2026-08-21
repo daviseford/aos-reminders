@@ -49,6 +49,11 @@ small {
  * is the half-painted screen this replaced, and anything in flow lifts away the moment the chunk
  * arrives — before the bound child has settled. Home holds the overlay until then, so z-index has
  * to clear the skip link (1030); nothing above that exists this early.
+ *
+ * The text sits at `35vh` from the top rather than dead-center because the router's own fallback
+ * (`LoadingBody`, via `.LoadingContainer`) shows first while the route chunk loads, and it places
+ * the same two lines there. Matching it keeps the handoff between the two screens from moving the
+ * only thing on the page.
  */
 .LoadingSplash {
   position: fixed;
@@ -57,7 +62,7 @@ small {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-top: 35vh;
 }
 
 /*
