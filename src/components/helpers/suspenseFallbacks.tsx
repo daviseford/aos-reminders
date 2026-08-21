@@ -46,33 +46,47 @@ export const OfflineHeader = () => (
   </NavbarWrapper>
 )
 
+/*
+ * The one loading screen: the product name and "Loading..." on the theme background. Both loading
+ * screens the player can see render exactly this — the router's route fallback (`LoadingBody`)
+ * while the route chunk loads, and Home's catalog splash (`LoadingArmy`) after it — seated at the
+ * same 35vh so the handoff between the two waits moves nothing. Keep them sharing this: the one
+ * time they drifted apart, the text visibly dropped mid-load.
+ *
+ * No motion here, deliberately — see The Dead Class Rule in DESIGN.md. The heading and the
+ * "Loading..." line carried `pulsate-fwd` and `fade-out` for years with no rule defining either.
+ * The question of whether to honour them or drop them was settled in favour of dropping them: this
+ * screen holds still like the rest of the product. Do not re-add the classes, and do not define
+ * those names in the stylesheet.
+ */
+const LoadingLines = () => {
+  const { theme } = useTheme()
+
+  return (
+    <div className="text-center">
+      <h3 className={theme.text}>AoS Reminders</h3>
+      <p className={`lead ${theme.textMuted}`}>Loading...</p>
+    </div>
+  )
+}
+
 export const LoadingBody = () => {
   const { theme } = useTheme()
   const containerClass = `container ${theme.bgColor} d-flex flex-column align-items-center justify-content-center LoadingContainer`
 
   return (
     <div className={containerClass}>
-      {/*
-       * No motion here, deliberately — see The Dead Class Rule in DESIGN.md. The heading and the
-       * "Loading..." line carried `pulsate-fwd` and `fade-out` for years with no rule defining
-       * either. The question of whether to honour them or drop them was settled in favour of
-       * dropping them: this screen holds still like the rest of the product. Do not re-add the
-       * classes, and do not define those names in the stylesheet.
-       */}
-      <div className="col text-center">
-        <h3 className={theme.text}>AoS Reminders</h3>
-        <p className={`lead ${theme.textMuted}`}>Loading...</p>
-      </div>
+      <LoadingLines />
     </div>
   )
 }
 
 /*
- * Home's full-screen splash while the catalog chunk is on the wire: the same two static lines as
- * `LoadingBody` — the job the route-level fallback did before the shell split, restored. The player
- * sees the product name and "Loading..." on the theme background, edge to edge, and nothing else
- * until the army UI is ready. A spinner band under an already-painted masthead read as a half-built
- * page, and a band's theme background stopping mid-screen read as a broken one.
+ * Home's full-screen splash while the catalog chunk is on the wire: `LoadingLines` on a fixed,
+ * viewport-sized overlay — the job the route-level fallback did before the shell split, restored.
+ * The player sees the loading screen, edge to edge, and nothing else until the army UI is ready.
+ * A spinner band under an already-painted masthead read as a half-built page, and a band's theme
+ * background stopping mid-screen read as a broken one.
  *
  * It is a fixed overlay rather than the Suspense fallback so it outlives the child's first commit:
  * the fallback lifts the moment the chunk arrives, while the masthead's reserved Army of Renown row
@@ -90,17 +104,7 @@ export const LoadingArmy = () => {
 
   return (
     <div className={`LoadingSplash ${theme.bgColor}`} aria-hidden="true">
-      {/*
-       * No motion here, deliberately — The Dead Class Rule in DESIGN.md settled it for `LoadingBody`
-       * and the same answer holds here: this screen holds still like the rest of the product.
-       *
-       * No `col` on the wrapper: this container is a flex column, and Bootstrap's `.col` is
-       * `flex-grow: 1` — it would stretch to fill the viewport height for no visual gain.
-       */}
-      <div className="text-center">
-        <h3 className={theme.text}>AoS Reminders</h3>
-        <p className={`lead ${theme.textMuted}`}>Loading...</p>
-      </div>
+      <LoadingLines />
     </div>
   )
 }
