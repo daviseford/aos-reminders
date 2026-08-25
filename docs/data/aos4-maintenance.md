@@ -353,6 +353,10 @@ generated application data only.
 
 ## Rules Radar
 
+When an alarm email or managed-issue update arrives, follow
+[`aos4-rules-radar-alarm.md`](./aos4-rules-radar-alarm.md); this section describes how the sentinel
+works and records the reviews it has produced.
+
 The Rules Radar is a quiet, official-first source-change sentinel. The workflow checks Games
 Workshop daily at minute 17 and checks Wahapedia plus BSData weekly at minute 43. A changed
 Wahapedia sentinel expands to the existing bounded full observation before candidate evidence is
@@ -622,6 +626,13 @@ For a refresh:
    automatic `--accept` command.
 
 Candidate data must never write the runtime directly.
+
+### Re-pinning a BSData catalogue
+
+A Rules Radar BSData event that changes a record inside the shipped scope is resolved by moving
+the affected `communityWarscrollSources` pin to the reviewed commit and re-accepting the corpus.
+The ordered checklist, with the fail-closed gates the generator enforces one at a time, lives in
+[`aos4-rules-radar-alarm.md`](./aos4-rules-radar-alarm.md).
 
 ## Generation
 
