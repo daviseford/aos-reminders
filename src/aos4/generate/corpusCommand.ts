@@ -42,7 +42,12 @@ import {
 } from '../data/wahapedia'
 import { validateCatalog, type RulesContextId, type SourceRecordId } from '../domain'
 import { runCertificationCheck } from '../review/certificationCommand'
-import { buildAos4Corpus, createCorpusIdentityRegistry, type CorpusReview } from './corpus'
+import {
+  buildAos4Corpus,
+  createCorpusIdentityRegistry,
+  type CorpusReview,
+  legendsWarscrollOverrideIds,
+} from './corpus'
 import { validateIdentityRegistry, type IdentityRegistry } from './identityRegistry'
 import { validateGenerationIntegrity } from './integrity'
 import { loadProfileOnlyDeviationLedger, profileOnlyGateIssues } from './profileOnlyGate'
@@ -1072,7 +1077,8 @@ export const loadAcceptedCorpusSourceData = async (
     officialBattleProfiles.effective,
     wahapediaHtml.factions,
     wahapediaHtml.rules,
-    review.currentWahapediaHtml?.rulesPages ?? []
+    review.currentWahapediaHtml?.rulesPages ?? [],
+    legendsWarscrollOverrideIds(review, decoded.dataset.warscrolls)
   )
   const communityMerged = mergeBsDataWarscrolls(
     merged.dataset,

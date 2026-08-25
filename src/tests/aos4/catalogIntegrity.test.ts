@@ -78,9 +78,9 @@ const dataPath = (...segments: string[]): string => path.join(process.cwd(), 'da
 
 const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPath(...segments), 'utf8')) as T
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-25.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-25b.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-25-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-25b-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -113,15 +113,15 @@ describe('AoS 4 catalog generation integrity', () => {
         abilities: 5074,
         weapons: 2269,
         sourceArtifacts: 245,
-        sourceRecords: 20084,
-        ignoredSourceRecords: 19119,
+        sourceRecords: 20111,
+        ignoredSourceRecords: 20680,
       },
       integrity: {
-        consumedSourceRecords: 20078,
+        consumedSourceRecords: 20105,
         issues: [],
         supersededSourceRecords: {
-          count: 19113,
-          checksum: '61a656b4cfbcaaf2ba79bbb6a2501f2b8ca17fae766418aa4d0f0d3cd3146fb0',
+          count: 20674,
+          checksum: '12ffe5a7a7b60f71440511ba26b388d20eea60c8d80d983329014d87776d3657',
         },
       },
     })
@@ -314,12 +314,12 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('records every reviewed source diagnostic without leaving an unknown timing', () => {
     expect(report.sourceDiagnostics).toEqual({
-      reviewed: 1718,
+      reviewed: 1733,
       byCode: {
-        'duplicate-identical-record': 635,
-        'empty-association-record': 559,
+        'duplicate-identical-record': 498,
+        'empty-association-record': 639,
         'missing-faction': 2,
-        'polluted-marker': 522,
+        'polluted-marker': 594,
       },
     })
     expect(

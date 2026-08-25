@@ -60,6 +60,12 @@ describe('AoS 4 Rules Radar notification command', () => {
     expect(result.action).toBe('dry-run')
     expect(body).toContain(RULES_RADAR_ISSUE_MARKER)
     expect(body).toContain(renderRulesRadarIssueBody(report))
+    // A managed issue with events is what an agent reads first, so it names the runbook itself.
+    expect(
+      renderRulesRadarIssueBody(
+        createRadarReport([createRadarLane('games-workshop', observedAt, [materialEvent()])])
+      )
+    ).toContain('Runbook: docs/data/aos4-rules-radar-alarm.md')
     expect(client.calls).toBe(0)
     // No material events: the decision artifact exists, but the mailable subject/body must not.
     const decision = JSON.parse(await readFile(path.join(directory, 'alarm.json'), 'utf8'))

@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-25 snapshot is defined by:
+The accepted 2026-08-25b snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-25.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-25.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-25b.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-08-25b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-25-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-25-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-25b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-25b-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -271,8 +271,8 @@ names the boundary when a roster carries a replaced battletome enhancement inste
 unknown. `src/tests/aos4/seasonalEnhancementSupersede.test.ts` pins a corpus-wide invariant — no
 faction offers two identically named groups of one category in the same context — and the machine
 review recertified as `aos4-corpus-2026-08-03-machine-r4` (72 fresh pairs, r3 evidence reused);
-`aos4-corpus-2026-08-18-machine-r1` superseded both, and `aos4-corpus-2026-08-25-machine-r1`
-superseded it in turn.
+`aos4-corpus-2026-08-18-machine-r1` superseded both, `aos4-corpus-2026-08-25-machine-r1`
+superseded it in turn, and `aos4-corpus-2026-08-25b-machine-r1` is current.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
@@ -476,6 +476,21 @@ attached `NON-GUTBUSTERS` / `NON-MAWSEEKERS` / `NON-BEASTCLAW` category links to
 those are builder constraint categories, not printed keywords, so the BSData extractor now drops
 `NON-*` category links rather than shipping them as warscroll keywords.
 
+The 2026-08-25b review is the Wahapedia counterpart, raised by the post-merge radar run the same
+day: `Last_update.csv` moved to 2026-08-25 14:30 and 51 of the 85 accepted Wahapedia artifacts
+changed, every CSV export included. Every publication the new `Source.csv` rows cite was already
+pinned in the accepted manifest, so this was Wahapedia's bulk export catching up to the reviewed
+faction pages and to official July 2026 publications the corpus already applied. Decoded and
+diffed by table, 1,224 of the changed ability rows were tooltip-anchor markup churn and 203 were
+real text changes; after generation the runtime delta was 33 ability and 15 weapon corrections
+(Hedonites of Slaanesh and Cities of Sigmar battletome text, plus Rules Updates errata elsewhere),
+12 renamed abilities, and 28 newly cited publications. Two reviewed decisions carried it: the
+export blanked the Legends `source_id` of three Hedonites heralds that Battle Profiles page 68
+still lists under Warhammer Legends, so `legendsWarscrollOverrides` keeps them in the Legends
+context; and Wahapedia re-numbered 786 rows (Scourge of Aqshy datasheets, faction-ability groups,
+their abilities and weapons), whose new aliases were attached to the existing canonical entries
+rather than minting new identities, so saved armies keep resolving.
+
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
 or updates the beta certification pointer.
@@ -550,11 +565,11 @@ Restore or seed the bytes pinned by a reviewed manifest:
 
 ```powershell
 yarn data:aos4:cache:pull `
-  --manifest data/aos4/manifests/accepted-2026-08-25.json `
+  --manifest data/aos4/manifests/accepted-2026-08-25b.json `
   --jobs 4
 
 yarn data:aos4:cache:push `
-  --manifest data/aos4/manifests/accepted-2026-08-25.json `
+  --manifest data/aos4/manifests/accepted-2026-08-25b.json `
   --jobs 4
 ```
 

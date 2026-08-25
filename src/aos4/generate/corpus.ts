@@ -103,6 +103,21 @@ export interface CorpusContextOverride {
   officialSourceRecordIds?: SourceRecordId[]
 }
 
+/**
+ * A reviewed Legends identity for a Wahapedia export warscroll whose CSV row no longer carries the
+ * Legends source or note that identifies it, while the newest official Battle Profiles still
+ * lists the unit under Warhammer Legends. Official precedence keeps the unit in the Legends
+ * context and lets its faction-page datasheet match the official Legends fact.
+ */
+export interface CorpusLegendsWarscrollOverride {
+  /** Wahapedia `Warscrolls.csv` id of the export record. */
+  warscrollId: string
+  /** Exact export name, so a reused id fails closed instead of silently retargeting. */
+  name: string
+  reason: string
+  officialSourceRecordIds: SourceRecordId[]
+}
+
 export interface CorpusWeaponProfileOverride {
   sourceRecordId: SourceRecordId
   profile: Partial<Pick<Weapon['profile'], 'rangeInches' | 'attacks' | 'hit' | 'wound' | 'rend' | 'damage'>>
@@ -363,6 +378,7 @@ export interface CorpusReview {
   communityWarscrollSources?: CorpusCommunityWarscrollSource[]
   abilityTextOverrides?: CorpusAbilityTextOverride[]
   contextOverrides?: CorpusContextOverride[]
+  legendsWarscrollOverrides?: CorpusLegendsWarscrollOverride[]
   weaponProfileOverrides?: CorpusWeaponProfileOverride[]
   warscrollKeywordOverrides?: CorpusWarscrollKeywordOverride[]
 }
@@ -495,11 +511,40 @@ const contextLabel = (value: string): string =>
     .trim()
     .toLowerCase()
 
+/**
+ * Export warscroll ids the review pins to the Legends context. Every override must name a live
+ * export record by id and exact name: a stale or mistyped entry fails generation rather than
+ * silently guarding nothing.
+ */
+export const legendsWarscrollOverrideIds = (
+  review: Pick<CorpusReview, 'legendsWarscrollOverrides'>,
+  warscrolls: Pick<WahapediaWarscrollRecord, 'id' | 'name'>[]
+): Set<string> => {
+  const byId = new Map(warscrolls.map(record => [record.id, record.name]))
+  const ids = new Set<string>()
+  ;(review.legendsWarscrollOverrides ?? []).forEach(override => {
+    const name = byId.get(override.warscrollId)
+    if (name === undefined || name !== override.name) {
+      throw new Error(
+        `Legends warscroll override ${override.warscrollId} (${override.name}) does not match a ` +
+          `Wahapedia export warscroll${name === undefined ? '' : ` (export name: ${name})`}`
+      )
+    }
+    if (ids.has(override.warscrollId)) {
+      throw new Error(`Legends warscroll override ${override.warscrollId} is recorded more than once`)
+    }
+    ids.add(override.warscrollId)
+  })
+  return ids
+}
+
 const isLegendsWarscroll = (
   record: WahapediaWarscrollRecord,
   sourceById: Map<string, WahapediaSourceRecord>,
-  generatedAt: string
+  generatedAt: string,
+  overrideIds: ReadonlySet<string>
 ): boolean => {
+  if (overrideIds.has(record.id)) return true
   if (record.meta.rulesContextKinds?.includes('legends')) return true
   const source = sourceById.get(record.sourceId)
   if (source && /\blegends?\b/i.test(source.name)) return true
@@ -769,9 +814,10 @@ const sourceRulesContextIds = (
     )
   }
   const sourceById = new Map(dataset.sources.map(source => [source.id, source]))
+  const legendsOverrideIds = legendsWarscrollOverrideIds(review, dataset.warscrolls)
   const legendsWarscrollSourceRecordIds = new Set(
     dataset.warscrolls
-      .filter(record => isLegendsWarscroll(record, sourceById, review.generatedAt))
+      .filter(record => isLegendsWarscroll(record, sourceById, review.generatedAt, legendsOverrideIds))
       .map(record => record.meta.sourceRecordId)
   )
   const eligibleWarscrollCountsByFaction = new Map<string, { all: number; legends: number }>()
@@ -1501,6 +1547,7 @@ export const buildAos4Corpus = (
     .concat(review.timingOverrides.flatMap(override => override.officialSourceRecordIds))
     .concat((review.abilityTextOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .concat((review.contextOverrides ?? []).flatMap(override => override.officialSourceRecordIds ?? []))
+    .concat((review.legendsWarscrollOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .concat((review.weaponProfileOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .concat((review.warscrollKeywordOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .concat((review.communityWarscrollSources ?? []).flatMap(source => source.officialSourceRecordIds))

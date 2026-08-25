@@ -100,7 +100,7 @@ export const renderRulesRadarIssueBody = (report: RadarReport): string => {
     '# AoS Rules Radar',
     '',
     report.events.length
-      ? 'Material source changes or operational failures need maintainer review.'
+      ? 'Material source changes or operational failures need maintainer review. Runbook: docs/data/aos4-rules-radar-alarm.md.'
       : 'No material source changes or operational failures were observed.',
     '',
     `Aggregate fingerprint: \`${report.aggregateFingerprint}\``,

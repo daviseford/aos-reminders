@@ -52,10 +52,56 @@ merely reference evidence.
 ### 3. Wahapedia events
 
 A changed sentinel (`Last_update.csv`, the data-export navigation, or a watched faction page)
-expands to the bounded full observation the workflow already runs. Compare the candidate report's
-changed records against the accepted review; a text change to a record the corpus ships starts a
-normal candidate → review → accept cycle. Wahapedia is a co-equal secondary: an official document
-wins any conflict, and a Wahapedia change never overrides a reviewed official fact.
+expands to the bounded full observation the workflow already runs. The run's
+`candidate-evidence.json` lists every Wahapedia artifact it saw with its checksum; compare those
+against the accepted manifest first — the count of changed artifacts tells you whether this is a
+page tweak or a site-wide refresh (2026-08-25: 51 of 85 moved, all 10 CSV exports included).
+Wahapedia is a co-equal secondary: an official document wins any conflict, and a Wahapedia change
+never overrides a reviewed official fact.
+
+Reduce a site-wide refresh before reading it:
+
+1. **Acquire the candidate** with the accepted manifest's 72 page URLs as the pages file and a
+   big heap — the default ~4 GB V8 limit dies decoding 85 documents with a native stack trace:
+   `node --max-old-space-size=16384 --expose-gc node_modules/vite-node/dist/cli.mjs --script src/aos4/data/candidateCommand.ts --wahapedia-pages-file <pages.json> --output .cache/aos4/candidates/wahapedia-<date>`.
+   Read `candidate-diagnostics.json` errors first and check each against the review's
+   `decoderDiagnosticPolicies` before treating it as new (2026-08-25: the two `missing-faction`
+   rows for the `LCA` Regiment of Renown association were already dispositioned by file and row).
+2. **Diff the decoded exports, not the CSV bytes.** Decode the accepted and candidate manifests
+   with `decodeWahapediaExports` and compare each table keyed by its natural id
+   (`warscrolls.id`, `warscrollId|name` for abilities and weapons, `factionId|typeId|subtypeId|name`
+   for faction abilities) with `meta` stripped. Then split changed `descriptionHtml` rows into
+   markup-only and text-changed by comparing tag-stripped, whitespace-collapsed text: Wahapedia
+   renumbers its tooltip anchors on every publish, so most "changed" rows are markup churn
+   (2026-08-25: 1,224 markup-only against 203 real text changes).
+3. **Check the official side before treating anything as new.** Every `Source.csv` row the
+   candidate adds names a publication; look each up in the live downloads catalog
+   (`yarn data:aos4:discover-official`) and the accepted manifest. When the document is already
+   pinned, Wahapedia is catching up to official facts the corpus carries — the review is about
+   secondary text filling profile-only gaps and reconciling against the pinned PDF, not about
+   intake. When it is not pinned, the official-first gate (#1820) applies first.
+4. **Let the strict gate enumerate the rest.** Copy the accepted manifest and review to a dated
+   `b` revision with the Wahapedia artifacts swapped and the review `revision` bumped, then run
+   `data:aos4:generate --candidate --write` with every output flag pointed at a scratch directory
+   (`--identities --audit-catalog --official-battle-profiles --runtime --defaults --report
+   --reconciliation`). The gate fails one layer at a time (reconciliation expectations, identities,
+   diagnostics, dispositions); record each decision in the review and rerun until it passes, and
+   read the scratch reconciliation report for the matched/unmatched official facts behind the
+   numbers. Nothing under `data/` or `src/aos4/generated/` changes until the review is accepted.
+   Two gate behaviours to know: an unmatched official Legends fact whose Wahapedia CSV row lost
+   its Legends `source_id` (while the unit page still badges it Legends) is a
+   `legendsWarscrollOverrides` review entry, not a profile-only deviation; and a batch of
+   `identity-not-found` errors makes later checks in the same run fire spuriously (records without
+   a canonical id never reach the Army of Renown match), so extend the identity registry with the
+   new aliases (`createCorpusIdentityRegistry` over the candidate dataset, keep every existing
+   entry, append only unknown alias keys) before believing any `invalid-review` error that follows.
+   Then diff the old and new runtime entity ids before accepting: identical added and removed
+   counts per kind mean the source re-numbered rows and the extension minted new canonical ids;
+   pair each removed/added entity by kind, name, context, and owner relationship and move the new
+   alias onto the existing entry instead (2026-08-25b: 786 rows, 0 ambiguous). Two more
+   fail-closed checks live outside generation: `review:prepare` rejects an `ignoredSourceRecords`
+   entry whose record no longer exists, and `catalogIntegrity.test.ts` pins the summary's record
+   and diagnostic counts literally.
 
 ### 4. BSData events
 
@@ -89,6 +135,7 @@ maintenance runbook keeps per BSData review, so the next reviewer can start from
 | Every event is stale-baseline noise | Config PR re-pointing the radar; one manual `source: all` run | #1928 |
 | BSData moved, no shipped record changed | Advance `bsData.baselineSha` + `baselineReviewedAt` in `data/aos4/radar/config.json`, the SHA literal in `src/tests/aos4/rulesRadarCompare.test.ts`, and add the review paragraph to the maintenance runbook | #1931 (`0d3eb56f` → `f6363c26`) |
 | BSData moved and a shipped record changed | Full re-pin (checklist below) | #1968 (`c8e1b1c9` → `301477a3`), #1976 (`301477a3` → `d7377e94`) |
+| Wahapedia site-wide export refresh | Reduce per the Wahapedia lane above, then a full candidate → review → accept → generate → certify cycle on a dated `b` revision | corpus 2026-08-25b (`Last_update.csv` 2026-08-25 14:30) |
 | Official or Wahapedia record the corpus ships changed | Normal candidate → review → accept → generate → certify cycle | `aos4-maintenance.md`, Review and acceptance |
 
 Never advance a baseline for a range you have not reduced, and never hand-edit generated products
@@ -149,6 +196,12 @@ them one at a time, each only after the previous one is satisfied.
 
 ## Close out
 
+- Tell users what changed. Every radar-driven data change that reaches production updates the
+  in-app banner (`src/components/info/banners/app_banner.tsx`, a new `NotificationBanner` name
+  per update so it shows once) so players can see the app is actively maintained. Two or three
+  sentences at most, broad strokes: the month, which sources were reconciled, an invitation to
+  report mistakes. No per-unit detail, no em-dashes, hobbyist plain language. Draft the copy in
+  the PR and run it past the owner before changing the banner.
 - The PR title, commit, and description reference the managed issue (`#1757`); do not close the
   issue by hand — the radar closes it when the final active lane clears.
 - After merge, dispatch `AoS 4 Rules Radar` with `source: all` (not report-only). Confirm the run
@@ -166,3 +219,4 @@ them one at a time, each only after the previous one is satisfied.
 | 2026-08-04 | `0d3eb56f` → `f6363c26` | Pinned files byte-identical at head; baseline advanced only (#1931) |
 | 2026-08-18 | `f6363c26` → `301477a3` | Thundertusk Beastriders' Chilling Onslaught corrected; re-pinned, BSData raised to peer secondary (#1968) |
 | 2026-08-25 | `301477a3` → `d7377e94` | Mawpit Hungry Sinkhole Declare corrected; `NON-*` constraint categories filtered; re-pinned (#1976) |
+| 2026-08-25 | Wahapedia export 14:30 publish (51/85 artifacts) | Bulk export caught up to reviewed pages and July official publications; 33 ability + 15 weapon corrections, 12 renamed abilities; three Legends identity overrides; 786 re-numbered rows aliased onto existing identities (corpus 2026-08-25b) |
