@@ -221,7 +221,8 @@ separate layers. Never make a PDF/HTML/CSV provider shape the application’s pe
 
 A quiet official-first rules radar watches the official, Wahapedia, and BSData sentinels and
 reports material source changes through a managed GitHub issue. The two secondaries rank equally:
-BSData was raised from fallback to peer secondary on 2026-08-18 (#1757).
+BSData was raised from fallback to peer secondary on 2026-08-18 (#1757). An alarm is handled per
+`docs/data/aos4-rules-radar-alarm.md`.
 
 ### Roster import sources
 
