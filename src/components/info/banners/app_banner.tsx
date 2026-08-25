@@ -3,11 +3,20 @@ import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { UpdateAvailable } from 'components/info/updateAvailable'
 import { useCheckoutOutcome } from 'utils/checkoutOutcome'
 
-const WelcomeBanner = () => (
-  <NotificationBanner enableLog name="2026-aos4-welcome-back-lists" variant="info">
+/**
+ * The rules-update note for the latest Rules Radar reconciliation (corpus 2026-08-25b). Each
+ * reconciliation that reaches production gets its own banner name so the note shows once to
+ * everyone, including people who dismissed the previous one; keep the copy to a few sentences.
+ */
+const RulesUpdateBanner = () => (
+  <NotificationBanner enableLog name="2026-08-rules-update" variant="info">
     <span>
-      <strong>Welcome back!</strong> AoS Reminders is being updated to the latest and greatest. We now support
-      importing Sigdex, Storm Forge, Listbot, and New Recruit lists!
+      <strong>Rules update, August 2026.</strong> We&rsquo;ve added the latest - including the new Cities of
+      Sigmar and Hedonites of Slaanesh battletome rules. Spot something wrong? Let us know on{' '}
+      <a href="https://discord.gg/2nt9Fxp" target="_blank" rel="noopener noreferrer">
+        Discord
+      </a>
+      .
     </span>
   </NotificationBanner>
 )
@@ -25,7 +34,7 @@ const WelcomeBanner = () => (
 const AppBanner = () => {
   const outcome = useCheckoutOutcome()
   if (outcome) return <CheckoutOutcomeBanner />
-  return <UpdateAvailable fallback={<WelcomeBanner />} />
+  return <UpdateAvailable fallback={<RulesUpdateBanner />} />
 }
 
 export default AppBanner
