@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-18 snapshot is defined by:
+The accepted 2026-08-25 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-18.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-18.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-25.json` | 13 Wahapedia exports, 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-08-25.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-18-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-18-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-25-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-25-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -117,8 +117,9 @@ and Maulbeast Raiders) were admitted under the then-current fallback-tier source
 established by accepted official Battle Profiles documents, Wahapedia still lists only the
 pre-supplement warscrolls, and the free official "Battletome Supplement: Ogor Mawtribes" PDF
 contains only the legacy-unit warscrolls. Their rules text therefore comes from the commit-pinned
-BSData Ogor library catalogue (`BSData/age-of-sigmar-4th@301477a3`, branch `main`; originally
-admitted at `c8e1b1c9` on branch `ogors`, re-pinned 2026-08-18) recorded as
+BSData Ogor library catalogue (`BSData/age-of-sigmar-4th@d7377e94`, branch `main`; originally
+admitted at `c8e1b1c9` on branch `ogors`, re-pinned 2026-08-18 to `301477a3` and 2026-08-25 to
+`d7377e94`) recorded as
 `communityWarscrollSources` review entries — commit-pinned, per-unit checksum-pinned, marked
 `provisional-pending-official-verification`, and visibly attributed as provisional community
 transcriptions in the reminder source links. The five BSData/official base-size formatting
@@ -270,7 +271,8 @@ names the boundary when a roster carries a replaced battletome enhancement inste
 unknown. `src/tests/aos4/seasonalEnhancementSupersede.test.ts` pins a corpus-wide invariant — no
 faction offers two identically named groups of one category in the same context — and the machine
 review recertified as `aos4-corpus-2026-08-03-machine-r4` (72 fresh pairs, r3 evidence reused);
-`aos4-corpus-2026-08-18-machine-r1` has since superseded both.
+`aos4-corpus-2026-08-18-machine-r1` superseded both, and `aos4-corpus-2026-08-25-machine-r1`
+superseded it in turn.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
@@ -459,6 +461,17 @@ corpus takes from that file. Corrections to factions the corpus does not source 
 need their own reviewed intake before they ship — peer standing makes BSData believable, not
 automatically ingested.
 
+The 2026-08-25 review (`301477a3` → `d7377e94`, same issue, the first alarm delivered by email) is
+the small case: 21 files moved upstream, but the two catalogues pinned at `a882188b` were outside
+the range, `Lores.cat` was a CRLF rewrite carrying two typo fixes in non-Ogor lores, and the Ogor
+library's ~6,500 changed lines were a new "Anvil of Apotheosis: Ogor Mawtribes Hero" custom-hero
+package plus roster-builder wiring for the three Ogor Armies of Renown. Inside the shipped scope
+exactly one record changed: the Mawpit's `Hungry Sinkhole` Declare, corrected from "that you have
+already picked to be a sinkhole" to "that you have **not** already picked". The same commit also
+attached `NON-GUTBUSTERS` / `NON-MAWSEEKERS` / `NON-BEASTCLAW` category links to most Ogor units;
+those are builder constraint categories, not printed keywords, so the BSData extractor now drops
+`NON-*` category links rather than shipping them as warscroll keywords.
+
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
 or updates the beta certification pointer.
@@ -533,11 +546,11 @@ Restore or seed the bytes pinned by a reviewed manifest:
 
 ```powershell
 yarn data:aos4:cache:pull `
-  --manifest data/aos4/manifests/accepted-2026-08-18.json `
+  --manifest data/aos4/manifests/accepted-2026-08-25.json `
   --jobs 4
 
 yarn data:aos4:cache:push `
-  --manifest data/aos4/manifests/accepted-2026-08-18.json `
+  --manifest data/aos4/manifests/accepted-2026-08-25.json `
   --jobs 4
 ```
 
