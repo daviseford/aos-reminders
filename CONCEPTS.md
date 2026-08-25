@@ -84,6 +84,14 @@ Legacy vocabulary from the pre-2026-08-18 three-tier policy: rules text admitted
 ### Classification Evidence Tier
 The evidence basis for a reviewed classification (today: Armies of Renown). The official tier cites an accepted official record naming the thing classified; the secondary-provisional tier rests on the secondary source's own explicit marking when no free accepted official document names it, with official records as optional corroboration. Distinct from Provisional Content: here the rules text is ordinary preferred-secondary content — only the *classification* awaits official naming, which verifies or corrects the entry when accepted.
 
+### Canonical Identity
+The stable id an entity keeps across corpus revisions, the handle saved armies and share links store. It is minted once from the first Source Alias that introduced the entity, and every later alias for the same thing is attached to it rather than producing a second identity.
+
+A source that re-numbers its rows does not create new entities: the new aliases join the existing identity, and a revision that would mint fresh identities for names the corpus already ships is a review failure, not churn to accept.
+
+### Source Alias
+A source-specific external key (an export row id, a page anchor, a community catalogue record) that resolves to exactly one Canonical Identity. An entity may carry several aliases from several sources; an alias never resolves to more than one identity.
+
 ### Accuracy Campaign
 The named review process that certifies an accepted corpus revision: an independent, checksum-bound comparison of every source record against the generated output, with blind interpretation sealed before comparison and any finding blocking acceptance until corrected. A passing campaign is what the beta gate binds to. Changing any bound input starts a new immutable campaign, but the new campaign may retain an exact prior pair verdict when its semantic pair and reviewer bindings are byte-identical. The current inventory, concealed controls, execution record, manifest, and complete coverage gate are never inherited wholesale.
 

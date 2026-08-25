@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-18.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-25b.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-18-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-25b-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,10 +120,10 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_453)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_480)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,074 abilities a reminder cites: an ability-keyed table could not
-    // back the provenance guarantee for the other 6,379.
+    // back the provenance guarantee for the other 6,406.
     expect(
       AOS4_CATALOG.entities.filter(entity => !AOS4_SOURCE_RECORD_INDEXES.get(entity.id)?.length)
     ).toEqual([])
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,453 entities', () => {
+  it('reports no missing provenance for any of the 11,480 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_453)
+    ).toHaveLength(11_480)
   })
 })
 
@@ -198,15 +198,15 @@ describe('AoS 4 catalog generation integrity', () => {
         abilities: 5074,
         weapons: 2269,
         sourceArtifacts: 245,
-        sourceRecords: 20084,
-        ignoredSourceRecords: 19119,
+        sourceRecords: 20111,
+        ignoredSourceRecords: 20680,
       },
       integrity: {
-        consumedSourceRecords: 20078,
+        consumedSourceRecords: 20105,
         issues: [],
         supersededSourceRecords: {
-          count: 19113,
-          checksum: '61a656b4cfbcaaf2ba79bbb6a2501f2b8ca17fae766418aa4d0f0d3cd3146fb0',
+          count: 20674,
+          checksum: '12ffe5a7a7b60f71440511ba26b388d20eea60c8d80d983329014d87776d3657',
         },
       },
     })
@@ -403,12 +403,12 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('records every reviewed source diagnostic without leaving an unknown timing', () => {
     expect(report.sourceDiagnostics).toEqual({
-      reviewed: 1718,
+      reviewed: 1733,
       byCode: {
-        'duplicate-identical-record': 635,
-        'empty-association-record': 559,
+        'duplicate-identical-record': 498,
+        'empty-association-record': 639,
         'missing-faction': 2,
-        'polluted-marker': 522,
+        'polluted-marker': 594,
       },
     })
     expect(

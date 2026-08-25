@@ -208,7 +208,7 @@ export interface Aos4ReminderViewModel {
   /**
    * The reminder's source records as indexes into the sources artifact, resolved to links only when
    * a card's source menu is opened. Indexes rather than IDs so nothing on the render path has to
-   * have parsed the 20,078 records that carry those IDs.
+   * have parsed the 20,105 records that carry those IDs.
    */
   sourceRecordIndexes: number[]
   /** The game-wide rules module carrying this reminder, when one does. Text-only provenance data;

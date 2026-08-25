@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "acceptedManifestPath": "data/aos4/manifests/accepted-2026-08-18.json",
+  "acceptedManifestPath": "data/aos4/manifests/accepted-2026-08-25b.json",
   "sourceClassificationsPath": "data/aos4/reviews/source-observation-classifications-2026-07-29.json",
   "wahapedia": {
     "rootUrl": "https://wahapedia.ru/",
@@ -10,8 +10,8 @@
   "bsData": {
     "repository": "BSData/age-of-sigmar-4th",
     "branch": "main",
-    "baselineSha": "301477a36be1033b8caedf5cd2dd2968d32b00d3",
-    "baselineReviewedAt": "2026-08-18T15:37:47.000Z"
+    "baselineSha": "d7377e9446644581b13265a5cdf75672580c982e",
+    "baselineReviewedAt": "2026-08-25T11:49:07.000Z"
   },
   "github": {
     "repository": "daviseford/aos-reminders",

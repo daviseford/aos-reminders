@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-18` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-25b` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -105,7 +105,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-08-18` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-08-25b` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.
@@ -221,7 +221,8 @@ separate layers. Never make a PDF/HTML/CSV provider shape the application’s pe
 
 A quiet official-first rules radar watches the official, Wahapedia, and BSData sentinels and
 reports material source changes through a managed GitHub issue. The two secondaries rank equally:
-BSData was raised from fallback to peer secondary on 2026-08-18 (#1757).
+BSData was raised from fallback to peer secondary on 2026-08-18 (#1757). An alarm is handled per
+`docs/data/aos4-rules-radar-alarm.md`.
 
 ### Roster import sources
 

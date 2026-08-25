@@ -12,6 +12,7 @@ import { artifactId, rulesContextId, sourceRecordId, validateCatalog } from '../
 import {
   buildAos4Corpus,
   createCorpusIdentityRegistry,
+  legendsWarscrollOverrideIds,
   validateGenerationIntegrity,
   type CorpusReview,
 } from '../../aos4/generate'
@@ -661,5 +662,50 @@ describe('AoS 4 corpus generation', () => {
         severity: 'error',
       })
     )
+  })
+
+  it('fails closed on a Legends warscroll override that names no live export record', () => {
+    const warscrolls = [
+      { id: '000000338', name: 'Viceleader, Herald of Slaanesh' },
+      { id: '000000332', name: 'Bladebringer, Herald on Hellflayer' },
+    ]
+    const override = (warscrollId: string, name: string) => ({
+      warscrollId,
+      name,
+      reason: 'Battle Profiles lists the unit under Warhammer Legends.',
+      officialSourceRecordIds: [sourceRecordId('games-workshop', `${'f'.repeat(64)}:page:68`)],
+    })
+
+    expect(
+      legendsWarscrollOverrideIds(
+        { legendsWarscrollOverrides: [override('000000338', 'Viceleader, Herald of Slaanesh')] },
+        warscrolls
+      )
+    ).toEqual(new Set(['000000338']))
+    expect(legendsWarscrollOverrideIds({}, warscrolls)).toEqual(new Set())
+    // A reused id must not silently retarget: the exact export name is part of the pin.
+    expect(() =>
+      legendsWarscrollOverrideIds(
+        { legendsWarscrollOverrides: [override('000000338', 'Bladebringer, Herald on Hellflayer')] },
+        warscrolls
+      )
+    ).toThrow(/does not match a Wahapedia export warscroll \(export name: Viceleader/)
+    expect(() =>
+      legendsWarscrollOverrideIds(
+        { legendsWarscrollOverrides: [override('000000999', 'Retired Herald')] },
+        warscrolls
+      )
+    ).toThrow(/000000999 \(Retired Herald\) does not match/)
+    expect(() =>
+      legendsWarscrollOverrideIds(
+        {
+          legendsWarscrollOverrides: [
+            override('000000338', 'Viceleader, Herald of Slaanesh'),
+            override('000000338', 'Viceleader, Herald of Slaanesh'),
+          ],
+        },
+        warscrolls
+      )
+    ).toThrow(/recorded more than once/)
   })
 })

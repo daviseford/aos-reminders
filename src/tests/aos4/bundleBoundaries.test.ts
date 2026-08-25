@@ -225,7 +225,7 @@ describe('initial bundle boundaries', () => {
 
   /*
    * The core module, from its own side. The split's parse win is that drawing a reminder never
-   * touches the 20,078 citations, and the quiet way to undo it is to materialize source-record IDs
+   * touches the 20,105 citations, and the quiet way to undo it is to materialize source-record IDs
    * in `corpus/catalog.ts`: an ID belongs to a record, so reaching for one reaches for the records,
    * which pulls `runtime.sources.json` back into the chunk `./catalog` lands in and puts all 7 MB
    * back on the render path. The module says as much where it sets `sourceRefs: []`.

@@ -197,4 +197,14 @@ log_gate "end:$*"
     expect(workflow).toMatch(/branches:\s*\n\s*- master/)
     expect(workflow).not.toMatch(/branches:\s*\[[^\]]*aos4-migration/)
   })
+
+  it('pins the supported AWS credentials action release', () => {
+    const workflow = readFileSync(join(process.cwd(), '.github', 'workflows', 'deploy.yml'), 'utf8')
+    const actionRefs = Array.from(
+      workflow.matchAll(/^\s+uses:\s+aws-actions\/configure-aws-credentials@(\S+)\s*$/gm),
+      ([, ref]) => ref
+    )
+
+    expect(actionRefs).toEqual(['v6.2.3'])
+  })
 })

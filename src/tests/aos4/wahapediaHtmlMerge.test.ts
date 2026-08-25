@@ -60,6 +60,18 @@ const htmlMeta = (section: string) => ({
   section,
 })
 
+const emptyDatasetWith = (warscroll: WahapediaDataset['warscrolls'][number]): WahapediaDataset => {
+  const dataset = emptyDataset()
+  dataset.factions.push({
+    id: warscroll.factionId,
+    name: 'Hedonites of Slaanesh',
+    link: '/aos4/factions/hedonites-of-slaanesh/',
+    meta: meta('Factions.csv', 'hedonites-of-slaanesh'),
+  })
+  dataset.warscrolls.push(warscroll)
+  return dataset
+}
+
 describe('current Wahapedia HTML reconciliation', () => {
   it('applies official Battle Profile facts while retaining both sources and stable identity', () => {
     const dataset = emptyDataset()
@@ -264,6 +276,102 @@ describe('current Wahapedia HTML reconciliation', () => {
     expect(current?.cost).toBe('610')
     expect(current?.meta.rulesContextKinds).toEqual(['standard'])
     expect(result.reconciliation.matchedOfficialUnitFacts).toBe(1)
+  })
+
+  it('honours a reviewed Legends override when the export drops the Legends source', () => {
+    // Wahapedia's 2026-08-25 export blanked source_id on three Hedonites heralds that the newest
+    // Battle Profiles still lists under Warhammer Legends. Without the reviewed override the
+    // standard-context datasheet cannot match the official Legends fact; with it, it must.
+    const dataset = emptyDataset()
+    dataset.factions.push({
+      id: 'HS',
+      name: 'Hedonites of Slaanesh',
+      link: '/aos4/factions/hedonites-of-slaanesh/',
+      meta: meta('Factions.csv', 'hedonites-of-slaanesh'),
+    })
+    const old: WahapediaDataset['warscrolls'][number] = {
+      id: '000000338',
+      name: 'Viceleader, Herald of Slaanesh',
+      factionId: 'HS',
+      sourceId: '',
+      legendHtml: '',
+      regimentOptions: '',
+      notesHtml: '',
+      descriptionHtml: '',
+      role: '',
+      virtual: false,
+      noReinforced: false,
+      link: '/aos4/factions/hedonites-of-slaanesh/Viceleader-Herald-of-Slaanesh',
+      move: '6"',
+      save: '5+',
+      control: '2',
+      health: '5',
+      ward: '',
+      unitSize: '1',
+      cost: '120',
+      meta: meta('Warscrolls.csv', '000000338'),
+    }
+    dataset.warscrolls.push(old)
+    const page: WahapediaHtmlWarscrollRecord = {
+      recordKind: 'warscroll',
+      externalId: 'Viceleader-Herald-of-Slaanesh',
+      name: 'Viceleader Herald of Slaanesh',
+      factionName: 'Hedonites of Slaanesh',
+      sourceTitle: '',
+      sourceUrl:
+        'https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Viceleader-Herald-of-Slaanesh',
+      context: 'standard',
+      characteristics: { move: '6"', save: '5+', control: '2', health: '5' },
+      descriptionHtml: '',
+      keywords: [],
+      unitSize: 1,
+      points: 120,
+      baseSizes: ['40mm'],
+      regimentOptions: [],
+      notes: [],
+      canBeReinforced: false,
+      weapons: [],
+      abilities: [],
+      meta: htmlMeta('hedonites-of-slaanesh/Viceleader/warscroll'),
+      artifact,
+    }
+    const official: GamesWorkshopUnitProfileFact = {
+      kind: 'unit',
+      key: 'legends:viceleader',
+      page: 68,
+      row: 1,
+      faction: 'Warhammer Legends',
+      context: 'legends',
+      name: 'Viceleader, Herald of Slaanesh',
+      unitSize: 1,
+      points: 120,
+      regimentOptions: [],
+      relevantKeywords: [],
+      notes: [],
+      baseSizes: ['40mm'],
+      sourceRecordId: sourceRecordId('games-workshop', `${'f'.repeat(64)}:page:68`),
+      factChecksum: '2'.repeat(64),
+    }
+
+    const without = mergeCurrentWahapediaWarscrollPages(dataset, [page], [official])
+    expect(without.reconciliation.matchedOfficialUnitFacts).toBe(0)
+    expect(without.reconciliation.unmatchedOfficialUnitFacts.map(fact => fact.name)).toEqual([
+      'Viceleader, Herald of Slaanesh',
+    ])
+
+    const withOverride = mergeCurrentWahapediaWarscrollPages(
+      emptyDatasetWith(old),
+      [page],
+      [official],
+      [],
+      [],
+      [],
+      new Set(['000000338'])
+    )
+    expect(withOverride.reconciliation.matchedOfficialUnitFacts).toBe(1)
+    expect(withOverride.reconciliation.unmatchedOfficialUnitFacts).toEqual([])
+    const merged = withOverride.dataset.warscrolls.find(record => record.id === '000000338')
+    expect(merged?.meta.rulesContextKinds).toEqual(['legends'])
   })
 
   it('replaces stale export faction rules and keeps their records dispositionable', () => {

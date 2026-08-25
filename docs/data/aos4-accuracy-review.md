@@ -12,11 +12,12 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-18`, generated from the 2026-08-01 source
-acquisition plus three commit-pinned BSData catalogues (manifest `accepted-2026-08-18`). It
-re-pins the Ogor Mawtribes library catalogue from `c8e1b1c9` (branch `ogors`) to `301477a3` on
-`main`; the only content that moved is Thundertusk Beastriders' Chilling Onslaught, corrected
-upstream to "subtract 1 from hit rolls".
+The current revision is `aos4-corpus-2026-08-25b`, generated from the 2026-08-25 14:30 Wahapedia
+export publish over the 2026-08-01 official acquisition plus three commit-pinned BSData catalogues
+(manifest `accepted-2026-08-25b`). It accepts Wahapedia's bulk-export catch-up to the reviewed
+faction pages and the July 2026 official publications (33 ability and 15 weapon corrections, 12
+renamed abilities, 28 newly cited publications) with three reviewed Legends identity overrides
+and 786 re-numbered rows aliased onto their existing canonical entries.
 Its automated review is complete:
 
 | Measure | Result |
@@ -26,23 +27,34 @@ Its automated review is complete:
 | Official battle-profile facts | 1,350/1,350 |
 | Final official/secondary reconciliation discrepancies | 423/423 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 20,084/20,084 |
-| Ignored-record dispositions (superseded + explicit) | 19,119/19,119 |
-| Live review pairs | 40,978/40,978 |
-| Independent outcomes | 81,956 pass; 0 finding; 0 cannot-verify |
+| Live audit source records | 20,111/20,111 |
+| Ignored-record dispositions (superseded + explicit) | 20,680/20,680 |
+| Live review pairs | 42,566/42,566 |
+| Independent outcomes | 85,132 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed on 2026-08-18: 245 entries matched accepted
+The independent source inventory was observed on 2026-08-25: 245 entries matched accepted
 checksums (including the three commit-pinned BSData catalogues, observed live by the
 `data:aos4:inventory:observe-bsdata` observer at both pinned commits) and 9 discovery entries
 received explicit non-material dispositions carried forward from the 2026-08-01b review.
 
-The current certification is `aos4-corpus-2026-08-18-machine-r1` (2026-08-18). The re-pinned Ogor
-library artifact re-keys the 323 source records that carry its checksum, so no prior pair verdict
-survives: all 40,978 pairs were evaluated fresh under the standalone campaign — 81,956 checks, 0
-findings, 0 cannot-verify. Because it reuses nothing, `certify:prune` retired both 2026-08-03
-directories (314.0 MB); git history preserves them.
+The current certification is `aos4-corpus-2026-08-25b-machine-r1` (2026-08-25). The refreshed exports re-key every
+record they carry and add 1,588 pairs, so the `--reuse-certification` offer of the 2026-08-25
+directory carried nothing forward: all 42,566 pairs were evaluated fresh — 85,132 checks, 0
+findings, 0 cannot-verify. Its overlay names the 2026-08-25 directory, whose overlay names
+2026-08-18, so `certify:prune` keeps all three until a later campaign resolves the chain.
+
+`aos4-corpus-2026-08-25-machine-r1` (2026-08-25) preceded it: the Ogor library re-pin
+`301477a3` → `d7377e94` (Mawpit Hungry Sinkhole Declare corrected upstream). As on 2026-08-18,
+the re-pinned artifact re-keyed every source record carrying its checksum, so the reuse offer of
+`machine-r1` (2026-08-18) carried nothing forward: all 40,978 pairs were evaluated fresh — 81,956
+checks, 0 findings, 0 cannot-verify.
+
+`aos4-corpus-2026-08-18-machine-r1` (2026-08-18) preceded it. That re-pin (`c8e1b1c9` on branch
+`ogors` → `301477a3` on `main`) moved only Thundertusk Beastriders' Chilling Onslaught, corrected
+upstream to "subtract 1 from hit rolls"; it likewise reused nothing and retired both 2026-08-03
+directories (314.0 MB).
 
 `aos4-corpus-2026-08-03-machine-r3` (2026-08-04) preceded it. It re-campaigned
 `machine-r2` because the command-point cost work (#1856) landed on top of the pdfjs-dist 6 upgrade,

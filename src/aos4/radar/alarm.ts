@@ -80,7 +80,9 @@ export const renderRulesRadarAlarmBody = (report: RadarReport, links: RulesRadar
   lines.push(
     '---',
     '',
-    'This alarm is evidence, not acceptance: reconcile through the normal candidate → review → accept → generate → certify path. It is sent once per material state; a re-run observing the same state does not re-alarm.'
+    'This alarm is evidence, not acceptance: reconcile through the normal candidate → review → accept → generate → certify path. It is sent once per material state; a re-run observing the same state does not re-alarm.',
+    '',
+    'Runbook: docs/data/aos4-rules-radar-alarm.md (per-lane triage, the outcome table, the re-pin checklist, and close-out).'
   )
   return `${lines.join('\n').trim()}\n`
 }

@@ -218,7 +218,7 @@ const readReminderPreferences = (
   ) as Aos4ArmyDocument['reminderPreferences']
 
 /*
- * The membership Set over all 11,453 entity IDs, built once per catalog rather than once per
+ * The membership Set over all 11,480 entity IDs, built once per catalog rather than once per
  * deserialize: the cloud-army list runs this deserializer once per army, and the catalog-bound
  * mount runs it again over storage the shell already read structurally.
  */
@@ -294,7 +294,7 @@ export const deserializeAos4ArmyDocument = (
  *
  * The two checks it drops are the only reason `deserializeAos4ArmyDocument` needs a catalog at all:
  * a rules context the catalog does not carry fails the whole document, and an entity ID it does not
- * carry is dropped with a warning. Both need all 11,453 entities in memory, which is precisely what
+ * carry is dropped with a warning. Both need all 11,480 entities in memory, which is precisely what
  * the shell paints without waiting for.
  *
  * Skipping them is safe only because this is never the last word. The catalog-bound child runs

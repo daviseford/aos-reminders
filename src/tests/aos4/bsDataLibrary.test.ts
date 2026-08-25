@@ -53,6 +53,7 @@ const FIXTURE = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <categoryLink name="HERO" hidden="false" id="c-1" targetId="ct-1" primary="true"/>
         <categoryLink name="TESTERS" hidden="false" id="c-2" targetId="ct-2" primary="false"/>
         <categoryLink name="WARD (5+)" hidden="false" id="c-3" targetId="ct-3" primary="false"/>
+        <categoryLink name="NON-TESTERS" hidden="false" id="c-4" targetId="ct-4" primary="false"/>
       </categoryLinks>
       <selectionEntries>
         <selectionEntry type="model" import="true" name="Testfist Brute" hidden="false" id="m-1">
@@ -108,6 +109,7 @@ describe('BSData community-tier catalogue extraction', () => {
     const fact = result.facts[0]
     expect(fact.section).toBe('unit:testfist-brute')
     expect(fact.characteristics).toEqual({ move: '6"', save: '4+', control: '3', health: '8' })
+    // NON-* category links are BSData roster-constraint plumbing, never warscroll keywords.
     expect(fact.keywords).toEqual(['HERO', 'TESTERS', 'WARD (5+)'])
     expect(fact.baseSizes).toEqual(['60mm'])
     expect(fact.weapons).toEqual([

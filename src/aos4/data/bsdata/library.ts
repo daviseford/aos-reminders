@@ -235,10 +235,13 @@ const extractUnit = (
     })
   })
 
+  // BSData category links carry warscroll keywords, but the catalogues also attach roster-builder
+  // constraint categories (`NON-GUTBUSTERS`, `NON-BEASTCLAW`, ... added at d7377e94 for the Ogor
+  // Armies of Renown) that no official warscroll prints. Those are builder plumbing, not keywords.
   const keywords = childElements(entry, 'categoryLinks')
     .flatMap(links => childElements(links, 'categoryLink'))
     .map(link => plainText(link.attributes.name ?? '').toUpperCase())
-    .filter(Boolean)
+    .filter(keyword => keyword && !isRosterConstraintCategory(keyword))
   const baseSizes = Array.from(
     new Set(
       descendantElements(entry, 'rule')
@@ -391,6 +394,9 @@ export const extractBsDataFactionOptions = (
   })
   return { facts, diagnostics }
 }
+
+/** BSData pseudo-categories that exist only to express roster constraints (`NON-<keyword>`). */
+const isRosterConstraintCategory = (keyword: string): boolean => /^NON-/.test(keyword)
 
 export const extractBsDataWarscrolls = (
   bytes: Uint8Array,

@@ -253,6 +253,8 @@ describe('AoS 4 Rules Radar material alarm', () => {
     expect(body).toContain(`[Workflow run and curated artifacts](${workflowUrl})`)
     expect(body).toContain('**Community catalog changed**')
     expect(body).toContain('- Authority: community')
+    // The alarm is what gets pasted into a session, so it must name the runbook itself.
+    expect(body).toContain('Runbook: docs/data/aos4-rules-radar-alarm.md')
     expect(body).toContain(`Baseline: \`${'b'.repeat(40)}\``)
     expect(body).toContain(`Observed: \`${'c'.repeat(40)}\``)
     expect(body).toContain('Age of Sigmar 4th Edition\\.gst')
