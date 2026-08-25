@@ -110,9 +110,11 @@ const contextForOldWarscroll = (
 
 const isLegendsOldWarscroll = (
   record: WahapediaWarscrollRecord | undefined,
-  dataset: WahapediaDataset
+  dataset: WahapediaDataset,
+  legendsWarscrollIds: ReadonlySet<string>
 ): boolean => {
   if (!record) return false
+  if (legendsWarscrollIds.has(record.id)) return true
   if (record.meta.rulesContextKinds?.includes('legends')) return true
   const source = dataset.sources.find(candidate => candidate.id === record.sourceId)
   return Boolean(source && /\blegends?\b/i.test(source.name)) || /\blegends?\b/i.test(record.notesHtml)
@@ -266,7 +268,12 @@ export const mergeCurrentWahapediaWarscrollPages = (
   officialFacts: GamesWorkshopBattleProfileFact[],
   factionPages: WahapediaHtmlFactionPageRecord[] = [],
   rulesPages: WahapediaHtmlRulesPageRecord[] = [],
-  rulesPageReviews: WahapediaRulesPageReview[] = []
+  rulesPageReviews: WahapediaRulesPageReview[] = [],
+  /**
+   * Export warscroll ids a reviewed Legends override pins (official precedence when Wahapedia's
+   * CSV drops the Legends source of a unit the newest Battle Profiles still lists under Legends).
+   */
+  legendsWarscrollIds: ReadonlySet<string> = new Set()
 ): WahapediaHtmlMergeResult => {
   const duplicateReviewUrls = rulesPageReviews
     .map(review => review.url)
@@ -396,7 +403,7 @@ export const mergeCurrentWahapediaWarscrollPages = (
           : undefined
       const facts = page.regimentOfRenown
         ? []
-        : matchingFacts(page, officialUnits, isLegendsOldWarscroll(old, dataset))
+        : matchingFacts(page, officialUnits, isLegendsOldWarscroll(old, dataset, legendsWarscrollIds))
       facts.forEach(fact => matchedOfficialFactChecksums.add(fact.factChecksum))
       const official = primaryFact(page, facts)
       const contextKinds = htmlContextKinds(page, facts)
