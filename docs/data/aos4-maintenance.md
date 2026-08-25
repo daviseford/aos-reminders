@@ -623,6 +623,61 @@ For a refresh:
 
 Candidate data must never write the runtime directly.
 
+### Re-pinning a BSData catalogue
+
+A Rules Radar BSData event that changes a record inside the shipped scope is resolved by moving
+the affected `communityWarscrollSources` pin to the reviewed commit and re-accepting the corpus.
+PR #1976 (2026-08-25, `301477a3` → `d7377e94`) is the worked example; the steps below are the order
+that its fail-closed gates enforce. Five of them are easy to miss because the generator reports
+them one at a time, each only after the previous one is satisfied.
+
+1. **Review the diff first** (see the Rules Radar section): locate the corpus's own pins inside the
+   signalled range, normalize CRLF and `&apos;` churn, and name every record inside the shipped
+   scope that actually changed. The re-pin is a corpus review decision; do not start it to find out
+   what moved.
+2. **Acquire the file at the reviewed commit** into the immutable cache:
+   `yarn data:aos4:candidate:bsdata --ref <40-char sha> --path "<file>.cat" --output .cache/aos4/bsdata-candidates/<sha8>`.
+   The candidate manifest it writes carries the artifact record (checksum, byte length, etag, URLs).
+3. **Create the dated accepted manifest and review file** by copying the current ones
+   (`accepted-<date>.json`, `corpus-<date>.json`) and swapping the artifact record in both, plus
+   `commit` on the review entry. Append the reason for the re-pin to the entry's `reason`. Set the
+   review's top-level `revision` to `aos4-corpus-<date>` — if it keeps the old value, packet
+   preparation stamps the workspace with the old revision and `certify:prepare` later rejects the
+   inventory with "Review index, source inventory, protocol, rubric, or revision do not match".
+4. **Recompute every unit `recordChecksum`** on the entry with `extractBsDataWarscrolls` from
+   `src/aos4/data/bsdata/library.ts`. All of them move, even for units whose text did not change,
+   because each nested record's `sourceRecordId` embeds the artifact checksum. Diff the extracted
+   facts with those ids stripped to confirm the content delta matches step 1 — that comparison is
+   what caught the `NON-*` roster-constraint category links in #1976.
+5. **Re-point the constants and config**: `src/aos4/data/acceptedRevision.ts`, `bsData.baselineSha`
+   and `baselineReviewedAt` plus `acceptedManifestPath` in `data/aos4/radar/config.json`, the SHA
+   literal in `src/tests/aos4/rulesRadarCompare.test.ts`, and the dated report/manifest paths in
+   `src/tests/aos4/catalogIntegrity.test.ts` and `src/tests/aos4/ogorSupplementProvisional.test.ts`.
+6. **Run `yarn data:aos4:generate:write`** and satisfy its gates in turn: it will first report the
+   reconciliation checksum in `currentWahapediaHtml.reconciliation` (copy the new value into the
+   review when only `checksum` moved and the page/fact/discrepancy counts held), then
+   `identity-not-found publication:other:community:<checksum>` — add a
+   `{"externalId": "community:<checksum>", "publisher": "other"}` alias to the catalogue's existing
+   publication entry in `data/aos4/identities/corpus.json`, keeping the aliases sorted. Then
+   `yarn data:aos4:generate:candidate` to prove the products replay deterministically, and diff the
+   old and new `runtime.json` entities with the artifact checksum masked: the delta must be exactly
+   the reviewed records.
+7. **Certify**: live `inventory:observe-official` (from a fresh `discover-official` snapshot),
+   `inventory:observe-wahapedia`, and `inventory:observe-bsdata` for every pinned commit; bind them
+   with `data:aos4:inventory --revision aos4-corpus-<date> --accepted-manifest <new manifest>`;
+   `review:prepare --workspace .cache/aos4/review/workspace-aos4-corpus-<date>`;
+   `review:adversarial --reuse-certification <current certification>` (expect zero reuse — the
+   re-key invalidates every pair on the re-pinned artifact); `certify:prepare` into
+   `data/aos4/certifications/aos4-corpus-<date>-machine-r1`; point `beta.json` at it;
+   `yarn data:aos4:verify:beta`; `yarn data:aos4:certify:prune`. The pruner keeps the previous
+   directory when the new overlay names it as the reuse offer; that is expected.
+8. **Update the prose**: the snapshot table and Ogor pin history in this document, the current
+   campaign in [`aos4-accuracy-review.md`](./aos4-accuracy-review.md), the revision name in
+   `AGENTS.md`, `README.md`, and `PRODUCT.md`, and the certification directory in
+   `src/tests/aos4/certificationReuse.test.ts`. Then lint, typecheck, build, and the full test run.
+9. **After merge**, dispatch `AoS 4 Rules Radar` once with `source: all` so it observes the new
+   baseline and clears the BSData lane on the managed issue.
+
 ## Generation
 
 Verify the accepted snapshot without writing:
