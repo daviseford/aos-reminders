@@ -1,6 +1,16 @@
 // @vitest-environment node
 
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import {
+  chmodSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
@@ -50,7 +60,11 @@ describe('production deployment contract', { timeout: 60_000 }, () => {
     for (const [path, contents] of [
       ['assets/current-123.js', 'current'],
       // Longer than the harness's PRECOMPRESS_THRESHOLD_BYTES so the pre-gzip path always runs.
+      // Two fixtures, one per real catalog chunk (aos4-catalog-data-*.js and
+      // aos4-catalog-data-sources-*.js) -- production ships both above the threshold, and a
+      // regression that only re-excludes one of the two prefixes must fail here.
       ['assets/aos4-catalog-data-abc123.js', `const catalogCorpus = ${'"x"'.repeat(64)}`],
+      ['assets/aos4-catalog-data-sources-def456.js', `const catalogSources = ${'"x"'.repeat(64)}`],
       ['index.html', '<!doctype html>'],
       ['site.webmanifest', '{}'],
       ['service-worker.js', 'importScripts("sw-extras-abc123.js")'],
@@ -155,7 +169,9 @@ fi
 
 if [[ "$1 $2" == "s3api head-object" ]]; then
   if [[ "$*" == *"CacheControl"* ]]; then
-    printf '%s\\t%s\\n' 'public, max-age=31536000, immutable' 'text/javascript; charset=utf-8'
+    retire_encoding='None'
+    [[ "$*" == *"gzipped"* ]] && retire_encoding='gzip'
+    printf '%s\\t%s\\t%s\\n' 'public, max-age=31536000, immutable' 'text/javascript; charset=utf-8' "$retire_encoding"
     exit 0
   fi
   printf '%s\\t%s\\t%s\\n' '"held-etag"' 'held-owner' '2026-08-01T00:00:00+00:00'
@@ -394,6 +410,35 @@ echo '{}'
       })
   })
 
+  it('restates Content-Encoding when retiring a pre-gzipped chunk', () => {
+    const harness = createHarness()
+    const result = harness.run({
+      AWS_REMOTE_ASSET_KEYS:
+        'assets/current-123.js\tassets/newly-superseded-gzipped.js\tassets/newly-superseded.js',
+    })
+
+    expect(result.status, result.stderr).toBe(0)
+    const log = harness.log()
+    // REPLACE drops every header the self-copy does not restate; the head-object must ask for
+    // Content-Encoding or a retired pre-gzipped chunk silently loses it.
+    log
+      .filter(line => line.startsWith('s3api head-object ') && line.includes('CacheControl'))
+      .forEach(line => expect(line).toContain('ContentEncoding'))
+    const gzippedCopies = log.filter(
+      line => line.startsWith('s3api copy-object ') && line.includes('assets/newly-superseded-gzipped.js')
+    )
+    expect(gzippedCopies).toHaveLength(1)
+    expect(gzippedCopies[0]).toContain('--content-encoding gzip')
+    const rawCopies = log.filter(
+      line =>
+        line.startsWith('s3api copy-object ') &&
+        line.includes('assets/newly-superseded.js') &&
+        !line.includes('gzipped')
+    )
+    expect(rawCopies).toHaveLength(1)
+    expect(rawCopies[0]).not.toContain('--content-encoding')
+  })
+
   it('reuses the retired-key inventory instead of re-reading every historical object tag', () => {
     const harness = createHarness()
     const firstResult = harness.run()
@@ -416,11 +461,13 @@ echo '{}'
       )
     ).toBe(true)
     expect(secondLog.some(line => line.startsWith('s3api get-object-tagging '))).toBe(false)
+    // One retire=false tag per current immutable object: current-123.js, the two catalog chunks,
+    // sw-extras-abc123.js, and workbox-abc123.js.
     expect(
       secondLog.filter(
         line => line.startsWith('s3api put-object-tagging ') && line.includes('retire,Value=false')
       )
-    ).toHaveLength(4)
+    ).toHaveLength(5)
     expect(readFileSync(harness.retirementStatePath, 'utf8')).toContain('assets/newly-superseded.js')
     expect(readFileSync(harness.retirementStatePath, 'utf8')).not.toContain('assets/expired-and-removed.js')
   })
@@ -457,7 +504,40 @@ echo '{}'
     ).toBe(true)
   })
 
-  it('stores oversized scripts gzipped so CloudFront size limits cannot ship them raw', () => {
+  it.each([['aos4-catalog-data-abc123.js'], ['aos4-catalog-data-sources-def456.js']])(
+    'stores %s gzipped so CloudFront size limits cannot ship it raw',
+    oversizedScript => {
+      const harness = createHarness()
+      const result = harness.run()
+
+      expect(result.status, result.stderr).toBe(0)
+      const log = harness.log()
+      const recursiveAssetsUpload = log.find(
+        line => line.startsWith('s3 cp ') && line.includes('/assets --recursive')
+      )
+      expect(recursiveAssetsUpload).toBeDefined()
+      expect(recursiveAssetsUpload).toContain(`--exclude ${oversizedScript}`)
+      const compressedUpload = log.find(
+        line =>
+          line.startsWith('s3 cp ') &&
+          line.includes(`s3://test-bucket/assets/${oversizedScript}`) &&
+          line.includes('--content-encoding gzip')
+      )
+      expect(compressedUpload).toBeDefined()
+      expect(compressedUpload).toContain('public, max-age=31536000, immutable')
+      expect(compressedUpload).toContain('text/javascript; charset=utf-8')
+      expect(
+        log.some(
+          line =>
+            line.startsWith('s3api put-object-tagging ') &&
+            line.includes(`assets/${oversizedScript}`) &&
+            line.includes('retire,Value=false')
+        )
+      ).toBe(true)
+    }
+  )
+
+  it('leaves an asset below the threshold to the recursive copy with no Content-Encoding', () => {
     const harness = createHarness()
     const result = harness.run()
 
@@ -467,24 +547,44 @@ echo '{}'
       line => line.startsWith('s3 cp ') && line.includes('/assets --recursive')
     )
     expect(recursiveAssetsUpload).toBeDefined()
-    expect(recursiveAssetsUpload).toContain('--exclude aos4-catalog-data-abc123.js')
-    const compressedUpload = log.find(
-      line =>
-        line.startsWith('s3 cp ') &&
-        line.includes('s3://test-bucket/assets/aos4-catalog-data-abc123.js') &&
-        line.includes('--content-encoding gzip')
-    )
-    expect(compressedUpload).toBeDefined()
-    expect(compressedUpload).toContain('public, max-age=31536000, immutable')
-    expect(compressedUpload).toContain('text/javascript; charset=utf-8')
-    expect(
-      log.some(
-        line =>
-          line.startsWith('s3api put-object-tagging ') &&
-          line.includes('assets/aos4-catalog-data-abc123.js') &&
-          line.includes('retire,Value=false')
-      )
-    ).toBe(true)
+    expect(recursiveAssetsUpload).not.toContain('--exclude current-123.js')
+    expect(recursiveAssetsUpload).not.toContain('--content-encoding')
+  })
+
+  /*
+   * Every case above overrides PRECOMPRESS_THRESHOLD_BYTES to a small synthetic value so it can use
+   * fixtures a few kilobytes long instead of committing multi-megabyte copies of the real catalog
+   * chunks (or depending on a `yarn build` having just run). That means every assertion above would
+   * still pass unchanged if the script's own default reverted to the pre-split 9,500,000-byte
+   * threshold: both real ~6-7 MB catalog chunks would silently stop being pre-gzipped in production
+   * while this file stayed green. This pins the literal default so a revert is caught here too.
+   */
+  const precompressThresholdDefault = (): string | undefined =>
+    readRepoFile('scripts/deploy-production.sh').match(
+      /PRECOMPRESS_THRESHOLD_BYTES="\$\{PRECOMPRESS_THRESHOLD_BYTES:-(\d+)\}"/
+    )?.[1]
+
+  it('defaults PRECOMPRESS_THRESHOLD_BYTES to 2,000,000', () => {
+    expect(precompressThresholdDefault()).toBe('2000000')
+  })
+
+  /*
+   * The other half of the pin: 2,000,000 is the right literal only while it actually sits below both
+   * real chunks, which needs a build to check. This file is deliberately runnable without one — its
+   * other cases spawn against stub binaries — so the missing build skips this case *visibly* rather
+   * than returning early, which reported green on a checkout that had never measured anything. CI
+   * builds before it tests (see .github/workflows/deploy.yml), so it always runs there.
+   */
+  it('keeps that default below both real catalog chunks', ({ skip }) => {
+    const distAssetsDirectory = join(repoRoot, 'dist', 'assets')
+    skip(!existsSync(distAssetsDirectory), 'dist/assets is missing; run `yarn build` to measure the chunks')
+
+    const catalogChunkSizes = readdirSync(distAssetsDirectory)
+      .filter(file => file.startsWith('aos4-catalog-data') && file.endsWith('.js'))
+      .map(file => statSync(join(distAssetsDirectory, file)).size)
+
+    expect(catalogChunkSizes.length).toBeGreaterThanOrEqual(2)
+    expect(Number(precompressThresholdDefault())).toBeLessThan(Math.min(...catalogChunkSizes))
   })
 
   it('force-copies unhashed public files with the moderate cache header', () => {

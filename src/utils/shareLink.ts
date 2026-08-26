@@ -22,14 +22,33 @@ export const capturePendingShareId = (
   }
 }
 
-export const consumePendingShareId = (
+/*
+ * Reading and clearing are separate calls, deliberately. They used to be one `consume`, which meant
+ * whoever read the id was betting that they would also be the one to open it — and Home's shell
+ * reads it before the catalog-bound half exists, so a chunk that never arrives took the share down
+ * with it and a reload had nothing left to recover. The key is now cleared only once something has
+ * actually taken responsibility for the id.
+ */
+export const readPendingShareId = (
   storage: Pick<Storage, 'getItem' | 'removeItem'> = window.sessionStorage
 ): string | undefined => {
   try {
     const shareId = storage.getItem(PENDING_SHARE_STORAGE_KEY)?.trim()
+    if (!shareId) return undefined
+    if (SHARE_ID_PATTERN.test(shareId)) return shareId
+    // A stored value that fails the pattern can never open a share; leaving it would let a
+    // tampered or truncated entry shadow the slot for the rest of the session.
     storage.removeItem(PENDING_SHARE_STORAGE_KEY)
-    return shareId && SHARE_ID_PATTERN.test(shareId) ? shareId : undefined
+    return undefined
   } catch {
     return undefined
+  }
+}
+
+export const clearPendingShareId = (storage: Pick<Storage, 'removeItem'> = window.sessionStorage): void => {
+  try {
+    storage.removeItem(PENDING_SHARE_STORAGE_KEY)
+  } catch {
+    // Session storage can be unavailable in privacy modes, in which case there is nothing to clear.
   }
 }

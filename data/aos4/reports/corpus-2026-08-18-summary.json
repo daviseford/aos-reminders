@@ -64,9 +64,21 @@
       "byteLength": 169,
       "checksum": "56f2897a563b6a9e6a31e83ce8ffd9e3d361d12aa0a8890bf24d374264ffb0a6"
     },
+    "src/aos4/generated/corpus/faction-index.json": {
+      "byteLength": 4982,
+      "checksum": "db89eafc8a989c781dd6f3f4699294374e81617ffb12145bbc6e5d76f8d0728d"
+    },
+    "src/aos4/generated/corpus/runtime.core.json": {
+      "byteLength": 6385184,
+      "checksum": "36b5fb2c29c314318ee780d7cf43ce5f9cd3ea400deda423b8ecacc8e75f01e1"
+    },
     "src/aos4/generated/corpus/runtime.json": {
       "byteLength": 13436053,
       "checksum": "b8d9688c920ababa62f7eab59ec30360136c1ef6e994cbb1fbccf2c1a87aa817"
+    },
+    "src/aos4/generated/corpus/runtime.sources.json": {
+      "byteLength": 7050871,
+      "checksum": "e1ab71d3e53a211b445926441e71e2328b37c45f5fe2fefa3e414de867676e31"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-08-18.json",

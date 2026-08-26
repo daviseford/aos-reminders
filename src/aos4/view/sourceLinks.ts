@@ -61,17 +61,20 @@ const sourceLabel = (artifact: SourceArtifact): string => {
  * Resolves a reminder's source records to the links its card offers. One link per distinct
  * destination: a reminder citing several records of the same artifact still shows a single entry,
  * but records of one artifact that resolve to different unit pages stay distinct.
+ *
+ * Takes the loaded sources rather than the catalog, and reads records by projection index. An index
+ * that names nothing — a truncated or mismatched sources artifact — drops that citation instead of
+ * throwing, because a missing link is a far better outcome than a reminder card that cannot render.
  */
 export const createAos4ReminderSourceLinkResolver = (
-  catalog: Aos4Catalog
-): ((reminder: { sourceRecordIds: string[] }) => Aos4ReminderSourceLink[]) => {
-  const artifactById = new Map(catalog.sourceArtifacts.map(artifact => [artifact.id, artifact]))
-  const recordById = new Map(catalog.sourceRecords.map(record => [String(record.id), record]))
+  sources: Pick<Aos4Catalog, 'sourceArtifacts' | 'sourceRecords'>
+): ((reminder: { sourceRecordIndexes: readonly number[] }) => Aos4ReminderSourceLink[]) => {
+  const artifactById = new Map(sources.sourceArtifacts.map(artifact => [artifact.id, artifact]))
   return reminder =>
     Array.from(
       new Map(
-        reminder.sourceRecordIds.flatMap(id => {
-          const record = recordById.get(id)
+        reminder.sourceRecordIndexes.flatMap(index => {
+          const record = sources.sourceRecords[index]
           const artifact = record ? artifactById.get(record.artifactId) : undefined
           if (!record || !artifact) return []
           const url = sourceRecordUrl(artifact, record.locator)

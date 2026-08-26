@@ -168,4 +168,32 @@ describe('AoS 4 army API client', () => {
     const saved = await createArmyApi('https://army.example', saveFetcher).createArmy(staleDocument, 'token')
     expect(saved.document).toEqual(staleDocument)
   })
+
+  /*
+   * The catalog reaches parseDocument through a dynamic import, so loading it is a network fetch the
+   * caller can no longer assume succeeded. Not reachable while Home imports the catalog statically —
+   * the module is always registered before any cloud call — but it goes live with the lazy Home
+   * split (#1845), and an unwrapped failure would reach the user as "Failed to fetch dynamically
+   * imported module ...". Pinned now so the split cannot introduce that message unnoticed.
+   */
+  it('reports a catalog chunk that fails to load as a service outage', async () => {
+    vi.resetModules()
+    vi.doMock('../../aos4/generated', () => {
+      throw new Error('Failed to fetch dynamically imported module')
+    })
+
+    try {
+      const { createArmyApi: createApiWithBrokenCatalog } = await import('../../api/armyApi')
+      const fetcher = vi
+        .fn()
+        .mockResolvedValue(jsonResponse([{ id: 'cloud-1', createdAt: 1, updatedAt: 2, document }]))
+
+      await expect(
+        createApiWithBrokenCatalog('https://army.example/', fetcher).listArmies('access-token')
+      ).rejects.toThrow('Cloud armies are temporarily unavailable.')
+    } finally {
+      vi.doUnmock('../../aos4/generated')
+      vi.resetModules()
+    }
+  })
 })

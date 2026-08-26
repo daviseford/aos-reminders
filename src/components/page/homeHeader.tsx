@@ -2,7 +2,7 @@ import Navbar from 'components/page/navbar'
 import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import Switch from 'react-switch'
-import Select from 'react-select'
+import Select, { type Theme as SelectTheme } from 'react-select'
 import type { CanonicalId } from '../../aos4/domain'
 
 interface HeaderProps {
@@ -13,6 +13,18 @@ interface HeaderProps {
   }>
   armyName: string
   armyOfRenownId: CanonicalId | null
+  /**
+   * The catalog-bound half failed to load, so no faction change can be honoured: resolving a pick
+   * means rebuilding the army against a catalog that is not here, and the shell has no way to hold
+   * one until it is — the save guard it would have to cross is the same one that stops an unvalidated
+   * document reaching storage.
+   *
+   * Mounted and disabled rather than removed, the way `Join`'s redeem button is. The select is the
+   * only thing on this screen naming the army the player has, and taking it away would leave a
+   * masthead that says nothing while the region below it says the load failed. Disabled, it keeps
+   * the name and stops offering a choice that would quietly evaporate.
+   */
+  catalogUnavailable?: boolean
   factionId: CanonicalId<'faction'>
   factions: Array<{
     label: string
@@ -30,6 +42,7 @@ export const Header = ({
   armiesOfRenown,
   armyName,
   armyOfRenownId,
+  catalogUnavailable = false,
   factionId,
   factions,
   isGameMode,
@@ -63,6 +76,16 @@ export const Header = ({
   const mastheadClass = `text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
     isMobile ? 'pb-2' : 'pb-3'
   }`
+  // Both selects in the masthead take the same slot overrides — including the faction select's
+  // disabled state on the catalog-failed screen, which would otherwise render react-select's own
+  // palette beside its live neighbours.
+  const selectColors = (defaultTheme: SelectTheme) => ({
+    ...defaultTheme,
+    colors: {
+      ...defaultTheme.colors,
+      ...theme.selectTheme,
+    },
+  })
 
   return (
     <div className={theme.headerColor}>
@@ -139,21 +162,18 @@ export const Header = ({
                     options={factions}
                     onChange={selected => selected && onFactionChange(selected.value)}
                     isClearable={false}
+                    isDisabled={catalogUnavailable}
                     className={theme.text}
-                    theme={defaultTheme => ({
-                      ...defaultTheme,
-                      colors: {
-                        ...defaultTheme.colors,
-                        ...theme.selectTheme,
-                      },
-                    })}
+                    theme={selectColors}
                   />
                 </div>
               </div>
               {/*
                 The sub-faction slot, reborn: an Army of Renown replaces the faction's regular
                 rules, so the choice sits directly under the faction rather than among the
-                content cards. Rendered only for factions that have one.
+                content cards. Rendered only for factions that have one. The splash covers the
+                masthead until the catalog's list arrives, so there is no reserved placeholder:
+                the row is simply part of the finished screen when it appears.
               */}
               {armiesOfRenown.length > 0 ? (
                 <>
@@ -167,13 +187,7 @@ export const Header = ({
                         onChange={selected => onArmyOfRenownChange(selected?.value ?? null)}
                         isClearable={false}
                         className={theme.text}
-                        theme={defaultTheme => ({
-                          ...defaultTheme,
-                          colors: {
-                            ...defaultTheme.colors,
-                            ...theme.selectTheme,
-                          },
-                        })}
+                        theme={selectColors}
                       />
                     </div>
                   </div>

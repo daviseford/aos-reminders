@@ -19,7 +19,13 @@ import {
   validateIdentityRegistry,
   type IdentityRegistry,
 } from '../../aos4/generate'
-import { AOS4_CATALOG, AOS4_GENERATION_AUDIT, AOS4_RUNTIME_PROJECTION } from '../../aos4/generated'
+import {
+  AOS4_CATALOG,
+  AOS4_GENERATION_AUDIT,
+  AOS4_RUNTIME_PROJECTION,
+  AOS4_SOURCE_RECORD_INDEXES,
+} from '../../aos4/generated'
+import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 import type { ReconciliationDiagnostic } from '../../aos4/reconcile'
 import { resolveSelection } from '../../aos4/select'
 
@@ -78,6 +84,21 @@ const dataPath = (...segments: string[]): string => path.join(process.cwd(), 'da
 
 const readJson = <T>(...segments: string[]): T => JSON.parse(readFileSync(dataPath(...segments), 'utf8')) as T
 
+/**
+ * The certified whole, read straight off disk rather than through anything the split produced.
+ *
+ * `runtime.json` is pinned by checksum in accepted certification evidence (see
+ * `corpusArtifacts.test.ts`), and it still carries both each entity's `sourceRecordIndexes` and the
+ * full `sourceRecords`. That makes it the one description of provenance that neither the side table
+ * nor the reattachment helper can influence — so a correspondence check against it can actually fail.
+ */
+const certifiedRuntime = JSON.parse(
+  readFileSync(path.join(process.cwd(), 'src', 'aos4', 'generated', 'corpus', 'runtime.json'), 'utf8')
+) as {
+  entities: Array<{ id: CanonicalId; sourceRecordIndexes: number[] }>
+  sourceRecords: Array<{ id: string }>
+}
+
 const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-25b.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
 const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-25b-summary.json')
@@ -87,23 +108,87 @@ const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
 )
 
 const copyCatalog = (changes: Partial<Aos4Catalog> = {}): Aos4Catalog => ({
-  ...AOS4_CATALOG,
+  ...AOS4_FULL_CATALOG,
   ...changes,
+})
+
+describe('AoS 4 catalog provenance after the core/sources split', () => {
+  it('ships a render catalog that carries no source records at all', () => {
+    expect(AOS4_CATALOG.sourceRecords).toEqual([])
+    expect(AOS4_CATALOG.sourceArtifacts).toEqual([])
+    expect(AOS4_CATALOG.entities.every(entity => entity.sourceRefs.length === 0)).toBe(true)
+  })
+
+  it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
+    expect(AOS4_CATALOG.entities).toHaveLength(11_480)
+    expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
+    // Every kind, not only the 5,074 abilities a reminder cites: an ability-keyed table could not
+    // back the provenance guarantee for the other 6,406.
+    expect(
+      AOS4_CATALOG.entities.filter(entity => !AOS4_SOURCE_RECORD_INDEXES.get(entity.id)?.length)
+    ).toEqual([])
+    expect(new Set(AOS4_CATALOG.entities.map(entity => entity.kind)).size).toBeGreaterThan(1)
+
+    /*
+     * Both halves against the certified projection, not against each other. Comparing the side table
+     * to the catalog it built would be a tautology: each entry names the indexes the certified
+     * projection recorded for that entity, and reattaching them reproduces the record IDs it cited.
+     * A bug in either the table or the reattachment helper fails here.
+     */
+    const reattachedById = new Map(AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity]))
+    expect(certifiedRuntime.entities).toHaveLength(AOS4_CATALOG.entities.length)
+    certifiedRuntime.entities.forEach(certified => {
+      expect(AOS4_SOURCE_RECORD_INDEXES.get(certified.id) ?? []).toEqual(certified.sourceRecordIndexes)
+      expect(reattachedById.get(certified.id)?.sourceRefs.map(reference => reference.sourceRecordId)).toEqual(
+        certified.sourceRecordIndexes.map(index => certifiedRuntime.sourceRecords[index].id)
+      )
+    })
+  })
+
+  /**
+   * The catalog a browser actually renders from. Every other case validates the reattached one, so
+   * without this a structural regression in the shipped half — a dangling rules context, a
+   * relationship pointing at nothing — would only be caught once provenance was glued back on.
+   *
+   * The expected shape is exactly one issue per entity and no other code: `sourceRefs` is empty by
+   * design here, and the deferred citations are what `AOS4_SOURCE_RECORD_INDEXES` carries instead.
+   */
+  it('ships a render catalog that is structurally valid apart from the provenance it defers', () => {
+    const issues = validateCatalog(AOS4_CATALOG)
+
+    expect(new Set(issues.map(issue => issue.code))).toEqual(new Set(['missing-entity-provenance']))
+    expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
+  })
+
+  it('reports no missing provenance for any of the 11,480 entities', () => {
+    const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
+      issue => issue.code === 'missing-entity-provenance'
+    )
+    expect(provenance).toEqual([])
+    // Inverted, the same check has to fail — otherwise it is passing on an empty catalog rather
+    // than on complete provenance (R16).
+    expect(
+      validateCatalog({
+        ...AOS4_FULL_CATALOG,
+        entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
+      }).filter(issue => issue.code === 'missing-entity-provenance')
+    ).toHaveLength(11_480)
+  })
 })
 
 describe('AoS 4 catalog generation integrity', () => {
   it('ships a strict, fully consumed runtime projection of the accepted corpus', () => {
-    expect(validateCatalog(AOS4_CATALOG)).toEqual([])
+    expect(validateCatalog(AOS4_FULL_CATALOG)).toEqual([])
     // The runtime projection only carries referenced source records, so the six ignored
     // example-card records are absent here and everything present is consumed.
-    expect(validateGenerationIntegrity(AOS4_CATALOG)).toEqual({
+    expect(validateGenerationIntegrity(AOS4_FULL_CATALOG)).toEqual({
       ok: true,
-      consumedSourceRecordIds: AOS4_CATALOG.sourceRecords
+      consumedSourceRecordIds: AOS4_FULL_CATALOG.sourceRecords
         .map(record => record.id)
         .sort((left, right) => left.localeCompare(right)),
       issues: [],
     })
-    expect(AOS4_CATALOG.sourceRecords).toHaveLength(report.integrity.consumedSourceRecords)
+    expect(AOS4_FULL_CATALOG.sourceRecords).toHaveLength(report.integrity.consumedSourceRecords)
     expect(report).toMatchObject({
       status: 'strict-pass',
       summary: {
@@ -147,13 +232,15 @@ describe('AoS 4 catalog generation integrity', () => {
    */
   it('offers the universal manifestation lores and their warscrolls to the armies', () => {
     const factionIds = new Set(
-      AOS4_CATALOG.entities.filter(entity => entity.kind === 'faction').map(entity => entity.id)
+      AOS4_FULL_CATALOG.entities.filter(entity => entity.kind === 'faction').map(entity => entity.id)
     )
     const offeringFactionCount = (name: string, kind: 'content-group' | 'warscroll') => {
-      const targets = AOS4_CATALOG.entities.filter(entity => entity.kind === kind && entity.name === name)
+      const targets = AOS4_FULL_CATALOG.entities.filter(
+        entity => entity.kind === kind && entity.name === name
+      )
       expect(targets).toHaveLength(1)
       return new Set(
-        AOS4_CATALOG.relationships
+        AOS4_FULL_CATALOG.relationships
           .filter(
             relationship =>
               relationship.kind === 'offers' &&
@@ -186,21 +273,21 @@ describe('AoS 4 catalog generation integrity', () => {
      * The container offers no warscroll of its own, which is the thing `armyFactions` reads to keep
      * it out of the selector. It still receives the universal rules modules every faction row does.
      */
-    const container = AOS4_CATALOG.entities.find(
+    const container = AOS4_FULL_CATALOG.entities.find(
       entity => entity.kind === 'faction' && entity.name === 'Endless Spells'
     )
     expect(container).toBeDefined()
     // Wide element type: TS 5.5+ infers a type predicate for the filter, which would narrow the
     // Set to CanonicalId<'warscroll'> and reject the relationship's union-typed endpoint.
     const warscrollIds = new Set<CanonicalId>(
-      AOS4_CATALOG.entities.filter(entity => entity.kind === 'warscroll').map(entity => entity.id)
+      AOS4_FULL_CATALOG.entities.filter(entity => entity.kind === 'warscroll').map(entity => entity.id)
     )
     expect(
-      AOS4_CATALOG.relationships.filter(
+      AOS4_FULL_CATALOG.relationships.filter(
         relationship => relationship.from === container?.id && warscrollIds.has(relationship.to)
       )
     ).toEqual([])
-    expect(armyFactions(AOS4_CATALOG).map(faction => faction.name)).not.toContain('Endless Spells')
+    expect(armyFactions(AOS4_FULL_CATALOG).map(faction => faction.name)).not.toContain('Endless Spells')
   })
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
@@ -248,7 +335,7 @@ describe('AoS 4 catalog generation integrity', () => {
       expect(artifact.checksum).toMatch(/^[0-9a-f]{64}$/)
       expect(artifact.byteLength).toBeGreaterThan(0)
     })
-    expect(AOS4_CATALOG.sourceArtifacts).toEqual(
+    expect(AOS4_FULL_CATALOG.sourceArtifacts).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           publisher: 'games-workshop',
@@ -261,7 +348,9 @@ describe('AoS 4 catalog generation integrity', () => {
       ])
     )
     // Community-tier artifacts must always be distinguishable and explicitly provisional.
-    const communityArtifacts = AOS4_CATALOG.sourceArtifacts.filter(artifact => artifact.publisher === 'other')
+    const communityArtifacts = AOS4_FULL_CATALOG.sourceArtifacts.filter(
+      artifact => artifact.publisher === 'other'
+    )
     expect(communityArtifacts.length).toBeGreaterThan(0)
     communityArtifacts.forEach(artifact => expect(artifact.title).toMatch(/provisional/i))
     expect(AOS4_GENERATION_AUDIT).toMatchObject({
@@ -299,14 +388,14 @@ describe('AoS 4 catalog generation integrity', () => {
   it('does not allow superseded bulk rule rows into the live catalog', () => {
     const allowedBulkFiles = new Set(['Factions.csv', 'Last_update.csv', 'Source.csv'])
     const liveBulkFiles = new Set(
-      AOS4_CATALOG.sourceRecords.flatMap(record => {
+      AOS4_FULL_CATALOG.sourceRecords.flatMap(record => {
         const match = record.id.match(/^source-record:wahapedia:([^%]+\.csv)/)
         return match ? [match[1]] : []
       })
     )
     expect(liveBulkFiles).toEqual(allowedBulkFiles)
     expect(
-      AOS4_CATALOG.entities
+      AOS4_FULL_CATALOG.entities
         .flatMap(entity => entity.sourceRefs)
         .some(reference => /(?:Warscrolls|Faction_abilit)[^%]*\.csv/.test(reference.sourceRecordId))
     ).toBe(false)
@@ -323,7 +412,7 @@ describe('AoS 4 catalog generation integrity', () => {
       },
     })
     expect(
-      AOS4_CATALOG.entities
+      AOS4_FULL_CATALOG.entities
         .filter((entity): entity is Ability => entity.kind === 'ability')
         .flatMap(ability => ability.timings)
         .some(timing => timing.window.kind === 'unknown')
@@ -331,9 +420,9 @@ describe('AoS 4 catalog generation integrity', () => {
   })
 
   it('fails generation integrity on hard structured-data pathologies', () => {
-    const battleProfile = AOS4_CATALOG.entities.find(entity => entity.kind === 'battle-profile')!
+    const battleProfile = AOS4_FULL_CATALOG.entities.find(entity => entity.kind === 'battle-profile')!
     const catalog = copyCatalog({
-      entities: AOS4_CATALOG.entities.map(entity =>
+      entities: AOS4_FULL_CATALOG.entities.map(entity =>
         entity.id === battleProfile.id ? { ...battleProfile, baseSizes: ['2 5 m m [1]'] } : entity
       ),
     })
@@ -351,21 +440,21 @@ describe('AoS 4 catalog generation integrity', () => {
   it('keeps stable canonical identities for every accepted runtime entity', () => {
     expect(validateIdentityRegistry(identityRegistry)).toEqual([])
     const identities = new Set(identityRegistry.entries.map(entry => entry.canonicalId))
-    AOS4_CATALOG.entities.forEach(entity => expect(identities.has(entity.id)).toBe(true))
+    AOS4_FULL_CATALOG.entities.forEach(entity => expect(identities.has(entity.id)).toBe(true))
   })
 
   it('keeps current, seasonal, Spearhead, Legends, and historical content separate', () => {
-    const standard = AOS4_CATALOG.rulesContexts.find(
+    const standard = AOS4_FULL_CATALOG.rulesContexts.find(
       context => context.mode === 'standard' && context.status === 'current'
     )!
-    const spearhead = AOS4_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
-    const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
-    const legends = AOS4_CATALOG.rulesContexts.find(context => context.status === 'legends')!
-    const historical = AOS4_CATALOG.rulesContexts.find(
+    const spearhead = AOS4_FULL_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
+    const seasonal = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
+    const legends = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'legends')!
+    const historical = AOS4_FULL_CATALOG.rulesContexts.find(
       context => context.name === 'Age of Sigmar Fourth Edition Historical'
     )!
 
-    expect(AOS4_CATALOG.rulesContexts).toHaveLength(5)
+    expect(AOS4_FULL_CATALOG.rulesContexts).toHaveLength(5)
     expect(spearhead.battlepack).toBe('Spearhead')
     expect(seasonal.season).toBe('2026-27')
     expect(seasonal.battlepack).toBe('Scourge of Aqshy')
@@ -373,7 +462,7 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(historical.validTo).toBe('2026-07-05')
 
     const officialPublication = (name: string) => {
-      const publication = AOS4_CATALOG.entities.find(
+      const publication = AOS4_FULL_CATALOG.entities.find(
         entity =>
           entity.kind === 'publication' && entity.publisher === 'games-workshop' && entity.name === name
       )
@@ -385,7 +474,8 @@ describe('AoS 4 catalog generation integrity', () => {
       expect(publication.rulesContextIds).toEqual([...expectedContextIds].sort())
       publication.sourceRefs.forEach(reference => {
         expect(
-          AOS4_CATALOG.sourceRecords.find(record => record.id === reference.sourceRecordId)?.rulesContextIds
+          AOS4_FULL_CATALOG.sourceRecords.find(record => record.id === reference.sourceRecordId)
+            ?.rulesContextIds
         ).toEqual([...expectedContextIds].sort())
       })
     }
@@ -396,11 +486,11 @@ describe('AoS 4 catalog generation integrity', () => {
     expectOfficialPublicationContexts('Faction Pack: Fyreslayers', [standard.id, seasonal.id])
     expectOfficialPublicationContexts(
       'Warhammer Age of Sigmar Core Rules, Spearhead Rules, Terrain List and Glossary',
-      AOS4_CATALOG.rulesContexts.map(context => context.id)
+      AOS4_FULL_CATALOG.rulesContexts.map(context => context.id)
     )
 
-    const entitiesById = new Map(AOS4_CATALOG.entities.map(entity => [entity.id, entity]))
-    const factions = AOS4_CATALOG.entities.filter(
+    const entitiesById = new Map(AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity]))
+    const factions = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is Faction => entity.kind === 'faction' && entity.rulesContextIds.includes(standard.id)
     )
     expect(factions).toHaveLength(27)
@@ -412,8 +502,10 @@ describe('AoS 4 catalog generation integrity', () => {
      * expected to retire the row, and this assertion should fail loudly when a second container
      * appears or this one gains units, rather than letting either back into the army selector.
      */
-    const armies = armyFactions(AOS4_CATALOG)
-    const allFactions = AOS4_CATALOG.entities.filter((entity): entity is Faction => entity.kind === 'faction')
+    const armies = armyFactions(AOS4_FULL_CATALOG)
+    const allFactions = AOS4_FULL_CATALOG.entities.filter(
+      (entity): entity is Faction => entity.kind === 'faction'
+    )
     expect(allFactions).toHaveLength(28)
     expect(armies).toHaveLength(27)
     expect(allFactions.filter(faction => !armies.includes(faction)).map(faction => faction.name)).toEqual([
@@ -421,14 +513,14 @@ describe('AoS 4 catalog generation integrity', () => {
     ])
     expect(armies.filter(army => army.rulesContextIds.includes(seasonal.id))).toHaveLength(26)
 
-    AOS4_CATALOG.rulesContexts.forEach(context => {
-      const applicableFactions = AOS4_CATALOG.entities.filter(
+    AOS4_FULL_CATALOG.rulesContexts.forEach(context => {
+      const applicableFactions = AOS4_FULL_CATALOG.entities.filter(
         (entity): entity is Faction =>
           entity.kind === 'faction' && entity.rulesContextIds.includes(context.id)
       )
       expect(applicableFactions.length).toBeGreaterThan(0)
       applicableFactions.forEach(faction => {
-        const selection = resolveSelection(AOS4_CATALOG, {
+        const selection = resolveSelection(AOS4_FULL_CATALOG, {
           explicitIds: [faction.id],
           rulesContextId: context.id,
         })
@@ -444,7 +536,7 @@ describe('AoS 4 catalog generation integrity', () => {
     })
 
     expect(
-      AOS4_CATALOG.entities
+      AOS4_FULL_CATALOG.entities
         .filter(
           entity =>
             entity.kind === 'warscroll' &&
@@ -456,7 +548,7 @@ describe('AoS 4 catalog generation integrity', () => {
         .map(entity => entity.name)
     ).toEqual(expect.arrayContaining(['Wight King on Skeletal Steed', 'Wight Lord on Skeletal Steed']))
 
-    const gutterRunners = AOS4_CATALOG.entities.filter(
+    const gutterRunners = AOS4_FULL_CATALOG.entities.filter(
       entity => entity.kind === 'warscroll' && entity.name === 'Gutter Runners'
     )
     expect(gutterRunners).toHaveLength(2)
@@ -464,7 +556,7 @@ describe('AoS 4 catalog generation integrity', () => {
       [[seasonal.id, standard.id].sort(), [spearhead.id]].sort()
     )
 
-    const profiles = AOS4_CATALOG.entities.filter(
+    const profiles = AOS4_FULL_CATALOG.entities.filter(
       entity =>
         entity.kind === 'battle-profile' &&
         gutterRunners.some(warscroll => warscroll.id === entity.warscrollId)
@@ -477,12 +569,12 @@ describe('AoS 4 catalog generation integrity', () => {
       }),
     ])
 
-    const celestarBallista = AOS4_CATALOG.entities.find(
+    const celestarBallista = AOS4_FULL_CATALOG.entities.find(
       entity => entity.kind === 'warscroll' && entity.name === 'Celestar Ballista'
     )!
     expect(celestarBallista.rulesContextIds).toEqual([legends.id])
 
-    const kragnosWarscrolls = AOS4_CATALOG.entities.filter(
+    const kragnosWarscrolls = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is Warscroll =>
         entity.kind === 'warscroll' &&
         entity.name === 'Kragnos, the End of Empires' &&
@@ -494,7 +586,7 @@ describe('AoS 4 catalog generation integrity', () => {
     ])
 
     const nighthaunt = factions.find(faction => faction.name === 'Nighthaunt')!
-    const nighthauntSelection = resolveSelection(AOS4_CATALOG, {
+    const nighthauntSelection = resolveSelection(AOS4_FULL_CATALOG, {
       explicitIds: [nighthaunt.id],
       rulesContextId: standard.id,
     })
@@ -505,7 +597,7 @@ describe('AoS 4 catalog generation integrity', () => {
       })
     ).not.toEqual(expect.arrayContaining(['Cursed Shacklehorde', 'Slasher Host', 'Cairn Wraith']))
 
-    const historicalWarscrolls = AOS4_CATALOG.entities.filter(
+    const historicalWarscrolls = AOS4_FULL_CATALOG.entities.filter(
       entity => entity.kind === 'warscroll' && entity.rulesContextIds.includes(historical.id)
     )
     expect(historicalWarscrolls).toHaveLength(42)
@@ -516,11 +608,11 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('requires explicit dispositions and blocks unsafe generated content', () => {
     const orphan = {
-      ...AOS4_CATALOG.sourceRecords[0],
+      ...AOS4_FULL_CATALOG.sourceRecords[0],
       id: sourceRecordId('fixture', 'unconsumed-catalog-integrity-record'),
     }
     const withOrphan = copyCatalog({
-      sourceRecords: [...AOS4_CATALOG.sourceRecords, orphan],
+      sourceRecords: [...AOS4_FULL_CATALOG.sourceRecords, orphan],
     })
     expect(validateGenerationIntegrity(withOrphan).issues).toContainEqual(
       expect.objectContaining({ code: 'unconsumed-source-record', subject: orphan.id })
@@ -535,7 +627,7 @@ describe('AoS 4 catalog generation integrity', () => {
       ])
     ).toMatchObject({ ok: true, issues: [] })
 
-    const entities = structuredClone(AOS4_CATALOG.entities)
+    const entities = structuredClone(AOS4_FULL_CATALOG.entities)
     const ability = entities.find((entity): entity is Ability => entity.kind === 'ability')!
     ability.timings[0].window = { kind: 'unknown' }
     ability.text.effect = '<strong>Unnormalized effect</strong>'
@@ -554,23 +646,33 @@ describe('AoS 4 catalog generation integrity', () => {
   })
 
   it('emits deterministic compact runtime data without audit-only payload fields', () => {
-    const projection = createRuntimeProjection(AOS4_CATALOG, AOS4_GENERATION_AUDIT.attribution)
+    const projection = createRuntimeProjection(AOS4_FULL_CATALOG, AOS4_GENERATION_AUDIT.attribution)
     const runtime = serializeRuntimeProjection(projection)
     const reordered = copyCatalog({
-      rulesContexts: [...AOS4_CATALOG.rulesContexts].reverse(),
-      sourceArtifacts: [...AOS4_CATALOG.sourceArtifacts].reverse(),
-      sourceRecords: [...AOS4_CATALOG.sourceRecords].reverse(),
-      entities: [...AOS4_CATALOG.entities].reverse(),
-      relationships: [...AOS4_CATALOG.relationships].reverse(),
+      rulesContexts: [...AOS4_FULL_CATALOG.rulesContexts].reverse(),
+      sourceArtifacts: [...AOS4_FULL_CATALOG.sourceArtifacts].reverse(),
+      sourceRecords: [...AOS4_FULL_CATALOG.sourceRecords].reverse(),
+      entities: [...AOS4_FULL_CATALOG.entities].reverse(),
+      relationships: [...AOS4_FULL_CATALOG.relationships].reverse(),
     })
 
     expect(
       serializeRuntimeProjection(createRuntimeProjection(reordered, AOS4_GENERATION_AUDIT.attribution))
     ).toBe(runtime)
-    expect(AOS4_RUNTIME_PROJECTION.sourceRecords).toHaveLength(AOS4_CATALOG.sourceRecords.length)
+    // The projection ships in halves now, so the core carries nothing about source records and the
+    // side table is what has to address them — every index in it names a record that exists.
+    expect(Object.keys(AOS4_RUNTIME_PROJECTION)).not.toContain('sourceRecords')
+    expect(Object.keys(AOS4_RUNTIME_PROJECTION)).not.toContain('sourceArtifacts')
+    expect(
+      AOS4_FULL_CATALOG.entities.filter(entity =>
+        (AOS4_SOURCE_RECORD_INDEXES.get(entity.id) ?? []).some(
+          index => AOS4_FULL_CATALOG.sourceRecords[index] === undefined
+        )
+      )
+    ).toEqual([])
     expect(runtime).not.toMatch(
       /"checksum"|"recordChecksum"|"retrievedAt"|"transformation"|"sourceRefs"|"revision"|"rulesContextIds"/
     )
-    expect(runtime.length).toBeLessThan(serializeAuditCatalog(AOS4_CATALOG).length)
+    expect(runtime.length).toBeLessThan(serializeAuditCatalog(AOS4_FULL_CATALOG).length)
   })
 })

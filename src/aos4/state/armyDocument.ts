@@ -104,10 +104,24 @@ const isReminderPreference = (value: unknown): value is Aos4ReminderPreference =
   return Object.keys(value).every(key => ['hidden', 'note', 'order'].includes(key))
 }
 
-export const deserializeAos4ArmyDocument = (
-  serialized: string,
-  catalog: Aos4Catalog
-): DeserializeAos4ArmyDocumentResult => {
+/**
+ * The document's own shape — everything readable without a catalog to check it against. Both
+ * deserializers below start here; only the catalog-bound one goes on to ask whether the IDs it
+ * found still name anything.
+ */
+interface Aos4ArmyDocumentShape {
+  id: string
+  name: string
+  rulesContextId: string
+  allowsLegends: boolean
+  allowsHistorical: boolean
+  explicitSelectionIds: string[]
+  reminderPreferences: Record<string, unknown>
+}
+
+const readAos4ArmyDocumentShape = (
+  serialized: string
+): { shape?: Aos4ArmyDocumentShape; diagnostics: Aos4ArmyDocumentDiagnostic[] } => {
   let value: unknown
   try {
     value = JSON.parse(serialized)
@@ -168,40 +182,28 @@ export const deserializeAos4ArmyDocument = (
     }
   }
 
-  const diagnostics: Aos4ArmyDocumentDiagnostic[] = []
-  const documentId = value.id as string
-  const documentName = value.name as string
-  const rulesContext = value.rulesContextId as string
-  const contextExists = catalog.rulesContexts.some(context => context.id === rulesContext)
-  if (!contextExists) {
-    diagnostics.push({
-      code: 'missing-rules-context',
-      severity: 'error',
-      message: `Army document refers to missing rules context ${rulesContext}`,
-      subject: rulesContext,
-    })
+  return {
+    shape: {
+      id: value.id as string,
+      name: value.name as string,
+      rulesContextId: value.rulesContextId as string,
+      allowsLegends: value.allowsLegends === true,
+      allowsHistorical: value.allowsHistorical === true,
+      explicitSelectionIds: value.explicitSelectionIds as string[],
+      reminderPreferences: value.reminderPreferences,
+    },
+    diagnostics: [],
   }
+}
 
-  /*
-   * A selection the catalog no longer carries is a rules update's doing, not the user's: a
-   * battletome rewrite can retire a warscroll the army legitimately held. Filtering the dead ID
-   * with a warning keeps the rest of the army alive; failing the whole document here used to reset
-   * a stored army to the default the moment one of its units left the catalog.
-   */
-  const entityIds = new Set(catalog.entities.map(entity => entity.id))
-  const explicitSelectionIds = (value.explicitSelectionIds as string[]).filter(id => {
-    if (entityIds.has(id as CanonicalId)) return true
-    diagnostics.push({
-      code: 'missing-selection',
-      severity: 'warning',
-      message: `Army document refers to missing selection ${id}`,
-      subject: id,
-    })
-    return false
-  }) as CanonicalId[]
-
-  const reminderPreferences = Object.fromEntries(
-    Object.entries(value.reminderPreferences).flatMap(([id, preference]) => {
+// A preference key and value are checked against the schema, never against the catalog — a
+// reminder occurrence ID names a timing, not an entity — so both deserializers share this whole.
+const readReminderPreferences = (
+  raw: Record<string, unknown>,
+  diagnostics: Aos4ArmyDocumentDiagnostic[]
+): Aos4ArmyDocument['reminderPreferences'] =>
+  Object.fromEntries(
+    Object.entries(raw).flatMap(([id, preference]) => {
       if (!id.startsWith('reminder:') || !isReminderPreference(preference)) {
         diagnostics.push({
           code: 'invalid-reminder-preference',
@@ -215,18 +217,112 @@ export const deserializeAos4ArmyDocument = (
     })
   ) as Aos4ArmyDocument['reminderPreferences']
 
+/*
+ * The membership Set over all 11,480 entity IDs, built once per catalog rather than once per
+ * deserialize: the cloud-army list runs this deserializer once per army, and the catalog-bound
+ * mount runs it again over storage the shell already read structurally.
+ */
+const entityIdSetByCatalog = new WeakMap<Aos4Catalog, Set<CanonicalId>>()
+const entityIdSet = (catalog: Aos4Catalog): Set<CanonicalId> => {
+  let ids = entityIdSetByCatalog.get(catalog)
+  if (!ids) {
+    ids = new Set(catalog.entities.map(entity => entity.id))
+    entityIdSetByCatalog.set(catalog, ids)
+  }
+  return ids
+}
+
+export const deserializeAos4ArmyDocument = (
+  serialized: string,
+  catalog: Aos4Catalog
+): DeserializeAos4ArmyDocumentResult => {
+  const shapeResult = readAos4ArmyDocumentShape(serialized)
+  if (!shapeResult.shape) return { diagnostics: shapeResult.diagnostics }
+  const shape = shapeResult.shape
+
+  const diagnostics: Aos4ArmyDocumentDiagnostic[] = []
+  const contextExists = catalog.rulesContexts.some(context => context.id === shape.rulesContextId)
+  if (!contextExists) {
+    diagnostics.push({
+      code: 'missing-rules-context',
+      severity: 'error',
+      message: `Army document refers to missing rules context ${shape.rulesContextId}`,
+      subject: shape.rulesContextId,
+    })
+  }
+
+  /*
+   * A selection the catalog no longer carries is a rules update's doing, not the user's: a
+   * battletome rewrite can retire a warscroll the army legitimately held. Filtering the dead ID
+   * with a warning keeps the rest of the army alive; failing the whole document here used to reset
+   * a stored army to the default the moment one of its units left the catalog.
+   */
+  const entityIds = entityIdSet(catalog)
+  const explicitSelectionIds = shape.explicitSelectionIds.filter(id => {
+    if (entityIds.has(id as CanonicalId)) return true
+    diagnostics.push({
+      code: 'missing-selection',
+      severity: 'warning',
+      message: `Army document refers to missing selection ${id}`,
+      subject: id,
+    })
+    return false
+  }) as CanonicalId[]
+
+  const reminderPreferences = readReminderPreferences(shape.reminderPreferences, diagnostics)
+
   if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return { diagnostics }
   }
 
   return {
     document: createAos4ArmyDocument({
-      id: documentId,
-      name: documentName,
-      rulesContextId: rulesContext as RulesContextId,
-      ...(value.allowsLegends === true ? { allowsLegends: true } : {}),
-      ...(value.allowsHistorical === true ? { allowsHistorical: true } : {}),
+      id: shape.id,
+      name: shape.name,
+      rulesContextId: shape.rulesContextId as RulesContextId,
+      ...(shape.allowsLegends ? { allowsLegends: true } : {}),
+      ...(shape.allowsHistorical ? { allowsHistorical: true } : {}),
       explicitSelectionIds,
+      reminderPreferences,
+    }),
+    diagnostics,
+  }
+}
+
+/**
+ * The same document read without a catalog, for the catalog-free Home shell.
+ *
+ * The two checks it drops are the only reason `deserializeAos4ArmyDocument` needs a catalog at all:
+ * a rules context the catalog does not carry fails the whole document, and an entity ID it does not
+ * carry is dropped with a warning. Both need all 11,480 entities in memory, which is precisely what
+ * the shell paints without waiting for.
+ *
+ * Skipping them is safe only because this is never the last word. The catalog-bound child runs
+ * `loadAos4ArmyDocument` on mount and its result wins, so a selection this accepts and the catalog
+ * has since retired is pruned a moment later rather than never. What the shell must *not* do is
+ * persist what this accepted before that happens — see the save guard in `Home.tsx`.
+ */
+export const deserializeAos4ArmyDocumentStructure = (
+  serialized: string
+): DeserializeAos4ArmyDocumentResult => {
+  const shapeResult = readAos4ArmyDocumentShape(serialized)
+  if (!shapeResult.shape) return { diagnostics: shapeResult.diagnostics }
+  const shape = shapeResult.shape
+
+  const diagnostics: Aos4ArmyDocumentDiagnostic[] = []
+  const reminderPreferences = readReminderPreferences(shape.reminderPreferences, diagnostics)
+  if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
+    return { diagnostics }
+  }
+
+  return {
+    document: createAos4ArmyDocument({
+      id: shape.id,
+      name: shape.name,
+      rulesContextId: shape.rulesContextId as RulesContextId,
+      ...(shape.allowsLegends ? { allowsLegends: true } : {}),
+      ...(shape.allowsHistorical ? { allowsHistorical: true } : {}),
+      explicitSelectionIds: shape.explicitSelectionIds as CanonicalId[],
       reminderPreferences,
     }),
     diagnostics,

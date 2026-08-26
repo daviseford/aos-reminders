@@ -3,12 +3,19 @@
 import { createDefaultAos4ArmyDocument, saveAos4ArmyDocument } from '../../aos4/runtime'
 import { serializeAos4ArmyDocument } from '../../aos4/state'
 import Home from 'components/routes/Home'
+/*
+ * Home's catalog-bound half is behind `lazy()`, and resolving it means parsing the whole rules
+ * corpus — seconds, not a flush. Loading it statically here puts that cost in module evaluation
+ * where no per-test timeout applies, so the awaits below are about React and not about JSON.
+ */
+import 'components/routes/HomeCatalogBound'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import { MemoryRouter } from 'react-router'
 import { act } from 'react'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { MemoryStorage } from 'tests/support/memoryStorage'
 import { writeCloudArmyLink } from 'utils/cloudArmyLink'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -58,41 +65,22 @@ vi.mock('../../api/subscriptionApi', () => ({
   },
 }))
 
-// Home's banner slot reaches the PWA plugin's virtual module, which has no file on disk.
-vi.mock('virtual:pwa-register', () => ({ registerSW: vi.fn(() => vi.fn(async () => undefined)) }))
+// Home's banner slot reaches the PWA plugin's virtual module, which has no file on disk. Shared with
+// every other Home suite via `homeTestMocks` — see that module for why the `await import()` is
+// inside the factory rather than at the top of the file.
+vi.mock('virtual:pwa-register', async () => {
+  const { pwaRegisterMockValue } = await import('tests/support/homeTestMocks')
+  return pwaRegisterMockValue()
+})
 
 vi.mock('react-router', async () => {
   const actual = await vi.importActual<typeof import('react-router')>('react-router')
   return { ...actual, useNavigate: () => vi.fn() }
 })
 
-class MemoryStorage implements Storage {
-  private readonly values = new Map<string, string>()
-
-  get length() {
-    return this.values.size
-  }
-
-  clear() {
-    this.values.clear()
-  }
-
-  getItem(key: string) {
-    return this.values.get(key) ?? null
-  }
-
-  key(index: number) {
-    return Array.from(this.values.keys())[index] ?? null
-  }
-
-  removeItem(key: string) {
-    this.values.delete(key)
-  }
-
-  setItem(key: string, value: string) {
-    this.values.set(key, value)
-  }
-}
+// The `MemoryStorage` this file used to declare here is now `tests/support/memoryStorage.ts`; the
+// rest of this section's local mocks stay in place because they close over `vi.hoisted` state
+// (`auth`, `armyApi`, `getSubscription`) that individual tests below mutate and inspect.
 
 const LINKED_ID = 'cloud-linked-1'
 
@@ -108,6 +96,11 @@ const remoteArmy = (id: string, name: string) => ({
 describe('cloud army link reconciliation on load', () => {
   let container: HTMLDivElement
 
+  /*
+   * The reconciliation lives in Home's catalog-bound half, which is behind `lazy()` — so the render
+   * has to get past the shell's Suspense boundary before the effects under test have even mounted.
+   * The second flush covers the collection fetch those effects start.
+   */
   const renderHome = async () => {
     await act(async () => {
       render(
@@ -122,6 +115,9 @@ describe('cloud army link reconciliation on load', () => {
         </AppStatusProvider>,
         container
       )
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 0))
     })
   }

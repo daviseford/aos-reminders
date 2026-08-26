@@ -35,7 +35,10 @@ try {
 
   for (const [path, contents] of [
     ['assets/current-123.js', 'current'],
+    // Same two-fixture shape as src/tests/deploymentContract.test.ts: production ships both
+    // aos4-catalog-data-*.js and aos4-catalog-data-sources-*.js above the pre-gzip threshold.
     ['assets/aos4-catalog-data-abc123.js', `const catalogCorpus = ${'"x"'.repeat(64)}`],
+    ['assets/aos4-catalog-data-sources-def456.js', `const catalogSources = ${'"x"'.repeat(64)}`],
     ['index.html', '<!doctype html>'],
     ['site.webmanifest', '{}'],
     ['service-worker.js', 'importScripts("sw-extras-abc123.js")'],
@@ -56,6 +59,7 @@ try {
     'assets/aos4-catalog-data-abc123.js',
     'sw-extras-abc123.js',
     'workbox-abc123.js',
+    'assets/aos4-catalog-data-sources-def456.js',
   ]
   writeFileSync(retiredTagsPath, `${alreadyRetiredAssets.join('\n')}\n`)
 
@@ -240,7 +244,13 @@ exit 65
   )
   chmodSync(fakeAws, 0o755)
 
-  const assetKeys = [currentImmutable[0], currentImmutable[1], newlySuperseded[0], ...alreadyRetiredAssets]
+  const assetKeys = [
+    currentImmutable[0],
+    currentImmutable[1],
+    currentImmutable[4],
+    newlySuperseded[0],
+    ...alreadyRetiredAssets,
+  ]
   const baseEnvironment = {
     AWS_LOCK_ATTEMPTS: bashPath(attemptsPath),
     AWS_LOG: bashPath(logPath),

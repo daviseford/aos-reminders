@@ -44,6 +44,28 @@ small {
 }
 
 /*
+ * Home's splash while the catalog chunk loads. It is `fixed` and viewport-sized rather than an
+ * in-flow band: the band's theme background stopped wherever the shell's own content ended, which
+ * is the half-painted screen this replaced, and anything in flow lifts away the moment the chunk
+ * arrives — before the bound child has settled. Home holds the overlay until then, so z-index has
+ * to clear the skip link (1030); nothing above that exists this early.
+ *
+ * The text sits at `35vh` from the top rather than dead-center because the router's own fallback
+ * (`LoadingBody`, via `.LoadingContainer`) shows first while the route chunk loads, and it places
+ * the same two lines there. Matching it keeps the handoff between the two screens from moving the
+ * only thing on the page.
+ */
+.LoadingSplash {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 35vh;
+}
+
+/*
  * /join, /redeem, and the already-subscribed screen they share are one short form or message on an
  * otherwise empty page. The two redemption routes used to borrow
  * `.LoadingContainer`, whose 35vh top padding is right for two lines of loading text and wrong for

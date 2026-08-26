@@ -89,6 +89,29 @@ The deploy uses recursive `aws s3 cp` for the small unhashed-public class so eve
 re-stamps its explicit `Cache-Control`, even when file bytes are unchanged. Confirm headers with
 `aws s3api head-object` after changing this class or its exclusions.
 
+## Pre-compressed oversized JavaScript
+
+CloudFront refuses to compress objects above ~10,000,000 bytes; anything larger arrives at the
+browser exactly as stored. `scripts/deploy-production.sh` therefore excludes any `assets/*.js` above
+`PRECOMPRESS_THRESHOLD_BYTES` from the ordinary recursive upload, gzips it locally, and uploads that
+copy with an explicit `Content-Encoding: gzip` instead.
+
+`PRECOMPRESS_THRESHOLD_BYTES` defaults to `2,000,000`, not CloudFront's ~10,000,000-byte ceiling. The
+threshold's job is to catch whichever built assets are actually large, not to track the ceiling
+itself: the two `aos4-catalog-data-*.js` chunks (a few MB each) are the only assets anywhere near this
+size, and the next largest built asset is well under 1 MB. Both catalog chunks sit comfortably under
+CloudFront's compression ceiling on their own, so nothing forces this path to fire on ceiling grounds
+alone — it exists so both chunks reach the browser compressed without depending on CloudFront's
+on-the-fly compression being enabled, which this script never verifies (see the CloudFront settings
+above; only cache-behavior fields are checked, not `Compress`). The threshold is overridable via the
+environment so the deployment contract suite can exercise the path with kilobyte-sized fixtures rather
+than committing multi-megabyte ones.
+
+`src/tests/deploymentContract.test.ts` pins the literal default value in addition to exercising the
+path, because every case in that suite overrides `PRECOMPRESS_THRESHOLD_BYTES` to a small synthetic
+value — a regression that silently raised the real default back toward the pre-split 9,500,000 would
+otherwise leave the whole suite green while both catalog chunks shipped raw in production.
+
 ## Asset retention
 
 The deploy does not pass `--delete`. Removing the previous build's hashed chunks immediately would

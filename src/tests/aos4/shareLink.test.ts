@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { capturePendingShareId, consumePendingShareId } from 'utils/shareLink'
+import { capturePendingShareId, clearPendingShareId, readPendingShareId } from 'utils/shareLink'
 import { describe, expect, it, vi } from 'vitest'
 
 describe('public share-link handoff', () => {
@@ -27,8 +27,16 @@ describe('public share-link handoff', () => {
       )
     ).toBe(shareId)
     expect(history.replaceState).toHaveBeenCalledWith({}, document.title, '/?subscribed=true#top')
-    expect(consumePendingShareId(storage)).toBe(shareId)
-    expect(consumePendingShareId(storage)).toBeUndefined()
+    /*
+     * Reading is repeatable, because whoever reads is not necessarily whoever opens it. Home's
+     * shell reads before the catalog-bound half exists; if that half never arrives, a reload has to
+     * find the id exactly where it was.
+     */
+    expect(readPendingShareId(storage)).toBe(shareId)
+    expect(readPendingShareId(storage)).toBe(shareId)
+
+    clearPendingShareId(storage)
+    expect(readPendingShareId(storage)).toBeUndefined()
   })
 
   it('removes malformed tokens without storing or fetching them', () => {
@@ -48,5 +56,16 @@ describe('public share-link handoff', () => {
     ).toBeUndefined()
     expect(history.replaceState).toHaveBeenCalledWith({}, document.title, '/')
     expect(storage.setItem).not.toHaveBeenCalled()
+  })
+
+  it('evicts a malformed stored value rather than letting it shadow the slot', () => {
+    const values = new Map<string, string>([['aos-reminders:aos4:pending-share', 'not-valid']])
+    const storage = {
+      getItem: (key: string) => values.get(key) ?? null,
+      removeItem: (key: string) => values.delete(key),
+    }
+
+    expect(readPendingShareId(storage)).toBeUndefined()
+    expect(values.size).toBe(0)
   })
 })

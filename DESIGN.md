@@ -620,9 +620,15 @@ probably to move the pair onto the modal's own surface. Treat it as open.
   accompanied by `visually-hidden` "Loading..." text under `role="status"`, so the state is announced and
   not merely animated.
 - **Suspense fallbacks:** `LoadingHeader` and `LoadingBody` stand in for the navbar and routed
-  content, so the masthead does not collapse while a lazy route resolves. `LoadingBody` is two
-  static lines and stays that way — a pulse and a fade were built for it and deliberately rejected.
-  See The Dead Class Rule.
+  content, so the masthead does not collapse while a lazy route resolves. Both full-screen loading
+  screens render the same `LoadingLines` — the product name and "Loading...", two static lines; a
+  pulse and a fade were built for them and deliberately rejected. See The Dead Class Rule. Sharing
+  one component is what keeps the router's route-chunk fallback and Home's catalog splash seated
+  identically (35vh), so the handoff between the two waits moves nothing. Home's catalog-bound half
+  adds the container: `LoadingArmy` wraps `LoadingLines` in a `fixed`, viewport-sized overlay
+  (`.LoadingSplash`), held by the shell until the bound child has committed — the Suspense fallback
+  alone would lift one commit early, and an in-flow band under the painted masthead read as a
+  half-built page. Splash, then the finished screen, in one commit.
 
 ### Cards / Containers
 

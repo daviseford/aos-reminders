@@ -28,26 +28,41 @@ pre-Vite CRA tabs from activating the replacement worker before a user accepts t
 Once accepted, a short-lived origin-wide marker plus an unconditional `controllerchange` listener
 reloads every controlled tab, including one opened after acceptance but before activation.
 
-The generated catalog chunk is excluded from the precache and served by a
-`CacheFirst` runtime route instead. It is 11.6 MiB against Workbox's 2 MiB
-ceiling, and precaching it would download the whole catalog before the worker
-could activate — the worst case on exactly the bad venue wifi that makes offline
-support worth having.
+The generated corpus ships as **two** chunks, both excluded from the precache and
+served by one `CacheFirst` runtime route. `aos4-catalog-data` is the catalog the
+reminders surface renders from (~6.4 MiB); `aos4-catalog-data-sources` is the
+source records behind each reminder's source menu (~7.1 MiB), fetched the first
+time a player opens one. Both are far above Workbox's 2 MiB ceiling, and
+precaching either would download it before the worker could activate — the worst
+case on exactly the bad venue wifi that makes offline support worth having.
 
-The immutable `sw-extras-<content-hash>.js` warms the current build's URL **on `install`**, so taking an update
-never leaves a user one online fetch short of working army data. Install is the
-right event because it is the only one that can be refused: a rejected `install`
-aborts the update and leaves the client on its previous worker, which still has
-its own catalog cached and still works offline. Warming on `activate` would
-commit the client to a build it cannot run offline, because activation cannot be
-refused. A failed warm therefore means "this update did not land", and the hourly
-poll retries.
+The second name extends the first deliberately: the precache glob, the
+runtime-cache route, and the build assertions all match on the
+`aos4-catalog-data` prefix, so one naming choice covers both.
+
+The immutable `sw-extras-<content-hash>.js` warms the **catalog** URL on
+`install`, so taking an update never leaves a user one online fetch short of
+working army data. Install is the right event because it is the only one that can
+be refused: a rejected `install` aborts the update and leaves the client on its
+previous worker, which still has its own catalog cached and still works offline.
+Warming on `activate` would commit the client to a build it cannot run offline,
+because activation cannot be refused. A failed warm therefore means "this update
+did not land", and the hourly poll retries.
+
+The **source records** warm on `install` too, but under a *caught* `waitUntil`:
+the lifetime extension stops the browser terminating the worker mid-fetch (a
+fire-and-forget warm could be killed silently, and install never re-fires for
+that build), while the catch keeps best-effort data from aborting an update the
+catalog warm survived. Blocking the whole update on data most sessions never
+open would widen the abort surface out of proportion to what it protects. A
+failed warm just means the first source menu fetches over the network; the
+`CacheFirst` route still populates the cache on that first real use.
 
 `activate` keeps only cheap, fault-tolerant work — pruning the catalog cache to
-the current build and deleting the CRA-era `images` cache. Nothing slow belongs
-there: activation holds fetch events until `waitUntil` settles, and the page
-reloads the moment the worker takes control, so a download on that path would
-leave the reload on a blank screen.
+the current build's two URLs and deleting the CRA-era `images` cache. Nothing
+slow belongs there: activation holds fetch events until `waitUntil` settles, and
+the page reloads the moment the worker takes control, so a download on that path
+would leave the reload on a blank screen.
 
 ## What CI checks
 

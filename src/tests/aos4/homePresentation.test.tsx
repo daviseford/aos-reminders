@@ -1,6 +1,12 @@
 // @vitest-environment jsdom
 
 import Home from 'components/routes/Home'
+/*
+ * Home's catalog-bound half is behind `lazy()`, and resolving it means parsing the whole rules
+ * corpus — seconds, not a flush. Loading it statically here puts that cost in module evaluation
+ * where no per-test timeout applies, so the awaits below are about React and not about JSON.
+ */
+import 'components/routes/HomeCatalogBound'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { ThemeProvider } from 'context/useTheme'
 import { SubscriptionProvider } from 'context/useSubscription'
@@ -8,6 +14,7 @@ import React from 'react'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { Simulate } from 'tests/support/reactTestHelpers'
+import { MemoryStorage } from 'tests/support/memoryStorage'
 import { MemoryRouter } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -30,9 +37,13 @@ vi.mock('@auth0/auth0-react', () => ({
  * Home's banner slot renders the update prompt, which reaches `applyWaitingUpdate` in
  * bootstrap/registerServiceWorker and through it the plugin's `virtual:pwa-register`. That virtual
  * module has no resolvable file on disk, so the test runner cannot import it -- stub it the same way
- * registerServiceWorker.test.ts does.
+ * registerServiceWorker.test.ts does. Shared with every other Home suite via `homeTestMocks` — see
+ * that module for why the `await import()` is inside the factory rather than at the top of the file.
  */
-vi.mock('virtual:pwa-register', () => ({ registerSW: vi.fn(() => vi.fn(async () => undefined)) }))
+vi.mock('virtual:pwa-register', async () => {
+  const { pwaRegisterMockValue } = await import('tests/support/homeTestMocks')
+  return pwaRegisterMockValue()
+})
 
 vi.mock('../../api/subscriptionApi', () => ({
   SubscriptionApi: {
@@ -59,52 +70,36 @@ vi.mock('components/input/importArmy/importArmyModal', () => ({
     ) : null,
 }))
 
-class MemoryStorage implements Storage {
-  private readonly values = new Map<string, string>()
-
-  get length() {
-    return this.values.size
-  }
-
-  clear() {
-    this.values.clear()
-  }
-
-  getItem(key: string) {
-    return this.values.get(key) ?? null
-  }
-
-  key(index: number) {
-    return Array.from(this.values.keys())[index] ?? null
-  }
-
-  removeItem(key: string) {
-    this.values.delete(key)
-  }
-
-  setItem(key: string, value: string) {
-    this.values.set(key, value)
-  }
-}
-
 describe('AoS 4 home presentation', () => {
   let container: HTMLDivElement
 
-  const renderHome = () =>
-    render(
-      <AppStatusProvider>
-        <SubscriptionProvider>
-          <ThemeProvider>
-            <MemoryRouter>
-              <Home />
-            </MemoryRouter>
-          </ThemeProvider>
-        </SubscriptionProvider>
-      </AppStatusProvider>,
-      container
-    )
+  /*
+   * Home's catalog-bound half is behind `lazy()`, so the first render only reaches the shell. Every
+   * render here awaits the import and the effects it lands with, otherwise the assertions run
+   * against the Suspense fallback rather than the screen.
+   */
+  const renderHome = async () => {
+    await act(async () => {
+      render(
+        <AppStatusProvider>
+          <SubscriptionProvider>
+            <ThemeProvider>
+              <MemoryRouter>
+                <Home />
+              </MemoryRouter>
+            </ThemeProvider>
+          </SubscriptionProvider>
+        </AppStatusProvider>,
+        container
+      )
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+  }
 
-  beforeEach(() => {
+  beforeEach(async () => {
     auth.isAuthenticated = false
     auth.isLoading = false
     auth.user = undefined
@@ -121,9 +116,7 @@ describe('AoS 4 home presentation', () => {
     container = document.createElement('div')
     document.body.appendChild(container)
 
-    act(() => {
-      renderHome()
-    })
+    await renderHome()
   })
 
   afterEach(() => {
@@ -180,10 +173,7 @@ describe('AoS 4 home presentation', () => {
     auth.isAuthenticated = true
     auth.user = { email: 'inactive@example.com' }
 
-    await act(async () => {
-      renderHome()
-      await new Promise(resolve => setTimeout(resolve, 0))
-    })
+    await renderHome()
 
     const findButton = (label: string) =>
       Array.from(container.querySelectorAll('button')).find(button => button.textContent?.trim() === label)
@@ -313,7 +303,7 @@ describe('AoS 4 home presentation', () => {
     expect(contacts).toEqual(expect.arrayContaining(['Github', 'Email', 'Discord']))
   })
 
-  it('tiles collapsed builder cards two-up on mobile rather than sizing them to their titles', () => {
+  it('tiles collapsed builder cards two-up on mobile rather than sizing them to their titles', async () => {
     act(() => {
       unmountComponentAtNode(container)
     })
@@ -323,9 +313,7 @@ describe('AoS 4 home presentation', () => {
     Object.defineProperty(window, 'innerWidth', { configurable: true, value: 390 })
 
     try {
-      act(() => {
-        renderHome()
-      })
+      await renderHome()
 
       const collapsed = Array.from(container.querySelectorAll('.card'))
         .map(card => card.parentElement)

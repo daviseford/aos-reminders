@@ -1,5 +1,5 @@
 import type { Ability, ContentGroup, Faction } from '../../aos4/domain'
-import { AOS4_CATALOG } from '../../aos4/generated'
+import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 import { projectReminders } from '../../aos4/reminders'
 import { resolveSelection } from '../../aos4/select'
 
@@ -39,24 +39,24 @@ const INDEX_ERA_FORMATIONS = [
   'Prophets of the Gulping God',
 ]
 
-const standard = AOS4_CATALOG.rulesContexts.find(
+const standard = AOS4_FULL_CATALOG.rulesContexts.find(
   context => context.mode === 'standard' && context.status === 'current'
 )!
-const historical = AOS4_CATALOG.rulesContexts.find(context => context.status === 'historical')!
-const artifactById = new Map(AOS4_CATALOG.sourceArtifacts.map(artifact => [artifact.id, artifact]))
-const recordById = new Map(AOS4_CATALOG.sourceRecords.map(record => [record.id, record]))
+const historical = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'historical')!
+const artifactById = new Map(AOS4_FULL_CATALOG.sourceArtifacts.map(artifact => [artifact.id, artifact]))
+const recordById = new Map(AOS4_FULL_CATALOG.sourceRecords.map(record => [record.id, record]))
 
-const ogor = AOS4_CATALOG.entities.find(
+const ogor = AOS4_FULL_CATALOG.entities.find(
   (entity): entity is Faction => entity.kind === 'faction' && entity.name === 'Ogor Mawtribes'
 )!
 
 const offeredGroups = (groupType: string): ContentGroup[] => {
   const offered = new Set(
-    AOS4_CATALOG.relationships
+    AOS4_FULL_CATALOG.relationships
       .filter(relationship => relationship.kind === 'offers' && relationship.from === ogor.id)
       .map(relationship => relationship.to)
   )
-  return AOS4_CATALOG.entities.filter(
+  return AOS4_FULL_CATALOG.entities.filter(
     (entity): entity is ContentGroup =>
       entity.kind === 'content-group' && entity.groupType === groupType && offered.has(entity.id)
   )
@@ -64,11 +64,11 @@ const offeredGroups = (groupType: string): ContentGroup[] => {
 
 const membersOf = (group: ContentGroup): Ability[] => {
   const included = new Set(
-    AOS4_CATALOG.relationships
+    AOS4_FULL_CATALOG.relationships
       .filter(relationship => relationship.kind === 'includes' && relationship.from === group.id)
       .map(relationship => relationship.to)
   )
-  return AOS4_CATALOG.entities.filter(
+  return AOS4_FULL_CATALOG.entities.filter(
     (entity): entity is Ability => entity.kind === 'ability' && included.has(entity.id)
   )
 }
@@ -96,12 +96,12 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
       const abilities = membersOf(formation!)
       expect(abilities.map(member => member.name)).toEqual([ability])
 
-      const selection = resolveSelection(AOS4_CATALOG, {
+      const selection = resolveSelection(AOS4_FULL_CATALOG, {
         explicitIds: [ogor.id, formation!.id],
         rulesContextId: standard.id,
       })
       expect(selection.diagnostics).toEqual([])
-      const reminders = projectReminders(AOS4_CATALOG, selection).filter(reminder =>
+      const reminders = projectReminders(AOS4_FULL_CATALOG, selection).filter(reminder =>
         reminder.contributingEntityIds.includes(formation!.id)
       )
       expect(reminders.length).toBeGreaterThan(0)
@@ -186,12 +186,12 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
   it('ships the battletome battle traits provisionally and retires the index-era set', () => {
     // Battle traits apply automatically: selecting the faction alone must produce the battletome
     // reminders (the Discord beta report showed index-era Trampling Charge still firing).
-    const selection = resolveSelection(AOS4_CATALOG, {
+    const selection = resolveSelection(AOS4_FULL_CATALOG, {
       explicitIds: [ogor.id],
       rulesContextId: standard.id,
     })
     expect(selection.diagnostics).toEqual([])
-    const reminderNames = projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name)
+    const reminderNames = projectReminders(AOS4_FULL_CATALOG, selection).map(reminder => reminder.name)
     ;["Eat 'Em Alive", 'Bull Charge', 'Jaws of the Beast', 'Closing the Jaws'].forEach(name =>
       expect(reminderNames).toContain(name)
     )
@@ -199,7 +199,7 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
       expect(reminderNames).not.toContain(name)
     )
 
-    const battleTraitAbilities = AOS4_CATALOG.entities.filter(
+    const battleTraitAbilities = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is Ability =>
         entity.kind === 'ability' &&
         ["Eat 'Em Alive", 'Bull Charge', 'Jaws of the Beast', 'Closing the Jaws'].includes(entity.name)
@@ -211,7 +211,7 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
     })
 
     // The index-era set survives only in the historical context, never silently deleted.
-    const indexEra = AOS4_CATALOG.entities.filter(
+    const indexEra = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is Ability =>
         entity.kind === 'ability' &&
         ['TRAMPLING CHARGE', 'RAVENOUS BRUTES', 'FEAST ON FLESH'].includes(entity.name) &&

@@ -62,6 +62,37 @@ const precachedUrls = (source: string) =>
 /** The invariant the catalog exclusion exists to hold. Shared so it can be tested against itself. */
 const catalogEntries = (urls: string[]) => urls.filter(url => url.includes('aos4-catalog-data'))
 
+/**
+ * Every `waitUntil(...)` argument in a worker source, matched with balanced parentheses.
+ *
+ * A regex cannot do this: `waitUntil\([^)]*X` stops at the first `)`, so anything nested inside the
+ * argument — an `await` of a call, an IIFE — hides the rest of it from the assertion. Scanning for
+ * the matching paren is what makes "nothing in here mentions the sources chunk" mean it. Throws if
+ * the parens never balance, because `depth > 0` at end-of-file means the close paren was never
+ * found and `slice(start, cursor - 1)` would silently hand back "the rest of the file" as if it
+ * were the argument: a malformed scan that still satisfies whatever the caller compares it against.
+ */
+const waitUntilArguments = (source: string): string[] => {
+  const opener = /waitUntil\(/g
+  const args: string[] = []
+  let match: RegExpExecArray | null
+  while ((match = opener.exec(source)) !== null) {
+    const start = match.index + match[0].length
+    let cursor = start
+    let depth = 1
+    while (cursor < source.length && depth > 0) {
+      if (source[cursor] === '(') depth += 1
+      else if (source[cursor] === ')') depth -= 1
+      cursor += 1
+    }
+    if (depth !== 0) {
+      throw new Error('A `waitUntil(` call has unbalanced parens — this scan pins an unterminated argument.')
+    }
+    args.push(source.slice(start, cursor - 1))
+  }
+  return args
+}
+
 const precached = precachedUrls(serviceWorkerSource)
 
 describe('web app manifest', () => {
@@ -138,6 +169,19 @@ describe('generated service worker', () => {
     // 11.6 MiB, against a 2 MiB ceiling the plugin throws on. Precaching it would also block
     // activation on the venue wifi that motivates offline support.
     expect(catalogEntries(precached)).toEqual([])
+
+    /*
+     * The obvious inversion — rename a catalog chunk out of the `aos4-catalog-data` prefix so the
+     * exclusion glob stops matching it — cannot be run as a red assertion here, and not only for the
+     * reason 'would fail if the catalog ever entered the precache manifest' gives below. It never
+     * reaches the manifest at all: it fails the *build*.
+     *
+     * Observed, not reasoned about. With `manualChunks` no longer matching, the corpus inlined into
+     * the Home chunk at 6.68 MB and the build stopped with `Configure
+     * "workbox.maximumFileSizeToCacheInBytes"`, naming both oversized assets. Each catalog chunk is
+     * roughly 3x Workbox's 2,097,152-byte ceiling, so any misnaming that puts one in front of the
+     * precache glob is loud at build time and leaves no `dist/` for this file to read.
+     */
   })
 
   it('leaves the non-app files out of the precache manifest', () => {
@@ -210,10 +254,78 @@ describe('generated service worker', () => {
 
     const extras = read(extrasImports[0])
     const catalogUrl = extras.match(/CATALOG_URL = "([^"]+)"/)?.[1]
+    const sourcesUrl = extras.match(/SOURCES_URL = "([^"]+)"/)?.[1]
 
-    expect(catalogUrl).toMatch(/^\/assets\/aos4-catalog-data-.+\.js$/)
+    // The negative lookahead is load-bearing: both chunks share the `aos4-catalog-data` prefix, so
+    // without it `aos4-catalog-data-sources-<hash>.js` matches too and two swapped URLs pass.
+    expect(catalogUrl).toMatch(/^\/assets\/aos4-catalog-data-(?!sources-)[^/]+\.js$/)
     expect(exists(catalogUrl!.replace(/^\//, ''))).toBe(true)
+    expect(sourcesUrl).toBeTruthy()
+    expect(catalogUrl).not.toBe(sourcesUrl)
     expect(extras).toContain('caches.delete') // the CRA-era `images` cache
+  })
+
+  it('emits the catalog as two content-hashed chunks under one prefix', () => {
+    /*
+     * The source records ship separately so a session that never opens a source menu never parses
+     * them. Both names share the `aos4-catalog-data` prefix on purpose — that is what keeps the
+     * precache glob, the runtime-cache route, and the filter above matching both with no change.
+     */
+    const chunks = fs
+      .readdirSync(path.join(distDir, 'assets'))
+      .filter(file => file.startsWith('aos4-catalog-data') && file.endsWith('.js'))
+      .sort()
+
+    expect(chunks).toHaveLength(2)
+    expect(chunks[0]).toMatch(/^aos4-catalog-data-[^.]+\.js$/)
+    expect(chunks[1]).toMatch(/^aos4-catalog-data-sources-[^.]+\.js$/)
+    expect(catalogEntries(precached)).toEqual([])
+  })
+
+  it('warms both chunks on install, aborting the update only for the catalog', () => {
+    expect(extrasImports).toHaveLength(1)
+    const extras = read(extrasImports[0])
+
+    const sourcesUrl = extras.match(/SOURCES_URL = "([^"]+)"/)?.[1]
+    expect(sourcesUrl).toMatch(/^\/assets\/aos4-catalog-data-sources-.+\.js$/)
+    expect(exists(sourcesUrl!.replace(/^\//, ''))).toBe(true)
+
+    // The catalog keeps the abort-on-failure contract: a failed warm must reject install rather than
+    // activate a build that cannot load army data offline.
+    expect(extras).toMatch(/waitUntil\(warmChunk\(CATALOG_URL\)\)/)
+
+    /*
+     * The source records warm under install's waitUntil too, but caught. The waitUntil is what
+     * stops the browser terminating the worker mid-fetch — a fire-and-forget warm in activate had
+     * no lifetime extension, so a completed update did not guarantee citations offline and the
+     * swallowed failure never retried for that build. The catch is what keeps best-effort data from
+     * aborting an update the catalog warm survived. Install, not activate: activation holds fetch
+     * events until waitUntil settles, so a 7 MB fetch there would strand the post-activation reload
+     * on a blank screen, while install runs with the previous worker still serving the page.
+     */
+    expect(extras).toMatch(
+      /if \(SOURCES_URL\) event\.waitUntil\(warmChunk\(SOURCES_URL\)\.catch\(\(\) => \{\}\)\)/
+    )
+
+    // All three held tasks are seen by the scan, so the filters below cannot pass vacuously.
+    const heldWork = waitUntilArguments(extras)
+    expect(heldWork).toHaveLength(3)
+    const sourcesHeld = heldWork.filter(argument => argument.includes('SOURCES_URL'))
+    expect(sourcesHeld).toHaveLength(1)
+    expect(sourcesHeld[0]).toContain('.catch')
+    // The uncaught catalog warm is the only held task allowed to reject its waitUntil.
+    expect(
+      heldWork.filter(argument => argument.includes('warmChunk') && !argument.includes('.catch'))
+    ).toEqual(['warmChunk(CATALOG_URL)'])
+  })
+
+  it('prunes to the current build across both chunks', () => {
+    const extras = read(extrasImports[0])
+
+    // One cache holds both entries, so the prune is a membership test. Single-URL equality would
+    // delete whichever chunk it was not written against on every activation.
+    expect(extras).toContain('CURRENT_URLS.includes')
+    expect(extras).toMatch(/CURRENT_URLS = \[CATALOG_URL, SOURCES_URL\]/)
   })
 
   it('bounds the catalog warm on browsers without AbortSignal.timeout', () => {

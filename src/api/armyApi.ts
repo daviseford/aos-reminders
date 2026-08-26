@@ -1,4 +1,3 @@
-import { AOS4_CATALOG } from '../aos4/generated'
 import { deserializeAos4ArmyDocument, type Aos4ArmyDocument } from '../aos4/state'
 
 export interface RemoteArmy {
@@ -39,8 +38,32 @@ const configuredEndpoint = (import.meta.env.VITE_ARMY_API_URL || '').replace(/\/
  * Rejecting them here instead bricked saving and, worse, one stale army poisoned the whole cloud
  * list. So a well-formed document always parses; selection resolution is the builder's concern.
  */
-const parseDocument = (value: unknown): Aos4ArmyDocument => {
-  const restored = deserializeAos4ArmyDocument(JSON.stringify(value), AOS4_CATALOG)
+const parseDocument = async (value: unknown): Promise<Aos4ArmyDocument> => {
+  // The catalog is loaded here rather than imported: every caller is already behind a network round
+  // trip, and a static import would put the whole corpus in the graph of anything holding a cloud
+  // army — the shell included, since the collection provider wraps the page.
+  //
+  // Every call site sits under HomeCatalogBound, which statically imports the catalog, so the module
+  // is in the registry before any cloud call runs and the catch normally never fires. It stays
+  // because the registry is only primed when the catalog chunk itself loaded: a first visit whose
+  // cached chunk went stale, or a future caller outside that subtree, makes this a real network
+  // fetch that can fail on a rotated hash or a cold cache offline — and an unwrapped module-loading
+  // error would reach messageForError as "Failed to fetch dynamically imported module ...". Same
+  // message and default status as the fetch failure above, because to a caller it is the same class
+  // of outage.
+  let generated: typeof import('../aos4/generated')
+  try {
+    generated = await import('../aos4/generated')
+  } catch (error) {
+    // Logged before wrapping, because the wrapped message erases the one distinction that matters
+    // when this fires: a network failure and an eval-time defect in the catalog chunk both land
+    // here, and only the console can tell them apart. "Temporarily" is also browser-dependent — a
+    // module map that cached the rejection re-throws without refetching until a reload; see
+    // aos4/generated/corpus/sources for the same caveat on the sources chunk.
+    console.error(error)
+    throw new ArmyApiError('Cloud armies are temporarily unavailable.')
+  }
+  const restored = deserializeAos4ArmyDocument(JSON.stringify(value), generated.AOS4_CATALOG)
   if (!restored.document || restored.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     throw new ArmyApiError('The service returned an incompatible army document.', 502)
   }
@@ -64,22 +87,22 @@ const stringField = (value: unknown, key: string): string => {
   return value[key] as string
 }
 
-const parseRemoteArmy = (value: unknown): RemoteArmy => {
+const parseRemoteArmy = async (value: unknown): Promise<RemoteArmy> => {
   if (!isRecord(value)) throw new ArmyApiError('The service returned an invalid army response.', 502)
   return {
     id: stringField(value, 'id'),
     createdAt: numberField(value, 'createdAt'),
     updatedAt: numberField(value, 'updatedAt'),
-    document: parseDocument(value.document),
+    document: await parseDocument(value.document),
   }
 }
 
-const parseSharedArmy = (value: unknown): SharedArmy => {
+const parseSharedArmy = async (value: unknown): Promise<SharedArmy> => {
   if (!isRecord(value)) throw new ArmyApiError('The service returned an invalid share response.', 502)
   return {
     id: stringField(value, 'id'),
     createdAt: numberField(value, 'createdAt'),
-    document: parseDocument(value.document),
+    document: await parseDocument(value.document),
   }
 }
 
@@ -121,7 +144,7 @@ export const createArmyApi = (endpoint: string, fetcher: Fetcher = fetch) => {
     async listArmies(token: string): Promise<RemoteArmy[]> {
       const value = await request('/items', {}, token)
       if (!Array.isArray(value)) throw new ArmyApiError('The service returned an invalid army list.', 502)
-      return value.map(parseRemoteArmy)
+      return Promise.all(value.map(army => parseRemoteArmy(army)))
     },
     async createArmy(document: Aos4ArmyDocument, token: string): Promise<RemoteArmy> {
       return parseRemoteArmy(
@@ -149,7 +172,7 @@ export const createArmyApi = (endpoint: string, fetcher: Fetcher = fetch) => {
         id: stringField(value, 'id'),
         createdAt: 0,
         updatedAt: numberField(value, 'updatedAt'),
-        document: parseDocument(value.document),
+        document: await parseDocument(value.document),
       }
     },
     async deleteArmy(id: string, token: string): Promise<void> {
@@ -164,8 +187,9 @@ export const createArmyApi = (endpoint: string, fetcher: Fetcher = fetch) => {
         },
         token
       )
+      const shared = await parseSharedArmy(value)
       return {
-        ...parseSharedArmy(value),
+        ...shared,
         url: stringField(value, 'url'),
       }
     },

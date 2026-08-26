@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import type { BattleProfile, Faction, Warscroll } from '../../aos4/domain'
-import { AOS4_CATALOG } from '../../aos4/generated'
+import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 import { projectReminders } from '../../aos4/reminders'
 import { resolveSelection } from '../../aos4/select'
 import type { Aos4ArmyDocument } from '../../aos4/state'
@@ -57,19 +57,19 @@ const reconciliation = JSON.parse(
   )
 ) as ReconciliationReport
 
-const standard = AOS4_CATALOG.rulesContexts.find(
+const standard = AOS4_FULL_CATALOG.rulesContexts.find(
   context => context.mode === 'standard' && context.status === 'current'
 )!
-const artifactById = new Map(AOS4_CATALOG.sourceArtifacts.map(artifact => [artifact.id, artifact]))
-const recordById = new Map(AOS4_CATALOG.sourceRecords.map(record => [record.id, record]))
+const artifactById = new Map(AOS4_FULL_CATALOG.sourceArtifacts.map(artifact => [artifact.id, artifact]))
+const recordById = new Map(AOS4_FULL_CATALOG.sourceRecords.map(record => [record.id, record]))
 
 const factionByName = (name: string): Faction =>
-  AOS4_CATALOG.entities.find(
+  AOS4_FULL_CATALOG.entities.find(
     (entity): entity is Faction => entity.kind === 'faction' && entity.name === name
   )!
 
 const warscrollFor = (faction: Faction, name: string): Warscroll | undefined =>
-  AOS4_CATALOG.entities.find(
+  AOS4_FULL_CATALOG.entities.find(
     (entity): entity is Warscroll =>
       entity.kind === 'warscroll' && entity.name === name && entity.factionIds.includes(faction.id)
   )
@@ -102,25 +102,25 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     ({ name, unitSize, points, reminders }) => {
       const warscroll = warscrollFor(ogor, name)
       expect(warscroll).toBeDefined()
-      const profile = AOS4_CATALOG.entities.find(
+      const profile = AOS4_FULL_CATALOG.entities.find(
         (entity): entity is BattleProfile =>
           entity.kind === 'battle-profile' && entity.warscrollId === warscroll!.id
       )
       // Official Battle Profiles supplement values win every conflict.
       expect(profile).toMatchObject({ unitSize, points })
 
-      const selection = resolveSelection(AOS4_CATALOG, {
+      const selection = resolveSelection(AOS4_FULL_CATALOG, {
         explicitIds: [ogor.id, warscroll!.id],
         rulesContextId: standard.id,
       })
       expect(selection.diagnostics).toEqual([])
       expect(selection.availableIds).toContain(warscroll!.id)
 
-      const builder = createAos4BuilderViewModel(AOS4_CATALOG, documentFor(ogor, warscroll!))
+      const builder = createAos4BuilderViewModel(AOS4_FULL_CATALOG, documentFor(ogor, warscroll!))
       expect(builder.options.some(option => option.id === warscroll!.id && !option.overlay)).toBe(true)
       expect(builder.warscrolls.some(card => card.id === warscroll!.id)).toBe(true)
 
-      const unitReminders = projectReminders(AOS4_CATALOG, selection).filter(reminder =>
+      const unitReminders = projectReminders(AOS4_FULL_CATALOG, selection).filter(reminder =>
         reminder.contributingEntityIds.includes(warscroll!.id)
       )
       expect(unitReminders.length).toBe(reminders)
@@ -135,17 +135,17 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     const stormcast = factionByName('Stormcast Eternals')
     const lorai = warscrollFor(stormcast, 'Lorai, Child of the Abyss')
     expect(lorai).toBeDefined()
-    const profile = AOS4_CATALOG.entities.find(
+    const profile = AOS4_FULL_CATALOG.entities.find(
       (entity): entity is BattleProfile =>
         entity.kind === 'battle-profile' && entity.warscrollId === lorai!.id
     )
     expect(profile).toMatchObject({ unitSize: 1, points: 0 })
-    const selection = resolveSelection(AOS4_CATALOG, {
+    const selection = resolveSelection(AOS4_FULL_CATALOG, {
       explicitIds: [stormcast.id, lorai!.id],
       rulesContextId: standard.id,
     })
     expect(selection.availableIds).toContain(lorai!.id)
-    const reminders = projectReminders(AOS4_CATALOG, selection).filter(reminder =>
+    const reminders = projectReminders(AOS4_FULL_CATALOG, selection).filter(reminder =>
       reminder.contributingEntityIds.includes(lorai!.id)
     )
     expect(reminders.map(reminder => reminder.name).sort()).toEqual(['AQUATIC ILLUSIONS', 'NEBULOUS SEA-FOG'])
@@ -171,14 +171,14 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     // community replacement adopts the replaced datasheet's canonical identity.
     expect(gluttons!.id).toBe('warscroll:1475b0a4-496b-52c8-8e16-c43d36ab04ce')
     // The index-era duplicate is gone from the current contexts; only Spearhead keeps its own.
-    const stale = AOS4_CATALOG.entities.filter(
+    const stale = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is Warscroll => entity.kind === 'warscroll' && entity.name === 'Ogor Gluttons'
     )
-    const spearhead = AOS4_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
+    const spearhead = AOS4_FULL_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
     expect(stale).toHaveLength(1)
     expect(stale[0].rulesContextIds).toEqual([spearhead.id])
     // One battle profile at the official 200 points; the stale 220-point profile is gone.
-    const profiles = AOS4_CATALOG.entities.filter(
+    const profiles = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is BattleProfile =>
         entity.kind === 'battle-profile' && entity.warscrollId === gluttons!.id
     )
@@ -192,19 +192,19 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     expect(mawpit).toBeDefined()
     expect(mawpit!.id).toBe('warscroll:ab235210-cb06-59b2-908d-a718aa06c7bc')
     expect(mawpit!.characteristics).toMatchObject({ health: '12', save: '4+' })
-    const mawpitSelection = resolveSelection(AOS4_CATALOG, {
+    const mawpitSelection = resolveSelection(AOS4_FULL_CATALOG, {
       explicitIds: [ogor.id, mawpit!.id],
       rulesContextId: standard.id,
     })
     expect(mawpitSelection.diagnostics).toEqual([])
-    const mawpitReminders = projectReminders(AOS4_CATALOG, mawpitSelection).filter(reminder =>
+    const mawpitReminders = projectReminders(AOS4_FULL_CATALOG, mawpitSelection).filter(reminder =>
       reminder.contributingEntityIds.includes(mawpit!.id)
     )
     // The battletome abilities; the index-era signature Throat of Ghur is gone.
     expect(mawpitReminders.map(reminder => reminder.name).sort()).toEqual(
       ['Feed the Maw', 'Hungry Sinkhole', 'Step Away from the Maw'].sort()
     )
-    const mawpitProfile = AOS4_CATALOG.entities.find(
+    const mawpitProfile = AOS4_FULL_CATALOG.entities.find(
       (entity): entity is BattleProfile =>
         entity.kind === 'battle-profile' && entity.warscrollId === mawpit!.id
     )
@@ -216,7 +216,7 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     expect(greatMawpot!.id).toBe('warscroll:aaa16379-693e-5112-8b28-a64ba2d9762f')
     // The official roster-option fact establishes the terrain at 20 points; the index sheet
     // served 0.
-    const mawpotProfile = AOS4_CATALOG.entities.find(
+    const mawpotProfile = AOS4_FULL_CATALOG.entities.find(
       (entity): entity is BattleProfile =>
         entity.kind === 'battle-profile' && entity.warscrollId === greatMawpot!.id
     )
@@ -231,7 +231,7 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
      * battletome) — characteristics, keywords, weapons, and ability texts are identical, so
      * these two keep their preferred-secondary Wahapedia source with no provisional facts.
      */
-    const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
+    const seasonal = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
     const cases = [
       {
         name: 'Scourge of Aqshy Frostlord on Thundertusk',
@@ -247,17 +247,17 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     for (const { name, points, abilities } of cases) {
       const warscroll = warscrollFor(ogor, name)
       expect(warscroll).toBeDefined()
-      const profile = AOS4_CATALOG.entities.find(
+      const profile = AOS4_FULL_CATALOG.entities.find(
         (entity): entity is BattleProfile =>
           entity.kind === 'battle-profile' && entity.warscrollId === warscroll!.id
       )
       expect(profile).toMatchObject({ unitSize: 1, points })
-      const selection = resolveSelection(AOS4_CATALOG, {
+      const selection = resolveSelection(AOS4_FULL_CATALOG, {
         explicitIds: [ogor.id, warscroll!.id],
         rulesContextId: seasonal.id,
       })
       expect(selection.diagnostics).toEqual([])
-      const reminders = projectReminders(AOS4_CATALOG, selection).filter(reminder =>
+      const reminders = projectReminders(AOS4_FULL_CATALOG, selection).filter(reminder =>
         reminder.contributingEntityIds.includes(warscroll!.id)
       )
       expect(reminders.map(reminder => reminder.name).sort()).toEqual([...abilities].sort())
@@ -266,11 +266,11 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
   })
 
   it('keeps every pre-supplement Ogor warscroll selectable with at least one reminder', () => {
-    const ogorWarscrolls = AOS4_CATALOG.entities.filter(
+    const ogorWarscrolls = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is Warscroll => entity.kind === 'warscroll' && entity.factionIds.includes(ogor.id)
     )
-    const byContext = (predicate: (context: (typeof AOS4_CATALOG.rulesContexts)[number]) => boolean) => {
-      const context = AOS4_CATALOG.rulesContexts.find(predicate)!
+    const byContext = (predicate: (context: (typeof AOS4_FULL_CATALOG.rulesContexts)[number]) => boolean) => {
+      const context = AOS4_FULL_CATALOG.rulesContexts.find(predicate)!
       return ogorWarscrolls.filter(warscroll => warscroll.rulesContextIds.includes(context.id)).length
     }
     // 44 pre-supplement standard warscrolls + 9 provisional supplement units + the renamed
@@ -282,7 +282,7 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     expect(byContext(context => context.status === 'legends')).toBe(2)
     expect(byContext(context => context.status === 'historical')).toBe(2)
 
-    const selection = resolveSelection(AOS4_CATALOG, {
+    const selection = resolveSelection(AOS4_FULL_CATALOG, {
       explicitIds: [ogor.id],
       rulesContextId: standard.id,
       allowsLegends: true,
@@ -293,13 +293,13 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     const availableWarscrolls = ogorWarscrolls.filter(warscroll => available.has(warscroll.id))
     expect(availableWarscrolls).toHaveLength(58)
     availableWarscrolls.forEach(warscroll => {
-      const withUnit = resolveSelection(AOS4_CATALOG, {
+      const withUnit = resolveSelection(AOS4_FULL_CATALOG, {
         explicitIds: [ogor.id, warscroll.id],
         rulesContextId: standard.id,
         allowsLegends: true,
         allowsHistorical: true,
       })
-      const reminders = projectReminders(AOS4_CATALOG, withUnit).filter(reminder =>
+      const reminders = projectReminders(AOS4_FULL_CATALOG, withUnit).filter(reminder =>
         reminder.contributingEntityIds.includes(warscroll.id)
       )
       expect(reminders.length).toBeGreaterThan(0)
