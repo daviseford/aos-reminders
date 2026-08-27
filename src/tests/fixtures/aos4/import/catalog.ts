@@ -1,5 +1,6 @@
 import {
   AOS4_CATALOG_SCHEMA_VERSION,
+  abilityId,
   contentGroupId,
   factionId,
   rulesContextId,
@@ -60,9 +61,49 @@ export const importFixtureIds = {
   /** Last season's content, catalogued as historical once its handbook lapsed. */
   archiveGuard: warscrollId('81000000-0000-4000-8000-000000000050'),
   archiveFormation: contentGroupId('81000000-0000-4000-8000-000000000051'),
+  /**
+   * A manifestation lore, shaped the way generation emits one: the group includes its
+   * `SUMMON <NAME>` spells, while the manifestation warscrolls hang off the faction's own
+   * `offers` edges with no edge from the lore or its spells. The importer bridges that gap by
+   * name (#1979), so the fixture also carries a summon whose warscroll does not exist and a
+   * summon whose name two warscrolls share — the cases that must fail closed.
+   */
+  wildLore: contentGroupId('81000000-0000-4000-8000-000000000060'),
+  wildSerpent: warscrollId('81000000-0000-4000-8000-000000000061'),
+  twinIdolA: warscrollId('81000000-0000-4000-8000-000000000062'),
+  twinIdolB: warscrollId('81000000-0000-4000-8000-000000000063'),
+  summonWildSerpent: abilityId('81000000-0000-4000-8000-000000000064'),
+  summonLostShrine: abilityId('81000000-0000-4000-8000-000000000065'),
+  summonTwinIdol: abilityId('81000000-0000-4000-8000-000000000066'),
 }
 
 const sourceRefs: ContentEntity['sourceRefs'] = []
+
+const manifestationWarscroll = (id: CanonicalId<'warscroll'>, name: string): ContentEntity => ({
+  id,
+  kind: 'warscroll',
+  revision: 'import-fixture',
+  name,
+  factionIds: [importFixtureIds.alphaFaction],
+  keywords: ['MANIFESTATION'],
+  characteristics: { move: '5"', save: '4+', control: '1', health: '2' },
+  rulesContextIds: [importFixtureContextIds.seasonal],
+  sourceRefs,
+})
+
+const summonAbility = (id: CanonicalId<'ability'>, name: string): ContentEntity => ({
+  id,
+  kind: 'ability',
+  revision: 'import-fixture',
+  name,
+  abilityKind: 'active',
+  actor: 'army',
+  text: { effect: `Set up the manifestation named by ${name}.` },
+  timings: [{ kind: 'active', window: { kind: 'turn-phase', phase: 'hero' }, raw: 'Your Hero Phase' }],
+  keywords: ['SPELL', 'SUMMON'],
+  rulesContextIds: [importFixtureContextIds.seasonal],
+  sourceRefs,
+})
 
 const contentGroup = (
   id: CanonicalId<'content-group'>,
@@ -182,6 +223,55 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
       from: importFixtureIds.alphaFaction,
       to: importFixtureIds.archiveFormation,
       rulesContextIds: [importFixtureContextIds.historical],
+    },
+    {
+      id: 'relationship:alpha-offers-wild-lore',
+      kind: 'offers',
+      from: importFixtureIds.alphaFaction,
+      to: importFixtureIds.wildLore,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:alpha-offers-wild-serpent',
+      kind: 'offers',
+      from: importFixtureIds.alphaFaction,
+      to: importFixtureIds.wildSerpent,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:alpha-offers-twin-idol-a',
+      kind: 'offers',
+      from: importFixtureIds.alphaFaction,
+      to: importFixtureIds.twinIdolA,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:alpha-offers-twin-idol-b',
+      kind: 'offers',
+      from: importFixtureIds.alphaFaction,
+      to: importFixtureIds.twinIdolB,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:wild-lore-includes-summon-wild-serpent',
+      kind: 'includes',
+      from: importFixtureIds.wildLore,
+      to: importFixtureIds.summonWildSerpent,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:wild-lore-includes-summon-lost-shrine',
+      kind: 'includes',
+      from: importFixtureIds.wildLore,
+      to: importFixtureIds.summonLostShrine,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:wild-lore-includes-summon-twin-idol',
+      kind: 'includes',
+      from: importFixtureIds.wildLore,
+      to: importFixtureIds.summonTwinIdol,
+      rulesContextIds: [importFixtureContextIds.seasonal],
     }
   )
 
@@ -352,6 +442,13 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
         rulesContextIds: [importFixtureContextIds.historical],
         sourceRefs,
       },
+      contentGroup(importFixtureIds.wildLore, 'Wild Lore', 'manifestation-lore'),
+      manifestationWarscroll(importFixtureIds.wildSerpent, 'Wild Serpent'),
+      manifestationWarscroll(importFixtureIds.twinIdolA, 'Twin Idol'),
+      manifestationWarscroll(importFixtureIds.twinIdolB, 'Twin Idol'),
+      summonAbility(importFixtureIds.summonWildSerpent, 'SUMMON WILD SERPENT'),
+      summonAbility(importFixtureIds.summonLostShrine, 'SUMMON LOST SHRINE'),
+      summonAbility(importFixtureIds.summonTwinIdol, 'SUMMON TWIN IDOL'),
     ],
     relationships,
   }

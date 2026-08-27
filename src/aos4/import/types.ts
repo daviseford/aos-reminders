@@ -75,6 +75,12 @@ export interface Aos4ImportDiagnostic {
   severity: 'warning' | 'error'
   message: string
   line?: number
+  /**
+   * A rules context the message advises switching to — a battletome enhancement the season
+   * replaced still resolves in the core standard context (#1979). Structured so the import
+   * preview can actually offer the switch instead of leaving the advice a dead end.
+   */
+  suggestedRulesContextId?: string
 }
 
 export interface Aos4ImportMatch {

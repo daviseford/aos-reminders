@@ -774,6 +774,7 @@ const resolveRosterSelection = (
           ? `"${selection.label}" has been replaced for the current season, so it was not imported. Switch the rules context to ${supersededIn.name} to use it.`
           : `Couldn't find a ${selection.kindHint} named "${selection.label}", so it was not imported.`,
       line: selection.line,
+      ...(supersededIn ? { suggestedRulesContextId: supersededIn.id } : {}),
     })
     return undefined
   }
@@ -784,6 +785,76 @@ const resolveRosterSelection = (
     line: selection.line,
   })
   return undefined
+}
+
+/**
+ * The manifestation warscrolls a resolved manifestation lore carries with it.
+ *
+ * Choosing a manifestation lore in a list builder *is* choosing its manifestations: the official
+ * app prints `Manifestation Lore - Manifestations of the Deepwood` and never lists the Gladewyrm,
+ * Spiteswarm Hive, or Vengeful Skullroot as units, because the lore's summon spells are the only
+ * way those models enter play. This app models each manifestation as a selectable warscroll, so an
+ * import that stops at the lore leaves the player without the manifestations' own reminders and no
+ * roster line to explain why (#1979).
+ *
+ * The catalog holds no edge from a summon ability to the warscroll it sets up, so the link is
+ * recovered the same way every roster label is: by name. Each of the lore's `SUMMON <NAME>`
+ * abilities nominates the reachable MANIFESTATION warscroll named `<NAME>` in the same context —
+ * and only a unique nomination is accepted. A summon whose warscroll is missing, out of context,
+ * or ambiguous adds nothing, so the army is at worst incomplete in exactly the way it was before.
+ */
+const manifestationWarscrollMatches = (
+  catalog: Aos4Catalog,
+  matches: Aos4ImportMatch[],
+  resolutionContexts: ResolutionContext[],
+  armiesOfRenown: ArmyOfRenownIndex
+): Aos4ImportMatch[] => {
+  const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
+  const matchedIds = new Set(matches.map(match => match.canonicalId))
+  const derived: Aos4ImportMatch[] = []
+
+  const isManifestationLore = (entity: ContentEntity): boolean =>
+    entity.kind === 'content-group' &&
+    (entity.groupType === 'manifestation-lore' ||
+      armiesOfRenown.sectionsById.get(entity.id)?.categoryGroupType === 'manifestation-lore')
+
+  matches.forEach(match => {
+    const lore = entityById.get(match.canonicalId)
+    if (!lore || !isManifestationLore(lore)) return
+    const resolutionContext = resolutionContexts.find(({ context }) => isApplicable(lore, context.id))
+    if (!resolutionContext) return
+    const { context, reachableIds } = resolutionContext
+
+    const summonedNames = catalog.relationships
+      .filter(
+        relationship =>
+          relationship.kind === 'includes' &&
+          relationship.from === lore.id &&
+          relationshipIsApplicable(relationship, context.id)
+      )
+      .flatMap(relationship => {
+        const ability = entityById.get(relationship.to)
+        if (ability?.kind !== 'ability' || !isApplicable(ability, context.id)) return []
+        const normalized = normalizeImportLabel(ability.name)
+        return normalized.startsWith('summon ') ? [normalized.slice('summon '.length)] : []
+      })
+
+    summonedNames.forEach(summonedName => {
+      const candidates = catalog.entities.filter(
+        entity =>
+          entity.kind === 'warscroll' &&
+          entity.keywords.includes('MANIFESTATION') &&
+          isApplicable(entity, context.id) &&
+          reachableIds.has(entity.id) &&
+          normalizeImportLabel(entity.name) === summonedName
+      )
+      if (candidates.length !== 1 || matchedIds.has(candidates[0].id)) return
+      matchedIds.add(candidates[0].id)
+      derived.push({ line: match.line, label: candidates[0].name, canonicalId: candidates[0].id })
+    })
+  })
+
+  return derived
 }
 
 export const resolveParsedRoster = (
@@ -898,6 +969,7 @@ export const resolveParsedRoster = (
         return match ? [match] : []
       }),
   ]
+  matches.push(...manifestationWarscrollMatches(catalog, matches, resolutionContexts(false), armiesOfRenown))
 
   if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return {

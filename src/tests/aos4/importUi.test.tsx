@@ -443,6 +443,44 @@ describe('AoS 4 import modal', () => {
   })
 
   /**
+   * A diagnostic that advises switching the rules context reopens the ruleset question even when
+   * the roster declared one: the #1979 report carried a battletome artefact the season replaced,
+   * and the dialog told the player to switch without offering any way to do it.
+   */
+  it('offers the ruleset switch a superseded-enhancement warning advises', () => {
+    pasteAndPreview(`Training 1000/1000 pts
+Sylvaneth
+Outcasts
+General's Handbook 2026-27
+
+General's Regiment
+Branchwych (100)
+• General
+• Seed of Rebirth
+
+Created with Warhammer Age of Sigmar: The App
+App: 1.37.0 | Data: 476`)
+
+    expect(container.textContent).toContain(
+      '"Seed of Rebirth" has been replaced for the current season, so it was not imported.'
+    )
+    const select = container.querySelector<HTMLSelectElement>('#import-rules-context')!
+    expect(select.options[0].textContent).toContain("Use the roster's ruleset")
+
+    const core = Array.from(select.options).find(
+      option => option.textContent === 'Age of Sigmar Fourth Edition'
+    )!
+    select.value = core.value
+    act(() => {
+      Simulate.change(select)
+    })
+
+    expect(container.textContent).not.toContain('has been replaced for the current season')
+    expect(container.querySelector('#import-rules-context')).not.toBeNull()
+    expect(findButton(container, 'Import Army').disabled).toBe(false)
+  })
+
+  /**
    * Uploading is the common path, so the modal opens on it — no click to switch modes here.
    */
   it('opens on the upload zone and previews a roster dropped onto it', async () => {
