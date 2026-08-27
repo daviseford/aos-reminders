@@ -93,7 +93,15 @@ export const validateAcquisitionUrl = async (value: string, policy: UrlPolicy): 
   } catch (error) {
     throw new AcquisitionError('unresolved-host', `Host ${hostname} could not be resolved`, error)
   }
-  const addresses = Array.from(new Set(resolvedAddresses)).sort()
+  /**
+   * IPv4 before IPv6, deterministic within each family. The transport dials the addresses in
+   * this order, and hosts without an IPv6 route — every GitHub-hosted runner — cannot reach an
+   * AAAA record at all, so a plain lexicographic sort that happens to put one first turned the
+   * whole 2026-08-27 Rules Radar run into a dead first dial.
+   */
+  const addresses = Array.from(new Set(resolvedAddresses)).sort(
+    (left, right) => isIP(left) - isIP(right) || (left < right ? -1 : left > right ? 1 : 0)
+  )
   if (!addresses.length) {
     throw new AcquisitionError('unresolved-host', `Host ${hostname} did not resolve`)
   }

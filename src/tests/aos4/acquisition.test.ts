@@ -6,8 +6,10 @@ import {
   acquireArtifact,
   artifactChecksum,
   createArtifactManifest,
+  createPinnedHttpsTransport,
   isPrivateAddress,
   serializeArtifactManifest,
+  validateAcquisitionUrl,
   type AddressResolver,
   type ArtifactManifestEntry,
   type HttpRequest,
@@ -403,5 +405,105 @@ describe('AoS 4 source acquisition', () => {
     expect(serializeArtifactManifest(createArtifactManifest([base, other]))).toBe(
       serializeArtifactManifest(createArtifactManifest([other, base]))
     )
+  })
+})
+
+/**
+ * The report behind these: the 2026-08-27 Rules Radar run. DNS handed the runner an IPv6 address
+ * first, the runner had no IPv6 route, and the pinned transport both dialed only that first
+ * address and crashed the whole process on the failure (the synchronous pinned lookup let the
+ * connect error emit on the bare TLS socket before the request's own error listeners existed),
+ * so the radar died without writing its report.
+ */
+describe('pinned HTTPS transport address handling', () => {
+  const signal = new AbortController().signal
+  const baseRequest = { url: 'https://wahapedia.ru/aos4/Warscrolls.csv', headers: {}, signal }
+
+  const connectError = (code: string) =>
+    new AcquisitionError('network-error', 'Request failed', Object.assign(new Error(code), { code }))
+
+  it('orders approved addresses IPv4-first so an unroutable IPv6 cannot occupy the first dial', async () => {
+    const validated = await validateAcquisitionUrl('https://wahapedia.ru/aos4/', {
+      allowedHosts: ['wahapedia.ru'],
+      resolveAddresses: async () => ['2600:9000:28a9:4a00::1', '3.160.10.2', '203.0.113.10'],
+    })
+
+    expect(validated.approvedAddresses).toEqual(['203.0.113.10', '3.160.10.2', '2600:9000:28a9:4a00::1'])
+  })
+
+  it('fails over to the next approved address on a connection-level failure', async () => {
+    const attempts: string[] = []
+    const transport = createPinnedHttpsTransport(async (_request, address) => {
+      attempts.push(address)
+      if (address !== '203.0.113.10') throw connectError('ENETUNREACH')
+      return response(200)
+    })
+
+    const result = await transport.request({
+      ...baseRequest,
+      approvedAddresses: ['2600:9000:28a9:4a00::1', '203.0.113.10'],
+    })
+
+    expect(result.status).toBe(200)
+    expect(attempts).toEqual(['2600:9000:28a9:4a00::1', '203.0.113.10'])
+  })
+
+  it('surfaces the final failure when every approved address is unreachable', async () => {
+    const transport = createPinnedHttpsTransport(async () => {
+      throw connectError('ECONNREFUSED')
+    })
+
+    await expect(
+      transport.request({ ...baseRequest, approvedAddresses: ['203.0.113.10', '203.0.113.11'] })
+    ).rejects.toMatchObject({ code: 'network-error' })
+  })
+
+  it('does not retry failures another address could not fix', async () => {
+    const attempts: string[] = []
+    const transport = createPinnedHttpsTransport(async (_request, address) => {
+      attempts.push(address)
+      throw connectError('ERR_TLS_CERT_ALTNAME_INVALID')
+    })
+
+    await expect(
+      transport.request({ ...baseRequest, approvedAddresses: ['203.0.113.10', '203.0.113.11'] })
+    ).rejects.toBeInstanceOf(AcquisitionError)
+    expect(attempts).toEqual(['203.0.113.10'])
+  })
+
+  it('rejects instead of crashing when a real dial cannot connect', async () => {
+    const transport = createPinnedHttpsTransport()
+
+    await expect(
+      transport.request({
+        url: 'https://127.0.0.1:9/unreachable',
+        headers: {},
+        signal,
+        approvedAddresses: ['127.0.0.1'],
+      })
+    ).rejects.toBeInstanceOf(AcquisitionError)
+  })
+
+  /**
+   * The crash itself: an unroutable address fails inside the synchronous connect attempt, and
+   * with a synchronous pinned lookup that error fired on the bare socket before the request's
+   * listeners existed — an uncaught exception, not a rejection. The documentation range
+   * 2001:db8::/32 is never assigned, and the abort guard caps the dial on any network that
+   * blackholes it instead of refusing it.
+   */
+  it('rejects instead of crashing when the dialed address is unroutable', async () => {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 2000)
+    const transport = createPinnedHttpsTransport()
+
+    await expect(
+      transport.request({
+        url: 'https://example.invalid/unroutable',
+        headers: {},
+        signal: controller.signal,
+        approvedAddresses: ['2001:db8::1'],
+      })
+    ).rejects.toBeInstanceOf(AcquisitionError)
+    clearTimeout(timer)
   })
 })

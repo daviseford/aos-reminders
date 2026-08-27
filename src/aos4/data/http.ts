@@ -54,45 +54,99 @@ export interface HttpTransport {
   request(request: HttpRequest): Promise<HttpResponse>
 }
 
-export const createPinnedHttpsTransport = (): HttpTransport => ({
-  request({ url, headers, signal, approvedAddresses, method = 'GET', body }) {
-    return new Promise((resolve, reject) => {
-      const address = approvedAddresses[0]
-      const family = isIP(address)
-      if (!address || !family) {
-        reject(new AcquisitionError('network-error', `No approved network address was supplied for ${url}`))
-        return
-      }
+export type PinnedAddressRequester = (
+  request: HttpRequest,
+  address: string,
+  family: number
+) => Promise<HttpResponse>
 
-      const outgoing = httpsRequest(
-        url,
-        {
-          headers,
-          signal,
-          family,
-          method,
-          lookup: (_hostname, _options, callback) => callback(null, address, family),
-        },
-        incoming => {
-          const responseHeaders = Object.fromEntries(
-            Object.entries(incoming.headers).flatMap(([name, value]) => {
-              if (value === undefined) return []
-              return [[name.toLowerCase(), Array.isArray(value) ? value.join(', ') : value]]
-            })
-          )
-          resolve({
-            status: incoming.statusCode ?? 0,
-            headers: responseHeaders,
-            body: incoming,
+const httpsRequestToAddress: PinnedAddressRequester = (
+  { url, headers, signal, method = 'GET', body },
+  address,
+  family
+) =>
+  new Promise((resolve, reject) => {
+    const outgoing = httpsRequest(
+      url,
+      {
+        headers,
+        signal,
+        family,
+        method,
+        /**
+         * The pinned address must reach `connect` on a later tick. `net.Socket` attaches the
+         * request's error listeners asynchronously, so a lookup that calls back synchronously
+         * lets a failed connect emit `error` on the bare TLS socket and crash the whole process
+         * instead of rejecting this promise — the 2026-08-27 Rules Radar run died exactly this
+         * way on an unreachable IPv6 address, before it could write its report.
+         */
+        lookup: (_hostname, _options, callback) => process.nextTick(callback, null, address, family),
+      },
+      incoming => {
+        const responseHeaders = Object.fromEntries(
+          Object.entries(incoming.headers).flatMap(([name, value]) => {
+            if (value === undefined) return []
+            return [[name.toLowerCase(), Array.isArray(value) ? value.join(', ') : value]]
           })
-        }
-      )
-      outgoing.on('error', error => {
-        reject(new AcquisitionError('network-error', `Request failed for ${url}`, error))
-      })
-      if (body?.byteLength) outgoing.write(body)
-      outgoing.end()
+        )
+        resolve({
+          status: incoming.statusCode ?? 0,
+          headers: responseHeaders,
+          body: incoming,
+        })
+      }
+    )
+    outgoing.on('error', error => {
+      reject(new AcquisitionError('network-error', `Request failed for ${url}`, error))
     })
+    if (body?.byteLength) outgoing.write(body)
+    outgoing.end()
+  })
+
+/**
+ * Connection-establishment failures worth retrying on the next approved address.
+ *
+ * A host publishes A and AAAA records but a runner may only route one family — GitHub-hosted
+ * runners have no IPv6 — so the first approved address failing says nothing about the rest.
+ * Anything else (TLS validation, abort, protocol errors) would fail identically on every address
+ * and is thrown as-is.
+ */
+const CONNECT_FAILOVER_CODES = new Set([
+  'EADDRNOTAVAIL',
+  'ECONNREFUSED',
+  'ECONNRESET',
+  'EHOSTUNREACH',
+  'ENETUNREACH',
+  'ETIMEDOUT',
+])
+
+const isConnectFailoverError = (error: unknown): boolean =>
+  error instanceof AcquisitionError &&
+  error.code === 'network-error' &&
+  CONNECT_FAILOVER_CODES.has(String((error.cause as { code?: unknown } | undefined)?.code))
+
+export const createPinnedHttpsTransport = (
+  requestToAddress: PinnedAddressRequester = httpsRequestToAddress
+): HttpTransport => ({
+  async request(request) {
+    const addresses = request.approvedAddresses.filter(address => isIP(address) !== 0)
+    if (!addresses.length) {
+      throw new AcquisitionError(
+        'network-error',
+        `No approved network address was supplied for ${request.url}`
+      )
+    }
+
+    let lastError: unknown
+    for (const address of addresses) {
+      try {
+        return await requestToAddress(request, address, isIP(address))
+      } catch (error) {
+        lastError = error
+        if (request.signal.aborted || !isConnectFailoverError(error)) throw error
+      }
+    }
+    throw lastError
   },
 })
 
