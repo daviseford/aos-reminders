@@ -77,7 +77,18 @@ const ImportPreview = ({
         </dd>
       </dl>
 
-      {!declaredContext && (
+      {/*
+       * The roster usually settles the ruleset itself, and asking anyway invites the player to
+       * change an answer they never gave — so the question appears only where one is genuinely
+       * open. A diagnostic advising a switch reopens it: a battletome enhancement the season
+       * replaced says "switch the rules context to use it" (#1979), and advice the dialog gives
+       * must be actionable in the dialog. The empty option keeps the roster's own choice, so
+       * doing nothing still means what it always meant.
+       */}
+      {/* `selectedContextId` keeps the control present after a switch resolves the advice away. */}
+      {(!declaredContext ||
+        selectedContextId ||
+        diagnostics.some(diagnostic => diagnostic.suggestedRulesContextId)) && (
         <>
           <label className="fw-bold" htmlFor="import-rules-context">
             Which ruleset do you want to use?
@@ -88,7 +99,11 @@ const ImportPreview = ({
             onChange={event => onContextChange(event.target.value)}
             value={selectedContextId}
           >
-            <option value="">Use the default ruleset</option>
+            <option value="">
+              {declaredContext
+                ? `Use the roster's ruleset (${declaredContext.name})`
+                : 'Use the default ruleset'}
+            </option>
             {importableContexts.map(context => (
               <option key={context.id} value={context.id}>
                 {context.name}

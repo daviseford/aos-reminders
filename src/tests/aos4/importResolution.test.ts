@@ -600,3 +600,99 @@ describe('seasonal variant resolution against the shipped catalog (#1862)', () =
     ])
   })
 })
+
+/**
+ * The report behind these: issue #1979.
+ *
+ * The official app prints a manifestation lore as one line — `Manifestation Lore - Manifestations
+ * of the Deepwood` — and never lists the Gladewyrm, Spiteswarm Hive, or Vengeful Skullroot as
+ * units, because taking the lore *is* taking its manifestations. This app models each
+ * manifestation as its own selectable warscroll, so an import that stopped at the lore left the
+ * player adding all three by hand. The lore's `SUMMON <NAME>` spells nominate the warscrolls by
+ * name; only a unique, reachable nomination is accepted.
+ */
+describe('AoS 4 manifestation-lore resolution', () => {
+  it('imports the manifestation warscrolls the resolved lore summons', () => {
+    const preview = resolve(
+      roster({
+        selections: [{ line: 5, label: 'Wild Lore', kindHint: 'manifestation-lore' }],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([
+      { line: 5, label: 'Wild Lore', canonicalId: importFixtureIds.wildLore },
+      { line: 5, label: 'Wild Serpent', canonicalId: importFixtureIds.wildSerpent },
+    ])
+    expect(preview.proposedDocument?.explicitSelectionIds).toContain(importFixtureIds.wildSerpent)
+  })
+
+  it('never guesses: a summon without a warscroll or with two same-named warscrolls adds nothing', () => {
+    const preview = resolve(
+      roster({
+        selections: [{ line: 5, label: 'Wild Lore', kindHint: 'manifestation-lore' }],
+      })
+    )
+
+    const matchedIds = preview.matches.map(match => match.canonicalId)
+    // SUMMON LOST SHRINE names no warscroll; SUMMON TWIN IDOL names two.
+    expect(matchedIds).not.toContain(importFixtureIds.twinIdolA)
+    expect(matchedIds).not.toContain(importFixtureIds.twinIdolB)
+  })
+
+  it('does not duplicate a manifestation the roster also names as a unit', () => {
+    const preview = resolve(
+      roster({
+        selections: [
+          { line: 5, label: 'Wild Lore', kindHint: 'manifestation-lore' },
+          { line: 6, label: 'Wild Serpent', kindHint: 'warscroll' },
+        ],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([
+      { line: 5, label: 'Wild Lore', canonicalId: importFixtureIds.wildLore },
+      { line: 6, label: 'Wild Serpent', canonicalId: importFixtureIds.wildSerpent },
+    ])
+  })
+})
+
+/**
+ * The roster from issue #1979, pinned against the shipped catalog: a Sylvaneth list whose
+ * `Manifestations of the Deepwood` lore must bring the Gladewyrm, Spiteswarm Hive, and Vengeful
+ * Skullroot with it. The fixture catalog proves the logic; this proves the real corpus carries
+ * the summon spells and warscrolls for the bridge to land on.
+ */
+describe('manifestation import against the shipped catalog (#1979)', () => {
+  it('imports the three Deepwood manifestations from the lore line alone', () => {
+    const preview = resolveParsedRoster(
+      AOS4_CATALOG,
+      {
+        source: 'official-app-text',
+        proposedName: 'Issue 1979',
+        declaredContext: "General's Handbook 2026-27",
+        declaredFaction: 'Sylvaneth',
+        selections: [{ line: 1, label: 'Manifestations of the Deepwood', kindHint: 'manifestation-lore' }],
+      },
+      {
+        defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+        createDocumentId: () => 'army:issue-1979',
+      }
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    const matchedNames = preview.matches.map(match => {
+      const entity = AOS4_CATALOG.entities.find(candidate => candidate.id === match.canonicalId)
+      return entity?.name
+    })
+    expect(matchedNames).toEqual(
+      expect.arrayContaining([
+        'Manifestations of the Deepwood',
+        'Gladewyrm',
+        'Spiteswarm Hive',
+        'Vengeful Skullroot',
+      ])
+    )
+  })
+})
