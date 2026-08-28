@@ -481,12 +481,12 @@ const isLegendsOnly = (catalog: Aos4Catalog, label: string, kindHint: ParsedRost
 /**
  * Is this name something the catalog carries only outside the contexts this roster resolves in?
  *
- * A seasonal battlepack replaces a battletome's enhancement tables for the season, so the
- * battletome originals live only in the core standard context while the document sits in the
- * seasonal one. A roster naming one of them — built before the season, or built for core play —
- * is at a rules boundary, not a data gap, and saying *which* boundary and how to cross it is the
- * difference between a player understanding the season's replacement and assuming the importer
- * lost their artefact. Returns the context the name resolves in, for the diagnostic to point at.
+ * A roster naming content that resolves only in the core standard context — built before a
+ * season, or built for core play — is at a rules boundary, not a data gap, and saying *which*
+ * boundary and how to cross it is the difference between a player understanding the season and
+ * assuming the importer lost their selection. Returns the context the name resolves in, for the
+ * diagnostic to point at. (Battletome enhancement tables no longer hit this: they stay offered
+ * in the seasonal context beside their same-named seasonal counterparts, #1979.)
  */
 const supersededElsewhere = (
   catalog: Aos4Catalog,

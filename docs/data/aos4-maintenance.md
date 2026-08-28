@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-25b snapshot is defined by:
+The accepted 2026-08-28 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-25b.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 157 official PDFs, 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-25b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-28.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 156 official PDFs, 72 reviewed Wahapedia pages (16 re-pinned 2026-08-28), and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-08-28.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-25b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-25b-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-28-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-28-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -37,7 +37,7 @@ The strict report currently records:
 - 4,939 usable abilities
 - 2,280 weapons
 - 1,418 content groups, including 48 Spearhead force/unit wrappers
-- 245 source artifacts and 19,333 live source records
+- 244 source artifacts and 20,068 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -272,7 +272,7 @@ unknown. `src/tests/aos4/seasonalEnhancementSupersede.test.ts` pins a corpus-wid
 faction offers two identically named groups of one category in the same context — and the machine
 review recertified as `aos4-corpus-2026-08-03-machine-r4` (72 fresh pairs, r3 evidence reused);
 `aos4-corpus-2026-08-18-machine-r1` superseded both, `aos4-corpus-2026-08-25-machine-r1`
-superseded it in turn, and `aos4-corpus-2026-08-25b-machine-r1` is current.
+superseded it in turn, `aos4-corpus-2026-08-25b-machine-r1` followed, and `aos4-corpus-2026-08-28-machine-r1` is current.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
@@ -490,6 +490,26 @@ still lists under Warhammer Legends, so `legendsWarscrollOverrides` keeps them i
 context; and Wahapedia re-numbered 786 rows (Scourge of Aqshy datasheets, faction-ability groups,
 their abilities and weapons), whose new aliases were attached to the existing canonical entries
 rather than minting new identities, so saved armies keep resolving.
+
+The 2026-08-28 review answered the radar's 2026-08-27 Games Workshop batch: eleven material
+events, all real. Games Workshop re-published five pinned documents at new URLs on 2026-08-26 —
+the Rules Updates (a new August cycle), Faction Pack: Fyreslayers, and the Scourge of Aqshy
+packs for Daughters of Khaine, Hedonites of Slaanesh, and Seraphon — and delisted the Faction
+Pack: Hedonites of Slaanesh its December battletome had superseded. Each replacement carries
+errata: the DoK Shadow Lariat friendly/enemy correction, the Hedonites Eruption of Fury reword,
+the Seraphon Saurian Ambush reserve clause, the Fyreslayers Emergence plural fix, and a
+restructured Rules Updates document (75 pages, new Ogor Mawtribes battletome section). The five
+new artifacts alias onto their existing publication identities; the delisted pack was unpinned
+(reference-kind evidence, nothing outside its own entry cited it). Sixteen reviewed Wahapedia
+faction pages had drifted from their 2026-08-25 pins because Wahapedia incorporated the same
+errata; they were re-pinned at verified fresh bytes, which carried the four ability-text
+corrections into the runtime directly and retired the Damned Vessel ability-text override the
+August document's re-wording had invalidated. The same revision replaces the 2026-08-16
+seasonal-supersede generation rule: "Using the Scourge of Aqshy Rules" (eng_30-06) states a
+seasonal enhancement table is picked "instead of other such tables available to your faction,
+not in addition to" — a per-pick exclusivity, so both same-named tables now stay offered in the
+seasonal context (18 battletome tables and their 54 enhancements restored, #1979) and the
+builder disambiguates them under a season group header.
 
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,

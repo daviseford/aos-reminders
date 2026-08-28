@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-25b.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-28.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-25b-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-28-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_480)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_479)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,074 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,406.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,480 entities', () => {
+  it('reports no missing provenance for any of the 11,479 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_480)
+    ).toHaveLength(11_479)
   })
 })
 
@@ -197,12 +197,12 @@ describe('AoS 4 catalog generation integrity', () => {
         battleProfiles: 1012,
         abilities: 5074,
         weapons: 2269,
-        sourceArtifacts: 245,
-        sourceRecords: 20111,
+        sourceArtifacts: 244,
+        sourceRecords: 20068,
         ignoredSourceRecords: 20680,
       },
       integrity: {
-        consumedSourceRecords: 20105,
+        consumedSourceRecords: 20062,
         issues: [],
         supersededSourceRecords: {
           count: 20674,
@@ -292,13 +292,13 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(245)
+    expect(acceptedManifest.artifacts).toHaveLength(244)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
-    ).toHaveLength(157)
+    ).toHaveLength(156)
     // The community fallback tier: commit-pinned BSData catalogues for the Ogor supplement units
     // and the Ogor battletome faction package (formations, traits, artefacts, battle traits, and
     // the shared Lores catalogue carrying the two battletome lores). The Stormcast library

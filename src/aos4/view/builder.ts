@@ -17,6 +17,14 @@ export interface Aos4BuilderOption {
   selected: boolean
   available: boolean
   overlay?: 'legends' | 'historical'
+  /**
+   * Season-exclusive content: applicable in the seasonal rules context but not the current
+   * standard one. The General's Handbook 2026-27 hands a faction a seasonal enhancement table
+   * under the battletome table's own name — an additional pick, not a replacement ("Using the
+   * Scourge of Aqshy Rules", #1979) — so both tables are offered and this marker is what lets
+   * the builder tell two same-named options apart.
+   */
+  seasonal?: boolean
 }
 
 export interface Aos4BuilderWarscroll {
@@ -84,6 +92,17 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
   const selected = new Set(selection.selectedIds)
   const available = new Set(selection.availableIds)
   const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
+  const currentStandardContextId = catalog.rulesContexts.find(
+    context => context.mode === 'standard' && context.status === 'current'
+  )?.id
+  const seasonalContextId = catalog.rulesContexts.find(context => context.status === 'seasonal')?.id
+  const isSeasonExclusive = (entity: ContentEntity): boolean =>
+    Boolean(
+      seasonalContextId &&
+      currentStandardContextId &&
+      entity.rulesContextIds.includes(seasonalContextId) &&
+      !entity.rulesContextIds.includes(currentStandardContextId)
+    )
 
   /**
    * The offering group behind each individually selectable enhancement.
@@ -117,6 +136,7 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     if (!entity) return []
     const chipGroup = entity.kind === 'ability' ? chipGroupByAbilityId.get(id) : undefined
     const overlay = overlayFor(chipGroup?.id ?? id)
+    const seasonal = isSeasonExclusive(chipGroup ?? entity)
     return [
       {
         id,
@@ -134,6 +154,7 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
         selected: selected.has(id),
         available: available.has(id),
         ...(overlay ? { overlay } : {}),
+        ...(seasonal ? { seasonal: true } : {}),
       },
     ]
   })

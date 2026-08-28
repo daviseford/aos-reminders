@@ -12,38 +12,54 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-25b`, generated from the 2026-08-25 14:30 Wahapedia
-export publish over the 2026-08-01 official acquisition plus three commit-pinned BSData catalogues
-(manifest `accepted-2026-08-25b`). It accepts Wahapedia's bulk-export catch-up to the reviewed
-faction pages and the July 2026 official publications (33 ability and 15 weapon corrections, 12
-renamed abilities, 28 newly cited publications) with three reviewed Legends identity overrides
-and 786 re-numbered rows aliased onto their existing canonical entries.
+The current revision is `aos4-corpus-2026-08-28`, generated from the 2026-08-25 14:30 Wahapedia
+export publish, the 2026-08-26 Games Workshop re-publications, and three commit-pinned BSData
+catalogues (manifest `accepted-2026-08-28`). It accepts the five re-published official documents
+(the August 2026 Rules Updates cycle, Faction Pack: Fyreslayers, and the Scourge of Aqshy packs
+for Daughters of Khaine, Hedonites of Slaanesh, and Seraphon), unpins the delisted Faction Pack:
+Hedonites of Slaanesh its battletome superseded, re-pins the sixteen reviewed Wahapedia faction
+pages that had incorporated the same errata (carrying the Shadow Lariat, Eruption of Fury,
+Saurian Ambush, and Emergence corrections into the runtime and retiring the Damned Vessel
+ability-text override the re-worded August document invalidated), and replaces the 2026-08-16
+seasonal-supersede generation rule with the official per-pick reading so both same-named
+enhancement tables stay offered in the seasonal context (#1979).
 Its automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
-| Accepted artifacts independently inventoried | 245/245 |
+| Accepted artifacts independently inventoried | 244/244 |
 | Explicit non-material discovery entries | 9 |
 | Official battle-profile facts | 1,350/1,350 |
 | Final official/secondary reconciliation discrepancies | 423/423 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 20,111/20,111 |
+| Live audit source records | 20,068/20,068 |
 | Ignored-record dispositions (superseded + explicit) | 20,680/20,680 |
-| Live review pairs | 42,566/42,566 |
-| Independent outcomes | 85,132 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 42,523/42,523 |
+| Independent outcomes | 85,046 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
-| Populated high-risk cohorts | 18/18 |
+| Populated high-risk cohorts | 19/19 |
 
-The independent source inventory was observed on 2026-08-25: 245 entries matched accepted
+The independent source inventory was observed on 2026-08-28: 244 entries matched accepted
 checksums (including the three commit-pinned BSData catalogues, observed live by the
 `data:aos4:inventory:observe-bsdata` observer at both pinned commits) and 9 discovery entries
 received explicit non-material dispositions carried forward from the 2026-08-01b review.
 
-The current certification is `aos4-corpus-2026-08-25b-machine-r1` (2026-08-25). The refreshed exports re-key every
-record they carry and add 1,588 pairs, so the `--reuse-certification` offer of the 2026-08-25
-directory carried nothing forward: all 42,566 pairs were evaluated fresh — 85,132 checks, 0
-findings, 0 cannot-verify. Its overlay names the 2026-08-25 directory, whose overlay names
-2026-08-18, so `certify:prune` keeps all three until a later campaign resolves the chain.
+The current certification is `aos4-corpus-2026-08-28-machine-r1` (2026-08-28). The re-pinned
+artifacts re-key every record carrying their checksums and the review's first campaign surfaced
+two findings against the carried-forward Damned Vessel ability-text override — the August Rules
+Updates re-words the errata the override transcribed, and the re-pinned Nighthaunt page already
+carries the new text natively — so the override was removed, the products regenerated, and the
+campaign rerun clean. The `--reuse-certification` offer of the 2026-08-25b directory carried
+nothing forward: all 42,523 pairs were evaluated fresh — 85,046 checks, 0 findings, 0
+cannot-verify. Its overlay names the 2026-08-25b directory, so `certify:prune` keeps the chain
+until a later campaign resolves it.
+
+`aos4-corpus-2026-08-25b-machine-r1` (2026-08-25) preceded it: the 2026-08-25 14:30 Wahapedia
+bulk-export catch-up (33 ability and 15 weapon corrections, 12 renamed abilities, 28 newly cited
+publications) with three reviewed Legends identity overrides and 786 re-numbered rows aliased
+onto their existing canonical entries. The refreshed exports re-keyed every record they carry and
+added 1,588 pairs, so all 42,566 pairs were evaluated fresh — 85,132 checks, 0 findings, 0
+cannot-verify.
 
 `aos4-corpus-2026-08-25-machine-r1` (2026-08-25) preceded it: the Ogor library re-pin
 `301477a3` → `d7377e94` (Mawpit Hungry Sinkhole Declare corrected upstream). As on 2026-08-18,
