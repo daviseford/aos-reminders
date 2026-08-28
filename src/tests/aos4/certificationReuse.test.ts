@@ -473,7 +473,7 @@ describe('certification verdict reuse', () => {
         await readFile(
           path.join(
             process.cwd(),
-            'data/aos4/certifications/aos4-corpus-2026-08-28-machine-r1/manifest.json'
+            'data/aos4/certifications/aos4-corpus-2026-08-28b-machine-r1/manifest.json'
           ),
           'utf8'
         )

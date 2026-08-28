@@ -100,7 +100,7 @@ describe('reminder source attribution (#1836)', () => {
 
   it("tags battletome battle traits with the faction's battle-trait group", () => {
     const reminders = remindersFor([['faction', 'Ogor Mawtribes']])
-    const battleTraits = ['Bull Charge', "Eat 'Em Alive"]
+    const battleTraits = ['BULL CHARGE', 'EAT ’EM ALIVE']
     battleTraits.forEach(name => {
       const reminder = reminders.find(candidate => candidate.name === name)
       expect(reminder).toBeDefined()
@@ -127,7 +127,7 @@ describe('reminder source attribution (#1836)', () => {
       .forEach(reminder => {
         expect(provenanceLabels(reminder)).toEqual([])
       })
-    const spell = reminders.find(reminder => reminder.name === 'Blood Feast')
+    const spell = reminders.find(reminder => reminder.name === 'BLOOD FEAST')
     expect(spell).toBeDefined()
     expect(sourceLabels(spell!)).toEqual(['Lore of Gut Magic'])
     expect(provenanceLabels(spell!)).toEqual([])

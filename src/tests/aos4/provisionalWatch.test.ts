@@ -44,15 +44,17 @@ describe('the provisional-verification watch', () => {
         readFileSync(path.join(process.cwd(), 'data', 'aos4', 'radar', 'provisional-watch.json'), 'utf8')
       )
     )
-    expect(checkedIn.watches.length).toBeGreaterThan(0)
+    // The 2026-08-28b intake replaced the last provisional Ogor facts with Wahapedia's
+    // battletome-current pages and retired all three watches; the machinery idles on an
+    // empty list until the next provisional intake registers a sentinel.
+    expect(checkedIn.watches.length).toBe(0)
     checkedIn.watches.forEach(watch => {
-      expect([1812, 1828, 1850]).toContain(watch.issueNumber)
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)
     })
   })
 
   it('rejects malformed configurations', () => {
-    expect(() => validateProvisionalWatchConfig({ schemaVersion: 1, watches: [] })).toThrow(/at least one/)
+    expect(() => validateProvisionalWatchConfig({ schemaVersion: 1 })).toThrow(/watches list/)
     expect(() =>
       validateProvisionalWatchConfig({
         schemaVersion: 1,

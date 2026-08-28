@@ -795,6 +795,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gutseers:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gutseers/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:032a9dfc-a0e1-5255-8195-81a1de8ab82c",
@@ -1155,6 +1159,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Grell-Firefist/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:04a46f97-56b9-5ba7-afba-e2486ad15236",
@@ -1254,6 +1262,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:mantle-of-entrails",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Plunder-of-the-Mawtribes-1:ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:04fb00d4-b61f-5742-a9fb-1230d440db00",
@@ -1869,6 +1881,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-5:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:08869d14-12dd-5e6d-9065-691d5ddb6e74",
+      "kind": "ability",
+      "name": "BLOODTHIRSTY ARROGANCE"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000001050:1",
           "publisher": "wahapedia"
         }
@@ -1887,6 +1910,17 @@
       "canonicalId": "ability:08a0c110-b32b-52ff-9de5-4cff01671087",
       "kind": "ability",
       "name": "ASSAULT BOAT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-6:ability:5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:08a9a0b0-1a7e-5bc5-98d2-631adde204a3",
+      "kind": "ability",
+      "name": "FEARSOME BREED"
     },
     {
       "aliases": [
@@ -2257,6 +2291,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ironblaster:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Ironblaster/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:0a6a4807-ae16-54f1-92f5-c2091849bd0c",
@@ -2774,6 +2812,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-7:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:0ccfda8e-139b-5392-bf61-c70ef4f11e4e",
+      "kind": "ability",
+      "name": "OOH, THAT LOOKS TASTY..."
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000000646:1",
           "publisher": "wahapedia"
         }
@@ -3055,6 +3104,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:bloodpelt-hunter:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Bloodpelt-Hunter/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:0dc86e24-cbd6-5cd0-b416-4791e58e2b1e",
@@ -4320,6 +4373,17 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_abilities.csv:000001678:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:13a8763b-afe3-5a4f-b4ab-1535d4f5254c",
+      "kind": "ability",
+      "name": "ATTENDANT RELIC ENVOY"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000000998:5",
           "publisher": "wahapedia"
         }
@@ -4539,6 +4603,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:lore-of-gut-magic:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Lore-of-Gut-Magic:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:14ca8438-31d2-5d63-b5ea-9f854dc67db3",
@@ -6877,6 +6945,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Morga-The-Mighty-Overtyrant/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:1f42f198-507f-5858-8570-4d8b958a3524",
@@ -7269,6 +7341,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Artefacts-of-Power-3:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:210207e9-82e0-5766-b890-955a8a07c9b3",
+      "kind": "ability",
+      "name": "ALVAGR RUNE-TOKENS"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000002347:1",
           "publisher": "wahapedia"
         }
@@ -7447,6 +7530,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:butcher:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Butcher/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:21f372e1-4e34-5275-9886-6d1cae5cdbf0",
@@ -7463,6 +7550,17 @@
       "canonicalId": "ability:21f39df1-65d7-5259-81ce-2dd0190c4e42",
       "kind": "ability",
       "name": "BEAST"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Artefacts-of-Power-2:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:21f8511a-7940-59f0-be10-12f254837233",
+      "kind": "ability",
+      "name": "TRAPPER’S ARSENAL"
     },
     {
       "aliases": [
@@ -7587,6 +7685,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:the-crusherguts",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Traits-of-Endless-Hunger:ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:2258fade-734c-5005-a3c9-ee74b9a96341",
@@ -7973,6 +8075,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Raiders/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:237f2552-fd0b-5b1c-acb6-0a3d2b41c7dc",
@@ -8935,6 +9041,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ironguts:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Ironguts/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:26d994ff-2a22-5444-be58-6881443dfbd9",
@@ -9851,6 +9961,17 @@
       "canonicalId": "ability:2bcbb4de-f74a-550e-9a31-8101f0d6a1d4",
       "kind": "ability",
       "name": "BULLS OF THE ZIGGURAT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Heroic-Traits-2:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2bcd6d10-4e7a-5f91-9610-bee392810587",
+      "kind": "ability",
+      "name": "OVERPOWERING MASS"
     },
     {
       "aliases": [
@@ -11254,13 +11375,13 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:gnoblar-scraplauncher:ability:1",
-          "publisher": "other"
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-5:ability:7",
+          "publisher": "wahapedia"
         }
       ],
-      "canonicalId": "ability:31e290ae-5672-5112-8b32-f0d91a3a80e8",
+      "canonicalId": "ability:31dbb3a7-0d5d-587e-82f8-d566a00ac230",
       "kind": "ability",
-      "name": "Rain of Scrap"
+      "name": "GRUESOME DEVOURERS"
     },
     {
       "aliases": [
@@ -12187,6 +12308,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Tyrant-on-Glutthorn/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:3657a060-bff6-595e-b74b-1d23178aac98",
@@ -12828,17 +12953,6 @@
       "canonicalId": "ability:398525c9-705e-5efc-aeec-f9e91bf73b26",
       "kind": "ability",
       "name": "CINDER AND ASH"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:gnoblars:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:3989212c-46a0-53be-8ba8-7d75ca17c3fc",
-      "kind": "ability",
-      "name": "Nasty Traps and Tricks"
     },
     {
       "aliases": [
@@ -13947,10 +14061,6 @@
         {
           "externalId": "Faction_abilities.csv:OM:000000747:000004535:2",
           "publisher": "wahapedia"
-        },
-        {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Plunder-of-the-Mawtribes-1:ability:1",
-          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:3ea8b34c-634b-5721-a26a-7ae1d4a73cf8",
@@ -15058,6 +15168,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:vanguard-of-the-mawpath:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Vanguard-of-the-Mawpath:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:43f9c692-6bf0-5fc7-95ee-7b09644994c9",
@@ -15715,6 +15829,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-ogor-mawtribes:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits:ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:46cb224d-c61a-5fb0-964b-1425c816f1b1",
@@ -15893,6 +16011,17 @@
       "canonicalId": "ability:47828bb2-fa4b-59e6-867f-d3314ac6a6e0",
       "kind": "ability",
       "name": "ELIXIR OF THE FROSTWYRM"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-6:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:47986925-ede0-508f-bacb-35c677e24c22",
+      "kind": "ability",
+      "name": "MASKED BY THE ENDLESS WHITE"
     },
     {
       "aliases": [
@@ -17440,6 +17569,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Artefacts-of-Power-2:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4e24180c-8309-55e7-b623-6821f21fc2e4",
+      "kind": "ability",
+      "name": "RUSTY LEADBELCHER GUN"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:BS:000000735:000002426:2",
           "publisher": "wahapedia"
         }
@@ -18704,6 +18844,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Spell-Lore-2:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:53a92589-13d8-56a1-83b2-048a1cfe8004",
+      "kind": "ability",
+      "name": "BONECRUNCHER"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:IJ:000000785:000002501:3",
           "publisher": "wahapedia"
         }
@@ -18967,6 +19118,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-stonehorn:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Huskard-on-Stonehorn/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:54b4f888-01ab-5c5c-bb8b-a9ea8da5e61e",
@@ -19354,6 +19509,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-7:ability:6",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:563682d1-7825-5a1c-a6dc-b3397e1097a6",
+      "kind": "ability",
+      "name": "GORE-OFFAL DUMPLINGS"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#datasheet:Wheels-of-Excruciation/ability:1",
           "publisher": "wahapedia"
         },
@@ -19420,6 +19586,17 @@
       "canonicalId": "ability:567c0107-6785-5472-a17a-86cecfe1e776",
       "kind": "ability",
       "name": "SCEPTRE OF DOMINATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001685:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:567dd0c7-bb01-5279-aa00-a92eb0fd4067",
+      "kind": "ability",
+      "name": "LEAD FROM THE FRONT"
     },
     {
       "aliases": [
@@ -19563,6 +19740,17 @@
       "canonicalId": "ability:56f88e7c-8174-5aa4-a3c1-d32705ed9d08",
       "kind": "ability",
       "name": "PRIMAL HEX"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001027:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5702c54c-6879-5d30-b2e0-2d8b42ba0557",
+      "kind": "ability",
+      "name": "GORGE ON EXCESS"
     },
     {
       "aliases": [
@@ -19806,6 +19994,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-5:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:582f2475-d33f-5ad6-a86c-c1bda6fcf6d9",
+      "kind": "ability",
+      "name": "FLESHY STAMPEDE"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/#faction-ability:Battle-Traits:ability:4",
           "publisher": "wahapedia"
         }
@@ -19850,6 +20049,17 @@
       "canonicalId": "ability:587c6520-2306-5f30-bab6-012d92d82f6b",
       "kind": "ability",
       "name": "EMPOWERED BY MEMORY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000000337:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:589818bd-8b47-5132-b73f-cc372d75906c",
+      "kind": "ability",
+      "name": "THE ENDLESS DANCE"
     },
     {
       "aliases": [
@@ -20010,6 +20220,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:lore-of-the-everwinter:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Lore-of-the-Everwinter:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:5965bfcd-8c60-51ae-8dee-2a557e3f0398",
@@ -21384,6 +21598,17 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_abilities.csv:000001123:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5ef9989d-f71b-501b-bd05-c6c183b29024",
+      "kind": "ability",
+      "name": "JOYOUS BATTLE FURY"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:StD:000000763:000004493:2",
           "publisher": "wahapedia"
         },
@@ -21755,17 +21980,6 @@
       "canonicalId": "ability:602ad6fb-8c84-561f-a470-e39b40a5343f",
       "kind": "ability",
       "name": "BLOATED WITH CORRUPTION"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:604a5b87-9b1a-5b2a-a333-51a5d60d757b",
-      "kind": "ability",
-      "name": "Battle Damaged"
     },
     {
       "aliases": [
@@ -22145,6 +22359,17 @@
       "canonicalId": "ability:624685c7-8a2f-5b53-a8b3-855d46af4d67",
       "kind": "ability",
       "name": "PREPARE THE GIFT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Hrothgorn-Mantrapper/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:624809dd-120b-5a09-92df-70240c354c29",
+      "kind": "ability",
+      "name": "BUSHWAKKA’S TRAP"
     },
     {
       "aliases": [
@@ -22789,17 +23014,6 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits:ability:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:65addb4e-62b0-5c52-9b6f-5c044d63baba",
-      "kind": "ability",
-      "name": "TRAMPLING CHARGE"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Faction_abilities.csv:HoH:000000882:000002979:2",
           "publisher": "wahapedia"
         }
@@ -22899,17 +23113,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-thundertusk:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:66383050-2c68-5433-a95e-fa1180402d61",
-      "kind": "ability",
-      "name": "Battle Damaged"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_abilities.csv:000000069:2",
           "publisher": "wahapedia"
         }
@@ -22989,6 +23192,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Hunters-with-Sabrefangs/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:66928ab5-3dc7-53f9-958a-3468ee4929f0",
@@ -23016,6 +23223,17 @@
       "canonicalId": "ability:66a875e9-43b1-530a-bacd-a9301a0f3cf2",
       "kind": "ability",
       "name": "RAMPAGING DESTRUCTION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Redd-the-Maw-High-Slaughtermaster/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:66b3a754-8482-5fde-b6c5-b8c23273035f",
+      "kind": "ability",
+      "name": "BATTLE DAMAGED"
     },
     {
       "aliases": [
@@ -23112,6 +23330,17 @@
       "canonicalId": "ability:66f43b1a-20b4-578c-bff9-c98ea046ecaf",
       "kind": "ability",
       "name": "RESURRECTION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Artefacts-of-Power-2:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:670e6457-2f24-530a-87ec-abd13f0a7888",
+      "kind": "ability",
+      "name": "SNOTT, GNOBLAR THIEF"
     },
     {
       "aliases": [
@@ -23313,6 +23542,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Grell-Firefist/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:68531994-0581-59bd-bb8b-c6053e6901a3",
@@ -23599,6 +23832,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Cavalry/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:6981460a-91ea-518f-bef7-c7678bb05889",
@@ -24051,6 +24288,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:thundertusk-beastriders:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Thundertusk-Beastriders/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:6ad3aff7-6e25-5f43-b602-bdd4c7d60aa0",
@@ -25115,6 +25356,17 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_abilities.csv:000001030:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6eeb7ab7-d4a9-52c2-addb-d075f3fe170b",
+      "kind": "ability",
+      "name": "SHARDSLASH"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:HoH:000001044:000004244:4",
           "publisher": "wahapedia"
         }
@@ -25210,6 +25462,17 @@
       "canonicalId": "ability:6f893acd-ee77-5608-a02a-205e869a43e2",
       "kind": "ability",
       "name": "STRIDENT WAR CRY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000000342:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6f9eedbe-5236-5c18-8886-3f09de838daf",
+      "kind": "ability",
+      "name": "BEAST"
     },
     {
       "aliases": [
@@ -25437,6 +25700,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-ogor-mawtribes:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:70b1b6a6-a0dc-5f5e-8c11-2e6fbbae3b0d",
@@ -26444,6 +26711,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Hunters-with-Sabrefangs/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:75cb8fab-6247-5a65-8956-e314d86d12f4",
@@ -26497,6 +26768,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Cleavers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:761276cc-7b3f-53be-af70-7e15a3b035cf",
+      "kind": "ability",
+      "name": "A TASTE FOR THE ARCANE"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000000565:1",
           "publisher": "wahapedia"
         }
@@ -26504,6 +26786,17 @@
       "canonicalId": "ability:7624aa9f-2747-55bc-93d9-e970b188b265",
       "kind": "ability",
       "name": "ORACULAR VISIONS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Artefacts-of-Power-4:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:762a909d-5b8d-5565-a757-b38ef13b3180",
+      "kind": "ability",
+      "name": "OVERFLOWING LARDER"
     },
     {
       "aliases": [
@@ -27002,6 +27295,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:maw-cult-fanatics:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Maw-Cult-Fanatics:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:786f600a-3473-524b-9580-aad743277121",
@@ -27704,6 +28001,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:5",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Morga-The-Mighty-Overtyrant/ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:7b902ad7-17a5-5422-9bb6-ae459e52763a",
@@ -28000,6 +28301,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-7:ability:8",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7c82211a-0df0-5cf7-bd0a-ad3f0fbcd158",
+      "kind": "ability",
+      "name": "FRIED LIMBS"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000002611:2",
           "publisher": "wahapedia"
         }
@@ -28051,6 +28363,17 @@
       "canonicalId": "ability:7ca8feb0-d76b-5881-8259-f72671cfceca",
       "kind": "ability",
       "name": "SHADOWSTEP"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-7:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7cb3da34-7af4-5166-8378-6f2af71b98b7",
+      "kind": "ability",
+      "name": "BONE-SLURRY SOUP"
     },
     {
       "aliases": [
@@ -28741,6 +29064,10 @@
         {
           "externalId": "Faction_abilities.csv:OM:000000752:000002444:4",
           "publisher": "wahapedia"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Prayer-Lore-1:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:7fe75fb9-d0d6-5d49-81bb-0991e52e7a64",
@@ -29072,6 +29399,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-thundertusk:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Frostlord-on-Thundertusk/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:81b8e49d-d14c-5339-b634-9f4509088ba5",
@@ -29180,6 +29511,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-6:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:822d4a74-89d2-598d-a311-8516dc356171",
+      "kind": "ability",
+      "name": "A CLAN OF HUNTERS"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000003324:1",
           "publisher": "wahapedia"
         }
@@ -29220,6 +29562,17 @@
       "canonicalId": "ability:82abdaba-d00e-5dd6-a1d0-1dbdedeaf52e",
       "kind": "ability",
       "name": "HROTHGORN’S MANTRAPPERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-5:ability:6",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:82b0700e-26ae-5cdb-bf5f-0ff1f30b4be3",
+      "kind": "ability",
+      "name": "GREEDY CHOMPERS"
     },
     {
       "aliases": [
@@ -29303,6 +29656,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:hinterland-hunters:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Hinterland-Hunters:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:82df3137-77f9-5fb7-9055-d9ad3e6fa8bc",
@@ -30109,17 +30466,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-ogor-mawtribes:ability:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:8713e41f-96aa-5aed-b4e0-6797d471dfae",
-      "kind": "ability",
-      "name": "Bull Charge"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "html:https://wahapedia.ru/aos4/the-rules/ravaged-coast/#rules-ability:derived-untimely-arrival-1:ability:7",
           "publisher": "wahapedia"
         }
@@ -30763,17 +31109,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-thundertusk:ability:3",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:8a1986cc-74bf-5ae3-98a7-364614d9f2ed",
-      "kind": "ability",
-      "name": "Freezing Aura"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "html:https://wahapedia.ru/aos4/the-rules/ravaged-coast/#rules-ability:Path-of-the-Ruler:ability:2",
           "publisher": "wahapedia"
         }
@@ -31329,13 +31664,17 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-stonehorn:ability:3",
+          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Mawpit/ability:3",
+          "publisher": "wahapedia"
         }
       ],
-      "canonicalId": "ability:8c823ef6-2b6c-5350-a1d4-7d2be8a4a74f",
+      "canonicalId": "ability:8c8dd3f4-4cb0-532e-af6c-2131bdf488af",
       "kind": "ability",
-      "name": "Earth-Shattering Charge"
+      "name": "Hungry Sinkhole"
     },
     {
       "aliases": [
@@ -31347,17 +31686,6 @@
       "canonicalId": "ability:8ca1f1ad-4b4e-5ce1-9cfc-dab213b7b142",
       "kind": "ability",
       "name": "BATTLE DAMAGED"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:8ca43cf5-dd9e-5286-80ef-a121c672414c",
-      "kind": "ability",
-      "name": "Battle Damaged"
     },
     {
       "aliases": [
@@ -32196,17 +32524,6 @@
       "canonicalId": "ability:8ffc94b0-090b-5f81-9498-ade1fa2527dd",
       "kind": "ability",
       "name": "ENGINE OF DOMINATION"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-stonehorn:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:900448d8-15ad-5d9f-9692-aeeaf522bee5",
-      "kind": "ability",
-      "name": "Stone Skeleton"
     },
     {
       "aliases": [
@@ -34045,6 +34362,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-stonehorn:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Frostlord-on-Stonehorn/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:98691b9d-81c7-52dd-b596-72ad3930ac42",
@@ -35867,6 +36188,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-7:ability:7",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:9f563425-edc7-5d0c-877c-2933201b5a44",
+      "kind": "ability",
+      "name": "UNWASHED INNARDS"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:SN:000000722:000002403:2",
           "publisher": "wahapedia"
         }
@@ -36053,6 +36385,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:tyrant:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Tyrant/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:a052cc3f-3dbe-5597-8a09-3c4b1f2e2fbe",
@@ -36270,6 +36606,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Morga-The-Mighty-Overtyrant/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:a124d355-8690-50cc-a399-3040abb2bced",
@@ -36531,6 +36871,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Grell-Firefist/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:a231a768-f905-5821-b88d-991b67fc9dbb",
@@ -36569,6 +36913,17 @@
       "canonicalId": "ability:a249a5f1-f164-533e-b84a-0fe882f880c9",
       "kind": "ability",
       "name": "SMOKE AND MIRRORS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Heroic-Traits-3:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a24acf39-bf29-563d-a128-5f04488951b5",
+      "kind": "ability",
+      "name": "HARD-BITTEN CHIEFTAIN"
     },
     {
       "aliases": [
@@ -36979,6 +37334,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:lore-of-gut-magic:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Lore-of-Gut-Magic:ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:a3b75f3b-33a1-58d5-904d-39a0f4d792db",
@@ -37108,6 +37467,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:lore-of-gut-magic:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Lore-of-Gut-Magic:ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:a43f3690-0e17-5834-ba76-8af8c375a6e0",
@@ -37892,6 +38255,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-6:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a6e47d6c-b6c0-5ea2-9d88-ba4c95471e97",
+      "kind": "ability",
+      "name": "GRASP OF THE EVERWINTER"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000001815:1",
           "publisher": "wahapedia"
         }
@@ -38608,6 +38982,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Tyrant-on-Glutthorn/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:aa1e848c-3761-5a1e-9492-c21c8f761c04",
+      "kind": "ability",
+      "name": "BATTLE DAMAGED"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000000057:1",
           "publisher": "wahapedia"
         }
@@ -38913,6 +39298,17 @@
       "canonicalId": "ability:ab536191-620b-55fc-9a08-a9e57974affe",
       "kind": "ability",
       "name": "BATTLE DAMAGED"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Heroic-Traits-4:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ab5e5787-4005-5955-aa36-1b057aab0899",
+      "kind": "ability",
+      "name": "INDOMITABLE GUTS"
     },
     {
       "aliases": [
@@ -39451,6 +39847,17 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_abilities.csv:000000428:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ad82fad3-bd2a-500a-a14e-08c05262ade0",
+      "kind": "ability",
+      "name": "ABYSSAL HOWL"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000000949:2",
           "publisher": "wahapedia"
         }
@@ -39869,6 +40276,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:butcher:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Butcher/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:af75d132-45e2-5a02-a4ff-74279175fb22",
@@ -40242,6 +40653,17 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_abilities.csv:000001037:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b120aa6d-d96c-52b4-9112-725d46f15979",
+      "kind": "ability",
+      "name": "EGO-DRIVEN EXCESS"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:StD:000000767:000002485:2",
           "publisher": "wahapedia"
         }
@@ -40494,6 +40916,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Tyrant-on-Glutthorn/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:b263830a-4359-577e-a6b4-44a999b24ccb",
@@ -41823,17 +42249,6 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits:ability:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:b72db200-c547-5a14-914c-faedbb9b1dd6",
-      "kind": "ability",
-      "name": "RAVENOUS BRUTES"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_abilities.csv:000001847:1",
           "publisher": "wahapedia"
         }
@@ -42012,6 +42427,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Redd-the-Maw-High-Slaughtermaster/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:b824ffa4-1096-5695-a1fc-d79645c866a2",
@@ -42620,17 +43039,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-stonehorn:ability:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:bacb30e6-ebd7-5cec-ab9c-67d74e9a8261",
-      "kind": "ability",
-      "name": "Stone Skeleton"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Faction_abilities.csv:FY:000000899:000003388:4",
           "publisher": "wahapedia"
         }
@@ -42815,17 +43223,6 @@
       "canonicalId": "ability:bb6b66ad-45f5-5f24-a758-e20f72f77089",
       "kind": "ability",
       "name": "CAUSTIC SAP"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-stonehorn:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:bb7417ae-02fe-5ed4-9108-ebd78807a875",
-      "kind": "ability",
-      "name": "Battle Damaged"
     },
     {
       "aliases": [
@@ -43849,10 +44246,6 @@
         {
           "externalId": "Faction_abilities.csv:OM:000000747:000004535:4",
           "publisher": "wahapedia"
-        },
-        {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Plunder-of-the-Mawtribes-1:ability:3",
-          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:bffbbc12-3579-5044-a061-9d2525c348bc",
@@ -44095,6 +44488,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:leave-not-a-morsel",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Traits-of-Endless-Hunger:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:c102d3e2-0819-52a4-9810-0d4c5446854d",
@@ -44530,6 +44927,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-7:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c3222b46-1794-5503-902b-fa70beb84061",
+      "kind": "ability",
+      "name": "GLAND GOULASH"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:DoT:000000956:000003693:4",
           "publisher": "wahapedia"
         }
@@ -44736,6 +45144,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-7:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c4354e5a-afba-5dee-88be-2045f198d4ab",
+      "kind": "ability",
+      "name": "PREPARE THE FEAST"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000000592:2",
           "publisher": "wahapedia"
         }
@@ -44749,6 +45168,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gutseers:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gutseers/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:c43cb1c0-1de4-5392-9a37-ab51c1c6ad61",
@@ -45417,6 +45840,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-7:ability:5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c7894769-ced8-5a1b-bb3c-e21a480b5025",
+      "kind": "ability",
+      "name": "THE ORGAN PLATTER"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:FE:000000872:000002947:2",
           "publisher": "wahapedia"
         }
@@ -45696,6 +46130,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-6:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c8a93e7d-72d4-592b-ba70-8c48f6c9c906",
+      "kind": "ability",
+      "name": "RUN ’EM DOWN"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/the-rules/ravaged-coast/#rules-ability:Path-of-the-Artillerist:ability:4",
           "publisher": "wahapedia"
         }
@@ -45709,11 +46154,26 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:lore-of-the-everwinter:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Lore-of-the-Everwinter:ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:c8b5c3e7-aa96-5bd4-9072-c45ef1a28072",
       "kind": "ability",
       "name": "Fortifying Hoarfrost"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Spell-Lore-2:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c8e2d839-f992-5ddc-8bf5-a2538ff45c7b",
+      "kind": "ability",
+      "name": "BLOODGRUEL"
     },
     {
       "aliases": [
@@ -45966,6 +46426,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Redd-the-Maw-High-Slaughtermaster/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:c9d66a0d-3519-58b2-a5fd-3d12e514a8bf",
@@ -46048,17 +46512,6 @@
       "canonicalId": "ability:ca365c8a-e7d6-5235-a18d-fa03f2567b05",
       "kind": "ability",
       "name": "BLIGHTED REGROWTH"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-thundertusk:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:ca5efec2-af59-5946-bdac-8ce6771292e3",
-      "kind": "ability",
-      "name": "Battle Damaged"
     },
     {
       "aliases": [
@@ -46842,8 +47295,23 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Prayer-Lore-1:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:cdac911a-bf39-51f3-807a-6f1e51feb8a5",
+      "kind": "ability",
+      "name": "TERRORS OF THE OLD ICE"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-thundertusk:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Huskard-on-Thundertusk/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:cdae3842-0e59-50ef-977f-607081c11e44",
@@ -46934,6 +47402,17 @@
       "canonicalId": "ability:ce0c478b-095c-5bea-84b3-85bb40b88c1e",
       "kind": "ability",
       "name": "LIGHT UP TARGETS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-5:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ce25e0a2-e1ab-55f3-815c-e23b1b17432a",
+      "kind": "ability",
+      "name": "THE UNSTOPPABLE FEAST"
     },
     {
       "aliases": [
@@ -47375,6 +47854,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-5:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:cfc9eb65-d6c7-51c4-a04a-54912b437fc5",
+      "kind": "ability",
+      "name": "MEATY CHARGE"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:GG:000000804:000002709:2",
           "publisher": "wahapedia"
         }
@@ -47621,6 +48111,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Prayer-Lore-1:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d0cdbde1-e4c4-5d34-a748-0bf41efbcf5b",
+      "kind": "ability",
+      "name": "AVALANCHE VOICE"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:HoH:000000882:000002978:2",
           "publisher": "wahapedia"
         }
@@ -47656,6 +48157,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gluttons:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gluttons/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:d1294d0c-9d47-5c3a-b6ab-e1b7b7da1d42",
@@ -47744,6 +48249,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Redd-the-Maw-High-Slaughtermaster/ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:d179efd8-28bd-522f-86ec-3e72ee4b8fd1",
@@ -48146,6 +48655,17 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_abilities.csv:000001124:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d373fdab-9f2c-5968-ad53-0e3b0d7f240b",
+      "kind": "ability",
+      "name": "ENTHRALLING SPLENDOUR"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#datasheet:Contorted-Epitome-1/ability:1",
           "publisher": "wahapedia"
         },
@@ -48249,6 +48769,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-5:ability:5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d3f4138a-97b9-54cf-bad7-1d309bda1c1b",
+      "kind": "ability",
+      "name": "GLUTTONOUS CONQUERORS"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:5",
           "publisher": "wahapedia"
         },
@@ -48297,17 +48828,6 @@
       "canonicalId": "ability:d4121359-ce18-5c29-b580-211a7a01f74f",
       "kind": "ability",
       "name": "MASTER OF CAVALRY"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frost-sabres:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:d414720b-3add-515c-9c4f-ec571c07f72f",
-      "kind": "ability",
-      "name": "Hunters of the Frozen Wilds"
     },
     {
       "aliases": [
@@ -48583,7 +49103,7 @@
       ],
       "canonicalId": "ability:d544173c-bc9c-5080-99ac-be67980082ed",
       "kind": "ability",
-      "name": "FEAST ON FLESH"
+      "name": "BULL CHARGE"
     },
     {
       "aliases": [
@@ -48700,6 +49220,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:hunger-filled-tribe:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Hunger-Filled-Tribe:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:d62517fb-2a52-5528-ba90-10a905ce845d",
@@ -48804,17 +49328,6 @@
       "canonicalId": "ability:d6bc7034-e098-5d77-b7cc-5f75f134d722",
       "kind": "ability",
       "name": "CROWNED IN BUTCHERY"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:d6d07709-21ec-5e70-b50b-68bf03a23201",
-      "kind": "ability",
-      "name": "Battle Damaged"
     },
     {
       "aliases": [
@@ -49292,6 +49805,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:dreaded-far-and-wide",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Traits-of-Endless-Hunger:ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:d84fcf66-ee3a-5eae-b1b5-857b89ff0a9a",
@@ -51005,17 +51522,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:cleavers:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:e03e799c-cb42-50ac-82c8-4af7b0d9b236",
-      "kind": "ability",
-      "name": "Arcane Appetite"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_abilities.csv:000002730:2",
           "publisher": "wahapedia"
         }
@@ -51473,6 +51979,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:lore-of-the-everwinter:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Lore-of-the-Everwinter:ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:e257043a-30b1-51b4-b7bf-b87608be08a2",
@@ -51574,17 +52084,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-stonehorn:ability:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:e2bb984e-a798-5449-8132-b9984cc5847b",
-      "kind": "ability",
-      "name": "Battle Damaged"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_abilities.csv:000000558:4",
           "publisher": "wahapedia"
         }
@@ -51620,6 +52119,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:frost-sabres:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Frost-Sabres/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:e3211948-7a92-508c-a086-e887e334a473",
@@ -51926,6 +52429,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Spell-Lore-2:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e451fb32-8a73-5a35-86db-afac27bf16e4",
+      "kind": "ability",
+      "name": "THE COSMOS WRITHES"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000001884:2",
           "publisher": "wahapedia"
         }
@@ -51977,6 +52491,17 @@
       "canonicalId": "ability:e489bb0e-4884-5270-9f06-b2fb43934a7f",
       "kind": "ability",
       "name": "SKITTERLEAP"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000001735:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e49da257-948d-5d7c-bbea-c00ec9fac269",
+      "kind": "ability",
+      "name": "RIGHT TOOLS FOR THE JOB"
     },
     {
       "aliases": [
@@ -52802,6 +53327,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Cavalry/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:e902f144-74b1-5163-8a5b-795c9e9af58c",
@@ -53094,6 +53623,17 @@
       "canonicalId": "ability:ea2210ad-b8b0-55dd-b01c-c6c4b81563e3",
       "kind": "ability",
       "name": "RE-FORM THE LINE!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Morga-The-Mighty-Overtyrant/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ea2dca26-a23d-59f0-aa7f-ffc17ffd4ed6",
+      "kind": "ability",
+      "name": "BATTLE DAMAGED"
     },
     {
       "aliases": [
@@ -53652,6 +54192,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Heroic-Traits-2:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ed192d24-75f9-5043-ba31-a9e28a5d26b5",
+      "kind": "ability",
+      "name": "FORCE OF SAVAGE PERSONALITY"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "html:https://wahapedia.ru/aos4/the-rules/blighted-wilds/#rules-ability:THYRIAN-BATTLE-SCAR-TABLES:ability:5",
           "publisher": "wahapedia"
         }
@@ -53813,17 +54364,6 @@
       "canonicalId": "ability:edf044c7-01a8-5aac-a1be-2c9b573cd032",
       "kind": "ability",
       "name": "BLESSINGS OF KHAINE"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:tyrant:ability:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:ee09fb3a-f201-5ccc-83df-48b609949ac9",
-      "kind": "ability",
-      "name": "Brawlerguts"
     },
     {
       "aliases": [
@@ -54074,6 +54614,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Heroic-Traits-2:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:eedcf48f-4b6e-5296-b5cd-861488c6086e",
+      "kind": "ability",
+      "name": "THICK BLUBBER"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_abilities.csv:000000559:2",
           "publisher": "wahapedia"
         }
@@ -54097,10 +54648,6 @@
       "aliases": [
         {
           "externalId": "Faction_abilities.csv:OM:000000747:000004535:3",
-          "publisher": "wahapedia"
-        },
-        {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Plunder-of-the-Mawtribes-1:ability:2",
           "publisher": "wahapedia"
         }
       ],
@@ -54608,6 +55155,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:carvalox-hide",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Plunder-of-the-Mawtribes-1:ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:f1a19f7e-1fd3-56f5-af77-9600d5c2d21d",
@@ -54926,6 +55477,17 @@
     {
       "aliases": [
         {
+          "externalId": "Warscrolls_abilities.csv:000001028:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f2cec5b3-2e5c-5271-8bd6-696a49932eec",
+      "kind": "ability",
+      "name": "SHARE THE PAIN"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_abilities.csv:SoB:000001004:000004106:4",
           "publisher": "wahapedia"
         }
@@ -55016,6 +55578,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gnoblars:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gnoblars/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:f34c9dc6-af7c-5ea0-a61e-fa7873388d00",
@@ -55170,6 +55736,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Morga-The-Mighty-Overtyrant/ability:5",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:f3e87470-2930-5805-9d2c-e1965fdc0ec9",
@@ -55657,17 +56227,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-thundertusk:ability:3",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:f5daa688-179e-5786-a493-22865e911444",
-      "kind": "ability",
-      "name": "Sweeping Tusks"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_abilities.csv:000003364:1",
           "publisher": "wahapedia"
         }
@@ -55851,17 +56410,6 @@
       "canonicalId": "ability:f6efce5b-0058-5a63-a10b-8d3f21b6751b",
       "kind": "ability",
       "name": "SUMMON LAUCHON THE SOULSEEKER"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:mournfang-pack:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:f6f354d8-374a-55d8-8782-bffb336f966a",
-      "kind": "ability",
-      "name": "Alpha Cavalry"
     },
     {
       "aliases": [
@@ -56070,6 +56618,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:bloodpelt-hunter:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Bloodpelt-Hunter/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:f7a9a707-89c1-534b-af65-863ed54f3863",
@@ -56211,17 +56763,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:thundertusk-beastriders:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:f811057a-f959-5206-aee9-f4ca7a53deeb",
-      "kind": "ability",
-      "name": "Battle Damaged"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_abilities.csv:000002564:1",
           "publisher": "wahapedia"
         }
@@ -56349,6 +56890,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:trophy-rack",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Plunder-of-the-Mawtribes-1:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:f8795a21-c513-5ce4-8e35-fa01c79ee56c",
@@ -56720,6 +57265,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-ogor-mawtribes:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits:ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:fa57e035-94b0-5336-958c-5719b5050012",
@@ -56746,6 +57295,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:thundertusk-beastriders:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Thundertusk-Beastriders/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:fa98e702-3bc8-575e-ac77-c838bac5ed93",
@@ -56783,6 +57336,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ironguts:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Ironguts/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:fb14ecf5-a93b-5e1e-b157-8cb4c28c4a05",
@@ -58573,13 +59130,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gluttons/warscroll:battle-profile",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "Warscrolls.csv:000000489:battle-profile",
           "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:12920e5f-d795-584f-bc24-10399932dbae",
       "kind": "battle-profile",
-      "name": "Ogor Gluttons battle profile"
+      "name": "Gluttons battle profile"
     },
     {
       "aliases": [
@@ -59619,17 +60180,6 @@
       "canonicalId": "battle-profile:2c8663d4-684b-5db5-9019-221e3dfeeb5b",
       "kind": "battle-profile",
       "name": "Grey Seer battle profile"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:gluttons:battle-profile",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "battle-profile:2c9ad6f8-d463-5e92-9688-f7c4951164bc",
-      "kind": "battle-profile",
-      "name": "Gluttons battle profile"
     },
     {
       "aliases": [
@@ -60717,6 +61267,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Grell-Firefist/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:40fa9f33-0bca-5a97-838e-1c4bd6686bb2",
@@ -61423,6 +61977,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Tyrant-on-Glutthorn/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:5072971a-7784-54de-aca7-f6ae33bec7ac",
@@ -63421,6 +63979,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Hunters-with-Sabrefangs/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:7c1f1be4-ad8c-5dc2-9fdd-85da8e5b707c",
@@ -63432,6 +63994,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Redd-the-Maw-High-Slaughtermaster/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:7c2c5613-ea0a-55dc-baa4-12a487e30cce",
@@ -65008,6 +65574,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Morga-The-Mighty-Overtyrant/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:a083b96d-0813-5a2a-909d-67c105457d8b",
@@ -67002,6 +67572,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Raiders/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:d13a54e5-603d-52e5-b3d2-e26810da8e4d",
@@ -67469,6 +68043,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:cleavers:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Cleavers/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:da9ae9c9-1be6-5d5c-bf0d-f85129a58892",
@@ -68097,6 +68675,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Cavalry/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:e6d4f3af-6a54-5933-ac3e-cbcdac3bdcb5",
@@ -69106,6 +69688,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gutseers:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gutseers/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:fe555ac1-05fd-512a-906d-f192eb70a7a0",
@@ -69280,6 +69866,17 @@
       "canonicalId": "content-group:0166a454-cb5e-50b9-a17b-eee9f2b046ab",
       "kind": "content-group",
       "name": "Godswrath Warband"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Mawseeker-Gollop",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:0170c203-376a-5916-8500-f611c6b1a683",
+      "kind": "content-group",
+      "name": "Mawseeker Gollop"
     },
     {
       "aliases": [
@@ -69731,6 +70328,17 @@
       "canonicalId": "content-group:0974dd33-4408-5b3d-8a6c-1aaa7c61f8bc",
       "kind": "content-group",
       "name": "PROTOTYPE ARCO-COMBUSTOR UNINHIBITOR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Artefacts-of-Power-2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:09b4ab96-c33b-52d6-b45e-37f147baac4b",
+      "kind": "content-group",
+      "name": "Artefacts of Power"
     },
     {
       "aliases": [
@@ -70879,6 +71487,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:maw-cult-fanatics",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Maw-Cult-Fanatics",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:1d27878f-cda3-5ef1-a7d9-387f7273e01d",
@@ -70927,6 +71539,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:lore-of-gut-magic",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Lore-of-Gut-Magic",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:1db3f4d3-cd29-5fad-8297-7064009c24f8",
@@ -71593,6 +72209,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Battle-Traits-5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:27fa44a0-f355-57cd-8bab-f8e1a73ae996",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_ability_subtypes.csv:LRL:000004351:000001066",
           "publisher": "wahapedia"
         }
@@ -72017,6 +72644,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:hinterland-hunters",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Hinterland-Hunters",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:2efb707b-62f7-5d18-8f74-18e6ca88548b",
@@ -72033,6 +72664,17 @@
       "canonicalId": "content-group:2f05f668-b91c-5735-8b60-d996a08eab35",
       "kind": "content-group",
       "name": "3.0 Prayers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Heroic-Traits-4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:2f1966fe-7360-5a14-baa8-1e4dc8ff1f8f",
+      "kind": "content-group",
+      "name": "Heroic Traits"
     },
     {
       "aliases": [
@@ -72507,6 +73149,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Battle-Traits-6",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:37534d2b-0eaf-5559-8c75-037f4b55929c",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_ability_subtypes.csv:CoS:000004401:000001072",
           "publisher": "wahapedia"
         },
@@ -72912,6 +73565,17 @@
       "canonicalId": "content-group:3b490e56-6e10-524d-ae96-e63c11b12401",
       "kind": "content-group",
       "name": "Artefacts of Power"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Heroic-Traits-3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:3b4a21cd-efcf-502a-b9cf-5198a183fadd",
+      "kind": "content-group",
+      "name": "Heroic Traits"
     },
     {
       "aliases": [
@@ -73889,6 +74553,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:vanguard-of-the-mawpath",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Vanguard-of-the-Mawpath",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:4978270d-cdf8-5784-8823-fd2ae03b9940",
@@ -74258,6 +74926,17 @@
       "canonicalId": "content-group:4ea32486-0fbe-536a-bcb7-2e5ba9edcbb3",
       "kind": "content-group",
       "name": "Slaughterers of Thousands"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Heroic-Traits-2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:4ec0c00d-8064-555a-afb3-c63c10733ee5",
+      "kind": "content-group",
+      "name": "Heroic Traits"
     },
     {
       "aliases": [
@@ -74640,6 +75319,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Battle-Traits-7",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:55139f59-4e56-566b-a475-66017c0ef80e",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Faction_ability_subtypes.csv:DoT:000003680:000000954",
           "publisher": "wahapedia"
         }
@@ -74669,17 +75359,6 @@
       "canonicalId": "content-group:553d9d87-725e-5b01-a3c8-365c9a8056f4",
       "kind": "content-group",
       "name": "Step 5 - Pick a Battle Mount for Your Regiment Hero"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:option-group:traits-of-endless-hunger",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "content-group:55778d67-a8b5-5a2b-9cd6-5500f09305df",
-      "kind": "content-group",
-      "name": "Traits of Endless Hunger"
     },
     {
       "aliases": [
@@ -74772,6 +75451,17 @@
       "canonicalId": "content-group:5779c51b-2da1-5846-99d9-29b657a75381",
       "kind": "content-group",
       "name": "Heroic Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Meatfist-Mawtribe",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:579cece3-1c00-5e32-bdb6-56c2520cd094",
+      "kind": "content-group",
+      "name": "Meatfist Mawtribe"
     },
     {
       "aliases": [
@@ -75262,17 +75952,6 @@
       "canonicalId": "content-group:5d97b205-d5e1-5d87-aca9-d3af4bdf3c5a",
       "kind": "content-group",
       "name": "Cold-Hearted Murderers"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:option-group:plunder-of-the-mawtribes",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "content-group:5d97b80b-0a6a-5229-92b8-990aabad2d6c",
-      "kind": "content-group",
-      "name": "Plunder of the Mawtribes"
     },
     {
       "aliases": [
@@ -76914,6 +77593,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:hunger-filled-tribe",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Hunger-Filled-Tribe",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:7a23bc65-c10f-5a3f-8f0a-4f48f0398a71",
@@ -79810,8 +80493,23 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Artefacts-of-Power-3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:a59ccb3f-648b-5450-bc37-926c8564d897",
+      "kind": "content-group",
+      "name": "Artefacts of Power"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:lore-of-the-everwinter",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Lore-of-the-Everwinter",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:a5b835e6-9e8d-5e09-aac2-df8716145845",
@@ -79850,6 +80548,17 @@
       "canonicalId": "content-group:a6536653-0161-5331-b3ef-7379a27e01e5",
       "kind": "content-group",
       "name": "Defensive Abilities"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Prayer-Lore-1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:a65fd799-b571-5ee5-abcd-1607b405201e",
+      "kind": "content-group",
+      "name": "Prayer Lore"
     },
     {
       "aliases": [
@@ -80662,6 +81371,17 @@
       "canonicalId": "content-group:b1e568ad-1406-5c80-b198-120641c3df00",
       "kind": "content-group",
       "name": "Sigil Convocation"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Spell-Lore-2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:b1f0d364-913d-5e3c-9980-b35f53ae5f25",
+      "kind": "content-group",
+      "name": "Spell Lore"
     },
     {
       "aliases": [
@@ -83112,6 +83832,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Beastclaw-Alfrostun",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:d81348fc-2f60-5d35-a7a6-117e6ed672ae",
+      "kind": "content-group",
+      "name": "Beastclaw Alfrostun"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "choice:html:https://wahapedia.ru/aos4/factions/slaves-to-darkness/#faction-ability:Brands-of-the-Dark-Gods:ability:1",
           "publisher": "wahapedia"
         }
@@ -84088,6 +84819,17 @@
       "canonicalId": "content-group:e64957af-a286-5606-af1d-8062b8c02c90",
       "kind": "content-group",
       "name": "Battle Formations"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Artefacts-of-Power-4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:e65d88c9-9e12-5d2b-8953-aefe8aafc967",
+      "kind": "content-group",
+      "name": "Artefacts of Power"
     },
     {
       "aliases": [
@@ -86339,6 +87081,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000288",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:05d3ebdc-3ad4-55f3-b18a-ddff708c63c9",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Ogor Mawtribes"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:e04b8c1239d45585ff2fe96aa930fb5dfed7507909699a8435a17aa72a3cc797",
           "publisher": "games-workshop"
         }
@@ -86427,6 +87180,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000270",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:0e991cca-8644-5399-8b25-823711eebc14",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Stormcast Eternals"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:6a2afe7edb780a60833a2d20575b63494e1fd57a798ade293d5037266c5b290f",
           "publisher": "games-workshop"
         }
@@ -86434,6 +87198,28 @@
       "canonicalId": "publication:0f7fddd1-fe71-504b-8378-cc3379428209",
       "kind": "publication",
       "name": "Spearhead Rules Module: Desolation of the Mortal Realms"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000281",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:10420e23-4dc9-5bc1-870b-7f9658938277",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Nighthaunt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000272",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:109cf048-c708-52f8-89f6-3b1db2e93b4a",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Lumineth Realm-lords"
     },
     {
       "aliases": [
@@ -86471,6 +87257,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000265",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:14b34c30-5e6a-5dac-8bc4-17cc21adaa10",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Fyreslayers"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Source.csv:000000221",
           "publisher": "wahapedia"
         }
@@ -86482,6 +87279,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000286",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:15e9c6ea-efe5-520b-b1f9-e1d35c00328b",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Sons of Behemat"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Source.csv:000000231",
           "publisher": "wahapedia"
         }
@@ -86489,6 +87297,17 @@
       "canonicalId": "publication:1697d48b-8b0f-5563-a18c-394f1d1b8fc1",
       "kind": "publication",
       "name": "Spearhead: Disciples of Tzeentch - Fluxblade Coven"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000266",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:179b747e-3082-5cbd-9e67-c6f573d41f73",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Kharadron Overlords"
     },
     {
       "aliases": [
@@ -86680,6 +87499,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000271",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:22eef1ae-fc8d-5922-9ffd-84eea694d9aa",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Daughters of Khaine"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:9b053b0fabb3f8fb59c4e208c109a6b806622735e7c24e9a8566e46c4ad53142",
           "publisher": "games-workshop"
         }
@@ -86746,6 +87576,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000280",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:2722b36b-b122-5eb1-bc83-0b4344ed7854",
+      "kind": "publication",
+      "name": "Battletome Supplement: Hedonites of Slaanesh"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Source.csv:000000019",
           "publisher": "wahapedia"
         }
@@ -86779,17 +87620,6 @@
     {
       "aliases": [
         {
-          "externalId": "community:44edabd90d7a317bf12fcd3414f6ce48bc123b23532e9c2329cf0cc760edc046",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "publication:2977bd81-cb3c-5889-896c-0017f42f24e3",
-      "kind": "publication",
-      "name": "BSData shared Lores catalogue — Ogor Mawtribes battletome lores (provisional community transcription, pending official verification)"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Source.csv:000000020",
           "publisher": "wahapedia"
         }
@@ -86808,6 +87638,17 @@
       "canonicalId": "publication:2ae7238f-a281-5469-8590-497f2f92e7f5",
       "kind": "publication",
       "name": "Spearhead: Seraphon - Sunblooded Prowlers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000274",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:2b0920da-71d1-53bb-9680-dc3b9f3d9cfb",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Disciples of Tzeentch"
     },
     {
       "aliases": [
@@ -86852,17 +87693,6 @@
       "canonicalId": "publication:2fe09cea-729e-50bf-911a-4d4ca4cfd573",
       "kind": "publication",
       "name": "Darkwater Heroes - Legends Warscrolls"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "community:023ec4bc25c0cd21c961768da3bd73d4278d81cec53dae50e3f84d82d99fdd73",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "publication:302bc5eb-c0ce-5cc7-b83c-bbd99db8108d",
-      "kind": "publication",
-      "name": "BSData Ogor Mawtribes catalogue (provisional community transcription, pending official verification)"
     },
     {
       "aliases": [
@@ -86984,6 +87814,17 @@
       "canonicalId": "publication:3783f364-4a31-5ffe-8e11-fc1d65a35648",
       "kind": "publication",
       "name": "Spearhead: Nighthaunt - Slasher Host"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000277",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:381f50b3-6579-5a0b-a7ff-12ba4d674eb6",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Helsmiths of Hashut"
     },
     {
       "aliases": [
@@ -87197,6 +88038,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000259",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:487f2afe-0a84-5764-90e0-8c8fe4ac5acb",
+      "kind": "publication",
+      "name": "Battletome Supplement: Cities of Sigmar"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Source.csv:000000154",
           "publisher": "wahapedia"
         }
@@ -87303,6 +88155,17 @@
       "canonicalId": "publication:4fd1c136-ef94-5cef-88a2-343b679509b4",
       "kind": "publication",
       "name": "Regiments of Renown - Blades of Khorne"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000275",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:5067e2c9-a81a-515d-8310-2e44780c0dfa",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Hedonites of Slaanesh"
     },
     {
       "aliases": [
@@ -87509,6 +88372,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000283",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:629af8d8-891a-588f-b84f-6d4ec346a3bd",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Flesh-Eater Courts"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Source.csv:000000180",
           "publisher": "wahapedia"
         }
@@ -87560,6 +88434,17 @@
       "canonicalId": "publication:673f0e55-7231-5d4d-8142-6021746c58bc",
       "kind": "publication",
       "name": "Scourge of Ghyran - Nighthaunt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000289",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:6778c960-0e44-514f-8a96-e65f4e1d9380",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Gloomspite Gitz"
     },
     {
       "aliases": [
@@ -87707,6 +88592,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000287",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:6fc619f1-eb73-5034-aad6-ec4c261730e1",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Ironjawz"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:a5c12f4e25fb00153d881a9bd8c8d40c963b7df219cedd4b04fad15bbe95746e",
           "publisher": "games-workshop"
         }
@@ -87806,6 +88702,17 @@
       "canonicalId": "publication:75db88a1-1ad8-54db-90c3-5e7fe9f8af12",
       "kind": "publication",
       "name": "Scourge of Aqshy - Ogor Mawtribes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000284",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:76d144d7-2ae6-5ec4-af4f-6af4dee933d8",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Ossiarch Bonereapers"
     },
     {
       "aliases": [
@@ -87927,6 +88834,17 @@
       "canonicalId": "publication:85a4621c-c3fb-5476-991d-42eafa484da3",
       "kind": "publication",
       "name": "Skaven"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000285",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:8728b63f-f33c-50bc-bdf7-e01889d4ff65",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Kruleboyz"
     },
     {
       "aliases": [
@@ -88081,6 +88999,17 @@
       "canonicalId": "publication:92d5b26b-2089-5b9b-b836-14540f5804f4",
       "kind": "publication",
       "name": "Scourge of Ghyran - Idoneth Deepkin"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000264",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:931b8bfe-8a0e-5416-9f7b-3a596538dffe",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Sylvaneth"
     },
     {
       "aliases": [
@@ -88294,6 +89223,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000269",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:a290449c-7105-5413-ae26-b107842648c1",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Idoneth Deepkin"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:a69b20a03a0bced75d372eefa752fd6aba8b78e83048618966b1f2102060e065",
           "publisher": "games-workshop"
         }
@@ -88312,25 +89252,6 @@
       "canonicalId": "publication:a34c95ee-e843-5efe-9275-0e1bb633ab48",
       "kind": "publication",
       "name": "Regiments of Renown"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "community:114a06329cfda3455404af3757d2e638c5c4aa2dac7cfddcca070b32976be326",
-          "publisher": "other"
-        },
-        {
-          "externalId": "community:1fcb4041c659de33d653103171756115cdde6e6712dc1f346870c1dbeadc3b47",
-          "publisher": "other"
-        },
-        {
-          "externalId": "community:7e4d36ff7ad4b26ef27221bac71c52f2b812d85319688691acd44ccf8af0ab27",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "publication:a38715d5-6fb6-5f6c-90e0-9722eb78e030",
-      "kind": "publication",
-      "name": "BSData Ogor Mawtribes library (provisional community transcription, pending official verification)"
     },
     {
       "aliases": [
@@ -88548,6 +89469,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000279",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:b8ec92d5-e515-52f0-9a02-b9a09b867f39",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Blades of Khorne"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Source.csv:000000145",
           "publisher": "wahapedia"
         }
@@ -88599,6 +89531,17 @@
       "canonicalId": "publication:bb9146c5-2f6c-57e8-bc11-ff36f2692321",
       "kind": "publication",
       "name": "Faction Pack: Hedonites of Slaanesh"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Last_update.csv:2026-08-25 14:30:00",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:bc771dae-a40c-5db2-a2f2-abbd99e0cb17",
+      "kind": "publication",
+      "name": "Wahapedia AoS 4 export 2026-08-25 14:30:00"
     },
     {
       "aliases": [
@@ -88687,6 +89630,17 @@
       "canonicalId": "publication:c2c389b6-dfd0-55cb-9683-60379444902a",
       "kind": "publication",
       "name": "Blades of Khorne"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000276",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:c2e56153-79e2-5512-8de7-ab082d78b52f",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Skaven"
     },
     {
       "aliases": [
@@ -88878,6 +89832,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000282",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:cedd0a27-b876-57dd-b0a6-9e8aa33dd506",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Soulblight Gravelords"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Source.csv:000000008",
           "publisher": "wahapedia"
         }
@@ -88885,6 +89850,17 @@
       "canonicalId": "publication:cef0fb2a-ae4d-555e-91e0-e127eff80366",
       "kind": "publication",
       "name": "Gloomspite Gitz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000268",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:cfb83fc9-7f54-5950-9a8e-6e1076574144",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Seraphon"
     },
     {
       "aliases": [
@@ -89010,6 +89986,17 @@
       "canonicalId": "publication:da03da32-2992-5e07-80bc-e710e107bcd1",
       "kind": "publication",
       "name": "Spearhead: Cities of Sigmar - Castelite Company"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000278",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:da826f52-3428-5eea-b814-626c6298ced8",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Maggotkin of Nurgle"
     },
     {
       "aliases": [
@@ -89223,6 +90210,17 @@
     {
       "aliases": [
         {
+          "externalId": "Source.csv:000000267",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:edcb6ca5-54cb-5fd0-a6c2-e933483280dd",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Cities of Sigmar"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Source.csv:000000228",
           "publisher": "wahapedia"
         }
@@ -89366,6 +90364,17 @@
       "canonicalId": "publication:fb223b1b-b4de-5453-b047-4f5f338db77e",
       "kind": "publication",
       "name": "Spearhead: Gloomspite Gitz - Snarlpack Huntaz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000273",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:fb8e40d7-08b2-5bba-832d-0678404eebe3",
+      "kind": "publication",
+      "name": "Scourge of Aqshy - Slaves to Darkness"
     },
     {
       "aliases": [
@@ -90527,13 +91536,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gluttons/warscroll",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "Warscrolls.csv:000000489",
           "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:1475b0a4-496b-52c8-8e16-c43d36ab04ce",
       "kind": "warscroll",
-      "name": "Ogor Gluttons"
+      "name": "Gluttons"
     },
     {
       "aliases": [
@@ -92947,6 +93960,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Grell-Firefist/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:3d7eeb3f-cec6-5f0e-984d-d824c54696a4",
@@ -94805,6 +95822,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Morga-The-Mighty-Overtyrant/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:63fc6999-e8d4-5e96-a571-8d13f0b956d5",
@@ -94849,6 +95870,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gutseers",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gutseers/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:64653115-2bc4-5cdd-9b06-ce3df37d81f0",
@@ -96162,17 +97187,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:gluttons",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "warscroll:786a5478-cdd5-5c9e-b99a-64abd300c3c2",
-      "kind": "warscroll",
-      "name": "Gluttons"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls.csv:000001999",
           "publisher": "wahapedia"
         }
@@ -96987,6 +98001,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Hunters-with-Sabrefangs/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:89ccb5ba-230f-54bb-8fb1-615990d3dff2",
@@ -97611,6 +98629,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Redd-the-Maw-High-Slaughtermaster/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:955103c0-b6f8-5b34-8d0a-ecfd5046a434",
@@ -97839,6 +98861,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Cavalry/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:978ff9a9-1948-5753-a499-84c7f574fb55",
@@ -100177,6 +101203,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:cleavers",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Cleavers/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:bd57f577-0070-56a0-b30b-d02c9d76f9dc",
@@ -101569,6 +102599,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Raiders/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:d1eb2b5d-66e4-5894-8779-7d9bf1ac631e",
@@ -103363,6 +104397,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Tyrant-on-Glutthorn/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:f1747fd5-adb7-5c6e-a38f-a3e35bc3c0b9",
@@ -104838,17 +105876,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-thundertusk:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:09ec6ecd-5e53-5904-b5de-93d8c65efa17",
-      "kind": "weapon",
-      "name": "Ice Blast"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000001995:2",
           "publisher": "wahapedia"
         }
@@ -105453,6 +106480,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:bloodpelt-hunter:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Bloodpelt-Hunter/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:10da3f22-9852-5a14-86d1-9ec3c63c94e8",
@@ -105480,17 +106511,6 @@
       "canonicalId": "weapon:1109390d-fc9b-510a-81dc-692a8232d5e0",
       "kind": "weapon",
       "name": "Fyresteel Weapons"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:mournfang-pack:weapon:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:1124be6d-b6ee-5047-8de9-8cd7ff4b831e",
-      "kind": "weapon",
-      "name": "Mournfang's Tusks"
     },
     {
       "aliases": [
@@ -105923,6 +106943,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Hunters-with-Sabrefangs/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:1648e36f-df00-518c-8a85-eb205a84a33b",
@@ -106184,6 +107208,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Morga-The-Mighty-Overtyrant/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:19416ce2-383a-579b-84da-ccaae29a0f9d",
@@ -106454,17 +107482,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:butcher:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:1aeef42a-31ac-581f-ac27-b0f74a5618f5",
-      "kind": "weapon",
-      "name": "Butcher's Tools"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000000685:4",
           "publisher": "wahapedia"
         }
@@ -106719,17 +107736,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-thundertusk:weapon:3",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:1cfc0fc3-a99c-53d8-b4b2-c24be515c4a7",
-      "kind": "weapon",
-      "name": "Thundertusk's Colossal Tusks"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000000057:1",
           "publisher": "wahapedia"
         }
@@ -106769,6 +107775,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:tyrant:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Tyrant/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:1d4a9cba-b5e5-5ada-afdf-a9eb1298fb92",
@@ -107129,6 +108139,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-stonehorn:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Huskard-on-Stonehorn/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:20b6cff3-d9b0-5c51-a27a-f3de2ab67eb9",
@@ -108057,6 +109071,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Stonehorn-Beastriders/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:2acf5303-ed9e-50ae-bea5-62b0cb45f10a",
+      "kind": "weapon",
+      "name": "Chaintrap, Harpoon Launcher or Blood Vulture"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_weapons.csv:000001650:1",
           "publisher": "wahapedia"
         }
@@ -108173,6 +109198,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Raiders/weapon:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:2ba567c3-4f91-5453-817f-eb794e2a4f79",
@@ -108380,17 +109409,6 @@
       "canonicalId": "weapon:2ecb9f2e-7141-5461-84ae-8ceec77937b3",
       "kind": "weapon",
       "name": "Blazing Tempest"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-thundertusk:weapon:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:2edfa6c1-e074-5660-b5ea-090e8314be93",
-      "kind": "weapon",
-      "name": "Frost Spear"
     },
     {
       "aliases": [
@@ -111010,6 +112028,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-stonehorn:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Huskard-on-Stonehorn/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:4949c92b-a280-57e5-8e7d-e9b5032208b6",
@@ -111102,6 +112124,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gutseers:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gutseers/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:4abb8c1c-2fc6-5151-9888-b5839c58118e",
@@ -111605,6 +112631,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:cleavers:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Cleavers/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:4ed23cf0-9c3f-5e25-bad3-653b4094ff84",
@@ -111779,17 +112809,6 @@
       "canonicalId": "weapon:4ffbb4da-1857-5eb0-9171-0aa57e118da3",
       "kind": "weapon",
       "name": "Warhorse’s Steel‑shod Hooves"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:ironblaster:weapon:3",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:50203d05-f14a-52d2-955b-5dc41ade50a5",
-      "kind": "weapon",
-      "name": "Rhinox's Sharp Horns"
     },
     {
       "aliases": [
@@ -112095,6 +113114,17 @@
       "canonicalId": "weapon:528cb692-41ed-565f-865c-29cd252565d9",
       "kind": "weapon",
       "name": "Massive Warmaul"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Icebrow-Hunter/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:52cfb2c2-3bd3-5199-a0ed-4c388215e461",
+      "kind": "weapon",
+      "name": "Great Throwing Spear and Crossbow"
     },
     {
       "aliases": [
@@ -112757,17 +113787,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-thundertusk:weapon:4",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:5a454296-fc2c-58a0-b48a-9a9b38702e79",
-      "kind": "weapon",
-      "name": "Thundertusk's Colossal Tusks"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000003366:1",
           "publisher": "wahapedia"
         }
@@ -113069,6 +114088,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Raiders/weapon:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:5e7e83fb-2006-53f6-b33a-13fdd377dbf3",
+      "kind": "weapon",
+      "name": "Punches and Kicks"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_weapons.csv:000002726:1",
           "publisher": "wahapedia"
         }
@@ -113304,17 +114334,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:weapon:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:60c468e8-e783-5be0-a9cb-a30d50ee6903",
-      "kind": "weapon",
-      "name": "Punches and Kicks"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000001740:1",
           "publisher": "wahapedia"
         }
@@ -113388,6 +114407,17 @@
       "canonicalId": "weapon:616cdd30-476b-5ce6-8b8d-3a9c1d30d7b2",
       "kind": "weapon",
       "name": "Hunter’s Glaive"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000000446:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:616f0bbc-75b7-56e6-936a-8a7b09c5fc2f",
+      "kind": "weapon",
+      "name": "Black Dragon’s Noxious Breath"
     },
     {
       "aliases": [
@@ -114213,17 +115243,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-thundertusk:weapon:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:68deab61-b8a1-5a14-83b9-c0436c56e37d",
-      "kind": "weapon",
-      "name": "Ice Blast"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000000691:2",
           "publisher": "wahapedia"
         }
@@ -114756,6 +115775,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Cavalry/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:6d2b4841-53f4-5e59-9cf5-9db99b892246",
@@ -114969,6 +115992,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Tyrant-on-Glutthorn/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:6fa6047c-d359-5e20-b2bc-53a2dd651555",
@@ -115547,17 +116574,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:gluttons:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:745887ae-38d7-5c4b-91a2-dfa7746981d8",
-      "kind": "weapon",
-      "name": "Glutton Weapons"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000000698:2",
           "publisher": "wahapedia"
         }
@@ -115587,17 +116603,6 @@
       "canonicalId": "weapon:749afc15-79da-5919-a5bc-d5ae3f62988f",
       "kind": "weapon",
       "name": "Culling Knife"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:gnoblars:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:74c03e67-2c46-500a-ae99-4233df2574af",
-      "kind": "weapon",
-      "name": "Sharp Stuff"
     },
     {
       "aliases": [
@@ -117096,6 +118101,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:thundertusk-beastriders:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Thundertusk-Beastriders/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:82efe1d3-b9e9-5cf5-a01f-32a4a95ab339",
@@ -117764,6 +118773,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:tyrant-on-glutthorn:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Tyrant-on-Glutthorn/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:8a16e81c-dc9d-56b1-8729-a27d318eb246",
@@ -117861,17 +118874,6 @@
       "canonicalId": "weapon:8ab2d2b2-1627-5e10-9eb6-a42918215dba",
       "kind": "weapon",
       "name": "Sissendra’s Twin Blades"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frost-sabres:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:8adbc4d8-39f2-5064-9e8f-483f61c050cf",
-      "kind": "weapon",
-      "name": "Tusks and Claws"
     },
     {
       "aliases": [
@@ -118592,17 +119594,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:mournfang-pack:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:92eaefeb-dcb2-546d-9152-bcaea9fa4688",
-      "kind": "weapon",
-      "name": "Mournfang Rider Weapon"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000000026:2",
           "publisher": "wahapedia"
         }
@@ -119251,6 +120242,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Redd-the-Maw-High-Slaughtermaster/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:98cbc89e-d9e6-5526-bbff-cd889bbe56ad",
@@ -119681,6 +120676,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-stonehorn:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Frostlord-on-Stonehorn/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:9d1983d0-32b0-5102-909f-4eab3cd57434",
@@ -119769,6 +120768,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Grell-Firefist/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:9d8a3d99-e48f-560b-9fb9-ca40d2888fd1",
@@ -120226,6 +121229,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gluttons/weapon:1",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "Warscrolls_weapons.csv:000000489:1",
           "publisher": "wahapedia"
@@ -120910,17 +121917,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:thundertusk-beastriders:weapon:4",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:a816d2cd-c54d-54da-a582-4e2e263ddcde",
-      "kind": "weapon",
-      "name": "Thundertusk's Colossal Tusks"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000000944:2",
           "publisher": "wahapedia"
         }
@@ -121315,17 +122311,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:thundertusk-beastriders:weapon:3",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:ab8ab3b8-ea1b-5deb-a4a9-b11687dbf1ba",
-      "kind": "weapon",
-      "name": "Punches and Kicks"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000001834:1",
           "publisher": "wahapedia"
         }
@@ -121339,6 +122324,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-thundertusk:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Huskard-on-Thundertusk/weapon:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:abc8e8d3-e5f6-5f40-9add-df5e45ff7e4b",
@@ -121497,6 +122486,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-cavalry:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Cavalry/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:acd6f68e-224a-590b-a2e8-14c0b4861a96",
@@ -122373,19 +123366,12 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:ironguts:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:b372cb9e-3e36-5633-9901-1e9d4a57c353",
-      "kind": "weapon",
-      "name": "Irongut Weapon"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "BSData/age-of-sigmar-4th:unit:ironblaster:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Ironblaster/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:b38f108f-280f-5d20-949f-745435517b15",
@@ -122689,6 +123675,17 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Stonehorn-Beastriders/weapon:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:b645893a-42d0-5364-8ae6-8ff798817b8c",
+      "kind": "weapon",
+      "name": "Stonehorn’s Rock-hard Horns and Hooves"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_weapons.csv:000000731:1",
           "publisher": "wahapedia"
         }
@@ -122871,6 +123868,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-thundertusk:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Huskard-on-Thundertusk/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:b805eba3-0a79-54be-bd0b-3becd080f3a3",
@@ -123345,6 +124346,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Hunters-with-Sabrefangs/weapon:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:bce354db-f235-503a-9dcf-3479fc8cbbbd",
@@ -123518,6 +124523,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:huskard-on-stonehorn:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Huskard-on-Stonehorn/weapon:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:be9a2206-9c7c-5944-8b24-b7175b3d208e",
@@ -123648,17 +124657,6 @@
       "canonicalId": "weapon:bfcc400f-2945-5aea-a37d-8c837f8d2b85",
       "kind": "weapon",
       "name": "Whippermaw’s Grasping Tongue"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:gnoblar-scraplauncher:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:bfede859-de95-53e5-aeef-365bb5c69cb0",
-      "kind": "weapon",
-      "name": "Piles of Old Scrap"
     },
     {
       "aliases": [
@@ -124957,17 +125955,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:gnoblars:weapon:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:cc313866-c662-5ea7-a742-3cbb95cf42c5",
-      "kind": "weapon",
-      "name": "Motley Assortment of Weapons"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000003395:1",
           "publisher": "wahapedia"
         }
@@ -125364,6 +126351,21 @@
     {
       "aliases": [
         {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:weapon:1",
+          "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Mawpit/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:d11b97f8-86bb-58d9-bc3c-5cc7ce184040",
+      "kind": "weapon",
+      "name": "Ever-hungry Pit"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "Warscrolls_weapons.csv:000000148:1",
           "publisher": "wahapedia"
         }
@@ -125496,17 +126498,6 @@
       "canonicalId": "weapon:d2107112-48a6-5297-b8f4-66800a5d8403",
       "kind": "weapon",
       "name": "Fangmora’s Fangs and Lashing Tail"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:bloodpelt-hunter:weapon:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:d2533891-e782-55ec-9654-97fe23ab0067",
-      "kind": "weapon",
-      "name": "Hacker-axe and Meatblade"
     },
     {
       "aliases": [
@@ -126527,6 +127518,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gnoblar-scraplauncher:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Gnoblar-Scraplauncher/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:dc944d70-6e6a-5c3f-9c66-2bab0ffad733",
@@ -126630,6 +127625,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:redd-the-maw-high-slaughtermaster:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Redd-the-Maw-High-Slaughtermaster/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:dd7d6f2a-eb87-5e64-9253-790b8dab541c",
@@ -127549,6 +128548,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:morga-the-mighty-overtyrant:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Morga-The-Mighty-Overtyrant/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:e587ec2a-1700-583f-bb78-8ba55f9cf71f",
@@ -127887,6 +128890,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:maulbeast-raiders:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Maulbeast-Raiders/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:e82caf5d-8d76-5178-be25-cbc84ce8e990",
@@ -128254,6 +129261,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ironblaster:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Ironblaster/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:eb58420b-c68a-58e3-ad91-ce81256926e7",
@@ -128526,6 +129537,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:grell-firefist:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Grell-Firefist/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:ee47d74b-451b-5598-a32a-763c4076a550",
@@ -128656,17 +129671,6 @@
     {
       "aliases": [
         {
-          "externalId": "BSData/age-of-sigmar-4th:unit:thundertusk-beastriders:weapon:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:efa876b5-2801-51c6-aad9-3d7c911dd557",
-      "kind": "weapon",
-      "name": "Ice Blast"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000000884:1",
           "publisher": "wahapedia"
         }
@@ -128770,17 +129774,6 @@
       "canonicalId": "weapon:f0dc9f24-a8d8-5b03-a7d7-e194f2b95260",
       "kind": "weapon",
       "name": "Moon-sickle and Basha"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:frostlord-on-stonehorn:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:f0ee4bae-7f03-56e3-b1c8-b919f7f23ca0",
-      "kind": "weapon",
-      "name": "Frost Spear"
     },
     {
       "aliases": [
@@ -129140,6 +130133,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:hunters-with-sabrefangs:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#datasheet:Hunters-with-Sabrefangs/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:f5042daa-7f5c-5401-9040-e2fe4acd4988",
@@ -130100,534 +131097,6 @@
       "canonicalId": "weapon:ffe1a1ee-4123-51db-bb6e-3158c434ab55",
       "kind": "weapon",
       "name": "Bigteef’s Fists and Tail"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:great-mawpot:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:33c9adf7-73a2-5b0a-a7e3-6cacdcf2e68f",
-      "kind": "ability",
-      "name": "Battlebroth"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:great-mawpot:ability:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:c4c39e91-a327-5e18-9a88-9c9ecd3627ef",
-      "kind": "ability",
-      "name": "Vessel of the Gulping God"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:great-mawpot:ability:3",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:3c918cb1-f25c-548a-8443-fe653043172d",
-      "kind": "ability",
-      "name": "Throw 'Em In"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:ability:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:8c8dd3f4-4cb0-532e-af6c-2131bdf488af",
-      "kind": "ability",
-      "name": "Hungry Sinkhole"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:ability:2",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:a4a15f4a-6d33-59b1-b364-85e30b499d82",
-      "kind": "ability",
-      "name": "Feed the Maw"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:ability:3",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "ability:0a158af5-2f03-5619-87b9-08f0ed2b4a4b",
-      "kind": "ability",
-      "name": "Step Away from the Maw"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "BSData/age-of-sigmar-4th:unit:mawpit:weapon:1",
-          "publisher": "other"
-        }
-      ],
-      "canonicalId": "weapon:d11b97f8-86bb-58d9-bc3c-5cc7ce184040",
-      "kind": "weapon",
-      "name": "Ever-hungry Pit"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000000337:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:589818bd-8b47-5132-b73f-cc372d75906c",
-      "kind": "ability",
-      "name": "THE ENDLESS DANCE"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000000342:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:6f9eedbe-5236-5c18-8886-3f09de838daf",
-      "kind": "ability",
-      "name": "BEAST"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000000428:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:ad82fad3-bd2a-500a-a14e-08c05262ade0",
-      "kind": "ability",
-      "name": "ABYSSAL HOWL"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001027:4",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:5702c54c-6879-5d30-b2e0-2d8b42ba0557",
-      "kind": "ability",
-      "name": "GORGE ON EXCESS"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001028:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:f2cec5b3-2e5c-5271-8bd6-696a49932eec",
-      "kind": "ability",
-      "name": "SHARE THE PAIN"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001030:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:6eeb7ab7-d4a9-52c2-addb-d075f3fe170b",
-      "kind": "ability",
-      "name": "SHARDSLASH"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001037:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:b120aa6d-d96c-52b4-9112-725d46f15979",
-      "kind": "ability",
-      "name": "EGO-DRIVEN EXCESS"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001123:3",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:5ef9989d-f71b-501b-bd05-c6c183b29024",
-      "kind": "ability",
-      "name": "JOYOUS BATTLE FURY"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001124:3",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:d373fdab-9f2c-5968-ad53-0e3b0d7f240b",
-      "kind": "ability",
-      "name": "ENTHRALLING SPLENDOUR"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001678:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:13a8763b-afe3-5a4f-b4ab-1535d4f5254c",
-      "kind": "ability",
-      "name": "ATTENDANT RELIC ENVOY"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001685:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:567dd0c7-bb01-5279-aa00-a92eb0fd4067",
-      "kind": "ability",
-      "name": "LEAD FROM THE FRONT"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001735:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:e49da257-948d-5d7c-bbea-c00ec9fac269",
-      "kind": "ability",
-      "name": "RIGHT TOOLS FOR THE JOB"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Last_update.csv:2026-08-25 14:30:00",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:bc771dae-a40c-5db2-a2f2-abbd99e0cb17",
-      "kind": "publication",
-      "name": "Wahapedia AoS 4 export 2026-08-25 14:30:00"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000259",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:487f2afe-0a84-5764-90e0-8c8fe4ac5acb",
-      "kind": "publication",
-      "name": "Battletome Supplement: Cities of Sigmar"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000264",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:931b8bfe-8a0e-5416-9f7b-3a596538dffe",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Sylvaneth"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000265",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:14b34c30-5e6a-5dac-8bc4-17cc21adaa10",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Fyreslayers"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000266",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:179b747e-3082-5cbd-9e67-c6f573d41f73",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Kharadron Overlords"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000267",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:edcb6ca5-54cb-5fd0-a6c2-e933483280dd",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Cities of Sigmar"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000268",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:cfb83fc9-7f54-5950-9a8e-6e1076574144",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Seraphon"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000269",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:a290449c-7105-5413-ae26-b107842648c1",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Idoneth Deepkin"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000270",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:0e991cca-8644-5399-8b25-823711eebc14",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Stormcast Eternals"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000271",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:22eef1ae-fc8d-5922-9ffd-84eea694d9aa",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Daughters of Khaine"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000272",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:109cf048-c708-52f8-89f6-3b1db2e93b4a",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Lumineth Realm-lords"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000273",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:fb8e40d7-08b2-5bba-832d-0678404eebe3",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Slaves to Darkness"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000274",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:2b0920da-71d1-53bb-9680-dc3b9f3d9cfb",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Disciples of Tzeentch"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000275",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:5067e2c9-a81a-515d-8310-2e44780c0dfa",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Hedonites of Slaanesh"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000276",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:c2e56153-79e2-5512-8de7-ab082d78b52f",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Skaven"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000277",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:381f50b3-6579-5a0b-a7ff-12ba4d674eb6",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Helsmiths of Hashut"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000278",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:da826f52-3428-5eea-b814-626c6298ced8",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Maggotkin of Nurgle"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000279",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:b8ec92d5-e515-52f0-9a02-b9a09b867f39",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Blades of Khorne"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000280",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:2722b36b-b122-5eb1-bc83-0b4344ed7854",
-      "kind": "publication",
-      "name": "Battletome Supplement: Hedonites of Slaanesh"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000281",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:10420e23-4dc9-5bc1-870b-7f9658938277",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Nighthaunt"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000282",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:cedd0a27-b876-57dd-b0a6-9e8aa33dd506",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Soulblight Gravelords"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000283",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:629af8d8-891a-588f-b84f-6d4ec346a3bd",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Flesh-Eater Courts"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000284",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:76d144d7-2ae6-5ec4-af4f-6af4dee933d8",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Ossiarch Bonereapers"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000285",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:8728b63f-f33c-50bc-bdf7-e01889d4ff65",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Kruleboyz"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000286",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:15e9c6ea-efe5-520b-b1f9-e1d35c00328b",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Sons of Behemat"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000287",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:6fc619f1-eb73-5034-aad6-ec4c261730e1",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Ironjawz"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000288",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:05d3ebdc-3ad4-55f3-b18a-ddff708c63c9",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Ogor Mawtribes"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Source.csv:000000289",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "publication:6778c960-0e44-514f-8a96-e65f4e1d9380",
-      "kind": "publication",
-      "name": "Scourge of Aqshy - Gloomspite Gitz"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_weapons.csv:000000446:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "weapon:616f0bbc-75b7-56e6-936a-8a7b09c5fc2f",
-      "kind": "weapon",
-      "name": "Black Dragon’s Noxious Breath"
     }
   ],
   "schemaVersion": 1

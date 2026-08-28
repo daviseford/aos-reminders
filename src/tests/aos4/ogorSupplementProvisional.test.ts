@@ -8,30 +8,21 @@ import type { Aos4ArmyDocument } from '../../aos4/state'
 import { createAos4BuilderViewModel } from '../../aos4/view'
 
 /**
- * The July 2026 Ogor Mawtribes battletome adds nine new units. Their existence, points, unit
- * sizes, bases, and roster notes are established by accepted official Battle Profiles documents,
- * but neither Wahapedia nor any accepted official document publishes their warscroll rules yet.
+ * The July 2026 Ogor Mawtribes battletome added ten units and rewrote the legacy warscrolls.
+ * Their existence, points, unit sizes, bases, and roster notes are established by accepted
+ * official Battle Profiles documents; from 2026-08-01b to 2026-08-28 their rules text shipped
+ * provisionally from commit-pinned BSData transcriptions (issues #1812/#1850/#1880).
  *
- * Under the standing fallback-tier source policy (official Games Workshop publications are
- * authoritative, Wahapedia is the preferred secondary, BSData is an acceptable fallback only while
- * an official publication establishes the content and Wahapedia does not yet carry the rules),
- * the accepted review admits the commit-pinned BSData `ogors`-branch transcriptions of these
- * units as provisional community facts. Official facts win every overlapping field, and the
- * provisional status stays visible through source attribution.
+ * On 2026-08-28 Wahapedia published the battletome-current pages, and the 2026-08-28b revision
+ * completed the provisional-to-verified swap the watch entries promised: the re-pinned Ogor
+ * faction and warscroll-collection pages now supply every rule, the three BSData catalogues and
+ * their community source entries are retired, and official facts still win every overlapping
+ * field. Identity continuity held where it matters: the supplement units keep their canonical
+ * ids, and Gluttons keeps the identity it adopted from the renamed "Ogor Gluttons" datasheet.
  *
- * Issue #1850 extended the intake to the battletome's legacy-unit rewrites, and issue #1880 to
- * the renamed Gluttons datasheet and the two rewritten faction-terrain sheets: each community
- * record replaces its stale Wahapedia datasheet and adopts that datasheet's canonical identity,
- * so saved armies and share links keep resolving.
- *
- * Lorai, Child of the Abyss demonstrates the swap this test guards: she shipped provisionally in
- * `2026-08-01b`, Wahapedia then published her datasheet, and `2026-08-01d` replaced the BSData
- * transcription with the Wahapedia rules through a reviewed cross-faction adoption (her keyword
- * line names Idoneth Deepkin and The Blacktalons, so the native filter needs the reviewed entry).
- *
- * When Wahapedia (or an owner-supplied official source) publishes the remaining warscrolls, the
- * standard candidate intake replaces those provisional facts and this test's expectations must
- * move with that acceptance.
+ * Lorai, Child of the Abyss demonstrated the same swap at unit scale in `2026-08-01d`
+ * (Wahapedia published her datasheet; a reviewed cross-faction adoption replaced the BSData
+ * transcription). This file pins the faction-scale outcome.
  */
 
 interface ReconciliationReport {
@@ -52,7 +43,7 @@ const OGOR_SUPPLEMENT_UNITS: Array<{ name: string; unitSize: number; points: num
 
 const reconciliation = JSON.parse(
   readFileSync(
-    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-28-reconciliation.json'),
+    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-28b-reconciliation.json'),
     'utf8'
   )
 ) as ReconciliationReport
@@ -94,7 +85,12 @@ const hasProvisionalCommunityAttribution = (warscroll: Warscroll): boolean =>
     )
   })
 
-describe('Ogor supplement units ship provisionally from BSData under the fallback-tier policy', () => {
+const hasWahapediaSource = (warscroll: Warscroll): boolean =>
+  warscroll.sourceRefs.some(reference =>
+    String(reference.sourceRecordId).startsWith('source-record:wahapedia:')
+  )
+
+describe('Ogor battletome units ship from the verified Wahapedia pages (2026-08-28b swap)', () => {
   const ogor = factionByName('Ogor Mawtribes')
 
   it.each(OGOR_SUPPLEMENT_UNITS)(
@@ -126,8 +122,10 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
       expect(unitReminders.length).toBe(reminders)
       expect(unitReminders.length).toBeGreaterThan(0)
 
-      // The provisional community source stays visible through the reminder source links.
-      expect(hasProvisionalCommunityAttribution(warscroll!)).toBe(true)
+      // The provisional-to-verified swap completed: the rules come from the Wahapedia
+      // secondary source and no community attribution remains.
+      expect(hasProvisionalCommunityAttribution(warscroll!)).toBe(false)
+      expect(hasWahapediaSource(warscroll!)).toBe(true)
     }
   )
 
@@ -184,7 +182,8 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     )
     expect(profiles).toHaveLength(1)
     expect(profiles[0]).toMatchObject({ unitSize: 5, points: 200 })
-    expect(hasProvisionalCommunityAttribution(gluttons!)).toBe(true)
+    expect(hasProvisionalCommunityAttribution(gluttons!)).toBe(false)
+    expect(hasWahapediaSource(gluttons!)).toBe(true)
   })
 
   it('serves the rewritten Mawpit and Great Mawpot terrain from the battletome (#1880)', () => {
@@ -202,14 +201,15 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
     )
     // The battletome abilities; the index-era signature Throat of Ghur is gone.
     expect(mawpitReminders.map(reminder => reminder.name).sort()).toEqual(
-      ['Feed the Maw', 'Hungry Sinkhole', 'Step Away from the Maw'].sort()
+      ['FEED THE MAW', 'HUNGRY SINKHOLE', 'STEP AWAY FROM THE MAW'].sort()
     )
     const mawpitProfile = AOS4_FULL_CATALOG.entities.find(
       (entity): entity is BattleProfile =>
         entity.kind === 'battle-profile' && entity.warscrollId === mawpit!.id
     )
     expect(mawpitProfile).toMatchObject({ unitSize: 1, points: 0 })
-    expect(hasProvisionalCommunityAttribution(mawpit!)).toBe(true)
+    expect(hasProvisionalCommunityAttribution(mawpit!)).toBe(false)
+    expect(hasWahapediaSource(mawpit!)).toBe(true)
 
     const greatMawpot = warscrollFor(ogor, 'Great Mawpot')
     expect(greatMawpot).toBeDefined()
@@ -221,7 +221,8 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
         entity.kind === 'battle-profile' && entity.warscrollId === greatMawpot!.id
     )
     expect(mawpotProfile).toMatchObject({ unitSize: 1, points: 20 })
-    expect(hasProvisionalCommunityAttribution(greatMawpot!)).toBe(true)
+    expect(hasProvisionalCommunityAttribution(greatMawpot!)).toBe(false)
+    expect(hasWahapediaSource(greatMawpot!)).toBe(true)
   })
 
   it('keeps the Scourge of Aqshy variants on Wahapedia text that already matches the battletome (#1850)', () => {
@@ -273,9 +274,10 @@ describe('Ogor supplement units ship provisionally from BSData under the fallbac
       const context = AOS4_FULL_CATALOG.rulesContexts.find(predicate)!
       return ogorWarscrolls.filter(warscroll => warscroll.rulesContextIds.includes(context.id)).length
     }
-    // 44 pre-supplement standard warscrolls + 9 provisional supplement units + the renamed
-    // Gluttons replacement; the two seasonal Scourge of Aqshy variants complete the 56 current
-    // warscrolls. The index-era "Ogor Gluttons" datasheet left the current contexts (#1880).
+    // 44 pre-supplement standard warscrolls + 9 supplement units + the renamed Gluttons
+    // replacement; the two seasonal Scourge of Aqshy variants complete the 56 current
+    // warscrolls. The index-era "Ogor Gluttons" datasheet left the current contexts (#1880),
+    // and the counts survived the 2026-08-28b swap to the Wahapedia battletome pages intact.
     expect(byContext(context => context.mode === 'standard' && context.status === 'current')).toBe(54)
     expect(byContext(context => context.status === 'seasonal')).toBe(56)
     expect(byContext(context => context.mode === 'spearhead')).toBe(9)
