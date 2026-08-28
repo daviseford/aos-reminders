@@ -30,11 +30,12 @@ interface SelectionGroup {
 const titles: Record<string, { title: string; mobileTitle?: string; order: number }> = {
   warscroll: { title: 'Units', order: 0 },
   'battle-formation': { title: 'Battle Formations', mobileTitle: 'Formations', order: 1 },
-  'artefact-of-power': { title: 'Artefacts of Power', mobileTitle: 'Artefacts', order: 2 },
-  'spell-lore': { title: 'Spell Lores', order: 3 },
-  'prayer-lore': { title: 'Prayer Lores', order: 4 },
-  'manifestation-lore': { title: 'Manifestation Lores', mobileTitle: 'Manif. Lores', order: 5 },
-  manifestation: { title: 'Manifestations', order: 6 },
+  'heroic-trait': { title: 'Heroic Traits', order: 2 },
+  'artefact-of-power': { title: 'Artefacts of Power', mobileTitle: 'Artefacts', order: 3 },
+  'spell-lore': { title: 'Spell Lores', order: 4 },
+  'prayer-lore': { title: 'Prayer Lores', order: 5 },
+  'manifestation-lore': { title: 'Manifestation Lores', mobileTitle: 'Manif. Lores', order: 6 },
+  manifestation: { title: 'Manifestations', order: 7 },
   'regiment-of-renown': {
     title: 'Regiment Of Renown',
     mobileTitle: 'Regiments',
