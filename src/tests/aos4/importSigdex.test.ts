@@ -201,12 +201,13 @@ describe('Sigdex text import', () => {
   })
 
   /**
-   * The General's Handbook 2026-27 replaces each battletome's enhancement table for the season, so
-   * a roster built before the season — or built for core play — can name an artefact the seasonal
-   * context no longer offers. The importer never guesses, but the diagnostic must say which
-   * boundary was hit and how to cross it rather than reading as a data gap.
+   * A battletome enhancement stays legal in a General's Handbook 2026-27 army: the seasonal table
+   * is picked "instead of other such tables available to your faction", an exclusivity applied at
+   * the pick, not a catalog replacement ("Using the Scourge of Aqshy Rules", eng_30-06). Under
+   * the earlier replacement model this roster dropped Quicksilver Draught with a "switch the
+   * rules context" warning (#1979).
    */
-  it('explains a battletome enhancement the season has replaced instead of reporting it unknown', () => {
+  it('imports a battletome enhancement cleanly in the seasonal context (#1979)', () => {
     const parsed = decode(
       'Stormcast Eternals',
       'Vanguard Wing',
@@ -219,17 +220,10 @@ describe('Sigdex text import', () => {
     )
     const preview = resolveParsedRoster(AOS4_CATALOG, parsed!, {
       defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
-      createDocumentId: () => 'army:sigdex-superseded-artefact',
+      createDocumentId: () => 'army:sigdex-battletome-artefact-in-season',
     })
-    expect(preview.diagnostics).toEqual([
-      expect.objectContaining({
-        code: 'unknown-selection',
-        severity: 'warning',
-        message:
-          '"Quicksilver Draught" has been replaced for the current season, so it was not imported. ' +
-          'Switch the rules context to Age of Sigmar Fourth Edition to use it.',
-      }),
-    ])
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches.map(match => match.label)).toContain('Quicksilver Draught')
     expect(preview.proposedDocument).toBeDefined()
   })
 

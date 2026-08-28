@@ -1,0 +1,113 @@
+{
+  "acceptedManifest": "data/aos4/manifests/accepted-2026-08-28.json",
+  "generatedAt": "2026-08-18T15:45:00.000Z",
+  "identities": "data/aos4/identities/corpus.json",
+  "integrity": {
+    "consumedSourceRecords": 20062,
+    "dispositions": [
+      {
+        "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the General's Handbook 2024-25 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2024-25%2F%23rules-ability%3APrayers%3Aability%3A1",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE SPELL card (Mystic Shield) that the General's Handbook 2024-25 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2024-25%2F%23rules-ability%3ASpells%3Aability%3A1",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the General's Handbook 2025-26 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2025-26%2F%23rules-ability%3APrayers%3Aability%3A2",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE SPELL card (Mystic Shield) that the General's Handbook 2025-26 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2025-26%2F%23rules-ability%3ASpells%3Aability%3A1",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the core rules page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fthe-core-rules%2F%23rules-ability%3APrayers%3Aability%3A2",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE SPELL card (Mystic Shield) that the core rules page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fthe-core-rules%2F%23rules-ability%3ASpells%3Aability%3A1",
+        "status": "ignored"
+      }
+    ],
+    "issues": [],
+    "supersededSourceRecords": {
+      "checksum": "12ffe5a7a7b60f71440511ba26b388d20eea60c8d80d983329014d87776d3657",
+      "count": 20674,
+      "reason": "Current reviewed Wahapedia HTML replaces the accepted May 2026 bulk warscroll and faction-rule records, the July 2026 Ogor Mawtribes battletome rewrites (issue #1850) replace the fourteen index-era Wahapedia datasheets whose ability sets the battletome changed, and the issue #1880 extension replaces three more index-era datasheets: the renamed \"Ogor Gluttons\" and the two rewritten terrain sheets (Great Mawpot, Mawpit). Superseded rows remain dispositioned for audit but cannot enter the current runtime."
+    }
+  },
+  "products": {
+    "data/aos4/catalog/catalog.json": {
+      "byteLength": 32537317,
+      "checksum": "0d631331bf6d3a8c90125412680570d94cc0218dd81ad653caf4ce5bde5071a1"
+    },
+    "data/aos4/catalog/official-battle-profiles.json": {
+      "byteLength": 1427062,
+      "checksum": "b5fd4e29458677ee61eac474ae2b3dbcaf5bfc5dcf3218fae32fcf5541ee70be"
+    },
+    "data/aos4/identities/corpus.json": {
+      "byteLength": 3691700,
+      "checksum": "16031b35f28cc38e9417f17a7fe36d8322c490b2ab57af56dc77c8ced2c45c63"
+    },
+    "data/aos4/reports/corpus-2026-08-28-reconciliation.json": {
+      "byteLength": 166628,
+      "checksum": "a46b4cf8dabee0b116599343a718f2d6a38fbd54b2c6716a2434ccd8ee12413d"
+    },
+    "src/aos4/generated/corpus/defaults.json": {
+      "byteLength": 169,
+      "checksum": "56f2897a563b6a9e6a31e83ce8ffd9e3d361d12aa0a8890bf24d374264ffb0a6"
+    },
+    "src/aos4/generated/corpus/faction-index.json": {
+      "byteLength": 4982,
+      "checksum": "db89eafc8a989c781dd6f3f4699294374e81617ffb12145bbc6e5d76f8d0728d"
+    },
+    "src/aos4/generated/corpus/runtime.core.json": {
+      "byteLength": 6391988,
+      "checksum": "f47c0bcf73e8cde5ff2a5df1c0f289236c64e2fa77bef4f66d8358c592fc4253"
+    },
+    "src/aos4/generated/corpus/runtime.json": {
+      "byteLength": 13436534,
+      "checksum": "d84addf9ffbccd583875bac23cab52a718c9ac39efc29a4c21fbf14389d26ed0"
+    },
+    "src/aos4/generated/corpus/runtime.sources.json": {
+      "byteLength": 7044548,
+      "checksum": "6198a65a4106faca51cea96543d5df4f92ec60c0d59386cb2d9fc90a477ee67f"
+    }
+  },
+  "review": "data/aos4/reviews/corpus-2026-08-28.json",
+  "schemaVersion": 1,
+  "sourceDiagnostics": {
+    "byCode": {
+      "duplicate-identical-record": 498,
+      "empty-association-record": 639,
+      "missing-faction": 2,
+      "polluted-marker": 594
+    },
+    "reviewed": 1733
+  },
+  "status": "strict-pass",
+  "summary": {
+    "abilities": 5074,
+    "attribution": "Powered by Wahapedia",
+    "battleProfiles": 1012,
+    "contentGroups": 1493,
+    "factions": 28,
+    "ignoredSourceRecords": 20680,
+    "publications": 307,
+    "relationships": 13807,
+    "revision": "aos4-corpus-2026-08-28",
+    "schemaVersion": 1,
+    "sourceArtifacts": 244,
+    "sourceRecords": 20068,
+    "status": "strict-pass",
+    "warscrolls": 1296,
+    "weapons": 2269
+  }
+}

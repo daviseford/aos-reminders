@@ -87463,6 +87463,10 @@
         {
           "externalId": "official:8c9e0f6b0a358925c78ba7282cda3e6634ae59b57226557095bb770d95fc06c7",
           "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:c83f31ca2f18e21d68ffdd20f77670031234233ff00118c4a4263d1a3768aef9",
+          "publisher": "games-workshop"
         }
       ],
       "canonicalId": "publication:5d661afa-e174-5e76-aab1-8cb70bf80d89",
@@ -87757,6 +87761,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "official:db1c375ed0947f89650a575198238236eb18a63b1d05c12a6a88f3e60f7bb5e6",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "official:f22149076e05dd6c450a5390c8d11dd72a8bf62663dd9a4df6ab99dad621acd2",
           "publisher": "games-workshop"
@@ -88426,6 +88434,10 @@
     {
       "aliases": [
         {
+          "externalId": "official:2a800071d2243b2eebbbd6743fc5ae676d4f51cb6c9669264845c15418dbae2f",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "official:4c6adcc50312082904bd6c58cdf42705d3f16d33708d7d67b3a752b4ff472610",
           "publisher": "games-workshop"
         }
@@ -88943,6 +88955,10 @@
     {
       "aliases": [
         {
+          "externalId": "official:94ffcb88a694979a701ff33c8090d3dfe1fff1712e89f2c5d54748b9a54f3e61",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "official:9dc9f6be519da7b1161556d704ffc2bfa469efc764e0c6c3c464bd069bc03338",
           "publisher": "games-workshop"
         }
@@ -89263,6 +89279,10 @@
       "aliases": [
         {
           "externalId": "official:80b113d5b2e4fcffe13a214d0064de3415e49786537310cd43dacfd3107aa247",
+          "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:8f21971077f8ea4a2a4bc0ffb0dcaaccff7cc6a85ecd38b4d5897191aeaed2de",
           "publisher": "games-workshop"
         }
       ],

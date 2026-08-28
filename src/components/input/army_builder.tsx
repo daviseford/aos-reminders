@@ -90,14 +90,20 @@ const SelectionCard = ({
     value: option.id,
     disabled: !option.available && !option.selected,
   })
-  // Current-standard content lists first; Legends and Scourge of Ghyran content is always offered
-  // but sits under its own group header so its provenance stays visible.
-  const currentOptions = group.options.filter(option => !option.overlay).map(toOption)
+  // Current-standard content lists first; season-exclusive, Legends, and Scourge of Ghyran
+  // content is always offered but sits under its own group header so its provenance stays
+  // visible. The seasonal header also carries the disambiguation for the General's Handbook
+  // 2026-27 enhancement tables, which share their battletome counterparts' names (#1979).
+  const currentOptions = group.options.filter(option => !option.overlay && !option.seasonal).map(toOption)
+  const seasonalOptions = group.options.filter(option => !option.overlay && option.seasonal).map(toOption)
   const legendsOptions = group.options.filter(option => option.overlay === 'legends').map(toOption)
   const historicalOptions = group.options.filter(option => option.overlay === 'historical').map(toOption)
-  const options: Option[] = [...currentOptions, ...legendsOptions, ...historicalOptions]
+  const options: Option[] = [...currentOptions, ...seasonalOptions, ...legendsOptions, ...historicalOptions]
   const groupedOptions = [
     ...currentOptions,
+    ...(seasonalOptions.length
+      ? [{ label: 'General’s Handbook 2026-27 (Scourge of Aqshy)', options: seasonalOptions }]
+      : []),
     ...(legendsOptions.length ? [{ label: 'Legends', options: legendsOptions }] : []),
     ...(historicalOptions.length
       ? [{ label: 'Scourge of Ghyran (2025-26)', options: historicalOptions }]

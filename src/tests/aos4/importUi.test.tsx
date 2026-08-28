@@ -443,11 +443,15 @@ describe('AoS 4 import modal', () => {
   })
 
   /**
-   * A diagnostic that advises switching the rules context reopens the ruleset question even when
-   * the roster declared one: the #1979 report carried a battletome artefact the season replaced,
-   * and the dialog told the player to switch without offering any way to do it.
+   * The #1979 roster: a GHB 2026-27 army carrying a battletome artefact. Under the replacement
+   * model the dialog warned that the season replaced Seed of Rebirth and offered a ruleset
+   * switch; the confirmed official reading ("Using the Scourge of Aqshy Rules": the seasonal
+   * table is picked instead of others, not carried in addition — every table stays legal) keeps
+   * battletome tables offered in season, so the same roster now imports without a caveat. The
+   * dialog's switch-on-suggestion capability itself stays for future seasons' boundaries; with
+   * no core-only content left in the accepted catalog there is nothing real to drive it with.
    */
-  it('offers the ruleset switch a superseded-enhancement warning advises', () => {
+  it('imports a seasonal roster carrying a battletome artefact without a caveat (#1979)', () => {
     pasteAndPreview(`Training 1000/1000 pts
 Sylvaneth
 Outcasts
@@ -461,22 +465,8 @@ Branchwych (100)
 Created with Warhammer Age of Sigmar: The App
 App: 1.37.0 | Data: 476`)
 
-    expect(container.textContent).toContain(
-      '"Seed of Rebirth" has been replaced for the current season, so it was not imported.'
-    )
-    const select = container.querySelector<HTMLSelectElement>('#import-rules-context')!
-    expect(select.options[0].textContent).toContain("Use the roster's ruleset")
-
-    const core = Array.from(select.options).find(
-      option => option.textContent === 'Age of Sigmar Fourth Edition'
-    )!
-    select.value = core.value
-    act(() => {
-      Simulate.change(select)
-    })
-
     expect(container.textContent).not.toContain('has been replaced for the current season')
-    expect(container.querySelector('#import-rules-context')).not.toBeNull()
+    expect(container.textContent).not.toContain('Seed of Rebirth" has been replaced')
     expect(findButton(container, 'Import Army').disabled).toBe(false)
   })
 

@@ -52,7 +52,7 @@ describe('29 July 2026 rules radar acceptance', () => {
     expect(abilitiesNamed('DAMNED VESSEL')[0]).toMatchObject({
       abilityKind: 'passive',
       text: {
-        effect: expect.stringContaining('Whenever you declare a SPELL ability'),
+        effect: expect.stringContaining('Each time you declare a SPELL ability'),
       },
       timings: [
         {
