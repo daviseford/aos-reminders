@@ -270,6 +270,21 @@ describe('AoS 4 home presentation', () => {
     expect(manifestationOptions).not.toContain('Aetherwings')
   })
 
+  /**
+   * Heroic Traits are a core enhancement category on every faction. Without a configured card
+   * title the group fell back to a generated "Heroic Trait" card sorted after the faction-specific
+   * oddments, where players looking beside Artefacts of Power reported it missing (#1983).
+   */
+  it('offers heroic traits in a titled card beside the other enhancement cards', async () => {
+    const cardTitles = Array.from(container.querySelectorAll('.CardHeaderTitle')).map(
+      title => title.textContent
+    )
+    expect(cardTitles).toContain('Heroic Traits')
+    expect(cardTitles).not.toContain('Heroic Trait')
+    expect(cardTitles.indexOf('Heroic Traits')).toBe(cardTitles.indexOf('Battle Formations') + 1)
+    expect(cardTitles.indexOf('Artefacts of Power')).toBe(cardTitles.indexOf('Heroic Traits') + 1)
+  })
+
   it('opens on a skip link that reaches the reminders, and a real footer landmark', () => {
     const skip = container.querySelector('a.SkipLink')
     expect(skip).not.toBeNull()
