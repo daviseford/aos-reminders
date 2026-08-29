@@ -199,9 +199,11 @@ them one at a time, each only after the previous one is satisfied.
 - Tell users what changed. Every radar-driven data change that reaches production updates the
   in-app banner (`src/components/info/banners/app_banner.tsx`, a new `NotificationBanner` name
   per update so it shows once) so players can see the app is actively maintained. Two or three
-  sentences at most, broad strokes: the month, which sources were reconciled, an invitation to
-  report mistakes. No per-unit detail, no em-dashes, hobbyist plain language. Draft the copy in
-  the PR and run it past the owner before changing the banner.
+  sentences at most, broad strokes: the month, what game content updated, an invitation to
+  report mistakes. Say what the update *is* for a player (new units, updated warscrolls, new
+  army options) — never which sources were reconciled or how; users don't care about our data
+  sources (owner ruling 2026-08-29). No per-unit detail, no em-dashes, hobbyist plain language.
+  Draft the copy in the PR and run it past the owner before changing the banner.
 - The PR title, commit, and description reference the managed issue (`#1757`); do not close the
   issue by hand — the radar closes it when the final active lane clears.
 - After merge, dispatch `AoS 4 Rules Radar` with `source: all` (not report-only). Confirm the run
