@@ -80,8 +80,8 @@ const isNonEmptyString = (value: unknown): value is string =>
 
 export const validateProvisionalWatchConfig = (value: unknown): ProvisionalWatchConfig => {
   const config = value as ProvisionalWatchConfig
-  if (config?.schemaVersion !== 1 || !Array.isArray(config?.watches) || !config.watches.length) {
-    throw new Error('Provisional watch config must declare schemaVersion 1 and at least one watch')
+  if (config?.schemaVersion !== 1 || !Array.isArray(config?.watches)) {
+    throw new Error('Provisional watch config must declare schemaVersion 1 and a watches list')
   }
   const ids = new Set<string>()
   config.watches.forEach((watch, index) => {

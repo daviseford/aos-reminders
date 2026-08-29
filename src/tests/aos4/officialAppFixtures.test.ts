@@ -116,7 +116,7 @@ describe('official app list resolution', () => {
     expect(containerNames).not.toContain('Marks of Vulcatrix')
 
     // Every army the corpus carries, and no more; a data refresh that moves this should be read.
-    expect(index.containerIds.size).toBe(108)
+    expect(index.containerIds.size).toBe(111)
   })
 
   it('resolves an Army of Renown and the lores nested under it', () => {

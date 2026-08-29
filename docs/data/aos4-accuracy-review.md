@@ -12,47 +12,52 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-28`, generated from the 2026-08-25 14:30 Wahapedia
-export publish, the 2026-08-26 Games Workshop re-publications, and three commit-pinned BSData
-catalogues (manifest `accepted-2026-08-28`). It accepts the five re-published official documents
-(the August 2026 Rules Updates cycle, Faction Pack: Fyreslayers, and the Scourge of Aqshy packs
-for Daughters of Khaine, Hedonites of Slaanesh, and Seraphon), unpins the delisted Faction Pack:
-Hedonites of Slaanesh its battletome superseded, re-pins the sixteen reviewed Wahapedia faction
-pages that had incorporated the same errata (carrying the Shadow Lariat, Eruption of Fury,
-Saurian Ambush, and Emergence corrections into the runtime and retiring the Damned Vessel
-ability-text override the re-worded August document invalidated), and replaces the 2026-08-16
-seasonal-supersede generation rule with the official per-pick reading so both same-named
-enhancement tables stay offered in the seasonal context (#1979).
+The current revision is `aos4-corpus-2026-08-28b`, generated from the 2026-08-25 14:30 Wahapedia
+export publish, the 2026-08-26 Games Workshop re-publications, and the battletome-current Ogor
+Mawtribes pages Wahapedia published on 2026-08-28 (manifest `accepted-2026-08-28b`). It re-pins
+the two Ogor pages and completes the faction-scale provisional-to-verified swap (issues
+#1812/#1828/#1850/#1880): every Ogor rule now ships from the re-pinned Wahapedia pages, the three
+commit-pinned BSData catalogues and their community source entries retired, the 27 Ogor
+`contextOverrides` and the two Roving Maw `abilityTextOverrides` retired with the source records
+they targeted, and three battletome Ogor Armies of Renown classified on the
+`secondary-provisional` tier.
 Its automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
-| Accepted artifacts independently inventoried | 244/244 |
+| Accepted artifacts independently inventoried | 241/241 |
 | Explicit non-material discovery entries | 9 |
 | Official battle-profile facts | 1,350/1,350 |
-| Final official/secondary reconciliation discrepancies | 423/423 |
+| Final official/secondary reconciliation discrepancies | 367/367 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 20,068/20,068 |
-| Ignored-record dispositions (superseded + explicit) | 20,680/20,680 |
-| Live review pairs | 42,523/42,523 |
-| Independent outcomes | 85,046 pass; 0 finding; 0 cannot-verify |
+| Live audit source records | 20,091/20,091 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,274/42,274 |
+| Independent outcomes | 84,548 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
-| Populated high-risk cohorts | 19/19 |
+| Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed on 2026-08-28: 244 entries matched accepted
-checksums (including the three commit-pinned BSData catalogues, observed live by the
-`data:aos4:inventory:observe-bsdata` observer at both pinned commits) and 9 discovery entries
-received explicit non-material dispositions carried forward from the 2026-08-01b review.
+The independent source inventory was observed on 2026-08-28: 241 entries matched accepted
+checksums (no BSData catalogues remain pinned, so no `data:aos4:inventory:observe-bsdata`
+observation was required) and 9 discovery entries received explicit non-material dispositions
+carried forward from the 2026-08-01b review.
 
-The current certification is `aos4-corpus-2026-08-28-machine-r1` (2026-08-28). The re-pinned
-artifacts re-key every record carrying their checksums and the review's first campaign surfaced
-two findings against the carried-forward Damned Vessel ability-text override — the August Rules
-Updates re-words the errata the override transcribed, and the re-pinned Nighthaunt page already
-carries the new text natively — so the override was removed, the products regenerated, and the
-campaign rerun clean. The `--reuse-certification` offer of the 2026-08-25b directory carried
-nothing forward: all 42,523 pairs were evaluated fresh — 85,046 checks, 0 findings, 0
-cannot-verify. Its overlay names the 2026-08-25b directory, so `certify:prune` keeps the chain
-until a later campaign resolves it.
+The current certification is `aos4-corpus-2026-08-28b-machine-r1` (2026-08-28). The first
+campaign surfaced four findings against the two carried-forward Roving Maw ability-text
+overrides — the re-numbered faction-page fragments meant one override mis-applied its Mawpit
+morsel text to a different ability entirely, and the re-pinned page already carries both August
+2026 Armies of Renown corrections natively — so both overrides were removed, the products
+regenerated, and the campaign rerun clean. The `--reuse-certification` offer of the 2026-08-28
+directory carried nothing forward: all 42,274 pairs were evaluated fresh — 84,548 checks, 0
+findings, 0 cannot-verify.
+
+`aos4-corpus-2026-08-28-machine-r1` (2026-08-28) preceded it: the 2026-08-26 Games Workshop
+re-publications (the August Rules Updates cycle, Faction Pack: Fyreslayers, and three Scourge of
+Aqshy packs), the delisted Hedonites pack unpinned, sixteen drifted Wahapedia pages re-pinned
+(retiring the Damned Vessel override the re-worded August document invalidated), and the
+seasonal-supersede generation rule replaced by the official per-pick reading (#1979). Its first
+campaign caught the stale Damned Vessel override the same way this revision's caught the Roving
+Maw pair; all 42,523 pairs were evaluated fresh — 85,046 checks, 0 findings, 0 cannot-verify.
 
 `aos4-corpus-2026-08-25b-machine-r1` (2026-08-25) preceded it: the 2026-08-25 14:30 Wahapedia
 bulk-export catch-up (33 ability and 15 weapon corrections, 12 renamed abilities, 28 newly cited

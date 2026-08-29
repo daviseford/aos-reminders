@@ -16,46 +16,48 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-28 snapshot is defined by:
+The accepted 2026-08-28b snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-28.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 156 official PDFs, 72 reviewed Wahapedia pages (16 re-pinned 2026-08-28), and 3 commit-pinned BSData catalogues, pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-08-28.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-08-28b.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 156 official PDFs, and 72 reviewed Wahapedia pages (16 re-pinned 2026-08-28, the 2 Ogor pages re-pinned 2026-08-28b), pinned by SHA-256; no BSData catalogues remain pinned |
+| `data/aos4/reviews/corpus-2026-08-28b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-28-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-28-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-08-28b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-08-28b-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
 - 1,296 warscrolls and 1,012 battle profiles
-- 4,939 usable abilities
-- 2,280 weapons
-- 1,418 content groups, including 48 Spearhead force/unit wrappers
-- 244 source artifacts and 20,068 live source records
+- 5,092 abilities
+- 2,264 weapons
+- 1,499 content groups, including 48 Spearhead force/unit wrappers
+- 241 source artifacts and 20,091 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
 - 1,350 extracted GW battle-profile facts: 939 applied to runtime, 1 profile-only gap,
   363 structured references, and 47 superseded facts
-- 10 provisional community warscrolls (the Ogor Mawtribes supplement units) and 13 provisional
-  Ogor Mawtribes battletome faction-package entries (4 battle formations, 3 heroic traits,
-  3 artefacts of power, the army-wide battle traits, and the Lore of Gut Magic and Lore of the
-  Everwinter) transcribed from three commit-pinned BSData catalogues under the then-current
-  fallback-tier source policy (superseded 2026-08-18), with official battle-profile facts
-  overriding every overlapping field; Lorai, Child of the Abyss completed the
-  provisional-to-verified swap when Wahapedia published her datasheet
-- all 60 source-classified Armies of Renown classified as `army-of-renown` roots with replace
+- zero community-sourced facts: Wahapedia published the battletome-current Ogor pages on
+  2026-08-28, and the 2026-08-28b revision completed the faction-scale provisional-to-verified
+  swap — the ten supplement units, the sixteen legacy-unit/terrain rewrites, and the whole
+  battletome faction package (4 battle formations, 3 heroic traits, 3 artefacts of power, the
+  army-wide battle traits, and both lores) now ship from the re-pinned Wahapedia pages, the
+  three commit-pinned BSData catalogues and their `communityWarscrollSources` entries retired,
+  and canonical identities continued (the supplement units keep their ids; Gluttons keeps the
+  identity it adopted from the renamed "Ogor Gluttons" datasheet). Lorai, Child of the Abyss
+  completed the same swap at unit scale in 2026-08-01d
+- all 63 source-classified Armies of Renown classified as `army-of-renown` roots with replace
   semantics: `excludes` edges suppress the faction's regular rules-choice groups while a root is
   selected, and the root's battle traits apply automatically (issues #1833/#1834/#1844). The 12
   seasonal armies and 12 battletome armies carry official naming evidence (Armies of Renown,
-  Battle Profiles, and Rules Updates July 2026); the remaining 36 roots are classified on the
+  Battle Profiles, and Rules Updates July 2026); the remaining 39 roots are classified on the
   reviewed `secondary-provisional` evidence tier because the accepted faction pages themselves
   classify the sections (the `h2_ArmyOfRenown` marker or the White Dwarf replace-rules intro) and
   no free accepted official document names them. Generation fails closed in both directions: a
@@ -110,58 +112,46 @@ stops before S3. The accepted 2026-08-01b baseline is exactly one entry: The Emb
 (Warhammer Legends), deferred with a rationale referencing its Legends context. The Rules Radar's
 managed issue states this obligation whenever it observes a new or replaced official publication.
 
-The ten July 2026 Ogor Mawtribes battletome units (Redd the Maw, Tyrant on Glutthorn, Morga the
-Mighty, Grell Firefist, Gutseers, Cleavers, Gluttons, Hunters with Sabrefangs, Maulbeast Cavalry,
-and Maulbeast Raiders) were admitted under the then-current fallback-tier source policy
-(superseded 2026-08-18): their existence, points, unit sizes, bases, and roster notes are
-established by accepted official Battle Profiles documents, Wahapedia still lists only the
-pre-supplement warscrolls, and the free official "Battletome Supplement: Ogor Mawtribes" PDF
-contains only the legacy-unit warscrolls. Their rules text therefore comes from the commit-pinned
-BSData Ogor library catalogue (`BSData/age-of-sigmar-4th@d7377e94`, branch `main`; originally
-admitted at `c8e1b1c9` on branch `ogors`, re-pinned 2026-08-18 to `301477a3` and 2026-08-25 to
-`d7377e94`) recorded as
-`communityWarscrollSources` review entries — commit-pinned, per-unit checksum-pinned, marked
-`provisional-pending-official-verification`, and visibly attributed as provisional community
-transcriptions in the reminder source links. The five BSData/official base-size formatting
-disagreements are logged reconciliation discrepancies resolved official-side. Since BSData became
-a peer secondary on 2026-08-18 this text is accepted as fact rather than awaiting replacement:
-a later Wahapedia or official publication is reconciled against it through the standard candidate
-intake, like any other secondary disagreement.
-`src/tests/aos4/ogorSupplementProvisional.test.ts` and `src/tests/aos4/bsDataLibrary.test.ts` pin
-the boundary and the policy record.
+The July 2026 Ogor Mawtribes battletome content — ten new units (Redd the Maw, Tyrant on
+Glutthorn, Morga the Mighty, Grell Firefist, Gutseers, Cleavers, Gluttons, Hunters with
+Sabrefangs, Maulbeast Cavalry, and Maulbeast Raiders), sixteen legacy-unit and terrain rewrites,
+and the replacement faction package (formations, heroic traits, artefacts, army-wide battle
+traits, and the Lore of Gut Magic and Lore of the Everwinter) — shipped provisionally from three
+commit-pinned BSData catalogues between 2026-08-01b and 2026-08-28 (issues #1812, #1828, #1850,
+#1880), with official Battle Profiles facts establishing existence, points, unit sizes, bases,
+and roster notes, official spellings winning name conflicts, and reviewed `contextOverrides`
+retiring the superseded index-era options to the historical context.
 
-The battletome's replacement roster options ship the same way (beta report #1828, snapshot
-2026-08-01c): the official Battle Profiles - Ogor Mawtribes document establishes four battle
-formations (Hunger-filled Tribe, Vanguard of the Mawpath, Hinterland Hunters, Maw-cult Fanatics),
-three heroic traits (The Crusherguts, Leave Not a Morsel, Dreaded Far and Wide), and three
-artefacts of power (Trophy Rack, Carvalox Hide, Mantle of Entrails), and marks the index-era set
-superseded. Wahapedia still presents the index-era options as current (verified 2026-08-01), so
-their rules text comes provisionally from the commit-pinned BSData main-branch faction catalogue
-(`BSData/age-of-sigmar-4th@a882188b`), recorded as `factionOptions` on a
-`communityWarscrollSources` review entry with per-option checksums, official spellings winning
-every name conflict. Reviewed `contextOverrides` apply official precedence to the superseded
-index-era formations, traits, and artefacts, moving them to the historical context until the
-secondary source catches up.
+Wahapedia published the battletome-current Ogor pages on 2026-08-28 (all three provisional
+watches fired the same day), and the 2026-08-28b revision completed the faction-scale
+provisional-to-verified swap:
 
-The battletome's two lores and its army-wide battle traits ship the same way since the 2026-08-02
-revision (Discord beta report of index-era cards remaining current). The earlier finding that
-BSData had not transcribed the lores was a provisional-watch coverage gap, not a source gap: the
-faction catalogue's lore entries are links into the shared `Lores.cat` catalogue, which carries
-the full Lore of Gut Magic and Lore of the Everwinter definitions at the already-pinned commit and
-which the watch never fetched. Both lores are officially established as page 2 roster options
-(`Spell Lore` / `Prayer Lore`) of the Battle Profiles - Ogor Mawtribes document. The army-wide
-battle traits (Eat 'Em Alive, Bull Charge, Jaws of the Beast, Closing the Jaws) have no
-battle-profile row of their own; their fallback-tier anchor is the source-level official evidence
-on the review entry — the same document's per-option "Battletome: Ogor Mawtribes" notes establish
-that the battletome package replaced the index-era faction rules for the current context. This is
-a deliberate, owner-reviewed extension of fallback condition (a), which the 2026-08-18 tier change
-retired along with the rest of the fallback conditions.
-Reviewed `contextOverrides` retire the index-era battle traits and both index-era lores to the
-historical context. Big Names remain absent: nothing official establishes a battletome Big Names
-package. `src/tests/aos4/ogorBattletomeFactionPackage.test.ts` pins this boundary, including the
-faction-only reminder set that the beta report exercised. Legacy-unit warscroll text (the
-battletome also rewrites the pre-supplement warscrolls, e.g. the Bloodpelt Hunter) remains
-secondary-sourced from the index-era Wahapedia pages and is tracked as follow-up intake.
+- the re-pinned faction root and warscroll collection pages now supply every Ogor rule as
+  ordinary secondary facts; the three BSData catalogues and their `communityWarscrollSources`
+  entries retired with the swap, as did the 27 Ogor `contextOverrides` (their index-era target
+  records no longer exist on any accepted page) and the two Roving Maw `abilityTextOverrides`
+  (the page carries the August 2026 Armies of Renown corrections natively — the machine
+  campaign caught the stale overrides mis-applying to the re-numbered fragments and they were
+  retired, the Damned Vessel precedent);
+- canonical identity continued where it matters: the supplement units, the battletome package
+  options, and the replaced datasheets keep their canonical ids (Gluttons keeps the identity it
+  adopted from the renamed "Ogor Gluttons" datasheet), while entities whose merged records
+  rejoin the Wahapedia CSV export identities returned to their enduring pre-provisional ids —
+  the same identity change a provisional swap has always implied (the Lorai precedent), with
+  saved armies from the provisional window re-resolving with diagnostics;
+- the index-era Ogor content Wahapedia no longer publishes anywhere (index battle traits,
+  lores, formations, and enhancement sets) left the corpus with the page that carried it, and
+  the superseded-record ledger dropped the 216 replaced index-era datasheet rows;
+- the new page also classifies three battletome Armies of Renown (Beastclaw Alfrostun,
+  Mawseeker Gollop, Meatfist Mawtribe), reviewed on the `secondary-provisional` tier because no
+  free accepted official document names them.
+
+`src/tests/aos4/ogorSupplementProvisional.test.ts` and
+`src/tests/aos4/ogorBattletomeFactionPackage.test.ts` pin the completed swap: every unit
+resolves with official points and reminders, the package is offered under the page's names, the
+faction-only reminder set is exactly the battletome battle traits, and no community attribution
+remains. The five BSData/official base-size formatting disagreements remain logged
+reconciliation discrepancies resolved official-side.
 
 Every official document is limited to the rules contexts it actually governs. Spearhead,
 2026-27 `Scourge of Aqshy`, Legends, and historical `Scourge of Ghyran` records must not leak
@@ -272,7 +262,7 @@ unknown. `src/tests/aos4/seasonalEnhancementSupersede.test.ts` pins a corpus-wid
 faction offers two identically named groups of one category in the same context — and the machine
 review recertified as `aos4-corpus-2026-08-03-machine-r4` (72 fresh pairs, r3 evidence reused);
 `aos4-corpus-2026-08-18-machine-r1` superseded both, `aos4-corpus-2026-08-25-machine-r1`
-superseded it in turn, `aos4-corpus-2026-08-25b-machine-r1` followed, and `aos4-corpus-2026-08-28-machine-r1` is current.
+superseded it in turn, `aos4-corpus-2026-08-25b-machine-r1` followed, `aos4-corpus-2026-08-28-machine-r1` came next, and `aos4-corpus-2026-08-28b-machine-r1` is current.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
@@ -333,9 +323,9 @@ than a fallback-only escape hatch.
 `status: 'provisional-pending-official-verification'`, a title matching `/provisional/i`, a
 non-empty `verificationCondition`, and at least one establishing official source record
 (`src/aos4/generate/corpus.ts`; `src/aos4/data/bsdata/merge.ts` enforces the same gate at its
-throw sites when merging community facts). Accepted entries therefore still read as provisional
-until that vocabulary is flattened; treat the wording as legacy, not as a live obligation to
-re-verify.
+throw sites when merging community facts). Since the 2026-08-28b revision retired the last Ogor
+entries the accepted review carries none, so the legacy vocabulary constrains only future
+community intakes; treat the wording as legacy, not as a live obligation to re-verify.
 
 Other sources may identify gaps but must not silently override either tier above them.
 
@@ -373,7 +363,9 @@ rather than a pending-verification queue: a hit starts a reconciliation, not a m
 replacement. The reviewed sentinel list is `data/aos4/radar/provisional-watch.json`; a hit
 comments once per finding-set on the tracking issue (deduplicated by a fingerprint marker) so the
 standard candidate intake can run. Like the radar, the watch is evidence, not acceptance. Run it
-locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`.
+locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`. The list is
+currently empty: the three Ogor watches all fired on 2026-08-28 and retired with the 2026-08-28b
+intake, and the machinery idles until the next provisional intake registers a sentinel.
 
 Scheduled workflows run only from the repository's default branch, so the Rules Radar becomes
 active when Version 6 reaches `master`. Immediately after launch, first run `AoS 4 Rules Radar`
@@ -510,6 +502,14 @@ seasonal enhancement table is picked "instead of other such tables available to 
 not in addition to" — a per-pick exclusivity, so both same-named tables now stay offered in the
 seasonal context (18 battletome tables and their 54 enhancements restored, #1979) and the
 builder disambiguates them under a season group header.
+
+The 2026-08-28b revision answered the three provisional-watch alarms of 2026-08-28 (issues
+#1812, #1828, #1850): Wahapedia published the battletome-current Ogor Mawtribes pages, so the
+revision re-pins the two Ogor pages at verified fresh bytes and completes the faction-scale
+provisional-to-verified swap described in the intake gate section above. Every export and every
+other page is byte-identical to the 2026-08-28 pins; the three BSData catalogues left the
+manifest with their retired community source entries, and all three watches retired from the
+provisional-watch configuration.
 
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,

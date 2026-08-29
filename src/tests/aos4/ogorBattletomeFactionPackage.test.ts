@@ -5,33 +5,30 @@ import { resolveSelection } from '../../aos4/select'
 
 /**
  * The July 2026 Battletome: Ogor Mawtribes replaces the index-era roster options: four battle
- * formations, three heroic traits, and three artefacts of power (beta report #1828). Their
- * existence and official spellings are established by the accepted official Battle Profiles -
- * Ogor Mawtribes document, but Wahapedia does not yet carry their rules (verified 2026-08-01),
- * so under the standing fallback-tier source policy the accepted `corpus-2026-08-01d` review
- * admits the commit-pinned BSData main-branch transcriptions as provisional community facts.
+ * formations, three heroic traits, three artefacts of power, the army-wide battle traits, and
+ * both lores (beta reports #1828 and the 2026-08-02 Discord report). From 2026-08-01c to
+ * 2026-08-28 the package shipped provisionally from commit-pinned BSData transcriptions with
+ * reviewed contextOverrides retiring the index-era set to the historical context.
  *
- * Official precedence also moves the superseded index-era options to the historical context:
- * the official document lists only the battletome set for the current context.
- *
- * The 2026-08-02 revision extends the package (Discord beta report of index-era cards): the two
- * battletome lores ship from the shared BSData Lores.cat catalogue (the earlier "dangling links"
- * finding was a watch coverage gap — the faction catalogue only links to the shared file), and
- * the army-wide battle traits ship from the same pinned faction catalogue, with the index-era
- * battle traits and lores retired to the historical context by reviewed overrides.
- *
- * When Wahapedia publishes the battletome faction rules, the standard candidate intake replaces
- * these provisional facts and this test's expectations must move with that acceptance.
+ * On 2026-08-28 Wahapedia published the battletome-current faction page, and the 2026-08-28b
+ * revision completed the swap: the re-pinned page now supplies the whole package as ordinary
+ * secondary facts (rendered in the page's uppercase ability style, like every other faction),
+ * the community source entries and contextOverrides are retired, and the index-era options are
+ * gone from the source entirely — Wahapedia no longer publishes them on any accepted page, so
+ * they left the corpus with the page that carried them.
  */
 
+// The Wahapedia page title-cases group names ("Hunger-Filled Tribe") where the official Battle
+// Profiles document prints "Hunger-filled Tribe"; the page casing ships, matching how every other
+// faction's group names are taken from its accepted page.
 const BATTLETOME_FORMATIONS = [
-  { name: 'Hunger-filled Tribe', ability: 'Feast of Bloodshed' },
-  { name: 'Vanguard of the Mawpath', ability: 'Smash and Grab' },
-  { name: 'Hinterland Hunters', ability: 'Prowling Predators' },
-  { name: 'Maw-cult Fanatics', ability: "Grub's Up, Mateys!" },
+  { name: 'Hunger-Filled Tribe', ability: 'FEAST OF BLOODSHED' },
+  { name: 'Vanguard of the Mawpath', ability: 'SMASH AND GRAB' },
+  { name: 'Hinterland Hunters', ability: 'PROWLING PREDATORS' },
+  { name: 'Maw-Cult Fanatics', ability: 'GRUB’S UP, MATEYS!' },
 ]
-const BATTLETOME_TRAITS = ['The Crusherguts', 'Leave Not a Morsel', 'Dreaded Far and Wide']
-const BATTLETOME_ARTEFACTS = ['Trophy Rack', 'Carvalox Hide', 'Mantle of Entrails']
+const BATTLETOME_TRAITS = ['THE CRUSHERGUTS', 'LEAVE NOT A MORSEL', 'DREADED FAR AND WIDE']
+const BATTLETOME_ARTEFACTS = ['TROPHY RACK', 'CARVALOX HIDE', 'MANTLE OF ENTRAILS']
 const INDEX_ERA_FORMATIONS = [
   'Heralds of the Everwinter',
   'Blackpowder Fanatics',
@@ -42,7 +39,6 @@ const INDEX_ERA_FORMATIONS = [
 const standard = AOS4_FULL_CATALOG.rulesContexts.find(
   context => context.mode === 'standard' && context.status === 'current'
 )!
-const historical = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'historical')!
 const artifactById = new Map(AOS4_FULL_CATALOG.sourceArtifacts.map(artifact => [artifact.id, artifact]))
 const recordById = new Map(AOS4_FULL_CATALOG.sourceRecords.map(record => [record.id, record]))
 
@@ -84,14 +80,14 @@ const hasProvisionalCommunityAttribution = (entity: ContentGroup | Ability): boo
     )
   })
 
-describe('Ogor battletome faction package ships provisionally from BSData under the fallback-tier policy', () => {
+describe('Ogor battletome faction package ships from the verified Wahapedia page (2026-08-28b swap)', () => {
   it.each(BATTLETOME_FORMATIONS)(
     'offers the $name battle formation in the current context with a reminder',
     ({ name, ability }) => {
       const formation = offeredGroups('battle-formation').find(group => group.name === name)
       expect(formation).toBeDefined()
       expect(formation!.rulesContextIds).toContain(standard.id)
-      expect(hasProvisionalCommunityAttribution(formation!)).toBe(true)
+      expect(hasProvisionalCommunityAttribution(formation!)).toBe(false)
 
       const abilities = membersOf(formation!)
       expect(abilities.map(member => member.name)).toEqual([ability])
@@ -118,13 +114,13 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
         .map(member => member.name)
         .sort()
     ).toEqual([...BATTLETOME_TRAITS].sort())
-    membersOf(traits!).forEach(member => expect(hasProvisionalCommunityAttribution(member)).toBe(true))
+    membersOf(traits!).forEach(member => expect(hasProvisionalCommunityAttribution(member)).toBe(false))
 
     const artefacts = offeredGroups('artefact-of-power').filter(
       group => group.name === 'Plunder of the Mawtribes' && group.rulesContextIds.includes(standard.id)
     )
     // The seasonal Scourge of Aqshy artefacts and the battletome artefacts share the group name.
-    const battletome = artefacts.find(group => membersOf(group).some(member => member.name === 'Trophy Rack'))
+    const battletome = artefacts.find(group => membersOf(group).some(member => member.name === 'TROPHY RACK'))
     expect(battletome).toBeDefined()
     expect(
       membersOf(battletome!)
@@ -133,57 +129,55 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
     ).toEqual([...BATTLETOME_ARTEFACTS].sort())
   })
 
-  it('moves the superseded index-era options to the historical context', () => {
+  it('no longer carries the superseded index-era options anywhere', () => {
+    // Until 2026-08-28 the index-era set survived in the historical context because Wahapedia
+    // still published it; the battletome-current page dropped it entirely, so it left the
+    // corpus with the page that carried it. Only genuinely historical sections (the White
+    // Dwarf-era formations) remain in the historical context.
     INDEX_ERA_FORMATIONS.forEach(name => {
-      const formation = offeredGroups('battle-formation').find(group => group.name === name)
-      expect(formation).toBeDefined()
-      expect(formation!.rulesContextIds).toEqual([historical.id])
+      expect(offeredGroups('battle-formation').find(group => group.name === name)).toBeUndefined()
     })
-    const oldTraits = offeredGroups('heroic-trait').find(
-      group => group.name === 'Traits of Endless Hunger' && group.rulesContextIds.includes(historical.id)
-    )
-    expect(oldTraits).toBeDefined()
     expect(
-      membersOf(oldTraits!)
-        .map(member => member.name)
-        .sort()
-    ).toEqual(['BOOMING ROAR', 'GREAT GUTLORD', 'TOUCHED BY THE EVERWINTER'])
-    const oldArtefacts = offeredGroups('artefact-of-power').find(
-      group => group.name === 'Plunder of the Mawtribes' && group.rulesContextIds.includes(historical.id)
+      offeredGroups('heroic-trait').filter(group => group.name === 'Traits of Endless Hunger')
+    ).toHaveLength(1)
+    const artefactGroups = offeredGroups('artefact-of-power').filter(
+      group => group.name === 'Plunder of the Mawtribes'
     )
-    expect(oldArtefacts).toBeDefined()
+    // The battletome artefacts and the seasonal Scourge of Aqshy artefacts share the name; the
+    // index-era artefact set is gone.
+    expect(artefactGroups).toHaveLength(2)
+    const memberNames = artefactGroups.flatMap(group => membersOf(group).map(member => member.name))
+    expect(memberNames).not.toContain('GRUESOME TROPHIES')
+    expect(memberNames).not.toContain('ELIXIR OF THE FROSTWYRM')
+    expect(memberNames).not.toContain('THE FANG OF GHUR')
   })
 
-  it('ships the battletome lores provisionally and retires the index-era lores', () => {
+  it('ships the battletome lores from the page and drops the index-era lores with the source', () => {
     const spellLore = offeredGroups('spell-lore').find(group => group.name === 'Lore of Gut Magic')
     expect(spellLore).toBeDefined()
     expect(spellLore!.rulesContextIds).toContain(standard.id)
-    expect(hasProvisionalCommunityAttribution(spellLore!)).toBe(true)
+    expect(hasProvisionalCommunityAttribution(spellLore!)).toBe(false)
     expect(
       membersOf(spellLore!)
         .map(member => member.name)
         .sort()
-    ).toEqual(['Blood Feast', 'Shincruncher', 'Tallowflage'])
+    ).toEqual(['BLOOD FEAST', 'SHINCRUNCHER', 'TALLOWFLAGE'])
 
     const prayerLore = offeredGroups('prayer-lore').find(group => group.name === 'Lore of the Everwinter')
     expect(prayerLore).toBeDefined()
     expect(prayerLore!.rulesContextIds).toContain(standard.id)
-    expect(hasProvisionalCommunityAttribution(prayerLore!)).toBe(true)
+    expect(hasProvisionalCommunityAttribution(prayerLore!)).toBe(false)
     expect(
       membersOf(prayerLore!)
         .map(member => member.name)
         .sort()
-    ).toEqual(['Fortifying Hoarfrost', 'Freezing Tailwinds', 'Pulverising Hailstorm'])
+    ).toEqual(['FORTIFYING HOARFROST', 'FREEZING TAILWINDS', 'PULVERISING HAILSTORM'])
 
-    const oldSpellLore = offeredGroups('spell-lore').find(group => group.name === 'Lore of Maw-magic')
-    expect(oldSpellLore).toBeDefined()
-    expect(oldSpellLore!.rulesContextIds).toEqual([historical.id])
-    const oldPrayerLore = offeredGroups('prayer-lore').find(group => group.name === 'Everwinter Prayers')
-    expect(oldPrayerLore).toBeDefined()
-    expect(oldPrayerLore!.rulesContextIds).toEqual([historical.id])
+    expect(offeredGroups('spell-lore').find(group => group.name === 'Lore of Maw-magic')).toBeUndefined()
+    expect(offeredGroups('prayer-lore').find(group => group.name === 'Everwinter Prayers')).toBeUndefined()
   })
 
-  it('ships the battletome battle traits provisionally and retires the index-era set', () => {
+  it('ships the battletome battle traits from the page and drops the index-era set', () => {
     // Battle traits apply automatically: selecting the faction alone must produce the battletome
     // reminders (the Discord beta report showed index-era Trampling Charge still firing).
     const selection = resolveSelection(AOS4_FULL_CATALOG, {
@@ -192,32 +186,44 @@ describe('Ogor battletome faction package ships provisionally from BSData under 
     })
     expect(selection.diagnostics).toEqual([])
     const reminderNames = projectReminders(AOS4_FULL_CATALOG, selection).map(reminder => reminder.name)
-    ;["Eat 'Em Alive", 'Bull Charge', 'Jaws of the Beast', 'Closing the Jaws'].forEach(name =>
+    ;['EAT ’EM ALIVE', 'BULL CHARGE', 'JAWS OF THE BEAST', 'CLOSING THE JAWS'].forEach(name =>
       expect(reminderNames).toContain(name)
     )
     ;['TRAMPLING CHARGE', 'RAVENOUS BRUTES', 'FEAST ON FLESH'].forEach(name =>
       expect(reminderNames).not.toContain(name)
     )
 
+    const battleTraitNames = ['EAT ’EM ALIVE', 'BULL CHARGE', 'JAWS OF THE BEAST', 'CLOSING THE JAWS']
     const battleTraitAbilities = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is Ability =>
         entity.kind === 'ability' &&
-        ["Eat 'Em Alive", 'Bull Charge', 'Jaws of the Beast', 'Closing the Jaws'].includes(entity.name)
+        battleTraitNames.includes(entity.name) &&
+        entity.rulesContextIds.includes(standard.id)
     )
     expect(battleTraitAbilities).toHaveLength(4)
     battleTraitAbilities.forEach(ability => {
-      expect(ability.rulesContextIds).toContain(standard.id)
-      expect(hasProvisionalCommunityAttribution(ability)).toBe(true)
+      expect(hasProvisionalCommunityAttribution(ability)).toBe(false)
     })
 
-    // The index-era set survives only in the historical context, never silently deleted.
+    // The index-era set is gone with the page that carried it: Wahapedia no longer publishes
+    // the index battle traits on any accepted page, in any context. The one same-named
+    // survivor is The Roving Maw Army of Renown's own "Trampling Charge" battle trait, which
+    // the battletome page still carries inside that army's replacing package.
     const indexEra = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is Ability =>
         entity.kind === 'ability' &&
-        ['TRAMPLING CHARGE', 'RAVENOUS BRUTES', 'FEAST ON FLESH'].includes(entity.name) &&
-        entity.rulesContextIds.length === 1 &&
-        entity.rulesContextIds[0] === historical.id
+        ['TRAMPLING CHARGE', 'RAVENOUS BRUTES', 'FEAST ON FLESH'].includes(entity.name)
     )
-    expect(indexEra).toHaveLength(3)
+    expect(indexEra).toHaveLength(1)
+    const rovingMawTraitGroups = AOS4_FULL_CATALOG.relationships
+      .filter(relationship => relationship.kind === 'includes' && relationship.to === indexEra[0].id)
+      .map(relationship => relationship.from)
+    const owners = rovingMawTraitGroups.flatMap(groupId =>
+      AOS4_FULL_CATALOG.relationships
+        .filter(relationship => relationship.kind === 'includes' && relationship.to === groupId)
+        .map(relationship => relationship.from)
+    )
+    const ownerNames = owners.map(id => AOS4_FULL_CATALOG.entities.find(entity => entity.id === id)?.name)
+    expect(ownerNames).toEqual(['The Roving Maw'])
   })
 })

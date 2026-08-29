@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
+import { ACCEPTED_REVIEW_PATH } from '../../aos4/data/acceptedRevision'
 import type { ContentGroup, Faction } from '../../aos4/domain'
 import { AOS4_CATALOG } from '../../aos4/generated'
 import { projectReminders } from '../../aos4/reminders'
@@ -36,6 +37,9 @@ const OFFICIAL_ARMIES_OF_RENOWN: Array<{ faction: string; name: string }> = [
 // The battletome and White Dwarf Armies of Renown classified for issue #1844. `legends` marks the
 // White Dwarf transcriptions, which decode in the Legends context.
 const BATTLETOME_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legends?: true }> = [
+  { faction: 'Ogor Mawtribes', name: 'Beastclaw Alfrostun' },
+  { faction: 'Ogor Mawtribes', name: 'Mawseeker Gollop' },
+  { faction: 'Ogor Mawtribes', name: 'Meatfist Mawtribe' },
   { faction: 'Blades of Khorne', name: 'Gorechosen Champions' },
   { faction: 'Blades of Khorne', name: 'The Baleful Lords' },
   { faction: 'Cities of Sigmar', name: 'Allies of the Free Cities' },
@@ -122,9 +126,7 @@ describe('Armies of Renown as a top-level replacing choice', () => {
     expect(armyOfRenownRoots.map(root => root.name).sort()).toEqual(
       ALL_ARMIES_OF_RENOWN.map(entry => entry.name).sort()
     )
-    const review = JSON.parse(
-      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-02.json'), 'utf8')
-    ) as {
+    const review = JSON.parse(readFileSync(path.join(process.cwd(), ACCEPTED_REVIEW_PATH), 'utf8')) as {
       armiesOfRenown: Array<{
         officialSourceRecordIds: string[]
         reason: string
@@ -141,7 +143,7 @@ describe('Armies of Renown as a top-level replacing choice', () => {
         // The only other tier is the reviewed secondary-provisional classification, which must
         // state the policy basis; official records remain optional corroboration.
         expect(entry.evidenceTier).toBe('secondary-provisional')
-        expect(entry.reason).toMatch(/three-tier source policy/)
+        expect(entry.reason).toMatch(/three-tier source policy|secondary source's own classification/)
       }
     })
     expect(review.armiesOfRenown.filter(entry => entry.evidenceTier === undefined)).toHaveLength(24)
@@ -179,7 +181,7 @@ describe('Armies of Renown as a top-level replacing choice', () => {
 
     const regular = resolveSelection(AOS4_CATALOG, { explicitIds: [ogor.id], rulesContextId: standard.id })
     const regularReminders = projectReminders(AOS4_CATALOG, regular).map(reminder => reminder.name)
-    expect(regularReminders).toContain('Bull Charge')
+    expect(regularReminders).toContain('BULL CHARGE')
     expect(regular.availableIds).toContain(roving.id)
     expect(regular.diagnostics).toEqual([])
 
@@ -192,8 +194,8 @@ describe('Armies of Renown as a top-level replacing choice', () => {
     // The army's own battle traits apply automatically…
     expect(renownReminders).toContain('DRIVEN BY STARVATION')
     // …and never stack with the regular set it replaces.
-    expect(renownReminders).not.toContain('Bull Charge')
-    expect(renownReminders).not.toContain("Eat 'Em Alive")
+    expect(renownReminders).not.toContain('BULL CHARGE')
+    expect(renownReminders).not.toContain('EAT ’EM ALIVE')
     expect(renownReminders.filter(name => name === 'TRAMPLING CHARGE')).toHaveLength(1)
 
     // Deselecting restores the regular army exactly.
@@ -305,7 +307,7 @@ describe('Armies of Renown as a top-level replacing choice', () => {
       (entity): entity is ContentGroup =>
         entity.kind === 'content-group' &&
         entity.groupType === 'battle-formation' &&
-        entity.name === 'Hunger-filled Tribe'
+        entity.name === 'Hunger-Filled Tribe'
     )!
     const selection = resolveSelection(AOS4_CATALOG, {
       explicitIds: [ogor.id, roving.id, regularFormation.id],
