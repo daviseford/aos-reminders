@@ -468,6 +468,15 @@ attached `NON-GUTBUSTERS` / `NON-MAWSEEKERS` / `NON-BEASTCLAW` category links to
 those are builder constraint categories, not printed keywords, so the BSData extractor now drops
 `NON-*` category links rather than shipping them as warscroll keywords.
 
+The 2026-08-29 review (`d7377e94` → `a3b951c6`, same issue) is the emptiest case yet, and the
+first since the corpus stopped pinning any BSData file (the 2026-08-28b swap retired all three
+catalogues): with no pins inside the range, the review reduces entirely to a disagreement check
+against the shipped Wahapedia facts. Normalizing CRLF churn left four changed lines across the
+two files — a `.gst` revision bump plus one roster-builder condition swapping a childId inside
+an or-group, and an Ogor library revision bump plus a cosmetic `Color` attribute (Red→Orange).
+No `characteristic` moved anywhere, so nothing the corpus ships is contradicted and the baseline
+advanced without an intake.
+
 The 2026-08-25b review is the Wahapedia counterpart, raised by the post-merge radar run the same
 day: `Last_update.csv` moved to 2026-08-25 14:30 and 51 of the 85 accepted Wahapedia artifacts
 changed, every CSV export included. Every publication the new `Source.csv` rows cite was already
