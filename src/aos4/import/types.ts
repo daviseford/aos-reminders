@@ -35,6 +35,15 @@ export interface ParsedRosterSelection {
    * faction" and the whole band is dropped.
    */
   isRegimentOfRenown?: boolean
+  /**
+   * The `line` of the unit this enhancement is assigned to.
+   *
+   * Every roster format writes an artefact or heroic trait *under its hero* — that hero, not the
+   * whole army, is who the enhancement belongs to (#1989). The line number rather than the label,
+   * because the label can name two different units in one roster while the line names exactly the
+   * one the builder attached the enhancement to. Only enhancement-shaped selections carry it.
+   */
+  bearerLine?: number
 }
 
 export interface ParsedRoster {

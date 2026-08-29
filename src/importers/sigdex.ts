@@ -111,18 +111,23 @@ export const parseSigdexRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResu
   let declaredContext: string | undefined
   let section: Section = 'header'
   let headerRow = 0
+  /** The most recent unit line, so an enhancement bullet under it knows its bearer (#1989). */
+  let lastUnitLine: number | undefined
 
   for (const line of populated.slice(totalIndex + 1)) {
     if (unitSectionPattern.test(line.text)) {
       section = 'units'
+      lastUnitLine = undefined
       continue
     }
     if (terrainSectionPattern.test(line.text)) {
       section = 'terrain'
+      lastUnitLine = undefined
       continue
     }
     if (renownSectionPattern.test(line.text)) {
       section = 'renown'
+      lastUnitLine = undefined
       continue
     }
 
@@ -168,7 +173,10 @@ export const parseSigdexRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResu
 
     const bullet = parseBullet(line)
     if (line.text.startsWith('•')) {
-      if (bullet) selections.push(bullet)
+      if (bullet) {
+        const carried = section === 'units' && lastUnitLine !== undefined
+        selections.push(carried ? { ...bullet, bearerLine: lastUnitLine } : bullet)
+      }
       continue
     }
 
@@ -188,6 +196,7 @@ export const parseSigdexRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResu
       kindHint: 'warscroll',
       ...(section === 'renown' ? { isRegimentOfRenown: true } : {}),
     })
+    if (section === 'units') lastUnitLine = line.number
   }
 
   if (!declaredFaction) {

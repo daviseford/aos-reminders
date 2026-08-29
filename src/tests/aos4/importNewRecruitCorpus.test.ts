@@ -38,7 +38,14 @@ const decode = async (id: string, format: 'ros' | 'rosz' | 'json') =>
  * player handed us, so the roster is compared without them.
  */
 const withoutLines = (roster?: ParsedRoster) =>
-  roster && { ...roster, selections: roster.selections.map(selection => ({ ...selection, line: 0 })) }
+  roster && {
+    ...roster,
+    selections: roster.selections.map(selection => ({
+      ...selection,
+      line: 0,
+      ...(selection.bearerLine === undefined ? {} : { bearerLine: 0 }),
+    })),
+  }
 
 const errors = (diagnostics: { severity: string }[]) =>
   diagnostics.filter(diagnostic => diagnostic.severity === 'error')

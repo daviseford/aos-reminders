@@ -79,6 +79,8 @@ export const parseListbotRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterRes
     },
   ]
   let declaredContext: string | undefined
+  /** The most recent unit line, so a bracketed enhancement under it knows its bearer (#1989). */
+  let lastWarscrollLine: number | undefined
 
   populated.slice(2).forEach(line => {
     if (contextPattern.test(line.text)) {
@@ -93,11 +95,17 @@ export const parseListbotRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterRes
     }
     const bracket = parseBracket(line)
     if (bracket) {
-      selections.push(bracket)
+      const carried =
+        lastWarscrollLine !== undefined &&
+        (bracket.kindHint === 'enhancement' || bracket.kindHint === 'artefact-of-power')
+      selections.push(carried ? { ...bracket, bearerLine: lastWarscrollLine } : bracket)
       return
     }
     const warscroll = parseWarscroll(line)
-    if (warscroll) selections.push(warscroll)
+    if (warscroll) {
+      selections.push(warscroll)
+      lastWarscrollLine = warscroll.line
+    }
   })
 
   return {

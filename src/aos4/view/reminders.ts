@@ -222,6 +222,8 @@ export interface Aos4ReminderViewModel {
  * belonging to what the player picked (issue #1836: Well-Fed Beasts grants HORN TOSS, and nothing
  * on the HORN TOSS reminder said so). One tag per distinct granting source:
  *
+ * - An enhancement the document knows the bearer of is that hero's — the imported roster assigned
+ *   it to a specific unit, and without the tag the trait read as army-wide (#1989).
  * - An ability with a warscroll ancestor is that unit's own — its warscroll name wins, even when
  *   the unit itself arrived through a group (a Regiment of Renown).
  * - Otherwise the cause's root names the grant when the root is a picked content-group: a spell
@@ -233,10 +235,20 @@ export interface Aos4ReminderViewModel {
  */
 const sourceTags = (
   reminder: ProjectedReminder,
-  entityById: Map<CanonicalId, ContentEntity>
+  entityById: Map<CanonicalId, ContentEntity>,
+  bearerNameByRootId: ReadonlyMap<CanonicalId, string>
 ): Aos4ReminderTag[] => {
   const tagsByLabel = new Map<string, Aos4ReminderTag>()
   reminder.causes.forEach(cause => {
+    const bearerName = bearerNameByRootId.get(cause.rootId)
+    if (bearerName) {
+      tagsByLabel.set(bearerName, {
+        label: bearerName,
+        tone: 'source',
+        description: `Carried by your ${bearerName}. Only that unit uses it.`,
+      })
+      return
+    }
     const ancestors = cause.entityPath.slice(0, -1)
     for (let index = ancestors.length - 1; index >= 0; index -= 1) {
       const ancestor = entityById.get(ancestors[index])
@@ -405,12 +417,13 @@ const withPreferences = (
   document: Aos4ArmyDocument,
   entityById: Map<CanonicalId, ContentEntity>,
   seasonalContextIds: ReadonlySet<RulesContextId>,
-  ruleNameByMatchKey: Map<string, string>
+  ruleNameByMatchKey: Map<string, string>,
+  bearerNameByRootId: ReadonlyMap<CanonicalId, string>
 ): Aos4ReminderViewModel => {
   const preference = document.reminderPreferences[reminder.id]
   const details = timingDetails(reminder.timing)
   const label = windowLabel(reminder.timing)
-  const grantedBy = sourceTags(reminder, entityById)
+  const grantedBy = sourceTags(reminder, entityById, bearerNameByRootId)
   // A picked source already names the grant; provenance covers only the faction-automatic rest.
   const provenance = grantedBy.length ? undefined : provenanceTag(reminder, entityById, seasonalContextIds)
   const attribution = provenance ? [provenance] : grantedBy
@@ -476,8 +489,25 @@ export const createAos4ReminderViewModel = (
       .filter(reminder => rulesModuleName(reminder, entityById) === undefined)
       .map(reminder => [keywordMatchKey(reminder.name), reminder.name])
   )
+  /**
+   * The document's imported bearer assignments, keyed by the cause root they attribute (#1989).
+   * An enhancement is an explicit selection, so every reminder it grants — the ability itself and
+   * anything reached through it — is rooted at exactly the ID the bearer map is keyed by.
+   */
+  const bearerNameByRootId = new Map<CanonicalId, string>()
+  Object.entries(document.enhancementBearers ?? {}).forEach(([enhancementId, bearerId]) => {
+    const bearer = bearerId ? entityById.get(bearerId) : undefined
+    if (bearer?.kind === 'warscroll') bearerNameByRootId.set(enhancementId as CanonicalId, bearer.name)
+  })
   const reminders = projected.map(reminder =>
-    withPreferences(reminder, document, entityById, seasonalContextIds, ruleNameByMatchKey)
+    withPreferences(
+      reminder,
+      document,
+      entityById,
+      seasonalContextIds,
+      ruleNameByMatchKey,
+      bearerNameByRootId
+    )
   )
   const baseOrder = new Map(reminders.map((reminder, index) => [reminder.id, index]))
   return reminders.sort((left, right) => {

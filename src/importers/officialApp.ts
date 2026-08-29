@@ -268,7 +268,15 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
 
     const bullet = parseBullet(line)
     if (bullet && section !== 'none') {
-      record(bullet, false)
+      // An enhancement bullet belongs to the unit it is written under (#1989). Only unit sections
+      // qualify: a bullet after faction terrain or inside a regiment of renown marks no bearer.
+      const bearer =
+        section === 'units' &&
+        lastWarscroll &&
+        (bullet.kindHint === 'enhancement' || bullet.kindHint === 'artefact-of-power')
+          ? lastWarscroll
+          : undefined
+      record(bearer ? { ...bullet, bearerLine: bearer.line } : bullet, false)
       return
     }
 

@@ -696,3 +696,62 @@ describe('manifestation import against the shipped catalog (#1979)', () => {
     )
   })
 })
+
+/**
+ * A roster writes each artefact and heroic trait under the hero carrying it, and the parsers keep
+ * that as `bearerLine`. Resolution joins both lines to their canonical matches so the document
+ * remembers which unit carries which enhancement (#1989). The join never guesses: an unresolved
+ * side records nothing, and a genuinely ambiguous assignment is dropped rather than misattributed.
+ */
+describe('imported enhancement bearers (#1989)', () => {
+  it('maps a resolved enhancement to the unit it was written under', () => {
+    const preview = resolve(
+      roster({
+        selections: [
+          { line: 3, label: 'Shared Guard', kindHint: 'warscroll' },
+          { line: 4, label: 'Keen Blade', kindHint: 'enhancement', bearerLine: 3 },
+        ],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.proposedDocument?.explicitSelectionIds).toContain(importFixtureIds.keenBlade)
+    expect(preview.proposedDocument?.enhancementBearers).toEqual({
+      [importFixtureIds.keenBlade]: importFixtureIds.alphaGuard,
+    })
+  })
+
+  it('drops the mapping when the same enhancement resolves onto two different bearers', () => {
+    // The flat map has one slot per enhancement ID. Two heroes with the same-named enhancement
+    // (both resolve to the same catalog ability) cannot both be recorded, and picking one would
+    // attribute the other hero's enhancement to the wrong unit — so neither is.
+    const preview = resolve(
+      roster({
+        selections: [
+          { line: 3, label: 'Shared Guard', kindHint: 'warscroll' },
+          { line: 4, label: 'Keen Blade', kindHint: 'enhancement', bearerLine: 3 },
+          { line: 5, label: 'Twin Era Guard', kindHint: 'warscroll' },
+          { line: 6, label: 'Keen Blade', kindHint: 'enhancement', bearerLine: 5 },
+        ],
+      })
+    )
+
+    expect(preview.proposedDocument?.explicitSelectionIds).toContain(importFixtureIds.keenBlade)
+    expect(preview.proposedDocument?.enhancementBearers).toBeUndefined()
+  })
+
+  it('records no bearer when the bearer line itself did not resolve', () => {
+    const preview = resolve(
+      roster({
+        selections: [
+          { line: 3, label: 'No Such Unit', kindHint: 'warscroll' },
+          { line: 4, label: 'Keen Blade', kindHint: 'enhancement', bearerLine: 3 },
+        ],
+      })
+    )
+
+    // The enhancement still imports on its own; only the attribution is missing.
+    expect(preview.proposedDocument?.explicitSelectionIds).toContain(importFixtureIds.keenBlade)
+    expect(preview.proposedDocument?.enhancementBearers).toBeUndefined()
+  })
+})

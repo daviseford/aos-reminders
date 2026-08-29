@@ -1007,6 +1007,39 @@ export const resolveParsedRoster = (
     })
   }
 
+  /**
+   * The roster assigned each artefact and heroic trait to a specific hero, and the parsers kept
+   * that as the bearer's line number (#1989). Joining both lines to their resolved matches turns
+   * it into an enhancement-ID → warscroll-ID map the reminders view can name the bearer from.
+   * Everything here fails soft: a bearer or enhancement that did not resolve simply records no
+   * entry, and the one genuinely ambiguous shape — the same enhancement resolved on two different
+   * bearers, which one flat map cannot represent — drops the entry rather than guessing.
+   */
+  const entityKindById = new Map(catalog.entities.map(entity => [entity.id, entity.kind]))
+  const warscrollIdByLine = new Map<number, CanonicalId>()
+  matches.forEach(match => {
+    if (entityKindById.get(match.canonicalId) === 'warscroll') {
+      warscrollIdByLine.set(match.line, match.canonicalId)
+    }
+  })
+  const enhancementBearers: Partial<Record<CanonicalId, CanonicalId>> = {}
+  const conflictedEnhancementIds = new Set<CanonicalId>()
+  parsedRoster.selections.forEach(selection => {
+    if (selection.bearerLine === undefined) return
+    const match = matches.find(
+      candidate => candidate.line === selection.line && candidate.label === selection.label
+    )
+    const bearerId = warscrollIdByLine.get(selection.bearerLine)
+    if (!match || !bearerId || match.canonicalId === bearerId) return
+    const existing = enhancementBearers[match.canonicalId]
+    if (existing && existing !== bearerId) {
+      conflictedEnhancementIds.add(match.canonicalId)
+      return
+    }
+    enhancementBearers[match.canonicalId] = bearerId
+  })
+  conflictedEnhancementIds.forEach(enhancementId => delete enhancementBearers[enhancementId])
+
   const proposedDocument = createAos4ArmyDocument({
     id: options.createDocumentId(),
     name: parsedRoster.proposedName.trim() || 'Imported Army',
@@ -1014,6 +1047,7 @@ export const resolveParsedRoster = (
     ...(allowsLegends ? { allowsLegends: true } : {}),
     ...(allowsHistorical ? { allowsHistorical: true } : {}),
     explicitSelectionIds,
+    enhancementBearers,
   })
   const roundTrip = deserializeAos4ArmyDocument(serializeAos4ArmyDocument(proposedDocument), catalog)
   if (!roundTrip.document || roundTrip.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {

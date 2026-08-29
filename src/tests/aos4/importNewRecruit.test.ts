@@ -103,7 +103,14 @@ const asJson = (xml: string, name = 'army.json') => ({
  * and a handful as `.ros`, so they are the one thing the three formats cannot agree on.
  */
 const withoutLines = (roster?: ParsedRoster) =>
-  roster && { ...roster, selections: roster.selections.map(selection => ({ ...selection, line: 0 })) }
+  roster && {
+    ...roster,
+    selections: roster.selections.map(selection => ({
+      ...selection,
+      line: 0,
+      ...(selection.bearerLine === undefined ? {} : { bearerLine: 0 }),
+    })),
+  }
 
 const findSignature = (bytes: Uint8Array, signature: number): number => {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength)
@@ -133,7 +140,8 @@ describe('New Recruit .ros and .rosz import', () => {
       { line: 10, label: 'Thunderhead Host', kindHint: 'battle-formation' },
       { line: 16, label: 'Lore of the Storm', kindHint: 'spell-lore' },
       { line: 28, label: 'Knight-Vexillor', kindHint: 'warscroll' },
-      { line: 31, label: 'Mirrorshield', kindHint: 'artefact-of-power' },
+      // The artefact is filed inside its hero's own selections, so its bearer survives (#1989).
+      { line: 31, label: 'Mirrorshield', kindHint: 'artefact-of-power', bearerLine: 28 },
       { line: 38, label: 'Annihilators (Scourge of Aqshy)', kindHint: 'warscroll', count: 2 },
     ])
     expect(plain.parsedRoster?.selections.map(selection => selection.label)).not.toEqual(

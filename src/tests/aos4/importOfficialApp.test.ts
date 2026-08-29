@@ -16,7 +16,8 @@ describe('official AoS app text import', () => {
       { line: 3, label: 'Thunderquake Starhost', kindHint: 'battle-formation' },
       { line: 6, label: 'Lore of Primal Jungles', kindHint: 'spell-lore' },
       { line: 9, label: 'Slann Starmaster', kindHint: 'warscroll' },
-      { line: 11, label: 'Coatl Familiar', kindHint: 'enhancement' },
+      // The enhancement bullet records its hero's line, so its bearer survives import (#1989).
+      { line: 11, label: 'Coatl Familiar', kindHint: 'enhancement', bearerLine: 9 },
       { line: 12, label: 'Saurus Warriors', kindHint: 'warscroll', count: 2 },
       { line: 15, label: 'Realmshaper Engine', kindHint: 'warscroll' },
     ])
@@ -39,7 +40,7 @@ describe('official AoS app text import', () => {
         kindHint: 'battle-formation',
       },
       { line: 6, label: 'Knight-Vexillor', kindHint: 'warscroll' },
-      { line: 8, label: 'Mirrorshield', kindHint: 'enhancement' },
+      { line: 8, label: 'Mirrorshield', kindHint: 'enhancement', bearerLine: 6 },
       { line: 9, label: 'Annihilators', kindHint: 'warscroll', count: 3 },
       // The pointed line is the regiment itself, recorded as its own selectable kind (#1858).
       { line: 12, label: 'The Example Regiment', kindHint: 'regiment-of-renown', isRegimentOfRenown: true },

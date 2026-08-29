@@ -75,6 +75,13 @@ export const importFixtureIds = {
   summonWildSerpent: abilityId('81000000-0000-4000-8000-000000000064'),
   summonLostShrine: abilityId('81000000-0000-4000-8000-000000000065'),
   summonTwinIdol: abilityId('81000000-0000-4000-8000-000000000066'),
+  /**
+   * An enhancement the way generation emits one: the individual artefact is an `ability` inside
+   * the `content-group` table that offers it, and a roster names the ability, not the table. What
+   * the bearer join (#1989) resolves against.
+   */
+  relicsTable: contentGroupId('81000000-0000-4000-8000-000000000070'),
+  keenBlade: abilityId('81000000-0000-4000-8000-000000000071'),
 }
 
 const sourceRefs: ContentEntity['sourceRefs'] = []
@@ -272,6 +279,20 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
       from: importFixtureIds.wildLore,
       to: importFixtureIds.summonTwinIdol,
       rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:alpha-offers-relics-table',
+      kind: 'offers',
+      from: importFixtureIds.alphaFaction,
+      to: importFixtureIds.relicsTable,
+      rulesContextIds: [importFixtureContextIds.seasonal],
+    },
+    {
+      id: 'relationship:relics-table-includes-keen-blade',
+      kind: 'includes',
+      from: importFixtureIds.relicsTable,
+      to: importFixtureIds.keenBlade,
+      rulesContextIds: [importFixtureContextIds.seasonal],
     }
   )
 
@@ -449,6 +470,22 @@ export const createImportFixtureCatalog = (): Aos4Catalog => {
       summonAbility(importFixtureIds.summonWildSerpent, 'SUMMON WILD SERPENT'),
       summonAbility(importFixtureIds.summonLostShrine, 'SUMMON LOST SHRINE'),
       summonAbility(importFixtureIds.summonTwinIdol, 'SUMMON TWIN IDOL'),
+      contentGroup(importFixtureIds.relicsTable, 'Relics of Tests', 'artefact-of-power'),
+      {
+        id: importFixtureIds.keenBlade,
+        kind: 'ability',
+        revision: 'import-fixture',
+        name: 'Keen Blade',
+        abilityKind: 'active',
+        actor: 'army',
+        text: { effect: 'Pick a melee weapon. Add 1 to its rend.' },
+        timings: [
+          { kind: 'active', window: { kind: 'turn-phase', phase: 'combat' }, raw: 'Your Combat Phase' },
+        ],
+        keywords: [],
+        rulesContextIds: [importFixtureContextIds.seasonal],
+        sourceRefs,
+      },
     ],
     relationships,
   }

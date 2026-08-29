@@ -33,6 +33,16 @@ export interface Aos4ArmyDocument {
    */
   allowsHistorical?: boolean
   explicitSelectionIds: CanonicalId[]
+  /**
+   * Which unit carries each enhancement, keyed enhancement ID → bearer warscroll ID.
+   *
+   * An imported roster assigns its artefacts and heroic traits to a specific hero, and without
+   * this the flat selection set forgets that — the enhancement's reminder reads as if it applied
+   * to every unit (#1989). Entries are kept only while both IDs are explicit selections, and the
+   * field is only serialized when non-empty, so documents without bearers round-trip
+   * byte-identically to schema 1 output written before the field existed.
+   */
+  enhancementBearers?: Partial<Record<CanonicalId, CanonicalId>>
   reminderPreferences: Partial<Record<ReminderOccurrenceId, Aos4ReminderPreference>>
 }
 
@@ -68,28 +78,55 @@ const normalizedPreference = (value: Aos4ReminderPreference): Aos4ReminderPrefer
   ...(Number.isInteger(value.order) && (value.order ?? -1) >= 0 ? { order: value.order } : {}),
 })
 
+/**
+ * A bearer entry is presentation metadata over the selection set, so it lives and dies with the
+ * selections it names: an entry whose enhancement or bearer is no longer an explicit selection —
+ * pruned by a catalog update, or removed by the player — is dropped rather than left dangling.
+ */
+const normalizedBearers = (
+  bearers: Aos4ArmyDocument['enhancementBearers'],
+  explicitSelectionIds: CanonicalId[]
+): Aos4ArmyDocument['enhancementBearers'] => {
+  const explicitIds = new Set(explicitSelectionIds)
+  const entries = Object.entries(bearers ?? {})
+    .filter(
+      (entry): entry is [CanonicalId, CanonicalId] =>
+        Boolean(entry[1]) &&
+        entry[0] !== entry[1] &&
+        explicitIds.has(entry[0] as CanonicalId) &&
+        explicitIds.has(entry[1] as CanonicalId)
+    )
+    .sort(([left], [right]) => left.localeCompare(right))
+  return entries.length ? Object.fromEntries(entries) : undefined
+}
+
 export const createAos4ArmyDocument = (
   input: Omit<Aos4ArmyDocument, 'schemaVersion' | 'reminderPreferences'> & {
     reminderPreferences?: Aos4ArmyDocument['reminderPreferences']
   }
-): Aos4ArmyDocument => ({
-  schemaVersion: AOS4_ARMY_DOCUMENT_SCHEMA_VERSION,
-  id: input.id.trim(),
-  name: input.name.trim(),
-  rulesContextId: input.rulesContextId,
-  ...(input.allowsLegends ? { allowsLegends: true } : {}),
-  ...(input.allowsHistorical ? { allowsHistorical: true } : {}),
-  explicitSelectionIds: sortedUnique(input.explicitSelectionIds),
-  reminderPreferences: Object.fromEntries(
-    Object.entries(input.reminderPreferences ?? {})
-      .sort(([left], [right]) => left.localeCompare(right))
-      .flatMap(([id, preference]) => {
-        if (!preference) return []
-        const normalized = normalizedPreference(preference)
-        return Object.keys(normalized).length ? [[id, normalized]] : []
-      })
-  ),
-})
+): Aos4ArmyDocument => {
+  const explicitSelectionIds = sortedUnique(input.explicitSelectionIds)
+  const enhancementBearers = normalizedBearers(input.enhancementBearers, explicitSelectionIds)
+  return {
+    schemaVersion: AOS4_ARMY_DOCUMENT_SCHEMA_VERSION,
+    id: input.id.trim(),
+    name: input.name.trim(),
+    rulesContextId: input.rulesContextId,
+    ...(input.allowsLegends ? { allowsLegends: true } : {}),
+    ...(input.allowsHistorical ? { allowsHistorical: true } : {}),
+    explicitSelectionIds,
+    ...(enhancementBearers ? { enhancementBearers } : {}),
+    reminderPreferences: Object.fromEntries(
+      Object.entries(input.reminderPreferences ?? {})
+        .sort(([left], [right]) => left.localeCompare(right))
+        .flatMap(([id, preference]) => {
+          if (!preference) return []
+          const normalized = normalizedPreference(preference)
+          return Object.keys(normalized).length ? [[id, normalized]] : []
+        })
+    ),
+  }
+}
 
 export const serializeAos4ArmyDocument = (document: Aos4ArmyDocument): string =>
   `${JSON.stringify(createAos4ArmyDocument(document), null, 2)}\n`
@@ -116,6 +153,7 @@ interface Aos4ArmyDocumentShape {
   allowsLegends: boolean
   allowsHistorical: boolean
   explicitSelectionIds: string[]
+  enhancementBearers: Record<string, string>
   reminderPreferences: Record<string, unknown>
 }
 
@@ -169,6 +207,9 @@ const readAos4ArmyDocumentShape = (
     (value.allowsHistorical !== undefined && typeof value.allowsHistorical !== 'boolean') ||
     !Array.isArray(value.explicitSelectionIds) ||
     value.explicitSelectionIds.some(id => typeof id !== 'string') ||
+    (value.enhancementBearers !== undefined &&
+      (!isObject(value.enhancementBearers) ||
+        Object.values(value.enhancementBearers).some(id => typeof id !== 'string'))) ||
     !isObject(value.reminderPreferences)
   ) {
     return {
@@ -190,6 +231,7 @@ const readAos4ArmyDocumentShape = (
       allowsLegends: value.allowsLegends === true,
       allowsHistorical: value.allowsHistorical === true,
       explicitSelectionIds: value.explicitSelectionIds as string[],
+      enhancementBearers: (value.enhancementBearers ?? {}) as Record<string, string>,
       reminderPreferences: value.reminderPreferences,
     },
     diagnostics: [],
@@ -283,6 +325,9 @@ export const deserializeAos4ArmyDocument = (
       ...(shape.allowsLegends ? { allowsLegends: true } : {}),
       ...(shape.allowsHistorical ? { allowsHistorical: true } : {}),
       explicitSelectionIds,
+      // Normalization drops any entry whose enhancement or bearer was filtered above, so a
+      // catalog update that retires either ID costs the army the attribution, never the document.
+      enhancementBearers: shape.enhancementBearers as Aos4ArmyDocument['enhancementBearers'],
       reminderPreferences,
     }),
     diagnostics,
@@ -323,6 +368,7 @@ export const deserializeAos4ArmyDocumentStructure = (
       ...(shape.allowsLegends ? { allowsLegends: true } : {}),
       ...(shape.allowsHistorical ? { allowsHistorical: true } : {}),
       explicitSelectionIds: shape.explicitSelectionIds as CanonicalId[],
+      enhancementBearers: shape.enhancementBearers as Aos4ArmyDocument['enhancementBearers'],
       reminderPreferences,
     }),
     diagnostics,
