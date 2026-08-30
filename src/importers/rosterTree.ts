@@ -1,8 +1,9 @@
-import type {
-  Aos4ImportDiagnostic,
-  Aos4ParsedRosterResult,
-  ParsedRosterSelection,
-  ParsedRosterSelectionKind,
+import {
+  ENHANCEMENT_KIND_HINTS,
+  type Aos4ImportDiagnostic,
+  type Aos4ParsedRosterResult,
+  type ParsedRosterSelection,
+  type ParsedRosterSelectionKind,
 } from '../aos4/import'
 import { MAX_IMPORT_SELECTIONS } from './detectTextSource'
 
@@ -146,13 +147,16 @@ export const parseAos4RosterTree = (root: RosterNode): Aos4ParsedRosterResult =>
         /**
          * An enhancement is filed inside its bearer's own `selections`, so the grandparent
          * selection *is* the hero carrying it (#1989). Guarded to a real unit node: the same
-         * grouped shape one level under a force is an army-wide pick with no bearer.
+         * grouped shape one level under a force is an army-wide pick with no bearer. Both line
+         * and label are recorded because a minified `.json` puts every node on line 1.
          */
         const owner = selection.parent?.name === 'selections' ? selection.parent.parent : undefined
-        const carried =
-          (kindHint === 'enhancement' || kindHint === 'artefact-of-power') &&
+        const ownerLabel =
+          ENHANCEMENT_KIND_HINTS.has(kindHint) &&
           owner?.name === 'selection' &&
           owner.attribute('type') === 'unit'
+            ? unitLabel(owner)
+            : ''
         selections.push({
           line: selection.line,
           label,
@@ -160,7 +164,7 @@ export const parseAos4RosterTree = (root: RosterNode): Aos4ParsedRosterResult =>
           // A regiment is bought as a whole and is not bound by the army's faction (#1858).
           ...(kindHint === 'regiment-of-renown' ? { isRegimentOfRenown: true } : {}),
           ...(hasLegendsCategory(selection) ? { isLegends: true } : {}),
-          ...(carried && owner ? { bearerLine: owner.line } : {}),
+          ...(ownerLabel && owner ? { bearer: { line: owner.line, label: ownerLabel } } : {}),
         })
       }
       return

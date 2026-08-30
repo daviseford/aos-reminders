@@ -1,8 +1,9 @@
-import type {
-  Aos4ImportDiagnostic,
-  Aos4ParsedRosterResult,
-  ParsedRosterSelection,
-  ParsedRosterSelectionKind,
+import {
+  ENHANCEMENT_KIND_HINTS,
+  type Aos4ImportDiagnostic,
+  type Aos4ParsedRosterResult,
+  type ParsedRosterSelection,
+  type ParsedRosterSelectionKind,
 } from '../aos4/import'
 import type { Aos4ImportLine } from './detectTextSource'
 
@@ -112,22 +113,22 @@ export const parseSigdexRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResu
   let section: Section = 'header'
   let headerRow = 0
   /** The most recent unit line, so an enhancement bullet under it knows its bearer (#1989). */
-  let lastUnitLine: number | undefined
+  let bearerCandidate: ParsedRosterSelection | undefined
 
   for (const line of populated.slice(totalIndex + 1)) {
     if (unitSectionPattern.test(line.text)) {
       section = 'units'
-      lastUnitLine = undefined
+      bearerCandidate = undefined
       continue
     }
     if (terrainSectionPattern.test(line.text)) {
       section = 'terrain'
-      lastUnitLine = undefined
+      bearerCandidate = undefined
       continue
     }
     if (renownSectionPattern.test(line.text)) {
       section = 'renown'
-      lastUnitLine = undefined
+      bearerCandidate = undefined
       continue
     }
 
@@ -174,8 +175,11 @@ export const parseSigdexRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResu
     const bullet = parseBullet(line)
     if (line.text.startsWith('•')) {
       if (bullet) {
-        const carried = section === 'units' && lastUnitLine !== undefined
-        selections.push(carried ? { ...bullet, bearerLine: lastUnitLine } : bullet)
+        // The kind gate is vacuous today — Sigdex bullets are all unlabeled enhancements — but the
+        // invariant lives in Sigdex's serializer, not here, and the sibling importers all gate.
+        const bearer =
+          section === 'units' && ENHANCEMENT_KIND_HINTS.has(bullet.kindHint) ? bearerCandidate : undefined
+        selections.push(bearer ? { ...bullet, bearer: { line: bearer.line, label: bearer.label } } : bullet)
       }
       continue
     }
@@ -190,13 +194,14 @@ export const parseSigdexRoster = (lines: Aos4ImportLine[]): Aos4ParsedRosterResu
       continue
     }
 
-    selections.push({
+    const warscroll: ParsedRosterSelection = {
       line: line.number,
       label: stripPointsSuffix(line.text),
       kindHint: 'warscroll',
       ...(section === 'renown' ? { isRegimentOfRenown: true } : {}),
-    })
-    if (section === 'units') lastUnitLine = line.number
+    }
+    selections.push(warscroll)
+    if (section === 'units') bearerCandidate = warscroll
   }
 
   if (!declaredFaction) {

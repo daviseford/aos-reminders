@@ -5,16 +5,7 @@ import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
 import type { Aos4CatalogBoundBindings } from 'components/routes/HomeCatalogBound'
 import { ArmyCollectionProvider } from 'context/useArmyCollection'
-import {
-  Component,
-  lazy,
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react'
+import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { logFactionSelection, logGameModeChange } from 'utils/analytics'
 import { clearCloudArmyLink } from 'utils/cloudArmyLink'
 import { clearPendingShareId, readPendingShareId } from 'utils/shareLink'
@@ -26,7 +17,11 @@ import {
   createDefaultAos4ArmyDocument,
   saveAos4ArmyDocument,
 } from '../../aos4/runtime'
-import { createAos4ArmyDocument, deserializeAos4ArmyDocumentStructure, type Aos4ArmyDocument } from '../../aos4/state'
+import {
+  createAos4ArmyDocument,
+  deserializeAos4ArmyDocumentStructure,
+  type Aos4ArmyDocument,
+} from '../../aos4/state'
 
 /*
  * Home is the catalog-free shell. Everything shaped `f(catalog, …)` — the builder, the toolbar, the
@@ -256,10 +251,13 @@ const Home = () => {
    * one, and keeping it saves rebuilding the builder and every reminder view model for no visible
    * change.
    */
-  const handleDocumentValidated = useCallback((validated: Aos4ArmyDocument, unchangedFromStorage: boolean) => {
-    if (!unchangedFromStorage) setArmyDocument(validated)
-    setDocumentValidated(true)
-  }, [])
+  const handleDocumentValidated = useCallback(
+    (validated: Aos4ArmyDocument, unchangedFromStorage: boolean) => {
+      if (!unchangedFromStorage) setArmyDocument(validated)
+      setDocumentValidated(true)
+    },
+    []
+  )
 
   /*
    * The one place the sessionStorage key is removed. The share modal calls this when the player

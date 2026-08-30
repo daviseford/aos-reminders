@@ -36,14 +36,15 @@ export interface ParsedRosterSelection {
    */
   isRegimentOfRenown?: boolean
   /**
-   * The `line` of the unit this enhancement is assigned to.
+   * The unit this enhancement is assigned to, as its own selection recorded it.
    *
    * Every roster format writes an artefact or heroic trait *under its hero* — that hero, not the
-   * whole army, is who the enhancement belongs to (#1989). The line number rather than the label,
-   * because the label can name two different units in one roster while the line names exactly the
-   * one the builder attached the enhancement to. Only enhancement-shaped selections carry it.
+   * whole army, is who the enhancement belongs to (#1989). Both halves are needed to find the
+   * bearer's resolved match again: the line alone is ambiguous in a minified New Recruit `.json`,
+   * where every selection sits on line 1, and the label alone is ambiguous when two units share a
+   * name. Only enhancement-shaped selections carry it.
    */
-  bearerLine?: number
+  bearer?: { line: number; label: string }
 }
 
 export interface ParsedRoster {

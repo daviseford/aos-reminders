@@ -223,7 +223,10 @@ export interface Aos4ReminderViewModel {
  * on the HORN TOSS reminder said so). One tag per distinct granting source:
  *
  * - An enhancement the document knows the bearer of is that hero's — the imported roster assigned
- *   it to a specific unit, and without the tag the trait read as army-wide (#1989).
+ *   it to a specific unit, and without the tag the trait read as army-wide (#1989). Bearer tags
+ *   are written in a pass of their own, before and never overwritten by the weaker attributions:
+ *   a merged reminder can carry a bearer cause and a warscroll cause for the same unit name, and
+ *   which forEach saw last must not decide the description.
  * - An ability with a warscroll ancestor is that unit's own — its warscroll name wins, even when
  *   the unit itself arrived through a group (a Regiment of Renown).
  * - Otherwise the cause's root names the grant when the root is a picked content-group: a spell
@@ -247,22 +250,26 @@ const sourceTags = (
         tone: 'source',
         description: `Carried by your ${bearerName}. Only that unit uses it.`,
       })
-      return
     }
+  })
+  reminder.causes.forEach(cause => {
+    if (bearerNameByRootId.has(cause.rootId)) return
     const ancestors = cause.entityPath.slice(0, -1)
     for (let index = ancestors.length - 1; index >= 0; index -= 1) {
       const ancestor = entityById.get(ancestors[index])
       if (ancestor?.kind === 'warscroll') {
-        tagsByLabel.set(ancestor.name, {
-          label: ancestor.name,
-          tone: 'source',
-          description: `Printed on the ${ancestor.name} warscroll. Only that unit uses it.`,
-        })
+        if (!tagsByLabel.has(ancestor.name)) {
+          tagsByLabel.set(ancestor.name, {
+            label: ancestor.name,
+            tone: 'source',
+            description: `Printed on the ${ancestor.name} warscroll. Only that unit uses it.`,
+          })
+        }
         return
       }
     }
     const root = entityById.get(cause.rootId)
-    if (root?.kind === 'content-group') {
+    if (root?.kind === 'content-group' && !tagsByLabel.has(root.name)) {
       tagsByLabel.set(root.name, {
         label: root.name,
         tone: 'source',

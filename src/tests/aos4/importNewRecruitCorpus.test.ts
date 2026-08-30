@@ -16,9 +16,10 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
-import { resolveParsedRoster, type ParsedRoster } from '../../aos4/import'
+import { resolveParsedRoster } from '../../aos4/import'
 import { decodeAos4RosterFile } from '../../importers'
 import { LISTS_ROOT, listDirectories } from '../support/newRecruitManifest'
+import { withoutLines } from '../support/parsedRoster'
 
 const directories = listDirectories()
 const fixture = (id: string, file: string) => path.join(LISTS_ROOT, id, file)
@@ -37,15 +38,6 @@ const decode = async (id: string, format: 'ros' | 'rosz' | 'json') =>
  * handful of lines as `.ros` and a single minified line as `.json`. They describe the upload the
  * player handed us, so the roster is compared without them.
  */
-const withoutLines = (roster?: ParsedRoster) =>
-  roster && {
-    ...roster,
-    selections: roster.selections.map(selection => ({
-      ...selection,
-      line: 0,
-      ...(selection.bearerLine === undefined ? {} : { bearerLine: 0 }),
-    })),
-  }
 
 const errors = (diagnostics: { severity: string }[]) =>
   diagnostics.filter(diagnostic => diagnostic.severity === 'error')
