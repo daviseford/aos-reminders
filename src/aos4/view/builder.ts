@@ -38,6 +38,23 @@ export interface Aos4BuilderWarscroll {
   }
 }
 
+export interface Aos4BuilderBearerOption {
+  id: CanonicalId
+  name: string
+}
+
+/**
+ * One "carried by" control: a selected heroic trait or artefact of power, the warscrolls that
+ * could carry it, and the assignment the document currently holds, if any (#1992).
+ */
+export interface Aos4BuilderEnhancementBearer {
+  enhancementId: CanonicalId
+  enhancementName: string
+  groupType: string
+  bearerId?: CanonicalId
+  bearerOptions: Aos4BuilderBearerOption[]
+}
+
 /**
  * The rules categories whose individual abilities surface as selected chips in the builder cards.
  *
@@ -47,6 +64,13 @@ export interface Aos4BuilderWarscroll {
  * selection, and the ability's card is the offering group's category.
  */
 const ABILITY_CHIP_CATEGORIES = new Set(['artefact-of-power', 'heroic-trait', 'prayer-lore', 'spell-lore'])
+
+/**
+ * The enhancement categories whose selections can name the hero carrying them (#1992). A subset of
+ * `ABILITY_CHIP_CATEGORIES`: a lore pick grants its spells or prayers to every eligible caster in
+ * the army, so a single-bearer assignment would misstate it.
+ */
+const BEARER_CATEGORIES = new Set(['artefact-of-power', 'heroic-trait'])
 const CHIP_MINOR_WORDS = new Set(['a', 'an', 'and', 'of', 'the', 'to'])
 const chipCase = (value: string): string =>
   value
@@ -198,6 +222,58 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
       left.name.localeCompare(right.name)
   )
 
+  /**
+   * "Carried by" controls for the army's enhancement selections (#1992).
+   *
+   * An imported roster records which hero carries each artefact and heroic trait
+   * (`document.enhancementBearers`, #1989); a hand-built army had no way to say so. Each selected
+   * enhancement gets a picker over the army's HERO-keyworded warscrolls, keyed by exactly the ID
+   * the document holds — the individual ability an import records, or the offering group a
+   * hand-built pick records — because that ID is the reminder cause root the view's bearer tag
+   * reads. A bearer an import assigned outside the HERO list (the map joins by roster line, not
+   * by keyword) is still offered, so the current value always displays and stays clearable.
+   */
+  const heroOptions: Aos4BuilderBearerOption[] = document.explicitSelectionIds
+    .flatMap(id => {
+      const entity = entityById.get(id)
+      return entity?.kind === 'warscroll' && entity.keywords.includes('HERO')
+        ? [{ id, name: entity.name }]
+        : []
+    })
+    .sort((left, right) => left.name.localeCompare(right.name))
+  const enhancementBearers: Aos4BuilderEnhancementBearer[] = document.explicitSelectionIds
+    .flatMap(id => {
+      const entity = entityById.get(id)
+      if (!entity) return []
+      const chipGroup = entity.kind === 'ability' ? chipGroupByAbilityId.get(id) : undefined
+      const groupType = entity.kind === 'content-group' ? entity.groupType : chipGroup?.groupType
+      if (!groupType || !BEARER_CATEGORIES.has(groupType)) return []
+      const bearerId = document.enhancementBearers?.[id]
+      const assigned = bearerId ? entityById.get(bearerId) : undefined
+      const bearerOptions =
+        assigned?.kind === 'warscroll' && !heroOptions.some(option => option.id === assigned.id)
+          ? [...heroOptions, { id: assigned.id, name: assigned.name }].sort((left, right) =>
+              left.name.localeCompare(right.name)
+            )
+          : heroOptions
+      if (!bearerOptions.length) return []
+      return [
+        {
+          enhancementId: id,
+          enhancementName: chipGroup ? chipCase(entity.name) : entity.name,
+          groupType,
+          ...(bearerId ? { bearerId } : {}),
+          bearerOptions,
+        },
+      ]
+    })
+    .sort(
+      (left, right) =>
+        left.groupType.localeCompare(right.groupType) ||
+        left.enhancementName.localeCompare(right.enhancementName) ||
+        left.enhancementId.localeCompare(right.enhancementId)
+    )
+
   const profileByWarscroll = new Map(
     catalog.entities
       .filter(
@@ -231,6 +307,7 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     armyName: document.name,
     rulesContextId: document.rulesContextId,
     options,
+    enhancementBearers,
     warscrolls,
     selection,
   }

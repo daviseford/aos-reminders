@@ -414,6 +414,24 @@ const HomeCatalogBound = ({
     })
   }
 
+  /*
+   * The bearer assignment rides the same state-update path as every other builder control: the next
+   * document goes through `createAos4ArmyDocument`, whose normalization drops a cleared entry and
+   * any entry whose enhancement or bearer leaves the army (#1992). No overlay derivation — the
+   * selections themselves are untouched.
+   */
+  const setEnhancementBearer = (enhancementId: CanonicalId, bearerId: CanonicalId | null) => {
+    setDocument(current =>
+      createAos4ArmyDocument({
+        ...current,
+        enhancementBearers: {
+          ...current.enhancementBearers,
+          [enhancementId]: bearerId ?? undefined,
+        },
+      })
+    )
+  }
+
   const clearArmy = () => {
     unlinkCloudArmy()
     setDocument(current =>
@@ -569,7 +587,13 @@ const HomeCatalogBound = ({
 
   return (
     <>
-      {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
+      {!isGameMode && (
+        <ArmyBuilder
+          builder={builder}
+          onSetEnhancementBearer={setEnhancementBearer}
+          onSetGroupSelections={setSelections}
+        />
+      )}
 
       {!isGameMode && (
         <Toolbar

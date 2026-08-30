@@ -4,13 +4,15 @@ import { CollapsibleCardHeader } from 'components/helpers/collapsibleCardHeader'
 import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import { useMemo, useState } from 'react'
-import Select, { type MultiValue } from 'react-select'
+import Select, { type MultiValue, type SingleValue } from 'react-select'
 
 type BuilderViewModel = ReturnType<typeof createAos4BuilderViewModel>
 type BuilderOption = BuilderViewModel['options'][number]
+type BuilderBearer = BuilderViewModel['enhancementBearers'][number]
 
 interface ArmyBuilderProps {
   builder: BuilderViewModel
+  onSetEnhancementBearer: (enhancementId: CanonicalId, bearerId: CanonicalId | null) => void
   onSetGroupSelections: (groupIds: CanonicalId[], selectedIds: CanonicalId[]) => void
 }
 
@@ -20,11 +22,17 @@ interface Option {
   disabled: boolean
 }
 
+interface BearerOption {
+  label: string
+  value: CanonicalId
+}
+
 interface SelectionGroup {
   key: string
   title: string
   mobileTitle?: string
   options: BuilderOption[]
+  bearers: BuilderBearer[]
 }
 
 const titles: Record<string, { title: string; mobileTitle?: string; order: number }> = {
@@ -51,7 +59,7 @@ const titleCase = (value: string) =>
 
 const groupKey = (option: BuilderOption) => option.groupType ?? option.kind
 
-const groupSelections = (options: BuilderOption[]): SelectionGroup[] => {
+const groupSelections = (options: BuilderOption[], bearers: BuilderBearer[]): SelectionGroup[] => {
   const grouped = options.reduce((result, option) => {
     const key = groupKey(option)
     result.set(key, [...(result.get(key) ?? []), option])
@@ -65,6 +73,7 @@ const groupSelections = (options: BuilderOption[]): SelectionGroup[] => {
       title: configured?.title ?? titleCase(key),
       ...(configured?.mobileTitle ? { mobileTitle: configured.mobileTitle } : {}),
       options: groupOptions,
+      bearers: bearers.filter(bearer => bearer.groupType === key),
     }
   }).sort(
     (left, right) =>
@@ -76,10 +85,12 @@ const groupSelections = (options: BuilderOption[]): SelectionGroup[] => {
 const SelectionCard = ({
   group,
   initiallyExpanded,
+  onSetEnhancementBearer,
   onSetGroupSelections,
 }: {
   group: SelectionGroup
   initiallyExpanded: boolean
+  onSetEnhancementBearer: ArmyBuilderProps['onSetEnhancementBearer']
   onSetGroupSelections: ArmyBuilderProps['onSetGroupSelections']
 }) => {
   const { theme } = useTheme()
@@ -160,13 +171,53 @@ const SelectionCard = ({
               },
             })}
           />
+          {/*
+           * One "carried by" picker per selected heroic trait or artefact of power (#1992), so a
+           * hand-built army can record what an imported roster states outright: which hero carries
+           * the enhancement. Writes `enhancementBearers`, the field imports populate, so the
+           * reminder's "Carried by your <unit>" tag renders identically either way. Clearing it
+           * returns the reminder to the army-wide reading.
+           */}
+          {group.bearers.map(bearer => {
+            const bearerOptions: BearerOption[] = bearer.bearerOptions.map(option => ({
+              label: option.name,
+              value: option.id,
+            }))
+            const bearerValue = bearerOptions.find(option => option.value === bearer.bearerId) ?? null
+            const bearerInputId = `aos4-bearer-${bearer.enhancementId}`
+            return (
+              <div key={bearer.enhancementId} className="mt-2">
+                <label className={`small mb-1 ${theme.textMuted}`} htmlFor={bearerInputId}>
+                  {`Carried by — ${bearer.enhancementName}`}
+                </label>
+                <Select<BearerOption, false>
+                  inputId={bearerInputId}
+                  value={bearerValue}
+                  options={bearerOptions}
+                  isClearable
+                  placeholder="Army-wide"
+                  onChange={(option: SingleValue<BearerOption>) =>
+                    onSetEnhancementBearer(bearer.enhancementId, option?.value ?? null)
+                  }
+                  className={theme.text}
+                  theme={defaultTheme => ({
+                    ...defaultTheme,
+                    colors: {
+                      ...defaultTheme.colors,
+                      ...theme.selectTheme,
+                    },
+                  })}
+                />
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
   )
 }
 
-const ArmyBuilder = ({ builder, onSetGroupSelections }: ArmyBuilderProps) => {
+const ArmyBuilder = ({ builder, onSetEnhancementBearer, onSetGroupSelections }: ArmyBuilderProps) => {
   const isMobile = useIsMobile()
   const groups = useMemo(
     () =>
@@ -180,9 +231,10 @@ const ArmyBuilder = ({ builder, onSetGroupSelections }: ArmyBuilderProps) => {
               option.kind === 'content-group' ||
               (option.kind === 'ability' && Boolean(option.groupType))) &&
             option.groupType !== 'army-of-renown'
-        )
+        ),
+        builder.enhancementBearers
       ),
-    [builder.options]
+    [builder.options, builder.enhancementBearers]
   )
   const rowClass = `row d-print-none pb-1 ${isMobile ? 'mx-1' : 'pt-2 w-75'}`
 
@@ -194,6 +246,7 @@ const ArmyBuilder = ({ builder, onSetGroupSelections }: ArmyBuilderProps) => {
             key={group.key}
             group={group}
             initiallyExpanded={index === 0}
+            onSetEnhancementBearer={onSetEnhancementBearer}
             onSetGroupSelections={onSetGroupSelections}
           />
         ))}
