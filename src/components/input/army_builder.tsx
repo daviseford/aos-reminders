@@ -188,7 +188,7 @@ const SelectionCard = ({
             return (
               <div key={bearer.enhancementId} className="mt-2">
                 <label className={`small mb-1 ${theme.textMuted}`} htmlFor={bearerInputId}>
-                  {`Carried by — ${bearer.enhancementName}`}
+                  {`${bearer.enhancementName} — Carried by`}
                 </label>
                 <Select<BearerOption, false>
                   inputId={bearerInputId}

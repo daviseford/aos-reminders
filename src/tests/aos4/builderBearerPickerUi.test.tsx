@@ -168,7 +168,7 @@ describe('builder carried-by picker UI (#1992)', () => {
   it('labels the picker with the enhancement it assigns and offers only the army HERO warscrolls', async () => {
     const label = container.querySelector(`label[for="aos4-bearer-${ARTEFACT_GROUP.id}"]`)
     expect(label).not.toBeNull()
-    expect(label?.textContent).toBe('Carried by — Artefacts of the Tempest')
+    expect(label?.textContent).toBe('Artefacts of the Tempest — Carried by')
 
     await openBearerMenu()
 
