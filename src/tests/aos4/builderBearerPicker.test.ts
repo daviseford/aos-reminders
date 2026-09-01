@@ -162,4 +162,21 @@ describe('builder carried-by picker (#1992)', () => {
     const bearerTag = artefact!.tags.find(tag => tag.tone === 'source' && tag.label === 'Knight-Questor')
     expect(bearerTag?.description).toBe('Carried by your Knight-Questor. Only that unit uses it.')
   })
+
+  it('keeps the group tag beside the bearer tag, so the pick stays findable by its own name', () => {
+    // A heroic-trait table grants abilities under their own names (Aspects of Renewal grants
+    // REALMROOT GUIDE), and the table's tag is what lets the player find them. Assigning a bearer
+    // must add "Carried by" alongside that tag, never replace it — replacing it made the pick
+    // vanish from the reminders as far as the player could tell.
+    const document = createDocument([STORMCAST.id, KNIGHT_QUESTOR.id, ARTEFACT_GROUP.id], {
+      [ARTEFACT_GROUP.id]: KNIGHT_QUESTOR.id,
+    })
+
+    const reminders = createAos4ReminderViewModel(AOS4_CATALOG, document)
+    const artefact = reminders.find(reminder => reminder.name === 'QUICKSILVER DRAUGHT')
+    const sourceLabels = artefact!.tags.filter(tag => tag.tone === 'source').map(tag => tag.label)
+
+    expect(sourceLabels).toContain('Knight-Questor')
+    expect(sourceLabels).toContain(ARTEFACT_GROUP.name)
+  })
 })
