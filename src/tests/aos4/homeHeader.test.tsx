@@ -62,6 +62,8 @@ describe('the masthead selects', () => {
                   onArmyOfRenownChange={vi.fn()}
                   onFactionChange={vi.fn()}
                   onToggleGameMode={vi.fn()}
+                  onToggleSeasonalRules={vi.fn()}
+                  seasonalRulesChecked={null}
                   {...props}
                 />
               </MemoryRouter>
@@ -130,5 +132,50 @@ describe('the masthead selects', () => {
     await renderHeader({})
 
     expect(container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')!.disabled).toBe(false)
+  })
+
+  /*
+   * The seasonal rules switch (issue #1994) renders only when the catalog-bound half has told the
+   * masthead which standard context the document sits in. `null` covers both silences — the
+   * catalog still pending, and a document living outside the two standard contexts (Spearhead, a
+   * Legends-moved import) that the switch cannot speak for — and both hide the row rather than
+   * showing a knob position that would lie.
+   */
+  it('renders no seasonal rules switch when no state is published', async () => {
+    await renderHeader({})
+
+    expect(container.querySelector('#seasonal-rules-switch')).toBeNull()
+    expect(container.textContent).not.toContain('Seasonal rules')
+  })
+
+  it('renders a labeled, keyboard-operable seasonal rules switch that reflects and reports its state', async () => {
+    const onToggleSeasonalRules = vi.fn()
+    await renderHeader({ seasonalRulesChecked: true, onToggleSeasonalRules })
+
+    const input = container.querySelector<HTMLInputElement>('#seasonal-rules-switch')
+    expect(input).not.toBeNull()
+    // react-switch renders a real checkbox input, so it is focusable and space-togglable; the
+    // accessible name and checked state are what a screen reader announces.
+    expect(input!.getAttribute('aria-label')).toBe('Seasonal rules')
+    expect(input!.checked).toBe(true)
+    expect(container.textContent).toContain('Seasonal rules')
+
+    await act(async () => {
+      input!.click()
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    expect(onToggleSeasonalRules).toHaveBeenCalledTimes(1)
+  })
+
+  it('shows the seasonal rules switch unchecked when the seasonal rules are off', async () => {
+    await renderHeader({ seasonalRulesChecked: false })
+
+    expect(container.querySelector<HTMLInputElement>('#seasonal-rules-switch')!.checked).toBe(false)
+  })
+
+  it('hides the seasonal rules switch in play mode, with the other army-configuration controls', async () => {
+    await renderHeader({ seasonalRulesChecked: true, isGameMode: true })
+
+    expect(container.querySelector('#seasonal-rules-switch')).toBeNull()
   })
 })

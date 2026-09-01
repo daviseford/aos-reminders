@@ -1,5 +1,5 @@
 import type { CanonicalId } from '../../aos4/domain'
-import { AOS4_CATALOG, loadAos4SourceData } from '../../aos4/generated'
+import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID, loadAos4SourceData } from '../../aos4/generated'
 import type { PrintDocumentOptions } from '../../aos4/print/document'
 import type { PrintPageSize } from '../../aos4/print/presets'
 import type { PrintPreset } from '../../aos4/print/types'
@@ -11,8 +11,10 @@ import {
 import { resolveSelection } from '../../aos4/select'
 import {
   createAos4ArmyDocument,
+  getAos4SeasonalRulesState,
   serializeAos4ArmyDocument,
   setAos4ReminderPreference,
+  setAos4SeasonalRules,
   type Aos4ArmyDocument,
 } from '../../aos4/state'
 import {
@@ -160,6 +162,15 @@ export interface Aos4CatalogBoundBindings {
   }>
   armyOfRenownId: CanonicalId | null
   onArmyOfRenownChange: (armyOfRenownId: CanonicalId | null) => void
+  /**
+   * The seasonal rules switch (issue #1994): `true`/`false` mirror the document sitting in the
+   * seasonal or current standard context, and `null` means the document lives in some other
+   * context — Spearhead, a Legends-moved import, a historical season — that the switch cannot
+   * speak for, so the masthead hides it rather than showing a knob position that would lie.
+   * Derived here because telling the contexts apart takes the catalog the shell does not hold.
+   */
+  seasonalRulesChecked: boolean | null
+  onToggleSeasonalRules: () => void
   unlinkCloudArmy: () => void
 }
 
@@ -419,11 +430,36 @@ const HomeCatalogBound = ({
     setDocument(current =>
       createAos4ArmyDocument({
         ...current,
+        // Clearing means starting over, and starting over means the application default context —
+        // today the seasonal one, so the seasonal rules switch (issue #1994) comes back on. An
+        // army left in an imported Spearhead or Legends context would otherwise keep a context
+        // choice the cleared army no longer explains.
+        rulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
         explicitSelectionIds: [factionId],
         reminderPreferences: {},
       })
     )
   }
+
+  /*
+   * Derived from the document, never held: the switch is ON exactly when the document sits in the
+   * seasonal standard context and OFF exactly when it sits in the current standard one, so an
+   * import or a loaded cloud army that brings its own context moves the switch with it. Toggling
+   * is non-destructive both ways — only `rulesContextId` moves; season-exclusive selections stay
+   * in the document as inapplicable and revive when the season returns. The overlay flags are
+   * re-derived the same way every builder change derives them, so they keep following the
+   * selections rather than the context that just changed under them.
+   */
+  const seasonalRulesState = getAos4SeasonalRulesState(AOS4_CATALOG, document)
+  const seasonalRulesChecked = seasonalRulesState === 'unavailable' ? null : seasonalRulesState === 'on'
+  const toggleSeasonalRules = useCallback(() => {
+    setDocument(current =>
+      deriveAos4OverlayFlags(
+        AOS4_CATALOG,
+        setAos4SeasonalRules(AOS4_CATALOG, current, getAos4SeasonalRulesState(AOS4_CATALOG, current) !== 'on')
+      )
+    )
+  }, [setDocument])
 
   // The faction's Armies of Renown, offered as the top-level choice under the faction selector.
   // Picking one replaces the faction's regular rules, so switching drops explicit selections the
@@ -489,6 +525,7 @@ const HomeCatalogBound = ({
     if (
       previous &&
       previous.armyOfRenownId === armyOfRenownId &&
+      previous.seasonalRulesChecked === seasonalRulesChecked &&
       previous.unlinkCloudArmy === unlinkCloudArmy &&
       sameArmiesOfRenown(previous.armiesOfRenown, armiesOfRenown)
     ) {
@@ -498,11 +535,21 @@ const HomeCatalogBound = ({
       armiesOfRenown,
       armyOfRenownId,
       onArmyOfRenownChange: selectArmyOfRenown,
+      seasonalRulesChecked,
+      onToggleSeasonalRules: toggleSeasonalRules,
       unlinkCloudArmy,
     }
     publishedBindings.current = bindings
     onBindingsChange(bindings)
-  }, [armiesOfRenown, armyOfRenownId, onBindingsChange, selectArmyOfRenown, unlinkCloudArmy])
+  }, [
+    armiesOfRenown,
+    armyOfRenownId,
+    onBindingsChange,
+    seasonalRulesChecked,
+    selectArmyOfRenown,
+    toggleSeasonalRules,
+    unlinkCloudArmy,
+  ])
 
   /*
    * Withdraw them on the way out. Publishing upward means the shell holds handlers and a list that

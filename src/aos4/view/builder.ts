@@ -135,8 +135,12 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     const entity = entityById.get(id)
     if (!entity) return []
     const chipGroup = entity.kind === 'ability' ? chipGroupByAbilityId.get(id) : undefined
-    const overlay = overlayFor(chipGroup?.id ?? id)
     const seasonal = isSeasonExclusive(chipGroup ?? entity)
+    // A season-exclusive selection held while the seasonal rules are off (issue #1994) is
+    // unavailable in every resolution pass, which `overlayFor` would misread as historical
+    // provenance. Its marker is `seasonal`, so the builder keeps it under the season's own
+    // header — disabled, not misfiled under a past season.
+    const overlay = seasonal ? undefined : overlayFor(chipGroup?.id ?? id)
     return [
       {
         id,
