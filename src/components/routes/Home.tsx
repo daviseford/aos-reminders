@@ -339,6 +339,11 @@ const Home = () => {
           onArmyOfRenownChange={catalogBound?.onArmyOfRenownChange ?? noop}
           onFactionChange={selectFaction}
           onToggleGameMode={toggleGameMode}
+          onToggleSeasonalRules={catalogBound?.onToggleSeasonalRules ?? noop}
+          // `null` until the catalog-bound half publishes: the shell cannot tell the seasonal
+          // standard context from the current one without the catalog, and the splash covers the
+          // masthead for that whole wait anyway.
+          seasonalRulesChecked={catalogBound?.seasonalRulesChecked ?? null}
         />
 
         <AppBanner />

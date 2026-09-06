@@ -34,6 +34,17 @@ interface HeaderProps {
   onArmyOfRenownChange: (armyOfRenownId: CanonicalId | null) => void
   onFactionChange: (factionId: CanonicalId<'faction'>) => void
   onToggleGameMode: () => void
+  onToggleSeasonalRules: () => void
+  /**
+   * The seasonal rules switch (issue #1994): ON puts the army in the seasonal standard context
+   * (the sitting General's Handbook), OFF in the current standard one (battletome and core rules
+   * only). `null` hides the row entirely — before the catalog-bound half publishes there is
+   * nothing to flip, and a document living outside those two contexts (Spearhead, a Legends-moved
+   * import, a historical season) is not something the switch can speak for: a disabled switch
+   * still shows a knob position, and either position would lie. Hidden follows the Army of Renown
+   * row's precedent — masthead controls that do not apply are absent, not disabled.
+   */
+  seasonalRulesChecked: boolean | null
 }
 
 const NO_ARMY_OF_RENOWN = { label: 'None', value: null }
@@ -49,6 +60,8 @@ export const Header = ({
   onArmyOfRenownChange,
   onFactionChange,
   onToggleGameMode,
+  onToggleSeasonalRules,
+  seasonalRulesChecked,
 }: HeaderProps) => {
   const { theme } = useTheme()
   const isMobile = useIsMobile()
@@ -193,6 +206,45 @@ export const Header = ({
                   </div>
                 </>
               ) : null}
+              {/*
+                The seasonal rules switch (issue #1994), styled after the Edit/Play toggle above.
+                ON keeps the army under the sitting General's Handbook; OFF plays battletome and
+                core rules only. It renders only for a document in one of the two standard-mode
+                contexts — see `seasonalRulesChecked` — and only in edit mode, with the faction
+                and Army of Renown selects it belongs beside: it reconfigures the army, which is
+                an edit-mode act.
+              */}
+              {seasonalRulesChecked !== null && (
+                <div className="d-flex align-items-center justify-content-center text-white pt-2">
+                  <div className="d-inline-flex flex-row">
+                    {/*
+                      Click-to-toggle for the mouse like the Edit/Play labels, and like them not
+                      focusable: the switch below is the single keyboard control.
+                    */}
+                    <span className="align-self-center pb-2 me-2" onClick={onToggleSeasonalRules}>
+                      Seasonal rules
+                    </span>
+                    <label htmlFor="seasonal-rules-switch" className="mb-0">
+                      <Switch
+                        onChange={onToggleSeasonalRules}
+                        checked={seasonalRulesChecked}
+                        onColor="#1C7595"
+                        onHandleColor="#E9ECEF"
+                        handleDiameter={30}
+                        uncheckedIcon={false}
+                        checkedIcon={false}
+                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                        height={20}
+                        width={80}
+                        className="react-switch"
+                        id="seasonal-rules-switch"
+                        aria-label="Seasonal rules"
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>
