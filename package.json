@@ -16,7 +16,7 @@
     "luxon": "^3.7.2",
     "parse5": "^8.0.1",
     "pdfjs-dist": "^6.2.108",
-    "qs": "^6.15.3",
+    "qs": "^6.16.0",
     "react": "19.2.8",
     "react-bootstrap": "2.10.10",
     "react-copy-to-clipboard": "^5.1.1",
