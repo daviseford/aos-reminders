@@ -1,6 +1,8 @@
 import Navbar from 'components/page/navbar'
 import { useIsMobile } from 'utils/hooks/useIsMobile'
 import { useTheme } from 'context/useTheme'
+import { OverlayTrigger, Tooltip } from 'react-bootstrap'
+import { FaInfoCircle } from 'react-icons/fa'
 import Switch from 'react-switch'
 import Select, { type Theme as SelectTheme } from 'react-select'
 import type { CanonicalId } from '../../aos4/domain'
@@ -224,6 +226,32 @@ export const Header = ({
                     <span className="align-self-center pb-2 me-2" onClick={onToggleSeasonalRules}>
                       Seasonal rules
                     </span>
+                    {/*
+                      The label alone does not say what the season adds, so an info control beside
+                      it carries the explanation. A real button rather than another click-span: the
+                      tooltip has to be reachable by keyboard (focus shows it) and announced by
+                      screen readers, and unlike the toggle labels it must never flip the switch.
+                      The copy stays season-agnostic, like the switch itself — it names no
+                      handbook, so it survives the next one.
+                    */}
+                    <OverlayTrigger
+                      placement="bottom"
+                      trigger={['hover', 'focus']}
+                      overlay={
+                        <Tooltip id="seasonal-rules-tooltip">
+                          On: play with the current General&apos;s Handbook season — the season&apos;s rules
+                          join your reminders. Off: battletome and core rules only.
+                        </Tooltip>
+                      }
+                    >
+                      <button
+                        type="button"
+                        className="bg-transparent border-0 text-white p-0 me-2 align-self-center pb-2"
+                        aria-label="What are seasonal rules?"
+                      >
+                        <FaInfoCircle aria-hidden />
+                      </button>
+                    </OverlayTrigger>
                     <label htmlFor="seasonal-rules-switch" className="mb-0">
                       <Switch
                         onChange={onToggleSeasonalRules}

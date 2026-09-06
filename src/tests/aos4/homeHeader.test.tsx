@@ -178,4 +178,33 @@ describe('the masthead selects', () => {
 
     expect(container.querySelector('#seasonal-rules-switch')).toBeNull()
   })
+
+  /*
+   * The label alone does not say what toggling does, so the row carries an info control whose
+   * tooltip explains the two positions. It lives and dies with the switch row, and focusing it —
+   * the keyboard path, since the toggle labels are deliberately not focusable — shows the
+   * explanation.
+   */
+  it('offers a focusable explanation of the seasonal rules switch', async () => {
+    await renderHeader({ seasonalRulesChecked: true })
+
+    const info = container.querySelector<HTMLButtonElement>('button[aria-label="What are seasonal rules?"]')
+    expect(info).not.toBeNull()
+
+    await act(async () => {
+      info!.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    const tooltip = document.body.querySelector('.tooltip')
+    expect(tooltip).not.toBeNull()
+    expect(tooltip!.textContent).toContain("General's Handbook season")
+    expect(tooltip!.textContent).toContain('battletome and core rules only')
+  })
+
+  it('hides the seasonal rules explanation when the switch is hidden', async () => {
+    await renderHeader({})
+
+    expect(container.querySelector('button[aria-label="What are seasonal rules?"]')).toBeNull()
+  })
 })
