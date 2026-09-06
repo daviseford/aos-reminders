@@ -26,7 +26,13 @@ describe('Listbot 4.0 text import', () => {
         kindHint: 'battle-formation',
       },
       { line: 5, label: 'Master Moulder', kindHint: 'warscroll' },
-      { line: 7, label: 'Warpstone Innards', kindHint: 'enhancement' },
+      // The bracketed enhancement records its hero's line, so its bearer survives import (#1989).
+      {
+        line: 7,
+        label: 'Warpstone Innards',
+        kindHint: 'enhancement',
+        bearer: { line: 5, label: 'Master Moulder' },
+      },
       { line: 8, label: 'Stormfiends', kindHint: 'warscroll', count: 6 },
     ])
   })
@@ -45,8 +51,18 @@ describe('Listbot 4.0 text import', () => {
       { line: 2, label: 'Deathmarch', kindHint: 'battle-formation' },
       { line: 5, label: 'Lore of Undeath', kindHint: 'spell-lore' },
       { line: 8, label: 'Vampire Lord', kindHint: 'warscroll' },
-      { line: 9, label: 'Amulet of Screams', kindHint: 'artefact-of-power' },
-      { line: 10, label: 'Unbending Will', kindHint: 'enhancement' },
+      {
+        line: 9,
+        label: 'Amulet of Screams',
+        kindHint: 'artefact-of-power',
+        bearer: { line: 8, label: 'Vampire Lord' },
+      },
+      {
+        line: 10,
+        label: 'Unbending Will',
+        kindHint: 'enhancement',
+        bearer: { line: 8, label: 'Vampire Lord' },
+      },
       {
         line: 11,
         label: 'Deathrattle Skeletons',

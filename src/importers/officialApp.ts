@@ -1,8 +1,9 @@
-import type {
-  Aos4ImportDiagnostic,
-  Aos4ParsedRosterResult,
-  ParsedRosterSelection,
-  ParsedRosterSelectionKind,
+import {
+  ENHANCEMENT_KIND_HINTS,
+  type Aos4ImportDiagnostic,
+  type Aos4ParsedRosterResult,
+  type ParsedRosterSelection,
+  type ParsedRosterSelectionKind,
 } from '../aos4/import'
 import type { Aos4ImportLine } from './detectTextSource'
 
@@ -214,6 +215,13 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
   let allowsLegends = false
   /** The most recent warscroll, so a trailing `• Legends` bullet can mark it. */
   let lastWarscroll: ParsedRosterSelection | undefined
+  /**
+   * The most recent *pointed* unit line, so an enhancement bullet knows its bearer (#1989).
+   * Narrower than `lastWarscroll` on purpose: a bare bundled sub-unit (a Command Corps member, a
+   * regiment member) also records a warscroll, but the enhancement under it still belongs to the
+   * pointed unit whose cost the bundle shares.
+   */
+  let bearerCandidate: ParsedRosterSelection | undefined
   /** The most recent line that produced roster content, for bundled sub-unit adjacency. */
   let lastEntryLine: number | undefined
 
@@ -230,6 +238,7 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
     if (sectionPattern.test(line.text)) {
       section = sectionFor(line.text)
       lastWarscroll = undefined
+      bearerCandidate = undefined
       lastEntryLine = undefined
       return
     }
@@ -268,7 +277,11 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
 
     const bullet = parseBullet(line)
     if (bullet && section !== 'none') {
-      record(bullet, false)
+      // An enhancement bullet belongs to the unit it is written under (#1989). Only unit sections
+      // qualify: a bullet after faction terrain or inside a regiment of renown marks no bearer.
+      const bearer =
+        section === 'units' && ENHANCEMENT_KIND_HINTS.has(bullet.kindHint) ? bearerCandidate : undefined
+      record(bearer ? { ...bullet, bearer: { line: bearer.line, label: bearer.label } } : bullet, false)
       return
     }
 
@@ -311,6 +324,7 @@ export const parseOfficialAppRoster = (lines: Aos4ImportLine[]): Aos4ParsedRoste
       const warscroll = parsePointedWarscroll(line)
       if (warscroll) {
         record(warscroll, true)
+        bearerCandidate = warscroll
         return
       }
       const bundled = parseBundledWarscroll(line, lastEntryLine)

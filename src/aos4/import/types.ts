@@ -35,6 +35,16 @@ export interface ParsedRosterSelection {
    * faction" and the whole band is dropped.
    */
   isRegimentOfRenown?: boolean
+  /**
+   * The unit this enhancement is assigned to, as its own selection recorded it.
+   *
+   * Every roster format writes an artefact or heroic trait *under its hero* — that hero, not the
+   * whole army, is who the enhancement belongs to (#1989). Both halves are needed to find the
+   * bearer's resolved match again: the line alone is ambiguous in a minified New Recruit `.json`,
+   * where every selection sits on line 1, and the label alone is ambiguous when two units share a
+   * name. Only enhancement-shaped selections carry it.
+   */
+  bearer?: { line: number; label: string }
 }
 
 export interface ParsedRoster {

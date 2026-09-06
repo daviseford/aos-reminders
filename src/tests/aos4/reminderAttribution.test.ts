@@ -1,7 +1,9 @@
 import type { ContentGroup, Faction, Warscroll } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
+import { resolveParsedRoster } from '../../aos4/import'
 import { createAos4ArmyDocument } from '../../aos4/state'
 import { createAos4ReminderViewModel, type Aos4ReminderViewModel } from '../../aos4/view'
+import { decodeAos4TextRoster } from '../../importers'
 
 /**
  * Reminders name the selection that granted them (issue #1836). Without attribution, a player who
@@ -181,5 +183,74 @@ describe('reminder source attribution (#1836)', () => {
         })
       })
     })
+  })
+})
+
+/**
+ * An imported roster assigns each artefact and heroic trait to a specific hero, and the document
+ * remembers that as `enhancementBearers` (#1989: Realmroot Guide belonged to the Branchwych and
+ * Wychwood Glaive to the Arch-Revenant, and both reminders read as army-wide). The bearer is the
+ * strongest attribution — it names the exact unit, where the enhancement's own group would only
+ * name the table it came from.
+ */
+describe('imported enhancement bearers (#1989)', () => {
+  const importedRoster = [
+    'Bearer Attribution 420/1000 pts',
+    '',
+    'Sylvaneth',
+    'Followers of Kurnoth',
+    "General's Handbook 2026-27",
+    '',
+    "General's Regiment",
+    'Branchwych (100)',
+    ' • General',
+    ' • Realmroot Guide',
+    '',
+    'Regiment 1',
+    'Arch-Revenant (110)',
+    ' • Wychwood Glaive',
+    'Tree-Revenants (110)',
+    '',
+    'Created with Warhammer Age of Sigmar: The App',
+    'App: 1.37.0 | Data: 476',
+  ].join('\n')
+
+  const importedReminders = (): Aos4ReminderViewModel[] => {
+    const { parsedRoster } = decodeAos4TextRoster(importedRoster)
+    if (!parsedRoster) throw new Error('the roster did not decode')
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'army:bearer-attribution',
+    })
+    if (!preview.proposedDocument) throw new Error('the roster did not resolve to a document')
+    return createAos4ReminderViewModel(AOS4_CATALOG, preview.proposedDocument)
+  }
+
+  it('tags an imported heroic trait and artefact with the hero carrying them', () => {
+    const reminders = importedReminders()
+
+    const trait = reminders.find(reminder => reminder.name === 'REALMROOT GUIDE')
+    expect(trait).toBeDefined()
+    expect(sourceLabels(trait!)).toEqual(['Branchwych'])
+    expect(trait!.tags.find(tag => tag.tone === 'source')?.description).toBe(
+      'Carried by your Branchwych. Only that unit uses it.'
+    )
+
+    const artefact = reminders.find(reminder => reminder.name === 'WYCHWOOD GLAIVE')
+    expect(artefact).toBeDefined()
+    expect(sourceLabels(artefact!)).toEqual(['Arch-Revenant'])
+  })
+
+  it('marks only the carried enhancements, never the rest of the army', () => {
+    // A unit's own warscroll abilities still say "Printed on the … warscroll" — the carried
+    // wording is reserved for the two reminders the roster actually assigned to a hero.
+    const reminders = importedReminders()
+    reminders
+      .filter(reminder => !['REALMROOT GUIDE', 'WYCHWOOD GLAIVE'].includes(reminder.name))
+      .forEach(reminder => {
+        reminder.tags.forEach(tag => {
+          expect(tag.description).not.toContain('Carried by your')
+        })
+      })
   })
 })

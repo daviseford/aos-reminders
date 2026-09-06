@@ -81,7 +81,7 @@ const relationshipIsApplicable = (
  * container that offers it ("Artefacts of Power"). Matching only the container would mean no
  * enhancement on any real roster could ever resolve, so these hints accept both.
  */
-const ENHANCEMENT_KIND_HINTS = new Set<ParsedRosterSelectionKind>(['enhancement', 'artefact-of-power'])
+export const ENHANCEMENT_KIND_HINTS = new Set<ParsedRosterSelectionKind>(['enhancement', 'artefact-of-power'])
 
 const kindMatches = (
   entity: ContentEntity,
@@ -213,11 +213,11 @@ const resolveRulesContext = (
 
 const buildReachableIds = (
   catalog: Aos4Catalog,
+  entityById: Map<CanonicalId, ContentEntity>,
   factionId: CanonicalId<'faction'>,
   rulesContextId: RulesContextId,
   armiesOfRenown: ArmyOfRenownIndex
 ): Set<CanonicalId> => {
-  const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
   const outgoing = new Map<CanonicalId, ContentRelationship[]>()
   catalog.relationships
     .filter(
@@ -805,11 +805,11 @@ const resolveRosterSelection = (
  */
 const manifestationWarscrollMatches = (
   catalog: Aos4Catalog,
+  entityById: Map<CanonicalId, ContentEntity>,
   matches: Aos4ImportMatch[],
   resolutionContexts: ResolutionContext[],
   armiesOfRenown: ArmyOfRenownIndex
 ): Aos4ImportMatch[] => {
-  const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
   const matchedIds = new Set(matches.map(match => match.canonicalId))
   const derived: Aos4ImportMatch[] = []
 
@@ -904,6 +904,9 @@ export const resolveParsedRoster = (
    */
   const allowsHistorical = contextResolution.allowsHistorical && !factionResolution.rulesContext
   const armiesOfRenown = buildArmyOfRenownIndex(catalog)
+  // Built once for the whole resolution: reachability, the manifestation bridge, and the bearer
+  // join below all look entities up by ID, and the catalog holds ~11,500 of them.
+  const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
 
   /**
    * A roster resolves against its own context *and* whichever overlays it earned.
@@ -926,7 +929,7 @@ export const resolveParsedRoster = (
   const reachableByContextId = new Map(
     [effectiveContext, ...overlayContexts].map(rulesContext => [
       rulesContext.id,
-      buildReachableIds(catalog, faction.id, rulesContext.id, armiesOfRenown),
+      buildReachableIds(catalog, entityById, faction.id, rulesContext.id, armiesOfRenown),
     ])
   )
   const directlyOfferedByContextId = new Map(
@@ -969,7 +972,9 @@ export const resolveParsedRoster = (
         return match ? [match] : []
       }),
   ]
-  matches.push(...manifestationWarscrollMatches(catalog, matches, resolutionContexts(false), armiesOfRenown))
+  matches.push(
+    ...manifestationWarscrollMatches(catalog, entityById, matches, resolutionContexts(false), armiesOfRenown)
+  )
 
   if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return {
@@ -1007,6 +1012,48 @@ export const resolveParsedRoster = (
     })
   }
 
+  /**
+   * The roster assigned each artefact and heroic trait to a specific hero, and the parsers kept
+   * that as the bearer's own line and label (#1989). Joining both selections to their resolved
+   * matches turns it into an enhancement-ID → warscroll-ID map the reminders view can name the
+   * bearer from. The join key is line *and* label together: a minified New Recruit `.json` puts
+   * every selection on line 1, so the line alone would hand every enhancement to whichever
+   * warscroll happened to resolve last.
+   *
+   * Everything here fails soft, never wrong: a bearer or enhancement that did not resolve simply
+   * records no entry, a key two different warscrolls share is poisoned rather than raced for, and
+   * the same enhancement resolved on two different bearers — which one flat map cannot represent —
+   * drops the entry rather than guessing.
+   */
+  const matchKey = (line: number, label: string): string => `${line}|${label}`
+  const warscrollIdByMatchKey = new Map<string, CanonicalId | null>()
+  const enhancementIdByMatchKey = new Map<string, CanonicalId>()
+  matches.forEach(match => {
+    const key = matchKey(match.line, match.label)
+    enhancementIdByMatchKey.set(key, match.canonicalId)
+    if (entityById.get(match.canonicalId)?.kind !== 'warscroll') return
+    const existing = warscrollIdByMatchKey.get(key)
+    warscrollIdByMatchKey.set(
+      key,
+      existing === undefined || existing === match.canonicalId ? match.canonicalId : null
+    )
+  })
+  const enhancementBearers: Partial<Record<CanonicalId, CanonicalId>> = {}
+  const conflictedEnhancementIds = new Set<CanonicalId>()
+  parsedRoster.selections.forEach(selection => {
+    if (!selection.bearer) return
+    const enhancementId = enhancementIdByMatchKey.get(matchKey(selection.line, selection.label))
+    const bearerId = warscrollIdByMatchKey.get(matchKey(selection.bearer.line, selection.bearer.label))
+    if (!enhancementId || !bearerId || enhancementId === bearerId) return
+    const existing = enhancementBearers[enhancementId]
+    if (existing && existing !== bearerId) {
+      conflictedEnhancementIds.add(enhancementId)
+      return
+    }
+    enhancementBearers[enhancementId] = bearerId
+  })
+  conflictedEnhancementIds.forEach(enhancementId => delete enhancementBearers[enhancementId])
+
   const proposedDocument = createAos4ArmyDocument({
     id: options.createDocumentId(),
     name: parsedRoster.proposedName.trim() || 'Imported Army',
@@ -1014,6 +1061,7 @@ export const resolveParsedRoster = (
     ...(allowsLegends ? { allowsLegends: true } : {}),
     ...(allowsHistorical ? { allowsHistorical: true } : {}),
     explicitSelectionIds,
+    enhancementBearers,
   })
   const roundTrip = deserializeAos4ArmyDocument(serializeAos4ArmyDocument(proposedDocument), catalog)
   if (!roundTrip.document || roundTrip.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {

@@ -5,7 +5,6 @@ import path from 'node:path'
 
 import { strToU8, zipSync } from 'fflate'
 
-import type { ParsedRoster } from '../../aos4/import'
 import {
   decodeAos4RosterFile,
   MAX_EXPANDED_ROSTER_BYTES,
@@ -13,6 +12,7 @@ import {
   MAX_ROSTER_JSON_DEPTH,
 } from '../../importers'
 import { parseRosterXml, xmlToRosterJson } from '../support/newRecruit'
+import { withoutLines } from '../support/parsedRoster'
 
 /**
  * `units` adds entries to the force's own `<selections>`; `extra` appends a sibling container.
@@ -96,15 +96,6 @@ const asJson = (xml: string, name = 'army.json') => ({
   bytes: strToU8(JSON.stringify({ roster: xmlToRosterJson(parseRosterXml(xml)) })),
 })
 
-/**
- * A roster's content, without positions in the file it arrived in.
- *
- * Line numbers describe the upload, not the army: the same list is one minified line as `.json`
- * and a handful as `.ros`, so they are the one thing the three formats cannot agree on.
- */
-const withoutLines = (roster?: ParsedRoster) =>
-  roster && { ...roster, selections: roster.selections.map(selection => ({ ...selection, line: 0 })) }
-
 const findSignature = (bytes: Uint8Array, signature: number): number => {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength)
   for (let offset = 0; offset <= bytes.byteLength - 4; offset += 1) {
@@ -133,7 +124,13 @@ describe('New Recruit .ros and .rosz import', () => {
       { line: 10, label: 'Thunderhead Host', kindHint: 'battle-formation' },
       { line: 16, label: 'Lore of the Storm', kindHint: 'spell-lore' },
       { line: 28, label: 'Knight-Vexillor', kindHint: 'warscroll' },
-      { line: 31, label: 'Mirrorshield', kindHint: 'artefact-of-power' },
+      // The artefact is filed inside its hero's own selections, so its bearer survives (#1989).
+      {
+        line: 31,
+        label: 'Mirrorshield',
+        kindHint: 'artefact-of-power',
+        bearer: { line: 28, label: 'Knight-Vexillor' },
+      },
       { line: 38, label: 'Annihilators (Scourge of Aqshy)', kindHint: 'warscroll', count: 2 },
     ])
     expect(plain.parsedRoster?.selections.map(selection => selection.label)).not.toEqual(
