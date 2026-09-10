@@ -625,6 +625,11 @@ const regimentRows = (items: PositionedItem[]): NumericRow[] =>
     })
     .sort((left, right) => right.y - left.y)
 
+const GRAND_ALLIANCE_BAND_PREFIX = new RegExp(
+  `^(?:${['ORDER', 'CHAOS', 'DEATH', 'DESTRUCTION'].map(word => word.split('').join('\\s*')).join('|')})\\s+`,
+  'i'
+)
+
 const extractRegimentFacts = (
   items: PositionedItem[],
   page: number,
@@ -632,10 +637,11 @@ const extractRegimentFacts = (
 ): GamesWorkshopRegimentOfRenownFact[] => {
   const rows = regimentRows(items)
   return rows.flatMap((row, rowIndex) => {
-    // The grand-alliance band header (e.g. CHAOS on page 61) attaches to the top row's name;
-    // tolerate both the letterspaced `CH AOS` and the faithful `CHAOS` extraction.
+    // A grand-alliance band header (CHAOS on main-document page 61, DESTRUCTION on the
+    // Sons of Behemat supplement page 3) attaches to the row's name; tolerate both the
+    // letterspaced `CH AOS` and the faithful `CHAOS` extraction.
     const name = cleanName(textValue(nearestRowItems(items, rows, rowIndex, 30, 120))).replace(
-      /^CH\s*AOS\s+/i,
+      GRAND_ALLIANCE_BAND_PREFIX,
       ''
     )
     if (!name) return []

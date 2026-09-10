@@ -716,8 +716,10 @@ const extractOfficialBattleProfileFacts = async (
       .map(document => document.faction)
       .filter((faction): faction is string => Boolean(faction))
   )
-  const effective: GamesWorkshopBattleProfileFact[] = []
-  const reviewed: ReviewedOfficialBattleProfileFact[] = []
+  const extractedByDocument: Array<{
+    document: CorpusReview['officialDocuments'][number]
+    facts: GamesWorkshopBattleProfileFact[]
+  }> = []
   for (const document of review.officialDocuments) {
     if (
       document.documentKind !== 'battle-profiles' &&
@@ -738,11 +740,27 @@ const extractOfficialBattleProfileFacts = async (
     if (extracted.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
       throw new Error(`Battle-profile extraction failed for ${document.title}`)
     }
-    extracted.facts.forEach(fact => {
+    extractedByDocument.push({ document, facts: extracted.facts })
+  }
+  // A supplement's regiment-of-renown rows are the newer official word on the regiments they
+  // name (the September 2026 Sons of Behemat supplement re-published four rows the July 2026
+  // main document carries), so the matching main-document rows are superseded by name.
+  const supplementRegimentNames = new Set(
+    extractedByDocument
+      .filter(entry => entry.document.documentKind === 'battle-profile-supplement')
+      .flatMap(entry => entry.facts)
+      .filter(fact => fact.kind === 'regiment-of-renown')
+      .map(fact => canonicalOfficialProfileName(fact.name))
+  )
+  const effective: GamesWorkshopBattleProfileFact[] = []
+  const reviewed: ReviewedOfficialBattleProfileFact[] = []
+  for (const { document, facts } of extractedByDocument) {
+    facts.forEach(fact => {
       const superseded =
         document.documentKind === 'battle-profiles' &&
-        fact.kind !== 'regiment-of-renown' &&
-        supplementFactions.has(fact.faction)
+        (fact.kind !== 'regiment-of-renown'
+          ? supplementFactions.has(fact.faction)
+          : supplementRegimentNames.has(canonicalOfficialProfileName(fact.name)))
       reviewed.push({
         artifactChecksum: document.artifact.checksum,
         documentTitle: document.title,

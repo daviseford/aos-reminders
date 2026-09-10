@@ -12,52 +12,51 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-08-28b`, generated from the 2026-08-25 14:30 Wahapedia
-export publish, the 2026-08-26 Games Workshop re-publications, and the battletome-current Ogor
-Mawtribes pages Wahapedia published on 2026-08-28 (manifest `accepted-2026-08-28b`). It re-pins
-the two Ogor pages and completes the faction-scale provisional-to-verified swap (issues
-#1812/#1828/#1850/#1880): every Ogor rule now ships from the re-pinned Wahapedia pages, the three
-commit-pinned BSData catalogues and their community source entries retired, the 27 Ogor
-`contextOverrides` and the two Roving Maw `abilityTextOverrides` retired with the source records
-they targeted, and three battletome Ogor Armies of Renown classified on the
-`secondary-provisional` tier.
+The current revision is `aos4-corpus-2026-09-10`, the September 2026 Battletome: Sons of Behemat
+cycle observed by the Rules Radar (#1757) and generated from the unchanged 2026-08-25 14:30
+Wahapedia export publish plus four official publications dated 2026-09-09 (manifest
+`accepted-2026-09-10`): the Sons of Behemat battle-profile supplement (accepted as
+`battle-profile-supplement`; its points corrections apply to the nine carried-over units, its four
+brand-new units are profile-only with reviewed deviations under issue #1999, and the July 2026
+main-document rows it re-published are superseded — ten unit rows and, by name, four
+regiment-of-renown rows), the September 2026 Armies of Renown pack (re-pinned reference with
+identity continuity; the King Brodd's Stomp rewrite it carries is recorded but deliberately not
+applied because it references the battletome Big/Little and Destructive Impulse keyword
+architecture no accepted text source publishes yet), and the Sons of Behemat Regiments of Renown
+and Stone Lobbas Spearhead packs (reference evidence). Two provisional watches (issue #1999) alarm
+when Wahapedia publishes the battletome pages.
 Its automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
-| Accepted artifacts independently inventoried | 241/241 |
+| Accepted artifacts independently inventoried | 244/244 |
 | Explicit non-material discovery entries | 9 |
-| Official battle-profile facts | 1,350/1,350 |
-| Final official/secondary reconciliation discrepancies | 367/367 |
-| Official profile-only facts | 1/1 |
-| Live audit source records | 20,091/20,091 |
+| Official battle-profile facts | 1,396/1,396 |
+| Final official/secondary reconciliation discrepancies | 377/377 |
+| Official profile-only facts | 5/5 |
+| Live audit source records | 20,101/20,101 |
 | Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
-| Live review pairs | 42,274/42,274 |
-| Independent outcomes | 84,548 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 42,344/42,344 |
+| Independent outcomes | 84,688 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed on 2026-08-28: 241 entries matched accepted
+The independent source inventory was observed on 2026-09-10: 244 entries matched accepted
 checksums (no BSData catalogues remain pinned, so no `data:aos4:inventory:observe-bsdata`
 observation was required) and 9 discovery entries received explicit non-material dispositions
 carried forward from the 2026-08-01b review.
 
-The current certification is `aos4-corpus-2026-08-28b-machine-r1` (2026-08-28). The first
-campaign surfaced four findings against the two carried-forward Roving Maw ability-text
-overrides — the re-numbered faction-page fragments meant one override mis-applied its Mawpit
-morsel text to a different ability entirely, and the re-pinned page already carries both August
-2026 Armies of Renown corrections natively — so both overrides were removed, the products
-regenerated, and the campaign rerun clean. The `--reuse-certification` offer of the 2026-08-28
-directory carried nothing forward: all 42,274 pairs were evaluated fresh — 84,548 checks, 0
-findings, 0 cannot-verify.
+The current certification is `aos4-corpus-2026-09-10-machine-r1` (2026-09-10). The
+`--reuse-certification` offer of the 2026-08-28b directory carried nothing forward (the revision
+re-key invalidates every pair), so all 42,344 pairs were evaluated fresh — 84,688 checks, 0
+findings, 0 cannot-verify. The campaign's only course correction came before it ran: the Sons of
+Behemat supplement's page 3 DESTRUCTION band header glued onto the Odo Godswallow regiment row,
+and the July 2026 main-document rows for the four re-published regiments needed name-keyed
+supersession — both fixed in the extractor and generation rule before acceptance.
 
-`aos4-corpus-2026-08-28-machine-r1` (2026-08-28) preceded it: the 2026-08-26 Games Workshop
-re-publications (the August Rules Updates cycle, Faction Pack: Fyreslayers, and three Scourge of
-Aqshy packs), the delisted Hedonites pack unpinned, sixteen drifted Wahapedia pages re-pinned
-(retiring the Damned Vessel override the re-worded August document invalidated), and the
-seasonal-supersede generation rule replaced by the official per-pick reading (#1979). Its first
-campaign caught the stale Damned Vessel override the same way this revision's caught the Roving
-Maw pair; all 42,523 pairs were evaluated fresh — 85,046 checks, 0 findings, 0 cannot-verify.
+The previous revision was `aos4-corpus-2026-08-28b` (2026-08-28): the faction-scale Ogor
+provisional-to-verified swap on Wahapedia's battletome-current pages (issues
+#1812/#1828/#1850/#1880), 84,548 checks across 42,274 pairs, 0 findings.
 
 `aos4-corpus-2026-08-25b-machine-r1` (2026-08-25) preceded it: the 2026-08-25 14:30 Wahapedia
 bulk-export catch-up (33 ability and 15 weapon corrections, 12 renamed abilities, 28 newly cited

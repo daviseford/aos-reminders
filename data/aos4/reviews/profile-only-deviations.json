@@ -7,6 +7,34 @@
       "reason": "Legends-context Underworlds warband from the official Battle Profiles PDF (page 65). No accepted source publishes its warscroll rules: Wahapedia carries no page for it and no free official document contains them. Legends content sits outside the current-context intake obligation, so the gap is accepted and tracked rather than blocking; it remains the accepted 2026-08-01b baseline of exactly one profile-only official unit fact.",
       "targetDate": "2026-12-31",
       "recordedAt": "2026-08-01"
+    },
+    {
+      "faction": "Sons of Behemat",
+      "name": "Ma Maegran, Chooser of the Mighty",
+      "reason": "September 2026 Battletome: Sons of Behemat unit named by the official Battle Profiles - Sons of Behemat document (accepted 2026-09-10). No accepted source publishes its warscroll rules: Wahapedia's Sons of Behemat pages are unchanged since 2026-08-25 and BSData has no September 2026 Sons of Behemat catalogue, and this repository does not extract rules text from official PDFs into runtime. The gap is accepted and tracked under the official-first intake gate (#1820) until a reviewed Wahapedia page or BSData catalogue carries the battletome warscroll; a provisional watch alarms when either publishes.",
+      "targetDate": "2026-12-31",
+      "recordedAt": "2026-09-10"
+    },
+    {
+      "faction": "Sons of Behemat",
+      "name": "Ancient Ghyrochs",
+      "reason": "September 2026 Battletome: Sons of Behemat unit named by the official Battle Profiles - Sons of Behemat document (accepted 2026-09-10). No accepted source publishes its warscroll rules: Wahapedia's Sons of Behemat pages are unchanged since 2026-08-25 and BSData has no September 2026 Sons of Behemat catalogue, and this repository does not extract rules text from official PDFs into runtime. The gap is accepted and tracked under the official-first intake gate (#1820) until a reviewed Wahapedia page or BSData catalogue carries the battletome warscroll; a provisional watch alarms when either publishes.",
+      "targetDate": "2026-12-31",
+      "recordedAt": "2026-09-10"
+    },
+    {
+      "faction": "Sons of Behemat",
+      "name": "Boss-stompers",
+      "reason": "September 2026 Battletome: Sons of Behemat unit named by the official Battle Profiles - Sons of Behemat document (accepted 2026-09-10). No accepted source publishes its warscroll rules: Wahapedia's Sons of Behemat pages are unchanged since 2026-08-25 and BSData has no September 2026 Sons of Behemat catalogue, and this repository does not extract rules text from official PDFs into runtime. The gap is accepted and tracked under the official-first intake gate (#1820) until a reviewed Wahapedia page or BSData catalogue carries the battletome warscroll; a provisional watch alarms when either publishes.",
+      "targetDate": "2026-12-31",
+      "recordedAt": "2026-09-10"
+    },
+    {
+      "faction": "Sons of Behemat",
+      "name": "Rock-hurlers",
+      "reason": "September 2026 Battletome: Sons of Behemat unit named by the official Battle Profiles - Sons of Behemat document (accepted 2026-09-10). No accepted source publishes its warscroll rules: Wahapedia's Sons of Behemat pages are unchanged since 2026-08-25 and BSData has no September 2026 Sons of Behemat catalogue, and this repository does not extract rules text from official PDFs into runtime. The gap is accepted and tracked under the official-first intake gate (#1820) until a reviewed Wahapedia page or BSData catalogue carries the battletome warscroll; a provisional watch alarms when either publishes.",
+      "targetDate": "2026-12-31",
+      "recordedAt": "2026-09-10"
     }
   ]
 }

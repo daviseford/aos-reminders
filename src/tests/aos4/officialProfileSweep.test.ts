@@ -275,22 +275,53 @@ describe('official-profile sweep', () => {
     ])
   })
 
-  it('finds zero false findings across the full checked-in ledger and runtime', () => {
-    // The re-run of #1851's 307-option sweep with the hardened matcher: every effective
+  it('finds only the reviewed pending-intake Sons of Behemat battletome picks across the checked-in ledger and runtime', () => {
+    // The re-run of #1851's option sweep with the hardened matcher: every effective
     // officially-established roster option matches the runtime, with exactly one reviewed
-    // naming discrepancy (Shard of the Necris) and no collisions.
+    // naming discrepancy (Shard of the Necris) and no collisions — except the 21 September 2026
+    // Battletome: Sons of Behemat package picks, which are officially established but have no
+    // runtime entities until a rules-text source is accepted (issue #1999). Pinning them by name
+    // keeps the sweep fail-closed: any other unmatched option fails here.
     const result = sweepOfficialRosterOptions(
       ledger.records,
       AOS4_RUNTIME_PROJECTION.entities,
       reviewedDiscrepancies
     )
     expect(result).toEqual({
-      rosterOptionRecords: 307,
-      comparedRosterOptions: 287,
-      matchedByName: 286,
+      rosterOptionRecords: 335,
+      comparedRosterOptions: 315,
+      matchedByName: 293,
       matchedByReviewedDiscrepancy: 1,
-      findings: [],
+      findings: expect.any(Array),
     })
+    expect(
+      result.findings.map(finding => `${finding.code}: ${(finding as { name: string }).name}`).sort()
+    ).toEqual([
+      'unmatched-roster-option: Always First In',
+      'unmatched-roster-option: Battered Shrimp',
+      'unmatched-roster-option: Brute of Brutes',
+      'unmatched-roster-option: Conquering Stomp',
+      'unmatched-roster-option: Eager Louts',
+      'unmatched-roster-option: Enchanted Portcullis',
+      'unmatched-roster-option: Hammer Throw',
+      'unmatched-roster-option: Heirs of the Old Ways',
+      'unmatched-roster-option: Krakenskin Sandals',
+      'unmatched-roster-option: Looting Leviathans',
+      'unmatched-roster-option: Lore of Behemat',
+      'unmatched-roster-option: Mantle of the Wood-Kings',
+      'unmatched-roster-option: Massive Stuffin’ Sack',
+      'unmatched-roster-option: One-hit Wonder',
+      'unmatched-roster-option: Prayers of the World Titan',
+      'unmatched-roster-option: Protecty Bits',
+      'unmatched-roster-option: Rancid Flatulence',
+      'unmatched-roster-option: Spell-chomper',
+      'unmatched-roster-option: Thundering Titan',
+      'unmatched-roster-option: Unreasonable Tyrant',
+      'unmatched-roster-option: Windmill Walloping',
+    ])
+    result.findings.forEach(finding =>
+      expect((finding as { faction: string }).faction).toBe('Sons of Behemat')
+    )
   })
 
   it('still matches every #1851 false-negative name in the real data', () => {

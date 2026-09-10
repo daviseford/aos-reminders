@@ -43,7 +43,7 @@ const OGOR_SUPPLEMENT_UNITS: Array<{ name: string; unitSize: number; points: num
 
 const reconciliation = JSON.parse(
   readFileSync(
-    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-08-28b-reconciliation.json'),
+    path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-09-10-reconciliation.json'),
     'utf8'
   )
 ) as ReconciliationReport
@@ -156,8 +156,12 @@ describe('Ogor battletome units ship from the verified Wahapedia pages (2026-08-
     ).toBe(true)
   })
 
-  it('keeps The Emberwatch as the only remaining profile-only official fact', () => {
+  it('keeps The Emberwatch and the four September 2026 Sons of Behemat units as the profile-only official facts', () => {
     expect(reconciliation.unmatchedOfficialUnitFacts).toEqual([
+      expect.objectContaining({ faction: 'Sons of Behemat', name: 'Ancient Ghyrochs' }),
+      expect.objectContaining({ faction: 'Sons of Behemat', name: 'Boss-stompers' }),
+      expect.objectContaining({ faction: 'Sons of Behemat', name: 'Ma Maegran, Chooser of the Mighty' }),
+      expect.objectContaining({ faction: 'Sons of Behemat', name: 'Rock-hurlers' }),
       expect.objectContaining({ faction: 'Warhammer Legends', name: 'The Emberwatch' }),
     ])
   })

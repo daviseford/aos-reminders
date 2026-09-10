@@ -1,4 +1,57 @@
 {
- "schemaVersion": 1,
- "watches": []
+  "schemaVersion": 1,
+  "watches": [
+    {
+      "id": "wahapedia-sob-battletome-warscrolls",
+      "issueNumber": 1999,
+      "reason": "The September 2026 Battletome: Sons of Behemat units (Ma Maegran, Boss-stompers, Rock-hurlers) and the Krong the Club Regiment of Renown ship as profile-only official facts with reviewed deviations because no accepted source carries their rules text. Any of these appearing on the Wahapedia warscroll collection satisfies the intake condition for the provisional gap.",
+      "url": "https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html",
+      "sentinels": [
+        {
+          "label": "Ma Maegran, Chooser of the Mighty (new hero)",
+          "needle": "Ma Maegran"
+        },
+        {
+          "label": "Boss-stompers (new unit)",
+          "needle": "Boss-stompers"
+        },
+        {
+          "label": "Rock-hurlers (new unit)",
+          "needle": "Rock-hurlers"
+        },
+        {
+          "label": "Krong the Club (new Regiment of Renown)",
+          "needle": "Krong the Club"
+        }
+      ]
+    },
+    {
+      "id": "wahapedia-sob-battletome-faction-package",
+      "issueNumber": 1999,
+      "reason": "The September 2026 battletome faction package (battle formations, heroic traits, artefacts, Realm-shaking Rampages, both lores) and the rewritten King Brodd's Stomp Army of Renown (Big/Little roster, Destructive Impulse) are recorded from the official September 2026 publications but not shipped, because no accepted text source carries the battletome structure. Any of these appearing on the Wahapedia faction page satisfies the intake condition.",
+      "url": "https://wahapedia.ru/aos4/factions/sons-of-behemat/",
+      "sentinels": [
+        {
+          "label": "Conquering Stomp (battle formation)",
+          "needle": "Conquering Stomp"
+        },
+        {
+          "label": "Eager Louts (battle formation)",
+          "needle": "Eager Louts"
+        },
+        {
+          "label": "Lore of Behemat (spell lore)",
+          "needle": "Lore of Behemat"
+        },
+        {
+          "label": "Prayers of the World Titan (prayer lore)",
+          "needle": "Prayers of the World Titan"
+        },
+        {
+          "label": "Destructive Impulse (King Brodd's Stomp rewrite keyword)",
+          "needle": "Destructive Impulse"
+        }
+      ]
+    }
+  ]
 }

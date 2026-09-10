@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-08-28b.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-10.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-08-28b-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-10-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_495)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_498)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,074 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,406.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,479 entities', () => {
+  it('reports no missing provenance for any of the 11,498 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_495)
+    ).toHaveLength(11_498)
   })
 })
 
@@ -197,12 +197,12 @@ describe('AoS 4 catalog generation integrity', () => {
         battleProfiles: 1012,
         abilities: 5092,
         weapons: 2264,
-        sourceArtifacts: 241,
-        sourceRecords: 20091,
+        sourceArtifacts: 244,
+        sourceRecords: 20101,
         ignoredSourceRecords: 20464,
       },
       integrity: {
-        consumedSourceRecords: 20085,
+        consumedSourceRecords: 20095,
         issues: [],
         supersededSourceRecords: {
           count: 20458,
@@ -292,13 +292,13 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(241)
+    expect(acceptedManifest.artifacts).toHaveLength(244)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
-    ).toHaveLength(156)
+    ).toHaveLength(159)
     // No commit-pinned BSData catalogues remain: the Stormcast library retired when Wahapedia
     // published Lorai (2026-08-01d), and the three Ogor catalogues retired when Wahapedia
     // published the battletome-current Ogor pages (2026-08-28b).
@@ -364,27 +364,29 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('dispositions every official battle-profile fact without inventing missing rules', () => {
     expect(officialBattleProfiles.summary).toEqual({
-      records: 1350,
-      effective: 1303,
-      superseded: 47,
-      units: 967,
-      rosterOptions: 307,
-      regimentsOfRenown: 76,
-      // 74 regiment-of-renown rows joined the applied set when their classified runtime content
-      // groups shipped (issue #1858); the two Ogor supplement regiments Wahapedia does not yet
-      // carry remain structured references.
-      appliedToRuntime: 1013,
-      profileOnly: 1,
-      structuredReference: 289,
+      records: 1396,
+      effective: 1335,
+      superseded: 61,
+      units: 980,
+      rosterOptions: 335,
+      regimentsOfRenown: 81,
+      // The September 2026 Sons of Behemat supplement superseded the July 2026 main-document
+      // rows it re-published (ten unit rows and, by name, four regiment-of-renown rows) and
+      // applied its points corrections; its four brand-new battletome units are profile-only
+      // with reviewed deviations (issue #1999), and the new Krong the Club regiment joins the
+      // two lagging Ogor supplement regiments as structured references.
+      appliedToRuntime: 1012,
+      profileOnly: 5,
+      structuredReference: 318,
     })
-    expect(officialBattleProfiles.records).toHaveLength(1350)
+    expect(officialBattleProfiles.records).toHaveLength(1396)
     officialBattleProfiles.records.forEach(record => {
       expect(record.fact.factChecksum).toMatch(/^[0-9a-f]{64}$/)
       expect(record.fact.sourceRecordId).toMatch(/^source-record:games-workshop:/)
     })
     expect(
       officialBattleProfiles.records.filter(record => record.disposition === 'profile-only')
-    ).toHaveLength(1)
+    ).toHaveLength(5)
   })
 
   it('does not allow superseded bulk rule rows into the live catalog', () => {

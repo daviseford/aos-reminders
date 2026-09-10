@@ -44,10 +44,11 @@ describe('the provisional-verification watch', () => {
         readFileSync(path.join(process.cwd(), 'data', 'aos4', 'radar', 'provisional-watch.json'), 'utf8')
       )
     )
-    // The 2026-08-28b intake replaced the last provisional Ogor facts with Wahapedia's
-    // battletome-current pages and retired all three watches; the machinery idles on an
-    // empty list until the next provisional intake registers a sentinel.
-    expect(checkedIn.watches.length).toBe(0)
+    // The 2026-09-10 intake registered two watches for the September 2026 Battletome:
+    // Sons of Behemat content that no accepted text source carries yet (issue #1999): one on
+    // the Wahapedia warscroll collection for the new units and Regiment of Renown, one on the
+    // faction root for the battletome faction package and the King Brodd's Stomp rewrite.
+    expect(checkedIn.watches.length).toBe(2)
     checkedIn.watches.forEach(watch => {
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)
     })
