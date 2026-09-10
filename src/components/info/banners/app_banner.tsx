@@ -4,15 +4,17 @@ import { UpdateAvailable } from 'components/info/updateAvailable'
 import { useCheckoutOutcome } from 'utils/checkoutOutcome'
 
 /**
- * The rules-update note for the latest Rules Radar reconciliation (corpus 2026-08-28b). Each
+ * The rules-update note for the latest Rules Radar reconciliation (corpus 2026-09-10). Each
  * reconciliation that reaches production gets its own banner name so the note shows once to
  * everyone, including people who dismissed the previous one; keep the copy to a few sentences.
  */
 const RulesUpdateBanner = () => (
-  <NotificationBanner enableLog name="2026-08-rules-update-3" variant="info">
+  <NotificationBanner enableLog name="2026-09-rules-update-1" variant="info">
     <span>
-      <strong>August update:</strong> Ogor Mawtribes battletome rules covering every new unit, updated
-      warscroll, and the new army options. Spot something off? Let us know on{' '}
+      <strong>September update:</strong> Sons of Behemat points are updated from the new battletome battle
+      profiles, with big drops across the mega-gargants. The new hero, units, second Spearhead and the Krong
+      the Club Regiment of Renown will appear once their rules are published. Spotted a mistake? Let us know
+      on{' '}
       <a href="https://discord.gg/2nt9Fxp" target="_blank" rel="noopener noreferrer">
         Discord
       </a>
