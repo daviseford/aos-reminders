@@ -536,6 +536,37 @@ describe('Games Workshop Battle Profiles extraction', () => {
     )
   })
 
+  it('strips a faithful grand-alliance band header glued to a supplement regiment name', async () => {
+    // The September 2026 Sons of Behemat supplement's page 3 DESTRUCTION band attached to the
+    // Odo Godswallow row; pdf.js 6 extracts the band faithfully rather than letterspaced.
+    const result = await extractGamesWorkshopBattleProfileSupplement(
+      new Uint8Array([1]),
+      'e'.repeat(64),
+      'Sons of Behemat',
+      fakeLoader(3, {
+        1: unitPage('Mancrusher Gargant', 1, 140),
+        2: [item('Supplement page two', 1, 1)],
+        3: [
+          item('DESTRUCTION Odo Godswallow', 40, 700),
+          item('UNIT SUMMARY 1 Beast-smasher Mega-Gargant', 130, 700),
+          item('420', 250, 700),
+          item('NOTES Destruction armies only', 320, 700),
+        ],
+      })
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.facts).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          kind: 'regiment-of-renown',
+          name: 'Odo Godswallow',
+          points: 420,
+        }),
+      ])
+    )
+  })
+
   it('repairs split official base-size measurement tokens without collapsing multi-base entries', async () => {
     const result = await extractGamesWorkshopBattleProfiles(
       new Uint8Array([1]),

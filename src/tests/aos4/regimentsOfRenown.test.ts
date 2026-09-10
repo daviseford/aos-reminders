@@ -143,16 +143,25 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
       records: Array<{ disposition: string; fact: { kind: string; name: string } }>
     }
     const rows = catalog.records.filter(record => record.fact.kind === 'regiment-of-renown')
-    expect(rows).toHaveLength(76)
+    expect(rows).toHaveLength(81)
     const applied = rows.filter(record => record.disposition === 'applied-to-runtime')
     expect(applied).toHaveLength(74)
-    // Wahapedia does not yet carry the two new Ogor supplement regiments' rules; their rows
-    // honestly remain structured references until a rules source is accepted.
+    // The September 2026 Sons of Behemat supplement re-published four SoB regiment rows; its
+    // rows apply and the July 2026 main-document rows they replace are superseded.
+    expect(
+      rows
+        .filter(record => record.disposition === 'superseded')
+        .map(record => record.fact.name)
+        .sort()
+    ).toEqual(['Big Drogg Fort-kicker', 'Bundo Whalebiter', 'Odo Godswallow', 'One-eyed Grunnock'])
+    // Wahapedia does not yet carry the two new Ogor supplement regiments' rules or the September
+    // 2026 Krong the Club regiment (#1999); their rows honestly remain structured references
+    // until a rules source is accepted.
     expect(
       rows
         .filter(record => record.disposition === 'structured-reference')
         .map(record => record.fact.name)
         .sort()
-    ).toEqual(['Okar’s Torrbad', 'Urrgar’s Maulerguts'])
+    ).toEqual(['Krong the Club', 'Okar’s Torrbad', 'Urrgar’s Maulerguts'])
   })
 })

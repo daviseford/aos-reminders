@@ -88517,6 +88517,10 @@
         {
           "externalId": "official:240af53bd83954067cc8fdb3486bdc55f32dbd103bc8d2fd1081c06790b6333d",
           "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74",
+          "publisher": "games-workshop"
         }
       ],
       "canonicalId": "publication:6c93843a-b154-538a-ac80-c80abbebb917",
@@ -90408,6 +90412,39 @@
       "canonicalId": "publication:fcb3e551-ac50-5c7f-a457-0fbda3813052",
       "kind": "publication",
       "name": "Scourge of Ghyran - Kharadron Overlords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:f37a3bc9-bd69-5d9f-bafb-0165d1578b9f",
+      "kind": "publication",
+      "name": "Battle Profiles - Sons of Behemat"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:4e7a4cba-69f4-5f8c-9305-92413eb1a18f",
+      "kind": "publication",
+      "name": "Regiments of Renown - Sons of Behemat"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:830765205fa3ed7a1ae7e2bdf2a444938eaa5ec13d92cc7372dbdc822826dbda",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:75463f39-a831-5cad-ad1a-edf3428260e9",
+      "kind": "publication",
+      "name": "Spearhead: Sons of Behemat - Stone Lobbas"
     },
     {
       "aliases": [

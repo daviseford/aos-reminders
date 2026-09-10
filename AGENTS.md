@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-08-28b` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-10` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -45,8 +45,10 @@ This is an Age of Sigmar fourth-edition codebase:
   records (the May 2026 bulk warscroll/faction-rule rows plus the seventeen index-era Ogor
   datasheets the July 2026 battletome rewrites replaced, issues #1850 and #1880) so none can
   leak into runtime
-- all 1,350 extracted official battle-profile facts have an explicit disposition: 1,013 apply to
-  runtime, 1 remains a profile-only gap, 289 remain structured references, and 47 are superseded
+- all 1,396 extracted official battle-profile facts have an explicit disposition: 1,012 apply to
+  runtime, 5 remain profile-only gaps (The Emberwatch plus the four September 2026 Sons of Behemat
+  battletome units awaiting a rules-text source, issue #1999), 318 remain structured references,
+  and 61 are superseded
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
 
@@ -105,7 +107,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-08-28b` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-09-10` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.

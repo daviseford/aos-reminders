@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-08-28b snapshot is defined by:
+The accepted 2026-09-10 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-08-28b.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 156 official PDFs, and 72 reviewed Wahapedia pages (16 re-pinned 2026-08-28, the 2 Ogor pages re-pinned 2026-08-28b), pinned by SHA-256; no BSData catalogues remain pinned |
-| `data/aos4/reviews/corpus-2026-08-28b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-09-10.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the September 2026 Sons of Behemat battle profiles, Regiments of Renown, and Stone Lobbas Spearhead accepted 2026-09-10, the Armies of Renown pack re-pinned to its September 2026 publication), and 72 reviewed Wahapedia pages (16 re-pinned 2026-08-28, the 2 Ogor pages re-pinned 2026-08-28b), pinned by SHA-256; no BSData catalogues remain pinned |
+| `data/aos4/reviews/corpus-2026-09-10.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-08-28b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-08-28b-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-09-10-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-09-10-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -37,13 +37,22 @@ The strict report currently records:
 - 5,092 abilities
 - 2,264 weapons
 - 1,499 content groups, including 48 Spearhead force/unit wrappers
-- 241 source artifacts and 20,091 live source records
+- 244 source artifacts and 20,101 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,350 extracted GW battle-profile facts: 939 applied to runtime, 1 profile-only gap,
-  363 structured references, and 47 superseded facts
+- 1,396 extracted GW battle-profile facts: 938 matched to runtime, 5 profile-only gaps
+  (The Emberwatch plus the four September 2026 Sons of Behemat battletome units whose warscroll
+  rules no accepted source publishes yet, issue #1999), 318 structured references, and 61
+  superseded facts
+- the September 2026 Sons of Behemat intake (#1757): the faction battle-profile supplement
+  applied its points corrections to the nine carried-over units and superseded the July 2026
+  main-document rows it re-published (ten unit rows and, by name, four regiment-of-renown rows);
+  the rewritten King Brodd's Stomp Army of Renown (Big/Little roster, Destructive Impulse) is
+  recorded from the September 2026 Armies of Renown pack but not applied, because it references
+  the battletome keyword architecture no accepted text source carries yet; a provisional watch
+  alarms when Wahapedia publishes the battletome pages
 - zero community-sourced facts: Wahapedia published the battletome-current Ogor pages on
   2026-08-28, and the 2026-08-28b revision completed the faction-scale provisional-to-verified
   swap — the ten supplement units, the sixteen legacy-unit/terrain rewrites, and the whole
@@ -80,13 +89,16 @@ Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and historical contex
 content. The prior 2025-26 season is retained only inside the generic historical boundary rather
 than as a second selectable current context.
 
-The current official Battle Profiles PDF and Ogor Mawtribes supplement contribute 1,303 effective
-facts. Reconciliation applies official unit size, points, regiment options, notes, and bases to 939
-runtime profiles and now records 411 field-level secondary discrepancies after upstream parser and
-normalization corrections. One official unit fact (The Emberwatch, Legends) remains `profile-only`
-because current warscroll rules are not available anywhere; generation preserves its exact fact
-and checksum but does not invent reminders, and the accepted gap is recorded in the profile-only
-deviation ledger described below. The official July 2026 Rules Updates supplies reviewed
+The current official Battle Profiles PDF and the Ogor Mawtribes and Sons of Behemat supplements
+contribute 1,335 effective facts. Reconciliation applies official unit size, points, regiment
+options, notes, and bases to 938 runtime profiles and records 377 field-level secondary
+discrepancies after upstream parser and normalization corrections. Five official unit facts remain
+`profile-only` because current warscroll rules are not available anywhere: The Emberwatch
+(Legends) and the four September 2026 Battletome: Sons of Behemat units (Ma Maegran, Ancient
+Ghyrochs, Boss-stompers, Rock-hurlers) whose rules text no accepted source publishes yet
+(issue #1999); generation preserves their exact facts and checksums but does not invent reminders,
+and the accepted gaps are recorded in the profile-only deviation ledger described below. The
+official July 2026 Rules Updates supplies reviewed
 ability-text and timing corrections where the accepted secondary pages have not yet caught up.
 When an official publication introduces units whose rules no accepted source carries, reviewed
 intake — extraction from the official publication itself, or a BSData catalogue on its peer
@@ -108,8 +120,10 @@ faction, unit name, a rationale, a target date, and the recording date. Both str
   cannot shield a future regression).
 
 The deployment workflow runs the beta gate, so a release that would ship a new profile-only unit
-stops before S3. The accepted 2026-08-01b baseline is exactly one entry: The Emberwatch
-(Warhammer Legends), deferred with a rationale referencing its Legends context. The Rules Radar's
+stops before S3. The accepted population is five entries: The Emberwatch (Warhammer Legends),
+deferred with a rationale referencing its Legends context, and the four September 2026 Battletome:
+Sons of Behemat units (issue #1999), deferred until Wahapedia or BSData publishes the battletome
+warscrolls. The Rules Radar's
 managed issue states this obligation whenever it observes a new or replaced official publication.
 
 The July 2026 Ogor Mawtribes battletome content — ten new units (Redd the Maw, Tyrant on
