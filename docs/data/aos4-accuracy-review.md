@@ -12,19 +12,11 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-10`, the September 2026 Battletome: Sons of Behemat
-cycle observed by the Rules Radar (#1757) and generated from the unchanged 2026-08-25 14:30
-Wahapedia export publish plus four official publications dated 2026-09-09 (manifest
-`accepted-2026-09-10`): the Sons of Behemat battle-profile supplement (accepted as
-`battle-profile-supplement`; its points corrections apply to the nine carried-over units, its four
-brand-new units are profile-only with reviewed deviations under issue #1999, and the July 2026
-main-document rows it re-published are superseded — ten unit rows and, by name, four
-regiment-of-renown rows), the September 2026 Armies of Renown pack (re-pinned reference with
-identity continuity; the King Brodd's Stomp rewrite it carries is recorded but deliberately not
-applied because it references the battletome Big/Little and Destructive Impulse keyword
-architecture no accepted text source publishes yet), and the Sons of Behemat Regiments of Renown
-and Stone Lobbas Spearhead packs (reference evidence). Two provisional watches (issue #1999) alarm
-when Wahapedia publishes the battletome pages.
+The current revision is `aos4-corpus-2026-09-12`, a re-pin observed by the Rules Radar (#1757):
+Games Workshop re-published the September 2026 Sons of Behemat battle-profile supplement with
+corrected 90mm base sizes for Boss-stompers and Rock-hurlers (previously 80mm). The 2026-09-12
+revision swaps the artifact and its page records with publication identity continuity; every other
+input is unchanged and no other fact, count, or disposition moved.
 Its automated review is complete:
 
 | Measure | Result |
@@ -41,20 +33,36 @@ Its automated review is complete:
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed on 2026-09-10: 244 entries matched accepted
-checksums (no BSData catalogues remain pinned, so no `data:aos4:inventory:observe-bsdata`
-observation was required) and 9 discovery entries received explicit non-material dispositions
-carried forward from the 2026-08-01b review.
+The independent source inventory was observed on 2026-09-12 from a fresh `discover-official`
+snapshot: 244 entries matched accepted checksums (no BSData catalogues remain pinned, so no
+`data:aos4:inventory:observe-bsdata` observation was required) and 9 discovery entries received
+explicit non-material dispositions carried forward from the 2026-08-01b review.
 
-The current certification is `aos4-corpus-2026-09-10-machine-r1` (2026-09-10). The
-`--reuse-certification` offer of the 2026-08-28b directory carried nothing forward (the revision
+The current certification is `aos4-corpus-2026-09-12-machine-r1` (2026-09-12). The
+`--reuse-certification` offer of the 2026-09-10 directory carried nothing forward (the revision
 re-key invalidates every pair), so all 42,344 pairs were evaluated fresh — 84,688 checks, 0
-findings, 0 cannot-verify. The campaign's only course correction came before it ran: the Sons of
-Behemat supplement's page 3 DESTRUCTION band header glued onto the Odo Godswallow regiment row,
-and the July 2026 main-document rows for the four re-published regiments needed name-keyed
-supersession — both fixed in the extractor and generation rule before acceptance.
+findings, 0 cannot-verify.
 
-The previous revision was `aos4-corpus-2026-08-28b` (2026-08-28): the faction-scale Ogor
+The previous revision was `aos4-corpus-2026-09-10` (2026-09-10): the September 2026 Battletome:
+Sons of Behemat cycle observed by the Rules Radar (#1757) and generated from the unchanged
+2026-08-25 14:30 Wahapedia export publish plus four official publications dated 2026-09-09
+(manifest `accepted-2026-09-10`): the Sons of Behemat battle-profile supplement (accepted as
+`battle-profile-supplement`; its points corrections apply to the nine carried-over units, its four
+brand-new units are profile-only with reviewed deviations under issue #1999, and the July 2026
+main-document rows it re-published are superseded — ten unit rows and, by name, four
+regiment-of-renown rows), the September 2026 Armies of Renown pack (re-pinned reference with
+identity continuity; the King Brodd's Stomp rewrite it carries is recorded but deliberately not
+applied because it references the battletome Big/Little and Destructive Impulse keyword
+architecture no accepted text source publishes yet), and the Sons of Behemat Regiments of Renown
+and Stone Lobbas Spearhead packs (reference evidence). Two provisional watches (issue #1999) alarm
+when Wahapedia publishes the battletome pages. Its campaign evaluated all 42,344 pairs fresh
+against the 2026-08-28b reuse offer — 84,688 checks, 0 findings, 0 cannot-verify. The campaign's
+only course correction came before it ran: the Sons of Behemat supplement's page 3 DESTRUCTION
+band header glued onto the Odo Godswallow regiment row, and the July 2026 main-document rows for
+the four re-published regiments needed name-keyed supersession — both fixed in the extractor and
+generation rule before acceptance.
+
+`aos4-corpus-2026-08-28b` (2026-08-28) preceded it: the faction-scale Ogor
 provisional-to-verified swap on Wahapedia's battletome-current pages (issues
 #1812/#1828/#1850/#1880), 84,548 checks across 42,274 pairs, 0 findings.
 

@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-10.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-12.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-10-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-12-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'

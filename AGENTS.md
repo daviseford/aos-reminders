@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-10` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-12` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -107,7 +107,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-09-10` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-09-12` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.
@@ -151,12 +151,10 @@ Keep framework upgrades separate from rules/data corrections where practical.
 confined to the Node-side official-PDF text extraction in
 `src/aos4/data/gamesWorkshop/pdfText.ts` (legacy ESM build; `destroy()` lives on the loading task,
 and pdf.js 6 rejects Node Buffers, so cached artifact bytes are copied into a plain `Uint8Array`
-first). pdf.js 6 extracts letterspaced display headings without the fake spaces 2.4 inserted, so
-official-evidence page checksums and two battle-profile ledger facts pinned to the old extraction no
-longer reproduce: **the accepted snapshot needs a reviewed evidence refresh before
-`data:aos4:generate:candidate` passes again.** That refresh is a corpus review decision, not part of
-the dependency bump. `data:aos4:verify:beta` is unaffected because it checks checked-in products
-rather than re-extracting.
+first). pdf.js 6 extracts letterspaced display headings without the fake spaces 2.4 inserted; the
+reviewed evidence refresh that re-pinned the official-evidence page checksums and the affected
+battle-profile ledger facts to the faithful extraction landed in the 2026-08-04 `machine-r2`
+re-campaign, so `data:aos4:generate:candidate` passes on the accepted snapshot.
 
 The companion API services (`aos-reminders-rest-api`, `aos-reminders-subscription-api`) run on
 `nodejs22.x`/Serverless v4/AWS SDK v3 with characterization tests and CI, and are deployed to dev
