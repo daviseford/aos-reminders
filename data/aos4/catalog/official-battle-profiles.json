@@ -1,6 +1,6 @@
 {
   "authority": "games-workshop",
-  "generatedAt": "2026-09-10T13:00:00.000Z",
+  "generatedAt": "2026-09-12T15:10:00.000Z",
   "records": [
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
@@ -1581,6 +1581,1170 @@
         "unitSize": 3
       },
       "id": "games-workshop:052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750:unit:page:2:unit:9",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "5181e43d510d978dbbc9bf9524ffde4aa7569c84bdd64745354ca13178ddee87",
+        "faction": "Regiments of Renown",
+        "key": "page:3:regiment-of-renown:1",
+        "kind": "regiment-of-renown",
+        "name": "Odo Godswallow",
+        "notes": [
+          "This Regiment of Renown can be included in the following factions: Gloomspite Gitz, Ironjawz, Kruleboyz, Ogor Mawtribes."
+        ],
+        "page": 3,
+        "points": 420,
+        "row": 1,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A3",
+        "unitSummary": [
+          "• 1 Beast-smasher Mega-Gargant"
+        ]
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:regiment-of-renown:page:3:regiment-of-renown:1",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "45c68ca18cb29a884a87bd4dcceb5d8ecd6340c2d7bc81bca60a4b4022e49867",
+        "faction": "Regiments of Renown",
+        "key": "page:3:regiment-of-renown:2",
+        "kind": "regiment-of-renown",
+        "name": "Big Drogg Fort-kicker",
+        "notes": [
+          "This Regiment of Renown can be included in the following factions: Flesh-eater Courts, Gloomspite Gitz, Ironjawz, Kruleboyz, Nighthaunt, Ogor Mawtribes, Ossiarch Bonereapers, Soulblight Gravelords."
+        ],
+        "page": 3,
+        "points": 440,
+        "row": 2,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A3",
+        "unitSummary": [
+          "• 1 Gatebreaker Mega-Gargant"
+        ]
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:regiment-of-renown:page:3:regiment-of-renown:2",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "878f9c01a2c02d23ca06e9fb6641aff0a81123fa5ed78ef49753bf43b44b2f26",
+        "faction": "Regiments of Renown",
+        "key": "page:3:regiment-of-renown:3",
+        "kind": "regiment-of-renown",
+        "name": "Bundo Whalebiter",
+        "notes": [
+          "This Regiment of Renown can be included in the following factions: Cities of Sigmar, Daughters of Khaine, Fyreslayers, Gloomspite Gitz, Idoneth Deepkin, Ironjawz, Kharadron Overlords, Kruleboyz, Lumineth Realm-lords, Ogor Mawtribes, Seraphon, Stormcast Eternals, Sylvaneth."
+        ],
+        "page": 3,
+        "points": 360,
+        "row": 3,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A3",
+        "unitSummary": [
+          "• 1 Kraken-eater Mega-Gargant"
+        ]
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:regiment-of-renown:page:3:regiment-of-renown:3",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "38d46aac1c6879f7ba31125652af84ea66db4945789fe7ce6c02b0e0b45084f0",
+        "faction": "Regiments of Renown",
+        "key": "page:3:regiment-of-renown:4",
+        "kind": "regiment-of-renown",
+        "name": "Krong the Club",
+        "notes": [
+          "This Regiment of Renown can be included in the following factions: Blades of Khorne, Cities of Sigmar, Daughters of Khaine, Disciples of Tzeentch, Flesh-eater Courts, Fyreslayers, Gloomspite Gitz, Hedonites of Slaanesh, Helsmiths of Hashut, Idoneth Deepkin, Ironjawz, Kharadron Overlords, Kruleboyz, Lumineth Realm-lords, Maggotkin of Nurgle, Nighthaunt, Ogor Mawtribes, Ossiarch Bonereapers, Seraphon, Skaven, Slaves to Darkness, Soulblight Gravelords, Stormcast Eternals, Sylvaneth."
+        ],
+        "page": 3,
+        "points": 140,
+        "row": 4,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A3",
+        "unitSummary": [
+          "• 1 Mancrusher Gargant"
+        ]
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:regiment-of-renown:page:3:regiment-of-renown:4",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "da91dcdf6d5f921d74faea907b8554eedd0b858085d0b20f1ebe0ba466be37ea",
+        "faction": "Regiments of Renown",
+        "key": "page:3:regiment-of-renown:5",
+        "kind": "regiment-of-renown",
+        "name": "One-eyed Grunnock",
+        "notes": [
+          "This Regiment of Renown can be included in the following factions: Blades of Khorne, Disciples of Tzeentch, Gloomspite Gitz, Hedonites of Slaanesh, Helsmiths of Hashut, Ironjawz, Kruleboyz, Maggotkin of Nurgle, Ogor Mawtribes, Skaven, Slaves to Darkness."
+        ],
+        "page": 3,
+        "points": 410,
+        "row": 5,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A3",
+        "unitSummary": [
+          "• 1 Warstomper Mega-Gargant"
+        ]
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:regiment-of-renown:page:3:regiment-of-renown:5",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "b214992d0177dec0ba6aeed42e737607f8c4ad4e442aaf7fc065d07ed108940c",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:1",
+        "kind": "roster-option",
+        "name": "Conquering Stomp",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Battle Formation",
+        "page": 2,
+        "points": 0,
+        "row": 1,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:1",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "1e9e8fa223c55f16ba0f5ee517eabd256fb9bed668fad9ae19a51aa626a55c68",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:10",
+        "kind": "roster-option",
+        "name": "Protecty Bits",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Artefact of Power",
+        "page": 2,
+        "points": 0,
+        "row": 10,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:10",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "seasonal",
+        "factChecksum": "41cb8ac0e8c76a0b89539733f0749463daf8e12fbbcb004cc5cc24e144a1f985",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:11",
+        "kind": "roster-option",
+        "name": "That Boy’s Not Right",
+        "notes": [
+          "Scourge of Aqshy"
+        ],
+        "optionType": "Cracked Heel",
+        "page": 2,
+        "points": 10,
+        "row": 11,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:11",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "seasonal",
+        "factChecksum": "a29f36fda667a2d7f0e8f0c107fcd906348ebb89eae3938e6b7f8fee54843418",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:12",
+        "kind": "roster-option",
+        "name": "Up For It",
+        "notes": [
+          "Scourge of Aqshy"
+        ],
+        "optionType": "Cracked Heel",
+        "page": 2,
+        "points": 10,
+        "row": 12,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:12",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "seasonal",
+        "factChecksum": "7e9cea78946302cdcb0da1ce029c850ebad5817429162341ff9ec4effa16777e",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:13",
+        "kind": "roster-option",
+        "name": "Always on Guard",
+        "notes": [
+          "Scourge of Aqshy"
+        ],
+        "optionType": "Cracked Heel",
+        "page": 2,
+        "points": 10,
+        "row": 13,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:13",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "b565c12cf190b40deb80a33e1ece086ccdba742423a2df74988ca764a7e7c72d",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:14",
+        "kind": "roster-option",
+        "name": "Always First In",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Heroic Trait",
+        "page": 2,
+        "points": 0,
+        "row": 14,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:14",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "b9131400501a277a83ab673e5a6c65c406a1d2c1313d630eafeffa581cea6b48",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:15",
+        "kind": "roster-option",
+        "name": "Brute of Brutes",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Heroic Trait",
+        "page": 2,
+        "points": 0,
+        "row": 15,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:15",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "a6e6e6be64a2fe256b5e85ba1f5ba2def4faa1b6b92cc45c12fce829dbf372e4",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:16",
+        "kind": "roster-option",
+        "name": "One-hit Wonder",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Heroic Trait",
+        "page": 2,
+        "points": 0,
+        "row": 16,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:16",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "38a2c793946579e6a8ff08ce082b8be747f0b3cbab3039f96d2fe0ed51970ecf",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:17",
+        "kind": "roster-option",
+        "name": "Spell-chomper",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Heroic Trait",
+        "page": 2,
+        "points": 0,
+        "row": 17,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:17",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "40c9bd2c706a122425465b5bdb6fb839fa1517aec4d7295e741523b6e277191f",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:18",
+        "kind": "roster-option",
+        "name": "Thundering Titan",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Heroic Trait",
+        "page": 2,
+        "points": 0,
+        "row": 18,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:18",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "9a0846eaa7f5926be408ff1baefc6a4e428231993d5d1b3cf67c792f7b061317",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:19",
+        "kind": "roster-option",
+        "name": "Unreasonable Tyrant",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Heroic Trait",
+        "page": 2,
+        "points": 0,
+        "row": 19,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:19",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "6150391ea11fce72be0008b7d25480c611c4facc07d19365c6b8ee922b0fd1bf",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:2",
+        "kind": "roster-option",
+        "name": "Eager Louts",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Battle Formation",
+        "page": 2,
+        "points": 0,
+        "row": 2,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:2",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "70351bbd24028dda9548516608d9538322a88c1227364a1d57b8b5d08ec8d1e0",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:20",
+        "kind": "roster-option",
+        "name": "Battered Shrimp",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Realm-shaking Rampage",
+        "page": 2,
+        "points": 20,
+        "row": 20,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:20",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "6f06247cce39df9a670d04eb008101c849c2cf206dc3acf173836353e42af0db",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:21",
+        "kind": "roster-option",
+        "name": "Colossal Slam",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Realm-shaking Rampage",
+        "page": 2,
+        "points": 20,
+        "row": 21,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:21",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "1a6fd96c2e5af97d77dae86ef129bcc8b6340896e3084eadaf3418faa4a260a9",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:22",
+        "kind": "roster-option",
+        "name": "Earthshaking Roar",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Realm-shaking Rampage",
+        "page": 2,
+        "points": 20,
+        "row": 22,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:22",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "38fd7f137575d3b5519f5e2da7831a19fe2e01dc78fedbd257a6e6358e8dad32",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:23",
+        "kind": "roster-option",
+        "name": "Hammer Throw",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Realm-shaking Rampage",
+        "page": 2,
+        "points": 20,
+        "row": 23,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:23",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "b61d1f933cb594101902719a73c77f10cb909d0e26a11631fc91698a8cd68267",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:24",
+        "kind": "roster-option",
+        "name": "Rancid Flatulence",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Realm-shaking Rampage",
+        "page": 2,
+        "points": 20,
+        "row": 24,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:24",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "4e32e771bcae80eb4d3ffc66173a069826e9848937d391ff0391b049da3628ef",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:25",
+        "kind": "roster-option",
+        "name": "Windmill Walloping",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Realm-shaking Rampage",
+        "page": 2,
+        "points": 20,
+        "row": 25,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:25",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "seasonal",
+        "factChecksum": "17af109f9db7ef983032ef113b92c6e526c91f563cde42ca52c38a4fbf99fa27",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:26",
+        "kind": "roster-option",
+        "name": "Brodd’s Bellows",
+        "notes": [
+          "Scourge of Aqshy"
+        ],
+        "optionType": "Prayer Lore",
+        "page": 2,
+        "points": 0,
+        "row": 26,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:26",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "92da4c898cc619baf976db9410ded4864789e2deadd0dbb687a7760cbeb33a0b",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:27",
+        "kind": "roster-option",
+        "name": "Prayers of the World Titan",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Prayer Lore",
+        "page": 2,
+        "points": 0,
+        "row": 27,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:27",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "9ce0bd2c4c00e7d24250787ff296a0d8e96bcde260692d8a7e05d1b82c5328ad",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:28",
+        "kind": "roster-option",
+        "name": "Lore of Behemat",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Spell Lore",
+        "page": 2,
+        "points": 0,
+        "row": 28,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:28",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "a553b79f60a4320743ba80a426a1e9285ac2ca4bbc224fc584d7fcf3ca06a472",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:3",
+        "kind": "roster-option",
+        "name": "Heirs of the Old Ways",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Battle Formation",
+        "page": 2,
+        "points": 0,
+        "row": 3,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:3",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "ba921094bd1d6ff4fabce5c8e011295331325d62eb0874ae7969bc7e311dca47",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:4",
+        "kind": "roster-option",
+        "name": "Looting Leviathans",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Battle Formation",
+        "page": 2,
+        "points": 0,
+        "row": 4,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:4",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "9334c67a718b118df11c9872445227b0fca4ac8038837c5cb3c53b644549ac02",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:5",
+        "kind": "roster-option",
+        "name": "Enchanted Portcullis",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Artefact of Power",
+        "page": 2,
+        "points": 0,
+        "row": 5,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:5",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "90860c93ed8e868dc6bd30828d29a95b0a6d2c9fc4e2dee7dd4f353bf722c437",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:6",
+        "kind": "roster-option",
+        "name": "Glowy Lantern",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Artefact of Power",
+        "page": 2,
+        "points": 20,
+        "row": 6,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:6",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "47058f09cf0ab889a3c2feadac827713cdb132f3ec0d2d75bd1dc93509aed51d",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:7",
+        "kind": "roster-option",
+        "name": "Krakenskin Sandals",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Artefact of Power",
+        "page": 2,
+        "points": 10,
+        "row": 7,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:7",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "3687b83bbcd049917d787c2a092a90b5878538117b239c174a4bd694eeae752b",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:8",
+        "kind": "roster-option",
+        "name": "Mantle of the Wood-Kings",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Artefact of Power",
+        "page": 2,
+        "points": 0,
+        "row": 8,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:8",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "4903ce2be8695848abff8d6d902781dee8f02ddfbdc9afa58d1ddc4b780af981",
+        "faction": "Sons of Behemat",
+        "key": "page:2:roster-option:9",
+        "kind": "roster-option",
+        "name": "Massive Stuffin’ Sack",
+        "notes": [
+          "Battletome: Sons of Behemat"
+        ],
+        "optionType": "Artefact of Power",
+        "page": 2,
+        "points": 0,
+        "row": 9,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A2"
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:roster-option:page:2:roster-option:9",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "130mm"
+        ],
+        "context": "standard",
+        "factChecksum": "f8861e6199a5fcf6452e06ba948f404298501540c44bac27f64b1a08cc3e6dd1",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:1",
+        "kind": "unit",
+        "name": "Beast-smasher Mega-Gargant",
+        "notes": [
+          "This Hero can join an eligible regiment as an Eager Lout."
+        ],
+        "page": 1,
+        "points": 380,
+        "regimentOptions": [
+          "0-1 Eager Lout",
+          "Any Sons of Behemat"
+        ],
+        "relevantKeywords": [],
+        "row": 1,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:1",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "profile-only",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "90mm"
+        ],
+        "context": "standard",
+        "factChecksum": "b5807aa4b9d450ae68f27199ba88aeb0f2b2c1d27eb2939db8f6ddaec9a8a1a9",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:10",
+        "kind": "unit",
+        "name": "Boss-stompers",
+        "notes": [
+          "This unit cannot be reinforced."
+        ],
+        "page": 1,
+        "points": 370,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Monster",
+          "Little"
+        ],
+        "row": 10,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 3
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:10",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "90 × 52mm"
+        ],
+        "context": "standard",
+        "factChecksum": "2118853944474679c956cd894fe64bdd37d5644e854e8cc45610161a197a0729",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:11",
+        "kind": "unit",
+        "name": "Mancrusher Gargant",
+        "notes": [],
+        "page": 1,
+        "points": 140,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Monster",
+          "Little"
+        ],
+        "row": 11,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:11",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "profile-only",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "90mm"
+        ],
+        "context": "standard",
+        "factChecksum": "379779f955ad73056bb76f2610e69dd0128224ee3901ac36d35b625144336d98",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:12",
+        "kind": "unit",
+        "name": "Rock-hurlers",
+        "notes": [
+          "This unit cannot be reinforced."
+        ],
+        "page": 1,
+        "points": 380,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Monster",
+          "Little"
+        ],
+        "row": 12,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 3
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:12",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "90 × 52mm"
+        ],
+        "context": "seasonal",
+        "factChecksum": "f0b61d746244aef4aae4bcbe8ec67f1a47a17732485d946044f3132b1ec7c605",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:13",
+        "kind": "unit",
+        "name": "Scourge of Aqshy Mancrusher Gargant",
+        "notes": [
+          "This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
+        ],
+        "page": 1,
+        "points": 150,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Monster",
+          "Little"
+        ],
+        "row": 13,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:13",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "130mm"
+        ],
+        "context": "standard",
+        "factChecksum": "295c8945af36414e2d94fa1d045df7a859dabdd9b2ee740aaafeb239debb8a84",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:2",
+        "kind": "unit",
+        "name": "Gatebreaker Mega-Gargant",
+        "notes": [
+          "This Hero can join an eligible regiment as an Eager Lout."
+        ],
+        "page": 1,
+        "points": 400,
+        "regimentOptions": [
+          "0-1 Eager Lout",
+          "Any Sons of Behemat"
+        ],
+        "relevantKeywords": [],
+        "row": 2,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:2",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "130mm"
+        ],
+        "context": "standard",
+        "factChecksum": "963b922b1726d0f5a94b89dbbb870ebc2e8154209d0782dec2eca0e0c2298293",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:3",
+        "kind": "unit",
+        "name": "King Brodd",
+        "notes": [],
+        "page": 1,
+        "points": 430,
+        "regimentOptions": [
+          "0-1 Eager Lout",
+          "Any Sons of Behemat"
+        ],
+        "relevantKeywords": [],
+        "row": 3,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:3",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "130mm"
+        ],
+        "context": "standard",
+        "factChecksum": "8bfd9219f20fbae3d236174b577eaa00ed10bbd192ae1094e34b5773d6914da0",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:4",
+        "kind": "unit",
+        "name": "Kragnos, the End of Empires",
+        "notes": [],
+        "page": 1,
+        "points": 580,
+        "regimentOptions": [
+          "Any Sons of Behemat"
+        ],
+        "relevantKeywords": [],
+        "row": 4,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:4",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "130mm"
+        ],
+        "context": "standard",
+        "factChecksum": "6eea6018357c27f453b66979a88b07eadec659579406237cfdb071d5de3ebe95",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:5",
+        "kind": "unit",
+        "name": "Kraken-eater Mega-Gargant",
+        "notes": [
+          "This Hero can join an eligible regiment as an Eager Lout."
+        ],
+        "page": 1,
+        "points": 370,
+        "regimentOptions": [
+          "0-1 Eager Lout",
+          "Any Sons of Behemat"
+        ],
+        "relevantKeywords": [],
+        "row": 5,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:5",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "profile-only",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "90mm"
+        ],
+        "context": "standard",
+        "factChecksum": "85ac2ac65f6b49bddf5b0d65023da06e2d5afa25e47b257f1631e674f8ac5db8",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:6",
+        "kind": "unit",
+        "name": "Ma Maegran, Chooser of the Mighty",
+        "notes": [],
+        "page": 1,
+        "points": 370,
+        "regimentOptions": [
+          "Ancient Ghyrochs (required)",
+          "0-1 Eager Lout",
+          "Any Sons of Behemat"
+        ],
+        "relevantKeywords": [],
+        "row": 6,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:6",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "130mm"
+        ],
+        "context": "standard",
+        "factChecksum": "78c6a9be4d0b0937243daf3f5d3f6d001d8fba13e5ef3ad3a760cba4d09f846c",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:7",
+        "kind": "unit",
+        "name": "Warstomper Mega-Gargant",
+        "notes": [
+          "This Hero can join an eligible regiment as an Eager Lout."
+        ],
+        "page": 1,
+        "points": 390,
+        "regimentOptions": [
+          "0-1 Eager Lout",
+          "Any Sons of Behemat"
+        ],
+        "relevantKeywords": [],
+        "row": 7,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:7",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "130mm"
+        ],
+        "context": "seasonal",
+        "factChecksum": "20cbc8ce4200759fdb94e96ec94abef44acb100174e3aa602bf6afe00cb86067",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:8",
+        "kind": "unit",
+        "name": "Scourge of Aqshy Gatebreaker Mega-Gargant",
+        "notes": [
+          "This Hero can join an eligible regiment as a Eager Lout. This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
+        ],
+        "page": 1,
+        "points": 400,
+        "regimentOptions": [
+          "0-1 Eager Lout",
+          "Any Sons of Behemat"
+        ],
+        "relevantKeywords": [],
+        "row": 8,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:8",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+      "disposition": "profile-only",
+      "documentTitle": "Battle Profiles - Sons of Behemat",
+      "fact": {
+        "baseSizes": [
+          "105 × 70mm"
+        ],
+        "context": "standard",
+        "factChecksum": "6fdbd7a89a610b34d402ba2d2ebf4b32c59753c9af78e002abe8a54321b963d4",
+        "faction": "Sons of Behemat",
+        "key": "page:1:unit:9",
+        "kind": "unit",
+        "name": "Ancient Ghyrochs",
+        "notes": [
+          "This unit can only be taken in Ma Maegran’s regiment. This unit cannot be reinforced."
+        ],
+        "page": 1,
+        "points": 0,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Unique",
+          "Beast"
+        ],
+        "row": 9,
+        "sourceRecordId": "source-record:games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49%3Apage%3A1",
+        "unitSize": 2
+      },
+      "id": "games-workshop:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49:unit:page:1:unit:9",
       "status": "effective"
     },
     {
@@ -37872,1170 +39036,6 @@
         "unitSize": 1
       },
       "id": "games-workshop:5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2:unit:page:9:unit:9",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "e7c6f4b739afcb25c92a41bc43c3cb2f09e67bc6831be445590f1ef4da19c907",
-        "faction": "Regiments of Renown",
-        "key": "page:3:regiment-of-renown:1",
-        "kind": "regiment-of-renown",
-        "name": "Odo Godswallow",
-        "notes": [
-          "This Regiment of Renown can be included in the following factions: Gloomspite Gitz, Ironjawz, Kruleboyz, Ogor Mawtribes."
-        ],
-        "page": 3,
-        "points": 420,
-        "row": 1,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A3",
-        "unitSummary": [
-          "• 1 Beast-smasher Mega-Gargant"
-        ]
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:regiment-of-renown:page:3:regiment-of-renown:1",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "6213f708955eab738b0dbc14fb4f0d37071ca276c40546f913cd7dee71fa2d3f",
-        "faction": "Regiments of Renown",
-        "key": "page:3:regiment-of-renown:2",
-        "kind": "regiment-of-renown",
-        "name": "Big Drogg Fort-kicker",
-        "notes": [
-          "This Regiment of Renown can be included in the following factions: Flesh-eater Courts, Gloomspite Gitz, Ironjawz, Kruleboyz, Nighthaunt, Ogor Mawtribes, Ossiarch Bonereapers, Soulblight Gravelords."
-        ],
-        "page": 3,
-        "points": 440,
-        "row": 2,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A3",
-        "unitSummary": [
-          "• 1 Gatebreaker Mega-Gargant"
-        ]
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:regiment-of-renown:page:3:regiment-of-renown:2",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "c42f4aa670eaf4f7e84ad44245450ec01e6eb9abcab3731b3bb513dd7ae328f0",
-        "faction": "Regiments of Renown",
-        "key": "page:3:regiment-of-renown:3",
-        "kind": "regiment-of-renown",
-        "name": "Bundo Whalebiter",
-        "notes": [
-          "This Regiment of Renown can be included in the following factions: Cities of Sigmar, Daughters of Khaine, Fyreslayers, Gloomspite Gitz, Idoneth Deepkin, Ironjawz, Kharadron Overlords, Kruleboyz, Lumineth Realm-lords, Ogor Mawtribes, Seraphon, Stormcast Eternals, Sylvaneth."
-        ],
-        "page": 3,
-        "points": 360,
-        "row": 3,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A3",
-        "unitSummary": [
-          "• 1 Kraken-eater Mega-Gargant"
-        ]
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:regiment-of-renown:page:3:regiment-of-renown:3",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "7786e3f50741991cb2db78403fafb047748142c9a5f5ea72e6db61a81ca774cc",
-        "faction": "Regiments of Renown",
-        "key": "page:3:regiment-of-renown:4",
-        "kind": "regiment-of-renown",
-        "name": "Krong the Club",
-        "notes": [
-          "This Regiment of Renown can be included in the following factions: Blades of Khorne, Cities of Sigmar, Daughters of Khaine, Disciples of Tzeentch, Flesh-eater Courts, Fyreslayers, Gloomspite Gitz, Hedonites of Slaanesh, Helsmiths of Hashut, Idoneth Deepkin, Ironjawz, Kharadron Overlords, Kruleboyz, Lumineth Realm-lords, Maggotkin of Nurgle, Nighthaunt, Ogor Mawtribes, Ossiarch Bonereapers, Seraphon, Skaven, Slaves to Darkness, Soulblight Gravelords, Stormcast Eternals, Sylvaneth."
-        ],
-        "page": 3,
-        "points": 140,
-        "row": 4,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A3",
-        "unitSummary": [
-          "• 1 Mancrusher Gargant"
-        ]
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:regiment-of-renown:page:3:regiment-of-renown:4",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "3ae11c68a57ba7c63ade338f24c9f15268e440725fd961086ca08b1c7e226878",
-        "faction": "Regiments of Renown",
-        "key": "page:3:regiment-of-renown:5",
-        "kind": "regiment-of-renown",
-        "name": "One-eyed Grunnock",
-        "notes": [
-          "This Regiment of Renown can be included in the following factions: Blades of Khorne, Disciples of Tzeentch, Gloomspite Gitz, Hedonites of Slaanesh, Helsmiths of Hashut, Ironjawz, Kruleboyz, Maggotkin of Nurgle, Ogor Mawtribes, Skaven, Slaves to Darkness."
-        ],
-        "page": 3,
-        "points": 410,
-        "row": 5,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A3",
-        "unitSummary": [
-          "• 1 Warstomper Mega-Gargant"
-        ]
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:regiment-of-renown:page:3:regiment-of-renown:5",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "b52879dbf0458266afe831b1fe147bfc957489baaaea16a4861748f51626017c",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:1",
-        "kind": "roster-option",
-        "name": "Conquering Stomp",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Battle Formation",
-        "page": 2,
-        "points": 0,
-        "row": 1,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:1",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "d6faf176ee3e049221340c20ccd1facbebe3361c85b5c829839545df9b2eb111",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:10",
-        "kind": "roster-option",
-        "name": "Protecty Bits",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Artefact of Power",
-        "page": 2,
-        "points": 0,
-        "row": 10,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:10",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "seasonal",
-        "factChecksum": "97f7d935b8117c332b4d276ea6d9c4aa0ee8711546ca2e703fe4b80c8c81a5b5",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:11",
-        "kind": "roster-option",
-        "name": "That Boy’s Not Right",
-        "notes": [
-          "Scourge of Aqshy"
-        ],
-        "optionType": "Cracked Heel",
-        "page": 2,
-        "points": 10,
-        "row": 11,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:11",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "seasonal",
-        "factChecksum": "3292d6defcfe498febd592461a683825283496991c5fdeea5563aeb43aa5f23f",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:12",
-        "kind": "roster-option",
-        "name": "Up For It",
-        "notes": [
-          "Scourge of Aqshy"
-        ],
-        "optionType": "Cracked Heel",
-        "page": 2,
-        "points": 10,
-        "row": 12,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:12",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "seasonal",
-        "factChecksum": "c848da0bdae09871397945dee7a533e2ba2b54961d98a72a2ab121f005d078fa",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:13",
-        "kind": "roster-option",
-        "name": "Always on Guard",
-        "notes": [
-          "Scourge of Aqshy"
-        ],
-        "optionType": "Cracked Heel",
-        "page": 2,
-        "points": 10,
-        "row": 13,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:13",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "a42a12bd5999176272493c6da818acd341a3ac90e737c3aa1a382c378a91797e",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:14",
-        "kind": "roster-option",
-        "name": "Always First In",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Heroic Trait",
-        "page": 2,
-        "points": 0,
-        "row": 14,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:14",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "77760e9ff3ba0dad614d6675dbda67ffb30c2d190ae28f065ebeeddbbacd75d1",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:15",
-        "kind": "roster-option",
-        "name": "Brute of Brutes",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Heroic Trait",
-        "page": 2,
-        "points": 0,
-        "row": 15,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:15",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "c7ffb78224a83e8a4235b9603d976af871debdbeec28636a50076163c3a76e17",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:16",
-        "kind": "roster-option",
-        "name": "One-hit Wonder",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Heroic Trait",
-        "page": 2,
-        "points": 0,
-        "row": 16,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:16",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "a441a3e0b75b459ff86ccc4e68c453ff2c393f79699cb843dc42fb87ed978620",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:17",
-        "kind": "roster-option",
-        "name": "Spell-chomper",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Heroic Trait",
-        "page": 2,
-        "points": 0,
-        "row": 17,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:17",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "92f1682db18a545189197d72619191c0a2b13d67466a6d8a04afedad7411a145",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:18",
-        "kind": "roster-option",
-        "name": "Thundering Titan",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Heroic Trait",
-        "page": 2,
-        "points": 0,
-        "row": 18,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:18",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "7e0ecdb115a6757f4bcc5227d06d24fc2334732ca930c690a00575082d3c6734",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:19",
-        "kind": "roster-option",
-        "name": "Unreasonable Tyrant",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Heroic Trait",
-        "page": 2,
-        "points": 0,
-        "row": 19,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:19",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "6276179833fe5ce6636d2b007e932fe95d2f0eaafb27a0b2d679b0afa0f9ffbb",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:2",
-        "kind": "roster-option",
-        "name": "Eager Louts",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Battle Formation",
-        "page": 2,
-        "points": 0,
-        "row": 2,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:2",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "91d063c6372202340aed0dfafc7075609e2247f1cbc484848f32001c836d7388",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:20",
-        "kind": "roster-option",
-        "name": "Battered Shrimp",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Realm-shaking Rampage",
-        "page": 2,
-        "points": 20,
-        "row": 20,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:20",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "f2d71db71f3e54202be5b02d9690466aa1c2c7458337328b0c659d7efa96aa58",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:21",
-        "kind": "roster-option",
-        "name": "Colossal Slam",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Realm-shaking Rampage",
-        "page": 2,
-        "points": 20,
-        "row": 21,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:21",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "8849dd535dc4bf2de067f2070dbbeb5b4b298245b311fafdc7cc566f6e7c44e6",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:22",
-        "kind": "roster-option",
-        "name": "Earthshaking Roar",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Realm-shaking Rampage",
-        "page": 2,
-        "points": 20,
-        "row": 22,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:22",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "f8d019894755cdd7abdb494531dba7c670f6fb9b101967a0a7b29bd6e153f6db",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:23",
-        "kind": "roster-option",
-        "name": "Hammer Throw",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Realm-shaking Rampage",
-        "page": 2,
-        "points": 20,
-        "row": 23,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:23",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "6d22ee4185e054eb494c7ae87451fda371ef9969f12bc8ce251f277c4d2163da",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:24",
-        "kind": "roster-option",
-        "name": "Rancid Flatulence",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Realm-shaking Rampage",
-        "page": 2,
-        "points": 20,
-        "row": 24,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:24",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "0834fdfca949e3a9d6b48e5ba439c1a01b55b91324d806f2868bba5feb262eff",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:25",
-        "kind": "roster-option",
-        "name": "Windmill Walloping",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Realm-shaking Rampage",
-        "page": 2,
-        "points": 20,
-        "row": 25,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:25",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "seasonal",
-        "factChecksum": "f500f0d8ed7ff8fd208d8068f4a2f85046502c2e43f47adf9130e269700115c1",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:26",
-        "kind": "roster-option",
-        "name": "Brodd’s Bellows",
-        "notes": [
-          "Scourge of Aqshy"
-        ],
-        "optionType": "Prayer Lore",
-        "page": 2,
-        "points": 0,
-        "row": 26,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:26",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "18f246a944474cc66ca677e27b730f307d96ff11bd8eaa11ff1772fada6c4f2b",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:27",
-        "kind": "roster-option",
-        "name": "Prayers of the World Titan",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Prayer Lore",
-        "page": 2,
-        "points": 0,
-        "row": 27,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:27",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "12367763038ff8ddc89096e36be3c9754f7ec5d1b4cba17716ea474db852ed1b",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:28",
-        "kind": "roster-option",
-        "name": "Lore of Behemat",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Spell Lore",
-        "page": 2,
-        "points": 0,
-        "row": 28,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:28",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "d1302dfb76e090fe7493d7806e3dc2168e763fce21789b50f6571d28b24b17df",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:3",
-        "kind": "roster-option",
-        "name": "Heirs of the Old Ways",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Battle Formation",
-        "page": 2,
-        "points": 0,
-        "row": 3,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:3",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "6a0812a406465fe18b60b652a5fd9537d34e5d85e449bb3c1f213f1e6d55dc61",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:4",
-        "kind": "roster-option",
-        "name": "Looting Leviathans",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Battle Formation",
-        "page": 2,
-        "points": 0,
-        "row": 4,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:4",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "64504019e275c1df7b1f2f7330b55b8816eba9a256be43fd37d6dcfd9061a172",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:5",
-        "kind": "roster-option",
-        "name": "Enchanted Portcullis",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Artefact of Power",
-        "page": 2,
-        "points": 0,
-        "row": 5,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:5",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "140f536400eb901c58dce12a99722e3388f0226c10716e9443c4548a53b77973",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:6",
-        "kind": "roster-option",
-        "name": "Glowy Lantern",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Artefact of Power",
-        "page": 2,
-        "points": 20,
-        "row": 6,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:6",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "1f31a704c7491f39709a3bc8e75096b2ed56e81bbae41042e9987a6a209d3f1a",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:7",
-        "kind": "roster-option",
-        "name": "Krakenskin Sandals",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Artefact of Power",
-        "page": 2,
-        "points": 10,
-        "row": 7,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:7",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "5a0abaf4a43874bc8da659fb67f56099d6dc99d4ce54bf9284c5b3afbd7afe12",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:8",
-        "kind": "roster-option",
-        "name": "Mantle of the Wood-Kings",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Artefact of Power",
-        "page": 2,
-        "points": 0,
-        "row": 8,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:8",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "structured-reference",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "858ea3ee0463d9459759124ca06926e1ff334ba10a9f9abe3f9cfb0f0f719f28",
-        "faction": "Sons of Behemat",
-        "key": "page:2:roster-option:9",
-        "kind": "roster-option",
-        "name": "Massive Stuffin’ Sack",
-        "notes": [
-          "Battletome: Sons of Behemat"
-        ],
-        "optionType": "Artefact of Power",
-        "page": 2,
-        "points": 0,
-        "row": 9,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A2"
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:roster-option:page:2:roster-option:9",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "130mm"
-        ],
-        "context": "standard",
-        "factChecksum": "1d6ca5d50cd8b565fc13855173927097724b80573688761a852c8cd3fbfdf97f",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:1",
-        "kind": "unit",
-        "name": "Beast-smasher Mega-Gargant",
-        "notes": [
-          "This Hero can join an eligible regiment as an Eager Lout."
-        ],
-        "page": 1,
-        "points": 380,
-        "regimentOptions": [
-          "0-1 Eager Lout",
-          "Any Sons of Behemat"
-        ],
-        "relevantKeywords": [],
-        "row": 1,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:1",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "profile-only",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "80mm"
-        ],
-        "context": "standard",
-        "factChecksum": "da6a4d41d6180c737609c55d4d05cadbbcbd723dba3dd4f0fcc1023bd7179ed4",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:10",
-        "kind": "unit",
-        "name": "Boss-stompers",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
-        "page": 1,
-        "points": 370,
-        "regimentOptions": [],
-        "relevantKeywords": [
-          "Monster",
-          "Little"
-        ],
-        "row": 10,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 3
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:10",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "90 × 52mm"
-        ],
-        "context": "standard",
-        "factChecksum": "52707518a81eb18826bd4e91517adcb7b98cad3aa076a3ec39a194d8c2e9a317",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:11",
-        "kind": "unit",
-        "name": "Mancrusher Gargant",
-        "notes": [],
-        "page": 1,
-        "points": 140,
-        "regimentOptions": [],
-        "relevantKeywords": [
-          "Monster",
-          "Little"
-        ],
-        "row": 11,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:11",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "profile-only",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "80mm"
-        ],
-        "context": "standard",
-        "factChecksum": "c8652aae2f58f0213dc333117681eaafdc90ba2d3a789f6042a0da7889b5e725",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:12",
-        "kind": "unit",
-        "name": "Rock-hurlers",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
-        "page": 1,
-        "points": 380,
-        "regimentOptions": [],
-        "relevantKeywords": [
-          "Monster",
-          "Little"
-        ],
-        "row": 12,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 3
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:12",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "90 × 52mm"
-        ],
-        "context": "seasonal",
-        "factChecksum": "76f3908c510e12ebf313f4a2d37d8c21897df4a80718cd0992cb35ac9648cd67",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:13",
-        "kind": "unit",
-        "name": "Scourge of Aqshy Mancrusher Gargant",
-        "notes": [
-          "This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
-        ],
-        "page": 1,
-        "points": 150,
-        "regimentOptions": [],
-        "relevantKeywords": [
-          "Monster",
-          "Little"
-        ],
-        "row": 13,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:13",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "130mm"
-        ],
-        "context": "standard",
-        "factChecksum": "4283d1eb26178f72d5bbb45ab9dbbd8c6f76a5d0b83b10e11478c38381234f75",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:2",
-        "kind": "unit",
-        "name": "Gatebreaker Mega-Gargant",
-        "notes": [
-          "This Hero can join an eligible regiment as an Eager Lout."
-        ],
-        "page": 1,
-        "points": 400,
-        "regimentOptions": [
-          "0-1 Eager Lout",
-          "Any Sons of Behemat"
-        ],
-        "relevantKeywords": [],
-        "row": 2,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:2",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "130mm"
-        ],
-        "context": "standard",
-        "factChecksum": "598f756c816d5736da038c8768a296f533ba91866acf57b266f5df3d4535eeab",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:3",
-        "kind": "unit",
-        "name": "King Brodd",
-        "notes": [],
-        "page": 1,
-        "points": 430,
-        "regimentOptions": [
-          "0-1 Eager Lout",
-          "Any Sons of Behemat"
-        ],
-        "relevantKeywords": [],
-        "row": 3,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:3",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "130mm"
-        ],
-        "context": "standard",
-        "factChecksum": "8c5f38e1c3d66d9c0ea35e793873979e8bb44524779a2be6326650e5210dee03",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:4",
-        "kind": "unit",
-        "name": "Kragnos, the End of Empires",
-        "notes": [],
-        "page": 1,
-        "points": 580,
-        "regimentOptions": [
-          "Any Sons of Behemat"
-        ],
-        "relevantKeywords": [],
-        "row": 4,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:4",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "130mm"
-        ],
-        "context": "standard",
-        "factChecksum": "3551b59ca481ad95967a5e25ccc07ff40838b377cb754fd2e160d5a04052c206",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:5",
-        "kind": "unit",
-        "name": "Kraken-eater Mega-Gargant",
-        "notes": [
-          "This Hero can join an eligible regiment as an Eager Lout."
-        ],
-        "page": 1,
-        "points": 370,
-        "regimentOptions": [
-          "0-1 Eager Lout",
-          "Any Sons of Behemat"
-        ],
-        "relevantKeywords": [],
-        "row": 5,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:5",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "profile-only",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "90mm"
-        ],
-        "context": "standard",
-        "factChecksum": "6390aadda4afdbf4335d4ec95a8f4d2f2863173083561dcc712d056ed56106e3",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:6",
-        "kind": "unit",
-        "name": "Ma Maegran, Chooser of the Mighty",
-        "notes": [],
-        "page": 1,
-        "points": 370,
-        "regimentOptions": [
-          "Ancient Ghyrochs (required)",
-          "0-1 Eager Lout",
-          "Any Sons of Behemat"
-        ],
-        "relevantKeywords": [],
-        "row": 6,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:6",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "130mm"
-        ],
-        "context": "standard",
-        "factChecksum": "ae4a81ea3aacf3e244c110b38aeb7cf1537c40306f497142fa35d2dcca3ae49c",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:7",
-        "kind": "unit",
-        "name": "Warstomper Mega-Gargant",
-        "notes": [
-          "This Hero can join an eligible regiment as an Eager Lout."
-        ],
-        "page": 1,
-        "points": 390,
-        "regimentOptions": [
-          "0-1 Eager Lout",
-          "Any Sons of Behemat"
-        ],
-        "relevantKeywords": [],
-        "row": 7,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:7",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "130mm"
-        ],
-        "context": "seasonal",
-        "factChecksum": "9c623180af7a71d256e05b587720587e0ba5966613fd9ad0e39a7fecec8a9738",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:8",
-        "kind": "unit",
-        "name": "Scourge of Aqshy Gatebreaker Mega-Gargant",
-        "notes": [
-          "This Hero can join an eligible regiment as a Eager Lout. This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
-        ],
-        "page": 1,
-        "points": 400,
-        "regimentOptions": [
-          "0-1 Eager Lout",
-          "Any Sons of Behemat"
-        ],
-        "relevantKeywords": [],
-        "row": 8,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 1
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:8",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
-      "disposition": "profile-only",
-      "documentTitle": "Battle Profiles - Sons of Behemat",
-      "fact": {
-        "baseSizes": [
-          "105 × 70mm"
-        ],
-        "context": "standard",
-        "factChecksum": "43bee6ec12616bd04adc3eed2af49b4764d3df7aa6c4c207b1181f26716dc36f",
-        "faction": "Sons of Behemat",
-        "key": "page:1:unit:9",
-        "kind": "unit",
-        "name": "Ancient Ghyrochs",
-        "notes": [
-          "This unit can only be taken in Ma Maegran’s regiment. This unit cannot be reinforced."
-        ],
-        "page": 1,
-        "points": 0,
-        "regimentOptions": [],
-        "relevantKeywords": [
-          "Unique",
-          "Beast"
-        ],
-        "row": 9,
-        "sourceRecordId": "source-record:games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b%3Apage%3A1",
-        "unitSize": 2
-      },
-      "id": "games-workshop:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b:unit:page:1:unit:9",
       "status": "effective"
     }
   ],

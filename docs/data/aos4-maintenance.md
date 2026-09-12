@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-10 snapshot is defined by:
+The accepted 2026-09-12 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-09-10.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the September 2026 Sons of Behemat battle profiles, Regiments of Renown, and Stone Lobbas Spearhead accepted 2026-09-10, the Armies of Renown pack re-pinned to its September 2026 publication), and 72 reviewed Wahapedia pages (16 re-pinned 2026-08-28, the 2 Ogor pages re-pinned 2026-08-28b), pinned by SHA-256; no BSData catalogues remain pinned |
-| `data/aos4/reviews/corpus-2026-09-10.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-09-12.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the September 2026 Sons of Behemat battle profiles — re-pinned 2026-09-12 to Games Workshop's corrected re-publication — Regiments of Renown, and Stone Lobbas Spearhead accepted 2026-09-10, the Armies of Renown pack re-pinned to its September 2026 publication), and 72 reviewed Wahapedia pages (16 re-pinned 2026-08-28, the 2 Ogor pages re-pinned 2026-08-28b), pinned by SHA-256; no BSData catalogues remain pinned |
+| `data/aos4/reviews/corpus-2026-09-12.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-10-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-10-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-09-12-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-09-12-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -53,6 +53,10 @@ The strict report currently records:
   recorded from the September 2026 Armies of Renown pack but not applied, because it references
   the battletome keyword architecture no accepted text source carries yet; a provisional watch
   alarms when Wahapedia publishes the battletome pages
+- the 2026-09-12 re-pin (#1757): Games Workshop re-published the Sons of Behemat battle-profile
+  supplement with corrected 90mm base sizes for Boss-stompers and Rock-hurlers (previously 80mm);
+  the re-pin swaps the artifact and its page records with publication identity continuity, and no
+  other fact, count, or disposition moved
 - zero community-sourced facts: Wahapedia published the battletome-current Ogor pages on
   2026-08-28, and the 2026-08-28b revision completed the faction-scale provisional-to-verified
   swap — the ten supplement units, the sixteen legacy-unit/terrain rewrites, and the whole

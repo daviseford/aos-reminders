@@ -90416,6 +90416,10 @@
     {
       "aliases": [
         {
+          "externalId": "official:13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "official:a1712ce7cee8e873407e0b869ce16b67f6666a5b9c89c86f0e9c3ecdd60ab64b",
           "publisher": "games-workshop"
         }
