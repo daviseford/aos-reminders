@@ -10,8 +10,10 @@ import { RequestBudgetExceededError } from '../../aos4/radar'
 import {
   createWahapediaSourceObservation,
   discoverWahapediaExportUrls,
+  discoverWahapediaNavFragmentUrl,
   discoverWahapediaNavigation,
   discoverWahapediaWarscrollCollection,
+  WAHAPEDIA_DATA_EXPORT_URL,
 } from '../../aos4/review/wahapediaObservation'
 import { observeWahapediaSources } from '../../aos4/review/wahapediaObservationCommand'
 
@@ -43,6 +45,38 @@ describe('Wahapedia independent source observation', () => {
       },
     ])
     expect(discovery.exportSpecificationUrl).toBe('https://wahapedia.ru/aos4/Export%20Data%20Specs.xlsx')
+  })
+
+  it('discovers the navigation fragment and merges its links with the page', () => {
+    const page = `
+      <div id="siteNav" data-nav-src="/aos4/nav.html"></div>
+      <a href="/aos4/Export%20Data%20Specs.xlsx">here</a>
+    `
+    expect(discoverWahapediaNavFragmentUrl(page)).toBe('https://wahapedia.ru/aos4/nav.html')
+    expect(
+      discoverWahapediaNavFragmentUrl('<a href="/aos4/Export%20Data%20Specs.xlsx">here</a>')
+    ).toBeUndefined()
+
+    const discovery = discoverWahapediaNavigation(
+      page,
+      WAHAPEDIA_DATA_EXPORT_URL,
+      `
+        <div class="NavColumns2">
+          <a href="/aos4/the-rules/the-core-rules">The Core Rules</a>
+        </div>
+        <div class="NavColumns3">
+          <a href="/aos4/factions/stormcast-eternals">Stormcast Eternals</a>
+        </div>
+      `
+    )
+    expect(discovery.rulesPages.map(entry => entry.title)).toEqual(['The Core Rules'])
+    expect(discovery.factionPages.map(entry => entry.title)).toEqual(['Stormcast Eternals'])
+  })
+
+  it('fails closed when the navigation exposes no faction or rules pages', () => {
+    expect(() => discoverWahapediaNavigation('<a href="/aos4/Export%20Data%20Specs.xlsx">here</a>')).toThrow(
+      /0 faction pages and 0 rules pages/
+    )
   })
 
   it('discovers one collated warscroll page and HTTPS-normalizes export links', () => {
@@ -159,21 +193,25 @@ const fullObservationAcquire = (
         ? spreadsheet
         : request.url.endsWith('/the-rules/data-export/')
           ? text.encode(`
-              <div class="NavColumns2">
-                <a href="/aos4/the-rules/the-core-rules/">Core Rules</a>
-              </div>
-              <div class="NavColumns3">
-                <a href="/aos4/factions/stormcast-eternals/">Stormcast Eternals</a>
-              </div>
+              <div id="siteNav" data-nav-src="/aos4/nav.html"></div>
               <a href="/aos4/Export%20Data%20Specs.xlsx">Export specification</a>
             `)
-          : request.url.endsWith('/factions/stormcast-eternals/')
+          : request.url.endsWith('/aos4/nav.html')
             ? text.encode(`
+                <div class="NavColumns2">
+                  <a href="/aos4/the-rules/the-core-rules/">Core Rules</a>
+                </div>
+                <div class="NavColumns3">
+                  <a href="/aos4/factions/stormcast-eternals/">Stormcast Eternals</a>
+                </div>
+              `)
+            : request.url.endsWith('/factions/stormcast-eternals/')
+              ? text.encode(`
                 <span class="datasheetsCollated">
                   <a href="/aos4/factions/stormcast-eternals/warscrolls.html">Warscrolls</a>
                 </span>
               `)
-            : text.encode('fixture body')
+              : text.encode('fixture body')
     const entry: ArtifactManifestEntry = {
       requestUrl: request.url,
       finalUrl: request.url,

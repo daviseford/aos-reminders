@@ -370,7 +370,11 @@ Workshop daily at minute 17 and checks Wahapedia plus BSData weekly at minute 43
 Wahapedia sentinel expands to the existing bounded full observation before candidate evidence is
 prepared. Within the Rules Radar, BSData is a change signal; BSData bytes enter a candidate only
 through the reviewed intake above, commit-pinned and checksum-pinned, never through radar
-automation.
+automation. The Wahapedia sentinel reads the faction and rules-page locators from the site
+navigation, which Wahapedia serves as the JS-loaded `/aos4/nav.html` fragment (announced by
+`#siteNav[data-nav-src]`) rather than inline page markup; the parse fails closed with an
+operational event when it finds no faction or rules pages, so a navigation markup change cannot
+surface as phantom page removals (the 2026-09-15 alarm, see the runbook's worked reviews).
 
 The companion **AoS 4 Provisional Watch** workflow (`aos4-provisional-watch.yml`, daily at
 14:07 UTC) checks the concrete pages that would corroborate or contradict the corpus's

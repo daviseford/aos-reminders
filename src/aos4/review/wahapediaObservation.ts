@@ -66,31 +66,55 @@ const uniqueLinks = (
   return Array.from(byUrl.values()).sort(compareObserved)
 }
 
-export const discoverWahapediaNavigation = (
+const navigationAnchorsOf = (
   html: string,
-  baseUrl: string = WAHAPEDIA_DATA_EXPORT_URL
-): WahapediaNavigationDiscovery => {
+  baseUrl: string
+): Array<{
+  kind: 'rules-page' | 'faction-page'
+  url: string
+  title: string
+}> => {
   const document = new JSDOM(html, { url: baseUrl }).window.document
-  const navigationLinks: Array<{
-    kind: 'rules-page' | 'faction-page'
-    url: string
-    title: string
-  }> = []
-  const navigationAnchors = Array.from(
+  const links: Array<{ kind: 'rules-page' | 'faction-page'; url: string; title: string }> = []
+  const anchors = Array.from(
     document.querySelectorAll('.NavColumns2 a[href], .NavColumns3 a[href]')
   ) as HTMLAnchorElement[]
-  navigationAnchors.forEach(anchor => {
+  anchors.forEach(anchor => {
     const href = anchor.getAttribute('href')
     const title = anchor.textContent?.replace(/\s+/g, ' ').trim()
     if (!href || !title) return
     const url = normalizedUrl(href, baseUrl)
     const pathname = new URL(url).pathname
     if (/^\/aos4\/the-rules\/[^/]+\/?$/i.test(pathname)) {
-      navigationLinks.push({ kind: 'rules-page', url, title })
+      links.push({ kind: 'rules-page', url, title })
     } else if (/^\/aos4\/factions\/[^/]+\/?$/i.test(pathname)) {
-      navigationLinks.push({ kind: 'faction-page', url, title })
+      links.push({ kind: 'faction-page', url, title })
     }
   })
+  return links
+}
+
+export const discoverWahapediaNavFragmentUrl = (
+  html: string,
+  baseUrl: string = WAHAPEDIA_DATA_EXPORT_URL
+): string | undefined => {
+  const document = new JSDOM(html, { url: baseUrl }).window.document
+  const element = document.querySelector('[data-nav-src]')
+  const source = element?.getAttribute('data-nav-src')
+  if (!source) return undefined
+  return normalizedUrl(source, baseUrl)
+}
+
+export const discoverWahapediaNavigation = (
+  html: string,
+  baseUrl: string = WAHAPEDIA_DATA_EXPORT_URL,
+  navFragmentHtml?: string
+): WahapediaNavigationDiscovery => {
+  const document = new JSDOM(html, { url: baseUrl }).window.document
+  const navigationLinks = [
+    ...navigationAnchorsOf(html, baseUrl),
+    ...(navFragmentHtml ? navigationAnchorsOf(navFragmentHtml, baseUrl) : []),
+  ]
   const specificationLinks = (
     Array.from(document.querySelectorAll('a[href]')) as HTMLAnchorElement[]
   ).flatMap(anchor => {
@@ -109,13 +133,20 @@ export const discoverWahapediaNavigation = (
       `Wahapedia data export page exposed ${specificationLinks.length} spreadsheet specifications`
     )
   }
+  const rulesPages = uniqueLinks(
+    navigationLinks.filter(value => value.kind === 'rules-page').map(({ url, title }) => ({ url, title }))
+  )
+  const factionPages = uniqueLinks(
+    navigationLinks.filter(value => value.kind === 'faction-page').map(({ url, title }) => ({ url, title }))
+  )
+  if (!rulesPages.length || !factionPages.length) {
+    throw new Error(
+      `Wahapedia navigation exposed ${factionPages.length} faction pages and ${rulesPages.length} rules pages`
+    )
+  }
   return {
-    rulesPages: uniqueLinks(
-      navigationLinks.filter(value => value.kind === 'rules-page').map(({ url, title }) => ({ url, title }))
-    ),
-    factionPages: uniqueLinks(
-      navigationLinks.filter(value => value.kind === 'faction-page').map(({ url, title }) => ({ url, title }))
-    ),
+    rulesPages,
+    factionPages,
     exportSpecificationUrl: specificationLinks[0],
   }
 }
