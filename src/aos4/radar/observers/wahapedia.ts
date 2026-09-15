@@ -1,5 +1,9 @@
 import { artifactChecksum, type ArtifactManifest } from '../../data'
-import { discoverWahapediaExportUrls, discoverWahapediaNavigation } from '../../review/wahapediaObservation'
+import {
+  discoverWahapediaExportUrls,
+  discoverWahapediaNavFragmentUrl,
+  discoverWahapediaNavigation,
+} from '../../review/wahapediaObservation'
 import { compareWahapediaObservation, createRadarLane } from '../compare'
 import type { RulesRadarConfig } from '../config'
 import type {
@@ -133,9 +137,22 @@ export const observeWahapediaRadar = async (
       allowedMediaTypes: ['text/html'],
       maxBytes: 16 * 1024 * 1024,
     })
+    const navigationHtml = decodeText(navigationArtifact, 'Wahapedia navigation')
+    const navFragmentUrl = discoverWahapediaNavFragmentUrl(navigationHtml, navigationArtifact.finalUrl)
+    let navFragmentHtml: string | undefined
+    if (navFragmentUrl) {
+      assertAllowed(navFragmentUrl)
+      const navFragmentArtifact = await fetch({
+        url: navFragmentUrl,
+        allowedMediaTypes: ['text/html'],
+        maxBytes: 16 * 1024 * 1024,
+      })
+      navFragmentHtml = decodeText(navFragmentArtifact, 'Wahapedia navigation fragment')
+    }
     const navigation = discoverWahapediaNavigation(
-      decodeText(navigationArtifact, 'Wahapedia navigation'),
-      navigationArtifact.finalUrl
+      navigationHtml,
+      navigationArtifact.finalUrl,
+      navFragmentHtml
     )
     assertAllowed(navigation.exportSpecificationUrl)
     const specification = await fetch({

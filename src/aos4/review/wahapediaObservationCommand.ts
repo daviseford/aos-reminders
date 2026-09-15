@@ -13,6 +13,7 @@ import { stableJson } from '../generate/serialization'
 import {
   createWahapediaSourceObservation,
   discoverWahapediaExportUrls,
+  discoverWahapediaNavFragmentUrl,
   discoverWahapediaNavigation,
   discoverWahapediaWarscrollCollection,
   WAHAPEDIA_DATA_EXPORT_URL,
@@ -206,10 +207,15 @@ export const observeWahapediaSources = async (
   const robotsPolicy = parseRobotsPolicy(new TextDecoder('utf-8', { fatal: true }).decode(robots.bytes))
   assertRobotsAllows(robotsPolicy, WAHAPEDIA_DATA_EXPORT_URL)
   const index = await acquireRequired(htmlRequest(WAHAPEDIA_DATA_EXPORT_URL), limiter, acquire)
-  const navigation = discoverWahapediaNavigation(
-    new TextDecoder('utf-8', { fatal: true }).decode(index.bytes),
-    index.entry.finalUrl
-  )
+  const indexHtml = new TextDecoder('utf-8', { fatal: true }).decode(index.bytes)
+  const navFragmentUrl = discoverWahapediaNavFragmentUrl(indexHtml, index.entry.finalUrl)
+  let navFragmentHtml: string | undefined
+  if (navFragmentUrl) {
+    assertRobotsAllows(robotsPolicy, navFragmentUrl)
+    const navFragment = await acquireRequired(htmlRequest(navFragmentUrl), limiter, acquire)
+    navFragmentHtml = new TextDecoder('utf-8', { fatal: true }).decode(navFragment.bytes)
+  }
+  const navigation = discoverWahapediaNavigation(indexHtml, index.entry.finalUrl, navFragmentHtml)
   assertRobotsAllows(robotsPolicy, navigation.exportSpecificationUrl)
   const specification = await acquireRequired(
     spreadsheetRequest(navigation.exportSpecificationUrl),

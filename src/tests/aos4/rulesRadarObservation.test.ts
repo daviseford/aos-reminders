@@ -153,7 +153,7 @@ describe('AoS 4 Rules Radar source observation', () => {
     expect(robotsAllows(policy, 'aos-reminders-rules-radar', '/aos4/factions/public/unit')).toBe(true)
   })
 
-  it('fetches only robots, navigation, the export specification, and Last_update.csv', async () => {
+  it('fetches robots, navigation, its fragment, the export specification, and Last_update.csv', async () => {
     const requested: string[] = []
     const result = await observeWahapediaRadar(
       {
@@ -172,12 +172,71 @@ describe('AoS 4 Rules Radar source observation', () => {
     expect(requested).toEqual([
       'https://wahapedia.ru/robots.txt',
       config.wahapedia.navigationUrl,
+      'https://wahapedia.ru/aos4/nav.html',
+      'https://wahapedia.ru/aos4/Export%20Data%20Specs.xlsx',
+      config.wahapedia.lastUpdateUrl,
+    ])
+    expect(result.requestCount).toBe(5)
+    expect(result.requiresExpandedObservation).toBe(true)
+    expect(result.observation?.entries.map(entry => entry.kind)).toEqual(['faction', 'rules-page', 'export'])
+  })
+
+  it('parses inline navigation without fetching a fragment when the page has none', async () => {
+    const requested: string[] = []
+    const result = await observeWahapediaRadar(
+      {
+        config,
+        acceptedManifest: manifestWithAcceptedLastUpdate(checksum('f')),
+      },
+      {
+        now: () => observedAt,
+        fetch: fixtureFetch(requested, {
+          robots: fixtureText('robots-allowed.txt'),
+          index: `
+            <div class="NavColumns2">
+              <a href="/aos4/the-rules/the-core-rules/">The Core Rules</a>
+            </div>
+            <div class="NavColumns3">
+              <a href="/aos4/factions/stormcast-eternals/">Stormcast Eternals</a>
+            </div>
+            <a href="/aos4/Export%20Data%20Specs.xlsx">Export specification</a>
+          `,
+          lastUpdate: fixtureText('Last_update.csv'),
+        }),
+      }
+    )
+
+    expect(requested).toEqual([
+      'https://wahapedia.ru/robots.txt',
+      config.wahapedia.navigationUrl,
       'https://wahapedia.ru/aos4/Export%20Data%20Specs.xlsx',
       config.wahapedia.lastUpdateUrl,
     ])
     expect(result.requestCount).toBe(4)
-    expect(result.requiresExpandedObservation).toBe(true)
     expect(result.observation?.entries.map(entry => entry.kind)).toEqual(['faction', 'rules-page', 'export'])
+  })
+
+  it('fails closed with an operational event when the navigation lists no pages', async () => {
+    const requested: string[] = []
+    const result = await observeWahapediaRadar(
+      { config, acceptedManifest: baseline.manifest },
+      {
+        now: () => observedAt,
+        fetch: fixtureFetch(requested, {
+          robots: fixtureText('robots-allowed.txt'),
+          index:
+            '<html><body><a href="/aos4/Export%20Data%20Specs.xlsx">Export specification</a></body></html>',
+          lastUpdate: fixtureText('Last_update.csv'),
+        }),
+      }
+    )
+
+    expect(result.observation).toBeUndefined()
+    expect(result.lane.events).toHaveLength(1)
+    expect(result.lane.events[0]).toMatchObject({
+      class: 'operational',
+      changeKind: 'source-contract-changed',
+    })
   })
 
   it('stops before a disallowed path and returns an operational event', async () => {
@@ -284,7 +343,7 @@ const manifestWithAcceptedLastUpdate = (lastUpdateChecksum: string): ArtifactMan
 
 const fixtureFetch = (
   requested: string[],
-  overrides: { robots: string; index?: string; lastUpdate: string }
+  overrides: { robots: string; index?: string; nav?: string; lastUpdate: string }
 ): RadarFetch => {
   const specification = workbookBytes()
   return async request => {
@@ -294,6 +353,8 @@ const fixtureFetch = (
       body = bytes(overrides.robots)
     } else if (request.url === config.wahapedia.navigationUrl) {
       body = bytes(overrides.index ?? fixtureText('wahapedia-index.html'))
+    } else if (request.url === 'https://wahapedia.ru/aos4/nav.html') {
+      body = bytes(overrides.nav ?? fixtureText('wahapedia-nav.html'))
     } else if (request.url.endsWith('.xlsx')) {
       body = specification
     } else if (request.url === config.wahapedia.lastUpdateUrl) {
