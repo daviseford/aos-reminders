@@ -95,7 +95,7 @@ describe('established account shell', () => {
       expect.stringContaining('width=400')
     )
     expect(auth.loginWithPopup).toHaveBeenCalledWith(
-      { authorizationParams: { redirect_uri: window.location.href } },
+      { authorizationParams: { redirect_uri: window.location.origin } },
       { popup }
     )
 
@@ -117,9 +117,41 @@ describe('established account shell', () => {
     })
 
     expect(auth.loginWithPopup).toHaveBeenCalledWith({
-      authorizationParams: { redirect_uri: window.location.href },
+      authorizationParams: { redirect_uri: window.location.origin },
     })
     expect(vi.getTimerCount()).toBe(0)
+  })
+
+  it('asks Auth0 for the origin callback even when Log in is clicked on a routed page (#2006)', () => {
+    // The Auth0 application allows the bare origin (plus a few named routes) as a callback URL.
+    // Sending the page URL instead meant Log in on /faq opened a popup that stopped on Auth0's
+    // "Callback URL mismatch" page before the login form ever appeared. The popup flow only uses
+    // redirect_uri to target the postMessage back to the opener, so the origin is all it needs —
+    // the same value the Auth0Provider in main.tsx is configured with.
+    vi.useFakeTimers()
+    const popup = { closed: true } as Window
+    vi.spyOn(window, 'open').mockReturnValue(popup)
+    window.history.pushState({}, '', '/faq?ref=test#account')
+    renderNavbar()
+
+    const loginButton = Array.from(container.querySelectorAll('button')).find(
+      button => button.textContent === 'Log in'
+    )
+    act(() => {
+      loginButton?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    expect(window.location.pathname).toBe('/faq')
+    expect(auth.loginWithPopup).toHaveBeenCalledWith(
+      { authorizationParams: { redirect_uri: window.location.origin } },
+      { popup }
+    )
+    expect(auth.loginWithPopup.mock.calls[0][0].authorizationParams.redirect_uri).not.toContain('/faq')
+
+    act(() => {
+      vi.runOnlyPendingTimers()
+    })
+    window.history.pushState({}, '', '/')
   })
 
   it('restores Profile and Log out when Auth0 reports an authenticated user', () => {

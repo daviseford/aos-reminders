@@ -32,6 +32,7 @@
     "string.prototype.matchall": "^4.0.12"
   },
   "scripts": {
+    "auth:verify-connections": "vite-node --script scripts/verifyAuthConnections.ts",
     "build": "tsc && vite build",
     "corpus:listbot": "vite-node --script src/tests/support/listbotCorpusCommand.ts",
     "data:aos4:cache:pull": "vite-node --script src/aos4/data/cacheCommand.ts pull",

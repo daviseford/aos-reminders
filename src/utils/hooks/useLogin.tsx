@@ -31,8 +31,17 @@ const useLogin = ({ origin, onPopupClose }: UseLoginProps) => {
       setPopupIsClosed(false)
       clearPopupTimer()
 
+      /*
+       * The popup flow never loads redirect_uri; Auth0 only uses it to validate the request against
+       * the application's callback allowlist and to target the postMessage back to this window. That
+       * allowlist holds the bare origin (and a few named routes), so sending the page URL meant Log in
+       * on /faq stopped on Auth0's "Callback URL mismatch" page. The origin is what the Auth0Provider
+       * in main.tsx is configured with, and it is valid from every route (#2006).
+       */
+      const authorizationParams = { redirect_uri: window.location.origin }
+
       if (!popup) {
-        return loginWithPopup({ authorizationParams: { redirect_uri: window.location.href } })
+        return loginWithPopup({ authorizationParams })
       }
 
       timerRef.current = window.setInterval(() => {
@@ -43,7 +52,7 @@ const useLogin = ({ origin, onPopupClose }: UseLoginProps) => {
         onPopupClose?.()
       }, 1000)
 
-      return loginWithPopup({ authorizationParams: { redirect_uri: window.location.href } }, { popup })
+      return loginWithPopup({ authorizationParams }, { popup })
     },
     [clearPopupTimer, loginWithPopup, onPopupClose, origin]
   )
