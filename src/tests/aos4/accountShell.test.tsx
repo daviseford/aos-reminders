@@ -53,6 +53,7 @@ describe('established account shell', () => {
     container.remove()
     vi.useRealTimers()
     vi.restoreAllMocks()
+    window.history.pushState({}, '', '/')
   })
 
   const renderNavbar = () => {
@@ -151,7 +152,6 @@ describe('established account shell', () => {
     act(() => {
       vi.runOnlyPendingTimers()
     })
-    window.history.pushState({}, '', '/')
   })
 
   it('restores Profile and Log out when Auth0 reports an authenticated user', () => {

@@ -45,6 +45,12 @@ const googleAccountChooser = (callback: string) =>
     'https://accounts.google.com/signin/oauth/consent?authuser=unknown&flowName=GeneralOAuthFlow'
   )}`
 
+// A landing page that carries the callback only inside `continue`, with no top-level redirect_uri.
+const googleContinueOnly = (callback: string) =>
+  `https://accounts.google.com/v3/signin/accountchooser?${googleClient}&library_name=Auth0&continue=${encodeURIComponent(
+    `https://accounts.google.com/signin/oauth/consent?authuser=unknown&redirect_uri=${encodeURIComponent(callback)}`
+  )}`
+
 const githubClient = 'client_id=0123456789abcdef0123'
 
 const githubAuthorize = (callback: string) =>
@@ -113,6 +119,17 @@ describe('Auth0 social connection probe', () => {
         body,
       })
     ).toMatchObject({ status: 'callback-accepted', redirectUri: callback })
+  })
+
+  it('reads the callback from the continue parameter when Google carries it only there', () => {
+    const body = page('Sign in - Google Accounts')
+    const callback = upstreamCallbackUrl(canonicalDomain.domain)
+    expect(
+      classifyProbeResponse(canonicalDomain, google, { url: googleContinueOnly(callback), status: 200, body })
+    ).toMatchObject({ status: 'callback-accepted', redirectUri: callback })
+    expect(
+      classifyProbeResponse(customDomain, google, { url: googleContinueOnly(callback), status: 200, body })
+    ).toMatchObject({ status: 'wrong-callback', redirectUri: callback })
   })
 
   it('flags a tenant that presents another host than the configured domain', () => {
