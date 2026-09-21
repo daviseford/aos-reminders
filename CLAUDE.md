@@ -4,6 +4,7 @@ See [AGENTS.md](./AGENTS.md) for the repository instructions. They apply in full
 
 Topic-specific notes:
 
+- [docs/auth.md](./docs/auth.md) — the Auth0 contract: custom domain, callback layers, social-provider registration, password recovery, and the read-only probe
 - [docs/printing.md](./docs/printing.md) — how the print and PDF export path works
 - [docs/pwa.md](./docs/pwa.md) — how the service worker, install, and offline behaviour fit together
 - [docs/deployment.md](./docs/deployment.md) — the S3/CloudFront header contract, asset retention, and worker rollback
