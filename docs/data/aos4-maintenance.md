@@ -667,6 +667,13 @@ yarn data:aos4:cache:verify `
   --jobs 4
 ```
 
+**Known current-state gap (as of 2026-09-21, tracked in #2011):** running this exact command
+against the currently accepted `accepted-2026-09-12.json` does *not* pass today — the private
+store is missing 1 of its 244 pinned blobs, the re-pinned Sons of Behemat battle-profiles PDF. The
+`present`/`missing` shapes below describe what the command reports in general, and the `present:244`
+example is the target shape once #2011's recovery lands, not a claim that today's accepted revision
+currently passes. Delete this paragraph once #2011 closes.
+
 **Expected success:** `Artifact cache verify: {"total":244,"present":244,"missing":[]}` (the exact
 `total` matches the manifest's de-duplicated checksum count). The process exits 0.
 

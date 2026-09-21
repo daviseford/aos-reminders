@@ -35,6 +35,10 @@ const manifestFor = (...values: Uint8Array[]) =>
 class FakeArtifactStore implements ArtifactStore {
   readonly reads: string[] = []
   readonly creates: string[] = []
+  // Bounded: one entry per `inspect` call, so a test can assert exactly which checksums (and how
+  // many) were probed — in particular, that a manifest rejected before any store contact never
+  // grows this array.
+  readonly inspects: string[] = []
   readonly values = new Map<string, Uint8Array>()
   readonly metadata = new Map<string, ArtifactStoreMetadata>()
   raceOnCreate = false
@@ -47,6 +51,7 @@ class FakeArtifactStore implements ArtifactStore {
   }
 
   async inspect(checksum: string): Promise<ArtifactStoreMetadata | undefined> {
+    this.inspects.push(checksum)
     return this.metadata.get(checksum)
   }
 
@@ -337,8 +342,13 @@ describe('AoS 4 private artifact store', () => {
       await expect(
         verifyArtifactManifestCoverage('data/aos4/manifests/accepted-example.json', manifest, store, 2)
       ).resolves.toEqual({ total: 2, present: 2, missing: [] })
-      expect(store.reads).toEqual([]) // HEAD-only: never downloads bytes.
-      expect(store.creates).toEqual([]) // Never writes.
+      // Every pinned checksum was actually probed via HEAD...
+      expect(store.inspects.slice().sort()).toEqual(
+        [artifactChecksum(first), artifactChecksum(second)].sort()
+      )
+      // ...and nothing else: never downloads bytes, never writes.
+      expect(store.reads).toEqual([])
+      expect(store.creates).toEqual([])
     })
 
     it('fails closed, naming the manifest and every missing checksum, when a blob is absent', async () => {
@@ -388,6 +398,9 @@ describe('AoS 4 private artifact store', () => {
           2
         )
       ).rejects.toMatchObject({ code: 'local-corrupt' })
+      // The manifest is validated before any store contact: no bucket preflight, no per-object
+      // HEAD. A mutant that moved validation after the store loop would leave this non-empty.
+      expect(store.inspects).toEqual([])
     })
 
     it('fails closed instead of reporting false coverage when remote metadata is corrupt', async () => {
