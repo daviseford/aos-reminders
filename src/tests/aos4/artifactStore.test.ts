@@ -10,6 +10,7 @@ import {
   pullArtifactManifest,
   parseArtifactCacheArguments,
   pushArtifactManifest,
+  verifyArtifactManifestCoverage,
   type ArtifactStore,
   type ArtifactStoreMetadata,
   type AwsCliRunner,
@@ -322,6 +323,131 @@ describe('AoS 4 private artifact store', () => {
       missing: 0,
     })
     expect(invocations).toBe(0)
+  })
+
+  describe('accepted-manifest coverage verification (#2008)', () => {
+    it('passes read-only when every pinned blob is present remotely, without touching any cache', async () => {
+      const first = bytes('one')
+      const second = bytes('two')
+      const manifest = manifestFor(first, second)
+      const store = new FakeArtifactStore()
+      store.seed(first)
+      store.seed(second)
+
+      await expect(
+        verifyArtifactManifestCoverage('data/aos4/manifests/accepted-example.json', manifest, store, 2)
+      ).resolves.toEqual({ total: 2, present: 2, missing: [] })
+      expect(store.reads).toEqual([]) // HEAD-only: never downloads bytes.
+      expect(store.creates).toEqual([]) // Never writes.
+    })
+
+    it('fails closed, naming the manifest and every missing checksum, when a blob is absent', async () => {
+      const present = bytes('present')
+      const missing = bytes('missing')
+      const manifest = manifestFor(present, missing)
+      const store = new FakeArtifactStore()
+      store.seed(present)
+
+      await expect(
+        verifyArtifactManifestCoverage('data/aos4/manifests/accepted-example.json', manifest, store, 2)
+      ).rejects.toMatchObject({
+        code: 'remote-missing',
+        message: expect.stringContaining('data/aos4/manifests/accepted-example.json'),
+      })
+      await expect(
+        verifyArtifactManifestCoverage('data/aos4/manifests/accepted-example.json', manifest, store, 2)
+      ).rejects.toMatchObject({
+        message: expect.stringContaining(artifactChecksum(missing)),
+      })
+    })
+
+    it('bounds the listed diagnostics and states the remainder count for a large gap', async () => {
+      const values = Array.from({ length: 25 }, (_, index) => bytes(`missing-${index}`))
+      const manifest = manifestFor(...values)
+      const store = new FakeArtifactStore()
+
+      await expect(
+        verifyArtifactManifestCoverage('data/aos4/manifests/accepted-example.json', manifest, store, 4)
+      ).rejects.toMatchObject({
+        code: 'remote-missing',
+        message: expect.stringMatching(/missing 25 of 25 blobs.*, and 5 more/),
+      })
+    })
+
+    it('fails closed on a malformed manifest without probing the store', async () => {
+      const store = new FakeArtifactStore()
+
+      await expect(
+        verifyArtifactManifestCoverage(
+          'data/aos4/manifests/accepted-example.json',
+          {
+            schemaVersion: 1,
+            artifacts: [{ checksum: artifactChecksum(bytes('x')), byteLength: 0 }],
+          } as never,
+          store,
+          2
+        )
+      ).rejects.toMatchObject({ code: 'local-corrupt' })
+    })
+
+    it('fails closed instead of reporting false coverage when remote metadata is corrupt', async () => {
+      const expected = bytes('expected')
+      const manifest = manifestFor(expected)
+      const store = new FakeArtifactStore()
+      store.metadata.set(artifactChecksum(expected), {
+        checksum: artifactChecksum(expected),
+        byteLength: expected.byteLength + 1,
+      })
+
+      await expect(
+        verifyArtifactManifestCoverage('data/aos4/manifests/accepted-example.json', manifest, store, 2)
+      ).rejects.toMatchObject({ code: 'remote-corrupt' })
+    })
+
+    it('fails closed when the configured store is unreachable, never reporting it as coverage gaps', async () => {
+      const value = bytes('accepted bytes')
+      const manifest = manifestFor(value)
+      const calls: string[][] = []
+      const runner: AwsCliRunner = async arguments_ => {
+        calls.push(arguments_)
+        return {
+          exitCode: 1,
+          stdout: '',
+          stderr: 'An error occurred (404) when calling the HeadBucket operation: Not Found',
+        }
+      }
+      const store = new AwsS3ArtifactStore(
+        { bucket: 'aos-reminders-corpus-cache', expectedOwner: '123456789012' },
+        runner
+      )
+
+      await expect(
+        verifyArtifactManifestCoverage('data/aos4/manifests/accepted-example.json', manifest, store, 2)
+      ).rejects.toMatchObject({ code: 'remote-unreachable' })
+      // Stopped at the bucket preflight rather than probing per-artifact keys.
+      expect(calls.map(call => call[1])).toEqual(['head-bucket'])
+    })
+
+    it('fails closed when the configured expected owner does not match the bucket owner', async () => {
+      const value = bytes('accepted bytes')
+      const manifest = manifestFor(value)
+      const runner: AwsCliRunner = async arguments_ =>
+        arguments_[1] === 'head-bucket'
+          ? {
+              exitCode: 1,
+              stdout: '',
+              stderr: 'An error occurred (AccessDenied) when calling the HeadBucket operation',
+            }
+          : { exitCode: 0, stdout: '{}', stderr: '' }
+      const store = new AwsS3ArtifactStore(
+        { bucket: 'aos-reminders-corpus-cache', expectedOwner: '999999999999' },
+        runner
+      )
+
+      await expect(
+        verifyArtifactManifestCoverage('data/aos4/manifests/accepted-example.json', manifest, store, 2)
+      ).rejects.toMatchObject({ code: 'remote-unreachable' })
+    })
   })
 
   it.each([

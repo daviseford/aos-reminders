@@ -639,6 +639,63 @@ the preflight a typo'd bucket, a wrong `--expected-owner`, or an unprovisioned s
 as `Remote artifact <sha256> is missing`, pointing at the manifest instead of the configuration.
 A pull whose local cache already satisfies the manifest still contacts nothing.
 
+### Verify the private immutable artifact cache covers an accepted manifest
+
+`cache:push` alone does not prove a manifest is fully covered: a partial push, an interrupted
+session, or an acceptance that ran before anyone remembered to push at all can all leave the
+accepted revision unreplayable off the one machine holding the local `.cache/aos4/artifacts`
+bytes. That gap shipped once (issue #1985 — the 2026-08-25b corpus was accepted with 55 of 245
+blobs unpushed) and stayed invisible for weeks because nothing checked coverage explicitly.
+
+**Responsible environment:** the machine that holds AWS credentials with `GetObject` access to
+`aos-reminders-aos4-artifact-cache` — normally the primary workstation described above. This
+command is read-only (`head-object`/`head-bucket` only; it never downloads or writes a byte, and
+never touches the local `.cache/aos4/artifacts` directory), so it needs no additional permissions
+beyond the least-privilege `GetObject`/`PutObject` policy `cache:pull`/`cache:push` already use.
+It is **not** run by CI: the only AWS credentials configured in this repository's GitHub Actions
+(`secrets.AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` in `deploy.yml`) are scoped to the production
+site bucket and CloudFront distribution, not to the private artifact-cache bucket, and no workflow
+sets `AOS4_ARTIFACT_STORE_BUCKET`. Wiring this check into CI without a dedicated, narrowly scoped
+credential would either fail every build or require handing broader S3 access to shared,
+untrusted-by-default CI runners — worse than leaving it a deliberate manual gate.
+
+**Exact command**, with the same environment variables as the restore section above:
+
+```powershell
+yarn data:aos4:cache:verify `
+  --manifest data/aos4/manifests/accepted-2026-09-12.json `
+  --jobs 4
+```
+
+**Expected success:** `Artifact cache verify: {"total":244,"present":244,"missing":[]}` (the exact
+`total` matches the manifest's de-duplicated checksum count). The process exits 0.
+
+**Expected failure:** a non-zero exit and a message naming the manifest and every missing
+checksum (capped at 20, with a remainder count beyond that), for example:
+
+```
+Private artifact store is missing 16 of 245 blobs pinned by data/aos4/manifests/accepted-2026-08-25b.json: 0a1b...
+```
+
+**Recovery path**, in order of preference:
+
+1. If the missing bytes are still present in a local `.cache/aos4/artifacts` on any machine
+   (typically the primary workstation, which is the only place they may exist if the push step was
+   simply skipped), run `yarn data:aos4:cache:push --manifest <same manifest> --jobs 4` from that
+   machine and re-run the verify command to confirm `missing` drops to `0`.
+2. If no local cache holds the bytes and the accepted manifest is the **current** revision, treat
+   this as a live incident: re-acquire the missing sources (`yarn data:aos4:candidate` for
+   Wahapedia/official URLs, `yarn data:aos4:candidate:bsdata` for BSData), verify the re-acquired
+   bytes are byte-identical to the pinned checksums, then push.
+3. If the missing bytes cannot be recovered and the manifest is a **superseded** revision (not the
+   one `data/aos4/manifests/` currently accepts), the revision becomes archival-only and
+   unreplayable; record that in the tracking issue and close it — git history keeps the reviewed
+   facts even though the revision can no longer be replayed from checksum alone (the precedent set
+   by #1985's own resolution).
+
+**When to run it:** immediately after every `cache:push` that follows an acceptance, before
+considering that acceptance durable — see step 9 of the review-and-acceptance checklist below.
+
 The bucket is operational infrastructure, not provisioned or seeded by this repository. It is
 configured with S3 Block Public Access on all four settings, `BucketOwnerEnforced` ownership,
 default SSE-S3 encryption with a bucket key, and a bucket policy denying both non-TLS requests and
@@ -690,6 +747,12 @@ For a refresh:
    only for bounded mechanical transformations whose behavior is tested.
 8. Update the accepted manifest/review inputs only after review. There is intentionally no
    automatic `--accept` command.
+9. Push the newly accepted artifacts to the private store and verify complete coverage before
+   treating the acceptance as durable: `yarn data:aos4:cache:push --manifest <new manifest> --jobs 4`
+   followed by `yarn data:aos4:cache:verify --manifest <new manifest> --jobs 4`. An acceptance is
+   not finished while any pinned blob is missing remotely — see
+   [Verify the private immutable artifact cache covers an accepted manifest](#verify-the-private-immutable-artifact-cache-covers-an-accepted-manifest)
+   above and issue #1985/#2008.
 
 Candidate data must never write the runtime directly.
 
