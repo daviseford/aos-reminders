@@ -78,17 +78,20 @@ describe('production deployment configuration', () => {
     expect(preparation).not.toContain('yarn tsc --noEmit')
   })
 
-  it('parallelizes independent release gates without testing an incomplete build', () => {
-    const directory = mkdtempSync(join(tmpdir(), 'aos-reminders-release-preparation-'))
-    temporaryDirectories.push(directory)
-    const fakeBin = join(directory, 'bin')
-    const logPath = join(directory, 'gates.log')
-    mkdirSync(fakeBin)
-
-    const fakeYarn = join(fakeBin, 'yarn')
-    writeFileSync(
-      fakeYarn,
-      `#!/usr/bin/env bash
+  /*
+   * Both release-gate scenarios below spawn the real `prepare-production-release.sh` through WSL
+   * bash from a Windows host. Under full-suite load that spawn is a wall-clock cost that scales
+   * with host contention, not a defect: a bounded stress rig reproducing full-suite CPU contention
+   * (16 synthetic busy loops on a 20-core Windows host, comparable to `yarn test --run`'s own
+   * worker count) measured single successful runs up to ~23s and, when both scenarios shared one
+   * 30s budget in a single test, a combined run landing at 29.9s -- one bad scheduling tick from
+   * the timeout that was supposedly a wide margin. See #2004.
+   *
+   * Splitting the scenarios into two tests gives each its own budget instead of inflating one
+   * shared number to cover both; 45s per test leaves roughly double the worst single-run time this
+   * rig measured, without masking a real hang (a genuine deadlock would still exceed it).
+   */
+  const releaseGateStub = `#!/usr/bin/env bash
 set -euo pipefail
 
 # The gates under test run three at a time, so three copies of this stub append to one log at once.
@@ -117,22 +120,38 @@ case "$*" in
   'lint' | 'data:aos4:verify:beta' | 'build' | 'test --run' | 'release:inspect-artifact') sleep 1 ;;
 esac
 log_gate "end:$*"
-`,
-      'utf8'
-    )
+`
+
+  const buildReleaseGateHarness = () => {
+    const directory = mkdtempSync(join(tmpdir(), 'aos-reminders-release-preparation-'))
+    temporaryDirectories.push(directory)
+    const fakeBin = join(directory, 'bin')
+    const logPath = join(directory, 'gates.log')
+    mkdirSync(fakeBin)
+
+    const fakeYarn = join(fakeBin, 'yarn')
+    writeFileSync(fakeYarn, releaseGateStub, 'utf8')
     chmodSync(fakeYarn, 0o755)
 
-    const fakeBinPath = bashPath(fakeBin)
-    const result = spawnSync(
+    return { fakeBinPath: bashPath(fakeBin), logPath }
+  }
+
+  const runReleaseGates = (fakeBinPath: string, logPath: string, extraEnv = '') =>
+    spawnSync(
       bashCommand(),
       [
         '-c',
         `chmod +x ${shellQuote(`${fakeBinPath}/yarn`)}; ` +
           `PATH=${shellQuote(fakeBinPath)}:/usr/local/bin:/usr/bin:/bin ` +
-          `RELEASE_GATE_LOG=${shellQuote(bashPath(logPath))} bash scripts/prepare-production-release.sh`,
+          `RELEASE_GATE_LOG=${shellQuote(bashPath(logPath))} ${extraEnv}` +
+          `bash scripts/prepare-production-release.sh`,
       ],
       { cwd: process.cwd(), encoding: 'utf8' }
     )
+
+  it('parallelizes independent release gates without testing an incomplete build', () => {
+    const { fakeBinPath, logPath } = buildReleaseGateHarness()
+    const result = runReleaseGates(fakeBinPath, logPath)
 
     expect(result.status, result.stderr).toBe(0)
     const log = readFileSync(logPath, 'utf8').trim().split('\n')
@@ -147,28 +166,22 @@ log_gate "end:$*"
     expect(phaseTwo.every(gate => log.indexOf(`start:${gate}`) > lastPhaseOneEnd)).toBe(true)
     const firstPhaseTwoEnd = Math.min(...phaseTwo.map(gate => log.indexOf(`end:${gate}`)))
     expect(phaseTwo.every(gate => log.indexOf(`start:${gate}`) < firstPhaseTwoEnd)).toBe(true)
+  }, 45_000)
 
-    writeFileSync(logPath, '', 'utf8')
-    const failure = spawnSync(
-      bashCommand(),
-      [
-        '-c',
-        `chmod +x ${shellQuote(`${fakeBinPath}/yarn`)}; ` +
-          `PATH=${shellQuote(fakeBinPath)}:/usr/local/bin:/usr/bin:/bin ` +
-          `RELEASE_GATE_LOG=${shellQuote(bashPath(logPath))} ` +
-          `RELEASE_FAIL_GATE=${shellQuote('data:aos4:verify:beta')} ` +
-          `bash scripts/prepare-production-release.sh`,
-      ],
-      { cwd: process.cwd(), encoding: 'utf8' }
+  it('stops the second release-gate phase when a first-phase gate fails', () => {
+    const { fakeBinPath, logPath } = buildReleaseGateHarness()
+    const failure = runReleaseGates(
+      fakeBinPath,
+      logPath,
+      `RELEASE_FAIL_GATE=${shellQuote('data:aos4:verify:beta')} `
     )
+
     expect(failure.status).not.toBe(0)
     const failureLog = readFileSync(logPath, 'utf8')
     expect(failureLog).toContain('start:data:aos4:verify:beta')
     expect(failureLog).not.toContain('start:test --run')
     expect(failureLog).not.toContain('start:release:inspect-artifact')
-    // Two runs of the real script, each with a one-second sleep per phase, plus the cost of spawning
-    // bash twice -- under WSL that spawn is slow enough on its own to crowd out the default 5s.
-  }, 30_000)
+  }, 45_000)
 
   it('runs release preparation before publication from every production entry point', () => {
     const entryPoints = [
