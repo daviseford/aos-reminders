@@ -170,6 +170,50 @@ describe('AoS 4 army API client', () => {
   })
 
   /*
+   * #1991: the request body is built from the document object directly, not through
+   * `serializeAos4ArmyDocument`, so an unknown-field bucket that isn't flattened onto the request
+   * body nests under a literal `unknownFields` key instead of sitting at the top level the way a
+   * future known field actually will. The next read then treats that whole key as one more
+   * unrecognized field and wraps it again — a level deeper on every save.
+   */
+  it('sends an unrecognized field at the top level of the request body, not nested under a bucket key', async () => {
+    const serialized = JSON.stringify({ ...document, futureFlag: true })
+    const documentWithUnknownField = (await import('../../aos4/state')).deserializeAos4ArmyDocument(
+      serialized,
+      AOS4_CATALOG
+    ).document!
+
+    const fetcher = vi
+      .fn()
+      .mockResolvedValue(jsonResponse({ id: 'cloud-1', createdAt: 1, updatedAt: 1, document }, 201))
+    await createArmyApi('https://army.example', fetcher).createArmy(documentWithUnknownField, 'token')
+
+    const body = JSON.parse(fetcher.mock.calls[0][1].body)
+    expect(body.document.futureFlag).toBe(true)
+    expect(body.document.unknownFields).toBeUndefined()
+  })
+
+  it('does not accumulate nesting when a document with an unrecognized field round-trips through create and the server echoes it back', async () => {
+    const { deserializeAos4ArmyDocument: deserialize, serializeAos4ArmyDocument: serialize } =
+      await import('../../aos4/state')
+    const documentWithUnknownField = deserialize(
+      JSON.stringify({ ...document, futureFlag: true }),
+      AOS4_CATALOG
+    ).document!
+
+    const fetcher = vi.fn().mockImplementation(async (_url: string, options: RequestInit) => {
+      const sentBody = JSON.parse(options.body as string)
+      return jsonResponse({ id: 'cloud-1', createdAt: 1, updatedAt: 1, document: sentBody.document }, 201)
+    })
+    const created = await createArmyApi('https://army.example', fetcher).createArmy(
+      documentWithUnknownField,
+      'token'
+    )
+
+    expect(serialize(created.document)).toBe(serialize(documentWithUnknownField))
+  })
+
+  /*
    * The catalog reaches parseDocument through a dynamic import, so loading it is a network fetch the
    * caller can no longer assume succeeded. Not reachable while Home imports the catalog statically —
    * the module is always registered before any cloud call — but it goes live with the lazy Home
