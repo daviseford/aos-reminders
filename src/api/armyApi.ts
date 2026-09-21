@@ -1,4 +1,4 @@
-import { deserializeAos4ArmyDocument, type Aos4ArmyDocument } from '../aos4/state'
+import { deserializeAos4ArmyDocument, toWireAos4ArmyDocument, type Aos4ArmyDocument } from '../aos4/state'
 
 export interface RemoteArmy {
   id: string
@@ -152,7 +152,7 @@ export const createArmyApi = (endpoint: string, fetcher: Fetcher = fetch) => {
           '/items',
           {
             method: 'POST',
-            body: JSON.stringify({ document }),
+            body: JSON.stringify({ document: toWireAos4ArmyDocument(document) }),
           },
           token
         )
@@ -163,7 +163,7 @@ export const createArmyApi = (endpoint: string, fetcher: Fetcher = fetch) => {
         `/items/${encodeURIComponent(id)}`,
         {
           method: 'PATCH',
-          body: JSON.stringify({ document }),
+          body: JSON.stringify({ document: toWireAos4ArmyDocument(document) }),
         },
         token
       )
@@ -183,7 +183,7 @@ export const createArmyApi = (endpoint: string, fetcher: Fetcher = fetch) => {
         '/links',
         {
           method: 'POST',
-          body: JSON.stringify({ document }),
+          body: JSON.stringify({ document: toWireAos4ArmyDocument(document) }),
         },
         token
       )

@@ -44,6 +44,19 @@ export interface Aos4ArmyDocument {
    */
   enhancementBearers?: Partial<Record<CanonicalId, CanonicalId>>
   reminderPreferences: Partial<Record<ReminderOccurrenceId, Aos4ReminderPreference>>
+  /**
+   * Top-level fields this build doesn't recognize, carried through unread so a stale client (an
+   * older service-worker build reading a document a newer client wrote) doesn't silently delete
+   * whatever a future field added under the unchanged schemaVersion 1 — the same forward-compatible
+   * pattern `allowsLegends`, `allowsHistorical`, and `enhancementBearers` shipped under, generalized
+   * (#1991). Bounded in `readAos4ArmyDocumentShape`/`createAos4ArmyDocument` (count, key length,
+   * value depth/width, and byte size, with `__proto__`/`constructor`/`prototype` always rejected) so
+   * hostile or oversized data can never accumulate; anything over the bound is dropped with a
+   * warning diagnostic rather than failing the document. Serialized only when non-empty, so
+   * documents without unrecognized fields round-trip byte-identically to output written before this
+   * existed.
+   */
+  unknownFields?: Record<string, unknown>
 }
 
 export type Aos4ArmyDocumentDiagnosticCode =
@@ -53,6 +66,7 @@ export type Aos4ArmyDocumentDiagnosticCode =
   | 'missing-rules-context'
   | 'missing-selection'
   | 'invalid-reminder-preference'
+  | 'unsupported-unknown-field'
 
 export interface Aos4ArmyDocumentDiagnostic {
   code: Aos4ArmyDocumentDiagnosticCode
@@ -100,6 +114,133 @@ const normalizedBearers = (
   return entries.length ? Object.fromEntries(entries) : undefined
 }
 
+const KNOWN_TOP_LEVEL_FIELDS = new Set([
+  'schemaVersion',
+  'id',
+  'name',
+  'rulesContextId',
+  'allowsLegends',
+  'allowsHistorical',
+  'explicitSelectionIds',
+  'enhancementBearers',
+  'reminderPreferences',
+])
+
+// Never carried, regardless of nesting depth: a literal object-literal key with this name sets a
+// prototype rather than an own property, and downstream code (a future deep-merge, a naive clone)
+// may not use spread's safer semantics. Rejecting the key is cheap insurance against a class of bug
+// nothing here needs to specifically anticipate.
+const UNKNOWN_FIELD_DANGEROUS_KEYS = new Set(['__proto__', 'constructor', 'prototype'])
+
+const MAX_UNKNOWN_TOP_LEVEL_KEYS_SCANNED = 4_096
+const MAX_UNKNOWN_FIELD_COUNT = 32
+const MAX_UNKNOWN_FIELD_KEY_LENGTH = 128
+const MAX_UNKNOWN_FIELD_VALUE_BYTES = 4_096
+const MAX_UNKNOWN_FIELDS_TOTAL_BYTES = 16_384
+const MAX_UNKNOWN_FIELD_VALUE_DEPTH = 6
+const MAX_UNKNOWN_FIELD_VALUE_NODES = 500
+
+/**
+ * Whether a JSON value (from `JSON.parse`, so never a function, symbol, or cycle) stays within the
+ * nesting-depth and node-count bounds, walked breadth-first with a shrinking budget so neither a
+ * deeply-nested payload (stack depth) nor a very wide one (a single huge array/object literal
+ * pushed onto the queue in one step) can cost more than `MAX_UNKNOWN_FIELD_VALUE_NODES` work. Also
+ * rejects a dangerous key at any nesting level, not only the top.
+ */
+const isBoundedJsonValue = (root: unknown): boolean => {
+  let remaining = MAX_UNKNOWN_FIELD_VALUE_NODES
+  const queue: { value: unknown; depth: number }[] = [{ value: root, depth: 0 }]
+  while (queue.length) {
+    const { value, depth } = queue.shift() as { value: unknown; depth: number }
+    remaining -= 1
+    if (remaining < 0 || depth > MAX_UNKNOWN_FIELD_VALUE_DEPTH) return false
+    if (Array.isArray(value)) {
+      if (value.length > remaining) return false
+      value.forEach(item => queue.push({ value: item, depth: depth + 1 }))
+    } else if (isObject(value)) {
+      const entries = Object.entries(value)
+      if (entries.length > remaining) return false
+      for (const [key, item] of entries) {
+        if (UNKNOWN_FIELD_DANGEROUS_KEYS.has(key)) return false
+        queue.push({ value: item, depth: depth + 1 })
+      }
+    }
+  }
+  return true
+}
+
+const jsonByteLength = (value: unknown): number | undefined => {
+  try {
+    return new TextEncoder().encode(JSON.stringify(value)).length
+  } catch {
+    return undefined
+  }
+}
+
+/**
+ * Bounds an unknown-field bucket so data this module never validated — a hand-edited document, a
+ * compromised or buggy API response — can't accumulate without limit: a dangerous key, an over-deep
+ * or over-wide value, a value over the per-field byte cap, or a bucket over the total field
+ * count/byte cap is dropped rather than carried through. Idempotent, so re-normalizing an
+ * already-bounded bucket (every round trip through `createAos4ArmyDocument`) is a no-op, and safe to
+ * call from both deserializers (with a diagnostics sink) and the builder (without one).
+ */
+const boundedUnknownFields = (
+  candidate: Record<string, unknown> | undefined,
+  diagnostics?: Aos4ArmyDocumentDiagnostic[]
+): Record<string, unknown> | undefined => {
+  if (!candidate) return undefined
+  const keys = Object.keys(candidate).sort((left, right) => left.localeCompare(right))
+  if (!keys.length) return undefined
+
+  if (keys.length > MAX_UNKNOWN_TOP_LEVEL_KEYS_SCANNED) {
+    diagnostics?.push({
+      code: 'unsupported-unknown-field',
+      severity: 'warning',
+      message: `Army document has ${keys.length} unrecognized top-level fields, over the safe scan limit; all were dropped`,
+    })
+    return undefined
+  }
+
+  let droppedCount = 0
+  let totalBytes = 0
+  const accepted: [string, unknown][] = []
+
+  for (const key of keys) {
+    if (
+      accepted.length >= MAX_UNKNOWN_FIELD_COUNT ||
+      UNKNOWN_FIELD_DANGEROUS_KEYS.has(key) ||
+      !key.length ||
+      key.length > MAX_UNKNOWN_FIELD_KEY_LENGTH ||
+      !isBoundedJsonValue(candidate[key])
+    ) {
+      droppedCount += 1
+      continue
+    }
+    const size = jsonByteLength(candidate[key])
+    if (
+      size === undefined ||
+      size > MAX_UNKNOWN_FIELD_VALUE_BYTES ||
+      totalBytes + size > MAX_UNKNOWN_FIELDS_TOTAL_BYTES
+    ) {
+      droppedCount += 1
+      continue
+    }
+    totalBytes += size
+    accepted.push([key, candidate[key]])
+  }
+
+  if (droppedCount > 0) {
+    diagnostics?.push({
+      code: 'unsupported-unknown-field',
+      severity: 'warning',
+      message: `Army document had ${droppedCount} unrecognized field(s) dropped for exceeding the safe size, depth, or count bound`,
+    })
+  }
+
+  return accepted.length ? Object.fromEntries(accepted) : undefined
+}
+
 export const createAos4ArmyDocument = (
   input: Omit<Aos4ArmyDocument, 'schemaVersion' | 'reminderPreferences'> & {
     reminderPreferences?: Aos4ArmyDocument['reminderPreferences']
@@ -107,6 +248,7 @@ export const createAos4ArmyDocument = (
 ): Aos4ArmyDocument => {
   const explicitSelectionIds = sortedUnique(input.explicitSelectionIds)
   const enhancementBearers = normalizedBearers(input.enhancementBearers, explicitSelectionIds)
+  const unknownFields = boundedUnknownFields(input.unknownFields)
   return {
     schemaVersion: AOS4_ARMY_DOCUMENT_SCHEMA_VERSION,
     id: input.id.trim(),
@@ -125,11 +267,34 @@ export const createAos4ArmyDocument = (
           return Object.keys(normalized).length ? [[id, normalized]] : []
         })
     ),
+    ...(unknownFields ? { unknownFields } : {}),
   }
 }
 
+/**
+ * Unlike every other field, `unknownFields` is not written as its own JSON property: its entries
+ * belong at the top level of the wire format, the same level a future known field will actually
+ * occupy once a client recognizes it. Keeping it as a nested bucket on the in-memory
+ * `Aos4ArmyDocument` (rather than an index signature spread across the whole type) keeps every other
+ * property precisely typed; this is the one place that reshapes it back to the wire's flat shape.
+ * A document with no unknown fields produces exactly the object `createAos4ArmyDocument` returns
+ * minus the always-absent bucket, so the byte-identical round trip for schema-1 output written
+ * before this existed is unaffected.
+ *
+ * Every caller that hands an `Aos4ArmyDocument` to `JSON.stringify` for another system to read back
+ * — local storage below, and the army API client's create/update/share request bodies — must go
+ * through this rather than stringifying the document directly. Skipping it nests the bucket under a
+ * literal `unknownFields` key instead of flattening it, and that key doesn't match anything in
+ * `KNOWN_TOP_LEVEL_FIELDS`, so the next read treats the whole bucket as one more unrecognized field
+ * and wraps it again — an extra nesting level on every round trip through that path.
+ */
+export const toWireAos4ArmyDocument = (document: Aos4ArmyDocument): Record<string, unknown> => {
+  const { unknownFields, ...known } = createAos4ArmyDocument(document)
+  return unknownFields ? { ...known, ...unknownFields } : known
+}
+
 export const serializeAos4ArmyDocument = (document: Aos4ArmyDocument): string =>
-  `${JSON.stringify(createAos4ArmyDocument(document), null, 2)}\n`
+  `${JSON.stringify(toWireAos4ArmyDocument(document), null, 2)}\n`
 
 const isReminderPreference = (value: unknown): value is Aos4ReminderPreference => {
   if (!isObject(value)) return false
@@ -155,6 +320,7 @@ interface Aos4ArmyDocumentShape {
   explicitSelectionIds: string[]
   enhancementBearers: Record<string, string>
   reminderPreferences: Record<string, unknown>
+  unknownFields?: Record<string, unknown>
 }
 
 const readAos4ArmyDocumentShape = (
@@ -223,6 +389,11 @@ const readAos4ArmyDocumentShape = (
     }
   }
 
+  const shapeDiagnostics: Aos4ArmyDocumentDiagnostic[] = []
+  const unknownFieldCandidate = Object.fromEntries(
+    Object.entries(value).filter(([key]) => !KNOWN_TOP_LEVEL_FIELDS.has(key))
+  )
+
   return {
     shape: {
       id: value.id as string,
@@ -233,8 +404,9 @@ const readAos4ArmyDocumentShape = (
       explicitSelectionIds: value.explicitSelectionIds as string[],
       enhancementBearers: (value.enhancementBearers ?? {}) as Record<string, string>,
       reminderPreferences: value.reminderPreferences,
+      unknownFields: boundedUnknownFields(unknownFieldCandidate, shapeDiagnostics),
     },
-    diagnostics: [],
+    diagnostics: shapeDiagnostics,
   }
 }
 
@@ -282,7 +454,7 @@ export const deserializeAos4ArmyDocument = (
   if (!shapeResult.shape) return { diagnostics: shapeResult.diagnostics }
   const shape = shapeResult.shape
 
-  const diagnostics: Aos4ArmyDocumentDiagnostic[] = []
+  const diagnostics: Aos4ArmyDocumentDiagnostic[] = [...shapeResult.diagnostics]
   const contextExists = catalog.rulesContexts.some(context => context.id === shape.rulesContextId)
   if (!contextExists) {
     diagnostics.push({
@@ -329,6 +501,7 @@ export const deserializeAos4ArmyDocument = (
       // catalog update that retires either ID costs the army the attribution, never the document.
       enhancementBearers: shape.enhancementBearers as Aos4ArmyDocument['enhancementBearers'],
       reminderPreferences,
+      unknownFields: shape.unknownFields,
     }),
     diagnostics,
   }
@@ -354,7 +527,7 @@ export const deserializeAos4ArmyDocumentStructure = (
   if (!shapeResult.shape) return { diagnostics: shapeResult.diagnostics }
   const shape = shapeResult.shape
 
-  const diagnostics: Aos4ArmyDocumentDiagnostic[] = []
+  const diagnostics: Aos4ArmyDocumentDiagnostic[] = [...shapeResult.diagnostics]
   const reminderPreferences = readReminderPreferences(shape.reminderPreferences, diagnostics)
   if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     return { diagnostics }
@@ -370,6 +543,7 @@ export const deserializeAos4ArmyDocumentStructure = (
       explicitSelectionIds: shape.explicitSelectionIds as CanonicalId[],
       enhancementBearers: shape.enhancementBearers as Aos4ArmyDocument['enhancementBearers'],
       reminderPreferences,
+      unknownFields: shape.unknownFields,
     }),
     diagnostics,
   }
