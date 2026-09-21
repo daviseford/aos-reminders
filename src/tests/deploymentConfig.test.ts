@@ -136,6 +136,10 @@ log_gate "end:$*"
     return { fakeBinPath: bashPath(fakeBin), logPath }
   }
 
+  // Callers pass a bare `NAME=value` environment assignment (or omit it); this owns the separator
+  // so a caller can never break the invocation by forgetting a trailing space -- a missing space
+  // here would merge the following `bash` into the assignment's value as far as the shell is
+  // concerned, silently dropping the real command instead of running it.
   const runReleaseGates = (fakeBinPath: string, logPath: string, extraEnv = '') =>
     spawnSync(
       bashCommand(),
@@ -143,7 +147,7 @@ log_gate "end:$*"
         '-c',
         `chmod +x ${shellQuote(`${fakeBinPath}/yarn`)}; ` +
           `PATH=${shellQuote(fakeBinPath)}:/usr/local/bin:/usr/bin:/bin ` +
-          `RELEASE_GATE_LOG=${shellQuote(bashPath(logPath))} ${extraEnv}` +
+          `RELEASE_GATE_LOG=${shellQuote(bashPath(logPath))} ${extraEnv ? `${extraEnv} ` : ''}` +
           `bash scripts/prepare-production-release.sh`,
       ],
       { cwd: process.cwd(), encoding: 'utf8' }
@@ -158,11 +162,20 @@ log_gate "end:$*"
     expect(log.slice(0, 2)).toEqual(['start:release:validate-config', 'end:release:validate-config'])
 
     const phaseOne = ['lint', 'data:aos4:verify:beta', 'build']
+    const phaseTwo = ['test --run', 'release:inspect-artifact']
+
+    // `log.indexOf(...)` returns -1 for a dropped line, and -1 satisfies every `<`/`>` comparison
+    // below by accident. Assert every expected line is present before doing any index math, so a
+    // missing line fails here directly instead of silently passing the ordering checks.
+    for (const gate of [...phaseOne, ...phaseTwo]) {
+      expect(log, `start:${gate} is present in the gate log`).toContain(`start:${gate}`)
+      expect(log, `end:${gate} is present in the gate log`).toContain(`end:${gate}`)
+    }
+
     const firstPhaseOneEnd = Math.min(...phaseOne.map(gate => log.indexOf(`end:${gate}`)))
     expect(phaseOne.every(gate => log.indexOf(`start:${gate}`) < firstPhaseOneEnd)).toBe(true)
 
     const lastPhaseOneEnd = Math.max(...phaseOne.map(gate => log.indexOf(`end:${gate}`)))
-    const phaseTwo = ['test --run', 'release:inspect-artifact']
     expect(phaseTwo.every(gate => log.indexOf(`start:${gate}`) > lastPhaseOneEnd)).toBe(true)
     const firstPhaseTwoEnd = Math.min(...phaseTwo.map(gate => log.indexOf(`end:${gate}`)))
     expect(phaseTwo.every(gate => log.indexOf(`start:${gate}`) < firstPhaseTwoEnd)).toBe(true)
@@ -173,7 +186,7 @@ log_gate "end:$*"
     const failure = runReleaseGates(
       fakeBinPath,
       logPath,
-      `RELEASE_FAIL_GATE=${shellQuote('data:aos4:verify:beta')} `
+      `RELEASE_FAIL_GATE=${shellQuote('data:aos4:verify:beta')}`
     )
 
     expect(failure.status).not.toBe(0)
