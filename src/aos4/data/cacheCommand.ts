@@ -5,6 +5,7 @@ import {
   AwsS3ArtifactStore,
   pullArtifactManifest,
   pushArtifactManifest,
+  verifyArtifactManifestCoverage,
   type AwsS3ArtifactStoreConfiguration,
 } from './artifactStore'
 import { ACCEPTED_MANIFEST_PATH } from './acceptedRevision'
@@ -16,7 +17,7 @@ const DEFAULT_CACHE_DIRECTORY = '.cache/aos4/artifacts'
 const DEFAULT_CONCURRENCY = 4
 
 export interface ArtifactCacheArguments {
-  operation: 'pull' | 'push'
+  operation: 'pull' | 'push' | 'verify'
   manifestPath: string
   cacheDirectory: string
   concurrency: number
@@ -36,8 +37,8 @@ export const parseArtifactCacheArguments = (
   environment: Environment = process.env
 ): ArtifactCacheArguments => {
   const [operation, ...options] = arguments_
-  if (operation !== 'pull' && operation !== 'push') {
-    throw new Error('Artifact cache command requires pull or push')
+  if (operation !== 'pull' && operation !== 'push' && operation !== 'verify') {
+    throw new Error('Artifact cache command requires pull, push, or verify')
   }
   const parsed: ArtifactCacheArguments = {
     operation,
@@ -99,8 +100,21 @@ export const runArtifactCacheCommand = async (
 ): Promise<void> => {
   const parsed = parseArtifactCacheArguments(arguments_, environment)
   const manifest = await loadManifest(parsed.manifestPath)
-  const cache = new FileArtifactCache(parsed.cacheDirectory)
   const store = new AwsS3ArtifactStore(parsed.store)
+
+  if (parsed.operation === 'verify') {
+    // Read-only: no local cache is opened, and no bytes are downloaded or written.
+    const summary = await verifyArtifactManifestCoverage(
+      parsed.manifestPath,
+      manifest,
+      store,
+      parsed.concurrency
+    )
+    console.log(`Artifact cache verify: ${JSON.stringify(summary)}`)
+    return
+  }
+
+  const cache = new FileArtifactCache(parsed.cacheDirectory)
   const summary =
     parsed.operation === 'pull'
       ? await pullArtifactManifest(manifest, cache, store, parsed.concurrency)

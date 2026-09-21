@@ -537,6 +537,52 @@ export const pullArtifactManifest = async (
   return summary
 }
 
+export interface ArtifactCoverageSummary {
+  total: number
+  present: number
+  missing: string[]
+}
+
+const MAX_LISTED_MISSING_ARTIFACTS = 20
+
+/**
+ * Read-only fail-closed check that every blob an accepted manifest pins is present in the
+ * private store. HEAD-only (via `inspect`): it never downloads bytes or touches the local cache,
+ * so it is safe to run repeatedly against accepted data without mutating anything. See #2008 —
+ * #1985 accepted a manifest whose store coverage was incomplete and left it unreplayable off the
+ * one machine holding the local bytes.
+ */
+export const verifyArtifactManifestCoverage = async (
+  manifestIdentity: string,
+  manifest: ArtifactManifest,
+  store: ArtifactStore,
+  concurrency = 4
+): Promise<ArtifactCoverageSummary> => {
+  const requirements = requirementsFor(manifest)
+  const summary: ArtifactCoverageSummary = { total: requirements.length, present: 0, missing: [] }
+  await store.assertReachable?.()
+  await mapBounded(requirements, concurrency, async requirement => {
+    const metadata = await store.inspect(requirement.checksum)
+    if (!metadata) {
+      summary.missing.push(requirement.checksum)
+      return
+    }
+    assertMetadata(requirement, metadata)
+    summary.present += 1
+  })
+  if (summary.missing.length) {
+    summary.missing.sort()
+    const shown = summary.missing.slice(0, MAX_LISTED_MISSING_ARTIFACTS)
+    const remainder = summary.missing.length - shown.length
+    throw new ArtifactStoreError(
+      'remote-missing',
+      `Private artifact store is missing ${summary.missing.length} of ${summary.total} blobs pinned by ` +
+        `${manifestIdentity}: ${shown.join(', ')}${remainder > 0 ? `, and ${remainder} more` : ''}`
+    )
+  }
+  return summary
+}
+
 export const pushArtifactManifest = async (
   manifest: ArtifactManifest,
   cache: ArtifactCache,
