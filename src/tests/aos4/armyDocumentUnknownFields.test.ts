@@ -85,17 +85,31 @@ describe('army document unknown-field preservation (#1991)', () => {
   })
 
   it('drops dangerous keys such as __proto__, constructor, and prototype without failing the document', () => {
-    const value = JSON.parse(serializeAos4ArmyDocument(knownDocument()))
-    value.__proto__ = { polluted: true }
-    value.constructor = { polluted: true }
-    value.prototype = { polluted: true }
-    const serialized = JSON.stringify(value)
+    /*
+     * `value.__proto__ = ...` invokes Object.prototype's legacy accessor setter and reassigns
+     * `value`'s prototype — it never creates an own key named "__proto__", so a document built that
+     * way never exercised the key this test claims to cover; the JSON text below never reaches
+     * `readAos4ArmyDocumentShape`'s `Object.entries` scan as a "__proto__" entry at all. A JSON
+     * document with a literal `"__proto__"` property is different: `JSON.parse` creates it through
+     * ordinary own-property creation, which bypasses the accessor, so splicing the key into raw JSON
+     * text and parsing it is the only way to reproduce what a hostile document on the wire actually
+     * looks like.
+     */
+    const known = serializeAos4ArmyDocument(knownDocument())
+    const serialized = known.replace(
+      '{\n',
+      '{\n  "__proto__": {"polluted": true},\n  "constructor": {"polluted": true},\n  "prototype": {"polluted": true},\n'
+    )
+    const parsed = JSON.parse(serialized)
+    expect(Object.prototype.hasOwnProperty.call(parsed, '__proto__')).toBe(true)
+    expect(Object.getPrototypeOf(parsed)).toBe(Object.prototype)
 
     const restored = deserializeAos4ArmyDocument(serialized, AOS4_CATALOG)
     expect(restored.document).toBeDefined()
     expect(Object.getPrototypeOf({})).not.toHaveProperty('polluted')
 
     const reserialized = JSON.parse(serializeAos4ArmyDocument(restored.document!))
+    expect(Object.prototype.hasOwnProperty.call(reserialized, '__proto__')).toBe(false)
     expect(reserialized.constructor).not.toEqual({ polluted: true })
     expect(reserialized.prototype).toBeUndefined()
   })
