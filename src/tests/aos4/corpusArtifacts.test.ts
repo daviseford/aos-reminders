@@ -40,7 +40,7 @@ const certificationManifest = JSON.parse(
       'data',
       'aos4',
       'certifications',
-      'aos4-corpus-2026-09-22-machine-r1',
+      'aos4-corpus-2026-09-22-machine-r2',
       'manifest.json'
     ),
     'utf8'

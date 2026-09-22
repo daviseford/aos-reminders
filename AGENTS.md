@@ -47,8 +47,9 @@ This is an Age of Sigmar fourth-edition codebase:
   legacy Sons of Behemat datasheets the September 2026 battletome rewrites replaced, issue #1999)
   so none can leak into runtime
 - all 1,396 extracted official battle-profile facts have an explicit disposition: 1,016 apply to
-  runtime, 1 remains a profile-only gap (The Emberwatch, issue #1999), 318 remain structured references,
-  and 61 are superseded
+  runtime, 1 remains a profile-only gap (The Emberwatch, a Legends-context Underworlds warband with
+  a reviewed deviation under the official-first intake gate, issue #1820), 318 remain structured
+  references, and 61 are superseded
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
 
