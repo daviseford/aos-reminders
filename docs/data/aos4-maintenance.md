@@ -16,36 +16,50 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-12 snapshot is defined by:
+The accepted 2026-09-22 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-09-12.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the September 2026 Sons of Behemat battle profiles — re-pinned 2026-09-12 to Games Workshop's corrected re-publication — Regiments of Renown, and Stone Lobbas Spearhead accepted 2026-09-10, the Armies of Renown pack re-pinned to its September 2026 publication), and 72 reviewed Wahapedia pages (16 re-pinned 2026-08-28, the 2 Ogor pages re-pinned 2026-08-28b), pinned by SHA-256; no BSData catalogues remain pinned |
-| `data/aos4/reviews/corpus-2026-09-12.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-09-22.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the September 2026 Sons of Behemat battle profiles, Regiments of Renown, Stone Lobbas Spearhead, and Armies of Renown pack), 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues (`gargants` branch, commit `2b7df92f`, issue #1999), pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-09-22.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-12-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-12-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-09-22-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-09-22-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
-- 1,296 warscrolls and 1,012 battle profiles
-- 5,092 abilities
-- 2,264 weapons
-- 1,499 content groups, including 48 Spearhead force/unit wrappers
-- 244 source artifacts and 20,101 live source records
+- 1,300 warscrolls and 1,016 battle profiles
+- 5,121 abilities
+- 2,269 weapons
+- 1,506 content groups
+- 247 source artifacts and 20,171 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,396 extracted GW battle-profile facts: 938 matched to runtime, 5 profile-only gaps
-  (The Emberwatch plus the four September 2026 Sons of Behemat battletome units whose warscroll
-  rules no accepted source publishes yet, issue #1999), 318 structured references, and 61
-  superseded facts
+- 1,396 extracted GW battle-profile facts: 1,016 applied to runtime, 1 profile-only gap
+  (The Emberwatch), 318 structured references, and 61 superseded facts
+- the 2026-09-22 Sons of Behemat battletome intake (#1999): the four brand-new units, six
+  coherent legacy rewrites, the current faction package (4 battle formations, 6 heroic traits, 6
+  artefacts of power, Prayers of the World Titan), and the regular faction's army-wide battle
+  traits ship provisionally from the pinned BSData `gargants` branch, commit `2b7df92f`, because
+  Wahapedia has not republished the battletome pages (unchanged since 2026-08-25). Deferred:
+  Realm-shaking Rampage (no Wahapedia faction has ever published that ability-type section, so
+  there is no canonical type record to attach the new adapter support to), Lore of Behemat (same
+  reason — no Spell Lore type record for Sons of Behemat), King Brodd's Stomp's own battle traits
+  (an Army of Renown's battle-trait block decodes as a subtype of its root, not a standalone
+  faction-page type record, and the community-option merge only attaches to the latter), Krong the
+  Club, and the Stone Lobbas Spearhead (no secondary carries either at all). This intake also fixed
+  a `discoverWahapediaWarscrollCollection` selector that had silently stopped finding any of the 27
+  accepted warscroll collection pages after Wahapedia dropped the `.datasheetsCollated` link block
+  site-wide (observed 2026-09-22); it now falls back to the conventional `<faction root>
+  warscrolls.html` path the generation adapter already treats as authoritative, matching the
+  `/aos4/nav.html` fragment fix in #2005
 - the September 2026 Sons of Behemat intake (#1757): the faction battle-profile supplement
   applied its points corrections to the nine carried-over units and superseded the July 2026
   main-document rows it re-published (ten unit rows and, by name, four regiment-of-renown rows);
@@ -663,18 +677,11 @@ untrusted-by-default CI runners — worse than leaving it a deliberate manual ga
 
 ```powershell
 yarn data:aos4:cache:verify `
-  --manifest data/aos4/manifests/accepted-2026-09-12.json `
+  --manifest data/aos4/manifests/accepted-2026-09-22.json `
   --jobs 4
 ```
 
-**Known current-state gap (as of 2026-09-21, tracked in #2011):** running this exact command
-against the currently accepted `accepted-2026-09-12.json` does *not* pass today — the private
-store is missing 1 of its 244 pinned blobs, the re-pinned Sons of Behemat battle-profiles PDF. The
-`present`/`missing` shapes below describe what the command reports in general, and the `present:244`
-example is the target shape once #2011's recovery lands, not a claim that today's accepted revision
-currently passes. Delete this paragraph once #2011 closes.
-
-**Expected success:** `Artifact cache verify: {"total":244,"present":244,"missing":[]}` (the exact
+**Expected success:** `Artifact cache verify: {"total":247,"present":247,"missing":[]}` (the exact
 `total` matches the manifest's de-duplicated checksum count). The process exits 0.
 
 **Expected failure:** a non-zero exit and a message naming the manifest and every missing

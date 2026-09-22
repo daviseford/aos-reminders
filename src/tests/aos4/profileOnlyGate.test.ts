@@ -16,8 +16,8 @@ import {
  * an explicit reviewed deviation (rationale + target date) must fail the strict generation gate
  * and `yarn data:aos4:verify:beta` - and therefore the deployment workflow - with the unit name
  * and source publication in the failure. The accepted baseline is the deferred Emberwatch entry
- * (Warhammer Legends) plus the four September 2026 Battletome: Sons of Behemat units awaiting a
- * rules-text source (issue #1999).
+ * (Warhammer Legends); the four September 2026 Battletome: Sons of Behemat units that briefly
+ * joined it shipped from the pinned BSData catalogue on 2026-09-22 (issue #1999).
  */
 
 const SUPPLEMENT_CHECKSUM = '052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750'
@@ -131,30 +131,26 @@ describe('the official-first intake gate (#1820)', () => {
   it('accepts the current baseline: the accepted reconciliation passes with the recorded ledger', () => {
     const reconciliation = JSON.parse(
       readFileSync(
-        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-09-12-reconciliation.json'),
+        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-09-22-reconciliation.json'),
         'utf8'
       )
     ) as WahapediaHtmlReconciliation
     const review = JSON.parse(
-      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-12.json'), 'utf8')
+      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-22.json'), 'utf8')
     ) as CorpusReview
     const ledger = parseProfileOnlyDeviationLedger(
       JSON.parse(readFileSync(path.join(process.cwd(), DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH), 'utf8'))
     )
-    // The accepted 2026-09-10 population is The Emberwatch (deferred for its Legends context)
-    // plus the four September 2026 Battletome: Sons of Behemat units whose warscroll rules no
-    // accepted source publishes yet (issue #1999); the gate must be green on this baseline.
-    expect(reconciliation.unmatchedOfficialUnitFacts).toHaveLength(5)
+    // The 2026-09-22 population is The Emberwatch only (deferred for its Legends context); the
+    // four September 2026 Battletome: Sons of Behemat units now ship from the pinned BSData
+    // catalogue (issue #1999), leaving the gate's baseline back to its 2026-08-01b size of one.
+    expect(reconciliation.unmatchedOfficialUnitFacts).toHaveLength(1)
     expect(ledger.deviations).toEqual([
       expect.objectContaining({
         faction: 'Warhammer Legends',
         name: 'The Emberwatch',
         targetDate: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
       }),
-      expect.objectContaining({ faction: 'Sons of Behemat', name: 'Ma Maegran, Chooser of the Mighty' }),
-      expect.objectContaining({ faction: 'Sons of Behemat', name: 'Ancient Ghyrochs' }),
-      expect.objectContaining({ faction: 'Sons of Behemat', name: 'Boss-stompers' }),
-      expect.objectContaining({ faction: 'Sons of Behemat', name: 'Rock-hurlers' }),
     ])
     expect(ledger.deviations[0].reason).toMatch(/legends/i)
     expect(

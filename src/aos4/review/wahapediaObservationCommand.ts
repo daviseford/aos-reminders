@@ -2,6 +2,7 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
+  AcquisitionError,
   FileArtifactCache,
   acquireArtifact,
   createPinnedHttpsTransport,
@@ -180,6 +181,45 @@ const acquireObserved = async (
   }
 }
 
+const isHttpNotFound = (error: unknown): boolean =>
+  error instanceof AcquisitionError && error.code === 'http-status' && /\bHTTP 404\b/.test(error.message)
+
+/**
+ * A warscroll collection is a derived candidate (see `discoverWahapediaWarscrollCollection`), not
+ * a link the page still guarantees: `Endless Spells` genuinely publishes none. A 404 on the
+ * candidate means "this faction has no collection" and is omitted from the observation entirely,
+ * exactly like the old scrape-finds-nothing case; every other failure still degrades to
+ * `inaccessible`, so a real outage is never mistaken for an absent collection.
+ */
+const acquireObservedCollection = async (
+  source: WahapediaObservedSource,
+  request: AcquireArtifactRequest,
+  limiter: RequestLimiter,
+  acquire: AcquireObservedArtifact
+): Promise<ObservedAcquisition | undefined> => {
+  try {
+    const result = await acquireRequired(request, limiter, acquire)
+    return {
+      source: {
+        ...source,
+        url: result.entry.finalUrl,
+        availability: 'accessible',
+        fingerprint: result.entry.checksum,
+      },
+      result,
+    }
+  } catch (error) {
+    if (error instanceof RequestBudgetExceededError) throw error
+    if (isHttpNotFound(error)) return undefined
+    return {
+      source: {
+        ...source,
+        availability: 'inaccessible',
+      },
+    }
+  }
+}
+
 const titleFromExportUrl = (url: string): string =>
   decodeURIComponent(new URL(url).pathname.split('/').filter(Boolean).at(-1) ?? url)
 
@@ -238,22 +278,20 @@ export const observeWahapediaSources = async (
       acquire
     )
   )
-  const collectionSources = factionAcquisitions.flatMap(acquisition => {
+  const collectionSources: WahapediaObservedSource[] = factionAcquisitions.flatMap(acquisition => {
     if (!acquisition.result) return []
     const collectionUrl = discoverWahapediaWarscrollCollection(
       new TextDecoder('utf-8', { fatal: true }).decode(acquisition.result.bytes),
       acquisition.result.entry.finalUrl
     )
-    return collectionUrl
-      ? [
-          {
-            kind: 'warscroll-collection' as const,
-            url: collectionUrl,
-            title: `${acquisition.source.title} warscroll collection`,
-            availability: 'accessible' as const,
-          },
-        ]
-      : []
+    return [
+      {
+        kind: 'warscroll-collection' as const,
+        url: collectionUrl,
+        title: `${acquisition.source.title} warscroll collection`,
+        availability: 'accessible' as const,
+      },
+    ]
   })
   const materialSources: WahapediaObservedSource[] = [
     ...navigation.rulesPages.map(value => ({
@@ -262,7 +300,6 @@ export const observeWahapediaSources = async (
       title: value.title,
       availability: 'accessible' as const,
     })),
-    ...collectionSources,
     ...exportUrls.map(url => ({
       kind: 'export' as const,
       url,
@@ -270,15 +307,23 @@ export const observeWahapediaSources = async (
       availability: 'accessible' as const,
     })),
   ]
-  materialSources.forEach(source => assertRobotsAllows(robotsPolicy, source.url))
-  const materialAcquisitions = await mapWithConcurrency(materialSources, input.concurrency, source =>
-    acquireObserved(
-      source,
-      source.kind === 'export' ? exportRequest(source.url) : htmlRequest(source.url),
-      limiter,
-      acquire
+  ;[...collectionSources, ...materialSources].forEach(source => assertRobotsAllows(robotsPolicy, source.url))
+  const collectionAcquisitions = (
+    await mapWithConcurrency(collectionSources, input.concurrency, source =>
+      acquireObservedCollection(source, htmlRequest(source.url), limiter, acquire)
     )
-  )
+  ).filter((value): value is ObservedAcquisition => value !== undefined)
+  const materialAcquisitions = [
+    ...collectionAcquisitions,
+    ...(await mapWithConcurrency(materialSources, input.concurrency, source =>
+      acquireObserved(
+        source,
+        source.kind === 'export' ? exportRequest(source.url) : htmlRequest(source.url),
+        limiter,
+        acquire
+      )
+    )),
+  ]
   const observation = createWahapediaSourceObservation(observedAt, [
     {
       kind: 'data-export-index',

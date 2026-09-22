@@ -1,6 +1,7 @@
 import * as XLSX from 'xlsx'
 import { describe, expect, it } from 'vitest'
 import {
+  AcquisitionError,
   artifactChecksum,
   type AcquireArtifactRequest,
   type AcquireArtifactResult,
@@ -98,6 +99,23 @@ describe('Wahapedia independent source observation', () => {
     expect(discoverWahapediaExportUrls(bytes)).toEqual(['https://wahapedia.ru/aos4/Warscrolls.csv'])
   })
 
+  /**
+   * Observed 2026-09-22: Wahapedia removed the `.datasheetsCollated` link block from every faction
+   * root page (the nav column now anchors `#Warscrolls` to an inline section instead). The
+   * collection itself is still published at the conventional path, which
+   * `src/aos4/data/wahapediaHtml/parse.ts`'s `factionRootWarscrollScope` already treats as
+   * authoritative for generation, so discovery falls back to the same derivation rather than a
+   * second selector.
+   */
+  it('derives the conventional collection path when the page no longer links one', () => {
+    expect(
+      discoverWahapediaWarscrollCollection(
+        `<div class="mw1 i30 ATln"><a href="#Warscrolls" class="cnClrInv">Warscrolls</a></div>`,
+        'https://wahapedia.ru/aos4/factions/sons-of-behemat/'
+      )
+    ).toBe('https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html')
+  })
+
   it('marks discovery documents non-material while keeping game data fail-closed', () => {
     const observation = createWahapediaSourceObservation('2026-07-28T18:00:00.000Z', [
       {
@@ -148,6 +166,73 @@ describe('Wahapedia independent source observation', () => {
       })
     ).rejects.toThrow(/robots\.txt disallows/i)
     expect(requested).not.toContain('https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html')
+  })
+
+  it('derives and confirms a collection page absent the old link block, and omits a genuinely missing one', async () => {
+    const text = new TextEncoder()
+    const workbook = XLSX.utils.book_new()
+    const sheet = XLSX.utils.aoa_to_sheet([['Warscrolls.csv']])
+    sheet.A1.l = { Target: 'https://wahapedia.ru/aos4/Warscrolls.csv' }
+    XLSX.utils.book_append_sheet(workbook, sheet, 'EN')
+    const spreadsheet = new Uint8Array(XLSX.write(workbook, { type: 'array', bookType: 'xlsx' }))
+
+    const acquire: (request: AcquireArtifactRequest) => Promise<AcquireArtifactResult> = async request => {
+      if (request.url.endsWith('/factions/endless-spells/warscrolls.html')) {
+        throw new AcquisitionError('http-status', `Request to ${request.url} returned HTTP 404`)
+      }
+      const body = request.url.endsWith('/robots.txt')
+        ? text.encode('User-agent: *\nAllow: /')
+        : request.url.endsWith('Export%20Data%20Specs.xlsx')
+          ? spreadsheet
+          : request.url.endsWith('/the-rules/data-export/')
+            ? text.encode(`
+                <div id="siteNav" data-nav-src="/aos4/nav.html"></div>
+                <a href="/aos4/Export%20Data%20Specs.xlsx">Export specification</a>
+              `)
+            : request.url.endsWith('/aos4/nav.html')
+              ? text.encode(`
+                  <div class="NavColumns2">
+                    <a href="/aos4/the-rules/the-core-rules/">Core Rules</a>
+                  </div>
+                  <div class="NavColumns3">
+                    <a href="/aos4/factions/sons-of-behemat/">Sons of Behemat</a>
+                    <a href="/aos4/factions/endless-spells/">Endless Spells</a>
+                  </div>
+                `)
+              : // Neither faction page links a collection any more (the site dropped
+                // `.datasheetsCollated`); only Sons of Behemat's derived collection exists.
+                text.encode('<div class="mw1 i30 ATln"><a href="#Warscrolls">Warscrolls</a></div>')
+      const entry: ArtifactManifestEntry = {
+        requestUrl: request.url,
+        finalUrl: request.url,
+        redirectChain: [],
+        retrievedAt: '2026-09-22T00:00:00.000Z',
+        adapterVersion: request.adapterVersion,
+        mediaType: request.allowedMediaTypes[0],
+        byteLength: body.byteLength,
+        checksum: artifactChecksum(body),
+      }
+      return {
+        bytes: body,
+        entry,
+        candidateManifest: { schemaVersion: 1, artifacts: [entry] },
+        changed: true,
+      }
+    }
+
+    const { observation } = await observeWahapediaSources(fullObservationInput(), {
+      acquire,
+      now: () => '2026-09-22T00:00:00.000Z',
+      wait: async () => undefined,
+    })
+
+    const collectionEntries = observation.entries.filter(entry => /warscrolls\.html/.test(entry.url))
+    expect(collectionEntries).toEqual([
+      expect.objectContaining({
+        url: 'https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html',
+        availability: 'accessible',
+      }),
+    ])
   })
 
   it('fails the expanded observation when its request budget is exhausted', async () => {

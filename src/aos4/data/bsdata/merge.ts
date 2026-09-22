@@ -158,6 +158,10 @@ const OPTION_TYPE_LABELS: Record<
   'artefact-of-power': { officialOptionType: 'Artefact of Power', typeGroupName: 'Artefacts of Power' },
   'spell-lore': { officialOptionType: 'Spell Lore', typeGroupName: 'Spell Lore' },
   'prayer-lore': { officialOptionType: 'Prayer Lore', typeGroupName: 'Prayer Lore' },
+  'realm-shaking-rampage': {
+    officialOptionType: 'Realm-shaking Rampage',
+    typeGroupName: 'Realm-shaking Rampages',
+  },
   // Army-wide battle traits have no battle-profile row: the empty official option type routes the
   // merge to the source-level official anchor instead of a per-option roster-option match.
   'battle-trait': { officialOptionType: '', typeGroupName: 'Battle Traits' },
@@ -293,12 +297,14 @@ export const mergeBsDataFactionOptions = (
           })
         }
         if (
-          (fact.optionType === 'heroic-trait' || fact.optionType === 'artefact-of-power') &&
+          (fact.optionType === 'heroic-trait' ||
+            fact.optionType === 'artefact-of-power' ||
+            fact.optionType === 'realm-shaking-rampage') &&
           fact.abilities.length !== 1
         ) {
           throw new Error(
             `BSData faction option ${fact.name} carries ${fact.abilities.length} abilities; a ` +
-              'heroic trait or artefact is exactly one ability card'
+              'heroic trait, artefact, or realm-shaking rampage is exactly one ability card'
           )
         }
         let subtypeId: string
@@ -367,7 +373,10 @@ export const mergeBsDataFactionOptions = (
         // under its official name and carries the option-level record identity so the audit
         // trail consumes the reviewed option record. A formation, lore, or battle-trait set keeps
         // the transcribed names and per-ability records of the abilities it grants.
-        const singleCard = fact.optionType === 'heroic-trait' || fact.optionType === 'artefact-of-power'
+        const singleCard =
+          fact.optionType === 'heroic-trait' ||
+          fact.optionType === 'artefact-of-power' ||
+          fact.optionType === 'realm-shaking-rampage'
         const abilityOfficialIds = official ? [official.sourceRecordId] : source.officialSourceRecordIds
         fact.abilities.forEach(ability => {
           const points = abilityPoints(ability)

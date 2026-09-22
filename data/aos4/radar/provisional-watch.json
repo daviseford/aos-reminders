@@ -2,10 +2,42 @@
   "schemaVersion": 1,
   "watches": [
     {
-      "id": "wahapedia-sob-battletome-warscrolls",
+      "id": "wahapedia-sob-regiments-of-renown-krong",
       "issueNumber": 1999,
-      "reason": "The September 2026 Battletome: Sons of Behemat units (Ma Maegran, Boss-stompers, Rock-hurlers) and the Krong the Club Regiment of Renown ship as profile-only official facts with reviewed deviations because no accepted source carries their rules text. Any of these appearing on the Wahapedia warscroll collection satisfies the intake condition for the provisional gap.",
-      "url": "https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html",
+      "reason": "Krong the Club is an official Regiment of Renown (Regiments of Renown - Sons of Behemat, page 5) whose inclusion list excludes Sons of Behemat, so Wahapedia would republish it on an inclusion faction's collection page, never on the Sons of Behemat page. Blades of Khorne is the alphabetically first inclusion faction (Krong confirmed absent from its collection page as of 2026-09-22). It stays a structured-reference official fact until this or another inclusion page carries it.",
+      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html",
+      "sentinels": [
+        {
+          "label": "Krong the Club (Regiment of Renown)",
+          "needle": "Krong the Club"
+        }
+      ]
+    },
+    {
+      "id": "wahapedia-sob-battletome-faction-package",
+      "issueNumber": 1999,
+      "reason": "Lore of Behemat (deferred: no Wahapedia Spell Lore type record to attach to), the rewritten King Brodd's Stomp enhancements and roster (Big/Little, Destructive Impulse), and the Stone Lobbas Spearhead (no secondary carries it at all) are recorded from the official September 2026 publications but not shipped. Any of these appearing on the Wahapedia faction page satisfies the intake condition; the battle formations, heroic traits, artefacts, Realm-shaking Rampages, Prayers of the World Titan, and the King Brodd's Stomp battle traits shipped 2026-09-22 from the pinned BSData catalogue and no longer need a watch.",
+      "url": "https://wahapedia.ru/aos4/factions/sons-of-behemat/",
+      "sentinels": [
+        {
+          "label": "Lore of Behemat (spell lore)",
+          "needle": "Lore of Behemat"
+        },
+        {
+          "label": "Destructive Impulse (King Brodd's Stomp rewrite keyword)",
+          "needle": "Destructive Impulse"
+        },
+        {
+          "label": "Stone Lobbas (Spearhead)",
+          "needle": "Stone Lobbas"
+        }
+      ]
+    },
+    {
+      "id": "bsdata-main-sob-library",
+      "issueNumber": 1999,
+      "reason": "The Sons of Behemat battletome units and legacy rewrites currently ship from the unmerged `gargants` branch, commit 2b7df92f (owner-pinned 2026-09-22, precedent: the `ogors` branch pin re-pinned to `main` on 2026-08-18). The weekly Rules Radar BSData lane watches `main` only; this raw-content sentinel confirms the exact moment `main` carries the same battletome names so the pin can be reviewed for re-pointing.",
+      "url": "https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/Sons%20of%20Behemat%20-%20Library.cat",
       "sentinels": [
         {
           "label": "Ma Maegran, Chooser of the Mighty (new hero)",
@@ -18,37 +50,45 @@
         {
           "label": "Rock-hurlers (new unit)",
           "needle": "Rock-hurlers"
-        },
-        {
-          "label": "Krong the Club (new Regiment of Renown)",
-          "needle": "Krong the Club"
         }
       ]
     },
     {
-      "id": "wahapedia-sob-battletome-faction-package",
+      "id": "bsdata-main-sob-faction",
       "issueNumber": 1999,
-      "reason": "The September 2026 battletome faction package (battle formations, heroic traits, artefacts, Realm-shaking Rampages, both lores) and the rewritten King Brodd's Stomp Army of Renown (Big/Little roster, Destructive Impulse) are recorded from the official September 2026 publications but not shipped, because no accepted text source carries the battletome structure. Any of these appearing on the Wahapedia faction page satisfies the intake condition.",
-      "url": "https://wahapedia.ru/aos4/factions/sons-of-behemat/",
+      "reason": "The Sons of Behemat battletome faction package (battle formations, heroic traits, artefacts, Realm-shaking Rampages, battle traits) currently ships from the unmerged `gargants` branch, commit 2b7df92f. This raw-content sentinel confirms the exact moment `main` carries the same battletome structure.",
+      "url": "https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/Sons%20of%20Behemat.cat",
       "sentinels": [
         {
           "label": "Conquering Stomp (battle formation)",
           "needle": "Conquering Stomp"
         },
         {
-          "label": "Eager Louts (battle formation)",
-          "needle": "Eager Louts"
-        },
+          "label": "Realm-shaking Rampages (roster-option group)",
+          "needle": "Realm-shaking Rampages"
+        }
+      ]
+    },
+    {
+      "id": "bsdata-main-regiments-of-renown-krong",
+      "issueNumber": 1999,
+      "reason": "Krong the Club (Regiments of Renown - Sons of Behemat, page 5) is present in the `Regiments of Renown.cat` catalogue on the `gargants` branch but not on `main`; the BSData merge has no Regiment-of-Renown intake path today, so this stays a coverage sentinel rather than a shippable source.",
+      "url": "https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/Regiments%20of%20Renown.cat",
+      "sentinels": [
         {
-          "label": "Lore of Behemat (spell lore)",
-          "needle": "Lore of Behemat"
-        },
+          "label": "Krong the Club (Regiment of Renown)",
+          "needle": "Krong the Club"
+        }
+      ]
+    },
+    {
+      "id": "bsdata-main-sob-king-brodds-stomp",
+      "issueNumber": 1999,
+      "reason": "King Brodd's Stomp's rewritten battle traits currently ship from the unmerged `gargants` branch, commit 2b7df92f; the heroic trait, artefact, and roster restriction remain deferred. This raw-content sentinel confirms the exact moment `main` carries the same rewrite (the `Destructive Impulse` keyword distinguishes the September 2026 wording from the July 2026 `Rampage` wording still on `main`).",
+      "url": "https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/Sons%20of%20Behemat%20-%20King%20Brodd%27s%20Stomp.cat",
+      "sentinels": [
         {
-          "label": "Prayers of the World Titan (prayer lore)",
-          "needle": "Prayers of the World Titan"
-        },
-        {
-          "label": "Destructive Impulse (King Brodd's Stomp rewrite keyword)",
+          "label": "Destructive Impulse (September 2026 rewrite keyword)",
           "needle": "Destructive Impulse"
         }
       ]

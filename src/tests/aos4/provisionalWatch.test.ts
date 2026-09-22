@@ -44,11 +44,13 @@ describe('the provisional-verification watch', () => {
         readFileSync(path.join(process.cwd(), 'data', 'aos4', 'radar', 'provisional-watch.json'), 'utf8')
       )
     )
-    // The 2026-09-10 intake registered two watches for the September 2026 Battletome:
-    // Sons of Behemat content that no accepted text source carries yet (issue #1999): one on
-    // the Wahapedia warscroll collection for the new units and Regiment of Renown, one on the
-    // faction root for the battletome faction package and the King Brodd's Stomp rewrite.
-    expect(checkedIn.watches.length).toBe(2)
+    // The 2026-09-22 intake (issue #1999) corrected the two Wahapedia watches (Krong the Club
+    // moved to an inclusion-faction page; the faction-package watch now covers Lore of Behemat,
+    // Stone Lobbas, and the King Brodd's Stomp rewrite, since the battle formations, heroic
+    // traits, artefacts, and Prayers of the World Titan shipped from the pinned BSData catalogue)
+    // and added four raw-content watches on the moving `gargants`-branch BSData files, so the
+    // provisional watch reports the exact moment `main` catches up.
+    expect(checkedIn.watches.length).toBe(6)
     checkedIn.watches.forEach(watch => {
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)
     })
