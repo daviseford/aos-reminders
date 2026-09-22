@@ -8,9 +8,9 @@ import { resolveSelection } from '../../aos4/select'
  * supplement as corpus 2026-09-10 (see `sonsOfBehematSeptember2026.test.ts`). As of corpus
  * 2026-09-22 (issue #1999) the four brand-new units, six coherent legacy rewrites, the current
  * faction package (battle formations, heroic traits, artefacts of power, and Prayers of the World
- * Titan), and King Brodd's Stomp's own battle traits ship provisionally from the pinned BSData
- * `gargants` branch, commit `2b7df92f`, because Wahapedia has not republished the battletome pages
- * (unchanged since 2026-08-25).
+ * Titan), and the regular faction's own army-wide battle traits ship provisionally from the pinned
+ * BSData `gargants` branch, commit `2b7df92f`, because Wahapedia has not republished the battletome
+ * pages (unchanged since 2026-08-25).
  *
  * Deferred this revision, each for a distinct reason:
  * - Lore of Behemat: no Wahapedia Spell Lore type record for Sons of Behemat exists to attach to.
