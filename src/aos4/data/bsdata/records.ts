@@ -69,13 +69,20 @@ export interface BsDataWarscrollFact {
 
 /**
  * Roster-option kinds the community fallback tier may supply. `battle-formation`, `heroic-trait`,
- * `artefact-of-power`, `spell-lore`, and `prayer-lore` each map to the official Battle Profiles
- * `optionType` label that establishes the option's existence. `battle-trait` carries the army-wide
- * battle traits a battletome replaces wholesale; no battle-profile row names them, so its official
- * anchor is the source-level evidence on the review entry.
+ * `artefact-of-power`, `spell-lore`, `prayer-lore`, and `realm-shaking-rampage` each map to the
+ * official Battle Profiles `optionType` label that establishes the option's existence.
+ * `battle-trait` carries the army-wide battle traits a battletome replaces wholesale; no
+ * battle-profile row names them, so its official anchor is the source-level evidence on the
+ * review entry.
  */
 export type BsDataFactionOptionType =
-  'battle-formation' | 'heroic-trait' | 'artefact-of-power' | 'spell-lore' | 'prayer-lore' | 'battle-trait'
+  | 'battle-formation'
+  | 'heroic-trait'
+  | 'artefact-of-power'
+  | 'spell-lore'
+  | 'prayer-lore'
+  | 'realm-shaking-rampage'
+  | 'battle-trait'
 
 export interface BsDataFactionOptionFact {
   kind: 'faction-option'

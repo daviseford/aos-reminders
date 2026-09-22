@@ -352,18 +352,32 @@ export const extractBsDataFactionOptions = (
       })
       return
     }
-    if (matches.length > 1) {
-      diagnostics.push({
-        code: 'duplicate-option',
-        severity: 'error',
-        message: `Option ${JSON.stringify(option.name)} appears ${matches.length} times in group ${JSON.stringify(option.groupName)}`,
-        unit: option.name,
-      })
-      return
-    }
     const section = `option:${slug(option.name)}`
     const recordId = (suffix: string) =>
       sourceRecordId('bsdata', `${artifactChecksum}:${section}${suffix ? `:${suffix}` : ''}`)
+    if (matches.length > 1) {
+      // A catalogue may link the same option into several selection-entry groups (e.g. a
+      // Realm-shaking Rampage offered once per eligible hero): identical repeats of the exact same
+      // rules text collapse to a single fact. Differing copies stay a fail-closed diagnostic —
+      // never guess which one is current.
+      const signatures = new Set(
+        matches
+          .map(match => extractAbilityProfiles(match, option.name, recordId, []))
+          .map(abilities => abilities.map(ability => ability.recordChecksum).join('|'))
+      )
+      if (signatures.size > 1) {
+        diagnostics.push({
+          code: 'duplicate-option',
+          severity: 'error',
+          message:
+            `Option ${JSON.stringify(option.name)} appears ${matches.length} times in group ` +
+            `${JSON.stringify(option.groupName)} with differing rules text`,
+          unit: option.name,
+        })
+        return
+      }
+      matches = [matches[0]]
+    }
     const abilities = extractAbilityProfiles(matches[0], option.name, recordId, diagnostics)
     if (!abilities.length) {
       diagnostics.push({

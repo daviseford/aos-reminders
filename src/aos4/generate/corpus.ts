@@ -171,7 +171,13 @@ export interface CorpusCommunityFactionOption {
   /** The option name exactly as the BSData catalogue spells it; the official spelling wins. */
   name: string
   optionType:
-    'battle-formation' | 'heroic-trait' | 'artefact-of-power' | 'spell-lore' | 'prayer-lore' | 'battle-trait'
+    | 'battle-formation'
+    | 'heroic-trait'
+    | 'artefact-of-power'
+    | 'spell-lore'
+    | 'prayer-lore'
+    | 'realm-shaking-rampage'
+    | 'battle-trait'
   /** The BSData selection-entry group (or, for lores and battle traits, the container) name. */
   groupName: string
   /** The catalogue section the extractor derives, e.g. `option:hunger-filled-tribe`. */
@@ -587,6 +593,7 @@ const groupType = (value: string): string => {
     'manifestation-lore': 'manifestation-lore',
     'prayer-lore': 'prayer-lore',
     'spell-lore': 'spell-lore',
+    'realm-shaking-rampages': 'realm-shaking-rampage',
   }
   return aliases[normalized] ?? (normalized || 'other')
 }
@@ -608,6 +615,7 @@ const ARMY_OF_RENOWN_REPLACED_GROUP_TYPES = new Set([
   'prayer-lore',
   'monstrous-traits',
   'big-names',
+  'realm-shaking-rampage',
 ])
 
 const abilitiesByType = (
@@ -1303,6 +1311,7 @@ const reviewDiagnostics = (
             'artefact-of-power',
             'spell-lore',
             'prayer-lore',
+            'realm-shaking-rampage',
             'battle-trait',
           ].includes(option.optionType) &&
           (option.optionType !== 'battle-trait' || Boolean(option.faction?.trim()))
