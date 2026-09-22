@@ -556,6 +556,18 @@ other page is byte-identical to the 2026-08-28 pins; the three BSData catalogues
 manifest with their retired community source entries, and all three watches retired from the
 provisional-watch configuration.
 
+The 2026-09-22 review (`a01c6610` → `d989a15e`, same issue, 4 commits, 133 catalogues) is another
+baseline-only case: a whole-repo editor reformat (CRLF→LF, attribute and section reorder,
+mixed-content tail reorder) left 129 of 133 paths unchanged after canonical XML normalization. The
+remaining four carry three Wahapedia-sourced corrections the runtime already ships (Cities of
+Sigmar's allied Auric Hearthguard Magmapike and Vulkyn Flameseekers renames, the Disciples of
+Tzeentch Lord of Change summon range, and the Fyreslayers Auric Runesmiter Emergence plural) and
+one Regiments of Renown roster condition re-pointing The Pustules force entry. The `gargants`
+branch pin (`2b7df92f`, #1999) already sits on the reformat commit (merge base `f26d7215`) and
+carries the same Pustules fix, so it incorporates this range for all three accepted files
+(`Lores.cat`, `Sons of Behemat - Library.cat`, `Sons of Behemat.cat`); no accepted byte moved and
+nothing is adoptable from the signal, so the baseline advanced without an intake.
+
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
 or updates the beta certification pointer.
