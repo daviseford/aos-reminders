@@ -151,10 +151,18 @@ export const discoverWahapediaNavigation = (
   }
 }
 
-export const discoverWahapediaWarscrollCollection = (
-  html: string,
-  factionPageUrl: string
-): string | undefined => {
+/**
+ * The `.datasheetsCollated` link block Wahapedia used to print on every faction root page is gone
+ * from the live site (observed 2026-09-22: the faction page's own nav column now anchors
+ * `#Warscrolls` to an inline section instead of linking the standalone collection page). The
+ * collection itself is still published at the conventional path — `src/aos4/data/wahapediaHtml/
+ * parse.ts`'s `factionRootWarscrollScope` already treats `<faction root>warscrolls.html` as the
+ * authoritative relationship for generation, so observation falls back to the same derivation
+ * instead of a second, divergent selector. The one accepted exception (`Endless Spells` publishes
+ * no collection) is handled by the caller's acquisition attempt, not here: this always returns a
+ * candidate URL, and a 404 on it means "this faction has none", not "observation failed".
+ */
+export const discoverWahapediaWarscrollCollection = (html: string, factionPageUrl: string): string => {
   const document = new JSDOM(html, { url: factionPageUrl }).window.document
   const urls = (Array.from(document.querySelectorAll('.datasheetsCollated a[href]')) as HTMLAnchorElement[])
     .flatMap(anchor => {
@@ -167,7 +175,9 @@ export const discoverWahapediaWarscrollCollection = (
   if (urls.length > 1) {
     throw new Error(`Wahapedia faction page exposes multiple warscroll collections: ${factionPageUrl}`)
   }
-  return urls[0]
+  if (urls[0]) return urls[0]
+  const rootUrl = new URL(factionPageUrl)
+  return normalizedUrl(`${rootUrl.pathname}warscrolls.html`, factionPageUrl)
 }
 
 export const discoverWahapediaExportUrls = (bytes: Uint8Array): string[] => {
