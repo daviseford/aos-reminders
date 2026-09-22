@@ -12,38 +12,55 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-12`, a re-pin observed by the Rules Radar (#1757):
-Games Workshop re-published the September 2026 Sons of Behemat battle-profile supplement with
-corrected 90mm base sizes for Boss-stompers and Rock-hurlers (previously 80mm). The 2026-09-12
-revision swaps the artifact and its page records with publication identity continuity; every other
-input is unchanged and no other fact, count, or disposition moved.
+The current revision is `aos4-corpus-2026-09-22` (issue #1999): the Sons of Behemat September 2026
+battletome intake ships provisionally from a commit-pinned BSData catalogue (`gargants` branch,
+commit `2b7df92f`) while Wahapedia has not republished the battletome pages (unchanged since
+2026-08-25). Accepted: the four brand-new units, six coherent legacy datasheet rewrites, the
+current faction package (4 battle formations, 6 heroic traits, 6 artefacts of power, Prayers of
+the World Titan), and the regular faction's army-wide battle traits. Deferred: Realm-shaking
+Rampage and Lore of Behemat (neither has a canonical Wahapedia type record to attach to), King
+Brodd's Stomp's own battle traits (an Army of Renown's battle-trait block decodes as a subtype of
+its root, not a standalone faction-page type record), Krong the Club, and the Stone Lobbas
+Spearhead (no secondary carries either). This cycle also fixed a stale `.datasheetsCollated`
+selector in the independent Wahapedia source observer that had silently stopped finding all 27
+accepted warscroll collection pages once Wahapedia dropped that link block site-wide; it now
+derives the conventional `<faction root>warscrolls.html` path, matching the `/aos4/nav.html`
+fragment fix in #2005.
 Its automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
-| Accepted artifacts independently inventoried | 244/244 |
+| Accepted artifacts independently inventoried | 247/247 |
 | Explicit non-material discovery entries | 9 |
 | Official battle-profile facts | 1,396/1,396 |
-| Final official/secondary reconciliation discrepancies | 377/377 |
-| Official profile-only facts | 5/5 |
-| Live audit source records | 20,101/20,101 |
-| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
-| Live review pairs | 42,344/42,344 |
-| Independent outcomes | 84,688 pass; 0 finding; 0 cannot-verify |
+| Final official/secondary reconciliation discrepancies | 380/380 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,171/20,171 |
+| Ignored-record dispositions (superseded + explicit) | 20,556/20,556 |
+| Live review pairs | 42,505/42,505 |
+| Independent outcomes | 85,010 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed on 2026-09-12 from a fresh `discover-official`
-snapshot: 244 entries matched accepted checksums (no BSData catalogues remain pinned, so no
-`data:aos4:inventory:observe-bsdata` observation was required) and 9 discovery entries received
-explicit non-material dispositions carried forward from the 2026-08-01b review.
+The independent source inventory was observed on 2026-09-22 from a fresh `discover-official`
+snapshot plus a `data:aos4:inventory:observe-bsdata` observation of the pinned `gargants` branch
+commit: 247 entries matched accepted checksums and 9 discovery entries received explicit
+non-material dispositions carried forward from the 2026-08-01b review.
 
-The current certification is `aos4-corpus-2026-09-12-machine-r1` (2026-09-12). The
-`--reuse-certification` offer of the 2026-09-10 directory carried nothing forward (the revision
-re-key invalidates every pair), so all 42,344 pairs were evaluated fresh — 84,688 checks, 0
+The current certification is `aos4-corpus-2026-09-22-machine-r1` (2026-09-22). The
+`--reuse-certification` offer of the 2026-09-12 directory carried nothing forward (the revision
+re-key invalidates every pair), so all 42,505 pairs were evaluated fresh — 85,010 checks, 0
 findings, 0 cannot-verify.
 
-The previous revision was `aos4-corpus-2026-09-10` (2026-09-10): the September 2026 Battletome:
+The previous revision was `aos4-corpus-2026-09-12` (2026-09-12), a re-pin observed by the Rules
+Radar (#1757): Games Workshop re-published the September 2026 Sons of Behemat battle-profile
+supplement with corrected 90mm base sizes for Boss-stompers and Rock-hurlers (previously 80mm).
+The 2026-09-12 revision swapped the artifact and its page records with publication identity
+continuity; every other input was unchanged and no other fact, count, or disposition moved. Its
+campaign evaluated all 42,344 pairs fresh against the 2026-09-10 reuse offer (which carried
+nothing forward) — 84,688 checks, 0 findings, 0 cannot-verify.
+
+The revision before that was `aos4-corpus-2026-09-10` (2026-09-10): the September 2026 Battletome:
 Sons of Behemat cycle observed by the Rules Radar (#1757) and generated from the unchanged
 2026-08-25 14:30 Wahapedia export publish plus four official publications dated 2026-09-09
 (manifest `accepted-2026-09-10`): the Sons of Behemat battle-profile supplement (accepted as

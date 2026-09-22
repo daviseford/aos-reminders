@@ -172,15 +172,15 @@ occurrence, Legends, Spearhead, General's Handbook 2026-27 (`Scourge of Aqshy`).
 
 ## Evidence on Hand
 
-- **The accepted corpus** `aos4-corpus-2026-09-12`: 28 decoded source factions (27 playable armies
-  plus the Endless Spells container), 1,296 warscrolls, 1,012 battle profiles, 5,092 abilities,
-  2,264 weapons, 1,499 content groups, and 20,101 live source records. Checked in under
+- **The accepted corpus** `aos4-corpus-2026-09-22`: 28 decoded source factions (27 playable armies
+  plus the Endless Spells container), 1,300 warscrolls, 1,016 battle profiles, 5,121 abilities,
+  2,269 weapons, 1,506 content groups, and 20,171 live source records. Checked in under
   `src/aos4/generated/corpus/`.
-- **A beta certification** binding that corpus to a complete machine review — 84,688 results across
-  42,344 source/generated pairs, zero live findings, zero `cannot-verify` outcomes. Verifiable
+- **A beta certification** binding that corpus to a complete machine review — 85,010 results across
+  42,505 source/generated pairs, zero live findings, zero `cannot-verify` outcomes. Verifiable
   offline via `yarn data:aos4:verify:beta`.
 - **An official battle-profile ledger** dispositioning all 1,396 extracted Games Workshop facts,
-  with 5 profile-only gaps left deliberately visible rather than filled by invention.
+  with 1 profile-only gap left deliberately visible rather than filled by invention.
 - **A byte-pinned New Recruit import fixture corpus**
   (`src/tests/fixtures/aos4/import/new-recruit/`), captured from opted-in accounts and
   self-checking across all three formats.

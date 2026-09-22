@@ -1,6 +1,6 @@
 {
   "authority": "games-workshop",
-  "generatedAt": "2026-09-12T15:10:00.000Z",
+  "generatedAt": "2026-09-22T01:20:00.000Z",
   "records": [
     {
       "artifactChecksum": "052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750",
@@ -2385,7 +2385,7 @@
     },
     {
       "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Sons of Behemat",
       "fact": {
         "baseSizes": [
@@ -2445,7 +2445,7 @@
     },
     {
       "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Sons of Behemat",
       "fact": {
         "baseSizes": [
@@ -2626,7 +2626,7 @@
     },
     {
       "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Sons of Behemat",
       "fact": {
         "baseSizes": [
@@ -2718,7 +2718,7 @@
     },
     {
       "artifactChecksum": "13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Sons of Behemat",
       "fact": {
         "baseSizes": [
@@ -39041,9 +39041,9 @@
   ],
   "schemaVersion": 1,
   "summary": {
-    "appliedToRuntime": 1012,
+    "appliedToRuntime": 1016,
     "effective": 1335,
-    "profileOnly": 5,
+    "profileOnly": 1,
     "records": 1396,
     "regimentsOfRenown": 81,
     "rosterOptions": 335,

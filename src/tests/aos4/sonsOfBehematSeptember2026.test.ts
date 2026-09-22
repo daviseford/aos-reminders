@@ -7,15 +7,19 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * The September 2026 Battletome: Sons of Behemat cycle (Games Workshop publications dated
  * 2026-09-09, Rules Radar alarm in #1757) accepted the faction's battle-profile supplement as
  * corpus 2026-09-10. Its points corrections apply to the nine carried-over units and supersede
- * the July 2026 main-document rows; the four brand-new units (Ma Maegran, Ancient Ghyrochs,
- * Boss-stompers, Rock-hurlers) are profile-only official facts with reviewed deviations because
- * no accepted source publishes their warscroll rules yet (issue #1999).
+ * the July 2026 main-document rows.
+ *
+ * As of corpus 2026-09-22 (issue #1999) the four brand-new units (Ma Maegran, Ancient Ghyrochs,
+ * Boss-stompers, Rock-hurlers) and coherent legacy rewrites ship from the pinned BSData
+ * `gargants`-branch catalogue (`sonsOfBehematBattletome.test.ts` covers that swap in detail); this
+ * file keeps the surviving points/regiment-option assertions for the nine carried-over units.
  *
  * The September 2026 Armies of Renown pack rewrote King Brodd's Stomp for the battletome
- * (Big/Little roster options, the Destructive Impulse keyword); that rewrite is recorded in the
- * corpus review but deliberately not applied, because it references keyword architecture no
- * accepted text source carries. Krong the Club and the Stone Lobbas Spearhead likewise wait for a
- * rules-text source.
+ * (Big/Little roster options, the Destructive Impulse keyword, seven rewritten battle traits);
+ * only the battle traits have a defensible adapter attachment path, and even that path is not yet
+ * supported (an Army of Renown's own battle-trait block has no faction-page type record to attach
+ * to), so the whole rewrite is recorded in the corpus review but deliberately not applied. Krong
+ * the Club and the Stone Lobbas Spearhead likewise wait for a rules-text source.
  */
 
 const SEPTEMBER_POINTS: Array<{ name: string; points: number }> = [
@@ -28,13 +32,6 @@ const SEPTEMBER_POINTS: Array<{ name: string; points: number }> = [
   { name: 'Mancrusher Gargant', points: 140 },
   { name: 'Scourge of Aqshy Gatebreaker Mega-Gargant', points: 400 },
   { name: 'Scourge of Aqshy Mancrusher Gargant', points: 150 },
-]
-
-const PROFILE_ONLY_UNITS = [
-  'Ma Maegran, Chooser of the Mighty',
-  'Ancient Ghyrochs',
-  'Boss-stompers',
-  'Rock-hurlers',
 ]
 
 const factionByName = (name: string): Faction =>
@@ -68,11 +65,7 @@ describe('the September 2026 Sons of Behemat battle-profile supplement (#1757)',
     expect(profileFor(kragnos)?.regimentOptions).toEqual(['Any Sons of Behemat'])
   })
 
-  it('keeps the four brand-new battletome units out of runtime while no source carries their rules', () => {
-    PROFILE_ONLY_UNITS.forEach(name => {
-      expect(warscrollFor(sob, name)).toBeUndefined()
-    })
-    // Krong the Club and the Stone Lobbas Spearhead are in the same gated state.
+  it('keeps Krong the Club and the Stone Lobbas Spearhead out of runtime while no source carries their rules', () => {
     expect(
       AOS4_FULL_CATALOG.entities.some(
         entity => entity.kind === 'content-group' && entity.name === 'Krong the Club'
@@ -85,7 +78,7 @@ describe('the September 2026 Sons of Behemat battle-profile supplement (#1757)',
     ).toBe(false)
   })
 
-  it('records reviewed deviations for exactly the four new units plus The Emberwatch', () => {
+  it('records a reviewed deviation for only The Emberwatch, now that the battletome units ship', () => {
     const ledger = JSON.parse(
       readFileSync(
         path.join(process.cwd(), 'data', 'aos4', 'reviews', 'profile-only-deviations.json'),
@@ -93,10 +86,6 @@ describe('the September 2026 Sons of Behemat battle-profile supplement (#1757)',
       )
     ) as { deviations: Array<{ faction: string; name: string }> }
     expect(ledger.deviations.map(deviation => `${deviation.faction}: ${deviation.name}`).sort()).toEqual([
-      'Sons of Behemat: Ancient Ghyrochs',
-      'Sons of Behemat: Boss-stompers',
-      'Sons of Behemat: Ma Maegran, Chooser of the Mighty',
-      'Sons of Behemat: Rock-hurlers',
       'Warhammer Legends: The Emberwatch',
     ])
   })

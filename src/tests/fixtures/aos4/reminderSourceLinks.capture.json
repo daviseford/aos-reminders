@@ -684,6 +684,12 @@
     "faction": "Sons of Behemat",
     "reminders": [
       {
+        "id": "reminder:ability:45c72c84-d3fc-5ea9-92c6-ebdeb6e8e134@deployment|active|neutral|normal|1:battle:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
         "id": "reminder:ability:d86dcbde-9e3e-5b6c-90ae-797a490ff3e2@deployment|active|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
@@ -699,6 +705,12 @@
         "id": "reminder:ability:925adcfc-4d01-571c-a761-0c2c2fb91887@deployment|active|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:18712486-811f-5b92-8e85-5a5984fef660@deployment|active|neutral|normal|1:battle:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -732,9 +744,15 @@
         ]
       },
       {
-        "id": "reminder:ability:79d932c1-600f-5ada-ba75-4623e4886729@turn-phase:hero|active|your|normal|1:turn:army",
+        "id": "reminder:ability:af2ab356-c72d-54cb-a107-c7d3c257deda@turn-phase:hero|active|your|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
+        "id": "reminder:ability:074e1b7d-e327-522f-8bf9-648b98a38acb@turn-phase:hero|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -750,15 +768,21 @@
         ]
       },
       {
-        "id": "reminder:ability:4958eefe-b74b-5773-9f27-f5b3f92c7969@turn-phase:hero|active|your|normal|unlimited",
+        "id": "reminder:ability:b3e9b70c-0b4d-51a7-8aa4-72577d384553@turn-phase:hero|active|your|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
         "id": "reminder:ability:a89234c6-b4b0-5a92-af47-e046f6e57bb8@turn-phase:hero|active|your|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:0a912d23-4c7e-5f4b-93d4-1908239e9cd9@turn-phase:hero|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -789,6 +813,12 @@
         "id": "reminder:ability:a53ced43-b0f6-52c9-83df-c3f0e1537008@turn-phase:movement|active|your|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge\tartifact:sha256:e149fb8fc7e3983d0516cd72c71aaad1626df6c28b27b50c701ff5d525f7e2ff#https://wahapedia.ru/aos4/factions/endless-spells/#Soulscream-Bridge"
+        ]
+      },
+      {
+        "id": "reminder:ability:6729850d-e282-5aca-9d5b-3fcd9e5fab55@turn-phase:movement|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -834,9 +864,21 @@
         ]
       },
       {
+        "id": "reminder:ability:a360c53c-df0a-50fb-85f9-10fabc7219c5@turn-phase:movement|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat faction catalogue, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat\tartifact:sha256:01fa7037587341e7e9253667968012fc29deebcf95d49cca6c9927d3c31ea6a6#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat"
+        ]
+      },
+      {
         "id": "reminder:ability:e35c45a7-ae61-53d7-97f0-bfb01c6ca11e@turn-phase:movement|active|your|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Lauchon-the-Soulseeker\tartifact:sha256:e149fb8fc7e3983d0516cd72c71aaad1626df6c28b27b50c701ff5d525f7e2ff#https://wahapedia.ru/aos4/factions/endless-spells/#Lauchon-the-Soulseeker"
+        ]
+      },
+      {
+        "id": "reminder:ability:8758be63-d713-5e87-942d-7ecacf992c1e@turn-phase:movement|active|any|normal|1:battle:unit",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -864,15 +906,33 @@
         ]
       },
       {
+        "id": "reminder:ability:4881aaf7-def5-5e66-9134-4a04ed3d4872@turn-phase:shooting|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
         "id": "reminder:ability:935ba56c-564e-58ad-b52c-d16497494685@turn-phase:shooting|active|any|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Horrorghast\tartifact:sha256:e149fb8fc7e3983d0516cd72c71aaad1626df6c28b27b50c701ff5d525f7e2ff#https://wahapedia.ru/aos4/factions/endless-spells/#Horrorghast"
         ]
       },
       {
+        "id": "reminder:ability:aa119944-3adf-5171-b713-8a91a99ddef0@turn-phase:shooting|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
         "id": "reminder:ability:52837635-29a5-50b9-9564-669c52f90bd6@turn-phase:shooting|active|enemy|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:13d8bb83-4f64-5004-974e-1b2a5b5d5844@turn-phase:charge|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat faction catalogue, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat\tartifact:sha256:01fa7037587341e7e9253667968012fc29deebcf95d49cca6c9927d3c31ea6a6#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat"
         ]
       },
       {
@@ -888,9 +948,9 @@
         ]
       },
       {
-        "id": "reminder:ability:41383ca0-7320-543d-a8a9-4498c2297015@turn-phase:charge|active|any|normal|unlimited",
+        "id": "reminder:ability:c1074f39-c6b0-563d-b126-4b3628586441@turn-phase:charge|active|any|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -906,27 +966,27 @@
         ]
       },
       {
+        "id": "reminder:ability:0f291972-3d36-54cf-834b-c135120c2d65@turn-phase:charge|active|any|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
         "id": "reminder:ability:8ce98082-5e64-5aad-89b9-72231d67ffc0@turn-phase:charge|active|enemy|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
         ]
       },
       {
-        "id": "reminder:ability:bef87fcc-743c-5e58-9eb1-4bce9f1050bd@turn-phase:combat|active|any|normal|unlimited",
+        "id": "reminder:ability:4b855dcd-b0ae-54a8-a10e-ae264d714c84@turn-phase:combat|active|your|normal|1:turn:army",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
-        "id": "reminder:ability:d6ea6bfe-2718-5dbb-a2c5-b67afce5bc0f@turn-phase:combat|active|any|normal|1:turn:army",
+        "id": "reminder:ability:1a67770d-1777-5ac6-b2f7-de2d12d129d6@turn-phase:combat|active|any|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
-        ]
-      },
-      {
-        "id": "reminder:ability:bf3b29a5-2991-59b4-a8da-448ca2b7c4b6@turn-phase:combat|active|any|normal|1:turn:army",
-        "links": [
-          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -936,40 +996,45 @@
         ]
       },
       {
-        "id": "reminder:ability:bd98f8dd-b784-5805-9c7f-4fb140f3aa91@turn-phase:combat|active|any|normal|unlimited",
+        "id": "reminder:ability:1502dc68-78eb-5b39-a396-4cf2197a42aa@turn-phase:combat|active|any|normal|1:turn:army",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
-        "id": "reminder:ability:44044eb5-f44b-5713-8247-a05ca340ab50@turn-phase:combat|active|any|normal|1:turn:army",
+        "id": "reminder:ability:9cd2d56b-8db0-559e-9640-47c778772f0c@turn-phase:combat|active|any|normal|1:battle:army",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
-        "id": "reminder:ability:06b04246-4152-504e-9c2c-342d75bd4272@turn-phase:combat|active|any|normal|unlimited",
+        "id": "reminder:ability:d138e53e-83ee-59ed-884e-2df354f3544b@turn-phase:combat|active|any|normal|1:turn:unit",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant"
-        ]
-      },
-      {
-        "id": "reminder:ability:78c191e0-0698-5843-8aeb-a5c37ab10bae@turn-phase:combat|active|any|normal|1:turn:army",
-        "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant"
-        ]
-      },
-      {
-        "id": "reminder:ability:bfbe8cad-ad63-5ac7-9be4-d490126bbe16@turn-phase:combat|active|any|normal|1:turn:unit",
-        "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Gargant-1\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Gargant-1",
           "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob"
         ]
       },
       {
-        "id": "reminder:ability:cc9c6db7-5176-5135-9175-956becbfc2e6@turn-phase:combat|active|any|normal|1:turn:unit",
+        "id": "reminder:ability:ae71f48a-1b79-5bce-9da3-406d4a24dfab@turn-phase:combat|active|any|normal|1:turn:army",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant"
+          "secondary\tBSData Sons of Behemat faction catalogue, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat\tartifact:sha256:01fa7037587341e7e9253667968012fc29deebcf95d49cca6c9927d3c31ea6a6#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat"
+        ]
+      },
+      {
+        "id": "reminder:ability:dbc6397b-810e-5448-b385-e90f4fa6304d@turn-phase:combat|reaction|enemy|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
+        "id": "reminder:ability:f8fa02ea-d702-5cef-9261-186ab818f3a8@turn-phase:end-of-turn|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat faction catalogue, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat\tartifact:sha256:01fa7037587341e7e9253667968012fc29deebcf95d49cca6c9927d3c31ea6a6#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat"
+        ]
+      },
+      {
+        "id": "reminder:ability:e1a3415a-cd18-55b7-ba39-326649f1ba72@turn-phase:end-of-turn|active|your|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat faction catalogue, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat\tartifact:sha256:01fa7037587341e7e9253667968012fc29deebcf95d49cca6c9927d3c31ea6a6#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat"
         ]
       },
       {
@@ -1003,6 +1068,12 @@
         ]
       },
       {
+        "id": "reminder:ability:bd547797-758d-5961-b833-005e6deb74c1@turn-phase:end-of-turn|active|any|normal|unlimited",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
         "id": "reminder:ability:57694975-d3e4-51fc-ab6c-a6d0ed861dec@reaction|reaction|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
@@ -1024,6 +1095,12 @@
         "id": "reminder:ability:fcad7057-b638-5692-bc9b-093b41d7a566@reaction|reaction|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+        ]
+      },
+      {
+        "id": "reminder:ability:1879a013-fc85-55df-8c51-57f4d4623b8e@reaction|reaction|neutral|normal|1:turn:army",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -1057,15 +1134,39 @@
         ]
       },
       {
-        "id": "reminder:ability:0120e73a-cfd7-5832-bc37-03c497f8104d@always|passive|neutral|normal|unlimited",
+        "id": "reminder:ability:326619a7-36a9-57a7-9200-2acb7e767ef7@always|passive|neutral|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
-        "id": "reminder:ability:4e160dfc-706e-5d7e-96a9-5f3c0f3feb20@always|passive|neutral|normal|unlimited",
+        "id": "reminder:ability:49a050c1-440f-5c84-9fe8-3de4b054f45b@always|passive|neutral|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
+        "id": "reminder:ability:5f0a3012-7c05-58b3-9b1f-0a58974e788a@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
+        "id": "reminder:ability:88941514-76f8-5279-851b-6a19e3d769e4@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
+        "id": "reminder:ability:a6cb8ed8-540a-5c87-97be-e8180defc467@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
+        "id": "reminder:ability:cc500ac9-1285-5a98-ab9f-2fba3580839a@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -1075,28 +1176,15 @@
         ]
       },
       {
-        "id": "reminder:ability:7f1a899a-2b44-5f91-9a8c-ed0abac0c518@always|passive|neutral|normal|unlimited",
+        "id": "reminder:ability:a063b070-0b9f-5ba9-9481-979346299b3f@always|passive|neutral|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant",
           "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
         ]
       },
       {
-        "id": "reminder:ability:befe82b4-49d4-5232-a492-41da791b08d9@always|passive|neutral|normal|unlimited",
+        "id": "reminder:ability:e30e2448-09b0-58b3-b84d-687c34f7aabd@always|passive|neutral|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant"
-        ]
-      },
-      {
-        "id": "reminder:ability:ca710e02-cc92-5074-9353-01e8f6fbc2fb@always|passive|neutral|normal|unlimited",
-        "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd"
-        ]
-      },
-      {
-        "id": "reminder:ability:6ebf0bda-9719-555b-b53e-08fd9b6e7281@always|passive|neutral|normal|unlimited",
-        "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -1115,12 +1203,6 @@
         "id": "reminder:ability:863cd74f-9e22-5180-8996-b00bfa1bae5c@always|passive|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
-        ]
-      },
-      {
-        "id": "reminder:ability:2be4a39a-ffd7-5305-95d5-b0f80c850976@always|passive|neutral|normal|unlimited",
-        "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd"
         ]
       },
       {
@@ -1148,6 +1230,12 @@
         ]
       },
       {
+        "id": "reminder:ability:6fbf57ab-7d72-50a6-be64-9750927d6a13@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
         "id": "reminder:ability:1411a208-8a59-5bda-9fbe-1a53c854a7d2@always|passive|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 rules: the core rules\thttps://wahapedia.ru/aos4/the-rules/the-core-rules/\tartifact:sha256:89eeff53060ba9851fe48298291f40d48cc2e0b29f08893f5d8f3b4bf3efa841#https://wahapedia.ru/aos4/the-rules/the-core-rules/"
@@ -1156,19 +1244,19 @@
       {
         "id": "reminder:ability:bc98d612-db29-50b3-8add-8760a0338160@always|passive|neutral|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Gargant-1\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Gargant-1",
           "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Mancrusher-Mob"
         ]
       },
       {
         "id": "reminder:ability:45555c38-eae9-5353-b0cd-0650355ac804@always|passive|neutral|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant",
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant",
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd",
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant",
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant",
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
+        ]
+      },
+      {
+        "id": "reminder:ability:29d4171d-63b0-5e99-b35a-2623ac796a43@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
@@ -1204,30 +1292,27 @@
         ]
       },
       {
+        "id": "reminder:ability:79d08047-551e-56af-926b-3f78dd78cff4@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
+        ]
+      },
+      {
         "id": "reminder:ability:caab41b9-1631-54cb-a0fd-bb948fed032b@always|passive|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: endless spells\thttps://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish\tartifact:sha256:e149fb8fc7e3983d0516cd72c71aaad1626df6c28b27b50c701ff5d525f7e2ff#https://wahapedia.ru/aos4/factions/endless-spells/#Purple-Sun-of-Shyish"
         ]
       },
       {
-        "id": "reminder:ability:4166ffc4-634a-5f7f-a412-4334cee5e5ee@always|passive|neutral|normal|unlimited",
+        "id": "reminder:ability:6cd6fe8e-4fa6-5916-88ba-b5e93a896333@always|passive|neutral|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant",
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
         "id": "reminder:ability:6c6f5570-07f9-58dc-9218-e4885d1ac965@always|passive|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
-        ]
-      },
-      {
-        "id": "reminder:ability:897bd2f9-879e-53f4-922c-f68c0f3d9adf@always|passive|neutral|normal|unlimited",
-        "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant",
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/King-Brodd",
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Kraken-eater-Mega-Gargant"
         ]
       },
       {
@@ -1249,15 +1334,15 @@
         ]
       },
       {
-        "id": "reminder:ability:b31d7031-c272-5df8-9840-885aed75fd90@always|passive|neutral|normal|unlimited",
+        "id": "reminder:ability:0583811b-f05f-5270-aa40-d69c4a142f20@always|passive|neutral|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:3296a029a04110bda14350e02e8ac3a2be5d642443f138572866c971ef5d62b7#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {
-        "id": "reminder:ability:1e61ca54-4d9e-530b-9e81-0e447e084b1d@always|passive|neutral|normal|unlimited",
+        "id": "reminder:ability:d6cfb728-1669-5291-8644-9c19e039a526@always|passive|neutral|normal|unlimited",
         "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant\tartifact:sha256:dec3bad971dfd083ac186e91cd22a873bbb0af47670dc990ec5ca8674670c008#https://wahapedia.ru/aos4/factions/sons-of-behemat/Warstomper-Mega-Gargant"
+          "secondary\tBSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)\thttps://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat\tartifact:sha256:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03#https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat%20-%20Library.cat"
         ]
       },
       {

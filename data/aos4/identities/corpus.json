@@ -131138,6 +131138,1106 @@
       "canonicalId": "weapon:ffe1a1ee-4123-51db-bb6e-3158c434ab55",
       "kind": "weapon",
       "name": "Bigteef’s Fists and Tail"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:always-first-in",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:09c8acdd-21e5-55a0-b42d-f16f74f12b2e",
+      "kind": "ability",
+      "name": "Always First In"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a360c53c-df0a-50fb-85f9-10fabc7219c5",
+      "kind": "ability",
+      "name": "Take a Run at It"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:13d8bb83-4f64-5004-974e-1b2a5b5d5844",
+      "kind": "ability",
+      "name": "Argy Bargy"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:ae71f48a-1b79-5bce-9da3-406d4a24dfab",
+      "kind": "ability",
+      "name": "Wrathful Rampaging"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f8fa02ea-d702-5cef-9261-186ab818f3a8",
+      "kind": "ability",
+      "name": "Haring Back"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:5",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e1a3415a-cd18-55b7-ba39-326649f1ba72",
+      "kind": "ability",
+      "name": "The Big One"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:brute-of-brutes",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d3f7dc9d-f4ca-5d92-bb8b-3f7b8ea5e5e5",
+      "kind": "ability",
+      "name": "Brute of Brutes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:conquering-stomp:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:eba44a5a-8864-5fdd-8ceb-fd9ba13778b6",
+      "kind": "ability",
+      "name": "Arrogant Big 'Uns"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:eager-louts:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a3ae8f62-6c2f-5517-b756-3288607faa14",
+      "kind": "ability",
+      "name": "Ten-League Strides"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:enchanted-portcullis",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e2faaa18-942b-5014-956f-749b78063732",
+      "kind": "ability",
+      "name": "Enchanted Portcullis"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:glowy-lantern",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b771f8ab-1e7f-5780-9809-f60b3f6d1bb6",
+      "kind": "ability",
+      "name": "Glowy Lantern"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:heirs-of-the-old-ways:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e0dc9692-8a4f-5131-a82d-949cd92f5669",
+      "kind": "ability",
+      "name": "Brute Spirituality"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:krakenskin-sandals",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:5cce0679-2c8c-569e-b705-a0362a43a8eb",
+      "kind": "ability",
+      "name": "Krakenskin Sandals"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:looting-leviathans:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c200d254-f331-53e4-983c-e8ae16c35225",
+      "kind": "ability",
+      "name": "Get to the Goods"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:mantle-of-the-wood-kings",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:50f5c2ee-d510-5532-9efa-d0484ce5421c",
+      "kind": "ability",
+      "name": "Mantle of the Wood-Kings"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:massive-stuffin-sack",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:215bae07-0f56-5a22-9a81-18966005a743",
+      "kind": "ability",
+      "name": "Massive Stuffin’ Sack"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:one-hit-wonder",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:167e686d-a1c9-50ce-8097-7c1bf18c8393",
+      "kind": "ability",
+      "name": "One-hit Wonder"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:prayers-of-the-world-titan:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:dcb43ba4-f3f3-5f5f-b17f-03bf8eb6027d",
+      "kind": "ability",
+      "name": "World Titan's Stride"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:prayers-of-the-world-titan:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:85305d74-859c-58c5-94b8-5d357e456b78",
+      "kind": "ability",
+      "name": "Might of the Earth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:prayers-of-the-world-titan:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e3dd4901-b8b4-5fbf-ad02-249a7e1c305c",
+      "kind": "ability",
+      "name": "Behemat's Vengeance"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:protecty-bits",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b16971c9-cd11-5376-97c9-ad6570405578",
+      "kind": "ability",
+      "name": "Protecty Bits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:spell-chomper",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:bc8fc18a-a48e-50a1-9b4b-22d6188a43b8",
+      "kind": "ability",
+      "name": "Spell-chomper"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:thundering-titan",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:4a00dcee-e8ff-5d71-a27b-b231211f5965",
+      "kind": "ability",
+      "name": "Thundering Titan"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:unreasonable-tyrant",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1b297a18-cb44-5652-92a8-22619da4ba10",
+      "kind": "ability",
+      "name": "Unreasonable Tyrant"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e30e2448-09b0-58b3-b84d-687c34f7aabd",
+      "kind": "ability",
+      "name": "Beast"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:bd547797-758d-5961-b833-005e6deb74c1",
+      "kind": "ability",
+      "name": "Wellspring of Life Energy"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:326619a7-36a9-57a7-9200-2acb7e767ef7",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1879a013-fc85-55df-8c51-57f4d4623b8e",
+      "kind": "ability",
+      "name": "Leader of the Pack"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1502dc68-78eb-5b39-a396-4cf2197a42aa",
+      "kind": "ability",
+      "name": "Primal Aura"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:29d4171d-63b0-5e99-b35a-2623ac796a43",
+      "kind": "ability",
+      "name": "Menhir Club"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:dbc6397b-810e-5448-b385-e90f4fa6304d",
+      "kind": "ability",
+      "name": "Quit Hogging Da Fun!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:cc500ac9-1285-5a98-ab9f-2fba3580839a",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:6fbf57ab-7d72-50a6-be64-9750927d6a13",
+      "kind": "ability",
+      "name": "Fortcrusha Flail"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:aa119944-3adf-5171-b713-8a91a99ddef0",
+      "kind": "ability",
+      "name": "Rip It Up and Chuck It"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:9cd2d56b-8db0-559e-9640-47c778772f0c",
+      "kind": "ability",
+      "name": "Primal Reckoning"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:5f0a3012-7c05-58b3-9b1f-0a58974e788a",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:79d08047-551e-56af-926b-3f78dd78cff4",
+      "kind": "ability",
+      "name": "Obelisk of Tor Crania"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b3e9b70c-0b4d-51a7-8aa4-72577d384553",
+      "kind": "ability",
+      "name": "Power of Behemat"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c1074f39-c6b0-563d-b126-4b3628586441",
+      "kind": "ability",
+      "name": "Court of Creepers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:5",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:0f291972-3d36-54cf-834b-c135120c2d65",
+      "kind": "ability",
+      "name": "Set 'Em Up, Then Knock 'Em Down!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a6cb8ed8-540a-5c87-97be-e8180defc467",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:6cd6fe8e-4fa6-5916-88ba-b5e93a896333",
+      "kind": "ability",
+      "name": "Shipwrecka Warclub"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:18712486-811f-5b92-8e85-5a5984fef660",
+      "kind": "ability",
+      "name": "Get Orf Me Land!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:074e1b7d-e327-522f-8bf9-648b98a38acb",
+      "kind": "ability",
+      "name": "Greedy Show-Offs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:88941514-76f8-5279-851b-6a19e3d769e4",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:0a912d23-4c7e-5f4b-93d4-1908239e9cd9",
+      "kind": "ability",
+      "name": "Shepherdess"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:af2ab356-c72d-54cb-a107-c7d3c257deda",
+      "kind": "ability",
+      "name": "Creepy Cantrips"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:0583811b-f05f-5270-aa40-d69c4a142f20",
+      "kind": "ability",
+      "name": "The Wandering Witch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:5",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:8758be63-d713-5e87-942d-7ecacf992c1e",
+      "kind": "ability",
+      "name": "Chooser of the Mighty"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:45c72c84-d3fc-5ea9-92c6-ebdeb6e8e134",
+      "kind": "ability",
+      "name": "Bet You Can't..."
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1a67770d-1777-5ac6-b2f7-de2d12d129d6",
+      "kind": "ability",
+      "name": "Excitable Followers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:4881aaf7-def5-5e66-9134-4a04ed3d4872",
+      "kind": "ability",
+      "name": "Drop, Toss or Roll"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:49a050c1-440f-5c84-9fe8-3de4b054f45b",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:6729850d-e282-5aca-9d5b-3fcd9e5fab55",
+      "kind": "ability",
+      "name": "Don't Stomp Those; Stomp Them!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:4b855dcd-b0ae-54a8-a10e-ae264d714c84",
+      "kind": "ability",
+      "name": "Almightier Stompin'"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d6cfb728-1669-5291-8644-9c19e039a526",
+      "kind": "ability",
+      "name": "Titanic Boulderclub"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:79839879-1a8e-5575-b1a5-bd5bc5dd8fca",
+      "kind": "battle-profile",
+      "name": "Ancient Ghyrochs battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:59c7a615-ceff-509c-be86-2640a9938393",
+      "kind": "battle-profile",
+      "name": "Boss-stompers battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:b5d69a83-1623-5c46-94cf-5b7716bc83a8",
+      "kind": "battle-profile",
+      "name": "Ma Maegran, Chooser of the Mighty battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:98e3da12-de1b-5059-8ab5-c34655598f4f",
+      "kind": "battle-profile",
+      "name": "Rock-hurlers battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option-group:big-personalities",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:de2454cd-9a31-516d-9eab-9ae5038f018e",
+      "kind": "content-group",
+      "name": "Big Personalities"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option-group:titanic-trophies",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:6c49c801-5fd0-51da-b6df-50b4de5aef39",
+      "kind": "content-group",
+      "name": "Titanic Trophies"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:conquering-stomp",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:df3ac0cf-3432-5bf6-afaf-66b7daa2b5e4",
+      "kind": "content-group",
+      "name": "Conquering Stomp"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:eager-louts",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:c80f2384-4e88-5b82-8013-a17323f3013c",
+      "kind": "content-group",
+      "name": "Eager Louts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:heirs-of-the-old-ways",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:e6d18027-f56a-511a-8107-f3a7fb07bf8c",
+      "kind": "content-group",
+      "name": "Heirs of the Old Ways"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:looting-leviathans",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:17434215-4e53-5ce1-95ef-f937442f70f9",
+      "kind": "content-group",
+      "name": "Looting Leviathans"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:prayers-of-the-world-titan",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:53f67640-ccd5-549c-b3ac-e3b8f7ce97f9",
+      "kind": "content-group",
+      "name": "Prayers of the World Titan"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:01fa7037587341e7e9253667968012fc29deebcf95d49cca6c9927d3c31ea6a6",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:22c70d65-85a0-5571-bfa5-2ba9369cc1f2",
+      "kind": "publication",
+      "name": "BSData Sons of Behemat faction catalogue, gargants branch (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:1ea21d375bb1867c0b62c206b6eca5564bc6fba0d89598e09da827520d9fe58b",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:9b904e94-ad69-5c93-bf9b-4fb817671fdc",
+      "kind": "publication",
+      "name": "BSData shared Lores catalogue — Sons of Behemat battletome prayer lore (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:b1389ddea2fb188e3a423854daf23a72756337e054dece44c4d31315dab72b03",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:bdfd098c-9261-5d0a-b876-73455ca0003c",
+      "kind": "publication",
+      "name": "BSData Sons of Behemat library, gargants branch (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:485605fb-7d78-5e1a-9cb0-e1a388d75193",
+      "kind": "warscroll",
+      "name": "Ancient Ghyrochs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:52d4dc25-b0dc-568d-bfe9-62399fb502e2",
+      "kind": "warscroll",
+      "name": "Boss-stompers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:6c598362-e8b5-5d94-b493-8daea948e272",
+      "kind": "warscroll",
+      "name": "Ma Maegran, Chooser of the Mighty"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:377994d4-cfd9-58e1-a897-b014e8bcb5a3",
+      "kind": "warscroll",
+      "name": "Rock-hurlers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:62a6e656-2138-5015-beda-01bcca3d47c7",
+      "kind": "weapon",
+      "name": "Mighty Horns and Hooves"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:0b66ea72-c311-59c2-aba0-d24313a35807",
+      "kind": "weapon",
+      "name": "Menhir Club: Calamitous Sweep"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:6fa3331b-10f9-5186-815b-8b60309e98aa",
+      "kind": "weapon",
+      "name": "Menhir Club: Crushing Blow"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:d0d4fbcb-8d4a-51c3-95a3-39822f876774",
+      "kind": "weapon",
+      "name": "Almighty Stomp"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:525cb41e-1179-5354-94fe-d109e7b50c33",
+      "kind": "weapon",
+      "name": "Stomper's Clubs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:7369c07e-fcde-50b5-9125-56577a177494",
+      "kind": "weapon",
+      "name": "'Eadbutt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:78e2a027-159b-5afe-90a9-85fc4a198107",
+      "kind": "weapon",
+      "name": "Hurled Boulder"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ea556645-eb19-5039-8d93-c1c6b9b2cb00",
+      "kind": "weapon",
+      "name": "Fortcrusha Flail: Calamitous Sweep"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:f1efea5e-51ae-5b71-8404-a39f19eb011f",
+      "kind": "weapon",
+      "name": "Fortcrusha Flail: Crushing Blow"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:weapon:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:905c2f12-3e86-5fa8-9429-67ea2f757ac3",
+      "kind": "weapon",
+      "name": "Almighty Stomp"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:6437d511-5dbe-584a-baa7-0a94769f4363",
+      "kind": "weapon",
+      "name": "Obelisk of Tor Crania: Calamitous Sweep"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:9cb9ad2e-b382-56c2-a689-9520eca4ab62",
+      "kind": "weapon",
+      "name": "Obelisk of Tor Crania: Crushing Blow"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:e9d00ac6-374f-5677-8afd-1956751c3815",
+      "kind": "weapon",
+      "name": "Almighty Stomp"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:634f33a9-6d61-5f8b-bec4-eefca692bb42",
+      "kind": "weapon",
+      "name": "Shipwrecka Warclub: Calamitous Sweep"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:d1ef2859-95c0-5b60-8194-75e2a0dabe0e",
+      "kind": "weapon",
+      "name": "Shipwrecka Warclub: Crushing Blow"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:8ff358eb-d12d-55ff-98bf-eb1fff616fbe",
+      "kind": "weapon",
+      "name": "Almighty Stomp"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:de59fd01-0b0c-571d-b746-5c33e3f5cedd",
+      "kind": "weapon",
+      "name": "Spear of Krum Kalda"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:86c1f827-a899-54c7-86d6-3ce094598915",
+      "kind": "weapon",
+      "name": "Throwin' Rocks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:1a3df5be-f215-57a5-90b3-1bd5e10b04c5",
+      "kind": "weapon",
+      "name": "Gigantic Weapon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:84c23f53-2883-587e-92eb-8faca04f34f2",
+      "kind": "weapon",
+      "name": "'Eadbutt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:2365c617-eb7e-55f5-bb73-1a3f3af13eaf",
+      "kind": "weapon",
+      "name": "Hurlin' Rocks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ec96b73a-4c8b-50c0-9a15-ce6fd509215e",
+      "kind": "weapon",
+      "name": "Massive Club and Rocks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:606d9c4f-9b05-5f61-9d6d-bb0530488f2a",
+      "kind": "weapon",
+      "name": "'Eadbutt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:b388d61f-8357-551b-bec9-1ab24700c7b6",
+      "kind": "weapon",
+      "name": "Titanic Boulderclub: Calamitous Sweep"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:b276b93b-3825-5bb5-a31c-9e9d58127bd1",
+      "kind": "weapon",
+      "name": "Titanic Boulderclub: Crushing Blow"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:0335f86e-a6b3-55f7-a9c3-68a7014e8eda",
+      "kind": "weapon",
+      "name": "Almighty Stomp"
     }
   ],
   "schemaVersion": 1
