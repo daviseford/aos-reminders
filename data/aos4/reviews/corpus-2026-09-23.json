@@ -34,17 +34,6 @@
     },
     {
       "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A41"
-      ],
-      "reason": "The September 2026 Rules Updates change the first sentence of Flamers of Tzeentch's Lingering Burns so it can also be used while the unit is in reserve.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdisciples-of-tzeentch%2Fwarscrolls.html%23datasheet%3AFlamers-of-Tzeentch%2Fability%3A2",
-      "text": {
-        "declare": "This unit can use this ability even if it has been destroyed or is in reserve. Pick any number of BURNING enemy units to be the targets.",
-        "effect": "Roll a D3 for each target. On a 1, the target no longer has the BURNING keyword. On a 2+, inflict an amount of mortal damage on the target equal to the roll."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
         "source-record:games-workshop:2f3d560f2fef4d35be7d1fe945ba066d661aeb33696b00ee811e55663e3d76b2%3Apage%3A1",
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A33"
       ],
@@ -97,18 +86,6 @@
     },
     {
       "officialSourceRecordIds": [
-        "source-record:games-workshop:3d0100a1da8ae2c20ae4085731e0ed8de5069c265ed09a30de41a20b37d8eba5%3Apage%3A1",
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A33"
-      ],
-      "reason": "The September 2026 Scourge of Aqshy - Idoneth Deepkin pack and Rules Updates delete the first bullet point (the Move characteristic reduction) from the effect of Abyssal Dweller.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fidoneth-deepkin%2F%23faction-ability%3AChampions-of-the-Tides-1%3Aability%3A1",
-      "text": {
-        "declare": "Pick an objective within 18\" of this unit to be the target.",
-        "effect": "For the rest of the battle, while enemy units are contesting the target objective, those units cannot use RUN, RETREAT or CHARGE abilities."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A58"
       ],
       "reason": "The September 2026 Rules Updates replace the Death Stalkers battle formation ability There is No Escape, including its timing (Once Per Turn (Army), Any Hero Phase).",
@@ -132,99 +109,11 @@
       "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A58"
       ],
-      "reason": "The September 2026 Rules Updates replace the Lord Vitriolic's Spectral Alchemy: the effect applies automatically after shooting damage, Corrosive Mist replaces Fling Concoctions, and the roll-two-dice option is gone.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2Fwarscrolls.html%23datasheet%3ALord-Vitriolic%2Fability%3A1",
-      "text": {
-        "declare": "Pick an enemy unit within 10\" of this unit to be the target.",
-        "effect": "If this unit’s shooting attacks inflicted damage on the target this turn, apply 1 of the following effects. Otherwise, roll a dice. On a 3+, apply 1 of the following effects:\nPhantasmal Solvent: If the target has a Move characteristic of ‘-’, inflict 6 mortal damage on the target.\nAcidic Fug: Inflict D3 mortal damage on the target.\nCorrosive Mist: Inflict 1 mortal damage on each enemy unit within the target’s combat range.\nChoking Vapours: If the target is a WIZARD, subtract 1 from its power level until the start of your next turn.\nFear-laced Hallucinogen: If the target is a PRIEST, remove D3 ritual points from it.\nUnholy Prescription: Ward rolls cannot be made for the target for the rest of the turn."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A58"
-      ],
       "reason": "The September 2026 Rules Updates change the Scriptor Mortis's Sentenced to Eternal Torment so the SENTENCED keyword lasts for the rest of the battle.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2Fwarscrolls.html%23datasheet%3AScriptor-Mortis%2Fability%3A1",
       "text": {
         "declare": "Pick a visible enemy unit within 18\" of this unit to be the target.",
         "effect": "Roll a dice. On a 3+, inflict 1 mortal damage on the target and the target has the SENTENCED keyword for the rest of the battle."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A64"
-      ],
-      "reason": "The September 2026 Rules Updates remove the second line of the effect (the extra relentless discipline point for a reinforced unit with more than half of its starting models), as BSData main d1f97bc9 also reads it.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ABattle-Traits%3Aability%3A2",
-      "text": {
-        "declare": "Pick a friendly OSSIARCH BONEREAPERS unit that has not used a RELENTLESS DISCIPLINE ability this phase to use this ability.",
-        "effect": "Spend 1 relentless discipline point. Add 3\" to the Move characteristic of that unit for the rest of the phase. That unit cannot use RUN abilities for the rest of the turn."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A64"
-      ],
-      "reason": "The September 2026 Rules Updates remove the second line of the effect (the extra relentless discipline point for a reinforced unit with more than half of its starting models), as BSData main d1f97bc9 also reads it.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ABattle-Traits%3Aability%3A3",
-      "text": {
-        "declare": "Pick a friendly OSSIARCH BONEREAPERS unit that has not used a RELENTLESS DISCIPLINE ability this phase to use this ability.",
-        "effect": "Spend 1 relentless discipline point. For the rest of the turn, that unit can use CHARGE abilities even if it used a RETREAT ability in the same turn."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A64"
-      ],
-      "reason": "The September 2026 Rules Updates remove the second line of the effect (the extra relentless discipline point for a reinforced unit with more than half of its starting models), as BSData main d1f97bc9 also reads it.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ABattle-Traits%3Aability%3A4",
-      "text": {
-        "effect": "Used By: The unit using that SHOOT ability.\nSpend 1 relentless discipline point. Subtract 1 from ward rolls for damage points inflicted by attacks made as part of that SHOOT ability.",
-        "reactionTrigger": "You declared a SHOOT ability for a unit that has not used a RELENTLESS DISCIPLINE ability this phase"
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A64"
-      ],
-      "reason": "The September 2026 Rules Updates remove the second line of the effect (the extra relentless discipline point for a reinforced unit with more than half of its starting models), as BSData main d1f97bc9 also reads it.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ABattle-Traits%3Aability%3A5",
-      "text": {
-        "effect": "Used By: The unit using that FIGHT ability.\nSpend 1 relentless discipline point. Add 1 to wound rolls for attacks made as part of that FIGHT ability.",
-        "reactionTrigger": "You declared a FIGHT ability for a unit that has not used a RELENTLESS DISCIPLINE ability this phase"
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A64"
-      ],
-      "reason": "The September 2026 Rules Updates remove the second line of the effect (the extra relentless discipline point for a reinforced unit with more than half of its starting models), as BSData main d1f97bc9 also reads it.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ABattle-Traits%3Aability%3A6",
-      "text": {
-        "effect": "Used By: A friendly OSSIARCH BONEREAPERS unit targeted by that ATTACK ability. Friendly OSSIARCH BONEREAPERS units can use this ability more than once per phase.\nSpend 1 relentless discipline point. That unit has WARD (5+) against damage points inflicted by attacks made as part of that ATTACK ability.",
-        "reactionTrigger": "Opponent declared an ATTACK ability"
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A64"
-      ],
-      "reason": "The September 2026 Rules Updates remove the second line of the effect of Katakros's Supreme Lord of the Bonereaper Legions (the extra relentless discipline point for a reinforced target), as BSData main d1f97bc9 also reads it.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2Fwarscrolls.html%23datasheet%3AKatakros-Mortarch-of-the-Necropolis%2Fability%3A3",
-      "text": {
-        "declare": "If this unit is not in combat, pick a visible friendly OSSIARCH BONEREAPERS unit wholly within 12\" of this unit that is in combat and has not used a RELENTLESS DISCIPLINE ability this phase to be the target.",
-        "effect": "Spend a number of relentless discipline points equal to the target’s Health characteristic. The target can use 2 FIGHT abilities this phase. After the first is used, however, the target has STRIKE-LAST for the rest of the turn. In addition, the target cannot use RELENTLESS DISCIPLINE abilities for the rest of the phase."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A65"
-      ],
-      "reason": "The September 2026 Rules Updates change the Warlock Galvaneer's Lightning Master effect so it no longer needs a 2+ roll.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fskaven%2Fwarscrolls.html%23datasheet%3AWarlock-Galvaneer%2Fability%3A1",
-      "text": {
-        "declare": "Pick a friendly Warpvolt Scourgers unit within this unit’s combat range to be the target.",
-        "effect": "Set the Attacks characteristic of the target’s Warpvolt Scourgers to 10 for the rest of the turn."
       }
     },
     {
@@ -292,16 +181,6 @@
       "text": {
         "declare": "You can pick another visible friendly non-HERO SOULBLIGHT GRAVELORDS INFANTRY or MONSTER unit wholly within 12\" of this unit to be the target.",
         "effect": "This unit can move up to X\", where X is your fury level. It must end that move in combat.\nThen, the target can move up to X\", where X is your fury level. It can move through enemy models and the combat ranges of enemy units during that move but must end that move in combat with an enemy unit that this unit is in combat with."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A25"
-      ],
-      "reason": "The September 2026 Rules Updates change 'and Manifestations' to ', terrain features and Manifestations' in every bullet point of the Hidden Under Ash-clouds battleplan's Rolling Ash-clouds.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2026-27%2F%23rules-ability%3AHidden-Under-Ash-Clouds%3Aability%3A1",
-      "text": {
-        "effect": "While the ash-clouds are low-lying:\nUnits, terrain features and MANIFESTATIONS cannot be set up in neutral territory.\nUnits, terrain features and MANIFESTATIONS cannot end a move within neutral territory unless they started that move wholly within neutral territory.\nModels, terrain features and MANIFESTATIONS are not visible to other models more than 3\" away unless a straight line can be drawn between any points on their bases that does not cross neutral territory."
       }
     }
   ],
@@ -1220,8 +1099,8 @@
     "expectedWarnings": 181,
     "expectedWarscrolls": 1296,
     "reconciliation": {
-      "checksum": "2c82d07d840baf105d204625b0133e9644b0e200162ea844965c1d18bda9c7ca",
-      "expectedDiscrepancies": 639,
+      "checksum": "398f61bbcb30165e2b4f45a269d467d6ca04abfa160e0e5b0e2fda03e5f95368",
+      "expectedDiscrepancies": 638,
       "expectedMatchedOfficialUnitFacts": 942,
       "expectedPages": 1296,
       "expectedUnmatchedOfficialUnitFacts": 1
@@ -1428,7 +1307,7 @@
     }
   ],
   "defaultRulesContextId": "rules-context:90000000-0000-4000-8000-000000000006",
-  "generatedAt": "2026-09-23T22:36:49.000Z",
+  "generatedAt": "2026-09-23T23:29:28.000Z",
   "ignoredSourceRecords": [
     {
       "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the General's Handbook 2024-25 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
@@ -5727,16 +5606,6 @@
           "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A59",
           "page": 59,
           "recordChecksum": "3a184a56cbaac181f526cda2f2999a4ccf64da9ec88a8d5ea5cee7ed88a03401"
-        },
-        {
-          "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A64",
-          "page": 64,
-          "recordChecksum": "f37f9f8794d91b5398488272c9ded4bdbd7506e72869c3c7aecb7fc998627b03"
-        },
-        {
-          "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A65",
-          "page": 65,
-          "recordChecksum": "3d6d8c373dc05b8b28cf251f92983a63bd8b239b622c8e02f97b61be6c4a4a85"
         },
         {
           "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A67",

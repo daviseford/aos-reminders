@@ -317,6 +317,21 @@ const nearestRowItems = (
   })
 }
 
+/**
+ * Groups a column's items into printed lines, visiting baselines in the given order. Items on one
+ * printed line can report baselines a fraction of a point apart (a leading ✹ marker in the
+ * September 2026 edition shifts some), so every item joins exactly one line; filtering per
+ * distinct baseline would emit that line once per baseline and duplicate its words.
+ */
+const printedLines = (column: PositionedItem[], baselines: number[]): PositionedItem[][] => {
+  const assigned = new Set<PositionedItem>()
+  return baselines.flatMap(y => {
+    const line = column.filter(item => !assigned.has(item) && Math.abs(item.y - y) < 0.5)
+    line.forEach(item => assigned.add(item))
+    return line.length ? [line] : []
+  })
+}
+
 const centeredWrappedCellItemsForRow = (
   items: PositionedItem[],
   rows: NumericRow[],
@@ -326,9 +341,10 @@ const centeredWrappedCellItemsForRow = (
 ): PositionedItem[] => {
   const row = rows[rowIndex]
   const column = items.filter(item => item.x >= minimumX && item.x < maximumX)
-  const lines = Array.from(new Set(column.map(item => item.y)))
-    .sort((left, right) => right - left)
-    .map(y => column.filter(item => Math.abs(item.y - y) < 0.5))
+  const lines = printedLines(
+    column,
+    Array.from(new Set(column.map(item => item.y))).sort((left, right) => right - left)
+  )
   const blocks: PositionedItem[][] = []
   lines.forEach(line => {
     const previous = blocks.at(-1)
@@ -389,9 +405,7 @@ const baseSizeItemsForRow = (
         /^[\d[\].,;Ã—x\s]+$/i.test(item.str)
     )
     .sort((left, right) => right.y - left.y || left.x - right.x)
-  const lines = Array.from(new Set(column.map(item => item.y))).map(y =>
-    column.filter(item => Math.abs(item.y - y) < 0.5)
-  )
+  const lines = printedLines(column, Array.from(new Set(column.map(item => item.y))))
   const groups: PositionedItem[][] = []
   lines.forEach(line => {
     const previous = groups.at(-1)

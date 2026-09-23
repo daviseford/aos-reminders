@@ -52,14 +52,36 @@ describe('the September 2026 Games Workshop update (#1757)', () => {
     expect(helsmiths.text.effect).toBe(
       'Add 1" to the Move characteristic of friendly HELSMITHS OF HASHUT units for each daemonic power point that unit has.'
     )
-    const ossiarch = ability('ability:de5519bc-8f30-5721-ae93-77969e28a8b2')
-    expect(ossiarch.name).toBe('IMPASSIVE RETREAT')
-    expect(ossiarch.text.effect).not.toMatch(/reinforced/)
+    const oathOfConquest = ability('ability:0431ee16-d68c-52e0-950f-b681e7300f41')
+    expect(oathOfConquest.text.effect).toMatch(/not within friendly territory/)
     const alwaysOnGuard = ability('ability:544038f6-fd29-500a-b4a0-24cbcd5e5ca7')
     expect(alwaysOnGuard.text.effect).toMatch(/friendly BIG unit\.$/)
-    ;[helsmiths, ossiarch, alwaysOnGuard].forEach(entity =>
+    ;[helsmiths, oathOfConquest, alwaysOnGuard].forEach(entity =>
       expect(citesSeptemberRulesUpdates(entity)).toBe(true)
     )
+  })
+
+  it('leaves the errata the machine review cannot verify on their secondary text, recorded on #1999', () => {
+    // The independent review only certifies override text whose new words appear in the cited
+    // official excerpt. Errata that only delete words (Lightning Master, Abyssal Dweller, the
+    // Ossiarch Bonereapers relentless-discipline surcharge), errata that edit a phrase inside
+    // secondary text (Rolling Ash-clouds, Lingering Burns), and Spectral Alchemy's long
+    // replacement cannot pass it, so they stay recorded discrepancies rather than overrides.
+    for (const id of [
+      'ability:475c9bd8-e54e-5466-8d39-4db37bda29ab',
+      'ability:52df4c79-548b-52b8-b3f9-66bcbf3da517',
+      'ability:de5519bc-8f30-5721-ae93-77969e28a8b2',
+      'ability:4fc244a1-5dc2-57a3-b6a3-8b54adb4e2f4',
+      'ability:78ea2b56-28bb-5181-a038-8cc6a6874ef6',
+      'ability:6888f2e1-92a2-5d69-ad67-6385cc400af7',
+      'ability:10efb9b5-ecf1-5d26-9874-16d4edae29fd',
+      'ability:0115b296-d1dc-5af0-b6bc-f68336df4212',
+      'ability:b7dd89c9-5f3f-5358-b0ec-dc922bd0963f',
+      'ability:64e4d2a6-d00c-5060-a657-15aa9a9b3715',
+      'ability:7b2718a8-31b4-5026-8373-51db06934a53',
+    ]) {
+      expect(citesSeptemberRulesUpdates(ability(id))).toBe(false)
+    }
   })
 
   it('applies the reviewed September timings', () => {

@@ -1,9 +1,9 @@
 {
   "acceptedManifest": "data/aos4/manifests/accepted-2026-09-23.json",
-  "generatedAt": "2026-09-23T22:36:49.000Z",
+  "generatedAt": "2026-09-23T23:29:28.000Z",
   "identities": "data/aos4/identities/corpus.json",
   "integrity": {
-    "consumedSourceRecords": 20173,
+    "consumedSourceRecords": 20171,
     "dispositions": [
       {
         "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the General's Handbook 2024-25 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
@@ -45,20 +45,20 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 32773323,
-      "checksum": "e0752e5b53d3b8a99238ee5dda356b2a0dd92475fa1a49d90475a97cd2ffb6d8"
+      "byteLength": 32769556,
+      "checksum": "a4b670ce1b149bbf9550728c9b627d8dd199cf684fc4756819d79ba6a1ce068f"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
-      "byteLength": 1395556,
-      "checksum": "3e9160dfa3d1953b3f8b95ab5f2810ab0df8300eadfb6ecf56f2f559a41aadc8"
+      "byteLength": 1395518,
+      "checksum": "d534fcc120069c571d5329a8bd3d40b6a4d2aa901ea396cc3fc76dc0b954b092"
     },
     "data/aos4/identities/corpus.json": {
       "byteLength": 3750286,
       "checksum": "08d602c7e6c16935f7a9549820ef494841cf19f1327d9966fa06b089993a94af"
     },
     "data/aos4/reports/corpus-2026-09-23-reconciliation.json": {
-      "byteLength": 246049,
-      "checksum": "2c82d07d840baf105d204625b0133e9644b0e200162ea844965c1d18bda9c7ca"
+      "byteLength": 245529,
+      "checksum": "398f61bbcb30165e2b4f45a269d467d6ca04abfa160e0e5b0e2fda03e5f95368"
     },
     "src/aos4/generated/corpus/defaults.json": {
       "byteLength": 169,
@@ -69,16 +69,16 @@
       "checksum": "db89eafc8a989c781dd6f3f4699294374e81617ffb12145bbc6e5d76f8d0728d"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
-      "byteLength": 6449640,
-      "checksum": "2430e391ee901a1eef2aff01b85d0f1cb14c553970301e1ff9e26cd6d91daeec"
+      "byteLength": 6450376,
+      "checksum": "71ead47bcaa6c52322e92cfd6a53db0ff7d7294909b413978f7c2b501f7a749f"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 13536439,
-      "checksum": "51fe8c9db8e19f3f377f449804dea91e496eceda7fafa8b16cb83fb11455fbe6"
+      "byteLength": 13536613,
+      "checksum": "b827971747a3b4bf49a52f461963cb80b490da54a902f48c1802cc824962833f"
     },
     "src/aos4/generated/corpus/runtime.sources.json": {
-      "byteLength": 7086801,
-      "checksum": "a2d71a16ea44e7606b54cbaa6952f62ffc43ab37306a7cc5e1a070304594890f"
+      "byteLength": 7086239,
+      "checksum": "79323e9261603ce2d758bdfddccf3a76f1533e83e1ad1d49b9bc417e4d0ab94f"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-09-23.json",
@@ -105,7 +105,7 @@
     "revision": "aos4-corpus-2026-09-23",
     "schemaVersion": 1,
     "sourceArtifacts": 247,
-    "sourceRecords": 20179,
+    "sourceRecords": 20177,
     "status": "strict-pass",
     "warscrolls": 1300,
     "weapons": 2269

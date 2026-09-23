@@ -1,15 +1,15 @@
 [
   {
     "id": "golden-truth:lord-terminos-base-size",
-    "sourceRecordId": "source-record:games-workshop:5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2%3Apage%3A20",
+    "sourceRecordId": "source-record:games-workshop:b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18%3Apage%3A21",
     "locator": {
       "kind": "page",
-      "page": 20,
+      "page": 21,
       "section": "Lord-Terminos"
     },
     "field": "baseSizes[1]",
-    "observedValue": "2 5 m m [1]",
+    "observedValue": "25mm [1]",
     "expectedValue": "25mm [1]",
-    "rationale": "The official base-size cell is layout-split; adjacent digits and the mm unit form 25mm."
+    "rationale": "The July 2026 official base-size cell was layout-split (2 5 m m [1]); the September 2026 re-publication prints it as one 25mm [1] token, and the golden value keeps guarding the second Lord-Terminos base size."
   }
 ]

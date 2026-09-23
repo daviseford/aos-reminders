@@ -651,6 +651,38 @@ describe('Games Workshop Battle Profiles extraction', () => {
     )
   })
 
+  it('reads a note line once when its words report baselines a fraction of a point apart', async () => {
+    // September 2026 page 22: a leading ✹ marker shifts part of the Stormdrake Guard (1 model)
+    // row, so the words of one printed note line sit 0.04pt apart.
+    const result = await extractGamesWorkshopBattleProfiles(
+      new Uint8Array([1]),
+      'a'.repeat(64),
+      fakeLoader(57, {
+        22: [
+          item('UNIT SIZE', 155, 760),
+          item('UNITS', 40, 750),
+          item('Stormdrake Guard (1 model)', 45, 700.2),
+          item('1', 174, 700.7),
+          item('150', 216, 700.7),
+          item('Extremis Chamber, Monster', 260, 700.7),
+          item('You can include 1 unit of this', 401.5, 708.7),
+          item('type for each', 401.5, 700.7),
+          item('Knight', 445.8, 700.66),
+          item('‑', 469.9, 700.66),
+          item('Draconis', 472.7, 700.66),
+          item('in your army.', 431.7, 692.7),
+          item('105 × 70mm', 515, 700.7),
+        ],
+      })
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.facts.find(fact => fact.page === 22)).toMatchObject({
+      name: 'Stormdrake Guard (1 model)',
+      notes: ['You can include 1 unit of this type for each Knight-Draconis in your army.'],
+    })
+  })
+
   it('reads each page section from its printed title rather than its page number', async () => {
     // The September 2026 edition gave Cities of Sigmar a fifth page, moving every later section
     // down one page: page 7 is still Cities of Sigmar, page 57 is Sons of Behemat, and the

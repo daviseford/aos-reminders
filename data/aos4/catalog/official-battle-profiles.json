@@ -1,6 +1,6 @@
 {
   "authority": "games-workshop",
-  "generatedAt": "2026-09-23T22:36:49.000Z",
+  "generatedAt": "2026-09-23T23:29:28.000Z",
   "records": [
     {
       "artifactChecksum": "b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18",
@@ -13701,13 +13701,13 @@
           "105 × 70mm"
         ],
         "context": "standard",
-        "factChecksum": "82f3701ad55e06e7ac8960ee5b2819b737ca9a532167b44ac6417fc0962dd975",
+        "factChecksum": "7506e988583e1f5821fb944c740f435ef265d6cadc8e6dbbd4961b6221da3257",
         "faction": "Stormcast Eternals",
         "key": "page:22:unit:21",
         "kind": "unit",
         "name": "Stormdrake Guard (1 model)",
         "notes": [
-          "You can include 1 unit of this type for each type for each Knight Knight ‑ ‑ Draconis Draconis in your army."
+          "You can include 1 unit of this type for each Knight-Draconis in your army."
         ],
         "page": 22,
         "points": 150,
