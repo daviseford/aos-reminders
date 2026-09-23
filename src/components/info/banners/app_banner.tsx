@@ -12,9 +12,8 @@ const RulesUpdateBanner = () => (
   <NotificationBanner enableLog name="2026-09-rules-update-1" variant="info">
     <span>
       <strong>September update:</strong> Sons of Behemat points are updated from the new battletome battle
-      profiles, with big drops across the mega-gargants. The new hero, units, second Spearhead and the Krong
-      the Club Regiment of Renown will appear once their rules are published. Spotted a mistake? Let us know
-      on{' '}
+      profiles, with big drops across the mega-gargants. The new hero, units and second Spearhead will appear
+      once their rules are published. Spotted a mistake? Let us know on{' '}
       <a href="https://discord.gg/2nt9Fxp" target="_blank" rel="noopener noreferrer">
         Discord
       </a>

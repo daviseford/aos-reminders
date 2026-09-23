@@ -20,8 +20,12 @@ import { resolveSelection } from '../../aos4/select'
  * - King Brodd's Stomp's own battle traits: they decode as a subtype of the Army of Renown root
  *   (its `typeId` resolves to the root itself), never as a standalone faction-page ability-type
  *   record, and the community-option merge only attaches to the latter.
- * - Krong the Club and the Stone Lobbas Spearhead: unchanged, still blocked (no secondary carries
- *   their rules text at all).
+ * - The Stone Lobbas Spearhead: still blocked (no secondary carries its rules text at all).
+ *
+ * Krong the Club was deferred too, for lack of a BSData Regiment-of-Renown intake path (BSData
+ * always carried its rules text). As of corpus 2026-09-23 it ships from the pinned BSData
+ * `Regiments of Renown.cat`, with its inclusion factions, member, and points from the official
+ * row; `regimentsOfRenown.test.ts` covers it in detail.
  */
 
 const standard = AOS4_FULL_CATALOG.rulesContexts.find(
@@ -289,12 +293,12 @@ describe('Sons of Behemat battletome intake from the pinned BSData catalogue (is
     includedGroups.forEach(group => expect(hasProvisionalCommunityAttribution(group)).toBe(false))
   })
 
-  it('still gates Krong the Club and the Stone Lobbas Spearhead entirely', () => {
-    expect(
-      AOS4_FULL_CATALOG.entities.some(
-        entity => entity.kind === 'content-group' && entity.name === 'Krong the Club'
-      )
-    ).toBe(false)
+  it('ships Krong the Club as one provisional BSData regiment and still gates the Stone Lobbas Spearhead', () => {
+    const krong = AOS4_FULL_CATALOG.entities.filter(
+      (entity): entity is ContentGroup => entity.kind === 'content-group' && entity.name === 'Krong the Club'
+    )
+    expect(krong.map(group => group.groupType)).toEqual(['regiment-of-renown'])
+    expect(hasProvisionalCommunityAttribution(krong[0])).toBe(true)
     expect(
       AOS4_FULL_CATALOG.entities.some(
         entity => entity.kind === 'content-group' && /Stone Lobbas/i.test(entity.name ?? '')

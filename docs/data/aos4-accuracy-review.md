@@ -12,44 +12,62 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-22` (issue #1999): the Sons of Behemat September 2026
-battletome intake ships provisionally from a commit-pinned BSData catalogue (commit `2b7df92f`,
-taken from the `gargants` branch that BSData squash-merged into `main` on 2026-09-23; the pinned
-bytes are unchanged) while Wahapedia has not republished the battletome pages (unchanged since
-2026-08-25). Accepted: the four brand-new units, six coherent legacy datasheet rewrites, the
-current faction package (4 battle formations, 6 heroic traits, 6 artefacts of power, Prayers of
-the World Titan), and the regular faction's army-wide battle traits. Deferred: Realm-shaking
-Rampage and Lore of Behemat (neither has a canonical Wahapedia type record to attach to), King
-Brodd's Stomp's own battle traits (an Army of Renown's battle-trait block decodes as a subtype of
-its root, not a standalone faction-page type record), Krong the Club (BSData carries its rules
-text, but there is no BSData Regiment-of-Renown intake path), and the Stone Lobbas Spearhead (no
-secondary carries it). This cycle also fixed a stale `.datasheetsCollated`
-selector in the independent Wahapedia source observer that had silently stopped finding all 27
-accepted warscroll collection pages once Wahapedia dropped that link block site-wide; it now
-derives the conventional `<faction root>warscrolls.html` path, matching the `/aos4/nav.html`
-fragment fix in #2005.
+The current revision is `aos4-corpus-2026-09-23` (issue #1999): Krong the Club, the first
+Regiment of Renown shipped from BSData rather than a Wahapedia collection page. A bounded BSData
+Regiment-of-Renown contract takes only the regiment's two abilities from the commit-pinned
+`Regiments of Renown.cat` (`main` commit `8836d9f9`); both match the official *Regiments of
+Renown – Sons of Behemat* pack, page 5, word for word. The official Battle Profiles – Sons of
+Behemat row (page 3, row 4) supplies the 140 points, the 24 inclusion factions (not Sons of
+Behemat), and the single Mancrusher Gargant member, and that row is now applied to runtime. The
+revision adds one artifact, one community source, one Regiment of Renown classification, and four
+appended identities; nothing else in the accepted inputs moved.
+
+It builds on `aos4-corpus-2026-09-22`: the Sons of Behemat September 2026 battletome intake that
+ships provisionally from commit-pinned BSData catalogues (commit `2b7df92f`, taken from the
+`gargants` branch that BSData squash-merged into `main` on 2026-09-23; the pinned bytes are
+unchanged) while Wahapedia has not republished the battletome pages (unchanged since 2026-08-25).
+Accepted then: the four brand-new units, six coherent legacy datasheet rewrites, the current
+faction package (4 battle formations, 6 heroic traits, 6 artefacts of power, Prayers of the World
+Titan), and the regular faction's army-wide battle traits. Still deferred: Realm-shaking Rampage
+and Lore of Behemat (neither has a canonical Wahapedia type record to attach to), King Brodd's
+Stomp's own battle traits (an Army of Renown's battle-trait block decodes as a subtype of its
+root, not a standalone faction-page type record), and the Stone Lobbas Spearhead (no secondary
+carries it). That cycle also fixed a stale `.datasheetsCollated` selector in the independent
+Wahapedia source observer that had silently stopped finding all 27 accepted warscroll collection
+pages once Wahapedia dropped that link block site-wide; it now derives the conventional
+`<faction root>warscrolls.html` path, matching the `/aos4/nav.html` fragment fix in #2005.
 Its automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
-| Accepted artifacts independently inventoried | 247/247 |
+| Accepted artifacts independently inventoried | 248/248 |
 | Explicit non-material discovery entries | 9 |
 | Official battle-profile facts | 1,396/1,396 |
 | Final official/secondary reconciliation discrepancies | 380/380 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 20,171/20,171 |
+| Live audit source records | 20,198/20,198 |
 | Ignored-record dispositions (superseded + explicit) | 20,556/20,556 |
-| Live review pairs | 42,505/42,505 |
-| Independent outcomes | 85,010 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 42,532/42,532 |
+| Independent outcomes | 85,064 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 18/18 |
 
-The independent source inventory was observed on 2026-09-22 from a fresh `discover-official`
-snapshot plus a `data:aos4:inventory:observe-bsdata` observation of the pinned `gargants` branch
-commit: 247 entries matched accepted checksums and 9 discovery entries received explicit
-non-material dispositions carried forward from the 2026-08-01b review.
+The current certification is `aos4-corpus-2026-09-23-machine-r1` (2026-09-23). Its `machine-r3`
+reuse offer carried nothing forward (the revision re-key invalidates every pair), so all 42,532
+pairs were evaluated fresh: 85,064 checks, 0 findings, 0 cannot-verify.
 
-The current certification is `aos4-corpus-2026-09-22-machine-r3` (2026-09-23). It re-campaigned
+Its source inventory binds a live 2026-09-23 Wahapedia observation (85 artifacts matched), live
+2026-09-23 `data:aos4:inventory:observe-bsdata` observations of both pinned commits (`2b7df92f`
+and `8836d9f9`, 4 artifacts matched), and the 2026-09-22 Games Workshop observation that
+`machine-r1` of 2026-09-22 used (159 matched, 7 explicit non-material), which reproduces that
+certification's inventory byte for byte. A live 2026-09-23 Games Workshop observation cannot be
+complete for any corpus that predates the official September 2026 intake: it reports the ten
+publications Games Workshop released on 2026-09-23 as missing and their ten predecessors as
+unexpected. That intake is held work (see the 2026-09-23 BSData review in
+[`aos4-maintenance.md`](./aos4-maintenance.md)); none of those twenty documents is evidence for
+Krong the Club, whose two official records matched in the live observation.
+
+`aos4-corpus-2026-09-22-machine-r3` (2026-09-23) preceded it. It re-campaigned
 `machine-r2` because the generator fix for issue #2015 restored the five Sons of Behemat Regiments
 of Renown's member edges (the catalog and runtime gained five `includes` relationships; accepted
 inputs, identities, and the official ledger are unchanged). Reusing `machine-r2` carried 42,431

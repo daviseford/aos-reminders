@@ -16,34 +16,34 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-22 snapshot is defined by:
+The accepted 2026-09-23 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-09-22.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the September 2026 Sons of Behemat battle profiles, Regiments of Renown, Stone Lobbas Spearhead, and Armies of Renown pack), 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues (commit `2b7df92f`, issue #1999, taken from the `gargants` branch that BSData squash-merged into `main` as `8836d9f9` and deleted on 2026-09-23; the commit pin is unchanged), pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-09-22.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-09-23.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the September 2026 Sons of Behemat battle profiles, Regiments of Renown, Stone Lobbas Spearhead, and Armies of Renown pack), 72 reviewed Wahapedia pages, and 4 commit-pinned BSData catalogues (3 at commit `2b7df92f`, issue #1999, taken from the `gargants` branch that BSData squash-merged into `main` as `8836d9f9` and deleted on 2026-09-23, the commit pin unchanged; and `Regiments of Renown.cat` at that `main` commit `8836d9f9` for Krong the Club), pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-09-23.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-22-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-22-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-09-23-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-09-23-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
 - 1,300 warscrolls and 1,016 battle profiles
-- 5,121 abilities
+- 5,123 abilities
 - 2,269 weapons
-- 1,506 content groups
-- 247 source artifacts and 20,171 live source records
+- 1,507 content groups
+- 248 source artifacts and 20,198 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,396 extracted GW battle-profile facts: 1,016 applied to runtime, 1 profile-only gap
-  (The Emberwatch), 318 structured references, and 61 superseded facts
+- 1,396 extracted GW battle-profile facts: 1,017 applied to runtime, 1 profile-only gap
+  (The Emberwatch), 317 structured references, and 61 superseded facts
 - the 2026-09-22 Sons of Behemat battletome intake (#1999): the four brand-new units, six
   coherent legacy rewrites, the current faction package (4 battle formations, 6 heroic traits, 6
   artefacts of power, Prayers of the World Titan), and the regular faction's army-wide battle
@@ -54,14 +54,24 @@ The strict report currently records:
   reason — no Spell Lore type record for Sons of Behemat), King Brodd's Stomp's own battle traits
   (an Army of Renown's battle-trait block decodes as a subtype of its root, not a standalone
   faction-page type record, and the community-option merge only attaches to the latter), Krong the
-  Club (BSData carries its rules text, at the pin and on `main`, but there is no BSData
-  Regiment-of-Renown intake path), and the Stone Lobbas Spearhead (no secondary carries it at
+  Club (BSData carried its rules text, but there was no BSData Regiment-of-Renown intake path; it
+  shipped on 2026-09-23, below), and the Stone Lobbas Spearhead (no secondary carries it at
   all). This intake also fixed
   a `discoverWahapediaWarscrollCollection` selector that had silently stopped finding any of the 27
   accepted warscroll collection pages after Wahapedia dropped the `.datasheetsCollated` link block
   site-wide (observed 2026-09-22); it now falls back to the conventional `<faction root>
   warscrolls.html` path the generation adapter already treats as authoritative, matching the
   `/aos4/nav.html` fragment fix in #2005
+- the 2026-09-23 Krong the Club intake (#1999): the first Regiment of Renown shipped from
+  BSData instead of a Wahapedia collection page. A bounded BSData Regiment-of-Renown contract
+  extracts only the reviewed regiment from the pinned `Regiments of Renown.cat` (`main` commit
+  `8836d9f9`) and takes only its rules text from it; the official Battle Profiles - Sons of
+  Behemat row (page 3, row 4) supplies the name, the 140 points, the 24 inclusion factions (Sons
+  of Behemat is not one of them), and the single Mancrusher Gargant member, which resolves to
+  the one current-standard warscroll, never its Spearhead twin. The BSData member link is a
+  fail-closed cross-check, and the game-system force-entry conditions are never read. Both
+  abilities match the official Regiments of Renown - Sons of Behemat pack, page 5, word for
+  word; the official row moved from structured reference to applied
 - the September 2026 Sons of Behemat intake (#1757): the faction battle-profile supplement
   applied its points corrections to the nine carried-over units and superseded the July 2026
   main-document rows it re-published (ten unit rows and, by name, four regiment-of-renown rows);
@@ -404,7 +414,9 @@ comments once per finding-set on the tracking issue (deduplicated by a fingerpri
 standard candidate intake can run. Like the radar, the watch is evidence, not acceptance. Run it
 locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`. The list currently
 holds two Wahapedia watches for #1999: Krong the Club on an inclusion faction's collection page,
-and the Sons of Behemat faction page for the still-deferred battletome content. The three Ogor
+now a duplicate-source sentinel since Krong ships from BSData (a Wahapedia copy would make
+generation fail closed until a reviewer picks one source), and the Sons of Behemat faction page
+for the still-deferred battletome content. The three Ogor
 watches fired on 2026-08-28 and retired with the 2026-08-28b intake; the four BSData `main` file
 watches fired on 2026-09-23 when BSData merged the `gargants` branch, and retired.
 
@@ -722,11 +734,11 @@ untrusted-by-default CI runners — worse than leaving it a deliberate manual ga
 
 ```powershell
 yarn data:aos4:cache:verify `
-  --manifest data/aos4/manifests/accepted-2026-09-22.json `
+  --manifest data/aos4/manifests/accepted-2026-09-23.json `
   --jobs 4
 ```
 
-**Expected success:** `Artifact cache verify: {"total":247,"present":247,"missing":[]}` (the exact
+**Expected success:** `Artifact cache verify: {"total":248,"present":248,"missing":[]}` (the exact
 `total` matches the manifest's de-duplicated checksum count). The process exits 0.
 
 **Expected failure:** a non-zero exit and a message naming the manifest and every missing
