@@ -49,8 +49,10 @@ describe('the provisional-verification watch', () => {
     // Stone Lobbas, and the King Brodd's Stomp rewrite, since the battle formations, heroic
     // traits, artefacts, and Prayers of the World Titan shipped from the pinned BSData catalogue)
     // and added four raw-content watches on the moving `gargants`-branch BSData files, so the
-    // provisional watch reports the exact moment `main` catches up.
-    expect(checkedIn.watches.length).toBe(6)
+    // provisional watch reports the exact moment `main` catches up. All four fired when BSData
+    // squash-merged `gargants` into `main` (8836d9f9, 2026-09-23) and were retired; the two
+    // Wahapedia watches remain for the still-deferred content.
+    expect(checkedIn.watches.length).toBe(2)
     checkedIn.watches.forEach(watch => {
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)
     })

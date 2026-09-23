@@ -20,7 +20,7 @@ The accepted 2026-09-22 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-09-22.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the September 2026 Sons of Behemat battle profiles, Regiments of Renown, Stone Lobbas Spearhead, and Armies of Renown pack), 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues (`gargants` branch, commit `2b7df92f`, issue #1999), pinned by SHA-256 |
+| `data/aos4/manifests/accepted-2026-09-22.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the September 2026 Sons of Behemat battle profiles, Regiments of Renown, Stone Lobbas Spearhead, and Armies of Renown pack), 72 reviewed Wahapedia pages, and 3 commit-pinned BSData catalogues (commit `2b7df92f`, issue #1999, taken from the `gargants` branch that BSData squash-merged into `main` as `8836d9f9` and deleted on 2026-09-23; the commit pin is unchanged), pinned by SHA-256 |
 | `data/aos4/reviews/corpus-2026-09-22.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
@@ -54,7 +54,9 @@ The strict report currently records:
   reason — no Spell Lore type record for Sons of Behemat), King Brodd's Stomp's own battle traits
   (an Army of Renown's battle-trait block decodes as a subtype of its root, not a standalone
   faction-page type record, and the community-option merge only attaches to the latter), Krong the
-  Club, and the Stone Lobbas Spearhead (no secondary carries either at all). This intake also fixed
+  Club (BSData carries its rules text, at the pin and on `main`, but there is no BSData
+  Regiment-of-Renown intake path), and the Stone Lobbas Spearhead (no secondary carries it at
+  all). This intake also fixed
   a `discoverWahapediaWarscrollCollection` selector that had silently stopped finding any of the 27
   accepted warscroll collection pages after Wahapedia dropped the `.datasheetsCollated` link block
   site-wide (observed 2026-09-22); it now falls back to the conventional `<faction root>
@@ -109,13 +111,14 @@ than as a second selectable current context.
 
 The current official Battle Profiles PDF and the Ogor Mawtribes and Sons of Behemat supplements
 contribute 1,335 effective facts. Reconciliation applies official unit size, points, regiment
-options, notes, and bases to 938 runtime profiles and records 377 field-level secondary
-discrepancies after upstream parser and normalization corrections. Five official unit facts remain
-`profile-only` because current warscroll rules are not available anywhere: The Emberwatch
-(Legends) and the four September 2026 Battletome: Sons of Behemat units (Ma Maegran, Ancient
-Ghyrochs, Boss-stompers, Rock-hurlers) whose rules text no accepted source publishes yet
-(issue #1999); generation preserves their exact facts and checksums but does not invent reminders,
-and the accepted gaps are recorded in the profile-only deviation ledger described below. The
+options, notes, and bases to 942 runtime profiles and records 380 field-level secondary
+discrepancies after upstream parser and normalization corrections. One official unit fact remains
+`profile-only` because its current warscroll rules are not available anywhere: The Emberwatch
+(Legends). The four September 2026 Battletome: Sons of Behemat units (Ma Maegran, Ancient
+Ghyrochs, Boss-stompers, Rock-hurlers) left that state on 2026-09-22, when their rules text
+shipped provisionally from the pinned BSData catalogue (issue #1999). Generation preserves a
+profile-only fact's exact checksums but does not invent reminders, and the accepted gap is
+recorded in the profile-only deviation ledger described below. The
 official July 2026 Rules Updates supplies reviewed
 ability-text and timing corrections where the accepted secondary pages have not yet caught up.
 When an official publication introduces units whose rules no accepted source carries, reviewed
@@ -138,10 +141,10 @@ faction, unit name, a rationale, a target date, and the recording date. Both str
   cannot shield a future regression).
 
 The deployment workflow runs the beta gate, so a release that would ship a new profile-only unit
-stops before S3. The accepted population is five entries: The Emberwatch (Warhammer Legends),
-deferred with a rationale referencing its Legends context, and the four September 2026 Battletome:
-Sons of Behemat units (issue #1999), deferred until Wahapedia or BSData publishes the battletome
-warscrolls. The Rules Radar's
+stops before S3. The accepted population is one entry: The Emberwatch (Warhammer Legends),
+deferred with a rationale referencing its Legends context. The four September 2026 Battletome:
+Sons of Behemat units (issue #1999) held deviations until their BSData rules text shipped on
+2026-09-22, and those entries were removed. The Rules Radar's
 managed issue states this obligation whenever it observes a new or replaced official publication.
 
 The July 2026 Ogor Mawtribes battletome content — ten new units (Redd the Maw, Tyrant on
@@ -399,9 +402,11 @@ rather than a pending-verification queue: a hit starts a reconciliation, not a m
 replacement. The reviewed sentinel list is `data/aos4/radar/provisional-watch.json`; a hit
 comments once per finding-set on the tracking issue (deduplicated by a fingerprint marker) so the
 standard candidate intake can run. Like the radar, the watch is evidence, not acceptance. Run it
-locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`. The list is
-currently empty: the three Ogor watches all fired on 2026-08-28 and retired with the 2026-08-28b
-intake, and the machinery idles until the next provisional intake registers a sentinel.
+locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`. The list currently
+holds two Wahapedia watches for #1999: Krong the Club on an inclusion faction's collection page,
+and the Sons of Behemat faction page for the still-deferred battletome content. The three Ogor
+watches fired on 2026-08-28 and retired with the 2026-08-28b intake; the four BSData `main` file
+watches fired on 2026-09-23 when BSData merged the `gargants` branch, and retired.
 
 Scheduled workflows run only from the repository's default branch, so the Rules Radar becomes
 active when Version 6 reaches `master`. Immediately after launch, first run `AoS 4 Rules Radar`
@@ -567,6 +572,34 @@ branch pin (`2b7df92f`, #1999) already sits on the reformat commit (merge base `
 carries the same Pustules fix, so it incorporates this range for all three accepted files
 (`Lores.cat`, `Sons of Behemat - Library.cat`, `Sons of Behemat.cat`); no accepted byte moved and
 nothing is adoptable from the signal, so the baseline advanced without an intake.
+
+The 2026-09-23 review (`d989a15e` → `8836d9f9`, #1999) is the first range the baseline did **not**
+advance over. All four `bsdata-main-*` provisional watches fired when BSData squash-merged the
+`gargants` branch into `main` (BSData PR #1359) and deleted the branch; the `2b7df92f` commit pin
+stays immutable and fetchable by SHA. The range is one commit and 33 files (31 modified, 2 added).
+The accepted pins held: `Sons of Behemat - Library.cat` is byte-identical at the pin and at
+`main`, and `Sons of Behemat.cat` and `Lores.cat` differ only outside the consumed scopes (three
+Cracked Heels lines, a `revision` attribute, two Summon Shyish Reaper range copies, the Mawpit
+exclusion the runtime already ships, and two Blazing Impetus copies). But the squash also carried
+BSData's own implementation of the Games Workshop September 2026 update, published the same day
+(Rules Updates September 2026, new core Battle Profiles, six re-published Scourge of Aqshy packs, a
+Cities of Sigmar battletome supplement, and a Spearhead pack; ten new and ten removed official
+downloads). Checked against the shipped runtime and the new official Rules Updates and packs, it
+changes records the corpus ships from Wahapedia in Helsmiths of Hashut (four battle formations), Ossiarch
+Bonereapers, Nighthaunt, Cities of Sigmar, Slaves to Darkness, Soulblight Gravelords, Idoneth
+Deepkin, Disciples of Tzeentch, the seasonal Fyreslayers Blazing Impetus, and the seasonal Sons of
+Behemat content (Always On Guard's `MEGA-GARGANT` becomes `BIG`, the Scourge of Aqshy Gatebreaker
+and Mancrusher move to `BIG`/`LITTLE`). Separately, the pinned official *Regiments of Renown – Sons
+of Behemat* pack (`a5030c64`, pages 1–4, accepted as reference since 2026-09-10) already prints
+rewritten abilities for Odo Godswallow, Bundo Whalebiter, One-eyed Grunnock and Big Drogg
+Fort-Kicka, which the runtime still ships in their earlier wording. Summon Shyish Reaper's two
+Army-of-Renown lore copies (9" in runtime, 12" on BSData) stay unresolved: the August and September
+2026 errata change only the battletome Manifestation Lore. Because shipped records changed, this
+is the "official or Wahapedia record the corpus ships changed" outcome, not a baseline-only one:
+`bsData.baselineSha` stays at `d989a15e` until the official September 2026 intake cycle reconciles
+those records, and advances inside that cycle. The four fired BSData watches retired with their
+purpose served (the re-point question is answered: the pin stands until that cycle), and the
+per-file reduction is summarized on #1999.
 
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
