@@ -246,6 +246,48 @@ const fragmentedOfficialRegimentNamesPage = (): PdfTextItem[] =>
     ]
   })
 
+/** A printed section title, as pdf.js reports the ~19pt faction and section headings. */
+const title = (str: string, y = 790): PdfTextItem => ({ str, x: 208, y, height: 19 })
+
+// The July 2026 main document's section order, which the fake main documents below follow.
+const JULY_2026_FACTION_PAGES: Array<[string, number[]]> = [
+  ['CITIES OF SIGMAR', [3, 4, 5, 6]],
+  ['DAUGHTERS OF KHAINE', [7, 8]],
+  ['FYRESLAYERS', [9, 10]],
+  ['IDONETH DEEPKIN', [11, 12]],
+  ['KHARADRON OVERLORDS', [13, 14]],
+  ['LUMINETH REALM-LORDS', [15, 16]],
+  ['SERAPHON', [17, 18]],
+  ['STORMCAST ETERNALS', [19, 20, 21, 22]],
+  ['SYLVANETH', [23, 24]],
+  ['BLADES OF KHORNE', [25, 26]],
+  ['DISCIPLES OF TZEENTCH', [27, 28]],
+  ['HEDONITES OF SLAANESH', [29, 30]],
+  ['HELSMITHS OF HASHUT', [31, 32]],
+  ['MAGGOTKIN OF NURGLE', [33, 34]],
+  ['SKAVEN', [35, 36]],
+  ['SLAVES TO DARKNESS', [37, 38, 39]],
+  ['FLESH-EATER COURTS', [40, 41]],
+  ['NIGHTHAUNT', [42, 43]],
+  ['OSSIARCH BONEREAPERS', [44, 45]],
+  ['SOULBLIGHT GRAVELORDS', [46, 47]],
+  ['GLOOMSPITE GITZ', [48, 49]],
+  ['IRONJAWZ', [50, 51]],
+  ['KRULEBOYZ', [52, 53]],
+  ['OGOR MAWTRIBES', [54, 55]],
+  ['SONS OF BEHEMAT', [56]],
+]
+
+const julyTitle = (page: number): PdfTextItem => {
+  if (page === 57) return title('UNIVERSAL MANIFESTATION LORES')
+  if (page >= 58 && page <= 63) return title('REGIMENTS OF RENOWN')
+  if (page >= 64) return title('WARHAMMER LEGENDS – ORDER')
+  return title(JULY_2026_FACTION_PAGES.find(([, pages]) => pages.includes(page))?.[0] ?? '')
+}
+
+const withTitle = (page: number, items: PdfTextItem[]): PdfTextItem[] =>
+  items.some(value => (value.height ?? 0) >= 17) ? items : [julyTitle(page), ...items]
+
 const fakeLoader = (
   pageCount: number,
   pages: Record<number, PdfTextItem[]>,
@@ -257,11 +299,13 @@ const fakeLoader = (
       async getPage(page) {
         return {
           async getTextItems() {
-            if (pages[page]) return pages[page]
-            if (pageCount >= 57 && page === 57) return manifestationPage()
-            if (pageCount >= 57 && page >= 58 && page <= 63) return regimentPage()
-            if (pageCount >= 57 && page >= 64) return unitPage(`Legend unit ${page}`, 1, 100)
-            if (pageCount >= 57 && page >= 3) return rosterPage()
+            // A main document (57+ pages) prints a section title on every page; supplements do not.
+            const titled = (items: PdfTextItem[]) => (pageCount >= 57 ? withTitle(page, items) : items)
+            if (pages[page]) return titled(pages[page])
+            if (pageCount >= 57 && page === 57) return titled(manifestationPage())
+            if (pageCount >= 57 && page >= 58 && page <= 63) return titled(regimentPage())
+            if (pageCount >= 57 && page >= 64) return titled(unitPage(`Legend unit ${page}`, 1, 100))
+            if (pageCount >= 57 && page >= 3) return titled(rosterPage())
             return [item(`Page ${page}`, 1, 1)]
           },
         }
@@ -605,6 +649,120 @@ describe('Games Workshop Battle Profiles extraction', () => {
         }),
       ])
     )
+  })
+
+  it('reads each page section from its printed title rather than its page number', async () => {
+    // The September 2026 edition gave Cities of Sigmar a fifth page, moving every later section
+    // down one page: page 7 is still Cities of Sigmar, page 57 is Sons of Behemat, and the
+    // regiments of renown run through page 64.
+    const result = await extractGamesWorkshopBattleProfiles(
+      new Uint8Array([1]),
+      'a'.repeat(64),
+      fakeLoader(65, {
+        7: [title('CITIES OF SIGMAR'), ...rosterPage()],
+        8: [title('DAUGHTERS OF KHAINE'), ...unitPage('Witch Aelves', 10, 100)],
+        57: [title('SONS OF BEHEMAT'), ...unitPage('Mancrusher Gargant', 1, 140)],
+        58: [title('UNIVERSAL MANIFESTATION LORES'), ...manifestationPage()],
+        64: [title('REGIMENTS OF RENOWN'), ...regimentPage()],
+        65: [title('WARHAMMER LEGENDS – ORDER'), ...unitPage('Celestant-Prime (Legends)', 1, 330)],
+      })
+    )
+
+    expect(result.diagnostics).toEqual([])
+    const byPage = (page: number) => result.facts.filter(fact => fact.page === page)
+    expect(byPage(7)).toEqual([
+      expect.objectContaining({ kind: 'roster-option', faction: 'Cities of Sigmar' }),
+    ])
+    expect(byPage(8)).toEqual([
+      expect.objectContaining({ kind: 'unit', faction: 'Daughters of Khaine', name: 'Witch Aelves' }),
+    ])
+    expect(byPage(57)).toEqual([
+      expect.objectContaining({ kind: 'unit', faction: 'Sons of Behemat', context: 'standard', points: 140 }),
+    ])
+    expect(byPage(58)).toEqual([
+      expect.objectContaining({ kind: 'roster-option', faction: 'Universal Manifestation Lores' }),
+    ])
+    expect(byPage(64)).toEqual([expect.objectContaining({ kind: 'regiment-of-renown', points: 310 })])
+    expect(byPage(65)).toEqual([
+      expect.objectContaining({ kind: 'unit', faction: 'Warhammer Legends', context: 'legends' }),
+    ])
+  })
+
+  it('splits a page shared by two sections at the lower section title', async () => {
+    // September 2026 page 58: the Sons of Behemat enhancements above the universal manifestation
+    // lores.
+    const result = await extractGamesWorkshopBattleProfiles(
+      new Uint8Array([1]),
+      'a'.repeat(64),
+      fakeLoader(64, {
+        58: [
+          title('SONS OF BEHEMAT', 692),
+          item('Artefact of Power', 40, 660),
+          item('Glowy Lantern', 180, 660),
+          item('20', 280, 660),
+          item('Battletome: Sons of Behemat', 320, 660),
+          title('UNIVERSAL MANIFESTATION LORES', 300),
+          item('NAME', 40, 280),
+          item('Primal Energy', 40, 260),
+          item('10', 280, 260),
+        ],
+      })
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.facts.filter(fact => fact.page === 58)).toEqual([
+      expect.objectContaining({
+        kind: 'roster-option',
+        faction: 'Sons of Behemat',
+        optionType: 'Artefact of Power',
+        name: 'Glowy Lantern',
+        points: 20,
+      }),
+      expect.objectContaining({
+        kind: 'roster-option',
+        faction: 'Universal Manifestation Lores',
+        name: 'Primal Energy',
+        points: 10,
+      }),
+    ])
+  })
+
+  it('fails closed on a page with an unrecognised or missing section title', async () => {
+    const titled = fakeLoader(57, { 20: [title('BEASTS OF CHAOS'), ...unitPage('Bestigors', 10, 150)] })
+    const loader: PdfDocumentLoader = {
+      async load(bytes) {
+        const document = await titled.load(bytes)
+        return {
+          ...document,
+          async getPage(page) {
+            return page === 21
+              ? {
+                  async getTextItems() {
+                    return unitPage('Untitled unit', 1, 100)
+                  },
+                }
+              : document.getPage(page)
+          },
+        }
+      },
+    }
+    const result = await extractGamesWorkshopBattleProfiles(new Uint8Array([1]), 'a'.repeat(64), loader)
+
+    expect(result.diagnostics).toEqual([
+      expect.objectContaining({
+        code: 'ambiguous-layout',
+        severity: 'error',
+        message: 'Battle Profiles page 20 has an unrecognised section title "BEASTS OF CHAOS"',
+        page: 20,
+      }),
+      expect.objectContaining({
+        code: 'ambiguous-layout',
+        severity: 'error',
+        message: 'Battle Profiles page 21 has no section title',
+        page: 21,
+      }),
+    ])
+    expect(result.facts.some(fact => fact.page === 20 || fact.page === 21)).toBe(false)
   })
 
   it('fails closed on an incompatible layout and still destroys the PDF handle', async () => {

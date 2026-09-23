@@ -71,61 +71,57 @@ interface NumericRow {
   value: number
 }
 
-const PROFILE_PAGE_FACTIONS: Record<number, string> = {
-  3: 'Cities of Sigmar',
-  4: 'Cities of Sigmar',
-  5: 'Cities of Sigmar',
-  6: 'Cities of Sigmar',
-  7: 'Daughters of Khaine',
-  8: 'Daughters of Khaine',
-  9: 'Fyreslayers',
-  10: 'Fyreslayers',
-  11: 'Idoneth Deepkin',
-  12: 'Idoneth Deepkin',
-  13: 'Kharadron Overlords',
-  14: 'Kharadron Overlords',
-  15: 'Lumineth Realm-lords',
-  16: 'Lumineth Realm-lords',
-  17: 'Seraphon',
-  18: 'Seraphon',
-  19: 'Stormcast Eternals',
-  20: 'Stormcast Eternals',
-  21: 'Stormcast Eternals',
-  22: 'Stormcast Eternals',
-  23: 'Sylvaneth',
-  24: 'Sylvaneth',
-  25: 'Blades of Khorne',
-  26: 'Blades of Khorne',
-  27: 'Disciples of Tzeentch',
-  28: 'Disciples of Tzeentch',
-  29: 'Hedonites of Slaanesh',
-  30: 'Hedonites of Slaanesh',
-  31: 'Helsmiths of Hashut',
-  32: 'Helsmiths of Hashut',
-  33: 'Maggotkin of Nurgle',
-  34: 'Maggotkin of Nurgle',
-  35: 'Skaven',
-  36: 'Skaven',
-  37: 'Slaves to Darkness',
-  38: 'Slaves to Darkness',
-  39: 'Slaves to Darkness',
-  40: 'Flesh-eater Courts',
-  41: 'Flesh-eater Courts',
-  42: 'Nighthaunt',
-  43: 'Nighthaunt',
-  44: 'Ossiarch Bonereapers',
-  45: 'Ossiarch Bonereapers',
-  46: 'Soulblight Gravelords',
-  47: 'Soulblight Gravelords',
-  48: 'Gloomspite Gitz',
-  49: 'Gloomspite Gitz',
-  50: 'Ironjawz',
-  51: 'Ironjawz',
-  52: 'Kruleboyz',
-  53: 'Kruleboyz',
-  54: 'Ogor Mawtribes',
-  55: 'Ogor Mawtribes',
-  56: 'Sons of Behemat',
+/**
+ * The factions a Battle Profiles document prints as section titles. A page's section comes from
+ * its printed title rather than its page number, because Games Workshop re-flows the document
+ * between editions (the September 2026 edition gave Cities of Sigmar a fifth page, moving every
+ * later section down one page, and shares page 58 between the Sons of Behemat enhancements and
+ * the universal manifestation lores). An unrecognised title fails extraction closed.
+ */
+const PROFILE_FACTIONS = [
+  'Cities of Sigmar',
+  'Daughters of Khaine',
+  'Fyreslayers',
+  'Idoneth Deepkin',
+  'Kharadron Overlords',
+  'Lumineth Realm-lords',
+  'Seraphon',
+  'Stormcast Eternals',
+  'Sylvaneth',
+  'Blades of Khorne',
+  'Disciples of Tzeentch',
+  'Hedonites of Slaanesh',
+  'Helsmiths of Hashut',
+  'Maggotkin of Nurgle',
+  'Skaven',
+  'Slaves to Darkness',
+  'Flesh-eater Courts',
+  'Nighthaunt',
+  'Ossiarch Bonereapers',
+  'Soulblight Gravelords',
+  'Gloomspite Gitz',
+  'Ironjawz',
+  'Kruleboyz',
+  'Ogor Mawtribes',
+  'Sons of Behemat',
+]
+
+type BattleProfileSection =
+  | { kind: 'faction'; faction: string }
+  | { kind: 'legends' }
+  | { kind: 'manifestation-lores' }
+  | { kind: 'regiments-of-renown' }
+
+/** Section titles print at about 19pt; the 15pt month line never reaches this height. */
+const SECTION_TITLE_MINIMUM_HEIGHT = 17
+
+const sectionForTitle = (value: string): BattleProfileSection | undefined => {
+  const title = value.replace(/\s+/g, ' ').trim().toUpperCase()
+  if (title === 'UNIVERSAL MANIFESTATION LORES') return { kind: 'manifestation-lores' }
+  if (title === 'REGIMENTS OF RENOWN') return { kind: 'regiments-of-renown' }
+  if (/^WARHAMMER LEGENDS\b/.test(title)) return { kind: 'legends' }
+  const faction = PROFILE_FACTIONS.find(name => name.toUpperCase() === title)
+  return faction ? { kind: 'faction', faction } : undefined
 }
 
 const textValue = (items: PositionedItem[]): string =>
@@ -483,11 +479,10 @@ const extractUnitFacts = (
   items: PositionedItem[],
   page: number,
   checksum: string,
-  factionOverride?: string
+  faction: string,
+  legends = false
 ): GamesWorkshopUnitProfileFact[] => {
   const rows = unitRows(items)
-  const faction = factionOverride ?? (page >= 64 ? 'Warhammer Legends' : PROFILE_PAGE_FACTIONS[page])
-  if (!faction) return []
 
   return rows.flatMap((row, rowIndex) => {
     const points = pointsForUnitRow(items, row)
@@ -518,7 +513,7 @@ const extractUnitFacts = (
       page,
       row: rowIndex + 1,
       faction,
-      context: (page >= 64 ? 'legends' : seasonal ? 'seasonal' : 'standard') as
+      context: (legends ? 'legends' : seasonal ? 'seasonal' : 'standard') as
         'standard' | 'seasonal' | 'legends',
       name,
       unitSize: row.value,
@@ -546,11 +541,9 @@ const extractRosterOptionFacts = (
   items: PositionedItem[],
   page: number,
   checksum: string,
-  factionOverride?: string
+  faction: string
 ): GamesWorkshopRosterOptionFact[] => {
   const rows = rosterRows(items)
-  const faction = factionOverride ?? PROFILE_PAGE_FACTIONS[page]
-  if (!faction) return []
   return rows.flatMap((row, rowIndex) => {
     const optionType = withoutColumnHeader(
       textValue(nearestRowItems(items, rows, rowIndex, 30, 152)),
@@ -670,6 +663,52 @@ const extractRegimentFacts = (
   })
 }
 
+/**
+ * Splits a page into the sections its printed titles introduce. A page with one title keeps every
+ * item; on a shared page each item belongs to the nearest title above it, and anything above the
+ * first title (the masthead) stays with the first section.
+ */
+const pageSections = (
+  items: PositionedItem[]
+): Array<{ section: BattleProfileSection; items: PositionedItem[] }> | { error: string } => {
+  const titles = items
+    .filter(
+      item =>
+        (item.height ?? 0) >= SECTION_TITLE_MINIMUM_HEIGHT &&
+        !/^BATTLE PROFILES$/i.test(item.str.replace(/\s+/g, ' ').trim())
+    )
+    .sort((left, right) => right.y - left.y)
+  if (!titles.length) return { error: 'has no section title' }
+  const sections = titles.map(title => ({ title, section: sectionForTitle(title.str) }))
+  const unknown = sections.find(entry => !entry.section)
+  if (unknown) return { error: `has an unrecognised section title "${unknown.title.str.trim()}"` }
+  if (sections.length === 1) return [{ section: sections[0].section!, items }]
+  return sections.map((entry, index) => ({
+    section: entry.section!,
+    items: items.filter(
+      item =>
+        (index === 0 || item.y <= entry.title.y) &&
+        (index === sections.length - 1 || item.y > sections[index + 1].title.y)
+    ),
+  }))
+}
+
+const extractSectionFacts = (
+  section: BattleProfileSection,
+  items: PositionedItem[],
+  page: number,
+  checksum: string
+): GamesWorkshopBattleProfileFact[] => {
+  if (section.kind === 'manifestation-lores') return extractManifestationFacts(items, page, checksum)
+  if (section.kind === 'regiments-of-renown') return extractRegimentFacts(items, page, checksum)
+  if (section.kind === 'legends') return extractUnitFacts(items, page, checksum, 'Warhammer Legends', true)
+  return items.some(
+    item => item.x >= 145 && item.x < 205 && /^U\s*NIT\s*SIZE$/i.test(item.str.replace(/\s+/g, ' ').trim())
+  )
+    ? extractUnitFacts(items, page, checksum, section.faction)
+    : extractRosterOptionFacts(items, page, checksum, section.faction)
+}
+
 const extract = async (
   bytes: Uint8Array,
   checksum: string,
@@ -702,31 +741,28 @@ const extract = async (
         })
         continue
       }
-      let pageFacts: GamesWorkshopBattleProfileFact[]
-      if (page === 57) {
-        pageFacts = extractManifestationFacts(items, page, checksum)
-      } else if (page >= 58 && page <= 63) {
-        pageFacts = extractRegimentFacts(items, page, checksum)
-      } else if (
-        page >= 64 ||
-        items.some(
-          item =>
-            item.x >= 145 && item.x < 205 && /^U\s*NIT\s*SIZE$/i.test(item.str.replace(/\s+/g, ' ').trim())
-        )
-      ) {
-        pageFacts = extractUnitFacts(items, page, checksum)
-      } else {
-        pageFacts = extractRosterOptionFacts(items, page, checksum)
-      }
-      facts.push(...pageFacts)
-      if (!pageFacts.length) {
+      const sections = pageSections(items)
+      if ('error' in sections) {
         diagnostics.push({
-          code: 'fact-not-found',
+          code: 'ambiguous-layout',
           severity: 'error',
-          message: `Battle Profiles page ${page} produced no structured facts`,
+          message: `Battle Profiles page ${page} ${sections.error}`,
           page,
         })
+        continue
       }
+      sections.forEach(({ section, items: sectionItems }) => {
+        const sectionFacts = extractSectionFacts(section, sectionItems, page, checksum)
+        facts.push(...sectionFacts)
+        if (!sectionFacts.length) {
+          diagnostics.push({
+            code: 'fact-not-found',
+            severity: 'error',
+            message: `Battle Profiles page ${page} produced no structured facts`,
+            page,
+          })
+        }
+      })
     }
     if (!facts.length) {
       diagnostics.push({
