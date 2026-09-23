@@ -126,6 +126,26 @@ describe('bounded adversarial review workers', () => {
     expect([1, 2, 20].map(defaultAdversarialReviewJobs)).toEqual([1, 1, 8])
   })
 
+  it('rejects campaign instants that are malformed or later than the current time', () => {
+    const now = new Date('2026-09-23T19:10:00.000Z')
+
+    expect(parseAdversarialReviewArguments(['--campaign-at', '2026-09-23T19:10:00.000Z'], now)).toMatchObject(
+      { campaignAt: '2026-09-23T19:10:00.000Z' }
+    )
+    expect(parseAdversarialReviewArguments(['--campaign-at', '2026-09-12T15:56:24Z'], now)).toMatchObject({
+      campaignAt: '2026-09-12T15:56:24Z',
+    })
+    expect(() => parseAdversarialReviewArguments(['--campaign-at', '2026-09-23T19:10:00.001Z'], now)).toThrow(
+      '--campaign-at 2026-09-23T19:10:00.001Z is later than the current time 2026-09-23T19:10:00.000Z'
+    )
+    expect(() => parseAdversarialReviewArguments(['--campaign-at', '2026-09-23T20:00:00Z'], now)).toThrow(
+      'is later than the current time'
+    )
+    expect(() => parseAdversarialReviewArguments(['--campaign-at', '2026-09-23'], now)).toThrow(
+      '--campaign-at requires an ISO timestamp'
+    )
+  })
+
   it('persists blind results before producing comparison results', async () => {
     const root = await mkdtemp(path.join(tmpdir(), 'aos4-adversarial-worker-'))
     try {

@@ -11,9 +11,11 @@ import {
   REQUIRED_HIGH_RISK_COHORTS,
   appendFindingResolution,
   appendFindingVerification,
+  assertPreparableSourceInventory,
   boundReviewPopulationIssues,
   calibrationEvidenceIssues,
   certificationChronologyIssues,
+  certificationInventoryBinding,
   checksumCertificationText,
   checksumReviewRecord,
   createCertificationManifest,
@@ -25,9 +27,11 @@ import {
   evaluateCertification,
   importReviewerResultsAtomic,
   parseCertificationCommandArguments,
+  parseCertificationManifest,
   parseCertificationPreparationArguments,
   reviewerConfigurationId,
   reviewIndexSamplingMetadataChecksum,
+  ReviewValidationError,
   runCertificationCheck,
   serializeReviewRecord,
   sourceSafeReviewLedger,
@@ -218,6 +222,33 @@ const passingInput = (): CertificationEvaluationInput => ({
   },
   acceptedArtifactChecksums: [ACCEPTED_ARTIFACT_CHECKSUM],
 })
+
+// A current inventory: two independent observations taken at different instants.
+const provenancedInput = (): CertificationEvaluationInput => {
+  const input = passingInput()
+  input.inventory = {
+    ...input.inventory,
+    schemaVersion: 2,
+    observedAt: CALIBRATED_AT,
+    oldestObservedAt: '2026-07-28T10:00:00.000Z',
+    producedBy: 'source-inventory-reconciler/v2 (fixture-bsdata-discovery, fixture-wahapedia-discovery)',
+    observations: [
+      {
+        producedBy: 'fixture-bsdata-discovery',
+        observedAt: '2026-07-28T10:00:00.000Z',
+        publishers: [],
+        entries: 0,
+      },
+      {
+        producedBy: 'fixture-wahapedia-discovery',
+        observedAt: CALIBRATED_AT,
+        publishers: ['wahapedia'],
+        entries: 1,
+      },
+    ],
+  }
+  return input
+}
 
 const fixtureIndexEntry = ({
   candidateKey,
@@ -411,6 +442,21 @@ describe('AoS 4 certification evaluation', () => {
         'not-an-instant',
       ])
     ).toThrow('--evaluated-at requires a canonical ISO timestamp')
+    const now = new Date(REVIEWED_AT)
+    expect(
+      parseCertificationPreparationArguments(
+        ['--output', 'data/aos4/certifications/fixture', '--evaluated-at', REVIEWED_AT],
+        now
+      )
+    ).toMatchObject({ evaluatedAt: REVIEWED_AT })
+    expect(() =>
+      parseCertificationPreparationArguments(
+        ['--output', 'data/aos4/certifications/fixture', '--evaluated-at', '2026-07-28T12:01:00.001Z'],
+        now
+      )
+    ).toThrow(
+      '--evaluated-at 2026-07-28T12:01:00.001Z is later than the current time 2026-07-28T12:01:00.000Z'
+    )
   })
 
   it('requires certification to occur after all bound review evidence', () => {
@@ -721,6 +767,142 @@ describe('AoS 4 certification evaluation', () => {
         expect.objectContaining({ code: 'unmatched-source-artifact' }),
       ])
     )
+  })
+
+  it('validates per-observation provenance on current inventories and keeps legacy inventories readable', () => {
+    const legacy = passingInput()
+    expect(evaluateCertification(legacy).ok).toBe(true)
+
+    const current = provenancedInput()
+    expect(evaluateCertification(current).ok).toBe(true)
+
+    const invalid = (mutate: (inventory: CertificationEvaluationInput['inventory']) => void): string[] => {
+      const input = provenancedInput()
+      mutate(input.inventory)
+      return evaluateCertification(input)
+        .issues.filter(value => value.code === 'invalid-source-inventory')
+        .map(value => value.path)
+    }
+    // The newest instant must be the real newest observation, not an arbitrary stamp.
+    expect(
+      invalid(inventory => {
+        inventory.observedAt = '2026-07-28T11:30:00.000Z'
+      })
+    ).toContain('inventory.observations')
+    expect(
+      invalid(inventory => {
+        inventory.oldestObservedAt = CALIBRATED_AT
+      })
+    ).toContain('inventory.observations')
+    expect(
+      invalid(inventory => {
+        inventory.observations![0].observedAt = '2026-07-28 10:00'
+      })
+    ).toContain('inventory.observations[0]')
+    expect(
+      invalid(inventory => {
+        inventory.observations![1].publishers = ['games-workshop']
+      })
+    ).toContain('inventory.observations')
+    expect(
+      invalid(inventory => {
+        inventory.observations![1].entries = 2
+      })
+    ).toContain('inventory.observations')
+    expect(
+      invalid(inventory => {
+        inventory.producedBy = 'source-inventory-reconciler/v2 (fresh-looking-discovery)'
+      })
+    ).toContain('inventory.producedBy')
+    expect(
+      invalid(inventory => {
+        delete inventory.observations
+      })
+    ).toContain('inventory')
+    const withoutMilliseconds = provenancedInput()
+    withoutMilliseconds.inventory.oldestObservedAt = '2026-07-28T10:00:00Z'
+    withoutMilliseconds.inventory.observations![0].observedAt = '2026-07-28T10:00:00Z'
+    withoutMilliseconds.inventory.observations![1].observedAt = '2026-07-28T10:00:00.500Z'
+    withoutMilliseconds.inventory.observedAt = '2026-07-28T10:00:00.500Z'
+    expect(evaluateCertification(withoutMilliseconds).ok).toBe(true)
+    // A legacy schema may not carry half of the current provenance.
+    const mixed = passingInput()
+    mixed.inventory.oldestObservedAt = CALIBRATED_AT
+    expect(evaluateCertification(mixed).issues).toContainEqual(
+      expect.objectContaining({ code: 'invalid-source-inventory', path: 'inventory' })
+    )
+  })
+
+  it('requires new certifications to bind a per-observation inventory', () => {
+    expect(() => assertPreparableSourceInventory(passingInput().inventory)).toThrow(
+      'per-observation provenance'
+    )
+    expect(() => assertPreparableSourceInventory(provenancedInput().inventory)).not.toThrow()
+  })
+
+  it('binds the oldest observation instant into the certification manifest', () => {
+    const input = provenancedInput()
+    const evaluation = evaluateCertification(input)
+    const inputs = certificationInputs()
+    const binding = certificationInventoryBinding(digest('inventory'), input.inventory)
+    expect(binding).toEqual({
+      checksum: digest('inventory'),
+      observedAt: '2026-07-28T11:00:00.000Z',
+      oldestObservedAt: '2026-07-28T10:00:00.000Z',
+      complete: true,
+    })
+    const manifest = createCertificationManifest({
+      evaluation,
+      inputs,
+      ledger: input.ledger,
+      inventory: binding,
+      certifiedAt: REVIEWED_AT,
+      protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+      rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+    })
+    expect(manifest).toMatchObject({
+      sourceObservedAt: '2026-07-28T11:00:00.000Z',
+      sourceOldestObservedAt: '2026-07-28T10:00:00.000Z',
+    })
+    expect(parseCertificationManifest(JSON.parse(serializeReviewRecord(manifest)))).toEqual(manifest)
+    const verify = (candidate: typeof manifest, inventory = binding) =>
+      verifyCertificationManifest({
+        manifest: candidate,
+        evaluation,
+        currentInputs: inputs,
+        ledger: input.ledger,
+        inventory,
+        protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+        rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+      })
+    expect(verify(manifest)).toEqual([])
+    expect(verify({ ...manifest, sourceOldestObservedAt: '2026-07-28T11:00:00.000Z' })).toContainEqual(
+      expect.objectContaining({ code: 'stale-inventory' })
+    )
+    expect(verify({ ...manifest, sourceOldestObservedAt: undefined })).toContainEqual(
+      expect.objectContaining({ code: 'stale-inventory' })
+    )
+    expect(() =>
+      parseCertificationManifest({ ...manifest, sourceOldestObservedAt: '2026-07-28T11:00:00.001Z' })
+    ).toThrowError(ReviewValidationError)
+    expect(() =>
+      parseCertificationManifest({ ...manifest, sourceOldestObservedAt: 'yesterday' })
+    ).toThrowError(ReviewValidationError)
+
+    const legacyInput = passingInput()
+    const legacyBinding = certificationInventoryBinding(digest('inventory'), legacyInput.inventory)
+    expect(legacyBinding).not.toHaveProperty('oldestObservedAt')
+    expect(
+      createCertificationManifest({
+        evaluation: evaluateCertification(legacyInput),
+        inputs,
+        ledger: legacyInput.ledger,
+        inventory: legacyBinding,
+        certifiedAt: REVIEWED_AT,
+        protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+        rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+      })
+    ).not.toHaveProperty('sourceOldestObservedAt')
   })
 
   it('requires every finding to be dispositioned', () => {

@@ -716,7 +716,10 @@ export const parseCertificationManifest = (input: unknown): CertificationManifes
     !isChecksum(manifest.ledgerChecksum) ||
     (manifest.ledgerChecksumKind !== undefined && manifest.ledgerChecksumKind !== 'input-bindings/v1') ||
     !isChecksum(manifest.inventoryChecksum) ||
-    !isIsoInstant(manifest.sourceObservedAt)
+    !isIsoInstant(manifest.sourceObservedAt) ||
+    (manifest.sourceOldestObservedAt !== undefined &&
+      (!isIsoInstant(manifest.sourceOldestObservedAt) ||
+        new Date(manifest.sourceOldestObservedAt) > new Date(manifest.sourceObservedAt)))
   ) {
     issues.push(issue('invalid-shape', 'manifest', 'Certification manifest fields are invalid'))
   }

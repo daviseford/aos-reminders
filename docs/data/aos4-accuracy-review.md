@@ -203,6 +203,27 @@ yarn data:aos4:inventory `
 Any missing, unexpected, inaccessible, or ambiguous entry blocks beta readiness. A non-material
 entry needs a specific evidence-backed disposition.
 
+The inventory records every observation it combined: the producer, the publishers it covered, how
+many entries it contributed, and when it was observed. `observedAt` (and the manifest's
+`sourceObservedAt`) is the newest of those instants; `oldestObservedAt` (and
+`sourceOldestObservedAt`) is the oldest. So a mixed-age inventory shows its oldest observation
+instead of reporting the newest one for every publisher. The certification binds this record by
+checksum. `data:aos4:certify:prepare`, `data:aos4:certify`, and `data:aos4:verify:beta` reject an
+inventory whose recorded observations disagree with its instants, entry counts, publishers, or
+producer. `certify:prepare` also refuses a schema 1 inventory, which records only the newest instant.
+Committed schema 1 certifications still verify. Because of that, the check cannot tell a legacy
+inventory from a hand-assembled schema 1 one, so treat a schema 1 inventory in a new certification
+directory as a review finding. `review:adversarial --campaign-at` and
+`certify:prepare --evaluated-at` reject an instant later than the current time on the machine
+running them. There is no skew allowance, because the operator reads that same clock. The existing
+chronology check still requires certification to follow all bound evidence, so a future observation
+instant also fails at `certify:prepare`. The code does not enforce freshness. It never compares an
+observation instant with the calendar or with the acquisition date. Freshness is workflow policy
+that the reviewer checks against the recorded instants: a revision with a new acquisition, manifest,
+or review revision certifies against observations taken for that intake. Reusing earlier
+observations is only for a re-campaign of an unchanged revision, as with `machine-r2` and
+`machine-r3`.
+
 ### 3. Run the independent campaign
 
 ```powershell

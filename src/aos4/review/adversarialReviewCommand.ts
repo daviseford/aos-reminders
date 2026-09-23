@@ -11,7 +11,7 @@ import {
   createAdversarialBlindResult,
   createAdversarialComparisonResult,
 } from './adversarialReview'
-import { createCalibrationEvidenceReceipt } from './certification'
+import { assertInstantNotInFuture, createCalibrationEvidenceReceipt } from './certification'
 import {
   calibrationControlOutcomes,
   type CalibrationCaseKind,
@@ -49,6 +49,7 @@ import type {
 const REVIEW_CACHE = path.join('.cache', 'aos4', 'review')
 const DEFAULT_WORKSPACE = path.join(REVIEW_CACHE, 'workspace')
 const DEFAULT_OUTPUT = path.join(REVIEW_CACHE, 'adversarial-review')
+const ISO_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
 
 interface Arguments {
   workspace: string
@@ -80,7 +81,7 @@ const nextValue = (values: string[], index: number, flag: string): string => {
   return value
 }
 
-export const parseAdversarialReviewArguments = (values: string[]): Arguments => {
+export const parseAdversarialReviewArguments = (values: string[], now = new Date()): Arguments => {
   const parsed: Arguments = {
     workspace: DEFAULT_WORKSPACE,
     output: DEFAULT_OUTPUT,
@@ -115,9 +116,10 @@ export const parseAdversarialReviewArguments = (values: string[]): Arguments => 
       throw new Error(`Unknown argument: ${value}`)
     }
   }
-  if (!parsed.campaignAt || Number.isNaN(new Date(parsed.campaignAt).valueOf())) {
+  if (!ISO_INSTANT_PATTERN.test(parsed.campaignAt) || Number.isNaN(new Date(parsed.campaignAt).valueOf())) {
     throw new Error('--campaign-at requires an ISO timestamp')
   }
+  assertInstantNotInFuture('--campaign-at', parsed.campaignAt, now)
   return parsed
 }
 

@@ -267,7 +267,10 @@ export interface CertificationManifest {
   ledgerChecksum: string
   ledgerChecksumKind?: 'input-bindings/v1'
   inventoryChecksum: string
+  /** The newest source observation instant bound by the inventory. */
   sourceObservedAt: string
+  /** The oldest source observation instant; absent for inventories without per-observation provenance. */
+  sourceOldestObservedAt?: string
   execution?: CertificationExecutionProjection
 }
 

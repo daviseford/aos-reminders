@@ -11,7 +11,9 @@ import { stableCompactJson, stableJson } from '../generate/serialization'
 import { assertAgentBlindDerivations } from './adversarialReview'
 import {
   calibrationEvidenceIssues,
+  assertInstantNotInFuture,
   certificationChronologyIssues,
+  certificationInventoryBinding,
   checksumCertificationText,
   createCalibrationEvidenceReceipt,
   createCertificationManifest,
@@ -190,7 +192,8 @@ const nextValue = (values: string[], index: number, flag: string): string => {
 }
 
 export const parseCertificationPreparationArguments = (
-  values: string[]
+  values: string[],
+  now = new Date()
 ): CertificationPreparationArguments => {
   const parsed: CertificationPreparationArguments = {
     output: '',
@@ -230,7 +233,21 @@ export const parseCertificationPreparationArguments = (
   ) {
     throw new Error('--evaluated-at requires a canonical ISO timestamp')
   }
+  assertInstantNotInFuture('--evaluated-at', parsed.evaluatedAt, now)
   return parsed
+}
+
+/**
+ * New certifications must bind an inventory that records each observation's producer, publishers,
+ * and instant. Schema 1 inventories stay verifiable in committed certifications, but cannot be
+ * re-bound, because they report only the newest observation instant.
+ */
+export const assertPreparableSourceInventory = (inventory: SourceInventory): void => {
+  if (inventory?.schemaVersion !== 2 || !Array.isArray(inventory.observations)) {
+    throw new Error(
+      'Source inventory lacks per-observation provenance; rebuild it with yarn data:aos4:inventory'
+    )
+  }
 }
 
 const withinDirectory = (directory: string, relativePath: string): string => {
@@ -712,6 +729,7 @@ export const runCertificationPreparation = async (
   ])
   const acceptedManifest = JSON.parse(acceptedManifestText) as ArtifactManifest
   const index = JSON.parse(indexText) as ReviewPacketSafeIndex
+  assertPreparableSourceInventory(inventory)
   if (
     index.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION ||
     index.protocolVersion !== AOS4_REVIEW_PROTOCOL_VERSION ||
@@ -1013,11 +1031,7 @@ export const runCertificationPreparation = async (
       evaluation,
       inputs,
       ledger: certificationLedger,
-      inventory: {
-        checksum: inventoryInput.checksum,
-        observedAt: inventory.observedAt,
-        complete: inventory.complete,
-      },
+      inventory: certificationInventoryBinding(inventoryInput.checksum, inventory),
       certifiedAt: arguments_.evaluatedAt,
       protocolVersion: protocol.protocolVersion,
       rubricVersion: rubric.rubricVersion,
