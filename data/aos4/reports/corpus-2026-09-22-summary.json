@@ -45,8 +45,8 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 32751111,
-      "checksum": "86e1b7489147a2e5cda40d001745ebcb476e5e1bc007cc49a6bacc62c2a35d7e"
+      "byteLength": 32753051,
+      "checksum": "aae0018baac0e45378a7decc487a5ea18ec9f9d4a9ca814ea0c7f78bee0328f3"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
       "byteLength": 1475064,
@@ -69,12 +69,12 @@
       "checksum": "db89eafc8a989c781dd6f3f4699294374e81617ffb12145bbc6e5d76f8d0728d"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
-      "byteLength": 6444685,
-      "checksum": "f40ab45617f88fabe6b00343368c245f258a9e6b9ecbdd79ba53408237aa7523"
+      "byteLength": 6445145,
+      "checksum": "a5546c448bcec5cd85c1b71fd5500ca019634e410bf49cede2bf341ea194bf7f"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 13529370,
-      "checksum": "19b4e7dfb55a4a124b01f88432cfa6118e649fa369cc08c0d6e266c397b1f2f9"
+      "byteLength": 13529830,
+      "checksum": "b0572b79ef1bb80b43fb4ab4ff2c5d11882458afd38bddc16cf8effb9578e6af"
     },
     "src/aos4/generated/corpus/runtime.sources.json": {
       "byteLength": 7084687,
@@ -101,7 +101,7 @@
     "factions": 28,
     "ignoredSourceRecords": 20556,
     "publications": 310,
-    "relationships": 13918,
+    "relationships": 13923,
     "revision": "aos4-corpus-2026-09-22",
     "schemaVersion": 1,
     "sourceArtifacts": 247,

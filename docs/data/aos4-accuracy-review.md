@@ -49,7 +49,14 @@ snapshot plus a `data:aos4:inventory:observe-bsdata` observation of the pinned `
 commit: 247 entries matched accepted checksums and 9 discovery entries received explicit
 non-material dispositions carried forward from the 2026-08-01b review.
 
-The current certification is `aos4-corpus-2026-09-22-machine-r1` (2026-09-22). The
+The current certification is `aos4-corpus-2026-09-22-machine-r3` (2026-09-23). It re-campaigned
+`machine-r2` because the generator fix for issue #2015 restored the five Sons of Behemat Regiments
+of Renown's member edges (the catalog and runtime gained five `includes` relationships; accepted
+inputs, identities, and the official ledger are unchanged). Reusing `machine-r2` carried 42,431
+pairs forward and evaluated 74 fresh — 85,010 checks, 0 findings, 0 cannot-verify. It reused the
+2026-09-22 inventory observations unchanged, since no acquisition occurred.
+
+`machine-r2` (2026-09-22) and `machine-r1` (2026-09-22) preceded it. The `machine-r1`
 `--reuse-certification` offer of the 2026-09-12 directory carried nothing forward (the revision
 re-key invalidates every pair), so all 42,505 pairs were evaluated fresh — 85,010 checks, 0
 findings, 0 cannot-verify.

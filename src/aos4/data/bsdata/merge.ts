@@ -442,8 +442,11 @@ export const mergeBsDataWarscrolls = (
   const newWeapons: WahapediaWarscrollWeaponRecord[] = []
   const newKeywords: WahapediaDataset['warscrollKeywords'] = []
   const newBases: WahapediaDataset['warscrollBases'] = []
-  /** Dataset ids of the replaced Wahapedia warscroll records (issue #1850). */
-  const replacedWarscrollIds = new Set<string>()
+  /**
+   * Dataset ids of the replaced Wahapedia warscroll records (issue #1850), each mapped to the
+   * dataset id of the community record that replaces it.
+   */
+  const replacedWarscrollIds = new Map<string, string>()
 
   sources.forEach(source => {
     const sourceArtifactId = artifactId(source.artifact.checksum)
@@ -503,6 +506,7 @@ export const mergeBsDataWarscrolls = (
          * record's own rows leave the live dataset as superseded. The official fact was already
          * matched by the page being replaced, so it is not counted a second time.
          */
+        const warscrollId = `bsdata-${createHash('sha256').update(fact.sourceRecordId).digest('hex').slice(0, 16)}`
         const replacePin = source.replacesBySection?.[fact.section]
         const replaced = replacePin
           ? dataset.warscrolls.find(record => record.meta.sourceRecordId === replacePin)
@@ -533,7 +537,7 @@ export const mergeBsDataWarscrolls = (
               )
             }
           }
-          replacedWarscrollIds.add(replaced.id)
+          replacedWarscrollIds.set(replaced.id, warscrollId)
         }
         if ((!replacePin || source.renamesBySection?.[fact.section]) && !terrainAnchor) {
           // An unpinned community warscroll is the match for its official unit fact. A rename pin
@@ -566,7 +570,6 @@ export const mergeBsDataWarscrolls = (
           })
         }
         const contextKinds: NonNullable<WahapediaRecordMeta['rulesContextKinds']> = ['standard']
-        const warscrollId = `bsdata-${createHash('sha256').update(fact.sourceRecordId).digest('hex').slice(0, 16)}`
         const identityFor = (recordSourceId: SourceRecordId): SourceRecordId => {
           // Identity aliases must survive BSData refreshes: strip the artifact checksum and key the
           // alias on the repository and catalogue section instead.
@@ -709,13 +712,28 @@ export const mergeBsDataWarscrolls = (
       .filter(record => !keepRecord(record))
       .map(record => record.meta),
   ]
+  /**
+   * A retained Regiment of Renown still lists its members by the dataset ids the current-HTML
+   * merge resolved. A member this merge replaced must follow its replacement, which carries the
+   * member's canonical identity forward; left on the removed id, the membership edge would vanish
+   * and buying the regiment would no longer bring the unit (issue #2015).
+   */
+  const withReplacedMembers = (record: WahapediaWarscrollRecord): WahapediaWarscrollRecord =>
+    record.regimentOfRenownMemberIds?.some(id => replacedWarscrollIds.has(id))
+      ? {
+          ...record,
+          regimentOfRenownMemberIds: Array.from(
+            new Set(record.regimentOfRenownMemberIds.map(id => replacedWarscrollIds.get(id) ?? id))
+          ),
+        }
+      : record
 
   return {
     dataset: {
       ...dataset,
       supersededMetas: Array.from(new Map(supersededMetas.map(meta => [meta.sourceRecordId, meta])).values()),
       warscrolls: [
-        ...dataset.warscrolls.filter(record => !replacedWarscrollIds.has(record.id)),
+        ...dataset.warscrolls.filter(record => !replacedWarscrollIds.has(record.id)).map(withReplacedMembers),
         ...newWarscrolls,
       ],
       warscrollAbilities: [...dataset.warscrollAbilities.filter(keepRecord), ...newAbilities],

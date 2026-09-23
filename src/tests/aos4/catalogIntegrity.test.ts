@@ -451,6 +451,44 @@ describe('AoS 4 catalog generation integrity', () => {
     AOS4_FULL_CATALOG.entities.forEach(entity => expect(identities.has(entity.id)).toBe(true))
   })
 
+  it('links every Regiment of Renown to its member warscrolls, apart from reviewed source gaps', () => {
+    /**
+     * Buying a regiment brings its units, so every regiment group must include a warscroll. A
+     * silently dropped membership edge cost the five Sons of Behemat regiments their gargants
+     * (issue #2015). Each exception is a gap in the accepted source itself, and the list must stay
+     * exact: a regiment that gains a member must leave it.
+     */
+    const reviewedMemberlessRegiments = {
+      // Their Cogfort member datasheets are absent from the accepted collection pages, which
+      // generation reports as a `regiment-of-renown-member-missing` warning.
+      'Cogfort Raiders': 'member datasheet not accepted',
+      'Rogue Engine': 'member datasheet not accepted',
+      // Their source datasheets' ORGANISATION blocks carry no member warscroll links.
+      'Gotrek Gurnisson': 'no member links in source',
+      'Heroes of The Jade Abbey': 'no member links in source',
+      'Mask of the Deceiver': 'no member links in source',
+      'The Sorrowmourn Choir': 'no member links in source',
+    }
+    const kindById = new Map(AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity.kind]))
+    const regiments = AOS4_FULL_CATALOG.entities.filter(
+      entity => entity.kind === 'content-group' && entity.groupType === 'regiment-of-renown'
+    )
+    const memberless = regiments
+      .filter(
+        regiment =>
+          !AOS4_FULL_CATALOG.relationships.some(
+            relationship =>
+              relationship.kind === 'includes' &&
+              relationship.from === regiment.id &&
+              kindById.get(relationship.to) === 'warscroll'
+          )
+      )
+      .map(regiment => regiment.name)
+      .sort()
+    expect(regiments).toHaveLength(75)
+    expect(memberless).toEqual(Object.keys(reviewedMemberlessRegiments).sort())
+  })
+
   it('keeps current, seasonal, Spearhead, Legends, and historical content separate', () => {
     const standard = AOS4_FULL_CATALOG.rulesContexts.find(
       context => context.mode === 'standard' && context.status === 'current'

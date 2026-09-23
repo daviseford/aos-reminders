@@ -393,6 +393,7 @@ export type CorpusGenerationDiagnosticCode =
   | 'identity-not-found'
   | 'invalid-review'
   | 'missing-official-source-record'
+  | 'regiment-of-renown-member-dangling'
   | 'regiment-of-renown-member-missing'
   | 'unclassified-army-of-renown'
   | 'unclassified-regiment-of-renown'
@@ -1867,10 +1868,25 @@ export const buildAos4Corpus = (
   dataset.warscrolls.forEach(record => {
     if (!record.regimentOfRenown) return
     const groupId = parentByWarscrollExternalId.get(record.id)
-    // Buying the regiment brings its member units, so the group includes their warscrolls.
-    ;(record.regimentOfRenownMemberIds ?? []).forEach(memberId =>
-      addRelationship('includes', groupId, parentByWarscrollExternalId.get(memberId))
-    )
+    // Buying the regiment brings its member units, so the group includes their warscrolls. A
+    // regiment that generates no group has no membership to lose.
+    ;(groupId ? (record.regimentOfRenownMemberIds ?? []) : []).forEach(memberId => {
+      const memberWarscrollId = parentByWarscrollExternalId.get(memberId)
+      if (!memberWarscrollId) {
+        // A member the source merge resolved must still be a generated entity. Dropping the edge
+        // silently is how the Sons of Behemat regiments lost their gargants (issue #2015).
+        diagnostics.push({
+          code: 'regiment-of-renown-member-dangling',
+          severity: 'error',
+          subject: record.meta.sourceRecordId,
+          message:
+            `Regiment of Renown "${record.name.trim()}" lists member dataset id "${memberId}", which no ` +
+            'generated warscroll carries, so its membership edge cannot be emitted',
+        })
+        return
+      }
+      addRelationship('includes', groupId, memberWarscrollId)
+    })
     ;(record.regimentOfRenownUnresolvedMembers ?? []).forEach(memberName =>
       diagnostics.push({
         code: 'regiment-of-renown-member-missing',
