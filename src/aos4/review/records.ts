@@ -9,6 +9,20 @@ export const AOS4_REVIEW_RUBRIC_VERSION = 'aos4-rubric/v2' as const
 export const AOS4_REVIEW_PROMPT_VERSION = 'aos4-review-prompt/v1' as const
 export const AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION = 'evidence-auditor/v3' as const
 
+const CANONICAL_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
+
+/**
+ * A UTC instant, with or without milliseconds, that round-trips through `Date`. The shape check
+ * alone admits dates that `Date` silently rolls over (`2026-02-30`, `T24:00`).
+ */
+export const isCanonicalInstant = (value: unknown): value is string => {
+  if (typeof value !== 'string' || !CANONICAL_INSTANT_PATTERN.test(value)) return false
+  const date = new Date(value)
+  if (Number.isNaN(date.valueOf())) return false
+  const canonical = date.toISOString()
+  return canonical === value || canonical.replace(/\.000Z$/, 'Z') === value
+}
+
 export type ReviewPacketId = `review-packet:sha256:${string}`
 export type ReviewAssignmentId = `review-assignment:sha256:${string}`
 export type ReviewFindingId = `review-finding:sha256:${string}`
@@ -267,7 +281,10 @@ export interface CertificationManifest {
   ledgerChecksum: string
   ledgerChecksumKind?: 'input-bindings/v1'
   inventoryChecksum: string
+  /** The newest source observation instant bound by the inventory. */
   sourceObservedAt: string
+  /** The oldest source observation instant; absent for inventories without per-observation provenance. */
+  sourceOldestObservedAt?: string
   execution?: CertificationExecutionProjection
 }
 

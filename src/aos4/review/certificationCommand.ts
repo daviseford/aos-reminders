@@ -11,11 +11,11 @@ import { assertAgentBlindDerivations } from './adversarialReview'
 import {
   calibrationEvidenceIssues,
   certificationChronologyIssues,
+  certificationInventoryBinding,
   evaluateCertification,
   checksumCertificationText,
   reviewLedgerWithResults,
   verifyCertificationManifest,
-  type CertificationInventoryBinding,
   type CertificationIssue,
   type SourceInventory,
 } from './certification'
@@ -422,11 +422,7 @@ export const runCertificationCheck = async (
     : undefined
   const inventoryInput = currentInputs.find(value => value.name === 'source-inventory')
   if (!inventoryInput) throw new Error('Certification source inventory binding is missing')
-  const inventoryBinding: CertificationInventoryBinding = {
-    checksum: inventoryInput.checksum,
-    observedAt: inventoryFile.observedAt,
-    complete: inventoryFile.complete,
-  }
+  const inventoryBinding = certificationInventoryBinding(inventoryInput.checksum, inventoryFile)
   files.clear()
 
   const evaluation = evaluateCertification({

@@ -1,5 +1,11 @@
 import type { ArtifactManifest, ArtifactManifestEntry } from '../data'
-import type { SourceInventory, SourceInventoryEntry } from './certification'
+import { isCanonicalInstant } from './records'
+import {
+  sourceInventoryReconcilerName,
+  type SourceInventory,
+  type SourceInventoryEntry,
+  type SourceInventoryObservation,
+} from './certification'
 
 export type SourceObservationScope = 'material' | 'explicit-non-material'
 export type SourceObservationAvailability = 'accessible' | 'inaccessible' | 'ambiguous'
@@ -29,15 +35,13 @@ export interface CreateSourceInventoryInput {
 }
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/i
-const ISO_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
 
 const compareText = (left: string, right: string): number => (left < right ? -1 : left > right ? 1 : 0)
 
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === 'string' && Boolean(value.trim())
 
-const isInstant = (value: unknown): value is string =>
-  typeof value === 'string' && ISO_INSTANT_PATTERN.test(value) && !Number.isNaN(new Date(value).valueOf())
+const isInstant = isCanonicalInstant
 
 const normalizedUrl = (value: string): string => {
   const url = new URL(value)
@@ -203,19 +207,29 @@ export const createSourceInventory = ({
       compareText(left.title, right.title)
   )
   const complete = sortedEntries.every(entry => ['matched', 'explicit-non-material'].includes(entry.status))
-  const producedBy = Array.from(new Set(observations.map(observation => observation.producedBy.trim())))
-    .sort(compareText)
-    .join(', ')
-  const observedAt = observations
-    .map(observation => observation.observedAt)
-    .sort(compareText)
-    .at(-1)!
+  // Record every observation's own instant so a stale publisher cannot hide behind a fresh one.
+  const inventoryObservations = observations
+    .map((observation): SourceInventoryObservation => ({
+      producedBy: observation.producedBy.trim(),
+      observedAt: observation.observedAt,
+      publishers: Array.from(new Set(observation.entries.map(entry => entry.publisher))).sort(compareText),
+      entries: observation.entries.length,
+    }))
+    .sort(
+      (left, right) =>
+        new Date(left.observedAt).valueOf() - new Date(right.observedAt).valueOf() ||
+        compareText(left.observedAt, right.observedAt) ||
+        compareText(left.producedBy, right.producedBy) ||
+        compareText(left.publishers.join(','), right.publishers.join(','))
+    )
 
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     revision: revision.trim(),
-    observedAt,
-    producedBy: `source-inventory-reconciler/v1 (${producedBy})`,
+    observedAt: inventoryObservations.at(-1)!.observedAt,
+    oldestObservedAt: inventoryObservations[0].observedAt,
+    observations: inventoryObservations,
+    producedBy: sourceInventoryReconcilerName(inventoryObservations),
     independentFromAcceptedManifest: true,
     complete,
     entries: sortedEntries,

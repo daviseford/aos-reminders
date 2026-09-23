@@ -144,6 +144,79 @@ describe('AoS 4 independent source inventory', () => {
     )
   })
 
+  it('records each observation instant instead of stamping every publisher with the newest', () => {
+    const officialUrl = 'https://assets.warhammer-community.com/rules.pdf'
+    const wahapediaUrl = 'https://wahapedia.ru/aos4/factions/fixture/'
+    const inventory = createSourceInventory({
+      revision: 'aos4-corpus-test',
+      acceptedManifest: manifest(
+        artifact({ requestUrl: officialUrl, checksum: checksum('d') }),
+        artifact({
+          requestUrl: wahapediaUrl,
+          checksum: checksum('e'),
+          adapterVersion: 'wahapedia-html/1',
+          mediaType: 'text/html',
+        })
+      ),
+      observations: [
+        observed([entry(wahapediaUrl, { publisher: 'wahapedia' })], {
+          observedAt: '2026-09-23T18:45:46.124Z',
+          producedBy: 'wahapedia-discovery/v1',
+        }),
+        observed([entry(officialUrl)], {
+          observedAt: '2026-09-22T02:39:35.873Z',
+          producedBy: 'games-workshop-discovery/v1',
+        }),
+      ],
+    })
+
+    expect(inventory).toMatchObject({
+      schemaVersion: 2,
+      observedAt: '2026-09-23T18:45:46.124Z',
+      oldestObservedAt: '2026-09-22T02:39:35.873Z',
+      producedBy: 'source-inventory-reconciler/v2 (games-workshop-discovery/v1, wahapedia-discovery/v1)',
+      observations: [
+        {
+          producedBy: 'games-workshop-discovery/v1',
+          observedAt: '2026-09-22T02:39:35.873Z',
+          publishers: ['games-workshop'],
+          entries: 1,
+        },
+        {
+          producedBy: 'wahapedia-discovery/v1',
+          observedAt: '2026-09-23T18:45:46.124Z',
+          publishers: ['wahapedia'],
+          entries: 1,
+        },
+      ],
+    })
+  })
+
+  it('orders observation instants by time when some omit milliseconds', () => {
+    const inventory = createSourceInventory({
+      revision: 'aos4-corpus-test',
+      acceptedManifest: manifest(),
+      observations: [
+        observed([], { observedAt: '2026-09-22T02:39:35Z', producedBy: 'earlier' }),
+        observed([], { observedAt: '2026-09-22T02:39:35.500Z', producedBy: 'later' }),
+      ],
+    })
+
+    expect(inventory.oldestObservedAt).toBe('2026-09-22T02:39:35Z')
+    expect(inventory.observedAt).toBe('2026-09-22T02:39:35.500Z')
+    expect(inventory.observations!.map(value => value.producedBy)).toEqual(['earlier', 'later'])
+  })
+
+  it('rejects observation instants that do not round-trip', () => {
+    expect(() =>
+      createSourceInventory({
+        revision: 'aos4-corpus-test',
+        acceptedManifest: manifest(),
+        observations: [observed([], { observedAt: '2026-02-30T00:00:00.000Z' })],
+      })
+    ).toThrow(/missing independent discovery provenance/)
+  })
+
   it('rejects duplicate discovery URLs and non-material entries without rationale', () => {
     const duplicate = entry('https://assets.warhammer-community.com/rules.pdf')
     expect(() =>

@@ -5,11 +5,11 @@ import {
   calibrationControlSetChecksum,
   calibrationEvidenceIssues,
   certificationChronologyIssues,
+  certificationInventoryBinding,
   checksumCertificationText,
   evaluateCertification,
   verifyCertificationManifest,
   type CertificationEvaluationSummary,
-  type CertificationInventoryBinding,
 } from './certification'
 import { loadCertificationEvidence } from './certificationEvidence'
 import { parseCertificationManifest } from './findings'
@@ -477,11 +477,7 @@ const loadReusableCertificationEvidenceInternal = async (
   const loaded = await loadCertificationEvidence(resolvedDirectory, repoRoot, true)
   const inventoryInput = loaded.currentInputs.find(value => value.name === 'source-inventory')
   if (!inventoryInput) throw new Error('Certification reuse source inventory binding is missing')
-  const inventoryBinding: CertificationInventoryBinding = {
-    checksum: inventoryInput.checksum,
-    observedAt: loaded.inventory.observedAt,
-    complete: loaded.inventory.complete,
-  }
+  const inventoryBinding = certificationInventoryBinding(inventoryInput.checksum, loaded.inventory)
   const evaluation = evaluateCertification({
     index: loaded.index,
     ledger: loaded.ledger,
