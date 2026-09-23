@@ -664,6 +664,58 @@ describe('AoS 4 corpus generation', () => {
     )
   })
 
+  it('fails closed when a Regiment of Renown member id names no generated warscroll (issue #2015)', async () => {
+    const withRegiment = async (memberIds: string[]) => {
+      const decoded = decodeWahapediaExports(await loadInputs())
+      const [unit] = decoded.dataset.warscrolls
+      decoded.dataset.warscrolls.push({
+        ...unit,
+        id: 'fixture-regiment',
+        name: 'Fixture Regiment',
+        move: '',
+        save: '',
+        control: '',
+        health: '',
+        regimentOfRenown: true,
+        regimentOfRenownMemberIds: memberIds,
+        meta: { ...unit.meta, sourceRecordId: sourceRecordId('wahapedia', 'fixture-regiment'), row: 99 },
+      })
+      const identities = createCorpusIdentityRegistry(decoded.dataset, review)
+      const result = buildAos4Corpus(decoded, identities, review)
+      const group = result.catalog.entities.find(entity => entity.name === 'Fixture Regiment')!
+      const member = result.catalog.entities.find(
+        entity => entity.kind === 'warscroll' && entity.name === unit.name
+      )!
+      return { result, group, member }
+    }
+
+    const [unit] = decodeWahapediaExports(await loadInputs()).dataset.warscrolls
+    const linked = await withRegiment([unit.id])
+    expect(linked.group.kind).toBe('content-group')
+    expect(linked.result.catalog.relationships).toContainEqual(
+      expect.objectContaining({ kind: 'includes', from: linked.group.id, to: linked.member.id })
+    )
+    expect(linked.result.diagnostics.map(diagnostic => diagnostic.code)).not.toContain(
+      'regiment-of-renown-member-dangling'
+    )
+
+    // A member id no generated warscroll carries blocks generation instead of vanishing.
+    const dangling = await withRegiment(['removed-by-a-later-merge'])
+    expect(dangling.result.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'regiment-of-renown-member-dangling',
+        severity: 'error',
+        subject: sourceRecordId('wahapedia', 'fixture-regiment'),
+      })
+    )
+    expect(dangling.result.summary.status).toBe('blocked')
+    expect(
+      dangling.result.catalog.relationships.filter(
+        relationship => relationship.kind === 'includes' && relationship.from === dangling.group.id
+      )
+    ).toEqual([])
+  })
+
   it('fails closed on a Legends warscroll override that names no live export record', () => {
     const warscrolls = [
       { id: '000000338', name: 'Viceleader, Herald of Slaanesh' },

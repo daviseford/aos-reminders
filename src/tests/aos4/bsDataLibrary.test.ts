@@ -402,6 +402,33 @@ describe('BSData warscroll replacement of superseded Wahapedia datasheets', () =
     expect(merged.reconciliation.matchedOfficialUnitFacts).toBe(1)
   })
 
+  it('keeps a retained Regiment of Renown’s member link on the replacing record (issue #2015)', () => {
+    const regiment = {
+      id: 'ror-1',
+      name: 'Test Regiment',
+      factionId: 'TF',
+      sourceId: '',
+      regimentOfRenown: true,
+      regimentOfRenownMemberIds: ['old-1', 'kept-member'],
+      meta: replacedMeta({ sourceRecordId: 'source-record:wahapedia:html-regiment' }),
+    }
+    const dataset = staleDataset()
+    const input = { ...dataset, warscrolls: [...dataset.warscrolls, regiment] } as unknown as WahapediaDataset
+    const merged = mergeBsDataWarscrolls(
+      input,
+      emptyReconciliation,
+      sourceWith('source-record:wahapedia:html-old-datasheet'),
+      [official]
+    )
+    const replacement = merged.dataset.warscrolls.find(record => record.name === 'Testfist Brute')!
+    expect(replacement.id).toMatch(/^bsdata-[0-9a-f]{16}$/)
+    const mergedRegiment = merged.dataset.warscrolls.find(record => record.id === 'ror-1')!
+    // The replaced member follows its replacement; an unreplaced member is untouched.
+    expect(mergedRegiment.regimentOfRenownMemberIds).toEqual([replacement.id, 'kept-member'])
+    // The accepted input dataset is not mutated.
+    expect(regiment.regimentOfRenownMemberIds).toEqual(['old-1', 'kept-member'])
+  })
+
   it('follows a CSV-era identity the replaced datasheet itself adopted', () => {
     const merged = mergeBsDataWarscrolls(
       staleDataset({ identitySourceRecordId: 'source-record:wahapedia:csv-era-alias' as never }),
