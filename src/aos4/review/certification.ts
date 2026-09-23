@@ -3,6 +3,7 @@ import {
   AOS4_CERTIFICATION_SCHEMA_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
   checksumReviewRecord,
+  isCanonicalInstant,
   reviewerConfigurationId,
   reviewCalibrationForAssignment,
   type CertificationCoverage,
@@ -33,7 +34,6 @@ import {
 } from './packets'
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/i
-const ISO_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
 
 export const REQUIRED_CERTIFICATION_INPUTS = [
   'accepted-manifest',
@@ -278,8 +278,7 @@ const count = (reviewed: number, expected: number): CertificationCoverageDetail 
 const isChecksum = (value: unknown): value is string =>
   typeof value === 'string' && SHA256_PATTERN.test(value)
 
-const isInstant = (value: unknown): value is string =>
-  typeof value === 'string' && ISO_INSTANT_PATTERN.test(value) && !Number.isNaN(new Date(value).valueOf())
+const isInstant = isCanonicalInstant
 
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === 'string' && Boolean(value.trim())
@@ -597,8 +596,11 @@ export const certificationChronologyIssues = (
     ]
   }
   let latestEvidence: string | undefined
+  // Compare by time, not text: canonical instants may omit milliseconds.
   const consider = (value: string): void => {
-    if (isInstant(value) && (!latestEvidence || value > latestEvidence)) latestEvidence = value
+    if (isInstant(value) && (!latestEvidence || new Date(value) > new Date(latestEvidence))) {
+      latestEvidence = value
+    }
   }
   ledger.assignments.forEach(value => consider(value.assignedAt))
   ledger.calibrations.forEach(value => consider(value.calibratedAt))

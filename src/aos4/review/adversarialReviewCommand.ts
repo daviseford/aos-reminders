@@ -28,6 +28,7 @@ import {
   AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION,
   checksumReviewRecord,
   createReviewAssignment,
+  isCanonicalInstant,
   reviewerConfigurationId,
   type ReviewCalibration,
   type ReviewFinding,
@@ -49,7 +50,6 @@ import type {
 const REVIEW_CACHE = path.join('.cache', 'aos4', 'review')
 const DEFAULT_WORKSPACE = path.join(REVIEW_CACHE, 'workspace')
 const DEFAULT_OUTPUT = path.join(REVIEW_CACHE, 'adversarial-review')
-const ISO_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
 
 interface Arguments {
   workspace: string
@@ -116,7 +116,7 @@ export const parseAdversarialReviewArguments = (values: string[], now = new Date
       throw new Error(`Unknown argument: ${value}`)
     }
   }
-  if (!ISO_INSTANT_PATTERN.test(parsed.campaignAt) || Number.isNaN(new Date(parsed.campaignAt).valueOf())) {
+  if (!isCanonicalInstant(parsed.campaignAt)) {
     throw new Error('--campaign-at requires an ISO timestamp')
   }
   assertInstantNotInFuture('--campaign-at', parsed.campaignAt, now)

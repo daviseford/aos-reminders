@@ -5,6 +5,7 @@ import {
   createReviewAssignment,
   createReviewFinding,
   expectedReviewPacketChecksum,
+  isCanonicalInstant,
   reviewerConfigurationId,
   reviewCalibrationForAssignment,
   reviewCalibrationIdentity,
@@ -20,7 +21,6 @@ import {
 } from './records'
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/i
-const ISO_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
 const REVIEW_PACKET_ID_PATTERN = /^review-packet:sha256:[0-9a-f]{64}$/i
 const REVIEW_ASSIGNMENT_ID_PATTERN = /^review-assignment:sha256:[0-9a-f]{64}$/i
 const REVIEW_FINDING_ID_PATTERN = /^review-finding:sha256:[0-9a-f]{64}$/i
@@ -78,8 +78,7 @@ const isNonEmptyString = (value: unknown): value is string => isString(value) &&
 const isStringArray = (value: unknown): value is string[] => Array.isArray(value) && value.every(isString)
 const isNonNegativeInteger = (value: unknown): value is number =>
   typeof value === 'number' && Number.isSafeInteger(value) && value >= 0
-const isIsoInstant = (value: unknown): value is string =>
-  isString(value) && ISO_INSTANT_PATTERN.test(value) && !Number.isNaN(new Date(value).valueOf())
+const isIsoInstant = isCanonicalInstant
 const isChecksum = (value: unknown): value is string => isString(value) && SHA256_PATTERN.test(value)
 const isSourceRecordId = (value: unknown): value is string =>
   isString(value) && value.startsWith('source-record:') && value.length > 'source-record:'.length

@@ -144,6 +144,13 @@ describe('bounded adversarial review workers', () => {
     expect(() => parseAdversarialReviewArguments(['--campaign-at', '2026-09-23'], now)).toThrow(
       '--campaign-at requires an ISO timestamp'
     )
+    // Rolled-over dates parse in V8 (02-30 becomes 03-02) but are not canonical instants.
+    expect(() => parseAdversarialReviewArguments(['--campaign-at', '2026-02-30T00:00:00Z'], now)).toThrow(
+      '--campaign-at requires an ISO timestamp'
+    )
+    expect(() => parseAdversarialReviewArguments(['--campaign-at', '2026-09-22T24:00:00Z'], now)).toThrow(
+      '--campaign-at requires an ISO timestamp'
+    )
   })
 
   it('persists blind results before producing comparison results', async () => {

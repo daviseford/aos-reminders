@@ -207,6 +207,16 @@ describe('AoS 4 independent source inventory', () => {
     expect(inventory.observations!.map(value => value.producedBy)).toEqual(['earlier', 'later'])
   })
 
+  it('rejects observation instants that do not round-trip', () => {
+    expect(() =>
+      createSourceInventory({
+        revision: 'aos4-corpus-test',
+        acceptedManifest: manifest(),
+        observations: [observed([], { observedAt: '2026-02-30T00:00:00.000Z' })],
+      })
+    ).toThrow(/missing independent discovery provenance/)
+  })
+
   it('rejects duplicate discovery URLs and non-material entries without rationale', () => {
     const duplicate = entry('https://assets.warhammer-community.com/rules.pdf')
     expect(() =>

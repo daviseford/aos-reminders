@@ -1,4 +1,5 @@
 import type { ArtifactManifest, ArtifactManifestEntry } from '../data'
+import { isCanonicalInstant } from './records'
 import {
   sourceInventoryReconcilerName,
   type SourceInventory,
@@ -34,15 +35,13 @@ export interface CreateSourceInventoryInput {
 }
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/i
-const ISO_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
 
 const compareText = (left: string, right: string): number => (left < right ? -1 : left > right ? 1 : 0)
 
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === 'string' && Boolean(value.trim())
 
-const isInstant = (value: unknown): value is string =>
-  typeof value === 'string' && ISO_INSTANT_PATTERN.test(value) && !Number.isNaN(new Date(value).valueOf())
+const isInstant = isCanonicalInstant
 
 const normalizedUrl = (value: string): string => {
   const url = new URL(value)

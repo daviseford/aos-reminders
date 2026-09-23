@@ -207,22 +207,39 @@ The inventory records every observation it combined: the producer, the publisher
 many entries it contributed, and when it was observed. `observedAt` (and the manifest's
 `sourceObservedAt`) is the newest of those instants; `oldestObservedAt` (and
 `sourceOldestObservedAt`) is the oldest. So a mixed-age inventory shows its oldest observation
-instead of reporting the newest one for every publisher. The certification binds this record by
-checksum. `data:aos4:certify:prepare`, `data:aos4:certify`, and `data:aos4:verify:beta` reject an
-inventory whose recorded observations disagree with its instants, entry counts, publishers, or
-producer. `certify:prepare` also refuses a schema 1 inventory, which records only the newest instant.
-Committed schema 1 certifications still verify. Because of that, the check cannot tell a legacy
-inventory from a hand-assembled schema 1 one, so treat a schema 1 inventory in a new certification
-directory as a review finding. `review:adversarial --campaign-at` and
-`certify:prepare --evaluated-at` reject an instant later than the current time on the machine
-running them. There is no skew allowance, because the operator reads that same clock. The existing
-chronology check still requires certification to follow all bound evidence, so a future observation
-instant also fails at `certify:prepare`. The code does not enforce freshness. It never compares an
-observation instant with the calendar or with the acquisition date. Freshness is workflow policy
-that the reviewer checks against the recorded instants: a revision with a new acquisition, manifest,
-or review revision certifies against observations taken for that intake. Reusing earlier
-observations is only for a re-campaign of an unchanged revision, as with `machine-r2` and
-`machine-r3`.
+instead of reporting the newest one for every publisher. An observation that found no entries still
+counts toward both instants, so read each observation's `entries` and the oldest instant, not only
+the newest.
+
+The certification binds this record by checksum. `data:aos4:certify:prepare`, `data:aos4:certify`,
+and `data:aos4:verify:beta` reject a schema 2 inventory when an observation is malformed, when
+`observedAt` or `oldestObservedAt` is not the newest or oldest recorded observation, when the entry
+counts or publishers disagree with the inventory entries in total, or when the producer string
+disagrees with the observations. Entries do not record which observation found them, so the split
+of publishers and counts between observations is asserted by the producer (`data:aos4:inventory`)
+and is not checked. None of this authenticates a source: an observation file is trusted input, and
+nothing here proves who produced it or when beyond what it states. Every instant in the inventory,
+the manifest, and the review ledger must be a canonical UTC instant that round-trips, with or
+without milliseconds. Rolled-over dates such as `2026-02-30` or `T24:00` are rejected.
+
+`certify:prepare` refuses a schema 1 inventory, which records only the newest instant. Committed
+schema 1 certifications still verify. Because of that, the check cannot tell a legacy inventory from
+a hand-assembled schema 1 one, so treat a schema 1 inventory in a new certification directory as a
+review finding. It also means a re-campaign cannot re-bind a committed schema 1 inventory, such as
+the one the 2026-09-22 `machine-r1` to `machine-r3` certifications share. Rebuild a schema 2
+inventory with `data:aos4:inventory` from the original observation files, which keeps their real
+instants, or take fresh observations if those files are gone.
+
+`review:adversarial --campaign-at` and `certify:prepare --evaluated-at` reject an instant later than
+the current time on the machine running them. There is no skew allowance, because the operator
+reads that same clock. The existing chronology check requires certification to follow all bound
+evidence, compared by time, so a future observation instant also fails at `certify:prepare`. The
+code does not enforce freshness. It never compares an observation instant with the calendar or with
+the acquisition date. Freshness is workflow policy that the reviewer checks against the recorded
+instants: a revision with a new acquisition, manifest, or review revision certifies against
+observations taken for that intake. Reusing earlier observations is only for a re-campaign of an
+unchanged revision, as with `machine-r2` and `machine-r3`, and under schema 2 that reuse goes
+through the original observation files.
 
 ### 3. Run the independent campaign
 

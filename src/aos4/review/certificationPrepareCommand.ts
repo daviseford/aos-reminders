@@ -21,6 +21,7 @@ import {
   reviewLedgerWithResults,
   type ReviewProtocolDefinition,
   type ReviewRubricDefinition,
+  type CreateCertificationManifestInput,
   type SourceInventory,
 } from './certification'
 import { validateReviewLedger } from './findings'
@@ -41,6 +42,7 @@ import {
   checksumReviewRecord,
   reviewerConfigurationId,
   type CertificationInput,
+  type CertificationManifest,
   type ReviewAssignment,
   type ReviewCalibration,
   type ReviewFinding,
@@ -711,6 +713,33 @@ const compactedCertificationResults = async (
   )
 }
 
+/** The manifest certify:prepare writes, binding the inventory through its bound input checksum. */
+export const preparedCertificationManifest = (input: {
+  evaluation: CreateCertificationManifestInput['evaluation']
+  inputs: CertificationInput[]
+  ledger: ReviewLedger
+  inventory: SourceInventory
+  evaluatedAt: string
+  protocolVersion: string
+  rubricVersion: string
+  execution: ReviewCampaignExecution
+}): CertificationManifest => {
+  const inventoryInput = input.inputs.find(value => value.name === 'source-inventory')
+  if (!inventoryInput) throw new Error('Certification source inventory binding is missing')
+  return {
+    ...createCertificationManifest({
+      evaluation: input.evaluation,
+      inputs: input.inputs,
+      ledger: input.ledger,
+      inventory: certificationInventoryBinding(inventoryInput.checksum, input.inventory),
+      certifiedAt: input.evaluatedAt,
+      protocolVersion: input.protocolVersion,
+      rubricVersion: input.rubricVersion,
+    }),
+    execution: certificationExecutionProjection(input.execution),
+  }
+}
+
 export const runCertificationPreparation = async (
   arguments_: CertificationPreparationArguments,
   repoRoot = process.cwd()
@@ -1025,19 +1054,16 @@ export const runCertificationPreparation = async (
     existingInputs.push(textInput(name, relativePath.replaceAll(path.sep, '/'), content))
   }
   const inputs = [...existingInputs, ...generatedInputs]
-  const inventoryInput = generatedInputs.find(input => input.name === 'source-inventory')!
-  const manifest = {
-    ...createCertificationManifest({
-      evaluation,
-      inputs,
-      ledger: certificationLedger,
-      inventory: certificationInventoryBinding(inventoryInput.checksum, inventory),
-      certifiedAt: arguments_.evaluatedAt,
-      protocolVersion: protocol.protocolVersion,
-      rubricVersion: rubric.rubricVersion,
-    }),
-    execution: certificationExecutionProjection(execution),
-  }
+  const manifest = preparedCertificationManifest({
+    evaluation,
+    inputs,
+    ledger: certificationLedger,
+    inventory,
+    evaluatedAt: arguments_.evaluatedAt,
+    protocolVersion: protocol.protocolVersion,
+    rubricVersion: rubric.rubricVersion,
+    execution,
+  })
   generatedTexts.set('manifest.json', stableJson(manifest))
   generatedTexts.set(
     'summary.json',
