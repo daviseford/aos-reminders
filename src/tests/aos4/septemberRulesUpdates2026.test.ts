@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
-import type { Ability, Entity } from '../../aos4/domain'
+import type { Ability, ContentEntity } from '../../aos4/domain'
 import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 
 /**
@@ -36,7 +36,9 @@ const ledger = readJson<{ records: OfficialBattleProfileRecord[] }>(
 const SEPTEMBER_RULES_UPDATES = '03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315'
 const SEPTEMBER_BATTLE_PROFILES = 'b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18'
 
-const entityById = new Map<string, Entity>(AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity]))
+const entityById = new Map<string, ContentEntity>(
+  AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity])
+)
 const ability = (id: string): Ability => {
   const entity = entityById.get(id)
   if (entity?.kind !== 'ability') throw new Error(`No ability ${id}`)

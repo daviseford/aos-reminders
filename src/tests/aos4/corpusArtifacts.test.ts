@@ -40,7 +40,7 @@ const certificationManifest = JSON.parse(
       'data',
       'aos4',
       'certifications',
-      'aos4-corpus-2026-09-22-machine-r3',
+      'aos4-corpus-2026-09-23-machine-r1',
       'manifest.json'
     ),
     'utf8'
@@ -69,7 +69,7 @@ describe('AoS 4 derived corpus artifacts', () => {
       'schemaVersion',
     ])
     expect(Object.keys(sources).sort()).toEqual(['sourceArtifacts', 'sourceRecords'])
-    expect(sources.sourceRecords).toHaveLength(20165)
+    expect(sources.sourceRecords).toHaveLength(20171)
     expect(sources.sourceArtifacts).toHaveLength(237)
   })
 

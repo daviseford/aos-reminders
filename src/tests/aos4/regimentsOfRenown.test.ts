@@ -247,25 +247,21 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
       records: Array<{ disposition: string; fact: { kind: string; name: string } }>
     }
     const rows = catalog.records.filter(record => record.fact.kind === 'regiment-of-renown')
-    expect(rows).toHaveLength(81)
+    expect(rows).toHaveLength(75)
     const applied = rows.filter(record => record.disposition === 'applied-to-runtime')
     expect(applied).toHaveLength(74)
-    // The September 2026 Sons of Behemat supplement re-published four SoB regiment rows; its
-    // rows apply and the July 2026 main-document rows they replace are superseded.
-    expect(
-      rows
-        .filter(record => record.disposition === 'superseded')
-        .map(record => record.fact.name)
-        .sort()
-    ).toEqual(['Big Drogg Fort-kicker', 'Bundo Whalebiter', 'Odo Godswallow', 'One-eyed Grunnock'])
-    // Wahapedia does not yet carry the two new Ogor supplement regiments' rules or the September
-    // 2026 Krong the Club regiment (#1999); their rows honestly remain structured references
-    // until a rules source is accepted.
+    // From corpus 2026-09-23 (#1757) the September 2026 core Battle Profiles is the single
+    // battle-profile source: it re-publishes the four Sons of Behemat regiment rows and Krong the
+    // Club, so nothing is superseded, and the July 2026 Ogor Mawtribes supplement's two regiments
+    // (Okar’s Torrbad, Urrgar’s Maulerguts), which it does not re-publish, left the ledger with
+    // that supplement. Krong the Club's rules are not yet accepted (#1999), so its row honestly
+    // remains a structured reference until a rules source is.
+    expect(rows.filter(record => record.disposition === 'superseded')).toEqual([])
     expect(
       rows
         .filter(record => record.disposition === 'structured-reference')
         .map(record => record.fact.name)
         .sort()
-    ).toEqual(['Krong the Club', 'Okar’s Torrbad', 'Urrgar’s Maulerguts'])
+    ).toEqual(['Krong the Club'])
   })
 })
