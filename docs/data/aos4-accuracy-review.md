@@ -13,15 +13,17 @@ full automated gate.
 ## Current campaign
 
 The current revision is `aos4-corpus-2026-09-22` (issue #1999): the Sons of Behemat September 2026
-battletome intake ships provisionally from a commit-pinned BSData catalogue (`gargants` branch,
-commit `2b7df92f`) while Wahapedia has not republished the battletome pages (unchanged since
+battletome intake ships provisionally from a commit-pinned BSData catalogue (commit `2b7df92f`,
+taken from the `gargants` branch that BSData squash-merged into `main` on 2026-09-23; the pinned
+bytes are unchanged) while Wahapedia has not republished the battletome pages (unchanged since
 2026-08-25). Accepted: the four brand-new units, six coherent legacy datasheet rewrites, the
 current faction package (4 battle formations, 6 heroic traits, 6 artefacts of power, Prayers of
 the World Titan), and the regular faction's army-wide battle traits. Deferred: Realm-shaking
 Rampage and Lore of Behemat (neither has a canonical Wahapedia type record to attach to), King
 Brodd's Stomp's own battle traits (an Army of Renown's battle-trait block decodes as a subtype of
-its root, not a standalone faction-page type record), Krong the Club, and the Stone Lobbas
-Spearhead (no secondary carries either). This cycle also fixed a stale `.datasheetsCollated`
+its root, not a standalone faction-page type record), Krong the Club (BSData carries its rules
+text, but there is no BSData Regiment-of-Renown intake path), and the Stone Lobbas Spearhead (no
+secondary carries it). This cycle also fixed a stale `.datasheetsCollated`
 selector in the independent Wahapedia source observer that had silently stopped finding all 27
 accepted warscroll collection pages once Wahapedia dropped that link block site-wide; it now
 derives the conventional `<faction root>warscrolls.html` path, matching the `/aos4/nav.html`
