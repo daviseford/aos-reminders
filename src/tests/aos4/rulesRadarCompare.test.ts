@@ -329,7 +329,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
   it('loads the reviewed config and rejects stale repository paths', () => {
     expect(readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData.baselineSha).toBe(
-      'd989a15e436cb8815dee208f3ff8251de72f40a0'
+      'd1f97bc9a3c4d65a13add36ed48082866c4e7942'
     )
 
     const config = JSON.parse(
