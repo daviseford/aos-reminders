@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-22.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-23.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-22-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-23-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -198,11 +198,11 @@ describe('AoS 4 catalog generation integrity', () => {
         abilities: 5121,
         weapons: 2269,
         sourceArtifacts: 247,
-        sourceRecords: 20171,
+        sourceRecords: 20177,
         ignoredSourceRecords: 20556,
       },
       integrity: {
-        consumedSourceRecords: 20165,
+        consumedSourceRecords: 20171,
         issues: [],
         supersededSourceRecords: {
           count: 20550,
@@ -365,12 +365,12 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('dispositions every official battle-profile fact without inventing missing rules', () => {
     expect(officialBattleProfiles.summary).toEqual({
-      records: 1396,
-      effective: 1335,
-      superseded: 61,
-      units: 980,
-      rosterOptions: 335,
-      regimentsOfRenown: 81,
+      records: 1313,
+      effective: 1313,
+      superseded: 0,
+      units: 943,
+      rosterOptions: 295,
+      regimentsOfRenown: 75,
       // The September 2026 Sons of Behemat supplement superseded the July 2026 main-document
       // rows it re-published (ten unit rows and, by name, four regiment-of-renown rows) and
       // applied its points corrections. As of 2026-09-22 (issue #1999) the four brand-new
@@ -378,12 +378,17 @@ describe('AoS 4 catalog generation integrity', () => {
       // World Titan ship from the pinned BSData catalogue, dropping profile-only to just The
       // Emberwatch; Krong the Club, Stone Lobbas, Lore of Behemat, the Realm-shaking Rampages,
       // and King Brodd's Stomp's enhancements/roster/battle traits remain structured references
-      // pending a canonical source or adapter path.
+      // pending a canonical source or adapter path. From corpus 2026-09-23 (issue #1757) the
+      // September 2026 Battle Profiles re-publishes every unit and regiment row both faction
+      // supplements carried into runtime (Sons of Behemat unchanged, Ogor Mawtribes re-priced), so
+      // it is the single battle-profile source and nothing is superseded; the supplements stay
+      // pinned as reference evidence, and the July 2026 Ogor Mawtribes supplement's twenty
+      // enhancement rows and two regiments of renown it does not re-publish left the ledger.
       appliedToRuntime: 1016,
       profileOnly: 1,
-      structuredReference: 318,
+      structuredReference: 296,
     })
-    expect(officialBattleProfiles.records).toHaveLength(1396)
+    expect(officialBattleProfiles.records).toHaveLength(1313)
     officialBattleProfiles.records.forEach(record => {
       expect(record.fact.factChecksum).toMatch(/^[0-9a-f]{64}$/)
       expect(record.fact.sourceRecordId).toMatch(/^source-record:games-workshop:/)

@@ -23,6 +23,10 @@ import { createAos4BuilderViewModel } from '../../aos4/view'
  * Lorai, Child of the Abyss demonstrated the same swap at unit scale in `2026-08-01d`
  * (Wahapedia published her datasheet; a reviewed cross-faction adoption replaced the BSData
  * transcription). This file pins the faction-scale outcome.
+ *
+ * The September 2026 Battle Profiles re-publishes every supplement unit with new points (issue
+ * #1757); from corpus 2026-09-23 it is the single battle-profile source and the July 2026 Ogor
+ * Mawtribes supplement is reference evidence, so the points below are the September values.
  */
 
 interface ReconciliationReport {
@@ -31,14 +35,14 @@ interface ReconciliationReport {
 
 const OGOR_SUPPLEMENT_UNITS: Array<{ name: string; unitSize: number; points: number; reminders: number }> = [
   { name: 'Cleavers', unitSize: 3, points: 220, reminders: 1 },
-  { name: 'Grell Firefist', unitSize: 1, points: 150, reminders: 3 },
+  { name: 'Grell Firefist', unitSize: 1, points: 140, reminders: 3 },
   { name: 'Gutseers', unitSize: 3, points: 200, reminders: 2 },
-  { name: 'Hunters with Sabrefangs', unitSize: 5, points: 160, reminders: 2 },
+  { name: 'Hunters with Sabrefangs', unitSize: 5, points: 170, reminders: 2 },
   { name: 'Maulbeast Cavalry', unitSize: 2, points: 280, reminders: 2 },
-  { name: 'Maulbeast Raiders', unitSize: 2, points: 230, reminders: 1 },
-  { name: 'Morga the Mighty, Overtyrant', unitSize: 1, points: 430, reminders: 5 },
-  { name: 'Redd the Maw, High Slaughtermaster', unitSize: 1, points: 400, reminders: 4 },
-  { name: 'Tyrant on Glutthorn', unitSize: 1, points: 400, reminders: 3 },
+  { name: 'Maulbeast Raiders', unitSize: 2, points: 210, reminders: 1 },
+  { name: 'Morga the Mighty, Overtyrant', unitSize: 1, points: 420, reminders: 5 },
+  { name: 'Redd the Maw, High Slaughtermaster', unitSize: 1, points: 420, reminders: 4 },
+  { name: 'Tyrant on Glutthorn', unitSize: 1, points: 390, reminders: 3 },
 ]
 
 const reconciliation = JSON.parse(
@@ -179,13 +183,14 @@ describe('Ogor battletome units ship from the verified Wahapedia pages (2026-08-
     const spearhead = AOS4_FULL_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
     expect(stale).toHaveLength(1)
     expect(stale[0].rulesContextIds).toEqual([spearhead.id])
-    // One battle profile at the official 200 points; the stale 220-point profile is gone.
+    // One battle profile at the official points (200 in the July 2026 supplement, re-priced to 210
+    // by the September 2026 Battle Profiles); the stale 220-point profile is gone.
     const profiles = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is BattleProfile =>
         entity.kind === 'battle-profile' && entity.warscrollId === gluttons!.id
     )
     expect(profiles).toHaveLength(1)
-    expect(profiles[0]).toMatchObject({ unitSize: 5, points: 200 })
+    expect(profiles[0]).toMatchObject({ unitSize: 5, points: 210 })
     expect(hasProvisionalCommunityAttribution(gluttons!)).toBe(false)
     expect(hasWahapediaSource(gluttons!)).toBe(true)
   })

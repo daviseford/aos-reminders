@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-22` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-23` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -33,7 +33,7 @@ This is an Age of Sigmar fourth-edition codebase:
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
 - the accepted corpus contains 1,300 warscrolls, 1,016 battle profiles, 5,121 abilities,
-  2,269 weapons, 1,506 content groups, and 20,171 live source records
+  2,269 weapons, 1,506 content groups, and 20,177 live source records
 - the 75 Regiments of Renown on the accepted collection pages are classified
   `regiment-of-renown` content groups (reviewed `regimentsOfRenown` input), offered by exactly
   their inclusion factions with their regiment abilities and member warscrolls linked
@@ -46,10 +46,11 @@ This is an Age of Sigmar fourth-edition codebase:
   datasheets the July 2026 battletome rewrites replaced, issues #1850 and #1880, and the six
   legacy Sons of Behemat datasheets the September 2026 battletome rewrites replaced, issue #1999)
   so none can leak into runtime
-- all 1,396 extracted official battle-profile facts have an explicit disposition: 1,016 apply to
+- all 1,313 extracted official battle-profile facts have an explicit disposition: 1,016 apply to
   runtime, 1 remains a profile-only gap (The Emberwatch, a Legends-context Underworlds warband with
-  a reviewed deviation under the official-first intake gate, issue #1820), 318 remain structured
-  references, and 61 are superseded
+  a reviewed deviation under the official-first intake gate, issue #1820), and 296 remain
+  structured references; the September 2026 core Battle Profiles is the single battle-profile
+  source, so nothing is superseded
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
 
@@ -108,7 +109,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-09-22` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-09-23` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.
