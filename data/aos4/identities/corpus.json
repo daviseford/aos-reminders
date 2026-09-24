@@ -132278,6 +132278,50 @@
       "canonicalId": "weapon:0335f86e-a6b3-55f7-a9c3-68a7014e8eda",
       "kind": "weapon",
       "name": "Almighty Stomp"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:regiment:krong-the-club:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:cf27d9e4-24d1-5230-be44-a4874a6bfaa2",
+      "kind": "ability",
+      "name": "Devastating Collapse"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:regiment:krong-the-club:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:3dffc6c3-4c25-56e0-bb48-194ec3559c8e",
+      "kind": "ability",
+      "name": "Jump Up and Down"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:regiment:krong-the-club",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:6ef77802-38e1-5bc6-97a8-1f247df260d4",
+      "kind": "content-group",
+      "name": "Krong the Club"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:a190b0850b87e49a01c48e1cf28ee64fd9048851b3b9b3d63747c3d9047b6752",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:cf32063b-22c8-57bf-8487-bcaefb70a7bb",
+      "kind": "publication",
+      "name": "BSData Regiments of Renown catalogue — Krong the Club (provisional community transcription, pending official verification)"
     }
   ],
   "schemaVersion": 1

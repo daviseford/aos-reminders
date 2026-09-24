@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
-import type { ContentGroup, Faction, Warscroll } from '../../aos4/domain'
+import type { Ability, ContentGroup, Faction, Warscroll } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
+import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 import { resolveParsedRoster } from '../../aos4/import'
 import { projectReminders } from '../../aos4/reminders'
 import { resolveSelection } from '../../aos4/select'
@@ -19,7 +20,7 @@ import { decodeAos4TextRoster } from '../../importers'
  * applied to runtime.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-08-02b.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-24.json')
 
 const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
 const factionByName = (name: string): Faction =>
@@ -46,7 +47,7 @@ const offeringFactionNames = (groupId: string): string[] => {
 
 describe('Regiments of Renown in the corpus (issue #1858)', () => {
   it('classifies every source-classified Regiment of Renown with reviewed evidence', () => {
-    expect(regimentRoots).toHaveLength(75)
+    expect(regimentRoots).toHaveLength(76)
     const review = JSON.parse(readFileSync(REVIEW_PATH, 'utf8')) as {
       regimentsOfRenown: Array<{
         officialSourceRecordIds: string[]
@@ -54,7 +55,7 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
         evidenceTier?: string
       }>
     }
-    expect(review.regimentsOfRenown).toHaveLength(75)
+    expect(review.regimentsOfRenown).toHaveLength(76)
     review.regimentsOfRenown.forEach(entry => {
       expect(entry.reason).toMatch(/Regiment of Renown/)
       if (entry.evidenceTier === undefined) {
@@ -66,7 +67,7 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
       }
     })
     // Heroes of The Jade Abbey is the one Legends regiment with no official profile row.
-    expect(review.regimentsOfRenown.filter(entry => entry.evidenceTier === undefined)).toHaveLength(74)
+    expect(review.regimentsOfRenown.filter(entry => entry.evidenceTier === undefined)).toHaveLength(75)
   })
 
   it('offers Lord Skaldior’s Chosen to exactly its six inclusion factions, never its home faction', () => {
@@ -249,19 +250,258 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
     const rows = catalog.records.filter(record => record.fact.kind === 'regiment-of-renown')
     expect(rows).toHaveLength(75)
     const applied = rows.filter(record => record.disposition === 'applied-to-runtime')
-    expect(applied).toHaveLength(74)
+    expect(applied).toHaveLength(75)
     // From corpus 2026-09-23 (#1757) the September 2026 core Battle Profiles is the single
     // battle-profile source: it re-publishes the four Sons of Behemat regiment rows and Krong the
     // Club, so nothing is superseded, and the July 2026 Ogor Mawtribes supplement's two regiments
     // (Okar’s Torrbad, Urrgar’s Maulerguts), which it does not re-publish, left the ledger with
-    // that supplement. Krong the Club's rules are not yet accepted (#1999), so its row honestly
-    // remains a structured reference until a rules source is.
+    // that supplement. From corpus 2026-09-24 (#1999) Krong the Club's row applies too, since its
+    // rules text ships from the pinned BSData Regiments of Renown catalogue, so no regiment row
+    // remains a structured reference.
     expect(rows.filter(record => record.disposition === 'superseded')).toEqual([])
     expect(
       rows
         .filter(record => record.disposition === 'structured-reference')
         .map(record => record.fact.name)
         .sort()
+    ).toEqual([])
+  })
+})
+
+/**
+ * Krong the Club (issue #1999) is the one Regiment of Renown shipped from BSData rather than a
+ * Wahapedia collection page: its rules text comes from the commit-pinned `Regiments of Renown.cat`
+ * (official *Regiments of Renown – Sons of Behemat* page 5 prints the same two abilities), while
+ * its inclusion list, member, and points come from the one effective official battle-profile row:
+ * the September 2026 core Battle Profiles, page 59 row 7, since corpus 2026-09-23 made it the
+ * single battle-profile source (the Sons of Behemat supplement's page 3 row 4 printed the same
+ * values and stays reference evidence).
+ */
+describe('Krong the Club from the pinned BSData Regiments of Renown catalogue (issue #1999)', () => {
+  const MANCRUSHER_ID = 'warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a'
+  const SPEARHEAD_MANCRUSHER_ID = 'warscroll:b5b33938-2697-5d81-92c3-69d9731d4abf'
+  const BATTLE_PROFILES_PAGE =
+    'source-record:games-workshop:b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18%3Apage%3A59'
+  const REGIMENTS_PACK_PAGE =
+    'source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A5'
+  const OFFICIAL_INCLUSION = [
+    'Blades of Khorne',
+    'Cities of Sigmar',
+    'Daughters of Khaine',
+    'Disciples of Tzeentch',
+    'Flesh-eater Courts',
+    'Fyreslayers',
+    'Gloomspite Gitz',
+    'Hedonites of Slaanesh',
+    'Helsmiths of Hashut',
+    'Idoneth Deepkin',
+    'Ironjawz',
+    'Kharadron Overlords',
+    'Kruleboyz',
+    'Lumineth Realm-lords',
+    'Maggotkin of Nurgle',
+    'Nighthaunt',
+    'Ogor Mawtribes',
+    'Ossiarch Bonereapers',
+    'Seraphon',
+    'Skaven',
+    'Slaves to Darkness',
+    'Soulblight Gravelords',
+    'Stormcast Eternals',
+    'Sylvaneth',
+  ]
+  const current = AOS4_CATALOG.rulesContexts.find(context => context.status === 'current')!
+  const krong = () => regimentByName('Krong the Club')
+  const includedIds = (groupId: string, prefix: string): string[] =>
+    AOS4_CATALOG.relationships
+      .filter(relationship => relationship.kind === 'includes' && relationship.from === groupId)
+      .map(relationship => String(relationship.to))
+      .filter(id => id.startsWith(prefix))
+  const abilityById = (id: string): Ability =>
+    AOS4_CATALOG.entities.find((entity): entity is Ability => entity.kind === 'ability' && entity.id === id)!
+
+  it('is the only regiment the review sources from BSData', () => {
+    const review = JSON.parse(readFileSync(REVIEW_PATH, 'utf8')) as {
+      regimentsOfRenown: Array<{ sourceRecordId: string }>
+      communityWarscrollSources: Array<{ regimentsOfRenown?: Array<{ name: string }> }>
+    }
+    expect(
+      review.regimentsOfRenown
+        .map(entry => decodeURIComponent(entry.sourceRecordId))
+        .filter(id => id.startsWith('source-record:bsdata:'))
+    ).toEqual([
+      'source-record:bsdata:a190b0850b87e49a01c48e1cf28ee64fd9048851b3b9b3d63747c3d9047b6752:regiment:krong-the-club',
+    ])
+    expect(
+      review.communityWarscrollSources
+        .flatMap(source => source.regimentsOfRenown ?? [])
+        .map(entry => entry.name)
     ).toEqual(['Krong the Club'])
+  })
+
+  it('is one classified regiment offered by exactly the 24 official inclusion factions', () => {
+    expect(regimentRoots.filter(root => root.name === 'Krong the Club')).toHaveLength(1)
+    expect(offeringFactionNames(krong().id)).toEqual(OFFICIAL_INCLUSION)
+    expect(offeringFactionNames(krong().id)).not.toContain('Sons of Behemat')
+  })
+
+  it('is legal in the current and the 2026-27 seasonal contexts', () => {
+    expect([...krong().rulesContextIds].sort()).toEqual([current.id, seasonal.id].sort())
+  })
+
+  it('includes exactly one member: the current Mancrusher Gargant, never its Spearhead twin', () => {
+    expect(includedIds(krong().id, 'warscroll:')).toEqual([MANCRUSHER_ID])
+  })
+
+  it('carries exactly its two abilities with their printed timing and keywords', () => {
+    const abilities = includedIds(krong().id, 'ability:').map(abilityById)
+    expect(abilities.map(ability => ability.name).sort()).toEqual([
+      'Devastating Collapse',
+      'Jump Up and Down',
+    ])
+    const jump = abilities.find(ability => ability.name === 'Jump Up and Down')!
+    expect(jump.keywords).toEqual(['RAMPAGE'])
+    expect(jump.timings).toEqual([
+      expect.objectContaining({
+        kind: 'active',
+        raw: 'Once Per Turn (Army), Any Combat Phase',
+        window: { kind: 'turn-phase', phase: 'combat' },
+        usage: { limit: 1, period: 'turn', scope: 'army' },
+      }),
+    ])
+    expect(jump.text.declare).toBe(
+      'If the unit in this Regiment of Renown charged this turn, pick an enemy unit in combat with it to be the target.'
+    )
+    const collapse = abilities.find(ability => ability.name === 'Devastating Collapse')!
+    expect(collapse.abilityKind).toBe('passive')
+    expect(collapse.keywords).toEqual([])
+    expect(collapse.text.effect).toBe(
+      'When the unit in this Regiment of Renown is destroyed, before removing it from play, you and your opponent must roll off. If you roll higher, inflict 3 mortal damage on each unit (friendly and enemy) within its combat range.'
+    )
+  })
+
+  it('cites the pinned BSData record and both official records', () => {
+    // The render catalog defers provenance to a side table; the full catalog carries it.
+    const refs = AOS4_FULL_CATALOG.entities
+      .find(entity => entity.id === krong().id)!
+      .sourceRefs.map(reference => decodeURIComponent(reference.sourceRecordId))
+    expect(refs).toContain(decodeURIComponent(BATTLE_PROFILES_PAGE))
+    expect(refs).toContain(decodeURIComponent(REGIMENTS_PACK_PAGE))
+    // The Sons of Behemat supplement row is reference evidence only; the effective anchor is cited.
+    expect(
+      refs.some(ref => ref.includes('13e5695de1f0d1ac96e3c9f41676426ea929558e6144057b955f84c5b889eb49'))
+    ).toBe(false)
+    expect(refs).toContain(
+      'source-record:bsdata:a190b0850b87e49a01c48e1cf28ee64fd9048851b3b9b3d63747c3d9047b6752:regiment:krong-the-club'
+    )
+  })
+
+  it('brings its gargant and both reminders when an Ironjawz army buys it', () => {
+    const ironjawz = factionByName('Ironjawz')
+    const without = resolveSelection(AOS4_CATALOG, {
+      explicitIds: [ironjawz.id],
+      rulesContextId: seasonal.id,
+    })
+    expect(without.availableIds).toContain(krong().id)
+    const withoutNames = projectReminders(AOS4_CATALOG, without).map(reminder => reminder.name)
+    expect(withoutNames).not.toContain('Jump Up and Down')
+    expect(withoutNames).not.toContain('Devastating Collapse')
+
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: [ironjawz.id, krong().id],
+      rulesContextId: seasonal.id,
+    })
+    expect(selection.diagnostics).toEqual([])
+    expect(selection.selectedIds).toContain(MANCRUSHER_ID)
+    expect(selection.selectedIds).not.toContain(SPEARHEAD_MANCRUSHER_ID)
+    const reminders = projectReminders(AOS4_CATALOG, selection)
+    const krongAbilityIds = new Set(includedIds(krong().id, 'ability:'))
+    const jump = reminders.find(reminder => reminder.name === 'Jump Up and Down')!
+    expect(jump.abilityIds.every(id => krongAbilityIds.has(id))).toBe(true)
+    expect(jump.timing.window).toEqual({ kind: 'turn-phase', phase: 'combat' })
+    expect(reminders.some(reminder => reminder.name === 'Devastating Collapse')).toBe(true)
+  })
+
+  it('is not offered to Sons of Behemat, which the official inclusion list omits', () => {
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: [factionByName('Sons of Behemat').id],
+      rulesContextId: seasonal.id,
+    })
+    expect(selection.availableIds).not.toContain(krong().id)
+  })
+
+  it('dispositions its official row as applied at 140 points', () => {
+    const catalog = JSON.parse(
+      readFileSync(
+        path.join(process.cwd(), 'data', 'aos4', 'catalog', 'official-battle-profiles.json'),
+        'utf8'
+      )
+    ) as {
+      records: Array<{ disposition: string; fact: { kind: string; name: string; points: number } }>
+    }
+    const rows = catalog.records.filter(
+      record => record.fact.kind === 'regiment-of-renown' && record.fact.name === 'Krong the Club'
+    )
+    expect(rows.map(record => [record.disposition, record.fact.points])).toEqual([
+      ['applied-to-runtime', 140],
+    ])
+  })
+
+  describe('importing a roster that buys Krong the Club', () => {
+    const importedSelection = (text: string) => {
+      const { parsedRoster, diagnostics } = decodeAos4TextRoster(text)
+      expect(diagnostics).toEqual([])
+      const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+        defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+        createDocumentId: () => 'army:krong-import',
+      })
+      expect(preview.diagnostics).toEqual([])
+      const document = preview.proposedDocument!
+      expect(document.explicitSelectionIds).toContain(krong().id)
+      const selection = resolveSelection(AOS4_CATALOG, {
+        explicitIds: document.explicitSelectionIds,
+        rulesContextId: document.rulesContextId,
+      })
+      expect(selection.diagnostics).toEqual([])
+      return selection.selectedIds
+    }
+
+    it('resolves the official app bundle and its member line', () => {
+      const officialApp = [
+        'Krong import 140/2000 pts',
+        '-----',
+        'Orruk Warclans | Ironjawz | Ironfist',
+        "General's Handbook 2026-27",
+        '-----',
+        'Regiments of Renown',
+        'Krong the Club (140)',
+        'Mancrusher Gargant',
+        '-----',
+        'Created with Warhammer Age of Sigmar: The App',
+        'App: v1.36.0 (1) | Data: v466',
+        '',
+      ].join('\n')
+      const selected = importedSelection(officialApp)
+      expect(selected).toContain(MANCRUSHER_ID)
+      expect(selected).not.toContain(SPEARHEAD_MANCRUSHER_ID)
+    })
+
+    it('resolves a Listbot regiment unit line and brings the member through the regiment', () => {
+      const listbot = [
+        'Ironjawz',
+        'Ironfist',
+        '',
+        "General's Handbook 2026-27",
+        '',
+        '- 1 x Krong the Club (140)',
+        '',
+        '140/2000pts',
+        '1 drop',
+        '',
+        'Generated by Listbot 4.0',
+        '',
+      ].join('\n')
+      expect(importedSelection(listbot)).toContain(MANCRUSHER_ID)
+    })
   })
 })

@@ -51,7 +51,9 @@ describe('the provisional-verification watch', () => {
     // and added four raw-content watches on the moving `gargants`-branch BSData files, so the
     // provisional watch reports the exact moment `main` catches up. All four fired when BSData
     // squash-merged `gargants` into `main` (8836d9f9, 2026-09-23) and were retired; the two
-    // Wahapedia watches remain for the still-deferred content.
+    // Wahapedia watches remain. Since corpus 2026-09-24 Krong the Club ships from the pinned BSData
+    // Regiments of Renown catalogue, so its watch is a duplicate-source sentinel, and the
+    // faction-package watch covers the still-deferred content.
     expect(checkedIn.watches.length).toBe(2)
     checkedIn.watches.forEach(watch => {
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)

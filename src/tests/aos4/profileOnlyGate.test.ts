@@ -131,12 +131,12 @@ describe('the official-first intake gate (#1820)', () => {
   it('accepts the current baseline: the accepted reconciliation passes with the recorded ledger', () => {
     const reconciliation = JSON.parse(
       readFileSync(
-        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-09-23-reconciliation.json'),
+        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-09-24-reconciliation.json'),
         'utf8'
       )
     ) as WahapediaHtmlReconciliation
     const review = JSON.parse(
-      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-23.json'), 'utf8')
+      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-24.json'), 'utf8')
     ) as CorpusReview
     const ledger = parseProfileOnlyDeviationLedger(
       JSON.parse(readFileSync(path.join(process.cwd(), DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH), 'utf8'))
