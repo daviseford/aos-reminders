@@ -3,6 +3,7 @@ import {
   AOS4_CERTIFICATION_SCHEMA_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
   checksumReviewRecord,
+  isCanonicalInstant,
   reviewerConfigurationId,
   reviewCalibrationForAssignment,
   type CertificationCoverage,
@@ -33,7 +34,6 @@ import {
 } from './packets'
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/i
-const ISO_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
 
 export const REQUIRED_CERTIFICATION_INPUTS = [
   'accepted-manifest',
@@ -161,6 +161,8 @@ export interface CertificationSummary {
 export interface CertificationInventoryBinding {
   checksum: string
   observedAt: string
+  /** Present only for inventories that record each observation (schema 2). */
+  oldestObservedAt?: string
   complete: boolean
 }
 
@@ -193,10 +195,30 @@ export interface SourceInventoryEntry {
   disposition?: string
 }
 
-export interface SourceInventory {
-  schemaVersion: 1
-  revision: string
+/** One independent observation that contributed entries to a source inventory. */
+export interface SourceInventoryObservation {
+  producedBy: string
   observedAt: string
+  /** Sorted publishers of the entries this observation contributed. */
+  publishers: SourceInventoryEntry['publisher'][]
+  /** Number of inventory entries this observation contributed. */
+  entries: number
+}
+
+/**
+ * Schema 1 inventories (committed before per-observation provenance) carry only the newest
+ * observation instant. Schema 2 also records every observation and the oldest instant, so a
+ * mixed-age inventory cannot present its newest observation as the age of every publisher.
+ */
+export interface SourceInventory {
+  schemaVersion: 1 | 2
+  revision: string
+  /** The newest contributing observation instant. */
+  observedAt: string
+  /** Schema 2 only: the oldest contributing observation instant. */
+  oldestObservedAt?: string
+  /** Schema 2 only: every contributing observation. */
+  observations?: SourceInventoryObservation[]
   producedBy: string
   independentFromAcceptedManifest: boolean
   complete: boolean
@@ -256,8 +278,7 @@ const count = (reviewed: number, expected: number): CertificationCoverageDetail 
 const isChecksum = (value: unknown): value is string =>
   typeof value === 'string' && SHA256_PATTERN.test(value)
 
-const isInstant = (value: unknown): value is string =>
-  typeof value === 'string' && ISO_INSTANT_PATTERN.test(value) && !Number.isNaN(new Date(value).valueOf())
+const isInstant = isCanonicalInstant
 
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === 'string' && Boolean(value.trim())
@@ -547,6 +568,17 @@ export const calibrationEvidenceIssues = (
   return sortedIssues(issues)
 }
 
+/**
+ * Command-boundary guard for operator-supplied campaign and certification instants. The operator
+ * reads the same host clock this compares against, so no clock-skew allowance is added: an instant
+ * later than the current time cannot be a truthful record of when the work ran.
+ */
+export const assertInstantNotInFuture = (flag: string, value: string, now: Date): void => {
+  if (new Date(value).valueOf() > now.valueOf()) {
+    throw new Error(`${flag} ${value} is later than the current time ${now.toISOString()}`)
+  }
+}
+
 export const certificationChronologyIssues = (
   certifiedAt: string,
   ledger: ReviewLedger,
@@ -564,8 +596,11 @@ export const certificationChronologyIssues = (
     ]
   }
   let latestEvidence: string | undefined
+  // Compare by time, not text: canonical instants may omit milliseconds.
   const consider = (value: string): void => {
-    if (isInstant(value) && (!latestEvidence || value > latestEvidence)) latestEvidence = value
+    if (isInstant(value) && (!latestEvidence || new Date(value) > new Date(latestEvidence))) {
+      latestEvidence = value
+    }
   }
   ledger.assignments.forEach(value => consider(value.assignedAt))
   ledger.calibrations.forEach(value => consider(value.calibratedAt))
@@ -721,13 +756,95 @@ const indexIssues = (index: ReviewPacketSafeIndex): CertificationIssue[] => {
   return issues
 }
 
+const SOURCE_INVENTORY_PUBLISHERS: SourceInventoryEntry['publisher'][] = [
+  'bsdata',
+  'games-workshop',
+  'wahapedia',
+]
+
+export const sourceInventoryReconcilerName = (observations: Array<{ producedBy: string }>): string =>
+  `source-inventory-reconciler/v2 (${uniqueSorted(observations.map(value => value.producedBy.trim())).join(
+    ', '
+  )})`
+
+const hasLegacyInventoryShape = (inventory: SourceInventory): boolean =>
+  inventory.schemaVersion === 1 &&
+  inventory.observations === undefined &&
+  inventory.oldestObservedAt === undefined
+
+const hasProvenancedInventoryShape = (inventory: SourceInventory): boolean =>
+  inventory.schemaVersion === 2 &&
+  Array.isArray(inventory.observations) &&
+  inventory.observations.length > 0 &&
+  isInstant(inventory.oldestObservedAt)
+
+const inventoryObservationIssues = (inventory: SourceInventory): CertificationIssue[] => {
+  const observations = inventory.observations!
+  const issues: CertificationIssue[] = []
+  observations.forEach((observation, observationIndex) => {
+    const publishers = observation?.publishers
+    const valid =
+      isNonEmptyString(observation?.producedBy) &&
+      isInstant(observation?.observedAt) &&
+      Number.isSafeInteger(observation?.entries) &&
+      observation.entries >= 0 &&
+      Array.isArray(publishers) &&
+      publishers.every(value => SOURCE_INVENTORY_PUBLISHERS.includes(value)) &&
+      publishers.join(',') === uniqueSorted(publishers).join(',') &&
+      publishers.length > 0 === observation.entries > 0
+    if (!valid) {
+      issues.push(
+        issue(
+          'invalid-source-inventory',
+          `inventory.observations[${observationIndex}]`,
+          'Source inventory observation provenance is malformed'
+        )
+      )
+    }
+  })
+  if (issues.length) return issues
+  // Order by time, not text: canonical instants may omit milliseconds.
+  const instants = observations
+    .map(value => value.observedAt)
+    .sort((left, right) => new Date(left).valueOf() - new Date(right).valueOf())
+  // Entries synthesized from the accepted manifest ('unexpected') were not observed by anyone.
+  const observedEntries = inventory.entries.filter(entry => entry.status !== 'unexpected')
+  const observedPublishers = uniqueSorted(observedEntries.map(entry => entry.publisher))
+  const recordedPublishers = uniqueSorted(observations.flatMap(value => value.publishers))
+  if (
+    inventory.observedAt !== instants.at(-1) ||
+    inventory.oldestObservedAt !== instants[0] ||
+    observations.reduce((total, value) => total + value.entries, 0) !== observedEntries.length ||
+    observedPublishers.join(',') !== recordedPublishers.join(',')
+  ) {
+    issues.push(
+      issue(
+        'invalid-source-inventory',
+        'inventory.observations',
+        'Source inventory instants, entry counts, or publishers do not match its recorded observations'
+      )
+    )
+  }
+  if (inventory.producedBy !== sourceInventoryReconcilerName(observations)) {
+    issues.push(
+      issue(
+        'invalid-source-inventory',
+        'inventory.producedBy',
+        'Source inventory producer does not match its recorded observations'
+      )
+    )
+  }
+  return issues
+}
+
 const sourceInventoryIssues = (
   inventory: SourceInventory,
   revision: string,
   acceptedArtifactChecksums: string[]
 ): CertificationIssue[] => {
   if (
-    inventory?.schemaVersion !== 1 ||
+    !inventory ||
+    !(hasLegacyInventoryShape(inventory) || hasProvenancedInventoryShape(inventory)) ||
     !isNonEmptyString(inventory?.revision) ||
     !isInstant(inventory?.observedAt) ||
     !isNonEmptyString(inventory?.producedBy) ||
@@ -743,7 +860,8 @@ const sourceInventoryIssues = (
       ),
     ]
   }
-  const issues: CertificationIssue[] = []
+  const issues: CertificationIssue[] =
+    inventory.schemaVersion === 2 ? inventoryObservationIssues(inventory) : []
   if (inventory.revision !== revision) {
     issues.push(
       issue(
@@ -1457,6 +1575,19 @@ export const createCertificationManifest = (
   ledgerChecksumKind: 'input-bindings/v1',
   inventoryChecksum: input.inventory.checksum,
   sourceObservedAt: input.inventory.observedAt,
+  ...(input.inventory.oldestObservedAt === undefined
+    ? {}
+    : { sourceOldestObservedAt: input.inventory.oldestObservedAt }),
+})
+
+export const certificationInventoryBinding = (
+  checksum: string,
+  inventory: SourceInventory
+): CertificationInventoryBinding => ({
+  checksum,
+  observedAt: inventory.observedAt,
+  ...(inventory.oldestObservedAt === undefined ? {} : { oldestObservedAt: inventory.oldestObservedAt }),
+  complete: inventory.complete,
 })
 
 export interface VerifyCertificationManifestInput {
@@ -1511,7 +1642,8 @@ export const verifyCertificationManifest = (
   }
   if (
     input.manifest.inventoryChecksum !== input.inventory.checksum ||
-    input.manifest.sourceObservedAt !== input.inventory.observedAt
+    input.manifest.sourceObservedAt !== input.inventory.observedAt ||
+    input.manifest.sourceOldestObservedAt !== input.inventory.oldestObservedAt
   ) {
     issues.push(
       issue(

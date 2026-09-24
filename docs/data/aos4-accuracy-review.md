@@ -12,67 +12,55 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-23` (issue #1999): Krong the Club, the first
-Regiment of Renown shipped from BSData rather than a Wahapedia collection page. A bounded BSData
-Regiment-of-Renown contract takes only the regiment's two abilities from the commit-pinned
-`Regiments of Renown.cat` (`main` commit `8836d9f9`); both match the official *Regiments of
-Renown – Sons of Behemat* pack, page 5, word for word. The official Battle Profiles – Sons of
-Behemat row (page 3, row 4) supplies the 140 points, the 24 inclusion factions (not Sons of
-Behemat), and the single Mancrusher Gargant member, and that row is now applied to runtime. The
-revision adds one artifact, one community source, one Regiment of Renown classification, and four
-appended identities; nothing else in the accepted inputs moved.
-
-It builds on `aos4-corpus-2026-09-22`: the Sons of Behemat September 2026 battletome intake that
-ships provisionally from commit-pinned BSData catalogues (commit `2b7df92f`, taken from the
-`gargants` branch that BSData squash-merged into `main` on 2026-09-23; the pinned bytes are
-unchanged) while Wahapedia has not republished the battletome pages (unchanged since 2026-08-25).
-Accepted then: the four brand-new units, six coherent legacy datasheet rewrites, the current
-faction package (4 battle formations, 6 heroic traits, 6 artefacts of power, Prayers of the World
-Titan), and the regular faction's army-wide battle traits. Still deferred: Realm-shaking Rampage
-and Lore of Behemat (neither has a canonical Wahapedia type record to attach to), King Brodd's
-Stomp's own battle traits (an Army of Renown's battle-trait block decodes as a subtype of its
-root, not a standalone faction-page type record), and the Stone Lobbas Spearhead (no secondary
-carries it). That cycle also fixed a stale `.datasheetsCollated` selector in the independent
-Wahapedia source observer that had silently stopped finding all 27 accepted warscroll collection
-pages once Wahapedia dropped that link block site-wide; it now derives the conventional
-`<faction root>warscrolls.html` path, matching the `/aos4/nav.html` fragment fix in #2005.
-Its automated review is complete:
+The current revision is `aos4-corpus-2026-09-23` (issue #1757, recorded on #1999): the 2026-09-23
+Games Workshop update. The September 2026 Rules Updates, core Battle Profiles, six Scourge of Aqshy
+packs, the re-published Cities of Sigmar supplement, and the Bubonic Cell Spearhead replaced their
+pinned predecessors with publication identity continuity; 17 reviewed ability-text overrides and 4
+timing overrides correct the Wahapedia text the corpus ships where Wahapedia has not caught up; the
+core Battle Profiles became the single battle-profile source (the Ogor Mawtribes and Sons of
+Behemat supplements stay pinned as reference evidence, and Krong the Club has exactly one official
+anchor). Its automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
-| Accepted artifacts independently inventoried | 248/248 |
+| Accepted artifacts independently inventoried | 247/247 |
 | Explicit non-material discovery entries | 9 |
-| Official battle-profile facts | 1,396/1,396 |
-| Final official/secondary reconciliation discrepancies | 380/380 |
+| Official battle-profile facts | 1,313/1,313 |
+| Final official/secondary reconciliation discrepancies | 638/638 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 20,198/20,198 |
+| Live audit source records | 20,177/20,177 |
 | Ignored-record dispositions (superseded + explicit) | 20,556/20,556 |
-| Live review pairs | 42,532/42,532 |
-| Independent outcomes | 85,064 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 42,686/42,686 |
+| Independent outcomes | 85,372 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
-| Populated high-risk cohorts | 18/18 |
+| Populated high-risk cohorts | 19/19 |
 
-The current certification is `aos4-corpus-2026-09-23-machine-r1` (2026-09-23). Its `machine-r3`
-reuse offer carried nothing forward (the revision re-key invalidates every pair), so all 42,532
-pairs were evaluated fresh: 85,064 checks, 0 findings, 0 cannot-verify.
+The independent source inventory is a schema 2 inventory of fresh observations taken for this
+intake on 2026-09-23: a `discover-official` snapshot observed at 23:00:03Z (166 downloads, 7
+explicit non-material), the Wahapedia navigation and exports at 23:00:16Z (87 sources, 0
+inaccessible), and the pinned BSData `2b7df92f` files at 23:02:32Z. All ten September documents
+match accepted artifacts, so the live Games Workshop inventory is complete. The campaign ran at
+23:44:30Z and the certification was evaluated at 23:45:06Z the same day.
 
-Its source inventory binds a live 2026-09-23 Wahapedia observation (85 artifacts matched), live
-2026-09-23 `data:aos4:inventory:observe-bsdata` observations of both pinned commits (`2b7df92f`
-and `8836d9f9`, 4 artifacts matched), and the 2026-09-22 Games Workshop observation that
-`machine-r1` of 2026-09-22 used (159 matched, 7 explicit non-material), which reproduces that
-certification's inventory byte for byte. A live 2026-09-23 Games Workshop observation cannot be
-complete for any corpus that predates the official September 2026 intake: it reports the ten
-publications Games Workshop released on 2026-09-23 as missing and their ten predecessors as
-unexpected. That intake is held work (see the 2026-09-23 BSData review in
-[`aos4-maintenance.md`](./aos4-maintenance.md)); none of those twenty documents is evidence for
-Krong the Club, whose two official records matched in the live observation.
+The current certification is `aos4-corpus-2026-09-23-machine-r1`. Its `--reuse-certification`
+offer of `machine-r3` carried nothing forward (the re-pinned documents re-key every pair), so all
+42,686 pairs were evaluated fresh. Its first campaign, at 23:17:30Z, returned 12 findings and was
+not accepted. One was a Battle Profiles extraction defect (a note line whose words reported
+baselines a fraction of a point apart was read twice), fixed in the extractor. Eleven were reviewed
+ability-text overrides the auditor cannot verify, because it certifies only override text whose
+new words appear, in order, in the cited official excerpt: errata that only delete words
+(Lightning Master, Abyssal Dweller, the Ossiarch Bonereapers relentless-discipline surcharge on
+five battle traits and Katakros), errata that edit a phrase inside secondary text (Rolling
+Ash-clouds, Lingering Burns), and Spectral Alchemy, whose long replacement falls outside the
+packet's minimized official excerpt. Those overrides were withdrawn rather than the auditor
+relaxed, and they stay recorded discrepancies on #1999.
 
-`aos4-corpus-2026-09-22-machine-r3` (2026-09-23) preceded it. It re-campaigned
-`machine-r2` because the generator fix for issue #2015 restored the five Sons of Behemat Regiments
-of Renown's member edges (the catalog and runtime gained five `includes` relationships; accepted
-inputs, identities, and the official ledger are unchanged). Reusing `machine-r2` carried 42,431
-pairs forward and evaluated 74 fresh — 85,010 checks, 0 findings, 0 cannot-verify. It reused the
-2026-09-22 inventory observations unchanged, since no acquisition occurred.
+The previous revision was `aos4-corpus-2026-09-22` (issue #1999): the Sons of Behemat September 2026
+battletome intake shipped provisionally from a commit-pinned BSData catalogue (commit `2b7df92f`)
+while Wahapedia had not republished the battletome pages. Its current certification was
+`aos4-corpus-2026-09-22-machine-r3` (2026-09-23), a re-campaign after the #2015 generator fix
+restored the five Sons of Behemat Regiments of Renown's member edges (42,431 pairs reused, 74
+fresh, 85,010 checks, 0 findings).
 
 `machine-r2` (2026-09-22) and `machine-r1` (2026-09-22) preceded it. The `machine-r1`
 `--reuse-certification` offer of the 2026-09-12 directory carried nothing forward (the revision
@@ -220,6 +208,44 @@ yarn data:aos4:inventory `
 
 Any missing, unexpected, inaccessible, or ambiguous entry blocks beta readiness. A non-material
 entry needs a specific evidence-backed disposition.
+
+The inventory records every observation it combined: the producer, the publishers it covered, how
+many entries it contributed, and when it was observed. `observedAt` (and the manifest's
+`sourceObservedAt`) is the newest of those instants; `oldestObservedAt` (and
+`sourceOldestObservedAt`) is the oldest. So a mixed-age inventory shows its oldest observation
+instead of reporting the newest one for every publisher. An observation that found no entries still
+counts toward both instants, so read each observation's `entries` and the oldest instant, not only
+the newest.
+
+The certification binds this record by checksum. `data:aos4:certify:prepare`, `data:aos4:certify`,
+and `data:aos4:verify:beta` reject a schema 2 inventory when an observation is malformed, when
+`observedAt` or `oldestObservedAt` is not the newest or oldest recorded observation, when the entry
+counts or publishers disagree with the inventory entries in total, or when the producer string
+disagrees with the observations. Entries do not record which observation found them, so the split
+of publishers and counts between observations is asserted by the producer (`data:aos4:inventory`)
+and is not checked. None of this authenticates a source: an observation file is trusted input, and
+nothing here proves who produced it or when beyond what it states. Every instant in the inventory,
+the manifest, and the review ledger must be a canonical UTC instant that round-trips, with or
+without milliseconds. Rolled-over dates such as `2026-02-30` or `T24:00` are rejected.
+
+`certify:prepare` refuses a schema 1 inventory, which records only the newest instant. Committed
+schema 1 certifications still verify. Because of that, the check cannot tell a legacy inventory from
+a hand-assembled schema 1 one, so treat a schema 1 inventory in a new certification directory as a
+review finding. It also means a re-campaign cannot re-bind a committed schema 1 inventory, such as
+the one the 2026-09-22 `machine-r1` to `machine-r3` certifications share. Rebuild a schema 2
+inventory with `data:aos4:inventory` from the original observation files, which keeps their real
+instants, or take fresh observations if those files are gone.
+
+`review:adversarial --campaign-at` and `certify:prepare --evaluated-at` reject an instant later than
+the current time on the machine running them. There is no skew allowance, because the operator
+reads that same clock. The existing chronology check requires certification to follow all bound
+evidence, compared by time, so a future observation instant also fails at `certify:prepare`. The
+code does not enforce freshness. It never compares an observation instant with the calendar or with
+the acquisition date. Freshness is workflow policy that the reviewer checks against the recorded
+instants: a revision with a new acquisition, manifest, or review revision certifies against
+observations taken for that intake. Reusing earlier observations is only for a re-campaign of an
+unchanged revision, as with `machine-r2` and `machine-r3`, and under schema 2 that reuse goes
+through the original observation files.
 
 ### 3. Run the independent campaign
 

@@ -285,16 +285,19 @@ describe('official-profile sweep', () => {
     // Shrimp, Hammer Throw, Rancid Flatulence, Windmill Walloping — Colossal Slam and Earthshaking
     // Roar coincidentally match unrelated existing abilities) and Lore of Behemat, which has no
     // Wahapedia Spell Lore type record to attach to. Pinning them by name keeps the sweep
-    // fail-closed: any other unmatched option fails here.
+    // fail-closed: any other unmatched option fails here. From corpus 2026-09-23 (#1757) the
+    // September 2026 Battle Profiles is the single battle-profile source: its page 58 carries
+    // these picks, nothing is superseded, and the twenty July 2026 Ogor Mawtribes supplement
+    // enhancement rows it does not re-publish left the ledger with that supplement.
     const result = sweepOfficialRosterOptions(
       ledger.records,
       AOS4_RUNTIME_PROJECTION.entities,
       reviewedDiscrepancies
     )
     expect(result).toEqual({
-      rosterOptionRecords: 335,
-      comparedRosterOptions: 315,
-      matchedByName: 309,
+      rosterOptionRecords: 295,
+      comparedRosterOptions: 295,
+      matchedByName: 289,
       matchedByReviewedDiscrepancy: 1,
       findings: expect.any(Array),
     })

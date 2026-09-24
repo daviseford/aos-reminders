@@ -11,24 +11,33 @@ import {
   REQUIRED_HIGH_RISK_COHORTS,
   appendFindingResolution,
   appendFindingVerification,
+  assertPreparableSourceInventory,
   boundReviewPopulationIssues,
   calibrationEvidenceIssues,
   certificationChronologyIssues,
+  certificationInventoryBinding,
   checksumCertificationText,
   checksumReviewRecord,
   createCertificationManifest,
   createCalibrationEvidenceReceipt,
+  createReviewCampaignExecution,
   createReviewAssignment,
   createReviewFinding,
   createReviewPacket,
   emptyReviewLedger,
   evaluateCertification,
   importReviewerResultsAtomic,
+  isCanonicalInstant,
+  loadReusableCertificationEvidence,
   parseCertificationCommandArguments,
+  parseCertificationManifest,
   parseCertificationPreparationArguments,
+  preparedCertificationManifest,
   reviewerConfigurationId,
   reviewIndexSamplingMetadataChecksum,
+  ReviewValidationError,
   runCertificationCheck,
+  runCertificationPreparation,
   serializeReviewRecord,
   sourceSafeReviewLedger,
   verifyCertificationManifest,
@@ -44,6 +53,7 @@ import {
   type ReviewerResult,
 } from '../../aos4/review'
 import { AOS4_GOLDEN_TRUTH_CASES } from '../../aos4/review/pathology'
+import { ACCEPTED_MANIFEST_PATH } from '../../aos4/data/acceptedRevision'
 import { artifactId, type CanonicalId, type RulesContextId, type SourceRecordId } from '../../aos4/domain'
 
 const digest = (value: string): string => createHash('sha256').update(value, 'utf8').digest('hex')
@@ -218,6 +228,33 @@ const passingInput = (): CertificationEvaluationInput => ({
   },
   acceptedArtifactChecksums: [ACCEPTED_ARTIFACT_CHECKSUM],
 })
+
+// A current inventory: two independent observations taken at different instants.
+const provenancedInput = (): CertificationEvaluationInput => {
+  const input = passingInput()
+  input.inventory = {
+    ...input.inventory,
+    schemaVersion: 2,
+    observedAt: CALIBRATED_AT,
+    oldestObservedAt: '2026-07-28T10:00:00.000Z',
+    producedBy: 'source-inventory-reconciler/v2 (fixture-bsdata-discovery, fixture-wahapedia-discovery)',
+    observations: [
+      {
+        producedBy: 'fixture-bsdata-discovery',
+        observedAt: '2026-07-28T10:00:00.000Z',
+        publishers: [],
+        entries: 0,
+      },
+      {
+        producedBy: 'fixture-wahapedia-discovery',
+        observedAt: CALIBRATED_AT,
+        publishers: ['wahapedia'],
+        entries: 1,
+      },
+    ],
+  }
+  return input
+}
 
 const fixtureIndexEntry = ({
   candidateKey,
@@ -411,6 +448,21 @@ describe('AoS 4 certification evaluation', () => {
         'not-an-instant',
       ])
     ).toThrow('--evaluated-at requires a canonical ISO timestamp')
+    const now = new Date(REVIEWED_AT)
+    expect(
+      parseCertificationPreparationArguments(
+        ['--output', 'data/aos4/certifications/fixture', '--evaluated-at', REVIEWED_AT],
+        now
+      )
+    ).toMatchObject({ evaluatedAt: REVIEWED_AT })
+    expect(() =>
+      parseCertificationPreparationArguments(
+        ['--output', 'data/aos4/certifications/fixture', '--evaluated-at', '2026-07-28T12:01:00.001Z'],
+        now
+      )
+    ).toThrow(
+      '--evaluated-at 2026-07-28T12:01:00.001Z is later than the current time 2026-07-28T12:01:00.000Z'
+    )
   })
 
   it('requires certification to occur after all bound review evidence', () => {
@@ -431,6 +483,50 @@ describe('AoS 4 certification evaluation', () => {
         path: 'manifest.certifiedAt',
       })
     )
+    // Evidence is ordered by time, not text: '...:00Z' sorts after '...:00.900Z' as text but is earlier.
+    const mixedPrecision = passingInput()
+    mixedPrecision.ledger.results[1] = {
+      ...mixedPrecision.ledger.results[1],
+      reviewedAt: '2026-07-28T12:05:00Z',
+    }
+    expect(
+      certificationChronologyIssues(
+        '2026-07-28T12:05:00.500Z',
+        mixedPrecision.ledger,
+        [],
+        '2026-07-28T12:05:00.900Z'
+      )
+    ).toContainEqual(
+      expect.objectContaining({
+        code: 'certification-before-evidence',
+        message: 'Certification time precedes bound review evidence at 2026-07-28T12:05:00.900Z',
+      })
+    )
+    expect(
+      certificationChronologyIssues(
+        '2026-07-28T12:05:00.900Z',
+        mixedPrecision.ledger,
+        [],
+        '2026-07-28T12:05:00.900Z'
+      )
+    ).toEqual([])
+  })
+
+  it('accepts only instants that round-trip, with or without milliseconds', () => {
+    expect(
+      ['2026-09-12T15:56:24Z', '2026-09-12T15:56:24.000Z', '2026-09-23T18:45:46.124Z'].map(isCanonicalInstant)
+    ).toEqual([true, true, true])
+    expect(
+      [
+        '2026-02-30T00:00:00Z',
+        '2026-09-31T12:00:00.000Z',
+        '2026-09-22T24:00:00Z',
+        '2026-09-23',
+        '2026-09-23T20:00:00.0Z',
+        '2026-09-23T20:00:00+00:00',
+        20260923,
+      ].map(isCanonicalInstant)
+    ).toEqual([false, false, false, false, false, false, false])
   })
 
   it('binds agent calibration to reviewer configuration instead of process identity', () => {
@@ -723,6 +819,260 @@ describe('AoS 4 certification evaluation', () => {
     )
   })
 
+  it('validates per-observation provenance on current inventories and keeps legacy inventories readable', () => {
+    const legacy = passingInput()
+    expect(evaluateCertification(legacy).ok).toBe(true)
+
+    const current = provenancedInput()
+    expect(evaluateCertification(current).ok).toBe(true)
+
+    const invalid = (mutate: (inventory: CertificationEvaluationInput['inventory']) => void): string[] => {
+      const input = provenancedInput()
+      mutate(input.inventory)
+      return evaluateCertification(input)
+        .issues.filter(value => value.code === 'invalid-source-inventory')
+        .map(value => value.path)
+    }
+    // The newest instant must be the real newest observation, not an arbitrary stamp.
+    expect(
+      invalid(inventory => {
+        inventory.observedAt = '2026-07-28T11:30:00.000Z'
+      })
+    ).toContain('inventory.observations')
+    expect(
+      invalid(inventory => {
+        inventory.oldestObservedAt = CALIBRATED_AT
+      })
+    ).toContain('inventory.observations')
+    expect(
+      invalid(inventory => {
+        inventory.observations![0].observedAt = '2026-07-28 10:00'
+      })
+    ).toContain('inventory.observations[0]')
+    expect(
+      invalid(inventory => {
+        inventory.observations![1].publishers = ['games-workshop']
+      })
+    ).toContain('inventory.observations')
+    // Rolled-over calendar dates parse in V8 but are not the instants they claim to be.
+    expect(
+      invalid(inventory => {
+        inventory.observations![0].observedAt = '2026-02-30T10:00:00.000Z'
+      })
+    ).toContain('inventory.observations[0]')
+    expect(
+      invalid(inventory => {
+        inventory.oldestObservedAt = '2026-07-27T24:00:00.000Z'
+      })
+    ).toContain('inventory')
+    expect(
+      invalid(inventory => {
+        inventory.observations![1].entries = -1
+      })
+    ).toContain('inventory.observations[1]')
+    // A negative count with no publishers is caught only by the non-negative guard.
+    expect(
+      invalid(inventory => {
+        inventory.observations![0].entries = -1
+      })
+    ).toContain('inventory.observations[0]')
+    expect(
+      invalid(inventory => {
+        inventory.observations![1].publishers = ['wahapedia', 'wahapedia']
+      })
+    ).toContain('inventory.observations[1]')
+    expect(
+      invalid(inventory => {
+        inventory.observations![0].publishers = ['bsdata']
+      })
+    ).toContain('inventory.observations[0]')
+    expect(
+      invalid(inventory => {
+        inventory.observations![1].publishers = ['wahapedia', 'bsdata']
+      })
+    ).toContain('inventory.observations[1]')
+    expect(
+      invalid(inventory => {
+        inventory.observations![1].entries = 2
+      })
+    ).toContain('inventory.observations')
+    expect(
+      invalid(inventory => {
+        inventory.producedBy = 'source-inventory-reconciler/v2 (fresh-looking-discovery)'
+      })
+    ).toContain('inventory.producedBy')
+    expect(
+      invalid(inventory => {
+        delete inventory.observations
+      })
+    ).toContain('inventory')
+    const withoutMilliseconds = provenancedInput()
+    withoutMilliseconds.inventory.oldestObservedAt = '2026-07-28T10:00:00Z'
+    withoutMilliseconds.inventory.observations![0].observedAt = '2026-07-28T10:00:00Z'
+    withoutMilliseconds.inventory.observations![1].observedAt = '2026-07-28T10:00:00.500Z'
+    withoutMilliseconds.inventory.observedAt = '2026-07-28T10:00:00.500Z'
+    expect(evaluateCertification(withoutMilliseconds).ok).toBe(true)
+    // A legacy schema may not carry half of the current provenance.
+    const rolledLegacy = passingInput()
+    rolledLegacy.inventory.observedAt = '2026-09-31T12:00:00.000Z'
+    expect(evaluateCertification(rolledLegacy).issues).toContainEqual(
+      expect.objectContaining({ code: 'invalid-source-inventory', path: 'inventory' })
+    )
+    const mixed = passingInput()
+    mixed.inventory.oldestObservedAt = CALIBRATED_AT
+    expect(evaluateCertification(mixed).issues).toContainEqual(
+      expect.objectContaining({ code: 'invalid-source-inventory', path: 'inventory' })
+    )
+  })
+
+  it('requires new certifications to bind a per-observation inventory', () => {
+    expect(() => assertPreparableSourceInventory(passingInput().inventory)).toThrow(
+      'per-observation provenance'
+    )
+    expect(() => assertPreparableSourceInventory(provenancedInput().inventory)).not.toThrow()
+  })
+
+  it('refuses a schema 1 inventory at the certify:prepare command boundary', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'aos4-certification-prepare-'))
+    try {
+      const write = async (relativePath: string, value: unknown): Promise<void> => {
+        await mkdir(path.dirname(path.join(repoRoot, relativePath)), { recursive: true })
+        await writeFile(path.join(repoRoot, relativePath), serializeReviewRecord(value), 'utf8')
+      }
+      await write(ACCEPTED_MANIFEST_PATH, { schemaVersion: 1, artifacts: [] })
+      await write('.cache/aos4/review/fixture/index.json', reviewIndex())
+      const prepare = async (inventory: unknown): Promise<unknown> => {
+        await write('.cache/aos4/review/fixture/source-inventory.json', inventory)
+        return runCertificationPreparation(
+          {
+            output: 'data/aos4/certifications/fixture-prepared',
+            reviewOutput: '.cache/aos4/review/fixture/adversarial',
+            inventory: '.cache/aos4/review/fixture/source-inventory.json',
+            index: '.cache/aos4/review/fixture/index.json',
+            workspace: '.cache/aos4/review/fixture/workspace.json',
+            evaluatedAt: REVIEWED_AT,
+          },
+          repoRoot
+        )
+      }
+
+      await expect(prepare(passingInput().inventory)).rejects.toThrow('per-observation provenance')
+      // A schema 2 inventory passes the gate and stops later, at the absent review output.
+      const error = await prepare(provenancedInput().inventory).then(
+        () => undefined,
+        (reason: unknown) => reason
+      )
+      expect(error).toBeInstanceOf(Error)
+      expect((error as Error).message).not.toContain('per-observation provenance')
+      await expect(
+        access(path.join(repoRoot, 'data', 'aos4', 'certifications', 'fixture-prepared'))
+      ).rejects.toThrow()
+    } finally {
+      await rm(repoRoot, { recursive: true, force: true })
+    }
+  })
+
+  it('binds the oldest observation instant through the prepared manifest', () => {
+    const prepared = (input: CertificationEvaluationInput) =>
+      preparedCertificationManifest({
+        evaluation: evaluateCertification(input),
+        inputs: certificationInputs(),
+        ledger: input.ledger,
+        inventory: input.inventory,
+        evaluatedAt: REVIEWED_AT,
+        protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+        rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+        execution: createReviewCampaignExecution({
+          revision: input.index.revision,
+          campaignAt: input.ledger.assignments[0].assignedAt,
+          reviewer: input.ledger.assignments[0].reviewer,
+          reusedPairKeys: [],
+          freshPairKeys: input.index.entries.map(entry => entry.pairKey),
+          freshAssignmentId: input.ledger.assignments[0].id,
+          contributingAssignmentIds: [input.ledger.assignments[0].id],
+        }),
+      })
+    expect(prepared(provenancedInput())).toMatchObject({
+      inventoryChecksum: digest('source-inventory'),
+      sourceObservedAt: '2026-07-28T11:00:00.000Z',
+      sourceOldestObservedAt: '2026-07-28T10:00:00.000Z',
+      certifiedAt: REVIEWED_AT,
+      execution: expect.objectContaining({ mode: 'full' }),
+    })
+    expect(prepared(passingInput())).not.toHaveProperty('sourceOldestObservedAt')
+  })
+
+  it('binds the oldest observation instant into the certification manifest', () => {
+    const input = provenancedInput()
+    const evaluation = evaluateCertification(input)
+    const inputs = certificationInputs()
+    const binding = certificationInventoryBinding(digest('inventory'), input.inventory)
+    expect(binding).toEqual({
+      checksum: digest('inventory'),
+      observedAt: '2026-07-28T11:00:00.000Z',
+      oldestObservedAt: '2026-07-28T10:00:00.000Z',
+      complete: true,
+    })
+    const manifest = createCertificationManifest({
+      evaluation,
+      inputs,
+      ledger: input.ledger,
+      inventory: binding,
+      certifiedAt: REVIEWED_AT,
+      protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+      rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+    })
+    expect(manifest).toMatchObject({
+      sourceObservedAt: '2026-07-28T11:00:00.000Z',
+      sourceOldestObservedAt: '2026-07-28T10:00:00.000Z',
+    })
+    expect(parseCertificationManifest(JSON.parse(serializeReviewRecord(manifest)))).toEqual(manifest)
+    const verify = (candidate: typeof manifest, inventory = binding) =>
+      verifyCertificationManifest({
+        manifest: candidate,
+        evaluation,
+        currentInputs: inputs,
+        ledger: input.ledger,
+        inventory,
+        protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+        rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+      })
+    expect(verify(manifest)).toEqual([])
+    expect(verify({ ...manifest, sourceOldestObservedAt: '2026-07-28T11:00:00.000Z' })).toContainEqual(
+      expect.objectContaining({ code: 'stale-inventory' })
+    )
+    expect(verify({ ...manifest, sourceOldestObservedAt: undefined })).toContainEqual(
+      expect.objectContaining({ code: 'stale-inventory' })
+    )
+    expect(() =>
+      parseCertificationManifest({ ...manifest, sourceOldestObservedAt: '2026-07-28T11:00:00.001Z' })
+    ).toThrowError(ReviewValidationError)
+    expect(() =>
+      parseCertificationManifest({ ...manifest, sourceOldestObservedAt: 'yesterday' })
+    ).toThrowError(ReviewValidationError)
+    expect(() =>
+      parseCertificationManifest({ ...manifest, sourceOldestObservedAt: '2026-02-30T10:00:00.000Z' })
+    ).toThrowError(ReviewValidationError)
+    expect(() =>
+      parseCertificationManifest({ ...manifest, certifiedAt: '2026-09-31T12:00:00.000Z' })
+    ).toThrowError(ReviewValidationError)
+
+    const legacyInput = passingInput()
+    const legacyBinding = certificationInventoryBinding(digest('inventory'), legacyInput.inventory)
+    expect(legacyBinding).not.toHaveProperty('oldestObservedAt')
+    expect(
+      createCertificationManifest({
+        evaluation: evaluateCertification(legacyInput),
+        inputs,
+        ledger: legacyInput.ledger,
+        inventory: legacyBinding,
+        certifiedAt: REVIEWED_AT,
+        protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+        rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+      })
+    ).not.toHaveProperty('sourceOldestObservedAt')
+  })
+
   it('requires every finding to be dispositioned', () => {
     const input = passingInput()
     attachFinding(input, finding('minor'))
@@ -944,218 +1294,208 @@ describe('AoS 4 certification evaluation', () => {
     ).toContainEqual(expect.objectContaining({ code: 'stale-input' }))
   })
 
-  it('validates checked-in evidence without reading the ignored source cache', async () => {
-    const repoRoot = await mkdtemp(path.join(tmpdir(), 'aos4-certification-'))
-    try {
-      const input = passingInput()
-      const calibrationEntries = (
-        ['pass', 'defect', 'disagreement', 'insufficient-evidence'] as CalibrationCaseKind[]
-      ).map(kind =>
-        fixtureIndexEntry({
-          candidateKey: CALIBRATION_CONTROL_CANDIDATE_KEYS[kind],
-          category: kind === 'disagreement' ? 'reconciliation-discrepancy' : 'official-record',
-          cohortIds: [`calibration:${kind}`],
-          calibrationKind: kind,
+  it.each([
+    ['a legacy schema 1', passingInput],
+    ['a per-observation schema 2', provenancedInput],
+  ])(
+    'validates checked-in evidence with %s inventory without reading the ignored source cache',
+    async (_, fixture) => {
+      const repoRoot = await mkdtemp(path.join(tmpdir(), 'aos4-certification-'))
+      try {
+        const input = fixture()
+        const calibrationEntries = (
+          ['pass', 'defect', 'disagreement', 'insufficient-evidence'] as CalibrationCaseKind[]
+        ).map(kind =>
+          fixtureIndexEntry({
+            candidateKey: CALIBRATION_CONTROL_CANDIDATE_KEYS[kind],
+            category: kind === 'disagreement' ? 'reconciliation-discrepancy' : 'official-record',
+            cohortIds: [`calibration:${kind}`],
+            calibrationKind: kind,
+          })
+        )
+        const goldenEntry = fixtureIndexEntry({
+          candidateKey: AOS4_GOLDEN_TRUTH_CASES[0].id,
+          category: 'golden-truth',
+          cohortIds: ['golden-truth', ...REQUIRED_HIGH_RISK_COHORTS],
         })
-      )
-      const goldenEntry = fixtureIndexEntry({
-        candidateKey: AOS4_GOLDEN_TRUTH_CASES[0].id,
-        category: 'golden-truth',
-        cohortIds: ['golden-truth', ...REQUIRED_HIGH_RISK_COHORTS],
-      })
-      input.index.entries.push(...calibrationEntries, goldenEntry)
-      input.index.coverage.highRiskCohorts = [...REQUIRED_HIGH_RISK_COHORTS]
-      const assignment = createReviewAssignment({
-        packetIds: input.index.entries.flatMap(entry => [entry.blindPacketId, entry.comparisonPacketId]),
-        reviewer: agentReviewer,
-        execution: 'local',
-        assignedAt: '2026-07-28T10:49:00.000Z',
-      })
-      input.ledger.assignments = [assignment]
-      input.ledger.results = [
-        ...input.ledger.results.map(reviewResult => ({
-          ...reviewResult,
-          assignmentId: assignment.id,
-        })),
-        fixtureResult({
-          assignmentId: assignment.id,
-          packetId: goldenEntry.blindPacketId,
-          packetChecksum: goldenEntry.blindPacketChecksum,
-          reviewedAt: '2026-07-28T12:02:00.000Z',
-          blind: true,
-        }),
-        fixtureResult({
-          assignmentId: assignment.id,
-          packetId: goldenEntry.comparisonPacketId,
-          packetChecksum: goldenEntry.comparisonPacketChecksum,
-          reviewedAt: '2026-07-28T12:03:00.000Z',
-        }),
-      ]
-      const calibrationResults = calibrationEntries.flatMap((entry, entryIndex) => {
-        const kind = entry.calibrationKind!
-        const comparisonOutcome: ReviewerResult['outcome'] =
-          kind === 'defect' ? 'finding' : kind === 'insufficient-evidence' ? 'cannot-verify' : 'pass'
-        const blindOutcome: ReviewerResult['outcome'] =
-          kind === 'insufficient-evidence' ? 'cannot-verify' : 'pass'
-        const seededFinding = kind === 'defect' ? [seededControlFinding(entry.comparisonPacketId)] : []
-        return [
+        input.index.entries.push(...calibrationEntries, goldenEntry)
+        input.index.coverage.highRiskCohorts = [...REQUIRED_HIGH_RISK_COHORTS]
+        const assignment = createReviewAssignment({
+          packetIds: input.index.entries.flatMap(entry => [entry.blindPacketId, entry.comparisonPacketId]),
+          reviewer: agentReviewer,
+          execution: 'local',
+          assignedAt: '2026-07-28T10:49:00.000Z',
+        })
+        input.ledger.assignments = [assignment]
+        input.ledger.results = [
+          ...input.ledger.results.map(reviewResult => ({
+            ...reviewResult,
+            assignmentId: assignment.id,
+          })),
           fixtureResult({
             assignmentId: assignment.id,
-            packetId: entry.blindPacketId,
-            packetChecksum: entry.blindPacketChecksum,
-            reviewedAt: `2026-07-28T10:5${entryIndex}:00.000Z`,
-            outcome: blindOutcome,
+            packetId: goldenEntry.blindPacketId,
+            packetChecksum: goldenEntry.blindPacketChecksum,
+            reviewedAt: '2026-07-28T12:02:00.000Z',
             blind: true,
           }),
           fixtureResult({
             assignmentId: assignment.id,
-            packetId: entry.comparisonPacketId,
-            packetChecksum: entry.comparisonPacketChecksum,
-            reviewedAt: `2026-07-28T10:5${entryIndex}:30.000Z`,
-            outcome: comparisonOutcome,
-            findings: seededFinding,
+            packetId: goldenEntry.comparisonPacketId,
+            packetChecksum: goldenEntry.comparisonPacketChecksum,
+            reviewedAt: '2026-07-28T12:03:00.000Z',
           }),
         ]
-      })
-      input.ledger.calibrations = [
-        {
-          ...input.ledger.calibrations[0],
-          evidence: createCalibrationEvidenceReceipt(assignment.id, input.index, calibrationResults),
-        },
-      ]
-      const structured: Record<string, unknown> = {
-        'accepted-manifest': {
-          schemaVersion: 1,
-          artifacts: [{ checksum: ACCEPTED_ARTIFACT_CHECKSUM }],
-        },
-        'audit-catalog': {
-          sourceRecords: [{ id: 'fixture' }],
-          entities: [
-            {
-              id: FACTION_ID,
-              kind: 'faction',
-              rulesContextIds: [CONTEXT_ID],
-            },
-          ],
-        },
-        'official-ledger': {
-          records: [],
-        },
-        'reconciliation-report': {
-          discrepancies: [],
-          unmatchedOfficialUnitFacts: [],
-        },
-        'corpus-review': {
-          ignoredSourceRecords: [],
-          supersededSourceRecords: { expectedCount: 0 },
-        },
-        'review-index': {
-          schemaVersion: 1,
-          kind: 'review-index-shards',
-          revision: input.index.revision,
-          protocolVersion: input.index.protocolVersion,
-          rubricVersion: input.index.rubricVersion,
-          coverage: input.index.coverage,
-          shards: [{ inputName: 'review-index-shard-0001', entries: input.index.entries.length }],
-        },
-        'review-index-shard-0001': input.index.entries,
-        'review-assignments': input.ledger.assignments,
-        'review-calibrations': input.ledger.calibrations,
-        'review-calibration-results': calibrationResults,
-        'review-results': {
-          schemaVersion: 1,
-          kind: 'review-result-shards',
-          revision: input.index.revision,
-          shards: [{ inputName: 'review-results-shard-0001', results: input.ledger.results.length }],
-        },
-        'review-results-shard-0001': input.ledger.results,
-        'review-findings': input.ledger.findings,
-        'review-resolutions': input.ledger.resolutions,
-        'review-verifications': input.ledger.verifications,
-        'review-protocol': {
-          schemaVersion: 1,
-          protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
-        },
-        'review-rubric': {
-          schemaVersion: 1,
-          rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
-        },
-        'source-inventory': input.inventory,
-      }
-      const bindings: CertificationInput[] = []
-      for (const name of [
-        ...REQUIRED_CERTIFICATION_INPUTS,
-        'review-index-shard-0001',
-        'review-results-shard-0001',
-      ]) {
-        const relativePath = `data/aos4/certifications/fixture/inputs/${name}.json`
-        const content = serializeReviewRecord(structured[name] ?? { fixture: name })
-        await mkdir(path.dirname(path.join(repoRoot, relativePath)), { recursive: true })
-        await writeFile(path.join(repoRoot, relativePath), content, 'utf8')
-        bindings.push({
-          name,
-          path: relativePath,
-          checksum: checksumCertificationText(content),
+        const calibrationResults = calibrationEntries.flatMap((entry, entryIndex) => {
+          const kind = entry.calibrationKind!
+          const comparisonOutcome: ReviewerResult['outcome'] =
+            kind === 'defect' ? 'finding' : kind === 'insufficient-evidence' ? 'cannot-verify' : 'pass'
+          const blindOutcome: ReviewerResult['outcome'] =
+            kind === 'insufficient-evidence' ? 'cannot-verify' : 'pass'
+          const seededFinding = kind === 'defect' ? [seededControlFinding(entry.comparisonPacketId)] : []
+          return [
+            fixtureResult({
+              assignmentId: assignment.id,
+              packetId: entry.blindPacketId,
+              packetChecksum: entry.blindPacketChecksum,
+              reviewedAt: `2026-07-28T10:5${entryIndex}:00.000Z`,
+              outcome: blindOutcome,
+              blind: true,
+            }),
+            fixtureResult({
+              assignmentId: assignment.id,
+              packetId: entry.comparisonPacketId,
+              packetChecksum: entry.comparisonPacketChecksum,
+              reviewedAt: `2026-07-28T10:5${entryIndex}:30.000Z`,
+              outcome: comparisonOutcome,
+              findings: seededFinding,
+            }),
+          ]
         })
-      }
-      const sourceInventoryBinding = {
-        checksum: bindings.find(value => value.name === 'source-inventory')!.checksum,
-        observedAt: input.inventory.observedAt,
-        complete: input.inventory.complete,
-      }
-      const evaluation = evaluateCertification(input)
-      const manifest = createCertificationManifest({
-        evaluation,
-        inputs: bindings,
-        ledger: input.ledger,
-        inventory: sourceInventoryBinding,
-        certifiedAt: '2026-07-28T12:04:00.000Z',
-        protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
-        rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
-      })
-      const certificationDirectory = path.join(repoRoot, 'data', 'aos4', 'certifications', 'fixture')
-      await writeFile(
-        path.join(certificationDirectory, 'manifest.json'),
-        serializeReviewRecord(manifest),
-        'utf8'
-      )
-      await writeFile(
-        path.join(certificationDirectory, 'summary.json'),
-        serializeReviewRecord({
-          ...evaluation.summary,
-          boundChecksums: manifest.inputs,
-        }),
-        'utf8'
-      )
-      await writeFile(
-        path.join(certificationDirectory, '.complete.json'),
-        '{"kind":"aos4-create-only-directory","schemaVersion":1}\n',
-        'utf8'
-      )
-      await writeFile(
-        path.join(repoRoot, 'data', 'aos4', 'certifications', 'current.json'),
-        serializeReviewRecord({
-          schemaVersion: 1,
-          directory: 'data/aos4/certifications/fixture',
-        }),
-        'utf8'
-      )
+        input.ledger.calibrations = [
+          {
+            ...input.ledger.calibrations[0],
+            evidence: createCalibrationEvidenceReceipt(assignment.id, input.index, calibrationResults),
+          },
+        ]
+        const structured: Record<string, unknown> = {
+          'accepted-manifest': {
+            schemaVersion: 1,
+            artifacts: [{ checksum: ACCEPTED_ARTIFACT_CHECKSUM }],
+          },
+          'audit-catalog': {
+            sourceRecords: [{ id: 'fixture' }],
+            entities: [
+              {
+                id: FACTION_ID,
+                kind: 'faction',
+                rulesContextIds: [CONTEXT_ID],
+              },
+            ],
+          },
+          'official-ledger': {
+            records: [],
+          },
+          'reconciliation-report': {
+            discrepancies: [],
+            unmatchedOfficialUnitFacts: [],
+          },
+          'corpus-review': {
+            ignoredSourceRecords: [],
+            supersededSourceRecords: { expectedCount: 0 },
+          },
+          'review-index': {
+            schemaVersion: 1,
+            kind: 'review-index-shards',
+            revision: input.index.revision,
+            protocolVersion: input.index.protocolVersion,
+            rubricVersion: input.index.rubricVersion,
+            coverage: input.index.coverage,
+            shards: [{ inputName: 'review-index-shard-0001', entries: input.index.entries.length }],
+          },
+          'review-index-shard-0001': input.index.entries,
+          'review-assignments': input.ledger.assignments,
+          'review-calibrations': input.ledger.calibrations,
+          'review-calibration-results': calibrationResults,
+          'review-results': {
+            schemaVersion: 1,
+            kind: 'review-result-shards',
+            revision: input.index.revision,
+            shards: [{ inputName: 'review-results-shard-0001', results: input.ledger.results.length }],
+          },
+          'review-results-shard-0001': input.ledger.results,
+          'review-findings': input.ledger.findings,
+          'review-resolutions': input.ledger.resolutions,
+          'review-verifications': input.ledger.verifications,
+          'review-protocol': {
+            schemaVersion: 1,
+            protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+          },
+          'review-rubric': {
+            schemaVersion: 1,
+            rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+          },
+          'source-inventory': input.inventory,
+        }
+        const bindings: CertificationInput[] = []
+        for (const name of [
+          ...REQUIRED_CERTIFICATION_INPUTS,
+          'review-index-shard-0001',
+          'review-results-shard-0001',
+        ]) {
+          const relativePath = `data/aos4/certifications/fixture/inputs/${name}.json`
+          const content = serializeReviewRecord(structured[name] ?? { fixture: name })
+          await mkdir(path.dirname(path.join(repoRoot, relativePath)), { recursive: true })
+          await writeFile(path.join(repoRoot, relativePath), content, 'utf8')
+          bindings.push({
+            name,
+            path: relativePath,
+            checksum: checksumCertificationText(content),
+          })
+        }
+        const sourceInventoryBinding = certificationInventoryBinding(
+          bindings.find(value => value.name === 'source-inventory')!.checksum,
+          input.inventory
+        )
+        const evaluation = evaluateCertification(input)
+        const manifest = createCertificationManifest({
+          evaluation,
+          inputs: bindings,
+          ledger: input.ledger,
+          inventory: sourceInventoryBinding,
+          certifiedAt: '2026-07-28T12:04:00.000Z',
+          protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+          rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+        })
+        const certificationDirectory = path.join(repoRoot, 'data', 'aos4', 'certifications', 'fixture')
+        await writeFile(
+          path.join(certificationDirectory, 'manifest.json'),
+          serializeReviewRecord(manifest),
+          'utf8'
+        )
+        await writeFile(
+          path.join(certificationDirectory, 'summary.json'),
+          serializeReviewRecord({
+            ...evaluation.summary,
+            boundChecksums: manifest.inputs,
+          }),
+          'utf8'
+        )
+        await writeFile(
+          path.join(certificationDirectory, '.complete.json'),
+          '{"kind":"aos4-create-only-directory","schemaVersion":1}\n',
+          'utf8'
+        )
+        await writeFile(
+          path.join(repoRoot, 'data', 'aos4', 'certifications', 'current.json'),
+          serializeReviewRecord({
+            schemaVersion: 1,
+            directory: 'data/aos4/certifications/fixture',
+          }),
+          'utf8'
+        )
 
-      const result = await runCertificationCheck(
-        {
-          currentPath: 'data/aos4/certifications/current.json',
-          full: false,
-          writeSummary: false,
-        },
-        repoRoot
-      )
-
-      expect(result).toMatchObject({ ok: true, status: 'pass', issues: [] })
-      await expect(access(path.join(repoRoot, '.cache'))).rejects.toThrow()
-
-      await unlink(path.join(certificationDirectory, '.complete.json'))
-      await expect(
-        runCertificationCheck(
+        const result = await runCertificationCheck(
           {
             currentPath: 'data/aos4/certifications/current.json',
             full: false,
@@ -1163,30 +1503,50 @@ describe('AoS 4 certification evaluation', () => {
           },
           repoRoot
         )
-      ).rejects.toThrow('Create-only directory is incomplete')
-      await writeFile(
-        path.join(certificationDirectory, '.complete.json'),
-        '{"kind":"aos4-create-only-directory","schemaVersion":1}\n',
-        'utf8'
-      )
 
-      await writeFile(path.join(certificationDirectory, 'summary.json'), '{}', 'utf8')
-      await expect(
-        runCertificationCheck(
-          {
-            currentPath: 'data/aos4/certifications/current.json',
-            full: false,
-            writeSummary: false,
-          },
-          repoRoot
+        expect(result).toMatchObject({ ok: true, status: 'pass', issues: [] })
+        await expect(access(path.join(repoRoot, '.cache'))).rejects.toThrow()
+        expect(manifest.sourceOldestObservedAt).toBe(input.inventory.oldestObservedAt)
+        // The reuse loader re-verifies the same evidence, including the oldest observation binding.
+        await expect(
+          loadReusableCertificationEvidence(certificationDirectory, repoRoot)
+        ).resolves.toBeDefined()
+
+        await unlink(path.join(certificationDirectory, '.complete.json'))
+        await expect(
+          runCertificationCheck(
+            {
+              currentPath: 'data/aos4/certifications/current.json',
+              full: false,
+              writeSummary: false,
+            },
+            repoRoot
+          )
+        ).rejects.toThrow('Create-only directory is incomplete')
+        await writeFile(
+          path.join(certificationDirectory, '.complete.json'),
+          '{"kind":"aos4-create-only-directory","schemaVersion":1}\n',
+          'utf8'
         )
-      ).resolves.toMatchObject({
-        ok: false,
-        status: 'stale',
-        issues: [expect.objectContaining({ code: 'stale-summary' })],
-      })
-    } finally {
-      await rm(repoRoot, { recursive: true, force: true })
+
+        await writeFile(path.join(certificationDirectory, 'summary.json'), '{}', 'utf8')
+        await expect(
+          runCertificationCheck(
+            {
+              currentPath: 'data/aos4/certifications/current.json',
+              full: false,
+              writeSummary: false,
+            },
+            repoRoot
+          )
+        ).resolves.toMatchObject({
+          ok: false,
+          status: 'stale',
+          issues: [expect.objectContaining({ code: 'stale-summary' })],
+        })
+      } finally {
+        await rm(repoRoot, { recursive: true, force: true })
+      }
     }
-  })
+  )
 })

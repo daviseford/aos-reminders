@@ -139,6 +139,7 @@
       "high-risk:context-boundary:spearhead",
       "high-risk:duplicate-candidate",
       "high-risk:identity-alias-or-rename",
+      "high-risk:official-abilityTextOverrides",
       "high-risk:official-override",
       "high-risk:official-profile-only",
       "high-risk:official-secondary-disagreement",
@@ -156,20 +157,20 @@
       "expected": 20556
     },
     "officialRecords": {
-      "assigned": 1396,
-      "expected": 1396
+      "assigned": 1313,
+      "expected": 1313
     },
     "profileOnlyFacts": {
       "assigned": 1,
       "expected": 1
     },
     "reconciliationDiscrepancies": {
-      "assigned": 380,
-      "expected": 380
+      "assigned": 638,
+      "expected": 638
     },
     "sourceRecords": {
-      "assigned": 20198,
-      "expected": 20198
+      "assigned": 20177,
+      "expected": 20177
     }
   },
   "kind": "review-index-shards",
@@ -211,7 +212,7 @@
       "inputName": "review-index-shard-0008"
     },
     {
-      "entries": 2536,
+      "entries": 2690,
       "inputName": "review-index-shard-0009"
     }
   ]

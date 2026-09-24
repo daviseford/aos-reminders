@@ -1,30 +1,30 @@
 [
   {
-    "assignmentId": "review-assignment:sha256:4d04beb23f2118ba906613ec429983898189525e8407762581989edc34351e7e",
+    "assignmentId": "review-assignment:sha256:443434e8c7043f0124af0f6bbf133b0a316d9d168702d295ccb6f9ed4752bece",
     "findings": [],
     "outcome": "cannot-verify",
-    "packetChecksum": "13a43b4f495ed14b289c54d83150f1e0569181b3f7ce87e986eb9aad30f86f26",
-    "packetId": "review-packet:sha256:13a43b4f495ed14b289c54d83150f1e0569181b3f7ce87e986eb9aad30f86f26",
-    "rationale": "A valid saved blind interpretation was not available before comparison.",
-    "reviewedAt": "2026-09-23T20:00:03.000Z",
+    "packetChecksum": "16565453a71541ecaf70f95d5254730e20472afc5b17b87296a77e0b8212c7bb",
+    "packetId": "review-packet:sha256:16565453a71541ecaf70f95d5254730e20472afc5b17b87296a77e0b8212c7bb",
+    "rationale": "The packet contains no source evidence from which to derive an interpretation.",
+    "reviewedAt": "2026-09-23T23:44:32.000Z",
     "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
     "schemaVersion": 1
   },
   {
-    "assignmentId": "review-assignment:sha256:4d04beb23f2118ba906613ec429983898189525e8407762581989edc34351e7e",
+    "assignmentId": "review-assignment:sha256:443434e8c7043f0124af0f6bbf133b0a316d9d168702d295ccb6f9ed4752bece",
     "findings": [],
     "outcome": "pass",
-    "packetChecksum": "16d822d0140ff9a04dd1a78bc339e6eadcb9bd6234b86fb15d09765f90f53a23",
-    "packetId": "review-packet:sha256:16d822d0140ff9a04dd1a78bc339e6eadcb9bd6234b86fb15d09765f90f53a23",
+    "packetChecksum": "25a219cb0f2c5a5ea06f27ee44bb52d9268f086e463cb70f15769d894e6251ca",
+    "packetId": "review-packet:sha256:25a219cb0f2c5a5ea06f27ee44bb52d9268f086e463cb70f15769d894e6251ca",
     "rationale": "Blind structured interpretation, provenance, disposition, and generated destination agree.",
-    "reviewedAt": "2026-09-23T20:00:03.000Z",
+    "reviewedAt": "2026-09-23T23:44:33.000Z",
     "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
     "schemaVersion": 1
   },
   {
-    "assignmentId": "review-assignment:sha256:4d04beb23f2118ba906613ec429983898189525e8407762581989edc34351e7e",
+    "assignmentId": "review-assignment:sha256:443434e8c7043f0124af0f6bbf133b0a316d9d168702d295ccb6f9ed4752bece",
     "blindExpectedInterpretation": {
-      "interpretationChecksum": "5ff7bfdd29f4dde648ec6cc2619b362d302ef17cf2ab08a5ea9b8ab54d676555",
+      "interpretationChecksum": "7f3348fe1e8e51e420ec5da713f353003a43b10c8c79d97328866d837463612a",
       "shape": {
         "arrays": 3,
         "booleans": 0,
@@ -50,15 +50,37 @@
     },
     "findings": [],
     "outcome": "pass",
-    "packetChecksum": "2483f09c415f6a0b19f898ed5fb0dbe029ab19e3348d48121af4274697b9d439",
-    "packetId": "review-packet:sha256:2483f09c415f6a0b19f898ed5fb0dbe029ab19e3348d48121af4274697b9d439",
+    "packetChecksum": "71fd4f8dbfafa717c64ae6a606c0119f537532eed6a292db63419a3840acadad",
+    "packetId": "review-packet:sha256:71fd4f8dbfafa717c64ae6a606c0119f537532eed6a292db63419a3840acadad",
     "rationale": "Captured a checksum-bound source-only interpretation before generated values were exposed.",
-    "reviewedAt": "2026-09-23T20:00:02.000Z",
+    "reviewedAt": "2026-09-23T23:44:32.000Z",
     "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
     "schemaVersion": 1
   },
   {
-    "assignmentId": "review-assignment:sha256:4d04beb23f2118ba906613ec429983898189525e8407762581989edc34351e7e",
+    "assignmentId": "review-assignment:sha256:443434e8c7043f0124af0f6bbf133b0a316d9d168702d295ccb6f9ed4752bece",
+    "findings": [],
+    "outcome": "cannot-verify",
+    "packetChecksum": "76bee047ab73308197d140a5c67bcfb65bea61e423d0935d2ea46609219a7702",
+    "packetId": "review-packet:sha256:76bee047ab73308197d140a5c67bcfb65bea61e423d0935d2ea46609219a7702",
+    "rationale": "A valid saved blind interpretation was not available before comparison.",
+    "reviewedAt": "2026-09-23T23:44:33.000Z",
+    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
+    "schemaVersion": 1
+  },
+  {
+    "assignmentId": "review-assignment:sha256:443434e8c7043f0124af0f6bbf133b0a316d9d168702d295ccb6f9ed4752bece",
+    "findings": [],
+    "outcome": "pass",
+    "packetChecksum": "924891288e0552fffed079c8f3eeab4f9ddc755fc309dcad9d906796393a7c06",
+    "packetId": "review-packet:sha256:924891288e0552fffed079c8f3eeab4f9ddc755fc309dcad9d906796393a7c06",
+    "rationale": "Blind structured interpretation, provenance, disposition, and generated destination agree.",
+    "reviewedAt": "2026-09-23T23:44:33.000Z",
+    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
+    "schemaVersion": 1
+  },
+  {
+    "assignmentId": "review-assignment:sha256:443434e8c7043f0124af0f6bbf133b0a316d9d168702d295ccb6f9ed4752bece",
     "findings": [
       {
         "confidence": "high",
@@ -66,54 +88,53 @@
           {
             "locator": {
               "kind": "page",
-              "page": 3
+              "page": 59
             },
-            "recordChecksum": "02f73846eab4d2d8ef60d7bb0d5503b253bd865dc5179448692acd9b10332b29",
-            "sourceRecordId": "source-record:games-workshop:052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750%3Apage%3A3"
+            "recordChecksum": "2f382095908167aef4d7eaa0d972e7f9ede204a95063107c3c0eee22f8a4a40e",
+            "sourceRecordId": "source-record:games-workshop:b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18%3Apage%3A59"
           }
         ],
         "expectedValue": {
           "context": "standard",
-          "factChecksum": "7be2ec6ae8d25cff622ba087d2c18f9c7fe80e6e82896bc5da7b2aade4509f8f",
+          "factChecksum": "145ab5a7e3245ca9c603692bd6a4d1510de876da99831fd011e980741afb3f58",
           "faction": "Regiments of Renown",
-          "key": "page:3:regiment-of-renown:1",
+          "key": "page:59:regiment-of-renown:1",
           "kind": "regiment-of-renown",
-          "name": "Okar’s Torrbad",
+          "name": "Big Drogg Fort-kicker",
           "notes": [
-            "This Regiment of Renown can be included in the following factions: Gloomspite Gitz, Ironjawz, Kruleboyz, Sons of Behemat."
+            "This Regiment of Renown can be included in the following factions: Flesh-eater Courts, Gloomspite Gitz, Ironjawz, Kruleboyz, Nighthaunt, Ogor Mawtribes, Ossiarch Bonereapers, Soulblight Gravelords."
           ],
-          "page": 3,
-          "points": 490,
+          "page": 59,
+          "points": 440,
           "row": 1,
-          "sourceRecordId": "source-record:games-workshop:052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750%3Apage%3A3",
+          "sourceRecordId": "source-record:games-workshop:b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18%3Apage%3A59",
           "unitSummary": [
-            "• 1 Huskard on Stonehorn • 1 Thundertusk Beastriders"
+            "• 1 Gatebreaker Mega-Gargant"
           ]
         },
-        "id": "review-finding:sha256:173ecad19060ce3a62ec8c93700ece8e13e3157ddbd3de270327374d93f7fab3",
-        "packetId": "review-packet:sha256:26b27c94b7f7477f0cc391bf2a630450457a45b4ad57745b6c31cd2c2e5b21f0",
+        "id": "review-finding:sha256:3cec47c99dfaeebe7a888a63925faea546ceecc611403dccfc6c2061fb20a67e",
+        "packetId": "review-packet:sha256:b7cf26b94cd1e353c31981d2489ec18e8e6e5cb7d11bbb67bca1560b34420e15",
         "rationale": "The exact official fact is absent from the generated official ledger",
         "schemaVersion": 1,
         "severity": "major",
         "subject": {
-          "canonicalEntityId": "publication:562ba6b0-29a0-546a-b7d0-a172367cb9ca",
           "field": "official.ledger",
-          "sourceRecordId": "source-record:games-workshop:052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750%3Apage%3A3"
+          "sourceRecordId": "source-record:games-workshop:b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18%3Apage%3A59"
         }
       }
     ],
     "outcome": "finding",
-    "packetChecksum": "26b27c94b7f7477f0cc391bf2a630450457a45b4ad57745b6c31cd2c2e5b21f0",
-    "packetId": "review-packet:sha256:26b27c94b7f7477f0cc391bf2a630450457a45b4ad57745b6c31cd2c2e5b21f0",
+    "packetChecksum": "b7cf26b94cd1e353c31981d2489ec18e8e6e5cb7d11bbb67bca1560b34420e15",
+    "packetId": "review-packet:sha256:b7cf26b94cd1e353c31981d2489ec18e8e6e5cb7d11bbb67bca1560b34420e15",
     "rationale": "Adversarial comparison found 1 evidence-bound mismatch.",
-    "reviewedAt": "2026-09-23T20:00:03.000Z",
+    "reviewedAt": "2026-09-23T23:44:33.000Z",
     "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
     "schemaVersion": 1
   },
   {
-    "assignmentId": "review-assignment:sha256:4d04beb23f2118ba906613ec429983898189525e8407762581989edc34351e7e",
+    "assignmentId": "review-assignment:sha256:443434e8c7043f0124af0f6bbf133b0a316d9d168702d295ccb6f9ed4752bece",
     "blindExpectedInterpretation": {
-      "interpretationChecksum": "206b0d08484f1ef57b37f327073ea9e3ea3f6305fb1347f59c3b053eb0e0c1cf",
+      "interpretationChecksum": "d60819f554742cd3dc36d715255106c5ef4b251662987bb9f78d7339bc68f8d1",
       "shape": {
         "arrays": 1,
         "booleans": 0,
@@ -141,39 +162,17 @@
     },
     "findings": [],
     "outcome": "pass",
-    "packetChecksum": "4b20b691eba10b9383a24c974ba84bf3ac288b14ab916628017278aa0abcaee9",
-    "packetId": "review-packet:sha256:4b20b691eba10b9383a24c974ba84bf3ac288b14ab916628017278aa0abcaee9",
+    "packetChecksum": "ba0800a1ee17f1396bab655e397f3b3e293e1bfbd8cc5532ffcc0eb2fb3015c9",
+    "packetId": "review-packet:sha256:ba0800a1ee17f1396bab655e397f3b3e293e1bfbd8cc5532ffcc0eb2fb3015c9",
     "rationale": "Captured a checksum-bound source-only interpretation before generated values were exposed.",
-    "reviewedAt": "2026-09-23T20:00:02.000Z",
+    "reviewedAt": "2026-09-23T23:44:32.000Z",
     "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
     "schemaVersion": 1
   },
   {
-    "assignmentId": "review-assignment:sha256:4d04beb23f2118ba906613ec429983898189525e8407762581989edc34351e7e",
-    "findings": [],
-    "outcome": "pass",
-    "packetChecksum": "7dc4c9949962c5ab13daa8e460e655382d5cfef7b5b1e0c503a048a022b10538",
-    "packetId": "review-packet:sha256:7dc4c9949962c5ab13daa8e460e655382d5cfef7b5b1e0c503a048a022b10538",
-    "rationale": "Blind structured interpretation, provenance, disposition, and generated destination agree.",
-    "reviewedAt": "2026-09-23T20:00:03.000Z",
-    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
-    "schemaVersion": 1
-  },
-  {
-    "assignmentId": "review-assignment:sha256:4d04beb23f2118ba906613ec429983898189525e8407762581989edc34351e7e",
-    "findings": [],
-    "outcome": "cannot-verify",
-    "packetChecksum": "91521ca072050211316be1414abc6e2ee9123a332b40e8e590936031b68b41cd",
-    "packetId": "review-packet:sha256:91521ca072050211316be1414abc6e2ee9123a332b40e8e590936031b68b41cd",
-    "rationale": "The packet contains no source evidence from which to derive an interpretation.",
-    "reviewedAt": "2026-09-23T20:00:02.000Z",
-    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
-    "schemaVersion": 1
-  },
-  {
-    "assignmentId": "review-assignment:sha256:4d04beb23f2118ba906613ec429983898189525e8407762581989edc34351e7e",
+    "assignmentId": "review-assignment:sha256:443434e8c7043f0124af0f6bbf133b0a316d9d168702d295ccb6f9ed4752bece",
     "blindExpectedInterpretation": {
-      "interpretationChecksum": "8e9bf40d024580f029f467debda597b261ec722fcf3cd1cefe3cdf41144d9a9f",
+      "interpretationChecksum": "c41d2d30baa1f8528f5f67b69e49653f10e203776f86835d88fa8571dd91c155",
       "shape": {
         "arrays": 3,
         "booleans": 0,
@@ -199,10 +198,10 @@
     },
     "findings": [],
     "outcome": "pass",
-    "packetChecksum": "a127c35fabe4164b63ee454ed32c7e887efdbb8e9b956fc769f32933636c622a",
-    "packetId": "review-packet:sha256:a127c35fabe4164b63ee454ed32c7e887efdbb8e9b956fc769f32933636c622a",
+    "packetChecksum": "f530b49e38c3082bed2ac49a2a28e688f1478374acfd1f56b2b8cbfc30d88230",
+    "packetId": "review-packet:sha256:f530b49e38c3082bed2ac49a2a28e688f1478374acfd1f56b2b8cbfc30d88230",
     "rationale": "Captured a checksum-bound source-only interpretation before generated values were exposed.",
-    "reviewedAt": "2026-09-23T20:00:02.000Z",
+    "reviewedAt": "2026-09-23T23:44:32.000Z",
     "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
     "schemaVersion": 1
   }

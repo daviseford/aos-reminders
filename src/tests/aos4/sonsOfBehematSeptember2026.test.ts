@@ -18,9 +18,8 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * (Big/Little roster options, the Destructive Impulse keyword, seven rewritten battle traits);
  * only the battle traits have a defensible adapter attachment path, and even that path is not yet
  * supported (an Army of Renown's own battle-trait block has no faction-page type record to attach
- * to), so the whole rewrite is recorded in the corpus review but deliberately not applied. The
- * Stone Lobbas Spearhead likewise waits for a rules-text source. Krong the Club ships as of corpus
- * 2026-09-23 (issue #1999), its rules text from the pinned BSData Regiments of Renown catalogue.
+ * to), so the whole rewrite is recorded in the corpus review but deliberately not applied. Krong
+ * the Club and the Stone Lobbas Spearhead likewise wait for a rules-text source.
  */
 
 const SEPTEMBER_POINTS: Array<{ name: string; points: number }> = [
@@ -66,12 +65,12 @@ describe('the September 2026 Sons of Behemat battle-profile supplement (#1757)',
     expect(profileFor(kragnos)?.regimentOptions).toEqual(['Any Sons of Behemat'])
   })
 
-  it('keeps the Stone Lobbas Spearhead out of runtime while no source carries its rules, and ships Krong the Club', () => {
+  it('keeps Krong the Club and the Stone Lobbas Spearhead out of runtime while no source carries their rules', () => {
     expect(
-      AOS4_FULL_CATALOG.entities.filter(
+      AOS4_FULL_CATALOG.entities.some(
         entity => entity.kind === 'content-group' && entity.name === 'Krong the Club'
       )
-    ).toHaveLength(1)
+    ).toBe(false)
     expect(
       AOS4_FULL_CATALOG.entities.some(
         entity => entity.kind === 'content-group' && /Stone Lobbas/i.test(entity.name ?? '')

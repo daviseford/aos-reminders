@@ -11,7 +11,7 @@ import {
   createAdversarialBlindResult,
   createAdversarialComparisonResult,
 } from './adversarialReview'
-import { createCalibrationEvidenceReceipt } from './certification'
+import { assertInstantNotInFuture, createCalibrationEvidenceReceipt } from './certification'
 import {
   calibrationControlOutcomes,
   type CalibrationCaseKind,
@@ -28,6 +28,7 @@ import {
   AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION,
   checksumReviewRecord,
   createReviewAssignment,
+  isCanonicalInstant,
   reviewerConfigurationId,
   type ReviewCalibration,
   type ReviewFinding,
@@ -80,7 +81,7 @@ const nextValue = (values: string[], index: number, flag: string): string => {
   return value
 }
 
-export const parseAdversarialReviewArguments = (values: string[]): Arguments => {
+export const parseAdversarialReviewArguments = (values: string[], now = new Date()): Arguments => {
   const parsed: Arguments = {
     workspace: DEFAULT_WORKSPACE,
     output: DEFAULT_OUTPUT,
@@ -115,9 +116,10 @@ export const parseAdversarialReviewArguments = (values: string[]): Arguments => 
       throw new Error(`Unknown argument: ${value}`)
     }
   }
-  if (!parsed.campaignAt || Number.isNaN(new Date(parsed.campaignAt).valueOf())) {
+  if (!isCanonicalInstant(parsed.campaignAt)) {
     throw new Error('--campaign-at requires an ISO timestamp')
   }
+  assertInstantNotInFuture('--campaign-at', parsed.campaignAt, now)
   return parsed
 }
 

@@ -105,24 +105,6 @@ export interface BsDataFactionOptionFact {
   typeSourceRecordId?: SourceRecordId
 }
 
-/**
- * A Regiment of Renown transcribed in BSData's `Regiments of Renown.cat` (issue #1999): an
- * `upgrade` selection entry carrying the regiment's abilities, plus the entry links its force
- * unhides as members. BSData supplies the rules text only; the official battle-profile row
- * establishes the regiment's name, points, inclusion factions, and members, and the merge uses
- * `members` purely as a fail-closed cross-check against that row.
- */
-export interface BsDataRegimentOfRenownFact {
-  kind: 'regiment-of-renown'
-  /** The regiment name without BSData's `Regiment of Renown: ` entry prefix. */
-  name: string
-  section: string
-  abilities: BsDataAbilityFact[]
-  members: Array<{ name: string; count: number }>
-  sourceRecordId: SourceRecordId
-  factChecksum: string
-}
-
 export type BsDataDiagnosticCode =
   | 'invalid-xml'
   | 'unit-not-found'
@@ -133,12 +115,6 @@ export type BsDataDiagnosticCode =
   | 'option-not-found'
   | 'duplicate-option'
   | 'missing-option-ability'
-  | 'regiment-catalogue-mismatch'
-  | 'regiment-not-found'
-  | 'duplicate-regiment'
-  | 'missing-regiment-ability'
-  | 'missing-regiment-member'
-  | 'ambiguous-regiment-member'
 
 export interface BsDataDiagnostic {
   code: BsDataDiagnosticCode
@@ -154,10 +130,5 @@ export interface BsDataExtractionResult {
 
 export interface BsDataFactionOptionExtractionResult {
   facts: BsDataFactionOptionFact[]
-  diagnostics: BsDataDiagnostic[]
-}
-
-export interface BsDataRegimentOfRenownExtractionResult {
-  facts: BsDataRegimentOfRenownFact[]
   diagnostics: BsDataDiagnostic[]
 }

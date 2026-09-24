@@ -69,8 +69,8 @@ describe('AoS 4 derived corpus artifacts', () => {
       'schemaVersion',
     ])
     expect(Object.keys(sources).sort()).toEqual(['sourceArtifacts', 'sourceRecords'])
-    expect(sources.sourceRecords).toHaveLength(20192)
-    expect(sources.sourceArtifacts).toHaveLength(238)
+    expect(sources.sourceRecords).toHaveLength(20171)
+    expect(sources.sourceArtifacts).toHaveLength(237)
   })
 
   it('keeps every core source-record index addressable in the sources artifact', () => {

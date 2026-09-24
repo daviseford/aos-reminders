@@ -8,17 +8,14 @@ import {
   assertArtifactChecksum,
   createArtifactManifest,
   extractBsDataFactionOptions,
-  extractBsDataRegimentsOfRenown,
   extractBsDataWarscrolls,
   extractGamesWorkshopBattleProfileSupplement,
   extractGamesWorkshopBattleProfiles,
   extractGamesWorkshopPdfText,
   mergeBsDataFactionOptions,
-  mergeBsDataRegimentsOfRenown,
   mergeBsDataWarscrolls,
   type BsDataCommunitySourceInput,
   type BsDataFactionOptionSourceInput,
-  type BsDataRegimentOfRenownSourceInput,
   dedupeWahapediaRegimentOfRenownPages,
   factionRootWarscrollScope,
   filterNativeWahapediaFactionWarscrolls,
@@ -508,50 +505,6 @@ const extractCommunityFactionOptionFacts = async (
       if (!fact || fact.section !== option.section || fact.factChecksum !== option.recordChecksum) {
         throw new Error(
           `Community faction option ${option.name} no longer matches its reviewed section or checksum ` +
-            `(${fact ? `${fact.section} ${fact.factChecksum}` : 'not extracted'})`
-        )
-      }
-    })
-    inputs.push({
-      artifact: source.artifact,
-      repository: source.repository,
-      facts: extracted.facts,
-      officialSourceRecordIds: source.officialSourceRecordIds,
-    })
-  }
-  return inputs
-}
-
-const extractCommunityRegimentOfRenownFacts = async (
-  review: CorpusReview,
-  cache: ArtifactCache
-): Promise<BsDataRegimentOfRenownSourceInput[]> => {
-  const inputs: BsDataRegimentOfRenownSourceInput[] = []
-  for (const source of review.communityWarscrollSources ?? []) {
-    const regiments = source.regimentsOfRenown ?? []
-    if (!regiments.length) continue
-    const bytes = await cache.get(source.artifact.checksum)
-    if (!bytes) throw new Error(`Community artifact ${source.artifact.checksum} is missing`)
-    const extracted = extractBsDataRegimentsOfRenown(
-      bytes,
-      source.artifact.checksum,
-      regiments.map(regiment => ({ name: regiment.name }))
-    )
-    const errors = extracted.diagnostics.filter(diagnostic => diagnostic.severity === 'error')
-    if (errors.length) {
-      throw new Error(
-        `Community Regiment of Renown extraction failed for ${source.title}:\n${errors
-          .map(diagnostic => `- ${diagnostic.code}: ${diagnostic.message}`)
-          .join('\n')}`
-      )
-    }
-    // A community fact enters generation only when its reviewed section and checksum both pin the
-    // extracted content exactly; a drifted transcription must fail closed, never silently update.
-    regiments.forEach(regiment => {
-      const fact = extracted.facts.find(candidate => candidate.name === regiment.name)
-      if (!fact || fact.section !== regiment.section || fact.factChecksum !== regiment.recordChecksum) {
-        throw new Error(
-          `Community Regiment of Renown ${regiment.name} no longer matches its reviewed section or checksum ` +
             `(${fact ? `${fact.section} ${fact.factChecksum}` : 'not extracted'})`
         )
       }
@@ -1240,7 +1193,6 @@ export const loadAcceptedCorpusSourceData = async (
   const officialBattleProfiles = await extractOfficialBattleProfileFacts(review, cache)
   const communitySources = await extractCommunityWarscrollFacts(review, cache)
   const communityOptionSources = await extractCommunityFactionOptionFacts(review, cache)
-  const communityRegimentSources = await extractCommunityRegimentOfRenownFacts(review, cache)
   collectGarbage()
   const wahapediaHtml = await loadWahapediaHtmlPages(manifest, review, cache)
   collectGarbage()
@@ -1265,21 +1217,14 @@ export const loadAcceptedCorpusSourceData = async (
     communityOptionSources,
     officialBattleProfiles.effective
   )
-  // Regiments run last: a member must resolve to the live warscroll ids the rewrites above left.
-  const communityRegimentsMerged = mergeBsDataRegimentsOfRenown(
-    communityOptionsMerged.dataset,
-    communityOptionsMerged.reconciliation,
-    communityRegimentSources,
-    officialBattleProfiles.effective
-  )
-  validateReviewedReconciliation(review, communityRegimentsMerged.reconciliation)
+  validateReviewedReconciliation(review, communityOptionsMerged.reconciliation)
   return {
     manifest,
     review,
     acceptedDecoded: decoded,
-    decoded: { ...decoded, dataset: communityRegimentsMerged.dataset },
+    decoded: { ...decoded, dataset: communityOptionsMerged.dataset },
     officialBattleProfiles,
-    reconciliation: communityRegimentsMerged.reconciliation,
+    reconciliation: communityOptionsMerged.reconciliation,
     officialPageTextBySourceRecordId,
   }
 }

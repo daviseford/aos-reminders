@@ -23,13 +23,6 @@
       "url": "https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/2b7df92fc74509388f709269650b11c4213a2979/Sons%20of%20Behemat.cat"
     },
     {
-      "acceptedArtifactChecksum": "a190b0850b87e49a01c48e1cf28ee64fd9048851b3b9b3d63747c3d9047b6752",
-      "publisher": "bsdata",
-      "status": "matched",
-      "title": "BSData/age-of-sigmar-4th@8836d9f939e9: Regiments of Renown.cat",
-      "url": "https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/8836d9f939e93cb2e97a0e7427b7a3304c534fe9/Regiments%20of%20Renown.cat"
-    },
-    {
       "acceptedArtifactChecksum": "29573197f01e47457ca5db40f4a616a2008d9eee128c4d00cb4f0d2a781b947d",
       "publisher": "games-workshop",
       "status": "matched",
@@ -275,13 +268,6 @@
       "url": "https://assets.warhammer-community.com/eng_01-07_warhammer_age_of_sigmar_scourge_of_aqshy_maggotkin_of_nurgle-wxaoylmlh1-juclicweqh.pdf"
     },
     {
-      "acceptedArtifactChecksum": "d12f678f97e4f0f6786b61b6de7da2ddb9bde93f3a2db80717e02da62105e2b4",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Scourge of Aqshy - Slaves to Darkness",
-      "url": "https://assets.warhammer-community.com/eng_01-07_warhammer_age_of_sigmar_scourge_of_aqshy_slaves_to_darkness-fui91apgno-hhr5jihpgk.pdf"
-    },
-    {
       "acceptedArtifactChecksum": "f50036a9facaee939181bb27084c7d7f3d700484663c2eee3ed19d7c3ccc4373",
       "publisher": "games-workshop",
       "status": "matched",
@@ -303,13 +289,6 @@
       "url": "https://assets.warhammer-community.com/eng_02-07_warhammer_age_of_sigmar_scourge_of_aqshy_ossiarch_bonereapers-hbsdxt30lc-h1bs1gkzdy.pdf"
     },
     {
-      "acceptedArtifactChecksum": "bffbeb3b887fdbad1a7599e55eb534a7da50736210e69650955fba883ccd2097",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Scourge of Aqshy - Soulblight Gravelords",
-      "url": "https://assets.warhammer-community.com/eng_02-07_warhammer_age_of_sigmar_scourge_of_aqshy_soulblight_gravelords-sdhsy4qj6l-htfbgtpxks.pdf"
-    },
-    {
       "acceptedArtifactChecksum": "abd6abfb33825cae2b06ea4dd5533def430722a1e1ba50282a189f31003ed6e5",
       "publisher": "games-workshop",
       "status": "matched",
@@ -329,20 +308,6 @@
       "status": "matched",
       "title": "Scourge of Aqshy - Kruleboyz",
       "url": "https://assets.warhammer-community.com/eng_03-07_warhammer_age_of_sigmar_scourge_of_aqshy_kruleboyz-rgjpjlhsnj-4xu8ua7toi.pdf"
-    },
-    {
-      "acceptedArtifactChecksum": "88112372fc087c2c41a6a194fd93c77e7cbc8dbf54c5f58ded38740a688d421a",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Scourge of Aqshy - Ogor Mawtribes",
-      "url": "https://assets.warhammer-community.com/eng_03-07_warhammer_age_of_sigmar_scourge_of_aqshy_ogor_mawtribes-fnzpmjxogs-32udmyvbim.pdf"
-    },
-    {
-      "acceptedArtifactChecksum": "20b04fa511f9ecb1136613a83fe898416965eef5426f978f466cab53adc87592",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Scourge of Aqshy - Sons of Behemat",
-      "url": "https://assets.warhammer-community.com/eng_03-07_warhammer_age_of_sigmar_scourge_of_aqshy_sons_of_behemat-mfhfhbwwi9-1r2mvp24r3.pdf"
     },
     {
       "acceptedArtifactChecksum": "68f1ec961992bf9ede349b994a1f35702c83fe0b037a7717da47a21b680bba07",
@@ -469,13 +434,6 @@
       "status": "matched",
       "title": "Spearhead: Cities of Sigmar - Zenestra's Zealots",
       "url": "https://assets.warhammer-community.com/eng_13-05_aos_spearhead_cities_of_sigmar_zenestra-s_zealots-jiv98kvc9n-nhjktzu4pc.pdf"
-    },
-    {
-      "acceptedArtifactChecksum": "718c39109e6a3ddb1ffe54f9bc84531dda70d06d13e6098d917340f37794b431",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Spearhead: Maggotkin of Nurgle - Bubonic Cell",
-      "url": "https://assets.warhammer-community.com/eng_14-01_aos_spearhead_maggotkin_of_nurgle_bubonic_cell-pzrkznb841-nra7t3b9st.pdf"
     },
     {
       "acceptedArtifactChecksum": "a8618974f8ecdd534cd9bf6b45bca020288a99059b4cdb4d2ed474ae7c700ee3",
@@ -625,6 +583,76 @@
       "url": "https://assets.warhammer-community.com/eng_20-i549znmfzg-c9i1aq7c4q.pdf"
     },
     {
+      "acceptedArtifactChecksum": "fd5aff93778071ba9654a50c8b7ca6291b72c3e0d3946a14e80b676ab585e51e",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Battletome Supplement: Cities of Sigmar",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_cities_of_sigmar_battletome_supplement-ncip5awe9c-tp4bjseb7j.pdf"
+    },
+    {
+      "acceptedArtifactChecksum": "b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Battle Profiles",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_core&key_battle_profiles-0amt68pt5c-vjtgulelgr.pdf"
+    },
+    {
+      "acceptedArtifactChecksum": "03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Rules Updates",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_core&key_rule_updates-eu6fu82jl3-dlyuiignte.pdf"
+    },
+    {
+      "acceptedArtifactChecksum": "2f3d560f2fef4d35be7d1fe945ba066d661aeb33696b00ee811e55663e3d76b2",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Scourge of Aqshy - Fyreslayers",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_scourge_of_aqshy_fyreslayers-3xzmrlaw7s-reylprzfdw.pdf"
+    },
+    {
+      "acceptedArtifactChecksum": "3d0100a1da8ae2c20ae4085731e0ed8de5069c265ed09a30de41a20b37d8eba5",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Scourge of Aqshy - Idoneth Deepkin",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_scourge_of_aqshy_idoneth_deepkin-9vxscalfxk-2cudg15iul.pdf"
+    },
+    {
+      "acceptedArtifactChecksum": "2a3ef6386f1151747ae47bb6826de2bfd3ad7471e9deef849169dccfffdbe821",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Scourge of Aqshy - Ogor Mawtribes",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_scourge_of_aqshy_ogor_mawtribes-z982xcwijb-ytpbvotnwy.pdf"
+    },
+    {
+      "acceptedArtifactChecksum": "e76b0d4cf245b407b66c28ef92bf99d01f09cd4c77196d883b13314874eeb66e",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Scourge of Aqshy - Slaves to Darkness",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_scourge_of_aqshy_slaves_to_darkness-e9ksdzx30c-6kh6erfgkj.pdf"
+    },
+    {
+      "acceptedArtifactChecksum": "5683f8c3ef427ac299a4874753bc0eea251f390baafc54bf763e927bfa64ec07",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Scourge of Aqshy - Sons of Behemat",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_scourge_of_aqshy_sons_of_behemat-qstcobovkz-h2dx8adoug.pdf"
+    },
+    {
+      "acceptedArtifactChecksum": "3525c515cc9b7e1f96b7b76a70f2164810811e7608480ac7dfcd7ea49799124f",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Scourge of Aqshy - Soulblight Gravelords",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_scourge_of_aqshy_soulblight_gravelords-e8t3ctbhd3-tpjg3waqtl.pdf"
+    },
+    {
+      "acceptedArtifactChecksum": "781d851eac5f6a7eea3800b6626e831b5ee5f6662d10c7c944b5ee5a29c7b14d",
+      "publisher": "games-workshop",
+      "status": "matched",
+      "title": "Spearhead: Maggotkin of Nurgle - Bubonic Cell",
+      "url": "https://assets.warhammer-community.com/eng_23-09_aos_spearhead_maggotkin_of_nurgle_bubonic_cell-i5dbcdp8vl-aaeheqk1x1.pdf"
+    },
+    {
       "acceptedArtifactChecksum": "4a2a0862eab918613d3aa8722094f5d54f93a757e41fb93af928873ad48ce7e2",
       "publisher": "games-workshop",
       "status": "matched",
@@ -709,13 +737,6 @@
       "url": "https://assets.warhammer-community.com/eng_26-11_aos_scourge_of_ghyran_nighthaunt-2cuomcjp5f-sirlqdel6q.pdf"
     },
     {
-      "acceptedArtifactChecksum": "db1c375ed0947f89650a575198238236eb18a63b1d05c12a6a88f3e60f7bb5e6",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Rules Updates",
-      "url": "https://assets.warhammer-community.com/eng_26_08_aos_rules_updates-5ipfuunkxi-gf9klsdfjt.pdf"
-    },
-    {
       "acceptedArtifactChecksum": "b4fe9a0b7e405437053ce140da05e0d3e9ea86f6bc19d9dc6ccacabedec2c7b4",
       "publisher": "games-workshop",
       "status": "matched",
@@ -772,13 +793,6 @@
       "url": "https://assets.warhammer-community.com/eng_29-07_warhammer_age_of_sigmar_battletome_supplement_ogor_mawtribes-ivueka6svf-jdttrqk7mn.pdf"
     },
     {
-      "acceptedArtifactChecksum": "5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Battle Profiles",
-      "url": "https://assets.warhammer-community.com/eng_29-07_warhammer_age_of_sigmar_core_rules_battle_profiles-mhh9urxjwe-tagofadxuo.pdf"
-    },
-    {
       "acceptedArtifactChecksum": "dfbb72b3631d01f4b085daa7f0808eab17227dee70acbc9af384f2a3e4865cfb",
       "publisher": "games-workshop",
       "status": "matched",
@@ -812,20 +826,6 @@
       "status": "matched",
       "title": "Scourge of Aqshy - Cities of Sigmar",
       "url": "https://assets.warhammer-community.com/eng_30-06_warhammer_age_of_sigmar_scourge_of_aqshy_cities_of_sigmar-5iinsjs17f-gcwxupc4yt.pdf"
-    },
-    {
-      "acceptedArtifactChecksum": "5abd7519ff2ae09f528bafaae1545ca2614944890ac055769418060a3b28f9d3",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Scourge of Aqshy - Fyreslayers",
-      "url": "https://assets.warhammer-community.com/eng_30-06_warhammer_age_of_sigmar_scourge_of_aqshy_fyreslayers-woen4hrxst-qcrepwmzox.pdf"
-    },
-    {
-      "acceptedArtifactChecksum": "ea699bb515551dbd8d4b9d1cf78d22485b06da3702fb06e84d129ca24075dbf1",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Scourge of Aqshy - Idoneth Deepkin",
-      "url": "https://assets.warhammer-community.com/eng_30-06_warhammer_age_of_sigmar_scourge_of_aqshy_idoneth_deepkin-7iuluyz9qk-jrhxjn2wcu.pdf"
     },
     {
       "acceptedArtifactChecksum": "d69b032641325e3ac4866121eed4a04348e97ebdf9318d0f858e5f007166890b",
@@ -896,13 +896,6 @@
       "status": "matched",
       "title": "Regiments of Renown - Blades of Khorne",
       "url": "https://assets.warhammer-community.com/eng_aos_blades_of_khorne_renown-nsoo3uhkpw-hvuwursmln.pdf"
-    },
-    {
-      "acceptedArtifactChecksum": "031051d7669cc9441cd9ab2b5b137ffff6547089c4568f9233ea5331f7e89a75",
-      "publisher": "games-workshop",
-      "status": "matched",
-      "title": "Battletome Supplement: Cities of Sigmar",
-      "url": "https://assets.warhammer-community.com/eng_aos_cities_of_sigmar_battletome_supplement-7lw8joaurh-qxaulcoztd.pdf"
     },
     {
       "acceptedArtifactChecksum": "be0b9d4f32135d45f9dfff251beb4940afddb154cfe3416cd8e6ac56994a0798",
@@ -1802,8 +1795,35 @@
     }
   ],
   "independentFromAcceptedManifest": true,
-  "observedAt": "2026-09-23T18:45:46.124Z",
-  "producedBy": "source-inventory-reconciler/v1 (bsdata-source-observer/v1 (live pinned raw.githubusercontent.com fetch), games-workshop-download-catalog/v1, wahapedia-navigation-and-export-spec/v1)",
+  "observations": [
+    {
+      "entries": 166,
+      "observedAt": "2026-09-23T23:00:03.355Z",
+      "producedBy": "games-workshop-download-catalog/v1",
+      "publishers": [
+        "games-workshop"
+      ]
+    },
+    {
+      "entries": 87,
+      "observedAt": "2026-09-23T23:00:16.278Z",
+      "producedBy": "wahapedia-navigation-and-export-spec/v1",
+      "publishers": [
+        "wahapedia"
+      ]
+    },
+    {
+      "entries": 3,
+      "observedAt": "2026-09-23T23:02:32.410Z",
+      "producedBy": "bsdata-source-observer/v1 (live pinned raw.githubusercontent.com fetch)",
+      "publishers": [
+        "bsdata"
+      ]
+    }
+  ],
+  "observedAt": "2026-09-23T23:02:32.410Z",
+  "oldestObservedAt": "2026-09-23T23:00:03.355Z",
+  "producedBy": "source-inventory-reconciler/v2 (bsdata-source-observer/v1 (live pinned raw.githubusercontent.com fetch), games-workshop-download-catalog/v1, wahapedia-navigation-and-export-spec/v1)",
   "revision": "aos4-corpus-2026-09-23",
-  "schemaVersion": 1
+  "schemaVersion": 2
 }

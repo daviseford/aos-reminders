@@ -11,7 +11,9 @@ import { stableCompactJson, stableJson } from '../generate/serialization'
 import { assertAgentBlindDerivations } from './adversarialReview'
 import {
   calibrationEvidenceIssues,
+  assertInstantNotInFuture,
   certificationChronologyIssues,
+  certificationInventoryBinding,
   checksumCertificationText,
   createCalibrationEvidenceReceipt,
   createCertificationManifest,
@@ -19,6 +21,7 @@ import {
   reviewLedgerWithResults,
   type ReviewProtocolDefinition,
   type ReviewRubricDefinition,
+  type CreateCertificationManifestInput,
   type SourceInventory,
 } from './certification'
 import { validateReviewLedger } from './findings'
@@ -39,6 +42,7 @@ import {
   checksumReviewRecord,
   reviewerConfigurationId,
   type CertificationInput,
+  type CertificationManifest,
   type ReviewAssignment,
   type ReviewCalibration,
   type ReviewFinding,
@@ -190,7 +194,8 @@ const nextValue = (values: string[], index: number, flag: string): string => {
 }
 
 export const parseCertificationPreparationArguments = (
-  values: string[]
+  values: string[],
+  now = new Date()
 ): CertificationPreparationArguments => {
   const parsed: CertificationPreparationArguments = {
     output: '',
@@ -230,7 +235,21 @@ export const parseCertificationPreparationArguments = (
   ) {
     throw new Error('--evaluated-at requires a canonical ISO timestamp')
   }
+  assertInstantNotInFuture('--evaluated-at', parsed.evaluatedAt, now)
   return parsed
+}
+
+/**
+ * New certifications must bind an inventory that records each observation's producer, publishers,
+ * and instant. Schema 1 inventories stay verifiable in committed certifications, but cannot be
+ * re-bound, because they report only the newest observation instant.
+ */
+export const assertPreparableSourceInventory = (inventory: SourceInventory): void => {
+  if (inventory?.schemaVersion !== 2 || !Array.isArray(inventory.observations)) {
+    throw new Error(
+      'Source inventory lacks per-observation provenance; rebuild it with yarn data:aos4:inventory'
+    )
+  }
 }
 
 const withinDirectory = (directory: string, relativePath: string): string => {
@@ -694,6 +713,33 @@ const compactedCertificationResults = async (
   )
 }
 
+/** The manifest certify:prepare writes, binding the inventory through its bound input checksum. */
+export const preparedCertificationManifest = (input: {
+  evaluation: CreateCertificationManifestInput['evaluation']
+  inputs: CertificationInput[]
+  ledger: ReviewLedger
+  inventory: SourceInventory
+  evaluatedAt: string
+  protocolVersion: string
+  rubricVersion: string
+  execution: ReviewCampaignExecution
+}): CertificationManifest => {
+  const inventoryInput = input.inputs.find(value => value.name === 'source-inventory')
+  if (!inventoryInput) throw new Error('Certification source inventory binding is missing')
+  return {
+    ...createCertificationManifest({
+      evaluation: input.evaluation,
+      inputs: input.inputs,
+      ledger: input.ledger,
+      inventory: certificationInventoryBinding(inventoryInput.checksum, input.inventory),
+      certifiedAt: input.evaluatedAt,
+      protocolVersion: input.protocolVersion,
+      rubricVersion: input.rubricVersion,
+    }),
+    execution: certificationExecutionProjection(input.execution),
+  }
+}
+
 export const runCertificationPreparation = async (
   arguments_: CertificationPreparationArguments,
   repoRoot = process.cwd()
@@ -712,6 +758,7 @@ export const runCertificationPreparation = async (
   ])
   const acceptedManifest = JSON.parse(acceptedManifestText) as ArtifactManifest
   const index = JSON.parse(indexText) as ReviewPacketSafeIndex
+  assertPreparableSourceInventory(inventory)
   if (
     index.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION ||
     index.protocolVersion !== AOS4_REVIEW_PROTOCOL_VERSION ||
@@ -1007,23 +1054,16 @@ export const runCertificationPreparation = async (
     existingInputs.push(textInput(name, relativePath.replaceAll(path.sep, '/'), content))
   }
   const inputs = [...existingInputs, ...generatedInputs]
-  const inventoryInput = generatedInputs.find(input => input.name === 'source-inventory')!
-  const manifest = {
-    ...createCertificationManifest({
-      evaluation,
-      inputs,
-      ledger: certificationLedger,
-      inventory: {
-        checksum: inventoryInput.checksum,
-        observedAt: inventory.observedAt,
-        complete: inventory.complete,
-      },
-      certifiedAt: arguments_.evaluatedAt,
-      protocolVersion: protocol.protocolVersion,
-      rubricVersion: rubric.rubricVersion,
-    }),
-    execution: certificationExecutionProjection(execution),
-  }
+  const manifest = preparedCertificationManifest({
+    evaluation,
+    inputs,
+    ledger: certificationLedger,
+    inventory,
+    evaluatedAt: arguments_.evaluatedAt,
+    protocolVersion: protocol.protocolVersion,
+    rubricVersion: rubric.rubricVersion,
+    execution,
+  })
   generatedTexts.set('manifest.json', stableJson(manifest))
   generatedTexts.set(
     'summary.json',

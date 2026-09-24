@@ -1,13 +1,13 @@
 [
   {
-    "calibratedAt": "2026-09-23T20:00:04.000Z",
+    "calibratedAt": "2026-09-23T23:44:34.000Z",
     "correctCannotVerifyCases": 1,
     "evidence": {
-      "assignmentId": "review-assignment:sha256:4d04beb23f2118ba906613ec429983898189525e8407762581989edc34351e7e",
-      "blindResultsChecksum": "961f5cfc6f9e5b82f769d8ce50264dcd389e093a4ab1a343b4eeb2c183670da9",
-      "comparisonResultsChecksum": "9d3d8a517e058b5ac480d44582eeca159d3b9b295a7e0ffc6c718d34bcbc37d6",
-      "controlPairKeysChecksum": "10be25a9ef71d73c6b13ec0213b3e8a9a9d33fb8c7c1cbbeb43daf1abf0ffbd7",
-      "receiptChecksum": "af739e0f57651659690e178e20843cca0a732fd6d52a2be945bbfce48f2c79ed"
+      "assignmentId": "review-assignment:sha256:443434e8c7043f0124af0f6bbf133b0a316d9d168702d295ccb6f9ed4752bece",
+      "blindResultsChecksum": "8a0e34c948aefa487fa2e7a505e15e9ec70d7c6d2edadc1366b82a44415eac29",
+      "comparisonResultsChecksum": "4939800b429eb1442ac85e5d68cecc5ffcce69354e149e54c81d242c2ace6da7",
+      "controlPairKeysChecksum": "b3c788fef71411cc40f80eafb9396d2acd2895e0bc6b2efb5de2524819af4de0",
+      "receiptChecksum": "976064c0fb2ed4e51c89cf69a6f4a201140c2886a290801888819507a13e7139"
     },
     "foundSeededBlockerMajorDefects": 1,
     "insufficientEvidenceCases": 1,
