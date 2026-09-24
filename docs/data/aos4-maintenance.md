@@ -637,9 +637,22 @@ question is answered: the pin stands until that cycle), and the per-file reducti
 on #1999. The 2026-09-23 official intake (corpus 2026-09-23) reconciled part of those records and
 left the rest recorded on #1999 (the errata the machine review cannot verify, the changes outside
 the override vocabulary, and the four Sons of Behemat regiment rewrites), and the range has since
-grown to `d1f97bc9` (one unreviewed Nighthaunt commit). Material deltas remain unresolved, so the
-baseline is still held at `d989a15e`; it moves only on an evidence-backed, owner-approved
-disposition, never mechanically.
+grown to `d1f97bc9` (one Nighthaunt commit). The baseline was held at `d989a15e` until an
+evidence-backed, owner-approved disposition; it never moves mechanically.
+
+The 2026-09-24 review (`d989a15e` → `d1f97bc9`, #1757, 2 commits, 33 files) is that disposition,
+approved by the owner. The only commit not covered by the 2026-09-23 reduction, `d1f97bc9`, changes
+one Pyregheists category link from `CHAMPION (1/8)` to `CHAMPION` in `Nighthaunt - Library.cat`, a
+Wahapedia-sourced faction whose runtime warscroll already carries `CHAMPION`. The four pinned files
+are unaffected: `Regiments of Renown.cat` is blob `c4379f8b` at its `8836d9f9` pin and at
+`d1f97bc9`, `Sons of Behemat - Library.cat` is blob `600ea8c9` at its `2b7df92f` pin and at
+`d1f97bc9`, and `Sons of Behemat.cat` and `Lores.cat` did not change after `8836d9f9`. The baseline
+advanced to `d1f97bc9` with no accepted, generated, or certification product changed. Advancing it
+records only that this BSData range was reduced; it does not certify that the shipped rules match
+the September 2026 official publications. The official-source discrepancies the range surfaced
+(the errata the machine review cannot verify, the changes outside the override vocabulary, the four
+Sons of Behemat regiment rewrites, and the rest listed there) stay open on #1999 and can only
+enter the runtime through an official-first candidate cycle, never from this signal.
 
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
