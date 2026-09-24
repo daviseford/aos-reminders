@@ -52,8 +52,8 @@ The strict report currently records:
   with publication identity continuity. Wahapedia had republished none of the affected pages, so
   17 reviewed ability-text overrides and 4 timing overrides cite the exact September page records
   (Helsmiths of Hashut formations, Nighthaunt, Disciples of Tzeentch, Slaves to Darkness,
-  Cities of Sigmar's War Hydra, and the seasonal Fyreslayers, Idoneth, Soulblight, Slaves, and
-  Sons of Behemat abilities). Eleven further errata stay recorded discrepancies because the
+  Cities of Sigmar's War Hydra, and the seasonal Fyreslayers, Soulblight, Slaves, and Sons of
+  Behemat abilities). Eleven further errata stay recorded discrepancies because the
   machine review cannot verify them: errata that only delete words (Lightning Master, Abyssal
   Dweller, the Ossiarch Bonereapers relentless-discipline surcharge on five battle traits and
   Katakros), errata that edit a phrase inside secondary text (Rolling Ash-clouds, Lingering
