@@ -8,6 +8,8 @@ import type {
   BsDataFactionOptionExtractionResult,
   BsDataFactionOptionFact,
   BsDataFactionOptionType,
+  BsDataRegimentOfRenownExtractionResult,
+  BsDataRegimentOfRenownFact,
   BsDataWarscrollFact,
   BsDataWeaponFact,
 } from './records'
@@ -405,6 +407,202 @@ export const extractBsDataFactionOptions = (
       ...(option.faction ? { faction: option.faction } : {}),
       ...(option.typeSourceRecordId ? { typeSourceRecordId: option.typeSourceRecordId } : {}),
     })
+  })
+  return { facts, diagnostics }
+}
+
+/** The root id of BSData's `۞ Regiments of Renown` catalogue, the only file regiments come from. */
+export const BSDATA_REGIMENTS_OF_RENOWN_CATALOGUE_ID = '1ed8-2e23-1563-c119'
+
+const REGIMENT_ENTRY_PREFIX = 'Regiment of Renown: '
+
+export interface BsDataRegimentOfRenownSpec {
+  /** The regiment name without the `Regiment of Renown: ` entry prefix, e.g. `Krong the Club`. */
+  name: string
+}
+
+const isForceCondition = (condition: XmlElement): boolean =>
+  condition.attributes.type === 'instanceOf' && condition.attributes.scope === 'force'
+
+/**
+ * The force a regiment's entry is unhidden by. BSData models buying a regiment as adding a force
+ * entry; the regiment's own rules entry and its members key their visibility on that force.
+ */
+const regimentForceIds = (entry: XmlElement): string[] =>
+  Array.from(
+    new Set(
+      childElements(entry, 'modifiers')
+        .flatMap(modifiers => childElements(modifiers, 'modifier'))
+        .filter(modifier => modifier.attributes.field === 'hidden' && modifier.attributes.value === 'false')
+        .flatMap(modifier => descendantElements(modifier, 'condition'))
+        .filter(isForceCondition)
+        .map(condition => condition.attributes.childId ?? '')
+        .filter(Boolean)
+    )
+  )
+
+type RegimentMemberLink = { name: string; count: number } | { name: string; ambiguous: string }
+
+/**
+ * A member is an entry link whose own modifier group, conditioned on exactly the regiment's
+ * force, unhides it and sets both its min and max constraints to the same count. Anything else
+ * (an or-group, extra conditions, min ≠ max) is reported rather than interpreted.
+ */
+const regimentMemberLinks = (root: XmlElement, entryId: string, forceId: string): RegimentMemberLink[] =>
+  descendantElements(root, 'entryLink')
+    .filter(link => link.attributes.targetId !== entryId)
+    .flatMap((link): RegimentMemberLink[] => {
+      const groups = childElements(link, 'modifierGroups')
+        .flatMap(modifierGroups => childElements(modifierGroups, 'modifierGroup'))
+        .filter(group =>
+          descendantElements(group, 'condition').some(condition => condition.attributes.childId === forceId)
+        )
+      if (!groups.length) return []
+      const name = plainText(link.attributes.name ?? '')
+      if (groups.length !== 1) return [{ name, ambiguous: `${groups.length} modifier groups name the force` }]
+      const [group] = groups
+      const conditions = descendantElements(group, 'condition')
+      if (group.attributes.type !== 'and' || conditions.length !== 1 || !isForceCondition(conditions[0])) {
+        return [{ name, ambiguous: 'the force condition is not the sole and-condition' }]
+      }
+      const constraints = childElements(link, 'constraints').flatMap(item =>
+        childElements(item, 'constraint')
+      )
+      const constraintId = (type: string): string | undefined =>
+        constraints.find(constraint => constraint.attributes.type === type)?.attributes.id
+      const modifiers = childElements(group, 'modifiers').flatMap(item => childElements(item, 'modifier'))
+      const setValue = (field: string | undefined): number | undefined =>
+        field === undefined
+          ? undefined
+          : integerValue(
+              modifiers.find(
+                modifier => modifier.attributes.type === 'set' && modifier.attributes.field === field
+              )?.attributes.value
+            )
+      const minimum = setValue(constraintId('min'))
+      const maximum = setValue(constraintId('max'))
+      const unhidden = modifiers.some(
+        modifier => modifier.attributes.field === 'hidden' && modifier.attributes.value === 'false'
+      )
+      if (!unhidden || minimum === undefined || minimum !== maximum || minimum < 1) {
+        return [{ name, ambiguous: `min ${minimum ?? '?'} / max ${maximum ?? '?'} is not one fixed count` }]
+      }
+      return [{ name, count: minimum }]
+    })
+
+/**
+ * Extract structured Regiment of Renown facts for an explicit, reviewed set of regiments from
+ * the pinned BSData `Regiments of Renown.cat` (issue #1999). Only the named regiments are
+ * extracted, and every missing or ambiguous shape is an error: the regiment's rules text is the
+ * only thing BSData supplies, and its members are a cross-check the merge compares against the
+ * official battle-profile row, never an authority.
+ */
+export const extractBsDataRegimentsOfRenown = (
+  bytes: Uint8Array,
+  artifactChecksum: string,
+  specs: BsDataRegimentOfRenownSpec[]
+): BsDataRegimentOfRenownExtractionResult => {
+  const diagnostics: BsDataDiagnostic[] = []
+  const source = new TextDecoder('utf-8', { fatal: false }).decode(bytes)
+  const parsed = parseXmlDocument(source)
+  if (!parsed.root) {
+    return {
+      facts: [],
+      diagnostics: parsed.errors.map(error => ({
+        code: 'invalid-xml',
+        severity: 'error',
+        message: error,
+      })),
+    }
+  }
+  const root = parsed.root
+  if (root.name !== 'catalogue' || root.attributes.id !== BSDATA_REGIMENTS_OF_RENOWN_CATALOGUE_ID) {
+    return {
+      facts: [],
+      diagnostics: [
+        {
+          code: 'regiment-catalogue-mismatch',
+          severity: 'error',
+          message:
+            `Regiments of Renown come only from the catalogue ${BSDATA_REGIMENTS_OF_RENOWN_CATALOGUE_ID}; ` +
+            `this file's root is <${root.name} id=${JSON.stringify(root.attributes.id ?? '')}>`,
+        },
+      ],
+    }
+  }
+  const upgrades = descendantElements(root, 'selectionEntry').filter(
+    entry => entry.attributes.type === 'upgrade'
+  )
+  const facts: BsDataRegimentOfRenownFact[] = []
+  specs.forEach(spec => {
+    const fail = (code: BsDataDiagnostic['code'], message: string): void => {
+      diagnostics.push({ code, severity: 'error', message, unit: spec.name })
+    }
+    const matches = upgrades.filter(
+      entry => (entry.attributes.name ?? '').trim() === `${REGIMENT_ENTRY_PREFIX}${spec.name}`
+    )
+    if (!matches.length) {
+      fail('regiment-not-found', `Regiment ${JSON.stringify(spec.name)} is not present in the catalogue`)
+      return
+    }
+    if (matches.length > 1) {
+      fail('duplicate-regiment', `Regiment ${JSON.stringify(spec.name)} appears ${matches.length} times`)
+      return
+    }
+    const [entry] = matches
+    const section = `regiment:${slug(spec.name)}`
+    const recordId = (suffix: string) =>
+      sourceRecordId('bsdata', `${artifactChecksum}:${section}${suffix ? `:${suffix}` : ''}`)
+    const diagnosticsBefore = diagnostics.length
+    const abilities = extractAbilityProfiles(entry, spec.name, recordId, diagnostics)
+    if (diagnostics.length !== diagnosticsBefore) return
+    if (!abilities.length) {
+      fail('missing-regiment-ability', `Regiment ${JSON.stringify(spec.name)} carries no ability profile`)
+      return
+    }
+    const forceIds = regimentForceIds(entry)
+    if (forceIds.length !== 1) {
+      fail(
+        'missing-regiment-member',
+        `Regiment ${JSON.stringify(spec.name)} names ${forceIds.length} unhiding forces, so its members cannot be located`
+      )
+      return
+    }
+    const links = regimentMemberLinks(root, entry.attributes.id ?? '', forceIds[0])
+    const linkNames = links.map(link => link.name)
+    const ambiguous = [
+      ...links.flatMap(link => ('ambiguous' in link ? [`${link.name} (${link.ambiguous})`] : [])),
+      // A member linked more than once has no single fixed count; never sum the links.
+      ...linkNames
+        .filter((name, index) => linkNames.indexOf(name) !== index)
+        .map(name => `${name} (linked more than once)`),
+    ]
+    if (ambiguous.length) {
+      fail(
+        'ambiguous-regiment-member',
+        `Regiment ${JSON.stringify(spec.name)} has members without one fixed count: ${ambiguous.join(', ')}`
+      )
+      return
+    }
+    const counts = new Map<string, number>()
+    links.forEach(link => {
+      if ('count' in link) counts.set(link.name, link.count)
+    })
+    if (!counts.size) {
+      fail('missing-regiment-member', `Regiment ${JSON.stringify(spec.name)} has no member entry link`)
+      return
+    }
+    const withoutChecksum = {
+      kind: 'regiment-of-renown' as const,
+      name: plainText(spec.name),
+      section,
+      abilities,
+      members: Array.from(counts, ([name, count]) => ({ name, count })).sort((left, right) =>
+        left.name.localeCompare(right.name)
+      ),
+      sourceRecordId: recordId(''),
+    }
+    facts.push({ ...withoutChecksum, factChecksum: checksum(withoutChecksum) })
   })
   return { facts, diagnostics }
 }

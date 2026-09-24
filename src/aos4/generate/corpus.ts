@@ -198,6 +198,21 @@ export interface CorpusCommunityFactionOption {
 }
 
 /**
+ * A Regiment of Renown whose rules text a community catalogue supplies (issue #1999: Krong the
+ * Club, from BSData's `Regiments of Renown.cat`). The official battle-profile row of the same name
+ * supplies its name, points, inclusion factions, and members; the merged record still needs its
+ * own reviewed `regimentsOfRenown` classification entry, exactly like a Wahapedia datasheet.
+ */
+export interface CorpusCommunityRegimentOfRenown {
+  /** The regiment name without BSData's `Regiment of Renown: ` entry prefix. */
+  name: string
+  /** The catalogue section the extractor derives, e.g. `regiment:krong-the-club`. */
+  section: string
+  /** The pinned checksum of the extracted regiment fact (abilities and member links). */
+  recordChecksum: string
+}
+
+/**
  * A reviewed community warscroll source.
  *
  * The source hierarchy is: official Games Workshop publications (authoritative), then Wahapedia
@@ -227,6 +242,8 @@ export interface CorpusCommunityWarscrollSource {
   units: CorpusCommunityWarscrollUnit[]
   /** Faction roster options (battle formations, traits, artefacts) supplied by this source. */
   factionOptions?: CorpusCommunityFactionOption[]
+  /** Regiments of Renown whose rules text this source supplies (issue #1999). */
+  regimentsOfRenown?: CorpusCommunityRegimentOfRenown[]
 }
 
 /**
@@ -1317,7 +1334,19 @@ const reviewDiagnostics = (
           ].includes(option.optionType) &&
           (option.optionType !== 'battle-trait' || Boolean(option.faction?.trim()))
       ) && new Set(factionOptions.map(option => option.section)).size === factionOptions.length
-    const scopeValid = source.units.length + factionOptions.length > 0 && unitsValid && factionOptionsValid
+    const regiments = source.regimentsOfRenown ?? []
+    const regimentsValid =
+      regiments.every(
+        regiment =>
+          regiment.name.trim() &&
+          /^regiment:[a-z0-9-]+$/.test(regiment.section) &&
+          /^[0-9a-f]{64}$/.test(regiment.recordChecksum)
+      ) && new Set(regiments.map(regiment => regiment.section)).size === regiments.length
+    const scopeValid =
+      source.units.length + factionOptions.length + regiments.length > 0 &&
+      unitsValid &&
+      factionOptionsValid &&
+      regimentsValid
     // Legacy three-tier gate (superseded 2026-08-18, #1757): the policyTier/status/provisional
     // wording and the official-record requirement below stay enforced until the review schema is
     // flattened. See the Migration status note in docs/data/aos4-maintenance.md.
@@ -1603,6 +1632,7 @@ export const buildAos4Corpus = (
           ...(source.factionOptions ?? [])
             .filter(option => option.optionType !== 'battle-trait')
             .map(option => option.section),
+          ...(source.regimentsOfRenown ?? []).map(regiment => regiment.section),
         ].map(section =>
           sourceReference(
             domainSourceRecordId('bsdata', `${source.artifact.checksum}:${section}`),
