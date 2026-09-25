@@ -12,47 +12,52 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-24` (issue #1999): Krong the Club, the September 2026
-Sons of Behemat Regiment of Renown, rebuilt on `aos4-corpus-2026-09-23`. Its rules text comes from
-the commit-pinned BSData `Regiments of Renown.cat` (`main` commit `8836d9f9`), and its name, 140
-points, 24 inclusion factions and single Mancrusher Gargant member come from the one effective
-official row, the September 2026 core Battle Profiles page 59. The inputs differ from 2026-09-23
-only by that BSData artifact, one community source scoped to Krong, one Regiment of Renown
-classification entry, and the revision name; the catalog and runtime gained exactly Krong's 4
-entities and 27 relationships. Its automated review is complete:
+The current revision is `aos4-corpus-2026-09-25` (issue #1999): the Sons of Behemat
+provisional-to-verified swap. Wahapedia republished the Sons of Behemat faction and warscroll
+collection pages with the September 2026 battletome, so those two pages are re-pinned and the
+battletome ships from them; the three BSData `gargants`-branch catalogues retire, and Lore of
+Behemat, the six Realm-shaking Rampages, the King Brodd’s Stomp September 2026 rewrite, the Stone
+Lobbas Spearhead, the Matriarch’s Mob and Stomper Tribe Armies of Renown, and Okar’s Torrbad now
+ship. The same revision re-pins Games Workshop’s 2026-09-25 re-upload of the September 2026 core
+Battle Profiles, whose only fact change is Khainite Shadowstalkers (100 to 130 points). Its
+automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
-| Accepted artifacts independently inventoried | 248/248 |
+| Accepted artifacts independently inventoried | 245/245 |
 | Explicit non-material discovery entries | 9 |
 | Official battle-profile facts | 1,313/1,313 |
-| Final official/secondary reconciliation discrepancies | 638/638 |
+| Final official/secondary reconciliation discrepancies | 628/628 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 20,204/20,204 |
-| Ignored-record dispositions (superseded + explicit) | 20,556/20,556 |
-| Live review pairs | 42,713/42,713 |
-| Independent outcomes | 85,426 pass; 0 finding; 0 cannot-verify |
+| Live audit source records | 20,236/20,236 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,643/42,643 |
+| Independent outcomes | 85,286 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 19/19 |
 
 The independent source inventory is a schema 2 inventory of fresh observations taken for this
-intake on 2026-09-24: a `discover-official` snapshot observed at 04:07:44Z (166 downloads, 7
-explicit non-material, unchanged from the 2026-09-23 intake's snapshot), the Wahapedia navigation
-and exports at 04:08:16Z (87 sources, 0 inaccessible), the pinned BSData `2b7df92f` files at
-04:10:30Z, and the pinned BSData `8836d9f9` `Regiments of Renown.cat` at 04:10:34Z. Every
-accepted artifact matched, so every publisher's inventory is live and complete; no earlier
-observation is reused. The campaign ran at 04:15:58Z and the certification was evaluated at
-04:16:18Z the same day.
+intake on 2026-09-25: a `discover-official` snapshot observed at 18:32:49Z (166 downloads, 7
+explicit non-material), the Wahapedia navigation and exports at 18:32:57Z (87 sources, 0
+inaccessible), and the pinned BSData `8836d9f9` `Regiments of Renown.cat` at 18:35:12Z. Its
+first binding was incomplete: the discovery snapshot listed the core Battle Profiles at a new asset
+URL, which is how the 2026-09-25 re-upload was found, and the re-pin above made every accepted
+artifact match. No earlier observation is reused. The campaign ran at 19:08:01Z and the
+certification was evaluated at 19:08:35Z the same day.
 
-The current certification is `aos4-corpus-2026-09-24-machine-r1`. Its `--reuse-certification`
-offer of `aos4-corpus-2026-09-23-machine-r1` carried nothing forward (the revision re-key
-invalidates every pair), so all 42,713 pairs were evaluated fresh; the first campaign returned 0
-findings and 0 cannot-verify. It supersedes an earlier, never-merged Krong certification (PR
-#2018, 2026-09-23) that paired a new acquisition with the previous day's Games Workshop
-observation and recorded campaign and certification instants later than its commit; neither that
-evidence nor its instants carry forward.
+The current certification is `aos4-corpus-2026-09-25-machine-r1`. Its `--reuse-certification`
+offer of `aos4-corpus-2026-09-24-machine-r1` carried nothing forward (the revision re-key
+invalidates every pair), so all 42,643 pairs were evaluated fresh; the first campaign returned 0
+findings and 0 cannot-verify.
 
-The previous revision was `aos4-corpus-2026-09-23` (issue #1757, recorded on #1999): the 2026-09-23
+The previous revision was `aos4-corpus-2026-09-24` (issue #1999): Krong the Club, the September 2026
+Sons of Behemat Regiment of Renown, rebuilt on `aos4-corpus-2026-09-23`, with its rules text from the
+commit-pinned BSData `Regiments of Renown.cat` (`main` commit `8836d9f9`) and its name, 140 points,
+24 inclusion factions and Mancrusher Gargant member from the September 2026 core Battle Profiles page
+59. Its certification `aos4-corpus-2026-09-24-machine-r1` reviewed 42,713 pairs fresh (85,426 pass,
+0 finding, 0 cannot-verify) against fresh same-day observations.
+
+The revision before it was `aos4-corpus-2026-09-23` (issue #1757, recorded on #1999): the 2026-09-23
 Games Workshop update. The September 2026 Rules Updates, core Battle Profiles, six Scourge of Aqshy
 packs, the re-published Cities of Sigmar supplement, and the Bubonic Cell Spearhead replaced their
 pinned predecessors with publication identity continuity; 17 reviewed ability-text overrides and 4

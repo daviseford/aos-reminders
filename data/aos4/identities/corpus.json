@@ -205,17 +205,6 @@
     {
       "aliases": [
         {
-          "externalId": "Warscrolls_abilities.csv:000000869:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:0120e73a-cfd7-5832-bc37-03c497f8104d",
-      "kind": "ability",
-      "name": "BATTLE DAMAGED"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/#datasheet:Sentinels-of-Embergard:Jorvan-Kreel-Heir-of-the-Kraken/ability:2",
           "publisher": "wahapedia"
         },
@@ -6730,17 +6719,6 @@
       "canonicalId": "ability:1e4951b6-4126-5b30-bd3f-18f73e641189",
       "kind": "ability",
       "name": "SONS OF BEHEMAT"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000000869:4",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:1e61ca54-4d9e-530b-9e81-0e447e084b1d",
-      "kind": "ability",
-      "name": "TITANIC BOULDERCLUB"
     },
     {
       "aliases": [
@@ -16512,17 +16490,6 @@
     {
       "aliases": [
         {
-          "externalId": "Warscrolls_abilities.csv:000001542:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:4958eefe-b74b-5773-9f27-f5b3f92c7969",
-      "kind": "ability",
-      "name": "POWER OF BEHEMAT"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Faction_abilities.csv:MoN:000000940:000003502:4",
           "publisher": "wahapedia"
         }
@@ -17521,17 +17488,6 @@
       "canonicalId": "ability:4df376fe-5f41-5bdb-a123-a54cf08cab0f",
       "kind": "ability",
       "name": "HURRICANE WINDS"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001541:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:4e160dfc-706e-5d7e-96a9-5f3c0f3feb20",
-      "kind": "ability",
-      "name": "BATTLE DAMAGED"
     },
     {
       "aliases": [
@@ -27627,17 +27583,6 @@
     {
       "aliases": [
         {
-          "externalId": "Warscrolls_abilities.csv:000000868:4",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:79d932c1-600f-5ada-ba75-4623e4886729",
-      "kind": "ability",
-      "name": "GET ORF ME LAND!"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/ironjawz/#faction-ability:Battle-Traits:ability:1",
           "publisher": "wahapedia"
         }
@@ -28867,17 +28812,6 @@
       "canonicalId": "ability:7f00c9d6-9ca2-5fe1-9059-6d607ff0ab45",
       "kind": "ability",
       "name": "UNHOLY LODESTONE"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000000867:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:7f1a899a-2b44-5f91-9a8c-ed0abac0c518",
-      "kind": "ability",
-      "name": "BATTLE DAMAGED"
     },
     {
       "aliases": [
@@ -36410,10 +36344,6 @@
       "aliases": [
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:1",
-          "publisher": "wahapedia"
-        },
-        {
-          "externalId": "Warscrolls_abilities.csv:000003618:1",
           "publisher": "wahapedia"
         }
       ],
@@ -44016,17 +43946,6 @@
     {
       "aliases": [
         {
-          "externalId": "Warscrolls_abilities.csv:000000868:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:befe82b4-49d4-5232-a492-41da791b08d9",
-      "kind": "ability",
-      "name": "BATTLE DAMAGED"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "html:https://wahapedia.ru/aos4/the-rules/ravaged-coast/#rules-ability:Path-of-the-Bulwark:ability:1",
           "publisher": "wahapedia"
         }
@@ -46545,17 +46464,6 @@
       "canonicalId": "ability:ca707a07-7e76-5ebb-8761-fc1a641e7113",
       "kind": "ability",
       "name": "REPTILIAN CUNNING"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000001542:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:ca710e02-cc92-5074-9353-01e8f6fbc2fb",
-      "kind": "ability",
-      "name": "BATTLE DAMAGED"
     },
     {
       "aliases": [
@@ -88830,6 +88738,10 @@
           "publisher": "games-workshop"
         },
         {
+          "externalId": "official:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "official:b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18",
           "publisher": "games-workshop"
         }
@@ -111986,17 +111898,6 @@
     {
       "aliases": [
         {
-          "externalId": "Warscrolls_weapons.csv:000000868:3",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "weapon:485c4584-5b2d-5e93-b9bc-aa4241f86e4f",
-      "kind": "weapon",
-      "name": "Almighty Stomp"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000002368:2",
           "publisher": "wahapedia"
         }
@@ -113787,17 +113688,6 @@
       "canonicalId": "weapon:5921d0eb-4352-5362-b00b-6cf61e0dd49d",
       "kind": "weapon",
       "name": "Questor Warblade"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_weapons.csv:000001541:3",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "weapon:59259143-da15-5128-8eb7-fc9814928979",
-      "kind": "weapon",
-      "name": "Almighty Stomp"
     },
     {
       "aliases": [
@@ -115946,17 +115836,6 @@
     {
       "aliases": [
         {
-          "externalId": "Warscrolls_weapons.csv:000001543:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "weapon:6dc3965e-f0b1-5345-9e73-37a11e5497af",
-      "kind": "weapon",
-      "name": "’Eadbutt"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Allies-of-the-Free-Cities-Auric-Hearthguard/weapon:1",
           "publisher": "wahapedia"
         }
@@ -116269,17 +116148,6 @@
       "canonicalId": "weapon:7131eb3d-cae1-546a-a3b9-a82206acba35",
       "kind": "weapon",
       "name": "Warpfire Braziers"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_weapons.csv:000001542:3",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "weapon:7141978a-1aa1-5d74-afad-3081e04616d3",
-      "kind": "weapon",
-      "name": "Almighty Stomp"
     },
     {
       "aliases": [
@@ -117883,17 +117751,6 @@
     {
       "aliases": [
         {
-          "externalId": "Warscrolls_weapons.csv:000000867:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "weapon:7fa0458d-d029-539b-b9fc-9110fb03fcfc",
-      "kind": "weapon",
-      "name": "Almighty Stomp"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_weapons.csv:000000844:2",
           "publisher": "wahapedia"
         }
@@ -118246,17 +118103,6 @@
       "canonicalId": "weapon:83e47226-b053-5914-ad02-e5145b4992d6",
       "kind": "weapon",
       "name": "Catapult Crew Tools"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_weapons.csv:000000867:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "weapon:83e94721-e292-56a5-9680-3eb0b759b313",
-      "kind": "weapon",
-      "name": "Hurled Boulder"
     },
     {
       "aliases": [
@@ -123719,17 +123565,6 @@
       "canonicalId": "weapon:b5fe1c17-9356-57a6-b439-9e9f205dbc9e",
       "kind": "weapon",
       "name": "Beaststaff"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_weapons.csv:000001543:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "weapon:b608052f-f3f8-573c-8d6f-0bbec325595a",
-      "kind": "weapon",
-      "name": "Throwin’ Rocks"
     },
     {
       "aliases": [
@@ -131184,6 +131019,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:always-first-in",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Big-Personalities-1:ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:09c8acdd-21e5-55a0-b42d-f16f74f12b2e",
@@ -131250,6 +131089,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:brute-of-brutes",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Big-Personalities-1:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:d3f7dc9d-f4ca-5d92-bb8b-3f7b8ea5e5e5",
@@ -131261,6 +131104,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:conquering-stomp:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Conquering-Stomp:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:eba44a5a-8864-5fdd-8ceb-fd9ba13778b6",
@@ -131272,6 +131119,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:eager-louts:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Eager-Louts:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:a3ae8f62-6c2f-5517-b756-3288607faa14",
@@ -131283,6 +131134,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:enchanted-portcullis",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Titanic-Trophies:ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:e2faaa18-942b-5014-956f-749b78063732",
@@ -131305,6 +131160,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:heirs-of-the-old-ways:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Heirs-of-the-Old-Ways:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:e0dc9692-8a4f-5131-a82d-949cd92f5669",
@@ -131316,6 +131175,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:krakenskin-sandals",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Titanic-Trophies:ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:5cce0679-2c8c-569e-b705-a0362a43a8eb",
@@ -131327,6 +131190,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:looting-leviathans:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Looting-Leviathans:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:c200d254-f331-53e4-983c-e8ae16c35225",
@@ -131338,6 +131205,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:mantle-of-the-wood-kings",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Titanic-Trophies:ability:5",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:50f5c2ee-d510-5532-9efa-d0484ce5421c",
@@ -131349,6 +131220,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:massive-stuffin-sack",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Titanic-Trophies:ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:215bae07-0f56-5a22-9a81-18966005a743",
@@ -131360,6 +131235,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:one-hit-wonder",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Big-Personalities-1:ability:6",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:167e686d-a1c9-50ce-8097-7c1bf18c8393",
@@ -131371,6 +131250,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:prayers-of-the-world-titan:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Prayers-of-the-World-Titan:ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:dcb43ba4-f3f3-5f5f-b17f-03bf8eb6027d",
@@ -131382,6 +131265,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:prayers-of-the-world-titan:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Prayers-of-the-World-Titan:ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:85305d74-859c-58c5-94b8-5d357e456b78",
@@ -131393,6 +131280,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:prayers-of-the-world-titan:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Prayers-of-the-World-Titan:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:e3dd4901-b8b4-5fbf-ad02-249a7e1c305c",
@@ -131404,6 +131295,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:protecty-bits",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Titanic-Trophies:ability:6",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:b16971c9-cd11-5376-97c9-ad6570405578",
@@ -131415,6 +131310,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:spell-chomper",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Big-Personalities-1:ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:bc8fc18a-a48e-50a1-9b4b-22d6188a43b8",
@@ -131426,6 +131325,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:thundering-titan",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Big-Personalities-1:ability:5",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:4a00dcee-e8ff-5d71-a27b-b231211f5965",
@@ -131437,6 +131340,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:unreasonable-tyrant",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Big-Personalities-1:ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:1b297a18-cb44-5652-92a8-22619da4ba10",
@@ -131448,6 +131355,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ancient-Ghyrochs/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:e30e2448-09b0-58b3-b84d-687c34f7aabd",
@@ -131459,6 +131370,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ancient-Ghyrochs/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:bd547797-758d-5961-b833-005e6deb74c1",
@@ -131470,6 +131385,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000001541:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:326619a7-36a9-57a7-9200-2acb7e767ef7",
@@ -131481,6 +131400,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Beast-smasher-Mega-Gargant/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:1879a013-fc85-55df-8c51-57f4d4623b8e",
@@ -131492,6 +131415,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Beast-smasher-Mega-Gargant/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:1502dc68-78eb-5b39-a396-4cf2197a42aa",
@@ -131503,6 +131430,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Beast-smasher-Mega-Gargant/ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:29d4171d-63b0-5e99-b35a-2623ac796a43",
@@ -131514,6 +131445,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Boss-Stompers/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:dbc6397b-810e-5448-b385-e90f4fa6304d",
@@ -131525,6 +131460,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000000867:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:cc500ac9-1285-5a98-ab9f-2fba3580839a",
@@ -131536,6 +131475,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Gatebreaker-Mega-Gargant/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:6fbf57ab-7d72-50a6-be64-9750927d6a13",
@@ -131547,6 +131490,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Gatebreaker-Mega-Gargant/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:aa119944-3adf-5171-b713-8a91a99ddef0",
@@ -131558,6 +131505,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Gatebreaker-Mega-Gargant/ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:9cd2d56b-8db0-559e-9640-47c778772f0c",
@@ -131569,6 +131520,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000001542:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:5f0a3012-7c05-58b3-9b1f-0a58974e788a",
@@ -131580,6 +131535,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:King-Brodd/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:79d08047-551e-56af-926b-3f78dd78cff4",
@@ -131591,6 +131550,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000001542:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:b3e9b70c-0b4d-51a7-8aa4-72577d384553",
@@ -131602,6 +131565,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:King-Brodd/ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:c1074f39-c6b0-563d-b126-4b3628586441",
@@ -131613,6 +131580,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:ability:5",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:King-Brodd/ability:5",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:0f291972-3d36-54cf-834b-c135120c2d65",
@@ -131624,6 +131595,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000000868:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:a6cb8ed8-540a-5c87-97be-e8180defc467",
@@ -131635,6 +131610,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Kraken-eater-Mega-Gargant/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:6cd6fe8e-4fa6-5916-88ba-b5e93a896333",
@@ -131646,6 +131625,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000000868:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:18712486-811f-5b92-8e85-5a5984fef660",
@@ -131657,6 +131640,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Kraken-eater-Mega-Gargant/ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:074e1b7d-e327-522f-8bf9-648b98a38acb",
@@ -131668,6 +131655,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ma-Maegran-Chooser-Of-The-Mighty/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:88941514-76f8-5279-851b-6a19e3d769e4",
@@ -131679,6 +131670,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ma-Maegran-Chooser-Of-The-Mighty/ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:0a912d23-4c7e-5f4b-93d4-1908239e9cd9",
@@ -131690,6 +131685,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ma-Maegran-Chooser-Of-The-Mighty/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:af2ab356-c72d-54cb-a107-c7d3c257deda",
@@ -131701,6 +131700,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ma-Maegran-Chooser-Of-The-Mighty/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:0583811b-f05f-5270-aa40-d69c4a142f20",
@@ -131712,6 +131715,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:ability:5",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ma-Maegran-Chooser-Of-The-Mighty/ability:5",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:8758be63-d713-5e87-942d-7ecacf992c1e",
@@ -131723,6 +131730,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Mancrusher-Gargant-1/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:45c72c84-d3fc-5ea9-92c6-ebdeb6e8e134",
@@ -131734,6 +131745,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Mancrusher-Gargant-1/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:1a67770d-1777-5ac6-b2f7-de2d12d129d6",
@@ -131745,6 +131760,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Rock-hurlers/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:4881aaf7-def5-5e66-9134-4a04ed3d4872",
@@ -131756,6 +131775,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000000869:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:49a050c1-440f-5c84-9fe8-3de4b054f45b",
@@ -131767,6 +131790,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Warstomper-Mega-Gargant/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:6729850d-e282-5aca-9d5b-3fcd9e5fab55",
@@ -131778,6 +131805,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Warstomper-Mega-Gargant/ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:4b855dcd-b0ae-54a8-a10e-ae264d714c84",
@@ -131789,6 +131820,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000000869:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:d6cfb728-1669-5291-8644-9c19e039a526",
@@ -131800,6 +131835,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ancient-Ghyrochs/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:79839879-1a8e-5575-b1a5-bd5bc5dd8fca",
@@ -131811,6 +131850,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Boss-Stompers/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:59c7a615-ceff-509c-be86-2640a9938393",
@@ -131822,6 +131865,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ma-Maegran-Chooser-Of-The-Mighty/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:b5d69a83-1623-5c46-94cf-5b7716bc83a8",
@@ -131833,6 +131880,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers:battle-profile",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Rock-hurlers/warscroll:battle-profile",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "battle-profile:98e3da12-de1b-5059-8ab5-c34655598f4f",
@@ -131866,6 +131917,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:conquering-stomp",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Conquering-Stomp",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:df3ac0cf-3432-5bf6-afaf-66b7daa2b5e4",
@@ -131877,6 +131932,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:eager-louts",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Eager-Louts",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:c80f2384-4e88-5b82-8013-a17323f3013c",
@@ -131888,6 +131947,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:heirs-of-the-old-ways",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Heirs-of-the-Old-Ways",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:e6d18027-f56a-511a-8107-f3a7fb07bf8c",
@@ -131899,6 +131962,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:looting-leviathans",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Looting-Leviathans",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:17434215-4e53-5ce1-95ef-f937442f70f9",
@@ -131910,6 +131977,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:prayers-of-the-world-titan",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Prayers-of-the-World-Titan",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:53f67640-ccd5-549c-b3ac-e3b8f7ce97f9",
@@ -131954,6 +132025,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ancient-Ghyrochs/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:485605fb-7d78-5e1a-9cb0-e1a388d75193",
@@ -131965,6 +132040,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Boss-Stompers/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:52d4dc25-b0dc-568d-bfe9-62399fb502e2",
@@ -131976,6 +132055,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ma-Maegran-Chooser-Of-The-Mighty/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:6c598362-e8b5-5d94-b493-8daea948e272",
@@ -131987,6 +132070,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Rock-hurlers/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "warscroll:377994d4-cfd9-58e1-a897-b014e8bcb5a3",
@@ -131998,6 +132085,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ancient-ghyrochs:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ancient-Ghyrochs/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:62a6e656-2138-5015-beda-01bcca3d47c7",
@@ -132009,6 +132100,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Beast-smasher-Mega-Gargant/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:0b66ea72-c311-59c2-aba0-d24313a35807",
@@ -132020,6 +132115,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Beast-smasher-Mega-Gargant/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:6fa3331b-10f9-5186-815b-8b60309e98aa",
@@ -132031,6 +132130,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:beast-smasher-mega-gargant:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_weapons.csv:000001541:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:d0d4fbcb-8d4a-51c3-95a3-39822f876774",
@@ -132042,6 +132145,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Boss-Stompers/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:525cb41e-1179-5354-94fe-d109e7b50c33",
@@ -132053,6 +132160,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:boss-stompers:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Boss-Stompers/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:7369c07e-fcde-50b5-9125-56577a177494",
@@ -132064,6 +132175,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_weapons.csv:000000867:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:78e2a027-159b-5afe-90a9-85fc4a198107",
@@ -132075,6 +132190,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Gatebreaker-Mega-Gargant/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:ea556645-eb19-5039-8d93-c1c6b9b2cb00",
@@ -132086,6 +132205,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Gatebreaker-Mega-Gargant/weapon:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:f1efea5e-51ae-5b71-8404-a39f19eb011f",
@@ -132097,6 +132220,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:gatebreaker-mega-gargant:weapon:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_weapons.csv:000000867:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:905c2f12-3e86-5fa8-9429-67ea2f757ac3",
@@ -132108,6 +132235,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:King-Brodd/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:6437d511-5dbe-584a-baa7-0a94769f4363",
@@ -132119,6 +132250,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:King-Brodd/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:9cb9ad2e-b382-56c2-a689-9520eca4ab62",
@@ -132130,6 +132265,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:king-brodd:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_weapons.csv:000001542:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:e9d00ac6-374f-5677-8afd-1956751c3815",
@@ -132141,6 +132280,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Kraken-eater-Mega-Gargant/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:634f33a9-6d61-5f8b-bec4-eefca692bb42",
@@ -132152,6 +132295,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Kraken-eater-Mega-Gargant/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:d1ef2859-95c0-5b60-8194-75e2a0dabe0e",
@@ -132163,6 +132310,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:kraken-eater-mega-gargant:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_weapons.csv:000000868:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:8ff358eb-d12d-55ff-98bf-eb1fff616fbe",
@@ -132174,6 +132325,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:ma-maegran-chooser-of-the-mighty:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Ma-Maegran-Chooser-Of-The-Mighty/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:de59fd01-0b0c-571d-b746-5c33e3f5cedd",
@@ -132185,6 +132340,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_weapons.csv:000001543:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:86c1f827-a899-54c7-86d6-3ce094598915",
@@ -132196,6 +132355,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Mancrusher-Gargant-1/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:1a3df5be-f215-57a5-90b3-1bd5e10b04c5",
@@ -132207,6 +132370,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:mancrusher-gargant:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "Warscrolls_weapons.csv:000001543:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:84c23f53-2883-587e-92eb-8faca04f34f2",
@@ -132218,6 +132385,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Rock-hurlers/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:2365c617-eb7e-55f5-bb73-1a3f3af13eaf",
@@ -132240,6 +132411,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:rock-hurlers:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Rock-hurlers/weapon:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:606d9c4f-9b05-5f61-9d6d-bb0530488f2a",
@@ -132251,6 +132426,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:weapon:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Warstomper-Mega-Gargant/weapon:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:b388d61f-8357-551b-bec9-1ab24700c7b6",
@@ -132262,6 +132441,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:weapon:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Warstomper-Mega-Gargant/weapon:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:b276b93b-3825-5bb5-a31c-9e9d58127bd1",
@@ -132273,6 +132456,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:warstomper-mega-gargant:weapon:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Warstomper-Mega-Gargant/weapon:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "weapon:0335f86e-a6b3-55f7-a9c3-68a7014e8eda",
@@ -132322,6 +132509,798 @@
       "canonicalId": "publication:cf32063b-22c8-57bf-8487-bcaefb70a7bb",
       "kind": "publication",
       "name": "BSData Regiments of Renown catalogue — Krong the Club (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#datasheet:Stone-Lobbas:Rock-hurlers/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:46127d11-ee5e-5acd-b2b3-eebf65a10713",
+      "kind": "ability",
+      "name": "DROP, TOSS OR ROLL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Artefacts-of-Power-2:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7b433cca-5666-5f54-8d4c-d0f1bd74ee85",
+      "kind": "ability",
+      "name": "SPARKY SHIELD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Artefacts-of-Power-2:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d4574527-6db9-592d-a11a-93e84b844f90",
+      "kind": "ability",
+      "name": "CLUB OF THE FIRST OAK"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-4:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7b7df201-62f4-50cd-831d-d61e00b50372",
+      "kind": "ability",
+      "name": "STOMP! STOMP! STOMP! STOMP!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-4:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:fbe1703d-ebfa-5981-8204-3e7451eb65d0",
+      "kind": "ability",
+      "name": "GET IN THERE, YOU RUNTS!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-4:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:9fc7be1f-2b9a-5340-befb-7cf7f3ad02b3",
+      "kind": "ability",
+      "name": "GRAB THOSE ROCKS AND CHUCK ’EM!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-4:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e20c1c4c-7948-5013-a436-8b941f0bad5f",
+      "kind": "ability",
+      "name": "GETTIN’ STUCK IN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-4:ability:5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d362d3c7-346e-5782-8153-18e4c308afdc",
+      "kind": "ability",
+      "name": "STOMPIN’ ABOUT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-5:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b1562e1c-c51b-566e-b266-187c1ecf2a1b",
+      "kind": "ability",
+      "name": "I’VE HEARD SHE CAN..."
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-5:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e2a78963-6adf-5ac9-8072-a67c879deee2",
+      "kind": "ability",
+      "name": "OI! GERROFF!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-5:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a6f5ddd4-8553-5824-b9b0-57ec1eebe679",
+      "kind": "ability",
+      "name": "SUMMON THE HERD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-5:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ccae98c1-a26f-5b86-b57f-158c250e6adf",
+      "kind": "ability",
+      "name": "DON’T LET NUFFIN’ HAPPEN TO HER!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-6:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:bd63abc3-41fd-5e91-af29-431b67e4e23a",
+      "kind": "ability",
+      "name": "BOWLED OVER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-6:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6401ff40-8a4e-564e-b2e1-b4612960bde8",
+      "kind": "ability",
+      "name": "CLOSE ONE EYE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Enhancements-1:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d11412c3-91ad-5310-8130-98267209b4ef",
+      "kind": "ability",
+      "name": "’ARD ’EAD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Enhancements-1:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3ad76e20-6012-5f73-80f1-7622db810845",
+      "kind": "ability",
+      "name": "HUMONGOUS STRIDES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Enhancements-1:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:720b1460-18e0-50d4-9a61-0b02e717b2c5",
+      "kind": "ability",
+      "name": "LUCKY ROCK"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Enhancements-1:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:472b283e-00e6-530f-a1f8-ae5d37a03b06",
+      "kind": "ability",
+      "name": "HUNGRY GOBBLER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Heroic-Traits-2:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a9bd0d5e-27c4-537d-b061-98c6a648b1ea",
+      "kind": "ability",
+      "name": "ABSOLUTELY FUMING"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Heroic-Traits-2:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:89c3f620-c2f9-5c63-b9ca-c63bcf553ac8",
+      "kind": "ability",
+      "name": "EAGER FOR THE FIGHT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Little-Toes:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ea7a1884-93f5-5490-a53b-fb8fb224057f",
+      "kind": "ability",
+      "name": "FUTURE STOMPER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Little-Toes:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8377c7af-3494-5bf2-81b2-3540cf6f7f54",
+      "kind": "ability",
+      "name": "CAREFULLY WATCHED"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Little-Toes:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b1c1126f-8e63-5076-850c-446b394e76ae",
+      "kind": "ability",
+      "name": "LITTLE HOPPER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Little-Toes:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a5f81f92-6eb6-50f2-b365-0dccefd49db7",
+      "kind": "ability",
+      "name": "KEEN BEAN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Lore-of-Behemat:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:72d2059c-6390-5e06-8d5c-4349895783e5",
+      "kind": "ability",
+      "name": "PIPSQUEAK CURSE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Lore-of-Behemat:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ccf8a4e0-24c5-5ec7-80ec-95ab6ebd693f",
+      "kind": "ability",
+      "name": "ENERGY SURGE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Lore-of-Behemat:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:bec073f2-d156-5aad-b4dc-dec42cc84f6f",
+      "kind": "ability",
+      "name": "THORNFANG’S WRATH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Marks-of-the-Chooser-s-Chosen:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b362b7fa-7b2c-5053-b79e-5e6dbb3c16f4",
+      "kind": "ability",
+      "name": "BUTT OF THE LASH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Marks-of-the-Chooser-s-Chosen:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e6c7588b-c759-5154-9231-df56d33c5024",
+      "kind": "ability",
+      "name": "GHYRANITE WHIRLSTONE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:740ddc2b-c763-5b4d-b5f8-1ee38b470304",
+      "kind": "ability",
+      "name": "HAMMER THROW"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3357502d-ec99-5dbf-838b-7494101c9e62",
+      "kind": "ability",
+      "name": "EARTHSHAKING ROAR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:59f491b1-70c0-593e-9220-3f8061dfb722",
+      "kind": "ability",
+      "name": "BATTERED SHRIMP"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ee8fa9db-ebd8-5426-8157-fd056cc5dbf8",
+      "kind": "ability",
+      "name": "WINDMILL WALLOPING"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:bc055a52-e8cc-5d4a-8d5a-77203f72feee",
+      "kind": "ability",
+      "name": "COLOSSAL SLAM"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:6",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8ca50845-f9a1-5fc7-b332-9d435bb14a49",
+      "kind": "ability",
+      "name": "RANCID FLATULENCE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Regiment-Abilities-1:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6a1a688f-4349-5abf-af18-c8580b4438d3",
+      "kind": "ability",
+      "name": "SURLY SORTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Regiment-Abilities-1:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:b67de91f-9290-5c14-969f-ca4a9710743b",
+      "kind": "ability",
+      "name": "GREEDY AND GRABBY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Spell-Lore-1:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d8b07f0a-c1a6-55ab-a975-308e99ad2f7a",
+      "kind": "ability",
+      "name": "A SHEPHERD’S WATCHFUL EYE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Spell-Lore-1:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:533c0c7a-92ad-54a0-84bd-05105f726bf0",
+      "kind": "ability",
+      "name": "SIC ’EM!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Spell-Lore-1:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f1941c4c-5688-5e7c-9146-f13bde452bc1",
+      "kind": "ability",
+      "name": "MYSTICAL DEMANDS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Okar-s-Torrbad/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d6cc2795-216a-56ee-a844-da07e406691c",
+      "kind": "ability",
+      "name": "ALONG THE ICEPATHS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Okar-s-Torrbad/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:93f8e562-688b-5d5e-abf0-4d8166281dbd",
+      "kind": "ability",
+      "name": "CLING ON TIGHT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003618:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2ea51797-2032-56bb-b5b3-c75cfdd9bc4b",
+      "kind": "ability",
+      "name": "BATTLE DAMAGED"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "choice:html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:ee0f4588-aece-5a70-afe4-7b15fc5c90a4",
+      "kind": "content-group",
+      "name": "HAMMER THROW"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "choice:html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:9e4cd0c6-6216-5cd2-bcfa-499e42954d21",
+      "kind": "content-group",
+      "name": "EARTHSHAKING ROAR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "choice:html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:12504795-ae2c-58e9-b8c5-a62edd6375ce",
+      "kind": "content-group",
+      "name": "BATTERED SHRIMP"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "choice:html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:83baa561-ca24-51c3-90a8-5c6dfae0071e",
+      "kind": "content-group",
+      "name": "WINDMILL WALLOPING"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "choice:html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:2019c65d-4527-57db-a1fe-0bce13562665",
+      "kind": "content-group",
+      "name": "COLOSSAL SLAM"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "choice:html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:6",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:128a7a31-7fe2-5ab1-a3ef-85d147123523",
+      "kind": "content-group",
+      "name": "RANCID FLATULENCE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#datasheet:Stone-Lobbas/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:4c919ab8-4af0-5800-a69e-7a4abd3ca660",
+      "kind": "content-group",
+      "name": "Stone Lobbas"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Artefacts-of-Power-2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c8e938b7-d7f9-54ee-829e-ee8e1b76db03",
+      "kind": "content-group",
+      "name": "Artefacts of Power"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Battle-Traits-4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:b0a2e644-7a80-5b61-b592-8ee12ef3f528",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Battle-Traits-5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:3d978651-6d6d-58d7-a985-eaa2959703b5",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Battle-Traits-6",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:dd4770a0-847d-5ed5-9c4e-789098b30b95",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Enhancements-1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:69225864-fbc7-53e2-b06c-bc368e45b644",
+      "kind": "content-group",
+      "name": "Enhancements"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Heroic-Traits-2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:de3234c5-4a04-5eb4-9f05-a7e3c2e53b99",
+      "kind": "content-group",
+      "name": "Heroic Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Little-Toes",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:4c7416e1-4e5d-5434-880a-1009e257679b",
+      "kind": "content-group",
+      "name": "Little Toes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Lore-of-Behemat",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:f6812a60-bb79-5d5b-a37e-0d3fa643a7c6",
+      "kind": "content-group",
+      "name": "Lore of Behemat"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Marks-of-the-Chooser-s-Chosen",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:632f503e-0f9e-58c5-a3b4-312df1bb9584",
+      "kind": "content-group",
+      "name": "Marks of the Chooser’s Chosen"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Matriarch-s-Mob",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:49c19fbb-72a7-5940-9f60-d1c47df1af6f",
+      "kind": "content-group",
+      "name": "Matriarch’s Mob"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Realm-Shaking-Rampages",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:89245a33-e95e-5acb-aa94-8805a4fd8734",
+      "kind": "content-group",
+      "name": "Realm-Shaking Rampages"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Regiment-Abilities-1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:46a0fb0b-a915-5b58-92f3-339e2c9844e1",
+      "kind": "content-group",
+      "name": "Regiment Abilities"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Spell-Lore",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:524ecc3b-c81f-528a-bb22-e4eac03e14e1",
+      "kind": "content-group",
+      "name": "Spell Lore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Spell-Lore-1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:b3dfaa0f-a4d3-5e6b-a869-40fc1b890e36",
+      "kind": "content-group",
+      "name": "Spell Lore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Stomper-Tribe",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:94273dbb-a3d8-5ae7-881f-875fabdbe9ad",
+      "kind": "content-group",
+      "name": "Stomper Tribe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-group:Stone-Lobbas",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:d5201880-8180-54eb-9fdb-ccbb0ed9c522",
+      "kind": "content-group",
+      "name": "Stone Lobbas"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Okar-s-Torrbad/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:da9a7904-4378-57d4-9176-a525b12c408e",
+      "kind": "content-group",
+      "name": "Okar’s Torrbad"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#datasheet:Stone-Lobbas:Rock-hurlers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:c87e5f0a-4ee4-59c6-bf97-462b99938643",
+      "kind": "warscroll",
+      "name": "Rock-hurlers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#datasheet:Stone-Lobbas:Rock-hurlers/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:1fe352e0-7fd6-585f-9cfd-baebfd1e475c",
+      "kind": "weapon",
+      "name": "Hurlin’ Rocks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#datasheet:Stone-Lobbas:Rock-hurlers/weapon:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:303a8a80-52d7-5c71-a445-409e4c2eafd8",
+      "kind": "weapon",
+      "name": "Massive Clubs and Rocks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#datasheet:Stone-Lobbas:Rock-hurlers/weapon:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:73a1e9cf-a218-553d-a30d-91b15151d4d3",
+      "kind": "weapon",
+      "name": "’Eadbutt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Rock-hurlers/weapon:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:35df6e1a-3bb6-5c65-9f12-1bc2ea46c847",
+      "kind": "weapon",
+      "name": "Massive Clubs and Rocks"
     }
   ],
   "schemaVersion": 1

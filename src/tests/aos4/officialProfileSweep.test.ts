@@ -275,20 +275,16 @@ describe('official-profile sweep', () => {
     ])
   })
 
-  it('finds only the reviewed pending-intake Sons of Behemat battletome picks across the checked-in ledger and runtime', () => {
+  it('matches every officially established roster option across the checked-in ledger and runtime', () => {
     // The re-run of #1851's option sweep with the hardened matcher: every effective
-    // officially-established roster option matches the runtime, with exactly one reviewed
-    // naming discrepancy (Shard of the Necris) and no collisions. As of 2026-09-22 (issue #1999)
-    // the battle formations, heroic traits, artefacts of power, and Prayers of the World Titan
-    // ship from the pinned BSData catalogue; the five remaining unmatched picks are the deferred
-    // Realm-shaking Rampages that do not collide by name with an existing ability (Battered
-    // Shrimp, Hammer Throw, Rancid Flatulence, Windmill Walloping — Colossal Slam and Earthshaking
-    // Roar coincidentally match unrelated existing abilities) and Lore of Behemat, which has no
-    // Wahapedia Spell Lore type record to attach to. Pinning them by name keeps the sweep
-    // fail-closed: any other unmatched option fails here. From corpus 2026-09-23 (#1757) the
-    // September 2026 Battle Profiles is the single battle-profile source: its page 58 carries
-    // these picks, nothing is superseded, and the twenty July 2026 Ogor Mawtribes supplement
-    // enhancement rows it does not re-publish left the ledger with that supplement.
+    // officially-established roster option matches the runtime, with exactly one reviewed naming
+    // discrepancy (Shard of the Necris) and no collisions. The Sons of Behemat battletome picks the
+    // BSData cycle had to defer (the six Realm-shaking Rampages and Lore of Behemat) ship from the
+    // re-pinned Wahapedia faction page since corpus 2026-09-25 (issue #1999), so nothing is left
+    // unmatched. From corpus 2026-09-23 (#1757) the September 2026 Battle Profiles is the single
+    // battle-profile source: its page 58 carries these picks, nothing is superseded, and the twenty
+    // July 2026 Ogor Mawtribes supplement enhancement rows it does not re-publish left the ledger
+    // with that supplement.
     const result = sweepOfficialRosterOptions(
       ledger.records,
       AOS4_RUNTIME_PROJECTION.entities,
@@ -297,22 +293,10 @@ describe('official-profile sweep', () => {
     expect(result).toEqual({
       rosterOptionRecords: 295,
       comparedRosterOptions: 295,
-      matchedByName: 289,
+      matchedByName: 294,
       matchedByReviewedDiscrepancy: 1,
-      findings: expect.any(Array),
+      findings: [],
     })
-    expect(
-      result.findings.map(finding => `${finding.code}: ${(finding as { name: string }).name}`).sort()
-    ).toEqual([
-      'unmatched-roster-option: Battered Shrimp',
-      'unmatched-roster-option: Hammer Throw',
-      'unmatched-roster-option: Lore of Behemat',
-      'unmatched-roster-option: Rancid Flatulence',
-      'unmatched-roster-option: Windmill Walloping',
-    ])
-    result.findings.forEach(finding =>
-      expect((finding as { faction: string }).faction).toBe('Sons of Behemat')
-    )
   })
 
   it('still matches every #1851 false-negative name in the real data', () => {

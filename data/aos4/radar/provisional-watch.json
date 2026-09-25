@@ -1,37 +1,4 @@
 {
   "schemaVersion": 1,
-  "watches": [
-    {
-      "id": "wahapedia-sob-regiments-of-renown-krong",
-      "issueNumber": 1999,
-      "reason": "Krong the Club is an official Regiment of Renown (Regiments of Renown - Sons of Behemat, page 5) whose inclusion list excludes Sons of Behemat, so Wahapedia would republish it on an inclusion faction's collection page, never on the Sons of Behemat page. Blades of Khorne is the alphabetically first inclusion faction (Krong confirmed absent from its collection page as of 2026-09-23). Since corpus 2026-09-24 Krong ships from the pinned BSData Regiments of Renown catalogue (commit 8836d9f9), with its inclusion factions, member, and points from the official row, so this watch is now a duplicate-source and disagreement sentinel rather than an intake trigger: a hit means Wahapedia carries a second transcription, the accepted page re-pin would make generation fail closed on the duplicate regiment source, and a reviewer must compare both against the official page 5 text and pick one source.",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html",
-      "sentinels": [
-        {
-          "label": "Krong the Club (Regiment of Renown)",
-          "needle": "Krong the Club"
-        }
-      ]
-    },
-    {
-      "id": "wahapedia-sob-battletome-faction-package",
-      "issueNumber": 1999,
-      "reason": "Lore of Behemat and Realm-shaking Rampages (deferred: no Wahapedia Spell Lore or Rampage type record to attach to), the rewritten King Brodd's Stomp battle traits, enhancements and roster (Big/Little, Destructive Impulse; deferred: an Army of Renown battle-trait block has no standalone type record for the community-option merge, and the runtime still ships the July 2026 wording), and the Stone Lobbas Spearhead (no secondary carries it at all) are recorded from the official September 2026 publications but not shipped. Wahapedia republishing the battletome faction page is the intake trigger for all of them; the three needles are the names that mark that republication. The battle formations, heroic traits, artefacts, Prayers of the World Titan, and the regular army-wide battle traits shipped 2026-09-22 from the pinned BSData catalogue and no longer need a watch.",
-      "url": "https://wahapedia.ru/aos4/factions/sons-of-behemat/",
-      "sentinels": [
-        {
-          "label": "Lore of Behemat (spell lore)",
-          "needle": "Lore of Behemat"
-        },
-        {
-          "label": "Destructive Impulse (King Brodd's Stomp rewrite keyword)",
-          "needle": "Destructive Impulse"
-        },
-        {
-          "label": "Stone Lobbas (Spearhead)",
-          "needle": "Stone Lobbas"
-        }
-      ]
-    }
-  ]
+  "watches": []
 }

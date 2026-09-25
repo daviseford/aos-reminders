@@ -40,6 +40,9 @@ const BATTLETOME_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legend
   { faction: 'Ogor Mawtribes', name: 'Beastclaw Alfrostun' },
   { faction: 'Ogor Mawtribes', name: 'Mawseeker Gollop' },
   { faction: 'Ogor Mawtribes', name: 'Meatfist Mawtribe' },
+  // Battletome: Sons of Behemat (September 2026), classified with the 2026-09-25 page re-pin (#1999).
+  { faction: 'Sons of Behemat', name: 'Matriarch’s Mob' },
+  { faction: 'Sons of Behemat', name: 'Stomper Tribe' },
   { faction: 'Blades of Khorne', name: 'Gorechosen Champions' },
   { faction: 'Blades of Khorne', name: 'The Baleful Lords' },
   { faction: 'Cities of Sigmar', name: 'Allies of the Free Cities' },

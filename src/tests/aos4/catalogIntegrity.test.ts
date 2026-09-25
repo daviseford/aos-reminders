@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-24.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-25.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-24-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-25-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_554)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_587)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,554 entities', () => {
+  it('reports no missing provenance for any of the 11,587 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_554)
+    ).toHaveLength(11_587)
   })
 })
 
@@ -194,19 +194,19 @@ describe('AoS 4 catalog generation integrity', () => {
       summary: {
         factions: 28,
         warscrolls: 1300,
-        battleProfiles: 1016,
-        abilities: 5123,
-        weapons: 2269,
-        sourceArtifacts: 248,
-        sourceRecords: 20204,
-        ignoredSourceRecords: 20556,
+        battleProfiles: 1015,
+        abilities: 5143,
+        weapons: 2268,
+        sourceArtifacts: 245,
+        sourceRecords: 20236,
+        ignoredSourceRecords: 20464,
       },
       integrity: {
-        consumedSourceRecords: 20198,
+        consumedSourceRecords: 20230,
         issues: [],
         supersededSourceRecords: {
-          count: 20550,
-          checksum: '68057d091a0ca188e3f2326dd15fcd6659285a80e453ae885c055e34e8ac1449',
+          count: 20458,
+          checksum: '7182da3b54229d0b92b9d841c904b5436aa42f1cda808e6424008c71c10f459a',
         },
       },
     })
@@ -292,22 +292,21 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(248)
+    expect(acceptedManifest.artifacts).toHaveLength(245)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
     ).toHaveLength(159)
-    // Three commit-pinned BSData catalogues (issue #1999, branch `gargants` commit `2b7df92f`)
-    // supply the September 2026 Sons of Behemat battletome units and faction package while
-    // Wahapedia has not yet republished the pages, and the Regiments of Renown catalogue (`main`
-    // commit `8836d9f9`) supplies Krong the Club's rules text; the Stormcast library and the three
-    // Ogor catalogues retired earlier once Wahapedia caught up (2026-08-01d, 2026-08-28b).
+    // One commit-pinned BSData catalogue remains: the Regiments of Renown catalogue (`main` commit
+    // `8836d9f9`) supplies Krong the Club's rules text (issue #1999). The Stormcast library, the
+    // three Ogor catalogues, and the three Sons of Behemat `gargants`-branch catalogues retired once
+    // Wahapedia caught up (2026-08-01d, 2026-08-28b, 2026-09-25).
     const bsdataArtifacts = acceptedManifest.artifacts.filter(
       artifact => artifact.adapterVersion === 'bsdata-cat/1'
     )
-    expect(bsdataArtifacts).toHaveLength(4)
+    expect(bsdataArtifacts).toHaveLength(1)
     bsdataArtifacts.forEach(artifact =>
       expect(artifact.requestUrl).toMatch(
         /^https:\/\/raw\.githubusercontent\.com\/BSData\/age-of-sigmar-4th\/[0-9a-f]{40}\//
@@ -348,15 +347,14 @@ describe('AoS 4 catalog generation integrity', () => {
         }),
       ])
     )
-    // Community-tier artifacts must always be distinguishable and explicitly provisional. The
-    // 2026-09-22 Sons of Behemat intake (#1999) is the first community source since the 2026-08-28b
-    // Ogor rewrite: three BSData `gargants`-branch catalogues supply the battletome units and
-    // faction package Wahapedia has not yet republished, and the 2026-09-24 revision adds the
-    // BSData Regiments of Renown catalogue for Krong the Club's rules text.
+    // Community-tier artifacts must always be distinguishable and explicitly provisional. The three
+    // BSData `gargants`-branch catalogues the 2026-09-22 Sons of Behemat intake (#1999) added
+    // retired with the 2026-09-25 page re-pin; the BSData Regiments of Renown catalogue the
+    // 2026-09-24 revision added for Krong the Club's rules text is the only one left.
     const communityArtifacts = AOS4_FULL_CATALOG.sourceArtifacts.filter(
       artifact => artifact.publisher === 'other'
     )
-    expect(communityArtifacts).toHaveLength(4)
+    expect(communityArtifacts).toHaveLength(1)
     communityArtifacts.forEach(artifact => expect(artifact.title).toMatch(/provisional/i))
     expect(AOS4_GENERATION_AUDIT).toMatchObject({
       attribution: 'Powered by Wahapedia',
@@ -387,7 +385,10 @@ describe('AoS 4 catalog generation integrity', () => {
       // evidence, and the July 2026 Ogor Mawtribes supplement's twenty enhancement rows and two
       // regiments of renown it does not re-publish left the ledger. From corpus 2026-09-24 (issue
       // #1999) Krong the Club's row applies too: its rules text ships from the pinned BSData
-      // Regiments of Renown catalogue.
+      // Regiments of Renown catalogue. From corpus 2026-09-25 (#1999) the battletome content ships
+      // from the re-pinned Wahapedia Sons of Behemat pages instead; the ledger is unchanged, since
+      // every roster-option row, the Sons of Behemat picks among them, is a structured reference by
+      // design.
       appliedToRuntime: 1017,
       profileOnly: 1,
       structuredReference: 295,
@@ -494,7 +495,7 @@ describe('AoS 4 catalog generation integrity', () => {
       )
       .map(regiment => regiment.name)
       .sort()
-    expect(regiments).toHaveLength(76)
+    expect(regiments).toHaveLength(77)
     expect(memberless).toEqual(Object.keys(reviewedMemberlessRegiments).sort())
   })
 

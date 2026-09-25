@@ -20,7 +20,7 @@ import { decodeAos4TextRoster } from '../../importers'
  * applied to runtime.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-24.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-25.json')
 
 const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
 const factionByName = (name: string): Faction =>
@@ -47,7 +47,7 @@ const offeringFactionNames = (groupId: string): string[] => {
 
 describe('Regiments of Renown in the corpus (issue #1858)', () => {
   it('classifies every source-classified Regiment of Renown with reviewed evidence', () => {
-    expect(regimentRoots).toHaveLength(76)
+    expect(regimentRoots).toHaveLength(77)
     const review = JSON.parse(readFileSync(REVIEW_PATH, 'utf8')) as {
       regimentsOfRenown: Array<{
         officialSourceRecordIds: string[]
@@ -55,7 +55,7 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
         evidenceTier?: string
       }>
     }
-    expect(review.regimentsOfRenown).toHaveLength(76)
+    expect(review.regimentsOfRenown).toHaveLength(77)
     review.regimentsOfRenown.forEach(entry => {
       expect(entry.reason).toMatch(/Regiment of Renown/)
       if (entry.evidenceTier === undefined) {
@@ -67,7 +67,29 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
       }
     })
     // Heroes of The Jade Abbey is the one Legends regiment with no official profile row.
-    expect(review.regimentsOfRenown.filter(entry => entry.evidenceTier === undefined)).toHaveLength(75)
+    expect(review.regimentsOfRenown.filter(entry => entry.evidenceTier === undefined)).toHaveLength(76)
+  })
+
+  it('offers Okar’s Torrbad to exactly its four inclusion factions, never Ogor Mawtribes (#1999)', () => {
+    // First published by the Sons of Behemat collection page re-pinned in corpus 2026-09-25. Its
+    // official evidence is the August 2026 Ogor Mawtribes battle-profile supplement and regiments
+    // pack; the September 2026 core Battle Profiles omits it, so it carries no applied ledger row.
+    const regiment = regimentByName('Okar’s Torrbad')
+    expect(offeringFactionNames(regiment.id)).toEqual([
+      'Gloomspite Gitz',
+      'Ironjawz',
+      'Kruleboyz',
+      'Sons of Behemat',
+    ])
+    const included = AOS4_CATALOG.relationships
+      .filter(relationship => relationship.kind === 'includes' && relationship.from === regiment.id)
+      .map(relationship => AOS4_CATALOG.entities.find(entity => entity.id === relationship.to)!)
+    expect(included.map(entity => `${entity.kind}:${entity.name}`).sort()).toEqual([
+      'ability:ALONG THE ICEPATHS',
+      'ability:CLING ON TIGHT',
+      'warscroll:Huskard on Stonehorn',
+      'warscroll:Thundertusk Beastriders',
+    ])
   })
 
   it('offers Lord Skaldior’s Chosen to exactly its six inclusion factions, never its home faction', () => {
@@ -281,7 +303,7 @@ describe('Krong the Club from the pinned BSData Regiments of Renown catalogue (i
   const MANCRUSHER_ID = 'warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a'
   const SPEARHEAD_MANCRUSHER_ID = 'warscroll:b5b33938-2697-5d81-92c3-69d9731d4abf'
   const BATTLE_PROFILES_PAGE =
-    'source-record:games-workshop:b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18%3Apage%3A59'
+    'source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59'
   const REGIMENTS_PACK_PAGE =
     'source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A5'
   const OFFICIAL_INCLUSION = [
