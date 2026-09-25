@@ -9,18 +9,13 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * corpus 2026-09-10. Its points corrections apply to the nine carried-over units and supersede
  * the July 2026 main-document rows.
  *
- * As of corpus 2026-09-22 (issue #1999) the four brand-new units (Ma Maegran, Ancient Ghyrochs,
- * Boss-stompers, Rock-hurlers) and coherent legacy rewrites ship from the pinned BSData
- * `gargants`-branch catalogue (`sonsOfBehematBattletome.test.ts` covers that swap in detail); this
- * file keeps the surviving points/regiment-option assertions for the nine carried-over units.
- *
- * The September 2026 Armies of Renown pack rewrote King Brodd's Stomp for the battletome
- * (Big/Little roster options, the Destructive Impulse keyword, seven rewritten battle traits);
- * only the battle traits have a defensible adapter attachment path, and even that path is not yet
- * supported (an Army of Renown's own battle-trait block has no faction-page type record to attach
- * to), so the whole rewrite is recorded in the corpus review but deliberately not applied. The
- * Stone Lobbas Spearhead likewise waits for a rules-text source. Krong the Club ships as of corpus
- * 2026-09-24 (issue #1999), its rules text from the pinned BSData Regiments of Renown catalogue.
+ * The battletome rules text shipped from the pinned BSData `gargants`-branch catalogue from corpus
+ * 2026-09-22, and from the re-pinned Wahapedia Sons of Behemat pages from corpus 2026-09-25 (issue
+ * #1999), which also brought the King Brodd's Stomp September 2026 rewrite and the Stone Lobbas
+ * Spearhead (`sonsOfBehematBattletome.test.ts` covers the swap in detail). This file keeps the
+ * surviving points/regiment-option assertions for the nine carried-over units. Krong the Club
+ * ships as of corpus 2026-09-24, its rules text from the pinned BSData Regiments of Renown
+ * catalogue.
  */
 
 const SEPTEMBER_POINTS: Array<{ name: string; points: number }> = [
@@ -66,17 +61,18 @@ describe('the September 2026 Sons of Behemat battle-profile supplement (#1757)',
     expect(profileFor(kragnos)?.regimentOptions).toEqual(['Any Sons of Behemat'])
   })
 
-  it('keeps the Stone Lobbas Spearhead out of runtime while no source carries its rules, and ships Krong the Club', () => {
+  it('ships the Stone Lobbas Spearhead from the re-pinned faction page, and Krong the Club once', () => {
     expect(
       AOS4_FULL_CATALOG.entities.filter(
         entity => entity.kind === 'content-group' && entity.name === 'Krong the Club'
       )
     ).toHaveLength(1)
-    expect(
-      AOS4_FULL_CATALOG.entities.some(
-        entity => entity.kind === 'content-group' && /Stone Lobbas/i.test(entity.name ?? '')
-      )
-    ).toBe(false)
+    const spearhead = AOS4_FULL_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
+    const stoneLobbas = AOS4_FULL_CATALOG.entities.filter(
+      entity => entity.kind === 'content-group' && entity.name === 'Stone Lobbas'
+    )
+    expect(stoneLobbas.length).toBeGreaterThan(0)
+    stoneLobbas.forEach(group => expect(group.rulesContextIds).toEqual([spearhead.id]))
   })
 
   it('records a reviewed deviation for only The Emberwatch, now that the battletome units ship', () => {

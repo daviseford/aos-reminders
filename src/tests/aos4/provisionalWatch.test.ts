@@ -51,10 +51,12 @@ describe('the provisional-verification watch', () => {
     // and added four raw-content watches on the moving `gargants`-branch BSData files, so the
     // provisional watch reports the exact moment `main` catches up. All four fired when BSData
     // squash-merged `gargants` into `main` (8836d9f9, 2026-09-23) and were retired; the two
-    // Wahapedia watches remain. Since corpus 2026-09-24 Krong the Club ships from the pinned BSData
-    // Regiments of Renown catalogue, so its watch is a duplicate-source sentinel, and the
-    // faction-package watch covers the still-deferred content.
-    expect(checkedIn.watches.length).toBe(2)
+    // Wahapedia watches remained, and both fired on 2026-09-25: Wahapedia republished the Sons of
+    // Behemat pages with the battletome (re-pinned as corpus 2026-09-25) and Krong the Club on all
+    // 24 inclusion-faction collection pages (compared against the official page 5 and left on its
+    // BSData source). Both retired, so the watch machinery idles on an empty list, as it did after
+    // the Ogor watches retired in 2026-08-28b.
+    expect(checkedIn.watches.length).toBe(0)
     checkedIn.watches.forEach(watch => {
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)
     })

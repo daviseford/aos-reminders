@@ -132,7 +132,8 @@ const secondaryPair = (
   entity: Record<string, unknown> | Record<string, unknown>[],
   cohortIds: string[] = [],
   officialOverride?: {
-    field: 'abilityTextOverrides' | 'timingOverrides' | 'warscrollKeywordOverrides'
+    field:
+      'abilityTextOverrides' | 'timingOverrides' | 'warscrollKeywordOverrides' | 'abilityKeywordOverrides'
     value: Record<string, unknown>
     excerpt: string
   }
@@ -786,6 +787,78 @@ describe('AoS 4 deterministic adversarial reviewer', () => {
     expect(assessAdversarialComparison(reviewPair)).toMatchObject({
       outcome: 'pass',
       findings: [],
+    })
+  })
+
+  const keywordAddPair = (excerpt: string, keywords = ['DESTRUCTIVE IMPULSE', 'RAMPAGE']) =>
+    secondaryPair(
+      'faction-ability',
+      {
+        name: 'WRATH OF BRODD',
+        conditionHtml: 'Once Per Turn (Army), Any Combat Phase',
+        descriptionHtml:
+          '<b>Declare:</b> Pick a friendly BIG unit that has not used a DESTRUCTIVE IMPULSE ability this turn to use this ability.',
+        keywordsHtml: 'DESTRUCTIVE IMPULSE',
+        isReaction: false,
+      },
+      {
+        kind: 'ability',
+        name: 'WRATH OF BRODD',
+        abilityKind: 'active',
+        keywords,
+        text: {
+          declare:
+            'Pick a friendly BIG unit that has not used a DESTRUCTIVE IMPULSE ability this turn to use this ability.',
+        },
+        timings: [{ kind: 'active', raw: 'Once Per Turn (Army), Any Combat Phase' }],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'abilityKeywordOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          add: ['RAMPAGE'],
+          reason: 'The official page prints the keyword.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt,
+      }
+    )
+
+  it('accepts an ability keyword the official Keywords strip prints and the page omits', () => {
+    expect(
+      assessAdversarialComparison(
+        keywordAddPair('WRATH OF BRODD: ... in combat. Keywords Rampage, Destructive Impulse')
+      )
+    ).toMatchObject({ outcome: 'pass', findings: [] })
+  })
+
+  it('rejects an added ability keyword the official evidence mentions only in prose', () => {
+    expect(
+      assessAdversarialComparison(
+        keywordAddPair(
+          'Pick a unit that has not used a Rampage ability this turn. Keywords Destructive Impulse'
+        )
+      )
+    ).toMatchObject({
+      outcome: 'finding',
+      findings: expect.arrayContaining([
+        expect.objectContaining({
+          subject: expect.objectContaining({ field: 'official-override.ability-keyword.evidence' }),
+        }),
+      ]),
+    })
+    expect(
+      assessAdversarialComparison(
+        keywordAddPair('Keywords Rampage, Destructive Impulse', ['DESTRUCTIVE IMPULSE'])
+      )
+    ).toMatchObject({
+      outcome: 'finding',
+      findings: expect.arrayContaining([
+        expect.objectContaining({
+          subject: expect.objectContaining({ field: 'official-override.ability-keyword.destination' }),
+        }),
+      ]),
     })
   })
 

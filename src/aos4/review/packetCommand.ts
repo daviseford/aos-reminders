@@ -344,7 +344,8 @@ const riskCohorts = (
     review.abilityTextOverrides?.some(override => override.sourceRecordId === sourceRecordId) ||
     review.contextOverrides?.some(override => override.sourceRecordId === sourceRecordId) ||
     review.weaponProfileOverrides?.some(override => override.sourceRecordId === sourceRecordId) ||
-    review.warscrollKeywordOverrides?.some(override => override.sourceRecordId === sourceRecordId)
+    review.warscrollKeywordOverrides?.some(override => override.sourceRecordId === sourceRecordId) ||
+    review.abilityKeywordOverrides?.some(override => override.sourceRecordId === sourceRecordId)
   if (isPolicyOrOverride) cohorts.push('high-risk:policy-or-override')
   if (review.timingOverrides.some(override => override.sourceRecordId === sourceRecordId)) {
     cohorts.push('high-risk:phase-timing-conflict')
@@ -513,6 +514,9 @@ const buildSourceCandidates = (
               ))
         )
         .map(override => ({ field: 'warscrollKeywordOverrides', value: override })),
+      ...(sourceData.review.abilityKeywordOverrides ?? [])
+        .filter(override => override.sourceRecordId === sourceRecord.id)
+        .map(override => ({ field: 'abilityKeywordOverrides', value: override })),
     ]
     const officialOverrideSourceIds = Array.from(
       new Set(reviewOverrides.flatMap(({ value }) => value.officialSourceRecordIds))
@@ -522,7 +526,10 @@ const buildSourceCandidates = (
       preferredOverrideEntityKind = 'warscroll'
     } else if (
       reviewOverrides.some(
-        override => override.field === 'abilityTextOverrides' || override.field === 'timingOverrides'
+        override =>
+          override.field === 'abilityTextOverrides' ||
+          override.field === 'timingOverrides' ||
+          override.field === 'abilityKeywordOverrides'
       )
     ) {
       preferredOverrideEntityKind = 'ability'
@@ -1122,6 +1129,7 @@ const run = async (): Promise<void> => {
     ['abilityTextOverrides', sourceData.review.abilityTextOverrides ?? []],
     ['timingOverrides', sourceData.review.timingOverrides],
     ['warscrollKeywordOverrides', sourceData.review.warscrollKeywordOverrides ?? []],
+    ['abilityKeywordOverrides', sourceData.review.abilityKeywordOverrides ?? []],
   ] as const
   overrideFields.forEach(([field, overrides]) => {
     const expectedIds = new Set(overrides.map(override => override.sourceRecordId))

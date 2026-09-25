@@ -33,18 +33,12 @@ const runtime = readCorpusJson<Aos4RuntimeProjection>('runtime.json')
 const core = readCorpusJson<Aos4RuntimeCore>('runtime.core.json')
 const sources = readCorpusJson<Aos4RuntimeSources>('runtime.sources.json')
 
+// The certification `beta.json` points at, so a re-campaign does not need this test re-pinned.
+const betaPointer = JSON.parse(
+  readFileSync(path.join(process.cwd(), 'data', 'aos4', 'certifications', 'beta.json'), 'utf8')
+) as { directory: string }
 const certificationManifest = JSON.parse(
-  readFileSync(
-    path.join(
-      process.cwd(),
-      'data',
-      'aos4',
-      'certifications',
-      'aos4-corpus-2026-09-24-machine-r1',
-      'manifest.json'
-    ),
-    'utf8'
-  )
+  readFileSync(path.join(process.cwd(), betaPointer.directory, 'manifest.json'), 'utf8')
 ) as { inputs: Array<{ name: string; path: string; checksum: string }> }
 
 describe('AoS 4 derived corpus artifacts', () => {
@@ -69,8 +63,8 @@ describe('AoS 4 derived corpus artifacts', () => {
       'schemaVersion',
     ])
     expect(Object.keys(sources).sort()).toEqual(['sourceArtifacts', 'sourceRecords'])
-    expect(sources.sourceRecords).toHaveLength(20198)
-    expect(sources.sourceArtifacts).toHaveLength(238)
+    expect(sources.sourceRecords).toHaveLength(20230)
+    expect(sources.sourceArtifacts).toHaveLength(235)
   })
 
   it('keeps every core source-record index addressable in the sources artifact', () => {

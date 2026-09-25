@@ -89,6 +89,8 @@ The stable id an entity keeps across corpus revisions, the handle saved armies a
 
 A source that re-numbers its rows does not create new entities: the new aliases join the existing identity, and a revision that would mint fresh identities for names the corpus already ships is a review failure, not churn to accept.
 
+The converse holds too: an identity never changes meaning. Some aliases are positional (the Nth ability on a page), so a rewritten page can put a different rule in a slot whose alias already exists. That slot's alias moves to the identity of the rule it now prints, or to a fresh one, because reminder hides and notes are stored under ids derived from the ability identity and would otherwise land on the wrong rule.
+
 ### Source Alias
 A source-specific external key (an export row id, a page anchor, a community catalogue record) that resolves to exactly one Canonical Identity. An entity may carry several aliases from several sources; an alias never resolves to more than one identity.
 

@@ -116,7 +116,7 @@ describe('official app list resolution', () => {
     expect(containerNames).not.toContain('Marks of Vulcatrix')
 
     // Every army the corpus carries, and no more; a data refresh that moves this should be read.
-    expect(index.containerIds.size).toBe(111)
+    expect(index.containerIds.size).toBe(114)
   })
 
   it('resolves an Army of Renown and the lores nested under it', () => {
@@ -317,11 +317,13 @@ describe('official app list resolution', () => {
 
   /**
    * A regiment the corpus does not yet carry must fail closed as a named diagnostic, never a
-   * silent drop or a guess. Okar's Torrbad and Urrgar's Maulerguts are the live case: their
-   * official battle-profile rows exist, but Wahapedia does not yet publish their rules, so no
-   * classified regiment group exists to resolve to.
+   * silent drop or a guess. Urrgar's Maulerguts is the live case: its official battle-profile row
+   * exists (Battle Profiles - Ogor Mawtribes, August 2026), but no accepted page publishes its
+   * rules, so no classified regiment group exists to resolve to. Okar's Torrbad, its sibling, left
+   * this state when the re-pinned Sons of Behemat collection page (corpus 2026-09-25, #1999)
+   * published it.
    */
-  it("reports an unclassified regiment (Okar's Torrbad) instead of dropping or guessing", () => {
+  it("reports an unclassified regiment (Urrgar's Maulerguts) instead of dropping or guessing", () => {
     const preview = resolveParsedRoster(
       AOS4_CATALOG,
       {
@@ -331,7 +333,7 @@ describe('official app list resolution', () => {
         selections: [
           {
             line: 3,
-            label: "Okar's Torrbad",
+            label: "Urrgar's Maulerguts",
             kindHint: 'regiment-of-renown',
             isRegimentOfRenown: true,
           },
@@ -339,12 +341,12 @@ describe('official app list resolution', () => {
       },
       { defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID, createDocumentId: () => 'army:probe' }
     )
-    expect(preview.matches.map(match => match.label)).not.toContain("Okar's Torrbad")
+    expect(preview.matches.map(match => match.label)).not.toContain("Urrgar's Maulerguts")
     expect(preview.diagnostics).toContainEqual(
       expect.objectContaining({
         code: 'unknown-selection',
         severity: 'warning',
-        message: expect.stringContaining("Okar's Torrbad"),
+        message: expect.stringContaining("Urrgar's Maulerguts"),
       })
     )
   })

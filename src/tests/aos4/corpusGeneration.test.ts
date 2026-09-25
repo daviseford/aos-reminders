@@ -557,6 +557,79 @@ describe('AoS 4 corpus generation', () => {
     expect(revisedWarscroll?.revision).not.toBe(warscroll?.revision)
   })
 
+  it('adds an official ability keyword the secondary source omits, and only then', async () => {
+    const officialChecksum = 'e'.repeat(64)
+    const officialSourceRecordId = sourceRecordId('games-workshop', `${officialChecksum}:page:1`)
+    const reviewedWith = (target: ReturnType<typeof sourceRecordId>, add: string[]): CorpusReview => ({
+      ...review,
+      officialDocuments: [
+        {
+          title: 'Official keyword fixture',
+          documentKind: 'reference',
+          rulesContextIds: [review.rulesContext.id],
+          artifact: {
+            requestUrl: 'https://assets.warhammer-community.com/keyword-fixture.pdf',
+            finalUrl: 'https://assets.warhammer-community.com/keyword-fixture.pdf',
+            redirectChain: [],
+            retrievedAt: '2026-09-25T12:00:00.000Z',
+            adapterVersion: 'games-workshop-pdf/1',
+            mediaType: 'application/pdf',
+            byteLength: 1,
+            checksum: officialChecksum,
+          },
+          sourceRecords: [{ id: officialSourceRecordId, page: 1, recordChecksum: 'd'.repeat(64) }],
+        },
+      ],
+      abilityKeywordOverrides: [
+        {
+          sourceRecordId: target,
+          add,
+          reason: 'The official page prints the keyword the secondary strip omits.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    })
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const target = decoded.dataset.warscrollAbilities[0]
+    const plain = buildAos4Corpus(decoded, createCorpusIdentityRegistry(decoded.dataset, review), review)
+    const abilityFor = (result: ReturnType<typeof buildAos4Corpus>) =>
+      result.catalog.entities.find(
+        entity =>
+          entity.kind === 'ability' &&
+          entity.sourceRefs.some(reference => reference.sourceRecordId === target.meta.sourceRecordId)
+      )
+    const before = abilityFor(plain)
+    const sourceKeywords = before?.kind === 'ability' ? before.keywords : []
+    expect(sourceKeywords).not.toContain('RAMPAGE')
+
+    const reviewed = reviewedWith(target.meta.sourceRecordId, ['RAMPAGE'])
+    const result = buildAos4Corpus(decoded, createCorpusIdentityRegistry(decoded.dataset, reviewed), reviewed)
+    const after = abilityFor(result)
+    expect(result.diagnostics).toEqual([])
+    expect(after).toMatchObject({
+      keywords: [...sourceKeywords, 'RAMPAGE'],
+      sourceRefs: expect.arrayContaining([
+        expect.objectContaining({ sourceRecordId: officialSourceRecordId }),
+      ]),
+    })
+    expect(after?.revision).not.toBe(before?.revision)
+
+    // Add-only: a keyword the source already prints, a lower-case keyword, or an empty addition
+    // fails closed, so a page that starts printing the keyword retires the override.
+    const printed = sourceKeywords[0]
+    const invalid = [...(printed ? [[printed]] : []), ['rampage'], []].map(add =>
+      reviewedWith(target.meta.sourceRecordId, add)
+    )
+    invalid.forEach(invalidReview =>
+      expect(
+        buildAos4Corpus(decoded, createCorpusIdentityRegistry(decoded.dataset, invalidReview), invalidReview)
+          .diagnostics
+      ).toContainEqual(
+        expect.objectContaining({ code: 'invalid-review', subject: target.meta.sourceRecordId })
+      )
+    )
+  })
+
   it('rejects official overrides that generation would ignore or apply as no-ops', async () => {
     const officialSourceRecordId = sourceRecordId('games-workshop', `${'e'.repeat(64)}:page:1`)
 

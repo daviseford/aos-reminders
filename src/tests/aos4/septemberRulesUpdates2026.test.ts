@@ -34,7 +34,9 @@ const ledger = readJson<{ records: OfficialBattleProfileRecord[] }>(
 )
 
 const SEPTEMBER_RULES_UPDATES = '03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315'
-const SEPTEMBER_BATTLE_PROFILES = 'b18134461e9acd9480fb66da2aa5c83fb99b75679c6d8fe9256c5c976d46dc18'
+// Games Workshop re-uploaded the September 2026 core Battle Profiles on 2026-09-25 (same title
+// and date; Khainite Shadowstalkers 100 -> 130 points); corpus 2026-09-25 re-pinned it (#1999).
+const SEPTEMBER_BATTLE_PROFILES = '952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a'
 
 const entityById = new Map<string, ContentEntity>(
   AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity])
@@ -56,11 +58,17 @@ describe('the September 2026 Games Workshop update (#1757)', () => {
     )
     const oathOfConquest = ability('ability:0431ee16-d68c-52e0-950f-b681e7300f41')
     expect(oathOfConquest.text.effect).toMatch(/not within friendly territory/)
+    ;[helsmiths, oathOfConquest].forEach(entity => expect(citesSeptemberRulesUpdates(entity)).toBe(true))
+  })
+
+  it('retires the Always On Guard override once the re-pinned page carries the erratum natively', () => {
+    // The Scourge of Aqshy Cracked Heels ability shipped from a reviewed override (MEGA-GARGANT ->
+    // BIG) until the Sons of Behemat faction page was re-pinned in corpus 2026-09-25 (#1999); the
+    // page now prints the September wording itself, so the override retired (the Damned Vessel
+    // precedent) and the text ships from the page alone.
     const alwaysOnGuard = ability('ability:544038f6-fd29-500a-b4a0-24cbcd5e5ca7')
     expect(alwaysOnGuard.text.effect).toMatch(/friendly BIG unit\.$/)
-    ;[helsmiths, oathOfConquest, alwaysOnGuard].forEach(entity =>
-      expect(citesSeptemberRulesUpdates(entity)).toBe(true)
-    )
+    expect(citesSeptemberRulesUpdates(alwaysOnGuard)).toBe(false)
   })
 
   it('leaves the errata the machine review cannot verify on their secondary text, recorded on #1999', () => {
