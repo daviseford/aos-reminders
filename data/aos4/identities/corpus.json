@@ -4476,7 +4476,7 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:4",
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:2",
           "publisher": "wahapedia"
         },
         {
@@ -15467,10 +15467,6 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:2",
-          "publisher": "wahapedia"
-        },
-        {
           "externalId": "Warscrolls_abilities.csv:000003618:2",
           "publisher": "wahapedia"
         }
@@ -24660,10 +24656,6 @@
     },
     {
       "aliases": [
-        {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:3",
-          "publisher": "wahapedia"
-        },
         {
           "externalId": "Warscrolls_abilities.csv:000003618:3",
           "publisher": "wahapedia"
@@ -36320,6 +36312,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:3",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "Warscrolls_abilities.csv:000003618:1",
           "publisher": "wahapedia"
@@ -48654,6 +48650,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:4",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:5",
           "publisher": "wahapedia"
@@ -116795,7 +116795,7 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Mancrusher-Gargant/weapon:4",
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Mancrusher-Gargant/weapon:3",
           "publisher": "wahapedia"
         },
         {
@@ -117251,7 +117251,7 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Mancrusher-Gargant/weapon:2",
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Mancrusher-Gargant/weapon:4",
           "publisher": "wahapedia"
         },
         {
@@ -126333,7 +126333,7 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Mancrusher-Gargant/weapon:3",
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Mancrusher-Gargant/weapon:2",
           "publisher": "wahapedia"
         },
         {

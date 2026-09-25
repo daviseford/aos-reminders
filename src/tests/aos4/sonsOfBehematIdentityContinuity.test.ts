@@ -119,6 +119,50 @@ describe('Sons of Behemat identity continuity across the 2026-09-25 swap (PR #20
     expect(new Map(renamed)).toEqual(reviewedRenames)
   })
 
+  it('binds every positional Sons of Behemat page alias to the rule its slot now prints', () => {
+    // Review round 2 (PR #2023): the merge pairs a page record with its export row by name, so a
+    // positional alias left on the slot's previous rule is masked today but would misbind the next
+    // time the row pairing is lost. Every emitted page slot must own its alias outright.
+    const positional =
+      /^html:https:\/\/wahapedia\.ru\/aos4\/factions\/sons-of-behemat\/.*[/:](ability|weapon):\d+$/
+    const ownerByAlias = new Map(
+      registry.entries.flatMap(entry =>
+        entry.aliases.map(alias => [alias.externalId, entry.canonicalId] as const)
+      )
+    )
+    const prefix = 'source-record:wahapedia:'
+    // Choice groups cite the same records; only the ability or weapon owns the slot's alias.
+    const slots = catalog.entities.flatMap(entity =>
+      entity.kind !== 'ability' && entity.kind !== 'weapon'
+        ? []
+        : entity.sourceRefs
+            .filter(reference => reference.sourceRecordId.startsWith(prefix))
+            .map(reference => decodeURIComponent(reference.sourceRecordId.slice(prefix.length)))
+            // A slot whose alias was never registered binds through its export row or BSData entry.
+            .filter(alias => positional.test(alias) && ownerByAlias.has(alias))
+            .map(alias => ({ alias, id: entity.id }))
+    )
+    expect(slots.length).toBeGreaterThan(100)
+    expect(slots.filter(slot => ownerByAlias.get(slot.alias) !== slot.id)).toEqual([])
+    const page = 'html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:'
+    const nameOf = (alias: string) => entityById.get(ownerByAlias.get(`${page}${alias}`)!)?.name
+    expect(
+      [2, 3, 4].map(slot => nameOf(`Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:${slot}`))
+    ).toEqual(['IT’S GOIN’ DOWN', 'BATTLE DAMAGED', 'OFF IN A HUFF'])
+    expect([2, 3, 4].map(slot => nameOf(`Scourge-of-Aqshy-Mancrusher-Gargant/weapon:${slot}`))).toEqual([
+      '’Eadbutt',
+      'Mighty Kick',
+      'Massive Club',
+    ])
+    // The rules those slots used to print keep their export aliases, so their IDs stay registered.
+    ;[
+      ['Warscrolls_abilities.csv:000003618:2', 'LONGSHANKS'],
+      ['Warscrolls_abilities.csv:000003618:3', 'SON OF BEHEMAT'],
+    ].forEach(([alias, name]) =>
+      expect(registry.entries.find(entry => entry.canonicalId === ownerByAlias.get(alias))?.name).toBe(name)
+    )
+  })
+
   it('applies a stored hide and note to the same rule, and never to a retired rule’s slot', () => {
     const selection = resolveSelection(catalog, { explicitIds: [sob.id], rulesContextId: standard.id })
     const projected = projectReminders(catalog, selection)

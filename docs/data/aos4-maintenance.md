@@ -82,7 +82,10 @@ The strict report currently records:
   while the new Fortcrusha Flail ability and Calamitous Sweep profile take fresh ones, and three
   retired index-era traits (Timberrrrr!, Gargant Charge, Jump Up and Down) leave the registry.
   No canonical id that shipped since corpus 2026-09-12 now names a different rule, apart from
-  reviewed renames of the same rule. Glowy Lantern and the Big Personalities and Titanic Trophies
+  reviewed renames of the same rule. Six positional aliases on the reordered Scourge of Aqshy
+  Gatebreaker abilities and Mancrusher weapons, masked by the merge's name pairing with the export
+  rows, were moved onto the rules their slots now print after the second review; the displaced
+  rules keep their export aliases. Glowy Lantern and the Big Personalities and Titanic Trophies
   groups rejoin their enduring Wahapedia ids (shipped in every corpus, historical during the
   2026-09-22 to 2026-09-24 BSData window); a saved army that picked the BSData-window ids loses
   those picks (the document drops a missing
