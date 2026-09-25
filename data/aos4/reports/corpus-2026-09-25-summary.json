@@ -45,16 +45,16 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 32908242,
-      "checksum": "3145d3481845f685533ff32b5b7fadb70252921461ceba7c765caa5f30fcba71"
+      "byteLength": 32911598,
+      "checksum": "32ab920f688f15b0a87330e4133a7e46177212d94bfc4601a89d746aa99b5dc7"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
       "byteLength": 1395516,
       "checksum": "42cf52bfaec0e4507a26489db9a1bf89f01295ab616f4e748a3b72171b5443b0"
     },
     "data/aos4/identities/corpus.json": {
-      "byteLength": 3788674,
-      "checksum": "0aed035d8ef85709daf96a27dc3e416c2667aa9b3e8ecc6138bc24039c8a8c86"
+      "byteLength": 3788033,
+      "checksum": "99b076230e6233da3769cdd3b9bfea8663b2ec1087fb549bf45a3d03caa6bde4"
     },
     "data/aos4/reports/corpus-2026-09-25-reconciliation.json": {
       "byteLength": 241941,
@@ -69,16 +69,16 @@
       "checksum": "db89eafc8a989c781dd6f3f4699294374e81617ffb12145bbc6e5d76f8d0728d"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
-      "byteLength": 6482218,
-      "checksum": "eb72e6f4324169c5df99fb010a797ca7e8dfc001a7c43a8cbfcf68bbbb8ffc8e"
+      "byteLength": 6482572,
+      "checksum": "a11430a7ed7821b1e76f3c78bee59fe362282c638d86bbb14f7d3691d8e0771b"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 13592658,
-      "checksum": "4aca0b31434a85c1c676c1a2c6e63f0ffc6e94d9353b85e68a98c50e76b77b45"
+      "byteLength": 13593012,
+      "checksum": "50b9c78ceed999ba8b8ee95b009a2a83d212fd3d3198f53c7d9d7827baed5bbf"
     },
     "src/aos4/generated/corpus/runtime.sources.json": {
       "byteLength": 7110442,
-      "checksum": "39cfdd1ceab48583cf5bab6f75086d75e514c9d61652b25c0c18627772480f80"
+      "checksum": "5f36a5802d2f56d85abc820ca3cd2a2c185d3eecb472f4bea796a20e070041ba"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-09-25.json",
@@ -101,7 +101,7 @@
     "factions": 28,
     "ignoredSourceRecords": 20464,
     "publications": 308,
-    "relationships": 14066,
+    "relationships": 14069,
     "revision": "aos4-corpus-2026-09-25",
     "schemaVersion": 1,
     "sourceArtifacts": 245,

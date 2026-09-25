@@ -1,4 +1,56 @@
 {
+  "abilityKeywordOverrides": [
+    {
+      "add": [
+        "RAMPAGE"
+      ],
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A23"
+      ],
+      "reason": "Armies of Renown (September 2026) page 23 prints Wrath of Brodd with \"Keywords Rampage, Destructive Impulse\". The re-pinned Wahapedia Sons of Behemat page (2026-09-25) prints only DESTRUCTIVE IMPULSE in its KEYWORDS strip, so official precedence adds RAMPAGE; the omission is recorded as a secondary discrepancy (issue #1999). Add-only: if the page starts printing RAMPAGE, generation fails closed and this entry retires.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-3%3Aability%3A3"
+    },
+    {
+      "add": [
+        "RAMPAGE"
+      ],
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A24"
+      ],
+      "reason": "Armies of Renown (September 2026) page 24 prints Double Stomp with \"Keywords Rampage, Destructive Impulse\". The re-pinned Wahapedia Sons of Behemat page (2026-09-25) prints only DESTRUCTIVE IMPULSE in its KEYWORDS strip, so official precedence adds RAMPAGE; the omission is recorded as a secondary discrepancy (issue #1999). Add-only: if the page starts printing RAMPAGE, generation fails closed and this entry retires.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-3%3Aability%3A4"
+    },
+    {
+      "add": [
+        "RAMPAGE"
+      ],
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A24"
+      ],
+      "reason": "Armies of Renown (September 2026) page 24 prints Crafty Creepers with \"Keywords Rampage, Destructive Impulse\". The re-pinned Wahapedia Sons of Behemat page (2026-09-25) prints only DESTRUCTIVE IMPULSE in its KEYWORDS strip, so official precedence adds RAMPAGE; the omission is recorded as a secondary discrepancy (issue #1999). Add-only: if the page starts printing RAMPAGE, generation fails closed and this entry retires.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-3%3Aability%3A5"
+    },
+    {
+      "add": [
+        "RAMPAGE"
+      ],
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A23"
+      ],
+      "reason": "Armies of Renown (September 2026) page 23 prints Smash It All to Bits with \"Keywords Rampage, Destructive Impulse\". The re-pinned Wahapedia Sons of Behemat page (2026-09-25) prints only DESTRUCTIVE IMPULSE in its KEYWORDS strip, so official precedence adds RAMPAGE; the omission is recorded as a secondary discrepancy (issue #1999). Add-only: if the page starts printing RAMPAGE, generation fails closed and this entry retires.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-3%3Aability%3A6"
+    },
+    {
+      "add": [
+        "RAMPAGE"
+      ],
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A24"
+      ],
+      "reason": "Armies of Renown (September 2026) page 24 prints Watch This! with \"Keywords Rampage, Destructive Impulse\". The re-pinned Wahapedia Sons of Behemat page (2026-09-25) prints only DESTRUCTIVE IMPULSE in its KEYWORDS strip, so official precedence adds RAMPAGE; the omission is recorded as a secondary discrepancy (issue #1999). Add-only: if the page starts printing RAMPAGE, generation fails closed and this entry retires.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-3%3Aability%3A7"
+    }
+  ],
   "abilityTextOverrides": [
     {
       "officialSourceRecordIds": [
@@ -331,7 +383,7 @@
         "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A23",
         "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A24"
       ],
-      "reason": "King Brodd's Stomp is an official Army of Renown for Sons of Behemat (Armies of Renown, September 2026, pages 23-24). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Sons of Behemat faction rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group. The September 2026 publication rewrote this Army of Renown for the new battletome (roster options became Big units and non-Unique Little units, the Rampage keyword became Destructive Impulse, and several abilities were reworded); that rewrite is recorded here but deliberately not applied to runtime, because it references the battletome keyword architecture (Big, Little, Destructive Impulse) that no accepted text source carried at the time of the 2026-09-12 revision - Wahapedia had last published 2026-08-25 and BSData had no September 2026 Sons of Behemat content pinned yet. As of that 2026-09-12 state, the shipped text remained the July 2026 wording until a reviewed secondary page or catalogue carried the battletome structure (tracked by the provisional watch, issue #1999). The 2026-09-22 update below is the authoritative current state: BSData now supplies the battletome text for part of this Army of Renown. Updated 2026-09-22 (issue #1999): the BSData `gargants` branch catalogue (commit 2b7df92f) reconciles this Army of Renown’s seven rewritten battle traits exactly to pages 23-24 of the September 2026 Armies of Renown document, but the merge architecture has no attachment path for them this revision: an Army of Renown’s own battle-trait block decodes as a subtype of its root group (typeId resolves to the Army of Renown itself), never as a standalone faction-page ability-type record, and the community-option merge only attaches to the latter. Extending it to attach to an Army of Renown-owned subtype is a larger, untested adapter change than this revision makes; the seven battle traits stay deferred alongside the heroic trait (I Can Do That Better), artefact (Lucky Shiny Hat), and roster restriction, all pending that adapter extension or a Wahapedia republish of the page. The July 2026 wording remains unchanged and unreplaced. Updated 2026-09-25 (issue #1999): Wahapedia republished the Sons of Behemat faction page with the September 2026 battletome, re-pinned in the 2026-09-25 revision, and its King Brodd’s Stomp section now carries the rewrite natively: the seven battle traits (Big/Little, Destructive Impulse), the I Can Do That Better heroic trait, the Lucky Shiny Hat artefact, and the High Expectations prayer, so the September 2026 wording now ships from the page and the July 2026 wording leaves the runtime. Reviewed against Armies of Renown (September 2026) pages 23-24: every ability matches in substance; two cosmetic transcription differences are recorded rather than overridden (Timberrrrr! reads “a friendly BIG unit or LITTLE unit model” where the official text reads “a friendly Big or Little model”, and Wrath of Brodd ends with a stray closing quotation mark).",
+      "reason": "King Brodd's Stomp is an official Army of Renown for Sons of Behemat (Armies of Renown, September 2026, pages 23-24). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Sons of Behemat faction rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group. The September 2026 publication rewrote this Army of Renown for the new battletome (roster options became Big units and non-Unique Little units, its Rampage battle traits gained the Destructive Impulse keyword alongside Rampage and now test for Destructive Impulse rather than Rampage abilities, and several abilities were reworded); that rewrite is recorded here but deliberately not applied to runtime, because it references the battletome keyword architecture (Big, Little, Destructive Impulse) that no accepted text source carried at the time of the 2026-09-12 revision - Wahapedia had last published 2026-08-25 and BSData had no September 2026 Sons of Behemat content pinned yet. As of that 2026-09-12 state, the shipped text remained the July 2026 wording until a reviewed secondary page or catalogue carried the battletome structure (tracked by the provisional watch, issue #1999). The 2026-09-22 update below is the authoritative current state: BSData now supplies the battletome text for part of this Army of Renown. Updated 2026-09-22 (issue #1999): the BSData `gargants` branch catalogue (commit 2b7df92f) reconciles this Army of Renown’s seven rewritten battle traits exactly to pages 23-24 of the September 2026 Armies of Renown document, but the merge architecture has no attachment path for them this revision: an Army of Renown’s own battle-trait block decodes as a subtype of its root group (typeId resolves to the Army of Renown itself), never as a standalone faction-page ability-type record, and the community-option merge only attaches to the latter. Extending it to attach to an Army of Renown-owned subtype is a larger, untested adapter change than this revision makes; the seven battle traits stay deferred alongside the heroic trait (I Can Do That Better), artefact (Lucky Shiny Hat), and roster restriction, all pending that adapter extension or a Wahapedia republish of the page. The July 2026 wording remains unchanged and unreplaced. Updated 2026-09-25 (issue #1999): Wahapedia republished the Sons of Behemat faction page with the September 2026 battletome, re-pinned in the 2026-09-25 revision, and its King Brodd’s Stomp section now carries the rewrite natively: the seven battle traits (Big/Little, Destructive Impulse), the I Can Do That Better heroic trait, the Lucky Shiny Hat artefact, and the High Expectations prayer, so the September 2026 wording now ships from the page and the July 2026 wording leaves the runtime. Reviewed against Armies of Renown (September 2026) pages 23-24: every ability matches in substance except that the page’s KEYWORDS strip on the five Destructive Impulse battle traits (Wrath of Brodd, Smash It All to Bits, Double Stomp, Crafty Creepers, Watch This!) omits the RAMPAGE keyword the official pages print beside Destructive Impulse, which the reviewed abilityKeywordOverrides entries restore; two cosmetic transcription differences are recorded rather than overridden (Timberrrrr! reads “a friendly BIG unit or LITTLE unit model” where the official text reads “a friendly Big or Little model”, and Wrath of Brodd ends with a stray closing quotation mark).",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3AKing-Brodd-s-Stomp"
     },
     {
@@ -695,7 +747,7 @@
         "source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A5"
       ],
       "policyTier": "community-fallback",
-      "reason": "The September 2026 Sons of Behemat publications add the Krong the Club Regiment of Renown. The accepted official core Battle Profiles of 2026-09-23 (page 59, row 7), the single battle-profile source since the official September 2026 intake, establishes its name, 140 points, its single member (1 Mancrusher Gargant), and its 24 inclusion factions (Sons of Behemat is not one of them); the Sons of Behemat battle-profile supplement that first printed the row (page 3, row 4, identical values) stays pinned as reference evidence. The accepted official Regiments of Renown - Sons of Behemat pack (page 5) prints its two abilities, Jump Up and Down and Devastating Collapse, but that pack is reference evidence and no official rules-text extraction path exists. No accepted Wahapedia page carries Krong. BSData Regiments of Renown.cat carries both abilities word for word as page 5 prints them (timing, declare, effect, and the RAMPAGE keyword all match the pdf.js extraction of the pinned pack), so under the peer-secondary policy it supplies the rules text as fact. BSData supplies nothing else: the inclusion factions, the member, and the points come from the official row, the BSData member link (Mancrusher Gargant, count 1) is a fail-closed cross-check against the official organisation, the member resolves to the one current-standard Mancrusher Gargant warscroll (never its Spearhead twin; the September 2026 Rules Updates' Little keyword change is already applied to it), and the BSData force-entry inclusion conditions in the game system file are not read. Pinned to main at the BSData squash merge of the gargants branch (PR #1359); the Regiments of Renown.cat blob is unchanged at the later main head d1f97bc9 (both c4379f8b, re-checked 2026-09-24), and its Krong text is identical to the gargants pin 2b7df92f that the three other Sons of Behemat catalogues stay pinned to.",
+      "reason": "The September 2026 Sons of Behemat publications add the Krong the Club Regiment of Renown. The accepted official core Battle Profiles of 2026-09-23 (page 59, row 7), the single battle-profile source since the official September 2026 intake, establishes its name, 140 points, its single member (1 Mancrusher Gargant), and its 24 inclusion factions (Sons of Behemat is not one of them); the Sons of Behemat battle-profile supplement that first printed the row (page 3, row 4, identical values) stays pinned as reference evidence. The accepted official Regiments of Renown - Sons of Behemat pack (page 5) prints its two abilities, Jump Up and Down and Devastating Collapse, but that pack is reference evidence and no official rules-text extraction path exists. No Wahapedia page pinned in the accepted manifest carries Krong. The 2026-09-25 Wahapedia acquisition (observed, not pinned) found one copy on each of the 24 inclusion-faction warscroll collection pages; all 24 are a single variant, and it agrees with the official Regiments of Renown - Sons of Behemat pack (page 5) on both abilities and with the official row on the 140 points and the single Mancrusher Gargant member, but its inclusion list adds Legion of the First Prince (an Army of Renown, not a faction), which the official row omits. Re-pinning any of those pages is a separate site-wide refresh, so the rules text stays on the BSData catalogue below and the official row keeps supplying everything else. BSData Regiments of Renown.cat carries both abilities word for word as page 5 prints them (timing, declare, effect, and the RAMPAGE keyword all match the pdf.js extraction of the pinned pack), so under the peer-secondary policy it supplies the rules text as fact. BSData supplies nothing else: the inclusion factions, the member, and the points come from the official row, the BSData member link (Mancrusher Gargant, count 1) is a fail-closed cross-check against the official organisation, the member resolves to the one current-standard Mancrusher Gargant warscroll (never its Spearhead twin; the September 2026 Rules Updates' Little keyword change is already applied to it), and the BSData force-entry inclusion conditions in the game system file are not read. Pinned to main at the BSData squash merge of the gargants branch (PR #1359); the Regiments of Renown.cat blob is unchanged at the later main head d1f97bc9 (both c4379f8b, re-checked 2026-09-24), and its Krong text is identical to the gargants pin 2b7df92f that the three other Sons of Behemat catalogues stay pinned to.",
       "regimentsOfRenown": [
         {
           "name": "Krong the Club",
@@ -717,6 +769,86 @@
         "rules-context:90000000-0000-4000-8000-000000000004"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fcities-of-sigmar%2Fwarscrolls.html%23datasheet%3AHeroes-of-The-Jade-Abbey%2Fwarscroll"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:db30e7a4f25e6e1fbf1e0e187c6c59a358f00475733db1da9f84daa51bdd0a1d%3Apage%3A1"
+      ],
+      "reason": "The Grabby heroic trait is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000003"
+      ],
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABig-Personalities%3Aability%3A1"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:db30e7a4f25e6e1fbf1e0e187c6c59a358f00475733db1da9f84daa51bdd0a1d%3Apage%3A1"
+      ],
+      "reason": "The Terrifying Hulk heroic trait is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000003"
+      ],
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABig-Personalities%3Aability%3A2"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:db30e7a4f25e6e1fbf1e0e187c6c59a358f00475733db1da9f84daa51bdd0a1d%3Apage%3A1"
+      ],
+      "reason": "The Mega-Grump heroic trait is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000003"
+      ],
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABig-Personalities%3Aability%3A3"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:db30e7a4f25e6e1fbf1e0e187c6c59a358f00475733db1da9f84daa51bdd0a1d%3Apage%3A1"
+      ],
+      "reason": "Lofty Louts, the Big Toes battle-formation ability, is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000003"
+      ],
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABig-Toes%3Aability%3A1"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:db30e7a4f25e6e1fbf1e0e187c6c59a358f00475733db1da9f84daa51bdd0a1d%3Apage%3A1"
+      ],
+      "reason": "Strike! Hur Hur!, the Manskittle Mob battle-formation ability, is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000003"
+      ],
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3AManskittle-Mob%3Aability%3A1"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:db30e7a4f25e6e1fbf1e0e187c6c59a358f00475733db1da9f84daa51bdd0a1d%3Apage%3A1"
+      ],
+      "reason": "The Scourge of Ghyran Big Personalities heroic-trait table (Grabby, Terrifying Hulk, Mega-Grump; not the battletome table of the same name) is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000003"
+      ],
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3ABig-Personalities"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:db30e7a4f25e6e1fbf1e0e187c6c59a358f00475733db1da9f84daa51bdd0a1d%3Apage%3A1"
+      ],
+      "reason": "The Big Toes battle formation is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000003"
+      ],
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3ABig-Toes"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:db30e7a4f25e6e1fbf1e0e187c6c59a358f00475733db1da9f84daa51bdd0a1d%3Apage%3A1"
+      ],
+      "reason": "The Manskittle Mob battle formation is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000003"
+      ],
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3AManskittle-Mob"
     }
   ],
   "currentWahapediaHtml": {

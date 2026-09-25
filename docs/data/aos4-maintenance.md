@@ -58,25 +58,44 @@ The strict report currently records:
   Armies of Renown, Matriarch’s Mob and Stomper Tribe (`secondary-provisional` tier, since no free
   accepted official document names them), and its collection carries Okar’s Torrbad, now
   classified on the August 2026 Ogor Mawtribes battle-profile supplement and regiments pack (the
-  September core Battle Profiles omits it, so it has no applied points row). The ten
-  `contextOverrides` that retired the index-era set would have mis-applied to the battletome
-  records now at the same source-record ids, so they retire with the index-era content they
-  targeted, as does the Always On Guard ability-text override (the page prints the September
-  wording natively). Mancrusher Mob and the index-era formations leave the corpus with the page
-  that carried them, and the 92 superseded legacy datasheet rows drop from the ledger. Identity
-  continuity: 88 re-sourced entities keep their BSData-era canonical ids (their new page aliases
-  were attached to the existing entries), entities that rejoin an enduring Wahapedia identity
-  (Glowy Lantern, the Big Personalities and Titanic Trophies groups) return to it, and one
-  positional alias on the reordered Scourge of Aqshy Gatebreaker was rebound so its Battle
-  Damaged ability takes a fresh id rather than colliding. Two secondary disagreements with no free
-  official arbiter are recorded, resolved to the page: Get Orf Me Land! (Kraken-eater) is Once
-  Per Turn (Army) on Wahapedia and Once Per Battle (Army) on BSData, both in the Deployment Phase,
-  and the regular battle trait is Wrathful Rampage on Wahapedia and Wrathful Rampaging on BSData.
-  Wahapedia also republished Krong the Club on all 24 inclusion-faction collection pages; its text,
-  points, and member match the official Regiments of Renown - Sons of Behemat page 5 and the
-  shipped BSData transcription, but its inclusion list adds Legion of the First Prince (an Army of
-  Renown, not a faction), so Krong stays on the BSData catalogue with the official row, and none of
-  those pages is re-pinned here. Separately, Games Workshop re-uploaded the September 2026 core
+  September core Battle Profiles omits it, so it has no applied points row). The eleven Sons of
+  Behemat `contextOverrides` that retired the index-era set (six faction groups and five
+  battle-trait abilities) would have mis-applied to the battletome records now at the same
+  source-record ids, so they retire with the index-era content they targeted, as does the Always
+  On Guard ability-text override (the page prints the September wording natively). Mancrusher Mob
+  and the index-era formations leave the corpus with the page that carried them, and the 92
+  superseded legacy datasheet rows drop from the ledger. Official precedence adds two reviewed
+  inputs of its own: the page wraps the Scourge of Ghyran battle formations (Big Toes, Manskittle
+  Mob) and heroic traits (Grabby, Terrifying Hulk, Mega-Grump) in its Legendary styling, which
+  decodes as Legends, where Sons of Behemat has no context and they would lose their offer edge,
+  so eight `contextOverrides` keep them historical on the Scourge of Ghyran - Sons of Behemat pack
+  (page 1), exactly as corpus 2026-09-24 shipped them; and the page's KEYWORDS strip on the five
+  Destructive Impulse battle traits of King Brodd’s Stomp omits the RAMPAGE keyword that Armies of
+  Renown pages 23-24 print beside it, so five `abilityKeywordOverrides` (a new add-only override
+  kind that fails closed once the page prints the keyword) restore it. Identity continuity:
+  88 re-sourced entities keep their BSData-era canonical ids (their new page aliases were attached
+  to the existing entries). The positional page slots that already had an identity were
+  re-reviewed after PR #2023's first review, because reminder preferences are keyed by ability id:
+  the five army-wide battle-trait slots join the BSData-era ids of the traits they now print, the
+  Earthshaking Roar and Colossal Slam rampages keep the index-era ids of the battle traits with the
+  same name, timing, and effect, the Scourge of Aqshy Gatebreaker's Battle Damaged keeps its id
+  while the new Fortcrusha Flail ability and Calamitous Sweep profile take fresh ones, and three
+  retired index-era traits (Timberrrrr!, Gargant Charge, Jump Up and Down) leave the registry.
+  No canonical id that shipped since corpus 2026-09-12 now names a different rule, apart from
+  reviewed renames of the same rule. Glowy Lantern and the Big Personalities and Titanic Trophies
+  groups rejoin their enduring Wahapedia ids (shipped in every corpus, historical during the
+  2026-09-22 to 2026-09-24 BSData window); a saved army that picked the BSData-window ids loses
+  those picks (the document drops a missing
+  selection with a warning), and a note on the BSData Glowy Lantern reminder no longer shows. Two
+  secondary disagreements with no free official arbiter are recorded, resolved to the page: Get
+  Orf Me Land! (Kraken-eater) is Once Per Turn (Army) on Wahapedia and Once Per Battle (Army) on
+  BSData, both in the Deployment Phase, and the regular battle trait is Wrathful Rampage on
+  Wahapedia and Wrathful Rampaging on BSData. Wahapedia also republished Krong the Club on all 24
+  inclusion-faction collection pages (observed in the candidate acquisition, not pinned): the 24
+  copies are one variant whose text, points, and member match the official Regiments of Renown -
+  Sons of Behemat page 5 and the shipped BSData transcription, but its inclusion list adds Legion
+  of the First Prince (an Army of Renown, not a faction), so Krong stays on the BSData catalogue
+  with the official row, and none of those pages is re-pinned here. Separately, Games Workshop re-uploaded the September 2026 core
   Battle Profiles on 2026-09-25 (same title and date); the extracted facts differ only in
   Khainite Shadowstalkers (100 to 130 points) and two regiment-summary bullet layouts, so it was
   re-pinned with publication identity continuity (84 citations re-keyed) and the runtime delta is

@@ -34,7 +34,7 @@ automated review is complete:
 | Live review pairs | 42,643/42,643 |
 | Independent outcomes | 85,286 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
-| Populated high-risk cohorts | 19/19 |
+| Populated high-risk cohorts | 20/20 |
 
 The independent source inventory is a schema 2 inventory of fresh observations taken for this
 intake on 2026-09-25: a `discover-official` snapshot observed at 18:32:49Z (166 downloads, 7
@@ -42,12 +42,25 @@ explicit non-material), the Wahapedia navigation and exports at 18:32:57Z (87 so
 inaccessible), and the pinned BSData `8836d9f9` `Regiments of Renown.cat` at 18:35:12Z. Its
 first binding was incomplete: the discovery snapshot listed the core Battle Profiles at a new asset
 URL, which is how the 2026-09-25 re-upload was found, and the re-pin above made every accepted
-artifact match. No earlier observation is reused. The campaign ran at 19:08:01Z and the
-certification was evaluated at 19:08:35Z the same day.
+artifact match.
 
-The current certification is `aos4-corpus-2026-09-25-machine-r1`. Its `--reuse-certification`
-offer of `aos4-corpus-2026-09-24-machine-r1` carried nothing forward (the revision re-key
-invalidates every pair), so all 42,643 pairs were evaluated fresh; the first campaign returned 0
+The current certification is `aos4-corpus-2026-09-25-machine-r2`, a re-campaign of the same
+revision after PR #2023's first review changed its review inputs and identities (the accepted
+manifest and acquisition did not change). The review now carries five add-only
+`abilityKeywordOverrides` (RAMPAGE on the King Brodd’s Stomp Destructive Impulse traits, Armies of
+Renown pages 23-24) and eight more `contextOverrides` (the Scourge of Ghyran formations and heroic
+traits stay historical), and the identity registry rebinds the reused Sons of Behemat page slots
+(see `aos4-maintenance.md`). The new `high-risk:official-abilityKeywordOverrides` cohort is the
+twentieth. It binds the same schema 2 inventory as `machine-r1`, byte for byte, because the manifest
+it inventories is unchanged and the observations were taken for this intake the same day. Its
+`--reuse-certification` offer of `aos4-corpus-2026-09-25-machine-r1` reused 42,617 unchanged pairs
+and evaluated 26 fresh; the campaign ran at 20:50:54Z, the certification was evaluated at
+20:51:35Z, and it returned 0 findings and 0 cannot-verify. Its reuse overlay references
+`machine-r1`, so that directory stays in the live chain.
+
+`aos4-corpus-2026-09-25-machine-r1` preceded it: its `--reuse-certification` offer of
+`aos4-corpus-2026-09-24-machine-r1` carried nothing forward (the revision re-key invalidates every
+pair), so all 42,643 pairs were evaluated fresh (campaign 19:08:01Z, evaluated 19:08:35Z), with 0
 findings and 0 cannot-verify.
 
 The previous revision was `aos4-corpus-2026-09-24` (issue #1999): Krong the Club, the September 2026

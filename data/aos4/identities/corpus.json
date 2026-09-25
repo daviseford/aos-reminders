@@ -14692,17 +14692,6 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:41383ca0-7320-543d-a8a9-4498c2297015",
-      "kind": "ability",
-      "name": "GARGANT CHARGE"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "Warscrolls_abilities.csv:000001415:2",
           "publisher": "wahapedia"
         }
@@ -15177,17 +15166,6 @@
       "canonicalId": "ability:44013dc6-96e7-501b-bd57-0db19bc3f6c5",
       "kind": "ability",
       "name": "SUMMON QUICKSILVER SWORDS"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:5",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:44044eb5-f44b-5713-8247-a05ca340ab50",
-      "kind": "ability",
-      "name": "JUMP UP AND DOWN"
     },
     {
       "aliases": [
@@ -36343,7 +36321,7 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:1",
+          "externalId": "Warscrolls_abilities.csv:000003618:1",
           "publisher": "wahapedia"
         }
       ],
@@ -41003,17 +40981,6 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:b31d7031-c272-5df8-9840-885aed75fd90",
-      "kind": "ability",
-      "name": "TIMBERRRRR!"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "html:https://wahapedia.ru/aos4/the-rules/blighted-wilds/#rules-ability:Path-of-the-Sacrifice-Master:ability:6",
           "publisher": "wahapedia"
         }
@@ -43990,7 +43957,7 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:3",
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:2",
           "publisher": "wahapedia"
         }
       ],
@@ -49255,7 +49222,7 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:4",
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:5",
           "publisher": "wahapedia"
         }
       ],
@@ -120785,10 +120752,6 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/weapon:4",
-          "publisher": "wahapedia"
-        },
-        {
           "externalId": "Warscrolls_weapons.csv:000003618:4",
           "publisher": "wahapedia"
         }
@@ -131034,6 +130997,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:a360c53c-df0a-50fb-85f9-10fabc7219c5",
@@ -131045,6 +131012,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:13d8bb83-4f64-5004-974e-1b2a5b5d5844",
@@ -131056,6 +131027,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:3",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:3",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:ae71f48a-1b79-5bce-9da3-406d4a24dfab",
@@ -131067,6 +131042,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:4",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:4",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:f8fa02ea-d702-5cef-9261-186ab818f3a8",
@@ -131078,6 +131057,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-sons-of-behemat:ability:5",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits:ability:5",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:e1a3415a-cd18-55b7-ba39-326649f1ba72",
@@ -132843,17 +132826,6 @@
     {
       "aliases": [
         {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:2",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:3357502d-ec99-5dbf-838b-7494101c9e62",
-      "kind": "ability",
-      "name": "EARTHSHAKING ROAR"
-    },
-    {
-      "aliases": [
-        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:3",
           "publisher": "wahapedia"
         }
@@ -132872,17 +132844,6 @@
       "canonicalId": "ability:ee8fa9db-ebd8-5426-8157-fd056cc5dbf8",
       "kind": "ability",
       "name": "WINDMILL WALLOPING"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Realm-Shaking-Rampages:ability:5",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:bc055a52-e8cc-5d4a-8d5a-77203f72feee",
-      "kind": "ability",
-      "name": "COLOSSAL SLAM"
     },
     {
       "aliases": [
@@ -132971,17 +132932,6 @@
       "canonicalId": "ability:93f8e562-688b-5d5e-abf0-4d8166281dbd",
       "kind": "ability",
       "name": "CLING ON TIGHT"
-    },
-    {
-      "aliases": [
-        {
-          "externalId": "Warscrolls_abilities.csv:000003618:1",
-          "publisher": "wahapedia"
-        }
-      ],
-      "canonicalId": "ability:2ea51797-2032-56bb-b5b3-c75cfdd9bc4b",
-      "kind": "ability",
-      "name": "BATTLE DAMAGED"
     },
     {
       "aliases": [
@@ -133301,6 +133251,28 @@
       "canonicalId": "weapon:35df6e1a-3bb6-5c65-9f12-1bc2ea46c847",
       "kind": "weapon",
       "name": "Massive Clubs and Rocks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:163581ab-c603-5d6d-9042-8d2a61010d7e",
+      "kind": "ability",
+      "name": "FORTCRUSHA FLAIL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#datasheet:Scourge-of-Aqshy-Gatebreaker-Mega-Gargant/weapon:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:6678731f-f319-537d-933e-6004a6981d6f",
+      "kind": "weapon",
+      "name": "Fortcrusha Flail: Calamitous Sweep"
     }
   ],
   "schemaVersion": 1

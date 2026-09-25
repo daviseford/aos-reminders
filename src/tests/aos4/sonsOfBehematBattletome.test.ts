@@ -268,8 +268,10 @@ describe('Sons of Behemat battletome on the re-pinned Wahapedia pages (issue #19
         'WRATH OF BRODD',
       ].sort()
     )
+    // Pages 23-24 print "Keywords Rampage, Destructive Impulse"; the page strip omits RAMPAGE, so a
+    // reviewed ability keyword override restores it.
     const wrath = traits.find(trait => trait.name === 'WRATH OF BRODD')!
-    expect(wrath.keywords).toEqual(['DESTRUCTIVE IMPULSE'])
+    expect(wrath.keywords).toEqual(['DESTRUCTIVE IMPULSE', 'RAMPAGE'])
     expect(JSON.stringify(traits.map(trait => trait.text))).not.toMatch(/MEGA-GARGANT|RAMPAGE ability/)
   })
 

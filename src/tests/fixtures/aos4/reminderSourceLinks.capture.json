@@ -864,7 +864,7 @@
         ]
       },
       {
-        "id": "reminder:ability:b31d7031-c272-5df8-9840-885aed75fd90@turn-phase:movement|active|your|normal|1:turn:army",
+        "id": "reminder:ability:a360c53c-df0a-50fb-85f9-10fabc7219c5@turn-phase:movement|active|your|normal|1:turn:army",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:bf92c5b4983a2011a90c90e1895484e06fb1f38640bde167a0cc308013fc7a9b#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
         ]
@@ -930,7 +930,7 @@
         ]
       },
       {
-        "id": "reminder:ability:41383ca0-7320-543d-a8a9-4498c2297015@turn-phase:charge|active|your|normal|1:turn:army",
+        "id": "reminder:ability:13d8bb83-4f64-5004-974e-1b2a5b5d5844@turn-phase:charge|active|your|normal|1:turn:army",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:bf92c5b4983a2011a90c90e1895484e06fb1f38640bde167a0cc308013fc7a9b#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
         ]
@@ -1008,7 +1008,7 @@
         ]
       },
       {
-        "id": "reminder:ability:bf3b29a5-2991-59b4-a8da-448ca2b7c4b6@turn-phase:combat|active|any|normal|1:turn:army",
+        "id": "reminder:ability:ae71f48a-1b79-5bce-9da3-406d4a24dfab@turn-phase:combat|active|any|normal|1:turn:army",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:bf92c5b4983a2011a90c90e1895484e06fb1f38640bde167a0cc308013fc7a9b#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
         ]
@@ -1020,13 +1020,13 @@
         ]
       },
       {
-        "id": "reminder:ability:d6ea6bfe-2718-5dbb-a2c5-b67afce5bc0f@turn-phase:end-of-turn|active|your|normal|1:turn:army",
+        "id": "reminder:ability:f8fa02ea-d702-5cef-9261-186ab818f3a8@turn-phase:end-of-turn|active|your|normal|1:turn:army",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:bf92c5b4983a2011a90c90e1895484e06fb1f38640bde167a0cc308013fc7a9b#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
         ]
       },
       {
-        "id": "reminder:ability:44044eb5-f44b-5713-8247-a05ca340ab50@turn-phase:end-of-turn|active|your|normal|1:turn:army",
+        "id": "reminder:ability:e1a3415a-cd18-55b7-ba39-326649f1ba72@turn-phase:end-of-turn|active|your|normal|1:turn:army",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: sons of behemat\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/\tartifact:sha256:bf92c5b4983a2011a90c90e1895484e06fb1f38640bde167a0cc308013fc7a9b#https://wahapedia.ru/aos4/factions/sons-of-behemat/"
         ]
@@ -1122,13 +1122,6 @@
         ]
       },
       {
-        "id": "reminder:ability:2ea51797-2032-56bb-b5b3-c75cfdd9bc4b@always|passive|neutral|normal|unlimited",
-        "links": [
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:6076706e56539150b1b364b2e310d134accd419e197a7c9146e189bb64f37dab#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant",
-          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:6076706e56539150b1b364b2e310d134accd419e197a7c9146e189bb64f37dab#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
-        ]
-      },
-      {
         "id": "reminder:ability:326619a7-36a9-57a7-9200-2acb7e767ef7@always|passive|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant\tartifact:sha256:6076706e56539150b1b364b2e310d134accd419e197a7c9146e189bb64f37dab#https://wahapedia.ru/aos4/factions/sons-of-behemat/Beast-smasher-Mega-Gargant"
@@ -1156,6 +1149,13 @@
         "id": "reminder:ability:88941514-76f8-5279-851b-6a19e3d769e4@always|passive|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Ma-Maegran-Chooser-Of-The-Mighty\tartifact:sha256:6076706e56539150b1b364b2e310d134accd419e197a7c9146e189bb64f37dab#https://wahapedia.ru/aos4/factions/sons-of-behemat/Ma-Maegran-Chooser-Of-The-Mighty"
+        ]
+      },
+      {
+        "id": "reminder:ability:a063b070-0b9f-5ba9-9481-979346299b3f@always|passive|neutral|normal|unlimited",
+        "links": [
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:6076706e56539150b1b364b2e310d134accd419e197a7c9146e189bb64f37dab#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant",
+          "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:6076706e56539150b1b364b2e310d134accd419e197a7c9146e189bb64f37dab#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
         ]
       },
       {
@@ -1213,7 +1213,7 @@
         ]
       },
       {
-        "id": "reminder:ability:6fbf57ab-7d72-50a6-be64-9750927d6a13@always|passive|neutral|normal|unlimited",
+        "id": "reminder:ability:163581ab-c603-5d6d-9042-8d2a61010d7e@always|passive|neutral|normal|unlimited",
         "links": [
           "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant\tartifact:sha256:6076706e56539150b1b364b2e310d134accd419e197a7c9146e189bb64f37dab#https://wahapedia.ru/aos4/factions/sons-of-behemat/Gatebreaker-Mega-Gargant",
           "secondary\tWahapedia AoS 4 warscroll: warscrolls.html\thttps://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant\tartifact:sha256:6076706e56539150b1b364b2e310d134accd419e197a7c9146e189bb64f37dab#https://wahapedia.ru/aos4/factions/sons-of-behemat/Scourge-of-Aqshy-Gatebreaker-Mega-Gargant"
