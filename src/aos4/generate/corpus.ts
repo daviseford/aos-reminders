@@ -2520,6 +2520,10 @@ export const buildAos4Corpus = (
         .map(entity => entity.id)
     ),
   }))
+  const contextIdsWithStatus = (status: RulesContext['status']) =>
+    new Set(rulesContexts.filter(context => context.status === status).map(context => context.id))
+  const currentContextIdSet = contextIdsWithStatus('current')
+  const historicalContextIdSet = contextIdsWithStatus('historical')
   const contextualRelationships = relationships.flatMap(relationship => {
     const from = entityById.get(relationship.from)
     const to = entityById.get(relationship.to)
@@ -2546,6 +2550,27 @@ export const buildAos4Corpus = (
       // official profiles retired to the historical context still brings its member, whose own
       // warscroll stays current; an intersection would drop the edge (the #2015 bug class).
       return [{ ...relationship, rulesContextIds: uniqueSorted(from.rulesContextIds) }]
+    }
+    if (
+      relationship.kind === 'offers' &&
+      from.kind === 'faction' &&
+      to.kind === 'content-group' &&
+      to.groupType === 'regiment-of-renown'
+    ) {
+      // The official inclusion list decides which factions a regiment serves; a faction's own
+      // contexts only record where its own content lives. Historical content is an overlay on a
+      // current army, so an inclusion faction fielded in current play still offers a regiment the
+      // official profiles retired to the historical context even when it has no historical content
+      // of its own (Stumblefoot Gargant for Beasts of Chaos and Daughters of Khaine, #1757).
+      // Every other context still intersects.
+      const fromContextIds = new Set(from.rulesContextIds)
+      const fieldedInCurrentPlay = from.rulesContextIds.some(id => currentContextIdSet.has(id))
+      const offeredContextIds = to.rulesContextIds.filter(
+        id => fromContextIds.has(id) || (fieldedInCurrentPlay && historicalContextIdSet.has(id))
+      )
+      return offeredContextIds.length
+        ? [{ ...relationship, rulesContextIds: uniqueSorted(offeredContextIds) }]
+        : []
     }
     const toContextIds = new Set(to.rulesContextIds)
     const sharedContextIds = from.rulesContextIds.filter(id => toContextIds.has(id))

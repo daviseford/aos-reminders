@@ -5,7 +5,9 @@ import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generate
 import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 import { resolveParsedRoster } from '../../aos4/import'
 import { projectReminders } from '../../aos4/reminders'
+import { createDefaultAos4ArmyDocument } from '../../aos4/runtime'
 import { resolveSelection } from '../../aos4/select'
+import { createAos4ArmyDocument } from '../../aos4/state'
 import { createAos4BuilderViewModel } from '../../aos4/view'
 import { decodeAos4TextRoster } from '../../importers'
 
@@ -204,6 +206,81 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
         .filter(entity => entity.kind === 'warscroll' && selection.selectedIds.includes(entity.id))
         .map(entity => [entity.id, entity.name])
     ).toEqual([['warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a', 'Mancrusher Gargant']])
+  })
+
+  /**
+   * Retiring the regiment must not change who may buy it. Beasts of Chaos and Daughters of Khaine
+   * have no historical content of their own, so their faction entities carry no historical context,
+   * and intersecting that with the regiment's dropped both offers while the other 23 inclusion
+   * factions kept theirs.
+   */
+  it('keeps every Stumblefoot Gargant inclusion faction offering it in the historical overlay (#1757)', () => {
+    const regiment = regimentByName('Stumblefoot Gargant')
+    expect(offeringFactionNames(regiment.id)).toEqual([
+      'Beasts of Chaos',
+      'Blades of Khorne',
+      'Cities of Sigmar',
+      'Daughters of Khaine',
+      'Disciples of Tzeentch',
+      'Flesh-eater Courts',
+      'Fyreslayers',
+      'Gloomspite Gitz',
+      'Hedonites of Slaanesh',
+      'Helsmiths of Hashut',
+      'Idoneth Deepkin',
+      'Ironjawz',
+      'Kharadron Overlords',
+      'Kruleboyz',
+      'Lumineth Realm-lords',
+      'Maggotkin of Nurgle',
+      'Nighthaunt',
+      'Ogor Mawtribes',
+      'Ossiarch Bonereapers',
+      'Seraphon',
+      'Skaven',
+      'Slaves to Darkness',
+      'Soulblight Gravelords',
+      'Stormcast Eternals',
+      'Sylvaneth',
+    ])
+    ;['Beasts of Chaos', 'Daughters of Khaine'].forEach(name => {
+      const faction = factionByName(name)
+      expect(
+        resolveSelection(AOS4_CATALOG, { explicitIds: [faction.id], rulesContextId: seasonal.id })
+          .availableIds,
+        name
+      ).not.toContain(regiment.id)
+      const overlay = { rulesContextId: seasonal.id, allowsHistorical: true }
+      expect(
+        resolveSelection(AOS4_CATALOG, { explicitIds: [faction.id], ...overlay }).availableIds,
+        name
+      ).toContain(regiment.id)
+      const selection = resolveSelection(AOS4_CATALOG, { explicitIds: [faction.id, regiment.id], ...overlay })
+      expect(selection.diagnostics, name).toEqual([])
+      expect(selection.selectedIds, name).toContain('warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a')
+    })
+  })
+
+  /**
+   * The builder offers historical content to every army by owner decision (#1812), so a current
+   * army still sees Stumblefoot Gargant, but only under the "Scourge of Ghyran (2025-26)" header
+   * the historical overlay renders, never among current regiments.
+   */
+  it('offers Stumblefoot Gargant to a current army only as historical content (#1757, #1812)', () => {
+    const ironjawz = factionByName('Ironjawz')
+    const regiment = regimentByName('Stumblefoot Gargant')
+    const builder = createAos4BuilderViewModel(
+      AOS4_CATALOG,
+      createAos4ArmyDocument({
+        ...createDefaultAos4ArmyDocument(),
+        rulesContextId: seasonal.id,
+        explicitSelectionIds: [ironjawz.id],
+      })
+    )
+    expect(builder.options.find(option => option.id === regiment.id)).toEqual(
+      expect.objectContaining({ available: true, selected: false, overlay: 'historical' })
+    )
+    expect(builder.options.find(option => option.id === regiment.id)?.seasonal).toBeUndefined()
   })
 
   /**

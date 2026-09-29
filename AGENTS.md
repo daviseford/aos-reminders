@@ -39,8 +39,10 @@ This is an Age of Sigmar fourth-edition codebase:
   abilities and member warscrolls linked (issue #1858): 76 from the accepted collection pages and
   Krong the Club, whose rules text comes from the pinned BSData Regiments of Renown catalogue while
   its inclusion factions, member, and points come from the official battle-profile row (#1999);
-  Stumblefoot Gargant, which the September 2026 Battle Profiles prints `DELETED`, is offered only
-  in the historical context (#1757)
+  Stumblefoot Gargant, which the September 2026 Battle Profiles prints `DELETED`, is historical
+  content: every one of its 25 inclusion factions still offers it, but only through the historical
+  overlay, which the builder shows every army under its `Scourge of Ghyran (2025-26)` header
+  (#1757, #1812)
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
   historical rules contexts isolate parallel and retired records; the browser defaults to the
   current 2026-27 seasonal context

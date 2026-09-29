@@ -17,7 +17,7 @@ four discrepancies the 2026-09-29 BSData review found against the pinned Septemb
 Battle-profile extraction now drops text the core Battle Profiles strikes through, so 33
 reinforcement notes, the seasonal Saurus Scar-Veteran on Aggradon's Favoured Spawning note, and the
 page 59 `DELETED` Stumblefoot Gargant row no longer ship as live. Stumblefoot Gargant moves to the
-historical context, and the Scourge of Aqshy Vengorian Lord's Frenzied Surge drops the `RAMPAGE`
+historical context (still offered by all 25 inclusion factions, through the historical overlay), and the Scourge of Aqshy Vengorian Lord's Frenzied Surge drops the `RAMPAGE`
 keyword the Rules Updates (page 33) and Scourge of Aqshy Soulblight Gravelords pack (page 3)
 rewrite omits. No artifact changed: the revision keeps `accepted-2026-09-25.json`. Its automated
 review is complete:
@@ -42,8 +42,18 @@ pages still print them), less four older entries for the same rows. The source i
 snapshot at 15:18:37Z (166 downloads, 7 explicit non-material), the Wahapedia navigation and exports
 at 15:19:08Z (87 sources, 0 inaccessible), and the pinned BSData `8836d9f9` `Regiments of
 Renown.cat` at 15:21:30Z. Every accepted artifact matched, so no newer official publication
-supersedes the pinned September documents. The certification is `aos4-corpus-2026-09-29-machine-r1`.
-Its `--reuse-certification` offer of `aos4-corpus-2026-09-25-machine-r2` carried nothing forward
+supersedes the pinned September documents. The certification is `aos4-corpus-2026-09-29-machine-r2`,
+a re-campaign of the same revision after PR #2025's first review found the regiment's offer edges
+intersected with each faction's own contexts, which dropped Beasts of Chaos and Daughters of Khaine
+(neither has historical content of its own). The generator now offers a Regiment of Renown in the
+historical overlay from every inclusion faction fielded in current play, which adds exactly those two
+edges; the review inputs, manifest and identities are unchanged. It binds the same schema 2 inventory
+as `machine-r1`, byte for byte, rebuilt from the same-day observation files. Its
+`--reuse-certification` offer of `machine-r1` reused 42,630 unchanged pairs and evaluated 42 fresh
+(campaign 17:41:58Z, certified 17:42:27Z), with 0 findings and 0 cannot-verify. Its reuse overlay
+references `machine-r1`, so that directory stays in the live chain.
+
+`aos4-corpus-2026-09-29-machine-r1` preceded it. Its `--reuse-certification` offer of `aos4-corpus-2026-09-25-machine-r2` carried nothing forward
 (the revision re-key invalidates every pair), so all 42,672 pairs were evaluated fresh (campaign
 15:27:00Z, certified 15:27:45Z), with 0 findings and 0 cannot-verify. The new remove-only
 `abilityKeywordOverrides` entry sits in the `high-risk:official-abilityKeywordOverrides` cohort and

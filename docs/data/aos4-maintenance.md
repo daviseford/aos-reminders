@@ -759,7 +759,11 @@ clears the Wahapedia `noReinforced` flag, which still printed it. Stumblefoot Ga
 regiment abilities move to the historical context through reviewed `contextOverrides` citing
 Battle Profiles page 59 and the deleted Rules Updates page 31 erratum. A regiment's membership edge
 now takes the regiment's own contexts, so the historical overlay still brings its Mancrusher
-Gargant. Frenzied Surge loses `RAMPAGE` through the first remove-only `abilityKeywordOverrides`
+Gargant, and a faction's offer of a regiment keeps the historical context when the faction is fielded
+in current play even if it has no historical content of its own, so all 25 inclusion factions still
+offer it (Beasts of Chaos and Daughters of Khaine lost the offer to a plain context intersection
+until PR #2025's review). A saved, cloud or shared army that already held the regiment re-derives
+its overlay flags on load, so its reminders survive the move. Frenzied Surge loses `RAMPAGE` through the first remove-only `abilityKeywordOverrides`
 entry; the machine review accepts a removal only when the cited official text reprints the ability
 under its heading with no `Keywords` strip naming it. A `contextOverrides` entry that targets no
 accepted record now fails generation. The Rules Updates also strikes its Sons of Behemat battle

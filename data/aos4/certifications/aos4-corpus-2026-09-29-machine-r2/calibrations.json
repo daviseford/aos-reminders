@@ -1,0 +1,40 @@
+[
+  {
+    "calibratedAt": "2026-09-29T17:42:02.000Z",
+    "correctCannotVerifyCases": 1,
+    "evidence": {
+      "assignmentId": "review-assignment:sha256:0dfd8feefeba09bb251e8527f8533a1a8f0b5fa44f6b331793c8ef7fbdd19802",
+      "blindResultsChecksum": "f558e4f47afd233b76b960b72023e646e9dee5e5d9d49db6fbbc6bf212037add",
+      "comparisonResultsChecksum": "678abbb02c3c3d69b57df9155a05c23f92281d07f15721e4ac43d8e386301210",
+      "controlPairKeysChecksum": "6be1a8c8a2f31eae566d26482d4029d4d28def9caff20c71829c66f7be3b3a21",
+      "receiptChecksum": "ca6fd40167b69dc37dc4b8c100d5add1d49688e44dd7b4f493b83d2b3be12195"
+    },
+    "foundSeededBlockerMajorDefects": 1,
+    "insufficientEvidenceCases": 1,
+    "passed": true,
+    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
+    "rubricVersion": "aos4-rubric/v2",
+    "schemaVersion": 1,
+    "seededBlockerMajorDefects": 1,
+    "unsupportedExpectedValues": 0
+  },
+  {
+    "calibratedAt": "2026-09-29T15:27:04.000Z",
+    "correctCannotVerifyCases": 1,
+    "evidence": {
+      "assignmentId": "review-assignment:sha256:39fda4765bb02092c747f21d78d987e19457aa43b44c5f3ac81001dc9f8c3d98",
+      "blindResultsChecksum": "ba26d7ea0b714e150154781134a448a5d51965bedeaabce1ec70c62258a7e2e2",
+      "comparisonResultsChecksum": "70ec1bacaa01c616b93f795729e650bf3deb781eadbcb25619cbc5b41823e1cf",
+      "controlPairKeysChecksum": "6be1a8c8a2f31eae566d26482d4029d4d28def9caff20c71829c66f7be3b3a21",
+      "receiptChecksum": "21a8d7dbdf88d3b35e6b06d95b0d30d462077cc212287aa0d0d1ba168c2115ea"
+    },
+    "foundSeededBlockerMajorDefects": 1,
+    "insufficientEvidenceCases": 1,
+    "passed": true,
+    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
+    "rubricVersion": "aos4-rubric/v2",
+    "schemaVersion": 1,
+    "seededBlockerMajorDefects": 1,
+    "unsupportedExpectedValues": 0
+  }
+]
