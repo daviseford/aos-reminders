@@ -12,7 +12,54 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-25` (issue #1999): the Sons of Behemat
+The current revision is `aos4-corpus-2026-09-29` (issue #1757): the official-first correction of
+four discrepancies the 2026-09-29 BSData review found against the pinned September 2026 documents.
+Battle-profile extraction now drops text the core Battle Profiles strikes through, so 33
+reinforcement notes, the seasonal Saurus Scar-Veteran on Aggradon's Favoured Spawning note, and the
+page 59 `DELETED` Stumblefoot Gargant row no longer ship as live. Stumblefoot Gargant moves to the
+historical context (still offered by all 25 inclusion factions, through the historical overlay), and the Scourge of Aqshy Vengorian Lord's Frenzied Surge drops the `RAMPAGE`
+keyword the Rules Updates (page 33) and Scourge of Aqshy Soulblight Gravelords pack (page 3)
+rewrite omits. No artifact changed: the revision keeps `accepted-2026-09-25.json`. Its automated
+review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 245/245 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 658/658 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,236/20,236 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,672/42,672 |
+| Independent outcomes | 85,344 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 129/129 |
+| Populated high-risk cohorts | 20/20 |
+
+The 30 added discrepancies are the 34 secondary notes the official rows now strike (the Wahapedia
+pages still print them), less four older entries for the same rows. The source inventory is a schema
+2 inventory of fresh observations taken for this intake on 2026-09-29: a `discover-official`
+snapshot at 15:18:37Z (166 downloads, 7 explicit non-material), the Wahapedia navigation and exports
+at 15:19:08Z (87 sources, 0 inaccessible), and the pinned BSData `8836d9f9` `Regiments of
+Renown.cat` at 15:21:30Z. Every accepted artifact matched, so no newer official publication
+supersedes the pinned September documents. The certification is `aos4-corpus-2026-09-29-machine-r2`,
+a re-campaign of the same revision after PR #2025's first review found the regiment's offer edges
+intersected with each faction's own contexts, which dropped Beasts of Chaos and Daughters of Khaine
+(neither has historical content of its own). The generator now offers a Regiment of Renown in the
+historical overlay from every inclusion faction fielded in current play, which adds exactly those two
+edges; the review inputs, manifest and identities are unchanged. It binds the same schema 2 inventory
+as `machine-r1`, byte for byte, rebuilt from the same-day observation files. Its
+`--reuse-certification` offer of `machine-r1` reused 42,630 unchanged pairs and evaluated 42 fresh
+(campaign 17:41:58Z, certified 17:42:27Z), with 0 findings and 0 cannot-verify. Its reuse overlay
+references `machine-r1`, so that directory stays in the live chain.
+
+`aos4-corpus-2026-09-29-machine-r1` preceded it. Its `--reuse-certification` offer of `aos4-corpus-2026-09-25-machine-r2` carried nothing forward
+(the revision re-key invalidates every pair), so all 42,672 pairs were evaluated fresh (campaign
+15:27:00Z, certified 15:27:45Z), with 0 findings and 0 cannot-verify. The new remove-only
+`abilityKeywordOverrides` entry sits in the `high-risk:official-abilityKeywordOverrides` cohort and
+passed the rewrite-omits-keyword evidence check.
+
+The previous revision was `aos4-corpus-2026-09-25` (issue #1999): the Sons of Behemat
 provisional-to-verified swap. Wahapedia republished the Sons of Behemat faction and warscroll
 collection pages with the September 2026 battletome, so those two pages are re-pinned and the
 battletome ships from them; the three BSData `gargants`-branch catalogues retire, and Lore of
@@ -44,7 +91,7 @@ first binding was incomplete: the discovery snapshot listed the core Battle Prof
 URL, which is how the 2026-09-25 re-upload was found, and the re-pin above made every accepted
 artifact match.
 
-The current certification is `aos4-corpus-2026-09-25-machine-r2`, a re-campaign of the same
+Its certification was `aos4-corpus-2026-09-25-machine-r2`, a re-campaign of the same
 revision after PR #2023's first review changed its review inputs and identities (the accepted
 manifest and acquisition did not change). The review now carries five add-only
 `abilityKeywordOverrides` (RAMPAGE on the King Brodd’s Stomp Destructive Impulse traits, Armies of

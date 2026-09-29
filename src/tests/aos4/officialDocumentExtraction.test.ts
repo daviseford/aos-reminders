@@ -5,12 +5,15 @@ import {
   createGamesWorkshopSourceArtifact,
   extractGamesWorkshopFacts,
   extractGamesWorkshopPdfText,
+  horizontalRulesFromOperatorList,
+  struckTextItems,
   type ArtifactManifestEntry,
   type GamesWorkshopDownload,
   type PdfDocumentLoader,
   type PdfTextItem,
 } from '../../aos4/data'
 import { rulesContextId } from '../../aos4/domain'
+import { OPS } from 'pdfjs-dist/legacy/build/pdf.mjs'
 
 const download: GamesWorkshopDownload = {
   externalId: 'synthetic-official-document',
@@ -249,5 +252,65 @@ describe('Games Workshop official PDF extraction', () => {
     expect(result.diagnostics).toContainEqual(
       expect.objectContaining({ code: 'fact-not-found', severity: 'warning' })
     )
+  })
+})
+
+describe('official PDF strikethrough detection (#1757)', () => {
+  it('reads stroked horizontal segments in page space through save, transform, and form XObjects', () => {
+    const operators: Array<[number, unknown]> = [
+      [
+        OPS.paintFormXObjectBegin,
+        [
+          [1, 0, 0, 1, 0, 10],
+          [0, 0, 595, 842],
+        ],
+      ],
+      [OPS.setLineWidth, [0.4]],
+      [OPS.save, null],
+      [OPS.transform, [1, 0, 0, 1, 401.6693, 318.4276]],
+      // The September 2026 Battle Profiles strikes a note with exactly this path.
+      [OPS.constructPath, [OPS.stroke, [new Float32Array([0, 0, 0, 1, 101.5, 0])], null]],
+      [OPS.restore, null],
+      // Filled table cells, closed rectangles, and vertical rules are not strikethrough.
+      [OPS.constructPath, [OPS.fill, [new Float32Array([0, 34, 489, 1, 561, 489])], null]],
+      [OPS.constructPath, [OPS.stroke, [new Float32Array([0, 34, 489, 1, 561, 489, 1, 561, 677, 4])], null]],
+      [OPS.constructPath, [OPS.stroke, [new Float32Array([0, 100, 100, 1, 100, 200])], null]],
+      [OPS.paintFormXObjectEnd, []],
+      [OPS.constructPath, [OPS.stroke, [new Float32Array([0, 10, 20, 1, 30, 20])], null]],
+    ]
+    const rules = horizontalRulesFromOperatorList({
+      fnArray: operators.map(([operator]) => operator),
+      argsArray: operators.map(([, args]) => args),
+    })
+
+    expect(rules).toHaveLength(2)
+    expect(rules[0].x1).toBeCloseTo(401.6693, 3)
+    expect(rules[0].x2).toBeCloseTo(503.1693, 3)
+    expect(rules[0].y).toBeCloseTo(328.4276, 3)
+    expect(rules[0].lineWidth).toBeCloseTo(0.4, 5)
+    // Restoring past the form XObject drops its matrix and line width again.
+    expect(rules[1]).toEqual({ x1: 10, x2: 30, y: 20, lineWidth: 1 })
+  })
+
+  it('strikes only the text a thin midline rule covers', () => {
+    const note = { str: 'This unit cannot be reinforced.', x: 401.7, y: 315.8, width: 101.5, height: 8 }
+    const neighbour = { str: '40mm [1],', x: 516, y: 315.8, width: 40, height: 8 }
+    const spawning = [
+      { str: 'regiment as a', x: 401.1, y: 355.6, width: 43.5, height: 8 },
+      { str: 'Favoured', x: 446.4, y: 355.6, width: 30.3, height: 8 },
+    ]
+    const items = [note, neighbour, ...spawning]
+    const struck = (rule: { x1: number; x2: number; y: number; lineWidth: number }) =>
+      Array.from(struckTextItems(items, [rule])).map(item => item.str)
+
+    expect(struck({ x1: 401.7, x2: 503.2, y: 318.4, lineWidth: 0.4 })).toEqual([note.str])
+    // One rule may strike several items on a line.
+    expect(struck({ x1: 401.1, x2: 478.5, y: 358.3, lineWidth: 0.4 })).toEqual(['regiment as a', 'Favoured'])
+    // A thick bar, a table rule spanning the whole row, an underline, and a rule over part of an
+    // item are not strikethrough.
+    expect(struck({ x1: 401.7, x2: 503.2, y: 318.4, lineWidth: 11 })).toEqual([])
+    expect(struck({ x1: 34, x2: 561, y: 318.4, lineWidth: 0.5 })).toEqual([])
+    expect(struck({ x1: 401.7, x2: 503.2, y: 315.3, lineWidth: 0.4 })).toEqual([])
+    expect(struck({ x1: 401.7, x2: 450, y: 318.4, lineWidth: 0.4 })).toEqual([])
   })
 })

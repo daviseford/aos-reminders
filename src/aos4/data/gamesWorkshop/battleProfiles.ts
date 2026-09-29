@@ -1,6 +1,12 @@
 import { createHash } from 'node:crypto'
 import { sourceRecordId, type SourceRecordId } from '../../domain'
-import { createPdfJsDocumentLoader, type PdfDocumentLoader, type PdfTextItem } from './pdfText'
+import {
+  createPdfJsDocumentLoader,
+  struckTextItems,
+  type PdfDocumentHandle,
+  type PdfDocumentLoader,
+  type PdfTextItem,
+} from './pdfText'
 import type { GamesWorkshopDiagnostic } from './records'
 
 export type GamesWorkshopBattleProfileContext = 'standard' | 'seasonal' | 'legends'
@@ -19,6 +25,11 @@ export interface GamesWorkshopUnitProfileFact {
   relevantKeywords: string[]
   notes: string[]
   baseSizes: string[]
+  /**
+   * Notes the row prints struck through: the official edition removed them. Present only when the
+   * row has one, so a fact without struck text keeps its checksum.
+   */
+  struckNotes?: string[]
   sourceRecordId: SourceRecordId
   factChecksum: string
 }
@@ -64,6 +75,8 @@ export interface GamesWorkshopBattleProfileExtractionResult {
 interface PositionedItem extends PdfTextItem {
   x: number
   y: number
+  /** The page draws a strikethrough rule through this item: removed text, never live. */
+  struck?: boolean
 }
 
 interface NumericRow {
@@ -289,6 +302,57 @@ const positioned = (items: PdfTextItem[]): PositionedItem[] =>
       : []
   )
 
+/**
+ * Reads a page's positioned text and marks every item a strikethrough rule crosses. Facts are
+ * built from live items only; struck items stay on the page so a struck note can be reported as
+ * removed and a `DELETED` row can be checked, rather than silently vanishing.
+ */
+const readPage = async (document: PdfDocumentHandle, pageNumber: number): Promise<PositionedItem[]> => {
+  const page = await document.getPage(pageNumber)
+  const items = positioned(await page.getTextItems())
+  const struck = struckTextItems(items, (await page.getHorizontalRules?.()) ?? [])
+  return items.map(item => (struck.has(item) ? { ...item, struck: true } : item))
+}
+
+const live = (items: PositionedItem[]): PositionedItem[] => items.filter(item => !item.struck)
+
+const DELETED_MARKER = /^DELETED$/i
+
+/**
+ * Struck text is only safe to drop where its meaning is unambiguous. A struck row value (unit
+ * size, points) must sit beside a printed `DELETED` marker, the September 2026 notation for a
+ * removed row, and every `DELETED` marker must sit beside struck text; anything else is a layout
+ * the extractor has not been reviewed against and fails closed.
+ */
+const strikethroughDiagnostics = (items: PositionedItem[], page: number): GamesWorkshopDiagnostic[] => {
+  const markers = items.filter(item => !item.struck && DELETED_MARKER.test(item.str.trim()))
+  const struck = items.filter(item => item.struck)
+  const diagnostics: GamesWorkshopDiagnostic[] = []
+  struck
+    .filter(item => item.x < 310 && leadingIntegerAt(item.str) !== undefined)
+    .forEach(item => {
+      if (!markers.some(marker => Math.abs(marker.y - item.y) <= 15)) {
+        diagnostics.push({
+          code: 'ambiguous-layout',
+          severity: 'error',
+          message: `Battle Profiles page ${page} strikes row value "${item.str.trim()}" without a DELETED marker`,
+          page,
+        })
+      }
+    })
+  markers.forEach(marker => {
+    if (!struck.some(item => Math.abs(item.y - marker.y) <= 15)) {
+      diagnostics.push({
+        code: 'ambiguous-layout',
+        severity: 'error',
+        message: `Battle Profiles page ${page} prints a DELETED marker beside no struck text`,
+        page,
+      })
+    }
+  })
+  return diagnostics
+}
+
 const nearestRowItems = (
   items: PositionedItem[],
   rows: NumericRow[],
@@ -490,12 +554,14 @@ const sectionForRow = (items: PositionedItem[], row: NumericRow): string => {
 }
 
 const extractUnitFacts = (
-  items: PositionedItem[],
+  pageItems: PositionedItem[],
   page: number,
   checksum: string,
   faction: string,
   legends = false
 ): GamesWorkshopUnitProfileFact[] => {
+  const struck = pageItems.filter(item => item.struck)
+  const items = live(pageItems)
   const rows = unitRows(items)
 
   return rows.flatMap((row, rowIndex) => {
@@ -519,6 +585,13 @@ const extractUnitFacts = (
     const baseSizes = cleanBaseSizeText(
       withoutColumnHeader(textValue(baseSizeItemsForRow(items, rows, rowIndex)), /^BASE SIZE\s*/i)
     )
+    // A struck note can sit a few points left of the notes column and read as keyword-column bleed
+    // (Warhammer Legends page 70 prints its notes at x 398.8); keywords are never struck, so the
+    // struck cell spans both columns.
+    const struckNotes = withoutColumnHeader(
+      textValue(centeredWrappedCellItemsForRow(struck, rows, rowIndex, 250, 510)),
+      /^NOTES\s*/i
+    )
     const seasonal =
       /^Scourge of Aqshy\b/i.test(name) || /\bGeneral.s Handbook 20\d{2}[–-]\d{2}\b/i.test(splitColumns.notes)
     const fact = {
@@ -536,6 +609,7 @@ const extractUnitFacts = (
       relevantKeywords: section === 'HEROES' ? [] : listValue(splitColumns.relevantKeywords),
       notes: splitColumns.notes ? [splitColumns.notes] : [],
       baseSizes: baseSizes ? listValue(baseSizes) : [],
+      ...(struckNotes ? { struckNotes: [struckNotes] } : {}),
       sourceRecordId: sourceId(checksum, page),
     }
     return [withChecksum(fact)]
@@ -552,11 +626,12 @@ const rosterRows = (items: PositionedItem[]): NumericRow[] =>
     .sort((left, right) => right.y - left.y)
 
 const extractRosterOptionFacts = (
-  items: PositionedItem[],
+  pageItems: PositionedItem[],
   page: number,
   checksum: string,
   faction: string
 ): GamesWorkshopRosterOptionFact[] => {
+  const items = live(pageItems)
   const rows = rosterRows(items)
   return rows.flatMap((row, rowIndex) => {
     const optionType = withoutColumnHeader(
@@ -592,10 +667,11 @@ const extractRosterOptionFacts = (
 }
 
 const extractManifestationFacts = (
-  items: PositionedItem[],
+  pageItems: PositionedItem[],
   page: number,
   checksum: string
 ): GamesWorkshopRosterOptionFact[] => {
+  const items = live(pageItems)
   const rows = rosterRows(items)
   return rows.flatMap((row, rowIndex) => {
     const name = cleanName(
@@ -638,10 +714,11 @@ const GRAND_ALLIANCE_BAND_PREFIX = new RegExp(
 )
 
 const extractRegimentFacts = (
-  items: PositionedItem[],
+  pageItems: PositionedItem[],
   page: number,
   checksum: string
 ): GamesWorkshopRegimentOfRenownFact[] => {
+  const items = live(pageItems)
   const rows = regimentRows(items)
   return rows.flatMap((row, rowIndex) => {
     // A grand-alliance band header (CHAOS on main-document page 61, DESTRUCTION on the
@@ -745,7 +822,7 @@ const extract = async (
     }
     const facts: GamesWorkshopBattleProfileFact[] = []
     for (let page = 3; page <= document.numPages; page += 1) {
-      const items = positioned(await (await document.getPage(page)).getTextItems())
+      const items = await readPage(document, page)
       if (!items.length) {
         diagnostics.push({
           code: 'ambiguous-layout',
@@ -765,6 +842,7 @@ const extract = async (
         })
         continue
       }
+      diagnostics.push(...strikethroughDiagnostics(items, page))
       sections.forEach(({ section, items: sectionItems }) => {
         const sectionFacts = extractSectionFacts(section, sectionItems, page, checksum)
         facts.push(...sectionFacts)
@@ -839,9 +917,14 @@ export const extractGamesWorkshopBattleProfileSupplement = async (
           ],
         }
       }
-      const pageOne = positioned(await (await document.getPage(1)).getTextItems())
-      const pageTwo = positioned(await (await document.getPage(2)).getTextItems())
-      const pageThree = positioned(await (await document.getPage(3)).getTextItems())
+      const pageOne = await readPage(document, 1)
+      const pageTwo = await readPage(document, 2)
+      const pageThree = await readPage(document, 3)
+      diagnostics.push(
+        ...strikethroughDiagnostics(pageOne, 1),
+        ...strikethroughDiagnostics(pageTwo, 2),
+        ...strikethroughDiagnostics(pageThree, 3)
+      )
       if (!pageOne.length || !pageTwo.length || !pageThree.length) {
         diagnostics.push({
           code: 'ambiguous-layout',

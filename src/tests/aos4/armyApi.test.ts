@@ -158,7 +158,10 @@ describe('AoS 4 army API client', () => {
 
     const listFetcher = vi.fn().mockResolvedValue(jsonResponse([remoteArmy]))
     const armies = await createArmyApi('https://army.example', listFetcher).listArmies('token')
-    expect(armies).toEqual([remoteArmy])
+    // Kept, and its overlay flag re-derived from the selections the way the builder derives it, so
+    // the stranded warscroll's reminders come back instead of waiting for an unrelated edit (#1757).
+    const derivedDocument = { ...staleDocument, allowsLegends: true }
+    expect(armies).toEqual([{ ...remoteArmy, document: derivedDocument }])
 
     const saveFetcher = vi
       .fn()
@@ -166,7 +169,7 @@ describe('AoS 4 army API client', () => {
         jsonResponse({ id: 'cloud-stale', createdAt: 1, updatedAt: 1, document: staleDocument }, 201)
       )
     const saved = await createArmyApi('https://army.example', saveFetcher).createArmy(staleDocument, 'token')
-    expect(saved.document).toEqual(staleDocument)
+    expect(saved.document).toEqual(derivedDocument)
   })
 
   /*

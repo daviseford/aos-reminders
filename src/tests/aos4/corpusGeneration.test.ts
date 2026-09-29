@@ -630,6 +630,122 @@ describe('AoS 4 corpus generation', () => {
     )
   })
 
+  it('removes an ability keyword an official rewrite drops, and only one the source prints', async () => {
+    const officialChecksum = 'e'.repeat(64)
+    const officialSourceRecordId = sourceRecordId('games-workshop', `${officialChecksum}:page:1`)
+    const reviewedWith = (target: ReturnType<typeof sourceRecordId>, remove: string[]): CorpusReview => ({
+      ...review,
+      officialDocuments: [
+        {
+          title: 'Official keyword fixture',
+          documentKind: 'reference',
+          rulesContextIds: [review.rulesContext.id],
+          artifact: {
+            requestUrl: 'https://assets.warhammer-community.com/keyword-fixture.pdf',
+            finalUrl: 'https://assets.warhammer-community.com/keyword-fixture.pdf',
+            redirectChain: [],
+            retrievedAt: '2026-09-29T12:00:00.000Z',
+            adapterVersion: 'games-workshop-pdf/1',
+            mediaType: 'application/pdf',
+            byteLength: 1,
+            checksum: officialChecksum,
+          },
+          sourceRecords: [{ id: officialSourceRecordId, page: 1, recordChecksum: 'd'.repeat(64) }],
+        },
+      ],
+      abilityKeywordOverrides: [
+        {
+          sourceRecordId: target,
+          remove,
+          reason: 'The official rewrite reprints the ability without the keyword.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    })
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const plain = buildAos4Corpus(decoded, createCorpusIdentityRegistry(decoded.dataset, review), review)
+    const abilityFor = (
+      result: ReturnType<typeof buildAos4Corpus>,
+      source: ReturnType<typeof sourceRecordId>
+    ) =>
+      result.catalog.entities.find(
+        entity =>
+          entity.kind === 'ability' &&
+          entity.sourceRefs.some(reference => reference.sourceRecordId === source)
+      )
+    const keywordsOf = (entity: ReturnType<typeof abilityFor>) =>
+      entity?.kind === 'ability' ? entity.keywords : []
+    const target = decoded.dataset.warscrollAbilities.find(
+      record => keywordsOf(abilityFor(plain, record.meta.sourceRecordId)).length > 0
+    )!
+    const before = abilityFor(plain, target.meta.sourceRecordId)
+    const [removed, ...kept] = keywordsOf(before)
+
+    const reviewed = reviewedWith(target.meta.sourceRecordId, [removed])
+    const result = buildAos4Corpus(decoded, createCorpusIdentityRegistry(decoded.dataset, reviewed), reviewed)
+    const after = abilityFor(result, target.meta.sourceRecordId)
+    expect(result.diagnostics).toEqual([])
+    expect(after).toMatchObject({
+      keywords: kept,
+      sourceRefs: expect.arrayContaining([
+        expect.objectContaining({ sourceRecordId: officialSourceRecordId }),
+      ]),
+    })
+    expect(after?.revision).not.toBe(before?.revision)
+
+    // Remove-only: a keyword the source does not print, a lower-case keyword, or a keyword both
+    // added and removed fails closed, so a page that stops printing the keyword retires the entry.
+    const invalid: CorpusReview[] = [
+      reviewedWith(target.meta.sourceRecordId, ['NOT A PRINTED KEYWORD']),
+      reviewedWith(target.meta.sourceRecordId, [removed.toLowerCase()]),
+      {
+        ...reviewed,
+        abilityKeywordOverrides: reviewed.abilityKeywordOverrides!.map(override => ({
+          ...override,
+          add: [removed],
+        })),
+      },
+    ]
+    invalid.forEach(invalidReview =>
+      expect(
+        buildAos4Corpus(decoded, createCorpusIdentityRegistry(decoded.dataset, invalidReview), invalidReview)
+          .diagnostics
+      ).toContainEqual(
+        expect.objectContaining({ code: 'invalid-review', subject: target.meta.sourceRecordId })
+      )
+    )
+  })
+
+  it('rejects a context override that targets no accepted source record', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const stale = sourceRecordId(
+      'wahapedia',
+      'html:https://wahapedia.ru/aos4/factions/fixture/#datasheet:Gone'
+    )
+    const target = decoded.dataset.warscrolls[0].meta.sourceRecordId
+    const historical = review.additionalRulesContexts?.[0]?.id ?? review.rulesContext.id
+    const withOverrides = (sourceRecordIds: ReturnType<typeof sourceRecordId>[]): CorpusReview => ({
+      ...review,
+      contextOverrides: sourceRecordIds.map(sourceRecordId => ({
+        sourceRecordId,
+        rulesContextIds: [historical],
+        reason: 'Fixture context override.',
+      })),
+    })
+    const diagnosticsFor = (reviewed: CorpusReview) =>
+      buildAos4Corpus(decoded, createCorpusIdentityRegistry(decoded.dataset, reviewed), reviewed).diagnostics
+
+    expect(diagnosticsFor(withOverrides([target]))).not.toContainEqual(
+      expect.objectContaining({ code: 'invalid-review', subject: target })
+    )
+    expect(diagnosticsFor(withOverrides([stale]))).toContainEqual(
+      expect.objectContaining({ code: 'invalid-review', subject: stale })
+    )
+    expect(diagnosticsFor(withOverrides([target, target]))).toContainEqual(
+      expect.objectContaining({ code: 'invalid-review', subject: target })
+    )
+  })
+
   it('rejects official overrides that generation would ignore or apply as no-ops', async () => {
     const officialSourceRecordId = sourceRecordId('games-workshop', `${'e'.repeat(64)}:page:1`)
 

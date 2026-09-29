@@ -75,7 +75,8 @@ const loadDocument = (): { document: Aos4ArmyDocument; unchangedFromStorage: boo
        * the same stored bytes the shell already parsed structurally, canonicalized the same way,
        * with nothing pruned and no context complaint — value-identical to what is on screen.
        */
-      unchangedFromStorage: result.source === 'storage' && result.diagnostics.length === 0,
+      unchangedFromStorage:
+        result.source === 'storage' && result.diagnostics.length === 0 && !result.overlayFlagsDerived,
     }
   } catch {
     return { document: createDefaultAos4ArmyDocument(), unchangedFromStorage: false }

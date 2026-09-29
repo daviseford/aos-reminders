@@ -167,6 +167,63 @@ describe('current Wahapedia HTML reconciliation', () => {
     )
   })
 
+  it('lifts the reinforcement restriction the official row strikes through, and only then (#1757)', () => {
+    const page: WahapediaHtmlWarscrollRecord = {
+      recordKind: 'warscroll',
+      externalId: 'Khainite-Shadowstalkers',
+      name: 'Khainite Shadowstalkers',
+      factionName: 'Stormcast Eternals',
+      sourceTitle: 'Battletome: Stormcast Eternals',
+      sourceUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/Khainite-Shadowstalkers',
+      context: 'standard',
+      characteristics: { move: '6"', save: '5+', control: '1', health: '1' },
+      descriptionHtml: '',
+      keywords: ['ORDER', 'INFANTRY'],
+      unitSize: 9,
+      points: 130,
+      baseSizes: ['40mm [1]', '28.5mm [8]'],
+      regimentOptions: [],
+      notes: ['This unit cannot be reinforced.'],
+      // The secondary page still prints the restriction the September 2026 profiles struck.
+      canBeReinforced: false,
+      weapons: [],
+      abilities: [],
+      meta: htmlMeta('Khainite-Shadowstalkers/warscroll'),
+      artifact,
+    }
+    const fact = (struckNotes?: string[]): GamesWorkshopUnitProfileFact => ({
+      kind: 'unit',
+      key: 'page:8:unit:17',
+      page: 8,
+      row: 17,
+      faction: 'Stormcast Eternals',
+      context: 'standard',
+      name: 'Khainite Shadowstalkers',
+      unitSize: 9,
+      points: 130,
+      regimentOptions: [],
+      relevantKeywords: ['Aelf', 'Infantry'],
+      notes: [],
+      baseSizes: ['40mm [1]', '28.5mm [8]'],
+      ...(struckNotes ? { struckNotes } : {}),
+      sourceRecordId: sourceRecordId('games-workshop', `${'d'.repeat(64)}:page:8`),
+      factChecksum: 'e'.repeat(64),
+    })
+    const merged = (official: GamesWorkshopUnitProfileFact) =>
+      mergeCurrentWahapediaWarscrollPages(emptyDataset(), [page], [official], []).dataset.warscrolls[0]
+
+    expect(merged(fact(['This unit cannot be reinforced.']))).toMatchObject({
+      noReinforced: false,
+      notesHtml: '',
+    })
+    // An official row that is merely silent does not override the secondary restriction.
+    expect(merged(fact())).toMatchObject({ noReinforced: true })
+    // Another struck note says nothing about reinforcement.
+    expect(merged(fact(['This Hero can join an eligible regiment as a Favoured Spawning.']))).toMatchObject({
+      noReinforced: true,
+    })
+  })
+
   it('maps a Legends fact only to the matching retired identity', () => {
     const dataset = emptyDataset()
     dataset.factions.push(

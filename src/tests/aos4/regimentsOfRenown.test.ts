@@ -5,7 +5,9 @@ import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generate
 import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 import { resolveParsedRoster } from '../../aos4/import'
 import { projectReminders } from '../../aos4/reminders'
+import { createDefaultAos4ArmyDocument } from '../../aos4/runtime'
 import { resolveSelection } from '../../aos4/select'
+import { createAos4ArmyDocument } from '../../aos4/state'
 import { createAos4BuilderViewModel } from '../../aos4/view'
 import { decodeAos4TextRoster } from '../../importers'
 
@@ -20,7 +22,7 @@ import { decodeAos4TextRoster } from '../../importers'
  * applied to runtime.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-25.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-29.json')
 
 const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
 const factionByName = (name: string): Faction =>
@@ -147,7 +149,6 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
    * canonical members the regiments carried before that intake.
    */
   it.each([
-    ['Stumblefoot Gargant', 'Mancrusher Gargant', 'warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a'],
     ['Big Drogg Fort-Kicka', 'Gatebreaker Mega-Gargant', 'warscroll:c50102f8-30ae-554e-bfdf-bb69b5309cfa'],
     ['Bundo Whalebiter', 'Kraken-eater Mega-Gargant', 'warscroll:016bb11c-2513-5e75-a59a-77d04a656975'],
     ['One-eyed Grunnock', 'Warstomper Mega-Gargant', 'warscroll:c1ca7743-2b84-5477-a00c-df3e47641b92'],
@@ -178,20 +179,128 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
   )
 
   /**
+   * The September 2026 Battle Profiles prints the Stumblefoot Gargant row DELETED and struck
+   * through (page 59), and the Rules Updates deletes its erratum (page 31), so a reviewed context
+   * override retired it to the historical context (#1757). No current or seasonal army can buy
+   * it; an army that opts into the historical overlay still can, and still gets its gargant.
+   */
+  it('retires Stumblefoot Gargant to the historical context and keeps its member there (#1757, #2015)', () => {
+    const ironjawz = factionByName('Ironjawz')
+    const regiment = regimentByName('Stumblefoot Gargant')
+    const historical = AOS4_CATALOG.rulesContexts.find(context => context.status === 'historical')!
+    expect(regiment.rulesContextIds).toEqual([historical.id])
+    ;[seasonal.id, AOS4_CATALOG.rulesContexts.find(context => context.status === 'current')!.id].forEach(
+      rulesContextId =>
+        expect(
+          resolveSelection(AOS4_CATALOG, { explicitIds: [ironjawz.id], rulesContextId }).availableIds
+        ).not.toContain(regiment.id)
+    )
+    const overlay = { rulesContextId: seasonal.id, allowsHistorical: true }
+    expect(resolveSelection(AOS4_CATALOG, { explicitIds: [ironjawz.id], ...overlay }).availableIds).toContain(
+      regiment.id
+    )
+    const selection = resolveSelection(AOS4_CATALOG, { explicitIds: [ironjawz.id, regiment.id], ...overlay })
+    expect(selection.diagnostics).toEqual([])
+    expect(
+      AOS4_CATALOG.entities
+        .filter(entity => entity.kind === 'warscroll' && selection.selectedIds.includes(entity.id))
+        .map(entity => [entity.id, entity.name])
+    ).toEqual([['warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a', 'Mancrusher Gargant']])
+  })
+
+  /**
+   * Retiring the regiment must not change who may buy it. Beasts of Chaos and Daughters of Khaine
+   * have no historical content of their own, so their faction entities carry no historical context,
+   * and intersecting that with the regiment's dropped both offers while the other 23 inclusion
+   * factions kept theirs.
+   */
+  it('keeps every Stumblefoot Gargant inclusion faction offering it in the historical overlay (#1757)', () => {
+    const regiment = regimentByName('Stumblefoot Gargant')
+    expect(offeringFactionNames(regiment.id)).toEqual([
+      'Beasts of Chaos',
+      'Blades of Khorne',
+      'Cities of Sigmar',
+      'Daughters of Khaine',
+      'Disciples of Tzeentch',
+      'Flesh-eater Courts',
+      'Fyreslayers',
+      'Gloomspite Gitz',
+      'Hedonites of Slaanesh',
+      'Helsmiths of Hashut',
+      'Idoneth Deepkin',
+      'Ironjawz',
+      'Kharadron Overlords',
+      'Kruleboyz',
+      'Lumineth Realm-lords',
+      'Maggotkin of Nurgle',
+      'Nighthaunt',
+      'Ogor Mawtribes',
+      'Ossiarch Bonereapers',
+      'Seraphon',
+      'Skaven',
+      'Slaves to Darkness',
+      'Soulblight Gravelords',
+      'Stormcast Eternals',
+      'Sylvaneth',
+    ])
+    ;['Beasts of Chaos', 'Daughters of Khaine'].forEach(name => {
+      const faction = factionByName(name)
+      expect(
+        resolveSelection(AOS4_CATALOG, { explicitIds: [faction.id], rulesContextId: seasonal.id })
+          .availableIds,
+        name
+      ).not.toContain(regiment.id)
+      const overlay = { rulesContextId: seasonal.id, allowsHistorical: true }
+      expect(
+        resolveSelection(AOS4_CATALOG, { explicitIds: [faction.id], ...overlay }).availableIds,
+        name
+      ).toContain(regiment.id)
+      const selection = resolveSelection(AOS4_CATALOG, { explicitIds: [faction.id, regiment.id], ...overlay })
+      expect(selection.diagnostics, name).toEqual([])
+      expect(selection.selectedIds, name).toContain('warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a')
+    })
+  })
+
+  /**
+   * The builder offers historical content to every army by owner decision (#1812), so a current
+   * army still sees Stumblefoot Gargant, but only under the "Scourge of Ghyran (2025-26)" header
+   * the historical overlay renders, never among current regiments.
+   */
+  it('offers Stumblefoot Gargant to a current army only as historical content (#1757, #1812)', () => {
+    const ironjawz = factionByName('Ironjawz')
+    const regiment = regimentByName('Stumblefoot Gargant')
+    const builder = createAos4BuilderViewModel(
+      AOS4_CATALOG,
+      createAos4ArmyDocument({
+        ...createDefaultAos4ArmyDocument(),
+        rulesContextId: seasonal.id,
+        explicitSelectionIds: [ironjawz.id],
+      })
+    )
+    expect(builder.options.find(option => option.id === regiment.id)).toEqual(
+      expect.objectContaining({ available: true, selected: false, overlay: 'historical' })
+    )
+    expect(builder.options.find(option => option.id === regiment.id)?.seasonal).toBeUndefined()
+  })
+
+  /**
    * Imported rosters reach the member two ways. The official app lists it on its own line inside
    * the bundle, which resolves across factions even without the regiment's edge; Listbot writes
    * only the regiment's unit line, so the member arrives solely through the `includes` edge that
    * issue #2015 lost.
    */
-  describe('importing an Ironjawz roster that buys Stumblefoot Gargant (issue #2015)', () => {
-    const mancrusherId = 'warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a'
-    const importedWarscrollIds = (text: string) => {
+  describe('importing an Ironjawz roster that buys Bundo Whalebiter (issue #2015)', () => {
+    const krakenEaterId = 'warscroll:016bb11c-2513-5e75-a59a-77d04a656975'
+    const importPreview = (text: string) => {
       const { parsedRoster, diagnostics } = decodeAos4TextRoster(text)
       expect(diagnostics).toEqual([])
-      const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+      return resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
         defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
         createDocumentId: () => 'army:ror-member-import',
       })
+    }
+    const importedWarscrollIds = (text: string) => {
+      const preview = importPreview(text)
       expect(preview.diagnostics).toEqual([])
       const document = preview.proposedDocument!
       const selection = resolveSelection(AOS4_CATALOG, {
@@ -211,33 +320,61 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
         '',
         "General's Handbook 2026-27",
         '',
-        '- 1 x Stumblefoot Gargant (140)',
+        '- 1 x Bundo Whalebiter (360)',
         '',
-        '140/2000pts',
+        '360/2000pts',
         '1 drop',
         '',
         'Generated by Listbot 4.0',
         '',
       ].join('\n')
-      expect(importedWarscrollIds(listbot)).toEqual([mancrusherId])
+      expect(importedWarscrollIds(listbot)).toEqual([krakenEaterId])
     })
 
     it('brings the current member from an official app bundle with its member line', () => {
       const officialApp = [
-        'Member import 140/2000 pts',
+        'Member import 360/2000 pts',
         '-----',
         'Orruk Warclans | Ironjawz | Ironfist',
         "General's Handbook 2026-27",
         '-----',
         'Regiments of Renown',
-        'Stumblefoot Gargant (140)',
-        'Mancrusher Gargant',
+        'Bundo Whalebiter (360)',
+        'Kraken-eater Mega-Gargant',
         '-----',
         'Created with Warhammer Age of Sigmar: The App',
         'App: v1.36.0 (1) | Data: v466',
         '',
       ].join('\n')
-      expect(importedWarscrollIds(officialApp)).toEqual([mancrusherId])
+      expect(importedWarscrollIds(officialApp)).toEqual([krakenEaterId])
+    })
+
+    it('reports a Stumblefoot Gargant line instead of importing the retired regiment (#1757)', () => {
+      const preview = importPreview(
+        [
+          'Ironjawz',
+          'Ironfist',
+          '',
+          "General's Handbook 2026-27",
+          '',
+          '- 1 x Stumblefoot Gargant (140)',
+          '',
+          '140/2000pts',
+          '1 drop',
+          '',
+          'Generated by Listbot 4.0',
+          '',
+        ].join('\n')
+      )
+      expect(preview.diagnostics).toEqual([
+        expect.objectContaining({
+          code: 'unknown-selection',
+          message: expect.stringContaining('Stumblefoot Gargant'),
+        }),
+      ])
+      expect(preview.proposedDocument!.explicitSelectionIds).not.toContain(
+        regimentByName('Stumblefoot Gargant').id
+      )
     })
   })
 
@@ -270,9 +407,12 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
       records: Array<{ disposition: string; fact: { kind: string; name: string } }>
     }
     const rows = catalog.records.filter(record => record.fact.kind === 'regiment-of-renown')
-    expect(rows).toHaveLength(75)
+    // From corpus 2026-09-29 (#1757) the page 59 Stumblefoot Gargant row, printed DELETED and
+    // struck through, is no longer extracted as a fact.
+    expect(rows).toHaveLength(74)
+    expect(rows.map(record => record.fact.name)).not.toContain('Stumblefoot Gargant')
     const applied = rows.filter(record => record.disposition === 'applied-to-runtime')
-    expect(applied).toHaveLength(75)
+    expect(applied).toHaveLength(74)
     // From corpus 2026-09-23 (#1757) the September 2026 core Battle Profiles is the single
     // battle-profile source: it re-publishes the four Sons of Behemat regiment rows and Krong the
     // Club, so nothing is superseded, and the July 2026 Ogor Mawtribes supplement's two regiments

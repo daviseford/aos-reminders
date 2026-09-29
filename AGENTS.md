@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-25` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-29` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -38,7 +38,11 @@ This is an Age of Sigmar fourth-edition codebase:
   `regimentsOfRenown` input), offered by exactly their inclusion factions with their regiment
   abilities and member warscrolls linked (issue #1858): 76 from the accepted collection pages and
   Krong the Club, whose rules text comes from the pinned BSData Regiments of Renown catalogue while
-  its inclusion factions, member, and points come from the official battle-profile row (#1999)
+  its inclusion factions, member, and points come from the official battle-profile row (#1999);
+  Stumblefoot Gargant, which the September 2026 Battle Profiles prints `DELETED`, is historical
+  content: every one of its 25 inclusion factions still offers it, but only through the historical
+  overlay, which the builder shows every army under its `Scourge of Ghyran (2025-26)` header
+  (#1757, #1812)
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
   historical rules contexts isolate parallel and retired records; the browser defaults to the
   current 2026-27 seasonal context
@@ -47,11 +51,12 @@ This is an Age of Sigmar fourth-edition codebase:
   datasheets the July 2026 battletome rewrites replaced, issues #1850 and #1880) so none can leak
   into runtime; the Sons of Behemat battletome ships natively from the Wahapedia pages re-pinned
   in corpus 2026-09-25 (issue #1999)
-- all 1,313 extracted official battle-profile facts have an explicit disposition: 1,017 apply to
+- all 1,312 extracted official battle-profile facts have an explicit disposition: 1,016 apply to
   runtime, 1 remains a profile-only gap (The Emberwatch, a Legends-context Underworlds warband with
   a reviewed deviation under the official-first intake gate, issue #1820), and 295 remain
   structured references; the September 2026 core Battle Profiles is the single battle-profile
-  source, so nothing is superseded
+  source, so nothing is superseded, and text it strikes through (33 reinforcement notes, a Favoured
+  Spawning note, the `DELETED` Stumblefoot Gargant regiment) is not extracted as live (#1757)
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
 
@@ -110,7 +115,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-09-25` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-09-29` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.

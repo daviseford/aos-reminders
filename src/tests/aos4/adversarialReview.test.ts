@@ -862,6 +862,87 @@ describe('AoS 4 deterministic adversarial reviewer', () => {
     })
   })
 
+  const keywordRemovePair = (excerpt: string, keywords: string[] = []) =>
+    secondaryPair(
+      'warscroll-ability',
+      {
+        name: 'FRENZIED SURGE',
+        conditionHtml: 'Once Per Turn (Army), Any Charge Phase',
+        descriptionHtml: '<b>Effect:</b> This unit can move up to X", where X is your fury level.',
+        keywordsHtml: 'RAMPAGE',
+        isReaction: false,
+      },
+      {
+        kind: 'ability',
+        name: 'FRENZIED SURGE',
+        abilityKind: 'active',
+        keywords,
+        text: { effect: 'This unit can move up to X", where X is your fury level.' },
+        timings: [{ kind: 'active', raw: 'Once Per Turn (Army), Any Charge Phase' }],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'abilityKeywordOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          remove: ['RAMPAGE'],
+          reason: 'The official rewrite prints no Keywords strip.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt,
+      }
+    )
+
+  it('accepts a keyword removal when the official rewrite reprints the ability without it', () => {
+    // September 2026 Rules Updates page 33: the whole ability is reprinted with no Keywords strip,
+    // and the next erratum (which may carry its own strip) is not part of the rewrite.
+    expect(
+      assessAdversarialComparison(
+        keywordRemovePair(
+          'Change ‘Frenzied Surge’ to: FRENZIED SURGE: As the Vengorian Lord tears through the press of combat. ' +
+            'Effect: This unit can move up to X", where X is your fury level. Once Per Turn (Army), Any Charge Phase ' +
+            'NEW FYRESLAYERS, PRAYER LORE Change the declare step of ‘Blazing Impetus’ to: Keywords Rampage'
+        )
+      )
+    ).toMatchObject({ outcome: 'pass', findings: [] })
+  })
+
+  it('rejects a keyword removal the official reprint contradicts or never makes', () => {
+    const evidenceFinding = {
+      outcome: 'finding',
+      findings: expect.arrayContaining([
+        expect.objectContaining({
+          subject: expect.objectContaining({ field: 'official-override.ability-keyword.evidence' }),
+        }),
+      ]),
+    }
+    // The reprint still prints the keyword.
+    expect(
+      assessAdversarialComparison(
+        keywordRemovePair('FRENZIED SURGE: Effect: This unit can move up to X". Keywords Rampage')
+      )
+    ).toMatchObject(evidenceFinding)
+    // The evidence names the ability but never reprints it under its heading.
+    expect(
+      assessAdversarialComparison(
+        keywordRemovePair('Change the timing of ‘Frenzied Surge’ to Any Charge Phase.')
+      )
+    ).toMatchObject(evidenceFinding)
+    // The generated ability still carries the removed keyword.
+    expect(
+      assessAdversarialComparison(
+        keywordRemovePair('FRENZIED SURGE: Effect: This unit can move up to X".', ['RAMPAGE'])
+      )
+    ).toMatchObject({
+      outcome: 'finding',
+      findings: expect.arrayContaining([
+        expect.objectContaining({
+          subject: expect.objectContaining({ field: 'official-override.ability-keyword.destination' }),
+        }),
+      ]),
+    })
+  })
+
   it('rejects keyword-removal evidence assembled from unrelated words', () => {
     const reviewPair = secondaryPair(
       'warscroll-keyword',
