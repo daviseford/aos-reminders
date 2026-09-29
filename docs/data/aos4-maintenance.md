@@ -771,8 +771,34 @@ trait, artefact, Mega-Gargant and Kragnos errata (pages 27-28) and the Stumblefo
 and no accepted override cites any of them. Every other pinned official PDF was scanned with the
 same detector. Its few hits there are timing-bar and box edges, confirmed live in renders, and none
 of those documents feeds battle-profile extraction. The official page-text records keep struck
-text, so their checksums and citations do not move. The baseline stays at `d1f97bc9`: advancing it
-to `17bcc13a` remains a separate owner decision, and no radar dispatch was run.
+text, so their checksums and citations do not move. The baseline stayed at `d1f97bc9` through that
+cycle: advancing it to `17bcc13a` was a separate owner decision, and no radar dispatch was run.
+
+After corpus 2026-09-29 (PR #2025) merged, the owner approved advancing the baseline over the same
+range (#1757, `d1f97bc9` → `17bcc13a`, 2 commits, 93 files, material fingerprint `34348f11`).
+BSData `main` was still `17bcc13a` when this was re-checked on 2026-09-29, and a live report-only
+run showed no Games Workshop or Wahapedia events. Every changed `characteristic` in the range was
+checked again against the shipped runtime. The one accepted pin still reads blob `c4379f8b` at
+`8836d9f9`, so no accepted byte moves. The two timing typos fixed at the observed head are ones
+the runtime's Da Kountin' Krew and Casket of Resurrections already print correctly. The
+2026-09-29 review listed a Scourge of Aqshy Gatebreaker gap, but that entry was out of date.
+`Sons of Behemat - Library.cat` in this range carries BSData's version of the September rewrite:
+`BIG`, Health 25, Control 10, the Fortcrusha Flail ability with its Calamitous Sweep and Crushing
+Blow profiles, the Battle Damaged text, and a `Once Per Battle (Army)` It's Goin' Down. Corpus
+2026-09-25 already ships every one of those values. The other changes are the Blades of Khorne
+Sigil of Doom, Blood-drenched and Scarring Blade text, the Bonesplitterz War Boar `Companion`
+(shipped under Legends), the Slaves to Darkness Oracular Visions, the Lumineth Sanctum of Amyntok,
+the Helsmiths Ashen Smog, and Frenzied Surge losing `RAMPAGE`. The runtime already ships each of
+them. The Gloomspite Wall Crawler and Emberstone Vault changes belong to a custom-hero package and
+to Path to Glory, and the runtime carries neither. BSData's Khainite Shadowstalkers 100 points and
+its Knights of the Crimson Keep copy of Summon Unholy Reliquary are still BSData's own readings.
+Neither is adoptable from the signal, and the runtime keeps the official 130 points and its
+current Crimson Keep lore text. The baseline advanced to `17bcc13a` with no accepted, generated, or
+certification product changed. As on 2026-09-24, this records only that the BSData range was
+reduced. The items still open on #1999 are not cleared by it: the remaining Sons of Behemat
+regiment rewrites the official Regiments of Renown pack prints, Summon Unholy Reliquary, and the other
+recorded September discrepancies. They can enter the runtime only through an official-first
+candidate cycle.
 
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
