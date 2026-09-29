@@ -716,6 +716,36 @@ the September 2026 official publications. The official-source discrepancies the 
 Sons of Behemat regiment rewrites, and the rest listed there) stay open on #1999 and can only
 enter the runtime through an official-first candidate cycle, never from this signal.
 
+The 2026-09-29 review (`d1f97bc9` → `17bcc13a`, #1757, 2 commits, 93 files, material fingerprint
+`34348f11`) held the baseline again. `4ac427f0` (BSData PR #1368) is BSData's implementation of the
+September 2026 core Battle Profiles: 384 cost updates by its own count, the "can now be reinforced" and new
+regiment-role wiring, and newly paid enhancements, all roster-builder plumbing. `17bcc13a` fixes two
+lore and Soulblight typos. The one accepted pin is unaffected: `Regiments of Renown.cat` moved from
+blob `c4379f8b` to `4aa664b7`, but only in a `revision` attribute and two timing typos on Da Kountin'
+Krew (Snatch 'Em Up!) and Casket of Resurrections (Dark Resurrection). Both are Wahapedia-sourced
+regiments whose runtime timing already reads `Once Per Turn (Army)`. `extractBsDataRegimentsOfRenown`
+over both blobs gives identical Krong the Club facts once the artifact-derived `sourceRecordId`,
+`factChecksum` and nested `recordChecksum` values are masked. Every other characteristic change
+(Blades of Khorne, Bonesplitterz, Helsmiths, Lumineth, Slaves to Darkness, Soulblight) is a September
+Rules Updates erratum the runtime already ships. The exceptions are content the runtime does not
+carry (the core Obscuring terrain rule, Path to Glory) and the recorded Scourge of Aqshy Gatebreaker
+gap. BSData's points do not override official ones. The runtime keeps Khainite Shadowstalkers at 130,
+as page 8 of the pinned `952d1251` Battle Profiles prints it, where BSData now says 100.
+
+Checking those claims against the official side surfaced discrepancies that are not recorded on
+#1999. The September core Battle Profiles marks removed text with a strikethrough line, and the
+pdf.js extraction reads struck text as live. The runtime ships 33 struck "This unit cannot be
+reinforced." notes, one struck "can join an eligible regiment as a Favoured Spawning" note (Scourge
+of Aqshy Saurus Scar-Veteran on Aggradon), and the page 59 Stumblefoot Gargant Regiment of Renown
+row printed `DELETED`, which still anchors a selectable content group. The Scourge of Aqshy Vengorian
+Lord's Frenzied Surge also keeps `RAMPAGE`, although the rewrite on Rules Updates page 33 and the
+Scourge of Aqshy Soulblight Gravelords pack page 3 print no keyword. BSData's extension of the
+Summon Unholy Reliquary erratum (Rules Updates page 70, Manifestations of the Grave) to the Knights
+of the Crimson Keep lore copy is BSData's own reading and is not adoptable from the signal. As on
+2026-09-23, the range exposes shipped records the current official text contradicts, so
+`bsData.baselineSha` stays at `d1f97bc9` until the owner approves a disposition or an official-first
+cycle reconciles them. No accepted, generated, or certification product changed.
+
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,
 or updates the beta certification pointer.
