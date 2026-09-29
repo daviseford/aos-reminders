@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
+import SubscriptionRecoveryButton from 'components/helpers/subscriptionRecoveryButton'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import Contact from 'components/page/contact'
 import { Disclaimer } from 'components/page/footer'
@@ -71,7 +72,7 @@ const Subscribe = () => {
         {subscriptionLoading ? (
           <CheckingSubscription />
         ) : subscriptionError ? (
-          <SubscriptionUnavailable error={subscriptionError} onRetry={getSubscription} />
+          <SubscriptionUnavailable error={subscriptionError} />
         ) : (
           <PricingPlans />
         )}
@@ -187,9 +188,7 @@ const CheckingSubscription = () => (
  * Stands in for the plans when the lookup failed. Buying is withheld rather than offered on a guess:
  * the one thing this page must not do is sell a second subscription to someone who already has one.
  */
-const SubscriptionUnavailable = ({ error, onRetry }: { error: string; onRetry: () => void }) => {
-  const { theme } = useTheme()
-
+const SubscriptionUnavailable = ({ error }: { error: string }) => {
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -199,13 +198,7 @@ const SubscriptionUnavailable = ({ error, onRetry }: { error: string; onRetry: (
             <br />
             We have not shown the plans, in case you are already subscribed.
             <br />
-            <button
-              type="button"
-              className={`${theme.alertActionButton} mt-2`}
-              onClick={() => void onRetry()}
-            >
-              Check again
-            </button>
+            <SubscriptionRecoveryButton origin="Subscribe" />
           </div>
         </div>
       </div>

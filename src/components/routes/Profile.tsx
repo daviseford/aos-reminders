@@ -1,4 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
+import SubscriptionRecoveryButton from 'components/helpers/subscriptionRecoveryButton'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
 import { CancelPaypalSubscriptionModal } from 'components/modals/paypal_cancellation_modal'
@@ -190,7 +191,6 @@ const SubscriptionPeriod = () => {
  */
 const SubscriptionInfoBody = () => {
   const {
-    getSubscription,
     hasExpiredGrant,
     isActive,
     isPending,
@@ -215,13 +215,7 @@ const SubscriptionInfoBody = () => {
       <div className="alert alert-warning mb-0 text-center" role="alert">
         {subscriptionError}
         <br />
-        <button
-          type="button"
-          className={`${theme.alertActionButton} mt-2`}
-          onClick={() => void getSubscription()}
-        >
-          Check again
-        </button>
+        <SubscriptionRecoveryButton origin="Profile" />
       </div>
     )
   }
