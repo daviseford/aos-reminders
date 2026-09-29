@@ -1,6 +1,6 @@
 {
   "authority": "games-workshop",
-  "generatedAt": "2026-09-24T03:54:36.000Z",
+  "generatedAt": "2026-09-29T14:20:15.000Z",
   "records": [
     {
       "artifactChecksum": "952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a",
@@ -58,34 +58,9 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
-        "factChecksum": "caecd98d2e17cfc5a5b27580a049c4c717b57f350f1a8475a959f12d59875823",
+        "factChecksum": "be2ad19b8c6c4ed0849d1074c40c295dcbd7afb80e15f752871e52b92b67c297",
         "faction": "Regiments of Renown",
         "key": "page:59:regiment-of-renown:11",
-        "kind": "regiment-of-renown",
-        "name": "Stumblefoot Gargant",
-        "notes": [
-          "This Regiment of Renown can be included in the following factions: Beasts of Chaos, Blades of Khorne, Bonesplitterz, Cities of Sigmar, Daughters of Khaine, Disciples of Tzeentch, Flesh-eater Courts, Fyreslayers, Gloomspite Gitz, Hedonites of Slaanesh, Helsmiths of Hashut, Idoneth Deepkin, Ironjawz, Kharadron Overlords, Kruleboyz, Lumineth Realm-lords, Maggotkin of Nurgle, Nighthaunt, Ogor Mawtribes, Ossiarch Bonereapers, Seraphon, Skaven, Slaves to Darkness, Soulblight Gravelords, Stormcast Eternals, Sylvaneth."
-        ],
-        "page": 59,
-        "points": 140,
-        "row": 11,
-        "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59",
-        "unitSummary": [
-          "• 1 Mancrusher Gargant"
-        ]
-      },
-      "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:regiment-of-renown:page:59:regiment-of-renown:11",
-      "status": "effective"
-    },
-    {
-      "artifactChecksum": "952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a",
-      "disposition": "applied-to-runtime",
-      "documentTitle": "Battle Profiles",
-      "fact": {
-        "context": "standard",
-        "factChecksum": "6344d7c9b96bf4df36c173a50feaf29977bde43d077c95bf26ffb1c04d49be89",
-        "faction": "Regiments of Renown",
-        "key": "page:59:regiment-of-renown:12",
         "kind": "regiment-of-renown",
         "name": "The Lost-Song Spirits",
         "notes": [
@@ -93,13 +68,13 @@
         ],
         "page": 59,
         "points": 370,
-        "row": 12,
+        "row": 11,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59",
         "unitSummary": [
           "• 1 Treelord • 5 Spite-Revenants • 5 Spite-Revenants"
         ]
       },
-      "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:regiment-of-renown:page:59:regiment-of-renown:12",
+      "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:regiment-of-renown:page:59:regiment-of-renown:11",
       "status": "effective"
     },
     {
@@ -8956,14 +8931,12 @@
           "28.5mm [5]"
         ],
         "context": "standard",
-        "factChecksum": "2f88efacfbf4e0eac8983e6e317c44fedf61f1bfc56f81932eaa323ce09f4090",
+        "factChecksum": "a78a9bedfb6d663ffaa3eefb4717d446f707c1b5b5fb153f6329645e9581afb8",
         "faction": "Fyreslayers",
         "key": "page:10:unit:19",
         "kind": "unit",
         "name": "Vulkyn Flameseekers",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 10,
         "points": 160,
         "regimentOptions": [],
@@ -8973,6 +8946,9 @@
         ],
         "row": 19,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A10",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:10:unit:19",
@@ -9017,13 +8993,13 @@
           "28.5mm [5]"
         ],
         "context": "seasonal",
-        "factChecksum": "2f136b0f0c2a07e3ffe98cedce3d98929870feea25edfd145f331d12362f7cf8",
+        "factChecksum": "9c343ac3f9e838cb69492385e32237329f6a31f8731988ee94f2ad4e29144537",
         "faction": "Fyreslayers",
         "key": "page:10:unit:20",
         "kind": "unit",
         "name": "Scourge of Aqshy Vulkyn Flameseekers",
         "notes": [
-          "This unit cannot be reinforced. This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
+          "This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
         ],
         "page": 10,
         "points": 190,
@@ -9034,6 +9010,9 @@
         ],
         "row": 20,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A10",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:10:unit:20",
@@ -11023,14 +11002,12 @@
           "28.5mm [5]"
         ],
         "context": "standard",
-        "factChecksum": "3246aca37f5191b8a9d15f16637773dedfc338c931e8e360cf4cdea8beebb23f",
+        "factChecksum": "434d40067d771818b29e6ac892c77efaf200596203e4703c4daf694a1f8ee963",
         "faction": "Lumineth Realm-lords",
         "key": "page:17:unit:10",
         "kind": "unit",
         "name": "Ydrilan Riverblades",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 17,
         "points": 150,
         "regimentOptions": [],
@@ -11040,6 +11017,9 @@
         ],
         "row": 10,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A17",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 10
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:17:unit:10",
@@ -11478,13 +11458,13 @@
           "90 × 52mm"
         ],
         "context": "seasonal",
-        "factChecksum": "bea767e95e33471d095d4988a8d52c300a84e5826723aacd2fb12e2606f65d3b",
+        "factChecksum": "d9552356f7392a06385666583864ce2695535252f0c6e98238b2331f02876b89",
         "faction": "Seraphon",
         "key": "page:18:unit:15",
         "kind": "unit",
         "name": "Scourge of Aqshy Saurus Scar-Veteran on Aggradon",
         "notes": [
-          "This Hero can join an eligible regiment as a Favoured Spawning. This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
+          "This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
         ],
         "page": 18,
         "points": 130,
@@ -11495,6 +11475,9 @@
         "relevantKeywords": [],
         "row": 15,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A18",
+        "struckNotes": [
+          "This Hero can join an eligible regiment as a Favoured Spawning."
+        ],
         "unitSize": 1
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:18:unit:15",
@@ -12134,14 +12117,12 @@
           "32mm"
         ],
         "context": "standard",
-        "factChecksum": "9d5bbb9020d8b7e226f08d23c6b01cd57c56033c1a9f43fa3a31c0e5a431c622",
+        "factChecksum": "56b04521f5d4ecddffa70e86f479ee25e7e535d29bdb13f014ab58e1a649ee0a",
         "faction": "Seraphon",
         "key": "page:19:unit:20",
         "kind": "unit",
         "name": "Terrawings",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 19,
         "points": 70,
         "regimentOptions": [],
@@ -12150,6 +12131,9 @@
         ],
         "row": 20,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A19",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 3
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:19:unit:20",
@@ -12223,14 +12207,12 @@
           "25mm [4]"
         ],
         "context": "standard",
-        "factChecksum": "73459b19b6b18b1f5b5efc9423c3621de41a4505689527bcf09e96b2d9ca291b",
+        "factChecksum": "6fc073111423c1f0b9e75a9d68a8e85a92232a03d209433a33e45003e1a3fad3",
         "faction": "Seraphon",
         "key": "page:19:unit:5",
         "kind": "unit",
         "name": "Hunters of Huanchi with Dartpipes",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 19,
         "points": 80,
         "regimentOptions": [],
@@ -12240,6 +12222,9 @@
         ],
         "row": 5,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A19",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 5
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:19:unit:5",
@@ -12255,14 +12240,12 @@
           "25mm [3]"
         ],
         "context": "standard",
-        "factChecksum": "88f283ae019bf95dc3027ec3ac38c59470c218c8538bb2e9e04ef1b19ba068f2",
+        "factChecksum": "3f8d56318b36480a9a4eec2f87728526054b5e7a80c4c421a5b07b1670e35924",
         "faction": "Seraphon",
         "key": "page:19:unit:6",
         "kind": "unit",
         "name": "Hunters of Huanchi with Starstone Bolas",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 19,
         "points": 90,
         "regimentOptions": [],
@@ -12272,6 +12255,9 @@
         ],
         "row": 6,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A19",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 5
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:19:unit:6",
@@ -14673,14 +14659,12 @@
           "28.5mm [3]"
         ],
         "context": "standard",
-        "factChecksum": "1846c64a7e1c3a6cb626cdf856016daf5323b786fb5a4de5fa61b96fb84c0cf8",
+        "factChecksum": "c71e500262f0e1c7dccef8dd3e8f19744c3d336d80c65c62694b929c1319af81",
         "faction": "Sylvaneth",
         "key": "page:24:unit:22",
         "kind": "unit",
         "name": "The Twistweald",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 24,
         "points": 160,
         "regimentOptions": [],
@@ -14690,6 +14674,9 @@
         ],
         "row": 22,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A24",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 8
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:24:unit:22",
@@ -15623,14 +15610,12 @@
           "28.5mm [4]"
         ],
         "context": "standard",
-        "factChecksum": "bf53e5eb3763d529622e7b8962bd8b5c539181dbfbc144b046543aaf4a397bfc",
+        "factChecksum": "af494712b53f3a4d6e91e0aedf19f6f1a298de830ea8a19b21ff43013be6797d",
         "faction": "Blades of Khorne",
         "key": "page:27:unit:5",
         "kind": "unit",
         "name": "Claws of Karanak",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 27,
         "points": 100,
         "regimentOptions": [],
@@ -15640,6 +15625,9 @@
         ],
         "row": 5,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A27",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 8
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:27:unit:5",
@@ -16485,14 +16473,12 @@
           "28.5mm [5]"
         ],
         "context": "standard",
-        "factChecksum": "7ba212c1afbadded67e7c687c35d082de89a2f5557a2dc9bca87f2772c4a05a4",
+        "factChecksum": "d8ec320c1e0ed67cad6a7cd132d648ecbeb530a1ba6f57efc26e4faf2bd89950",
         "faction": "Disciples of Tzeentch",
         "key": "page:29:unit:6",
         "kind": "unit",
         "name": "Jade Obelisk",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 29,
         "points": 100,
         "regimentOptions": [],
@@ -16502,6 +16488,9 @@
         ],
         "row": 6,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A29",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:29:unit:6",
@@ -19265,14 +19254,12 @@
           "25mm [6]"
         ],
         "context": "standard",
-        "factChecksum": "c828febf154834d40c6a7526dd3dabedb7c659a6dc7beac0b8cae8c3aa76d6b0",
+        "factChecksum": "a2171e1b805d6a1ef6a24372a92e5ddbef6426d94ce059bc9bb435cb2591bcd0",
         "faction": "Maggotkin of Nurgle",
         "key": "page:35:unit:10",
         "kind": "unit",
         "name": "Rotmire Creed",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 35,
         "points": 110,
         "regimentOptions": [],
@@ -19282,6 +19269,9 @@
         ],
         "row": 10,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A35",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 10
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:35:unit:10",
@@ -20253,14 +20243,12 @@
           "28.5mm [11]"
         ],
         "context": "standard",
-        "factChecksum": "a2451343ca6b3c06dcf1e74214a1dea214d4ee9d19b037873cff6c65d1d2b3a7",
+        "factChecksum": "6a264a51b2de8bb1718c0aaabb688c55b7d58ce334bf05f0d66f9903a6a1ffa8",
         "faction": "Skaven",
         "key": "page:36:unit:28",
         "kind": "unit",
         "name": "Gutter Runners",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 36,
         "points": 150,
         "regimentOptions": [],
@@ -20270,6 +20258,9 @@
         ],
         "row": 28,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A36",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 10
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:36:unit:28",
@@ -20343,14 +20334,12 @@
           "28.5mm [10]"
         ],
         "context": "standard",
-        "factChecksum": "539c1be78d5a2e2207038f3b6e1abe2d34a6c8cda5c76d7c0076e598855f7171",
+        "factChecksum": "d8297e61c1ee31e2cbc1a8cc2c00fff5fdedd9aaa83ea3ed87e9d803b3fadc2f",
         "faction": "Skaven",
         "key": "page:36:unit:30",
         "kind": "unit",
         "name": "Night Runners",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 36,
         "points": 130,
         "regimentOptions": [],
@@ -20360,6 +20349,9 @@
         ],
         "row": 30,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A36",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 10
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:36:unit:30",
@@ -21589,14 +21581,12 @@
           "28.5mm [7]"
         ],
         "context": "standard",
-        "factChecksum": "30210ec6cff521d25dcde6df6857ada5295f25327ac7178b2deab4b18254f592",
+        "factChecksum": "97f39a509f73245444eaa84d497ca19e1a7948d7af5bca3d7a1f2ef2b1ab7d1c",
         "faction": "Slaves to Darkness",
         "key": "page:39:unit:10",
         "kind": "unit",
         "name": "Darkoath Savagers",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 39,
         "points": 90,
         "regimentOptions": [],
@@ -21606,6 +21596,9 @@
         ],
         "row": 10,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A39",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 10
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:39:unit:10",
@@ -22284,14 +22277,12 @@
           "28.5mm [3]"
         ],
         "context": "standard",
-        "factChecksum": "025c619ec8cbb8b0445001c82bc08d01ac0271e495bf9be0e49cbfc526b8818b",
+        "factChecksum": "bd2f296da6a94f45aa4bedea355abacd7e3b32b8c52dcd90180d65d09ae15b1a",
         "faction": "Slaves to Darkness",
         "key": "page:39:unit:5",
         "kind": "unit",
         "name": "Chaos Legionnaires",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 39,
         "points": 80,
         "regimentOptions": [],
@@ -22300,6 +22291,9 @@
         ],
         "row": 5,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A39",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 8
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:39:unit:5",
@@ -23316,14 +23310,12 @@
           "25mm [3]"
         ],
         "context": "standard",
-        "factChecksum": "4118901d55543b77a0d3ef9f1495756b1072dbf2c843bd696c4d5cbb2a6de761",
+        "factChecksum": "5d5ae28eff92c905b7f1dd01032080f7b30bee80b7bc48d0a3de7256b6715246",
         "faction": "Flesh-eater Courts",
         "key": "page:41:unit:23",
         "kind": "unit",
         "name": "Royal Beastflayers",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 41,
         "points": 120,
         "regimentOptions": [],
@@ -23333,6 +23325,9 @@
         ],
         "row": 23,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A41",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 10
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:41:unit:23",
@@ -24126,14 +24121,12 @@
           "28.5mm [3]"
         ],
         "context": "standard",
-        "factChecksum": "bf38413f640bed184a9ebd386cdecb04646726f389c714715690295c244bbf24",
+        "factChecksum": "6a61c0ea26c749a6b2979b16af60bdd65a064289fc57140cfc7be71c65b12fd4",
         "faction": "Nighthaunt",
         "key": "page:44:unit:11",
         "kind": "unit",
         "name": "Pyregheists",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 44,
         "points": 180,
         "regimentOptions": [],
@@ -24142,6 +24135,9 @@
         ],
         "row": 11,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A44",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 8
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:44:unit:11",
@@ -24936,14 +24932,12 @@
           "28.5mm [5]"
         ],
         "context": "standard",
-        "factChecksum": "17cf96b87d00f8c85acc111d3a9a5f0c5aabc21eb47e068514f90cd0b6eb7d9b",
+        "factChecksum": "71e39226f8cce8bb079d6f4392b9fb09f16b7807dee20341507c56359700ed5c",
         "faction": "Ossiarch Bonereapers",
         "key": "page:45:unit:25",
         "kind": "unit",
         "name": "Teratic Cohort",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 45,
         "points": 90,
         "regimentOptions": [],
@@ -24952,6 +24946,9 @@
         ],
         "row": 25,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A45",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 8
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:45:unit:25",
@@ -25898,14 +25895,12 @@
           "28.5mm [3]"
         ],
         "context": "standard",
-        "factChecksum": "047bceb28be381e244044c87b7857bfc59ad1db4251bf07872701286f74f1f32",
+        "factChecksum": "54e2a6657bd9a2dd0c2208902ae9398b0f69c05e2d6f7a6e6c77ad776fb30bd8",
         "faction": "Soulblight Gravelords",
         "key": "page:48:unit:1",
         "kind": "unit",
         "name": "Askurgan Trueblades",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 48,
         "points": 150,
         "regimentOptions": [],
@@ -25914,6 +25909,9 @@
         ],
         "row": 1,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A48",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 8
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:48:unit:1",
@@ -29032,14 +29030,12 @@
           "28.5mm [1]"
         ],
         "context": "standard",
-        "factChecksum": "2a1485fe7ae5dafed543563c2338d3ea126b82e2dd4bee0bef4f52b053592ab1",
+        "factChecksum": "81f5018393bd3da2fc46f37ab031eb1e5f2983cbddde914832200210ea8d8662",
         "faction": "Kruleboyz",
         "key": "page:54:unit:4",
         "kind": "unit",
         "name": "Kruleboyz Monsta-killaz",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 54,
         "points": 140,
         "regimentOptions": [],
@@ -29048,6 +29044,9 @@
         ],
         "row": 4,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A54",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 7
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:54:unit:4",
@@ -30896,14 +30895,12 @@
           "25mm [6]"
         ],
         "context": "standard",
-        "factChecksum": "84acc04c7de9abacfc881fad10045cd814b880c88acc61ce33420c023338702e",
+        "factChecksum": "fbe2d492edaf1668eb77fb097005bb16c38dcc3457da443a0414dc3d0cc4efe9",
         "faction": "Cities of Sigmar",
         "key": "page:6:unit:19",
         "kind": "unit",
         "name": "Wildercorps Hunters",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 6,
         "points": 120,
         "regimentOptions": [],
@@ -30913,6 +30910,9 @@
         ],
         "row": 19,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A6",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 11
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:6:unit:19",
@@ -30956,14 +30956,12 @@
           "28.5mm"
         ],
         "context": "standard",
-        "factChecksum": "2c37d28d145eab2fe31fc3e8078803c99d96d0e36d39591f27780c2d1f2693f4",
+        "factChecksum": "f164b386d8ed8f564dd108ba10dcb847008273e27eb6b8be3dabf9071fd7cbdb",
         "faction": "Cities of Sigmar",
         "key": "page:6:unit:3",
         "kind": "unit",
         "name": "Freeguild Grenadiers",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 6,
         "points": 140,
         "regimentOptions": [],
@@ -30973,6 +30971,9 @@
         ],
         "row": 3,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A6",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 10
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:6:unit:3",
@@ -34101,14 +34102,12 @@
           "25mm [5]"
         ],
         "context": "legends",
-        "factChecksum": "5100efc8b0b16304c1588fc2455003db4f389af3a1d46cfa70ef0b6b745780d6",
+        "factChecksum": "8c320e3e5b06c4433895c75a7c8642cce3991e5bb95725a3b410b8020699e3f5",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:10",
         "kind": "unit",
         "name": "Corvus Cabal",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 100,
         "regimentOptions": [],
@@ -34117,6 +34116,9 @@
         ],
         "row": 10,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:10",
@@ -34133,14 +34135,12 @@
           "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "a99d06e82e8083114d2309b8e6a278f67da024f5a4be82e36a53f19d597db20a",
+        "factChecksum": "186b0effb94928550e1c590f5ab272134d32f2916a4e2ce290742fe638c5d4f7",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:11",
         "kind": "unit",
         "name": "Cypher Lords",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 100,
         "regimentOptions": [],
@@ -34149,6 +34149,9 @@
         ],
         "row": 11,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 8
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:11",
@@ -34198,14 +34201,12 @@
           "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "5531dde39e90105cb01488471d3fee4108dcaba1946b3836bc18b91aa7a87b79",
+        "factChecksum": "9ca26f9a6b2fa37a078484e2d28f5c09a90f85e7cfc67437aa6fb88e698a2849",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:13",
         "kind": "unit",
         "name": "Horns of Hashut",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 120,
         "regimentOptions": [],
@@ -34214,6 +34215,9 @@
         ],
         "row": 13,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 10
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:13",
@@ -34230,14 +34234,12 @@
           "28.5mm [4]"
         ],
         "context": "legends",
-        "factChecksum": "ea13fd4b0d34ec765625a46f6a2d0936423d7a8b9345fa9e752fe508274ca817",
+        "factChecksum": "701146514c77b7de5758698524cf70414250af9f005fd9f617070961f55c1dd2",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:14",
         "kind": "unit",
         "name": "Iron Golem",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 100,
         "regimentOptions": [],
@@ -34246,6 +34248,9 @@
         ],
         "row": 14,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 8
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:14",
@@ -34294,14 +34299,12 @@
           "25mm [2]"
         ],
         "context": "legends",
-        "factChecksum": "cdf50b88a0e83513fc20e9f6005bbc9afc2664bc5a20e12cc7403535c4ab4f32",
+        "factChecksum": "b4dafb424ea79372500c777463f4da3f4fe02b6c6dbe14d26664dcbeefeb9fe1",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:16",
         "kind": "unit",
         "name": "Scions of the Flame",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 120,
         "regimentOptions": [],
@@ -34310,6 +34313,9 @@
         ],
         "row": 16,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 8
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:16",
@@ -34355,14 +34361,12 @@
           "25mm [2]"
         ],
         "context": "legends",
-        "factChecksum": "b78e53e63fb22e7e666234abd873d489700ab79d3a75121faf3b42c5decccb4c",
+        "factChecksum": "e3e21e3bd5d089c898a9d358e65536e5f637fbf9a0e28a93c5f02c875d1b7b77",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:18",
         "kind": "unit",
         "name": "Spire Tyrants",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 110,
         "regimentOptions": [],
@@ -34371,6 +34375,9 @@
         ],
         "row": 18,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:18",
@@ -34387,14 +34394,12 @@
           "25mm [5]"
         ],
         "context": "legends",
-        "factChecksum": "8ce53560c16b2065dbdc267b87972299e2083e0bd88041ca34021f1af0b54cc2",
+        "factChecksum": "6ba9d27978e199ff88d05dbc077986e5bd7d5896165497893981c38ad665215e",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:19",
         "kind": "unit",
         "name": "Splintered Fang",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 110,
         "regimentOptions": [],
@@ -34403,6 +34408,9 @@
         ],
         "row": 19,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:19",
@@ -34448,14 +34456,12 @@
           "25mm [10]"
         ],
         "context": "legends",
-        "factChecksum": "cc91c9fe176f280fa0fb8c94f71ce987002a7b29649008d5c495e6da494700e3",
+        "factChecksum": "32f34adea146a11b857950004923a6b73b7dcd69e8d450f1cbd65e691c5f5a2d",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:20",
         "kind": "unit",
         "name": "Tarantulos Brood",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 150,
         "regimentOptions": [],
@@ -34464,6 +34470,9 @@
         ],
         "row": 20,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 13
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:20",
@@ -34513,14 +34522,12 @@
           "25mm [4]"
         ],
         "context": "legends",
-        "factChecksum": "19e955d6250f9a9c4cc8ce015a68f3da2bf7d5739ba18ea6d56c362d8ceaf160",
+        "factChecksum": "59b7cdcee09880b801882ebbaa99f694d40a7b022ea7a3a715c21d71f34d6cb5",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:22",
         "kind": "unit",
         "name": "The Unmade",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 110,
         "regimentOptions": [],
@@ -34529,6 +34536,9 @@
         ],
         "row": 22,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:22",
@@ -34546,14 +34556,12 @@
           "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "32fe191f722d493e3a8d48255a073a87b6b7c3f92e4d82a916d89e6e4adace0b",
+        "factChecksum": "5ac043781c0533da7934b0b626cafd761e619bd9cb7665946276fa973a5e5838",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:23",
         "kind": "unit",
         "name": "Untamed Beasts",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 70,
         "points": 110,
         "regimentOptions": [],
@@ -34562,6 +34570,9 @@
         ],
         "row": 23,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A70",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:70:unit:23",
@@ -36615,14 +36626,12 @@
           "28.5mm [8]"
         ],
         "context": "standard",
-        "factChecksum": "e21c9eb8e93f0278d6518a92afe73a8350ad66df4bdb25f78da81048f0284a57",
+        "factChecksum": "b97c090a5810edac121a2e4f57182e1e19bf274dc8c31075d12c99ab681a2864",
         "faction": "Daughters of Khaine",
         "key": "page:8:unit:17",
         "kind": "unit",
         "name": "Khainite Shadowstalkers",
-        "notes": [
-          "This unit cannot be reinforced."
-        ],
+        "notes": [],
         "page": 8,
         "points": 130,
         "regimentOptions": [],
@@ -36632,6 +36641,9 @@
         ],
         "row": 17,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A8",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:8:unit:17",
@@ -36790,13 +36802,13 @@
           "28.5mm [8]"
         ],
         "context": "seasonal",
-        "factChecksum": "f858784b44bb163a2201661c39fb23d7dac6bcb4d7d3f0715aa58881c4ff9344",
+        "factChecksum": "5d352ac0fa9618251026f4802d5aca8a325db7a1b3084e71588351888a1d7a93",
         "faction": "Daughters of Khaine",
         "key": "page:8:unit:22",
         "kind": "unit",
         "name": "Scourge of Aqshy Khainite Shadowstalkers",
         "notes": [
-          "This unit cannot be reinforced. This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
+          "This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
         ],
         "page": 8,
         "points": 120,
@@ -36807,6 +36819,9 @@
         ],
         "row": 22,
         "sourceRecordId": "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A8",
+        "struckNotes": [
+          "This unit cannot be reinforced."
+        ],
         "unitSize": 9
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:unit:page:8:unit:22",
@@ -37024,11 +37039,11 @@
   ],
   "schemaVersion": 1,
   "summary": {
-    "appliedToRuntime": 1017,
-    "effective": 1313,
+    "appliedToRuntime": 1016,
+    "effective": 1312,
     "profileOnly": 1,
-    "records": 1313,
-    "regimentsOfRenown": 75,
+    "records": 1312,
+    "regimentsOfRenown": 74,
     "rosterOptions": 295,
     "structuredReference": 295,
     "superseded": 0,

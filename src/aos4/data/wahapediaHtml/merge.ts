@@ -224,6 +224,14 @@ const primaryFact = (
   ) ??
   facts[0]
 
+/**
+ * The official row strikes its "This unit cannot be reinforced." note (the September 2026 Battle
+ * Profiles lifted the restriction for 33 units this way). Official precedence then clears the
+ * restriction even while the secondary page still prints it.
+ */
+const officiallyLiftsReinforcementRestriction = (fact: GamesWorkshopUnitProfileFact | undefined): boolean =>
+  fact?.struckNotes?.some(note => /\bcannot be reinforced\b/i.test(note)) === true
+
 const spearheadGroup = (page: WahapediaHtmlWarscrollRecord): string =>
   page.context === 'spearhead' ? (page.externalId.split(':')[0] ?? '') : ''
 
@@ -437,8 +445,11 @@ export const mergeCurrentWahapediaWarscrollPages = (
         descriptionHtml: page.descriptionHtml,
         role: old?.role ?? '',
         virtual: false,
-        noReinforced:
-          page.canBeReinforced === undefined ? (old?.noReinforced ?? null) : !page.canBeReinforced,
+        noReinforced: officiallyLiftsReinforcementRestriction(official)
+          ? false
+          : page.canBeReinforced === undefined
+            ? (old?.noReinforced ?? null)
+            : !page.canBeReinforced,
         link: page.sourceUrl,
         move: page.characteristics.move,
         save: page.characteristics.save,

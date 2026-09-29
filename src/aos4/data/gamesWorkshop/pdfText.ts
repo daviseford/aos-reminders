@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs'
+import { getDocument, OPS } from 'pdfjs-dist/legacy/build/pdf.mjs'
 import { artifactId, sourceRecordId, type RulesContextId, type SourceRecord } from '../../domain'
 import type {
   GamesWorkshopDiagnostic,
@@ -18,8 +18,23 @@ export interface PdfTextItem {
   height?: number
 }
 
+/**
+ * A stroked, perfectly horizontal line segment in page space. Games Workshop marks removed text
+ * (a struck battle-profile note, a `DELETED` row or erratum) with a thin rule drawn through the
+ * text's midline; pdf.js reports it as a path, never as a text-content attribute, so the text
+ * alone reads struck words as live.
+ */
+export interface PdfHorizontalRule {
+  x1: number
+  x2: number
+  y: number
+  lineWidth: number
+}
+
 export interface PdfPageHandle {
   getTextItems(): Promise<PdfTextItem[]>
+  /** Stroked horizontal segments, for strikethrough detection. A loader may omit it (no rules). */
+  getHorizontalRules?(): Promise<PdfHorizontalRule[]>
 }
 
 export interface PdfDocumentHandle {
@@ -44,6 +59,7 @@ interface PdfJsTextContent {
 
 interface PdfJsPage {
   getTextContent(options: { normalizeWhitespace: boolean }): Promise<PdfJsTextContent>
+  getOperatorList(): Promise<{ fnArray: number[]; argsArray: unknown[] }>
 }
 
 interface PdfJsDocument {
@@ -54,6 +70,108 @@ interface PdfJsDocument {
 interface PdfJsLoadingTask {
   promise: Promise<PdfJsDocument>
   destroy(): Promise<void>
+}
+
+type Matrix = [number, number, number, number, number, number]
+
+const multiply = (m: Matrix, n: Matrix): Matrix => [
+  m[0] * n[0] + m[1] * n[2],
+  m[0] * n[1] + m[1] * n[3],
+  m[2] * n[0] + m[3] * n[2],
+  m[2] * n[1] + m[3] * n[3],
+  m[4] * n[0] + m[5] * n[2] + n[4],
+  m[4] * n[1] + m[5] * n[3] + n[5],
+]
+
+const isMatrix = (value: unknown): value is Matrix =>
+  (Array.isArray(value) || ArrayBuffer.isView(value)) &&
+  (value as ArrayLike<unknown>).length === 6 &&
+  Array.from(value as ArrayLike<unknown>).every(entry => typeof entry === 'number')
+
+/**
+ * Collects every stroked single-segment horizontal path on a page, tracking the transformation
+ * matrix through `save`/`restore`, `transform`, and form XObjects. pdf.js 6 batches a path into
+ * one `constructPath` operation whose arguments are the painting operator and a flat draw-op
+ * array (`0 x y` moveTo, `1 x y` lineTo); a strikethrough is exactly one moveTo and one lineTo.
+ */
+export const horizontalRulesFromOperatorList = (operatorList: {
+  fnArray: ArrayLike<number>
+  argsArray: ArrayLike<unknown>
+}): PdfHorizontalRule[] => {
+  const rules: PdfHorizontalRule[] = []
+  let state = { matrix: [1, 0, 0, 1, 0, 0] as Matrix, lineWidth: 1 }
+  const stack: (typeof state)[] = []
+  for (let index = 0; index < operatorList.fnArray.length; index += 1) {
+    const operator = operatorList.fnArray[index]
+    const args = operatorList.argsArray[index] as unknown[] | null
+    if (operator === OPS.save) {
+      stack.push(state)
+    } else if (operator === OPS.restore || operator === OPS.paintFormXObjectEnd) {
+      state = stack.pop() ?? state
+    } else if (operator === OPS.paintFormXObjectBegin) {
+      stack.push(state)
+      if (args && isMatrix(args[0]))
+        state = { ...state, matrix: multiply(Array.from(args[0]) as Matrix, state.matrix) }
+    } else if (operator === OPS.transform && args && args.length === 6 && isMatrix(args)) {
+      state = { ...state, matrix: multiply(Array.from(args) as Matrix, state.matrix) }
+    } else if (operator === OPS.setLineWidth && args && typeof args[0] === 'number') {
+      state = { ...state, lineWidth: args[0] }
+    } else if (operator === OPS.constructPath && args && args[0] === OPS.stroke) {
+      const data = Array.isArray(args[1]) ? (args[1][0] as ArrayLike<number> | null | undefined) : undefined
+      if (!data || data.length !== 6 || data[0] !== 0 || data[3] !== 1) continue
+      const [a, b, c, d, e, f] = state.matrix
+      const start = { x: a * data[1] + c * data[2] + e, y: b * data[1] + d * data[2] + f }
+      const end = { x: a * data[4] + c * data[5] + e, y: b * data[4] + d * data[5] + f }
+      if (Math.abs(start.y - end.y) > 0.01 || Math.abs(start.x - end.x) < 1) continue
+      rules.push({
+        x1: Math.min(start.x, end.x),
+        x2: Math.max(start.x, end.x),
+        y: start.y,
+        lineWidth: state.lineWidth * Math.sqrt(Math.abs(a * d - b * c)),
+      })
+    }
+  }
+  return rules
+}
+
+/**
+ * The text items a strikethrough rule crosses. A rule strikes an item when it runs through the
+ * item's midline band (20-60% of the glyph height above the baseline) and covers at least 90% of
+ * its width; the rule itself must be thin and no longer than the items it strikes, which keeps
+ * table borders and decorative bars (thicker, or spanning whole cells) from reading as strikes.
+ */
+export const struckTextItems = <TItem extends PdfTextItem>(
+  items: TItem[],
+  rules: PdfHorizontalRule[]
+): Set<TItem> => {
+  const struck = new Set<TItem>()
+  rules
+    .filter(rule => rule.lineWidth <= 1)
+    .forEach(rule => {
+      const hits = items.filter(item => {
+        if (
+          typeof item.x !== 'number' ||
+          typeof item.y !== 'number' ||
+          !item.width ||
+          !item.height ||
+          !item.str.trim()
+        ) {
+          return false
+        }
+        const covered = Math.min(rule.x2, item.x + item.width) - Math.max(rule.x1, item.x)
+        return (
+          rule.y > item.y + item.height * 0.2 &&
+          rule.y < item.y + item.height * 0.6 &&
+          covered >= item.width * 0.9
+        )
+      })
+      if (!hits.length) return
+      const left = Math.min(...hits.map(item => item.x!))
+      const right = Math.max(...hits.map(item => item.x! + item.width!))
+      if (right - left < (rule.x2 - rule.x1) * 0.9) return
+      hits.forEach(item => struck.add(item))
+    })
+  return struck
 }
 
 export const createPdfJsDocumentLoader = (): PdfDocumentLoader => ({
@@ -95,6 +213,9 @@ export const createPdfJsDocumentLoader = (): PdfDocumentLoader => ({
                 },
               ]
             })
+          },
+          async getHorizontalRules() {
+            return horizontalRulesFromOperatorList(await page.getOperatorList())
           },
         }
       },

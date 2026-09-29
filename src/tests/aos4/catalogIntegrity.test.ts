@@ -101,7 +101,7 @@ const certifiedRuntime = JSON.parse(
 
 const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-25.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-25-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-29-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -365,12 +365,12 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('dispositions every official battle-profile fact without inventing missing rules', () => {
     expect(officialBattleProfiles.summary).toEqual({
-      records: 1313,
-      effective: 1313,
+      records: 1312,
+      effective: 1312,
       superseded: 0,
       units: 943,
       rosterOptions: 295,
-      regimentsOfRenown: 75,
+      regimentsOfRenown: 74,
       // The September 2026 Sons of Behemat supplement superseded the July 2026 main-document
       // rows it re-published (ten unit rows and, by name, four regiment-of-renown rows) and
       // applied its points corrections. As of 2026-09-22 (issue #1999) the four brand-new
@@ -388,12 +388,13 @@ describe('AoS 4 catalog generation integrity', () => {
       // Regiments of Renown catalogue. From corpus 2026-09-25 (#1999) the battletome content ships
       // from the re-pinned Wahapedia Sons of Behemat pages instead; the ledger is unchanged, since
       // every roster-option row, the Sons of Behemat picks among them, is a structured reference by
-      // design.
-      appliedToRuntime: 1017,
+      // design. From corpus 2026-09-29 (#1757) extraction drops text the Battle Profiles strikes
+      // through, so the page 59 Stumblefoot Gargant row, printed DELETED, is no longer a fact.
+      appliedToRuntime: 1016,
       profileOnly: 1,
       structuredReference: 295,
     })
-    expect(officialBattleProfiles.records).toHaveLength(1313)
+    expect(officialBattleProfiles.records).toHaveLength(1312)
     officialBattleProfiles.records.forEach(record => {
       expect(record.fact.factChecksum).toMatch(/^[0-9a-f]{64}$/)
       expect(record.fact.sourceRecordId).toMatch(/^source-record:games-workshop:/)

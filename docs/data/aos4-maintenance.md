@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-25 snapshot is defined by:
+The accepted 2026-09-29 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-09-25.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication), and 1 commit-pinned BSData catalogue (`Regiments of Renown.cat` at `main` commit `8836d9f9` for Krong the Club, issue #1999), pinned by SHA-256 |
-| `data/aos4/reviews/corpus-2026-09-25.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-09-25.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication), and 1 commit-pinned BSData catalogue (`Regiments of Renown.cat` at `main` commit `8836d9f9` for Krong the Club, issue #1999), pinned by SHA-256; corpus 2026-09-29 changed no artifact and keeps this manifest |
+| `data/aos4/reviews/corpus-2026-09-29.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-25-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-25-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-09-29-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-09-29-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -42,9 +42,11 @@ The strict report currently records:
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,313 extracted GW battle-profile facts: 1,017 applied to runtime, 1 profile-only gap
+- 1,312 extracted GW battle-profile facts: 1,016 applied to runtime, 1 profile-only gap
   (The Emberwatch), and 295 structured references; nothing is superseded, because the September
-  2026 core Battle Profiles is the single battle-profile source
+  2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
+  extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
+  and 34 unit facts record their struck notes as `struckNotes`)
 - the 2026-09-25 Sons of Behemat provisional-to-verified swap (#1999): both provisional watches
   fired when Wahapedia republished the Sons of Behemat faction and warscroll collection pages with
   the September 2026 battletome. The revision re-pins exactly those two pages (every other page and
@@ -745,6 +747,28 @@ of the Crimson Keep lore copy is BSData's own reading and is not adoptable from 
 2026-09-23, the range exposes shipped records the current official text contradicts, so
 `bsData.baselineSha` stays at `d1f97bc9` until the owner approves a disposition or an official-first
 cycle reconciles them. No accepted, generated, or certification product changed.
+
+The owner chose the official-first cycle, and corpus 2026-09-29 (#1757) corrects all four against
+the pinned September 2026 bytes. The battle-profile extractor now reads the page's stroked
+horizontal paths and drops text a thin rule crosses at its midline. It records a struck unit note as
+`struckNotes` on the fact, and requires a `DELETED` marker beside any struck row value (and struck
+text beside any marker), or it fails closed. Page renders and drawing operators agree on 47 struck
+lines in the document: the 33 reinforcement notes, the three-line Favoured Spawning note, and the 11
+cells of the Stumblefoot Gargant row. A reinforcement restriction the official row strikes now
+clears the Wahapedia `noReinforced` flag, which still printed it. Stumblefoot Gargant and its three
+regiment abilities move to the historical context through reviewed `contextOverrides` citing
+Battle Profiles page 59 and the deleted Rules Updates page 31 erratum. A regiment's membership edge
+now takes the regiment's own contexts, so the historical overlay still brings its Mancrusher
+Gargant. Frenzied Surge loses `RAMPAGE` through the first remove-only `abilityKeywordOverrides`
+entry; the machine review accepts a removal only when the cited official text reprints the ability
+under its heading with no `Keywords` strip naming it. A `contextOverrides` entry that targets no
+accepted record now fails generation. The Rules Updates also strikes its Sons of Behemat battle
+trait, artefact, Mega-Gargant and Kragnos errata (pages 27-28) and the Stumblefoot erratum (page 31),
+and no accepted override cites any of them. Every other pinned official PDF was scanned with the
+same detector. Its few hits there are timing-bar and box edges, confirmed live in renders, and none
+of those documents feeds battle-profile extraction. The official page-text records keep struck
+text, so their checksums and citations do not move. The baseline stays at `d1f97bc9`: advancing it
+to `17bcc13a` remains a separate owner decision, and no radar dispatch was run.
 
 Radar output is evidence, not acceptance. Automation may acquire source-scoped candidate bytes and
 compact manifests, but it never accepts a source, edits reviewed inputs, regenerates runtime data,

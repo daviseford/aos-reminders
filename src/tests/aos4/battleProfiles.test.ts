@@ -2,6 +2,7 @@ import {
   extractGamesWorkshopBattleProfiles,
   extractGamesWorkshopBattleProfileSupplement,
   type PdfDocumentLoader,
+  type PdfHorizontalRule,
   type PdfTextItem,
 } from '../../aos4/data'
 
@@ -291,7 +292,8 @@ const withTitle = (page: number, items: PdfTextItem[]): PdfTextItem[] =>
 const fakeLoader = (
   pageCount: number,
   pages: Record<number, PdfTextItem[]>,
-  onDestroy: () => void = () => undefined
+  onDestroy: () => void = () => undefined,
+  rules: Record<number, PdfHorizontalRule[]> = {}
 ): PdfDocumentLoader => ({
   async load() {
     return {
@@ -307,6 +309,9 @@ const fakeLoader = (
             if (pageCount >= 57 && page >= 64) return titled(unitPage(`Legend unit ${page}`, 1, 100))
             if (pageCount >= 57 && page >= 3) return titled(rosterPage())
             return [item(`Page ${page}`, 1, 1)]
+          },
+          async getHorizontalRules() {
+            return rules[page] ?? []
           },
         }
       },
@@ -795,6 +800,155 @@ describe('Games Workshop Battle Profiles extraction', () => {
       }),
     ])
     expect(result.facts.some(fact => fact.page === 20 || fact.page === 21)).toBe(false)
+  })
+
+  describe('strikethrough (September 2026 notation for removed text, #1757)', () => {
+    const sized = (str: string, x: number, y: number, width: number): PdfTextItem => ({
+      str,
+      x,
+      y,
+      width,
+      height: 8,
+    })
+    // The rule a struck 8pt line carries: 0.4pt, through the midline, exactly the text's width.
+    const strike = (x: number, y: number, width: number): PdfHorizontalRule => ({
+      x1: x,
+      x2: x + width,
+      y: y + 2.6,
+      lineWidth: 0.4,
+    })
+
+    it('drops a struck note from the live notes and records it as removed', async () => {
+      const page = [
+        ...unitPage('Khainite Shadowstalkers', 9, 130),
+        sized('This unit cannot be reinforced.', 405, 700, 101.5),
+        ...unitPage('Witch Aelves', 10, 120).map(value => ({ ...value, y: value.y === 700 ? 660 : value.y })),
+        sized('This unit cannot be reinforced.', 405, 660, 101.5),
+      ]
+      const result = await extractGamesWorkshopBattleProfiles(
+        new Uint8Array([1]),
+        '3'.repeat(64),
+        fakeLoader(57, { 20: page }, undefined, { 20: [strike(405, 700, 101.5)] })
+      )
+
+      expect(result.diagnostics).toEqual([])
+      const facts = result.facts.filter(fact => fact.page === 20)
+      expect(facts).toEqual([
+        expect.objectContaining({
+          name: 'Khainite Shadowstalkers',
+          notes: [],
+          struckNotes: ['This unit cannot be reinforced.'],
+        }),
+        expect.objectContaining({ name: 'Witch Aelves', notes: ['This unit cannot be reinforced.'] }),
+      ])
+      // A row without struck text keeps the fact shape, and so the checksum, it always had.
+      expect(facts[1]).not.toHaveProperty('struckNotes')
+    })
+
+    it('reads a struck note printed left of the notes column (Legends page 70)', async () => {
+      const page = [
+        ...unitPage('Corvus Cabal', 9, 100),
+        sized('This unit cannot be reinforced.', 398.8, 700, 101.5),
+      ]
+      const result = await extractGamesWorkshopBattleProfiles(
+        new Uint8Array([1]),
+        '4'.repeat(64),
+        fakeLoader(64, { 64: page }, undefined, { 64: [strike(398.8, 700, 101.5)] })
+      )
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.facts.filter(fact => fact.page === 64)).toEqual([
+        expect.objectContaining({
+          name: 'Corvus Cabal',
+          context: 'legends',
+          relevantKeywords: ['Warrior'],
+          notes: [],
+          struckNotes: ['This unit cannot be reinforced.'],
+        }),
+      ])
+    })
+
+    it('ignores thick bars, table borders, and underlines that cross a line of text', async () => {
+      const page = [
+        ...unitPage('Liberators', 5, 90),
+        sized('This unit cannot be reinforced.', 405, 700, 101.5),
+      ]
+      const result = await extractGamesWorkshopBattleProfiles(
+        new Uint8Array([1]),
+        '5'.repeat(64),
+        fakeLoader(57, { 20: page }, undefined, {
+          20: [
+            { ...strike(405, 700, 101.5), lineWidth: 11 },
+            { x1: 34, x2: 561, y: 702.6, lineWidth: 0.5 },
+            { x1: 405, x2: 506.5, y: 699.5, lineWidth: 0.4 },
+          ],
+        })
+      )
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.facts.filter(fact => fact.page === 20)).toEqual([
+        expect.objectContaining({ name: 'Liberators', notes: ['This unit cannot be reinforced.'] }),
+      ])
+    })
+
+    const deletedRegimentPage = (marker: boolean): PdfTextItem[] => [
+      item('Live Regiment', 40, 760),
+      item('UNIT SUMMARY Live companions', 130, 760),
+      item('310', 250, 760),
+      item('NOTES Order armies only', 320, 760),
+      ...(marker ? [sized('DELETED', 44.9, 721, 30)] : []),
+      sized('Stumblefoot Gargant', 45.1, 710, 69.2),
+      sized('1 Mancrusher Gargant', 125.3, 715, 74.9),
+      sized('140', 260.8, 715, 11.4),
+      sized('This Regiment of Renown can be included in the following factions: Sylvaneth.', 290.6, 713, 260),
+    ]
+    const deletedRegimentRules = [
+      strike(45.1, 710, 69.2),
+      strike(125.3, 715, 74.9),
+      strike(260.8, 715, 11.4),
+      strike(290.6, 713, 260),
+    ]
+
+    it('drops a regiment row printed DELETED and struck through', async () => {
+      const result = await extractGamesWorkshopBattleProfiles(
+        new Uint8Array([1]),
+        '6'.repeat(64),
+        fakeLoader(58, { 58: deletedRegimentPage(true) }, undefined, { 58: deletedRegimentRules })
+      )
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.facts.filter(fact => fact.page === 58)).toEqual([
+        expect.objectContaining({ kind: 'regiment-of-renown', name: 'Live Regiment', points: 310 }),
+      ])
+    })
+
+    it('fails closed on a struck row without a DELETED marker, or a marker without struck text', async () => {
+      const unmarked = await extractGamesWorkshopBattleProfiles(
+        new Uint8Array([1]),
+        '7'.repeat(64),
+        fakeLoader(58, { 58: deletedRegimentPage(false) }, undefined, { 58: deletedRegimentRules })
+      )
+      expect(unmarked.diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: 'ambiguous-layout',
+          page: 58,
+          message: expect.stringContaining('without a DELETED marker'),
+        })
+      )
+
+      const unstruck = await extractGamesWorkshopBattleProfiles(
+        new Uint8Array([1]),
+        '8'.repeat(64),
+        fakeLoader(58, { 58: deletedRegimentPage(true) })
+      )
+      expect(unstruck.diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: 'ambiguous-layout',
+          page: 58,
+          message: expect.stringContaining('DELETED marker beside no struck text'),
+        })
+      )
+    })
   })
 
   it('fails closed on an incompatible layout and still destroys the PDF handle', async () => {

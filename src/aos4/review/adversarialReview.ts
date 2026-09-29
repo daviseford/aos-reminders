@@ -762,6 +762,26 @@ const officialEvidencePrintsKeyword = (officialText: string, keyword: string): b
   return new RegExp(String.raw`\bKeywords?\b[^.!?:\r\n]{0,80}\b${keywordPattern}\b`, 'i').test(officialText)
 }
 
+/**
+ * The official text reprints the whole ability under its `NAME:` heading, and no reprint prints
+ * the keyword in a `Keywords` strip before the next ability heading or the next erratum's
+ * `Change ...` instruction. An erratum that rewrites an ability without its old keyword removes the
+ * keyword without ever saying "remove".
+ */
+const officialRewriteOmitsKeyword = (officialText: string, abilityName: string, keyword: string): boolean => {
+  const namePattern = escapeRegularExpression(visibleSourceText(abilityName)).replace(/\s+/g, '\\s+')
+  if (!namePattern) return false
+  const reprints = Array.from(officialText.matchAll(new RegExp(String.raw`\b${namePattern}\s*:`, 'gi')))
+  return (
+    reprints.length > 0 &&
+    reprints.every(reprint => {
+      const rest = officialText.slice((reprint.index ?? 0) + reprint[0].length)
+      const nextHeading = rest.search(/\b[A-Z][A-Z’'-]{2,}(?: [A-Z’'-]+)*:|\bChange\b/)
+      return !officialEvidencePrintsKeyword(nextHeading === -1 ? rest : rest.slice(0, nextHeading), keyword)
+    })
+  )
+}
+
 const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
   const overrides = [
     ...reviewOverrideDestinations(pair, 'abilityKeywordOverrides').map(value => ({
@@ -825,11 +845,36 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
     if (override.field === 'abilityKeywordOverrides') {
       const keywords = Array.isArray(ability?.keywords) ? ability.keywords.map(String) : []
       const added = Array.isArray(override.value.add) ? override.value.add.map(String) : []
-      if (!added.length) {
+      const removed = Array.isArray(override.value.remove) ? override.value.remove.map(String) : []
+      if (!added.length && !removed.length) {
         checks.push(
-          failed('official-override.ability-keyword.add', 'Reviewed ability keyword override adds nothing')
+          failed('official-override.ability-keyword.add', 'Reviewed ability keyword override changes nothing')
         )
       }
+      removed.forEach(keyword => {
+        if (keywords.some(value => sourceComparableText(value) === sourceComparableText(keyword))) {
+          checks.push(
+            failed(
+              'official-override.ability-keyword.destination',
+              'Generated ability keeps an officially removed keyword',
+              keyword,
+              keywords
+            )
+          )
+        }
+        if (
+          !officialEvidenceSupportsKeywordRemoval(officialText, keyword) &&
+          !officialRewriteOmitsKeyword(officialText, String(ability?.name ?? ''), keyword)
+        ) {
+          checks.push(
+            failed(
+              'official-override.ability-keyword.evidence',
+              'Official evidence does not remove the reviewed ability keyword',
+              keyword
+            )
+          )
+        }
+      })
       added.forEach(keyword => {
         if (!keywords.some(value => sourceComparableText(value) === sourceComparableText(keyword))) {
           checks.push(

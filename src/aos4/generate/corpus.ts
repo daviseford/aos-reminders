@@ -132,13 +132,17 @@ export interface CorpusWarscrollKeywordOverride {
 }
 
 /**
- * A reviewed ability keyword that the secondary source omits and the cited official record
- * prints, such as a `KEYWORDS` strip the page shortened. It only adds: each keyword must be absent
- * from the normalized source keywords, so a republished page that starts printing it fails closed.
+ * A reviewed ability keyword correction where the secondary source and the cited official record
+ * disagree. `add` restores a keyword the official record prints and the source omits, such as a
+ * `KEYWORDS` strip the page shortened; each must be absent from the normalized source keywords.
+ * `remove` drops a keyword the official record no longer prints, such as one an erratum's rewrite
+ * of the whole ability leaves out; each must be present in the normalized source keywords. Either
+ * way a republished page that catches up fails closed, and the entry retires.
  */
 export interface CorpusAbilityKeywordOverride {
   sourceRecordId: SourceRecordId
-  add: string[]
+  add?: string[]
+  remove?: string[]
   reason: string
   officialSourceRecordIds: SourceRecordId[]
 }
@@ -1322,13 +1326,45 @@ const reviewDiagnostics = (
     }
     seenAbilityTextOverrides.add(override.sourceRecordId)
   })
+  // A context override that names no decoded record changes nothing, so a mistyped or stale
+  // target would silently leave the record in the context the override exists to move it out of.
+  const decodedSourceRecordIds = new Set(
+    Object.values(decoded.dataset).flatMap(value =>
+      Array.isArray(value)
+        ? value.flatMap((record: { meta?: { sourceRecordId?: SourceRecordId } }) =>
+            record?.meta?.sourceRecordId ? [record.meta.sourceRecordId] : []
+          )
+        : []
+    )
+  )
+  const seenContextOverrides = new Set<SourceRecordId>()
+  ;(review.contextOverrides ?? []).forEach(override => {
+    if (
+      seenContextOverrides.has(override.sourceRecordId) ||
+      !decodedSourceRecordIds.has(override.sourceRecordId) ||
+      !override.rulesContextIds.length ||
+      !override.reason.trim()
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: override.sourceRecordId,
+        message:
+          'Context override must uniquely target an accepted source record, name contexts, and give a reason',
+      })
+    }
+    seenContextOverrides.add(override.sourceRecordId)
+  })
   const seenAbilityKeywordOverrides = new Set<SourceRecordId>()
   ;(review.abilityKeywordOverrides ?? []).forEach(override => {
+    const added = override.add ?? []
+    const removed = override.remove ?? []
     if (
       seenAbilityKeywordOverrides.has(override.sourceRecordId) ||
       !abilitySourceIds.has(override.sourceRecordId) ||
-      !override.add.length ||
-      override.add.some(value => !value.trim() || value !== value.trim().toUpperCase()) ||
+      !(added.length + removed.length) ||
+      [...added, ...removed].some(value => !value.trim() || value !== value.trim().toUpperCase()) ||
+      added.some(value => removed.includes(value)) ||
       !override.reason.trim() ||
       override.officialSourceRecordIds.length === 0
     ) {
@@ -1337,7 +1373,7 @@ const reviewDiagnostics = (
         severity: 'error',
         subject: override.sourceRecordId,
         message:
-          'Ability keyword override must uniquely target an accepted ability, add upper-case keywords, and cite official evidence',
+          'Ability keyword override must uniquely target an accepted ability, add or remove distinct upper-case keywords, and cite official evidence',
       })
     }
     seenAbilityKeywordOverrides.add(override.sourceRecordId)
@@ -2263,7 +2299,9 @@ export const buildAos4Corpus = (
         : normalized.text
     const text = textOverride?.text ?? (abilityKind === 'reaction' ? reactionText : nonReactionText)
     const keywordOverride = abilityKeywordOverrides.get(record.meta.sourceRecordId)
-    if (keywordOverride?.add.some(keyword => normalized.keywords.includes(keyword))) {
+    const addedKeywords = keywordOverride?.add ?? []
+    const removedKeywords = keywordOverride?.remove ?? []
+    if (addedKeywords.some(keyword => normalized.keywords.includes(keyword))) {
       diagnostics.push({
         code: 'invalid-review',
         severity: 'error',
@@ -2271,7 +2309,17 @@ export const buildAos4Corpus = (
         message: 'Ability keyword override adds a keyword the source already prints',
       })
     }
-    const keywords = keywordOverride ? [...normalized.keywords, ...keywordOverride.add] : normalized.keywords
+    if (removedKeywords.some(keyword => !normalized.keywords.includes(keyword))) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: record.meta.sourceRecordId,
+        message: 'Ability keyword override removes a keyword the source does not print',
+      })
+    }
+    const keywords = keywordOverride
+      ? [...normalized.keywords.filter(keyword => !removedKeywords.includes(keyword)), ...addedKeywords]
+      : normalized.keywords
     entities.push({
       id,
       kind: 'ability',
@@ -2487,6 +2535,17 @@ export const buildAos4Corpus = (
           rulesContextIds: uniqueSorted([...from.rulesContextIds, ...to.rulesContextIds]),
         },
       ]
+    }
+    if (
+      relationship.kind === 'includes' &&
+      from.kind === 'content-group' &&
+      from.groupType === 'regiment-of-renown' &&
+      to.kind === 'warscroll'
+    ) {
+      // Buying a regiment brings its members wherever the regiment is offered. A regiment the
+      // official profiles retired to the historical context still brings its member, whose own
+      // warscroll stays current; an intersection would drop the edge (the #2015 bug class).
+      return [{ ...relationship, rulesContextIds: uniqueSorted(from.rulesContextIds) }]
     }
     const toContextIds = new Set(to.rulesContextIds)
     const sharedContextIds = from.rulesContextIds.filter(id => toContextIds.has(id))
