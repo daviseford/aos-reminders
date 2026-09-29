@@ -91,6 +91,15 @@ describe('API access tokens', () => {
     await expect(getToken?.()).rejects.toBeInstanceOf(AuthenticationRequiredError)
   })
 
+  it('reports a refresh token Auth0 no longer honours as needing a login', async () => {
+    // What a stale saved session gets back: the SDK still says signed in, the refresh is refused.
+    auth.getAccessTokenSilently.mockRejectedValue(
+      Object.assign(new Error('Unknown or invalid refresh token.'), { error: 'invalid_grant' })
+    )
+
+    await expect(getToken?.()).rejects.toBeInstanceOf(AuthenticationRequiredError)
+  })
+
   it('refuses to ask for a token while signed out', async () => {
     auth.isAuthenticated = false
     await act(async () => {

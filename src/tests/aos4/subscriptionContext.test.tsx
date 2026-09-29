@@ -40,6 +40,7 @@ const Probe = () => {
     isNotSubscribed,
     subscriptionError,
     subscriptionLoading,
+    subscriptionNeedsLogin,
   } = useSubscription()
 
   return (
@@ -48,6 +49,7 @@ const Probe = () => {
         {subscriptionLoading ? 'loading' : isActive ? 'active' : isNotSubscribed ? 'none' : 'unknown'}
       </span>
       <span data-testid="error">{subscriptionError}</span>
+      <span data-testid="needs-login">{String(subscriptionNeedsLogin)}</span>
       <button type="button" onClick={() => void cancelSubscription()}>
         Cancel
       </button>
@@ -165,6 +167,74 @@ describe('subscription account state', () => {
     expect(subscriptionApi.getSubscription).not.toHaveBeenCalled()
     expect(container.querySelector('[data-testid="status"]')?.textContent).toBe('unknown')
     expect(container.querySelector('[data-testid="error"]')?.textContent).toContain('temporarily unavailable')
+  })
+
+  const text = (id: string) => container.querySelector(`[data-testid="${id}"]`)?.textContent
+
+  const clickRetry = async () => {
+    await act(async () => {
+      const retry = Array.from(container.querySelectorAll('button')).find(
+        button => button.textContent === 'Retry'
+      )
+      retry?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+  }
+
+  it('asks a stale saved session to log in again instead of reporting an outage', async () => {
+    // useApiAccessToken's answer when Auth0 refuses the saved refresh token with invalid_grant.
+    token.get.mockRejectedValue(
+      Object.assign(new Error('Please log in again to continue.'), { name: 'AuthenticationRequiredError' })
+    )
+
+    await renderProbe()
+
+    expect(subscriptionApi.getSubscription).not.toHaveBeenCalled()
+    expect(text('status')).toBe('unknown')
+    expect(text('needs-login')).toBe('true')
+    expect(text('error')).toContain('Your sign-in has expired')
+    expect(text('error')).not.toContain('temporarily unavailable')
+  })
+
+  it('clears the login prompt once a fresh login yields a token', async () => {
+    token.get
+      .mockRejectedValueOnce(
+        Object.assign(new Error('Please log in again to continue.'), { name: 'AuthenticationRequiredError' })
+      )
+      .mockResolvedValue('fresh-token')
+    subscriptionApi.getSubscription.mockResolvedValue({ body: { active: true, subscribed: true } })
+
+    await renderProbe()
+    expect(text('needs-login')).toBe('true')
+
+    await clickRetry()
+
+    expect(subscriptionApi.getSubscription).toHaveBeenCalledWith('fresh-token')
+    expect(text('status')).toBe('active')
+    expect(text('needs-login')).toBe('false')
+    expect(text('error')).toBe('')
+  })
+
+  it('treats an API 401 as a sign-in to renew', async () => {
+    subscriptionApi.getSubscription.mockRejectedValue({ status: 401 })
+
+    await renderProbe()
+
+    expect(text('needs-login')).toBe('true')
+    expect(text('error')).toContain('Your sign-in has expired')
+  })
+
+  it('leaves a healthy session and a service outage off the login path', async () => {
+    subscriptionApi.getSubscription.mockResolvedValueOnce({ body: { active: true, subscribed: true } })
+    await renderProbe()
+    expect(text('needs-login')).toBe('false')
+    expect(text('status')).toBe('active')
+
+    subscriptionApi.getSubscription.mockRejectedValueOnce({ status: 503 })
+    await clickRetry()
+    expect(text('needs-login')).toBe('false')
+    expect(text('error')).toContain('temporarily unavailable')
   })
 
   it('cancels a Stripe subscription and refreshes its server state', async () => {
