@@ -377,6 +377,39 @@ describe('established account routes', () => {
     expect(container.textContent).toContain('Your sign-in has expired')
   })
 
+  it('starts only one login while the popup is open, however often the button is clicked', async () => {
+    subscription.subscriptionError = expiredSignIn
+    subscription.subscriptionNeedsLogin = true
+    let finishLogin: () => void = () => undefined
+    login.login.mockImplementation(() => new Promise<void>(resolve => (finishLogin = resolve)))
+
+    await renderProfile()
+    subscription.getSubscription.mockClear()
+
+    const button = Array.from(container.querySelectorAll('button')).find(
+      b => b.textContent === 'Log in again'
+    )
+    await act(async () => {
+      // Two clicks inside one render, before the disabled state can land, then one more after it.
+      button?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      button?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await Promise.resolve()
+    })
+    expect(button?.hasAttribute('disabled')).toBe(true)
+    await clickButton('Log in again')
+
+    expect(login.login).toHaveBeenCalledTimes(1)
+
+    await act(async () => {
+      finishLogin()
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    expect(subscription.getSubscription).toHaveBeenCalledTimes(1)
+    expect(button?.hasAttribute('disabled')).toBe(false)
+  })
+
   it('withholds the plans and offers a fresh login on Subscribe when the sign-in has expired', async () => {
     subscription.subscriptionError = expiredSignIn
     subscription.subscriptionNeedsLogin = true
