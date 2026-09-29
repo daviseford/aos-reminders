@@ -1,3 +1,4 @@
+import { deriveAos4OverlayFlags } from '../aos4/runtime/armyStorage'
 import { deserializeAos4ArmyDocument, toWireAos4ArmyDocument, type Aos4ArmyDocument } from '../aos4/state'
 
 export interface RemoteArmy {
@@ -67,7 +68,9 @@ const parseDocument = async (value: unknown): Promise<Aos4ArmyDocument> => {
   if (!restored.document || restored.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     throw new ArmyApiError('The service returned an incompatible army document.', 502)
   }
-  return restored.document
+  // Saved and shared armies predate later rules updates, so a selection that has since moved into
+  // an overlay context needs its flag re-derived, exactly as a locally stored army does (#1757).
+  return deriveAos4OverlayFlags(generated.AOS4_CATALOG, restored.document)
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>

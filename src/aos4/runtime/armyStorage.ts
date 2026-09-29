@@ -33,6 +33,8 @@ export interface LoadAos4ArmyDocumentResult {
   document: Aos4ArmyDocument
   diagnostics: Aos4ArmyDocumentDiagnostic[]
   source: 'default' | 'storage' | 'reset'
+  /** The stored document's overlay flags no longer matched its selections and were re-derived. */
+  overlayFlagsDerived?: true
 }
 
 export const createDefaultAos4ArmyDocument = (): Aos4ArmyDocument =>
@@ -63,7 +65,18 @@ export const loadAos4ArmyDocument = (storage: Storage, catalog: Aos4Catalog): Lo
 
   const restored = deserializeAos4ArmyDocument(serialized, catalog)
   if (restored.document) {
-    return { document: restored.document, diagnostics: restored.diagnostics, source: 'storage' }
+    // A rules update can move a selection the army already held into an overlay context (the
+    // September 2026 Battle Profiles deleted Stumblefoot Gargant, which is now historical, #1757).
+    // The builder keeps offering it, so the flags are re-derived here rather than waiting for the
+    // next edit; until then the reminders resolved without the overlay and dropped its abilities.
+    const document = deriveAos4OverlayFlags(catalog, restored.document)
+    if (document !== restored.document) saveAos4ArmyDocument(storage, document)
+    return {
+      document,
+      diagnostics: restored.diagnostics,
+      source: 'storage',
+      ...(document !== restored.document ? { overlayFlagsDerived: true } : {}),
+    }
   }
 
   const document = createDefaultAos4ArmyDocument()
