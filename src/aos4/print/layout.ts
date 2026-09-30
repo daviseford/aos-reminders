@@ -156,6 +156,12 @@ const tagBoxWidthIn = (context: DraftContext, tag: PrintTag): number =>
 
 const TAG_GAP_IN = 0.05
 
+/** Vertical clearance between the boxes of two wrapped tag rows. */
+const TAG_ROW_GAP_IN = 0.02
+
+/** Drawn height of a tag box: its text height plus vertical padding (see `drawTags` in pdf.ts). */
+export const tagBoxHeightIn = (style: PrintRoleStyle): number => style.sizePt / 72 + 0.05
+
 const totalTagWidthIn = (context: DraftContext, tags: PrintTag[]): number =>
   tags.reduce((total, tag) => total + tagBoxWidthIn(context, tag), 0) + TAG_GAP_IN * (tags.length - 1)
 
@@ -200,23 +206,59 @@ const draftTitleWithTags = (context: DraftContext, rule: PrintRule, blockId: str
   }
 
   const tagStyle = context.preset.roles.ruleTag
+  const rows = tagRows(context, tags, available)
+  // A tag box is taller than the tag line's leading, so a wrapped row steps down far enough for
+  // its boxes to clear the row above.
+  const wrappedRowGapIn = Math.max(0, tagBoxHeightIn(tagStyle) - lineHeightIn(tagStyle)) + TAG_ROW_GAP_IN
   return [
     ...titleDrafts,
-    {
+    ...rows.map((row, index) => ({
       role: 'ruleTag' as const,
       text: '',
-      tags: placeTagsFrom(context, tags, 0),
-      widthIn: Math.min(tagsWidthIn, available),
+      tags: placeTagsFrom(context, row, 0),
+      widthIn: totalTagWidthIn(context, row),
       lineHeightIn: lineHeightIn(tagStyle),
-      spaceBeforeIn: 0,
-      spaceAfterIn: tagStyle.spaceAfterIn ?? 0,
+      spaceBeforeIn: index === 0 ? 0 : wrappedRowGapIn,
+      spaceAfterIn: index === rows.length - 1 ? (tagStyle.spaceAfterIn ?? 0) : 0,
       indentIn: 0,
       align: 'left' as const,
       boxed: false,
       spansColumns: false,
       blockId,
-    },
+    })),
   ]
+}
+
+/**
+ * Shortens a tag whose box alone is wider than the column, so it never leaves the column. Only a
+ * source label long enough to fill a whole column is ever shortened.
+ */
+const fitTagToWidth = (context: DraftContext, tag: PrintTag, available: number): PrintTag => {
+  if (tagBoxWidthIn(context, tag) <= available) return tag
+  const words = tag.label.split(' ')
+  while (words.length > 1) {
+    words.pop()
+    const shortened = { ...tag, label: `${words.join(' ').replace(/[,;:]$/, '')}...` }
+    if (tagBoxWidthIn(context, shortened) <= available) return shortened
+  }
+  return { ...tag, label: `${words[0]}...` }
+}
+
+/** Packs tags into as many left-aligned rows as the column needs, keeping their order. */
+const tagRows = (context: DraftContext, tags: PrintTag[], available: number): PrintTag[][] => {
+  const rows: PrintTag[][] = []
+  let row: PrintTag[] = []
+  tags
+    .map(tag => fitTagToWidth(context, tag, available))
+    .forEach(tag => {
+      if (row.length && totalTagWidthIn(context, [...row, tag]) > available) {
+        rows.push(row)
+        row = []
+      }
+      row.push(tag)
+    })
+  if (row.length) rows.push(row)
+  return rows
 }
 
 const buildBlocks = (document: PrintDocument, context: DraftContext): FlowBlock[] => {

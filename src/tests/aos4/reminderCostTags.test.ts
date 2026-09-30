@@ -137,33 +137,34 @@ describe('Krondys print acceptance (#2032)', () => {
       ['content-group', 'Lore of the Storm'],
     ])
 
-  it('shows the accepted casting value on every Lore of the Storm spell a Krondys list prints', () => {
-    const reminders = krondysReminders()
+  // Krondys's own spell plus the three Lore of the Storm spells, at their accepted casting values.
+  const KRONDYS_SPELLS: Array<[string, number]> = [
+    ['ATAVISTIC TEMPEST', 8],
+    ['LIGHTNING BLAST', 5],
+    ['STARFALL', 7],
+    ['THUNDERSHOCK', 6],
+  ]
 
-    const lightningBlast = reminderNamed(reminders, 'LIGHTNING BLAST')
-    expect(lightningBlast.projected.cost).toEqual({ kind: 'spell', value: 5 })
-    expect(lightningBlast.tags[0]).toMatchObject({ label: 'CV 5', tone: 'cost' })
-
-    const starfall = reminderNamed(reminders, 'STARFALL')
-    expect(starfall.projected.cost).toEqual({ kind: 'spell', value: 7 })
-    expect(starfall.tags[0]).toMatchObject({ label: 'CV 7', tone: 'cost' })
+  it.each(KRONDYS_SPELLS)('shows the accepted casting value on %s (CV %i)', (name, value) => {
+    const reminder = reminderNamed(krondysReminders(), name)
+    expect(reminder.projected.cost).toEqual({ kind: 'spell', value })
+    expect(reminder.tags[0]).toMatchObject({ label: `CV ${value}`, tone: 'cost' })
   })
 
-  it('carries the Krondys spell casting values into the print document', () => {
+  it('carries every Krondys spell casting value into the print document', () => {
     const document = createAos4PrintDocument(krondysReminders(), {
       armyName: 'Krondys',
       factionName: 'Stormcast Eternals',
     })
 
     const rules = document.sections.flatMap(section => section.rules)
-    expect(rules.find(rule => rule.title === 'LIGHTNING BLAST')?.tags?.[0]).toMatchObject({
-      label: 'CV 5',
-      tone: 'cost',
-    })
-    expect(rules.find(rule => rule.title === 'STARFALL')?.tags?.[0]).toMatchObject({
-      label: 'CV 7',
-      tone: 'cost',
-    })
+    const printed = KRONDYS_SPELLS.map(([name]) => [name, rules.find(rule => rule.title === name)?.tags?.[0]])
+    expect(printed).toEqual(
+      KRONDYS_SPELLS.map(([name, value]) => [
+        name,
+        expect.objectContaining({ label: `CV ${value}`, tone: 'cost' }),
+      ])
+    )
   })
 })
 
