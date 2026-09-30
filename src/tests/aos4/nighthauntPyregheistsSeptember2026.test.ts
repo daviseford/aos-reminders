@@ -9,11 +9,12 @@ import { createAos4ReminderViewModel } from '../../aos4/view'
  * Pyregheists' LIGHT A PYRE has no named phase (issue #2048).
  *
  * A player reported that the ability is used at the end of any turn and that the app shows it under
- * "No Named Phase". The September 2026 Rules Updates (page 58, Battletome: Nighthaunt, marked NEW)
- * reads "Change the timing of ‘Light a Pyre’ to ‘Once Per Turn (Army)’", so the end-of-turn timing
- * the report remembers is the pre-erratum rule. The accepted Wahapedia collection prints the
- * erratum's timing, and the app's phase-independent placement is correct. This pins it so a
- * refresh cannot quietly restore an end-of-turn window while the erratum is current.
+ * "No Named Phase". The September 2026 Rules Updates (page 58, Battletome: Nighthaunt) reads
+ * "Change the timing of ‘Light a Pyre’ to ‘Once Per Turn (Army)’" (this entry carries no "NEW" tag
+ * on the page; that tag marks other page 58 entries, such as Death Stalkers and Shadowy Aura), so
+ * the end-of-turn timing the report remembers is the pre-erratum rule. The accepted Wahapedia
+ * collection prints the erratum's timing, and the app's phase-independent placement is correct.
+ * This pins it so a refresh cannot quietly restore an end-of-turn window while the erratum is current.
  */
 
 const LIGHT_A_PYRE_ID = 'ability:a703721c-5a81-540b-a065-1c46cb84f7b5' as CanonicalId<'ability'>
