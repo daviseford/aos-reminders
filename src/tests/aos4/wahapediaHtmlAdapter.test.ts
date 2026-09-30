@@ -217,7 +217,7 @@ describe('Wahapedia warscroll HTML decoding', () => {
     it.each(['', '0', '-1', '1.5', 'one'])('rejects the malformed or non-positive badge value %j', badge => {
       const result = parseWahapediaWarscrollHtml(input(abilityCostWarscrollHtml({ badge })))
 
-      expect(result.diagnostics).toEqual([])
+      expect(result.diagnostics.map(diagnostic => diagnostic.code)).toEqual(['withheld-ability-cost'])
       expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
     })
 
@@ -226,7 +226,7 @@ describe('Wahapedia warscroll HTML decoding', () => {
         input(abilityCostWarscrollHtml({ badge: '0', condition: 'Spell (7)' }))
       )
 
-      expect(result.diagnostics).toEqual([])
+      expect(result.diagnostics.map(diagnostic => diagnostic.code)).toEqual(['withheld-ability-cost'])
       expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
     })
 
@@ -240,7 +240,7 @@ describe('Wahapedia warscroll HTML decoding', () => {
           input(abilityCostWarscrollHtml({ badge, condition, keywords }))
         )
 
-        expect(result.diagnostics).toEqual([])
+        expect(result.diagnostics.map(diagnostic => diagnostic.code)).toEqual(['withheld-ability-cost'])
         expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
       }
     )
@@ -270,7 +270,7 @@ describe('Wahapedia warscroll HTML decoding', () => {
           input(abilityCostWarscrollHtml({ badgeClass, badge, keywords }))
         )
 
-        expect(result.diagnostics).toEqual([])
+        expect(result.diagnostics.map(diagnostic => diagnostic.code)).toEqual(['withheld-ability-cost'])
         expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
       }
     )
@@ -301,10 +301,68 @@ describe('Wahapedia warscroll HTML decoding', () => {
           input(abilityCostWarscrollHtml({ badgeClass, badge, condition }))
         )
 
-        expect(result.diagnostics).toEqual([])
+        expect(result.diagnostics.map(diagnostic => diagnostic.code)).toEqual(['withheld-ability-cost'])
         expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
       }
     )
+
+    // Blades of the Hollow King's RETRIBUTION OR SALVATION prints a spell badge and no keyword
+    // strip; its declare step makes the casting roll (#2032).
+    it.each([
+      ['abSpellPointsN', '7', 'then make a casting roll of 2D6.', 'Spell'],
+      ['abPrayerPointsN', '4', 'then make a chanting roll of D6.', 'Prayer'],
+    ])(
+      'accepts a dedicated %s badge without a keyword strip when the ability text makes the matching roll',
+      (badgeClass, badge, declare, pointsType) => {
+        const result = parseWahapediaWarscrollHtml(
+          input(
+            abilityCostWarscrollHtml({ badgeClass, badge }).replace(
+              '<p>Effect: Add 3',
+              `<p>Declare: Pick a visible unit, ${declare}</p><p>Effect: Add 3`
+            )
+          )
+        )
+
+        expect(result.diagnostics).toEqual([])
+        expect(result.page?.abilities[0]).toMatchObject({ pointsType, points: badge, keywordsHtml: '' })
+      }
+    )
+
+    it.each([
+      ['abSpellPointsN', '7', 'then make a chanting roll of D6.'],
+      ['abPrayerPointsN', '4', 'then make a casting roll of 2D6.'],
+    ])(
+      'reports and withholds a keywordless %s badge whose text makes the other roll',
+      (badgeClass, badge, declare) => {
+        const result = parseWahapediaWarscrollHtml(
+          input(
+            abilityCostWarscrollHtml({ badgeClass, badge }).replace(
+              '<p>Effect: Add 3',
+              `<p>Declare: Pick a visible unit, ${declare}</p><p>Effect: Add 3`
+            )
+          )
+        )
+
+        expect(result.diagnostics).toMatchObject([
+          { code: 'withheld-ability-cost', severity: 'warning', section: 'datasheet:Liberators/ability:1' },
+        ])
+        expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
+      }
+    )
+
+    it('keeps a keyword strip that disagrees with the badge authoritative even when the text makes the roll', () => {
+      const result = parseWahapediaWarscrollHtml(
+        input(
+          abilityCostWarscrollHtml({ badgeClass: 'abSpellPointsN', badge: '5', keywords: 'PRAYER' }).replace(
+            '<p>Effect: Add 3',
+            '<p>Declare: Pick a friendly unit, then make a casting roll of 2D6.</p><p>Effect: Add 3'
+          )
+        )
+      )
+
+      expect(result.diagnostics.map(diagnostic => diagnostic.code)).toEqual(['withheld-ability-cost'])
+      expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
+    })
   })
 
   it.each([

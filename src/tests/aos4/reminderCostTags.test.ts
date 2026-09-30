@@ -199,11 +199,50 @@ describe('accepted casting and chanting value coverage (#2032)', () => {
     expect(new Set(unvalued)).toEqual(PRAYERS_WITHOUT_CHANTING_VALUE)
   })
 
-  it('never classifies a cost against the ability keyword strip', () => {
+  // RETRIBUTION OR SALVATION (Blades of the Hollow King) prints a casting value badge but no
+  // KEYWORDS strip at all, so the page names no kind to check the badge against; its own text makes
+  // the casting roll, which the adapter accepts as corroboration (#2032). Its keywords stay as
+  // printed.
+  const RETRIBUTION_OR_SALVATION: string = 'ability:272e1c68-51e8-5ca3-83ff-415b656ab45f'
+
+  it('ships the casting value of a spell whose datasheet prints no keyword strip', () => {
+    const ability = abilities.find(candidate => candidate.id === RETRIBUTION_OR_SALVATION)
+    expect(ability?.name).toBe('RETRIBUTION OR SALVATION')
+    expect(ability?.keywords ?? []).toEqual([])
+    expect(ability?.cost).toEqual({ kind: 'spell', value: 7 })
+
+    const reminder = reminderNamed(
+      remindersFor([
+        ['faction', 'Soulblight Gravelords'],
+        ['warscroll', 'Blades of the Hollow King'],
+      ]),
+      'RETRIBUTION OR SALVATION'
+    )
+    expect(reminder.tags[0]).toMatchObject({ label: 'CV 7', tone: 'cost' })
+  })
+
+  // Keyword-independent: an ability whose declare step makes the casting or chanting roll and whose
+  // effect prints no "On a N+" threshold of its own needs a target number from somewhere. Only the
+  // reviewed dispositions above may ship without one. This is what catches a spell whose keyword
+  // strip is missing.
+  it('gives every roll-making ability without its own threshold a value, except the reviewed dispositions', () => {
+    const needsValue = abilities.filter(
+      ability =>
+        /make an? (casting|chanting) roll/i.test(ability.text.declare ?? '') &&
+        !/^On an? \d+\+/i.test(ability.text.effect.trim())
+    )
+    expect(needsValue.length).toBeGreaterThan(550)
+    expect(new Set(needsValue.filter(ability => !ability.cost).map(ability => ability.id))).toEqual(
+      PRAYERS_WITHOUT_CHANTING_VALUE
+    )
+  })
+
+  it('never classifies a cost against a printed keyword strip', () => {
     const mismatched = abilities.filter(
       ability =>
-        (ability.cost?.kind === 'spell' && !hasKeyword(ability.keywords, 'SPELL')) ||
-        (ability.cost?.kind === 'prayer' && !hasKeyword(ability.keywords, 'PRAYER'))
+        ability.id !== RETRIBUTION_OR_SALVATION &&
+        ((ability.cost?.kind === 'spell' && !hasKeyword(ability.keywords, 'SPELL')) ||
+          (ability.cost?.kind === 'prayer' && !hasKeyword(ability.keywords, 'PRAYER')))
     )
     expect(mismatched.map(ability => ability.name)).toEqual([])
   })

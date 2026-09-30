@@ -152,6 +152,7 @@ export type WahapediaHtmlDiagnosticCode =
   | 'orphan-rules-ability'
   | 'missing-battle-profile'
   | 'regiment-of-renown-variant'
+  | 'withheld-ability-cost'
 
 export interface WahapediaHtmlDiagnostic {
   code: WahapediaHtmlDiagnosticCode

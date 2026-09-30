@@ -945,7 +945,7 @@
     "expectedRulesAbilities": 591,
     "expectedRulesArtifacts": 17,
     "expectedRulesGroups": 214,
-    "expectedWarnings": 187,
+    "expectedWarnings": 188,
     "expectedWarscrolls": 1302,
     "reconciliation": {
       "checksum": "5ff6e17e2c06955400ff016fa8a6b93b48bf994663afeeda05a5dfa4f1f2eb51",

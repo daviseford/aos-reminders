@@ -45,8 +45,8 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 33002528,
-      "checksum": "822c17fd42940bf4abdc657d6fc398a12d6a22ccc2e3679837da5228cfd97721"
+      "byteLength": 33002597,
+      "checksum": "52771fe08efabbaa65f629475f6361347458e215fc7b97e1fbf14aca200f03d1"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
       "byteLength": 1394990,
@@ -69,12 +69,12 @@
       "checksum": "db89eafc8a989c781dd6f3f4699294374e81617ffb12145bbc6e5d76f8d0728d"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
-      "byteLength": 6511711,
-      "checksum": "2b0897696aabf0f4c98087ea6e9792234082ad9b62b0295db0325af382f79c9d"
+      "byteLength": 6511745,
+      "checksum": "601cf1f92a8ae990707d5ed7cfb8f6f84f8e7bd5ec536106c1ec71cce6c9c336"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 13629858,
-      "checksum": "a8a4063040e1c86e0c6d3501883f07e9ed6597235e0eaf176a4aee10c9d4ebef"
+      "byteLength": 13629892,
+      "checksum": "9ba2b296dd5677ddf522aedee34802306fa7532ee5bcacdcd0df5c045787fe55"
     },
     "src/aos4/generated/corpus/runtime.sources.json": {
       "byteLength": 7118149,
