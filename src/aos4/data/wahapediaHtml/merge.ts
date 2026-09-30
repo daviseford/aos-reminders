@@ -436,6 +436,7 @@ export const mergeCurrentWahapediaWarscrollPages = (
       const record: WahapediaWarscrollRecord = {
         id: warscrollId,
         ...(page.regimentOfRenown ? { regimentOfRenown: true as const } : {}),
+        ...(page.regimentOfRenownOnly ? { regimentOfRenownOnly: true as const } : {}),
         name: official?.name ?? page.name,
         factionId,
         sourceId: old?.sourceId ?? '',
@@ -587,16 +588,23 @@ export const mergeCurrentWahapediaWarscrollPages = (
    * Resolve each Regiment of Renown's ORGANISATION links to the member warscrolls' merged ids.
    *
    * A member link targets its warscroll's own collection anchor (`…/slaves-to-darkness/
-   * warscrolls.html#Chaos-Knights`), so resolution goes through the kept pages' anchors. A member
-   * whose datasheet is absent from the accepted current pages (the Cogfort crews link anchors the
-   * Cities of Sigmar collection does not carry) is retained by name for generation to surface,
-   * never silently invented.
+   * warscrolls.html#Chaos-Knights`), so resolution goes through the kept pages' anchors. When the
+   * linked page does not carry the anchor (Wahapedia points the Outlaw Cogfort links at the Cities
+   * of Sigmar collection, which publishes no Outlaw datasheet; the inclusion factions' collections
+   * carry them instead, #2030), fall back to the member's name: exactly one kept datasheet with
+   * that name resolves the link, anything else stays unresolved. A member with no resolution is
+   * retained by name for generation to surface, never silently invented.
    */
   const warscrollIdByAnchor = new Map<string, string>()
+  const warscrollIdsByName = new Map<string, string[]>()
   pages.forEach(page => {
     if (page.regimentOfRenown) return
     const id = mergedIdByPage.get(pageKey(page))
     if (!id) return
+    warscrollIdsByName.set(canonical(page.name), [
+      ...(warscrollIdsByName.get(canonical(page.name)) ?? []),
+      id,
+    ])
     try {
       const url = new URL(page.sourceUrl)
       warscrollIdByAnchor.set(`${url.pathname.toLowerCase()}${url.hash}`, id)
@@ -611,13 +619,19 @@ export const mergeCurrentWahapediaWarscrollPages = (
     const memberIds: string[] = []
     const unresolved: string[] = []
     page.regimentOfRenown.members.forEach(member => {
+      const byName = (): string | undefined => {
+        const matches = warscrollIdsByName.get(canonical(member.name)) ?? []
+        return matches.length === 1 ? matches[0] : undefined
+      }
       try {
         const url = new URL(member.href, 'https://wahapedia.ru')
-        const memberId = warscrollIdByAnchor.get(`${url.pathname.toLowerCase()}${url.hash}`)
+        const memberId = warscrollIdByAnchor.get(`${url.pathname.toLowerCase()}${url.hash}`) ?? byName()
         if (memberId) memberIds.push(memberId)
         else unresolved.push(member.name)
       } catch {
-        unresolved.push(member.name)
+        const memberId = byName()
+        if (memberId) memberIds.push(memberId)
+        else unresolved.push(member.name)
       }
     })
     const uniqueMemberIds = Array.from(new Set(memberIds))

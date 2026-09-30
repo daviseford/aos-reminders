@@ -74,11 +74,15 @@ and the 76 official regiment-of-renown battle-profile rows sat dispositioned
    contexts — the first cut let Bonesplitterz (Legends-only) reacquire the current context just
    because current regiments sit on its page, which `catalogIntegrity` caught as a 26→27
    universal-lore offering change.
-4. **Members are `includes` edges resolved by collection anchor.** ORGANISATION links resolve
-   against the kept pages' anchors; a member with no accepted datasheet (the two Cogfort crews)
-   surfaces as a `regiment-of-renown-member-missing` warning instead of a silent or invented
-   edge. Selecting the regiment therefore also selects its member warscrolls, exactly like a
-   roster purchase.
+4. **Members are `includes` edges resolved by collection anchor, then by unique name.** ORGANISATION
+   links resolve against the kept pages' anchors; when the linked page never carries the anchor
+   (Wahapedia points the Outlaw Cogfort links at the Cities of Sigmar collection, which publishes
+   no Outlaw datasheet), exactly one kept datasheet with the member's name resolves the link
+   (#2030). A member with no accepted datasheet still surfaces as a
+   `regiment-of-renown-member-missing` warning instead of a silent or invented edge. Selecting the
+   regiment therefore also selects its member warscrolls, exactly like a roster purchase. A group
+   with no member and no ability chain loses every `offers` edge to the content-free prune — silent
+   in the UI, which is how the two Cogfort regiments vanished (#2030).
 5. **Official rows flip to applied by name, with reviewed spelling maps.** The 74 rows whose
    classified runtime group exists become `applied-to-runtime`;
    `officialProfileName` entries carry the two official spellings that differ from Wahapedia's

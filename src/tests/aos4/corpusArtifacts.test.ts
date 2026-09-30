@@ -63,7 +63,7 @@ describe('AoS 4 derived corpus artifacts', () => {
       'schemaVersion',
     ])
     expect(Object.keys(sources).sort()).toEqual(['sourceArtifacts', 'sourceRecords'])
-    expect(sources.sourceRecords).toHaveLength(20230)
+    expect(sources.sourceRecords).toHaveLength(20250)
     expect(sources.sourceArtifacts).toHaveLength(235)
   })
 

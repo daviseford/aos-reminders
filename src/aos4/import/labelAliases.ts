@@ -108,24 +108,6 @@ export const IMPORT_LABEL_ALIASES: ImportLabelAlias[] = [
       'order the official app prints it.',
   },
   {
-    from: 'Outlaw Conqueror Cogfort',
-    to: 'Conqueror Cogfort',
-    reason:
-      'Provider divergence: the official app names the Cogfort Raiders member the way the ' +
-      'Regiments of Renown page lists it ("1 Outlaw Conqueror Cogfort"), but the official ' +
-      'battle-profile ledger carries no such unit — only the Cities of Sigmar Conqueror Cogfort. ' +
-      'The prefix is the band naming its member, not a separate warscroll, unlike the genuinely ' +
-      'distinct "The Iron March Immolator Cogfort".',
-  },
-  {
-    from: 'Outlaw Cannonade Cogfort',
-    to: 'Cannonade Cogfort',
-    reason:
-      'Provider divergence: the Cogfort Raiders band lists "1 Outlaw Cannonade Cogfort" while ' +
-      'the official battle-profile ledger carries only the Cities of Sigmar Cannonade Cogfort. ' +
-      'Same band-naming shape as its Conqueror counterpart.',
-  },
-  {
     from: 'Knives of the Crone',
     to: 'The Knives of the Crone',
     reason:

@@ -133273,6 +133273,160 @@
       "canonicalId": "weapon:6678731f-f319-537d-933e-6004a6981d6f",
       "kind": "weapon",
       "name": "Fortcrusha Flail: Calamitous Sweep"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Cannonade-Cogfort-1/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6fc8b2d8-44ae-50ff-a453-acdd3b9b8d08",
+      "kind": "ability",
+      "name": "BATTLE DAMAGED"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Cannonade-Cogfort-1/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:54384020-1470-568a-85cc-4c3cd28e7687",
+      "kind": "ability",
+      "name": "MERCENARY ATTITUDES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Conqueror-Cogfort/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5e78a20e-955a-5787-9732-808fe1b501e9",
+      "kind": "ability",
+      "name": "BATTLE DAMAGED"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Conqueror-Cogfort/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:65a13a9c-51d1-5907-bf2c-04d9ef773fe1",
+      "kind": "ability",
+      "name": "EVERYONE ABOARD!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Conqueror-Cogfort/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:81b54927-a982-58fb-8cbe-11bf4b30c7e0",
+      "kind": "ability",
+      "name": "THIS IS YOUR STOP, MAGGOTS!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Cannonade-Cogfort-1/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:82940e83-7692-53fd-a47f-62022876675a",
+      "kind": "warscroll",
+      "name": "Outlaw Cannonade Cogfort"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Conqueror-Cogfort/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:0c51c248-4465-54f8-bd79-728a539c2e61",
+      "kind": "warscroll",
+      "name": "Outlaw Conqueror Cogfort"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Cannonade-Cogfort-1/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:fe39a685-036e-583b-a1d2-55c4ea8b79a6",
+      "kind": "weapon",
+      "name": "Godbreaker Cannon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Cannonade-Cogfort-1/weapon:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:6f23031e-5504-512e-8776-eaeaa9245566",
+      "kind": "weapon",
+      "name": "Breacher Cannon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Cannonade-Cogfort-1/weapon:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:8844fc51-e827-5258-800c-a69e5b16724a",
+      "kind": "weapon",
+      "name": "Crew’s Leadshotters"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Cannonade-Cogfort-1/weapon:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:8f845deb-92f2-54c0-9c84-26c420e87615",
+      "kind": "weapon",
+      "name": "Crushing Iron Feet"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Conqueror-Cogfort/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:20d910dd-b48b-575c-ad1b-5481f7288952",
+      "kind": "weapon",
+      "name": "Realmscorcher Flame Cannon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Conqueror-Cogfort/weapon:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:b7df2ee1-f1ab-5652-9164-fa60341f782e",
+      "kind": "weapon",
+      "name": "Crew’s Leadshotters"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Outlaw-Conqueror-Cogfort/weapon:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:a4c8a30c-d329-5f30-a74a-91843eb327f0",
+      "kind": "weapon",
+      "name": "Crushing Iron Feet"
     }
   ],
   "schemaVersion": 1

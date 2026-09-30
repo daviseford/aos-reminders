@@ -6,18 +6,18 @@ import path from 'node:path'
  * CLI silently reading a superseded manifest/review/report pair.
  */
 export const ACCEPTED_MANIFEST_PATH = path.join('data', 'aos4', 'manifests', 'accepted-2026-09-25.json')
-export const ACCEPTED_REVIEW_PATH = path.join('data', 'aos4', 'reviews', 'corpus-2026-09-29.json')
+export const ACCEPTED_REVIEW_PATH = path.join('data', 'aos4', 'reviews', 'corpus-2026-09-29b.json')
 export const ACCEPTED_SUMMARY_REPORT_PATH = path.join(
   'data',
   'aos4',
   'reports',
-  'corpus-2026-09-29-summary.json'
+  'corpus-2026-09-29b-summary.json'
 )
 export const ACCEPTED_RECONCILIATION_REPORT_PATH = path.join(
   'data',
   'aos4',
   'reports',
-  'corpus-2026-09-29-reconciliation.json'
+  'corpus-2026-09-29b-reconciliation.json'
 )
 
 /**
@@ -25,4 +25,4 @@ export const ACCEPTED_RECONCILIATION_REPORT_PATH = path.join(
  * records, which must stay byte-identical across platforms.
  */
 export const ACCEPTED_RECONCILIATION_REPORT_DESTINATION =
-  'data/aos4/reports/corpus-2026-09-29-reconciliation.json'
+  'data/aos4/reports/corpus-2026-09-29b-reconciliation.json'

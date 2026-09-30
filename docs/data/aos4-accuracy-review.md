@@ -12,7 +12,46 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-29` (issue #1757): the official-first correction of
+The current revision is `aos4-corpus-2026-09-29b` (issue #2030): the Cogfort Regiment of Renown
+correction on top of `aos4-corpus-2026-09-29`. Cogfort Raiders and Rogue Engine were classified
+regiment-of-renown content groups that no faction could select: Wahapedia publishes their Outlaw
+Cogfort member datasheets only on the inclusion factions' collections while linking them at a
+Cities of Sigmar anchor that collection never carries, so the native-faction filter dropped the
+datasheets, the member edges went unresolved, and the content-free-group prune silently discarded
+every offer. Two reviewed `adoptedWarscrolls` entries with `availability: 'regiment-of-renown'`
+now keep the Blades of Khorne collection copies (official evidence: *Regiments of Renown – Cities
+of Sigmar* pages 1-2 print both regiments with their full Outlaw warscrolls), member resolution
+falls back to a unique kept-datasheet name match, and the regiment-only warscrolls are never
+offered directly. No artifact changed: the revision keeps `accepted-2026-09-25.json`. The runtime
+gains exactly 2 warscrolls, 5 abilities, 7 weapons, and 62 relationships, all Cogfort-scoped. Its
+automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 245/245 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 658/658 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,256/20,256 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,692/42,692 |
+| Independent outcomes | 85,384 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 129/129 |
+| Populated high-risk cohorts | 20/20 |
+
+The source inventory is a schema 2 inventory of fresh observations taken for this revision on
+2026-09-30: a `discover-official` snapshot (166 downloads, 7 explicit non-material), the Wahapedia
+navigation and exports (87 sources, 0 inaccessible), and the pinned BSData `8836d9f9` `Regiments of
+Renown.cat`; every accepted artifact matched, so no newer official publication supersedes the
+pinned September documents. The certification is `aos4-corpus-2026-09-29b-machine-r1`. Its
+`--reuse-certification` offer of `aos4-corpus-2026-09-29-machine-r2` carried nothing forward (the
+revision re-key invalidates every pair), so all 42,692 pairs were evaluated fresh (campaign
+00:43:27Z, certified 00:43:59Z), with 0 findings and 0 cannot-verify.
+
+### `aos4-corpus-2026-09-29` (superseded)
+
+The prior revision was `aos4-corpus-2026-09-29` (issue #1757): the official-first correction of
 four discrepancies the 2026-09-29 BSData review found against the pinned September 2026 documents.
 Battle-profile extraction now drops text the core Battle Profiles strikes through, so 33
 reinforcement notes, the seasonal Saurus Scar-Veteran on Aggradon's Favoured Spawning note, and the

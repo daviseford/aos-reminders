@@ -396,6 +396,13 @@ export interface CorpusReview {
       name: string
       reason: string
       officialSourceRecordIds: SourceRecordId[]
+      /**
+       * `regiment-of-renown`: the datasheet is fielded only through a Regiment of Renown's
+       * ORGANISATION block, so no faction offers it directly (the Outlaw Cogfort datasheets the
+       * inclusion-faction collections carry, #2030). Unset entries keep normal direct
+       * availability.
+       */
+      availability?: 'regiment-of-renown'
     }>
     rulesPages?: WahapediaRulesPageReview[]
     reconciliation?: {
@@ -1861,10 +1868,12 @@ export const buildAos4Corpus = (
     /**
      * A Regiment of Renown is offered by exactly its inclusion factions (the merged availability
      * records), never by the faction whose collection page carried the kept copy: a regiment's
-     * home faction is often not allowed to include it.
+     * home faction is often not allowed to include it. A `regimentOfRenownOnly` datasheet (a
+     * reviewed regiment-member adoption such as the Outlaw Cogforts, #2030) is fielded only
+     * through its regiment's ORGANISATION block, so no faction offers it directly either.
      */
     const factionIds = uniqueSorted([
-      ...(record.regimentOfRenown ? [] : offeringFactionIds(record.factionId)),
+      ...(record.regimentOfRenown || record.regimentOfRenownOnly ? [] : offeringFactionIds(record.factionId)),
       ...regimentRecords.flatMap(item => {
         const factionId = factionByExternalId.get(item.factionId)
         return factionId ? [factionId] : []
