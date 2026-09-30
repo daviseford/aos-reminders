@@ -32,8 +32,10 @@ export const ACTIVATION_TIMEOUT_MS = 5 * 1000
  * The unconditional reload lands a stalled install back on the old build, where the same waiting
  * worker is found again on load. Without a pause that is a loop -- modal, ten seconds, reload, modal
  * -- that leaves the app unusable for as long as activation keeps failing. One stalled attempt per
- * tab per window is the bound; the next load after it tries again. This is failure backoff, not a
- * deferral for what the user is doing: a healthy install is never held back (#2046).
+ * tab per window is the bound. The update is still announced; the "Installing updates" modal holds
+ * itself shut until the window ends and then opens on its own, so a long-lived tab retries without
+ * needing a new update event. This is failure backoff, not a deferral for what the user is doing: a
+ * healthy install is never held back (#2046).
  */
 export const INSTALL_STALL_BACKOFF_MS = 10 * 60 * 1000
 
@@ -43,7 +45,7 @@ type RegisterServiceWorker = typeof registerSW
 
 interface ServiceWorkerRegistrationDependencies {
   announceNewContent: () => void
-  hasInstallRecentlyStalled: () => boolean
+  clearInstallStalled: () => void
   listenForControllerChange: (callback: () => void) => void
   listenForWorkerStateChange: (worker: ServiceWorker, callback: () => void) => void
   markInstallStalled: () => void
@@ -114,13 +116,23 @@ const markInstallStalled = () => {
   }
 }
 
-export const hasInstallRecentlyStalled = () => {
+const clearInstallStalled = () => {
+  try {
+    sessionStorage.removeItem(SERVICE_WORKER_INSTALL_STALLED_STORAGE_KEY)
+  } catch {
+    // Nothing was recorded if storage is unavailable.
+  }
+}
+
+/** Milliseconds left in this tab's stall backoff; 0 when there is none. */
+export const installStallBackoffRemainingMs = () => {
   try {
     const stalledAt = Number(sessionStorage.getItem(SERVICE_WORKER_INSTALL_STALLED_STORAGE_KEY))
     const age = Date.now() - stalledAt
-    return Number.isFinite(stalledAt) && stalledAt > 0 && age >= 0 && age <= INSTALL_STALL_BACKOFF_MS
+    if (!Number.isFinite(stalledAt) || stalledAt <= 0 || age < 0) return 0
+    return Math.max(0, INSTALL_STALL_BACKOFF_MS - age)
   } catch {
-    return false
+    return 0
   }
 }
 
@@ -166,11 +178,8 @@ export const createServiceWorkerRegistrationController = (
   })
 
   dependencies.register({
-    onNeedRefresh: () => {
-      // A tab whose last install stalled stays on its current build until INSTALL_STALL_BACKOFF_MS.
-      if (dependencies.hasInstallRecentlyStalled()) return
-      dependencies.announceNewContent()
-    },
+    // Always announced, even inside a stall backoff: the modal owns the backoff and its timer.
+    onNeedRefresh: dependencies.announceNewContent,
     /*
      * In prompt mode vite-plugin-pwa attaches this callback to `controlling` only after a waiting
      * worker has raised onNeedRefresh. The worker still cannot take control until a tab posts the
@@ -182,6 +191,13 @@ export const createServiceWorkerRegistrationController = (
     onRegisteredSW: (_swUrl, registered) => {
       registration = registered
       if (!registration) return
+
+      /*
+       * Nothing waiting on this load means the last install landed (or there was none), so any stall
+       * recorded before the reload was not a stall. Clearing it here undoes a mark made in the race
+       * where the deadline ran before the worker's activation reached this page.
+       */
+      if (!registration.waiting) dependencies.clearInstallStalled()
 
       dependencies.setPollInterval(async () => {
         if (registration?.installing) return
@@ -264,8 +280,14 @@ export const createServiceWorkerRegistrationController = (
          * old build is far better than a modal that says "Installing updates" forever.
          */
         dependencies.setActivationTimeout(() => {
-          // Still waiting means this reload lands on the old build: back off rather than loop.
-          if (!reloadStarted && registration?.waiting) dependencies.markInstallStalled()
+          /*
+           * Still sitting in `installed` means this reload lands on the old build: back off rather
+           * than loop. A worker already `activating`/`activated` is a success whose events have not
+           * reached this page yet, so it is not a stall.
+           */
+          if (!reloadStarted && registration?.waiting?.state === 'installed') {
+            dependencies.markInstallStalled()
+          }
           reloadOnce()
         }, ACTIVATION_TIMEOUT_MS)
       }, ACTIVATION_TIMEOUT_MS)
@@ -290,7 +312,7 @@ const registrationIsDisabledForRollback = () => {
 const serviceWorkerRegistrationController = !registrationIsDisabledForRollback()
   ? createServiceWorkerRegistrationController({
       announceNewContent,
-      hasInstallRecentlyStalled,
+      clearInstallStalled,
       listenForControllerChange: callback =>
         navigator.serviceWorker?.addEventListener('controllerchange', callback),
       listenForWorkerStateChange: (worker, callback) => worker.addEventListener('statechange', callback),
@@ -303,6 +325,13 @@ const serviceWorkerRegistrationController = !registrationIsDisabledForRollback()
       wasUpdateAccepted,
     })
   : undefined
+
+/**
+ * Whether this tab installs updates at all. False in a tab carrying the rollback marker (and outside
+ * a browser): an emergency rollback is being delivered to it, and another tab's update announcement
+ * must not put a modal over it or reload it (#2046).
+ */
+export const canInstallUpdates = serviceWorkerRegistrationController !== undefined
 
 /**
  * Applies a waiting update. The claimed worker reloads every controlled tab so all clients and

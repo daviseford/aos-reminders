@@ -75,7 +75,9 @@ const createHarness = (
   const announceNewContent = vi.fn()
   const applyWaitingUpdate = createServiceWorkerRegistrationController({
     announceNewContent,
-    hasInstallRecentlyStalled: () => session.stalled,
+    clearInstallStalled: () => {
+      session.stalled = false
+    },
     listenForControllerChange: callback => {
       controllerChanged = callback
     },
@@ -289,14 +291,10 @@ describe('service-worker registration controller', () => {
   })
 
   /*
-   * `controllerchange` only fires if the claim reaches this client. The worker reporting its own
-   * activation is a second, independent signal that the accepted build is live.
-   */
-  /*
    * A stalled install reloads onto the old build, where the same waiting worker is found again. Left
-   * alone that is a reload loop; the tab records the stall and sits the next announcement out.
+   * alone that is a reload loop; the tab records the stall so the modal can wait out a backoff.
    */
-  it('backs off after a stalled install instead of looping through the modal again', () => {
+  it('records a stall when the last deadline passes with the worker still installed', () => {
     const session = { stalled: false }
     const stalledTab = createHarness('waiting', { accepted: false }, session)
 
@@ -306,11 +304,12 @@ describe('service-worker registration controller', () => {
     expect(stalledTab.reload).toHaveBeenCalledTimes(1)
     expect(session.stalled).toBe(true)
 
-    // The same tab after its reload: the worker is still waiting and raises onNeedRefresh again.
+    // The same tab after its reload, worker still waiting: the stall survives, and the update is
+    // still announced -- the modal owns the backoff and opens once it ends.
     const reloadedTab = createHarness('waiting', { accepted: false }, session)
+    expect(session.stalled).toBe(true)
     reloadedTab.callbacks.onNeedRefresh?.()
-
-    expect(reloadedTab.announceNewContent).not.toHaveBeenCalled()
+    expect(reloadedTab.announceNewContent).toHaveBeenCalledTimes(1)
   })
 
   it('records no stall when the install took control before the last deadline', () => {
@@ -338,6 +337,39 @@ describe('service-worker registration controller', () => {
     expect(session.stalled).toBe(false)
   })
 
+  /*
+   * The race: the worker has activated, but its statechange/controllerchange and the registration's
+   * own `waiting -> null` update are still queued when the deadline runs. A worker that has left
+   * `installed` is a success in flight, not a stall.
+   */
+  it.each(['activating', 'activated'] as const)(
+    'records no stall when the deadline runs with the worker already %s but its events still queued',
+    state => {
+      const session = { stalled: false }
+      const tab = createHarness('waiting', { accepted: false }, session)
+
+      tab.applyWaitingUpdate()
+      tab.runActivationTimeout()
+      tab.waitingWorker.state = state
+      tab.runActivationTimeout()
+
+      expect(tab.reload).toHaveBeenCalledTimes(1)
+      expect(session.stalled).toBe(false)
+    }
+  )
+
+  it('clears a recorded stall once a load finds nothing waiting', () => {
+    const session = { stalled: true }
+
+    createHarness('settled', { accepted: false }, session)
+
+    expect(session.stalled).toBe(false)
+  })
+
+  /*
+   * `controllerchange` only fires if the claim reaches this client. The worker reporting its own
+   * activation is a second, independent signal that the accepted build is live.
+   */
   it('reloads when the accepted worker activates without claiming this tab', () => {
     const tab = createHarness('waiting')
 

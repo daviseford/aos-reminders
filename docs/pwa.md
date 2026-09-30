@@ -39,7 +39,11 @@ Updates install automatically, with no prompt and no click (#2046):
    whose poll found it.
 2. In each tab, `InstallingUpdate` opens a modal reading "Installing updates, one moment". It has no
    close button, and Escape and backdrop clicks do nothing: it is open exactly while
-   `hasNewContent` is true, and only a reload ends that.
+   `hasNewContent` is true, and only a reload ends that. Its overlay carries
+   `INSTALLING_UPDATE_Z_INDEX` (2000). react-modal appends this modal's portal when the app
+   mounts, so without it any Save/Import/Print/Share/checkout modal opened later would paint over
+   the install, as would the loading splash (1050) and Bootstrap's layers (up to 1090). A test reads
+   `src/css/index.scss` and fails if anything there is pinned higher.
 3. Once the modal has rendered, its effect calls `applyWaitingUpdate`. Starting activation there,
    rather than inside the registration callback, is what keeps a tab from reloading before it has
    said why. Each tab posts the private activation message itself. The generated handler only calls
@@ -194,18 +198,23 @@ cache must degrade to "needs one online load", never to a broken app.
   guaranteed to end the wait.
 
   The modal adds one deadline of its own, `INSTALL_FALLBACK_RELOAD_MS` (15s),
-  for a tab with no registration controller at all, such as one opened with the
-  rollback query marker that still hears another tab's announcement. It should
-  never be the path that fires in a normal tab.
+  as a last guarantee. It should never be the path that fires.
 
   A stalled install reloads onto the old build, where the same waiting worker
-  is found again, so unbounded retrying would be a reload loop. When the
-  unconditional reload fires with the worker still waiting, the tab records the
-  stall in `sessionStorage` and ignores update announcements for
-  `INSTALL_STALL_BACKOFF_MS` (10 minutes). It then stays usable on its current
-  build and tries again on its next load after that. This is failure backoff,
-  not a deferral for what the player is doing, and it is per tab: other tabs
-  still install.
+  is found again, so unbounded retrying would be a reload loop. When the last
+  deadline passes with the worker still `installed`, the tab records the stall
+  in `sessionStorage`. A worker already `activating` or `activated` is a
+  success whose events have not arrived yet, so it is not recorded, and a load
+  that finds nothing waiting clears any record. After a stall the update is still
+  announced, but the modal stays shut for the rest of `INSTALL_STALL_BACKOFF_MS`
+  (10 minutes) and then opens on its own in the same page. The tab stays usable on
+  its current build meanwhile. This is failure backoff, not a deferral for what
+  the player is doing, and it is per tab: other tabs still install.
+- **Rollback tabs never install.** A tab carrying the rollback marker has no
+  registration controller, and the modal does not open there even when another
+  tab announces an update, so nothing covers or reloads a tab mid-rollback.
+  One bounded race remains, described under "Rolling back the service worker" in
+  docs/deployment.md.
 - **Legacy clients lag.** A client still controlled by the CRA worker is served a
   stale shell, so it runs no current code and cannot show the modal. It recovers
   when its last tab closes. Do not restore the generic `SKIP_WAITING` activation

@@ -17,9 +17,16 @@ vi.mock('context/useTheme', () => ({
   useTheme: () => ({ isDark: theme.isDark, theme: { text: theme.isDark ? 'text-light' : 'text-dark' } }),
 }))
 
-import { INSTALL_FALLBACK_RELOAD_MS, InstallingUpdate } from 'components/info/installingUpdate'
+import GenericModal from 'components/modals/generic/generic_modal'
+import {
+  INSTALL_FALLBACK_RELOAD_MS,
+  INSTALLING_UPDATE_Z_INDEX,
+  InstallingUpdate,
+} from 'components/info/installingUpdate'
 import { AppStatusProvider } from 'context/useAppStatus'
-import { act } from 'react'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { act, type ReactNode } from 'react'
 import Modal from 'react-modal'
 import { render, Simulate, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
@@ -29,11 +36,21 @@ describe('installing-update modal', () => {
   let onApply: ReturnType<typeof vi.fn<() => void>>
   let reload: ReturnType<typeof vi.fn<() => void>>
 
-  const mount = (isInstallSuppressed = () => false) => {
+  const mount = ({
+    isEnabled = true,
+    stallBackoffRemainingMs = () => 0,
+    after = null,
+  }: { isEnabled?: boolean; stallBackoffRemainingMs?: () => number; after?: ReactNode } = {}) => {
     act(() => {
       render(
         <AppStatusProvider>
-          <InstallingUpdate isInstallSuppressed={isInstallSuppressed} onApply={onApply} reload={reload} />
+          <InstallingUpdate
+            isEnabled={isEnabled}
+            onApply={onApply}
+            reload={reload}
+            stallBackoffRemainingMs={stallBackoffRemainingMs}
+          />
+          {after}
         </AppStatusProvider>,
         container
       )
@@ -94,21 +111,103 @@ describe('installing-update modal', () => {
     const otherTab = new BroadcastChannel('app-update')
     otherTab.postMessage('App has updated.')
     otherTab.close()
-    // BroadcastChannel delivers on a later task, which fake timers do not drive.
+    /*
+     * BroadcastChannel delivers on a later task, which fake timers do not drive. Poll rather than
+     * sleep a fixed interval: under a loaded full-suite run delivery can take longer than any single
+     * short wait, and a fixed sleep would make this test the flaky one.
+     */
     vi.useRealTimers()
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 50))
-    })
+    const deadline = Date.now() + 5_000
+    while (!dialog() && Date.now() < deadline) {
+      await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 20))
+      })
+    }
 
     expect(dialog()).not.toBeNull()
     expect(onApply).toHaveBeenCalledTimes(1)
   })
 
-  it('sits out an announcement in a tab whose last install stalled', () => {
-    mount(() => true)
+  /*
+   * The backoff after a stalled install ends inside this page, not on the next load: a long-lived PWA
+   * tab gets no fresh update event for a worker that is already waiting.
+   */
+  it('waits out a stall backoff in this page and then installs on its own', () => {
+    mount({ stallBackoffRemainingMs: () => 60_000 })
+    announceNewContent()
+
+    act(() => {
+      vi.advanceTimersByTime(59_999)
+    })
+    expect(dialog()).toBeNull()
+    expect(onApply).not.toHaveBeenCalled()
+    expect(reload).not.toHaveBeenCalled()
+
+    act(() => {
+      vi.advanceTimersByTime(1)
+    })
+    expect(dialog()).not.toBeNull()
+    expect(onApply).toHaveBeenCalledTimes(1)
+  })
+
+  it('opens when an announcement arrives after the backoff has already ended', () => {
+    mount({ stallBackoffRemainingMs: () => 1_000 })
+    act(() => {
+      vi.advanceTimersByTime(1_000)
+    })
+
+    announceNewContent()
+
+    expect(dialog()).not.toBeNull()
+    expect(onApply).toHaveBeenCalledTimes(1)
+  })
+
+  it('drops its backoff timer when it unmounts', () => {
+    mount({ stallBackoffRemainingMs: () => 1_000 })
     announceNewContent()
     act(() => {
-      vi.advanceTimersByTime(INSTALL_FALLBACK_RELOAD_MS)
+      unmountComponentAtNode(container)
+    })
+
+    act(() => {
+      vi.advanceTimersByTime(1_000 + INSTALL_FALLBACK_RELOAD_MS)
+    })
+
+    expect(onApply).not.toHaveBeenCalled()
+    expect(reload).not.toHaveBeenCalled()
+  })
+
+  it('reads the stall backoff from this tab session by default', async () => {
+    const { INSTALL_STALL_BACKOFF_MS } = await import('../../bootstrap/registerServiceWorker')
+    window.sessionStorage.setItem('aos-reminders:pwa:install-stalled-at', String(Date.now() - 1_000))
+    act(() => {
+      render(
+        <AppStatusProvider>
+          <InstallingUpdate isEnabled onApply={onApply} reload={reload} />
+        </AppStatusProvider>,
+        container
+      )
+    })
+    announceNewContent()
+    expect(dialog()).toBeNull()
+
+    act(() => {
+      vi.advanceTimersByTime(INSTALL_STALL_BACKOFF_MS - 1_000)
+    })
+
+    expect(dialog()).not.toBeNull()
+    window.sessionStorage.clear()
+  })
+
+  /*
+   * A tab carrying the rollback marker is being handed an emergency rollback. Another tab's update
+   * announcement must not cover it or reload it.
+   */
+  it('never opens or reloads in a tab with no registration, such as one under rollback', () => {
+    mount({ isEnabled: false })
+    announceNewContent()
+    act(() => {
+      vi.advanceTimersByTime(INSTALL_FALLBACK_RELOAD_MS * 2)
     })
 
     expect(dialog()).toBeNull()
@@ -116,33 +215,44 @@ describe('installing-update modal', () => {
     expect(reload).not.toHaveBeenCalled()
   })
 
-  it('reads the stall backoff from this tab session by default, and only inside its window', async () => {
-    const { INSTALL_STALL_BACKOFF_MS } = await import('../../bootstrap/registerServiceWorker')
-    const renderDefault = () => {
-      act(() => {
-        render(
-          <AppStatusProvider>
-            <InstallingUpdate onApply={onApply} reload={reload} />
-          </AppStatusProvider>,
-          container
-        )
-      })
-    }
-
-    window.sessionStorage.setItem('aos-reminders:pwa:install-stalled-at', String(Date.now()))
-    renderDefault()
-    announceNewContent()
-    expect(dialog()).toBeNull()
-
-    act(() => {
-      unmountComponentAtNode(container)
+  /*
+   * The regression: this modal mounts with the app, so react-modal appended its portal to <body>
+   * before any modal the player opens later. With equal stacking, DOM order decides, and the later
+   * Save/Import/Print/Share/checkout overlay painted over the install.
+   */
+  it('stacks above a modal that was opened before the update arrived', () => {
+    mount({
+      after: (
+        <GenericModal closeModal={vi.fn()} isOpen label="Save Army">
+          Half-typed name
+        </GenericModal>
+      ),
     })
-    vi.setSystemTime(Date.now() + INSTALL_STALL_BACKOFF_MS + 1)
-    renderDefault()
     announceNewContent()
-    expect(dialog()).not.toBeNull()
 
-    window.sessionStorage.clear()
+    const overlays = Array.from(document.querySelectorAll<HTMLElement>('.ReactModal__Overlay'))
+    const update = overlays.find(node => node.querySelector('[role="alertdialog"]'))!
+    const other = overlays.find(node => node !== update)!
+    // Modelling the real order: the update's portal really is the earlier one in the document.
+    expect(update.compareDocumentPosition(other) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+
+    const zIndexOf = (node: HTMLElement) => Number(getComputedStyle(node).zIndex) || 0
+    expect(zIndexOf(update)).toBe(INSTALLING_UPDATE_Z_INDEX)
+    expect(zIndexOf(update)).toBeGreaterThan(zIndexOf(other))
+    expect(document.body.textContent).toContain('Half-typed name')
+  })
+
+  /*
+   * jsdom does not load the stylesheet, so read it: anything the app pins with a z-index -- the
+   * loading splash at 1050 today -- must stay under the install. Bootstrap's highest layer (toasts,
+   * 1090) is checked too, since dropdowns and tooltips come from it rather than from index.scss.
+   */
+  it('sits above every z-index the app stylesheet and Bootstrap define', () => {
+    const stylesheet = readFileSync(resolve(process.cwd(), 'src/css/index.scss'), 'utf8')
+    const pinned = Array.from(stylesheet.matchAll(/z-index:\s*(\d+)/g), match => Number(match[1]))
+    expect(pinned).toContain(1050)
+
+    expect(INSTALLING_UPDATE_Z_INDEX).toBeGreaterThan(Math.max(...pinned, 1090))
   })
 
   it('installs only once however many times the update is announced', () => {
