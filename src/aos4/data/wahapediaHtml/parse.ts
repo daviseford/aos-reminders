@@ -209,17 +209,26 @@ const abilityValue = (header: Element, body: Element, line: number) => {
     )?.[0] ?? ''
   const pointsMatch = condition.match(/\b(Spell|Prayer)\s*\((\d+)\)/i)
   const textualPoints = pointsMatch ? { pointsType: pointsMatch[1], points: pointsMatch[2] } : undefined
-  // Wahapedia renders command costs, casting values, and chanting values with the same numeric
-  // badge. Keep the lookup inside this ability's header row, then use the ability's own keyword
-  // strip to classify the overloaded provider shape.
-  const badgeElement = header.closest('tr')?.querySelector('.abCommandPointsN') ?? null
+  // Wahapedia renders command costs, casting values, and chanting values as numeric badges in the
+  // ability's own header row: command costs as .abCommandPointsN, casting values as
+  // .abSpellPointsN, and chanting values as .abPrayerPointsN. Keep the lookup inside this ability's
+  // header row. The command badge class is overloaded — it also carries spell and prayer target
+  // numbers on pages without the dedicated classes — so classify it with the ability's own keyword
+  // strip. The dedicated spell and prayer classes are self-describing and must agree with that
+  // keyword classification; a disagreement fails closed with no cost.
+  const badgeElement =
+    header.closest('tr')?.querySelector('.abCommandPointsN, .abSpellPointsN, .abPrayerPointsN') ?? null
+  const keywordType = abilityPointsType(keywordHtml, textualPoints?.pointsType)
+  const badgeType = badgeElement?.classList.contains('abSpellPointsN')
+    ? 'Spell'
+    : badgeElement?.classList.contains('abPrayerPointsN')
+      ? 'Prayer'
+      : keywordType
   const badgeText = normalizedText(badgeElement)
-  const badgePoints = /^[1-9]\d*$/.test(badgeText)
-    ? {
-        pointsType: abilityPointsType(keywordHtml, textualPoints?.pointsType),
-        points: badgeText,
-      }
-    : undefined
+  const badgePoints =
+    /^[1-9]\d*$/.test(badgeText) && badgeType === keywordType
+      ? { pointsType: badgeType, points: badgeText }
+      : undefined
   const pointsEvidence =
     badgeElement && !badgePoints
       ? undefined

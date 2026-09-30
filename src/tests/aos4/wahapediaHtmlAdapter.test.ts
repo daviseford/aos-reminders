@@ -87,10 +87,12 @@ const input = (html: string) => {
 
 const abilityCostWarscrollHtml = ({
   badge,
+  badgeClass = 'abCommandPointsN',
   condition = 'Your Hero Phase',
   keywords,
 }: {
   badge?: string
+  badgeClass?: string
   condition?: string
   keywords?: string
 }) => {
@@ -98,9 +100,7 @@ const abilityCostWarscrollHtml = ({
     ? `<div class="abKeywords"><span class="abKeywordsBodyText">${keywords}</span></div>`
     : ''
   const badgeCell =
-    badge === undefined
-      ? ''
-      : `<td class="abCommandPoints"><span class="abCommandPointsN">${badge}</span></td>`
+    badge === undefined ? '' : `<td class="abCommandPoints"><span class="${badgeClass}">${badge}</span></td>`
   return warscrollHtml()
     .replace(
       '<div class="abHeader" bgcolor="#fff">Reaction: You declared a FIGHT ability <span class="kwb">CORE</span></div>',
@@ -238,6 +238,67 @@ describe('Wahapedia warscroll HTML decoding', () => {
       (badge, condition, keywords) => {
         const result = parseWahapediaWarscrollHtml(
           input(abilityCostWarscrollHtml({ badge, condition, keywords }))
+        )
+
+        expect(result.diagnostics).toEqual([])
+        expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
+      }
+    )
+
+    it.each([
+      ['abSpellPointsN', '5', 'SPELL, UNLIMITED', 'Spell', '5'],
+      ['abPrayerPointsN', '4', 'PRAYER', 'Prayer', '4'],
+    ])(
+      'decodes the dedicated %s casting/chanting badge with %s keywords as %s points',
+      (badgeClass, badge, keywords, pointsType, points) => {
+        const result = parseWahapediaWarscrollHtml(
+          input(abilityCostWarscrollHtml({ badgeClass, badge, keywords }))
+        )
+
+        expect(result.diagnostics).toEqual([])
+        expect(result.page?.abilities[0]).toMatchObject({ pointsType, points })
+      }
+    )
+
+    it.each([
+      ['abSpellPointsN', '5', 'PRAYER'],
+      ['abPrayerPointsN', '4', 'SPELL'],
+    ])(
+      'fails closed when the dedicated %s badge disagrees with %s keywords',
+      (badgeClass, badge, keywords) => {
+        const result = parseWahapediaWarscrollHtml(
+          input(abilityCostWarscrollHtml({ badgeClass, badge, keywords }))
+        )
+
+        expect(result.diagnostics).toEqual([])
+        expect(result.page?.abilities[0]).toMatchObject({ pointsType: '', points: '' })
+      }
+    )
+
+    it.each([
+      ['abSpellPointsN', '5', 'Spell (5)'],
+      ['abPrayerPointsN', '4', 'Prayer (4)'],
+    ])(
+      'accepts a dedicated %s badge corroborated by textual %s evidence without a keyword strip',
+      (badgeClass, badge, condition) => {
+        const result = parseWahapediaWarscrollHtml(
+          input(abilityCostWarscrollHtml({ badgeClass, badge, condition }))
+        )
+
+        expect(result.diagnostics).toEqual([])
+        expect(result.page?.abilities[0]).toMatchObject({ points: badge })
+      }
+    )
+
+    it.each([
+      ['abSpellPointsN', '5', undefined],
+      ['abSpellPointsN', '5', 'Spell (6)'],
+      ['abPrayerPointsN', '4', 'Prayer (3)'],
+    ])(
+      'fails closed on a dedicated %s badge without corroborating keyword or textual evidence',
+      (badgeClass, badge, condition) => {
+        const result = parseWahapediaWarscrollHtml(
+          input(abilityCostWarscrollHtml({ badgeClass, badge, condition }))
         )
 
         expect(result.diagnostics).toEqual([])
