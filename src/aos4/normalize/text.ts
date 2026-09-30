@@ -65,10 +65,71 @@ const normalizeWhitespace = (value: string): string =>
     .replace(/\n{2,}/g, '\n')
     .trim()
 
+const KEYWORD_SPAN_CLASS = /\bkwb\b/
+
+const elementText = (node: Element): string =>
+  node.childNodes
+    .map(child => (child.nodeName === '#text' && 'value' in child ? String(child.value) : ''))
+    .join('')
+
+const hasKeywordSpanClass = (node: Element): boolean =>
+  node.attrs.some(
+    attribute => attribute.name.toLowerCase() === 'class' && KEYWORD_SPAN_CLASS.test(attribute.value)
+  )
+
+/**
+ * Wahapedia occasionally truncates a keyword span one letter early (`<span class="kwb">INFANTR</span>y`),
+ * leaking a lowercase fragment into the text. Repair it only when the completed word is attested
+ * in full by another keyword span in the same fragment — the document itself proves the intended
+ * keyword, so no keyword vocabulary or guesswork is involved. Every repair is reported for review.
+ */
+const repairTruncatedKeywordSpans = (fragment: Node): number => {
+  const completeKeywords = new Set<string>()
+  const truncated: Array<{ span: Element; sibling: Node; continuation: string }> = []
+  const walk = (node: Node): void => {
+    if (!('childNodes' in node)) return
+    node.childNodes.forEach((child, index) => {
+      if (!isElement(child)) return
+      if (hasKeywordSpanClass(child)) {
+        const text = elementText(child)
+        if (/^[A-Z]{3,}$/.test(text)) {
+          completeKeywords.add(text)
+          const sibling = node.childNodes[index + 1]
+          if (sibling?.nodeName === '#text' && 'value' in sibling) {
+            const continuation = String(sibling.value).match(/^[a-z]+/)?.[0] ?? ''
+            if (continuation) truncated.push({ span: child, sibling, continuation })
+          }
+        }
+      }
+      walk(child)
+    })
+  }
+  walk(fragment)
+  let repairs = 0
+  truncated.forEach(({ span, sibling, continuation }) => {
+    const completed = elementText(span) + continuation
+    if (!completeKeywords.has(completed.toUpperCase())) return
+    const spanTextNode = span.childNodes.find(child => child.nodeName === '#text')
+    if (!spanTextNode || !('value' in spanTextNode) || !('value' in sibling)) return
+    spanTextNode.value = completed.toUpperCase()
+    sibling.value = String(sibling.value).slice(continuation.length)
+    repairs += 1
+  })
+  return repairs
+}
+
 export const normalizeSourceText = (source: string): SourceTextNormalizationResult => {
   const fragment = parseFragment(source)
   const output: string[] = []
   const diagnostics: NormalizationDiagnostic[] = []
+  if (repairTruncatedKeywordSpans(fragment)) {
+    diagnostics.push({
+      code: 'keyword-span-completed',
+      severity: 'warning',
+      message:
+        'Completed a keyword span the source markup truncated mid-keyword, using the full keyword attested elsewhere in the same text',
+    })
+  }
 
   const visit = (node: Node): void => {
     if (node.nodeName === '#text' && 'value' in node) {

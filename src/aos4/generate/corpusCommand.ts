@@ -615,14 +615,22 @@ const loadWahapediaHtmlPages = async (
   let factionRootWarscrolls = 0
   let warningCount = 0
   const wahapediaPageUrls = artifacts.map(artifact => artifact.finalUrl)
-  const adoptionsByUrl = new Map<string, Array<{ name: string; reason: string }>>()
+  const adoptionsByUrl = new Map<
+    string,
+    Array<{ name: string; reason: string; availability?: 'regiment-of-renown' }>
+  >()
   ;(review.currentWahapediaHtml?.adoptedWarscrolls ?? []).forEach(adoption => {
-    if (!adoption.name.trim() || !adoption.reason.trim() || !adoption.officialSourceRecordIds.length) {
+    if (
+      !adoption.name.trim() ||
+      !adoption.reason.trim() ||
+      !adoption.officialSourceRecordIds.length ||
+      (adoption.availability !== undefined && adoption.availability !== 'regiment-of-renown')
+    ) {
       throw new Error(`Adopted warscroll review entry for ${adoption.url} is malformed`)
     }
     adoptionsByUrl.set(adoption.url, [
       ...(adoptionsByUrl.get(adoption.url) ?? []),
-      { name: adoption.name, reason: adoption.reason },
+      { name: adoption.name, reason: adoption.reason, availability: adoption.availability },
     ])
   })
   for (const artifact of artifacts) {
@@ -677,6 +685,11 @@ const loadWahapediaHtmlPages = async (
         throw new Error(
           `Adopted warscroll ${adoption.name} no longer matches exactly one non-native datasheet on ${artifact.finalUrl}`
         )
+      }
+      if (adoption.availability === 'regiment-of-renown') {
+        // Fielded only through a Regiment of Renown's ORGANISATION block: generation must not
+        // offer the datasheet directly (the Outlaw Cogfort datasheets, #2030).
+        adopted[0].regimentOfRenownOnly = true
       }
     })
     if (

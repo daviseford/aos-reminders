@@ -101,7 +101,7 @@ const certifiedRuntime = JSON.parse(
 
 const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-25.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-29-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-29b-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_587)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_601)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,587 entities', () => {
+  it('reports no missing provenance for any of the 11,601 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_587)
+    ).toHaveLength(11_601)
   })
 })
 
@@ -193,16 +193,16 @@ describe('AoS 4 catalog generation integrity', () => {
       status: 'strict-pass',
       summary: {
         factions: 28,
-        warscrolls: 1300,
+        warscrolls: 1302,
         battleProfiles: 1015,
-        abilities: 5143,
-        weapons: 2268,
+        abilities: 5148,
+        weapons: 2275,
         sourceArtifacts: 245,
-        sourceRecords: 20236,
+        sourceRecords: 20257,
         ignoredSourceRecords: 20464,
       },
       integrity: {
-        consumedSourceRecords: 20230,
+        consumedSourceRecords: 20251,
         issues: [],
         supersededSourceRecords: {
           count: 20458,
@@ -470,10 +470,6 @@ describe('AoS 4 catalog generation integrity', () => {
      * exact: a regiment that gains a member must leave it.
      */
     const reviewedMemberlessRegiments = {
-      // Their Cogfort member datasheets are absent from the accepted collection pages, which
-      // generation reports as a `regiment-of-renown-member-missing` warning.
-      'Cogfort Raiders': 'member datasheet not accepted',
-      'Rogue Engine': 'member datasheet not accepted',
       // Their source datasheets' ORGANISATION blocks carry no member warscroll links.
       'Gotrek Gurnisson': 'no member links in source',
       'Heroes of The Jade Abbey': 'no member links in source',

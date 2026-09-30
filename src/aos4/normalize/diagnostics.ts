@@ -19,6 +19,7 @@ export type NormalizationDiagnosticCode =
   | 'source-phase-conflict'
   | 'source-incomplete-weapon-profile'
   | 'source-marker-removed'
+  | 'keyword-span-completed'
 
 export type NormalizationDiagnosticSeverity = 'warning' | 'error'
 

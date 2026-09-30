@@ -16,28 +16,28 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-29 snapshot is defined by:
+The accepted 2026-09-29b snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-09-25.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication), and 1 commit-pinned BSData catalogue (`Regiments of Renown.cat` at `main` commit `8836d9f9` for Krong the Club, issue #1999), pinned by SHA-256; corpus 2026-09-29 changed no artifact and keeps this manifest |
-| `data/aos4/reviews/corpus-2026-09-29.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-09-25.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication), and 1 commit-pinned BSData catalogue (`Regiments of Renown.cat` at `main` commit `8836d9f9` for Krong the Club, issue #1999), pinned by SHA-256; corpus 2026-09-29 and 2026-09-29b changed no artifact and keep this manifest |
+| `data/aos4/reviews/corpus-2026-09-29b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-29-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-29-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-09-29b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-09-29b-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
-- 1,300 warscrolls and 1,015 battle profiles
-- 5,143 abilities
-- 2,268 weapons
+- 1,302 warscrolls and 1,015 battle profiles
+- 5,148 abilities
+- 2,275 weapons
 - 1,525 content groups
-- 245 source artifacts and 20,236 live source records
+- 245 source artifacts and 20,257 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)

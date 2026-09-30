@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-29` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-29b` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -32,13 +32,17 @@ This is an Age of Sigmar fourth-edition codebase:
 - manifestations are a category of unit rather than an army: the five universal manifestation lores
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
-- the accepted corpus contains 1,300 warscrolls, 1,015 battle profiles, 5,143 abilities,
-  2,268 weapons, 1,525 content groups, and 20,236 live source records
+- the accepted corpus contains 1,302 warscrolls, 1,015 battle profiles, 5,148 abilities,
+  2,275 weapons, 1,525 content groups, and 20,257 live source records
 - the 77 Regiments of Renown are classified `regiment-of-renown` content groups (reviewed
   `regimentsOfRenown` input), offered by exactly their inclusion factions with their regiment
   abilities and member warscrolls linked (issue #1858): 76 from the accepted collection pages and
   Krong the Club, whose rules text comes from the pinned BSData Regiments of Renown catalogue while
   its inclusion factions, member, and points come from the official battle-profile row (#1999);
+  Cogfort Raiders and Rogue Engine link their Outlaw Cogfort member warscrolls, which Wahapedia
+  publishes only on the inclusion factions' collections, through reviewed `adoptedWarscrolls`
+  entries with `availability: 'regiment-of-renown'` — the datasheets are fielded only through
+  their regiments and never offered directly (#2030);
   Stumblefoot Gargant, which the September 2026 Battle Profiles prints `DELETED`, is historical
   content: every one of its 25 inclusion factions still offers it, but only through the historical
   overlay, which the builder shows every army under its `Scourge of Ghyran (2025-26)` header
@@ -115,7 +119,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-09-29` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-09-29b` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.

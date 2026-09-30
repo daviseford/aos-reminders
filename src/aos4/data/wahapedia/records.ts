@@ -56,6 +56,12 @@ export interface WahapediaWarscrollRecord {
   regimentOfRenownMemberIds?: string[]
   /** ORGANISATION members whose linked datasheet is absent from the accepted current pages. */
   regimentOfRenownUnresolvedMembers?: string[]
+  /**
+   * The datasheet is fielded only through a Regiment of Renown's ORGANISATION block, so no faction
+   * offers it directly (the Outlaw Cogfort datasheets, #2030). Set by the current-HTML merge from
+   * a reviewed `adoptedWarscrolls` entry with `availability: 'regiment-of-renown'`.
+   */
+  regimentOfRenownOnly?: true
   name: string
   factionId: string
   sourceId: string

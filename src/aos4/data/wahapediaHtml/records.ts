@@ -65,6 +65,13 @@ export interface WahapediaHtmlWarscrollRecord {
    * classification against it (issue #1858).
    */
   regimentOfRenown?: WahapediaHtmlRegimentOfRenown
+  /**
+   * A reviewed adoption (`currentWahapediaHtml.adoptedWarscrolls` with
+   * `availability: 'regiment-of-renown'`) marks this datasheet as fielded only through a Regiment
+   * of Renown's ORGANISATION block — it has no direct faction availability (the Outlaw Cogfort
+   * datasheets, #2030). Set after parsing, so record identity is unchanged.
+   */
+  regimentOfRenownOnly?: true
   name: string
   factionName: string
   sourceTitle: string

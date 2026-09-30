@@ -22,7 +22,7 @@ import { decodeAos4TextRoster } from '../../importers'
  * applied to runtime.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-29.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-29b.json')
 
 const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
 const factionByName = (name: string): Faction =>
@@ -665,5 +665,200 @@ describe('Krong the Club from the pinned BSData Regiments of Renown catalogue (i
       ].join('\n')
       expect(importedSelection(listbot)).toContain(MANCRUSHER_ID)
     })
+  })
+})
+
+/**
+ * The two Cogfort Regiments of Renown (issue #2030) are the ones whose single member is an Outlaw
+ * Cogfort datasheet that Wahapedia publishes only on the inclusion factions' collections — the
+ * ORGANISATION links point at a Cities of Sigmar anchor that collection never carries, and the
+ * native-faction filter dropped the datasheets, so the classified regiments generated no member
+ * edge and the content-free-group prune silently dropped every offer. Reviewed adoptions now keep
+ * the Blades of Khorne collection copies (official evidence: Regiments of Renown - Cities of
+ * Sigmar pages 1-2 print both regiments with their full Outlaw warscrolls), member resolution
+ * falls back to a unique kept-datasheet name match, and the regiment-only warscrolls are never
+ * offered directly.
+ */
+describe('Cogfort Regiments of Renown (issue #2030)', () => {
+  const COGFORT_INCLUSION_FACTIONS = [
+    'Blades of Khorne',
+    'Daughters of Khaine',
+    'Disciples of Tzeentch',
+    'Flesh-eater Courts',
+    'Fyreslayers',
+    'Gloomspite Gitz',
+    'Hedonites of Slaanesh',
+    'Helsmiths of Hashut',
+    'Idoneth Deepkin',
+    'Ironjawz',
+    'Kharadron Overlords',
+    'Kruleboyz',
+    'Lumineth Realm-lords',
+    'Maggotkin of Nurgle',
+    'Nighthaunt',
+    'Ogor Mawtribes',
+    'Ossiarch Bonereapers',
+    'Seraphon',
+    'Skaven',
+    'Slaves to Darkness',
+    'Sons of Behemat',
+    'Soulblight Gravelords',
+    'Stormcast Eternals',
+    'Sylvaneth',
+  ]
+  const includedEntityNames = (groupId: string): string[] =>
+    AOS4_CATALOG.relationships
+      .filter(relationship => relationship.kind === 'includes' && relationship.from === groupId)
+      .map(relationship => AOS4_CATALOG.entities.find(entity => entity.id === relationship.to)!.name)
+      .sort()
+  const warscrollByName = (name: string): Warscroll =>
+    AOS4_CATALOG.entities.find(
+      (entity): entity is Warscroll => entity.kind === 'warscroll' && entity.name === name
+    )!
+
+  it.each(['Cogfort Raiders', 'Rogue Engine'])(
+    'offers %s to exactly its 24 official inclusion factions, never Cities of Sigmar',
+    name => {
+      expect(offeringFactionNames(regimentByName(name).id)).toEqual(COGFORT_INCLUSION_FACTIONS)
+    }
+  )
+
+  it('links each regiment to exactly its official Outlaw member warscroll', () => {
+    expect(includedEntityNames(regimentByName('Cogfort Raiders').id)).toEqual(['Outlaw Conqueror Cogfort'])
+    expect(includedEntityNames(regimentByName('Rogue Engine').id)).toEqual(['Outlaw Cannonade Cogfort'])
+  })
+
+  it('carries the printed Outlaw warscroll abilities, distinct from the Cities of Sigmar versions', () => {
+    expect(includedEntityNames(warscrollByName('Outlaw Conqueror Cogfort').id)).toEqual([
+      'BATTLE DAMAGED',
+      'Crew’s Leadshotters',
+      'Crushing Iron Feet',
+      'EVERYONE ABOARD!',
+      'Realmscorcher Flame Cannon',
+      'THIS IS YOUR STOP, MAGGOTS!',
+    ])
+    expect(includedEntityNames(warscrollByName('Outlaw Cannonade Cogfort').id)).toEqual([
+      'BATTLE DAMAGED',
+      'Breacher Cannon',
+      'Crew’s Leadshotters',
+      'Crushing Iron Feet',
+      'Godbreaker Cannon',
+      'MERCENARY ATTITUDES',
+    ])
+  })
+
+  it('never offers the Outlaw warscrolls directly: they are fielded only through their regiments', () => {
+    const directOffers = AOS4_CATALOG.relationships.filter(
+      relationship =>
+        relationship.kind === 'offers' &&
+        ['Outlaw Conqueror Cogfort', 'Outlaw Cannonade Cogfort'].includes(
+          AOS4_CATALOG.entities.find(entity => entity.id === relationship.to)?.name ?? ''
+        )
+    )
+    expect(directOffers).toEqual([])
+  })
+
+  it('shows both regiments as builder options for an inclusion faction', () => {
+    const builder = createAos4BuilderViewModel(AOS4_CATALOG, {
+      id: 'test',
+      name: 'test',
+      rulesContextId: seasonal.id,
+      explicitSelectionIds: [factionByName('Blades of Khorne').id],
+      reminderPreferences: {},
+    } as never)
+    const options = builder.options.filter(option => option.groupType === 'regiment-of-renown')
+    expect(options.map(option => option.name)).toEqual(
+      expect.arrayContaining(['Cogfort Raiders', 'Rogue Engine'])
+    )
+    expect(builder.options.map(option => option.name)).not.toContain('Outlaw Conqueror Cogfort')
+    expect(builder.options.map(option => option.name)).not.toContain('Outlaw Cannonade Cogfort')
+  })
+
+  it('surfaces the Outlaw warscroll reminders when a Blades of Khorne army buys Cogfort Raiders', () => {
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: [factionByName('Blades of Khorne').id, regimentByName('Cogfort Raiders').id],
+      rulesContextId: seasonal.id,
+    })
+    expect(selection.diagnostics).toEqual([])
+    const reminderNames = projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name)
+    expect(reminderNames).toEqual(
+      expect.arrayContaining(['EVERYONE ABOARD!', 'THIS IS YOUR STOP, MAGGOTS!', 'BATTLE DAMAGED'])
+    )
+  })
+
+  it('surfaces MERCENARY ATTITUDES when a Skaven army buys Rogue Engine', () => {
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: [factionByName('Skaven').id, regimentByName('Rogue Engine').id],
+      rulesContextId: seasonal.id,
+    })
+    expect(selection.diagnostics).toEqual([])
+    expect(projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name)).toContain(
+      'MERCENARY ATTITUDES'
+    )
+  })
+})
+
+describe('importing a roster that buys a Cogfort regiment (#2030)', () => {
+  const OUTLAW_CONQUEROR_ID = 'warscroll:0c51c248-4465-54f8-bd79-728a539c2e61'
+  const OUTLAW_CANNONADE_ID = 'warscroll:82940e83-7692-53fd-a47f-62022876675a'
+  const CITIES_CONQUEROR_ID = 'warscroll:6cef718f-8527-515f-a62d-77357ebc9e28'
+  const CITIES_CANNONADE_ID = 'warscroll:24cd4631-f6ed-544d-97d7-e5aa40290fdd'
+  const importedSelection = (text: string) => {
+    const { parsedRoster, diagnostics } = decodeAos4TextRoster(text)
+    expect(diagnostics).toEqual([])
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'army:cogfort-import',
+    })
+    expect(preview.diagnostics).toEqual([])
+    const document = preview.proposedDocument!
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: document.explicitSelectionIds,
+      rulesContextId: document.rulesContextId,
+    })
+    expect(selection.diagnostics).toEqual([])
+    return selection.selectedIds
+  }
+
+  it('resolves the official app bundle to the Outlaw member, never the Cities warscroll', () => {
+    const officialApp = [
+      'Cogfort import 410/2000 pts',
+      '-----',
+      'Blades of Khorne',
+      "General's Handbook 2026-27",
+      '-----',
+      'Regiments of Renown',
+      'Cogfort Raiders (410)',
+      'Outlaw Conqueror Cogfort',
+      '-----',
+      'Created with Warhammer Age of Sigmar: The App',
+      'App: v1.36.0 (1) | Data: v466',
+      '',
+    ].join('\n')
+    const selected = importedSelection(officialApp)
+    expect(selected).toContain(regimentByName('Cogfort Raiders').id)
+    expect(selected).toContain(OUTLAW_CONQUEROR_ID)
+    expect(selected).not.toContain(CITIES_CONQUEROR_ID)
+  })
+
+  it('resolves a Listbot regiment unit line to the Outlaw member, never the Cities warscroll', () => {
+    const listbot = [
+      'Skaven',
+      "Thanquol's Mutated Menagerie",
+      '',
+      "General's Handbook 2026-27",
+      '',
+      '- 1 x Rogue Engine (450)',
+      '',
+      '450/2000pts',
+      '1 drop',
+      '',
+      'Generated by Listbot 4.0',
+      '',
+    ].join('\n')
+    const selected = importedSelection(listbot)
+    expect(selected).toContain(regimentByName('Rogue Engine').id)
+    expect(selected).toContain(OUTLAW_CANNONADE_ID)
+    expect(selected).not.toContain(CITIES_CANNONADE_ID)
   })
 })

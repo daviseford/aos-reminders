@@ -11,6 +11,7 @@ import type {
   WahapediaWarscrollWeaponRecord,
 } from '../wahapedia'
 import type {
+  WahapediaHtmlContext,
   WahapediaHtmlFactionPageRecord,
   WahapediaHtmlRecordMeta,
   WahapediaHtmlRulesPageRecord,
@@ -436,6 +437,7 @@ export const mergeCurrentWahapediaWarscrollPages = (
       const record: WahapediaWarscrollRecord = {
         id: warscrollId,
         ...(page.regimentOfRenown ? { regimentOfRenown: true as const } : {}),
+        ...(page.regimentOfRenownOnly ? { regimentOfRenownOnly: true as const } : {}),
         name: official?.name ?? page.name,
         factionId,
         sourceId: old?.sourceId ?? '',
@@ -587,16 +589,27 @@ export const mergeCurrentWahapediaWarscrollPages = (
    * Resolve each Regiment of Renown's ORGANISATION links to the member warscrolls' merged ids.
    *
    * A member link targets its warscroll's own collection anchor (`…/slaves-to-darkness/
-   * warscrolls.html#Chaos-Knights`), so resolution goes through the kept pages' anchors. A member
-   * whose datasheet is absent from the accepted current pages (the Cogfort crews link anchors the
-   * Cities of Sigmar collection does not carry) is retained by name for generation to surface,
-   * never silently invented.
+   * warscrolls.html#Chaos-Knights`), so resolution goes through the kept pages' anchors. When the
+   * linked page does not carry the anchor (Wahapedia points the Outlaw Cogfort links at the Cities
+   * of Sigmar collection, which publishes no Outlaw datasheet; the inclusion factions' collections
+   * carry them instead, #2030), fall back to the member's name — but only onto a reviewed
+   * `regimentOfRenownOnly` adoption in the same context: those datasheets exist solely to be
+   * regiment members, so a unique name match cannot kidnap an unrelated or Spearhead datasheet.
+   * Anything else stays unresolved and is retained by name for generation to surface, never
+   * silently invented.
    */
   const warscrollIdByAnchor = new Map<string, string>()
+  const regimentOnlyByName = new Map<string, Array<{ id: string; context: WahapediaHtmlContext }>>()
   pages.forEach(page => {
     if (page.regimentOfRenown) return
     const id = mergedIdByPage.get(pageKey(page))
     if (!id) return
+    if (page.regimentOfRenownOnly) {
+      regimentOnlyByName.set(canonical(page.name), [
+        ...(regimentOnlyByName.get(canonical(page.name)) ?? []),
+        { id, context: page.context },
+      ])
+    }
     try {
       const url = new URL(page.sourceUrl)
       warscrollIdByAnchor.set(`${url.pathname.toLowerCase()}${url.hash}`, id)
@@ -611,13 +624,21 @@ export const mergeCurrentWahapediaWarscrollPages = (
     const memberIds: string[] = []
     const unresolved: string[] = []
     page.regimentOfRenown.members.forEach(member => {
+      const byName = (): string | undefined => {
+        const matches = (regimentOnlyByName.get(canonical(member.name)) ?? []).filter(
+          candidate => candidate.context === page.context
+        )
+        return matches.length === 1 ? matches[0].id : undefined
+      }
       try {
         const url = new URL(member.href, 'https://wahapedia.ru')
-        const memberId = warscrollIdByAnchor.get(`${url.pathname.toLowerCase()}${url.hash}`)
+        const memberId = warscrollIdByAnchor.get(`${url.pathname.toLowerCase()}${url.hash}`) ?? byName()
         if (memberId) memberIds.push(memberId)
         else unresolved.push(member.name)
       } catch {
-        unresolved.push(member.name)
+        const memberId = byName()
+        if (memberId) memberIds.push(memberId)
+        else unresolved.push(member.name)
       }
     })
     const uniqueMemberIds = Array.from(new Set(memberIds))
