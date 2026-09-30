@@ -90,9 +90,12 @@ Scales, Immortal Ego, Big 'Un, Benedictions of Sickness) now resolve to the 2025
 that failed (8 Daughters of Khaine formations and lores, 5 Blades of Khorne Frenzied Taskmaster
 enhancements that were ambiguous) now resolve. The New Recruit, Listbot, and every non-2025-26
 roster resolve byte-identically. Nine Lumineth rosters now
-report "Flawless Commander" as ambiguous: the battletome and Scourge of Ghyran heroic-trait tables
-both print one, with different rules, and the roster does not say which table was used, so the
-importer declines to guess instead of silently choosing the battletome one.
+report "Flawless Commander" as ambiguous: the battletome's Facets of Brilliance and the Scourge of
+Ghyran Aspects of Enlightenment heroic-trait tables both print one, with different rules, and the
+roster does not say which table was used. The owner chose to keep this warning rather than guess
+(the one agreed exception to #2042's "no new warnings"). The warning names both tables and asks the
+player to pick the one their list used; the builder offers each as a Heroic Traits option (the
+season's under the General's Handbook 2025-26 header). There is no picker inside the import dialog.
 
 ## Future seasons
 

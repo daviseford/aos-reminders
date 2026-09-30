@@ -309,6 +309,35 @@ describe('importing into the past season', () => {
     )
   })
 
+  /*
+   * Owner decision on #2042: the battletome's Facets of Brilliance and the season's Aspects of
+   * Enlightenment both print a different "Flawless Commander", both legal in 2025-26, and a roster
+   * does not say which table it used. The import keeps the pick out and names both tables so the
+   * player chooses, rather than guessing a rule.
+   */
+  it('leaves an enhancement both 2025-26 tables print to the player, naming the tables', () => {
+    const preview = resolve(
+      roster("General's Handbook 2025-26", [['enhancement', 'Flawless Commander']], 'Lumineth Realm-lords')
+    )
+    expect(preview.proposedDocument?.rulesContextId).toBe(pastSeason.id)
+    expect(preview.matches.map(match => match.label)).not.toContain('Flawless Commander')
+    expect(preview.diagnostics).toEqual([
+      expect.objectContaining({
+        code: 'ambiguous-selection',
+        severity: 'warning',
+        message: expect.stringContaining(
+          'It appears in the Aspects of Enlightenment and Facets of Brilliance tables, which have different rules; pick the table your list used.'
+        ),
+      }),
+    ])
+    // The sitting season carries only the battletome trait, so it stays unambiguous there.
+    const sitting = resolve(
+      roster("General's Handbook 2026-27", [['enhancement', 'Flawless Commander']], 'Lumineth Realm-lords')
+    )
+    expect(sitting.diagnostics).toEqual([])
+    expect(sitting.matches.map(match => match.label)).toContain('Flawless Commander')
+  })
+
   it('still falls back to the sitting season, with the overlay, for 2024-25', () => {
     const preview = resolve(roster("General's Handbook 2024-25", [['warscroll', 'Ironblaster']]))
     expect(preview.proposedDocument?.rulesContextId).toBe(AOS4_DEFAULT_RULES_CONTEXT_ID)

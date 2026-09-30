@@ -733,11 +733,34 @@ const resolveRosterSelection = (
     return { contextCandidates: primary.length ? primary : regiments, candidates: [] }
   }
 
-  const ambiguous = (): undefined => {
+  /**
+   * An enhancement two same-named tables both print is named with its tables (#2042).
+   *
+   * The builder offers enhancement *tables*, not single traits, so "add it by hand" only helps when
+   * the player can tell which tables to look in. A General's Handbook 2025-26 Lumineth list naming
+   * "Flawless Commander" could mean the battletome's Facets of Brilliance or the season's Aspects of
+   * Enlightenment, whose rules differ; the roster does not say, so the choice is left to the player.
+   */
+  const offeringTableNames = (candidates: ContentEntity[]): string[] => {
+    if (!candidates.every(candidate => candidate.kind === 'ability')) return []
+    const ids = new Set<CanonicalId>(candidates.map(candidate => candidate.id))
+    const names = catalog.relationships.flatMap(relationship => {
+      if (relationship.kind !== 'includes' || !ids.has(relationship.to)) return []
+      const parent = catalog.entities.find(entity => entity.id === relationship.from)
+      return parent?.kind === 'content-group' ? [parent.name] : []
+    })
+    return Array.from(new Set(names)).sort((left, right) => left.localeCompare(right))
+  }
+  const ambiguous = (candidates: ContentEntity[]): undefined => {
+    const tables = offeringTableNames(candidates)
     diagnostics.push({
       code: 'ambiguous-selection',
       severity: 'warning',
-      message: `"${selection.label}" matches more than one ${selection.kindHint}, so it was not imported. Add it by hand to be sure of the right one.`,
+      message:
+        `"${selection.label}" matches more than one ${selection.kindHint}, so it was not imported. Add it by hand to be sure of the right one.` +
+        (tables.length > 1
+          ? ` It appears in the ${tables.slice(0, -1).join(', ')} and ${tables.at(-1)} tables, which have different rules; pick the table your list used.`
+          : ''),
       line: selection.line,
     })
     return undefined
@@ -752,7 +775,7 @@ const resolveRosterSelection = (
 
   for (const { candidates } of perContext) {
     if (candidates.length === 1) return matched(candidates[0])
-    if (candidates.length > 1) return ambiguous()
+    if (candidates.length > 1) return ambiguous(candidates)
   }
   const known = perContext.some(({ contextCandidates }) => contextCandidates.length > 0)
 
@@ -773,7 +796,7 @@ const resolveRosterSelection = (
   if (selection.isRegimentOfRenown && selection.kindHint !== 'regiment-of-renown' && known) {
     for (const { contextCandidates } of perContext) {
       if (contextCandidates.length === 1) return matched(contextCandidates[0])
-      if (contextCandidates.length > 1) return ambiguous()
+      if (contextCandidates.length > 1) return ambiguous(contextCandidates)
     }
   }
 
