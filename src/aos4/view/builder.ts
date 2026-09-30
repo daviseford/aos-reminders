@@ -44,9 +44,16 @@ export interface Aos4BuilderWarscroll {
  * Two paths feed them: an Army of Renown grants its enhancements outright, and an imported roster
  * names the single enhancement a hero carries ("Quicksilver Draught") rather than the offering
  * group a hand-built army selects ("Artefacts of the Tempest"). Both leave an `ability` in the
- * selection, and the ability's card is the offering group's category.
+ * selection, and the ability's card is the offering group's category. A monster's monstrous trait
+ * ("Armour Cruncher") imports the same way, so it gets the same chip (#2038).
  */
-const ABILITY_CHIP_CATEGORIES = new Set(['artefact-of-power', 'heroic-trait', 'prayer-lore', 'spell-lore'])
+const ABILITY_CHIP_CATEGORIES = new Set([
+  'artefact-of-power',
+  'heroic-trait',
+  'monstrous-traits',
+  'prayer-lore',
+  'spell-lore',
+])
 const CHIP_MINOR_WORDS = new Set(['a', 'an', 'and', 'of', 'the', 'to'])
 const chipCase = (value: string): string =>
   value
