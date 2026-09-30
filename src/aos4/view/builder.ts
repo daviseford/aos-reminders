@@ -4,6 +4,7 @@ import type {
   CanonicalId,
   ContentEntity,
   ContentGroup,
+  RulesContext,
   Warscroll,
 } from '../domain'
 import { resolveSelection } from '../select'
@@ -69,6 +70,31 @@ const chipCase = (value: string): string =>
     )
     .join(' ')
 
+/**
+ * The builder's grouped-option headers. The season header is derived from the season's context
+ * (`General’s Handbook 2026-27 (Scourge of Aqshy)` for the sitting handbook) rather than written
+ * into the UI, so a past-season army (#2042) files its own battlepack under its own season. In a
+ * past-season army the historical overlay is no longer "last season" — that season is the army's
+ * own — so it holds only what was retired later, and says so.
+ */
+export interface Aos4BuilderGroupLabels {
+  season: string
+  historical: string
+}
+
+const builderGroupLabels = (
+  seasonContext: RulesContext | undefined,
+  isPastSeason: boolean
+): Aos4BuilderGroupLabels => ({
+  season: seasonContext?.season
+    ? `General’s Handbook ${seasonContext.season}${seasonContext.battlepack ? ` (${seasonContext.battlepack})` : ''}`
+    : 'Seasonal rules',
+  historical:
+    isPastSeason && seasonContext?.season
+      ? `Retired since ${seasonContext.season}`
+      : 'Scourge of Ghyran (2025-26)',
+})
+
 export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4ArmyDocument) => {
   // Every army offers its full catalog: current-standard content plus the Legends and historical
   // (Scourge of Ghyran) overlays. Options carry an `overlay` marker so the UI can group them
@@ -102,7 +128,15 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
   const currentStandardContextId = catalog.rulesContexts.find(
     context => context.mode === 'standard' && context.status === 'current'
   )?.id
-  const seasonalContextId = catalog.rulesContexts.find(context => context.status === 'seasonal')?.id
+  // The season whose exclusive content gets its own header: the document's own season when it
+  // sits in one (the sitting handbook or a past season, #2042), otherwise the sitting handbook, so
+  // a battletome-only army still files that handbook's picks under it.
+  const documentContext = catalog.rulesContexts.find(context => context.id === document.rulesContextId)
+  const seasonContext =
+    documentContext?.status === 'seasonal' || documentContext?.status === 'past-season'
+      ? documentContext
+      : catalog.rulesContexts.find(context => context.status === 'seasonal')
+  const seasonalContextId = seasonContext?.id
   const isSeasonExclusive = (entity: ContentEntity): boolean =>
     Boolean(
       seasonalContextId &&
@@ -241,6 +275,7 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     armyId: document.id,
     armyName: document.name,
     rulesContextId: document.rulesContextId,
+    labels: builderGroupLabels(seasonContext, documentContext?.status === 'past-season'),
     options,
     warscrolls,
     selection,

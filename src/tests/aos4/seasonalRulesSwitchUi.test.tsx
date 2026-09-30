@@ -55,6 +55,9 @@ beforeAll(async () => {
 const { seasonal, current } = findAos4SeasonalRulesContexts(AOS4_CATALOG)
 if (!seasonal || !current) throw new Error('The catalog is missing a standard-mode context')
 
+const pastSeason = AOS4_CATALOG.rulesContexts.find(context => context.status === 'past-season')
+if (!pastSeason) throw new Error('The catalog is missing the past-season context')
+
 const spearheadContext = AOS4_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')
 if (!spearheadContext) throw new Error('The catalog is missing the Spearhead context')
 
@@ -186,5 +189,61 @@ describe('the seasonal rules switch on the Home screen', () => {
     expect(container.querySelector('input[aria-label="Faction"]')).not.toBeNull()
     expect(seasonalSwitch()).toBeNull()
     expect(container.textContent).not.toContain('Seasonal rules')
+    // Nor is it a standard season to leave for the past one (#2042).
+    expect(container.textContent).not.toContain('Use a past season')
+  })
+
+  const buttonNamed = (text: string) =>
+    Array.from(container.querySelectorAll<HTMLButtonElement>('button')).find(button =>
+      button.textContent?.startsWith(text)
+    )
+
+  const clickButton = async (text: string) => {
+    await act(async () => {
+      buttonNamed(text)!.click()
+      await flush()
+    })
+  }
+
+  /*
+   * The General's Handbook 2025-26 past season (issue #2042): an explicit move in and out, never a
+   * switch position, with the accuracy caveat shown wherever the army sits in it.
+   */
+  it('moves the army into the 2025-26 past season and back, non-destructively', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(seasonal.id))
+
+    await renderHome()
+
+    expect(seasonalSwitch()!.checked).toBe(true)
+    expect(container.querySelector('[data-testid="past-season-notice"]')).toBeNull()
+
+    await clickButton('Use a past season: General’s Handbook 2025-26')
+
+    // In the past season: the switch is gone, the caveat is up, the pick survived, and the sitting
+    // season's reminders left with the switch.
+    expect(storedDocument()?.rulesContextId).toBe(pastSeason.id)
+    expect(storedDocument()?.explicitSelectionIds).toEqual([factionId])
+    expect(seasonalSwitch()).toBeNull()
+    const notice = container.querySelector('[data-testid="past-season-notice"]')
+    expect(notice?.textContent).toContain('General’s Handbook 2025-26 (past season)')
+    expect(notice?.textContent).toContain('current warscrolls, points, unit sizes, and battletome rules')
+    expect(container.textContent).not.toContain(SEASONAL_REMINDER)
+    expect(container.querySelector('#aos4-reminders')).not.toBeNull()
+
+    await clickButton('Move to General’s Handbook 2026-27')
+
+    expect(storedDocument()?.rulesContextId).toBe(seasonal.id)
+    expect(storedDocument()?.explicitSelectionIds).toEqual([factionId])
+    expect(seasonalSwitch()!.checked).toBe(true)
+    expect(container.querySelector('[data-testid="past-season-notice"]')).toBeNull()
+    expect(container.textContent).toContain(SEASONAL_REMINDER)
+  })
+
+  it('offers the past season from battletome-only rules too', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(current.id))
+
+    await renderHome()
+
+    expect(buttonNamed('Use a past season: General’s Handbook 2025-26')).toBeDefined()
   })
 })

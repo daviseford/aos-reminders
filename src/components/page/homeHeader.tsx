@@ -47,6 +47,24 @@ interface HeaderProps {
    * row's precedent — masthead controls that do not apply are absent, not disabled.
    */
   seasonalRulesChecked: boolean | null
+  /**
+   * The past-season choice (issue #2042), `null` where it does not apply: no past season in the
+   * catalog, or a document outside the standard seasons (Spearhead, a Legends-moved import). When
+   * `active`, the army plays the past season — the seasonal switch is hidden, since that season is
+   * neither of its positions — and the masthead carries the season's accuracy caveat in both
+   * modes. Moving in or out is an explicit edit-mode act, never a toggle of the switch.
+   */
+  pastSeasonRules?: Aos4PastSeasonRulesBinding | null
+  onTogglePastSeasonRules?: () => void
+}
+
+export interface Aos4PastSeasonRulesBinding {
+  /** e.g. `General’s Handbook 2025-26` */
+  label: string
+  /** The sitting season a past-season army moves back to, e.g. `General’s Handbook 2026-27` */
+  sittingLabel: string
+  caveat: string
+  active: boolean
 }
 
 const NO_ARMY_OF_RENOWN = { label: 'None', value: null }
@@ -64,6 +82,8 @@ export const Header = ({
   onToggleGameMode,
   onToggleSeasonalRules,
   seasonalRulesChecked,
+  pastSeasonRules = null,
+  onTogglePastSeasonRules,
 }: HeaderProps) => {
   const { theme } = useTheme()
   const isMobile = useIsMobile()
@@ -165,6 +185,11 @@ export const Header = ({
           {isGameMode ? (
             <div className="pt-1 pb-0 justify-content-center">
               <h2 className="text-white">{armyName}</h2>
+              {pastSeasonRules?.active && (
+                <p className="text-white small mb-0" data-testid="past-season-notice">
+                  {pastSeasonRules.label} (past season). {pastSeasonRules.caveat}
+                </p>
+              )}
             </div>
           ) : (
             <>
@@ -273,6 +298,36 @@ export const Header = ({
                   </div>
                 </div>
               )}
+              {/*
+                The past-season choice (issue #2042). A standard army gets one quiet link beneath
+                the switch; a past-season army gets the season's name, its accuracy caveat, and the
+                explicit move back to the sitting season in the switch's place. Both moves are
+                non-destructive, like the switch: only the rules context changes.
+              */}
+              {pastSeasonRules &&
+                (pastSeasonRules.active ? (
+                  <div className="text-white pt-2 small" data-testid="past-season-notice">
+                    <div className="fw-bold">{pastSeasonRules.label} (past season)</div>
+                    <div>{pastSeasonRules.caveat}</div>
+                    <button
+                      type="button"
+                      className="btn btn-link btn-sm text-white p-0"
+                      onClick={onTogglePastSeasonRules}
+                    >
+                      Move to {pastSeasonRules.sittingLabel}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="pt-1">
+                    <button
+                      type="button"
+                      className="btn btn-link btn-sm text-white p-0"
+                      onClick={onTogglePastSeasonRules}
+                    >
+                      Use a past season: {pastSeasonRules.label}
+                    </button>
+                  </div>
+                ))}
             </>
           )}
         </div>

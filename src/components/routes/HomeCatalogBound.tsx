@@ -11,7 +11,10 @@ import {
 import { resolveSelection } from '../../aos4/select'
 import {
   createAos4ArmyDocument,
+  findAos4PastSeasonContexts,
+  findAos4SeasonalRulesContexts,
   getAos4SeasonalRulesState,
+  moveAos4ToStandardRulesContext,
   serializeAos4ArmyDocument,
   setAos4ReminderPreference,
   setAos4SeasonalRules,
@@ -22,8 +25,10 @@ import {
   createAos4ReminderSourceLinkResolver,
   createAos4ReminderViewModel,
   migrateAos4ReminderPreferences,
+  pastSeasonCaveat,
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
+import type { Aos4PastSeasonRulesBinding } from 'components/page/homeHeader'
 import Reminders, { type ReminderSourceLink } from 'components/info/reminders'
 import ArmyBuilder from 'components/input/army_builder'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
@@ -172,6 +177,9 @@ export interface Aos4CatalogBoundBindings {
    */
   seasonalRulesChecked: boolean | null
   onToggleSeasonalRules: () => void
+  /** The past-season choice (issue #2042); see `Aos4PastSeasonRulesBinding`. */
+  pastSeasonRules: Aos4PastSeasonRulesBinding | null
+  onTogglePastSeasonRules: () => void
   unlinkCloudArmy: () => void
 }
 
@@ -462,6 +470,40 @@ const HomeCatalogBound = ({
     )
   }, [setDocument])
 
+  /*
+   * The past-season choice (issue #2042), derived from the document like the switch. It applies
+   * only between the standard seasons; entering it and leaving it (back to the sitting season)
+   * are both explicit, non-destructive moves of `rulesContextId`. Memoized on the context so the
+   * published binding keeps its identity across unrelated edits.
+   */
+  const { rulesContextId } = document
+  const pastSeasonRules = useMemo((): Aos4PastSeasonRulesBinding | null => {
+    const [pastSeason] = findAos4PastSeasonContexts(AOS4_CATALOG)
+    const { seasonal, current } = findAos4SeasonalRulesContexts(AOS4_CATALOG)
+    const caveat = pastSeason && pastSeasonCaveat(pastSeason)
+    const active = rulesContextId === pastSeason?.id
+    const inStandardSeason = rulesContextId === seasonal?.id || rulesContextId === current?.id
+    if (!pastSeason?.season || !seasonal?.season || !caveat || (!active && !inStandardSeason)) return null
+    return {
+      label: `General’s Handbook ${pastSeason.season}`,
+      sittingLabel: `General’s Handbook ${seasonal.season}`,
+      caveat,
+      active,
+    }
+  }, [rulesContextId])
+  const togglePastSeasonRules = useCallback(() => {
+    setDocument(current => {
+      const [pastSeason] = findAos4PastSeasonContexts(AOS4_CATALOG)
+      const { seasonal } = findAos4SeasonalRulesContexts(AOS4_CATALOG)
+      if (!pastSeason || !seasonal) return current
+      const target = current.rulesContextId === pastSeason.id ? seasonal.id : pastSeason.id
+      return deriveAos4OverlayFlags(
+        AOS4_CATALOG,
+        moveAos4ToStandardRulesContext(AOS4_CATALOG, current, target)
+      )
+    })
+  }, [setDocument])
+
   // The faction's Armies of Renown, offered as the top-level choice under the faction selector.
   // Picking one replaces the faction's regular rules, so switching drops explicit selections the
   // new army no longer offers (the established sub-faction switch behavior). Legends armies
@@ -527,6 +569,7 @@ const HomeCatalogBound = ({
       previous &&
       previous.armyOfRenownId === armyOfRenownId &&
       previous.seasonalRulesChecked === seasonalRulesChecked &&
+      previous.pastSeasonRules === pastSeasonRules &&
       previous.unlinkCloudArmy === unlinkCloudArmy &&
       sameArmiesOfRenown(previous.armiesOfRenown, armiesOfRenown)
     ) {
@@ -538,6 +581,8 @@ const HomeCatalogBound = ({
       onArmyOfRenownChange: selectArmyOfRenown,
       seasonalRulesChecked,
       onToggleSeasonalRules: toggleSeasonalRules,
+      pastSeasonRules,
+      onTogglePastSeasonRules: togglePastSeasonRules,
       unlinkCloudArmy,
     }
     publishedBindings.current = bindings
@@ -546,8 +591,10 @@ const HomeCatalogBound = ({
     armiesOfRenown,
     armyOfRenownId,
     onBindingsChange,
+    pastSeasonRules,
     seasonalRulesChecked,
     selectArmyOfRenown,
+    togglePastSeasonRules,
     toggleSeasonalRules,
     unlinkCloudArmy,
   ])

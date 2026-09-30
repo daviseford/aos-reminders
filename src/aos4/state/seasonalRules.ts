@@ -66,3 +66,48 @@ export const setAos4SeasonalRules = (
   if (!target || document.rulesContextId === target.id) return document
   return createAos4ArmyDocument({ ...document, rulesContextId: target.id })
 }
+
+/*
+ * A past season (issue #2042) is a lapsed General's Handbook kept selectable in its own right. The
+ * switch above stays a two-state control for the sitting season; a past season is chosen and left
+ * by an explicit move, never by toggling, because it is neither "on" nor "off" for the sitting
+ * season. Its content is the season's battlepack paired with today's warscrolls, battletomes, and
+ * points, so the UI must say so wherever it offers one.
+ */
+
+/** Past-season standard contexts, newest season first. */
+export const findAos4PastSeasonContexts = (catalog: Aos4Catalog): RulesContext[] =>
+  catalog.rulesContexts
+    .filter(context => context.mode === 'standard' && context.status === 'past-season')
+    .sort(
+      (left, right) =>
+        (right.season ?? '').localeCompare(left.season ?? '') || left.name.localeCompare(right.name)
+    )
+
+const STANDARD_MOVE_STATUSES = new Set<RulesContext['status']>(['current', 'seasonal', 'past-season'])
+
+const isStandardMoveContext = (context: RulesContext | undefined): context is RulesContext =>
+  Boolean(context && context.mode === 'standard' && STANDARD_MOVE_STATUSES.has(context.status))
+
+/**
+ * Moves the document between standard seasons: the sitting season, battletome-only current rules,
+ * or a past season. Non-destructive exactly like `setAos4SeasonalRules`: only `rulesContextId`
+ * moves, so a pick the target context does not carry stays in `explicitSelectionIds`, is reported
+ * as `inapplicable-explicit-selection`, and returns when the army moves back. The overlay opt-ins
+ * are untouched.
+ *
+ * Returns the same instance when there is nothing to do: the document already sits in the target,
+ * the target is not a standard current, seasonal, or past-season context, or the document lives
+ * outside those (Spearhead, a Legends-moved import), which a season move does not speak for.
+ */
+export const moveAos4ToStandardRulesContext = (
+  catalog: Aos4Catalog,
+  document: Aos4ArmyDocument,
+  targetRulesContextId: RulesContext['id']
+): Aos4ArmyDocument => {
+  if (document.rulesContextId === targetRulesContextId) return document
+  const contextById = new Map(catalog.rulesContexts.map(context => [context.id, context]))
+  if (!isStandardMoveContext(contextById.get(document.rulesContextId))) return document
+  if (!isStandardMoveContext(contextById.get(targetRulesContextId))) return document
+  return createAos4ArmyDocument({ ...document, rulesContextId: targetRulesContextId })
+}

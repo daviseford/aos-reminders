@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-30 snapshot is defined by:
+The accepted 2026-09-30b snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
 | `data/aos4/manifests/accepted-2026-09-30.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication and the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037), pinned by SHA-256; no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
-| `data/aos4/reviews/corpus-2026-09-30.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/reviews/corpus-2026-09-30b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-30-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-30-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-09-30b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-09-30b-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -47,6 +47,11 @@ The strict report currently records:
   2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
+- the 2026-09-30b General's Handbook 2025-26 past season (#2042): a review-only revision on the
+  same manifest. It adds the `past-season` context and changes rules-context membership only: no
+  artifact, source-record checksum, identity, entity, or count moves. 8,243 entities, 14,690 live
+  source records, and 10,550 relationships apply to the past season; 586 of those entities are the
+  season's own (all still historical too), and the rest is today's standard content
 - the 2026-09-30 Ossiarch Bonereapers page re-pin (#2037): a community report that the
   Relentless Discipline battle traits still charged a reinforced unit an extra point was confirmed
   against the pinned September 2026 Rules Updates, page 64 (marked NEW), which removes that second
@@ -238,9 +243,13 @@ counts and diagnostics so a silent remote-shape change fails generation.
 The 13 May 2026 exports remain accepted only for stable faction/publication identities and audit
 history. No bulk warscroll, weapon, ability, keyword, organization, or faction-rule row may enter
 the live catalog; the strict integrity test enforces that boundary. Current-standard, General's
-Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and historical contexts isolate parallel
-content. The prior 2025-26 season is retained only inside the generic historical boundary rather
-than as a second selectable current context.
+Handbook 2026-27 (`Scourge of Aqshy`), General's Handbook 2025-26 past season (`Scourge of
+Ghyran`), Spearhead, Legends, and historical contexts isolate parallel content. The 2025-26 season
+is selectable as a `past-season` context (#2042): its own battlepack content, which also stays in
+the historical context, paired with today's standard content. The reviewed `pastSeasonContexts`
+boundary decides which historical records join it; the General's Handbook 2024-25 stays historical
+only. See [aos4-past-season-2025-26.md](./aos4-past-season-2025-26.md) for the source audit and the
+approximation it implies.
 
 The September 2026 core Battle Profiles PDF contributes 1,313 effective facts. Reconciliation
 applies official unit size, points, regiment options, notes, and bases to 942 runtime profiles and

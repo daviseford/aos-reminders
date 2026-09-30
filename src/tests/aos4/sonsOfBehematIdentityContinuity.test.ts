@@ -23,6 +23,7 @@ const standard = catalog.rulesContexts.find(
   context => context.mode === 'standard' && context.status === 'current'
 )!
 const historical = catalog.rulesContexts.find(context => context.status === 'historical')!
+const pastSeason = catalog.rulesContexts.find(context => context.status === 'past-season')!
 const entityById = new Map(catalog.entities.map(entity => [entity.id, entity]))
 const sob = catalog.entities.find(
   (entity): entity is Faction => entity.kind === 'faction' && entity.name === 'Sons of Behemat'
@@ -224,7 +225,8 @@ describe('Sons of Behemat identity continuity across the 2026-09-25 swap (PR #20
         entity.rulesContextIds.includes(historical.id)
     )!
     ;[...groups, ghyranTraits].forEach(group => {
-      expect(group.rulesContextIds).toEqual([historical.id])
+      // Historical, and the General's Handbook 2025-26 past season's own content too (#2042).
+      expect(group.rulesContextIds).toEqual([historical.id, pastSeason.id].sort())
       expect(
         catalog.relationships.some(
           relationship =>

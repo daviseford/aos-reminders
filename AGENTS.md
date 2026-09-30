@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-30` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-30b` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -51,9 +51,12 @@ This is an Age of Sigmar fourth-edition codebase:
   Stumblefoot Gargant, which the September 2026 Battle Profiles prints `DELETED`, is historical
   content: every one of its 25 inclusion factions still offers it, but only through the historical
   overlay, which the builder shows every army under its `Scourge of Ghyran (2025-26)` header
-  (#1757, #1812)
-- current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
-  historical rules contexts isolate parallel and retired records; the browser defaults to the
+  (`Retired since 2025-26` in a 2025-26 past-season army) (#1757, #1812)
+- current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), the General's Handbook 2025-26
+  past season (`Scourge of Ghyran`, #2042), Spearhead, Legends, and historical rules contexts
+  isolate parallel and retired records; the past season pairs that season's battlepack content (also
+  kept historical) with today's warscrolls, battletomes, and points, and says so wherever it is
+  offered (`docs/data/aos4-past-season-2025-26.md`); the browser defaults to the
   current 2026-27 seasonal context
 - strict generation consumes every live record and separately dispositions 20,458 superseded
   records (the May 2026 bulk warscroll/faction-rule rows and the seventeen index-era Ogor
@@ -124,7 +127,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-09-30` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-09-30b` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.

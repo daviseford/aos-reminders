@@ -1,6 +1,7 @@
 import { ArmyApi, type SharedArmy } from '../../../api/armyApi'
 import { AOS4_CATALOG } from '../../../aos4/generated'
 import { createAos4ArmyDocument, type Aos4ArmyDocument } from '../../../aos4/state'
+import { pastSeasonCaveat } from '../../../aos4/view'
 import { summarizeCloudArmy } from 'components/input/cloudArmies/armySummary'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useTheme } from 'context/useTheme'
@@ -26,12 +27,13 @@ const SharedArmyModal = ({
   const [share, setShare] = useState<SharedArmy>()
   const [error, setError] = useState<string>()
   const [isLoading, setIsLoading] = useState(true)
-  const contextName = useMemo(
-    () =>
-      AOS4_CATALOG.rulesContexts.find(context => context.id === share?.document.rulesContextId)?.name ??
-      share?.document.rulesContextId,
+  const context = useMemo(
+    () => AOS4_CATALOG.rulesContexts.find(candidate => candidate.id === share?.document.rulesContextId),
     [share?.document.rulesContextId]
   )
+  const contextName = context?.name ?? share?.document.rulesContextId
+  // A past-season army (#2042) carries the season's accuracy caveat wherever its ruleset is named.
+  const contextCaveat = context && pastSeasonCaveat(context)
   const summary = useMemo(() => (share ? summarizeCloudArmy(share.document) : { unitCount: 0 }), [share])
 
   useEffect(() => {
@@ -93,6 +95,7 @@ const SharedArmyModal = ({
               <dt className="col-4">Ruleset</dt>
               <dd className="col-8">{contextName}</dd>
             </dl>
+            {contextCaveat && <p className="small">{contextCaveat}</p>}
             <p className="small">
               Loading creates a new local copy. It does not change the shared army or save it to your cloud
               collection.

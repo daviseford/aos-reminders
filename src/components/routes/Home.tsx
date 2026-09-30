@@ -344,6 +344,8 @@ const Home = () => {
           // standard context from the current one without the catalog, and the splash covers the
           // masthead for that whole wait anyway.
           seasonalRulesChecked={catalogBound?.seasonalRulesChecked ?? null}
+          pastSeasonRules={catalogBound?.pastSeasonRules ?? null}
+          onTogglePastSeasonRules={catalogBound?.onTogglePastSeasonRules ?? noop}
         />
 
         <AppBanner />

@@ -219,14 +219,14 @@ describe('AoS 4 derived corpus artifacts', () => {
     /*
      * And the shape of the answer, so a regeneration that emptied the field — reserving nothing,
      * anywhere — or that flattened it back to one context's answer for all of them fails here. The
-     * two matched-play contexts agree at 24; the three that do not are exactly what the old flag
-     * got wrong.
+     * three matched-play contexts (current, the 2025-26 past season, and 2026-27) agree at 24; the
+     * three that do not are exactly what the old flag got wrong.
      */
     expect(
       AOS4_FACTION_INDEX.rulesContextIds.map(
         rulesContextId => offeredByBuilder.filter(row => row.contextIds.includes(rulesContextId)).length
       )
-    ).toEqual([24, 7, 7, 7, 24])
+    ).toEqual([24, 7, 7, 7, 24, 24])
   }, 120_000)
 
   it('reserves the Army of Renown row on the default context exactly as the builder fills it', () => {

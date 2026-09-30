@@ -1,10 +1,12 @@
 import {
   findDeclaredRulesContext,
+  importableRulesContexts,
   type Aos4ImportDiagnostic,
   type Aos4ImportPreview as Aos4ImportPreviewModel,
   type ParsedRoster,
 } from '../../../aos4/import'
 import { AOS4_CATALOG } from '../../../aos4/generated'
+import { pastSeasonCaveat } from '../../../aos4/view'
 import { useTheme } from 'context/useTheme'
 
 interface ImportPreviewProps {
@@ -22,9 +24,9 @@ const sourceLabels: Record<ParsedRoster['source'], string> = {
   'roster-xml': 'New Recruit roster file',
 }
 
-const importableContexts = AOS4_CATALOG.rulesContexts
-  .filter(context => ['current', 'seasonal', 'legends'].includes(context.status))
-  .sort((left, right) => left.name.localeCompare(right.name))
+// Past seasons last (#2042), from the same list import resolution accepts, so the two can never
+// disagree about what is importable.
+const importableContexts = importableRulesContexts(AOS4_CATALOG)
 
 const DiagnosticList = ({ diagnostics }: { diagnostics: Aos4ImportDiagnostic[] }) => {
   if (!diagnostics.length) return null
@@ -76,6 +78,11 @@ const ImportPreview = ({
           {proposedContext?.name ?? parsedRoster.declaredContext ?? 'Application default'}
         </dd>
       </dl>
+      {proposedContext && pastSeasonCaveat(proposedContext) && (
+        <p className="small mb-2" data-testid="import-past-season-caveat">
+          {pastSeasonCaveat(proposedContext)}
+        </p>
+      )}
 
       {/*
        * The roster usually settles the ruleset itself, and asking anyway invites the player to

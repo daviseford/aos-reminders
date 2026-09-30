@@ -1,3 +1,4 @@
+import type { RulesContext } from '../domain'
 import { normalizeImportLabel } from './normalizeLabel'
 
 /**
@@ -15,6 +16,12 @@ export interface ImportLabelAlias {
   to: string
   /** Why the two differ. Every entry has to justify itself. */
   reason: string
+  /**
+   * Consult the alias only while resolving in a context of this status. For a name that is
+   * correct verbatim in the sitting season but reaches a past season (#2042) only through a
+   * misspelled catalog entry: the sitting season keeps its own verbatim match.
+   */
+  rulesContextStatus?: RulesContext['status']
 }
 
 /**
@@ -116,9 +123,22 @@ export const IMPORT_LABEL_ALIASES: ImportLabelAlias[] = [
       'leading-article rule, because "The Roving Maw" and "Ironsunz" would then collide with ' +
       'anything spelled either way.',
   },
+  {
+    from: 'Benedictions of Sickness',
+    to: 'Bendictions of Sickness',
+    rulesContextStatus: 'past-season',
+    reason:
+      'Catalog defect, General’s Handbook 2025-26 only (#2042): Wahapedia prints the Scourge of ' +
+      'Ghyran Maggotkin prayer lore as "Bendictions of Sickness", while the official Scourge of ' +
+      'Ghyran - Maggotkin of Nurgle pack prints BENEDICTIONS OF SICKNESS. Scoped to the past ' +
+      'season because the 2026-27 Scourge of Aqshy lore of the correct name is a different lore ' +
+      'and must keep its verbatim match. Remove once the upstream spelling is corrected.',
+  },
 ]
 
-const aliasIndex = new Map(IMPORT_LABEL_ALIASES.map(alias => [normalizeImportLabel(alias.from), alias.to]))
+const aliasIndex = new Map(
+  IMPORT_LABEL_ALIASES.map(alias => [normalizeImportLabel(alias.from), alias] as const)
+)
 
 /**
  * The catalog-side name for a roster label, when a reviewed alias covers it.
@@ -126,5 +146,12 @@ const aliasIndex = new Map(IMPORT_LABEL_ALIASES.map(alias => [normalizeImportLab
  * Matching is done on the normalized form so an entry survives the punctuation and casing
  * differences providers introduce, rather than needing one row per spelling of an apostrophe.
  */
-export const aliasedImportLabel = (label: string): string | undefined =>
-  aliasIndex.get(normalizeImportLabel(label))
+export const aliasedImportLabel = (
+  label: string,
+  context?: Pick<RulesContext, 'status'>
+): string | undefined => {
+  const alias = aliasIndex.get(normalizeImportLabel(label))
+  if (!alias) return undefined
+  if (alias.rulesContextStatus && alias.rulesContextStatus !== context?.status) return undefined
+  return alias.to
+}

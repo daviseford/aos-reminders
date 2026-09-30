@@ -101,7 +101,7 @@ const certifiedRuntime = JSON.parse(
 
 const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-30.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-30-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-30b-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -487,7 +487,7 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(memberless).toEqual(Object.keys(reviewedMemberlessRegiments).sort())
   })
 
-  it('keeps current, seasonal, Spearhead, Legends, and historical content separate', () => {
+  it('keeps current, seasonal, past-season, Spearhead, Legends, and historical content separate', () => {
     const standard = AOS4_FULL_CATALOG.rulesContexts.find(
       context => context.mode === 'standard' && context.status === 'current'
     )!
@@ -497,8 +497,13 @@ describe('AoS 4 catalog generation integrity', () => {
     const historical = AOS4_FULL_CATALOG.rulesContexts.find(
       context => context.name === 'Age of Sigmar Fourth Edition Historical'
     )!
+    const pastSeason = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'past-season')!
 
-    expect(AOS4_FULL_CATALOG.rulesContexts).toHaveLength(5)
+    expect(AOS4_FULL_CATALOG.rulesContexts).toHaveLength(6)
+    expect(pastSeason.mode).toBe('standard')
+    expect(pastSeason.season).toBe('2025-26')
+    expect(pastSeason.battlepack).toBe('Scourge of Ghyran')
+    expect(pastSeason.validTo).toBe('2026-07-05')
     expect(spearhead.battlepack).toBe('Spearhead')
     expect(seasonal.season).toBe('2026-27')
     expect(seasonal.battlepack).toBe('Scourge of Aqshy')
@@ -525,9 +530,13 @@ describe('AoS 4 catalog generation integrity', () => {
     }
     expectOfficialPublicationContexts('Spearhead Reference', [spearhead.id])
     expectOfficialPublicationContexts('Scourge of Aqshy - Stormcast Eternals', [seasonal.id])
-    expectOfficialPublicationContexts('Scourge of Ghyran - Stormcast Eternals', [historical.id])
+    expectOfficialPublicationContexts('Scourge of Ghyran - Stormcast Eternals', [
+      historical.id,
+      pastSeason.id,
+    ])
+    expectOfficialPublicationContexts('Red Gobbo Battleplan', [historical.id])
     expectOfficialPublicationContexts('Legends compendium', [legends.id])
-    expectOfficialPublicationContexts('Faction Pack: Fyreslayers', [standard.id, seasonal.id])
+    expectOfficialPublicationContexts('Faction Pack: Fyreslayers', [standard.id, pastSeason.id, seasonal.id])
     expectOfficialPublicationContexts(
       'Warhammer Age of Sigmar Core Rules, Spearhead Rules, Terrain List and Glossary',
       AOS4_FULL_CATALOG.rulesContexts.map(context => context.id)
@@ -597,7 +606,7 @@ describe('AoS 4 catalog generation integrity', () => {
     )
     expect(gutterRunners).toHaveLength(2)
     expect(gutterRunners.map(warscroll => warscroll.rulesContextIds).sort()).toEqual(
-      [[seasonal.id, standard.id].sort(), [spearhead.id]].sort()
+      [[seasonal.id, pastSeason.id, standard.id].sort(), [spearhead.id]].sort()
     )
 
     const profiles = AOS4_FULL_CATALOG.entities.filter(
@@ -609,7 +618,7 @@ describe('AoS 4 catalog generation integrity', () => {
       expect.objectContaining({
         unitSize: 10,
         points: 150,
-        rulesContextIds: [seasonal.id, standard.id].sort(),
+        rulesContextIds: [seasonal.id, pastSeason.id, standard.id].sort(),
       }),
     ])
 

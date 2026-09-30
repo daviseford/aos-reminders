@@ -12,7 +12,45 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-30` (issue #2037): a full refresh of the two Ossiarch
+The current revision is `aos4-corpus-2026-09-30b` (issue #2042): General's Handbook 2025-26
+(`Scourge of Ghyran`) as a selectable past season, on top of `aos4-corpus-2026-09-30`. It is a
+review-only revision on the same manifest, `accepted-2026-09-30.json`: the review adds the
+`past-season` rules context and its reviewed `pastSeasonContexts` boundary, scopes the standard and
+Scourge of Ghyran official documents to it, and widens the 16 context overrides that cite a Scourge
+of Ghyran pack. No artifact, source-record checksum, identity, entity, or count changes; only
+rules-context membership does, so the season's 586 entities gain the past season while keeping the
+historical context, and today's standard content joins it too. The Stage 0 source audit, the
+approximation, and the import-fixture effects are in
+[aos4-past-season-2025-26.md](./aos4-past-season-2025-26.md). The new context adds 27
+faction/context strata and the required `high-risk:context-boundary:past-season` cohort. Its
+automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 631/631 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,273/20,273 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,682/42,682 |
+| Independent outcomes | 85,364 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 156/156 |
+| Populated high-risk cohorts | 21/21 |
+
+The source inventory is a schema 2 inventory of fresh observations taken for this revision on
+2026-09-30: a `discover-official` snapshot observed at 18:03:19Z (166 downloads, 7 explicit
+non-material) and the Wahapedia navigation and exports at 18:03:49Z (87 sources, 0 inaccessible).
+No BSData observation is bound because no BSData artifact is pinned. Every accepted artifact
+matched, so no newer official publication supersedes the pinned September documents. The
+certification is `aos4-corpus-2026-09-30b-machine-r1` (campaign 18:24:16Z, certified 18:25:00Z).
+Its `--reuse-certification` offer of `aos4-corpus-2026-09-30-machine-r1` reused no pair, because
+the revision re-key invalidates every pair, so all 42,682 pairs were evaluated fresh.
+
+### `aos4-corpus-2026-09-30` (superseded)
+
+The `aos4-corpus-2026-09-30` revision (issue #2037) was a full refresh of the two Ossiarch
 Bonereapers Wahapedia pages on top of `aos4-corpus-2026-09-29c`. A community report that the
 Relentless Discipline battle traits still charged reinforced units an extra point matched the
 September 2026 Rules Updates page 64 erratum, which only deletes words. The auditor certifies an
@@ -401,7 +439,7 @@ of demanding a generated entity.
 the machine-verified beta standard. Any bound corpus or evidence change must pass a new campaign
 before accepted generation or CI proceeds.
 
-The 129 faction/context strata are the combinations declared by each faction's catalog
+The 156 faction/context strata are the combinations declared by each faction's catalog
 applicability, not a Cartesian product. A stratum counts as reviewed only when every live packet
 assigned to it passes.
 

@@ -22,7 +22,7 @@ import { decodeAos4TextRoster } from '../../importers'
  * applied to runtime.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-30.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-30b.json')
 
 const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
 const factionByName = (name: string): Faction =>
@@ -554,8 +554,10 @@ describe('Krong the Club from the re-pinned Ossiarch Bonereapers collection (iss
     expect(offeringFactionNames(KRONG_ID)).not.toContain('Sons of Behemat')
   })
 
-  it('is legal in the current and the 2026-27 seasonal contexts', () => {
-    expect([...krong().rulesContextIds].sort()).toEqual([current.id, seasonal.id].sort())
+  it('is legal in the current, the 2026-27 seasonal, and the 2025-26 past-season contexts', () => {
+    // Standard content in every standard season: a past season uses current regiments (#2042).
+    const pastSeason = AOS4_CATALOG.rulesContexts.find(context => context.status === 'past-season')!
+    expect([...krong().rulesContextIds].sort()).toEqual([current.id, pastSeason.id, seasonal.id].sort())
   })
 
   it('includes exactly one member: the current Mancrusher Gargant, never its Spearhead twin', () => {

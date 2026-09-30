@@ -95,6 +95,21 @@ export interface CorpusOfficialDocument {
   sourceRecords: CorpusOfficialSourceRecord[]
 }
 
+/**
+ * A reviewed boundary for a `past-season` rules context (#2042). The Wahapedia decoder files every
+ * lapsed-season record under one `historical` kind — the General's Handbook 2024-25 page beside
+ * that of 2025-26 and the Scourge of Ghyran faction content — so the season a record belongs to
+ * is not in the record itself. This names it by source: a historical-kind Wahapedia record joins
+ * the past season only when its artifact URL starts with one of these reviewed prefixes. Every
+ * such record keeps the historical context too; the past season is added, never moved, so saved
+ * armies that resolve the content through the historical overlay keep resolving it.
+ */
+export interface CorpusPastSeasonContext {
+  rulesContextId: RulesContextId
+  historicalSourceUrlPrefixes: string[]
+  reason: string
+}
+
 export interface CorpusContextOverride {
   sourceRecordId: SourceRecordId
   rulesContextIds: RulesContextId[]
@@ -423,6 +438,7 @@ export interface CorpusReview {
   communityWarscrollSources?: CorpusCommunityWarscrollSource[]
   abilityTextOverrides?: CorpusAbilityTextOverride[]
   contextOverrides?: CorpusContextOverride[]
+  pastSeasonContexts?: CorpusPastSeasonContext[]
   legendsWarscrollOverrides?: CorpusLegendsWarscrollOverride[]
   weaponProfileOverrides?: CorpusWeaponProfileOverride[]
   warscrollKeywordOverrides?: CorpusWarscrollKeywordOverride[]
@@ -826,11 +842,28 @@ const sourceRulesContextIds = (
   const spearheadContextId = contexts.find(context => context.mode === 'spearhead')?.id
   const seasonalContextId = contexts.find(context => context.status === 'seasonal')?.id
   const legendsContextId = contexts.find(context => context.status === 'legends')?.id
+  const pastSeasonContextIds = contexts
+    .filter(context => context.status === 'past-season')
+    .map(context => context.id)
+  // Standard content is today's standard content in every standard season, sitting or past: a
+  // past season pairs its own battlepack with the current warscrolls, battletomes, and points
+  // (#2042), because no accepted source records them as they stood during that season.
   const currentContextIds = uniqueSorted([
     review.rulesContext.id,
     ...(seasonalContextId ? [seasonalContextId] : []),
+    ...pastSeasonContextIds,
   ])
   const historicalContextId = contexts.find(context => context.status === 'historical')?.id
+  const htmlArtifactUrlById = new Map(
+    (dataset.htmlArtifacts ?? []).map(entry => [artifactId(entry.checksum), entry.finalUrl])
+  )
+  const pastSeasonIdsForHistoricalRecord = (meta: WahapediaRecordMeta): RulesContextId[] => {
+    const url = htmlArtifactUrlById.get(meta.artifactId)
+    if (!url) return []
+    return (review.pastSeasonContexts ?? [])
+      .filter(season => season.historicalSourceUrlPrefixes.some(prefix => url.startsWith(prefix)))
+      .map(season => season.rulesContextId)
+  }
   const contextIdsForMeta = (meta: WahapediaRecordMeta): RulesContextId[] | undefined => {
     const kinds = meta.rulesContextKinds ?? (meta.rulesContextKind ? [meta.rulesContextKind] : [])
     if (!kinds.length) return undefined
@@ -858,7 +891,7 @@ const sourceRulesContextIds = (
         if (!historicalContextId) {
           throw new Error(`Historical record ${meta.sourceRecordId} requires a historical context`)
         }
-        return [historicalContextId]
+        return [historicalContextId, ...pastSeasonIdsForHistoricalRecord(meta)]
       })
     )
   }
@@ -1362,6 +1395,44 @@ const reviewDiagnostics = (
     }
     seenContextOverrides.add(override.sourceRecordId)
   })
+  // A past-season context without a reviewed boundary would silently hold only today's standard
+  // content — the season in name only — and a boundary naming a context of any other status would
+  // leak historical records into it.
+  const reviewContextById = new Map(
+    [review.rulesContext, ...(review.additionalRulesContexts ?? [])].map(context => [context.id, context])
+  )
+  const pastSeasonBoundaries = review.pastSeasonContexts ?? []
+  const pastSeasonContextIds = Array.from(reviewContextById.values())
+    .filter(context => context.status === 'past-season')
+    .map(context => context.id)
+  pastSeasonBoundaries.forEach(boundary => {
+    if (
+      reviewContextById.get(boundary.rulesContextId)?.status !== 'past-season' ||
+      pastSeasonBoundaries.filter(other => other.rulesContextId === boundary.rulesContextId).length !== 1 ||
+      !boundary.historicalSourceUrlPrefixes.length ||
+      boundary.historicalSourceUrlPrefixes.some(prefix => !/^https:\/\/[^/]+\/.+\/$/.test(prefix)) ||
+      !boundary.reason.trim()
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: boundary.rulesContextId,
+        message:
+          'A past-season boundary must uniquely target a past-season context, name HTTPS directory ' +
+          'URL prefixes, and give a reason',
+      })
+    }
+  })
+  pastSeasonContextIds
+    .filter(contextId => !pastSeasonBoundaries.some(boundary => boundary.rulesContextId === contextId))
+    .forEach(contextId =>
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: contextId,
+        message: 'A past-season context needs a reviewed boundary naming the historical sources it spans',
+      })
+    )
   const seenAbilityKeywordOverrides = new Set<SourceRecordId>()
   ;(review.abilityKeywordOverrides ?? []).forEach(override => {
     const added = override.add ?? []
@@ -1694,6 +1765,7 @@ export const buildAos4Corpus = (
   const currentReviewContextIds = uniqueSorted([
     contextId,
     ...(seasonalReviewContextId ? [seasonalReviewContextId] : []),
+    ...reviewedRulesContexts.filter(context => context.status === 'past-season').map(context => context.id),
   ])
   ;(review.communityWarscrollSources ?? []).forEach(source => {
     const id = lookup('publication', 'other', `community:${source.artifact.checksum}`) as

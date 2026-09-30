@@ -198,7 +198,10 @@ export const officialSourceRecordContexts = (
       if (record.fact.context === 'seasonal') return context.status === 'seasonal'
       return (
         context.mode === 'standard' &&
-        (context.status === 'current' || context.status === 'seasonal' || context.status === 'historical')
+        (context.status === 'current' ||
+          context.status === 'seasonal' ||
+          context.status === 'past-season' ||
+          context.status === 'historical')
       )
     })
     if (!applicable.length) {
