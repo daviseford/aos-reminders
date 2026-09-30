@@ -165,6 +165,17 @@ export const logLoginAttempt = (loginOrigin: string, outcome: 'closed' | 'starte
   logToGA(outcome === 'started' ? 'login_start' : 'login_closed', { login_origin: loginOrigin })
 }
 
+export type SignUpMethod = 'email' | 'github' | 'google' | 'other'
+
+/*
+ * GA4's recommended sign_up event. The only parameter is the bounded sign-in method; never pass an
+ * email, a user id, or any other account detail. src/utils/signUpTracking.ts decides when an account
+ * is new; call it rather than this.
+ */
+export const logSignUp = (method: SignUpMethod): void => {
+  logToGA('sign_up', { method })
+}
+
 export const logBeginCheckout = ({ items, provider }: CheckoutEvent): void => {
   logToGA('begin_checkout', {
     currency: 'USD',

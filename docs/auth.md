@@ -67,6 +67,39 @@ stops on the provider's sign-in page, or on its refusal, exactly where a user wo
 `yarn auth:verify-connections dev-4yesv5fz.auth0.com` is the control: the canonical host with the
 same connections.
 
+## New-account signal
+
+GA4 records a `sign_up` event for a newly created account (#2040). The browser cannot tell a
+registration from a returning login on its own: the hosted page handles both, and the standard ID
+token claims look the same. The signal is a custom ID token claim that an Auth0 post-login Action
+sets only on an account's first interactive login. `src/utils/signUpTracking.ts` reads it; until the
+Action exists the claim is absent and no `sign_up` is sent.
+
+The Action, in the Auth0 dashboard under Actions, Library, then bound to the Login flow:
+
+```js
+exports.onExecutePostLogin = async (event, api) => {
+  // Post-login Actions also run when a refresh token is exchanged; that is never a new account.
+  if (event.transaction?.protocol === 'oauth2-refresh-token') return
+  if (event.stats.logins_count !== 1) return
+  api.idToken.setCustomClaim('https://aosreminders.com/signed_up_at', event.user.created_at)
+}
+```
+
+- The claim name and its ISO timestamp value are the contract; `SIGN_UP_CLAIM` in
+  `signUpTracking.ts` must match.
+- The client sends `sign_up` only when the timestamp is within an hour of the browser's clock, so a
+  misconfigured Action cannot count an old account, and records the timestamp in `localStorage` so a
+  reload or a refreshed token does not count the same account twice.
+- The event carries only `method` (`email`, `google`, `github`, or `other`, from the connection
+  prefix of the subject). No email, user id, or timestamp reaches GA4, and the existing
+  production-host gate in `src/utils/analytics.ts` applies.
+- Counts begin when both the Action and the client change are live. There is no backfill; earlier
+  signups are countable only in the Auth0 dashboard (User Management, Users, `created_at`).
+- To verify after enabling: create a throwaway account on `https://aosreminders.com`, then look for
+  one `sign_up` in GA4 Realtime or DebugView; reload the page and confirm no second event; log out
+  and in again with the same account and confirm none.
+
 ## Password recovery
 
 `Reset password` on the hosted login page requests an email for the

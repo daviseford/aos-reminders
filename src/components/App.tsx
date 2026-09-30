@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { router } from '../bootstrap/router'
 import { CheckoutOutcomeBanner } from 'components/info/banners/checkout_outcome_banner'
 import { UpdateAvailable } from 'components/info/updateAvailable'
@@ -7,6 +8,7 @@ import { initializeAnalytics, startPageViewTracking } from 'utils/analytics'
 import { useCheckoutOutcome } from 'utils/checkoutOutcome'
 import { ROUTES } from 'utils/env'
 import { handleStripeCheckout } from 'utils/handleQueryParams'
+import { trackSignUp } from 'utils/signUpTracking'
 
 /*
  * The banner slot for every route except Home, which owns its own under the masthead. A return from
@@ -28,12 +30,22 @@ const getPathname = () => router.state.location.pathname
 
 const App = () => {
   const pathname = useSyncExternalStore(subscribeToRouter, getPathname)
+  const { user } = useAuth0()
 
   useEffect(() => {
     initializeAnalytics()
     handleStripeCheckout()
     return startPageViewTracking(router)
   }, [])
+
+  /*
+   * Declared after the effect above so analytics is initialized first. Watching the Auth0 user covers
+   * the popup login, the /profile redirect login, and a reload with a cached session alike;
+   * trackSignUp sends only for a new account and only once.
+   */
+  useEffect(() => {
+    trackSignUp(user)
+  }, [user])
 
   return (
     <div className="d-block">
