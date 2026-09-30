@@ -128,3 +128,82 @@ describe('reminder spell and prayer cost tags (#2032)', () => {
     expect(reminder.accessibleLabel).toContain('Chanting value 4')
   })
 })
+
+describe('Krondys print acceptance (#2032)', () => {
+  const krondysReminders = () =>
+    remindersFor([
+      ['faction', 'Stormcast Eternals'],
+      ['warscroll', 'Krondys, Son of Dracothion'],
+      ['content-group', 'Lore of the Storm'],
+    ])
+
+  it('shows the accepted casting value on every Lore of the Storm spell a Krondys list prints', () => {
+    const reminders = krondysReminders()
+
+    const lightningBlast = reminderNamed(reminders, 'LIGHTNING BLAST')
+    expect(lightningBlast.projected.cost).toEqual({ kind: 'spell', value: 5 })
+    expect(lightningBlast.tags[0]).toMatchObject({ label: 'CV 5', tone: 'cost' })
+
+    const starfall = reminderNamed(reminders, 'STARFALL')
+    expect(starfall.projected.cost).toEqual({ kind: 'spell', value: 7 })
+    expect(starfall.tags[0]).toMatchObject({ label: 'CV 7', tone: 'cost' })
+  })
+
+  it('carries the Krondys spell casting values into the print document', () => {
+    const document = createAos4PrintDocument(krondysReminders(), {
+      armyName: 'Krondys',
+      factionName: 'Stormcast Eternals',
+    })
+
+    const rules = document.sections.flatMap(section => section.rules)
+    expect(rules.find(rule => rule.title === 'LIGHTNING BLAST')?.tags?.[0]).toMatchObject({
+      label: 'CV 5',
+      tone: 'cost',
+    })
+    expect(rules.find(rule => rule.title === 'STARFALL')?.tags?.[0]).toMatchObject({
+      label: 'CV 7',
+      tone: 'cost',
+    })
+  })
+})
+
+describe('accepted casting and chanting value coverage (#2032)', () => {
+  const abilities = AOS4_CATALOG.entities.filter(entity => entity.kind === 'ability')
+  const hasKeyword = (keywords: readonly string[] | undefined, keyword: string) =>
+    (keywords ?? []).some(candidate => candidate.toUpperCase() === keyword)
+
+  // Reviewed dispositions for the PRAYER abilities that ship without a chanting value. The three
+  // SACRED RITES records are the core chanting rule itself, which Wahapedia prints with no badge
+  // (the September 2026 Rules Updates page 22 adds a chanting value of 2 only to the historical
+  // General's Handbook 2025-26 copy, and no accepted text source carries it yet). The Cities of
+  // Sigmar Runelord's FORGEFIRE carries its value in a spell-class badge on a PRAYER ability, so
+  // the adapter fails closed rather than guess which kind of value it is.
+  const PRAYERS_WITHOUT_CHANTING_VALUE = new Set([
+    'ability:64833c8e-0e45-570b-a0fb-14dd24df37b2',
+    'ability:a89234c6-b4b0-5a92-af47-e046f6e57bb8',
+    'ability:aa42ff31-bafb-55e6-a80c-279f531558cf',
+    'ability:a5e8d40e-9d11-5b10-915e-8eae5b30fc23',
+  ])
+
+  it('gives every accepted SPELL ability a casting value', () => {
+    const spells = abilities.filter(ability => hasKeyword(ability.keywords, 'SPELL'))
+    expect(spells.length).toBeGreaterThan(390)
+    expect(spells.filter(spell => spell.cost?.kind !== 'spell').map(spell => spell.name)).toEqual([])
+  })
+
+  it('gives every accepted PRAYER ability a chanting value except the reviewed dispositions', () => {
+    const prayers = abilities.filter(ability => hasKeyword(ability.keywords, 'PRAYER'))
+    expect(prayers.length).toBeGreaterThan(150)
+    const unvalued = prayers.filter(prayer => prayer.cost?.kind !== 'prayer').map(prayer => prayer.id)
+    expect(new Set(unvalued)).toEqual(PRAYERS_WITHOUT_CHANTING_VALUE)
+  })
+
+  it('never classifies a cost against the ability keyword strip', () => {
+    const mismatched = abilities.filter(
+      ability =>
+        (ability.cost?.kind === 'spell' && !hasKeyword(ability.keywords, 'SPELL')) ||
+        (ability.cost?.kind === 'prayer' && !hasKeyword(ability.keywords, 'PRAYER'))
+    )
+    expect(mismatched.map(ability => ability.name)).toEqual([])
+  })
+})

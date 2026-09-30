@@ -12,7 +12,61 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-29b` (issue #2030): the Cogfort Regiment of Renown
+The current revision is `aos4-corpus-2026-09-29c` (issue #2032): casting and chanting values on top
+of `aos4-corpus-2026-09-29b`. Wahapedia prints a spell's casting value in an `.abSpellPointsN`
+badge and a prayer's chanting value in an `.abPrayerPointsN` badge in the ability header row, but
+the HTML adapter read only the `.abCommandPointsN` command-point badge, so 396 of 397 accepted SPELL
+abilities and every prayer shipped without the number their roll needs. The adapter now reads the
+dedicated badges, requires the badge kind to agree with the ability's own keyword strip, and fails
+closed on missing or conflicting evidence. No artifact changed: the revision keeps
+`accepted-2026-09-25.json` and the review inputs change only their revision key. The runtime gains
+exactly 552 ability costs (396 casting values, 156 chanting values) and nothing else: 558 source
+record checksums move with the decoded badge, and no entity, identity, relationship, or count
+changes.
+
+Every spell and prayer badge on the 72 accepted Wahapedia pages was inventoried against the
+generated catalog. All 397 SPELL abilities carry a casting value. 156 of 160 PRAYER abilities carry
+a chanting value; the other four are reviewed dispositions: the three core `SACRED RITES` records,
+which Wahapedia prints without a badge, and the Cities of Sigmar Runelord's `FORGEFIRE`, whose value
+sits in a spell-class badge on a PRAYER ability and so fails closed. The badges that match nothing
+shipped are Path to Glory and Anvil of Apotheosis narrative cards (`BORN OF SLAUGHTER`,
+`SHINING BLADES`, `DARK INTRIGUE`) and the Mask of the Deceiver regiment's `FORCEFUL COMMAND`,
+which no accepted record carried before this revision either. Official precedence holds: all 17
+summoning casting values in the universal manifestations warscrolls match, as does the General's
+Handbook 2024-25 erratum raising Summon Suffocating Gravetide to 8. The one official value not
+shipped is the September 2026 Rules Updates page 22 erratum adding a chanting value of 2 to the
+historical General's Handbook 2025-26 `SACRED RITES`; no accepted text source carries it and the
+review has no cost-override input, so it stays a recorded gap rather than a wrong value.
+`reminderCostTags.test.ts` pins these dispositions against the runtime. Its automated review is
+complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 245/245 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 658/658 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,257/20,257 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,693/42,693 |
+| Independent outcomes | 85,386 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 129/129 |
+| Populated high-risk cohorts | 20/20 |
+
+The source inventory is a schema 2 inventory of fresh observations taken for this revision on
+2026-09-30: a `discover-official` snapshot at 04:04:05Z (166 downloads, 7 explicit non-material),
+the Wahapedia navigation and exports at 04:04:14Z (87 sources, 0 inaccessible), and the pinned
+BSData `8836d9f9` `Regiments of Renown.cat` at 04:06:14Z. Every accepted artifact matched, so no
+newer official publication supersedes the pinned September documents. The certification is
+`aos4-corpus-2026-09-29c-machine-r1`. The auditor checks every generated ability cost against its
+source record's decoded badge. Its `--reuse-certification` offer of `aos4-corpus-2026-09-29b-machine-r2`
+carried nothing forward (the revision re-key invalidates every pair), so all 42,693 pairs were
+evaluated fresh (campaign 04:06:31Z, certified 04:07:09Z), with 0 findings and 0 cannot-verify.
+
+### `aos4-corpus-2026-09-29b` (superseded)
+
+The prior revision was `aos4-corpus-2026-09-29b` (issue #2030): the Cogfort Regiment of Renown
 correction on top of `aos4-corpus-2026-09-29`. Cogfort Raiders and Rogue Engine were classified
 regiment-of-renown content groups that no faction could select: Wahapedia publishes their Outlaw
 Cogfort member datasheets only on the inclusion factions' collections while linking them at a
