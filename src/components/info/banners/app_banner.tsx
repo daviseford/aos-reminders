@@ -1,6 +1,5 @@
 import { CheckoutOutcomeBanner } from 'components/info/banners/checkout_outcome_banner'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
-import { UpdateAvailable } from 'components/info/updateAvailable'
 import { useCheckoutOutcome } from 'utils/checkoutOutcome'
 
 /**
@@ -11,9 +10,8 @@ import { useCheckoutOutcome } from 'utils/checkoutOutcome'
 const RulesUpdateBanner = () => (
   <NotificationBanner enableLog name="2026-09-rules-update-4" variant="info">
     <span>
-      <strong>Late September update:</strong> Ossiarch Bonereapers pages match the September errata,
-      and imported monstrous traits now show up as selected in the builder. Spotted a mistake? Let us
-      know on{' '}
+      <strong>Late September update:</strong> Ossiarch Bonereapers pages match the September errata, and
+      imported monstrous traits now show up as selected in the builder. Spotted a mistake? Let us know on{' '}
       <a href="https://discord.gg/2nt9Fxp" target="_blank" rel="noopener noreferrer">
         Discord
       </a>
@@ -23,19 +21,17 @@ const RulesUpdateBanner = () => (
 )
 
 /**
- * The home screen's single banner slot, directly under the masthead.
+ * The home screen's single banner slot, directly under the masthead. A waiting update no longer
+ * competes for it: updates install behind a modal mounted in `App` (#2046).
  *
- * A waiting update takes the slot over rather than adding a second banner above the masthead: of the
- * two only the update is actionable, and stacking them put two alerts on screen at once.
- *
- * A return from checkout outranks both. It reports something that just happened to the visitor's
- * money, it cannot be recovered once dismissed, and it is the reason this screen was loaded at all —
- * where the other two will still be true on the next visit.
+ * A return from checkout outranks the rules note. It reports something that just happened to the
+ * visitor's money, it cannot be recovered once dismissed, and it is the reason this screen was loaded
+ * at all — where the rules note will still be true on the next visit.
  */
 const AppBanner = () => {
   const outcome = useCheckoutOutcome()
   if (outcome) return <CheckoutOutcomeBanner />
-  return <UpdateAvailable fallback={<RulesUpdateBanner />} />
+  return <RulesUpdateBanner />
 }
 
 export default AppBanner

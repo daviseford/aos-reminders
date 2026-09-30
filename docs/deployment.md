@@ -211,6 +211,17 @@ session; without the marker, the freshly loaded app would register the still-pub
 worker again and repeat the unregister/navigation cycle. Do not remove this marker protocol from
 either side of the rollback path.
 
+Since updates install automatically (#2046), one bounded race exists. The rollback worker skips
+waiting on install, but if a tab still sees it as waiting for a moment, that tab announces it, every
+tab opens the "Installing updates" modal, and the app records an update acceptance. When the rollback
+worker then claims the tab, the app's own `controllerchange` handler can reload the page *without*
+the marker before the rollback worker's `client.navigate()` lands. That reload loads the app from
+the network, which registers the still-published rollback worker once more; it installs, claims,
+unregisters, and navigates again, this time with the marker. The cost is one extra
+unregister/navigation cycle, not a loop. It has not been rehearsed against a live deploy. After any
+rollback, confirm in DevTools that each open tab ends on a URL carrying `aos-reminders-rollback=1`
+with no service worker registered.
+
 ## Verifying a deploy
 
 ```bash
