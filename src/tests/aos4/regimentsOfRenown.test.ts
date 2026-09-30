@@ -22,7 +22,7 @@ import { decodeAos4TextRoster } from '../../importers'
  * applied to runtime.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-30.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-09-30b.json')
 
 const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
 const factionByName = (name: string): Faction =>
@@ -895,5 +895,133 @@ describe('importing a roster that buys a Cogfort regiment (#2030)', () => {
     expect(selected).toContain(regimentByName('Rogue Engine').id)
     expect(selected).toContain(OUTLAW_CANNONADE_ID)
     expect(selected).not.toContain(CITIES_CANNONADE_ID)
+  })
+})
+
+/**
+ * Gotrek Gurnisson (issue #2047). The official Regiments of Renown (September 2025, page 5) prints
+ * the regiment with ORGANISATION "Gotrek Gurnisson (see below)" and his warscroll, keyworded Order,
+ * Duardin, Unique, Infantry, Hero, Ward (3+) with no faction keyword; Battle Profiles (September
+ * 2026, page 60) lists nine inclusion factions. Wahapedia prints the organisation line as plain
+ * text and the native-faction filter dropped the warscroll, so the regiment had no member and the
+ * content-free-group prune removed every offer: no army could take Gotrek. The adapter now reads
+ * plain-text members and a reviewed regiment-only adoption keeps the Fyreslayers collection copy.
+ */
+describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
+  const GOTREK_REGIMENT_ID =
+    'content-group:ae141d5e-97b3-5c03-802f-abdc3800e52f' as CanonicalId<'content-group'>
+  const GOTREK_WARSCROLL_ID = 'warscroll:4c80ed84-2b6e-5b2d-b363-5686a079c9a8' as CanonicalId<'warscroll'>
+  const GOTREK_INCLUSION_FACTIONS = [
+    'Cities of Sigmar',
+    'Daughters of Khaine',
+    'Fyreslayers',
+    'Idoneth Deepkin',
+    'Kharadron Overlords',
+    'Lumineth Realm-lords',
+    'Seraphon',
+    'Stormcast Eternals',
+    'Sylvaneth',
+  ]
+  const includedEntities = (fromId: string) =>
+    AOS4_CATALOG.relationships
+      .filter(relationship => relationship.kind === 'includes' && relationship.from === fromId)
+      .map(relationship => AOS4_CATALOG.entities.find(entity => entity.id === relationship.to)!)
+
+  it('keeps its canonical id and is offered by exactly its nine official inclusion factions', () => {
+    expect(regimentByName('Gotrek Gurnisson').id).toBe(GOTREK_REGIMENT_ID)
+    expect(offeringFactionNames(GOTREK_REGIMENT_ID)).toEqual(GOTREK_INCLUSION_FACTIONS)
+  })
+
+  it('brings exactly his warscroll, with the printed profile, abilities, and weapon', () => {
+    expect(includedEntities(GOTREK_REGIMENT_ID).map(entity => `${entity.kind}:${entity.id}`)).toEqual([
+      `warscroll:${GOTREK_WARSCROLL_ID}`,
+    ])
+    const warscroll = AOS4_CATALOG.entities.find(
+      (entity): entity is Warscroll => entity.id === GOTREK_WARSCROLL_ID
+    )!
+    expect(warscroll).toMatchObject({
+      name: 'Gotrek Gurnisson',
+      characteristics: { move: '4"', health: '8', save: '5+', control: '2', ward: '3+' },
+      keywords: ['DUARDIN', 'HERO', 'INFANTRY', 'ORDER', 'UNIQUE', 'WARD (3+)'],
+    })
+    const members = includedEntities(GOTREK_WARSCROLL_ID)
+    expect(members.map(entity => `${entity.kind}:${entity.name}`).sort()).toEqual([
+      'ability:UNSTOPPABLE BATTLE FURY',
+      'ability:‘I’LL GET THERE MYSELF!’',
+      // Wahapedia prints "Zangrom-az"; the official page prints "Zangrom-Thaz". No reviewed
+      // weapon-name override exists, so the secondary spelling ships and the discrepancy is kept.
+      'weapon:Zangrom-az',
+    ])
+    const fury = members.find((entity): entity is Ability => entity.name === 'UNSTOPPABLE BATTLE FURY')!
+    expect(fury.timings).toEqual([
+      expect.objectContaining({ raw: 'Any Combat Phase', window: { kind: 'turn-phase', phase: 'combat' } }),
+    ])
+  })
+
+  it('never offers his warscroll directly: he is fielded only through the regiment', () => {
+    expect(
+      AOS4_CATALOG.relationships.filter(
+        relationship => relationship.kind === 'offers' && relationship.to === GOTREK_WARSCROLL_ID
+      )
+    ).toEqual([])
+  })
+
+  it('shows the regiment as a builder option for Stormcast Eternals but not for Nighthaunt', () => {
+    const builderNames = (factionName: string) =>
+      createAos4BuilderViewModel(AOS4_CATALOG, {
+        id: 'test',
+        name: 'test',
+        rulesContextId: seasonal.id,
+        explicitSelectionIds: [factionByName(factionName).id],
+        reminderPreferences: {},
+      } as never)
+        .options.filter(option => option.groupType === 'regiment-of-renown')
+        .map(option => option.name)
+    expect(builderNames('Stormcast Eternals')).toContain('Gotrek Gurnisson')
+    expect(builderNames('Nighthaunt')).not.toContain('Gotrek Gurnisson')
+  })
+
+  it('surfaces his reminders when a Stormcast Eternals army buys the regiment', () => {
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: [factionByName('Stormcast Eternals').id, GOTREK_REGIMENT_ID],
+      rulesContextId: seasonal.id,
+    })
+    expect(selection.diagnostics).toEqual([])
+    expect(selection.selectedIds).toContain(GOTREK_WARSCROLL_ID)
+    expect(projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name)).toEqual(
+      expect.arrayContaining(['UNSTOPPABLE BATTLE FURY', '‘I’LL GET THERE MYSELF!’'])
+    )
+  })
+
+  it('resolves an official app roster that buys Gotrek to the regiment and his warscroll', () => {
+    const { parsedRoster, diagnostics } = decodeAos4TextRoster(
+      [
+        'Gotrek import 320/2000 pts',
+        '-----',
+        'Stormcast Eternals',
+        "General's Handbook 2026-27",
+        '-----',
+        'Regiments of Renown',
+        'Gotrek Gurnisson (320)',
+        'Gotrek Gurnisson',
+        '-----',
+        'Created with Warhammer Age of Sigmar: The App',
+        'App: v1.36.0 (1) | Data: v466',
+        '',
+      ].join('\n')
+    )
+    expect(diagnostics).toEqual([])
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'army:gotrek-import',
+    })
+    expect(preview.diagnostics).toEqual([])
+    const document = preview.proposedDocument!
+    const selection = resolveSelection(AOS4_CATALOG, {
+      explicitIds: document.explicitSelectionIds,
+      rulesContextId: document.rulesContextId,
+    })
+    expect(selection.diagnostics).toEqual([])
+    expect(selection.selectedIds).toEqual(expect.arrayContaining([GOTREK_REGIMENT_ID, GOTREK_WARSCROLL_ID]))
   })
 })

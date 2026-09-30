@@ -101,7 +101,7 @@ const certifiedRuntime = JSON.parse(
 
 const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-30.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-30-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-30b-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_603)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_607)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,603 entities', () => {
+  it('reports no missing provenance for any of the 11,607 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_603)
+    ).toHaveLength(11_607)
   })
 })
 
@@ -193,16 +193,16 @@ describe('AoS 4 catalog generation integrity', () => {
       status: 'strict-pass',
       summary: {
         factions: 28,
-        warscrolls: 1302,
+        warscrolls: 1303,
         battleProfiles: 1015,
-        abilities: 5150,
-        weapons: 2275,
+        abilities: 5152,
+        weapons: 2276,
         sourceArtifacts: 244,
-        sourceRecords: 20273,
+        sourceRecords: 20283,
         ignoredSourceRecords: 20464,
       },
       integrity: {
-        consumedSourceRecords: 20267,
+        consumedSourceRecords: 20277,
         issues: [],
         supersededSourceRecords: {
           count: 20458,
@@ -461,11 +461,12 @@ describe('AoS 4 catalog generation integrity', () => {
      * exact: a regiment that gains a member must leave it.
      */
     const reviewedMemberlessRegiments = {
-      // Their source datasheets' ORGANISATION blocks carry no member warscroll links.
-      'Gotrek Gurnisson': 'no member links in source',
-      'Heroes of The Jade Abbey': 'no member links in source',
-      'Mask of the Deceiver': 'no member links in source',
-      'The Sorrowmourn Choir': 'no member links in source',
+      // Their source datasheets' ORGANISATION blocks name members only as plain text, and no
+      // reviewed regiment-only adoption carries those names. Gotrek Gurnisson left this list
+      // when his adoption landed (#2047).
+      'Heroes of The Jade Abbey': 'plain-text members with no reviewed adoption',
+      'Mask of the Deceiver': 'plain-text members with no reviewed adoption',
+      'The Sorrowmourn Choir': 'plain-text members with no reviewed adoption',
     }
     const kindById = new Map(AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity.kind]))
     const regiments = AOS4_FULL_CATALOG.entities.filter(

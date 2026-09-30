@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-30` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-30b` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -32,8 +32,8 @@ This is an Age of Sigmar fourth-edition codebase:
 - manifestations are a category of unit rather than an army: the five universal manifestation lores
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
-- the accepted corpus contains 1,302 warscrolls, 1,015 battle profiles, 5,150 abilities,
-  2,275 weapons, 1,526 content groups, and 20,273 live source records
+- the accepted corpus contains 1,303 warscrolls, 1,015 battle profiles, 5,152 abilities,
+  2,276 weapons, 1,526 content groups, and 20,283 live source records
 - the 78 Regiments of Renown are classified `regiment-of-renown` content groups (reviewed
   `regimentsOfRenown` input), offered by exactly their inclusion factions with their regiment
   abilities and member warscrolls linked (issue #1858), all from the accepted collection pages.
@@ -48,6 +48,10 @@ This is an Age of Sigmar fourth-edition codebase:
   publishes only on the inclusion factions' collections, through reviewed `adoptedWarscrolls`
   entries with `availability: 'regiment-of-renown'` — the datasheets are fielded only through
   their regiments and never offered directly (#2030);
+  Gotrek Gurnisson's warscroll carries no faction keyword and his regiment's ORGANISATION line is
+  plain text, so the adapter reads plain-text members by name and a reviewed regiment-only
+  adoption keeps the Fyreslayers collection copy (#2047); Mask of the Deceiver, Heroes of The Jade
+  Abbey, and The Sorrowmourn Choir also print plain-text members and still resolve none;
   Stumblefoot Gargant, which the September 2026 Battle Profiles prints `DELETED`, is historical
   content: every one of its 25 inclusion factions still offers it, but only through the historical
   overlay, which the builder shows every army under its `Scourge of Ghyran (2025-26)` header
@@ -124,7 +128,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-09-30` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-09-30b` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.
