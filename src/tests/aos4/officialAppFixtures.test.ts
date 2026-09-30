@@ -315,37 +315,46 @@ describe('official app list resolution', () => {
     expect(labels).toContain('Chaos Warriors')
   })
 
-  /**
-   * A regiment the corpus does not yet carry must fail closed as a named diagnostic, never a
-   * silent drop or a guess. Urrgar's Maulerguts is the live case: its official battle-profile row
-   * exists (Battle Profiles - Ogor Mawtribes, August 2026), but no accepted page publishes its
-   * rules, so no classified regiment group exists to resolve to. Okar's Torrbad, its sibling, left
-   * this state when the re-pinned Sons of Behemat collection page (corpus 2026-09-25, #1999)
-   * published it.
-   */
-  it("reports an unclassified regiment (Urrgar's Maulerguts) instead of dropping or guessing", () => {
-    const preview = resolveParsedRoster(
+  const regimentProbe = (declaredFaction: string, label: string) =>
+    resolveParsedRoster(
       AOS4_CATALOG,
       {
         source: 'official-app-text',
-        proposedName: 'unclassified regiment probe',
-        declaredFaction: 'Ogor Mawtribes',
-        selections: [
-          {
-            line: 3,
-            label: "Urrgar's Maulerguts",
-            kindHint: 'regiment-of-renown',
-            isRegimentOfRenown: true,
-          },
-        ],
+        proposedName: 'regiment probe',
+        declaredFaction,
+        selections: [{ line: 3, label, kindHint: 'regiment-of-renown', isRegimentOfRenown: true }],
       },
       { defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID, createDocumentId: () => 'army:probe' }
     )
-    expect(preview.matches.map(match => match.label)).not.toContain("Urrgar's Maulerguts")
+
+  /**
+   * A regiment the corpus does not carry must fail closed as a named diagnostic, never a silent
+   * drop or a guess. Urrgar's Maulerguts was the live case until the Ossiarch Bonereapers
+   * collection page re-pinned in corpus 2026-09-30 (#2037) published it, as the Sons of Behemat
+   * page did for Okar's Torrbad (corpus 2026-09-25, #1999); every official regiment row now has a
+   * classified group, so the probe uses a label no source publishes.
+   */
+  it('reports an unclassified regiment instead of dropping or guessing', () => {
+    const preview = regimentProbe('Ogor Mawtribes', "Grumbar's Unpublished Regiment")
+    expect(preview.matches).toEqual([])
     expect(preview.diagnostics).toContainEqual(
       expect.objectContaining({
         code: 'unknown-selection',
         severity: 'warning',
+        message: expect.stringContaining("Grumbar's Unpublished Regiment"),
+      })
+    )
+  })
+
+  it("resolves Urrgar's Maulerguts for an inclusion faction and refuses it for Ogor Mawtribes (#2037)", () => {
+    expect(regimentProbe('Ironjawz', "Urrgar's Maulerguts").matches.map(match => match.label)).toEqual([
+      "Urrgar's Maulerguts",
+    ])
+    const ogor = regimentProbe('Ogor Mawtribes', "Urrgar's Maulerguts")
+    expect(ogor.matches).toEqual([])
+    expect(ogor.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'inapplicable-selection',
         message: expect.stringContaining("Urrgar's Maulerguts"),
       })
     )

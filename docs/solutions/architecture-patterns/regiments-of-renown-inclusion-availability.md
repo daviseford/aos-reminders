@@ -65,6 +65,16 @@ and the 76 official regiment-of-renown battle-profile rows sat dispositioned
    shipped `INFANTRY` vs `non-INFANTRY` disagreements for Sky-Port Profiteers and Volt-Klaw's
    Enginecoven with no official arbiter in the accepted set. The warning lands in the reviewed
    `expectedWarnings` gate, so drift can never pass silently.
+   The majority is a count of pinned pages, not of correctness. Re-pinning a single faction's pages
+   brings that page's copy of every regiment it carries, and it can be the only copy that matches
+   the current official text: after the 2026-09-30 Ossiarch Bonereapers re-pin (#2037) its Big
+   Drogg Fort-Kicka matched official Regiments of Renown - Sons of Behemat page 4 word for word,
+   yet seven stale pinned copies outvoted it. Before raising `expectedWarnings`, check each new
+   variant against the official pack and battle-profile row, and record a stale winner as a gap.
+   A regiment with one copy on the re-pinned page and none elsewhere is new to the corpus (it needs
+   a reviewed `regimentsOfRenown` entry, as Urrgar's Maulerguts did), and a regiment already
+   shipped from BSData stops generation (`duplicate-regiment-of-renown-source`) until one source is
+   retired; Krong the Club moved to the page and kept its canonical ids by alias.
 3. **Availability comes from INCLUSION, never from the carrier page.** The merge derives
    `regimentOfRenownFactions` availability records from the datasheet's INCLUSION block; the
    existing regiment-availability machinery then emits `offers` edges from exactly those

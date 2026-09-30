@@ -20,8 +20,9 @@ import { resolveSelection } from '../../aos4/select'
  * six Realm-shaking Rampages, the King Brodd's Stomp September rewrite, the Stone Lobbas
  * Spearhead, and the two battletome Armies of Renown (Matriarch's Mob, Stomper Tribe).
  *
- * Krong the Club still ships from the pinned BSData `Regiments of Renown.cat`
- * (`regimentsOfRenown.test.ts` covers it): no re-pinned page carries it.
+ * Krong the Club shipped from the pinned BSData `Regiments of Renown.cat` until the corpus
+ * 2026-09-30 Ossiarch Bonereapers re-pin (#2037) brought Wahapedia's copy
+ * (`regimentsOfRenown.test.ts` covers it).
  */
 
 const standard = AOS4_FULL_CATALOG.rulesContexts.find(
@@ -319,12 +320,9 @@ describe('Sons of Behemat battletome on the re-pinned Wahapedia pages (issue #19
     )
   })
 
-  it('keeps no BSData Sons of Behemat catalogue in the corpus apart from Krong the Club', () => {
-    const community = AOS4_FULL_CATALOG.sourceArtifacts.filter(
-      artifact => artifact.authority.kind === 'community'
-    )
-    expect(community.map(artifact => artifact.title)).toEqual([
-      expect.stringMatching(/Regiments of Renown catalogue — Krong the Club/),
-    ])
+  it('keeps no BSData catalogue in the corpus', () => {
+    expect(
+      AOS4_FULL_CATALOG.sourceArtifacts.filter(artifact => artifact.authority.kind === 'community')
+    ).toEqual([])
   })
 })

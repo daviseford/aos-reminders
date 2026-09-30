@@ -76,7 +76,10 @@ describe('the September 2026 Games Workshop update (#1757)', () => {
     // official excerpt. Errata that only delete words (Lightning Master, Abyssal Dweller, the
     // Ossiarch Bonereapers relentless-discipline surcharge), errata that edit a phrase inside
     // secondary text (Rolling Ash-clouds, Lingering Burns), and Spectral Alchemy's long
-    // replacement cannot pass it, so they stay recorded discrepancies rather than overrides.
+    // replacement cannot pass it, so they stay recorded discrepancies rather than overrides. The
+    // six Ossiarch Bonereapers abilities are correct since corpus 2026-09-30 (#2037), but through
+    // the re-pinned Wahapedia page that prints the erratum, not an override, so they still cite no
+    // Rules Updates page (`ossiarchBonereapersSeptember2026.test.ts` covers their text).
     for (const id of [
       'ability:475c9bd8-e54e-5466-8d39-4db37bda29ab',
       'ability:52df4c79-548b-52b8-b3f9-66bcbf3da517',

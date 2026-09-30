@@ -132454,6 +132454,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:regiment:krong-the-club:ability:1",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#datasheet:Krong-The-Club/ability:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:cf27d9e4-24d1-5230-be44-a4874a6bfaa2",
@@ -132465,6 +132469,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:regiment:krong-the-club:ability:2",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#datasheet:Krong-The-Club/ability:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:3dffc6c3-4c25-56e0-bb48-194ec3559c8e",
@@ -132476,6 +132484,10 @@
         {
           "externalId": "BSData/age-of-sigmar-4th:regiment:krong-the-club",
           "publisher": "other"
+        },
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#datasheet:Krong-The-Club/warscroll",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "content-group:6ef77802-38e1-5bc6-97a8-1f247df260d4",
@@ -133427,6 +133439,39 @@
       "canonicalId": "weapon:a4c8a30c-d329-5f30-a74a-91843eb327f0",
       "kind": "weapon",
       "name": "Crushing Iron Feet"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#datasheet:Urrgar-s-Maulerguts/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:dd240702-5899-5bce-a603-ac39433ad8d6",
+      "kind": "ability",
+      "name": "WE’LL BE THERE - IF THE PAY’S RIGHT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#datasheet:Urrgar-s-Maulerguts/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d9a093a5-2fc2-5740-be19-725844b0f945",
+      "kind": "ability",
+      "name": "THE HORNS HIT HOME"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#datasheet:Urrgar-s-Maulerguts/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:935f3975-9558-5715-9f68-055d47d8afda",
+      "kind": "content-group",
+      "name": "Urrgar’s Maulerguts"
     }
   ],
   "schemaVersion": 1

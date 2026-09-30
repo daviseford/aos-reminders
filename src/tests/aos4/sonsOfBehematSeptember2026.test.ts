@@ -14,8 +14,9 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * #1999), which also brought the King Brodd's Stomp September 2026 rewrite and the Stone Lobbas
  * Spearhead (`sonsOfBehematBattletome.test.ts` covers the swap in detail). This file keeps the
  * surviving points/regiment-option assertions for the nine carried-over units. Krong the Club
- * ships as of corpus 2026-09-24, its rules text from the pinned BSData Regiments of Renown
- * catalogue.
+ * ships as of corpus 2026-09-24; its rules text came from the pinned BSData Regiments of Renown
+ * catalogue until corpus 2026-09-30 (#2037), and from the re-pinned Wahapedia Ossiarch
+ * Bonereapers collection since.
  */
 
 const SEPTEMBER_POINTS: Array<{ name: string; points: number }> = [
@@ -64,7 +65,7 @@ describe('the September 2026 Sons of Behemat battle-profile supplement (#1757)',
   it('ships the Stone Lobbas Spearhead from the re-pinned faction page, and Krong the Club once', () => {
     expect(
       AOS4_FULL_CATALOG.entities.filter(
-        entity => entity.kind === 'content-group' && entity.name === 'Krong the Club'
+        entity => entity.kind === 'content-group' && /^krong the club$/i.test(entity.name)
       )
     ).toHaveLength(1)
     const spearhead = AOS4_FULL_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
