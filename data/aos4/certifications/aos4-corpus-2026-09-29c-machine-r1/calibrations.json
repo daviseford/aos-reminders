@@ -1,0 +1,21 @@
+[
+  {
+    "calibratedAt": "2026-09-30T04:06:35.000Z",
+    "correctCannotVerifyCases": 1,
+    "evidence": {
+      "assignmentId": "review-assignment:sha256:8da0a07a04203476094e499861ae33d0a05436c93865b588e40f73eac34dca66",
+      "blindResultsChecksum": "469b995898b3bfdecdad84df33e265657358fdad8d2cbb1c7bc9bd8948560db7",
+      "comparisonResultsChecksum": "cd6f26c294219f66c7ccc10b61be5c09166280c00dc89e5d972fa087bccd7b4f",
+      "controlPairKeysChecksum": "4492cb7138496dd339033438301530d8caddf213f02cef4fbebb5da82a8fa5f6",
+      "receiptChecksum": "6d31b9ff94b4c60ef09f02415b47ecc3b94e2823e745219b8ae53b0c7ed9e70f"
+    },
+    "foundSeededBlockerMajorDefects": 1,
+    "insufficientEvidenceCases": 1,
+    "passed": true,
+    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
+    "rubricVersion": "aos4-rubric/v2",
+    "schemaVersion": 1,
+    "seededBlockerMajorDefects": 1,
+    "unsupportedExpectedValues": 0
+  }
+]

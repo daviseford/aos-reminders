@@ -209,17 +209,36 @@ const abilityValue = (header: Element, body: Element, line: number) => {
     )?.[0] ?? ''
   const pointsMatch = condition.match(/\b(Spell|Prayer)\s*\((\d+)\)/i)
   const textualPoints = pointsMatch ? { pointsType: pointsMatch[1], points: pointsMatch[2] } : undefined
-  // Wahapedia renders command costs, casting values, and chanting values with the same numeric
-  // badge. Keep the lookup inside this ability's header row, then use the ability's own keyword
-  // strip to classify the overloaded provider shape.
-  const badgeElement = header.closest('tr')?.querySelector('.abCommandPointsN') ?? null
+  // Wahapedia renders command costs, casting values, and chanting values as numeric badges in the
+  // ability's own header row: command costs as .abCommandPointsN, casting values as
+  // .abSpellPointsN, and chanting values as .abPrayerPointsN. Keep the lookup inside this ability's
+  // header row. The command badge class is overloaded — it also carries spell and prayer target
+  // numbers on pages without the dedicated classes — so classify it with the ability's own keyword
+  // strip. The dedicated spell and prayer classes are self-describing and must agree with that
+  // keyword classification; a disagreement fails closed with no cost.
+  //
+  // A few datasheet abilities print no keyword strip at all (Blades of the Hollow King's
+  // RETRIBUTION OR SALVATION, #2032). With no strip there is nothing to disagree with, so a
+  // dedicated badge stands if the ability's own text makes the matching roll. The keyword list is
+  // left as printed; only the cost kind is read from the badge.
+  const badgeElement =
+    header.closest('tr')?.querySelector('.abCommandPointsN, .abSpellPointsN, .abPrayerPointsN') ?? null
+  const keywordType = abilityPointsType(keywordHtml, textualPoints?.pointsType)
+  const dedicatedType = badgeElement?.classList.contains('abSpellPointsN')
+    ? 'Spell'
+    : badgeElement?.classList.contains('abPrayerPointsN')
+      ? 'Prayer'
+      : undefined
+  const badgeType = dedicatedType ?? keywordType
+  const rollNamedInText =
+    dedicatedType !== undefined &&
+    new RegExp(`\\b${dedicatedType === 'Spell' ? 'casting' : 'chanting'} roll\\b`, 'i').test(
+      normalizedText(cleanBody)
+    )
+  const kindAgrees = badgeType === keywordType || (!keywordsStrip && rollNamedInText)
   const badgeText = normalizedText(badgeElement)
-  const badgePoints = /^[1-9]\d*$/.test(badgeText)
-    ? {
-        pointsType: abilityPointsType(keywordHtml, textualPoints?.pointsType),
-        points: badgeText,
-      }
-    : undefined
+  const badgePoints =
+    /^[1-9]\d*$/.test(badgeText) && kindAgrees ? { pointsType: badgeType, points: badgeText } : undefined
   const pointsEvidence =
     badgeElement && !badgePoints
       ? undefined
@@ -275,6 +294,30 @@ const regimentOfRenownStructure = (datasheet: Element): WahapediaHtmlRegimentOfR
   }
 }
 
+/**
+ * A numeric cost badge that decodes to no cost is withheld on purpose: its kind disagrees with the
+ * ability's keyword strip or text (the Cities of Sigmar Runelord's FORGEFIRE prints a spell badge
+ * on a PRAYER). Report it so the reviewed warning count fails closed on any new disagreement.
+ */
+const withheldCostDiagnostic = (
+  header: Element,
+  value: { name: string; points: string },
+  input: WahapediaHtmlInput,
+  section: string
+): WahapediaHtmlDiagnostic[] => {
+  const badge = header.closest('tr')?.querySelector('.abCommandPointsN, .abSpellPointsN, .abPrayerPointsN')
+  if (!value.name || !badge || value.points) return []
+  return [
+    {
+      code: 'withheld-ability-cost',
+      severity: 'warning',
+      url: input.artifact.finalUrl,
+      section,
+      message: `Ability ${value.name} prints a ${badge.className} badge "${normalizedText(badge)}" whose kind its keywords or text do not corroborate; no cost is decoded`,
+    },
+  ]
+}
+
 const abilityRecords = (
   root: ParentNode,
   input: WahapediaHtmlInput,
@@ -294,6 +337,14 @@ const abilityRecords = (
   }
   return headers.slice(0, bodies.length).flatMap((header, index) => {
     const value = abilityValue(header, bodies[index], index + 1)
+    diagnostics.push(
+      ...withheldCostDiagnostic(
+        header,
+        value,
+        input,
+        scope ? `${scope}/ability:${value.line}` : `ability:${value.line}`
+      )
+    )
     return value.name ? [{ ...value, meta: recordMeta(input, `ability:${value.line}`, value, scope) }] : []
   })
 }
@@ -959,6 +1010,7 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     if (!value.name) continue
     groupsWithAbilities.add(group)
     const externalId = `${group.externalId}:ability:${line}`
+    decoded.diagnostics.push(...withheldCostDiagnostic(node, value, input, `faction-ability:${externalId}`))
     abilities.push({
       ...value,
       externalId,
@@ -1156,6 +1208,7 @@ export const parseWahapediaRulesHtml = (input: WahapediaHtmlInput): WahapediaHtm
     const value = abilityValue(node, body, line)
     if (!value.name) continue
     const externalId = `${group.externalId}:ability:${line}`
+    decoded.diagnostics.push(...withheldCostDiagnostic(node, value, input, `rules-ability:${externalId}`))
     abilities.push({
       ...value,
       externalId,

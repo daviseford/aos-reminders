@@ -1,5 +1,12 @@
 import type { ContentGroup, Faction, Warscroll } from '../../aos4/domain'
-import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
+import {
+  AOS4_CATALOG,
+  AOS4_DEFAULT_RULES_CONTEXT_ID,
+  REPRESENTATIVE_CATALOG,
+  REPRESENTATIVE_CONTEXT_ID,
+  REPRESENTATIVE_EXPLICIT_SELECTION_IDS,
+} from '../../aos4/generated'
+import { createAos4PrintDocument } from '../../aos4/print'
 import { createAos4ArmyDocument } from '../../aos4/state'
 import { createAos4ReminderViewModel, type Aos4ReminderViewModel } from '../../aos4/view'
 
@@ -62,8 +69,10 @@ describe('reminder command-point tags (#1856)', () => {
       description: 'Costs 2 command points to use.',
     })
   })
+})
 
-  it('does not turn an accepted numeric spell badge into a CP tag', () => {
+describe('reminder spell and prayer cost tags (#2032)', () => {
+  it('renders the casting value of an accepted spell as the first tag', () => {
     const reminder = reminderNamed(
       remindersFor([
         ['faction', 'Kruleboyz'],
@@ -73,6 +82,168 @@ describe('reminder command-point tags (#1856)', () => {
     )
 
     expect(reminder.projected.cost).toEqual({ kind: 'spell', value: 7 })
-    expect(reminder.tags.some(tag => tag.tone === 'cost')).toBe(false)
+    expect(reminder.tags[0]).toEqual({
+      label: 'CV 7',
+      tone: 'cost',
+      description:
+        'Casting value 7: the caster must roll 7 or higher on the 2D6 casting roll or the spell fails.',
+    })
+    expect(reminder.accessibleLabel).toContain('Casting value 7')
+  })
+
+  it('flows the casting-value tag into the print document', () => {
+    const reminder = reminderNamed(
+      remindersFor([
+        ['faction', 'Kruleboyz'],
+        ['content-group', 'Braggit’s Bottle-Snatchaz'],
+      ]),
+      'SNEAKY DISTRACTION'
+    )
+
+    const document = createAos4PrintDocument([reminder], { armyName: 'Army', factionName: 'Faction' })
+    expect(document.sections[0].rules[0].tags?.[0]).toMatchObject({ label: 'CV 7', tone: 'cost' })
+  })
+
+  it('renders the chanting value of a prayer cost', () => {
+    const reminder = reminderNamed(
+      createAos4ReminderViewModel(
+        REPRESENTATIVE_CATALOG,
+        createAos4ArmyDocument({
+          id: 'army:test-prayer-cost-tags',
+          name: 'Prayer Cost Tag Test',
+          rulesContextId: REPRESENTATIVE_CONTEXT_ID,
+          explicitSelectionIds: REPRESENTATIVE_EXPLICIT_SELECTION_IDS,
+        })
+      ),
+      'Healing Storm'
+    )
+
+    expect(reminder.projected.cost).toEqual({ kind: 'prayer', value: 4 })
+    expect(reminder.tags[0]).toEqual({
+      label: 'ChV 4',
+      tone: 'cost',
+      description:
+        'Chanting value 4: the chanter must roll 4 or higher on the chanting roll or the prayer is not answered.',
+    })
+    expect(reminder.accessibleLabel).toContain('Chanting value 4')
+  })
+})
+
+describe('Krondys print acceptance (#2032)', () => {
+  const krondysReminders = () =>
+    remindersFor([
+      ['faction', 'Stormcast Eternals'],
+      ['warscroll', 'Krondys, Son of Dracothion'],
+      ['content-group', 'Lore of the Storm'],
+    ])
+
+  // Krondys's own spell plus the three Lore of the Storm spells, at their accepted casting values.
+  const KRONDYS_SPELLS: Array<[string, number]> = [
+    ['ATAVISTIC TEMPEST', 8],
+    ['LIGHTNING BLAST', 5],
+    ['STARFALL', 7],
+    ['THUNDERSHOCK', 6],
+  ]
+
+  it.each(KRONDYS_SPELLS)('shows the accepted casting value on %s (CV %i)', (name, value) => {
+    const reminder = reminderNamed(krondysReminders(), name)
+    expect(reminder.projected.cost).toEqual({ kind: 'spell', value })
+    expect(reminder.tags[0]).toMatchObject({ label: `CV ${value}`, tone: 'cost' })
+  })
+
+  it('carries every Krondys spell casting value into the print document', () => {
+    const document = createAos4PrintDocument(krondysReminders(), {
+      armyName: 'Krondys',
+      factionName: 'Stormcast Eternals',
+    })
+
+    const rules = document.sections.flatMap(section => section.rules)
+    const printed = KRONDYS_SPELLS.map(([name]) => [name, rules.find(rule => rule.title === name)?.tags?.[0]])
+    expect(printed).toEqual(
+      KRONDYS_SPELLS.map(([name, value]) => [
+        name,
+        expect.objectContaining({ label: `CV ${value}`, tone: 'cost' }),
+      ])
+    )
+  })
+})
+
+describe('accepted casting and chanting value coverage (#2032)', () => {
+  const abilities = AOS4_CATALOG.entities.filter(entity => entity.kind === 'ability')
+  const hasKeyword = (keywords: readonly string[] | undefined, keyword: string) =>
+    (keywords ?? []).some(candidate => candidate.toUpperCase() === keyword)
+
+  // Reviewed dispositions for the PRAYER abilities that ship without a chanting value. The three
+  // SACRED RITES records are the core chanting rule itself, which Wahapedia prints with no badge
+  // (the September 2026 Rules Updates page 22 adds a chanting value of 2 only to the historical
+  // General's Handbook 2025-26 copy, and no accepted text source carries it yet). The Cities of
+  // Sigmar Runelord's FORGEFIRE carries its value in a spell-class badge on a PRAYER ability, so
+  // the adapter fails closed rather than guess which kind of value it is.
+  const PRAYERS_WITHOUT_CHANTING_VALUE = new Set([
+    'ability:64833c8e-0e45-570b-a0fb-14dd24df37b2',
+    'ability:a89234c6-b4b0-5a92-af47-e046f6e57bb8',
+    'ability:aa42ff31-bafb-55e6-a80c-279f531558cf',
+    'ability:a5e8d40e-9d11-5b10-915e-8eae5b30fc23',
+  ])
+
+  it('gives every accepted SPELL ability a casting value', () => {
+    const spells = abilities.filter(ability => hasKeyword(ability.keywords, 'SPELL'))
+    expect(spells.length).toBeGreaterThan(390)
+    expect(spells.filter(spell => spell.cost?.kind !== 'spell').map(spell => spell.name)).toEqual([])
+  })
+
+  it('gives every accepted PRAYER ability a chanting value except the reviewed dispositions', () => {
+    const prayers = abilities.filter(ability => hasKeyword(ability.keywords, 'PRAYER'))
+    expect(prayers.length).toBeGreaterThan(150)
+    const unvalued = prayers.filter(prayer => prayer.cost?.kind !== 'prayer').map(prayer => prayer.id)
+    expect(new Set(unvalued)).toEqual(PRAYERS_WITHOUT_CHANTING_VALUE)
+  })
+
+  // RETRIBUTION OR SALVATION (Blades of the Hollow King) prints a casting value badge but no
+  // KEYWORDS strip at all, so the page names no kind to check the badge against; its own text makes
+  // the casting roll, which the adapter accepts as corroboration (#2032). Its keywords stay as
+  // printed.
+  const RETRIBUTION_OR_SALVATION: string = 'ability:272e1c68-51e8-5ca3-83ff-415b656ab45f'
+
+  it('ships the casting value of a spell whose datasheet prints no keyword strip', () => {
+    const ability = abilities.find(candidate => candidate.id === RETRIBUTION_OR_SALVATION)
+    expect(ability?.name).toBe('RETRIBUTION OR SALVATION')
+    expect(ability?.keywords ?? []).toEqual([])
+    expect(ability?.cost).toEqual({ kind: 'spell', value: 7 })
+
+    const reminder = reminderNamed(
+      remindersFor([
+        ['faction', 'Soulblight Gravelords'],
+        ['warscroll', 'Blades of the Hollow King'],
+      ]),
+      'RETRIBUTION OR SALVATION'
+    )
+    expect(reminder.tags[0]).toMatchObject({ label: 'CV 7', tone: 'cost' })
+  })
+
+  // Keyword-independent: an ability whose declare step makes the casting or chanting roll and whose
+  // effect prints no "On a N+" threshold of its own needs a target number from somewhere. Only the
+  // reviewed dispositions above may ship without one. This is what catches a spell whose keyword
+  // strip is missing.
+  it('gives every roll-making ability without its own threshold a value, except the reviewed dispositions', () => {
+    const needsValue = abilities.filter(
+      ability =>
+        /make an? (casting|chanting) roll/i.test(ability.text.declare ?? '') &&
+        !/^On an? \d+\+/i.test(ability.text.effect.trim())
+    )
+    expect(needsValue.length).toBeGreaterThan(550)
+    expect(new Set(needsValue.filter(ability => !ability.cost).map(ability => ability.id))).toEqual(
+      PRAYERS_WITHOUT_CHANTING_VALUE
+    )
+  })
+
+  it('never classifies a cost against a printed keyword strip', () => {
+    const mismatched = abilities.filter(
+      ability =>
+        ability.id !== RETRIBUTION_OR_SALVATION &&
+        ((ability.cost?.kind === 'spell' && !hasKeyword(ability.keywords, 'SPELL')) ||
+          (ability.cost?.kind === 'prayer' && !hasKeyword(ability.keywords, 'PRAYER')))
+    )
+    expect(mismatched.map(ability => ability.name)).toEqual([])
   })
 })

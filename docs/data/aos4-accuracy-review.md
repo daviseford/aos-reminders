@@ -12,7 +12,78 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-29b` (issue #2030): the Cogfort Regiment of Renown
+The current revision is `aos4-corpus-2026-09-29c` (issue #2032): casting and chanting values on top
+of `aos4-corpus-2026-09-29b`. Wahapedia prints a spell's casting value in an `.abSpellPointsN`
+badge and a prayer's chanting value in an `.abPrayerPointsN` badge in the ability header row, but
+the HTML adapter read only the `.abCommandPointsN` command-point badge, so 396 of 397 accepted SPELL
+abilities and every prayer shipped without the number their roll needs. The adapter now reads the
+dedicated badges, requires the badge kind to agree with the ability's own keyword strip, and fails
+closed on missing or conflicting evidence. An ability that prints no keyword strip at all has
+nothing to disagree with, so a dedicated badge stands there when the ability's own text makes the
+matching casting or chanting roll; its keywords stay as printed. A badge that decodes to no cost
+now raises a `withheld-ability-cost` warning, counted in the reviewed `expectedWarnings` (187 to
+188), so any new disagreement fails generation until it is reviewed. No artifact changed: the
+revision keeps `accepted-2026-09-25.json`, and the review inputs change only their revision key and
+that warning count. The runtime gains exactly 553 ability costs (397 casting values, 156 chanting
+values) and nothing else: 559 source record checksums move with the decoded badge, and no entity,
+identity, relationship, or count changes.
+
+Every spell and prayer badge on the 72 accepted Wahapedia pages was inventoried against the
+generated catalog. All 397 SPELL abilities carry a casting value, and so does Blades of the Hollow
+King's `RETRIBUTION OR SALVATION` (casting value 7), whose datasheet prints the badge and a
+casting roll but no keyword strip. The official *Battletome Supplement: Soulblight Gravelords*
+(April 2025, page 15) prints the same spell with the SPELL keyword and casting value 7 on Cado
+Ezechiar, the Hollow King's warscroll, which the accepted runtime already ships in the Legends
+context at casting value 7. 156 of 160 PRAYER abilities carry a
+chanting value; the other four are reviewed dispositions: the three core `SACRED RITES` records,
+which Wahapedia prints without a badge, and the Cities of Sigmar Runelord's `FORGEFIRE`, whose value
+sits in a spell-class badge on a PRAYER ability and so fails closed (the one `withheld-ability-cost`
+warning). Those four are the only abilities whose declare step makes a casting or chanting roll,
+with no threshold printed in the effect, that ship without a value. The badges that match nothing
+shipped are Path to Glory and Anvil of Apotheosis narrative cards (`BORN OF SLAUGHTER`,
+`SHINING BLADES`, `DARK INTRIGUE`) and the Mask of the Deceiver regiment's `FORCEFUL COMMAND`,
+which no accepted record carried before this revision either. Official precedence holds: all 17
+summoning casting values in the universal manifestations warscrolls match, as does the General's
+Handbook 2024-25 erratum raising Summon Suffocating Gravetide to 8. The one official value not
+shipped is the September 2026 Rules Updates page 22 erratum adding a chanting value of 2 to the
+historical General's Handbook 2025-26 `SACRED RITES`; no accepted text source carries it and the
+review has no cost-override input, so it stays a recorded gap rather than a wrong value.
+`reminderCostTags.test.ts` pins these dispositions against the runtime. Its automated review is
+complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 245/245 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 658/658 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,257/20,257 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,693/42,693 |
+| Independent outcomes | 85,386 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 129/129 |
+| Populated high-risk cohorts | 20/20 |
+
+The source inventory is a schema 2 inventory of fresh observations taken for this revision on
+2026-09-30: a `discover-official` snapshot at 04:04:05Z (166 downloads, 7 explicit non-material),
+the Wahapedia navigation and exports at 04:04:14Z (87 sources, 0 inaccessible), and the pinned
+BSData `8836d9f9` `Regiments of Renown.cat` at 04:06:14Z. Every accepted artifact matched, so no
+newer official publication supersedes the pinned September documents. The certification is
+`aos4-corpus-2026-09-29c-machine-r2`, a re-campaign of the same revision after PR #2034's source
+review found `RETRIBUTION OR SALVATION` unvalued. It binds the same schema 2 inventory as
+`machine-r1`, byte for byte, because the manifest is unchanged and the observations were taken for
+this intake. The auditor checks every generated ability cost against its source record's decoded
+badge. Its `--reuse-certification` offer of `machine-r1` reused 42,692 unchanged pairs and
+evaluated the one changed pair fresh (campaign 06:05:35Z, certified 06:05:55Z), with 0 findings and
+0 cannot-verify. Its reuse overlay references `machine-r1`, so that directory stays in the live
+chain. `machine-r1` evaluated all 42,693 pairs fresh against the `aos4-corpus-2026-09-29b-machine-r2`
+offer (the revision re-key invalidates every pair; campaign 04:06:31Z, certified 04:07:09Z), with 0
+findings and 0 cannot-verify.
+
+### `aos4-corpus-2026-09-29b` (superseded)
+
+The prior revision was `aos4-corpus-2026-09-29b` (issue #2030): the Cogfort Regiment of Renown
 correction on top of `aos4-corpus-2026-09-29`. Cogfort Raiders and Rogue Engine were classified
 regiment-of-renown content groups that no faction could select: Wahapedia publishes their Outlaw
 Cogfort member datasheets only on the inclusion factions' collections while linking them at a

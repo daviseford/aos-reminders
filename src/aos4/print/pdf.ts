@@ -1,4 +1,5 @@
 import { jsPDF } from 'jspdf'
+import { tagBoxHeightIn } from './layout'
 import type { PlacedLine, PrintPlan, PrintRoleStyle } from './types'
 
 const BLACK: readonly [number, number, number] = [0, 0, 0]
@@ -47,7 +48,7 @@ const drawTags = (doc: jsPDF, plan: PrintPlan, line: PlacedLine) => {
   if (!line.tags?.length) return
   const style = plan.preset.roles.ruleTag
   const textHeightIn = style.sizePt / 72
-  const boxHeightIn = textHeightIn + 0.05
+  const boxHeightIn = tagBoxHeightIn(style)
   const top = line.yIn - textHeightIn - 0.012
 
   line.tags.forEach(tag => {
