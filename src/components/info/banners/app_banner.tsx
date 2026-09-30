@@ -4,15 +4,15 @@ import { UpdateAvailable } from 'components/info/updateAvailable'
 import { useCheckoutOutcome } from 'utils/checkoutOutcome'
 
 /**
- * The rules-update note for the latest Rules Radar reconciliation (corpus 2026-09-29). Each
+ * The rules-update note for the latest Rules Radar reconciliation (corpus 2026-09-30). Each
  * reconciliation that reaches production gets its own banner name so the note shows once to
  * everyone, including people who dismissed the previous one; keep the copy to a few sentences.
  */
 const RulesUpdateBanner = () => (
-  <NotificationBanner enableLog name="2026-09-rules-update-3" variant="info">
+  <NotificationBanner enableLog name="2026-09-rules-update-4" variant="info">
     <span>
-      <strong>Late September update:</strong> More units can be reinforced again, one Regiment of Renown has
-      been retired, and a few rules now match the latest September battle profiles. Spotted a mistake? Let us
+      <strong>Late September update:</strong> Ossiarch Bonereapers pages match the September errata,
+      and imported monstrous traits now show up as selected in the builder. Spotted a mistake? Let us
       know on{' '}
       <a href="https://discord.gg/2nt9Fxp" target="_blank" rel="noopener noreferrer">
         Discord
