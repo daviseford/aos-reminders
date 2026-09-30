@@ -728,6 +728,7 @@ describe('current Wahapedia HTML reconciliation', () => {
       notes: [],
       weapons: [],
       abilities: [],
+      regimentOfRenownOnly: true,
       meta: bokMeta(`datasheet:${externalId}/warscroll`),
       artifact: bokArtifact,
     })
@@ -743,4 +744,87 @@ describe('current Wahapedia HTML reconciliation', () => {
     expect(mergedRegiment.regimentOfRenownMemberIds).toBeUndefined()
     expect(mergedRegiment.regimentOfRenownUnresolvedMembers).toEqual(['Duplicated Fighter'])
   })
+
+  it.each([
+    [
+      'an unreviewed same-name datasheet (no regiment-only adoption)',
+      { regimentOfRenownOnly: false, context: 'standard' as const },
+    ],
+    [
+      'a Spearhead-context adoption under a current regiment',
+      { regimentOfRenownOnly: true, context: 'spearhead' as const },
+    ],
+  ])(
+    'keeps a Regiment of Renown member unresolved when the name fallback would land on %s (#2030)',
+    (_label, memberTraits) => {
+      const bokUrl = 'https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html'
+      const bokArtifact = { ...artifact, requestUrl: bokUrl, finalUrl: bokUrl }
+      const dataset = emptyDataset()
+      dataset.factions.push({
+        id: 'BOK',
+        name: 'Blades of Khorne',
+        link: '/aos4/factions/blades-of-khorne/',
+        meta: meta('Factions.csv', 'blades-of-khorne'),
+      })
+      const bokMeta = (section: string) => ({
+        ...htmlMeta(section),
+        artifactId: artifactId(bokArtifact.checksum),
+        sourceRecordId: sourceRecordId('wahapedia', `html:${bokUrl}#${section}`),
+      })
+      const regiment: WahapediaHtmlWarscrollRecord = {
+        recordKind: 'content-group',
+        externalId: 'Some-Band',
+        name: 'Some Band',
+        factionName: 'Blades of Khorne',
+        sourceTitle: '',
+        sourceUrl: `${bokUrl}#Some-Band`,
+        context: 'standard',
+        characteristics: { move: '', save: '', control: '', health: '' },
+        descriptionHtml: '',
+        keywords: [],
+        baseSizes: [],
+        regimentOptions: [],
+        notes: [],
+        weapons: [],
+        abilities: [],
+        regimentOfRenown: {
+          inclusionFactionNames: ['Blades of Khorne'],
+          members: [
+            {
+              name: 'Stray Fighter',
+              href: '/aos4/factions/cities-of-sigmar/warscrolls.html#Stray-Fighter',
+            },
+          ],
+        },
+        meta: bokMeta('datasheet:Some-Band/warscroll'),
+        artifact: bokArtifact,
+      }
+      const member: WahapediaHtmlWarscrollRecord = {
+        recordKind: 'warscroll',
+        externalId: 'Stray-Fighter',
+        name: 'Stray Fighter',
+        factionName: 'Blades of Khorne',
+        sourceTitle: '',
+        sourceUrl: `${bokUrl}#Stray-Fighter`,
+        context: memberTraits.context,
+        characteristics: { move: '5"', save: '4+', control: '1', health: '2' },
+        descriptionHtml: '',
+        keywords: ['ORDER'],
+        baseSizes: [],
+        regimentOptions: [],
+        notes: [],
+        weapons: [],
+        abilities: [],
+        ...(memberTraits.regimentOfRenownOnly ? { regimentOfRenownOnly: true as const } : {}),
+        meta: bokMeta('datasheet:Stray-Fighter/warscroll'),
+        artifact: bokArtifact,
+      }
+
+      const result = mergeCurrentWahapediaWarscrollPages(dataset, [regiment, member], [], [])
+      const mergedRegiment = result.dataset.warscrolls.find(record => record.name === 'Some Band')!
+
+      expect(mergedRegiment.regimentOfRenownMemberIds).toBeUndefined()
+      expect(mergedRegiment.regimentOfRenownUnresolvedMembers).toEqual(['Stray Fighter'])
+    }
+  )
 })

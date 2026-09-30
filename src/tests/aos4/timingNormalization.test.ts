@@ -238,6 +238,30 @@ describe('AoS 4 source text normalization', () => {
     expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'source-marker-removed' }))
   })
 
+  it('completes a keyword span the source markup truncated mid-keyword (#2030)', () => {
+    const result = normalizeSourceText(
+      'Pick up to 1 friendly <span class="kwb">INFANTRY</span> <span class="kwb">HERO</span> and up to 1 friendly ' +
+        'non-<span class="kwb">HERO</span> <span class="kwb">INFANTR</span>y unit.'
+    )
+
+    expect(result.text).toBe(
+      'Pick up to 1 friendly INFANTRY HERO and up to 1 friendly non-HERO INFANTRY unit.'
+    )
+    expect(result.diagnostics).toEqual([
+      expect.objectContaining({ code: 'keyword-span-completed', severity: 'warning' }),
+    ])
+  })
+
+  it.each([
+    ['the completion is not an attested keyword', '<span class="kwb">HERO</span>es', 'HEROes'],
+    ['the continuation starts with a space', '<span class="kwb">INFANTRY</span> units', 'INFANTRY units'],
+  ])('leaves the text alone when %s', (_label, html, expected) => {
+    const result = normalizeSourceText(html)
+
+    expect(result.text).toBe(expected)
+    expect(result.diagnostics).toEqual([])
+  })
+
   it('splits Declare and Effect while retaining reaction trigger text', () => {
     const result = normalizeAbilityText({
       descriptionHtml:

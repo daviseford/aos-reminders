@@ -33,10 +33,10 @@ automated review is complete:
 | Official battle-profile facts | 1,312/1,312 |
 | Final official/secondary reconciliation discrepancies | 658/658 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 20,256/20,256 |
+| Live audit source records | 20,257/20,257 |
 | Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
-| Live review pairs | 42,692/42,692 |
-| Independent outcomes | 85,384 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 42,693/42,693 |
+| Independent outcomes | 85,386 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 20/20 |
 
@@ -44,10 +44,17 @@ The source inventory is a schema 2 inventory of fresh observations taken for thi
 2026-09-30: a `discover-official` snapshot (166 downloads, 7 explicit non-material), the Wahapedia
 navigation and exports (87 sources, 0 inaccessible), and the pinned BSData `8836d9f9` `Regiments of
 Renown.cat`; every accepted artifact matched, so no newer official publication supersedes the
-pinned September documents. The certification is `aos4-corpus-2026-09-29b-machine-r1`. Its
-`--reuse-certification` offer of `aos4-corpus-2026-09-29-machine-r2` carried nothing forward (the
-revision re-key invalidates every pair), so all 42,692 pairs were evaluated fresh (campaign
-00:43:27Z, certified 00:43:59Z), with 0 findings and 0 cannot-verify.
+pinned September documents. The certification is `aos4-corpus-2026-09-29b-machine-r2`, a
+re-campaign of the same revision after the first review round: the MERCENARY ATTITUDES adoption
+now cites the September 2026 Rules Updates page 38 errata it already follows, and the Outlaw
+Conqueror Cogfort's EVERYONE ABOARD! declare step ships the official INFANTRY keyword through a
+reviewed keyword-span completion repair (Wahapedia's markup truncates the span one letter early)
+instead of a case-only text override, which the auditor rejects as carrying no official
+contribution. Its `--reuse-certification` offer of `machine-r1` reused 22,468 unchanged pairs and
+evaluated 20,225 fresh (campaign 02:11Z, certified 02:20:20Z), with 0 findings and 0
+cannot-verify. Its reuse overlay references `machine-r1`, so that directory stays in the live
+chain. `machine-r1` evaluated all 42,692 pairs fresh (campaign 00:43:27Z, certified 00:43:59Z),
+with 0 findings and 0 cannot-verify.
 
 ### `aos4-corpus-2026-09-29` (superseded)
 

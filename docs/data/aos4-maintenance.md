@@ -37,7 +37,7 @@ The strict report currently records:
 - 5,148 abilities
 - 2,275 weapons
 - 1,525 content groups
-- 245 source artifacts and 20,256 live source records
+- 245 source artifacts and 20,257 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)

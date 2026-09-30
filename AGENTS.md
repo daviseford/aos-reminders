@@ -33,7 +33,7 @@ This is an Age of Sigmar fourth-edition codebase:
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
 - the accepted corpus contains 1,302 warscrolls, 1,015 battle profiles, 5,148 abilities,
-  2,275 weapons, 1,525 content groups, and 20,256 live source records
+  2,275 weapons, 1,525 content groups, and 20,257 live source records
 - the 77 Regiments of Renown are classified `regiment-of-renown` content groups (reviewed
   `regimentsOfRenown` input), offered by exactly their inclusion factions with their regiment
   abilities and member warscrolls linked (issue #1858): 76 from the accepted collection pages and

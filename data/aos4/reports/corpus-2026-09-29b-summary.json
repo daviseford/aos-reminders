@@ -3,7 +3,7 @@
   "generatedAt": "2026-09-29T14:20:15.000Z",
   "identities": "data/aos4/identities/corpus.json",
   "integrity": {
-    "consumedSourceRecords": 20250,
+    "consumedSourceRecords": 20251,
     "dispositions": [
       {
         "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the General's Handbook 2024-25 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
@@ -45,8 +45,8 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 32963153,
-      "checksum": "2f17497b25429595fd8fa75c5efc395ba4799fb752ec2e08da310d358a9454db"
+      "byteLength": 32964284,
+      "checksum": "1df494477d77dca037fc0d6872a3a57be12e408e4681c7d6ca910d0c87e829cf"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
       "byteLength": 1394990,
@@ -69,16 +69,16 @@
       "checksum": "db89eafc8a989c781dd6f3f4699294374e81617ffb12145bbc6e5d76f8d0728d"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
-      "byteLength": 6492777,
-      "checksum": "0688c82c602235dfa3134e9aea24e6d2bccb22648be6ed2862a4bafd0ace6bab"
+      "byteLength": 6492787,
+      "checksum": "cc50b76b489e08eb46f2889b69a7d57c57a2212b0e38b7bb83007c729e881d0c"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 13610643,
-      "checksum": "a0560568fe785939da37adc1866e1da0fa697969e9c3d4e568fe80fd2d738e65"
+      "byteLength": 13610934,
+      "checksum": "9bf9e390e733af199df1ac8a96f29b3c42c2b5b7f2720f38d522f21cfee75cc2"
     },
     "src/aos4/generated/corpus/runtime.sources.json": {
-      "byteLength": 7117868,
-      "checksum": "7da6edb62163f346f7cb045cb53cf66ff253719c1496d00ab90728fb967ca3f2"
+      "byteLength": 7118149,
+      "checksum": "f58475515787c166e21ecbe5225b3e356ea39babe36ccc5b5e5d4dd5bb9c8121"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-09-29b.json",
@@ -105,7 +105,7 @@
     "revision": "aos4-corpus-2026-09-29b",
     "schemaVersion": 1,
     "sourceArtifacts": 245,
-    "sourceRecords": 20256,
+    "sourceRecords": 20257,
     "status": "strict-pass",
     "warscrolls": 1302,
     "weapons": 2275

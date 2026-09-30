@@ -198,11 +198,11 @@ describe('AoS 4 catalog generation integrity', () => {
         abilities: 5148,
         weapons: 2275,
         sourceArtifacts: 245,
-        sourceRecords: 20256,
+        sourceRecords: 20257,
         ignoredSourceRecords: 20464,
       },
       integrity: {
-        consumedSourceRecords: 20250,
+        consumedSourceRecords: 20251,
         issues: [],
         supersededSourceRecords: {
           count: 20458,

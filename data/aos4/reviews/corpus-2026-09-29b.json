@@ -919,9 +919,10 @@
       {
         "name": "Outlaw Cannonade Cogfort",
         "officialSourceRecordIds": [
-          "source-record:games-workshop:910cc610a5168b55a05810edc417eec63926be1d32144cb383ffbc51e8440ebc%3Apage%3A1"
+          "source-record:games-workshop:910cc610a5168b55a05810edc417eec63926be1d32144cb383ffbc51e8440ebc%3Apage%3A1",
+          "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A38"
         ],
-        "reason": "Rogue Engine's official rules (Regiments of Renown - Cities of Sigmar, page 1) print the Outlaw Cannonade Cogfort warscroll with abilities distinct from the Cities of Sigmar Cannonade Cogfort (MERCENARY ATTITUDES, FULL POWER!), so it is a separate datasheet, fielded only as the regiment's single ORGANISATION member. Wahapedia publishes the datasheet on the inclusion factions' collections (the organisation link's cities-of-sigmar anchor does not exist), so the native-faction filter drops it; this adoption keeps the Blades of Khorne collection copy, where the reviewed Rogue Engine datasheet also lives (#2030).",
+        "reason": "Rogue Engine's official rules (Regiments of Renown - Cities of Sigmar, page 1) print the Outlaw Cannonade Cogfort warscroll with abilities distinct from the Cities of Sigmar Cannonade Cogfort (MERCENARY ATTITUDES instead of SPECIAL AMMUNITION and FULL POWER!), so it is a separate datasheet, fielded only as the regiment's single ORGANISATION member. The September 2026 Rules Updates (page 38) rewrite the MERCENARY ATTITUDES declare step to 'Pick another friendly non-UNIQUE unit...', the wording the accepted datasheet already carries. Wahapedia publishes the datasheet on the inclusion factions' collections (the organisation link's cities-of-sigmar anchor does not exist), so the native-faction filter drops it; this adoption keeps the Blades of Khorne collection copy, where the reviewed Rogue Engine datasheet also lives (#2030).",
         "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html",
         "availability": "regiment-of-renown"
       },
@@ -1479,6 +1480,14 @@
       "code": "source-marker-removed",
       "reason": "An HTML-encoded KY keyword wrapper is presentation metadata; the marker is removed while the Blacktalons keyword text in Lorai's ability is retained (same mechanical transform as the retired CSV record policy).",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fstormcast-eternals%2Fwarscrolls.html%23datasheet%3ALorai-Child-of-the-Abyss%2Fability%3A2"
+    },
+    {
+      "code": "keyword-span-completed",
+      "reason": "Wahapedia's markup truncates the keyword span one letter early ('INFANTR' + 'y') in the Outlaw Conqueror Cogfort's EVERYONE ABOARD! declare step; the full INFANTRY keyword is attested by an earlier span in the same text and by Regiments of Renown - Cities of Sigmar page 2, so the completion is reviewed and accepted (#2030).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fblades-of-khorne%2Fwarscrolls.html%23datasheet%3AOutlaw-Conqueror-Cogfort%2Fability%3A2",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:910cc610a5168b55a05810edc417eec63926be1d32144cb383ffbc51e8440ebc%3Apage%3A2"
+      ]
     }
   ],
   "officialDocuments": [
@@ -5409,6 +5418,11 @@
           "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A36",
           "page": 36,
           "recordChecksum": "2c2847c068cf8c903bbbeda72da59e3a6ee8021ec760b2e4445dfd702706547d"
+        },
+        {
+          "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A38",
+          "page": 38,
+          "recordChecksum": "d9a06c3359e77744b47bffc03b12c289cceff5957adddfbb6f04a07fe9881311"
         },
         {
           "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A41",
