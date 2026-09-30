@@ -548,7 +548,8 @@ The reminder timing tags — the one genuinely bespoke component in the system.
   border, `cursor: help`.
 - **Tones:** semantic tones — cost, active, reaction, passive, your-turn, enemy-turn, neutral,
   usage, priority, source, and provenance — each defined *per theme* via the `tag-tones` mixin,
-  never by the tone class alone. Cost is a quiet outline naming a resource spent to use the rule;
+  never by the tone class alone. Cost is a quiet outline naming a resource spent to use the rule or
+  the target number its roll must meet (command points, casting value, chanting value);
   usage tags are dashed to separate a constraint from a classification.
   Source (filled purple) names something the player picked; provenance is its quieter outline-only
   cousin naming a game-wide origin — the core rules, the season, the battletome's battle traits.

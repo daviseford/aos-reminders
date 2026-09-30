@@ -1,5 +1,12 @@
 import type { ContentGroup, Faction, Warscroll } from '../../aos4/domain'
-import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
+import {
+  AOS4_CATALOG,
+  AOS4_DEFAULT_RULES_CONTEXT_ID,
+  REPRESENTATIVE_CATALOG,
+  REPRESENTATIVE_CONTEXT_ID,
+  REPRESENTATIVE_EXPLICIT_SELECTION_IDS,
+} from '../../aos4/generated'
+import { createAos4PrintDocument } from '../../aos4/print'
 import { createAos4ArmyDocument } from '../../aos4/state'
 import { createAos4ReminderViewModel, type Aos4ReminderViewModel } from '../../aos4/view'
 
@@ -62,8 +69,10 @@ describe('reminder command-point tags (#1856)', () => {
       description: 'Costs 2 command points to use.',
     })
   })
+})
 
-  it('does not turn an accepted numeric spell badge into a CP tag', () => {
+describe('reminder spell and prayer cost tags (#2032)', () => {
+  it('renders the casting value of an accepted spell as the first tag', () => {
     const reminder = reminderNamed(
       remindersFor([
         ['faction', 'Kruleboyz'],
@@ -73,6 +82,49 @@ describe('reminder command-point tags (#1856)', () => {
     )
 
     expect(reminder.projected.cost).toEqual({ kind: 'spell', value: 7 })
-    expect(reminder.tags.some(tag => tag.tone === 'cost')).toBe(false)
+    expect(reminder.tags[0]).toEqual({
+      label: 'CV 7',
+      tone: 'cost',
+      description:
+        'Casting value 7: the caster must roll 7 or higher on the 2D6 casting roll or the spell fails.',
+    })
+    expect(reminder.accessibleLabel).toContain('Casting value 7')
+  })
+
+  it('flows the casting-value tag into the print document', () => {
+    const reminder = reminderNamed(
+      remindersFor([
+        ['faction', 'Kruleboyz'],
+        ['content-group', 'Braggit’s Bottle-Snatchaz'],
+      ]),
+      'SNEAKY DISTRACTION'
+    )
+
+    const document = createAos4PrintDocument([reminder], { armyName: 'Army', factionName: 'Faction' })
+    expect(document.sections[0].rules[0].tags?.[0]).toMatchObject({ label: 'CV 7', tone: 'cost' })
+  })
+
+  it('renders the chanting value of a prayer cost', () => {
+    const reminder = reminderNamed(
+      createAos4ReminderViewModel(
+        REPRESENTATIVE_CATALOG,
+        createAos4ArmyDocument({
+          id: 'army:test-prayer-cost-tags',
+          name: 'Prayer Cost Tag Test',
+          rulesContextId: REPRESENTATIVE_CONTEXT_ID,
+          explicitSelectionIds: REPRESENTATIVE_EXPLICIT_SELECTION_IDS,
+        })
+      ),
+      'Healing Storm'
+    )
+
+    expect(reminder.projected.cost).toEqual({ kind: 'prayer', value: 4 })
+    expect(reminder.tags[0]).toEqual({
+      label: 'ChV 4',
+      tone: 'cost',
+      description:
+        'Chanting value 4: the chanter must roll 4 or higher on the chanting roll or the prayer is not answered.',
+    })
+    expect(reminder.accessibleLabel).toContain('Chanting value 4')
   })
 })

@@ -138,12 +138,28 @@ const perspectiveTone = (perspective: TimingPerspective): Aos4ReminderTagTone =>
 
 const costTag = (reminder: ProjectedReminder): Aos4ReminderTag | undefined => {
   const cost = reminder.cost
-  if (cost?.kind !== 'command-points') return undefined
-  return {
-    label: `${cost.value} CP`,
-    tone: 'cost',
-    description: `Costs ${cost.value} command point${cost.value === 1 ? '' : 's'} to use.`,
+  if (cost?.kind === 'command-points') {
+    return {
+      label: `${cost.value} CP`,
+      tone: 'cost',
+      description: `Costs ${cost.value} command point${cost.value === 1 ? '' : 's'} to use.`,
+    }
   }
+  if (cost?.kind === 'spell') {
+    return {
+      label: `CV ${cost.value}`,
+      tone: 'cost',
+      description: `Casting value ${cost.value}: the caster must roll ${cost.value} or higher on the 2D6 casting roll or the spell fails.`,
+    }
+  }
+  if (cost?.kind === 'prayer') {
+    return {
+      label: `ChV ${cost.value}`,
+      tone: 'cost',
+      description: `Chanting value ${cost.value}: the chanter must roll ${cost.value} or higher on the chanting roll or the prayer is not answered.`,
+    }
+  }
+  return undefined
 }
 
 /**
