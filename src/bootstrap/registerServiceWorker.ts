@@ -11,29 +11,42 @@ export type { RegisterSWOptions } from 'virtual:pwa-register'
 
 /*
  * A standalone PWA left open at a game table never performs a full navigation, so it would otherwise
- * never notice a new build within a session. An hourly registration.update() closes that window --
- * and it is also what brings the update banner back after a user dismisses it, since dismissal is
- * component-local and deliberately does not discard the waiting worker.
+ * never notice a new build within a session. An hourly registration.update() closes that window.
  */
 const UPDATE_POLL_INTERVAL_MS = 60 * 60 * 1000
 
 /*
- * How long an accepted update has to take control before the accept escalates.
+ * How long an update being installed has to take control before the install escalates.
  *
- * Two of these elapse between the click and an unconditional reload: one before the activation
+ * Two of these elapse between the request and an unconditional reload: one before the activation
  * message is retried, one before the tab reloads without it. Activation normally claims the tab in
- * well under a second, so this is not a timing budget -- it is the deadline after which the accept
- * is honoured some other way. Long enough that a cold worker start on a phone finishes first, short
- * enough that the control does not sit on "Reloading..." waiting for something that is not coming.
+ * well under a second, so this is not a timing budget -- it is the deadline after which the install
+ * is finished some other way. Long enough that a cold worker start on a phone finishes first, short
+ * enough that the "Installing updates" modal does not sit waiting for something that is not coming.
  */
 export const ACTIVATION_TIMEOUT_MS = 5 * 1000
+
+/*
+ * How long a tab stops installing automatically after an install ran out of time.
+ *
+ * The unconditional reload lands a stalled install back on the old build, where the same waiting
+ * worker is found again on load. Without a pause that is a loop -- modal, ten seconds, reload, modal
+ * -- that leaves the app unusable for as long as activation keeps failing. One stalled attempt per
+ * tab per window is the bound; the next load after it tries again. This is failure backoff, not a
+ * deferral for what the user is doing: a healthy install is never held back (#2046).
+ */
+export const INSTALL_STALL_BACKOFF_MS = 10 * 60 * 1000
+
+const SERVICE_WORKER_INSTALL_STALLED_STORAGE_KEY = 'aos-reminders:pwa:install-stalled-at'
 
 type RegisterServiceWorker = typeof registerSW
 
 interface ServiceWorkerRegistrationDependencies {
   announceNewContent: () => void
+  hasInstallRecentlyStalled: () => boolean
   listenForControllerChange: (callback: () => void) => void
   listenForWorkerStateChange: (worker: ServiceWorker, callback: () => void) => void
+  markInstallStalled: () => void
   markUpdateAccepted: () => void
   register: RegisterServiceWorker
   reload: () => void
@@ -90,6 +103,28 @@ const wasUpdateAccepted = () => {
 }
 
 /*
+ * Per tab, not origin-wide: sessionStorage survives the tab's own reload but not into other tabs,
+ * whose installs may well succeed. Unavailable storage means no backoff rather than no install.
+ */
+const markInstallStalled = () => {
+  try {
+    sessionStorage.setItem(SERVICE_WORKER_INSTALL_STALLED_STORAGE_KEY, String(Date.now()))
+  } catch {
+    // Without storage the tab retries on its next load, which is the behavior before the backoff.
+  }
+}
+
+export const hasInstallRecentlyStalled = () => {
+  try {
+    const stalledAt = Number(sessionStorage.getItem(SERVICE_WORKER_INSTALL_STALLED_STORAGE_KEY))
+    const age = Date.now() - stalledAt
+    return Number.isFinite(stalledAt) && stalledAt > 0 && age >= 0 && age <= INSTALL_STALL_BACKOFF_MS
+  } catch {
+    return false
+  }
+}
+
+/*
  * Feeds the update signal `context/useAppStatus` already listens for. The BroadcastChannel reaches
  * other tabs; the window event covers the same tab and browsers where the channel is unavailable.
  * Both were built for the CRA worker and left dangling when it stopped working.
@@ -113,6 +148,7 @@ export const createServiceWorkerRegistrationController = (
 ) => {
   let registration: ServiceWorkerRegistration | undefined
   let reloadStarted = false
+  let activationStarted = false
 
   const reloadOnce = () => {
     if (reloadStarted) return
@@ -130,13 +166,17 @@ export const createServiceWorkerRegistrationController = (
   })
 
   dependencies.register({
-    onNeedRefresh: dependencies.announceNewContent,
+    onNeedRefresh: () => {
+      // A tab whose last install stalled stays on its current build until INSTALL_STALL_BACKOFF_MS.
+      if (dependencies.hasInstallRecentlyStalled()) return
+      dependencies.announceNewContent()
+    },
     /*
      * In prompt mode vite-plugin-pwa attaches this callback to `controlling` only after a waiting
-     * worker has raised onNeedRefresh. The worker still cannot take control until a tab explicitly
-     * posts the private activation message, so clientsClaim does not create an unsolicited reload.
-     * Once one tab does accept, every tab that saw that waiting worker reloads onto the claimed
-     * build; no old client remains paired with caches that the new worker has already pruned.
+     * worker has raised onNeedRefresh. The worker still cannot take control until a tab posts the
+     * private activation message -- which the "Installing updates" modal does automatically, once it
+     * is on screen (#2046). Once one tab does, every tab that saw that waiting worker reloads onto the
+     * claimed build; no old client remains paired with caches that the new worker has already pruned.
      */
     onNeedReload: reloadOnce,
     onRegisteredSW: (_swUrl, registered) => {
@@ -184,11 +224,11 @@ export const createServiceWorkerRegistrationController = (
   return {
     applyWaitingUpdate: () => {
       /*
-       * Nothing of ours to activate. Either another tab already activated the worker while this
-       * tab's banner was still up, or this tab never got a registration at all -- `register()` waits
-       * for the window `load` event before it resolves, registration can fail outright, and
-       * `announceNewContent` broadcasts to every tab on the origin, so a tab can be showing the
-       * prompt on the strength of another tab's waiting worker.
+       * Nothing of ours to activate. Either another tab already activated the worker before this
+       * tab got here, or this tab never got a registration at all -- `register()` waits for the
+       * window `load` event before it resolves, registration can fail outright, and
+       * `announceNewContent` broadcasts to every tab on the origin, so a tab can be installing on
+       * the strength of another tab's waiting worker.
        *
        * Reload either way. This used to `return` in the no-registration case, leaving the control
        * reading "Reloading..." with nothing behind it and no path out.
@@ -197,6 +237,14 @@ export const createServiceWorkerRegistrationController = (
         reloadOnce()
         return
       }
+
+      /*
+       * One install per tab. Every open tab still posts its own activation message -- the generated
+       * handler only calls `skipWaiting()`, which does nothing more for a worker already activating
+       * -- but a second call in the same tab must not stack another pair of deadlines.
+       */
+      if (activationStarted) return
+      activationStarted = true
 
       requestActivation(registration.waiting)
 
@@ -211,11 +259,15 @@ export const createServiceWorkerRegistrationController = (
         if (registration?.waiting) requestActivation(registration.waiting)
 
         /*
-         * And reload regardless when the second window closes. The user asked for a reload, the army
-         * document is already persisted, and a page that comes back still on the old build is far
-         * better than a control that says "Reloading..." forever.
+         * And reload regardless when the second window closes. The tab has told the user it is
+         * installing, the army document is already persisted, and a page that comes back still on the
+         * old build is far better than a modal that says "Installing updates" forever.
          */
-        dependencies.setActivationTimeout(reloadOnce, ACTIVATION_TIMEOUT_MS)
+        dependencies.setActivationTimeout(() => {
+          // Still waiting means this reload lands on the old build: back off rather than loop.
+          if (!reloadStarted && registration?.waiting) dependencies.markInstallStalled()
+          reloadOnce()
+        }, ACTIVATION_TIMEOUT_MS)
       }, ACTIVATION_TIMEOUT_MS)
     },
   }
@@ -238,9 +290,11 @@ const registrationIsDisabledForRollback = () => {
 const serviceWorkerRegistrationController = !registrationIsDisabledForRollback()
   ? createServiceWorkerRegistrationController({
       announceNewContent,
+      hasInstallRecentlyStalled,
       listenForControllerChange: callback =>
         navigator.serviceWorker?.addEventListener('controllerchange', callback),
       listenForWorkerStateChange: (worker, callback) => worker.addEventListener('statechange', callback),
+      markInstallStalled,
       markUpdateAccepted,
       register: registerSW,
       reload: () => window.location.reload(),
@@ -252,8 +306,8 @@ const serviceWorkerRegistrationController = !registrationIsDisabledForRollback()
 
 /**
  * Applies a waiting update. The claimed worker reloads every controlled tab so all clients and
- * caches move to the same build. Under `registerType: 'prompt'`, the worker still waits until one tab
- * explicitly accepts it.
+ * caches move to the same build. Under `registerType: 'prompt'` the worker still waits for this call;
+ * the "Installing updates" modal makes it automatically as soon as an update is announced (#2046).
  */
 export const applyWaitingUpdate = () => {
   serviceWorkerRegistrationController?.applyWaitingUpdate()

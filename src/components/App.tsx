@@ -1,6 +1,6 @@
 import { router } from '../bootstrap/router'
 import { CheckoutOutcomeBanner } from 'components/info/banners/checkout_outcome_banner'
-import { UpdateAvailable } from 'components/info/updateAvailable'
+import { InstallingUpdate } from 'components/info/installingUpdate'
 import { useEffect, useSyncExternalStore } from 'react'
 import { RouterProvider } from 'react-router/dom'
 import { initializeAnalytics, startPageViewTracking } from 'utils/analytics'
@@ -15,8 +15,7 @@ import { handleStripeCheckout } from 'utils/handleQueryParams'
  */
 const RouteBanner = () => {
   const outcome = useCheckoutOutcome()
-  if (outcome) return <CheckoutOutcomeBanner />
-  return <UpdateAvailable />
+  return outcome ? <CheckoutOutcomeBanner /> : null
 }
 
 /*
@@ -38,11 +37,12 @@ const App = () => {
   return (
     <div className="d-block">
       {/*
-        Home owns a banner slot under its masthead and renders the prompt there itself, so this
-        instance covers only the routes that have nowhere better to put it. Mounted here rather than
-        in the navbar: Navbar early-returns <OfflineHeader /> while offline, which would hide the
-        prompt exactly when a client has a waiting worker and loses the network.
+        One mount for every route, Home included: an update installs behind a modal rather than
+        occupying a banner slot (#2046). Mounted here rather than in the navbar, which early-returns
+        <OfflineHeader /> while offline -- exactly when a waiting worker can still need applying.
       */}
+      <InstallingUpdate />
+      {/* Home owns a banner slot under its masthead, so this covers only the other routes. */}
       {pathname !== ROUTES.HOME && <RouteBanner />}
       {/* Each route renders its own navbar, so <main> wraps the whole routed tree. */}
       <main>

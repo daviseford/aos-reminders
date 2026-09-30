@@ -34,10 +34,11 @@ vi.mock('@auth0/auth0-react', () => ({
 }))
 
 /*
- * Home's banner slot renders the update prompt, which reaches `applyWaitingUpdate` in
- * bootstrap/registerServiceWorker and through it the plugin's `virtual:pwa-register`. That virtual
- * module has no resolvable file on disk, so the test runner cannot import it -- stub it the same way
- * registerServiceWorker.test.ts does. Shared with every other Home suite via `homeTestMocks` — see
+ * Home's banner slot used to render the update prompt, which reached the plugin's
+ * `virtual:pwa-register` through bootstrap/registerServiceWorker. The update now installs behind a
+ * modal that `App` mounts (#2046), so Home no longer reaches it; the stub stays because that virtual
+ * module has no resolvable file on disk, and a Home import that reached it again would fail to load
+ * rather than fail an assertion. Shared with every other Home suite via `homeTestMocks` — see
  * that module for why the `await import()` is inside the factory rather than at the top of the file.
  */
 vi.mock('virtual:pwa-register', async () => {
