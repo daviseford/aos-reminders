@@ -12,7 +12,48 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-29c` (issue #2032): casting and chanting values on top
+The current revision is `aos4-corpus-2026-09-30` (issue #2037): a full refresh of the two Ossiarch
+Bonereapers Wahapedia pages on top of `aos4-corpus-2026-09-29c`. A community report that the
+Relentless Discipline battle traits still charged reinforced units an extra point matched the
+September 2026 Rules Updates page 64 erratum, which only deletes words. The auditor certifies an
+ability-text override only when the cited official page prints the new words, so no override could
+carry it; Wahapedia had republished both pages with the erratum, and the owner chose to re-pin them
+rather than add a deletion-override kind. The manifest `accepted-2026-09-30.json` swaps those two
+page artifacts and drops the BSData `Regiments of Renown.cat` pin, whose one regiment (Krong the
+Club) the re-pinned collection now carries. The runtime delta is the six erratum abilities, Krong's
+display names and one quote character (same canonical ids, members, and offers), the newly shipped
+Urrgar's Maulerguts, and the retired BSData publication. `aos4-maintenance.md` records every
+disposition: the eight Scourge of Ghyran context overrides, the seven new
+`regiment-of-renown-variant` warnings (188 to 195), the 27 cleared reconciliation discrepancies, and
+the Big Drogg Fort-Kicka gap the majority rule keeps. `ossiarchBonereapersSeptember2026.test.ts` and
+`regimentsOfRenown.test.ts` pin the corrections. Its automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 631/631 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,273/20,273 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,682/42,682 |
+| Independent outcomes | 85,364 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 129/129 |
+| Populated high-risk cohorts | 20/20 |
+
+The source inventory is a schema 2 inventory of fresh observations taken for this intake on
+2026-09-30, after the page acquisition: a `discover-official` snapshot observed at 15:44:09Z (166
+downloads, 7 explicit non-material) and the Wahapedia navigation and exports at 15:44:25Z (87
+sources, 0 inaccessible). No BSData observation is bound because no BSData artifact remains pinned.
+Every accepted artifact matched, so no newer official publication supersedes the pinned September
+documents. The certification is `aos4-corpus-2026-09-30-machine-r1` (campaign 15:58:30Z, certified
+15:59:12Z). Its `--reuse-certification` offer of `aos4-corpus-2026-09-29c-machine-r2` reused no
+pair, so all 42,682 pairs were evaluated fresh.
+
+### `aos4-corpus-2026-09-29c` (superseded)
+
+The `aos4-corpus-2026-09-29c` revision (issue #2032) added casting and chanting values on top
 of `aos4-corpus-2026-09-29b`. Wahapedia prints a spell's casting value in an `.abSpellPointsN`
 badge and a prayer's chanting value in an `.abPrayerPointsN` badge in the ability header row, but
 the HTML adapter read only the `.abCommandPointsN` command-point badge, so 396 of 397 accepted SPELL

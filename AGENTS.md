@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-29c` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-09-30` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -32,13 +32,18 @@ This is an Age of Sigmar fourth-edition codebase:
 - manifestations are a category of unit rather than an army: the five universal manifestation lores
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
-- the accepted corpus contains 1,302 warscrolls, 1,015 battle profiles, 5,148 abilities,
-  2,275 weapons, 1,525 content groups, and 20,257 live source records
-- the 77 Regiments of Renown are classified `regiment-of-renown` content groups (reviewed
+- the accepted corpus contains 1,302 warscrolls, 1,015 battle profiles, 5,150 abilities,
+  2,275 weapons, 1,526 content groups, and 20,273 live source records
+- the 78 Regiments of Renown are classified `regiment-of-renown` content groups (reviewed
   `regimentsOfRenown` input), offered by exactly their inclusion factions with their regiment
-  abilities and member warscrolls linked (issue #1858): 76 from the accepted collection pages and
-  Krong the Club, whose rules text comes from the pinned BSData Regiments of Renown catalogue while
-  its inclusion factions, member, and points come from the official battle-profile row (#1999);
+  abilities and member warscrolls linked (issue #1858), all from the accepted collection pages.
+  Krong the Club shipped from the pinned BSData Regiments of Renown catalogue (#1999) until the
+  corpus 2026-09-30 Ossiarch Bonereapers page re-pin brought Wahapedia's copy, which agrees with
+  the official battle-profile row; the BSData catalogue retired and Krong kept its canonical ids.
+  The same re-pin published Urrgar's Maulerguts, classified against the official Ogor Mawtribes
+  regiments pack (#2037). Where a regiment's republished copies disagree, the majority copy still
+  wins: Big Drogg Fort-Kicka ships its pre-September text from seven stale pages although the
+  re-pinned Ossiarch copy matches the official Regiments of Renown - Sons of Behemat page 4 (#1999);
   Cogfort Raiders and Rogue Engine link their Outlaw Cogfort member warscrolls, which Wahapedia
   publishes only on the inclusion factions' collections, through reviewed `adoptedWarscrolls`
   entries with `availability: 'regiment-of-renown'` — the datasheets are fielded only through
@@ -119,7 +124,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-09-29c` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-09-30` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.

@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-25.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-30.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-29c-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-30-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_601)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_603)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,601 entities', () => {
+  it('reports no missing provenance for any of the 11,603 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_601)
+    ).toHaveLength(11_603)
   })
 })
 
@@ -195,14 +195,14 @@ describe('AoS 4 catalog generation integrity', () => {
         factions: 28,
         warscrolls: 1302,
         battleProfiles: 1015,
-        abilities: 5148,
+        abilities: 5150,
         weapons: 2275,
-        sourceArtifacts: 245,
-        sourceRecords: 20257,
+        sourceArtifacts: 244,
+        sourceRecords: 20273,
         ignoredSourceRecords: 20464,
       },
       integrity: {
-        consumedSourceRecords: 20251,
+        consumedSourceRecords: 20267,
         issues: [],
         supersededSourceRecords: {
           count: 20458,
@@ -292,25 +292,20 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(245)
+    expect(acceptedManifest.artifacts).toHaveLength(244)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
     ).toHaveLength(159)
-    // One commit-pinned BSData catalogue remains: the Regiments of Renown catalogue (`main` commit
-    // `8836d9f9`) supplies Krong the Club's rules text (issue #1999). The Stormcast library, the
-    // three Ogor catalogues, and the three Sons of Behemat `gargants`-branch catalogues retired once
-    // Wahapedia caught up (2026-08-01d, 2026-08-28b, 2026-09-25).
-    const bsdataArtifacts = acceptedManifest.artifacts.filter(
-      artifact => artifact.adapterVersion === 'bsdata-cat/1'
-    )
-    expect(bsdataArtifacts).toHaveLength(1)
-    bsdataArtifacts.forEach(artifact =>
-      expect(artifact.requestUrl).toMatch(
-        /^https:\/\/raw\.githubusercontent\.com\/BSData\/age-of-sigmar-4th\/[0-9a-f]{40}\//
-      )
+    // No commit-pinned BSData catalogue remains. The Stormcast library, the three Ogor catalogues,
+    // the three Sons of Behemat `gargants`-branch catalogues, and the Regiments of Renown catalogue
+    // that carried Krong the Club's rules text (issue #1999) all retired once a pinned Wahapedia
+    // page published the same content (2026-08-01d, 2026-08-28b, 2026-09-25, and the 2026-09-30
+    // Ossiarch Bonereapers re-pin, issue #2037).
+    expect(acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'bsdata-cat/1')).toEqual(
+      []
     )
     const htmlArtifacts = acceptedManifest.artifacts.filter(
       artifact => artifact.adapterVersion === 'wahapedia-html/1'
@@ -347,15 +342,11 @@ describe('AoS 4 catalog generation integrity', () => {
         }),
       ])
     )
-    // Community-tier artifacts must always be distinguishable and explicitly provisional. The three
-    // BSData `gargants`-branch catalogues the 2026-09-22 Sons of Behemat intake (#1999) added
-    // retired with the 2026-09-25 page re-pin; the BSData Regiments of Renown catalogue the
-    // 2026-09-24 revision added for Krong the Club's rules text is the only one left.
-    const communityArtifacts = AOS4_FULL_CATALOG.sourceArtifacts.filter(
-      artifact => artifact.publisher === 'other'
-    )
-    expect(communityArtifacts).toHaveLength(1)
-    communityArtifacts.forEach(artifact => expect(artifact.title).toMatch(/provisional/i))
+    // Community-tier artifacts must always be distinguishable and explicitly provisional. The last
+    // one, the BSData Regiments of Renown catalogue the 2026-09-24 revision added for Krong the
+    // Club's rules text, retired when the 2026-09-30 Ossiarch Bonereapers re-pin (#2037) brought
+    // Wahapedia's copy of the regiment.
+    expect(AOS4_FULL_CATALOG.sourceArtifacts.filter(artifact => artifact.publisher === 'other')).toEqual([])
     expect(AOS4_GENERATION_AUDIT).toMatchObject({
       attribution: 'Powered by Wahapedia',
       acknowledgedDiagnostics: [],
@@ -492,7 +483,7 @@ describe('AoS 4 catalog generation integrity', () => {
       )
       .map(regiment => regiment.name)
       .sort()
-    expect(regiments).toHaveLength(77)
+    expect(regiments).toHaveLength(78)
     expect(memberless).toEqual(Object.keys(reviewedMemberlessRegiments).sort())
   })
 

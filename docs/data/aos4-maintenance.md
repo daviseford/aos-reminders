@@ -16,28 +16,28 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-29c snapshot is defined by:
+The accepted 2026-09-30 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-09-25.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication), and 1 commit-pinned BSData catalogue (`Regiments of Renown.cat` at `main` commit `8836d9f9` for Krong the Club, issue #1999), pinned by SHA-256; corpora 2026-09-29, 2026-09-29b, and 2026-09-29c changed no artifact and keep this manifest |
-| `data/aos4/reviews/corpus-2026-09-29c.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/manifests/accepted-2026-09-30.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication and the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037), pinned by SHA-256; no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
+| `data/aos4/reviews/corpus-2026-09-30.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-29c-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-29c-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-09-30-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-09-30-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
 - 1,302 warscrolls and 1,015 battle profiles
-- 5,148 abilities
+- 5,150 abilities
 - 2,275 weapons
-- 1,525 content groups
-- 245 source artifacts and 20,257 live source records
+- 1,526 content groups
+- 244 source artifacts and 20,273 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -47,6 +47,44 @@ The strict report currently records:
   2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
+- the 2026-09-30 Ossiarch Bonereapers page re-pin (#2037): a community report that the
+  Relentless Discipline battle traits still charged a reinforced unit an extra point was confirmed
+  against the pinned September 2026 Rules Updates, page 64 (marked NEW), which removes that second
+  line from Impassive Retreat, Ruthless Extermination, Pitiless Assault, Remorseless March,
+  Inviolate Legions, and Katakros's Supreme Lord of the Bonereaper Legions. A deletion-only erratum
+  prints no new words, so the ability-text override path cannot certify it; the owner chose a full
+  refresh of the two Ossiarch Bonereapers pages instead, which Wahapedia had republished with the
+  erratum (both re-acquired byte-identical at 14:22Z and 14:42Z). Every export and every other page
+  keeps its earlier pin. With tooltip markup normalized, the re-pin changes only: the six erratum
+  abilities, which ship corrected from the page with their ids, timing, and keywords unchanged (the
+  four Lance of Ossia abilities keep their surcharge: page 64 does not name them and the page still
+  prints it); the Scourge of Ghyran Tithe Guards and Hekatos Drillmasters formations and Lore of
+  Necrotheurgy, which the page now wraps in its Legendary styling, so eight `contextOverrides`
+  citing Scourge of Ghyran - Ossiarch Bonereapers page 1 keep them historical (the Sons of Behemat
+  precedent); Wahapedia points, regiment options, and notes on 22 Ossiarch warscrolls, which now
+  agree with the September core Battle Profiles, so 27 reconciliation discrepancies clear (658 to
+  631) and none are added; and the page's copies of shared Regiments of Renown. Those copies
+  change nine regiments' Wahapedia points to the September values the official rows already
+  apply, drop Stumblefoot Gargant's member, and rewrite Big Drogg Fort-Kicka to the text official
+  Regiments of Renown - Sons of Behemat page 4 prints (and drop Bonesplitterz from its inclusion
+  list, as the September Battle Profiles does). Every other inclusion page stays pinned, so the
+  majority copy still wins each of those regiments, the runtime text and offers do not move, and
+  seven new `regiment-of-renown-variant` warnings raise the reviewed count from 188 to 195. Big
+  Drogg therefore still ships its pre-September text, a recorded gap on #1999 that needs the other
+  seven inclusion pages or a reviewed variant choice. The page also carries the first Wahapedia
+  copies of two regiments. Krong the Club, which shipped from the BSData `Regiments of Renown.cat`
+  since corpus 2026-09-24, now has a pinned Wahapedia copy that agrees with the official row (140
+  points, one Mancrusher Gargant, the 24 official factions once the known Legion of the First
+  Prince entry is skipped) and with page 5's two abilities; generation requires one source per
+  regiment, so Krong moves to the page, the BSData catalogue and its community entry retire, and
+  Krong's three aliases join its existing canonical ids. The page prints Krong's name and ability
+  names in its own capitalisation and drops one opening quote in Jump Up and Down, typography the
+  override vocabulary cannot carry. Urrgar's Maulerguts ships for the first time: its datasheet
+  matches Regiments of Renown - Ogor Mawtribes page 2 and the August 2026 Ogor Mawtribes
+  battle-profile supplement page 3 (600 points, 13 inclusion factions, Tyrant on Glutthorn and
+  Maulbeast Cavalry), the path Okar's Torrbad took, with three fresh canonical ids. The runtime
+  delta is exactly those entities: six ability texts, Krong's name and ability names and one
+  quote, Urrgar's group, two abilities, and 17 edges, and the retired BSData publication
 - the 2026-09-25 Sons of Behemat provisional-to-verified swap (#1999): both provisional watches
   fired when Wahapedia republished the Sons of Behemat faction and warscroll collection pages with
   the September 2026 battletome. The revision re-pins exactly those two pages (every other page and
@@ -206,8 +244,9 @@ than as a second selectable current context.
 
 The September 2026 core Battle Profiles PDF contributes 1,313 effective facts. Reconciliation
 applies official unit size, points, regiment options, notes, and bases to 942 runtime profiles and
-records 638 field-level secondary discrepancies (up from 380, because Wahapedia has not yet caught
-up to the September 2026 re-pricing) after upstream parser and normalization corrections. One official unit fact remains
+records 631 field-level secondary discrepancies (up from 380, because Wahapedia has not yet caught
+up to the September 2026 re-pricing on most pages; the 2026-09-30 Ossiarch Bonereapers re-pin
+cleared that faction's 27) after upstream parser and normalization corrections. One official unit fact remains
 `profile-only` because its current warscroll rules are not available anywhere: The Emberwatch
 (Legends). The four September 2026 Battletome: Sons of Behemat units (Ma Maegran, Ancient
 Ghyrochs, Boss-stompers, Rock-hurlers) left that state on 2026-09-22, when their rules text
