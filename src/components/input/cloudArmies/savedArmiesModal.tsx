@@ -191,16 +191,26 @@ const SavedArmiesModal = ({
 
     return (
       <div className="CloudArmyActions">
-        <button className={rowButton} onClick={() => openPending(army.id, 'load')} type="button">
-          Load
-        </button>
-        <button
-          className={rowButton}
-          onClick={() => openPending(army.id, 'rename', army.document.name)}
-          type="button"
-        >
-          Rename
-        </button>
+        {/*
+         * An army saved by a newer release (#2055) can only be read structurally here. Loading it
+         * would need rules this version lacks, and a rename writes the whole document back, which
+         * would overwrite what this version cannot read. Delete stays: it is the player's own call,
+         * behind its own confirmation.
+         */}
+        {!army.requiresUpdate && (
+          <>
+            <button className={rowButton} onClick={() => openPending(army.id, 'load')} type="button">
+              Load
+            </button>
+            <button
+              className={rowButton}
+              onClick={() => openPending(army.id, 'rename', army.document.name)}
+              type="button"
+            >
+              Rename
+            </button>
+          </>
+        )}
         {/*
          * Pushed away from the three save-shaped actions rather than tinted red. Separation is what
          * stops a mis-tap on a phone, where these wrap to two lines; the colour is spent on the
@@ -281,6 +291,12 @@ const SavedArmiesModal = ({
                 <p className={`small mb-2 ${theme.textMuted}`}>
                   {describeCloudArmy(army.document, army.updatedAt)}
                 </p>
+                {army.requiresUpdate && (
+                  <p className="small mb-2">
+                    This army uses rules that this version of AoS Reminders does not have yet. Refresh the
+                    page to update, then load it. It is safe on your account in the meantime.
+                  </p>
+                )}
                 {renderActions(army)}
               </li>
             ))}

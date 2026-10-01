@@ -1,4 +1,4 @@
-import { ArmyApi, type SharedArmy } from '../../../api/armyApi'
+import { ArmyApi, ArmyRequiresUpdateError, type SharedArmy } from '../../../api/armyApi'
 import { AOS4_CATALOG } from '../../../aos4/generated'
 import { createAos4ArmyDocument, type Aos4ArmyDocument } from '../../../aos4/state'
 import { summarizeCloudArmy } from 'components/input/cloudArmies/armySummary'
@@ -25,6 +25,7 @@ const SharedArmyModal = ({
   const { theme } = useTheme()
   const [share, setShare] = useState<SharedArmy>()
   const [error, setError] = useState<string>()
+  const [requiresUpdate, setRequiresUpdate] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const contextName = useMemo(
     () =>
@@ -38,12 +39,16 @@ const SharedArmyModal = ({
     let active = true
     setIsLoading(true)
     setError(undefined)
+    setRequiresUpdate(false)
     void ArmyApi.getShare(shareId)
       .then(result => {
         if (active) setShare(result)
       })
       .catch(reason => {
-        if (active) {
+        if (!active) return
+        if (reason instanceof ArmyRequiresUpdateError) {
+          setRequiresUpdate(true)
+        } else {
           setError(reason instanceof Error ? reason.message : 'The shared army could not be loaded.')
         }
       })
@@ -70,6 +75,17 @@ const SharedArmyModal = ({
     <GenericModal closeModal={closeModal} isOpen={isOpen} isProcessing={isLoading} label="Shared Army">
       <div className={`aos4-account-modal ${theme.text}`}>
         <h2 className="h4">Shared Army</h2>
+        {requiresUpdate && (
+          /*
+           * Not a failure, so not `alert-danger`: the shared army is fine and so is the link, but it
+           * uses a ruleset added after this version (#2055). The id stays in session storage until
+           * the player dismisses this, so a refresh that installs the update opens the share again.
+           */
+          <div className="alert alert-warning" role="alert">
+            This shared army uses rules that this version of AoS Reminders does not have yet. Refresh the page
+            to update, and the shared army will open again.
+          </div>
+        )}
         {error && (
           <div className="alert alert-danger" role="alert">
             {error}

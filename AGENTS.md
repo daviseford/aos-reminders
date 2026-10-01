@@ -368,7 +368,10 @@ Reminder IDs derive from canonical ability identity and semantic timing, not mut
 - Loading removes `persist:root`, `loadedArmy`, `reminderOrder`, and `savedArmies` without parsing
   them.
 - Invalid or incompatible AoS 4 documents reset to a clean Stormcast Eternals document in the
-  current accepted rules context.
+  current accepted rules context. The exception is a well-formed document whose only fault is a
+  canonical rules context this release does not carry — what a newer release's army looks like.
+  It is left untouched in storage, the screen works on an unsaved stand-in, and cloud lists and
+  share links mark such armies as needing an app update instead of failing (#2055).
 - The runtime contains current-standard, current-seasonal, Spearhead, Legends, and historical
   facts. The current UI uses the accepted default 2026-27 seasonal context. Context applicability
   is retained on source records, entities, and relationships. A document that sets `allowsLegends`

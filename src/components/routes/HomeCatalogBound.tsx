@@ -44,7 +44,12 @@ import {
   type SetStateAction,
 } from 'react'
 import { logPdfDownload } from 'utils/analytics'
-import { clearCloudArmyLink, readCloudArmyLink, writeCloudArmyLink } from 'utils/cloudArmyLink'
+import {
+  clearCloudArmyLink,
+  readCloudArmyLink,
+  writeCloudArmyLink,
+  type CloudArmyLink,
+} from 'utils/cloudArmyLink'
 
 /*
  * Everything on Home shaped `f(catalog, …)`. Home itself is the catalog-free shell that loads this
@@ -65,11 +70,23 @@ const SavedArmiesModal = lazy(() => import('components/input/cloudArmies/savedAr
 const ShareArmyModal = lazy(() => import('components/input/armySharing/shareArmyModal'))
 const SharedArmyModal = lazy(() => import('components/input/armySharing/sharedArmyModal'))
 
-const loadDocument = (): { document: Aos4ArmyDocument; unchangedFromStorage: boolean } => {
+interface LoadedDocument {
+  document: Aos4ArmyDocument
+  unchangedFromStorage: boolean
+  /**
+   * The stored army uses a ruleset this release does not carry (#2055). It is still in storage,
+   * untouched, and `document` is a stand-in: nothing on this screen may write over the stored army
+   * or the cloud link that describes it, or the update that can read them would find them gone.
+   */
+  storageRequiresUpdate: boolean
+}
+
+const loadDocument = (): LoadedDocument => {
   try {
     const result = loadAos4ArmyDocument(window.localStorage, AOS4_CATALOG)
     return {
       document: result.document,
+      storageRequiresUpdate: result.source === 'requires-update',
       /*
        * The common case, named so the shell does not have to serialize two documents to detect it:
        * the same stored bytes the shell already parsed structurally, canonicalized the same way,
@@ -79,7 +96,11 @@ const loadDocument = (): { document: Aos4ArmyDocument; unchangedFromStorage: boo
         result.source === 'storage' && result.diagnostics.length === 0 && !result.overlayFlagsDerived,
     }
   } catch {
-    return { document: createDefaultAos4ArmyDocument(), unchangedFromStorage: false }
+    return {
+      document: createDefaultAos4ArmyDocument(),
+      unchangedFromStorage: false,
+      storageRequiresUpdate: false,
+    }
   }
 }
 
@@ -182,7 +203,11 @@ interface HomeCatalogBoundProps {
   onBindingsChange: (bindings: Aos4CatalogBoundBindings | undefined) => void
   onDismissPendingShare: () => void
   onDocumentChange: Dispatch<SetStateAction<Aos4ArmyDocument>>
-  onDocumentValidated: (document: Aos4ArmyDocument, unchangedFromStorage: boolean) => void
+  onDocumentValidated: (
+    document: Aos4ArmyDocument,
+    unchangedFromStorage: boolean,
+    storageRequiresUpdate: boolean
+  ) => void
   pendingShareId: string | undefined
 }
 
@@ -197,6 +222,16 @@ const HomeCatalogBound = ({
   pendingShareId,
 }: HomeCatalogBoundProps) => {
   const { armies, collectionLoaded, ensureArmiesLoaded, updateArmy } = useArmyCollection()
+  /*
+   * The catalog's own answer to what storage held, read once. The shell painted from a document
+   * deserialized without a catalog — no rules-context check, no pruning of selections a battletome
+   * rewrite has retired — so this is the first point at which either can happen, and its answer
+   * wins: the splash covers the screen until it lands, so the document cannot have been touched in
+   * the meantime. Read during the first render rather than in the effect that reports it, because
+   * the cloud link below must already know whether it is allowed to touch storage.
+   */
+  const [initialLoad] = useState(loadDocument)
+  const { storageRequiresUpdate } = initialLoad
   const [importModalIsOpen, setImportModalIsOpen] = useState(false)
   const [savedArmiesModalIsOpen, setSavedArmiesModalIsOpen] = useState(false)
   const [saveArmyModalIsOpen, setSaveArmyModalIsOpen] = useState(false)
@@ -215,9 +250,29 @@ const HomeCatalogBound = ({
    * back to Save Army, and the next save forked a duplicate of the army the player thought they
    * were updating. See utils/cloudArmyLink.
    */
-  const [cloudArmyLink, setCloudArmyLink] = useState(readCloudArmyLink)
+  // While the stored army needs an update, the stored link describes that army and not the stand-in
+  // on screen, so it is neither read nor written: a link made this session lives in memory only.
+  const [cloudArmyLink, setCloudArmyLink] = useState(() =>
+    storageRequiresUpdate ? undefined : readCloudArmyLink()
+  )
+  const storeCloudArmyLink = useCallback(
+    (link: CloudArmyLink | undefined) => {
+      if (storageRequiresUpdate) return
+      if (link) writeCloudArmyLink(link)
+      else clearCloudArmyLink()
+    },
+    [storageRequiresUpdate]
+  )
   const cloudArmyId = cloudArmyLink?.id
   const cloudArmyName = cloudArmyLink?.name
+  /*
+   * The linked record was since saved by a newer release (#2055). Update Army would write this
+   * version's copy over rules it cannot read, so the link is offered as no link at all — Save Army
+   * creates a separate record — and kept, so the updated app can still use it.
+   */
+  const linkedArmyRequiresUpdate = Boolean(
+    cloudArmyId && armies.find(army => army.id === cloudArmyId)?.requiresUpdate
+  )
   /*
    * Whether the army on screen has moved away from the copy on the account. Update Army is offered
    * only when it has something to write — the same absent-rather-than-disabled rule Show Hidden
@@ -259,11 +314,11 @@ const HomeCatalogBound = ({
   const linkCloudArmy = (id: string, name: string, savedDocument: Aos4ArmyDocument) => {
     const link = { id, name, savedSignature: serializeAos4ArmyDocument(savedDocument) }
     setCloudArmyLink(link)
-    writeCloudArmyLink(link)
+    storeCloudArmyLink(link)
     setUpdateArmyError(undefined)
   }
   const updateCloudArmy = async () => {
-    if (!cloudArmyId || !cloudArmyName) return
+    if (!cloudArmyId || !cloudArmyName || linkedArmyRequiresUpdate) return
     setUpdateArmyStatus('updating')
     setUpdateArmyError(undefined)
     try {
@@ -285,9 +340,9 @@ const HomeCatalogBound = ({
   // cloud army, and the masthead is above this component.
   const unlinkCloudArmy = useCallback(() => {
     setCloudArmyLink(undefined)
-    clearCloudArmyLink()
+    storeCloudArmyLink(undefined)
     setUpdateArmyError(undefined)
-  }, [])
+  }, [storeCloudArmyLink])
 
   useEffect(() => {
     if (updateArmyStatus !== 'updated') return
@@ -319,7 +374,7 @@ const HomeCatalogBound = ({
     const linked = armies.find(army => army.id === cloudArmyId)
     if (!linked) {
       setCloudArmyLink(undefined)
-      clearCloudArmyLink()
+      storeCloudArmyLink(undefined)
       // The banner names a write to this record. Once the record is gone the banner is about
       // nothing, and it has no dismiss of its own.
       setUpdateArmyError(undefined)
@@ -331,22 +386,19 @@ const HomeCatalogBound = ({
     setCloudArmyLink(current => {
       if (!current) return current
       const link = { ...current, name: linked.document.name }
-      writeCloudArmyLink(link)
+      storeCloudArmyLink(link)
       return link
     })
-  }, [armies, cloudArmyId, cloudArmyName, collectionLoaded])
+  }, [armies, cloudArmyId, cloudArmyName, collectionLoaded, storeCloudArmyLink])
 
-  /*
-   * The catalog's own answer to what storage held, run once on mount. The shell painted from a
-   * document deserialized without a catalog — no rules-context check, no pruning of selections a
-   * battletome rewrite has retired — so this is the first point at which either can happen, and
-   * its answer wins: the splash covers the screen until this lands, so the document cannot have
-   * been touched in the meantime.
-   */
+  // Reports `initialLoad` up to the shell once mounted; see its comment for why the load is earlier.
   useEffect(() => {
-    const { document: validated, unchangedFromStorage } = loadDocument()
-    onDocumentValidated(validated, unchangedFromStorage)
-  }, [onDocumentValidated])
+    onDocumentValidated(
+      initialLoad.document,
+      initialLoad.unchangedFromStorage,
+      initialLoad.storageRequiresUpdate
+    )
+  }, [initialLoad, onDocumentValidated])
 
   const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
   const reminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
@@ -617,11 +669,21 @@ const HomeCatalogBound = ({
 
   return (
     <>
+      {storageRequiresUpdate && (
+        <div className="container d-print-none">
+          <div className="alert alert-warning" role="alert">
+            Your saved army uses rules that this version of AoS Reminders does not have yet. Refresh the page
+            to update and it will load. Until then this is a stand-in army, and changes to it are not saved on
+            this device, so your army stays as it was.
+          </div>
+        </div>
+      )}
+
       {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
 
       {!isGameMode && (
         <Toolbar
-          cloudArmyLinked={Boolean(cloudArmyId)}
+          cloudArmyLinked={Boolean(cloudArmyId) && !linkedArmyRequiresUpdate}
           {...(cloudArmyName ? { cloudArmyName } : {})}
           cloudArmyHasChanges={cloudArmyHasChanges}
           hiddenCount={hiddenCount}

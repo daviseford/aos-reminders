@@ -1,11 +1,25 @@
 import { deriveAos4OverlayFlags } from '../aos4/runtime/armyStorage'
-import { deserializeAos4ArmyDocument, toWireAos4ArmyDocument, type Aos4ArmyDocument } from '../aos4/state'
+import type { RulesContextId } from '../aos4/domain'
+import {
+  deserializeAos4ArmyDocument,
+  deserializeAos4ArmyDocumentStructure,
+  toWireAos4ArmyDocument,
+  unknownAos4RulesContextId,
+  type Aos4ArmyDocument,
+} from '../aos4/state'
 
 export interface RemoteArmy {
   id: string
   createdAt: number
   updatedAt: number
   document: Aos4ArmyDocument
+  /**
+   * Set when the army uses a ruleset this release does not carry, which is what an army saved by a
+   * newer release looks like (#2055). `document` is then read structurally only: it names the army
+   * but cannot be loaded, and writing anything back over it would destroy what this release cannot
+   * read. The record itself is untouched on the account.
+   */
+  requiresUpdate?: { rulesContextId: RulesContextId }
 }
 
 export interface SharedArmy {
@@ -25,6 +39,20 @@ export class ArmyApiError extends Error {
     super(message)
     this.name = 'ArmyApiError'
     this.status = status
+  }
+}
+
+/**
+ * The document is well formed but uses a ruleset this release does not know, so the fix is an app
+ * update rather than anything wrong with the army or the service (#2055).
+ */
+export class ArmyRequiresUpdateError extends ArmyApiError {
+  readonly rulesContextId: RulesContextId
+
+  constructor(message: string, rulesContextId: RulesContextId) {
+    super(message)
+    this.name = 'ArmyRequiresUpdateError'
+    this.rulesContextId = rulesContextId
   }
 }
 
@@ -65,6 +93,15 @@ const parseDocument = async (value: unknown): Promise<Aos4ArmyDocument> => {
     throw new ArmyApiError('Cloud armies are temporarily unavailable.')
   }
   const restored = deserializeAos4ArmyDocument(JSON.stringify(value), generated.AOS4_CATALOG)
+  const unknownRulesContextId = restored.document
+    ? undefined
+    : unknownAos4RulesContextId(restored.diagnostics)
+  if (unknownRulesContextId) {
+    throw new ArmyRequiresUpdateError(
+      'This army uses rules that this version of AoS Reminders does not have yet. Refresh the page to update, then try again.',
+      unknownRulesContextId
+    )
+  }
   if (!restored.document || restored.diagnostics.some(diagnostic => diagnostic.severity === 'error')) {
     throw new ArmyApiError('The service returned an incompatible army document.', 502)
   }
@@ -97,6 +134,28 @@ const parseRemoteArmy = async (value: unknown): Promise<RemoteArmy> => {
     createdAt: numberField(value, 'createdAt'),
     updatedAt: numberField(value, 'updatedAt'),
     document: await parseDocument(value.document),
+  }
+}
+
+/*
+ * One army this release cannot read must not cost the player the rest of their list, which is what
+ * a throw here used to do. An unknown ruleset is kept as a marked, read-only row instead; anything
+ * else wrong with a record is still a broken response and still fails the list.
+ */
+const parseListedArmy = async (value: unknown): Promise<RemoteArmy> => {
+  try {
+    return await parseRemoteArmy(value)
+  } catch (error) {
+    if (!(error instanceof ArmyRequiresUpdateError) || !isRecord(value)) throw error
+    const structural = deserializeAos4ArmyDocumentStructure(JSON.stringify(value.document)).document
+    if (!structural) throw error
+    return {
+      id: stringField(value, 'id'),
+      createdAt: numberField(value, 'createdAt'),
+      updatedAt: numberField(value, 'updatedAt'),
+      document: structural,
+      requiresUpdate: { rulesContextId: error.rulesContextId },
+    }
   }
 }
 
@@ -147,7 +206,7 @@ export const createArmyApi = (endpoint: string, fetcher: Fetcher = fetch) => {
     async listArmies(token: string): Promise<RemoteArmy[]> {
       const value = await request('/items', {}, token)
       if (!Array.isArray(value)) throw new ArmyApiError('The service returned an invalid army list.', 502)
-      return Promise.all(value.map(army => parseRemoteArmy(army)))
+      return Promise.all(value.map(army => parseListedArmy(army)))
     },
     async createArmy(document: Aos4ArmyDocument, token: string): Promise<RemoteArmy> {
       return parseRemoteArmy(

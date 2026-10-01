@@ -1,6 +1,8 @@
 // @vitest-environment jsdom
 
 import SharedArmyModal from 'components/input/armySharing/sharedArmyModal'
+import { ArmyApiError, ArmyRequiresUpdateError } from '../../api/armyApi'
+import type { RulesContextId } from '../../aos4/domain'
 import { createDefaultAos4ArmyDocument } from '../../aos4/runtime'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
@@ -10,9 +12,14 @@ const armyApi = vi.hoisted(() => ({
   getShare: vi.fn(),
 }))
 
-vi.mock('../../api/armyApi', () => ({
-  ArmyApi: armyApi,
-}))
+vi.mock('../../api/armyApi', async () => {
+  const actual = await vi.importActual<typeof import('../../api/armyApi')>('../../api/armyApi')
+  return {
+    ArmyApi: armyApi,
+    ArmyApiError: actual.ArmyApiError,
+    ArmyRequiresUpdateError: actual.ArmyRequiresUpdateError,
+  }
+})
 
 vi.mock('context/useTheme', () => ({
   useTheme: () => ({
@@ -156,5 +163,65 @@ describe('shared army preview', () => {
     expect(byLabel('Load a copy')?.className).toContain('btn-primary')
     expect(byLabel('Keep current army')?.className).toContain('btn-outline-dark')
     expect(byLabel('Keep current army')?.className).not.toContain('btn-danger')
+  })
+  const renderShare = async () => {
+    const closeModal = vi.fn()
+    const onApply = vi.fn()
+    await act(async () => {
+      render(
+        <SharedArmyModal
+          closeModal={closeModal}
+          isOpen
+          onApply={onApply}
+          shareId="abcdefghijklmnopqrstuvwx"
+        />,
+        container
+      )
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+    const loadButton = Array.from(container.querySelectorAll('button')).find(
+      candidate => candidate.textContent?.trim() === 'Load a copy'
+    )
+    return { closeModal, loadButton, onApply }
+  }
+
+  /*
+   * A share saved by a newer release (#2055) is not broken, and neither is the link: the fix is an
+   * update. A generic red failure told the player nothing they could act on.
+   */
+  it('asks for an update, not a generic failure, when the share uses rules this version lacks', async () => {
+    armyApi.getShare.mockRejectedValue(
+      new ArmyRequiresUpdateError(
+        'unused',
+        'rules-context:90000000-0000-4000-8000-000000000005' as RulesContextId
+      )
+    )
+
+    const { closeModal, loadButton, onApply } = await renderShare()
+
+    const alert = container.querySelector('[role="alert"]')
+    expect(alert?.className).toContain('alert-warning')
+    expect(alert?.textContent).toContain('does not have yet')
+    expect(alert?.textContent).toContain('Refresh the page')
+    expect(container.querySelector('.alert-danger')).toBeNull()
+    expect(loadButton?.disabled).toBe(true)
+    // Nothing dismissed the share, so the id survives for the refresh to reopen it.
+    expect(closeModal).not.toHaveBeenCalled()
+    expect(onApply).not.toHaveBeenCalled()
+  })
+
+  it('still shows the service error for any other failure', async () => {
+    armyApi.getShare.mockRejectedValue(
+      new ArmyApiError('The service returned an incompatible army document.', 502)
+    )
+
+    const { loadButton } = await renderShare()
+
+    const alert = container.querySelector('[role="alert"]')
+    expect(alert?.className).toContain('alert-danger')
+    expect(alert?.textContent).toBe('The service returned an incompatible army document.')
+    expect(container.textContent).not.toContain('does not have yet')
+    expect(loadButton?.disabled).toBe(true)
   })
 })

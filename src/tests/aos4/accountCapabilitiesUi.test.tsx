@@ -404,4 +404,59 @@ describe('saved-army and sharing controls', () => {
     expect(container.textContent).toContain('copy it yourself')
     expect(container.textContent).not.toContain('Copied')
   })
+  /*
+   * An army saved by a newer release (#2055) stays in the list, marked, so one such army no longer
+   * costs the player the rest. Loading it needs rules this version lacks, and a rename or an
+   * overwrite would write this version's copy over rules it cannot read, so neither is offered.
+   */
+  describe('an army that needs an app update', () => {
+    const futureArmy = {
+      id: 'cloud-future',
+      createdAt: 1,
+      updatedAt: 4,
+      document: {
+        ...currentDocument,
+        name: 'Past Season List',
+        rulesContextId:
+          'rules-context:90000000-0000-4000-8000-000000000005' as typeof currentDocument.rulesContextId,
+      },
+      requiresUpdate: {
+        rulesContextId:
+          'rules-context:90000000-0000-4000-8000-000000000005' as typeof currentDocument.rulesContextId,
+      },
+    }
+
+    it('is listed beside the others, marked, with only Delete offered', () => {
+      collection.armies = [remoteArmy, futureArmy]
+      renderSavedArmies()
+
+      expect(rows()).toHaveLength(2)
+      const [known, future] = rows()
+      expect(future.textContent).toContain('Past Season List')
+      expect(future.textContent).toContain('does not have yet')
+      expect(future.textContent).toContain('safe on your account')
+      const labels = (row: HTMLElement) =>
+        Array.from(row.querySelectorAll('button')).map(button => button.textContent?.trim())
+      expect(labels(future)).toEqual(['Delete'])
+      expect(labels(known)).toEqual(['Load', 'Rename', 'Delete'])
+      expect(known.textContent).not.toContain('does not have yet')
+    })
+
+    it('is never offered for overwriting when a save reuses its name', () => {
+      collection.armies = [futureArmy]
+      act(() => {
+        render(
+          <SaveArmyModal closeModal={vi.fn()} currentDocument={currentDocument} isOpen onSaved={vi.fn()} />,
+          container
+        )
+      })
+
+      const nameInput = container.querySelector<HTMLInputElement>('#save-army-name')!
+      nameInput.value = 'Past Season List'
+      act(() => Simulate.change(nameInput))
+
+      expect(container.textContent).not.toContain('You already have a saved army called')
+      expect(queryButton(container, 'Overwrite it instead')).toBeUndefined()
+    })
+  })
 })
