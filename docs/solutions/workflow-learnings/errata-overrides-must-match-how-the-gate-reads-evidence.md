@@ -57,3 +57,9 @@ campaign returned five findings even though every cited page printed the correct
   value first, so a mis-targeted override fails before generation.
 - Expect the first campaign to surface excerpt-window misses; fix the window or the citation,
   never the override text to suit the window.
+- A positional erratum ("remove the first sentence") cannot be applied to secondary text that may
+  already carry it. Identify the removed sentence first: Warhammer Community's battlescroll
+  article for the same release usually describes each change in prose (Dirty Tricks: "the
+  restriction on using only one Dirty Trick per phase removed", 29 June 2026), and BSData's git
+  history dates when community text changed. If the secondary already prints the result, no
+  override is needed; the generator rejects overrides that restate the source.
