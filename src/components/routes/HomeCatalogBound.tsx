@@ -523,9 +523,9 @@ const HomeCatalogBound = ({
     const { seasonal, current } = findAos4SeasonalRulesContexts(AOS4_CATALOG)
     const pastSeasons = findAos4PastSeasonContexts(AOS4_CATALOG)
     const options = [
-      ...(seasonal ? [{ label: handbookName(seasonal), value: seasonal.id }] : []),
-      ...pastSeasons.map(context => ({ label: `${handbookName(context)} (past)`, value: context.id })),
-      ...(current ? [{ label: 'None: battletome and core rules only', value: current.id }] : []),
+      ...(seasonal ? [{ label: `${seasonal.season ?? seasonal.name} (current)`, value: seasonal.id }] : []),
+      ...pastSeasons.map(context => ({ label: context.season ?? context.name, value: context.id })),
+      ...(current ? [{ label: 'None', value: current.id }] : []),
     ]
     if (options.length < 2 || !options.some(option => option.value === rulesContextId)) return null
     const pastSeason = pastSeasons.find(context => context.id === rulesContextId)

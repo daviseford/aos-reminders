@@ -49,7 +49,7 @@ interface HeaderProps {
 }
 
 export interface Aos4RulesSeasonOption {
-  /** e.g. `General’s Handbook 2026-27`, or `General’s Handbook 2025-26 (past)` */
+  /** e.g. `2026-27 (current)`, `2025-26`, or `None` — shown beside a "General's Handbook" label */
   label: string
   value: RulesContextId
 }
@@ -242,9 +242,9 @@ export const Header = ({
               {rulesSeason && (
                 <>
                   <span className="text-white">
-                    Seasonal rules:
+                    General&apos;s Handbook
                     {/*
-                      The options name the handbooks, not what a season adds, so an info control
+                      The options name only the season, not what it adds, so an info control
                       carries the explanation. A real button: the tooltip has to be reachable by
                       keyboard (focus shows it) and announced by screen readers. The copy names no
                       handbook, so it survives the next one.
@@ -254,15 +254,15 @@ export const Header = ({
                       trigger={['hover', 'focus']}
                       overlay={
                         <Tooltip id="seasonal-rules-tooltip">
-                          Choose which General&apos;s Handbook season&apos;s rules join your reminders, or
-                          None for battletome and core rules only.
+                          Choose which season&apos;s rules join your reminders, or None for battletome
+                          and core rules only.
                         </Tooltip>
                       }
                     >
                       <button
                         type="button"
                         className="bg-transparent border-0 text-white p-0 ms-2 align-baseline"
-                        aria-label="What are seasonal rules?"
+                        aria-label="What does the General's Handbook season affect?"
                       >
                         <FaInfoCircle aria-hidden />
                       </button>
@@ -271,16 +271,13 @@ export const Header = ({
                   <div className="d-flex pt-3 pb-2 justify-content-center">
                     <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-start">
                       <Select
-                        aria-label="Seasonal rules"
+                        aria-label="General's Handbook"
                         inputId="seasonal-rules-select"
                         value={rulesSeasonOption}
                         options={rulesSeason.options}
                         onChange={selected => selected && onRulesSeasonChange(selected.value)}
                         isClearable={false}
                         isSearchable={false}
-                        // The season labels are longer than a faction name; on a phone they wrap
-                        // rather than losing the "(past)" that tells them apart.
-                        styles={{ singleValue: base => ({ ...base, whiteSpace: 'normal' }) }}
                         className={theme.text}
                         theme={selectColors}
                       />

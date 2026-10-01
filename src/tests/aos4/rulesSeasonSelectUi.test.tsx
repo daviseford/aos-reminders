@@ -74,9 +74,9 @@ const factionId = (() => {
 // Seasonal provenance. Its presence in the rendered reminders is the season's own fingerprint.
 const SEASONAL_REMINDER = 'RAISING THE HEAT'
 
-const SITTING_LABEL = `General’s Handbook ${seasonal.season}`
-const PAST_LABEL = `General’s Handbook ${pastSeason.season} (past)`
-const NONE_LABEL = 'None: battletome and core rules only'
+const SITTING_LABEL = `${seasonal.season ?? seasonal.name} (current)`
+const PAST_LABEL = pastSeason.season ?? pastSeason.name
+const NONE_LABEL = 'None'
 
 const storedArmy = (rulesContextId: RulesContextId) =>
   serializeAos4ArmyDocument(
@@ -123,7 +123,8 @@ describe('the rules-season select on the Home screen', () => {
     await renderHome()
   }
 
-  const seasonInput = () => container.querySelector<HTMLInputElement>('input[aria-label="Seasonal rules"]')
+  const seasonInput = () =>
+    container.querySelector<HTMLInputElement>('input[aria-label="General\'s Handbook"]')
 
   // The select's shown value: the masthead's singleValue that shares a control with the input.
   const selectedSeason = () =>
@@ -271,6 +272,6 @@ describe('the rules-season select on the Home screen', () => {
 
     expect(container.querySelector('input[aria-label="Faction"]')).not.toBeNull()
     expect(seasonInput()).toBeNull()
-    expect(container.textContent).not.toContain('Seasonal rules')
+    expect(container.textContent).not.toContain("General's Handbook")
   })
 })

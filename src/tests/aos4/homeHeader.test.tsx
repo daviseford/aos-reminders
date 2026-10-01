@@ -148,15 +148,16 @@ describe('the masthead selects', () => {
     pastSeason: Aos4RulesSeasonBinding['pastSeason'] = null
   ): Aos4RulesSeasonBinding => ({
     options: [
-      { label: 'General’s Handbook 2026-27', value: SITTING },
-      { label: 'General’s Handbook 2025-26 (past)', value: PAST },
-      { label: 'None: battletome and core rules only', value: CURRENT },
+      { label: '2026-27 (current)', value: SITTING },
+      { label: '2025-26', value: PAST },
+      { label: 'None', value: CURRENT },
     ],
     value,
     pastSeason,
   })
 
-  const seasonInput = () => container.querySelector<HTMLInputElement>('input[aria-label="Seasonal rules"]')
+  const seasonInput = () =>
+    container.querySelector<HTMLInputElement>('input[aria-label="General\'s Handbook"]')
 
   const pressKey = async (key: string) => {
     await act(async () => {
@@ -169,23 +170,23 @@ describe('the masthead selects', () => {
     await renderHeader({})
 
     expect(seasonInput()).toBeNull()
-    expect(container.textContent).not.toContain('Seasonal rules')
+    expect(container.textContent).not.toContain("General's Handbook")
   })
 
   it('replaces the old switch and past-season link with one labeled select', async () => {
     await renderHeader({ rulesSeason: rulesSeason(SITTING) })
 
     expect(seasonInput()).not.toBeNull()
-    expect(container.textContent).toContain('Seasonal rules:')
-    expect(container.textContent).toContain('General’s Handbook 2026-27')
+    expect(container.textContent).toContain("General's Handbook")
+    expect(container.textContent).toContain('2026-27 (current)')
     expect(container.querySelector('#seasonal-rules-switch')).toBeNull()
     expect(container.textContent).not.toContain('Use a past season')
   })
 
   it.each([
-    [SITTING, 'General’s Handbook 2026-27'],
-    [PAST, 'General’s Handbook 2025-26 (past)'],
-    [CURRENT, 'None: battletome and core rules only'],
+    [SITTING, '2026-27 (current)'],
+    [PAST, '2025-26'],
+    [CURRENT, 'None'],
   ])('shows the document’s own season (%s)', async (value, label) => {
     await renderHeader({ rulesSeason: rulesSeason(value) })
 
@@ -206,11 +207,7 @@ describe('the masthead selects', () => {
     const offered = Array.from(container.querySelectorAll('[role="option"]')).map(option =>
       option.textContent?.trim()
     )
-    expect(offered).toEqual([
-      'General’s Handbook 2026-27',
-      'General’s Handbook 2025-26 (past)',
-      'None: battletome and core rules only',
-    ])
+    expect(offered).toEqual(['2026-27 (current)', '2025-26', 'None'])
 
     await pressKey('ArrowDown')
     await pressKey('Enter')
@@ -249,7 +246,9 @@ describe('the masthead selects', () => {
   it('offers a focusable explanation of the seasonal rules choice', async () => {
     await renderHeader({ rulesSeason: rulesSeason(SITTING) })
 
-    const info = container.querySelector<HTMLButtonElement>('button[aria-label="What are seasonal rules?"]')
+    const info = container.querySelector<HTMLButtonElement>(
+      'button[aria-label="What does the General\'s Handbook season affect?"]'
+    )
     expect(info).not.toBeNull()
 
     await act(async () => {
@@ -259,13 +258,15 @@ describe('the masthead selects', () => {
 
     const tooltip = document.body.querySelector('.tooltip')
     expect(tooltip).not.toBeNull()
-    expect(tooltip!.textContent).toContain("General's Handbook season")
+    expect(tooltip!.textContent).toContain("Choose which season's rules")
     expect(tooltip!.textContent).toContain('battletome and core rules only')
   })
 
   it('hides the seasonal rules explanation when the select is hidden', async () => {
     await renderHeader({})
 
-    expect(container.querySelector('button[aria-label="What are seasonal rules?"]')).toBeNull()
+    expect(
+      container.querySelector('button[aria-label="What does the General\'s Handbook season affect?"]')
+    ).toBeNull()
   })
 })
