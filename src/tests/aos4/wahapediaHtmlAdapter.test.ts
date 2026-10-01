@@ -791,7 +791,13 @@ describe('Wahapedia warscroll HTML decoding', () => {
 
 describe('Regiment of Renown datasheets (issue #1858)', () => {
   const regimentSheet = (
-    overrides: { anchor?: string; name?: string; effect?: string; inclusion?: string[] } = {}
+    overrides: {
+      anchor?: string
+      name?: string
+      effect?: string
+      inclusion?: string[]
+      organisation?: string
+    } = {}
   ) => {
     const anchor = overrides.anchor ?? 'Lord-Skaldior-s-Chosen'
     const name = overrides.name ?? 'Lord Skaldior’s Chosen'
@@ -810,7 +816,10 @@ describe('Regiment of Renown datasheets (issue #1858)', () => {
         </div>
         <div>
           <div class="wsAbilityHeader">ORGANISATION</div>
-          <ul class="wsOrgList"><li>1 <a href="/aos4/factions/slaves-to-darkness/warscrolls.html#Chaos-Knights">Chaos Knights</a> unit with 5 models.</li></ul>
+          ${
+            overrides.organisation ??
+            '<ul class="wsOrgList"><li>1 <a href="/aos4/factions/slaves-to-darkness/warscrolls.html#Chaos-Knights">Chaos Knights</a> unit with 5 models.</li></ul>'
+          }
         </div>
         <div class="PitchedBattleProfile">
           <div class="wsAbilityHeader">BATTLE PROFILE</div>
@@ -862,6 +871,27 @@ describe('Regiment of Renown datasheets (issue #1858)', () => {
     // A regiment has no keyword line, so only the marker keeps it through the native filter.
     expect(filterNativeWahapediaFactionWarscrolls([page])).toEqual([page])
     expect(filterNativeWahapediaFactionWarscrolls([{ ...page, regimentOfRenown: undefined }])).toEqual([])
+  })
+
+  it('keeps a plain-text ORGANISATION line as a member named without a link (#2047)', () => {
+    // Gotrek Gurnisson's regiment prints its one member as text, not as a warscroll link.
+    const page = parseWahapediaWarscrollCollectionHtml(
+      collectionInput(
+        regimentSheet({
+          anchor: 'Gotrek-Gurnisson',
+          name: 'Gotrek Gurnisson',
+          organisation:
+            '<ul class="wsOrgList"><li>1 Gotrek Gurnisson</li></ul>' +
+            '<ul class="wsOrgList"><li>0-1 Dreadscythe Harridans unit with 10 models</li></ul>' +
+            '<ul class="wsOrgList"><li>1 <a href="/aos4/factions/fyreslayers/warscrolls.html#Auric-Runefather">Auric Runefather</a></li></ul>',
+        })
+      )
+    ).pages[0]
+    expect(page.regimentOfRenown?.members).toEqual([
+      { name: 'Auric Runefather', href: '/aos4/factions/fyreslayers/warscrolls.html#Auric-Runefather' },
+      { name: 'Gotrek Gurnisson' },
+      { name: 'Dreadscythe Harridans' },
+    ])
   })
 
   it('collapses identical copies to the smallest source URL without diagnostics', () => {

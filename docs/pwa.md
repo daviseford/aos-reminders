@@ -13,7 +13,7 @@ checked by hand.
 | Worker config | `vite.config.mts` (`VitePWA`, `generateSW`) |
 | Activation extras | generated `sw-extras-<content-hash>.js` — see the `service-worker-extras` plugin in `vite.config.mts` |
 | Registration | `src/bootstrap/registerServiceWorker.ts` |
-| Update prompt | `src/components/info/updateAvailable.tsx`, mounted in `src/components/info/banners/app_banner.tsx` on home and in `src/components/App.tsx` elsewhere |
+| Update install | `src/components/info/installingUpdate.tsx`, mounted once in `src/components/App.tsx` for every route |
 | Emergency rollback | `public/rollback-service-worker.js` — see docs/deployment.md |
 | Build assertions | `src/tests/pwaBuild.test.ts` |
 
@@ -24,9 +24,39 @@ them. **Do not rename it.**
 
 The generated worker accepts only the versioned activation message in
 `src/bootstrap/serviceWorkerProtocol.ts`, not Workbox's generic `SKIP_WAITING` token. This keeps
-pre-Vite CRA tabs from activating the replacement worker before a user accepts the new app's prompt.
-Once accepted, a short-lived origin-wide marker plus an unconditional `controllerchange` listener
-reloads every controlled tab, including one opened after acceptance but before activation.
+pre-Vite CRA tabs from activating the replacement worker before the new app has shown its
+"Installing updates" modal. Once a tab asks, a short-lived origin-wide marker plus an unconditional
+`controllerchange` listener reloads every controlled tab, including one opened after the install
+began but before activation.
+
+## How an update lands
+
+Updates install automatically, with no prompt and no click (#2046):
+
+1. The hourly `registration.update()` (or a fresh load) finds a new worker, which installs and
+   waits. The registration announces it with the `hasNewContent` window event and on the
+   `app-update` `BroadcastChannel`, so **every open tab on the origin** hears it, not just the one
+   whose poll found it.
+2. In each tab, `InstallingUpdate` opens a modal reading "Installing updates, one moment". It has no
+   close button, and Escape and backdrop clicks do nothing: it is open exactly while
+   `hasNewContent` is true, and only a reload ends that. Its overlay carries
+   `INSTALLING_UPDATE_Z_INDEX` (2000). react-modal appends this modal's portal when the app
+   mounts, so without it any Save/Import/Print/Share/checkout modal opened later would paint over
+   the install, as would the loading splash (1050) and Bootstrap's layers (up to 1090). A test reads
+   `src/css/index.scss` and fails if anything there is pinned higher.
+3. Once the modal has rendered, its effect calls `applyWaitingUpdate`. Starting activation there,
+   rather than inside the registration callback, is what keeps a tab from reloading before it has
+   said why. Each tab posts the private activation message itself. The generated handler only calls
+   `skipWaiting()`, so duplicate posts from several tabs are harmless, and a tab never starts a
+   second install of its own.
+4. The worker takes control and every tab reloads onto the new build. See "Every install ends in a
+   reload" under Gotchas for the deadlines.
+
+**Nothing defers this.** An update installs and reloads regardless of what the player is doing: an
+open save, import, share, print or checkout modal, or a half-typed field. The army document, notes
+and ordering are persisted to `localStorage` on every change and survive the reload. Anything else
+not yet submitted (a save-army name, an import paste, a checkout in progress) is lost. That is the
+accepted cost of automatic updates, not a defect. Do not add a "wait until the user finishes" branch.
 
 The generated corpus ships as **two** chunks, both excluded from the precache and
 served by one `CacheFirst` runtime route. `aos4-catalog-data` is the catalog the
@@ -93,20 +123,34 @@ DevTools:
 
 1. Load the app once online and wait for the worker to activate and take control.
    `clientsClaim` claims the current page; prompt mode still prevents an update
-   worker from activating until someone explicitly accepts it.
+   worker from activating until the app asks for it.
 2. Stop the preview server.
 3. Reload. The shell should render, the faction selector should populate, and
    `fetch('/assets/aos4-catalog-data-*.js')` should return 200 from cache.
 
-### Update prompt
+### Automatic update
 
-1. Build, load, and reload so a worker is controlling.
-2. Change something the build hashes (any source file), rebuild.
-3. Call `registration.update()` — this is what the hourly poll does.
-4. The banner should appear **without any page reloading itself**, and on home it
-   should take over the welcome banner's slot under the masthead rather than add
-   a second banner above it. Activate Reload in one tab; every open controlled
-   tab should then reload onto the new build after the worker takes control.
+1. Build, `npx vite preview --port 4173`, and open the app in **two** tabs (one on
+   home, one on `/faq`). Reload each once so a worker is controlling.
+2. In the home tab, open Save Army or Import Army and type something into it.
+   Leave that modal open.
+3. Change something the build hashes (rendered copy or `index.html`) and rebuild.
+   The preview server serves the new `dist/` without a restart.
+4. In either tab's console, run
+   `(await navigator.serviceWorker.getRegistration()).update()`. This is what the
+   hourly poll does.
+5. With **no interaction at all**, both tabs should show the "Installing updates,
+   one moment" modal over whatever was on screen, including the open Save/Import
+   modal. There is no close button, and Escape and clicking the dark backdrop do
+   nothing.
+6. Within a few seconds both tabs reload onto the new build (check the changed
+   copy). The army in progress is intact; the text typed in step 2 is gone, as
+   intended.
+7. Backgrounded tabs: on a phone with the app installed, background it, deploy a
+   build to a non-production stage, wait for the hourly poll or reopen after more
+   than an hour, and note whether the modal is visible before the reload. A tab
+   the browser froze can receive the announcement and the worker takeover together
+   on wake, so this ordering cannot be proven from source.
 
 Note that a source file whose only change is dead code will not produce a new
 worker: Rollup tree-shakes it back out, the precache manifest is unchanged, and
@@ -130,12 +174,14 @@ cache must degrade to "needs one online load", never to a broken app.
 
 ## Gotchas
 
-- **`prompt`, not `autoUpdate`.** `autoUpdate` reloads the page under the user
-  mid-session, which is wrong for something people read during a game turn.
-  `clientsClaim` does not change that waiting policy: it claims clients only
-  after one tab explicitly posts the prompt's skip-waiting message.
-- **Accepting always ends in a reload.** Every path through `applyWaitingUpdate`
-  has to terminate, because the control tells the user it is reloading. A tab
+- **`prompt`, not `autoUpdate`, even though updates are automatic.**
+  `autoUpdate` reloads the page with no explanation, which read as a bug when
+  #1886 shipped it (reverted in #1926). Prompt mode leaves the trigger with the
+  app, so the modal renders first and then starts activation. `clientsClaim`
+  does not change that waiting policy: it claims clients only after a tab posts
+  the private activation message.
+- **Every install ends in a reload.** Every path through `applyWaitingUpdate`
+  has to terminate, because the modal cannot be dismissed. A tab
   with no registration of its own reloads immediately rather than posting into
   the void. Otherwise it posts the activation message, watches both
   `controllerchange` *and* the worker's own `statechange` — a claim does not
@@ -150,14 +196,30 @@ cache must degrade to "needs one online load", never to a broken app.
   the retry exists on the theory that the first message was spent cold-starting
   it. That cause is unconfirmed — the unconditional reload is the part that is
   guaranteed to end the wait.
-- **Dismissal is deliberately not persisted.** `NotificationBanner` stores
-  dismissal in localStorage keyed by name; reusing that here would suppress every
-  future build's prompt after one close.
+
+  The modal adds one deadline of its own, `INSTALL_FALLBACK_RELOAD_MS` (15s),
+  as a last guarantee. It should never be the path that fires.
+
+  A stalled install reloads onto the old build, where the same waiting worker
+  is found again, so unbounded retrying would be a reload loop. When the last
+  deadline passes with the worker still `installed`, the tab records the stall
+  in `sessionStorage`. A worker already `activating` or `activated` is a
+  success whose events have not arrived yet, so it is not recorded, and a load
+  that finds nothing waiting clears any record. After a stall the update is still
+  announced, but the modal stays shut for the rest of `INSTALL_STALL_BACKOFF_MS`
+  (10 minutes) and then opens on its own in the same page. The tab stays usable on
+  its current build meanwhile. This is failure backoff, not a deferral for what
+  the player is doing, and it is per tab: other tabs still install.
+- **Rollback tabs never install.** A tab carrying the rollback marker has no
+  registration controller, and the modal does not open there even when another
+  tab announces an update, so nothing covers or reloads a tab mid-rollback.
+  One bounded race remains, described under "Rolling back the service worker" in
+  docs/deployment.md.
 - **Legacy clients lag.** A client still controlled by the CRA worker is served a
-  stale shell, so it runs no current code and cannot show the prompt. It recovers
+  stale shell, so it runs no current code and cannot show the modal. It recovers
   when its last tab closes. Do not restore the generic `SKIP_WAITING` activation
-  token or add an eager `skipWaiting` call — either would reload ordinary users
-  mid-session.
+  token or add an eager `skipWaiting` call — either would reload tabs before the
+  modal has explained why.
 - **Two writers, one cache.** `sw-extras-<content-hash>.js` owns the
   `aos4-catalog` cache and
   prunes it. Do not add an `ExpirationPlugin` to the runtime route as well;

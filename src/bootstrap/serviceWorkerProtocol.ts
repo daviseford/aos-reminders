@@ -1,7 +1,8 @@
 /*
  * Keep these values private to this PWA generation. The CRA worker that is live before the Vite
  * cutover posts the generic Workbox `SKIP_WAITING` message as soon as it finds an update. Accepting
- * only this versioned token lets the replacement worker wait for the new app's explicit prompt.
+ * only this versioned token lets the replacement worker wait until the new app asks for it, which it
+ * does from its "Installing updates" modal.
  */
 export const SERVICE_WORKER_ACTIVATION_MESSAGE = 'AOS_REMINDERS_SKIP_WAITING_V1'
 

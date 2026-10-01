@@ -92,7 +92,13 @@ and the 76 official regiment-of-renown battle-profile rows sat dispositioned
    `regiment-of-renown-member-missing` warning instead of a silent or invented edge. Selecting the
    regiment therefore also selects its member warscrolls, exactly like a roster purchase. A group
    with no member and no ability chain loses every `offers` edge to the content-free prune — silent
-   in the UI, which is how the two Cogfort regiments vanished (#2030).
+   in the UI, which is how the two Cogfort regiments vanished (#2030). Some regiments print an
+   ORGANISATION line as plain text with no link (Gotrek Gurnisson, Mask of the Deceiver, Heroes of
+   The Jade Abbey, The Sorrowmourn Choir); the adapter keeps those as name-only members, which
+   resolve only onto a reviewed regiment-only adoption. Gotrek's warscroll has no faction keyword,
+   so it needed one, adopted from the Fyreslayers page because a same-page adoption would share
+   the reviewed Cities of Sigmar regiment copy's anchor-derived source identity (#2047). To find
+   this class, list regiment groups with no `includes` edge to a warscroll.
 5. **Official rows flip to applied by name, with reviewed spelling maps.** The 74 rows whose
    classified runtime group exists become `applied-to-runtime`;
    `officialProfileName` entries carry the two official spellings that differ from Wahapedia's

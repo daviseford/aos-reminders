@@ -16,28 +16,28 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-30b snapshot is defined by:
+The accepted 2026-09-30c snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
 | `data/aos4/manifests/accepted-2026-09-30.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication and the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037), pinned by SHA-256; no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
-| `data/aos4/reviews/corpus-2026-09-30b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/reviews/corpus-2026-09-30c.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-30b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-30b-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-09-30c-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-09-30c-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
-- 1,302 warscrolls and 1,015 battle profiles
-- 5,150 abilities
-- 2,275 weapons
+- 1,303 warscrolls and 1,015 battle profiles
+- 5,152 abilities
+- 2,276 weapons
 - 1,526 content groups
-- 244 source artifacts and 20,273 live source records
+- 244 source artifacts and 20,283 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -47,11 +47,32 @@ The strict report currently records:
   2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
-- the 2026-09-30b General's Handbook 2025-26 past season (#2042): a review-only revision on the
-  same manifest. It adds the `past-season` context and changes rules-context membership only: no
-  artifact, source-record checksum, identity, entity, or count moves. 8,243 entities, 14,690 live
-  source records, and 10,550 relationships apply to the past season; 586 of those entities are the
-  season's own (all still historical too), and the rest is today's standard content
+- the 2026-09-30c General's Handbook 2025-26 past season (#2042): a review-only revision on top
+  of 2026-09-30b, on the same manifest. It adds the `past-season` context and changes rules-context
+  membership only: no artifact, source-record checksum, identity, entity, or count moves. 8,247
+  entities, 14,700 live source records, and 10,563 relationships apply to the past season; 586 of
+  those entities are the season's own (all still historical too), and the rest is today's standard
+  content, including the 2026-09-30b Gotrek Gurnisson regiment
+- the 2026-09-30b Gotrek Gurnisson member fix (#2047), which keeps the 2026-09-30 manifest and
+  every artifact: a subscriber could not find Gotrek in any army. Official Regiments of Renown
+  (September 2025, page 5) prints the regiment with ORGANISATION "Gotrek Gurnisson (see below)"
+  and his warscroll keyworded Order, Duardin, Unique, Infantry, Hero, Ward (3+), with no faction
+  keyword; Battle Profiles (September 2026, page 60) lists nine inclusion factions. Every accepted
+  collection prints the warscroll beside the regiment under one `Gotrek-Gurnisson` anchor and the
+  ORGANISATION line as plain text, so the native-faction filter dropped the warscroll, the
+  regiment resolved no member, and the content-free-group prune removed all nine offers. The
+  adapter now reads plain-text ORGANISATION lines as name-only members, which resolve only through
+  the reviewed regiment-only name fallback, and a new `adoptedWarscrolls` entry keeps the
+  Fyreslayers collection copy (the reviewed regiment is the Cities of Sigmar copy, and a same-page
+  adoption would share its anchor-derived source identity). The runtime delta is exactly four new
+  entities (the warscroll, UNSTOPPABLE BATTLE FURY, ‘I’LL GET THERE MYSELF!’, and the weapon) with
+  four deterministic identity aliases, nine offers, and four includes; the reviewed warscroll and
+  reconciliation page counts move 1,302 to 1,303, and matched facts, discrepancies, and warnings do
+  not move. Wahapedia prints the weapon as `Zangrom-az` where the official page prints
+  `Zangrom-Thaz`; no reviewed weapon-name override exists, so the secondary spelling ships as a
+  recorded discrepancy. Mask of the Deceiver, Heroes of The Jade Abbey, and The Sorrowmourn Choir
+  also print plain-text members, which now stay unresolved by name as designed; their runtime does
+  not change
 - the 2026-09-30 Ossiarch Bonereapers page re-pin (#2037): a community report that the
   Relentless Discipline battle traits still charged a reinforced unit an extra point was confirmed
   against the pinned September 2026 Rules Updates, page 64 (marked NEW), which removes that second

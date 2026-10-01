@@ -1777,7 +1777,7 @@
   "observations": [
     {
       "entries": 166,
-      "observedAt": "2026-09-30T18:03:19.414Z",
+      "observedAt": "2026-09-30T19:21:27.173Z",
       "producedBy": "games-workshop-download-catalog/v1",
       "publishers": [
         "games-workshop"
@@ -1785,15 +1785,15 @@
     },
     {
       "entries": 87,
-      "observedAt": "2026-09-30T18:03:49.436Z",
+      "observedAt": "2026-09-30T19:21:45.765Z",
       "producedBy": "wahapedia-navigation-and-export-spec/v1",
       "publishers": [
         "wahapedia"
       ]
     }
   ],
-  "observedAt": "2026-09-30T18:03:49.436Z",
-  "oldestObservedAt": "2026-09-30T18:03:19.414Z",
+  "observedAt": "2026-09-30T19:21:45.765Z",
+  "oldestObservedAt": "2026-09-30T19:21:27.173Z",
   "producedBy": "source-inventory-reconciler/v2 (games-workshop-download-catalog/v1, wahapedia-navigation-and-export-spec/v1)",
   "revision": "aos4-corpus-2026-09-30b",
   "schemaVersion": 2

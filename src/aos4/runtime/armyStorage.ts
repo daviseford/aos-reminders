@@ -1,10 +1,11 @@
-import type { Aos4Catalog, CanonicalId } from '../domain'
+import type { Aos4Catalog, CanonicalId, RulesContextId } from '../domain'
 import defaultsJson from '../generated/corpus/defaults.json'
 import { resolveSelection } from '../select'
 import {
   createAos4ArmyDocument,
   deserializeAos4ArmyDocument,
   serializeAos4ArmyDocument,
+  unknownAos4RulesContextId,
   type Aos4ArmyDocument,
   type Aos4ArmyDocumentDiagnostic,
 } from '../state'
@@ -32,9 +33,14 @@ export const AOS3_BROWSER_STORAGE_KEYS = [
 export interface LoadAos4ArmyDocumentResult {
   document: Aos4ArmyDocument
   diagnostics: Aos4ArmyDocumentDiagnostic[]
-  source: 'default' | 'storage' | 'reset'
+  source: 'default' | 'storage' | 'reset' | 'requires-update'
   /** The stored document's overlay flags no longer matched its selections and were re-derived. */
   overlayFlagsDerived?: true
+  /**
+   * Set with `source: 'requires-update'`: the stored army uses a ruleset a newer release added. It
+   * was left in storage untouched, and `document` is a stand-in the caller must not save over it.
+   */
+  unknownRulesContextId?: RulesContextId
 }
 
 export const createDefaultAos4ArmyDocument = (): Aos4ArmyDocument =>
@@ -76,6 +82,22 @@ export const loadAos4ArmyDocument = (storage: Storage, catalog: Aos4Catalog): Lo
       diagnostics: restored.diagnostics,
       source: 'storage',
       ...(document !== restored.document ? { overlayFlagsDerived: true } : {}),
+    }
+  }
+
+  /*
+   * A ruleset this release has never heard of is a newer release's army, not a broken one (#2055):
+   * a tab left open across a deploy, a cached install, or a rollback all read what a later version
+   * wrote. Resetting it would destroy the army for good, including for the update that can read it,
+   * so the stored bytes stay exactly where they are and the caller gets a stand-in to work with.
+   */
+  const unknownRulesContextId = unknownAos4RulesContextId(restored.diagnostics)
+  if (unknownRulesContextId) {
+    return {
+      document: createDefaultAos4ArmyDocument(),
+      diagnostics: restored.diagnostics,
+      source: 'requires-update',
+      unknownRulesContextId,
     }
   }
 

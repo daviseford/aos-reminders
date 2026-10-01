@@ -150,6 +150,12 @@ const Home = () => {
    */
   const [armyDocument, setArmyDocument] = useState(loadStructuralDocument)
   const [documentValidated, setDocumentValidated] = useState(false)
+  /*
+   * The stored army uses a ruleset this release does not carry (#2055), so the one on screen is a
+   * stand-in and storage must keep the original for the update that can read it. Never cleared in
+   * this session: whatever the player does to the stand-in, saving it would still overwrite theirs.
+   */
+  const [storageRequiresUpdate, setStorageRequiresUpdate] = useState(false)
   const [isGameMode, setIsGameMode] = useState(false)
   /*
    * Read here, once, and deliberately *without* clearing: the shell is the only component that
@@ -252,8 +258,9 @@ const Home = () => {
    * change.
    */
   const handleDocumentValidated = useCallback(
-    (validated: Aos4ArmyDocument, unchangedFromStorage: boolean) => {
+    (validated: Aos4ArmyDocument, unchangedFromStorage: boolean, requiresUpdate: boolean) => {
       if (!unchangedFromStorage) setArmyDocument(validated)
+      setStorageRequiresUpdate(requiresUpdate)
       setDocumentValidated(true)
     },
     []
@@ -288,13 +295,13 @@ const Home = () => {
    * stored one with no catalog-validated pass ever coming to repair it.
    */
   useEffect(() => {
-    if (!documentValidated) return
+    if (!documentValidated || storageRequiresUpdate) return
     try {
       saveAos4ArmyDocument(window.localStorage, armyDocument)
     } catch {
       // Browser storage can be unavailable in privacy modes. The in-memory document remains usable.
     }
-  }, [armyDocument, documentValidated])
+  }, [armyDocument, documentValidated, storageRequiresUpdate])
 
   return (
     <ArmyCollectionProvider>

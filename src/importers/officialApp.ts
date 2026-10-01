@@ -10,6 +10,13 @@ import type { Aos4ImportLine } from './detectTextSource'
 const pointsLinePattern = /^(?:(\d+)\s*[x×]\s+)?(.+?)\s+\(\s*\d+\s*(?:pts?|points?)?\s*\)\s*$/i
 const pointsSuffixPattern = /\s*\(\s*\+?\d+\s*(?:pts?|points?)?\s*\)\s*$/i
 /**
+ * The cost the app appends to a paid enhancement bullet: `• Bullfather's Scorn - (10) Points`
+ * (#2035). The unit sits outside the brackets, unlike a pointed unit line, and the dash is the
+ * app's own separator, so neither belongs to the enhancement's name.
+ */
+const enhancementCostSuffixPattern =
+  /\s*(?:[-–—]\s*)?\(\s*\+?\d+\s*(?:pts?|points?)?\s*\)\s*(?:pts?|points?)?\s*$/i
+/**
  * The `2000/2000 pts` total the app writes directly beneath the roster name.
  *
  * The name is captured but optional, and the gap between the two is optional with it: players
@@ -129,7 +136,7 @@ const parseBundledWarscroll = (
 const parseBullet = (line: Aos4ImportLine): ParsedRosterSelection | undefined => {
   const match = line.text.match(/^[•*]\s*(.+)$/)
   if (!match) return undefined
-  const label = match[1].trim()
+  const label = match[1].replace(enhancementCostSuffixPattern, '').trim()
   if (
     /^(?:General|Reinforced)$/i.test(label) ||
     // A leading count is a weapon loadout — `1 Shock Gauntlets`, `3 x Ratling Cannon` — which is

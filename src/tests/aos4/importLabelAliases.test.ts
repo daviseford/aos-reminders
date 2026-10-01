@@ -94,6 +94,31 @@ describe('import label aliases', () => {
     )
   })
 
+  /**
+   * An unscoped alias is a provider or catalog spelling fix that holds in every context, so a
+   * 2025-26 past-season roster (#2042) gets the same fixes as a 2026-27 one. The #2054 import fixes
+   * landed beside the past season and name today's standard content, which the past season carries.
+   */
+  it('applies unscoped aliases in the past season too', () => {
+    const pastSeasonIds = new Set(
+      AOS4_CATALOG.rulesContexts
+        .filter(context => context.status === 'past-season')
+        .map(context => context.id)
+    )
+    const pastSeasonNames = new Set(
+      AOS4_CATALOG.entities
+        .filter(entity => entity.rulesContextIds.some(id => pastSeasonIds.has(id)))
+        .map(entity => normalizeImportLabel(entity.name))
+    )
+    for (const alias of IMPORT_LABEL_ALIASES.filter(entry => !entry.rulesContextStatus)) {
+      expect(aliasedImportLabel(alias.from, { status: 'past-season' })).toEqual(alias.to)
+    }
+    for (const from of ['Ruthless Overseer', 'Hobgrotz Vandalz', 'The Beast of Castle Sterneiste']) {
+      const to = aliasedImportLabel(from, { status: 'past-season' })
+      expect(to && pastSeasonNames.has(normalizeImportLabel(to))).toBe(true)
+    }
+  })
+
   it('never aliases a label to itself', () => {
     for (const alias of IMPORT_LABEL_ALIASES) {
       expect(normalizeImportLabel(alias.from)).not.toEqual(normalizeImportLabel(alias.to))

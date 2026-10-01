@@ -1,4 +1,4 @@
-import { ArmyApi, type SharedArmy } from '../../../api/armyApi'
+import { ArmyApi, ArmyRequiresUpdateError, type SharedArmy } from '../../../api/armyApi'
 import { AOS4_CATALOG } from '../../../aos4/generated'
 import { createAos4ArmyDocument, type Aos4ArmyDocument } from '../../../aos4/state'
 import { pastSeasonCaveat } from '../../../aos4/view'
@@ -26,6 +26,7 @@ const SharedArmyModal = ({
   const { theme } = useTheme()
   const [share, setShare] = useState<SharedArmy>()
   const [error, setError] = useState<string>()
+  const [requiresUpdate, setRequiresUpdate] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const context = useMemo(
     () => AOS4_CATALOG.rulesContexts.find(candidate => candidate.id === share?.document.rulesContextId),
@@ -40,12 +41,16 @@ const SharedArmyModal = ({
     let active = true
     setIsLoading(true)
     setError(undefined)
+    setRequiresUpdate(false)
     void ArmyApi.getShare(shareId)
       .then(result => {
         if (active) setShare(result)
       })
       .catch(reason => {
-        if (active) {
+        if (!active) return
+        if (reason instanceof ArmyRequiresUpdateError) {
+          setRequiresUpdate(true)
+        } else {
           setError(reason instanceof Error ? reason.message : 'The shared army could not be loaded.')
         }
       })
@@ -72,6 +77,18 @@ const SharedArmyModal = ({
     <GenericModal closeModal={closeModal} isOpen={isOpen} isProcessing={isLoading} label="Shared Army">
       <div className={`aos4-account-modal ${theme.text}`}>
         <h2 className="h4">Shared Army</h2>
+        {requiresUpdate && (
+          /*
+           * Not a failure, so not `alert-danger`: the shared army is fine and so is the link, but it
+           * uses a ruleset added after this version (#2055). The id stays in session storage until
+           * the player dismisses this, so a refresh that installs an update opens the share again.
+           * Only "if one is available": a rolled-back deploy has no newer version to install.
+           */
+          <div className="alert alert-warning" role="alert">
+            This shared army uses rules that need a newer version of AoS Reminders. Try refreshing the page:
+            if an update is available, the shared army will open.
+          </div>
+        )}
         {error && (
           <div className="alert alert-danger" role="alert">
             {error}

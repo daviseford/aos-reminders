@@ -827,4 +827,109 @@ describe('current Wahapedia HTML reconciliation', () => {
       expect(mergedRegiment.regimentOfRenownUnresolvedMembers).toEqual(['Stray Fighter'])
     }
   )
+  it('resolves a plain-text Regiment of Renown member only onto a regiment-only adoption (#2047)', () => {
+    // Gotrek Gurnisson's regiment is kept from the Cities of Sigmar collection and names its one
+    // member as text; the reviewed adoption keeps his warscroll from the Fyreslayers collection.
+    const cosUrl = 'https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html'
+    const fsUrl = 'https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html'
+    const pageArtifact = (url: string) => ({
+      ...artifact,
+      checksum: url.includes('cities') ? 'c'.repeat(64) : 'f'.repeat(64),
+      requestUrl: url,
+      finalUrl: url,
+    })
+    const pageMeta = (url: string, section: string) => ({
+      ...htmlMeta(section),
+      artifactId: artifactId(pageArtifact(url).checksum),
+      sourceRecordId: sourceRecordId('wahapedia', `html:${url}#${section}`),
+    })
+    const dataset = emptyDataset()
+    dataset.factions.push(
+      {
+        id: 'COS',
+        name: 'Cities of Sigmar',
+        link: '/aos4/factions/cities-of-sigmar/',
+        meta: meta('Factions.csv', 'cities-of-sigmar'),
+      },
+      {
+        id: 'FS',
+        name: 'Fyreslayers',
+        link: '/aos4/factions/fyreslayers/',
+        meta: meta('Factions.csv', 'fyreslayers'),
+      }
+    )
+    const regiment = (name: string, memberName: string): WahapediaHtmlWarscrollRecord => {
+      const externalId = name.replace(/ /g, '-')
+      return {
+        recordKind: 'content-group',
+        externalId,
+        name,
+        factionName: 'Cities of Sigmar',
+        sourceTitle: '',
+        sourceUrl: `${cosUrl}#${externalId}`,
+        context: 'standard',
+        characteristics: { move: '', save: '', control: '', health: '' },
+        descriptionHtml: '',
+        keywords: [],
+        baseSizes: [],
+        regimentOptions: [],
+        notes: [],
+        weapons: [],
+        abilities: [],
+        regimentOfRenown: {
+          inclusionFactionNames: ['Cities of Sigmar', 'Fyreslayers'],
+          members: [{ name: memberName }],
+        },
+        meta: pageMeta(cosUrl, `datasheet:${externalId}/warscroll`),
+        artifact: pageArtifact(cosUrl),
+      }
+    }
+    const warscroll = (name: string, regimentOfRenownOnly: boolean): WahapediaHtmlWarscrollRecord => {
+      const externalId = name.replace(/ /g, '-')
+      return {
+        recordKind: 'warscroll',
+        externalId,
+        name,
+        factionName: 'Fyreslayers',
+        sourceTitle: '',
+        sourceUrl: `${fsUrl}#${externalId}`,
+        context: 'standard',
+        characteristics: { move: '4"', save: '5+', control: '2', health: '8' },
+        descriptionHtml: '',
+        keywords: ['ORDER', 'DUARDIN', 'HERO'],
+        baseSizes: ['32mm'],
+        regimentOptions: [],
+        notes: [],
+        weapons: [],
+        abilities: [],
+        ...(regimentOfRenownOnly ? { regimentOfRenownOnly: true as const } : {}),
+        meta: pageMeta(fsUrl, `datasheet:${externalId}/warscroll`),
+        artifact: pageArtifact(fsUrl),
+      }
+    }
+
+    const result = mergeCurrentWahapediaWarscrollPages(
+      dataset,
+      [
+        regiment('Gotrek Gurnisson', 'Gotrek Gurnisson'),
+        warscroll('Gotrek Gurnisson', true),
+        regiment('Lone Band', 'Lone Hero'),
+        warscroll('Lone Hero', false),
+      ],
+      [],
+      []
+    )
+    const merged = (name: string, recordKind: 'warscroll' | 'content-group') =>
+      result.dataset.warscrolls.find(
+        record => record.name === name && (recordKind === 'warscroll') === Boolean(record.move)
+      )!
+    const gotrekRegiment = merged('Gotrek Gurnisson', 'content-group')
+    const gotrekWarscroll = merged('Gotrek Gurnisson', 'warscroll')
+
+    expect(gotrekRegiment.regimentOfRenownMemberIds).toEqual([gotrekWarscroll.id])
+    expect(gotrekRegiment.regimentOfRenownUnresolvedMembers).toBeUndefined()
+    // Without a reviewed regiment-only adoption, a plain-text name never claims a datasheet.
+    expect(merged('Lone Band', 'content-group').regimentOfRenownMemberIds).toBeUndefined()
+    expect(merged('Lone Band', 'content-group').regimentOfRenownUnresolvedMembers).toEqual(['Lone Hero'])
+  })
 })

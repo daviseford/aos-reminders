@@ -29,7 +29,11 @@ const SaveArmyModal = ({ closeModal, currentDocument, isOpen, onSaved }: SaveArm
   }, [isOpen, refreshArmies])
 
   const trimmedName = saveName.trim()
-  const existing = armies.find(army => army.document.name.trim().toLowerCase() === trimmedName.toLowerCase())
+  // An army this version cannot read (#2055) is never offered for replacement: replacing it would
+  // overwrite rules a newer version saved with this version's stand-in.
+  const existing = armies.find(
+    army => !army.requiresUpdate && army.document.name.trim().toLowerCase() === trimmedName.toLowerCase()
+  )
 
   const save = async (operation: () => Promise<{ id: string }>) => {
     setIsSaving(true)

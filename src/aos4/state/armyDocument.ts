@@ -1,4 +1,5 @@
 import type { Aos4Catalog, CanonicalId, RulesContextId } from '../domain'
+import { rulesContextId } from '../domain/identity'
 import type { ReminderOccurrenceId } from '../reminders'
 
 export const AOS4_ARMY_DOCUMENT_SCHEMA_VERSION = 1 as const
@@ -504,6 +505,28 @@ export const deserializeAos4ArmyDocument = (
       unknownFields: shape.unknownFields,
     }),
     diagnostics,
+  }
+}
+
+/**
+ * The rules context a document was rejected for, when that is the *only* thing wrong with it: the
+ * document is otherwise well formed and names a canonical `rules-context:<uuid>` this catalog does
+ * not carry. That is what a newer release's ruleset looks like to an older one (#2055), so the
+ * caller should keep the document and ask for an update rather than treat it as corrupt.
+ *
+ * A context id that is not canonical is not something any release writes, so it stays corruption.
+ */
+export const unknownAos4RulesContextId = (
+  diagnostics: readonly Aos4ArmyDocumentDiagnostic[]
+): RulesContextId | undefined => {
+  const errors = diagnostics.filter(diagnostic => diagnostic.severity === 'error')
+  if (errors.length !== 1 || errors[0].code !== 'missing-rules-context') return undefined
+  const subject = errors[0].subject ?? ''
+  const uuid = subject.startsWith('rules-context:') ? subject.slice('rules-context:'.length) : ''
+  try {
+    return rulesContextId(uuid) === subject ? (subject as RulesContextId) : undefined
+  } catch {
+    return undefined
   }
 }
 

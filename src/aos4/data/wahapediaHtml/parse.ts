@@ -268,8 +268,9 @@ const abilityValue = (header: Element, body: Element, line: number) => {
  * A Regiment of Renown datasheet carries no characteristic circle; what defines it is the
  * `•REGIMENT OF RENOWN•` nails header, the INCLUSION block listing the factions whose armies may
  * include the regiment, and the ORGANISATION block linking the member warscrolls the purchase
- * brings. A handful of regiments (single-model bands like Gotrek Gurnisson) publish their
- * organisation as plain text without links; those simply contribute no member links.
+ * brings. A handful of regiments (single-model bands like Gotrek Gurnisson) publish an
+ * organisation line as plain text without a link; that line still names a member, so it is kept
+ * by name with its leading quantity and trailing `unit with N models` stripped (#2047).
  */
 const regimentOfRenownStructure = (datasheet: Element): WahapediaHtmlRegimentOfRenown => {
   const sectionContainer = (label: string): Element | undefined => {
@@ -285,11 +286,22 @@ const regimentOfRenownStructure = (datasheet: Element): WahapediaHtmlRegimentOfR
       ? Array.from(inclusion.querySelectorAll('ul li a')).map(normalizedText).filter(Boolean)
       : [],
     members: organisation
-      ? Array.from(organisation.querySelectorAll('a[href]')).flatMap(link => {
-          const name = normalizedText(link)
-          const href = link.getAttribute('href') ?? ''
-          return name && href.includes('#') ? [{ name, href }] : []
-        })
+      ? [
+          ...Array.from(organisation.querySelectorAll('a[href]')).flatMap(link => {
+            const name = normalizedText(link)
+            const href = link.getAttribute('href') ?? ''
+            return name && href.includes('#') ? [{ name, href }] : []
+          }),
+          ...(Array.from(organisation.querySelectorAll('.wsOrgList li')) as Element[])
+            .filter(line => !line.querySelector('a[href]'))
+            .flatMap(line => {
+              const name = normalizedText(line)
+                .replace(/^\d+(?:-\d+)?\s+/, '')
+                .replace(/\s+units?\s+with\s+\d+\s+models?\.?$/i, '')
+                .trim()
+              return name ? [{ name }] : []
+            }),
+        ]
       : [],
   }
 }
@@ -716,7 +728,7 @@ const regimentVariantKey = (page: WahapediaHtmlWarscrollRecord): string =>
     page.name,
     page.points ?? null,
     [...(page.regimentOfRenown?.inclusionFactionNames ?? [])].sort(),
-    (page.regimentOfRenown?.members ?? []).map(member => `${member.name}|${member.href}`),
+    (page.regimentOfRenown?.members ?? []).map(member => `${member.name}|${member.href ?? ''}`),
     page.abilities.map(ability => [
       ability.name,
       comparableAbilityText(ability.conditionHtml),

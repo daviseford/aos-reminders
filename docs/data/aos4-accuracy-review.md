@@ -12,16 +12,16 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-30b` (issue #2042): General's Handbook 2025-26
-(`Scourge of Ghyran`) as a selectable past season, on top of `aos4-corpus-2026-09-30`. It is a
+The current revision is `aos4-corpus-2026-09-30c` (issue #2042): General's Handbook 2025-26
+(`Scourge of Ghyran`) as a selectable past season, on top of `aos4-corpus-2026-09-30b`. It is a
 review-only revision on the same manifest, `accepted-2026-09-30.json`: the review adds the
 `past-season` rules context and its reviewed `pastSeasonContexts` boundary, scopes the standard and
 Scourge of Ghyran official documents to it, and widens the 16 context overrides that cite a Scourge
 of Ghyran pack. No artifact, source-record checksum, identity, entity, or count changes; only
 rules-context membership does, so the season's 586 entities gain the past season while keeping the
-historical context, and today's standard content joins it too. The Stage 0 source audit, the
-approximation, and the import-fixture effects are in
-[aos4-past-season-2025-26.md](./aos4-past-season-2025-26.md). The new context adds 27
+historical context, and today's standard content joins it too, including the 2026-09-30b Gotrek
+Gurnisson regiment. The Stage 0 source audit, the approximation, and the import-fixture effects are
+in [aos4-past-season-2025-26.md](./aos4-past-season-2025-26.md). The new context adds 27
 faction/context strata and the required `high-risk:context-boundary:past-season` cohort. Its
 automated review is complete:
 
@@ -32,21 +32,66 @@ automated review is complete:
 | Official battle-profile facts | 1,312/1,312 |
 | Final official/secondary reconciliation discrepancies | 631/631 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 20,273/20,273 |
+| Live audit source records | 20,283/20,283 |
 | Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
-| Live review pairs | 42,682/42,682 |
-| Independent outcomes | 85,364 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 42,692/42,692 |
+| Independent outcomes | 85,384 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 156/156 |
 | Populated high-risk cohorts | 21/21 |
 
-The source inventory is a schema 2 inventory of fresh observations taken for this revision on
-2026-09-30: a `discover-official` snapshot observed at 18:03:19Z (166 downloads, 7 explicit
-non-material) and the Wahapedia navigation and exports at 18:03:49Z (87 sources, 0 inaccessible).
+The source inventory is a schema 2 inventory of fresh observations taken for this revision: a
+`discover-official` snapshot observed at 2026-10-01T01:43:46Z (166 downloads, 7 explicit
+non-material) and the Wahapedia navigation and exports at 01:43:56Z (87 sources, 0 inaccessible).
 No BSData observation is bound because no BSData artifact is pinned. Every accepted artifact
 matched, so no newer official publication supersedes the pinned September documents. The
-certification is `aos4-corpus-2026-09-30b-machine-r1` (campaign 18:24:16Z, certified 18:25:00Z).
-Its `--reuse-certification` offer of `aos4-corpus-2026-09-30-machine-r1` reused no pair, because
-the revision re-key invalidates every pair, so all 42,682 pairs were evaluated fresh.
+certification is `aos4-corpus-2026-09-30c-machine-r1` (campaign 01:46:07Z, certified 01:46:40Z).
+Its `--reuse-certification` offer of `aos4-corpus-2026-09-30b-machine-r1` reused no pair, because
+the revision re-key invalidates every pair, so all 42,692 pairs were evaluated fresh.
+
+An earlier `aos4-corpus-2026-09-30b` draft of this change, built on `aos4-corpus-2026-09-30`, was
+never accepted: #2047 took the `2026-09-30b` name first. This revision re-applies the same four
+review inputs (`additionalRulesContexts`, `contextOverrides`, `officialDocuments`, and
+`pastSeasonContexts`) to the accepted 2026-09-30b review and regenerates every product from it.
+
+### `aos4-corpus-2026-09-30b` (superseded)
+
+The `aos4-corpus-2026-09-30b` revision (issue #2047) was a member fix for the Gotrek
+Gurnisson Regiment of Renown on top of `aos4-corpus-2026-09-30`, keeping `accepted-2026-09-30.json`
+and every artifact. A subscriber could not find Gotrek in any army. Official Regiments of Renown
+(September 2025, page 5) prints his warscroll as the regiment's only member, with no faction keyword,
+and Battle Profiles (September 2026, page 60) lists nine inclusion factions. The accepted collection
+pages print that ORGANISATION line as plain text and the native-faction filter dropped the
+warscroll, so the regiment had no member and generation pruned every offer. The adapter now reads
+plain-text members by name, and a reviewed regiment-only adoption keeps the Fyreslayers collection
+copy. The runtime gains exactly the warscroll, its two abilities and one weapon, nine offers, and four
+includes. `aos4-maintenance.md` records the dispositions, including the `Zangrom-az` weapon
+spelling Wahapedia prints where the official page prints `Zangrom-Thaz`.
+`regimentsOfRenown.test.ts` pins the correction. The same intake confirmed a Nighthaunt report
+(#2048) against the September 2026 Rules Updates page 58 erratum, which makes Pyregheists' LIGHT A
+PYRE `Once Per Turn (Army)` with no phase: the accepted data already matches, and
+`nighthauntPyregheistsSeptember2026.test.ts` pins it. Its automated review was complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 631/631 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,283/20,283 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,692/42,692 |
+| Independent outcomes | 85,384 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 129/129 |
+| Populated high-risk cohorts | 20/20 |
+
+The source inventory is a schema 2 inventory of fresh observations taken for this revision on
+2026-09-30: a `discover-official` snapshot at 19:21:27Z (166 downloads, 7 explicit non-material) and
+the Wahapedia navigation and exports at 19:21:45Z (87 sources, 0 inaccessible). No BSData observation
+is bound because no BSData artifact is pinned. Every accepted artifact matched. The certification is
+`aos4-corpus-2026-09-30b-machine-r1` (campaign 19:43:51Z, certified 19:44:45Z). Its
+`--reuse-certification` offer of `aos4-corpus-2026-09-30-machine-r1` reused no pair, because the
+revision re-key invalidates every pair, so all 42,692 pairs were evaluated fresh.
 
 ### `aos4-corpus-2026-09-30` (superseded)
 

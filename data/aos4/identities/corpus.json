@@ -133472,6 +133472,50 @@
       "canonicalId": "content-group:935f3975-9558-5715-9f68-055d47d8afda",
       "kind": "content-group",
       "name": "Urrgar’s Maulerguts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#datasheet:Gotrek-Gurnisson/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:4c80ed84-2b6e-5b2d-b363-5686a079c9a8",
+      "kind": "warscroll",
+      "name": "Gotrek Gurnisson"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#datasheet:Gotrek-Gurnisson/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d5e1f31c-08c8-5a25-8c08-831f1266b103",
+      "kind": "ability",
+      "name": "UNSTOPPABLE BATTLE FURY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#datasheet:Gotrek-Gurnisson/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3230b095-757a-5f72-9bf7-7c8be48e7406",
+      "kind": "ability",
+      "name": "‘I’LL GET THERE MYSELF!’"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#datasheet:Gotrek-Gurnisson/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:7261215f-96f2-53d8-9f61-f6382307d84b",
+      "kind": "weapon",
+      "name": "Zangrom-az"
     }
   ],
   "schemaVersion": 1

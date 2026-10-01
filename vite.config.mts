@@ -90,8 +90,9 @@ const enforceInitialEntryChunkBudget = (): Plugin => ({
 /*
  * Workbox's generated message handler accepts the generic `SKIP_WAITING` token. The CRA worker
  * currently controlling production tabs posts that token automatically when it sees an update,
- * which would bypass this release's user-facing prompt. Replace the generated handler's one token
- * with this app generation's private protocol, and fail closed if Workbox ever changes its output.
+ * which would activate it without this release's "Installing updates" modal ever showing. Replace
+ * the generated handler's one token with this app generation's private protocol, and fail closed if
+ * Workbox ever changes its output.
  */
 const privatizeServiceWorkerActivation = (): Plugin => {
   let workerPath = path.resolve('dist/service-worker.js')
@@ -315,9 +316,10 @@ export default defineConfig({
     VitePWA({
       strategies: 'generateSW',
       /*
-       * `prompt`, not `autoUpdate`: autoUpdate reloads the page under the user mid-session, which is
-       * wrong for an app people read during a game turn. The app already owns the update channel
-       * (`hasNewContent` in context/useAppStatus) — src/bootstrap/registerServiceWorker.ts feeds it.
+       * `prompt`, not `autoUpdate`: autoUpdate reloads the page under the user with no explanation
+       * (#1886, reverted in #1926). Updates still install without a click (#2046), but the app owns
+       * the trigger: `hasNewContent` in context/useAppStatus opens the "Installing updates" modal, and
+       * the modal starts activation once it is on screen. src/bootstrap/registerServiceWorker.ts feeds it.
        */
       registerType: 'prompt',
       /*
@@ -333,7 +335,7 @@ export default defineConfig({
       workbox: {
         globIgnores: [CATALOG_CHUNK_GLOB, ...NON_APP_PRECACHE_GLOBS],
         importScripts: serviceWorkerExtrasImports,
-        // The worker still waits for an explicit SKIP_WAITING message. Once accepted, claim every
+        // The worker still waits for the private activation message. Once it arrives, claim every
         // controlled tab so each reloads onto the same build whose old caches activation prunes.
         clientsClaim: true,
         runtimeCaching: [
