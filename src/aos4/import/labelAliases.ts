@@ -66,6 +66,30 @@ export const IMPORT_LABEL_ALIASES: ImportLabelAlias[] = [
       'updated) still say "Ogor Gluttons". Same unit, same canonical warscroll identity (issue #1880).',
   },
   {
+    from: 'Ruthless Overseer',
+    to: 'Ruthless Oversser',
+    reason:
+      'Catalog defect (#2029): the generated Taar’s Grand Forgehost heroic trait carries a ' +
+      'dropped-letter misspelling ("OVERSSER"). The official app spells it correctly, so the ' +
+      'correct spelling matches nothing. Remove once the upstream source is corrected.',
+  },
+  {
+    from: 'Hobgrotz Vandalz',
+    to: 'Hobgrot Vandalz',
+    reason:
+      'Provider divergence (#2035): the official app pluralises both words of the Helsmiths ' +
+      'warscroll, while the warscroll and its battle profile are titled "Hobgrot Vandalz". No ' +
+      'other Hobgrot unit is offered alongside it, so the pair cannot be confused.',
+  },
+  {
+    from: 'The Beast of Castle Sterneiste',
+    to: 'The Beast of Castle Sternieste',
+    reason:
+      'Provider divergence (#2036): Sigdex transposes the "ie" in the Regiment of Renown’s castle ' +
+      '("Sterneiste"). The regiment is The Beast of Castle Sternieste in the official Regiments of ' +
+      'Renown and in the catalog.',
+  },
+  {
     from: 'Kurnoth Hunters with Kurnoth Greatswords',
     to: 'Kurnoth Hunters with Greatswords',
     reason:
