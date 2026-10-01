@@ -13,8 +13,9 @@ full automated gate.
 ## Current campaign
 
 The current revision is `aos4-corpus-2026-10-01` (issue #2060): the September 2026 Rules Updates
-errata the corpus still shipped in an earlier form, on top of `aos4-corpus-2026-09-30b`, keeping
-`accepted-2026-09-30.json` and every artifact. The owner directed that the errata are what the app
+errata the corpus still shipped in an earlier form, on top of `aos4-corpus-2026-09-30c` (the
+General's Handbook 2025-26 past season, #2042), keeping `accepted-2026-09-30.json` and every
+artifact. The owner directed that the errata are what the app
 shows, and ruled that the page 58 Summon Shyish Reaper and page 70 Summon Unholy Reliquary errata
 apply to every copy, Army of Renown copies included. A systematic pass compared all 562 erratum
 and addendum entries on pages 2-77 of the pinned Rules Updates (SHA-256 `03f602f2…`, re-downloaded
@@ -32,7 +33,9 @@ text. Dirty Tricks stays on its shipped text: page 61 removes "the first sentenc
 first sentence is the one the mechanic needs, and no accepted or discoverable official document
 reprints the battle trait, so it remains a documented blocker on #2060. The runtime delta is
 exactly 41 abilities, 2 warscrolls, and 1 weapon, plus the Rules Updates publication's provenance;
-no identity, relationship, offer, or reconciliation decision moves. `aos4-maintenance.md` records
+no identity, relationship, offer, rules-context membership, or reconciliation decision moves. The
+2025-26 Sacred Rites chanting value (page 22) is now visible in the past season #2042 added, and
+that reminder also cites the erratum. `aos4-maintenance.md` records
 the scope and the open items.
 
 The reviewed vocabulary grew to carry it, each part fail-closed when a source catches up: an
@@ -40,9 +43,11 @@ ability override may carry a `name` (display text only, identity unchanged) and 
 removes it), and a warscroll keyword override may `add`. The machine review certifies a renamed
 ability only when the official page prints the name as an ability heading, a cost only when the
 page instructs that exact change for that ability, an added keyword only when the page instructs
-the addition, a text override whose departures from the secondary text are all printed by the
-official evidence (a phrase edit inside a sentence), and a deletion only when the official
-evidence prints every changed field whole. Override evidence excerpts also look for the rule's
+the addition, a text override whose departures from the secondary text are each printed by the
+official evidence together with the unchanged words beside them (a phrase edit inside a sentence:
+a window of at least four consecutive words around each change must read contiguously in the
+official text, so a distance, `not`, or `friendly` printed elsewhere on the page does not count),
+and a deletion only when the official evidence prints every changed field whole. Override evidence excerpts also look for the rule's
 name without a possessive (`Whirlpool Fury` for WHIRLPOOL'S FURY) and for the keywords an override
 changes, because an erratum may name no unit at all. `septemberRulesUpdatesErrata2026.test.ts`
 pins every corrected value. Its automated review is complete:
@@ -58,20 +63,70 @@ pins every corrected value. Its automated review is complete:
 | Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
 | Live review pairs | 42,707/42,707 |
 | Independent outcomes | 85,414 pass; 0 finding; 0 cannot-verify |
-| Supported faction/context strata | 129/129 |
+| Supported faction/context strata | 156/156 |
+| Populated high-risk cohorts | 22/22 |
+
+The 22nd high-risk cohort is `official-warscrollKeywordOverrides`, populated for the first time by
+the Hedkrakka's Madmob and Rotmire Creed keyword corrections; the strata and the
+`high-risk:context-boundary:past-season` cohort come from the 2026-09-30c past season. The source
+inventory is a schema 2 inventory of fresh observations taken for this revision after it was
+rebuilt on 2026-09-30c: a `discover-official` snapshot observed at 2026-10-01T17:57:22Z (166
+downloads, 7 explicit non-material) and the Wahapedia navigation and exports at 17:57:36Z (87
+sources, 0 inaccessible). No BSData observation is bound because no BSData artifact is pinned.
+Every accepted artifact matched, so no newer official publication supersedes the pinned September
+documents. The certification is `aos4-corpus-2026-10-01-machine-r3` (campaign 18:17:25Z,
+certified 18:19:04Z), a full campaign with no reuse offer: all 42,707 pairs were evaluated fresh
+under the anchored phrase-edit check. `machine-r1` and `machine-r2` certified this revision on top of
+`aos4-corpus-2026-09-30b`, before #2042 merged; neither reached `master`, and both were retired.
+
+### `aos4-corpus-2026-09-30c` (superseded)
+
+The `aos4-corpus-2026-09-30c` revision (issue #2042) added General's Handbook 2025-26
+(`Scourge of Ghyran`) as a selectable past season, on top of `aos4-corpus-2026-09-30b`. It is a
+review-only revision on the same manifest, `accepted-2026-09-30.json`: the review adds the
+`past-season` rules context and its reviewed `pastSeasonContexts` boundary, scopes the standard and
+Scourge of Ghyran official documents to it, and widens the 16 context overrides that cite a Scourge
+of Ghyran pack. No artifact, source-record checksum, identity, entity, or count changes; only
+rules-context membership does, so the season's 586 entities gain the past season while keeping the
+historical context, and today's standard content joins it too, including the 2026-09-30b Gotrek
+Gurnisson regiment. The Stage 0 source audit, the approximation, and the import-fixture effects are
+in [aos4-past-season-2025-26.md](./aos4-past-season-2025-26.md). The new context adds 27
+faction/context strata and the required `high-risk:context-boundary:past-season` cohort. Its
+automated review was complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 631/631 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,283/20,283 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,692/42,692 |
+| Independent outcomes | 85,384 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 156/156 |
 | Populated high-risk cohorts | 21/21 |
 
-The 21st high-risk cohort is `official-warscrollKeywordOverrides`, populated for the first time by
-the Hedkrakka's Madmob and Rotmire Creed keyword corrections. The source inventory is a schema 2
-inventory of fresh observations taken for this revision on 2026-10-01: a `discover-official`
-snapshot observed at 16:35:43Z (166 downloads, 7 explicit non-material) and the Wahapedia
-navigation and exports at 16:35:54Z (87 sources, 0 inaccessible). Every accepted artifact matched,
-so no newer official publication supersedes the pinned September documents. The certification is
-`aos4-corpus-2026-10-01-machine-r2` (campaign 16:45:56Z, certified 16:46:23Z). Its
-`--reuse-certification` offer of `aos4-corpus-2026-09-30b-machine-r1` reused no pair, because the
-revision re-key invalidates every pair, so all 42,707 pairs were evaluated fresh. `machine-r1`
-certified this revision before the owner's Summon Unholy Reliquary and Arcane Vassal rulings were
-added to the unshipped review; it never reached `master`, and the pruner retired it.
+The source inventory is a schema 2 inventory of fresh observations taken for this revision: a
+`discover-official` snapshot observed at 2026-10-01T01:43:46Z (166 downloads, 7 explicit
+non-material) and the Wahapedia navigation and exports at 01:43:56Z (87 sources, 0 inaccessible).
+No BSData observation is bound because no BSData artifact is pinned. Every accepted artifact
+matched, so no newer official publication supersedes the pinned September documents. The
+certification is `aos4-corpus-2026-09-30c-machine-r2`, a re-campaign of the same revision after a
+generator fix reached the past season's own copy of the core rules' commands, spells, prayers, and
+terrain sections (17 edges scoped to the past season; no entity changed). It binds the same schema 2
+inventory as `machine-r1`, byte for byte. Its `--reuse-certification` offer of `machine-r1` reused
+42,658 unchanged pairs and evaluated 34 fresh (campaign 15:15:37Z, certified 15:16:10Z), with 0
+findings and 0 cannot-verify. Its reuse overlay references `machine-r1`, so that directory stays in
+the live chain. `machine-r1` (campaign 01:46:07Z, certified 01:46:40Z) evaluated all 42,692 pairs
+fresh against the `aos4-corpus-2026-09-30b-machine-r1` offer, because the revision re-key
+invalidates every pair.
+
+An earlier `aos4-corpus-2026-09-30b` draft of this change, built on `aos4-corpus-2026-09-30`, was
+never accepted: #2047 took the `2026-09-30b` name first. This revision re-applies the same four
+review inputs (`additionalRulesContexts`, `contextOverrides`, `officialDocuments`, and
+`pastSeasonContexts`) to the accepted 2026-09-30b review and regenerates every product from it.
 
 ### `aos4-corpus-2026-09-30b` (superseded)
 
@@ -89,7 +144,7 @@ spelling Wahapedia prints where the official page prints `Zangrom-Thaz`.
 `regimentsOfRenown.test.ts` pins the correction. The same intake confirmed a Nighthaunt report
 (#2048) against the September 2026 Rules Updates page 58 erratum, which makes Pyregheists' LIGHT A
 PYRE `Once Per Turn (Army)` with no phase: the accepted data already matches, and
-`nighthauntPyregheistsSeptember2026.test.ts` pins it. Its automated review is complete:
+`nighthauntPyregheistsSeptember2026.test.ts` pins it. Its automated review was complete:
 
 | Measure | Result |
 | --- | ---: |
@@ -504,7 +559,7 @@ of demanding a generated entity.
 the machine-verified beta standard. Any bound corpus or evidence change must pass a new campaign
 before accepted generation or CI proceeds.
 
-The 129 faction/context strata are the combinations declared by each faction's catalog
+The 156 faction/context strata are the combinations declared by each faction's catalog
 applicability, not a Cartesian product. A stratum counts as reviewed only when every live packet
 assigned to it passes.
 

@@ -55,9 +55,12 @@ This is an Age of Sigmar fourth-edition codebase:
   Stumblefoot Gargant, which the September 2026 Battle Profiles prints `DELETED`, is historical
   content: every one of its 25 inclusion factions still offers it, but only through the historical
   overlay, which the builder shows every army under its `Scourge of Ghyran (2025-26)` header
-  (#1757, #1812)
-- current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
-  historical rules contexts isolate parallel and retired records; the browser defaults to the
+  (`Retired since 2025-26` in a 2025-26 past-season army) (#1757, #1812)
+- current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), the General's Handbook 2025-26
+  past season (`Scourge of Ghyran`, #2042), Spearhead, Legends, and historical rules contexts
+  isolate parallel and retired records; the past season pairs that season's battlepack content (also
+  kept historical) with today's warscrolls, battletomes, and points, and says so wherever it is
+  offered (`docs/data/aos4-past-season-2025-26.md`); the browser defaults to the
   current 2026-27 seasonal context
 - strict generation consumes every live record and separately dispositions 20,458 superseded
   records (the May 2026 bulk warscroll/faction-rule rows and the seventeen index-era Ogor
@@ -78,7 +81,8 @@ This is an Age of Sigmar fourth-edition codebase:
   Dirty Tricks (p61) stays a documented blocker until citeable official text settles it; ability
   overrides may also carry a reviewed `name` and `cost`,
   warscroll keyword overrides may `add`, and the machine review certifies phrase edits whose new
-  words the official page prints and deletions the official page prints whole
+  words the official page prints beside the unchanged words around them, and deletions the
+  official page prints whole
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
 

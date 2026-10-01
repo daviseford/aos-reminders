@@ -8,6 +8,8 @@ import {
 } from '../../aos4/runtime'
 import {
   deserializeAos4ArmyDocument,
+  moveAos4ToStandardRulesContext,
+  serializeAos4ArmyDocument,
   toWireAos4ArmyDocument,
   unknownAos4RulesContextId,
 } from '../../aos4/state'
@@ -20,9 +22,9 @@ import { describe, expect, it, vi } from 'vitest'
  * resets exactly as before.
  */
 
-// The id the General's Handbook 2025-26 past season takes in #2042: canonical, and not in this
-// release's catalog.
-const FUTURE_CONTEXT_ID = 'rules-context:90000000-0000-4000-8000-000000000005'
+// Canonical, and not in this release's catalog. It stands in for whatever a newer release adds; the
+// General's Handbook 2025-26 past season (#2042) took the `…0005` id this file first used.
+const FUTURE_CONTEXT_ID = 'rules-context:90000000-0000-4000-8000-00000000ffff'
 
 const knownDocument = { ...createDefaultAos4ArmyDocument(), id: 'army:known', name: 'Known Army' }
 const futureWire = {
@@ -258,5 +260,115 @@ describe('a rules context this release does not carry', () => {
         createArmyApi('https://army.example', missing).getShare('abcdefghijklmnopqrstuvwx')
       ).rejects.toMatchObject({ status: 404, message: 'Shared army not found.' })
     })
+  })
+})
+
+/*
+ * The General's Handbook 2025-26 past season (#2042) ships after this handling (#2055). This release
+ * carries it, so a 2025-26 army must store, list, save, and share like any other, while an army
+ * from a release newer still keeps the update-required treatment right beside it.
+ */
+describe('the 2025-26 past season beside a context this release lacks', () => {
+  const pastSeason = AOS4_CATALOG.rulesContexts.find(context => context.status === 'past-season')
+  if (!pastSeason) throw new Error('No past-season context')
+  const pastSeasonDocument = moveAos4ToStandardRulesContext(
+    AOS4_CATALOG,
+    { ...knownDocument, id: 'army:past-season', name: 'Past Season Army' },
+    pastSeason.id
+  )
+  const pastSeasonWire = toWireAos4ArmyDocument(pastSeasonDocument)
+  // The service echoes the document it stored, so the client parses back exactly what it sent.
+  const echo = (extra: Record<string, unknown>) =>
+    vi
+      .fn()
+      .mockImplementation(async (_url: string, init: RequestInit) =>
+        jsonResponse({ ...extra, document: JSON.parse(init.body as string).document })
+      )
+
+  it('is the General’s Handbook 2025-26, carried by this release', () => {
+    expect(pastSeason).toMatchObject({
+      id: 'rules-context:90000000-0000-4000-8000-000000000005',
+      season: '2025-26',
+    })
+    expect(pastSeasonDocument.rulesContextId).toBe(pastSeason.id)
+    expect(
+      unknownAos4RulesContextId(
+        deserializeAos4ArmyDocument(JSON.stringify(pastSeasonWire), AOS4_CATALOG).diagnostics
+      )
+    ).toBe(undefined)
+  })
+
+  it('reloads from this device in the past season, not as an army that needs an update', () => {
+    const storage = new MemoryStorage()
+    saveAos4ArmyDocument(storage, pastSeasonDocument)
+    const stored = storage.getItem(AOS4_ARMY_STORAGE_KEY)
+
+    const result = loadAos4ArmyDocument(storage, AOS4_CATALOG)
+
+    expect(result.source).toBe('storage')
+    expect(result.unknownRulesContextId).toBeUndefined()
+    expect(result.document).toEqual(pastSeasonDocument)
+    expect(storage.getItem(AOS4_ARMY_STORAGE_KEY)).toBe(stored)
+    expect(stored).toBe(serializeAos4ArmyDocument(pastSeasonDocument))
+  })
+
+  it('still leaves a newer release’s army untouched on the same device', () => {
+    const storage = new MemoryStorage()
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, futureSerialized)
+
+    expect(loadAos4ArmyDocument(storage, AOS4_CATALOG)).toMatchObject({
+      source: 'requires-update',
+      unknownRulesContextId: FUTURE_CONTEXT_ID,
+    })
+    expect(storage.getItem(AOS4_ARMY_STORAGE_KEY)).toBe(futureSerialized)
+  })
+
+  it('lists as a readable cloud army while only the newer release’s army is marked', async () => {
+    const fetcher = vi.fn().mockResolvedValue(
+      jsonResponse(
+        [pastSeasonWire, futureWire, knownDocument].map((document, index) => ({
+          id: `cloud-${index}`,
+          createdAt: 1,
+          updatedAt: 2,
+          document,
+        }))
+      )
+    )
+
+    const armies = await createArmyApi('https://army.example', fetcher).listArmies('token')
+
+    expect(armies).toHaveLength(3)
+    expect(armies[0]).toEqual({ id: 'cloud-0', createdAt: 1, updatedAt: 2, document: pastSeasonDocument })
+    expect(armies[0].requiresUpdate).toBeUndefined()
+    expect(armies[1].requiresUpdate).toEqual({ rulesContextId: FUTURE_CONTEXT_ID })
+    expect(armies[2].requiresUpdate).toBeUndefined()
+  })
+
+  it('saves, updates, and reloads from the cloud in the past season', async () => {
+    const api = createArmyApi('https://army.example', echo({ id: 'cloud-past', createdAt: 1, updatedAt: 2 }))
+
+    const created = await api.createArmy(pastSeasonDocument, 'token')
+    const updated = await api.updateArmy('cloud-past', pastSeasonDocument, 'token')
+
+    expect(created.document).toEqual(pastSeasonDocument)
+    expect(updated.document).toEqual(pastSeasonDocument)
+  })
+
+  it('shares and opens in the past season', async () => {
+    const shared = await createArmyApi(
+      'https://army.example',
+      echo({ id: 'abcdefghijklmnopqrstuvwx', createdAt: 1, url: 'https://aosreminders.com/?share=x' })
+    ).createShare(pastSeasonDocument, 'token')
+    const opened = await createArmyApi(
+      'https://army.example',
+      vi
+        .fn()
+        .mockResolvedValue(
+          jsonResponse({ id: 'abcdefghijklmnopqrstuvwx', createdAt: 1, document: pastSeasonWire })
+        )
+    ).getShare('abcdefghijklmnopqrstuvwx')
+
+    expect(shared.document).toEqual(pastSeasonDocument)
+    expect(opened.document).toEqual(pastSeasonDocument)
   })
 })

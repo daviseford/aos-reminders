@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { Header } from 'components/page/homeHeader'
+import { Header, type Aos4RulesSeasonBinding } from 'components/page/homeHeader'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
@@ -9,7 +9,7 @@ import { MemoryRouter } from 'react-router'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { MemoryStorage } from 'tests/support/memoryStorage'
-import type { CanonicalId } from '../../aos4/domain'
+import type { CanonicalId, RulesContextId } from '../../aos4/domain'
 
 /*
  * The masthead's two selects, rendered on their own so their states can be driven directly.
@@ -62,8 +62,8 @@ describe('the masthead selects', () => {
                   onArmyOfRenownChange={vi.fn()}
                   onFactionChange={vi.fn()}
                   onToggleGameMode={vi.fn()}
-                  onToggleSeasonalRules={vi.fn()}
-                  seasonalRulesChecked={null}
+                  onRulesSeasonChange={vi.fn()}
+                  rulesSeason={null}
                   {...props}
                 />
               </MemoryRouter>
@@ -135,58 +135,119 @@ describe('the masthead selects', () => {
   })
 
   /*
-   * The seasonal rules switch (issue #1994) renders only when the catalog-bound half has told the
-   * masthead which standard context the document sits in. `null` covers both silences — the
-   * catalog still pending, and a document living outside the two standard contexts (Spearhead, a
-   * Legends-moved import) that the switch cannot speak for — and both hide the row rather than
-   * showing a knob position that would lie.
+   * The rules-season select (issues #1994 and #2042) renders only when the catalog-bound half has
+   * told the masthead which standard season the document sits in. `null` covers both silences (the
+   * catalog still pending, and a document outside the standard seasons such as Spearhead or a
+   * Legends-moved import), and both hide the row rather than showing a value that would lie.
    */
-  it('renders no seasonal rules switch when no state is published', async () => {
+  const SITTING = 'rules-context:test-seasonal' as RulesContextId
+  const PAST = 'rules-context:test-past-season' as RulesContextId
+  const CURRENT = 'rules-context:test-current' as RulesContextId
+  const rulesSeason = (
+    value: RulesContextId,
+    pastSeason: Aos4RulesSeasonBinding['pastSeason'] = null
+  ): Aos4RulesSeasonBinding => ({
+    options: [
+      { label: 'General’s Handbook 2026-27 (current season)', value: SITTING },
+      { label: 'General’s Handbook 2025-26 (past season)', value: PAST },
+      { label: 'None: battletome and core rules only', value: CURRENT },
+    ],
+    value,
+    pastSeason,
+  })
+
+  const seasonInput = () => container.querySelector<HTMLInputElement>('input[aria-label="Seasonal rules"]')
+
+  const pressKey = async (key: string) => {
+    await act(async () => {
+      seasonInput()!.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }))
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+  }
+
+  it('renders no rules-season select when no state is published', async () => {
     await renderHeader({})
 
-    expect(container.querySelector('#seasonal-rules-switch')).toBeNull()
+    expect(seasonInput()).toBeNull()
     expect(container.textContent).not.toContain('Seasonal rules')
   })
 
-  it('renders a labeled, keyboard-operable seasonal rules switch that reflects and reports its state', async () => {
-    const onToggleSeasonalRules = vi.fn()
-    await renderHeader({ seasonalRulesChecked: true, onToggleSeasonalRules })
+  it('replaces the old switch and past-season link with one labeled select', async () => {
+    await renderHeader({ rulesSeason: rulesSeason(SITTING) })
 
-    const input = container.querySelector<HTMLInputElement>('#seasonal-rules-switch')
-    expect(input).not.toBeNull()
-    // react-switch renders a real checkbox input, so it is focusable and space-togglable; the
-    // accessible name and checked state are what a screen reader announces.
-    expect(input!.getAttribute('aria-label')).toBe('Seasonal rules')
-    expect(input!.checked).toBe(true)
-    expect(container.textContent).toContain('Seasonal rules')
-
-    await act(async () => {
-      input!.click()
-      await new Promise(resolve => setTimeout(resolve, 0))
-    })
-    expect(onToggleSeasonalRules).toHaveBeenCalledTimes(1)
-  })
-
-  it('shows the seasonal rules switch unchecked when the seasonal rules are off', async () => {
-    await renderHeader({ seasonalRulesChecked: false })
-
-    expect(container.querySelector<HTMLInputElement>('#seasonal-rules-switch')!.checked).toBe(false)
-  })
-
-  it('hides the seasonal rules switch in play mode, with the other army-configuration controls', async () => {
-    await renderHeader({ seasonalRulesChecked: true, isGameMode: true })
-
+    expect(seasonInput()).not.toBeNull()
+    expect(container.textContent).toContain('Seasonal rules:')
+    expect(container.textContent).toContain('General’s Handbook 2026-27 (current season)')
     expect(container.querySelector('#seasonal-rules-switch')).toBeNull()
+    expect(container.textContent).not.toContain('Use a past season')
+  })
+
+  it.each([
+    [SITTING, 'General’s Handbook 2026-27 (current season)'],
+    [PAST, 'General’s Handbook 2025-26 (past season)'],
+    [CURRENT, 'None: battletome and core rules only'],
+  ])('shows the document’s own season (%s)', async (value, label) => {
+    await renderHeader({ rulesSeason: rulesSeason(value) })
+
+    // The season row is the masthead's last select, below the faction.
+    const values = Array.from(container.querySelectorAll('[class*="singleValue"]'))
+    expect(values.at(-1)?.textContent).toBe(label)
   })
 
   /*
-   * The label alone does not say what toggling does, so the row carries an info control whose
-   * tooltip explains the two positions. It lives and dies with the switch row, and focusing it —
-   * the keyboard path, since the toggle labels are deliberately not focusable — shows the
+   * Keyboard path: the select is focusable through its input, arrow keys open and move through the
+   * options a screen reader announces, and Enter reports the pick by context id.
+   */
+  it('lists every season and reports a keyboard pick by context id', async () => {
+    const onRulesSeasonChange = vi.fn()
+    await renderHeader({ rulesSeason: rulesSeason(SITTING), onRulesSeasonChange })
+
+    await pressKey('ArrowDown')
+    const offered = Array.from(container.querySelectorAll('[role="option"]')).map(option =>
+      option.textContent?.trim()
+    )
+    expect(offered).toEqual([
+      'General’s Handbook 2026-27 (current season)',
+      'General’s Handbook 2025-26 (past season)',
+      'None: battletome and core rules only',
+    ])
+
+    await pressKey('ArrowDown')
+    await pressKey('Enter')
+    expect(onRulesSeasonChange).toHaveBeenCalledTimes(1)
+    expect(onRulesSeasonChange).toHaveBeenCalledWith(PAST)
+  })
+
+  it('carries a past season’s caveat in edit and play mode', async () => {
+    const pastSeason = { label: 'General’s Handbook 2025-26', caveat: 'A past season. Test caveat.' }
+
+    await renderHeader({ rulesSeason: rulesSeason(PAST, pastSeason) })
+    expect(container.querySelector('[data-testid="past-season-notice"]')?.textContent).toContain(
+      'Test caveat.'
+    )
+
+    act(() => {
+      unmountComponentAtNode(container)
+    })
+    await renderHeader({ rulesSeason: rulesSeason(PAST, pastSeason), isGameMode: true })
+    const notice = container.querySelector('[data-testid="past-season-notice"]')
+    expect(notice?.textContent).toContain('General’s Handbook 2025-26 (past season)')
+    expect(notice?.textContent).toContain('Test caveat.')
+  })
+
+  it('hides the rules-season select in play mode, with the other army-configuration controls', async () => {
+    await renderHeader({ rulesSeason: rulesSeason(SITTING), isGameMode: true })
+
+    expect(seasonInput()).toBeNull()
+  })
+
+  /*
+   * The options name the handbooks, not what a season adds, so the row carries an info control whose
+   * tooltip explains the choice. It lives and dies with the select, and focusing it shows the
    * explanation.
    */
-  it('offers a focusable explanation of the seasonal rules switch', async () => {
-    await renderHeader({ seasonalRulesChecked: true })
+  it('offers a focusable explanation of the seasonal rules choice', async () => {
+    await renderHeader({ rulesSeason: rulesSeason(SITTING) })
 
     const info = container.querySelector<HTMLButtonElement>('button[aria-label="What are seasonal rules?"]')
     expect(info).not.toBeNull()
@@ -202,7 +263,7 @@ describe('the masthead selects', () => {
     expect(tooltip!.textContent).toContain('battletome and core rules only')
   })
 
-  it('hides the seasonal rules explanation when the switch is hidden', async () => {
+  it('hides the seasonal rules explanation when the select is hidden', async () => {
     await renderHeader({})
 
     expect(container.querySelector('button[aria-label="What are seasonal rules?"]')).toBeNull()

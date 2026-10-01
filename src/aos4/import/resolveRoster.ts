@@ -46,7 +46,31 @@ export interface ResolveParsedRosterOptions {
   createDocumentId: () => string
 }
 
-const IMPORTABLE_CONTEXT_STATUSES = new Set<RulesContext['status']>(['current', 'seasonal', 'legends'])
+/**
+ * The rules contexts a roster may land in. The aggregate historical boundary is never an import
+ * target; historical content is reached through the overlay instead.
+ */
+const IMPORTABLE_CONTEXT_STATUSES = new Set<RulesContext['status']>([
+  'current',
+  'seasonal',
+  'past-season',
+  'legends',
+])
+
+/**
+ * Importable contexts in the order the import preview offers them: by name, as the preview always
+ * has, with past seasons (#2042) after the rest, newest first, so the ruleset a player is least
+ * likely to want never sits among the everyday ones.
+ */
+export const importableRulesContexts = (catalog: Aos4Catalog): RulesContext[] =>
+  catalog.rulesContexts
+    .filter(context => IMPORTABLE_CONTEXT_STATUSES.has(context.status))
+    .sort(
+      (left, right) =>
+        Number(left.status === 'past-season') - Number(right.status === 'past-season') ||
+        (right.status === 'past-season' ? (right.season ?? '').localeCompare(left.season ?? '') : 0) ||
+        left.name.localeCompare(right.name)
+    )
 const REACHABLE_RELATIONSHIP_KINDS = new Set<ContentRelationship['kind']>(['offers', 'includes', 'requires'])
 
 const sortDiagnostics = (diagnostics: Aos4ImportDiagnostic[]): Aos4ImportDiagnostic[] =>
@@ -164,7 +188,13 @@ const resolveRulesContext = (
   diagnostics: Aos4ImportDiagnostic[]
 ): RulesContextResolution | undefined => {
   const declared = findDeclaredRulesContext(catalog, parsedRoster.declaredContext)
-  if (declared) return { context: declared, allowsHistorical: false }
+  /**
+   * A past season is itself lapsed, so the historical overlay stays on for it (#2042): its own
+   * battlepack content resolves natively first, while picks retired only after the season ended —
+   * Stumblefoot Gargant, which the September 2026 Battle Profiles deletes — still resolve where
+   * they live, exactly as they did when such rosters fell back to the sitting season.
+   */
+  if (declared) return { context: declared, allowsHistorical: declared.status === 'past-season' }
 
   /**
    * A missing or unrecognised battlepack falls back rather than failing.
@@ -319,6 +349,8 @@ const alternativeContextForFaction = (
     context =>
       context.id !== currentContextId &&
       IMPORTABLE_CONTEXT_STATUSES.has(context.status) &&
+      // A past season is chosen, never inferred: it holds no faction the standard seasons lack.
+      context.status !== 'past-season' &&
       findFactions(armies, label, context.id).length === 1
   )
   return candidates.length === 1 ? candidates[0] : undefined
@@ -596,7 +628,7 @@ const resolveRosterSelection = (
     const qualifiers = contextQualifiers(context)
     const attempts = [
       selection.label,
-      aliasedImportLabel(selection.label),
+      aliasedImportLabel(selection.label, context),
       prefixContextQualifier(selection.label, context, qualifiers),
       stripContextQualifier(selection.label, qualifiers),
     ].filter((label): label is string => Boolean(label))
@@ -701,11 +733,34 @@ const resolveRosterSelection = (
     return { contextCandidates: primary.length ? primary : regiments, candidates: [] }
   }
 
-  const ambiguous = (): undefined => {
+  /**
+   * An enhancement two same-named tables both print is named with its tables (#2042).
+   *
+   * The builder offers enhancement *tables*, not single traits, so "add it by hand" only helps when
+   * the player can tell which tables to look in. A General's Handbook 2025-26 Lumineth list naming
+   * "Flawless Commander" could mean the battletome's Facets of Brilliance or the season's Aspects of
+   * Enlightenment, whose rules differ; the roster does not say, so the choice is left to the player.
+   */
+  const offeringTableNames = (candidates: ContentEntity[]): string[] => {
+    if (!candidates.every(candidate => candidate.kind === 'ability')) return []
+    const ids = new Set<CanonicalId>(candidates.map(candidate => candidate.id))
+    const names = catalog.relationships.flatMap(relationship => {
+      if (relationship.kind !== 'includes' || !ids.has(relationship.to)) return []
+      const parent = catalog.entities.find(entity => entity.id === relationship.from)
+      return parent?.kind === 'content-group' ? [parent.name] : []
+    })
+    return Array.from(new Set(names)).sort((left, right) => left.localeCompare(right))
+  }
+  const ambiguous = (candidates: ContentEntity[]): undefined => {
+    const tables = offeringTableNames(candidates)
     diagnostics.push({
       code: 'ambiguous-selection',
       severity: 'warning',
-      message: `"${selection.label}" matches more than one ${selection.kindHint}, so it was not imported. Add it by hand to be sure of the right one.`,
+      message:
+        `"${selection.label}" matches more than one ${selection.kindHint}, so it was not imported. Add it by hand to be sure of the right one.` +
+        (tables.length > 1
+          ? ` It appears in the ${tables.slice(0, -1).join(', ')} and ${tables.at(-1)} tables, which have different rules; pick the table your list used.`
+          : ''),
       line: selection.line,
     })
     return undefined
@@ -720,7 +775,7 @@ const resolveRosterSelection = (
 
   for (const { candidates } of perContext) {
     if (candidates.length === 1) return matched(candidates[0])
-    if (candidates.length > 1) return ambiguous()
+    if (candidates.length > 1) return ambiguous(candidates)
   }
   const known = perContext.some(({ contextCandidates }) => contextCandidates.length > 0)
 
@@ -741,7 +796,7 @@ const resolveRosterSelection = (
   if (selection.isRegimentOfRenown && selection.kindHint !== 'regiment-of-renown' && known) {
     for (const { contextCandidates } of perContext) {
       if (contextCandidates.length === 1) return matched(contextCandidates[0])
-      if (contextCandidates.length > 1) return ambiguous()
+      if (contextCandidates.length > 1) return ambiguous(contextCandidates)
     }
   }
 

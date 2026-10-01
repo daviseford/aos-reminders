@@ -73,7 +73,7 @@ vi.mock('react-router', async () => {
   return { ...actual, useNavigate: () => vi.fn() }
 })
 
-const FUTURE_CONTEXT_ID = 'rules-context:90000000-0000-4000-8000-000000000005'
+const FUTURE_CONTEXT_ID = 'rules-context:90000000-0000-4000-8000-00000000ffff'
 const LINK_KEY = 'aos-reminders:aos4:cloud-army-link:v1'
 const LINKED_ID = 'cloud-linked-1'
 
@@ -81,7 +81,7 @@ const futureSerialized = JSON.stringify({
   ...toWireAos4ArmyDocument({
     ...createDefaultAos4ArmyDocument(),
     id: 'army:future',
-    name: 'Past Season List',
+    name: 'Newer Release List',
   }),
   rulesContextId: FUTURE_CONTEXT_ID,
 })
@@ -187,7 +187,7 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
 
   it('neither uses nor clears the cloud link that describes the stored army', async () => {
     window.localStorage.setItem(AOS4_ARMY_STORAGE_KEY, futureSerialized)
-    writeCloudArmyLink({ id: LINKED_ID, name: 'Past Season List', savedSignature: futureSerialized })
+    writeCloudArmyLink({ id: LINKED_ID, name: 'Newer Release List', savedSignature: futureSerialized })
     const storedLink = window.localStorage.getItem(LINK_KEY)
 
     await renderHome()

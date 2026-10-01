@@ -672,7 +672,7 @@ const contextIdsForLabel = (catalog: Aos4Catalog, label: string): RulesContextId
     if (normalized === 'legends') return context.status === 'legends'
     if (normalized === 'historical') return context.status === 'historical'
     if (normalized === 'seasonal') return context.status === 'seasonal'
-    return context.status === 'current' || context.status === 'seasonal'
+    return context.status === 'current' || context.status === 'seasonal' || context.status === 'past-season'
   })
   return matches.map(context => context.id)
 }

@@ -194,7 +194,7 @@ describe('shared army preview', () => {
     armyApi.getShare.mockRejectedValue(
       new ArmyRequiresUpdateError(
         'unused',
-        'rules-context:90000000-0000-4000-8000-000000000005' as RulesContextId
+        'rules-context:90000000-0000-4000-8000-00000000ffff' as RulesContextId
       )
     )
 

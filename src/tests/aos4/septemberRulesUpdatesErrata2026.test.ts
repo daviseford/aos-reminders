@@ -366,6 +366,13 @@ describe('September 2026 Rules Updates names, costs, keywords, and weapons (#206
     expect(ability('ability:64833c8e-0e45-570b-a0fb-14dd24df37b2').cost).toEqual({ kind: 'prayer', value: 2 })
   })
 
+  it('shows that chanting value to players who pick the 2025-26 past season (#2042)', () => {
+    const pastSeason = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'past-season')!
+    const sacredRites = ability('ability:64833c8e-0e45-570b-a0fb-14dd24df37b2')
+    expect(sacredRites.rulesContextIds).toContain(pastSeason.id)
+    expect(sacredRites.cost).toEqual({ kind: 'prayer', value: 2 })
+  })
+
   it('sets the Legends Hunter’s Glaive to Rend 1', () => {
     const glaive = entityById.get('weapon:616cdd30-476b-5ce6-8b8d-3a9c1d30d7b2') as Weapon
     expect(glaive.name).toBe('Hunter’s Glaive')

@@ -443,6 +443,32 @@ describe('AoS 4 import modal', () => {
   })
 
   /**
+   * General's Handbook 2025-26 as a past season (#2042): a roster declaring it lands there, the
+   * preview names the ruleset and carries its accuracy caveat, and the ruleset choice offers it
+   * after the everyday rulesets, never as the default.
+   */
+  it('previews a 2025-26 roster in the past season with its accuracy caveat', () => {
+    pasteAndPreview(officialRoster().replace("General's Handbook 2026-27", "General's Handbook 2025-26"))
+
+    expect(container.textContent).toContain(
+      "Age of Sigmar Fourth Edition General's Handbook 2025-26 (Past Season)"
+    )
+    expect(container.querySelector('[data-testid="import-past-season-caveat"]')?.textContent).toContain(
+      'current warscrolls, points, unit sizes, and battletome rules'
+    )
+    expect(container.textContent).not.toContain('has been superseded')
+    expect(findButton(container, 'Import Army').disabled).toBe(false)
+
+    pasteAndPreview(officialRoster('Annihilators', false))
+    expect(container.querySelector('[data-testid="import-past-season-caveat"]')).toBeNull()
+    const options = Array.from(
+      container.querySelector<HTMLSelectElement>('#import-rules-context')!.options
+    ).map(option => option.textContent)
+    expect(options[0]).toBe('Use the default ruleset')
+    expect(options.at(-1)).toBe("Age of Sigmar Fourth Edition General's Handbook 2025-26 (Past Season)")
+  })
+
+  /**
    * The #1979 roster: a GHB 2026-27 army carrying a battletome artefact. Under the replacement
    * model the dialog warned that the season replaced Seed of Rebirth and offered a ruleset
    * switch; the confirmed official reading ("Using the Scourge of Aqshy Rules": the seasonal

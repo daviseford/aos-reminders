@@ -74,6 +74,7 @@ export const REQUIRED_HIGH_RISK_COHORTS = [
   'high-risk:duplicate-candidate',
   'high-risk:context-boundary:current',
   'high-risk:context-boundary:seasonal',
+  'high-risk:context-boundary:past-season',
   'high-risk:context-boundary:spearhead',
   'high-risk:context-boundary:legends',
   'high-risk:context-boundary:historical',

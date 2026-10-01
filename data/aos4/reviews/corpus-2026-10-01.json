@@ -496,12 +496,12 @@
       }
     },
     {
+      "cost": null,
       "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A65"
       ],
       "reason": "The September 2026 Rules Updates page 65 remove the command point cost from Krittok Foulblade's A Reputation for Cunning (#2060)",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fskaven%2Fwarscrolls.html%23datasheet%3AKrittok-Foulblade%2Fability%3A2",
-      "cost": null
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fskaven%2Fwarscrolls.html%23datasheet%3AKrittok-Foulblade%2Fability%3A2"
     },
     {
       "officialSourceRecordIds": [
@@ -527,6 +527,7 @@
       }
     },
     {
+      "name": "YOU WILL SERVE!",
       "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A67"
       ],
@@ -535,8 +536,7 @@
       "text": {
         "declare": "Pick a friendly Daemon Prince to use this ability. Then, pick a visible friendly non-DAEMON non-UNIQUE SLAVES TO DARKNESS unit that does not have an Ensorcelled Banner wholly within 12\" of this unit to be the target.",
         "effect": "Remove any PLEDGE TO CHAOS keywords the target has. Then, the target gains any PLEDGE TO CHAOS keywords this unit has."
-      },
-      "name": "YOU WILL SERVE!"
+      }
     },
     {
       "officialSourceRecordIds": [
@@ -605,15 +605,15 @@
       }
     },
     {
+      "cost": {
+        "kind": "prayer",
+        "value": 2
+      },
       "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A22"
       ],
       "reason": "The September 2026 Rules Updates page 22 (General's Handbook 2025-26) add a chanting value of 2 to the historical Sacred Rites (#2060)",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2025-26%2F%23rules-ability%3APrayers%3Aability%3A1",
-      "cost": {
-        "kind": "prayer",
-        "value": 2
-      }
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2025-26%2F%23rules-ability%3APrayers%3Aability%3A1"
     },
     {
       "officialSourceRecordIds": [
@@ -649,6 +649,15 @@
       "name": "Age of Sigmar Fourth Edition Legends",
       "status": "legends",
       "validFrom": "2024-07-13"
+    },
+    {
+      "battlepack": "Scourge of Ghyran",
+      "id": "rules-context:90000000-0000-4000-8000-000000000005",
+      "mode": "standard",
+      "name": "Age of Sigmar Fourth Edition General's Handbook 2025-26 (Past Season)",
+      "season": "2025-26",
+      "status": "past-season",
+      "validTo": "2026-07-05"
     },
     {
       "battlepack": "Scourge of Aqshy",
@@ -1185,7 +1194,8 @@
       ],
       "reason": "Disciplined Hekatoi, the Hekatos Drillmasters battle-formation ability, is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Ossiarch Bonereapers (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-30 re-pin of the Wahapedia Ossiarch Bonereapers page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends, so it would leave the historical overlay it shipped in and move to Legends. Official precedence keeps it historical, as it was in corpus 2026-09-29c and as every other faction's Scourge of Ghyran content is, the precedent the Sons of Behemat re-pin set in corpus 2026-09-25 (issue #2037).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3AHekatos-Drillmasters%3Aability%3A1"
     },
@@ -1195,7 +1205,8 @@
       ],
       "reason": "Bolster Creation, a Lore of Necrotheurgy spell, is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Ossiarch Bonereapers (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-30 re-pin of the Wahapedia Ossiarch Bonereapers page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends, so it would leave the historical overlay it shipped in and move to Legends. Official precedence keeps it historical, as it was in corpus 2026-09-29c and as every other faction's Scourge of Ghyran content is, the precedent the Sons of Behemat re-pin set in corpus 2026-09-25 (issue #2037).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ALore-of-Necrotheurgy%3Aability%3A1"
     },
@@ -1205,7 +1216,8 @@
       ],
       "reason": "Invigorate the Ranks, a Lore of Necrotheurgy spell, is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Ossiarch Bonereapers (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-30 re-pin of the Wahapedia Ossiarch Bonereapers page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends, so it would leave the historical overlay it shipped in and move to Legends. Official precedence keeps it historical, as it was in corpus 2026-09-29c and as every other faction's Scourge of Ghyran content is, the precedent the Sons of Behemat re-pin set in corpus 2026-09-25 (issue #2037).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ALore-of-Necrotheurgy%3Aability%3A2"
     },
@@ -1215,7 +1227,8 @@
       ],
       "reason": "Soul-claim, a Lore of Necrotheurgy spell, is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Ossiarch Bonereapers (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-30 re-pin of the Wahapedia Ossiarch Bonereapers page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends, so it would leave the historical overlay it shipped in and move to Legends. Official precedence keeps it historical, as it was in corpus 2026-09-29c and as every other faction's Scourge of Ghyran content is, the precedent the Sons of Behemat re-pin set in corpus 2026-09-25 (issue #2037).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ALore-of-Necrotheurgy%3Aability%3A3"
     },
@@ -1225,7 +1238,8 @@
       ],
       "reason": "Plentiful Bone, the Tithe Guards battle-formation ability, is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Ossiarch Bonereapers (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-30 re-pin of the Wahapedia Ossiarch Bonereapers page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends, so it would leave the historical overlay it shipped in and move to Legends. Official precedence keeps it historical, as it was in corpus 2026-09-29c and as every other faction's Scourge of Ghyran content is, the precedent the Sons of Behemat re-pin set in corpus 2026-09-25 (issue #2037).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ATithe-Guards%3Aability%3A1"
     },
@@ -1235,7 +1249,8 @@
       ],
       "reason": "The Hekatos Drillmasters battle formation is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Ossiarch Bonereapers (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-30 re-pin of the Wahapedia Ossiarch Bonereapers page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends, so it would leave the historical overlay it shipped in and move to Legends. Official precedence keeps it historical, as it was in corpus 2026-09-29c and as every other faction's Scourge of Ghyran content is, the precedent the Sons of Behemat re-pin set in corpus 2026-09-25 (issue #2037).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-group%3AHekatos-Drillmasters"
     },
@@ -1245,7 +1260,8 @@
       ],
       "reason": "The Lore of Necrotheurgy spell lore is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Ossiarch Bonereapers (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-30 re-pin of the Wahapedia Ossiarch Bonereapers page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends, so it would leave the historical overlay it shipped in and move to Legends. Official precedence keeps it historical, as it was in corpus 2026-09-29c and as every other faction's Scourge of Ghyran content is, the precedent the Sons of Behemat re-pin set in corpus 2026-09-25 (issue #2037).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-group%3ALore-of-Necrotheurgy"
     },
@@ -1255,7 +1271,8 @@
       ],
       "reason": "The Tithe Guards battle formation is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Ossiarch Bonereapers (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-30 re-pin of the Wahapedia Ossiarch Bonereapers page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends, so it would leave the historical overlay it shipped in and move to Legends. Official precedence keeps it historical, as it was in corpus 2026-09-29c and as every other faction's Scourge of Ghyran content is, the precedent the Sons of Behemat re-pin set in corpus 2026-09-25 (issue #2037).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-group%3ATithe-Guards"
     },
@@ -1265,7 +1282,8 @@
       ],
       "reason": "The Grabby heroic trait is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABig-Personalities%3Aability%3A1"
     },
@@ -1275,7 +1293,8 @@
       ],
       "reason": "The Terrifying Hulk heroic trait is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABig-Personalities%3Aability%3A2"
     },
@@ -1285,7 +1304,8 @@
       ],
       "reason": "The Mega-Grump heroic trait is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABig-Personalities%3Aability%3A3"
     },
@@ -1295,7 +1315,8 @@
       ],
       "reason": "Lofty Louts, the Big Toes battle-formation ability, is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABig-Toes%3Aability%3A1"
     },
@@ -1305,7 +1326,8 @@
       ],
       "reason": "Strike! Hur Hur!, the Manskittle Mob battle-formation ability, is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3AManskittle-Mob%3Aability%3A1"
     },
@@ -1315,7 +1337,8 @@
       ],
       "reason": "The Scourge of Ghyran Big Personalities heroic-trait table (Grabby, Terrifying Hulk, Mega-Grump; not the battletome table of the same name) is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3ABig-Personalities"
     },
@@ -1325,7 +1348,8 @@
       ],
       "reason": "The Big Toes battle formation is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3ABig-Toes"
     },
@@ -1335,7 +1359,8 @@
       ],
       "reason": "The Manskittle Mob battle formation is Scourge of Ghyran (General's Handbook 2025-26) content: the only accepted official document that prints it is Scourge of Ghyran - Sons of Behemat (page 1), which is accepted in the historical context, and no accepted official document lists it under Warhammer Legends. The 2026-09-25 re-pin of the Wahapedia Sons of Behemat page wraps this block in its Legendary styling (under a Scourge of Ghyran logo), which the decoder reads as Legends; Sons of Behemat has no Legends context, so it would lose its offer edge and become unreachable. Official precedence keeps it historical, as it was in corpus 2026-09-24 and as every other faction's Scourge of Ghyran content is, so an army that opted into the historical overlay keeps it (issue #1999).",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3AManskittle-Mob"
     }
@@ -1351,33 +1376,33 @@
         "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html"
       },
       {
+        "availability": "regiment-of-renown",
         "name": "Outlaw Cannonade Cogfort",
         "officialSourceRecordIds": [
           "source-record:games-workshop:910cc610a5168b55a05810edc417eec63926be1d32144cb383ffbc51e8440ebc%3Apage%3A1",
           "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A38"
         ],
         "reason": "Rogue Engine's official rules (Regiments of Renown - Cities of Sigmar, page 1) print the Outlaw Cannonade Cogfort warscroll with abilities distinct from the Cities of Sigmar Cannonade Cogfort (MERCENARY ATTITUDES instead of SPECIAL AMMUNITION and FULL POWER!), so it is a separate datasheet, fielded only as the regiment's single ORGANISATION member. The September 2026 Rules Updates (page 38) rewrite the MERCENARY ATTITUDES declare step to 'Pick another friendly non-UNIQUE unit...', the wording the accepted datasheet already carries. Wahapedia publishes the datasheet on the inclusion factions' collections (the organisation link's cities-of-sigmar anchor does not exist), so the native-faction filter drops it; this adoption keeps the Blades of Khorne collection copy, where the reviewed Rogue Engine datasheet also lives (#2030).",
-        "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html",
-        "availability": "regiment-of-renown"
+        "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html"
       },
       {
+        "availability": "regiment-of-renown",
         "name": "Outlaw Conqueror Cogfort",
         "officialSourceRecordIds": [
           "source-record:games-workshop:910cc610a5168b55a05810edc417eec63926be1d32144cb383ffbc51e8440ebc%3Apage%3A2"
         ],
         "reason": "Cogfort Raiders' official rules (Regiments of Renown - Cities of Sigmar, page 2) print the Outlaw Conqueror Cogfort warscroll with abilities distinct from the Cities of Sigmar Conqueror Cogfort (EVERYONE ABOARD!, THIS IS YOUR STOP, MAGGOTS!), so it is a separate datasheet, fielded only as the regiment's single ORGANISATION member. Wahapedia publishes the datasheet on the inclusion factions' collections (the organisation link's cities-of-sigmar anchor does not exist), so the native-faction filter drops it; this adoption keeps the Blades of Khorne collection copy, where the reviewed Cogfort Raiders datasheet also lives (#2030).",
-        "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html",
-        "availability": "regiment-of-renown"
+        "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html"
       },
       {
+        "availability": "regiment-of-renown",
         "name": "Gotrek Gurnisson",
         "officialSourceRecordIds": [
           "source-record:games-workshop:256609b95c19f6c5d8c705760f0b580906dc27015368f4ebf3dc3db2f6f757e5%3Apage%3A5",
           "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A60"
         ],
         "reason": "The official Regiments of Renown (September 2025, page 5) prints the Gotrek Gurnisson Regiment of Renown with ORGANISATION ‘Gotrek Gurnisson (see below)’ and his warscroll beneath it, keyworded Order, Duardin, Unique, Infantry, Hero, Ward (3+) with no faction keyword; the September 2026 Battle Profiles (page 60) lists him only as that Regiment of Renown (320 points, nine inclusion factions). Every accepted collection publishes the warscroll datasheet beside the regiment datasheet under the same Gotrek-Gurnisson anchor, and the native-faction filter drops it because no faction keyword matches, so the regiment shipped with no member and no faction offered it (#2047). This adoption keeps the Fyreslayers collection copy, the page Wahapedia headers as its home (FYRESLAYERS WARSCROLL), because the reviewed regiment datasheet is the Cities of Sigmar copy and a warscroll adopted from that page would share its anchor-derived source identity. The regiment plain-text ORGANISATION line resolves to it by name.",
-        "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html",
-        "availability": "regiment-of-renown"
+        "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html"
       }
     ],
     "expectedArtifacts": 72,
@@ -1927,11 +1952,11 @@
     },
     {
       "code": "keyword-span-completed",
-      "reason": "Wahapedia's markup truncates the keyword span one letter early ('INFANTR' + 'y') in the Outlaw Conqueror Cogfort's EVERYONE ABOARD! declare step; the full INFANTRY keyword is attested by an earlier span in the same text and by Regiments of Renown - Cities of Sigmar page 2, so the completion is reviewed and accepted (#2030).",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fblades-of-khorne%2Fwarscrolls.html%23datasheet%3AOutlaw-Conqueror-Cogfort%2Fability%3A2",
       "officialSourceRecordIds": [
         "source-record:games-workshop:910cc610a5168b55a05810edc417eec63926be1d32144cb383ffbc51e8440ebc%3Apage%3A2"
-      ]
+      ],
+      "reason": "Wahapedia's markup truncates the keyword span one letter early ('INFANTR' + 'y') in the Outlaw Conqueror Cogfort's EVERYONE ABOARD! declare step; the full INFANTRY keyword is attested by an earlier span in the same text and by Regiments of Renown - Cities of Sigmar page 2, so the completion is reviewed and accepted (#2030).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fblades-of-khorne%2Fwarscrolls.html%23datasheet%3AOutlaw-Conqueror-Cogfort%2Fability%3A2"
     }
   ],
   "officialDocuments": [
@@ -1953,6 +1978,7 @@
       "publicationDate": "2026-09-09",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2099,6 +2125,7 @@
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
         "rules-context:90000000-0000-4000-8000-000000000004",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2482,6 +2509,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2519,6 +2547,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2551,6 +2580,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2588,6 +2618,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2775,6 +2806,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2807,6 +2839,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2839,6 +2872,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2881,6 +2915,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2921,6 +2956,7 @@
       "publicationDate": "2026-07-29",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -2969,6 +3005,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -3026,6 +3063,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -3128,6 +3166,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -3523,6 +3562,7 @@
       "publicationDate": "2026-07-29",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -3682,6 +3722,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -3874,6 +3915,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -4096,6 +4138,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -4338,6 +4381,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -4465,6 +4509,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -4883,6 +4928,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -4913,6 +4959,7 @@
         "rules-context:90000000-0000-4000-8000-000000000002",
         "rules-context:90000000-0000-4000-8000-000000000003",
         "rules-context:90000000-0000-4000-8000-000000000004",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -4996,6 +5043,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5118,6 +5166,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5150,6 +5199,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5192,6 +5242,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5224,6 +5275,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5256,6 +5308,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5288,6 +5341,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5320,6 +5374,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5352,6 +5407,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5384,6 +5440,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5416,6 +5473,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5448,6 +5506,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5480,6 +5539,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5512,6 +5572,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5544,6 +5605,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5576,6 +5638,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5608,6 +5671,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5640,6 +5704,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5672,6 +5737,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5704,6 +5770,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5736,6 +5803,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5768,6 +5836,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -5805,6 +5874,7 @@
         "rules-context:90000000-0000-4000-8000-000000000002",
         "rules-context:90000000-0000-4000-8000-000000000003",
         "rules-context:90000000-0000-4000-8000-000000000004",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -6845,7 +6915,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -6876,7 +6947,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -6907,7 +6979,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -6938,7 +7011,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -6969,7 +7043,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7000,7 +7075,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7031,7 +7107,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7062,7 +7139,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7093,7 +7171,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7124,7 +7203,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7155,7 +7235,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7186,7 +7267,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7217,7 +7299,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7248,7 +7331,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7279,7 +7363,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7310,7 +7395,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7341,7 +7427,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7372,7 +7459,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7403,7 +7491,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7434,7 +7523,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7465,7 +7555,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7496,7 +7587,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7527,7 +7619,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7558,7 +7651,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7589,7 +7683,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -7621,6 +7716,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -10088,6 +10184,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -10265,7 +10362,8 @@
       },
       "documentKind": "reference",
       "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000003"
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "sourceRecords": [
         {
@@ -10295,6 +10393,7 @@
         "rules-context:90000000-0000-4000-8000-000000000002",
         "rules-context:90000000-0000-4000-8000-000000000003",
         "rules-context:90000000-0000-4000-8000-000000000004",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -10652,6 +10751,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -10689,6 +10789,7 @@
       "documentKind": "reference",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRecords": [
@@ -10750,6 +10851,16 @@
         }
       ],
       "title": "Spearhead: Sons of Behemat - Stone Lobbas"
+    }
+  ],
+  "pastSeasonContexts": [
+    {
+      "historicalSourceUrlPrefixes": [
+        "https://wahapedia.ru/aos4/factions/",
+        "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2025-26/"
+      ],
+      "reason": "General's Handbook 2025-26 (Scourge of Ghyran) as a selectable past season (#2042). On Wahapedia faction pages the decoder assigns the historical kind only to blocks under a Scourge of Ghyran source title or name, and the only other historical-kind pages are the General's Handbook 2024-25 and 2025-26 rules pages, so these prefixes select exactly the 2025-26 season's content and the 2024-25 handbook stays historical only. The #2042 Stage 0 audit found every such faction item printed in its accepted official Scourge of Ghyran pack (24 packs). Records keep the historical context too. Context overrides name their contexts explicitly and are not widened by this boundary: Stumblefoot Gargant, DELETED in the September 2026 Battle Profiles, has no accepted in-season official evidence and stays historical.",
+      "rulesContextId": "rules-context:90000000-0000-4000-8000-000000000005"
     }
   ],
   "regimentsOfRenown": [

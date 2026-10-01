@@ -45,8 +45,8 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 33068005,
-      "checksum": "5f24fec65fc665d62c0bc2fd86327a10e7ac40123546e5a519142c5d8073e2c8"
+      "byteLength": 35179272,
+      "checksum": "db4ae5ee79e3ba672034c82d0b0144f4a93eb61cd6f7ae7604d241707ef96203"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
       "byteLength": 1394990,
@@ -65,20 +65,20 @@
       "checksum": "56f2897a563b6a9e6a31e83ce8ffd9e3d361d12aa0a8890bf24d374264ffb0a6"
     },
     "src/aos4/generated/corpus/faction-index.json": {
-      "byteLength": 4982,
-      "checksum": "db89eafc8a989c781dd6f3f4699294374e81617ffb12145bbc6e5d76f8d0728d"
+      "byteLength": 5137,
+      "checksum": "af6fb4c5fe5db8ca1649b88de4333461aeacc9324bad877319bfdab0ac14b390"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
-      "byteLength": 6517183,
-      "checksum": "aa16a48b3d0e82a3f636ffae145e4794b12b50dbb2305b56f0609587c0cfd6c4"
+      "byteLength": 6569994,
+      "checksum": "1c3afb8861e60918c13224bbc85b5dc23ab378180dd27b7142904d7fc5da28b4"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 13648681,
-      "checksum": "725f3dbfbdab700508196e12c53dd109a6a921ff06da52b14d25108e95b96cff"
+      "byteLength": 13730918,
+      "checksum": "1f2d841bc71eb038f0f32370792a706779bf475b1a430d18e022bc8578c1b492"
     },
     "src/aos4/generated/corpus/runtime.sources.json": {
-      "byteLength": 7131500,
-      "checksum": "176bec2c9cc2d42c0e468035e34422ae4b4fb4ac7065999e14168763b5cf1213"
+      "byteLength": 7160926,
+      "checksum": "04e2f11f1fe22c4a00896d37dccdbec2166e339b9cf97bd67fb4c7854b1c19ca"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-10-01.json",
@@ -101,7 +101,7 @@
     "factions": 28,
     "ignoredSourceRecords": 20464,
     "publications": 307,
-    "relationships": 14161,
+    "relationships": 14245,
     "revision": "aos4-corpus-2026-10-01",
     "schemaVersion": 1,
     "sourceArtifacts": 244,

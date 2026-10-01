@@ -1,4 +1,4 @@
-import type { Ability, ContentGroup, Faction } from '../../aos4/domain'
+import type { Ability, ContentGroup, Faction, RulesContext } from '../../aos4/domain'
 import { AOS4_CATALOG } from '../../aos4/generated'
 
 /**
@@ -51,6 +51,16 @@ const membersOf = (group: ContentGroup): Ability[] => {
 const isSeasonExclusive = (group: ContentGroup): boolean =>
   group.rulesContextIds.includes(seasonal.id) && !group.rulesContextIds.includes(standard.id)
 
+/**
+ * Exclusive to the season a context belongs to, as the builder files it: a past-season army
+ * (#2042) heads its own season's battlepack tables, while every other context heads the sitting
+ * season's.
+ */
+const isExclusiveToSeasonOf = (group: ContentGroup, context: RulesContext): boolean =>
+  context.status === 'past-season'
+    ? group.rulesContextIds.includes(context.id) && !group.rulesContextIds.includes(standard.id)
+    : isSeasonExclusive(group)
+
 describe('seasonal enhancement tables stand beside the same-named battletome tables', () => {
   it('same-named groups in one context always differ on season exclusivity', () => {
     // Two identically named groups in one context are tolerable only when exactly one of them is
@@ -66,7 +76,7 @@ describe('seasonal enhancement tables stand beside the same-named battletome tab
         groups
           .filter(group => group.rulesContextIds.includes(context.id))
           .forEach(group => {
-            const key = `${group.groupType}|${label(group.name)}|${isSeasonExclusive(group)}`
+            const key = `${group.groupType}|${label(group.name)}|${isExclusiveToSeasonOf(group, context)}`
             if (seen.has(key)) {
               ambiguous.push(`${faction.name} :: ${context.name} :: ${group.groupType} :: ${group.name}`)
             }
