@@ -11,7 +11,6 @@ import { lazy, Suspense, useEffect } from 'react'
 import { Link, useLocation } from 'react-router'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
-import { baselineMonthlyCost } from 'utils/plans'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -57,18 +56,7 @@ const Subscribe = () => {
       <div className={`${theme.bgColor} ${theme.text}`}>
         <CurrentFeatures />
       </div>
-      {/*
-        A full-bleed band, not a .row: a bare row's -15px margins overflowed the viewport by 15px and
-        scrolled the whole page sideways. PricingPlans supplies its own .container.
-      */}
-      {/* py-4 below 576px: band padding above the prices is pure scroll cost on a phone. */}
       <div className={`py-4 py-sm-5 ${theme.sectionBand} ${theme.text}`}>
-        {/*
-          Nothing here used to read subscriptionLoading or subscriptionError, so an account whose
-          lookup was still in flight — or had failed — was shown three live buy buttons. A subscriber
-          on a bad venue connection could be charged a second time for what they already have. The
-          plans appear only once the answer is known to be "not subscribed".
-        */}
         {subscriptionLoading ? (
           <CheckingSubscription />
         ) : subscriptionError ? (
@@ -77,14 +65,6 @@ const Subscribe = () => {
           <PricingPlans />
         )}
       </div>
-      {/*
-        Directly under the plans. These three answer the questions the prices raise, so they belong
-        where the prices end.
-
-        The dark-mode demo video used to sit between them, which pushed all of this past 2,100px —
-        beyond the point anyone who had just read the prices was still reading. It is removed for now
-        and will come back later; `public/img/dark_mode1.mp4` is deliberately kept for that.
-      */}
       <MoreQuestions />
       <div className={`container ${theme.bgColor} ${theme.text} text-center py-4`}>
         <Contact size="small" />
@@ -126,25 +106,13 @@ const Intro = () => {
 
   return (
     <div className={`${headerClass} ${theme.text}`}>
-      {/*
-        No logo. It was decorative — the masthead already identifies the product — and it had already
-        been hidden on mobile for exactly that reason; on desktop it was ~150px of the screen that has
-        to make the case, and in dark theme its white circle read as a rendering artifact. Removing it
-        finishes the decision the mobile hiding started.
-      */}
-      {/* Rendered at h2 size so the page gains a top-level heading without a visual change. */}
       <h1 className="h2">Subscribe to AoS Reminders</h1>
-      {/*
-        The one-person fact leads the page. It is the product's strongest trust signal in a niche
-        trained on hobbyist-made tools, and it colours how everything after it reads — the ask, the
-        prices, and the plain look of the page itself. The old opening buried it below the fold.
-      */}
       <p className="lead">
-        <strong>AoS Reminders is built and run by one person</strong>, and subscriptions are what keep it
-        running.
+        <strong>AoS Reminders is built and run by one person</strong>, Davis. It costs money to host this
+        website, and it takes a lot of time to keep it up to date. Subscriptions help keep the site running.
       </p>
       <p className="lead">
-        Your army is saved in this browser, and only this browser. A subscription keeps it on your account
+        In free mode, your army is saved locally in your browser. A subscription keeps it in the cloud
         instead, so it follows you to the table and survives a lost phone.
       </p>
     </div>
@@ -170,6 +138,11 @@ const CurrentFeatures = () => (
         <strong>Dark theme</strong>: stored against your account, so it follows you too.
       </li>
     </ul>
+
+    <p>
+      Everything else is free, and stays free: the builder, importing, reminders, notes, hiding, reordering,
+      and the PDF.
+    </p>
   </div>
 )
 
@@ -196,8 +169,6 @@ const SubscriptionUnavailable = ({ error }: { error: string }) => {
           <div className="alert alert-warning text-center mb-0" role="alert">
             {error}
             <br />
-            We have not shown the plans, in case you are already subscribed.
-            <br />
             <SubscriptionRecoveryButton origin="Subscribe" />
           </div>
         </div>
@@ -217,27 +188,6 @@ const MoreQuestions = () => {
 
   return (
     <div className={`container ${theme.bgColor} ${theme.text} text-center pt-4`}>
-      {/*
-        The free-and-stays-free note lives here rather than above the plans. It is the closing
-        argument, not the offer, and every line above the prices is one the visitor has to scroll
-        past before learning what this costs.
-
-        The second paragraph follows the strongest finding in Wikimedia's published banner testing:
-        concrete facts about the thing being supported outperform sentiment roughly threefold. Both
-        facts here are anchored: the price ceiling is derived from plans.ts at render time, and the
-        army count is pinned to the corpus by a test (accountRoutes.test.tsx), so neither can drift
-        from the truth silently. Stating the *maximum* price is deliberate — "from $0.99" is the
-        sales voice this product doesn't use. The one-person sentence itself lives in the intro now,
-        above the fold.
-      */}
-      <p>
-        Everything else is free, and stays free: the builder, importing, reminders, notes, hiding, reordering,
-        and the PDF.
-      </p>
-      <p>
-        No plan costs more than ${baselineMonthlyCost().toFixed(2)} a month, and subscriptions are what keep
-        all 27 armies&apos; reminders free for everyone.
-      </p>
       {/*
         FaqLink on both: Action Blue was tuned for white backgrounds and measures 3.29:1 on Midnight
         Slate, under the 4.5:1 floor. FaqLink is the incumbent answer for links on themed surfaces —
