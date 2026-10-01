@@ -1153,3 +1153,329 @@ describe('AoS 4 deterministic adversarial reviewer', () => {
     })
   })
 })
+
+describe('official ability overrides the September 2026 errata need (#2060)', () => {
+  const abilityPair = (
+    source: {
+      name: string
+      conditionHtml: string
+      descriptionHtml: string
+      pointsType?: string
+      points?: string
+    },
+    generated: Record<string, unknown>,
+    override: Record<string, unknown>,
+    excerpt: string
+  ) =>
+    secondaryPair(
+      'warscroll-ability',
+      { keywordsHtml: '', isReaction: false, ...source },
+      {
+        kind: 'ability',
+        abilityKind: 'active',
+        keywords: [],
+        timings: [{ kind: 'active', raw: source.conditionHtml }],
+        ...generated,
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'abilityTextOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          reason: 'Official errata.',
+          officialSourceRecordIds: [SOURCE_ID],
+          ...override,
+        },
+        excerpt,
+      }
+    )
+  const fieldsOf = (reviewPair: ReviewPacketPair) =>
+    assessAdversarialComparison(reviewPair).findings.map(finding => finding.subject.field)
+
+  const ashClouds = {
+    name: 'ROLLING ASH-CLOUDS',
+    conditionHtml: 'Passive',
+    descriptionHtml:
+      '<b>Effect:</b> Units and MANIFESTATIONS cannot be set up in neutral territory. Models and MANIFESTATIONS are not visible.',
+  }
+  const editedAshClouds = {
+    effect:
+      'Units, terrain features and MANIFESTATIONS cannot be set up in neutral territory. Models, terrain features and MANIFESTATIONS are not visible.',
+  }
+  const ashCloudsErratum =
+    "In the effect of 'Rolling Ash-clouds', in all bullet points change ' and Manifestations ' to ', terrain features and Manifestations '."
+  const passive = { abilityKind: 'passive', timings: [{ kind: 'passive', raw: 'Passive' }] }
+
+  it('accepts a phrase edited inside secondary text when the official page prints every new word', () => {
+    const reviewPair = abilityPair(
+      ashClouds,
+      { name: 'ROLLING ASH-CLOUDS', text: editedAshClouds, ...passive },
+      { text: editedAshClouds },
+      ashCloudsErratum
+    )
+    expect(fieldsOf(reviewPair)).toEqual([])
+  })
+
+  it('rejects a phrase edit whose new words the official page does not print', () => {
+    const invented = { effect: editedAshClouds.effect.replaceAll('terrain features', 'endless spells') }
+    const reviewPair = abilityPair(
+      ashClouds,
+      { name: 'ROLLING ASH-CLOUDS', text: invented, ...passive },
+      { text: invented },
+      ashCloudsErratum
+    )
+    expect(fieldsOf(reviewPair)).toEqual(expect.arrayContaining(['official-override.ability-text.evidence']))
+  })
+
+  it('rejects a short insertion the official page prints only away from the edited phrase', () => {
+    // The page prints "not" and "friendly", but not beside the words the override changes.
+    const excerpt = `${ashCloudsErratum} Friendly units that are not visible cannot be picked.`
+    ;[
+      editedAshClouds.effect.replace('cannot be set up', 'can not be set up in friendly or'),
+      editedAshClouds.effect.replace('are not visible', 'are not visible to friendly units'),
+    ].forEach(effect => {
+      const reviewPair = abilityPair(
+        ashClouds,
+        { name: 'ROLLING ASH-CLOUDS', text: { effect }, ...passive },
+        { text: { effect } },
+        excerpt
+      )
+      expect(fieldsOf(reviewPair)).toEqual(
+        expect.arrayContaining(['secondary.source-official-override.ability-text.effect'])
+      )
+    })
+  })
+
+  describe('a changed distance must be the one the erratum prints', () => {
+    const shyishReaper = {
+      name: 'SUMMON SHYISH REAPER',
+      conditionHtml: 'Your Hero Phase',
+      descriptionHtml:
+        '<b>Effect:</b> Set up a Shyish Reaper wholly within 9" of the caster, visible to them and more than 9" from all enemy units.',
+    }
+    // Page 58 also prints other distances and rolls after the Shyish Reaper erratum.
+    const page58 =
+      "MANIFESTATION LORE Change the effect of 'Summon Shyish Reaper' to: 'Set up a Shyish Reaper wholly within 12\" of and visible to the caster and more than 9\" from all enemy units.' LORD VITRIOLIC Declare: Pick an enemy unit within 10\" of this unit to be the target. Effect: On a 3+, apply 1 of the following effects."
+    const withDistance = (distance: string) => ({
+      effect: `Set up a Shyish Reaper wholly within ${distance}" of and visible to the caster and more than 9" from all enemy units.`,
+    })
+    const pairFor = (distance: string) =>
+      abilityPair(
+        shyishReaper,
+        { name: 'SUMMON SHYISH REAPER', text: withDistance(distance) },
+        { text: withDistance(distance) },
+        page58
+      )
+
+    it('accepts the printed 12"', () => {
+      expect(fieldsOf(pairFor('12'))).toEqual([])
+    })
+
+    it.each(['3', '10'])('rejects %s", which the page prints only elsewhere', distance => {
+      expect(fieldsOf(pairFor(distance))).toEqual(
+        expect.arrayContaining(['secondary.source-official-override.ability-text.effect'])
+      )
+    })
+  })
+
+  const lightningMaster = {
+    name: 'LIGHTNING MASTER',
+    conditionHtml: 'Your Shooting Phase',
+    descriptionHtml:
+      '<b>Effect:</b> Roll a dice. On a 2+, set the Attacks characteristic of the target’s Warpvolt Scourgers to 10 for the rest of the turn.',
+  }
+  const withoutRoll = {
+    effect:
+      'Set the Attacks characteristic of the target’s Warpvolt Scourgers to 10 for the rest of the turn.',
+  }
+
+  it('accepts a deletion-only correction when the official page prints the resulting text whole', () => {
+    const reviewPair = abilityPair(
+      lightningMaster,
+      { name: 'LIGHTNING MASTER', text: withoutRoll },
+      { text: withoutRoll },
+      "WARLOCK GALVANEER Change the effect of 'Lightning Master' to: 'Set the Attacks characteristic of the target’s Warpvolt Scourgers to 10 for the rest of the turn.'"
+    )
+    expect(fieldsOf(reviewPair)).toEqual([])
+  })
+
+  it('accepts a deletion beside an untouched declare step, but not beside an unprinted declare change', () => {
+    const withDeclare = {
+      ...lightningMaster,
+      descriptionHtml: `<b>Declare:</b> Pick a friendly Warpvolt Scourgers unit to be the target. ${lightningMaster.descriptionHtml}`,
+    }
+    const erratum =
+      "WARLOCK GALVANEER Change the effect of 'Lightning Master' to: 'Set the Attacks characteristic of the target’s Warpvolt Scourgers to 10 for the rest of the turn.'"
+    const kept = { declare: 'Pick a friendly Warpvolt Scourgers unit to be the target.', ...withoutRoll }
+    expect(
+      fieldsOf(abilityPair(withDeclare, { name: 'LIGHTNING MASTER', text: kept }, { text: kept }, erratum))
+    ).toEqual([])
+    const trimmed = { declare: 'Pick a friendly unit to be the target.', ...withoutRoll }
+    expect(
+      fieldsOf(
+        abilityPair(withDeclare, { name: 'LIGHTNING MASTER', text: trimmed }, { text: trimmed }, erratum)
+      )
+    ).toEqual(expect.arrayContaining(['official-override.ability-text.evidence']))
+  })
+
+  it('rejects a deletion-only correction the official page never prints', () => {
+    const reviewPair = abilityPair(
+      lightningMaster,
+      { name: 'LIGHTNING MASTER', text: withoutRoll },
+      { text: withoutRoll },
+      'WARLOCK GALVANEER Add Ward (6+) to the keywords bar.'
+    )
+    expect(fieldsOf(reviewPair)).toEqual(expect.arrayContaining(['official-override.ability-text.evidence']))
+  })
+
+  const feralRuin = {
+    name: 'FERAL RUIN',
+    conditionHtml: 'End of Your Turn',
+    descriptionHtml: '<b>Effect:</b> Remove any PLEDGE TO CHAOS keywords the target has.',
+  }
+  const feralText = { effect: 'Remove any PLEDGE TO CHAOS keywords the target has.' }
+  const renameErratum =
+    "Change the Despoilers' 'Feral Ruin' ability to: YOU WILL SERVE!: A Daemon Prince is manifest proof."
+
+  it('accepts a renamed ability when the official page prints the new name as an ability heading', () => {
+    const reviewPair = abilityPair(
+      feralRuin,
+      { name: 'YOU WILL SERVE!', text: feralText },
+      { name: 'YOU WILL SERVE!' },
+      renameErratum
+    )
+    expect(fieldsOf(reviewPair)).toEqual([])
+  })
+
+  it('rejects a renamed ability the official page does not name, and a stale generated name', () => {
+    expect(
+      fieldsOf(
+        abilityPair(
+          feralRuin,
+          { name: 'YOU WILL SERVE!', text: feralText },
+          { name: 'YOU WILL SERVE!' },
+          'You will serve the Dark Gods, the Despoilers declare.'
+        )
+      )
+    ).toEqual(['official-override.ability-name.evidence'])
+    expect(
+      fieldsOf(
+        abilityPair(
+          feralRuin,
+          { name: 'FERAL RUIN', text: feralText },
+          { name: 'YOU WILL SERVE!' },
+          renameErratum
+        )
+      )
+    ).toEqual(['official-override.ability-name.destination'])
+  })
+
+  const cunning = {
+    name: 'A REPUTATION FOR CUNNING',
+    conditionHtml: 'Enemy Hero Phase',
+    descriptionHtml: '<b>Effect:</b> Pick 2 units.',
+    pointsType: 'command',
+    points: '1',
+  }
+  const cunningErratum = "KRITTOK FOULBLADE Remove the command point cost from 'A Reputation for Cunning'."
+
+  it('removes a command-point cost only when the official page instructs that removal', () => {
+    const generated = { name: 'A REPUTATION FOR CUNNING', text: { effect: 'Pick 2 units.' } }
+    expect(fieldsOf(abilityPair(cunning, generated, { cost: null }, cunningErratum))).toEqual([])
+    expect(
+      fieldsOf(
+        abilityPair(
+          cunning,
+          generated,
+          { cost: null },
+          "KRITTOK FOULBLADE Remove the command point cost from 'Always Three Clawsteps Ahead'."
+        )
+      )
+    ).toEqual(['official-override.ability-cost.evidence'])
+    expect(
+      fieldsOf(
+        abilityPair(
+          cunning,
+          { ...generated, cost: { kind: 'command-points', value: 1 } },
+          { cost: null },
+          cunningErratum
+        )
+      )
+    ).toEqual(['official-override.ability-cost.destination'])
+  })
+
+  it('adds a chanting value only when the official page prints that value for the ability', () => {
+    const sacredRites = {
+      name: 'SACRED RITES',
+      conditionHtml: 'Your Hero Phase',
+      descriptionHtml: '<b>Effect:</b> Give ritual points to the PRIEST.',
+    }
+    const generated = {
+      name: 'SACRED RITES',
+      text: { effect: 'Give ritual points to the PRIEST.' },
+      cost: { kind: 'prayer', value: 2 },
+    }
+    const override = { cost: { kind: 'prayer', value: 2 } }
+    expect(
+      fieldsOf(
+        abilityPair(
+          sacredRites,
+          generated,
+          override,
+          "Add a chanting value of 2 to the 'Sacred Rites' ability."
+        )
+      )
+    ).toEqual([])
+    expect(
+      fieldsOf(
+        abilityPair(
+          sacredRites,
+          generated,
+          override,
+          "Add a chanting value of 3 to the 'Sacred Rites' ability."
+        )
+      )
+    ).toEqual(['official-override.ability-cost.evidence'])
+  })
+
+  const keywordAdd = (excerpt: string, keywords: string[]) =>
+    secondaryPair(
+      'warscroll',
+      { name: 'Rotmire Creed', move: '5"', save: '6+', control: '1', health: '1', ward: '6+' },
+      {
+        kind: 'warscroll',
+        name: 'Rotmire Creed',
+        keywords,
+        characteristics: { move: '5"', save: '6+', control: '1', health: '1', ward: '6+' },
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'warscrollKeywordOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          add: ['REINFORCEMENTS'],
+          reason: 'Official errata adds the keyword.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt,
+      }
+    )
+
+  it('adds a warscroll keyword only when the official page instructs the addition', () => {
+    const instruction =
+      "SPEARHEAD, BUBONIC CELL Add the Reinforcements keyword to the Rotmire Creed's warscroll."
+    expect(fieldsOf(keywordAdd(instruction, ['INFANTRY', 'REINFORCEMENTS', 'WARD (6+)']))).toEqual([])
+    expect(fieldsOf(keywordAdd(instruction, ['INFANTRY', 'WARD (6+)']))).toEqual([
+      'official-override.warscroll-keyword.add',
+    ])
+    expect(
+      fieldsOf(
+        keywordAdd('The Rotmire Creed can be taken as reinforcements in larger games.', [
+          'INFANTRY',
+          'REINFORCEMENTS',
+          'WARD (6+)',
+        ])
+      )
+    ).toEqual(['official-override.warscroll-keyword.evidence'])
+  })
+})

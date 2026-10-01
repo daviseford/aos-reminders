@@ -265,13 +265,16 @@ const canonicalSearchText = (value: string): { text: string; offsets: number[] }
   return { text: characters.join(''), offsets }
 }
 
-export const pageExcerpt = (pageText: string | undefined, needle?: string): string | undefined => {
+export const pageExcerpt = (
+  pageText: string | undefined,
+  needle?: string | readonly string[]
+): string | undefined => {
   const text = pageText?.replace(/\s+/g, ' ').trim()
   if (!text) return undefined
   const searchable = canonicalSearchText(text)
-  const needles = needle
-    ? [needle, needle.replace(/^Scourge of Aqshy\s+/i, '')].map(value => canonicalSearchText(value).text)
-    : []
+  const needles = (typeof needle === 'string' ? [needle] : (needle ?? [])).flatMap(value =>
+    [value, value.replace(/^Scourge of Aqshy\s+/i, '')].map(variant => canonicalSearchText(variant).text)
+  )
   const matchIndexes = Array.from(
     new Set(
       needles.flatMap(value => {
@@ -539,6 +542,25 @@ const buildSourceCandidates = (
       entities.find(entity => entity.kind === 'warscroll')?.name ??
       entities[0]?.name ??
       keyword
+    // An erratum may name the rule without the source's possessive ('Whirlpool Fury' for
+    // WHIRLPOOL'S FURY) or name no unit at all ('ALL WARSCROLLS ... Remove Orruk'), so the excerpt
+    // also looks for those forms and for the keywords the override itself adds or removes.
+    const overrideExcerptNeedles = Array.from(
+      new Set(
+        [
+          overrideExcerptFocus,
+          overrideExcerptFocus?.replace(/[’']s\b/gi, ''),
+          ...reviewOverrides.flatMap(({ field, value }) =>
+            field === 'warscrollKeywordOverrides' || field === 'abilityKeywordOverrides'
+              ? [
+                  ...((value as { add?: string[] }).add ?? []),
+                  ...((value as { remove?: string[] }).remove ?? []),
+                ]
+              : []
+          ),
+        ].filter((value): value is string => Boolean(value?.trim()))
+      )
+    )
     const officialOverrideEvidence = officialOverrideSourceIds.map(sourceRecordId => {
       const officialRecord = sourceRecordById.get(sourceRecordId)
       if (!officialRecord) {
@@ -561,7 +583,7 @@ const buildSourceCandidates = (
         excerpt:
           pageExcerpt(
             sourceData.officialPageTextBySourceRecordId.get(officialRecord.id),
-            overrideExcerptFocus
+            overrideExcerptNeedles
           ) ??
           sourceExcerpt({
             recordKind: 'official-override-evidence',

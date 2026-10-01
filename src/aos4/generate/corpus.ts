@@ -70,9 +70,18 @@ export interface CorpusTimingOverride {
   officialSourceRecordIds: SourceRecordId[]
 }
 
+/**
+ * A reviewed official correction to an ability the secondary source still prints in its earlier
+ * form. `text` replaces the declare/effect wording, `name` replaces the display name (identity is
+ * unaffected: names are display text), and `cost` replaces the casting, chanting, or
+ * command-point cost — `null` removes it, as an erratum that strikes a command-point cost does.
+ * At least one of the three must be present.
+ */
 export interface CorpusAbilityTextOverride {
   sourceRecordId: SourceRecordId
-  text: Ability['text']
+  text?: Ability['text']
+  name?: string
+  cost?: AbilityCost | null
   reason: string
   officialSourceRecordIds: SourceRecordId[]
 }
@@ -140,9 +149,15 @@ export interface CorpusWeaponProfileOverride {
   officialSourceRecordIds: SourceRecordId[]
 }
 
+/**
+ * A reviewed warscroll keyword correction. `remove` drops a keyword an erratum deletes; `add`
+ * restores one an erratum adds that the secondary source does not print yet. Either way a
+ * republished source that catches up fails closed, and the entry retires.
+ */
 export interface CorpusWarscrollKeywordOverride {
   sourceRecordId: SourceRecordId
-  remove: string[]
+  remove?: string[]
+  add?: string[]
   reason: string
   officialSourceRecordIds: SourceRecordId[]
 }
@@ -1347,13 +1362,27 @@ const reviewDiagnostics = (
   )
   const seenAbilityTextOverrides = new Set<SourceRecordId>()
   ;(review.abilityTextOverrides ?? []).forEach(override => {
+    const textValid =
+      override.text === undefined ||
+      (Boolean(override.text.effect?.trim()) &&
+        [override.text.declare, override.text.reactionTrigger].every(
+          value => value === undefined || Boolean(value.trim())
+        ))
+    const nameValid =
+      override.name === undefined || (Boolean(override.name.trim()) && override.name === override.name.trim())
+    const costValid =
+      override.cost === undefined ||
+      override.cost === null ||
+      (['spell', 'prayer', 'command-points'].includes(override.cost.kind) &&
+        Number.isSafeInteger(override.cost.value) &&
+        override.cost.value > 0)
     if (
       seenAbilityTextOverrides.has(override.sourceRecordId) ||
       !abilitySourceIds.has(override.sourceRecordId) ||
-      !override.text.effect.trim() ||
-      [override.text.declare, override.text.reactionTrigger].some(
-        value => value !== undefined && !value.trim()
-      ) ||
+      (override.text === undefined && override.name === undefined && override.cost === undefined) ||
+      !textValid ||
+      !nameValid ||
+      !costValid ||
       !override.reason.trim() ||
       override.officialSourceRecordIds.length === 0
     ) {
@@ -1362,7 +1391,7 @@ const reviewDiagnostics = (
         severity: 'error',
         subject: override.sourceRecordId,
         message:
-          'Ability text override must uniquely target an accepted ability, provide valid text, and cite official evidence',
+          'Ability text override must uniquely target an accepted ability, change valid text, name, or cost, and cite official evidence',
       })
     }
     seenAbilityTextOverrides.add(override.sourceRecordId)
@@ -1541,15 +1570,19 @@ const reviewDiagnostics = (
   const seenWarscrollKeywordOverrides = new Set<SourceRecordId>()
   ;(review.warscrollKeywordOverrides ?? []).forEach(override => {
     const warscroll = warscrollBySourceRecordId.get(override.sourceRecordId)
-    const removed = uniqueSorted(override.remove.map(value => value.trim().toUpperCase()).filter(Boolean))
+    const removed = override.remove ?? []
+    const added = override.add ?? []
     const sourceKeywords = warscroll
       ? (keywordsByWarscrollId.get(warscroll.id) ?? new Set<string>())
       : new Set<string>()
     if (
       seenWarscrollKeywordOverrides.has(override.sourceRecordId) ||
       !warscroll ||
-      !removed.length ||
-      removed.some(value => !sourceKeywords.has(value)) ||
+      !(removed.length + added.length) ||
+      [...removed, ...added].some(value => !value.trim() || value !== value.trim().toUpperCase()) ||
+      removed.some(value => !sourceKeywords.has(value) || added.includes(value)) ||
+      // An added keyword the source already prints means the page caught up: retire the entry.
+      added.some(value => sourceKeywords.has(value)) ||
       !override.reason.trim() ||
       override.officialSourceRecordIds.length === 0
     ) {
@@ -1626,6 +1659,15 @@ const officialEvidenceFor = (sourceRecordId: SourceRecordId, review: CorpusRevie
       .filter(override => override.sourceRecordId === sourceRecordId)
       .flatMap(override => override.officialSourceRecordIds),
   ])
+
+/** Compares costs by kind and value, so a reviewed cost written with its keys reordered still matches. */
+const sameAbilityCost = (left: AbilityCost | undefined, right: AbilityCost | undefined): boolean =>
+  left === undefined || right === undefined
+    ? left === right
+    : left.kind === right.kind &&
+      left.value === right.value &&
+      (left.kind !== 'faction-resource' ||
+        (right.kind === 'faction-resource' && left.resource === right.resource))
 
 const abilityCost = (record: AbilityRecord): AbilityCost | undefined => {
   const value = integerValue(record.points)
@@ -1912,6 +1954,7 @@ export const buildAos4Corpus = (
       ...keywordRecords
         .map(item => [item.keyword, item.parameter].filter(Boolean).join(' ').trim().toUpperCase())
         .filter(keyword => keyword && !removedKeywords.has(keyword)),
+      ...(keywordOverride?.add ?? []),
     ])
     const parentRefs = sortedSourceReferences([
       sourceReference(record.meta.sourceRecordId),
@@ -2447,7 +2490,23 @@ export const buildAos4Corpus = (
     const timingOverride = timingOverrides.get(record.meta.sourceRecordId)
     const textOverride = abilityTextOverrides.get(record.meta.sourceRecordId)
     const abilityKind = timingOverride?.abilityKind ?? normalized.abilityKind
-    const cost = abilityCost(record)
+    const sourceCost = abilityCost(record)
+    const cost =
+      textOverride && textOverride.cost !== undefined ? (textOverride.cost ?? undefined) : sourceCost
+    const name = textOverride?.name ?? normalized.name
+    if (
+      textOverride &&
+      ((textOverride.name !== undefined && textOverride.name === normalized.name) ||
+        (textOverride.cost !== undefined && sameAbilityCost(textOverride.cost ?? undefined, sourceCost)))
+    ) {
+      // The source now prints the official name or cost itself: the override has done its job.
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: record.meta.sourceRecordId,
+        message: 'Ability override sets a name or cost the source already prints',
+      })
+    }
     const officialEvidence = officialEvidenceFor(record.meta.sourceRecordId, review)
     const nonReactionText = {
       ...(normalized.text.declare ? { declare: normalized.text.declare } : {}),
@@ -2496,13 +2555,15 @@ export const buildAos4Corpus = (
                   JSON.stringify(timingOverride?.timings ?? normalized.timings),
                   JSON.stringify(text),
                   ...(keywordOverride ? [JSON.stringify(keywords)] : []),
+                  ...(textOverride?.name !== undefined ? [`name:${name}`] : []),
+                  ...(textOverride?.cost !== undefined ? [`cost:${JSON.stringify(cost ?? null)}`] : []),
                   ...officialEvidence,
                 ].join('\n'),
                 'utf8'
               )
               .digest('hex')
           : record.meta.recordChecksum,
-      name: normalized.name,
+      name,
       abilityKind,
       actor: normalized.actor,
       text,

@@ -225,10 +225,16 @@ describe('the core rules in a past-season army', () => {
       })
     )
   }
+  // The September 2026 Rules Updates page 22 adds a chanting value to the 2025-26 Sacred Rites, so
+  // that reminder also cites the erratum (#2060).
+  const SACRED_RITES_ERRATUM =
+    'source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315:page:22'
   const expectFromPage = (commands: ReturnType<typeof coreCommands>, page: string) =>
     commands.forEach(({ abilityIds, pages }, name) => {
       expect({ name, count: abilityIds.length }).toEqual({ name, count: 1 })
-      expect({ name, pages }).toEqual({ name, pages: [page] })
+      const expected =
+        name === 'SACRED RITES' && page === PAST_SEASON_PAGE ? [SACRED_RITES_ERRATUM, page] : [page]
+      expect({ name, pages }).toEqual({ name, pages: expected })
     })
 
   it('reminds a 2025-26 army of every core command, once each, from that season’s handbook', () => {

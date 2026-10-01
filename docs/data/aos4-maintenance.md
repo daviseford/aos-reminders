@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-30c snapshot is defined by:
+The accepted 2026-10-01 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
 | `data/aos4/manifests/accepted-2026-09-30.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication and the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037), pinned by SHA-256; no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
-| `data/aos4/reviews/corpus-2026-09-30c.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/reviews/corpus-2026-10-01.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-30c-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-30c-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-10-01-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-10-01-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -37,7 +37,7 @@ The strict report currently records:
 - 5,152 abilities
 - 2,276 weapons
 - 1,526 content groups
-- 244 source artifacts and 20,283 live source records
+- 244 source artifacts and 20,298 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -47,6 +47,43 @@ The strict report currently records:
   2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
+- the 2026-10-01 September 2026 Rules Updates errata (#2060), on top of 2026-09-30c, which keeps
+  the 2026-09-30 manifest and every artifact. The owner directed that the errata are what the app shows and ruled that the
+  page 58 Summon Shyish Reaper erratum (12") applies to every copy. All 562 erratum and addendum
+  entries on pages 2-77 of the pinned Rules Updates were compared with the shipped catalog: 384
+  were already applied, 136 change content the catalog does not carry (core and advanced rules
+  prose, glossary, battleplans, twists and battle tactics, Path to Glory, Army of Renown roster
+  options and Regiment of Renown organisation text, universal terrain-ability lists, the unshipped
+  Mawseeker Mob Spearhead), and the rest were checked against the PDF one by one. Reviewed overrides
+  citing the exact pages now ship: Summon Shyish Reaper for The Clattering Procession and The
+  Eternal Nightmare (p58) and Summon Unholy Reliquary for Knights of the Crimson Keep (p70), both
+  under the owner's 2026-10-01 ruling that those errata apply to every copy; Lord Kroak's Arcane
+  Vassal with the `from the target instead of from this unit` clause its secondary page dropped
+  (p27, worded as Faction Pack: Seraphon page 7, a current official reprint of the ability, which
+  the owner directed may supply such text); Lightning Master (p65), Abyssal Dweller (p33, worded as the re-published
+  Scourge of Aqshy - Idoneth Deepkin page 1), Rolling Ash-clouds (p25), Lingering Burns and the
+  Oracles of Fate Shifting Manifestations (p41), Spectral Alchemy (p58), Song of the Lost (p73),
+  Essence of the Gnaw (p32), The Croneseer's Pariahs (p32, worded as Armies of Renown page 1),
+  Stalk the Prey (p35), A Kingdom Deluded and For the Kingdom! (p43), In the Shadow of the Ethersea,
+  Whirlpool Fury and Slipstream (p51), Lava Storm (p49), Assault Boat (p53), Killa Beat and Bash
+  'Em Ladz! (p61), the Kruleboyz Bellowing Waaagh!-cries (p62), Scything Blade (p20), Magmic
+  Tunnelling (p26), Insubstantial (p31), Ruination Chamber (p71), and the Spearhead Shining Company
+  (p15); timings for Rune of Farsight (p26), Ruin-blessed Conqueror (p67), Babbling Wand (Passive,
+  p45), Ironjawz Waaagh! (p61), and the Spearhead The Hand of Gork (p15); Feral Ruin renamed YOU WILL
+  SERVE! (p67); A Reputation for Cunning without its command-point cost (p65); a chanting value of
+  2 on the historical General's Handbook 2025-26 Sacred Rites (p22); and in Legends, Bestigors
+  Despoilers, Glaivewraith Stalkers Unerring Hunters and Hunter's Glaive Rend 1, and Hedkrakka's
+  Madmob without ORRUK (p29); and REINFORCEMENTS on the Spearhead Rotmire Creed (p56). Several of
+  these also repair letter pairs the secondary pages lost inside the erratum wording (`battleeld`,
+  `Inict`, `eect`, `FLEASH-EATER`). Deliberately left open: Dirty Tricks, a documented
+  blocker on #2060. Page 61 removes "the first sentence of the effect", but the shipped first
+  sentence ("The effect of a DIRTY TRICK ability is only applied if you make a successful dirty
+  trick roll.") is the one the mechanic needs, so the secondary page has most likely already
+  dropped the battletome's original. No accepted official document reprints the battle trait (all
+  166 discoverable Games Workshop downloads are accepted or explicitly non-material, 2026-10-01),
+  and the Kruleboyz battletome is not a free download, so no citeable official text settles which
+  sentence the erratum removes; the shipped text stays until one does. Also open: Big Drogg
+  Fort-Kicka's majority-copy gap (#1999)
 - the 2026-09-30c General's Handbook 2025-26 past season (#2042): a review-only revision on top
   of 2026-09-30b, on the same manifest. It adds the `past-season` context and changes rules-context
   membership only: no artifact, source-record checksum, identity, entity, or count moves. 8,247

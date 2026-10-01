@@ -557,6 +557,157 @@ describe('AoS 4 corpus generation', () => {
     expect(revisedWarscroll?.revision).not.toBe(warscroll?.revision)
   })
 
+  it('applies an official ability rename, cost change, and warscroll keyword addition (#2060)', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const renamed = decoded.dataset.warscrollAbilities[0]
+    const costed = decoded.dataset.factionAbilities[0]
+    const targetWarscroll = decoded.dataset.warscrolls.find(record => record.id === renamed.warscrollId)!
+    const officialSourceRecordId = sourceRecordId('games-workshop', `${'e'.repeat(64)}:page:1`)
+    const reviewedWith = (overrides: Partial<CorpusReview>): CorpusReview => ({
+      ...review,
+      officialDocuments: [
+        {
+          title: 'Official correction fixture',
+          documentKind: 'reference',
+          rulesContextIds: [review.rulesContext.id],
+          artifact: {
+            requestUrl: 'https://assets.warhammer-community.com/correction-fixture.pdf',
+            finalUrl: 'https://assets.warhammer-community.com/correction-fixture.pdf',
+            redirectChain: [],
+            retrievedAt: '2026-10-01T12:00:00.000Z',
+            adapterVersion: 'games-workshop-pdf/1',
+            mediaType: 'application/pdf',
+            byteLength: 1,
+            checksum: 'e'.repeat(64),
+          },
+          sourceRecords: [{ id: officialSourceRecordId, page: 1, recordChecksum: 'd'.repeat(64) }],
+        },
+      ],
+      ...overrides,
+    })
+    const reviewed = reviewedWith({
+      abilityTextOverrides: [
+        {
+          sourceRecordId: renamed.meta.sourceRecordId,
+          name: 'OFFICIAL NEW NAME!',
+          reason: 'The official errata renames the ability.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+        {
+          sourceRecordId: costed.meta.sourceRecordId,
+          cost: { kind: 'prayer', value: 2 },
+          reason: 'The official errata adds a chanting value.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+      warscrollKeywordOverrides: [
+        {
+          sourceRecordId: targetWarscroll.meta.sourceRecordId,
+          add: ['REINFORCEMENTS'],
+          reason: 'The official errata adds the keyword.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    })
+    const identities = createCorpusIdentityRegistry(decoded.dataset, reviewed)
+    const result = buildAos4Corpus(decoded, identities, reviewed)
+    const abilityFor = (sourceId: string) =>
+      result.catalog.entities.find(
+        entity =>
+          entity.kind === 'ability' &&
+          entity.sourceRefs.some(reference => reference.sourceRecordId === sourceId)
+      )
+    const unchanged = buildAos4Corpus(decoded, identities, review)
+    const baseline = (sourceId: string) =>
+      unchanged.catalog.entities.find(
+        entity =>
+          entity.kind === 'ability' &&
+          entity.sourceRefs.some(reference => reference.sourceRecordId === sourceId)
+      )
+
+    expect(result.diagnostics).toEqual([])
+    const renamedAbility = abilityFor(renamed.meta.sourceRecordId)
+    expect(renamedAbility).toMatchObject({ name: 'OFFICIAL NEW NAME!' })
+    // Names are display text: the rename keeps the canonical identity and the source text.
+    expect(renamedAbility?.id).toBe(baseline(renamed.meta.sourceRecordId)?.id)
+    expect(renamedAbility?.kind === 'ability' && renamedAbility.text).toEqual(
+      baseline(renamed.meta.sourceRecordId)?.kind === 'ability'
+        ? (baseline(renamed.meta.sourceRecordId) as { text: unknown }).text
+        : undefined
+    )
+    expect(abilityFor(costed.meta.sourceRecordId)).toMatchObject({ cost: { kind: 'prayer', value: 2 } })
+    const warscroll = result.catalog.entities.find(
+      entity =>
+        entity.kind === 'warscroll' &&
+        entity.sourceRefs.some(reference => reference.sourceRecordId === targetWarscroll.meta.sourceRecordId)
+    )
+    expect(warscroll?.kind === 'warscroll' ? warscroll.keywords : []).toContain('REINFORCEMENTS')
+
+    // A no-op override, a cost the source already prints, and a keyword the source already prints
+    // all fail closed so a caught-up source retires the entry.
+    const sourceKeyword = decoded.dataset.warscrollKeywords
+      .find(record => record.warscrollId === targetWarscroll.id)!
+      .keyword.toUpperCase()
+    const stale = reviewedWith({
+      abilityTextOverrides: [
+        {
+          sourceRecordId: renamed.meta.sourceRecordId,
+          reason: 'Fixture override that changes nothing.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+        {
+          sourceRecordId: costed.meta.sourceRecordId,
+          cost: null,
+          reason: 'Fixture removal of a cost the source does not print.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+      warscrollKeywordOverrides: [
+        {
+          sourceRecordId: targetWarscroll.meta.sourceRecordId,
+          add: [sourceKeyword],
+          reason: 'Fixture addition of a keyword the source prints.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    })
+    const staleResult = buildAos4Corpus(decoded, createCorpusIdentityRegistry(decoded.dataset, stale), stale)
+    expect(
+      staleResult.diagnostics
+        .filter(diagnostic => diagnostic.code === 'invalid-review')
+        .map(d => d.subject)
+        .sort()
+    ).toEqual(
+      [renamed.meta.sourceRecordId, costed.meta.sourceRecordId, targetWarscroll.meta.sourceRecordId].sort()
+    )
+
+    // A reviewed cost equal to the source's cost retires the entry however its keys are ordered.
+    const priced = {
+      ...decoded,
+      dataset: {
+        ...decoded.dataset,
+        factionAbilities: decoded.dataset.factionAbilities.map(record =>
+          record === costed ? { ...record, pointsType: 'Prayer', points: '2' } : record
+        ),
+      },
+    }
+    const reordered = reviewedWith({
+      abilityTextOverrides: [
+        {
+          sourceRecordId: costed.meta.sourceRecordId,
+          cost: JSON.parse('{"value":2,"kind":"prayer"}') as { kind: 'prayer'; value: number },
+          reason: 'Fixture cost the source already prints, keys reordered.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    })
+    expect(
+      buildAos4Corpus(priced, createCorpusIdentityRegistry(priced.dataset, reordered), reordered)
+        .diagnostics.filter(diagnostic => diagnostic.code === 'invalid-review')
+        .map(diagnostic => diagnostic.subject)
+    ).toEqual([costed.meta.sourceRecordId])
+  })
+
   it('adds an official ability keyword the secondary source omits, and only then', async () => {
     const officialChecksum = 'e'.repeat(64)
     const officialSourceRecordId = sourceRecordId('games-workshop', `${officialChecksum}:page:1`)
