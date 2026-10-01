@@ -12,7 +12,56 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-30b` (issue #2047): a member fix for the Gotrek
+The current revision is `aos4-corpus-2026-09-30c` (issue #2042): General's Handbook 2025-26
+(`Scourge of Ghyran`) as a selectable past season, on top of `aos4-corpus-2026-09-30b`. It is a
+review-only revision on the same manifest, `accepted-2026-09-30.json`: the review adds the
+`past-season` rules context and its reviewed `pastSeasonContexts` boundary, scopes the standard and
+Scourge of Ghyran official documents to it, and widens the 16 context overrides that cite a Scourge
+of Ghyran pack. No artifact, source-record checksum, identity, entity, or count changes; only
+rules-context membership does, so the season's 586 entities gain the past season while keeping the
+historical context, and today's standard content joins it too, including the 2026-09-30b Gotrek
+Gurnisson regiment. The Stage 0 source audit, the approximation, and the import-fixture effects are
+in [aos4-past-season-2025-26.md](./aos4-past-season-2025-26.md). The new context adds 27
+faction/context strata and the required `high-risk:context-boundary:past-season` cohort. Its
+automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 631/631 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,283/20,283 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,692/42,692 |
+| Independent outcomes | 85,384 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 156/156 |
+| Populated high-risk cohorts | 21/21 |
+
+The source inventory is a schema 2 inventory of fresh observations taken for this revision: a
+`discover-official` snapshot observed at 2026-10-01T01:43:46Z (166 downloads, 7 explicit
+non-material) and the Wahapedia navigation and exports at 01:43:56Z (87 sources, 0 inaccessible).
+No BSData observation is bound because no BSData artifact is pinned. Every accepted artifact
+matched, so no newer official publication supersedes the pinned September documents. The
+certification is `aos4-corpus-2026-09-30c-machine-r2`, a re-campaign of the same revision after a
+generator fix reached the past season's own copy of the core rules' commands, spells, prayers, and
+terrain sections (17 edges scoped to the past season; no entity changed). It binds the same schema 2
+inventory as `machine-r1`, byte for byte. Its `--reuse-certification` offer of `machine-r1` reused
+42,658 unchanged pairs and evaluated 34 fresh (campaign 15:15:37Z, certified 15:16:10Z), with 0
+findings and 0 cannot-verify. Its reuse overlay references `machine-r1`, so that directory stays in
+the live chain. `machine-r1` (campaign 01:46:07Z, certified 01:46:40Z) evaluated all 42,692 pairs
+fresh against the `aos4-corpus-2026-09-30b-machine-r1` offer, because the revision re-key
+invalidates every pair.
+
+An earlier `aos4-corpus-2026-09-30b` draft of this change, built on `aos4-corpus-2026-09-30`, was
+never accepted: #2047 took the `2026-09-30b` name first. This revision re-applies the same four
+review inputs (`additionalRulesContexts`, `contextOverrides`, `officialDocuments`, and
+`pastSeasonContexts`) to the accepted 2026-09-30b review and regenerates every product from it.
+
+### `aos4-corpus-2026-09-30b` (superseded)
+
+The `aos4-corpus-2026-09-30b` revision (issue #2047) was a member fix for the Gotrek
 Gurnisson Regiment of Renown on top of `aos4-corpus-2026-09-30`, keeping `accepted-2026-09-30.json`
 and every artifact. A subscriber could not find Gotrek in any army. Official Regiments of Renown
 (September 2025, page 5) prints his warscroll as the regiment's only member, with no faction keyword,
@@ -26,7 +75,7 @@ spelling Wahapedia prints where the official page prints `Zangrom-Thaz`.
 `regimentsOfRenown.test.ts` pins the correction. The same intake confirmed a Nighthaunt report
 (#2048) against the September 2026 Rules Updates page 58 erratum, which makes Pyregheists' LIGHT A
 PYRE `Once Per Turn (Army)` with no phase: the accepted data already matches, and
-`nighthauntPyregheistsSeptember2026.test.ts` pins it. Its automated review is complete:
+`nighthauntPyregheistsSeptember2026.test.ts` pins it. Its automated review was complete:
 
 | Measure | Result |
 | --- | ---: |
@@ -441,7 +490,7 @@ of demanding a generated entity.
 the machine-verified beta standard. Any bound corpus or evidence change must pass a new campaign
 before accepted generation or CI proceeds.
 
-The 129 faction/context strata are the combinations declared by each faction's catalog
+The 156 faction/context strata are the combinations declared by each faction's catalog
 applicability, not a Cartesian product. A stratum counts as reviewed only when every live packet
 assigned to it passes.
 

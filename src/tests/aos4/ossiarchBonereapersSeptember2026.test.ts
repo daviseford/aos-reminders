@@ -122,10 +122,12 @@ describe('Ossiarch Bonereapers September 2026 Rules Updates page 64 (#2037)', ()
     ['ability:04dfb818-8bd0-5572-b5c7-b48444a48bd2', 'BOLSTER CREATION'],
     ['ability:f05c2b27-f64e-534f-a4f0-2648e683c9fe', 'INVIGORATE THE RANKS'],
     ['ability:7139b2ac-3d8d-5b57-aaba-0f64412b6899', 'SOUL-CLAIM'],
-  ])('keeps the Scourge of Ghyran %s (%s) historical, not Legends', (id, name) => {
+  ])('keeps the Scourge of Ghyran %s (%s) historical and in 2025-26, not Legends', (id, name) => {
     const entity = entityById.get(id)!
     expect(entity.name).toBe(name)
-    expect(contextStatuses(entity)).toEqual(['historical'])
+    // The overrides also name the General's Handbook 2025-26 past season (#2042), whose own content
+    // this is; historical membership stays so saved armies on the overlay keep resolving it.
+    expect(contextStatuses(entity)).toEqual(['historical', 'past-season'])
     expect(artifactIds(entity)).toContain(RE_PINNED_ROOT)
   })
 })

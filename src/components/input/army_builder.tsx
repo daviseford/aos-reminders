@@ -76,10 +76,12 @@ const groupSelections = (options: BuilderOption[]): SelectionGroup[] => {
 const SelectionCard = ({
   group,
   initiallyExpanded,
+  labels,
   onSetGroupSelections,
 }: {
   group: SelectionGroup
   initiallyExpanded: boolean
+  labels: BuilderViewModel['labels']
   onSetGroupSelections: ArmyBuilderProps['onSetGroupSelections']
 }) => {
   const { theme } = useTheme()
@@ -101,13 +103,9 @@ const SelectionCard = ({
   const options: Option[] = [...currentOptions, ...seasonalOptions, ...legendsOptions, ...historicalOptions]
   const groupedOptions = [
     ...currentOptions,
-    ...(seasonalOptions.length
-      ? [{ label: 'General’s Handbook 2026-27 (Scourge of Aqshy)', options: seasonalOptions }]
-      : []),
+    ...(seasonalOptions.length ? [{ label: labels.season, options: seasonalOptions }] : []),
     ...(legendsOptions.length ? [{ label: 'Legends', options: legendsOptions }] : []),
-    ...(historicalOptions.length
-      ? [{ label: 'Scourge of Ghyran (2025-26)', options: historicalOptions }]
-      : []),
+    ...(historicalOptions.length ? [{ label: labels.historical, options: historicalOptions }] : []),
   ]
   const selectedValues = options.filter(option =>
     group.options.some(candidate => candidate.id === option.value && candidate.selected)
@@ -194,6 +192,7 @@ const ArmyBuilder = ({ builder, onSetGroupSelections }: ArmyBuilderProps) => {
             key={group.key}
             group={group}
             initiallyExpanded={index === 0}
+            labels={builder.labels}
             onSetGroupSelections={onSetGroupSelections}
           />
         ))}

@@ -1,4 +1,4 @@
-import type { CanonicalId } from '../../aos4/domain'
+import type { CanonicalId, RulesContext, RulesContextId } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID, loadAos4SourceData } from '../../aos4/generated'
 import type { PrintDocumentOptions } from '../../aos4/print/document'
 import type { PrintPageSize } from '../../aos4/print/presets'
@@ -11,10 +11,11 @@ import {
 import { resolveSelection } from '../../aos4/select'
 import {
   createAos4ArmyDocument,
-  getAos4SeasonalRulesState,
+  findAos4PastSeasonContexts,
+  findAos4SeasonalRulesContexts,
+  moveAos4ToStandardRulesContext,
   serializeAos4ArmyDocument,
   setAos4ReminderPreference,
-  setAos4SeasonalRules,
   type Aos4ArmyDocument,
 } from '../../aos4/state'
 import {
@@ -22,8 +23,10 @@ import {
   createAos4ReminderSourceLinkResolver,
   createAos4ReminderViewModel,
   migrateAos4ReminderPreferences,
+  pastSeasonCaveat,
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
+import type { Aos4RulesSeasonBinding } from 'components/page/homeHeader'
 import Reminders, { type ReminderSourceLink } from 'components/info/reminders'
 import ArmyBuilder from 'components/input/army_builder'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
@@ -133,6 +136,11 @@ class ModalBoundary extends Component<{ children: ReactNode; onFailed: () => voi
 
 const MODAL_CHUNK_ERROR = 'That window could not be opened. Reload the page and try again.'
 
+// A standard season named by its handbook, e.g. `General’s Handbook 2025-26`; a context the
+// catalog records without a season keeps its own name.
+const handbookName = (context: RulesContext) =>
+  context.season ? `General’s Handbook ${context.season}` : context.name
+
 /*
  * Warscroll-ability records deep-link to their unit's own Wahapedia page rather than the
  * faction-wide warscrolls index they were read from (issue #1860). The resolver owns that URL
@@ -185,14 +193,12 @@ export interface Aos4CatalogBoundBindings {
   armyOfRenownId: CanonicalId | null
   onArmyOfRenownChange: (armyOfRenownId: CanonicalId | null) => void
   /**
-   * The seasonal rules switch (issue #1994): `true`/`false` mirror the document sitting in the
-   * seasonal or current standard context, and `null` means the document lives in some other
-   * context — Spearhead, a Legends-moved import, a historical season — that the switch cannot
-   * speak for, so the masthead hides it rather than showing a knob position that would lie.
+   * The rules-season select (issues #1994 and #2042), `null` when the document lives outside the
+   * standard seasons (Spearhead, a Legends-moved import) and the select cannot speak for it.
    * Derived here because telling the contexts apart takes the catalog the shell does not hold.
    */
-  seasonalRulesChecked: boolean | null
-  onToggleSeasonalRules: () => void
+  rulesSeason: Aos4RulesSeasonBinding | null
+  onRulesSeasonChange: (rulesContextId: RulesContextId) => void
   unlinkCloudArmy: () => void
 }
 
@@ -502,24 +508,44 @@ const HomeCatalogBound = ({
   }
 
   /*
-   * Derived from the document, never held: the switch is ON exactly when the document sits in the
-   * seasonal standard context and OFF exactly when it sits in the current standard one, so an
-   * import or a loaded cloud army that brings its own context moves the switch with it. Toggling
-   * is non-destructive both ways — only `rulesContextId` moves; season-exclusive selections stay
-   * in the document as inapplicable and revive when the season returns. The overlay flags are
-   * re-derived the same way every builder change derives them, so they keep following the
-   * selections rather than the context that just changed under them.
+   * The rules season (issues #1994 and #2042), derived from the document, never held: the select
+   * shows the document's own context, so an import or a loaded cloud army that brings its own
+   * context moves the select with it. The options come from the catalog by status and mode, never
+   * by name, so the next handbook needs no edit here: the sitting season first, then any past
+   * season (newest first), then battletome-only rules. Every move is non-destructive: only
+   * `rulesContextId` moves, and season-exclusive selections stay in the document as inapplicable
+   * and revive when their season returns. The overlay flags are re-derived the way every builder
+   * change derives them, so they keep following the selections rather than the context. Memoized
+   * on the context so the published binding keeps its identity across unrelated edits.
    */
-  const seasonalRulesState = getAos4SeasonalRulesState(AOS4_CATALOG, document)
-  const seasonalRulesChecked = seasonalRulesState === 'unavailable' ? null : seasonalRulesState === 'on'
-  const toggleSeasonalRules = useCallback(() => {
-    setDocument(current =>
-      deriveAos4OverlayFlags(
-        AOS4_CATALOG,
-        setAos4SeasonalRules(AOS4_CATALOG, current, getAos4SeasonalRulesState(AOS4_CATALOG, current) !== 'on')
-      )
-    )
-  }, [setDocument])
+  const { rulesContextId } = document
+  const rulesSeason = useMemo((): Aos4RulesSeasonBinding | null => {
+    const { seasonal, current } = findAos4SeasonalRulesContexts(AOS4_CATALOG)
+    const pastSeasons = findAos4PastSeasonContexts(AOS4_CATALOG)
+    const options = [
+      ...(seasonal ? [{ label: `${handbookName(seasonal)} (current season)`, value: seasonal.id }] : []),
+      ...pastSeasons.map(context => ({ label: `${handbookName(context)} (past season)`, value: context.id })),
+      ...(current ? [{ label: 'None: battletome and core rules only', value: current.id }] : []),
+    ]
+    if (options.length < 2 || !options.some(option => option.value === rulesContextId)) return null
+    const pastSeason = pastSeasons.find(context => context.id === rulesContextId)
+    const caveat = pastSeason && pastSeasonCaveat(pastSeason)
+    return {
+      options,
+      value: rulesContextId,
+      pastSeason: pastSeason && caveat ? { label: handbookName(pastSeason), caveat } : null,
+    }
+  }, [rulesContextId])
+  const selectRulesSeason = useCallback(
+    (nextRulesContextId: RulesContextId) => {
+      setDocument(current => {
+        // Re-picking the shown season is a no-op, not a rewrite of the document.
+        const moved = moveAos4ToStandardRulesContext(AOS4_CATALOG, current, nextRulesContextId)
+        return moved === current ? current : deriveAos4OverlayFlags(AOS4_CATALOG, moved)
+      })
+    },
+    [setDocument]
+  )
 
   // The faction's Armies of Renown, offered as the top-level choice under the faction selector.
   // Picking one replaces the faction's regular rules, so switching drops explicit selections the
@@ -585,7 +611,7 @@ const HomeCatalogBound = ({
     if (
       previous &&
       previous.armyOfRenownId === armyOfRenownId &&
-      previous.seasonalRulesChecked === seasonalRulesChecked &&
+      previous.rulesSeason === rulesSeason &&
       previous.unlinkCloudArmy === unlinkCloudArmy &&
       sameArmiesOfRenown(previous.armiesOfRenown, armiesOfRenown)
     ) {
@@ -595,8 +621,8 @@ const HomeCatalogBound = ({
       armiesOfRenown,
       armyOfRenownId,
       onArmyOfRenownChange: selectArmyOfRenown,
-      seasonalRulesChecked,
-      onToggleSeasonalRules: toggleSeasonalRules,
+      rulesSeason,
+      onRulesSeasonChange: selectRulesSeason,
       unlinkCloudArmy,
     }
     publishedBindings.current = bindings
@@ -605,9 +631,9 @@ const HomeCatalogBound = ({
     armiesOfRenown,
     armyOfRenownId,
     onBindingsChange,
-    seasonalRulesChecked,
+    rulesSeason,
     selectArmyOfRenown,
-    toggleSeasonalRules,
+    selectRulesSeason,
     unlinkCloudArmy,
   ])
 

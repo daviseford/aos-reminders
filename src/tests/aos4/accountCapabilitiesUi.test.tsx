@@ -416,13 +416,13 @@ describe('saved-army and sharing controls', () => {
       updatedAt: 4,
       document: {
         ...currentDocument,
-        name: 'Past Season List',
+        name: 'Newer Release List',
         rulesContextId:
-          'rules-context:90000000-0000-4000-8000-000000000005' as typeof currentDocument.rulesContextId,
+          'rules-context:90000000-0000-4000-8000-00000000ffff' as typeof currentDocument.rulesContextId,
       },
       requiresUpdate: {
         rulesContextId:
-          'rules-context:90000000-0000-4000-8000-000000000005' as typeof currentDocument.rulesContextId,
+          'rules-context:90000000-0000-4000-8000-00000000ffff' as typeof currentDocument.rulesContextId,
       },
     }
 
@@ -432,7 +432,7 @@ describe('saved-army and sharing controls', () => {
 
       expect(rows()).toHaveLength(2)
       const [known, future] = rows()
-      expect(future.textContent).toContain('Past Season List')
+      expect(future.textContent).toContain('Newer Release List')
       expect(future.textContent).toContain('need a newer version of AoS Reminders')
       expect(future.textContent).toContain('safe on your account')
       const labels = (row: HTMLElement) =>
@@ -452,7 +452,7 @@ describe('saved-army and sharing controls', () => {
       })
 
       const nameInput = container.querySelector<HTMLInputElement>('#save-army-name')!
-      nameInput.value = 'Past Season List'
+      nameInput.value = 'Newer Release List'
       act(() => Simulate.change(nameInput))
 
       expect(container.textContent).not.toContain('You already have a saved army called')

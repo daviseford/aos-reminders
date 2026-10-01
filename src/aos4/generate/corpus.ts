@@ -9,6 +9,7 @@ import {
   type WahapediaDiagnostic,
   type WahapediaFactionAbilityRecord,
   type WahapediaGeneralRuleAbilityRecord,
+  type WahapediaGeneralRuleGroupRecord,
   type WahapediaRecordMeta,
   type WahapediaSourceRecord,
   type WahapediaWarscrollAbilityRecord,
@@ -93,6 +94,21 @@ export interface CorpusOfficialDocument {
   publicationDate?: string
   effectiveDate?: string
   sourceRecords: CorpusOfficialSourceRecord[]
+}
+
+/**
+ * A reviewed boundary for a `past-season` rules context (#2042). The Wahapedia decoder files every
+ * lapsed-season record under one `historical` kind — the General's Handbook 2024-25 page beside
+ * that of 2025-26 and the Scourge of Ghyran faction content — so the season a record belongs to
+ * is not in the record itself. This names it by source: a historical-kind Wahapedia record joins
+ * the past season only when its artifact URL starts with one of these reviewed prefixes. Every
+ * such record keeps the historical context too; the past season is added, never moved, so saved
+ * armies that resolve the content through the historical overlay keep resolving it.
+ */
+export interface CorpusPastSeasonContext {
+  rulesContextId: RulesContextId
+  historicalSourceUrlPrefixes: string[]
+  reason: string
 }
 
 export interface CorpusContextOverride {
@@ -423,6 +439,7 @@ export interface CorpusReview {
   communityWarscrollSources?: CorpusCommunityWarscrollSource[]
   abilityTextOverrides?: CorpusAbilityTextOverride[]
   contextOverrides?: CorpusContextOverride[]
+  pastSeasonContexts?: CorpusPastSeasonContext[]
   legendsWarscrollOverrides?: CorpusLegendsWarscrollOverride[]
   weaponProfileOverrides?: CorpusWeaponProfileOverride[]
   warscrollKeywordOverrides?: CorpusWarscrollKeywordOverride[]
@@ -826,11 +843,28 @@ const sourceRulesContextIds = (
   const spearheadContextId = contexts.find(context => context.mode === 'spearhead')?.id
   const seasonalContextId = contexts.find(context => context.status === 'seasonal')?.id
   const legendsContextId = contexts.find(context => context.status === 'legends')?.id
+  const pastSeasonContextIds = contexts
+    .filter(context => context.status === 'past-season')
+    .map(context => context.id)
+  // Standard content is today's standard content in every standard season, sitting or past: a
+  // past season pairs its own battlepack with the current warscrolls, battletomes, and points
+  // (#2042), because no accepted source records them as they stood during that season.
   const currentContextIds = uniqueSorted([
     review.rulesContext.id,
     ...(seasonalContextId ? [seasonalContextId] : []),
+    ...pastSeasonContextIds,
   ])
   const historicalContextId = contexts.find(context => context.status === 'historical')?.id
+  const htmlArtifactUrlById = new Map(
+    (dataset.htmlArtifacts ?? []).map(entry => [artifactId(entry.checksum), entry.finalUrl])
+  )
+  const pastSeasonIdsForHistoricalRecord = (meta: WahapediaRecordMeta): RulesContextId[] => {
+    const url = htmlArtifactUrlById.get(meta.artifactId)
+    if (!url) return []
+    return (review.pastSeasonContexts ?? [])
+      .filter(season => season.historicalSourceUrlPrefixes.some(prefix => url.startsWith(prefix)))
+      .map(season => season.rulesContextId)
+  }
   const contextIdsForMeta = (meta: WahapediaRecordMeta): RulesContextId[] | undefined => {
     const kinds = meta.rulesContextKinds ?? (meta.rulesContextKind ? [meta.rulesContextKind] : [])
     if (!kinds.length) return undefined
@@ -858,7 +892,7 @@ const sourceRulesContextIds = (
         if (!historicalContextId) {
           throw new Error(`Historical record ${meta.sourceRecordId} requires a historical context`)
         }
-        return [historicalContextId]
+        return [historicalContextId, ...pastSeasonIdsForHistoricalRecord(meta)]
       })
     )
   }
@@ -1362,6 +1396,44 @@ const reviewDiagnostics = (
     }
     seenContextOverrides.add(override.sourceRecordId)
   })
+  // A past-season context without a reviewed boundary would silently hold only today's standard
+  // content — the season in name only — and a boundary naming a context of any other status would
+  // leak historical records into it.
+  const reviewContextById = new Map(
+    [review.rulesContext, ...(review.additionalRulesContexts ?? [])].map(context => [context.id, context])
+  )
+  const pastSeasonBoundaries = review.pastSeasonContexts ?? []
+  const pastSeasonContextIds = Array.from(reviewContextById.values())
+    .filter(context => context.status === 'past-season')
+    .map(context => context.id)
+  pastSeasonBoundaries.forEach(boundary => {
+    if (
+      reviewContextById.get(boundary.rulesContextId)?.status !== 'past-season' ||
+      pastSeasonBoundaries.filter(other => other.rulesContextId === boundary.rulesContextId).length !== 1 ||
+      !boundary.historicalSourceUrlPrefixes.length ||
+      boundary.historicalSourceUrlPrefixes.some(prefix => !/^https:\/\/[^/]+\/.+\/$/.test(prefix)) ||
+      !boundary.reason.trim()
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: boundary.rulesContextId,
+        message:
+          'A past-season boundary must uniquely target a past-season context, name HTTPS directory ' +
+          'URL prefixes, and give a reason',
+      })
+    }
+  })
+  pastSeasonContextIds
+    .filter(contextId => !pastSeasonBoundaries.some(boundary => boundary.rulesContextId === contextId))
+    .forEach(contextId =>
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: contextId,
+        message: 'A past-season context needs a reviewed boundary naming the historical sources it spans',
+      })
+    )
   const seenAbilityKeywordOverrides = new Set<SourceRecordId>()
   ;(review.abilityKeywordOverrides ?? []).forEach(override => {
     const added = override.add ?? []
@@ -1607,13 +1679,21 @@ export const buildAos4Corpus = (
   const addRelationship = (
     kind: ContentRelationship['kind'],
     from: CanonicalId | undefined,
-    to: CanonicalId | undefined
+    to: CanonicalId | undefined,
+    /** Narrows the edge below the contexts its endpoints share; the contextual pass intersects. */
+    rulesContextIds?: RulesContextId[]
   ) => {
     if (!from || !to) return
     const key = `${kind}:${from}:${to}`
     if (relationKeys.has(key)) return
     relationKeys.add(key)
-    relationships.push({ id: relationshipId(kind, from, to), kind, from, to })
+    relationships.push({
+      id: relationshipId(kind, from, to),
+      kind,
+      from,
+      to,
+      ...(rulesContextIds ? { rulesContextIds } : {}),
+    })
   }
 
   const officialSourceIds = new Set(
@@ -1694,6 +1774,7 @@ export const buildAos4Corpus = (
   const currentReviewContextIds = uniqueSorted([
     contextId,
     ...(seasonalReviewContextId ? [seasonalReviewContextId] : []),
+    ...reviewedRulesContexts.filter(context => context.status === 'past-season').map(context => context.id),
   ])
   ;(review.communityWarscrollSources ?? []).forEach(source => {
     const id = lookup('publication', 'other', `community:${source.artifact.checksum}`) as
@@ -2252,6 +2333,79 @@ export const buildAos4Corpus = (
     }
   })
 
+  /**
+   * Wahapedia prints the core rules' advanced sections (commands, champions, musicians, standard
+   * bearers, spells, prayers, manifestations, terrain) in the sitting season's edition ("Commands
+   * 2026-27" and so on), so those groups are seasonal and a past season never reaches them through
+   * the core rules: a 2025-26 army lost RALLY, COUNTER-CHARGE, and the rest (#2042). Each past
+   * season's own handbook page reprints the same sections as they stood that season, under the
+   * same headings. Those copies are that season's core rules, so the core rules' edges to the
+   * sitting season's sections are mirrored onto them, scoped to the past season alone: the
+   * aggregate historical overlay on a sitting-season army must never gain a second RALLY.
+   */
+  const sittingSeasonContextId = reviewedRulesContexts.find(context => context.status === 'seasonal')?.id
+  const htmlUrlByArtifactId = new Map(
+    (dataset.htmlArtifacts ?? []).map(entry => [artifactId(entry.checksum), entry.finalUrl])
+  )
+  const sittingSeasonCoreRuleGroups = (dataset.generalRuleGroups ?? []).filter(record => {
+    const contextIds = contextsFor(record.meta)
+    return (
+      generalRulesPageByExternalId.get(record.pageId)?.application === 'universal' &&
+      sittingSeasonContextId !== undefined &&
+      contextIds.includes(sittingSeasonContextId) &&
+      !contextIds.includes(contextId)
+    )
+  })
+  ;(review.pastSeasonContexts ?? []).forEach(season => {
+    if (!sittingSeasonCoreRuleGroups.length) return
+    const seasonCopiesBySection = new Map<string, WahapediaGeneralRuleGroupRecord[]>()
+    ;(dataset.generalRuleGroups ?? []).forEach(record => {
+      const page = generalRulesPageByExternalId.get(record.pageId)
+      const url = page ? htmlUrlByArtifactId.get(page.meta.artifactId) : undefined
+      if (!url || !season.historicalSourceUrlPrefixes.some(prefix => url.startsWith(prefix))) return
+      const section = record.meta.section
+      if (!section || !contextsFor(record.meta).includes(season.rulesContextId)) return
+      seasonCopiesBySection.set(section, [...(seasonCopiesBySection.get(section) ?? []), record])
+    })
+    const seasonCopyOf = (record: WahapediaGeneralRuleGroupRecord) => {
+      const copies = (record.meta.section && seasonCopiesBySection.get(record.meta.section)) || []
+      return copies.length === 1 ? copies[0] : undefined
+    }
+    sittingSeasonCoreRuleGroups.forEach(record => {
+      const copy = seasonCopyOf(record)
+      if (!copy) {
+        diagnostics.push({
+          code: 'invalid-review',
+          severity: 'error',
+          subject: record.meta.sourceRecordId,
+          message: `Past season ${season.rulesContextId} needs exactly one copy of core-rules section ${record.name}`,
+        })
+        return
+      }
+      const page = generalRulesPageByExternalId.get(record.pageId)
+      const parent = record.parentId ? generalRuleGroupByExternalId.get(record.parentId) : undefined
+      const containerApplication = parent?.application ?? page?.application
+      // A nested section hangs off the season's copy of its parent; the parent reports a missing copy.
+      const parentIsSeasonal = parent !== undefined && sittingSeasonCoreRuleGroups.includes(parent)
+      const containerRecord = parentIsSeasonal ? seasonCopyOf(parent) : parent
+      if (parentIsSeasonal && !containerRecord) return
+      const containerId = containerRecord
+        ? generalRuleGroupIdByExternalId.get(containerRecord.id)
+        : generalRulesPageIdByExternalId.get(record.pageId)
+      const copyId = generalRuleGroupIdByExternalId.get(copy.id)
+      if (record.application === containerApplication && record.application !== 'reference') {
+        addRelationship('includes', containerId, copyId, [season.rulesContextId])
+      } else if (record.application !== 'reference') {
+        const relationshipKind = record.application === 'universal' ? 'includes' : 'offers'
+        dataset.factions.forEach(faction =>
+          addRelationship(relationshipKind, factionByExternalId.get(faction.id), copyId, [
+            season.rulesContextId,
+          ])
+        )
+      }
+    })
+  })
+
   const normalizationPolicies = new Map(
     review.normalizationDiagnosticPolicies
       .filter(policy => policy.sourceRecordId)
@@ -2582,7 +2736,10 @@ export const buildAos4Corpus = (
         : []
     }
     const toContextIds = new Set(to.rulesContextIds)
-    const sharedContextIds = from.rulesContextIds.filter(id => toContextIds.has(id))
+    const sharedContextIds = from.rulesContextIds.filter(
+      id =>
+        toContextIds.has(id) && (!relationship.rulesContextIds || relationship.rulesContextIds.includes(id))
+    )
     return sharedContextIds.length
       ? [{ ...relationship, rulesContextIds: uniqueSorted(sharedContextIds) }]
       : []

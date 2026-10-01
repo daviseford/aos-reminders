@@ -142,9 +142,14 @@ describe('official app list resolution', () => {
     expect(matched).toContain('Greedy Eaters')
     expect(matched).toContain('Scourge of Ghyran Ironblaster')
     expect(matched).toContain('Scourge of Ghyran Gnoblar Scraplauncher')
+    // The roster declares General's Handbook 2025-26, which we carry as a past season (#2042): it
+    // lands there, with no superseded-season fallback warning, and keeps the historical overlay for
+    // anything retired after the season ended.
+    const pastSeason = AOS4_CATALOG.rulesContexts.find(context => context.status === 'past-season')!
+    expect(preview.proposedDocument?.rulesContextId).toBe(pastSeason.id)
+    expect(preview.proposedDocument?.rulesContextId).not.toBe(AOS4_DEFAULT_RULES_CONTEXT_ID)
     expect(preview.proposedDocument?.allowsHistorical).toBe(true)
-    // The document still imports into the season we carry, which holds the rest of the army.
-    expect(preview.proposedDocument?.rulesContextId).toBe(AOS4_DEFAULT_RULES_CONTEXT_ID)
+    expect(preview.diagnostics.map(diagnostic => diagnostic.code)).not.toContain('unsupported-context')
   })
 
   it('leaves a current-season roster on the current season alone', () => {

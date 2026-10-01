@@ -54,11 +54,69 @@ describe('import label aliases', () => {
    * perfectly well. A match that exists only in another context does not count.
    */
   it('only covers labels the default-context catalog cannot already resolve', () => {
-    const redundant = IMPORT_LABEL_ALIASES.filter(alias =>
-      defaultContextNames.has(normalizeImportLabel(alias.from))
+    const redundant = IMPORT_LABEL_ALIASES.filter(
+      alias => !alias.rulesContextStatus && defaultContextNames.has(normalizeImportLabel(alias.from))
     ).map(alias => alias.from)
 
     expect(redundant).toEqual([])
+  })
+
+  /**
+   * A context-scoped alias (#2042) fires only while resolving in contexts of its status, so it is
+   * judged there instead: redundant if the roster spelling already resolves in such a context, and
+   * stale if its target is not in one.
+   */
+  it('scopes a context alias to contexts where only the target exists', () => {
+    const scoped = IMPORT_LABEL_ALIASES.filter(alias => alias.rulesContextStatus)
+    expect(scoped.length).toBeGreaterThan(0)
+    scoped.forEach(alias => {
+      const contextIds = new Set(
+        AOS4_CATALOG.rulesContexts
+          .filter(context => context.status === alias.rulesContextStatus)
+          .map(context => context.id)
+      )
+      expect(contextIds.size).toBeGreaterThan(0)
+      const namesIn = new Set(
+        AOS4_CATALOG.entities
+          .filter(entity => entity.rulesContextIds.some(id => contextIds.has(id)))
+          .map(entity => normalizeImportLabel(entity.name))
+      )
+      expect(namesIn.has(normalizeImportLabel(alias.from))).toBe(false)
+      expect(namesIn.has(normalizeImportLabel(alias.to))).toBe(true)
+    })
+  })
+
+  it('consults a context-scoped alias only in its own context status', () => {
+    expect(aliasedImportLabel('Benedictions of Sickness')).toBeUndefined()
+    expect(aliasedImportLabel('Benedictions of Sickness', { status: 'seasonal' })).toBeUndefined()
+    expect(aliasedImportLabel('Benedictions of Sickness', { status: 'past-season' })).toEqual(
+      'Bendictions of Sickness'
+    )
+  })
+
+  /**
+   * An unscoped alias is a provider or catalog spelling fix that holds in every context, so a
+   * 2025-26 past-season roster (#2042) gets the same fixes as a 2026-27 one. The #2054 import fixes
+   * landed beside the past season and name today's standard content, which the past season carries.
+   */
+  it('applies unscoped aliases in the past season too', () => {
+    const pastSeasonIds = new Set(
+      AOS4_CATALOG.rulesContexts
+        .filter(context => context.status === 'past-season')
+        .map(context => context.id)
+    )
+    const pastSeasonNames = new Set(
+      AOS4_CATALOG.entities
+        .filter(entity => entity.rulesContextIds.some(id => pastSeasonIds.has(id)))
+        .map(entity => normalizeImportLabel(entity.name))
+    )
+    for (const alias of IMPORT_LABEL_ALIASES.filter(entry => !entry.rulesContextStatus)) {
+      expect(aliasedImportLabel(alias.from, { status: 'past-season' })).toEqual(alias.to)
+    }
+    for (const from of ['Ruthless Overseer', 'Hobgrotz Vandalz', 'The Beast of Castle Sterneiste']) {
+      const to = aliasedImportLabel(from, { status: 'past-season' })
+      expect(to && pastSeasonNames.has(normalizeImportLabel(to))).toBe(true)
+    }
   })
 
   it('never aliases a label to itself', () => {
