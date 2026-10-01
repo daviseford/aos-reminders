@@ -3,20 +3,13 @@ import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { useCheckoutOutcome } from 'utils/checkoutOutcome'
 
 /**
- * The rules-update note for the latest Rules Radar reconciliation (corpus 2026-09-30). Each
+ * The rules-update note for the latest Rules Radar reconciliation (corpus 2026-10-01). Each
  * reconciliation that reaches production gets its own banner name so the note shows once to
  * everyone, including people who dismissed the previous one; keep the copy to a few sentences.
  */
 const RulesUpdateBanner = () => (
-  <NotificationBanner enableLog name="2026-09-rules-update-4" variant="info">
-    <span>
-      <strong>Late September update:</strong> Ossiarch Bonereapers pages match the September errata, and
-      imported monstrous traits now show up as selected in the builder. Spotted a mistake? Let us know on{' '}
-      <a href="https://discord.gg/2nt9Fxp" target="_blank" rel="noopener noreferrer">
-        Discord
-      </a>
-      !
-    </span>
+  <NotificationBanner enableLog name="2026-09-rules-update-5" variant="info">
+    <span>The latest September errata has been added.</span>
   </NotificationBanner>
 )
 

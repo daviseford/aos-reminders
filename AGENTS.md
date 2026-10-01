@@ -78,7 +78,8 @@ This is an Age of Sigmar fourth-edition codebase:
   Shyish Reaper for the Clattering Procession and Eternal Nightmare copies and the Summon Unholy
   Reliquary for the Knights of the Crimson Keep copy (owner ruling: those errata apply to every
   army), and Lord Kroak's Arcane Vassal completed from the current Faction Pack: Seraphon reprint;
-  Dirty Tricks (p61) stays a documented blocker until citeable official text settles it; ability
+  Dirty Tricks (p61) needs no override because its secondary page already omits the removed
+  one-Dirty-Trick-per-phase sentence (Warhammer Community, 29 June 2026); ability
   overrides may also carry a reviewed `name` and `cost`,
   warscroll keyword overrides may `add`, and the machine review certifies phrase edits whose new
   words the official page prints beside the unchanged words around them, and deletions the

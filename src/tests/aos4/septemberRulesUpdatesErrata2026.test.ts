@@ -91,15 +91,16 @@ describe('owner-directed corrections from current official reprints (#2060)', ()
     expect(ability('ability:bde61192-9e81-572e-8765-b41b07745a7f').text.effect).toBe(vassal.text.effect)
   })
 
-  it('keeps Dirty Tricks on its shipped text: no accessible official reprint settles the erratum', () => {
-    // Page 61 removes "the first sentence" of Dirty Tricks, but the shipped first sentence is the
-    // one the mechanic needs and no accepted official document reprints the battle trait. It stays
-    // a documented blocker on #2060 until a citeable official text exists.
+  it('shows Dirty Tricks as page 61 leaves it: the dirty trick roll stays, the one-per-phase limit is gone', () => {
+    // Page 61 removes "the first sentence" of Dirty Tricks. Warhammer Community's Quarterly
+    // Battlescroll Updates article (29 June 2026) names that sentence: "the restriction on using
+    // only one Dirty Trick per phase removed". The secondary page already prints the trait without
+    // it, so the shipped text is the corrected rule and needs no override (#2060).
     const dirtyTricks = ability('ability:1345c64a-4638-5ce3-99cb-b9b41cddd692')
-    expect(dirtyTricks.text.effect).toMatch(
-      /^The effect of a DIRTY TRICK ability is only applied if you make a successful dirty trick roll\./
+    expect(dirtyTricks.text.effect).toBe(
+      'The effect of a DIRTY TRICK ability is only applied if you make a successful dirty trick roll. The success of a dirty trick roll depends on the number of DIRTY TRICK abilities your army has already used this battle round.\nDirty Trick\nDirty Trick Roll\nFirst\n2+\nSecond\n3+\nThird\n4+\nFourth or subsequent\n5+'
     )
-    expect(citesPage(dirtyTricks, 61)).toBe(false)
+    expect(dirtyTricks.text.effect).not.toMatch(/per phase/i)
   })
 })
 
