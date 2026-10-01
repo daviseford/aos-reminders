@@ -292,7 +292,13 @@ const abilitySourceCostChecks = (source: Record<string, unknown>, generated: unk
 const abilitySourceFidelityChecks = (
   source: Record<string, unknown>,
   ability: Record<string, unknown> | undefined,
-  overrides: { text: boolean; timing: boolean; addedKeywords?: readonly string[] } = {
+  overrides: {
+    text: boolean
+    timing: boolean
+    name?: boolean
+    cost?: boolean
+    addedKeywords?: readonly string[]
+  } = {
     text: false,
     timing: false,
   }
@@ -301,9 +307,10 @@ const abilitySourceFidelityChecks = (
     return [failed('secondary.source-ability', 'Source ability has no generated ability entity')]
   }
   // A keyword a reviewed override added comes from official evidence, which the official-override
-  // checks verify; the secondary source is not expected to print it.
+  // checks verify; the secondary source is not expected to print it. The same holds for a name or
+  // cost a reviewed override replaced.
   const officiallyAdded = new Set((overrides.addedKeywords ?? []).map(sourceComparableText))
-  const checks = unsupportedSourceValue('ability-name', source.name, ability.name)
+  const checks = overrides.name ? [] : unsupportedSourceValue('ability-name', source.name, ability.name)
   const condition = visibleSourceText(source.conditionHtml)
   const description = visibleSourceText(source.descriptionHtml)
   const sourceRuleText = `${condition} ${description} ${visibleSourceText(source.keywordsHtml)}`
@@ -340,7 +347,7 @@ const abilitySourceFidelityChecks = (
   if (expectedKind && !overrides.timing) {
     checks.push(...unsupportedSourceValue('ability-kind', expectedKind, ability.abilityKind))
   }
-  checks.push(...abilitySourceCostChecks(source, ability.cost))
+  if (!overrides.cost) checks.push(...abilitySourceCostChecks(source, ability.cost))
   return checks
 }
 
@@ -523,8 +530,11 @@ const secondarySourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] =>
     recordKind === 'faction-ability' ||
     recordKind === 'general-rule-ability'
   ) {
+    const abilityOverrides = reviewOverrideDestinations(pair, 'abilityTextOverrides')
     return abilitySourceFidelityChecks(value, entityOfKind(entities, 'ability'), {
-      text: reviewOverrideDestinations(pair, 'abilityTextOverrides').length > 0,
+      text: abilityOverrides.some(override => override.text !== undefined),
+      name: abilityOverrides.some(override => override.name !== undefined),
+      cost: abilityOverrides.some(override => 'cost' in override),
       timing: reviewOverrideDestinations(pair, 'timingOverrides').length > 0,
       addedKeywords: reviewOverrideDestinations(pair, 'abilityKeywordOverrides').flatMap(override =>
         Array.isArray(override.add) ? override.add.map(String) : []
@@ -687,6 +697,23 @@ const secondaryAbilityRuleText = (pair: ReviewPacketPair): string => {
     .join(' ')
 }
 
+/**
+ * The secondary record's own `Declare:` and `Effect:` segments, so a reviewed override can be
+ * compared field by field. A field the record does not label is absent, never guessed.
+ */
+const secondaryAbilityTextFields = (pair: ReviewPacketPair): Record<string, string> => {
+  const description = visibleSourceText(evidenceJsonValue(pair)?.value.descriptionHtml ?? '')
+  const segments: Record<string, string> = {}
+  const pattern = /\b(Declare|Effect):\s*([\s\S]*?)(?=\b(?:Declare|Effect):|$)/g
+  const matches = Array.from(description.matchAll(pattern))
+  const fields = matches.map(match => match[1].toLowerCase())
+  if (new Set(fields).size !== fields.length) return {}
+  matches.forEach(match => {
+    segments[match[1].toLowerCase()] = match[2].trim()
+  })
+  return segments
+}
+
 const unmatchedGeneratedTokenRuns = (source: unknown, generated: unknown): string[] => {
   const sourceTokens: string[] =
     visibleSourceText(source)
@@ -755,6 +782,16 @@ const officialEvidenceSupportsKeywordRemoval = (officialText: string, keyword: s
   )
 }
 
+/** The official text instructs adding the keyword: `Add the Reinforcements keyword to ...`. */
+const officialEvidenceSupportsKeywordAddition = (officialText: string, keyword: string): boolean => {
+  const keywordPattern = escapeRegularExpression(visibleSourceText(keyword)).replace(/\s+/g, '\\s+')
+  if (!keywordPattern) return false
+  return new RegExp(
+    String.raw`\badd\s+(?:the\s+)?${keywordPattern}(?:\s+keyword)?\b[^.!?\r\n]{0,80}\b(?:keywords?|warscroll)\b`,
+    'i'
+  ).test(officialText)
+}
+
 /** The official text prints the keyword in a `Keywords` strip, not merely somewhere in prose. */
 const officialEvidencePrintsKeyword = (officialText: string, keyword: string): boolean => {
   const keywordPattern = escapeRegularExpression(visibleSourceText(keyword)).replace(/\s+/g, '\\s+')
@@ -780,6 +817,96 @@ const officialRewriteOmitsKeyword = (officialText: string, abilityName: string, 
       return !officialEvidencePrintsKeyword(nextHeading === -1 ? rest : rest.slice(0, nextHeading), keyword)
     })
   )
+}
+
+/** A reviewed name replaces the display name only when the official evidence prints it. */
+const officialAbilityNameChecks = (
+  ability: Record<string, unknown> | undefined,
+  name: unknown,
+  officialText: string
+): FailedCheck[] => [
+  ...(ability?.name === name
+    ? []
+    : [
+        failed(
+          'official-override.ability-name.destination',
+          'Generated ability name differs from the reviewed official override',
+          name,
+          ability?.name
+        ),
+      ]),
+  ...(typeof name === 'string' &&
+  new RegExp(
+    String.raw`\b${escapeRegularExpression(visibleSourceText(name)).replace(/\s+/g, '\\s*')}\s*:`,
+    'i'
+  ).test(officialText)
+    ? []
+    : [
+        failed(
+          'official-override.ability-name.evidence',
+          'Official evidence does not print the reviewed ability name as an ability heading',
+          name
+        ),
+      ]),
+]
+
+const costInstructionNames: Record<string, string> = {
+  spell: String.raw`casting\s+value`,
+  prayer: String.raw`chanting\s+value`,
+  'command-points': String.raw`command[\s-]+point\s+cost`,
+}
+
+/**
+ * A reviewed cost replaces the source's casting, chanting, or command-point cost only when the
+ * official evidence instructs exactly that change for this ability: `Add a chanting value of 2 to
+ * 'Sacred Rites'`, or `Remove the command point cost from 'A Reputation for Cunning'`.
+ */
+const officialAbilityCostChecks = (
+  ability: Record<string, unknown> | undefined,
+  cost: unknown,
+  officialText: string
+): FailedCheck[] => {
+  const checks: FailedCheck[] = []
+  const generated = ability?.cost ?? null
+  if (!same(generated, cost ?? null)) {
+    checks.push(
+      failed(
+        'official-override.ability-cost.destination',
+        'Generated ability cost differs from the reviewed official override',
+        cost,
+        generated
+      )
+    )
+  }
+  const abilityName = escapeRegularExpression(visibleSourceText(ability?.name ?? '')).replace(/\s+/g, '\\s+')
+  const quotedName = String.raw`[‘'"]${abilityName}[’'"]`
+  const supported =
+    abilityName &&
+    (cost === null
+      ? Object.values(costInstructionNames).some(kind =>
+          new RegExp(String.raw`\bremove\s+the\s+${kind}\s+from\s+(?:the\s+)?${quotedName}`, 'i').test(
+            officialText
+          )
+        )
+      : isRecord(cost) &&
+        typeof cost.kind === 'string' &&
+        costInstructionNames[cost.kind] !== undefined &&
+        Number.isSafeInteger(cost.value) &&
+        new RegExp(
+          String.raw`\b${costInstructionNames[cost.kind]}\s+of\s+${String(cost.value)}\s*(?:CP\s+)?to\s+(?:the\s+)?${quotedName}`,
+          'i'
+        ).test(officialText))
+  if (!supported) {
+    checks.push(
+      failed(
+        'official-override.ability-cost.evidence',
+        'Official evidence does not instruct the reviewed ability cost change',
+        cost,
+        officialText
+      )
+    )
+  }
+  return checks
 }
 
 const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
@@ -897,7 +1024,7 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
         }
       })
     } else if (override.field === 'abilityTextOverrides') {
-      if (!ability || !same(ability.text, override.value.text)) {
+      if (override.value.text !== undefined && (!ability || !same(ability.text, override.value.text))) {
         checks.push(
           failed(
             'official-override.ability-text.destination',
@@ -907,9 +1034,27 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
           )
         )
       }
+      if (override.value.name !== undefined)
+        checks.push(...officialAbilityNameChecks(ability, override.value.name, officialText))
+      if ('cost' in override.value)
+        checks.push(...officialAbilityCostChecks(ability, override.value.cost, officialText))
       if (isRecord(override.value.text)) {
         const secondaryText = secondaryAbilityRuleText(pair)
+        // A field is grounded when it reads in order through the secondary and official evidence,
+        // when the official evidence prints it whole (a replacement), or when it is the secondary
+        // text edited in place: every word that departs from the secondary text is printed by the
+        // official evidence (an erratum that changes a phrase inside a sentence).
+        const fieldIsOfficialReplacement = (value: unknown) =>
+          generatedTextIsGrounded(officialText, value, true)
         Object.entries(override.value.text).forEach(([field, value]) => {
+          if (
+            fieldIsOfficialReplacement(value) ||
+            unmatchedGeneratedTokenRuns(secondaryText, value).every(run =>
+              generatedTextIsGrounded(officialText, run, true)
+            )
+          ) {
+            return
+          }
           checks.push(
             ...unsupportedGeneratedText(
               `official-override.ability-text.${field}`,
@@ -921,7 +1066,21 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
         })
         const generatedText = Object.values(override.value.text).map(String).join(' ')
         const officialContributions = unmatchedGeneratedTokenRuns(secondaryText, generatedText)
-        if (!officialContributions.length) {
+        // An erratum that only deletes words adds none, so it contributes nothing new; it is still
+        // official when the official evidence prints every resulting field whole.
+        // A field the override carries unchanged from the secondary text (an untouched declare
+        // step beside a corrected effect) needs no official reprint; every field it changed does.
+        const secondaryFields = secondaryAbilityTextFields(pair)
+        const officialDeletion =
+          !officialContributions.length &&
+          Object.entries(override.value.text).every(
+            ([field, value]) =>
+              fieldIsOfficialReplacement(value) ||
+              (secondaryFields[field] !== undefined &&
+                sourceComparableText(secondaryFields[field]) === sourceComparableText(value))
+          ) &&
+          Object.values(override.value.text).some(value => fieldIsOfficialReplacement(value))
+        if (!officialContributions.length && !officialDeletion) {
           checks.push(
             failed(
               'official-override.ability-text.evidence',
@@ -1003,6 +1162,28 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
     } else {
       const keywords = Array.isArray(warscroll?.keywords) ? warscroll.keywords.map(String) : []
       const removed = Array.isArray(override.value.remove) ? override.value.remove.map(String) : []
+      const added = Array.isArray(override.value.add) ? override.value.add.map(String) : []
+      added.forEach(keyword => {
+        if (!keywords.some(value => sourceComparableText(value) === sourceComparableText(keyword))) {
+          checks.push(
+            failed(
+              'official-override.warscroll-keyword.add',
+              'Generated warscroll lacks an officially added keyword',
+              keyword,
+              keywords
+            )
+          )
+        }
+        if (!officialEvidenceSupportsKeywordAddition(officialText, keyword)) {
+          checks.push(
+            failed(
+              'official-override.warscroll-keyword.evidence',
+              'Official evidence does not support the reviewed keyword addition',
+              keyword
+            )
+          )
+        }
+      })
       removed.forEach(keyword => {
         if (keywords.some(value => sourceComparableText(value) === sourceComparableText(keyword))) {
           checks.push(

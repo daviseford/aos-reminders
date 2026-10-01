@@ -117,6 +117,14 @@ describe('AoS 4 review packet preparation', () => {
     expect(excerpt).toContain('…')
   })
 
+  it('focuses an excerpt on any of several needles, such as an erratum keyword instruction (#2060)', () => {
+    const page = `BEASTS OF CHAOS ${'unrelated '.repeat(300)}BONESPLITTERZ ALL WARSCROLLS Remove ‘ Orruk ’ from the keywords bar.`
+    expect(pageExcerpt(page, 'Hedkrakka’s Madmob')).not.toContain('Remove ‘ Orruk ’')
+    expect(pageExcerpt(page, ['Hedkrakka’s Madmob', 'ORRUK'])).toContain(
+      'Remove ‘ Orruk ’ from the keywords bar.'
+    )
+  })
+
   it('builds deterministic blind/comparison pairs and a source-safe index', () => {
     const candidates = [
       candidate('official', {

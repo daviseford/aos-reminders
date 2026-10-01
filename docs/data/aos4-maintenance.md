@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-09-30b snapshot is defined by:
+The accepted 2026-10-01 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
 | `data/aos4/manifests/accepted-2026-09-30.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication and the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037), pinned by SHA-256; no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
-| `data/aos4/reviews/corpus-2026-09-30b.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
+| `data/aos4/reviews/corpus-2026-10-01.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-09-30b-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-09-30b-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-10-01-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-10-01-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -37,7 +37,7 @@ The strict report currently records:
 - 5,152 abilities
 - 2,276 weapons
 - 1,526 content groups
-- 244 source artifacts and 20,283 live source records
+- 244 source artifacts and 20,296 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -47,6 +47,37 @@ The strict report currently records:
   2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
+- the 2026-10-01 September 2026 Rules Updates errata (#2060), which keeps the 2026-09-30 manifest
+  and every artifact. The owner directed that the errata are what the app shows and ruled that the
+  page 58 Summon Shyish Reaper erratum (12") applies to every copy. All 562 erratum and addendum
+  entries on pages 2-77 of the pinned Rules Updates were compared with the shipped catalog: 384
+  were already applied, 136 change content the catalog does not carry (core and advanced rules
+  prose, glossary, battleplans, twists and battle tactics, Path to Glory, Army of Renown roster
+  options and Regiment of Renown organisation text, universal terrain-ability lists, the unshipped
+  Mawseeker Mob Spearhead), and the rest were checked against the PDF one by one. Reviewed overrides
+  citing the exact pages now ship: Summon Shyish Reaper for The Clattering Procession and The
+  Eternal Nightmare (p58); Lightning Master (p65), Abyssal Dweller (p33, worded as the re-published
+  Scourge of Aqshy - Idoneth Deepkin page 1), Rolling Ash-clouds (p25), Lingering Burns and the
+  Oracles of Fate Shifting Manifestations (p41), Spectral Alchemy (p58), Song of the Lost (p73),
+  Essence of the Gnaw (p32), The Croneseer's Pariahs (p32, worded as Armies of Renown page 1),
+  Stalk the Prey (p35), A Kingdom Deluded and For the Kingdom! (p43), In the Shadow of the Ethersea,
+  Whirlpool Fury and Slipstream (p51), Lava Storm (p49), Assault Boat (p53), Killa Beat and Bash
+  'Em Ladz! (p61), the Kruleboyz Bellowing Waaagh!-cries (p62), Scything Blade (p20), Magmic
+  Tunnelling (p26), Insubstantial (p31), Ruination Chamber (p71), and the Spearhead Shining Company
+  (p15); timings for Rune of Farsight (p26), Ruin-blessed Conqueror (p67), Babbling Wand (Passive,
+  p45), Ironjawz Waaagh! (p61), and the Spearhead The Hand of Gork (p15); Feral Ruin renamed YOU WILL
+  SERVE! (p67); A Reputation for Cunning without its command-point cost (p65); a chanting value of
+  2 on the historical General's Handbook 2025-26 Sacred Rites (p22); and in Legends, Bestigors
+  Despoilers, Glaivewraith Stalkers Unerring Hunters and Hunter's Glaive Rend 1, and Hedkrakka's
+  Madmob without ORRUK (p29); and REINFORCEMENTS on the Spearhead Rotmire Creed (p56). Several of
+  these also repair letter pairs the secondary pages lost inside the erratum wording (`battleeld`,
+  `Inict`, `eect`, `FLEASH-EATER`). Deliberately left open: Lord Kroak's Arcane Vassal, whose
+  secondary text lost `from the target instead of from this unit` (the erratum does not print it,
+  so no official evidence supports it); Dirty Tricks (p61 removes the first sentence, but the
+  shipped first sentence is the one the mechanic needs, so the secondary page has most likely
+  already dropped the battletome's original; it needs the battletome to settle); the Knights of the
+  Crimson Keep copy of Summon Unholy Reliquary, which page 70 does not name (the same shape as the
+  Shyish ruling, awaiting an owner decision); and Big Drogg Fort-Kicka's majority-copy gap (#1999)
 - the 2026-09-30b Gotrek Gurnisson member fix (#2047), which keeps the 2026-09-30 manifest and
   every artifact: a subscriber could not find Gotrek in any army. Official Regiments of Renown
   (September 2025, page 5) prints the regiment with ORGANISATION "Gotrek Gurnisson (see below)"

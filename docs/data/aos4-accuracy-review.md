@@ -12,7 +12,61 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-30b` (issue #2047): a member fix for the Gotrek
+The current revision is `aos4-corpus-2026-10-01` (issue #2060): the September 2026 Rules Updates
+errata the corpus still shipped in an earlier form, on top of `aos4-corpus-2026-09-30b`, keeping
+`accepted-2026-09-30.json` and every artifact. The owner directed that the errata are what the app
+shows, and that the page 58 Summon Shyish Reaper erratum applies to every copy. A systematic pass
+compared all 562 erratum and addendum entries on pages 2-77 of the pinned Rules Updates (SHA-256
+`03f602f2…`, re-downloaded byte-identical on 2026-10-01) with the shipped catalog; 384 were already
+applied and 136 change content the catalog does not carry. The rest ship through reviewed overrides
+citing the exact pages: 34 new ability overrides (two of them cost-only, and Feral Ruin's existing
+override gains its `YOU WILL SERVE!` name), 7 timing overrides, one weapon profile override, and
+two warscroll keyword overrides, with 13 more Rules Updates pages registered as reviewed page
+records (20,283 to 20,296 live source records). Abyssal Dweller and The Croneseer's Pariahs take
+the wording of the re-published Scourge of Aqshy - Idoneth Deepkin page 1 and Armies of Renown
+(September 2026) page 1 reprints. The runtime delta is exactly 39 abilities, 2 warscrolls, and 1
+weapon, plus the Rules Updates publication's provenance; no identity, relationship, offer, or
+reconciliation decision moves. `aos4-maintenance.md` records the scope and the open items.
+
+The reviewed vocabulary grew to carry it, each part fail-closed when a source catches up: an
+ability override may carry a `name` (display text only, identity unchanged) and a `cost` (`null`
+removes it), and a warscroll keyword override may `add`. The machine review certifies a renamed
+ability only when the official page prints the name as an ability heading, a cost only when the
+page instructs that exact change for that ability, an added keyword only when the page instructs
+the addition, a text override whose departures from the secondary text are all printed by the
+official evidence (a phrase edit inside a sentence), and a deletion only when the official
+evidence prints every changed field whole. Override evidence excerpts also look for the rule's
+name without a possessive (`Whirlpool Fury` for WHIRLPOOL'S FURY) and for the keywords an override
+changes, because an erratum may name no unit at all. `septemberRulesUpdatesErrata2026.test.ts`
+pins every corrected value. Its automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 631/631 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,296/20,296 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,705/42,705 |
+| Independent outcomes | 85,410 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 129/129 |
+| Populated high-risk cohorts | 21/21 |
+
+The 21st high-risk cohort is `official-warscrollKeywordOverrides`, populated for the first time by
+the Hedkrakka's Madmob and Rotmire Creed keyword corrections. The source inventory is a schema 2 inventory of fresh observations
+taken for this revision on 2026-10-01: a `discover-official` snapshot observed at 14:41:32Z (166
+downloads, 7 explicit non-material) and the Wahapedia navigation and exports at 14:41:52Z (87
+sources, 0 inaccessible). Every accepted artifact matched, so no newer official publication
+supersedes the pinned September documents. The certification is
+`aos4-corpus-2026-10-01-machine-r1` (campaign 15:05:42Z, certified 15:08:45Z). Its
+`--reuse-certification` offer of `aos4-corpus-2026-09-30b-machine-r1` reused no pair, because the
+revision re-key invalidates every pair, so all 42,705 pairs were evaluated fresh.
+
+### `aos4-corpus-2026-09-30b` (superseded)
+
+The `aos4-corpus-2026-09-30b` revision (issue #2047) was a member fix for the Gotrek
 Gurnisson Regiment of Renown on top of `aos4-corpus-2026-09-30`, keeping `accepted-2026-09-30.json`
 and every artifact. A subscriber could not find Gotrek in any army. Official Regiments of Renown
 (September 2025, page 5) prints his warscroll as the regiment's only member, with no faction keyword,

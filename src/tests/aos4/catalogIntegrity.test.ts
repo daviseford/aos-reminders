@@ -101,7 +101,7 @@ const certifiedRuntime = JSON.parse(
 
 const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-30.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-09-30b-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-01-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -198,11 +198,11 @@ describe('AoS 4 catalog generation integrity', () => {
         abilities: 5152,
         weapons: 2276,
         sourceArtifacts: 244,
-        sourceRecords: 20283,
+        sourceRecords: 20296,
         ignoredSourceRecords: 20464,
       },
       integrity: {
-        consumedSourceRecords: 20277,
+        consumedSourceRecords: 20290,
         issues: [],
         supersededSourceRecords: {
           count: 20458,

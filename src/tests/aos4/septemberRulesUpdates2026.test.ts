@@ -11,9 +11,10 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  *
  * Wahapedia had not republished any affected page, so the rules text the corpus ships from it
  * is corrected with reviewed ability-text and timing overrides that cite the exact September
- * page records. Changes the override vocabulary cannot express (ability renames, keyword
- * additions, characteristic and weapon-set changes, a command-point cost removal) stay recorded
- * discrepancies on #1999 rather than invented mechanisms.
+ * page records. Corpus 2026-10-01 (#2060) extended the reviewed vocabulary to ability renames,
+ * casting/chanting/command-point costs, and warscroll keyword additions, and applied the errata
+ * that were still outstanding (`septemberRulesUpdatesErrata2026.test.ts`). Characteristic and
+ * weapon-set changes still have no reviewed override.
  */
 
 interface OfficialBattleProfileRecord {
@@ -71,29 +72,36 @@ describe('the September 2026 Games Workshop update (#1757)', () => {
     expect(citesSeptemberRulesUpdates(alwaysOnGuard)).toBe(false)
   })
 
-  it('leaves the errata the machine review cannot verify on their secondary text, recorded on #1999', () => {
-    // The independent review only certifies override text whose new words appear in the cited
-    // official excerpt. Errata that only delete words (Lightning Master, Abyssal Dweller, the
-    // Ossiarch Bonereapers relentless-discipline surcharge), errata that edit a phrase inside
-    // secondary text (Rolling Ash-clouds, Lingering Burns), and Spectral Alchemy's long
-    // replacement cannot pass it, so they stay recorded discrepancies rather than overrides. The
-    // six Ossiarch Bonereapers abilities are correct since corpus 2026-09-30 (#2037), but through
-    // the re-pinned Wahapedia page that prints the erratum, not an override, so they still cite no
-    // Rules Updates page (`ossiarchBonereapersSeptember2026.test.ts` covers their text).
+  it('ships the Ossiarch Bonereapers errata from the re-pinned page, not an override', () => {
+    // The six Ossiarch Bonereapers abilities are correct since corpus 2026-09-30 (#2037) through
+    // the re-pinned Wahapedia page that prints the erratum, so they cite no Rules Updates page
+    // (`ossiarchBonereapersSeptember2026.test.ts` covers their text).
     for (const id of [
-      'ability:475c9bd8-e54e-5466-8d39-4db37bda29ab',
-      'ability:52df4c79-548b-52b8-b3f9-66bcbf3da517',
       'ability:de5519bc-8f30-5721-ae93-77969e28a8b2',
       'ability:4fc244a1-5dc2-57a3-b6a3-8b54adb4e2f4',
       'ability:78ea2b56-28bb-5181-a038-8cc6a6874ef6',
       'ability:6888f2e1-92a2-5d69-ad67-6385cc400af7',
       'ability:10efb9b5-ecf1-5d26-9874-16d4edae29fd',
       'ability:0115b296-d1dc-5af0-b6bc-f68336df4212',
+    ]) {
+      expect(citesSeptemberRulesUpdates(ability(id))).toBe(false)
+    }
+  })
+
+  it('certifies the deletion and phrase-edit errata the review once could not verify (#2060)', () => {
+    // Corpus 2026-10-01 taught the review to certify an override whose changed words are all
+    // printed by the official evidence (phrase edits) and one the official evidence prints whole
+    // (deletions), so Lightning Master, Abyssal Dweller, Rolling Ash-clouds, Lingering Burns, and
+    // Spectral Alchemy now ship their errata (`septemberRulesUpdatesErrata2026.test.ts` pins the
+    // text).
+    for (const id of [
+      'ability:475c9bd8-e54e-5466-8d39-4db37bda29ab',
+      'ability:52df4c79-548b-52b8-b3f9-66bcbf3da517',
       'ability:b7dd89c9-5f3f-5358-b0ec-dc922bd0963f',
       'ability:64e4d2a6-d00c-5060-a657-15aa9a9b3715',
       'ability:7b2718a8-31b4-5026-8373-51db06934a53',
     ]) {
-      expect(citesSeptemberRulesUpdates(ability(id))).toBe(false)
+      expect(citesSeptemberRulesUpdates(ability(id))).toBe(true)
     }
   })
 
@@ -121,18 +129,21 @@ describe('the September 2026 Games Workshop update (#1757)', () => {
     )
   })
 
-  it('keeps the Summon Shyish Reaper Army of Renown copies explicitly unresolved at 9"', () => {
-    // The August and September 2026 errata change only the battletome Manifestation Lore (12",
-    // already shipped). BSData sets the two Army of Renown copies to 12"; no official text names
-    // them, so the shipped Wahapedia 9" copies stay and the disagreement stays recorded.
+  it('applies the Summon Shyish Reaper erratum to the Army of Renown copies too (#2060)', () => {
+    // The September 2026 erratum (page 58) names the battletome Manifestation Lore (12", already
+    // shipped). The owner ruled on 2026-10-01 that it applies to every copy, so the Clattering
+    // Procession and Eternal Nightmare copies now take it through reviewed overrides citing page 58.
     for (const id of [
       'ability:29b435ca-1b95-5dbc-a229-0b426059d82e',
       'ability:60de0166-0d8c-5ffe-9892-144cc2f91093',
+      'ability:1764fc3b-08ad-5707-80f0-4f0afb9b6721',
     ]) {
-      expect(ability(id).text.effect).toMatch(/wholly within 9" of the caster/)
-      expect(citesSeptemberRulesUpdates(ability(id))).toBe(false)
+      expect(ability(id).text.effect).toBe(
+        'Set up a Shyish Reaper wholly within 12" of and visible to the caster and more than 9" from all enemy units.'
+      )
     }
-    expect(ability('ability:1764fc3b-08ad-5707-80f0-4f0afb9b6721').text.effect).toMatch(/within 12"/)
+    expect(citesSeptemberRulesUpdates(ability('ability:29b435ca-1b95-5dbc-a229-0b426059d82e'))).toBe(true)
+    expect(citesSeptemberRulesUpdates(ability('ability:60de0166-0d8c-5ffe-9892-144cc2f91093'))).toBe(true)
   })
 
   it('takes every battle profile from the September 2026 core document', () => {

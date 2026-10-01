@@ -173,14 +173,14 @@ describe('accepted casting and chanting value coverage (#2032)', () => {
   const hasKeyword = (keywords: readonly string[] | undefined, keyword: string) =>
     (keywords ?? []).some(candidate => candidate.toUpperCase() === keyword)
 
-  // Reviewed dispositions for the PRAYER abilities that ship without a chanting value. The three
-  // SACRED RITES records are the core chanting rule itself, which Wahapedia prints with no badge
-  // (the September 2026 Rules Updates page 22 adds a chanting value of 2 only to the historical
-  // General's Handbook 2025-26 copy, and no accepted text source carries it yet). The Cities of
-  // Sigmar Runelord's FORGEFIRE carries its value in a spell-class badge on a PRAYER ability, so
-  // the adapter fails closed rather than guess which kind of value it is.
+  // Reviewed dispositions for the PRAYER abilities that ship without a chanting value. The two
+  // remaining SACRED RITES records are the core chanting rule itself, which Wahapedia prints with
+  // no badge. The September 2026 Rules Updates page 22 adds a chanting value of 2 only to the
+  // historical General's Handbook 2025-26 copy, which a reviewed cost override has carried since
+  // corpus 2026-10-01 (#2060). The Cities of Sigmar Runelord's FORGEFIRE carries its value in a
+  // spell-class badge on a PRAYER ability, so the adapter fails closed rather than guess which
+  // kind of value it is.
   const PRAYERS_WITHOUT_CHANTING_VALUE = new Set([
-    'ability:64833c8e-0e45-570b-a0fb-14dd24df37b2',
     'ability:a89234c6-b4b0-5a92-af47-e046f6e57bb8',
     'ability:aa42ff31-bafb-55e6-a80c-279f531558cf',
     'ability:a5e8d40e-9d11-5b10-915e-8eae5b30fc23',
