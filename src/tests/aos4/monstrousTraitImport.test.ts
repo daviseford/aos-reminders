@@ -136,4 +136,25 @@ describe('Seraphon Armour Cruncher (#2038)', () => {
       },
     ])
   })
+
+  /**
+   * Issue #2053: the official app writes the trait's cost after it, `• Armour Cruncher - (10)
+   * Points`, and the import warned `Couldn't find a enhancement named "Armour Cruncher - (10)
+   * Points"` instead of reading the trait.
+   */
+  it('imports Armour Cruncher written with the official app cost suffix (#2053)', () => {
+    const { parsedRoster } = decodeAos4TextRoster(officialAppRoster('Armour Cruncher - (10) Points'))
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'army:official-app-armour-cruncher-cost',
+    })
+    expect(preview.diagnostics).toEqual([])
+    const document = preview.proposedDocument!
+    expect(document.explicitSelectionIds).toContain(armourCruncher.id)
+
+    const chips = createAos4BuilderViewModel(AOS4_CATALOG, document).options.filter(
+      option => option.groupType === 'monstrous-traits' && option.selected
+    )
+    expect(chips.map(chip => chip.id)).toEqual([armourCruncher.id])
+  })
 })
