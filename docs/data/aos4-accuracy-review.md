@@ -29,9 +29,10 @@ re-published Scourge of Aqshy - Idoneth Deepkin page 1 and Armies of Renown (Sep
 1 reprints. Lord Kroak's Arcane Vassal takes the clause its secondary page dropped (`from the
 target instead of from this unit`) from Faction Pack: Seraphon page 7, which prints the ability in
 its current, post-erratum form; the owner directed that current official reprints may supply such
-text. Dirty Tricks stays on its shipped text: page 61 removes "the first sentence", the shipped
-first sentence is the one the mechanic needs, and no accepted or discoverable official document
-reprints the battle trait, so it remains a documented blocker on #2060. The runtime delta is
+text. Dirty Tricks needs no override: page 61 removes "the first sentence", which Warhammer
+Community's Quarterly Battlescroll Updates article (29 June 2026) identifies as the
+one-Dirty-Trick-per-phase restriction, and the secondary page already prints the trait without
+it. The runtime delta is
 exactly 41 abilities, 2 warscrolls, and 1 weapon, plus the Rules Updates publication's provenance;
 no identity, relationship, offer, rules-context membership, or reconciliation decision moves. The
 2025-26 Sacred Rites chanting value (page 22) is now visible in the past season #2042 added, and

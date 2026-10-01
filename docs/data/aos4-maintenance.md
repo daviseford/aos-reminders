@@ -75,14 +75,14 @@ The strict report currently records:
   Despoilers, Glaivewraith Stalkers Unerring Hunters and Hunter's Glaive Rend 1, and Hedkrakka's
   Madmob without ORRUK (p29); and REINFORCEMENTS on the Spearhead Rotmire Creed (p56). Several of
   these also repair letter pairs the secondary pages lost inside the erratum wording (`battleeld`,
-  `Inict`, `eect`, `FLEASH-EATER`). Deliberately left open: Dirty Tricks, a documented
-  blocker on #2060. Page 61 removes "the first sentence of the effect", but the shipped first
-  sentence ("The effect of a DIRTY TRICK ability is only applied if you make a successful dirty
-  trick roll.") is the one the mechanic needs, so the secondary page has most likely already
-  dropped the battletome's original. No accepted official document reprints the battle trait (all
-  166 discoverable Games Workshop downloads are accepted or explicitly non-material, 2026-10-01),
-  and the Kruleboyz battletome is not a free download, so no citeable official text settles which
-  sentence the erratum removes; the shipped text stays until one does. Also open: Big Drogg
+  `Inict`, `eect`, `FLEASH-EATER`). Dirty Tricks needs no override. Page 61 removes "the
+  first sentence of the effect", and Warhammer Community's Quarterly Battlescroll Updates article
+  (29 June 2026) names that sentence: "the restriction on using only one Dirty Trick per phase
+  removed". The secondary page already prints the trait without it, keeping "The effect of a DIRTY
+  TRICK ability is only applied if you make a successful dirty trick roll." as its first sentence,
+  so the shipped text is the corrected rule. The same instruction is in the July 2026 Rules Updates.
+  BSData's dated history agrees: its battletome text began "Your army can use 1 DIRTY TRICK ability
+  per phase." until 2026-06-29. Also open: Big Drogg
   Fort-Kicka's majority-copy gap (#1999)
 - the 2026-09-30c General's Handbook 2025-26 past season (#2042): a review-only revision on top
   of 2026-09-30b, on the same manifest. It adds the `past-season` context and changes rules-context
