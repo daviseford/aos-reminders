@@ -50,7 +50,12 @@ export interface WahapediaHtmlAbilityRecord {
  */
 export interface WahapediaHtmlRegimentOfRenown {
   inclusionFactionNames: string[]
-  members: Array<{ name: string; href: string }>
+  /**
+   * An ORGANISATION line names its member through a link to the member's warscroll anchor, or,
+   * on single-model regiments like Gotrek Gurnisson, as plain text with no link (#2047). A
+   * plain-text member has no `href` and can resolve only by name.
+   */
+  members: Array<{ name: string; href?: string }>
 }
 
 export interface WahapediaHtmlWarscrollRecord {

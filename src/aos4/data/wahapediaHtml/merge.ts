@@ -595,8 +595,9 @@ export const mergeCurrentWahapediaWarscrollPages = (
    * carry them instead, #2030), fall back to the member's name — but only onto a reviewed
    * `regimentOfRenownOnly` adoption in the same context: those datasheets exist solely to be
    * regiment members, so a unique name match cannot kidnap an unrelated or Spearhead datasheet.
-   * Anything else stays unresolved and is retained by name for generation to surface, never
-   * silently invented.
+   * A plain-text ORGANISATION line (Gotrek Gurnisson, #2047) has no link at all and resolves only
+   * through that same fallback. Anything else stays unresolved and is retained by name for
+   * generation to surface, never silently invented.
    */
   const warscrollIdByAnchor = new Map<string, string>()
   const regimentOnlyByName = new Map<string, Array<{ id: string; context: WahapediaHtmlContext }>>()
@@ -629,6 +630,13 @@ export const mergeCurrentWahapediaWarscrollPages = (
           candidate => candidate.context === page.context
         )
         return matches.length === 1 ? matches[0].id : undefined
+      }
+      if (member.href === undefined) {
+        // A plain-text ORGANISATION line has no anchor to follow (Gotrek Gurnisson, #2047).
+        const memberId = byName()
+        if (memberId) memberIds.push(memberId)
+        else unresolved.push(member.name)
+        return
       }
       try {
         const url = new URL(member.href, 'https://wahapedia.ru')

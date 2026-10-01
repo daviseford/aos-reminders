@@ -12,7 +12,47 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-09-30` (issue #2037): a full refresh of the two Ossiarch
+The current revision is `aos4-corpus-2026-09-30b` (issue #2047): a member fix for the Gotrek
+Gurnisson Regiment of Renown on top of `aos4-corpus-2026-09-30`, keeping `accepted-2026-09-30.json`
+and every artifact. A subscriber could not find Gotrek in any army. Official Regiments of Renown
+(September 2025, page 5) prints his warscroll as the regiment's only member, with no faction keyword,
+and Battle Profiles (September 2026, page 60) lists nine inclusion factions. The accepted collection
+pages print that ORGANISATION line as plain text and the native-faction filter dropped the
+warscroll, so the regiment had no member and generation pruned every offer. The adapter now reads
+plain-text members by name, and a reviewed regiment-only adoption keeps the Fyreslayers collection
+copy. The runtime gains exactly the warscroll, its two abilities and one weapon, nine offers, and four
+includes. `aos4-maintenance.md` records the dispositions, including the `Zangrom-az` weapon
+spelling Wahapedia prints where the official page prints `Zangrom-Thaz`.
+`regimentsOfRenown.test.ts` pins the correction. The same intake confirmed a Nighthaunt report
+(#2048) against the September 2026 Rules Updates page 58 erratum, which makes Pyregheists' LIGHT A
+PYRE `Once Per Turn (Army)` with no phase: the accepted data already matches, and
+`nighthauntPyregheistsSeptember2026.test.ts` pins it. Its automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 631/631 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,283/20,283 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,692/42,692 |
+| Independent outcomes | 85,384 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 129/129 |
+| Populated high-risk cohorts | 20/20 |
+
+The source inventory is a schema 2 inventory of fresh observations taken for this revision on
+2026-09-30: a `discover-official` snapshot at 19:21:27Z (166 downloads, 7 explicit non-material) and
+the Wahapedia navigation and exports at 19:21:45Z (87 sources, 0 inaccessible). No BSData observation
+is bound because no BSData artifact is pinned. Every accepted artifact matched. The certification is
+`aos4-corpus-2026-09-30b-machine-r1` (campaign 19:43:51Z, certified 19:44:45Z). Its
+`--reuse-certification` offer of `aos4-corpus-2026-09-30-machine-r1` reused no pair, because the
+revision re-key invalidates every pair, so all 42,692 pairs were evaluated fresh.
+
+### `aos4-corpus-2026-09-30` (superseded)
+
+The `aos4-corpus-2026-09-30` revision (issue #2037) was a full refresh of the two Ossiarch
 Bonereapers Wahapedia pages on top of `aos4-corpus-2026-09-29c`. A community report that the
 Relentless Discipline battle traits still charged reinforced units an extra point matched the
 September 2026 Rules Updates page 64 erratum, which only deletes words. The auditor certifies an
