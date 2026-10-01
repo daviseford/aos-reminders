@@ -23,6 +23,7 @@ describe('toolbar save controls', () => {
 
   const baseProps = {
     cloudArmyLinked: false,
+    cloudArmyUpdatable: true,
     hiddenCount: 0,
     onClearArmy: vi.fn(),
     onDownloadPdf: vi.fn(),
@@ -158,5 +159,29 @@ describe('toolbar save controls', () => {
 
     act(() => showHidden!.click())
     expect(baseProps.onShowAll).toHaveBeenCalledTimes(1)
+  })
+
+  /*
+   * The account has not yet confirmed the linked record is one this version can read (#2055): the
+   * list is still loading, failed, or marks the record as saved by a newer version. Writing over it
+   * then could destroy newer content, so Update Army waits; Save As still makes a separate copy.
+   */
+  it('withholds Update Army until the linked record is confirmed writable', () => {
+    act(() => {
+      render(
+        <Toolbar
+          {...baseProps}
+          cloudArmyHasChanges
+          cloudArmyLinked
+          cloudArmyName="Kruleboyz Tourney"
+          cloudArmyUpdatable={false}
+        />,
+        container
+      )
+    })
+
+    expect(findButton(container, 'Update Army')).toBeUndefined()
+    expect(findButton(container, 'Save As')).not.toBeUndefined()
+    expect(container.textContent).toContain('Kruleboyz Tourney')
   })
 })
