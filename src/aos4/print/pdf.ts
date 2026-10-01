@@ -1,10 +1,14 @@
 import { jsPDF } from 'jspdf'
 import { tagBoxHeightIn } from './layout'
+import { phaseAccentFor } from './phaseAccents'
 import type { PlacedLine, PrintPlan, PrintRoleStyle } from './types'
 
 const BLACK: readonly [number, number, number] = [0, 0, 0]
 const FURNITURE: readonly [number, number, number] = [128, 128, 128]
 const ACCENT: readonly [number, number, number] = [28, 117, 149]
+const SECTION_RADIUS_IN = 0.04
+/** Width of the solid phase-colour band at the left of a turn-phase heading box. */
+const PHASE_TAB_IN = 0.09
 
 const applyStyle = (doc: jsPDF, style: PrintRoleStyle) => {
   const [red, green, blue] = style.color ?? BLACK
@@ -80,9 +84,26 @@ const drawSectionBox = (doc: jsPDF, plan: PrintPlan, line: PlacedLine) => {
     ? plan.preset.page.widthIn - plan.preset.page.marginLeftIn - plan.preset.page.marginRightIn
     : plan.columnWidthIn
 
-  doc.setLineWidth(0.008)
-  doc.setDrawColor(ACCENT[0], ACCENT[1], ACCENT[2])
-  doc.roundedRect(left, line.yIn - height + 0.045, width, height + 0.02, 0.04, 0.04, 'S')
+  const top = line.yIn - height + 0.045
+  const boxHeight = height + 0.02
+  const phase = phaseAccentFor(line.sectionKey)
+
+  if (!phase) {
+    doc.setLineWidth(0.008)
+    doc.setDrawColor(ACCENT[0], ACCENT[1], ACCENT[2])
+    doc.roundedRect(left, top, width, boxHeight, SECTION_RADIUS_IN, SECTION_RADIUS_IN, 'S')
+    return
+  }
+
+  // A turn phase takes its rulebook colour as a heavier border and a solid tab on the left (#2052).
+  // The heading text stays black: white on the official gold, grey and orange is under 4:1.
+  doc.setFillColor(phase[0], phase[1], phase[2])
+  doc.roundedRect(left, top, PHASE_TAB_IN, boxHeight, SECTION_RADIUS_IN, SECTION_RADIUS_IN, 'F')
+  // Square off the tab's inner edge so it reads as a band, not a pill.
+  doc.rect(left + PHASE_TAB_IN / 2, top, PHASE_TAB_IN / 2, boxHeight, 'F')
+  doc.setLineWidth(0.014)
+  doc.setDrawColor(phase[0], phase[1], phase[2])
+  doc.roundedRect(left, top, width, boxHeight, SECTION_RADIUS_IN, SECTION_RADIUS_IN, 'S')
 }
 
 const drawPageFurniture = (doc: jsPDF, plan: PrintPlan, pageIndex: number) => {

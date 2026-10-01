@@ -167,6 +167,8 @@ export interface PlacedLine {
   blockId?: string
   /** Index of the paragraph within its rule, for lines produced from `PrintRule.paragraphs`. */
   paragraphIndex?: number
+  /** `PrintSection.key` of a section heading line, so the renderer can pick its phase accent. */
+  sectionKey?: string
 }
 
 export interface PrintPlan {

@@ -27,6 +27,7 @@ interface LineDraft {
   spansColumns: boolean
   blockId?: string
   paragraphIndex?: number
+  sectionKey?: string
 }
 
 interface FlowBlock {
@@ -123,6 +124,7 @@ const draftLines = (
     blockId?: string
     paragraphIndex?: number
     spansColumns?: boolean
+    sectionKey?: string
   } = {}
 ): LineDraft[] => {
   const style = context.preset.roles[role]
@@ -147,6 +149,7 @@ const draftLines = (
     spansColumns,
     ...(options.blockId ? { blockId: options.blockId } : {}),
     ...(options.paragraphIndex === undefined ? {} : { paragraphIndex: options.paragraphIndex }),
+    ...(options.sectionKey ? { sectionKey: options.sectionKey } : {}),
   }))
 }
 
@@ -267,7 +270,7 @@ const buildBlocks = (document: PrintDocument, context: DraftContext): FlowBlock[
   document.sections.forEach(section => {
     blocks.push({
       id: `section:${section.key}`,
-      lines: draftLines(context, 'sectionHeading', section.heading),
+      lines: draftLines(context, 'sectionHeading', section.heading, { sectionKey: section.key }),
       sectionKey: section.key,
       isSectionHeading: true,
       keepWithNext: true,
@@ -356,7 +359,7 @@ export const planPrintLayout = (
   const sectionHeadings = new Map(
     document.sections.map(section => [
       section.key,
-      draftLines(context, 'sectionHeading', `${section.heading} (continued)`),
+      draftLines(context, 'sectionHeading', `${section.heading} (continued)`, { sectionKey: section.key }),
     ])
   )
 
@@ -410,6 +413,7 @@ export const planPrintLayout = (
         text: draft.text,
         ...(draft.blockId ? { blockId: draft.blockId } : {}),
         ...(draft.paragraphIndex === undefined ? {} : { paragraphIndex: draft.paragraphIndex }),
+        ...(draft.sectionKey ? { sectionKey: draft.sectionKey } : {}),
       })
       cursorY += draft.spaceAfterIn
       columnBottomsIn.set(`${pageIndex}/${columnIndex}`, cursorY)

@@ -317,6 +317,11 @@ path — the PDF is.
 | `src/tests/aos4/printDocument.test.ts` | Hidden reminders, grouping, ordering, paragraphs, summary |
 | `src/tests/aos4/printLayout.test.ts` | Margins, column containment, keep-together, continuations, text preservation, balancing, Letter |
 | `src/tests/aos4/printPdfRenderer.test.ts` | The PDF actually matches the plan, page count, nothing off-page |
+| `src/tests/aos4/printPhaseAccents.test.ts` | Official phase colours pinned, turn phases only, headings and continuations carry `sectionKey`, the PDF draws the colour (#2052) |
+
+Turn-phase section boxes are drawn in the rulebook's phase colour (`phaseAccents.ts`). The layout
+only carries `sectionKey` on heading lines; it makes no geometric change, so pagination is the same
+as with the teal box.
 
 The layout suite runs against both presets and asserts *properties* rather than golden files, so it
 fails on a real overflow rather than on an intentional style tweak. The regression guard for the 16pt
