@@ -585,41 +585,46 @@ small {
   }
 }
 
-@mixin tag-tone($bg, $fg, $border) {
+/*
+ * The border takes the tone's own ink rather than a paler edge (#2052). It makes the chips read
+ * bolder without growing them: a larger font wrapped extra tag rows on mobile, and this changes no
+ * geometry. The PDF tags already outline in their text colour.
+ */
+@mixin tag-tone($bg, $fg) {
   background-color: $bg;
   color: $fg;
-  border-color: $border;
+  border-color: $fg;
 }
 
 .ReminderTags-Light {
   @include tag-tones(
-    (transparent, #355c64, #9db8be),
-    (#e0eff5, #0c4a60, #b4d7e4),
-    (#f8ecd9, #79490d, #e6cda4),
-    (#e9eef1, #46585f, #d0dade),
-    (#e6f2ea, #1f5334, #bcdcc7),
-    (#f9e8e8, #7c3535, #ecc9c9),
-    (#eef0f2, #4d5a63, #d8dee2),
-    (transparent, #5b6b74, #b9c5cc),
-    (#efeaf7, #543e7a, #d3c6e8),
-    (transparent, #6b6085, #cfc4e2),
-    (#f7e9f1, #7a2e5b, #e6c3d8)
+    (transparent, #355c64),
+    (#e0eff5, #0c4a60),
+    (#f8ecd9, #79490d),
+    (#e9eef1, #46585f),
+    (#e6f2ea, #1f5334),
+    (#f9e8e8, #7c3535),
+    (#eef0f2, #4d5a63),
+    (transparent, #5b6b74),
+    (#efeaf7, #543e7a),
+    (transparent, #6b6085),
+    (#f7e9f1, #7a2e5b)
   );
 }
 
 .ReminderTags-Dark {
   @include tag-tones(
-    (transparent, #a4cbd2, rgba(164, 203, 210, 0.48)),
-    (rgba(28, 117, 149, 0.34), #86d3ea, rgba(28, 117, 149, 0.62)),
-    (rgba(198, 144, 58, 0.26), #f2c982, rgba(198, 144, 58, 0.5)),
-    (rgba(255, 255, 255, 0.1), #bccad2, rgba(255, 255, 255, 0.2)),
-    (rgba(72, 160, 105, 0.24), #92d8ac, rgba(72, 160, 105, 0.45)),
-    (rgba(190, 90, 90, 0.24), #f0a6a6, rgba(190, 90, 90, 0.45)),
-    (rgba(255, 255, 255, 0.08), #b3c1ca, rgba(255, 255, 255, 0.18)),
-    (transparent, #a9bac3, rgba(255, 255, 255, 0.3)),
-    (rgba(132, 100, 190, 0.24), #cbb8ee, rgba(132, 100, 190, 0.45)),
-    (transparent, #b3a4cf, rgba(132, 100, 190, 0.45)),
-    (rgba(190, 90, 145, 0.24), #f0b1d4, rgba(190, 90, 145, 0.45))
+    (transparent, #a4cbd2),
+    (rgba(28, 117, 149, 0.34), #86d3ea),
+    (rgba(198, 144, 58, 0.26), #f2c982),
+    (rgba(255, 255, 255, 0.1), #bccad2),
+    (rgba(72, 160, 105, 0.24), #92d8ac),
+    (rgba(190, 90, 90, 0.24), #f0a6a6),
+    (rgba(255, 255, 255, 0.08), #b3c1ca),
+    (transparent, #a9bac3),
+    (rgba(132, 100, 190, 0.24), #cbb8ee),
+    (transparent, #b3a4cf),
+    (rgba(190, 90, 145, 0.24), #f0b1d4)
   );
 }
 

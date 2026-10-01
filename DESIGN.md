@@ -222,6 +222,14 @@ the framework's own defaults are not.
   thing: *a section starts here*. It also carries into the PDF as the rule colour and subtitle
   colour, which is why it must stay legible when desaturated.
 
+**PDF phase colours (#2052).** In the exported PDF only, the seven turn-phase section boxes take
+the colour of the matching timing bar in Games Workshop's rules artwork, as a heavier border and a
+solid left band. The values are read from the official Core Rules and Faction Pack vector art and
+listed in `src/aos4/print/phaseAccents.ts`. Other sections keep the Signal Teal hairline, because
+the source colours passive and reaction bars inconsistently. The heading text stays black, since
+white on the official gold, grey and orange is under 4:1. The website keeps Signal Teal on every
+phase header. Do not carry these colours onto the screen without a new decision.
+
 ### Secondary
 
 - **Midnight Slate** (`#182633`): The dark theme's surface and masthead. Cooler and lighter than
@@ -545,7 +553,9 @@ varies; the instruments do not.
 The reminder timing tags — the one genuinely bespoke component in the system.
 
 - **Style:** uppercase 0.7rem/700 at `0.03em` tracking, `0.1rem 0.4rem` padding, 3px radius, 1px
-  border, `cursor: help`.
+  border, `cursor: help`. The border takes the tone's own text colour (#2052), which makes the chip
+  read bolder at the same size. Larger type was measured and rejected: 0.72rem already wrapped four
+  more tag rows on a 375px default army.
 - **Tones:** semantic tones — cost, active, reaction, passive, your-turn, enemy-turn, neutral,
   usage, priority, source, and provenance — each defined *per theme* via the `tag-tones` mixin,
   never by the tone class alone. Cost is a quiet outline naming a resource spent to use the rule or
