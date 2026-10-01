@@ -15,18 +15,25 @@ full automated gate.
 The current revision is `aos4-corpus-2026-10-01` (issue #2060): the September 2026 Rules Updates
 errata the corpus still shipped in an earlier form, on top of `aos4-corpus-2026-09-30b`, keeping
 `accepted-2026-09-30.json` and every artifact. The owner directed that the errata are what the app
-shows, and that the page 58 Summon Shyish Reaper erratum applies to every copy. A systematic pass
-compared all 562 erratum and addendum entries on pages 2-77 of the pinned Rules Updates (SHA-256
-`03f602f2…`, re-downloaded byte-identical on 2026-10-01) with the shipped catalog; 384 were already
-applied and 136 change content the catalog does not carry. The rest ship through reviewed overrides
-citing the exact pages: 34 new ability overrides (two of them cost-only, and Feral Ruin's existing
-override gains its `YOU WILL SERVE!` name), 7 timing overrides, one weapon profile override, and
-two warscroll keyword overrides, with 13 more Rules Updates pages registered as reviewed page
-records (20,283 to 20,296 live source records). Abyssal Dweller and The Croneseer's Pariahs take
-the wording of the re-published Scourge of Aqshy - Idoneth Deepkin page 1 and Armies of Renown
-(September 2026) page 1 reprints. The runtime delta is exactly 39 abilities, 2 warscrolls, and 1
-weapon, plus the Rules Updates publication's provenance; no identity, relationship, offer, or
-reconciliation decision moves. `aos4-maintenance.md` records the scope and the open items.
+shows, and ruled that the page 58 Summon Shyish Reaper and page 70 Summon Unholy Reliquary errata
+apply to every copy, Army of Renown copies included. A systematic pass compared all 562 erratum
+and addendum entries on pages 2-77 of the pinned Rules Updates (SHA-256 `03f602f2…`, re-downloaded
+byte-identical on 2026-10-01) with the shipped catalog; 384 were already applied and 136 change
+content the catalog does not carry. The rest ship through reviewed overrides citing the exact
+pages: 36 new ability overrides (two of them cost-only, and Feral Ruin's existing override gains
+its `YOU WILL SERVE!` name), 7 timing overrides, one weapon profile override, and two warscroll
+keyword overrides, with 15 more Rules Updates pages registered as reviewed page records (20,283 to
+20,298 live source records). Abyssal Dweller and The Croneseer's Pariahs take the wording of the
+re-published Scourge of Aqshy - Idoneth Deepkin page 1 and Armies of Renown (September 2026) page
+1 reprints. Lord Kroak's Arcane Vassal takes the clause its secondary page dropped (`from the
+target instead of from this unit`) from Faction Pack: Seraphon page 7, which prints the ability in
+its current, post-erratum form; the owner directed that current official reprints may supply such
+text. Dirty Tricks stays on its shipped text: page 61 removes "the first sentence", the shipped
+first sentence is the one the mechanic needs, and no accepted or discoverable official document
+reprints the battle trait, so it remains a documented blocker on #2060. The runtime delta is
+exactly 41 abilities, 2 warscrolls, and 1 weapon, plus the Rules Updates publication's provenance;
+no identity, relationship, offer, or reconciliation decision moves. `aos4-maintenance.md` records
+the scope and the open items.
 
 The reviewed vocabulary grew to carry it, each part fail-closed when a source catches up: an
 ability override may carry a `name` (display text only, identity unchanged) and a `cost` (`null`
@@ -47,22 +54,24 @@ pins every corrected value. Its automated review is complete:
 | Official battle-profile facts | 1,312/1,312 |
 | Final official/secondary reconciliation discrepancies | 631/631 |
 | Official profile-only facts | 1/1 |
-| Live audit source records | 20,296/20,296 |
+| Live audit source records | 20,298/20,298 |
 | Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
-| Live review pairs | 42,705/42,705 |
-| Independent outcomes | 85,410 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 42,707/42,707 |
+| Independent outcomes | 85,414 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 21/21 |
 
 The 21st high-risk cohort is `official-warscrollKeywordOverrides`, populated for the first time by
-the Hedkrakka's Madmob and Rotmire Creed keyword corrections. The source inventory is a schema 2 inventory of fresh observations
-taken for this revision on 2026-10-01: a `discover-official` snapshot observed at 14:41:32Z (166
-downloads, 7 explicit non-material) and the Wahapedia navigation and exports at 14:41:52Z (87
-sources, 0 inaccessible). Every accepted artifact matched, so no newer official publication
-supersedes the pinned September documents. The certification is
-`aos4-corpus-2026-10-01-machine-r1` (campaign 15:05:42Z, certified 15:08:45Z). Its
+the Hedkrakka's Madmob and Rotmire Creed keyword corrections. The source inventory is a schema 2
+inventory of fresh observations taken for this revision on 2026-10-01: a `discover-official`
+snapshot observed at 16:35:43Z (166 downloads, 7 explicit non-material) and the Wahapedia
+navigation and exports at 16:35:54Z (87 sources, 0 inaccessible). Every accepted artifact matched,
+so no newer official publication supersedes the pinned September documents. The certification is
+`aos4-corpus-2026-10-01-machine-r2` (campaign 16:45:56Z, certified 16:46:23Z). Its
 `--reuse-certification` offer of `aos4-corpus-2026-09-30b-machine-r1` reused no pair, because the
-revision re-key invalidates every pair, so all 42,705 pairs were evaluated fresh.
+revision re-key invalidates every pair, so all 42,707 pairs were evaluated fresh. `machine-r1`
+certified this revision before the owner's Summon Unholy Reliquary and Arcane Vassal rulings were
+added to the unshipped review; it never reached `master`, and the pruner retired it.
 
 ### `aos4-corpus-2026-09-30b` (superseded)
 

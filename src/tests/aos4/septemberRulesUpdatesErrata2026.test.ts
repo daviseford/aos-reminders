@@ -50,6 +50,59 @@ describe('Summon Shyish Reaper uses the September 2026 erratum for every army (#
   })
 })
 
+describe('Summon Unholy Reliquary uses the September 2026 erratum for every army (#2060)', () => {
+  // Rules Updates page 70 names the Manifestations of the Grave lore; the owner ruled on 2026-10-01
+  // that it applies to every copy, as with Summon Shyish Reaper.
+  const erratum =
+    'Set up an Unholy Reliquary wholly within 18" of the caster, visible to them and more than 3" from all enemy units.'
+  it.each([
+    [
+      'the Soulblight Gravelords battletome lore',
+      'ability:6126d130-c65a-5050-a31f-17db042e1a95',
+      'SOULBLIGHT GRAVELORDS WIZARD',
+    ],
+    ['Knights of the Crimson Keep', 'ability:e57cb4e8-1fe1-56ff-b093-9a76c568517e', 'CRIMSON KEEP WIZARD'],
+  ])('%s sets the Unholy Reliquary up visible and more than 3" from enemies', (_, id, caster) => {
+    const summon = ability(id)
+    expect(summon.name).toBe('SUMMON UNHOLY RELIQUARY')
+    expect(summon.text.effect).toBe(erratum)
+    expect(summon.text.declare).toContain(caster)
+    expect(summon.cost).toEqual({ kind: 'spell', value: 6 })
+  })
+
+  it('cites page 70 on the Knights of the Crimson Keep copy', () => {
+    expect(citesPage(ability('ability:e57cb4e8-1fe1-56ff-b093-9a76c568517e'), 70)).toBe(true)
+  })
+})
+
+describe('owner-directed corrections from current official reprints (#2060)', () => {
+  const SERAPHON_FACTION_PACK = '9341256d83906a6e4c044fd8145109706dea06c4dba10b7ec5e5fc664749ce18'
+
+  it('restores where Lord Kroak’s Arcane Vassal measures from, citing Faction Pack: Seraphon page 7', () => {
+    const vassal = ability('ability:7f5b2e38-5dc9-567e-8e0d-09c171dae6a1')
+    expect(vassal.text.effect).toBe(
+      'Measure the range and visibility of the next SPELL ability used by this unit this phase from the target instead of from this unit.\nThe target is treated as the caster for the purpose of other abilities or spell effects, such as ‘Unbind’ or ‘The Earth Trembles’.'
+    )
+    expect(citesPage(vassal, 27)).toBe(true)
+    expect(vassal.sourceRefs.map(reference => String(reference.sourceRecordId))).toContain(
+      `source-record:games-workshop:${SERAPHON_FACTION_PACK}%3Apage%3A7`
+    )
+    // The Slann Starmaster copy already printed the clause; both now agree.
+    expect(ability('ability:bde61192-9e81-572e-8765-b41b07745a7f').text.effect).toBe(vassal.text.effect)
+  })
+
+  it('keeps Dirty Tricks on its shipped text: no accessible official reprint settles the erratum', () => {
+    // Page 61 removes "the first sentence" of Dirty Tricks, but the shipped first sentence is the
+    // one the mechanic needs and no accepted official document reprints the battle trait. It stays
+    // a documented blocker on #2060 until a citeable official text exists.
+    const dirtyTricks = ability('ability:1345c64a-4638-5ce3-99cb-b9b41cddd692')
+    expect(dirtyTricks.text.effect).toMatch(
+      /^The effect of a DIRTY TRICK ability is only applied if you make a successful dirty trick roll\./
+    )
+    expect(citesPage(dirtyTricks, 61)).toBe(false)
+  })
+})
+
 describe('September 2026 Rules Updates ability text (#2060)', () => {
   // [label, ability id, field, exact erratum value, old wording that must be gone, Rules Updates page]
   const cases: Array<[string, string, keyof Ability['text'], string, string | RegExp, number]> = [

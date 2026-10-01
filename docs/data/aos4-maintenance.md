@@ -37,7 +37,7 @@ The strict report currently records:
 - 5,152 abilities
 - 2,276 weapons
 - 1,526 content groups
-- 244 source artifacts and 20,296 live source records
+- 244 source artifacts and 20,298 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -56,7 +56,11 @@ The strict report currently records:
   options and Regiment of Renown organisation text, universal terrain-ability lists, the unshipped
   Mawseeker Mob Spearhead), and the rest were checked against the PDF one by one. Reviewed overrides
   citing the exact pages now ship: Summon Shyish Reaper for The Clattering Procession and The
-  Eternal Nightmare (p58); Lightning Master (p65), Abyssal Dweller (p33, worded as the re-published
+  Eternal Nightmare (p58) and Summon Unholy Reliquary for Knights of the Crimson Keep (p70), both
+  under the owner's 2026-10-01 ruling that those errata apply to every copy; Lord Kroak's Arcane
+  Vassal with the `from the target instead of from this unit` clause its secondary page dropped
+  (p27, worded as Faction Pack: Seraphon page 7, a current official reprint of the ability, which
+  the owner directed may supply such text); Lightning Master (p65), Abyssal Dweller (p33, worded as the re-published
   Scourge of Aqshy - Idoneth Deepkin page 1), Rolling Ash-clouds (p25), Lingering Burns and the
   Oracles of Fate Shifting Manifestations (p41), Spectral Alchemy (p58), Song of the Lost (p73),
   Essence of the Gnaw (p32), The Croneseer's Pariahs (p32, worded as Armies of Renown page 1),
@@ -71,13 +75,15 @@ The strict report currently records:
   Despoilers, Glaivewraith Stalkers Unerring Hunters and Hunter's Glaive Rend 1, and Hedkrakka's
   Madmob without ORRUK (p29); and REINFORCEMENTS on the Spearhead Rotmire Creed (p56). Several of
   these also repair letter pairs the secondary pages lost inside the erratum wording (`battleeld`,
-  `Inict`, `eect`, `FLEASH-EATER`). Deliberately left open: Lord Kroak's Arcane Vassal, whose
-  secondary text lost `from the target instead of from this unit` (the erratum does not print it,
-  so no official evidence supports it); Dirty Tricks (p61 removes the first sentence, but the
-  shipped first sentence is the one the mechanic needs, so the secondary page has most likely
-  already dropped the battletome's original; it needs the battletome to settle); the Knights of the
-  Crimson Keep copy of Summon Unholy Reliquary, which page 70 does not name (the same shape as the
-  Shyish ruling, awaiting an owner decision); and Big Drogg Fort-Kicka's majority-copy gap (#1999)
+  `Inict`, `eect`, `FLEASH-EATER`). Deliberately left open: Dirty Tricks, a documented
+  blocker on #2060. Page 61 removes "the first sentence of the effect", but the shipped first
+  sentence ("The effect of a DIRTY TRICK ability is only applied if you make a successful dirty
+  trick roll.") is the one the mechanic needs, so the secondary page has most likely already
+  dropped the battletome's original. No accepted official document reprints the battle trait (all
+  166 discoverable Games Workshop downloads are accepted or explicitly non-material, 2026-10-01),
+  and the Kruleboyz battletome is not a free download, so no citeable official text settles which
+  sentence the erratum removes; the shipped text stays until one does. Also open: Big Drogg
+  Fort-Kicka's majority-copy gap (#1999)
 - the 2026-09-30b Gotrek Gurnisson member fix (#2047), which keeps the 2026-09-30 manifest and
   every artifact: a subscriber could not find Gotrek in any army. Official Regiments of Renown
   (September 2025, page 5) prints the regiment with ORGANISATION "Gotrek Gurnisson (see below)"

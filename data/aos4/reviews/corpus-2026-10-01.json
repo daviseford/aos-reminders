@@ -474,6 +474,18 @@
     },
     {
       "officialSourceRecordIds": [
+        "source-record:games-workshop:9341256d83906a6e4c044fd8145109706dea06c4dba10b7ec5e5fc664749ce18%3Apage%3A7",
+        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A27"
+      ],
+      "reason": "The September 2026 Rules Updates page 27 edit Lord Kroak's Arcane Vassal ('the next Spell ability used by this unit' becomes '... this phase', and the caster sentence is added). The secondary page applied the edit but dropped the rest of the original sentence, so range and visibility no longer said where they are measured from. Faction Pack: Seraphon page 7 prints Lord Kroak's Arcane Vassal in its current form, 'from the target instead of from this unit' included; Davis Ford directed on 2026-10-01 that current official reprints may supply the text (#2060)",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fseraphon%2Fwarscrolls.html%23datasheet%3ALord-Kroak%2Fability%3A3",
+      "text": {
+        "declare": "Pick a friendly SKINK WIZARD wholly within 18\" of this unit to be the target.",
+        "effect": "Measure the range and visibility of the next SPELL ability used by this unit this phase from the target instead of from this unit.\nThe target is treated as the caster for the purpose of other abilities or spell effects, such as ‘Unbind’ or ‘The Earth Trembles’."
+      }
+    },
+    {
+      "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A32"
       ],
       "reason": "The September 2026 Rules Updates page 32 (Scourge of Aqshy, Skaven heroic traits) replace 'visible Skaven unit' with 'visible friendly Skaven unit' in Essence of the Gnaw (#2060)",
@@ -545,6 +557,17 @@
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2Fwarscrolls.html%23datasheet%3ADarkoath-Savagers%2Fability%3A1",
       "text": {
         "effect": "If this unit is contesting an objective you control that is not within friendly territory, this unit has WARD (5+) for the rest of the battle."
+      }
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A70"
+      ],
+      "reason": "The September 2026 Rules Updates page 70 (Battletome: Soulblight Gravelords, Manifestations of the Grave) change the effect of Summon Unholy Reliquary to set it up wholly within 18\" of the caster, visible to them and more than 3\" from all enemy units. The battletome lore already ships it; Davis Ford ruled on 2026-10-01 that the erratum applies to every copy, as with Summon Shyish Reaper, so the Knights of the Crimson Keep Army of Renown copy follows it (#2060)",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsoulblight-gravelords%2F%23faction-ability%3AManifestation-Lore-1%3Aability%3A1",
+      "text": {
+        "declare": "If there is not a friendly Unholy Reliquary on the battlefield, pick a friendly CRIMSON KEEP WIZARD to cast this spell, then make a casting roll of 2D6.",
+        "effect": "Set up an Unholy Reliquary wholly within 18\" of the caster, visible to them and more than 3\" from all enemy units."
       }
     },
     {
@@ -5831,6 +5854,11 @@
           "recordChecksum": "b592199386b0ed278fb545a9c8c9e3fe8145b56a52d2ae0e1e64a4ddf418d40e"
         },
         {
+          "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A27",
+          "page": 27,
+          "recordChecksum": "fa0c39af5b09bd0778f596d61394a2ead39809b2754e46204535431cb4e30d6b"
+        },
+        {
           "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A29",
           "page": 29,
           "recordChecksum": "7ca8fb3b765e75e7ca738897c8cc2131a3346c0d9a66c85b71f5cbb07b58b5fd"
@@ -5969,6 +5997,11 @@
           "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A69",
           "page": 69,
           "recordChecksum": "dce9e92e18cf56a6b729072ef9aa39733cb2e8a08af25b8139f787cafbf8b7f9"
+        },
+        {
+          "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A70",
+          "page": 70,
+          "recordChecksum": "3ccd5737ed1da040d27de5ba864a6e192b90ecdfff89fee1cf8e05b642c073e7"
         },
         {
           "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A71",
