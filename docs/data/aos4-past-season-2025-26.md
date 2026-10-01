@@ -78,9 +78,11 @@ standard entity present, every season-only entity also historical, and the pack 
   and unknown seasons, fall back to the sitting season as before. A Legends-only army still moves to
   Legends; the past season is never chosen for a roster that did not declare it.
 - The import preview lists the past season after the everyday rulesets and shows the caveat.
-- The masthead offers "Use a past season: General's Handbook 2025-26" beneath the seasonal switch in
-  edit mode. A past-season army shows the season's name and caveat instead of the switch, in both
-  modes, and "Move to General's Handbook 2026-27". Both moves change only `rulesContextId`.
+- In edit mode the masthead's "Seasonal rules" select offers "General's Handbook 2026-27 (current
+  season)", "General's Handbook 2025-26 (past season)", and "None: battletome and core rules only",
+  derived from the catalog's standard contexts by status. It replaced the earlier seasonal switch
+  and past-season link. A past-season army shows the caveat beneath the select, and the season's
+  name and caveat in play mode. Every move changes only `rulesContextId`.
 - Existing documents are not migrated.
 
 Across the 448 checked-in import fixtures, the 253 that declare 2025-26 move to the past season and

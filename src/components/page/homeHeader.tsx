@@ -5,7 +5,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { FaInfoCircle } from 'react-icons/fa'
 import Switch from 'react-switch'
 import Select, { type Theme as SelectTheme } from 'react-select'
-import type { CanonicalId } from '../../aos4/domain'
+import type { CanonicalId, RulesContextId } from '../../aos4/domain'
 
 interface HeaderProps {
   armiesOfRenown: Array<{
@@ -36,35 +36,33 @@ interface HeaderProps {
   onArmyOfRenownChange: (armyOfRenownId: CanonicalId | null) => void
   onFactionChange: (factionId: CanonicalId<'faction'>) => void
   onToggleGameMode: () => void
-  onToggleSeasonalRules: () => void
   /**
-   * The seasonal rules switch (issue #1994): ON puts the army in the seasonal standard context
-   * (the sitting General's Handbook), OFF in the current standard one (battletome and core rules
-   * only). `null` hides the row entirely — before the catalog-bound half publishes there is
-   * nothing to flip, and a document living outside those two contexts (Spearhead, a Legends-moved
-   * import, a historical season) is not something the switch can speak for: a disabled switch
-   * still shows a knob position, and either position would lie. Hidden follows the Army of Renown
-   * row's precedent — masthead controls that do not apply are absent, not disabled.
+   * The rules-season choice (issues #1994 and #2042): one select naming every standard season the
+   * catalog carries (the sitting General's Handbook, any past season, and battletome-only rules).
+   * `null` hides the row: before the catalog-bound half publishes there is nothing to choose, and
+   * a document living outside those contexts (Spearhead, a Legends-moved import) is not something
+   * the select can speak for, since any value it showed would lie. Hidden follows the Army of
+   * Renown row's precedent: masthead controls that do not apply are absent, not disabled.
    */
-  seasonalRulesChecked: boolean | null
-  /**
-   * The past-season choice (issue #2042), `null` where it does not apply: no past season in the
-   * catalog, or a document outside the standard seasons (Spearhead, a Legends-moved import). When
-   * `active`, the army plays the past season — the seasonal switch is hidden, since that season is
-   * neither of its positions — and the masthead carries the season's accuracy caveat in both
-   * modes. Moving in or out is an explicit edit-mode act, never a toggle of the switch.
-   */
-  pastSeasonRules?: Aos4PastSeasonRulesBinding | null
-  onTogglePastSeasonRules?: () => void
+  rulesSeason: Aos4RulesSeasonBinding | null
+  onRulesSeasonChange: (rulesContextId: RulesContextId) => void
 }
 
-export interface Aos4PastSeasonRulesBinding {
-  /** e.g. `General’s Handbook 2025-26` */
+export interface Aos4RulesSeasonOption {
+  /** e.g. `General’s Handbook 2026-27 (current season)` */
   label: string
-  /** The sitting season a past-season army moves back to, e.g. `General’s Handbook 2026-27` */
-  sittingLabel: string
-  caveat: string
-  active: boolean
+  value: RulesContextId
+}
+
+export interface Aos4RulesSeasonBinding {
+  options: Aos4RulesSeasonOption[]
+  /** The document's own context; always one of `options`. */
+  value: RulesContextId
+  /**
+   * Set while the army plays a past season: the masthead carries the season's name and accuracy
+   * caveat in both modes, because its warscrolls and points are today's, not the season's.
+   */
+  pastSeason: { label: string; caveat: string } | null
 }
 
 const NO_ARMY_OF_RENOWN = { label: 'None', value: null }
@@ -80,10 +78,8 @@ export const Header = ({
   onArmyOfRenownChange,
   onFactionChange,
   onToggleGameMode,
-  onToggleSeasonalRules,
-  seasonalRulesChecked,
-  pastSeasonRules = null,
-  onTogglePastSeasonRules,
+  rulesSeason,
+  onRulesSeasonChange,
 }: HeaderProps) => {
   const { theme } = useTheme()
   const isMobile = useIsMobile()
@@ -99,6 +95,8 @@ export const Header = ({
     ...(legendsArmies.length ? [{ label: 'Legends', options: legendsArmies }] : []),
     ...(historicalArmies.length ? [{ label: 'Scourge of Ghyran (2025-26)', options: historicalArmies }] : []),
   ]
+  const rulesSeasonOption =
+    rulesSeason?.options.find(candidate => candidate.value === rulesSeason.value) ?? null
   const armyOfRenownOption =
     [NO_ARMY_OF_RENOWN, ...armiesOfRenown].find(candidate => candidate.value === armyOfRenownId) ??
     NO_ARMY_OF_RENOWN
@@ -185,9 +183,9 @@ export const Header = ({
           {isGameMode ? (
             <div className="pt-1 pb-0 justify-content-center">
               <h2 className="text-white">{armyName}</h2>
-              {pastSeasonRules?.active && (
+              {rulesSeason?.pastSeason && (
                 <p className="text-white small mb-0" data-testid="past-season-notice">
-                  {pastSeasonRules.label} (past season). {pastSeasonRules.caveat}
+                  {rulesSeason.pastSeason.label} (past season). {rulesSeason.pastSeason.caveat}
                 </p>
               )}
             </div>
@@ -234,29 +232,21 @@ export const Header = ({
                 </>
               ) : null}
               {/*
-                The seasonal rules switch (issue #1994), styled after the Edit/Play toggle above.
-                ON keeps the army under the sitting General's Handbook; OFF plays battletome and
-                core rules only. It renders only for a document in one of the two standard-mode
-                contexts — see `seasonalRulesChecked` — and only in edit mode, with the faction
-                and Army of Renown selects it belongs beside: it reconfigures the army, which is
-                an edit-mode act.
+                The rules season (issues #1994 and #2042), one select styled and sized like the two
+                above it. It replaces a seasonal on/off switch plus a separate past-season link,
+                which made the same choice look like two unrelated controls. Every move is
+                non-destructive: only the rules context changes. It renders only for a document in
+                one of the standard seasons (see `rulesSeason`) and only in edit mode, beside the
+                selects it belongs with: it reconfigures the army, which is an edit-mode act.
               */}
-              {seasonalRulesChecked !== null && (
-                <div className="d-flex align-items-center justify-content-center text-white pt-2">
-                  <div className="d-inline-flex flex-row">
+              {rulesSeason && (
+                <>
+                  <span className="text-white">
+                    Seasonal rules:
                     {/*
-                      Click-to-toggle for the mouse like the Edit/Play labels, and like them not
-                      focusable: the switch below is the single keyboard control.
-                    */}
-                    <span className="align-self-center pb-2 me-2" onClick={onToggleSeasonalRules}>
-                      Seasonal rules
-                    </span>
-                    {/*
-                      The label alone does not say what the season adds, so an info control beside
-                      it carries the explanation. A real button rather than another click-span: the
-                      tooltip has to be reachable by keyboard (focus shows it) and announced by
-                      screen readers, and unlike the toggle labels it must never flip the switch.
-                      The copy stays season-agnostic, like the switch itself — it names no
+                      The options name the handbooks, not what a season adds, so an info control
+                      carries the explanation. A real button: the tooltip has to be reachable by
+                      keyboard (focus shows it) and announced by screen readers. The copy names no
                       handbook, so it survives the next one.
                     */}
                     <OverlayTrigger
@@ -264,70 +254,45 @@ export const Header = ({
                       trigger={['hover', 'focus']}
                       overlay={
                         <Tooltip id="seasonal-rules-tooltip">
-                          On: play with the current General&apos;s Handbook season — the season&apos;s rules
-                          join your reminders. Off: battletome and core rules only.
+                          Choose which General&apos;s Handbook season&apos;s rules join your reminders, or
+                          None for battletome and core rules only.
                         </Tooltip>
                       }
                     >
                       <button
                         type="button"
-                        className="bg-transparent border-0 text-white p-0 me-2 align-self-center pb-2"
+                        className="bg-transparent border-0 text-white p-0 ms-2 align-baseline"
                         aria-label="What are seasonal rules?"
                       >
                         <FaInfoCircle aria-hidden />
                       </button>
                     </OverlayTrigger>
-                    <label htmlFor="seasonal-rules-switch" className="mb-0">
-                      <Switch
-                        onChange={onToggleSeasonalRules}
-                        checked={seasonalRulesChecked}
-                        onColor="#1C7595"
-                        onHandleColor="#E9ECEF"
-                        handleDiameter={30}
-                        uncheckedIcon={false}
-                        checkedIcon={false}
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={20}
-                        width={80}
-                        className="react-switch"
-                        id="seasonal-rules-switch"
+                  </span>
+                  <div className="d-flex pt-3 pb-2 justify-content-center">
+                    <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-start">
+                      <Select
                         aria-label="Seasonal rules"
+                        inputId="seasonal-rules-select"
+                        value={rulesSeasonOption}
+                        options={rulesSeason.options}
+                        onChange={selected => selected && onRulesSeasonChange(selected.value)}
+                        isClearable={false}
+                        isSearchable={false}
+                        // The season labels are longer than a faction name; on a phone they wrap
+                        // rather than losing the "(past season)" that tells them apart.
+                        styles={{ singleValue: base => ({ ...base, whiteSpace: 'normal' }) }}
+                        className={theme.text}
+                        theme={selectColors}
                       />
-                    </label>
+                    </div>
                   </div>
-                </div>
+                  {rulesSeason.pastSeason && (
+                    <div className="text-white small" data-testid="past-season-notice">
+                      {rulesSeason.pastSeason.caveat}
+                    </div>
+                  )}
+                </>
               )}
-              {/*
-                The past-season choice (issue #2042). A standard army gets one quiet link beneath
-                the switch; a past-season army gets the season's name, its accuracy caveat, and the
-                explicit move back to the sitting season in the switch's place. Both moves are
-                non-destructive, like the switch: only the rules context changes.
-              */}
-              {pastSeasonRules &&
-                (pastSeasonRules.active ? (
-                  <div className="text-white pt-2 small" data-testid="past-season-notice">
-                    <div className="fw-bold">{pastSeasonRules.label} (past season)</div>
-                    <div>{pastSeasonRules.caveat}</div>
-                    <button
-                      type="button"
-                      className="btn btn-link btn-sm text-white p-0"
-                      onClick={onTogglePastSeasonRules}
-                    >
-                      Move to {pastSeasonRules.sittingLabel}
-                    </button>
-                  </div>
-                ) : (
-                  <div className="pt-1">
-                    <button
-                      type="button"
-                      className="btn btn-link btn-sm text-white p-0"
-                      onClick={onTogglePastSeasonRules}
-                    >
-                      Use a past season: {pastSeasonRules.label}
-                    </button>
-                  </div>
-                ))}
             </>
           )}
         </div>
