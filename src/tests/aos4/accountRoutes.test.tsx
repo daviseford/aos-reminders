@@ -1,7 +1,5 @@
 // @vitest-environment jsdom
 
-import { armyFactions } from '../../aos4/domain'
-import { AOS4_CATALOG } from '../../aos4/generated'
 import { protectedRoute } from 'components/page/privateRoute'
 import Profile from 'components/routes/Profile'
 import Subscribe from 'components/routes/Subscribe'
@@ -9,7 +7,6 @@ import { AppStatusProvider } from 'context/useAppStatus'
 import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { MemoryRouter, Route, Routes } from 'react-router'
-import { baselineMonthlyCost } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({
@@ -146,9 +143,11 @@ describe('established account routes', () => {
     // Leads with what the subscription does; the support appeal is a closing note, not the offer.
     // The one-person fact leads the page, above the fold, ahead of the value proposition.
     const onePerson = container.textContent?.indexOf('AoS Reminders is built and run by one person') ?? -1
-    const valueProp = container.textContent?.indexOf('Your army is saved in this browser') ?? -1
+    const valueProp =
+      container.textContent?.indexOf('In free mode, your army is saved locally in your browser') ?? -1
     expect(onePerson).toBeGreaterThan(-1)
     expect(valueProp).toBeGreaterThan(onePerson)
+    expect(container.textContent).not.toContain('Your army is saved in this browser, and only this browser')
     expect(container.textContent).not.toContain(
       'Import current army lists from the AoS app, Listbot 4.0, and New Recruit.'
     )
@@ -201,25 +200,23 @@ describe('established account routes', () => {
     expect(container.querySelector('video')).toBeNull()
     expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).toBeNull()
 
-    // Davis removed the FAQ link from the closing block by hand; the close is now the two facts
-    // and the gift pointer, and the ordering guard covers what remains.
+    // The subscribe-language update (#2058) moved the free-and-stays-free note up beside the
+    // subscriber features, so it now reads before the plans, and the gift pointer is what closes
+    // the page directly under them.
+    const freeNote = container.textContent?.indexOf('Everything else is free, and stays free') ?? -1
     const plans = container.textContent?.indexOf('Subscription Plans') ?? -1
-    const closing = container.textContent?.indexOf('is free, and stays free') ?? -1
-    expect(plans).toBeGreaterThan(-1)
+    const closing = container.textContent?.indexOf('You can buy gift subscriptions for friends') ?? -1
+    expect(freeNote).toBeGreaterThan(-1)
+    expect(plans).toBeGreaterThan(freeNote)
     expect(closing).toBeGreaterThan(plans)
 
     /*
-     * The closing paragraph makes two factual claims, and PRODUCT.md treats stale copy on a paid
-     * surface as a blocking defect — so both are pinned to their sources of truth here. The price
-     * ceiling is derived from plans.ts at render time; the army count is hardcoded in the copy
-     * (deriving it would pull the catalog chunk into the route), so this test is what fails when
-     * the corpus next changes shape.
+     * The same update removed the closing paragraph's price ceiling and army count. PRODUCT.md
+     * treats stale copy on a paid surface as a blocking defect, and those were the two factual
+     * claims this test pinned to their sources of truth, so their return must come with new pins.
      */
-    expect(container.textContent).toContain(
-      `No plan costs more than $${baselineMonthlyCost().toFixed(2)} a month`
-    )
-    expect(container.textContent).toContain("all 27 armies' reminders free for everyone")
-    expect(armyFactions(AOS4_CATALOG)).toHaveLength(27)
+    expect(container.textContent).not.toContain('No plan costs more than')
+    expect(container.textContent).not.toContain("armies' reminders free for everyone")
   })
 
   it('shows the already-subscribed screen instead of the plans for an active subscriber', async () => {
