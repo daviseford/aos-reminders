@@ -234,7 +234,7 @@ describe('a rules context this release does not carry', () => {
 
       expect(error).toBeInstanceOf(ArmyRequiresUpdateError)
       expect(error.rulesContextId).toBe(FUTURE_CONTEXT_ID)
-      expect(error.message).toContain('Refresh the page to update')
+      expect(error.message).toBe('This army uses rules that need a newer version of AoS Reminders.')
     })
 
     it('still reports a corrupt share as an incompatible document', async () => {

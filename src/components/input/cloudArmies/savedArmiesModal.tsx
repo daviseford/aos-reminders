@@ -293,8 +293,8 @@ const SavedArmiesModal = ({
                 </p>
                 {army.requiresUpdate && (
                   <p className="small mb-2">
-                    This army uses rules that this version of AoS Reminders does not have yet. Refresh the
-                    page to update, then load it. It is safe on your account in the meantime.
+                    This army uses rules that need a newer version of AoS Reminders. It is safe on your
+                    account, and can be loaded once the app is updated.
                   </p>
                 )}
                 {renderActions(army)}

@@ -18,6 +18,12 @@ interface ToolbarProps {
   cloudArmyName?: string
   /** The army on screen differs from the saved copy, so Update Army has something to write. */
   cloudArmyHasChanges?: boolean
+  /**
+   * The account's list has confirmed the linked record exists and that this version can read it.
+   * Until it has, Update Army is withheld: the record may have been saved by a newer version, and
+   * writing this copy over it would destroy what this version cannot read (#2055).
+   */
+  cloudArmyUpdatable: boolean
   hiddenCount: number
   onClearArmy: () => void
   onDownloadPdf: () => void
@@ -73,6 +79,7 @@ const Toolbar = ({
   cloudArmyLinked,
   cloudArmyName,
   cloudArmyHasChanges,
+  cloudArmyUpdatable,
   hiddenCount,
   onClearArmy,
   onDownloadPdf,
@@ -91,7 +98,8 @@ const Toolbar = ({
    * through "Updating…" and "Updated" so the confirmation is not yanked away by the very save that
    * earned it; the button then leaves, and the line below says the army is up to date.
    */
-  const showUpdateArmy = cloudArmyLinked && (cloudArmyHasChanges || updateArmyStatus !== 'idle')
+  const showUpdateArmy =
+    cloudArmyLinked && cloudArmyUpdatable && (cloudArmyHasChanges || updateArmyStatus !== 'idle')
 
   return (
     <div className="container d-print-none">

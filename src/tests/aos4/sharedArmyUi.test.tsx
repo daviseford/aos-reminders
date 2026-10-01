@@ -202,8 +202,9 @@ describe('shared army preview', () => {
 
     const alert = container.querySelector('[role="alert"]')
     expect(alert?.className).toContain('alert-warning')
-    expect(alert?.textContent).toContain('does not have yet')
-    expect(alert?.textContent).toContain('Refresh the page')
+    expect(alert?.textContent).toContain('need a newer version of AoS Reminders')
+    // Conditional, because a rolled-back deploy has no newer version for a refresh to install.
+    expect(alert?.textContent).toContain('if an update is available')
     expect(container.querySelector('.alert-danger')).toBeNull()
     expect(loadButton?.disabled).toBe(true)
     // Nothing dismissed the share, so the id survives for the refresh to reopen it.
@@ -221,7 +222,7 @@ describe('shared army preview', () => {
     const alert = container.querySelector('[role="alert"]')
     expect(alert?.className).toContain('alert-danger')
     expect(alert?.textContent).toBe('The service returned an incompatible army document.')
-    expect(container.textContent).not.toContain('does not have yet')
+    expect(container.textContent).not.toContain('newer version')
     expect(loadButton?.disabled).toBe(true)
   })
 })

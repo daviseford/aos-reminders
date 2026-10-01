@@ -266,13 +266,19 @@ const HomeCatalogBound = ({
   const cloudArmyId = cloudArmyLink?.id
   const cloudArmyName = cloudArmyLink?.name
   /*
-   * The linked record was since saved by a newer release (#2055). Update Army would write this
-   * version's copy over rules it cannot read, so the link is offered as no link at all — Save Army
-   * creates a separate record — and kept, so the updated app can still use it.
+   * The linked record as the account last reported it, and only from a list that actually loaded:
+   * an unloaded or failed list is empty, and reading "not marked" from emptiness would let Update
+   * Army write over a record a newer release saved (#2055).
+   *
+   * Marked as needing an update, the link is offered as no link at all — Save Army creates a
+   * separate record — and kept, so the updated app can still use it. Not yet confirmed either way,
+   * the link stays on show but Update Army waits; opening My Armies reloads the list, so a failed
+   * background load is recoverable without a reload.
    */
-  const linkedArmyRequiresUpdate = Boolean(
-    cloudArmyId && armies.find(army => army.id === cloudArmyId)?.requiresUpdate
-  )
+  const linkedArmy =
+    cloudArmyId && collectionLoaded ? armies.find(army => army.id === cloudArmyId) : undefined
+  const linkedArmyRequiresUpdate = Boolean(linkedArmy?.requiresUpdate)
+  const linkedArmyUpdatable = Boolean(linkedArmy && !linkedArmy.requiresUpdate)
   /*
    * Whether the army on screen has moved away from the copy on the account. Update Army is offered
    * only when it has something to write — the same absent-rather-than-disabled rule Show Hidden
@@ -318,7 +324,8 @@ const HomeCatalogBound = ({
     setUpdateArmyError(undefined)
   }
   const updateCloudArmy = async () => {
-    if (!cloudArmyId || !cloudArmyName || linkedArmyRequiresUpdate) return
+    // The button is withheld on the same condition, but this is the write itself, so it checks again.
+    if (!cloudArmyId || !cloudArmyName || !linkedArmyUpdatable) return
     setUpdateArmyStatus('updating')
     setUpdateArmyError(undefined)
     try {
@@ -672,9 +679,9 @@ const HomeCatalogBound = ({
       {storageRequiresUpdate && (
         <div className="container d-print-none">
           <div className="alert alert-warning" role="alert">
-            Your saved army uses rules that this version of AoS Reminders does not have yet. Refresh the page
-            to update and it will load. Until then this is a stand-in army, and changes to it are not saved on
-            this device, so your army stays as it was.
+            Your saved army uses rules that need a newer version of AoS Reminders. It stays saved on this
+            device, unchanged, until a version that can open it is installed. Until then you are using a
+            temporary army, and changes to it are not saved.
           </div>
         </div>
       )}
@@ -684,6 +691,7 @@ const HomeCatalogBound = ({
       {!isGameMode && (
         <Toolbar
           cloudArmyLinked={Boolean(cloudArmyId) && !linkedArmyRequiresUpdate}
+          cloudArmyUpdatable={linkedArmyUpdatable}
           {...(cloudArmyName ? { cloudArmyName } : {})}
           cloudArmyHasChanges={cloudArmyHasChanges}
           hiddenCount={hiddenCount}

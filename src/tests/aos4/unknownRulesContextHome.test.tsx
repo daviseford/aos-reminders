@@ -168,7 +168,12 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
 
     await renderHome()
 
-    expect(updateNotice()?.textContent).toContain('Refresh the page')
+    // Honest on a rollback too, where no newer version will arrive: it names what is needed and what
+    // is kept, and promises no refresh will fix it.
+    expect(updateNotice()?.textContent).toContain('need a newer version of AoS Reminders')
+    expect(updateNotice()?.textContent).toContain('stays saved on this device')
+    expect(updateNotice()?.textContent).toContain('changes to it are not saved')
+    expect(updateNotice()?.textContent).not.toMatch(/refresh/i)
     expect(updateNotice()?.className).toContain('alert-warning')
     // The builder still works: the stand-in is a normal army.
     expect(container.querySelector('input[aria-label="Faction"]')).not.toBeNull()
@@ -239,5 +244,135 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
 
     expect(updateNotice()).toBeUndefined()
     expect(window.localStorage.getItem(AOS4_ARMY_STORAGE_KEY)).toContain('Seraphon')
+  })
+
+  /*
+   * Update Army against a stored link is a write to whatever the account holds now, and until the
+   * list has loaded nothing says that is not an army a newer version saved. An empty list reads the
+   * same as "not marked", so the toolbar used to offer the write while the list was still loading,
+   * and for good after a failed load.
+   */
+  describe('Update Army against a stored cloud link', () => {
+    const localDocument = { ...createDefaultAos4ArmyDocument(), name: 'Tourney List' }
+    const linkedRecord = { id: LINKED_ID, createdAt: 1, updatedAt: 2, document: localDocument }
+
+    const seedChangedLink = () => {
+      saveAos4ArmyDocument(window.localStorage, localDocument)
+      // A signature that no longer matches the army on screen, so Update Army has something to write.
+      writeCloudArmyLink({ id: LINKED_ID, name: 'Tourney List', savedSignature: 'an older copy' })
+    }
+
+    const deferred = <T,>() => {
+      let resolve: (value: T) => void = () => {}
+      let reject: (reason: unknown) => void = () => {}
+      const promise = new Promise<T>((onResolve, onReject) => {
+        resolve = onResolve
+        reject = onReject
+      })
+      return { promise, reject, resolve }
+    }
+
+    const clickUpdateArmy = async () => {
+      const button = Array.from(container.querySelectorAll('button')).find(
+        candidate => candidate.textContent?.trim() === 'Update Army'
+      )
+      expect(button, 'Update Army is not offered').not.toBeUndefined()
+      await act(async () => {
+        button!.click()
+        await flush()
+      })
+      await act(async () => {
+        await flush()
+      })
+    }
+
+    beforeEach(() => {
+      getSubscription.mockResolvedValue({ body: { active: true, subscribed: true } })
+      armyApi.updateArmy.mockResolvedValue({ id: LINKED_ID, updatedAt: 3, document: localDocument })
+    })
+
+    it('is withheld while the list is loading, then offered once it confirms the record', async () => {
+      seedChangedLink()
+      const listing = deferred<unknown[]>()
+      armyApi.listArmies.mockReturnValue(listing.promise)
+
+      await renderHome()
+
+      expect(armyApi.listArmies).toHaveBeenCalledTimes(1)
+      expect(container.textContent).toContain('Cloud army:')
+      expect(buttonLabels()).not.toContain('Update Army')
+      expect(buttonLabels()).toContain('Save As')
+
+      await act(async () => {
+        listing.resolve([linkedRecord])
+        await flush()
+      })
+
+      // The safe case still works: a confirmed, readable record is updated as before.
+      await clickUpdateArmy()
+      expect(armyApi.updateArmy).toHaveBeenCalledTimes(1)
+      expect(armyApi.updateArmy).toHaveBeenCalledWith(
+        LINKED_ID,
+        expect.objectContaining({ name: 'Tourney List' }),
+        'access-token'
+      )
+    })
+
+    it('is never offered when the list loads and marks the record as needing an update', async () => {
+      seedChangedLink()
+      const listing = deferred<unknown[]>()
+      armyApi.listArmies.mockReturnValue(listing.promise)
+
+      await renderHome()
+      expect(buttonLabels()).not.toContain('Update Army')
+
+      await act(async () => {
+        listing.resolve([
+          {
+            ...linkedRecord,
+            document: { ...localDocument, rulesContextId: FUTURE_CONTEXT_ID },
+            requiresUpdate: { rulesContextId: FUTURE_CONTEXT_ID },
+          },
+        ])
+        await flush()
+      })
+
+      expect(buttonLabels()).not.toContain('Update Army')
+      expect(armyApi.updateArmy).not.toHaveBeenCalled()
+    })
+
+    it('is never offered after the list fails to load, and the link is kept', async () => {
+      seedChangedLink()
+      const storedLink = window.localStorage.getItem(LINK_KEY)
+      const listing = deferred<unknown[]>()
+      armyApi.listArmies.mockReturnValue(listing.promise)
+
+      await renderHome()
+      await act(async () => {
+        listing.reject(new Error('Network unavailable'))
+        await flush()
+      })
+      await act(async () => {
+        await flush()
+      })
+
+      expect(armyApi.listArmies).toHaveBeenCalledTimes(1)
+      expect(container.textContent).toContain('Cloud army:')
+      expect(buttonLabels()).not.toContain('Update Army')
+      expect(buttonLabels()).toContain('Save As')
+      expect(armyApi.updateArmy).not.toHaveBeenCalled()
+      expect(window.localStorage.getItem(LINK_KEY)).toBe(storedLink)
+    })
+
+    it('is withheld while signed out, where the list cannot load', async () => {
+      auth.isAuthenticated = false
+      seedChangedLink()
+
+      await renderHome()
+
+      expect(armyApi.listArmies).not.toHaveBeenCalled()
+      expect(buttonLabels()).not.toContain('Update Army')
+      expect(armyApi.updateArmy).not.toHaveBeenCalled()
+    })
   })
 })

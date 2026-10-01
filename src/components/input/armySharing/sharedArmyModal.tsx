@@ -79,11 +79,12 @@ const SharedArmyModal = ({
           /*
            * Not a failure, so not `alert-danger`: the shared army is fine and so is the link, but it
            * uses a ruleset added after this version (#2055). The id stays in session storage until
-           * the player dismisses this, so a refresh that installs the update opens the share again.
+           * the player dismisses this, so a refresh that installs an update opens the share again.
+           * Only "if one is available": a rolled-back deploy has no newer version to install.
            */
           <div className="alert alert-warning" role="alert">
-            This shared army uses rules that this version of AoS Reminders does not have yet. Refresh the page
-            to update, and the shared army will open again.
+            This shared army uses rules that need a newer version of AoS Reminders. Try refreshing the page:
+            if an update is available, the shared army will open.
           </div>
         )}
         {error && (

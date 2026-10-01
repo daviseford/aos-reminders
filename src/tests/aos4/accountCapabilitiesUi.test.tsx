@@ -433,13 +433,13 @@ describe('saved-army and sharing controls', () => {
       expect(rows()).toHaveLength(2)
       const [known, future] = rows()
       expect(future.textContent).toContain('Past Season List')
-      expect(future.textContent).toContain('does not have yet')
+      expect(future.textContent).toContain('need a newer version of AoS Reminders')
       expect(future.textContent).toContain('safe on your account')
       const labels = (row: HTMLElement) =>
         Array.from(row.querySelectorAll('button')).map(button => button.textContent?.trim())
       expect(labels(future)).toEqual(['Delete'])
       expect(labels(known)).toEqual(['Load', 'Rename', 'Delete'])
-      expect(known.textContent).not.toContain('does not have yet')
+      expect(known.textContent).not.toContain('newer version')
     })
 
     it('is never offered for overwriting when a save reuses its name', () => {

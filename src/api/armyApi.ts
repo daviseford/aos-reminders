@@ -98,7 +98,7 @@ const parseDocument = async (value: unknown): Promise<Aos4ArmyDocument> => {
     : unknownAos4RulesContextId(restored.diagnostics)
   if (unknownRulesContextId) {
     throw new ArmyRequiresUpdateError(
-      'This army uses rules that this version of AoS Reminders does not have yet. Refresh the page to update, then try again.',
+      'This army uses rules that need a newer version of AoS Reminders.',
       unknownRulesContextId
     )
   }
