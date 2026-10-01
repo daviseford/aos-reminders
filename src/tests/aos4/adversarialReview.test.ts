@@ -1227,6 +1227,57 @@ describe('official ability overrides the September 2026 errata need (#2060)', ()
     expect(fieldsOf(reviewPair)).toEqual(expect.arrayContaining(['official-override.ability-text.evidence']))
   })
 
+  it('rejects a short insertion the official page prints only away from the edited phrase', () => {
+    // The page prints "not" and "friendly", but not beside the words the override changes.
+    const excerpt = `${ashCloudsErratum} Friendly units that are not visible cannot be picked.`
+    ;[
+      editedAshClouds.effect.replace('cannot be set up', 'can not be set up in friendly or'),
+      editedAshClouds.effect.replace('are not visible', 'are not visible to friendly units'),
+    ].forEach(effect => {
+      const reviewPair = abilityPair(
+        ashClouds,
+        { name: 'ROLLING ASH-CLOUDS', text: { effect }, ...passive },
+        { text: { effect } },
+        excerpt
+      )
+      expect(fieldsOf(reviewPair)).toEqual(
+        expect.arrayContaining(['secondary.source-official-override.ability-text.effect'])
+      )
+    })
+  })
+
+  describe('a changed distance must be the one the erratum prints', () => {
+    const shyishReaper = {
+      name: 'SUMMON SHYISH REAPER',
+      conditionHtml: 'Your Hero Phase',
+      descriptionHtml:
+        '<b>Effect:</b> Set up a Shyish Reaper wholly within 9" of the caster, visible to them and more than 9" from all enemy units.',
+    }
+    // Page 58 also prints other distances and rolls after the Shyish Reaper erratum.
+    const page58 =
+      "MANIFESTATION LORE Change the effect of 'Summon Shyish Reaper' to: 'Set up a Shyish Reaper wholly within 12\" of and visible to the caster and more than 9\" from all enemy units.' LORD VITRIOLIC Declare: Pick an enemy unit within 10\" of this unit to be the target. Effect: On a 3+, apply 1 of the following effects."
+    const withDistance = (distance: string) => ({
+      effect: `Set up a Shyish Reaper wholly within ${distance}" of and visible to the caster and more than 9" from all enemy units.`,
+    })
+    const pairFor = (distance: string) =>
+      abilityPair(
+        shyishReaper,
+        { name: 'SUMMON SHYISH REAPER', text: withDistance(distance) },
+        { text: withDistance(distance) },
+        page58
+      )
+
+    it('accepts the printed 12"', () => {
+      expect(fieldsOf(pairFor('12'))).toEqual([])
+    })
+
+    it.each(['3', '10'])('rejects %s", which the page prints only elsewhere', distance => {
+      expect(fieldsOf(pairFor(distance))).toEqual(
+        expect.arrayContaining(['secondary.source-official-override.ability-text.effect'])
+      )
+    })
+  })
+
   const lightningMaster = {
     name: 'LIGHTNING MASTER',
     conditionHtml: 'Your Shooting Phase',

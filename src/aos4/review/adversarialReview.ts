@@ -714,7 +714,11 @@ const secondaryAbilityTextFields = (pair: ReviewPacketPair): Record<string, stri
   return segments
 }
 
-const unmatchedGeneratedTokenRuns = (source: unknown, generated: unknown): string[] => {
+/** The generated tokens, and the index ranges of each run of them the source does not print in order. */
+const unmatchedGeneratedTokenSpans = (
+  source: unknown,
+  generated: unknown
+): { tokens: string[]; spans: Array<{ start: number; end: number }> } => {
   const sourceTokens: string[] =
     visibleSourceText(source)
       .toLowerCase()
@@ -752,18 +756,54 @@ const unmatchedGeneratedTokenRuns = (source: unknown, generated: unknown): strin
     unmatchedIndexes.add(generatedIndex)
     generatedIndex += 1
   }
-  const runs: string[] = []
-  let current: string[] = []
-  generatedTokens.forEach((token, index) => {
-    if (unmatchedIndexes.has(index)) {
-      current.push(token)
-    } else if (current.length) {
-      runs.push(current.join(' '))
-      current = []
-    }
+  const spans: Array<{ start: number; end: number }> = []
+  generatedTokens.forEach((_, index) => {
+    if (!unmatchedIndexes.has(index)) return
+    const previous = spans.at(-1)
+    if (previous?.end === index) previous.end = index + 1
+    else spans.push({ start: index, end: index + 1 })
   })
-  if (current.length) runs.push(current.join(' '))
-  return runs
+  return { tokens: generatedTokens, spans }
+}
+
+const unmatchedGeneratedTokenRuns = (source: unknown, generated: unknown): string[] => {
+  const { tokens, spans } = unmatchedGeneratedTokenSpans(source, generated)
+  return spans.map(span => tokens.slice(span.start, span.end).join(' '))
+}
+
+/** The shortest context, in tokens, an edited run must be printed inside to count as official. */
+const OFFICIAL_EDIT_CONTEXT_TOKENS = 4
+
+/**
+ * Every run the generated text changes from the secondary text is printed by the official evidence
+ * together with the unchanged words beside it: some window of at least four consecutive generated
+ * tokens that covers the run (the whole text, when it is shorter) reads contiguously in the official
+ * text. A word found anywhere else on the page, such as a stray `3`, `not`, or `friendly`, is not
+ * the erratum's wording.
+ */
+const officialEvidencePrintsEdits = (
+  secondaryText: string,
+  generated: unknown,
+  officialText: string
+): boolean => {
+  const { tokens, spans } = unmatchedGeneratedTokenSpans(secondaryText, generated)
+  const officialTokens = ` ${(
+    visibleSourceText(officialText)
+      .toLowerCase()
+      .match(/[a-z0-9]+/g) ?? []
+  ).join(' ')} `
+  const comparableOfficial = sourceComparableText(officialText)
+  const printed = (window: string[]) =>
+    officialTokens.includes(` ${window.join(' ')} `) ||
+    // The compact fallback repairs PDF extraction such as "abi lities", as generatedTextIsGrounded does.
+    (window.join('').length >= 20 && comparableOfficial.includes(window.join('')))
+  return spans.every(({ start, end }) => {
+    const width = Math.min(tokens.length, Math.max(end - start + 1, OFFICIAL_EDIT_CONTEXT_TOKENS))
+    for (let first = Math.max(0, end - width); first <= Math.min(start, tokens.length - width); first += 1) {
+      if (printed(tokens.slice(first, first + width))) return true
+    }
+    return false
+  })
 }
 
 const escapeRegularExpression = (value: string): string => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -1043,15 +1083,14 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
         // A field is grounded when it reads in order through the secondary and official evidence,
         // when the official evidence prints it whole (a replacement), or when it is the secondary
         // text edited in place: every word that departs from the secondary text is printed by the
-        // official evidence (an erratum that changes a phrase inside a sentence).
+        // official evidence beside the unchanged words around it (an erratum that changes a phrase
+        // inside a sentence).
         const fieldIsOfficialReplacement = (value: unknown) =>
           generatedTextIsGrounded(officialText, value, true)
         Object.entries(override.value.text).forEach(([field, value]) => {
           if (
             fieldIsOfficialReplacement(value) ||
-            unmatchedGeneratedTokenRuns(secondaryText, value).every(run =>
-              generatedTextIsGrounded(officialText, run, true)
-            )
+            officialEvidencePrintsEdits(secondaryText, value, officialText)
           ) {
             return
           }

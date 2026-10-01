@@ -680,6 +680,32 @@ describe('AoS 4 corpus generation', () => {
     ).toEqual(
       [renamed.meta.sourceRecordId, costed.meta.sourceRecordId, targetWarscroll.meta.sourceRecordId].sort()
     )
+
+    // A reviewed cost equal to the source's cost retires the entry however its keys are ordered.
+    const priced = {
+      ...decoded,
+      dataset: {
+        ...decoded.dataset,
+        factionAbilities: decoded.dataset.factionAbilities.map(record =>
+          record === costed ? { ...record, pointsType: 'Prayer', points: '2' } : record
+        ),
+      },
+    }
+    const reordered = reviewedWith({
+      abilityTextOverrides: [
+        {
+          sourceRecordId: costed.meta.sourceRecordId,
+          cost: JSON.parse('{"value":2,"kind":"prayer"}') as { kind: 'prayer'; value: number },
+          reason: 'Fixture cost the source already prints, keys reordered.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    })
+    expect(
+      buildAos4Corpus(priced, createCorpusIdentityRegistry(priced.dataset, reordered), reordered)
+        .diagnostics.filter(diagnostic => diagnostic.code === 'invalid-review')
+        .map(diagnostic => diagnostic.subject)
+    ).toEqual([costed.meta.sourceRecordId])
   })
 
   it('adds an official ability keyword the secondary source omits, and only then', async () => {

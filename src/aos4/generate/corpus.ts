@@ -1588,6 +1588,15 @@ const officialEvidenceFor = (sourceRecordId: SourceRecordId, review: CorpusRevie
       .flatMap(override => override.officialSourceRecordIds),
   ])
 
+/** Compares costs by kind and value, so a reviewed cost written with its keys reordered still matches. */
+const sameAbilityCost = (left: AbilityCost | undefined, right: AbilityCost | undefined): boolean =>
+  left === undefined || right === undefined
+    ? left === right
+    : left.kind === right.kind &&
+      left.value === right.value &&
+      (left.kind !== 'faction-resource' ||
+        (right.kind === 'faction-resource' && left.resource === right.resource))
+
 const abilityCost = (record: AbilityRecord): AbilityCost | undefined => {
   const value = integerValue(record.points)
   if (value === undefined) return undefined
@@ -2334,8 +2343,7 @@ export const buildAos4Corpus = (
     if (
       textOverride &&
       ((textOverride.name !== undefined && textOverride.name === normalized.name) ||
-        (textOverride.cost !== undefined &&
-          JSON.stringify(textOverride.cost ?? null) === JSON.stringify(sourceCost ?? null)))
+        (textOverride.cost !== undefined && sameAbilityCost(textOverride.cost ?? undefined, sourceCost)))
     ) {
       // The source now prints the official name or cost itself: the override has done its job.
       diagnostics.push({
