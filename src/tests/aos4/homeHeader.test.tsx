@@ -148,8 +148,8 @@ describe('the masthead selects', () => {
     pastSeason: Aos4RulesSeasonBinding['pastSeason'] = null
   ): Aos4RulesSeasonBinding => ({
     options: [
-      { label: 'General’s Handbook 2026-27 (current season)', value: SITTING },
-      { label: 'General’s Handbook 2025-26 (past season)', value: PAST },
+      { label: 'General’s Handbook 2026-27', value: SITTING },
+      { label: 'General’s Handbook 2025-26 (past)', value: PAST },
       { label: 'None: battletome and core rules only', value: CURRENT },
     ],
     value,
@@ -177,14 +177,14 @@ describe('the masthead selects', () => {
 
     expect(seasonInput()).not.toBeNull()
     expect(container.textContent).toContain('Seasonal rules:')
-    expect(container.textContent).toContain('General’s Handbook 2026-27 (current season)')
+    expect(container.textContent).toContain('General’s Handbook 2026-27')
     expect(container.querySelector('#seasonal-rules-switch')).toBeNull()
     expect(container.textContent).not.toContain('Use a past season')
   })
 
   it.each([
-    [SITTING, 'General’s Handbook 2026-27 (current season)'],
-    [PAST, 'General’s Handbook 2025-26 (past season)'],
+    [SITTING, 'General’s Handbook 2026-27'],
+    [PAST, 'General’s Handbook 2025-26 (past)'],
     [CURRENT, 'None: battletome and core rules only'],
   ])('shows the document’s own season (%s)', async (value, label) => {
     await renderHeader({ rulesSeason: rulesSeason(value) })
@@ -207,8 +207,8 @@ describe('the masthead selects', () => {
       option.textContent?.trim()
     )
     expect(offered).toEqual([
-      'General’s Handbook 2026-27 (current season)',
-      'General’s Handbook 2025-26 (past season)',
+      'General’s Handbook 2026-27',
+      'General’s Handbook 2025-26 (past)',
       'None: battletome and core rules only',
     ])
 

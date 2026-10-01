@@ -74,8 +74,8 @@ const factionId = (() => {
 // Seasonal provenance. Its presence in the rendered reminders is the season's own fingerprint.
 const SEASONAL_REMINDER = 'RAISING THE HEAT'
 
-const SITTING_LABEL = `General’s Handbook ${seasonal.season} (current season)`
-const PAST_LABEL = `General’s Handbook ${pastSeason.season} (past season)`
+const SITTING_LABEL = `General’s Handbook ${seasonal.season}`
+const PAST_LABEL = `General’s Handbook ${pastSeason.season} (past)`
 const NONE_LABEL = 'None: battletome and core rules only'
 
 const storedArmy = (rulesContextId: RulesContextId) =>

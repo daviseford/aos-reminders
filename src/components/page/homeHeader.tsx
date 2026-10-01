@@ -49,7 +49,7 @@ interface HeaderProps {
 }
 
 export interface Aos4RulesSeasonOption {
-  /** e.g. `General’s Handbook 2026-27 (current season)` */
+  /** e.g. `General’s Handbook 2026-27`, or `General’s Handbook 2025-26 (past)` */
   label: string
   value: RulesContextId
 }
@@ -279,7 +279,7 @@ export const Header = ({
                         isClearable={false}
                         isSearchable={false}
                         // The season labels are longer than a faction name; on a phone they wrap
-                        // rather than losing the "(past season)" that tells them apart.
+                        // rather than losing the "(past)" that tells them apart.
                         styles={{ singleValue: base => ({ ...base, whiteSpace: 'normal' }) }}
                         className={theme.text}
                         theme={selectColors}
