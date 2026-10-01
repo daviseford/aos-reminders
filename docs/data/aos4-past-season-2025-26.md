@@ -68,6 +68,16 @@ BSData standard records) joins every standard season, sitting or past. The 2026-
 stays seasonal only. Context overrides are explicit: the 16 citing a Scourge of Ghyran pack name
 the past season, and Stumblefoot Gargant's do not.
 
+The core rules page is the one exception to "standard content joins every season". Wahapedia prints
+its advanced sections (commands, champions, musicians, standard bearers, spells, prayers,
+manifestations, terrain) in the sitting season's edition ("Commands 2026-27" and so on), so those
+groups are 2026-27 only, and a past-season army used to lose RALLY, COUNTER-CHARGE, ALL-OUT ATTACK
+and the rest. The 2025-26 handbook page reprints the same sections as they stood that season, under
+the same headings. Generation mirrors the core rules' edges onto those copies, matched by section,
+and scopes each new edge to the past season alone, so the historical overlay on a sitting-season
+army never gains a second RALLY. A sitting-season section with no single copy in a past season's
+pages fails generation.
+
 `src/tests/aos4/pastSeason2025.test.ts` pins the boundary: nothing from 2026-27 or 2024-25, every
 standard entity present, every season-only entity also historical, and the pack scoping.
 

@@ -44,9 +44,15 @@ The source inventory is a schema 2 inventory of fresh observations taken for thi
 non-material) and the Wahapedia navigation and exports at 01:43:56Z (87 sources, 0 inaccessible).
 No BSData observation is bound because no BSData artifact is pinned. Every accepted artifact
 matched, so no newer official publication supersedes the pinned September documents. The
-certification is `aos4-corpus-2026-09-30c-machine-r1` (campaign 01:46:07Z, certified 01:46:40Z).
-Its `--reuse-certification` offer of `aos4-corpus-2026-09-30b-machine-r1` reused no pair, because
-the revision re-key invalidates every pair, so all 42,692 pairs were evaluated fresh.
+certification is `aos4-corpus-2026-09-30c-machine-r2`, a re-campaign of the same revision after a
+generator fix reached the past season's own copy of the core rules' commands, spells, prayers, and
+terrain sections (17 edges scoped to the past season; no entity changed). It binds the same schema 2
+inventory as `machine-r1`, byte for byte. Its `--reuse-certification` offer of `machine-r1` reused
+42,658 unchanged pairs and evaluated 34 fresh (campaign 15:15:37Z, certified 15:16:10Z), with 0
+findings and 0 cannot-verify. Its reuse overlay references `machine-r1`, so that directory stays in
+the live chain. `machine-r1` (campaign 01:46:07Z, certified 01:46:40Z) evaluated all 42,692 pairs
+fresh against the `aos4-corpus-2026-09-30b-machine-r1` offer, because the revision re-key
+invalidates every pair.
 
 An earlier `aos4-corpus-2026-09-30b` draft of this change, built on `aos4-corpus-2026-09-30`, was
 never accepted: #2047 took the `2026-09-30b` name first. This revision re-applies the same four

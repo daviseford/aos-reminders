@@ -6,6 +6,7 @@ import {
   resolveParsedRoster,
   type ParsedRoster,
 } from '../../aos4/import'
+import { projectReminders } from '../../aos4/reminders'
 import { resolveSelection } from '../../aos4/select'
 import {
   createAos4ArmyDocument,
@@ -165,6 +166,130 @@ describe('the General’s Handbook 2025-26 past-season context', () => {
     ;['Arena Veterans', 'Coven Zealots', 'Bloodshadow Rites'].forEach(name =>
       expect(selection.availableIds).toContain(group(name, pastSeason.id).id)
     )
+  })
+})
+
+/*
+ * Wahapedia prints the core rules' commands, champions, spells, prayers, and terrain sections in the
+ * sitting season's edition, so they belong to 2026-27 alone. Each past season's handbook page
+ * reprints them as they stood that season; generation reaches those copies from the core rules for
+ * the past season only (#2042). Without it, a 2025-26 army lost RALLY, COUNTER-CHARGE, and the rest.
+ */
+describe('the core rules in a past-season army', () => {
+  const CORE_COMMANDS = [
+    'RALLY',
+    'MAGICAL INTERVENTION',
+    'REDEPLOY',
+    'AT THE DOUBLE',
+    'FORWARD TO VICTORY',
+    'COUNTER-CHARGE',
+    'POWER THROUGH',
+    'ALL-OUT ATTACK',
+    'ALL-OUT DEFENCE',
+    'COVERING FIRE',
+    'UNBIND',
+    'BANISH MANIFESTATION',
+    'SACRED RITES',
+  ]
+  const PAST_SEASON_PAGE = 'https://wahapedia.ru/aos4/the-rules/general-s-handbook-2025-26/'
+  const CORE_RULES_PAGE = 'https://wahapedia.ru/aos4/the-rules/the-core-rules/'
+  const ogorId = faction('Ogor Mawtribes').id
+  const greedyEaters = group('Greedy Eaters', pastSeason.id).id
+  const variant = warscroll('Scourge of Ghyran Ironblaster').id
+
+  /** Each core command's ability ids and their source pages, from the projected reminders. */
+  const coreCommands = (
+    explicitIds: CanonicalId[],
+    rulesContextId: RulesContext['id'],
+    allowsHistorical = false
+  ) => {
+    const reminders = projectReminders(
+      AOS4_FULL_CATALOG,
+      resolveSelection(AOS4_FULL_CATALOG, { explicitIds, rulesContextId, allowsHistorical })
+    )
+    return new Map(
+      CORE_COMMANDS.map(name => {
+        const abilityIds = Array.from(
+          new Set(
+            reminders.filter(reminder => reminder.name === name).flatMap(reminder => reminder.abilityIds)
+          )
+        )
+        const pages = Array.from(
+          new Set(
+            abilityIds.flatMap(id =>
+              sourceUrlOf(entityById.get(id)!).map(url => url.replace(/^.*?html:/, '').replace(/#.*$/, ''))
+            )
+          )
+        )
+        return [name, { abilityIds, pages }]
+      })
+    )
+  }
+  const expectFromPage = (commands: ReturnType<typeof coreCommands>, page: string) =>
+    commands.forEach(({ abilityIds, pages }, name) => {
+      expect({ name, count: abilityIds.length }).toEqual({ name, count: 1 })
+      expect({ name, pages }).toEqual({ name, pages: [page] })
+    })
+
+  it('reminds a 2025-26 army of every core command, once each, from that season’s handbook', () => {
+    expectFromPage(coreCommands([ogorId, greedyEaters, variant], pastSeason.id), PAST_SEASON_PAGE)
+    // The overlay an imported 2025-26 roster carries adds nothing twice.
+    expectFromPage(coreCommands([ogorId, greedyEaters, variant], pastSeason.id, true), PAST_SEASON_PAGE)
+    expectFromPage(coreCommands([faction('Lumineth Realm-lords').id], pastSeason.id), PAST_SEASON_PAGE)
+  })
+
+  it('carries them into a declared 2025-26 import', () => {
+    const preview = resolveParsedRoster(
+      AOS4_CATALOG,
+      {
+        source: 'official-app-text',
+        proposedName: 'Past Season Import',
+        declaredFaction: 'Ogor Mawtribes',
+        declaredContext: "General's Handbook 2025-26",
+        selections: [
+          { kindHint: 'battle-formation', label: 'Greedy Eaters', line: 2 },
+          { kindHint: 'warscroll', label: 'Scourge of Ghyran Ironblaster', line: 3 },
+        ],
+      } as ParsedRoster,
+      {
+        defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+        createDocumentId: () => 'army:core-rules-import',
+      }
+    )
+    const document = preview.proposedDocument!
+    expect(document.rulesContextId).toBe(pastSeason.id)
+    expectFromPage(
+      coreCommands(document.explicitSelectionIds, document.rulesContextId, document.allowsHistorical),
+      PAST_SEASON_PAGE
+    )
+  })
+
+  it('leaves the sitting season, the default, and saved overlay armies on the core rules page alone', () => {
+    expect(AOS4_DEFAULT_RULES_CONTEXT_ID).toBe(seasonal.id)
+    expectFromPage(coreCommands([ogorId], seasonal.id), CORE_RULES_PAGE)
+    // An army saved with the historical overlay before #2042 must not gain a second RALLY.
+    expectFromPage(coreCommands([ogorId, greedyEaters, variant], seasonal.id, true), CORE_RULES_PAGE)
+  })
+
+  it('scopes every edge into the season’s copy of the core rules to that season alone', () => {
+    const handbookGroups = new Set(
+      AOS4_FULL_CATALOG.entities
+        .filter(
+          entity =>
+            entity.kind === 'content-group' &&
+            entity.groupType === 'general-rules' &&
+            sourceUrlOf(entity).some(url => url.includes(PAST_SEASON_PAGE))
+        )
+        .map(entity => entity.id)
+    )
+    const edges = AOS4_FULL_CATALOG.relationships.filter(
+      relationship => handbookGroups.has(relationship.to) && !handbookGroups.has(relationship.from)
+    )
+    expect(edges).toHaveLength(15)
+    edges.forEach(relationship => {
+      expect(relationship.kind).toBe('includes')
+      expect(relationship.rulesContextIds).toEqual([pastSeason.id])
+    })
   })
 })
 
