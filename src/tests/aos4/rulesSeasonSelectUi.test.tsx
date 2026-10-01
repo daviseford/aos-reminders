@@ -74,9 +74,9 @@ const factionId = (() => {
 // Seasonal provenance. Its presence in the rendered reminders is the season's own fingerprint.
 const SEASONAL_REMINDER = 'RAISING THE HEAT'
 
-const SITTING_LABEL = `General’s Handbook ${seasonal.season} (current season)`
-const PAST_LABEL = `General’s Handbook ${pastSeason.season} (past season)`
-const NONE_LABEL = 'None: battletome and core rules only'
+const SITTING_LABEL = `${seasonal.season ?? seasonal.name} (current)`
+const PAST_LABEL = pastSeason.season ?? pastSeason.name
+const NONE_LABEL = 'None'
 
 const storedArmy = (rulesContextId: RulesContextId) =>
   serializeAos4ArmyDocument(
@@ -123,7 +123,8 @@ describe('the rules-season select on the Home screen', () => {
     await renderHome()
   }
 
-  const seasonInput = () => container.querySelector<HTMLInputElement>('input[aria-label="Seasonal rules"]')
+  const seasonInput = () =>
+    container.querySelector<HTMLInputElement>('input[aria-label="General\'s Handbook"]')
 
   // The select's shown value: the masthead's singleValue that shares a control with the input.
   const selectedSeason = () =>
@@ -183,6 +184,26 @@ describe('the rules-season select on the Home screen', () => {
     // The old two-control pairing is gone.
     expect(container.querySelector('#seasonal-rules-switch')).toBeNull()
     expect(container.textContent).not.toContain('Use a past season')
+  })
+
+  /*
+   * jsdom never lays text out, so it cannot see a wrap; this instead pins the real constraint a
+   * wrap needs to fit under. Measured live in Chrome at 320px (iPhone SE, the narrowest width this
+   * masthead supports): the select's single-line text area there holds roughly 200px, and this
+   * font averages ~10px per character, so anything past ~20 characters wraps onto a second line
+   * and loses its "(past)"/"(current)" qualifier (#2042, #2064's original bug). The two short
+   * labels this PR introduced fit with room to spare; the verbose `General’s Handbook YYYY-YY
+   * (current season)` wording this replaced (41 characters) would fail this check immediately.
+   */
+  it('keeps every season option short enough to stay on one line at the narrowest supported width', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(seasonal.id))
+
+    await renderHome()
+
+    const offered = (await openSeasons()).map(option => option.textContent?.trim() ?? '')
+    for (const label of offered) {
+      expect(label.length, `"${label}" is too long and will wrap at 320px`).toBeLessThanOrEqual(20)
+    }
   })
 
   /*
@@ -271,6 +292,6 @@ describe('the rules-season select on the Home screen', () => {
 
     expect(container.querySelector('input[aria-label="Faction"]')).not.toBeNull()
     expect(seasonInput()).toBeNull()
-    expect(container.textContent).not.toContain('Seasonal rules')
+    expect(container.textContent).not.toContain("General's Handbook")
   })
 })
