@@ -187,6 +187,26 @@ describe('the rules-season select on the Home screen', () => {
   })
 
   /*
+   * jsdom never lays text out, so it cannot see a wrap; this instead pins the real constraint a
+   * wrap needs to fit under. Measured live in Chrome at 320px (iPhone SE, the narrowest width this
+   * masthead supports): the select's single-line text area there holds roughly 200px, and this
+   * font averages ~10px per character, so anything past ~20 characters wraps onto a second line
+   * and loses its "(past)"/"(current)" qualifier (#2042, #2064's original bug). The two short
+   * labels this PR introduced fit with room to spare; the verbose `General’s Handbook YYYY-YY
+   * (current season)` wording this replaced (41 characters) would fail this check immediately.
+   */
+  it('keeps every season option short enough to stay on one line at the narrowest supported width', async () => {
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(seasonal.id))
+
+    await renderHome()
+
+    const offered = (await openSeasons()).map(option => option.textContent?.trim() ?? '')
+    for (const label of offered) {
+      expect(label.length, `"${label}" is too long and will wrap at 320px`).toBeLessThanOrEqual(20)
+    }
+  })
+
+  /*
    * One move per test, each with a single reload: a full Home render is heavy, and four of them in
    * one test overrun the per-test timeout when the whole suite runs.
    */
