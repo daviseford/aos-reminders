@@ -2,6 +2,8 @@ import type { RemoteArmy } from '../../../api/armyApi'
 import type { Aos4ArmyDocument } from '../../../aos4/state'
 import { describeCloudArmy } from './armySummary'
 import { withName } from './withName'
+import AsyncSuccessButton from 'components/input/asyncSuccess/asyncSuccessButton'
+import { useAsyncSuccess } from 'components/input/asyncSuccess/useAsyncSuccess'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useArmyCollection } from 'context/useArmyCollection'
 import { useTheme } from 'context/useTheme'
@@ -46,6 +48,7 @@ const SavedArmiesModal = ({
   const [renameDraft, setRenameDraft] = useState('')
   const [isMutating, setIsMutating] = useState(false)
   const [message, setMessage] = useState<string>()
+  const { succeeded: renameSucceeded, triggerSuccess, reset: resetRenameSuccess } = useAsyncSuccess()
 
   useEffect(() => {
     if (isOpen) void refreshArmies()
@@ -58,6 +61,7 @@ const SavedArmiesModal = ({
    */
   const openPending = (id: string, kind: PendingKind, currentName = '') => {
     setMessage(undefined)
+    resetRenameSuccess()
     setRenameDraft(currentName)
     setPending({ id, kind })
   }
@@ -76,10 +80,27 @@ const SavedArmiesModal = ({
     }
   }
 
-  const rename = (army: RemoteArmy) =>
-    mutate(async () => {
+  const rename = async (army: RemoteArmy) => {
+    setIsMutating(true)
+    setMessage(undefined)
+    const newName = renameDraft.trim()
+    try {
       await updateArmy(army.id, withName(army.document, renameDraft))
-    }, `Renamed to ${renameDraft.trim()}.`)
+      /*
+       * The green/check dwell runs before the edit field folds back into the row and the success
+       * message appears, so the rename visibly lands. Only reached after the service answered.
+       */
+      triggerSuccess(() => {
+        setPending(undefined)
+        setMessage(`Renamed to ${newName}.`)
+      })
+    } catch {
+      // The collection context exposes the service error beside the controls.
+      resetRenameSuccess()
+    } finally {
+      setIsMutating(false)
+    }
+  }
 
   const confirmDelete = (army: RemoteArmy) =>
     mutate(async () => {
@@ -127,14 +148,22 @@ const SavedArmiesModal = ({
             value={renameDraft}
           />
           <div className="CloudArmyActions mt-2">
-            <button
+            <AsyncSuccessButton
               className={commitButton}
               disabled={isMutating || !renameDraft.trim() || renameDraft.trim() === army.document.name}
+              label="Save name"
+              succeeded={renameSucceeded}
+              successAnnouncement="Name saved."
               type="submit"
+            />
+            <button
+              className={cancelButton}
+              onClick={() => {
+                resetRenameSuccess()
+                setPending(undefined)
+              }}
+              type="button"
             >
-              Save name
-            </button>
-            <button className={cancelButton} onClick={() => setPending(undefined)} type="button">
               Cancel
             </button>
           </div>

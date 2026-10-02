@@ -263,7 +263,7 @@ describe('AoS 4 import modal', () => {
     vi.restoreAllMocks()
   })
 
-  it('previews and atomically applies a supported pasted roster with a fresh local document', () => {
+  it('previews and atomically applies a supported pasted roster with a fresh local document', async () => {
     pasteAndPreview(officialRoster())
 
     expect(container.textContent).toContain('Warhammer Age of Sigmar app')
@@ -273,8 +273,10 @@ describe('AoS 4 import modal', () => {
     const apply = findButton(container, 'Import Army')
     expect(apply.disabled).toBe(false)
 
-    act(() => {
+    await act(async () => {
       Simulate.click(apply)
+      // The success dwell holds briefly before the army is applied and the modal closes.
+      await new Promise(resolve => setTimeout(resolve, 750))
     })
 
     expect(onApply).toHaveBeenCalledTimes(1)
@@ -387,7 +389,7 @@ describe('AoS 4 import modal', () => {
    * builder where the unit exists, so the useful outcome is the rest of the army plus a note about
    * what was dropped.
    */
-  it('stays confirmable and reportable when a selection cannot be placed', () => {
+  it('stays confirmable and reportable when a selection cannot be placed', async () => {
     Object.defineProperties(URL, {
       createObjectURL: { configurable: true, value: vi.fn(() => 'blob:warning-import') },
       revokeObjectURL: { configurable: true, value: vi.fn() },
@@ -414,8 +416,10 @@ describe('AoS 4 import modal', () => {
     expect(issueUrl.searchParams.get('body')).toContain('imported this roster with warnings')
     expect(issueUrl.searchParams.get('body')).toContain('unknown-selection')
 
-    act(() => {
+    await act(async () => {
       Simulate.click(findButton(container, 'Import Army'))
+      // The success dwell holds briefly before the army is applied and the modal closes.
+      await new Promise(resolve => setTimeout(resolve, 750))
     })
     expect(onApply).toHaveBeenCalledTimes(1)
   })
@@ -587,8 +591,10 @@ App: 1.37.0 | Data: 476`)
     expect(container.textContent).toContain('Listbot 4.0')
     expect(findButton(container, 'Import Army').disabled).toBe(false)
 
-    act(() => {
+    await act(async () => {
       Simulate.click(findButton(container, 'Import Army'))
+      // The success dwell holds briefly before the army is applied and the modal closes.
+      await new Promise(resolve => setTimeout(resolve, 750))
     })
     const imported = onApply.mock.calls[0][0]
     const entityById = new Map(AOS4_CATALOG.entities.map(entity => [entity.id, entity]))
@@ -765,5 +771,87 @@ App: 1.37.0 | Data: 476`)
 
     expect(closeModal).toHaveBeenCalledTimes(1)
     expect(onApply).not.toHaveBeenCalled()
+  })
+
+  /*
+   * A file that parsed cleanly takes the dropzone's place with a summary of what was read — the
+   * file's name, the format the decoder detected, and how many selections came out of it. The way
+   * back (replace or clear) sits on the summary itself.
+   */
+  it('replaces the dropzone with an imported-file summary after a clean read', async () => {
+    const file = new File([listbotRoster], 'skaven-listbot.txt', { type: 'text/plain' })
+    Object.defineProperty(file, 'arrayBuffer', {
+      value: async () => new TextEncoder().encode(listbotRoster).buffer,
+    })
+    const dropzone = container.querySelector<HTMLDivElement>('.dropzone')!
+
+    await act(async () => {
+      Simulate.drop(dropzone, dropEventData(file))
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    expect(container.querySelector('.dropzone')).toBeNull()
+    expect(container.textContent).toContain('skaven-listbot.txt')
+    expect(container.textContent).toContain('Listbot')
+    expect(container.textContent).toMatch(/\d+ selections/)
+    expect(findButton(container, 'Import Army').disabled).toBe(false)
+
+    act(() => {
+      Simulate.click(findButton(container, 'Clear file'))
+    })
+
+    expect(container.querySelector('.dropzone')).not.toBeNull()
+    expect(container.textContent).not.toContain('skaven-listbot.txt')
+    expect(findButton(container, 'Import Army').disabled).toBe(true)
+  })
+
+  /*
+   * An invalid file is never dressed up as a successful read: the dropzone stays so the
+   * diagnostics sit next to the way to try again.
+   */
+  it('keeps the dropzone and shows no summary for a file that did not parse', async () => {
+    const badText = 'This is not any roster format.'
+    const file = new File([badText], 'not-a-roster.txt', { type: 'text/plain' })
+    Object.defineProperty(file, 'arrayBuffer', {
+      value: async () => new TextEncoder().encode(badText).buffer,
+    })
+    const dropzone = container.querySelector<HTMLDivElement>('.dropzone')!
+
+    await act(async () => {
+      Simulate.drop(dropzone, dropEventData(file))
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    expect(container.querySelector('.dropzone')).not.toBeNull()
+    expect(container.textContent).toContain('not a supported current official app, Listbot 4.0, or Sigdex')
+    expect(
+      Array.from(container.querySelectorAll('button')).some(b => b.textContent?.trim() === 'Clear file')
+    ).toBe(false)
+    expect(findButton(container, 'Import Army').disabled).toBe(true)
+  })
+
+  /*
+   * The commit dwell: clicking Import Army turns the button into its green success state and holds
+   * before the army is applied — never green on a roster that merely parsed with errors, and the
+   * modal is still open while the check draws.
+   */
+  it('shows the success state on the commit button before applying the army', async () => {
+    pasteAndPreview(officialRoster())
+
+    const applyButton = findButton(container, 'Import Army')
+    act(() => {
+      Simulate.click(applyButton)
+    })
+
+    expect(applyButton.className).toContain('AsyncSuccessButton-Succeeded')
+    expect(applyButton.disabled).toBe(true)
+    expect(container.textContent).toContain('Army imported.')
+    expect(onApply).not.toHaveBeenCalled()
+
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 750))
+    })
+    expect(onApply).toHaveBeenCalledTimes(1)
   })
 })

@@ -814,6 +814,34 @@ small {
   padding: 1rem 0;
 }
 
+/*
+ * The async success confirmation. The green fill must hold white at the 4.5:1 the product treats
+ * as a floor: Bootstrap's `$green` #198754 measures 3.13:1, which is why the commit buttons are
+ * Action Blue. The success state is allowed to be green — it is a status, not the commit itself —
+ * but only at #146c43, which carries white at 5.9:1. Theme-invariant by construction, like the
+ * `invariantButtons` slots in theme/helperClasses.
+ */
+.AsyncSuccessButton {
+  position: relative;
+}
+
+.AsyncSuccessButton-Succeeded,
+.AsyncSuccessButton-Succeeded:disabled {
+  background-color: #146c43;
+  border-color: #146c43;
+  color: #fff;
+  opacity: 1;
+}
+
+.AsyncSuccessButton-Check {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
 /* The share link copies when clicked, so it has to look clickable rather than like a dead field. */
 .CopyableLink {
   cursor: pointer;

@@ -5,6 +5,8 @@ import {
 } from '../../../aos4/import'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../../aos4/generated'
 import type { Aos4ArmyDocument } from '../../../aos4/state'
+import AsyncSuccessButton from 'components/input/asyncSuccess/asyncSuccessButton'
+import { useAsyncSuccess } from 'components/input/asyncSuccess/useAsyncSuccess'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useTheme } from 'context/useTheme'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -27,6 +29,17 @@ interface ImportArmyModalProps {
 }
 
 type ImportMode = 'paste' | 'upload'
+
+/*
+ * The file summary names the format the decoder actually detected, so a mislabeled file can never
+ * be reported as a different provider's roster.
+ */
+const importSourceLabels = {
+  'official-app-text': 'AoS app',
+  'listbot-text': 'Listbot',
+  'sigdex-text': 'Sigdex',
+  'roster-xml': 'New Recruit',
+} satisfies Record<string, string>
 
 const unexpectedFileError = (): Aos4ParsedRosterResult => ({
   diagnostics: [
@@ -52,6 +65,7 @@ const ImportArmyModal = ({
   const [isProcessing, setIsProcessing] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [droppedFile, setDroppedFile] = useState<File>()
+  const { succeeded, triggerSuccess, reset } = useAsyncSuccess()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const filePreviewRequestRef = useRef(0)
   const trackedErrorRef = useRef<Aos4ParsedRosterResult | undefined>(undefined)
@@ -77,6 +91,20 @@ const ImportArmyModal = ({
   const hasErrors = diagnostics.some(diagnostic => diagnostic.severity === 'error')
   const canApply = Boolean(preview?.proposedDocument) && !hasErrors
   const canReport = Boolean(decoded && diagnostics.length > 0 && (mode === 'paste' ? text : droppedFile))
+  /*
+   * A file that parsed cleanly takes the dropzone's place: the drop target's job is done, and the
+   * summary says what was read and from which format. Only a clean parse earns it — a file with
+   * errors keeps the dropzone so the diagnostics sit next to the way to try again, and an invalid
+   * file is never dressed up as a successful read.
+   */
+  const importedFileSummary =
+    mode === 'upload' && droppedFile && decoded?.parsedRoster && !hasErrors
+      ? {
+          name: droppedFile.name,
+          selections: decoded.parsedRoster.selections.length,
+          source: importSourceLabels[decoded.parsedRoster.source] ?? 'Unknown format',
+        }
+      : undefined
 
   useEffect(() => {
     if (!decoded || !hasErrors || trackedErrorRef.current === decoded) return
@@ -91,7 +119,17 @@ const ImportArmyModal = ({
 
   const chooseMode = (nextMode: ImportMode) => {
     filePreviewRequestRef.current += 1
+    reset()
     setMode(nextMode)
+    setDecoded(undefined)
+    setSelectedContextId('')
+    setDroppedFile(undefined)
+    setIsProcessing(false)
+  }
+
+  const clearDroppedFile = () => {
+    filePreviewRequestRef.current += 1
+    reset()
     setDecoded(undefined)
     setSelectedContextId('')
     setDroppedFile(undefined)
@@ -155,7 +193,13 @@ const ImportArmyModal = ({
       selectionCount: decoded?.parsedRoster?.selections.length ?? 0,
       source: decoded?.parsedRoster?.source ?? 'unknown',
     })
-    onApply(preview.proposedDocument)
+    const proposedDocument = preview.proposedDocument
+    /*
+     * The green/check dwell runs before the army is applied and the modal closes, so the player
+     * sees the commit land. Only reached when a proposed document exists — a roster that merely
+     * parsed but has errors can never get here.
+     */
+    triggerSuccess(() => onApply(proposedDocument))
   }
 
   const reportFailedImport = () => {
@@ -257,27 +301,53 @@ const ImportArmyModal = ({
             </button>
           </>
         ) : (
-          <div
-            className={`${theme.dropzone}${isDragging ? ' is-dragging' : ''}`}
-            onDragEnter={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-          >
-            <label className="fw-bold text-center" htmlFor="import-roster-file">
-              Drag and drop your roster here
-            </label>
-            <p className="small text-center mb-2">
-              AoS app, Listbot, or Sigdex text (.txt), or New Recruit roster (.ros, .rosz, or .json)
-            </p>
-            <button
-              className={theme.genericButton}
-              onClick={() => fileInputRef.current?.click()}
-              type="button"
-            >
-              Choose a file
-            </button>
-            {!!droppedFile && <p className="small mt-2 mb-0">{droppedFile.name}</p>}
+          <>
+            {importedFileSummary ? (
+              <div className="border rounded p-3">
+                <div role="status">
+                  <p className="fw-bold mb-1">{importedFileSummary.name}</p>
+                  <p className="small mb-2">
+                    {importedFileSummary.source} · {importedFileSummary.selections}{' '}
+                    {importedFileSummary.selections === 1 ? 'selection' : 'selections'}
+                  </p>
+                </div>
+                <div className="d-flex flex-wrap gap-2">
+                  <button
+                    className={theme.genericButton}
+                    onClick={() => fileInputRef.current?.click()}
+                    type="button"
+                  >
+                    Choose a different file
+                  </button>
+                  <button className={theme.genericButton} onClick={clearDroppedFile} type="button">
+                    Clear file
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div
+                className={`${theme.dropzone}${isDragging ? ' is-dragging' : ''}`}
+                onDragEnter={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+              >
+                <label className="fw-bold text-center" htmlFor="import-roster-file">
+                  Drag and drop your roster here
+                </label>
+                <p className="small text-center mb-2">
+                  AoS app, Listbot, or Sigdex text (.txt), or New Recruit roster (.ros, .rosz, or .json)
+                </p>
+                <button
+                  className={theme.genericButton}
+                  onClick={() => fileInputRef.current?.click()}
+                  type="button"
+                >
+                  Choose a file
+                </button>
+                {!!droppedFile && <p className="small mt-2 mb-0">{droppedFile.name}</p>}
+              </div>
+            )}
             <input
               accept=".txt,.ros,.rosz,.json,text/plain,application/json,application/xml,application/zip"
               className="visually-hidden"
@@ -287,7 +357,7 @@ const ImportArmyModal = ({
               tabIndex={-1}
               type="file"
             />
-          </div>
+          </>
         )}
 
         <ImportPreview
@@ -323,14 +393,14 @@ const ImportArmyModal = ({
             </button>
           </div>
           <div className="col-6">
-            <button
+            <AsyncSuccessButton
               className={`${theme.commitButton} d-block w-100`}
               disabled={!canApply}
+              label="Import Army"
               onClick={apply}
-              type="button"
-            >
-              Import Army
-            </button>
+              succeeded={succeeded}
+              successAnnouncement="Army imported."
+            />
           </div>
         </div>
       </div>
