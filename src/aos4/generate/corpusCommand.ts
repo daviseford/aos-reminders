@@ -723,8 +723,24 @@ const loadWahapediaHtmlPages = async (
   }
   // Every collection republishes each Regiment of Renown its faction may include; collapse the
   // copies to one record per regiment before merging, and count any cross-copy rules drift the
-  // dedupe surfaced against the reviewed warning gate.
-  const dedupedRegiments = dedupeWahapediaRegimentOfRenownPages(pages)
+  // dedupe surfaced against the reviewed warning gate. A reviewed variant choice keeps the copy
+  // that matches the official text over a stale majority.
+  const dedupedRegiments = dedupeWahapediaRegimentOfRenownPages(
+    pages,
+    new Set(
+      (review.regimentsOfRenown ?? [])
+        .filter(entry => entry.variantReason !== undefined)
+        .map(entry => entry.sourceRecordId)
+    )
+  )
+  const dedupeErrors = dedupedRegiments.diagnostics.filter(diagnostic => diagnostic.severity === 'error')
+  if (dedupeErrors.length) {
+    throw new Error(
+      `Regiment of Renown dedupe failed: ${dedupeErrors
+        .map(diagnostic => `${diagnostic.code}: ${diagnostic.message}`)
+        .join('; ')}`
+    )
+  }
   pages.length = 0
   pages.push(...dedupedRegiments.pages)
   warningCount += dedupedRegiments.diagnostics.filter(diagnostic => diagnostic.severity === 'warning').length

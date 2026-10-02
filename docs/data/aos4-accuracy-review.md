@@ -12,6 +12,45 @@ full automated gate.
 
 ## Current campaign
 
+The current revision is `aos4-corpus-2026-10-02` (issue #1999): the four Sons of Behemat Regiments
+of Renown the September 2026 battletome rewrote (official *Regiments of Renown - Sons of Behemat*
+pages 1-4: Odo Godswallow, Bundo Whalebiter, One-eyed Grunnock, Big Drogg Fort-Kicka), on top of
+`aos4-corpus-2026-10-01`. The manifest `accepted-2026-10-02.json` swaps exactly one artifact, the
+Ironjawz warscroll collection (`7ac8ecb4...`, acquired 2026-10-02T14:14:51Z), and a reviewed
+`variantReason` keeps its copies of the four regiments over the stale majority of older pinned
+copies. `aos4-maintenance.md` records every disposition and the runtime delta;
+`sonsOfBehematRegimentsSeptember2026.test.ts` pins the shipped rules, offers and identities. Its
+automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 625/625 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,292/20,292 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,695/42,695 |
+| Independent outcomes | 85,390 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 156/156 |
+| Populated high-risk cohorts | 22/22 |
+
+The source inventory is a schema 2 inventory of fresh observations taken for this intake: a
+`discover-official` snapshot observed at 2026-10-02T14:55:45Z (166 downloads, 7 explicit
+non-material) and the Wahapedia navigation and exports at 14:55:53Z (87 sources, 0 inaccessible).
+No BSData observation is bound because no BSData artifact is pinned. Every accepted artifact
+matched. The certification is `aos4-corpus-2026-10-02-machine-r1` (campaign 15:30:15Z, certified
+15:31:03Z). Its `--reuse-certification` offer of `aos4-corpus-2026-10-01-machine-r3` reused no pair,
+because the revision re-key invalidates every pair, so all 42,695 pairs were evaluated fresh. An
+earlier campaign on the same intake (15:15:10Z) returned three findings against a reviewed timing
+and text override that would have corrected the secondary page's `delcared` in Fortress Wrekka's
+reaction; official page 4 prints that reaction split across two layout columns, so the evidence
+could not ground it. The override was withdrawn and the typo ships as a recorded discrepancy; that
+campaign was never prepared as a certification.
+
+### `aos4-corpus-2026-10-01` (superseded)
+
 The current revision is `aos4-corpus-2026-10-01` (issue #2060): the September 2026 Rules Updates
 errata the corpus still shipped in an earlier form, on top of `aos4-corpus-2026-09-30c` (the
 General's Handbook 2025-26 past season, #2042), keeping `accepted-2026-09-30.json` and every

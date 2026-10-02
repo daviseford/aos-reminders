@@ -70,7 +70,16 @@ and the 76 official regiment-of-renown battle-profile rows sat dispositioned
    the current official text: after the 2026-09-30 Ossiarch Bonereapers re-pin (#2037) its Big
    Drogg Fort-Kicka matched official Regiments of Renown - Sons of Behemat page 4 word for word,
    yet seven stale pinned copies outvoted it. Before raising `expectedWarnings`, check each new
-   variant against the official pack and battle-profile row, and record a stale winner as a gap.
+   variant against the official pack and battle-profile row. A stale winner is fixed by a reviewed
+   variant choice, not by re-pinning pages until the vote flips: a `variantReason` on the
+   regiment's `regimentsOfRenown` entry, whose `sourceRecordId` names the copy that matches the
+   cited official page, keeps that copy (corpus 2026-10-02 re-pinned the Ironjawz collection and
+   chose its copies of the four rewritten Sons of Behemat regiments, #1999). The dedupe fails
+   closed when the choice names the majority variant or no copy conflicts, so retire the field
+   once the other pages catch up. A re-pin also moves the kept copy of any regiment whose winning
+   variant now has a smaller source URL on the re-pinned page (Krong the Club, Okar's Torrbad and
+   Urrgar's Maulerguts moved to Ironjawz): re-point those reviewed entries and alias the new
+   records onto the existing canonical ids.
    A regiment with one copy on the re-pinned page and none elsewhere is new to the corpus (it needs
    a reviewed `regimentsOfRenown` entry, as Urrgar's Maulerguts did), and a regiment already
    shipped from BSData stops generation (`duplicate-regiment-of-renown-source`) until one source is

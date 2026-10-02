@@ -369,6 +369,14 @@ export interface CorpusRegimentOfRenown {
    * regiment-of-renown profile rows as applied to runtime.
    */
   officialProfileName?: string
+  /**
+   * Why this copy is kept over the majority of the regiment's republished collection copies.
+   * Present only when the pinned copies disagree and the majority is stale against the cited
+   * official text (Big Drogg Fort-Kicka and three other Sons of Behemat regiments, whose September
+   * 2026 rewrite only the newer pinned pages carry, #1999). Requires the official tier; the dedupe
+   * fails closed once the choice names the majority variant or no conflicting copy remains.
+   */
+  variantReason?: string
 }
 
 export interface CorpusReview {
@@ -2139,14 +2147,15 @@ export const buildAos4Corpus = (
     if (
       !matchedRegimentOfRenownSourceRecordIds.has(entry.sourceRecordId) ||
       !entry.reason.trim() ||
-      (requiresOfficialEvidence && entry.officialSourceRecordIds.length === 0)
+      (requiresOfficialEvidence && entry.officialSourceRecordIds.length === 0) ||
+      (entry.variantReason !== undefined && (!requiresOfficialEvidence || !entry.variantReason.trim()))
     ) {
       diagnostics.push({
         code: 'invalid-review',
         severity: 'error',
         subject: entry.sourceRecordId,
         message:
-          'Regiment of Renown classification must target an existing kept collection datasheet and cite official evidence (or declare the secondary-provisional tier)',
+          'Regiment of Renown classification must target an existing kept collection datasheet and cite official evidence (or declare the secondary-provisional tier); a variant choice needs a reason and the official tier',
       })
     }
     if (!sourceMarkedRegimentOfRenownRecordIds.has(entry.sourceRecordId)) {

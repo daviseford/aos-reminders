@@ -22,7 +22,7 @@ import { decodeAos4TextRoster } from '../../importers'
  * applied to runtime.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-01.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-02.json')
 
 const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
 const factionByName = (name: string): Faction =>
@@ -476,19 +476,21 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
  * corpus 2026-09-24 because no pinned Wahapedia page carried it. The corpus 2026-09-30 re-pin of the
  * Ossiarch Bonereapers collection (issue #2037) brings Wahapedia's copy, and a regiment ships from
  * exactly one source, so its rules text now comes from that page and the BSData catalogue retired.
+ * Corpus 2026-10-02 re-pins the Ironjawz collection, which prints an identical copy; the dedupe keeps
+ * the smallest source URL of the winning variant, so the kept record moves there (issue #1999).
  * Its inclusion list, member, and points still agree with the one effective official battle-profile
  * row (the September 2026 core Battle Profiles, page 59 row 7), and official *Regiments of Renown –
  * Sons of Behemat* page 5 prints the same two abilities. The canonical ids of the regiment and both
  * abilities carried over, so saved armies, notes, and hidden reminders keep pointing at them.
  */
-describe('Krong the Club from the re-pinned Ossiarch Bonereapers collection (issues #1999, #2037)', () => {
+describe('Krong the Club from the re-pinned Wahapedia collections (issues #1999, #2037)', () => {
   const KRONG_ID = 'content-group:6ef77802-38e1-5bc6-97a8-1f247df260d4' as CanonicalId<'content-group'>
   const DEVASTATING_COLLAPSE_ID = 'ability:cf27d9e4-24d1-5230-be44-a4874a6bfaa2' as CanonicalId<'ability'>
   const JUMP_UP_AND_DOWN_ID = 'ability:3dffc6c3-4c25-56e0-bb48-194ec3559c8e' as CanonicalId<'ability'>
   const MANCRUSHER_ID = 'warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a'
   const SPEARHEAD_MANCRUSHER_ID = 'warscroll:b5b33938-2697-5d81-92c3-69d9731d4abf'
   const WAHAPEDIA_RECORD =
-    'source-record:wahapedia:html:https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#datasheet:Krong-The-Club/warscroll'
+    'source-record:wahapedia:html:https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#datasheet:Krong-The-Club/warscroll'
   const BATTLE_PROFILES_PAGE =
     'source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59'
   const REGIMENTS_PACK_PAGE =

@@ -16,28 +16,28 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-10-01 snapshot is defined by:
+The accepted 2026-10-02 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-09-30.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication and the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037), pinned by SHA-256; no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
-| `data/aos4/reviews/corpus-2026-10-01.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-10-02.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037, and the Ironjawz warscroll collection at its 2026-10-02 bytes, issue #1999), pinned by SHA-256; no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
+| `data/aos4/reviews/corpus-2026-10-02.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-10-01-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-10-01-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-10-02-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-10-02-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 28 decoded source factions: 27 playable armies plus the Endless Spells container
 - 1,303 warscrolls and 1,015 battle profiles
-- 5,152 abilities
+- 5,151 abilities
 - 2,276 weapons
 - 1,526 content groups
-- 244 source artifacts and 20,298 live source records
+- 244 source artifacts and 20,292 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -47,6 +47,44 @@ The strict report currently records:
   2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
+- the 2026-10-02 Sons of Behemat Regiments of Renown rewrite (#1999), on top of 2026-10-01. The
+  official *Regiments of Renown - Sons of Behemat* pack (2026-09-09, pinned as reference since
+  2026-09-10) rewrote Odo Godswallow (p1: Protective Wards, a Mighty Walloper that gives the Menhir
+  Club Crit (2 Hits)), Bundo Whalebiter (p2: a once-per-battle Dead Cunning with Strike-last, Ward
+  (5+) and three choices), One-eyed Grunnock (p3: Titanic Stride and Earth-shaking Stomp) and Big
+  Drogg Fort-Kicka (p4: Fortress Wrekka and an end-of-turn Grievous Halitosis), dropped Timberrrrr!,
+  Shake the Earth and the Rampage keyword from all four, and narrowed their inclusion lists
+  (Bonesplitterz and Beasts of Chaos out). Every pinned inclusion page except the 2026-09-30
+  Ossiarch Bonereapers copy of Big Drogg still printed the faction-pack datasheet, so the majority
+  rule shipped the old rules. Live Wahapedia now prints the rewrite on every inclusion page
+  (checked 2026-10-02). The revision re-pins exactly one page, the Ironjawz warscroll collection
+  (`7ac8ecb4...`, 2026-10-02T14:14:51Z; the 13 exports re-acquired byte-identical, `Last_update.csv`
+  still 2026-08-25 14:30), because it is an inclusion faction of all four and its other drift is
+  only official values the runtime already applies (Megaboss 120, Gordrakk 320, Megaboss on
+  Maw-Krusha 310 and Scourge of Aqshy Brutes 170 points, and the Headstompa notes on the Warchanter
+  and Weirdnob Shaman): reconciliation drops exactly those 6 discrepancies (631 to 625) and adds
+  none. A reviewed `variantReason` on each of the four `regimentsOfRenown` entries keeps the
+  Ironjawz copy over the stale majority and cites the pack page; the dedupe fails closed when a
+  choice names the majority variant or no conflicting copy remains, so each choice retires once
+  the other pages catch up. Three new `regiment-of-renown-variant` warnings (Odo, Bundo, Grunnock)
+  raise the reviewed count from 195 to 198. The four copies match pages 1-4 word for word except
+  Fortress Wrekka's trigger, where the page prints `delcared` for the official `declared`. A
+  reviewed timing and text override was tried and the machine review rejected it (three findings,
+  campaign 2026-10-02T15:15:10Z): page 4 prints that reaction split across two layout columns with
+  `` ` `` and `'` quotes, so the extracted official text never carries the trigger contiguously.
+  The typo ships as a recorded discrepancy, like Krong's dropped quote. Identities: the four
+  regiment groups and the three same-name abilities (Mighty Walloper, Dead Cunning, Grievous
+  Halitosis) keep their canonical ids, so saved notes and hides follow them (a changed timing is
+  re-keyed by `migrateAos4ReminderPreferences` onto the same rule); Protective Wards, Titanic
+  Stride, Earth-shaking Stomp and Fortress Wrekka take fresh ids; the four regiment copies of
+  Timberrrrr! and Shake the Earth retire, and no alias moves onto them. The re-pinned page also
+  carries identical copies of Krong the Club, Okar's Torrbad and Urrgar's Maulerguts, and a
+  September-points copy of Da Kountin' Krew that now ties the older copies 2-2; the dedupe keeps the
+  smallest source URL (or the tie-break) on the Ironjawz page, so their reviewed entries re-point
+  there and their 19 new aliases join their existing canonical ids (no rules, offers or ids move).
+  The runtime delta is exactly four added and five retired abilities, the changed text, timing and
+  keywords of the three kept abilities, Grunnock's Beasts of Chaos offer removed, and source
+  references
 - the 2026-10-01 September 2026 Rules Updates errata (#2060), on top of 2026-09-30c, which keeps
   the 2026-09-30 manifest and every artifact. The owner directed that the errata are what the app shows and ruled that the
   page 58 Summon Shyish Reaper erratum (12") applies to every copy. All 562 erratum and addendum
@@ -82,8 +120,8 @@ The strict report currently records:
   TRICK ability is only applied if you make a successful dirty trick roll." as its first sentence,
   so the shipped text is the corrected rule. The same instruction is in the July 2026 Rules Updates.
   BSData's dated history agrees: its battletome text began "Your army can use 1 DIRTY TRICK ability
-  per phase." until 2026-06-29. Also open: Big Drogg
-  Fort-Kicka's majority-copy gap (#1999)
+  per phase." until 2026-06-29. Big Drogg Fort-Kicka's majority-copy gap (#1999) closed in
+  2026-10-02
 - the 2026-09-30c General's Handbook 2025-26 past season (#2042): a review-only revision on top
   of 2026-09-30b, on the same manifest. It adds the `past-season` context and changes rules-context
   membership only: no artifact, source-record checksum, identity, entity, or count moves. 8,247
@@ -311,9 +349,9 @@ approximation it implies.
 
 The September 2026 core Battle Profiles PDF contributes 1,313 effective facts. Reconciliation
 applies official unit size, points, regiment options, notes, and bases to 942 runtime profiles and
-records 631 field-level secondary discrepancies (up from 380, because Wahapedia has not yet caught
+records 625 field-level secondary discrepancies (up from 380, because Wahapedia has not yet caught
 up to the September 2026 re-pricing on most pages; the 2026-09-30 Ossiarch Bonereapers re-pin
-cleared that faction's 27) after upstream parser and normalization corrections. One official unit fact remains
+cleared that faction's 27, and the 2026-10-02 Ironjawz collection re-pin cleared 6 more) after upstream parser and normalization corrections. One official unit fact remains
 `profile-only` because its current warscroll rules are not available anywhere: The Emberwatch
 (Legends). The four September 2026 Battletome: Sons of Behemat units (Ma Maegran, Ancient
 Ghyrochs, Boss-stompers, Rock-hurlers) left that state on 2026-09-22, when their rules text
