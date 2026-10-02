@@ -1,6 +1,8 @@
 import type { Aos4ArmyDocument } from '../../../aos4/state'
 import { formatSavedAt } from './armySummary'
 import { withName } from './withName'
+import AsyncSuccessButton from 'components/input/asyncSuccess/asyncSuccessButton'
+import { useAsyncSuccess } from 'components/input/asyncSuccess/useAsyncSuccess'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useArmyCollection } from 'context/useArmyCollection'
 import { useTheme } from 'context/useTheme'
@@ -18,6 +20,7 @@ const SaveArmyModal = ({ closeModal, currentDocument, isOpen, onSaved }: SaveArm
   const { isDark, theme } = useTheme()
   const [saveName, setSaveName] = useState(currentDocument.name)
   const [isSaving, setIsSaving] = useState(false)
+  const { succeeded, triggerSuccess, reset } = useAsyncSuccess()
 
   /*
    * The collection is fetched so the name below can be checked against it. Saving twice under one
@@ -30,20 +33,32 @@ const SaveArmyModal = ({ closeModal, currentDocument, isOpen, onSaved }: SaveArm
 
   const trimmedName = saveName.trim()
   // An army this version cannot read (#2055) is never offered for replacement: replacing it would
-  // overwrite rules a newer version saved with this version's stand-in.
-  const existing = armies.find(
-    army => !army.requiresUpdate && army.document.name.trim().toLowerCase() === trimmedName.toLowerCase()
-  )
+  // overwrite rules a newer version saved with this version's stand-in. Once the save has
+  // succeeded the check is suppressed — otherwise the army it just created would warn about
+  // "duplicating" itself during the success dwell.
+  const existing = succeeded
+    ? undefined
+    : armies.find(
+        army => !army.requiresUpdate && army.document.name.trim().toLowerCase() === trimmedName.toLowerCase()
+      )
 
   const save = async (operation: () => Promise<{ id: string }>) => {
     setIsSaving(true)
     try {
       const savedDocument = withName(currentDocument, saveName)
       const saved = await operation()
-      onSaved(savedDocument, saved.id, savedDocument.name)
-      closeModal()
+      /*
+       * The green/check dwell runs before the modal closes, so the player sees the save land
+       * rather than watching the modal vanish. Only reached after the service answered — a
+       * rejected save falls into catch and the button never turns green.
+       */
+      triggerSuccess(() => {
+        onSaved(savedDocument, saved.id, savedDocument.name)
+        closeModal()
+      })
     } catch {
       // The collection context exposes the service error beside the controls.
+      reset()
     } finally {
       setIsSaving(false)
     }
@@ -100,13 +115,14 @@ const SaveArmyModal = ({ closeModal, currentDocument, isOpen, onSaved }: SaveArm
               onChange={event => setSaveName(event.target.value)}
               value={saveName}
             />
-            <button
+            <AsyncSuccessButton
               className={`${theme.commitButton} TapTarget`}
               disabled={!configured || !trimmedName || isSaving}
+              label="Save"
+              succeeded={succeeded}
+              successAnnouncement="Saved."
               type="submit"
-            >
-              Save
-            </button>
+            />
           </div>
         </form>
 
@@ -128,14 +144,14 @@ const SaveArmyModal = ({ closeModal, currentDocument, isOpen, onSaved }: SaveArm
               </p>
               <p className="small mb-2">Saving now adds a second army with the same name.</p>
             </div>
-            <button
+            <AsyncSuccessButton
               className={`${theme.destructiveButton} btn-sm TapTarget`}
               disabled={isSaving}
+              label="Overwrite it instead"
               onClick={() => void updateExisting()}
-              type="button"
-            >
-              Overwrite it instead
-            </button>
+              succeeded={succeeded}
+              successAnnouncement="Saved."
+            />
           </div>
         )}
       </div>

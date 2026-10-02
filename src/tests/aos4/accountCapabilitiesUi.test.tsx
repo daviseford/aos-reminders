@@ -267,6 +267,13 @@ describe('saved-army and sharing controls', () => {
     })
 
     expect(collection.createArmy).toHaveBeenCalledWith(expect.objectContaining({ name: 'Tournament Army' }))
+    // The success dwell holds the modal open briefly so the save visibly lands before it closes.
+    expect(onSaved).not.toHaveBeenCalled()
+    expect(closeModal).not.toHaveBeenCalled()
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 750))
+    })
+
     expect(onSaved).toHaveBeenCalledWith(
       expect.objectContaining({ name: 'Tournament Army' }),
       'cloud-9',
@@ -320,6 +327,8 @@ describe('saved-army and sharing controls', () => {
 
     expect(onSaved).not.toHaveBeenCalled()
     expect(closeModal).not.toHaveBeenCalled()
+    // A rejected save is never dressed up as a success: no green, no checkmark.
+    expect(findButton(container, 'Save').className).not.toContain('AsyncSuccessButton-Succeeded')
   })
 
   it('creates an opaque share link only after confirmation and copies it', async () => {
