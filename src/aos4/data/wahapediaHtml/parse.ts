@@ -756,9 +756,17 @@ export interface WahapediaRegimentOfRenownDedupeResult {
  * smaller variant, the kept copy is the winning variant's smallest source URL, and every
  * conflicting variant emits a warning diagnostic that the reviewed warning count must
  * disposition.
+ *
+ * The majority is a count of pinned pages, not of correctness: re-pinning one faction's page can
+ * bring the only copy that matches the current official text while stale copies on other pinned
+ * pages still outvote it. A reviewed choice (`regimentsOfRenown` entries with `variantReason`,
+ * passed as their source record ids) keeps that exact copy instead. A choice must name a copy that
+ * conflicts with another variant and is not already the majority winner, so a choice the pages
+ * have caught up with fails closed for retirement rather than lingering.
  */
 export const dedupeWahapediaRegimentOfRenownPages = (
-  pages: WahapediaHtmlWarscrollRecord[]
+  pages: WahapediaHtmlWarscrollRecord[],
+  reviewedVariantSourceRecordIds: ReadonlySet<string> = new Set()
 ): WahapediaRegimentOfRenownDedupeResult => {
   const diagnostics: WahapediaHtmlDiagnostic[] = []
   const copiesByName = new Map<string, WahapediaHtmlWarscrollRecord[]>()
@@ -777,20 +785,45 @@ export const dedupeWahapediaRegimentOfRenownPages = (
     const variants = Array.from(copiesByVariant.entries()).sort(
       (left, right) => right[1].length - left[1].length || left[0].localeCompare(right[0])
     )
-    const winner = variants[0][1]
+    const majorityWinner = variants[0][1]
       .slice()
       .sort((left, right) => left.sourceUrl.localeCompare(right.sourceUrl))[0]
+    const reviewedChoices = copies.filter(copy =>
+      reviewedVariantSourceRecordIds.has(copy.meta.sourceRecordId)
+    )
+    const reviewedChoice = reviewedChoices[0]
+    if (
+      reviewedChoices.length > 1 ||
+      (reviewedChoice &&
+        (variants.length === 1 || regimentVariantKey(reviewedChoice) === regimentVariantKey(majorityWinner)))
+    ) {
+      diagnostics.push({
+        code: 'regiment-of-renown-variant-choice',
+        severity: 'error',
+        url: (reviewedChoice ?? majorityWinner).sourceUrl,
+        message:
+          `Regiment of Renown "${majorityWinner.name}" has ${reviewedChoices.length} reviewed variant ` +
+          'choices; a choice must name exactly one copy whose variant conflicts with and is not the ' +
+          'majority variant (retire the choice once the pinned copies agree)',
+      })
+    }
+    const winner = reviewedChoice ?? majorityWinner
     keptByName.set(key, winner)
     if (variants.length > 1) {
+      const winningCopies = copiesByVariant.get(regimentVariantKey(winner))!.length
       diagnostics.push({
         code: 'regiment-of-renown-variant',
         severity: 'warning',
         url: winner.sourceUrl,
-        message:
-          `Regiment of Renown "${winner.name}" is published in ${variants.length} conflicting ` +
-          `variants across ${copies.length} collection copies and no accepted official document ` +
-          `carries its rules text; the majority variant (${variants[0][1].length} of ${copies.length} ` +
-          `copies) was kept provisionally pending official verification`,
+        message: reviewedChoice
+          ? `Regiment of Renown "${winner.name}" is published in ${variants.length} conflicting ` +
+            `variants across ${copies.length} collection copies; the reviewed variant ` +
+            `(${winningCopies} of ${copies.length} copies) was kept over the majority variant ` +
+            `(${variants[0][1].length} of ${copies.length} copies)`
+          : `Regiment of Renown "${winner.name}" is published in ${variants.length} conflicting ` +
+            `variants across ${copies.length} collection copies and no accepted official document ` +
+            `carries its rules text; the majority variant (${variants[0][1].length} of ${copies.length} ` +
+            `copies) was kept provisionally pending official verification`,
       })
     }
   })

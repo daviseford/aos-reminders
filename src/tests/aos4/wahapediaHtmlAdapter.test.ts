@@ -934,4 +934,58 @@ describe('Regiment of Renown datasheets (issue #1858)', () => {
       }),
     ])
   })
+
+  describe('a reviewed variant choice (#1999)', () => {
+    const urlFor = (faction: string) => `https://wahapedia.ru/aos4/factions/${faction}/warscrolls.html`
+    const copy = (faction: string, effect?: string) =>
+      parseWahapediaWarscrollCollectionHtml(
+        collectionInput(regimentSheet(effect ? { effect } : {}), faction, urlFor(faction))
+      ).pages[0]
+    const staleA = copy('blades-of-khorne')
+    const staleB = copy('skaven')
+    const current = copy('maggotkin-of-nurgle', 'Add 1 to save rolls for non-INFANTRY units.')
+
+    it('keeps the reviewed copy over a stale majority and still surfaces the drift', () => {
+      const result = dedupeWahapediaRegimentOfRenownPages(
+        [staleA, staleB, current],
+        new Set([current.meta.sourceRecordId])
+      )
+      expect(result.pages).toEqual([current])
+      expect(result.diagnostics).toEqual([
+        expect.objectContaining({
+          code: 'regiment-of-renown-variant',
+          severity: 'warning',
+          url: current.sourceUrl,
+          message: expect.stringContaining(
+            'the reviewed variant (1 of 3 copies) was kept over the majority variant (2 of 3 copies)'
+          ),
+        }),
+      ])
+    })
+
+    it('fails closed once the reviewed copy is the majority or no copy conflicts', () => {
+      const majorityChoice = dedupeWahapediaRegimentOfRenownPages(
+        [staleA, staleB, current],
+        new Set([staleB.meta.sourceRecordId])
+      )
+      expect(majorityChoice.diagnostics).toContainEqual(
+        expect.objectContaining({ code: 'regiment-of-renown-variant-choice', severity: 'error' })
+      )
+      const agreed = dedupeWahapediaRegimentOfRenownPages(
+        [staleA, staleB],
+        new Set([staleB.meta.sourceRecordId])
+      )
+      expect(agreed.diagnostics).toEqual([
+        expect.objectContaining({ code: 'regiment-of-renown-variant-choice', severity: 'error' }),
+      ])
+    })
+
+    it('ignores a choice that names no copy of the regiment', () => {
+      const result = dedupeWahapediaRegimentOfRenownPages(
+        [staleA, staleB, current],
+        new Set(['source-record:wahapedia:elsewhere'])
+      )
+      expect(result.pages).toEqual([staleA])
+    })
+  })
 })

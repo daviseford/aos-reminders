@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-09-30.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-02.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-01-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-02-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_607)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_606)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,607 entities', () => {
+  it('reports no missing provenance for any of the 11,606 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_607)
+    ).toHaveLength(11_606)
   })
 })
 
@@ -195,14 +195,14 @@ describe('AoS 4 catalog generation integrity', () => {
         factions: 28,
         warscrolls: 1303,
         battleProfiles: 1015,
-        abilities: 5152,
+        abilities: 5151,
         weapons: 2276,
         sourceArtifacts: 244,
-        sourceRecords: 20298,
+        sourceRecords: 20292,
         ignoredSourceRecords: 20464,
       },
       integrity: {
-        consumedSourceRecords: 20292,
+        consumedSourceRecords: 20286,
         issues: [],
         supersededSourceRecords: {
           count: 20458,

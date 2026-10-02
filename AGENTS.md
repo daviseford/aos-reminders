@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-10-01` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-10-02` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -32,8 +32,8 @@ This is an Age of Sigmar fourth-edition codebase:
 - manifestations are a category of unit rather than an army: the five universal manifestation lores
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
-- the accepted corpus contains 1,303 warscrolls, 1,015 battle profiles, 5,152 abilities,
-  2,276 weapons, 1,526 content groups, and 20,298 live source records
+- the accepted corpus contains 1,303 warscrolls, 1,015 battle profiles, 5,151 abilities,
+  2,276 weapons, 1,526 content groups, and 20,292 live source records
 - the 78 Regiments of Renown are classified `regiment-of-renown` content groups (reviewed
   `regimentsOfRenown` input), offered by exactly their inclusion factions with their regiment
   abilities and member warscrolls linked (issue #1858), all from the accepted collection pages.
@@ -41,9 +41,12 @@ This is an Age of Sigmar fourth-edition codebase:
   corpus 2026-09-30 Ossiarch Bonereapers page re-pin brought Wahapedia's copy, which agrees with
   the official battle-profile row; the BSData catalogue retired and Krong kept its canonical ids.
   The same re-pin published Urrgar's Maulerguts, classified against the official Ogor Mawtribes
-  regiments pack (#2037). Where a regiment's republished copies disagree, the majority copy still
-  wins: Big Drogg Fort-Kicka ships its pre-September text from seven stale pages although the
-  re-pinned Ossiarch copy matches the official Regiments of Renown - Sons of Behemat page 4 (#1999);
+  regiments pack (#2037). Where a regiment's republished copies disagree, the majority copy wins
+  unless a reviewed `variantReason` on its `regimentsOfRenown` entry keeps a named copy instead:
+  corpus 2026-10-02 re-pins the Ironjawz collection and keeps its copies of Odo Godswallow, Bundo
+  Whalebiter, One-eyed Grunnock and Big Drogg Fort-Kicka, the only ones matching the September 2026
+  rewrite on official Regiments of Renown - Sons of Behemat pages 1-4, over the stale majority
+  (#1999); the dedupe fails closed once a choice names the majority or no copy conflicts;
   Cogfort Raiders and Rogue Engine link their Outlaw Cogfort member warscrolls, which Wahapedia
   publishes only on the inclusion factions' collections, through reviewed `adoptedWarscrolls`
   entries with `availability: 'regiment-of-renown'` — the datasheets are fielded only through
@@ -84,6 +87,14 @@ This is an Age of Sigmar fourth-edition codebase:
   warscroll keyword overrides may `add`, and the machine review certifies phrase edits whose new
   words the official page prints beside the unchanged words around them, and deletions the
   official page prints whole
+- corpus 2026-10-02 (#1999) re-pins only the Ironjawz warscroll collection (2026-10-02 bytes) so
+  the four rewritten Sons of Behemat Regiments of Renown ship their September 2026 rules and
+  official inclusion lists (One-eyed Grunnock no longer offered to Beasts of Chaos); same-name
+  rules keep their canonical ids, the four new rules take fresh ids, and Timberrrrr! (four copies)
+  and Shake the Earth retire. Fortress Wrekka ships the page's "delcared" typo as a recorded
+  discrepancy: the official page splits that reaction across two layout columns, so the machine
+  review cannot ground a spelling override. Krong the Club, Okar's Torrbad, Urrgar's
+  Maulerguts and Da Kountin' Krew move their kept copy to the same page with their ids unchanged
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
 
@@ -142,7 +153,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-10-01` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-10-02` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.
