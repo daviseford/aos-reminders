@@ -156,7 +156,7 @@ const CurrentFeatures = () => (
  * built js/css/html, so the ~5.9 MB clip never enters the offline cache. The width and height
  * attributes reserve the 16:9 box before the poster arrives. No autoplay or loop: the visitor starts
  * it, which also leaves reduced-motion preferences alone. The clip is silent, so there is no audio
- * to caption; the figcaption says what it shows.
+ * to caption, and it carries no visible caption: the feature list above already says what it shows.
  *
  * The dated file name is the cache buster: public files are served with a one-day max-age and no
  * content hash (docs/deployment.md), so a new cut needs a new name, not an overwrite.
@@ -166,25 +166,18 @@ const DEMO_VIDEO_POSTER = '/img/subscribe-demo-2026-10-poster.jpg'
 
 const DemoVideo = () => (
   <div className={`${contentClass} pb-4`}>
-    <figure className="mb-0">
-      <video
-        className="d-block w-100 h-auto rounded"
-        controls
-        preload="none"
-        playsInline
-        poster={DEMO_VIDEO_POSTER}
-        width={1920}
-        height={1080}
-        aria-label="AoS Reminders demo video"
-        aria-describedby="subscribe-demo-description"
-      >
-        <source src={DEMO_VIDEO_SRC} type="video/mp4" />
-      </video>
-      <figcaption id="subscribe-demo-description" className="small mt-2">
-        A 33-second tour with no sound: importing a list, reminders phase by phase, saving an army to the
-        cloud, sharing it with a friend, and the light and dark themes.
-      </figcaption>
-    </figure>
+    <video
+      className="d-block w-100 h-auto rounded"
+      controls
+      preload="none"
+      playsInline
+      poster={DEMO_VIDEO_POSTER}
+      width={1920}
+      height={1080}
+      aria-label="AoS Reminders demo video"
+    >
+      <source src={DEMO_VIDEO_SRC} type="video/mp4" />
+    </video>
   </div>
 )
 

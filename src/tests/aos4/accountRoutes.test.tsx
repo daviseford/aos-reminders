@@ -213,10 +213,23 @@ describe('established account routes', () => {
     expect(video.getAttribute('width')).toBe('1920')
     expect(video.getAttribute('height')).toBe('1080')
     expect(video.getAttribute('aria-label')).toBe('AoS Reminders demo video')
-    const description = container.querySelector(`#${video.getAttribute('aria-describedby')}`)
-    expect(description?.textContent).toContain('saving an army to the cloud, sharing it with a friend')
+    // No visible caption under the player (#1761 review), and so nothing for it to describe itself by.
+    expect(video.hasAttribute('aria-describedby')).toBe(false)
+    expect(container.querySelector('figcaption')).toBeNull()
+    expect(container.textContent).not.toContain('33-second tour')
 
-    const reel = container.textContent?.indexOf('A 33-second tour with no sound') ?? -1
+    // Document order puts the player after the free-and-stays-free note and before the plans.
+    const position = (text: string) => {
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT)
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (node.textContent?.includes(text)) return node
+      }
+      return null
+    }
+    const freeNode = position('Everything else is free, and stays free')
+    const plansNode = position('Subscription Plans')
+    expect(freeNode?.compareDocumentPosition(video)).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
+    expect(plansNode?.compareDocumentPosition(video)).toBe(Node.DOCUMENT_POSITION_PRECEDING)
 
     // The subscribe-language update (#2058) moved the free-and-stays-free note up beside the
     // subscriber features, so it now reads before the plans, and the gift pointer is what closes
@@ -225,8 +238,7 @@ describe('established account routes', () => {
     const plans = container.textContent?.indexOf('Subscription Plans') ?? -1
     const closing = container.textContent?.indexOf('You can buy gift subscriptions for friends') ?? -1
     expect(freeNote).toBeGreaterThan(-1)
-    expect(reel).toBeGreaterThan(freeNote)
-    expect(plans).toBeGreaterThan(reel)
+    expect(plans).toBeGreaterThan(freeNote)
     expect(closing).toBeGreaterThan(plans)
 
     /*
