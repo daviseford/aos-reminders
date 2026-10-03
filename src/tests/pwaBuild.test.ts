@@ -190,6 +190,13 @@ describe('generated service worker', () => {
     expect(precached.filter(url => !url.includes('/'))).toEqual(['index.html'])
   })
 
+  it('leaves the /subscribe demo reel out of the precache manifest', () => {
+    // ~5.9 MB of video would be downloaded by every install before the worker could activate, for a
+    // clip only a visitor who presses play needs. The page fetches it from the network on demand.
+    expect(fs.existsSync(path.join(distDir, 'img', 'subscribe-demo-2026-10.mp4'))).toBe(true)
+    expect(precached.filter(url => /\.(mp4|webm|jpe?g)$/.test(url))).toEqual([])
+  })
+
   it('would fail if the catalog ever entered the precache manifest', () => {
     /*
      * Mutates the parser's input, not its output. Injecting into the already-parsed array would only
