@@ -180,11 +180,10 @@ describe('established account routes', () => {
   })
 
   /*
-   * The dark-mode demo is out for now and will return later, so this guards what its absence has to
-   * leave behind: no empty section band where it used to sit, and the closing block landing directly
-   * under the plans rather than 550px of video further down.
+   * The retired demo videos stay gone, and the #1761 reel replaces them under the feature list, so it
+   * reads before the plans and the closing block still lands directly under them.
    */
-  it('renders no demo video, and closes straight after the plans', async () => {
+  it('shows the demo reel before the plans, and closes straight after the plans', async () => {
     await act(async () => {
       render(
         <AppStatusProvider>
@@ -197,8 +196,27 @@ describe('established account routes', () => {
       await Promise.resolve()
     })
 
-    expect(container.querySelector('video')).toBeNull()
     expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).toBeNull()
+
+    const videos = container.querySelectorAll('video')
+    expect(videos).toHaveLength(1)
+    const video = videos[0]
+    expect(video.querySelector('source')?.getAttribute('src')).toBe('/img/subscribe-demo-2026-10.mp4')
+    expect(video.querySelector('source')?.getAttribute('type')).toBe('video/mp4')
+    expect(video.getAttribute('poster')).toBe('/img/subscribe-demo-2026-10-poster.jpg')
+    // Nothing but the poster loads until the visitor presses play, and nothing moves on its own.
+    expect(video.getAttribute('preload')).toBe('none')
+    expect(video.hasAttribute('controls')).toBe(true)
+    expect(video.hasAttribute('autoplay')).toBe(false)
+    expect(video.hasAttribute('loop')).toBe(false)
+    // The 16:9 box is reserved before the poster arrives, so the plans do not jump down.
+    expect(video.getAttribute('width')).toBe('1920')
+    expect(video.getAttribute('height')).toBe('1080')
+    expect(video.getAttribute('aria-label')).toBe('AoS Reminders demo video')
+    const description = container.querySelector(`#${video.getAttribute('aria-describedby')}`)
+    expect(description?.textContent).toContain('saving an army to the cloud, sharing it with a friend')
+
+    const reel = container.textContent?.indexOf('A 33-second tour with no sound') ?? -1
 
     // The subscribe-language update (#2058) moved the free-and-stays-free note up beside the
     // subscriber features, so it now reads before the plans, and the gift pointer is what closes
@@ -207,7 +225,8 @@ describe('established account routes', () => {
     const plans = container.textContent?.indexOf('Subscription Plans') ?? -1
     const closing = container.textContent?.indexOf('You can buy gift subscriptions for friends') ?? -1
     expect(freeNote).toBeGreaterThan(-1)
-    expect(plans).toBeGreaterThan(freeNote)
+    expect(reel).toBeGreaterThan(freeNote)
+    expect(plans).toBeGreaterThan(reel)
     expect(closing).toBeGreaterThan(plans)
 
     /*

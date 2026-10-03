@@ -55,6 +55,7 @@ const Subscribe = () => {
       <Intro />
       <div className={`${theme.bgColor} ${theme.text}`}>
         <CurrentFeatures />
+        <DemoVideo />
       </div>
       <div className={`py-4 py-sm-5 ${theme.sectionBand} ${theme.text}`}>
         {subscriptionLoading ? (
@@ -143,6 +144,47 @@ const CurrentFeatures = () => (
       Everything else is free, and stays free: the builder, importing, reminders, notes, hiding, reordering,
       and the PDF.
     </p>
+  </div>
+)
+
+/*
+ * The #1761 demo reel: a 33-second silent tour of importing, reminders, cloud saves, sharing, and the
+ * light and dark themes. It sits under the feature list it illustrates, so it reads before the plans.
+ *
+ * Nothing downloads until the visitor presses play: preload="none" leaves only the poster (a frame of
+ * the reel's own title card, ~50 KB) on the first load, and the service worker precaches only the
+ * built js/css/html, so the ~5.9 MB clip never enters the offline cache. The width and height
+ * attributes reserve the 16:9 box before the poster arrives. No autoplay or loop: the visitor starts
+ * it, which also leaves reduced-motion preferences alone. The clip is silent, so there is no audio
+ * to caption; the figcaption says what it shows.
+ *
+ * The dated file name is the cache buster: public files are served with a one-day max-age and no
+ * content hash (docs/deployment.md), so a new cut needs a new name, not an overwrite.
+ */
+const DEMO_VIDEO_SRC = '/img/subscribe-demo-2026-10.mp4'
+const DEMO_VIDEO_POSTER = '/img/subscribe-demo-2026-10-poster.jpg'
+
+const DemoVideo = () => (
+  <div className={`${contentClass} pb-4`}>
+    <figure className="mb-0">
+      <video
+        className="d-block w-100 h-auto rounded"
+        controls
+        preload="none"
+        playsInline
+        poster={DEMO_VIDEO_POSTER}
+        width={1920}
+        height={1080}
+        aria-label="AoS Reminders demo video"
+        aria-describedby="subscribe-demo-description"
+      >
+        <source src={DEMO_VIDEO_SRC} type="video/mp4" />
+      </video>
+      <figcaption id="subscribe-demo-description" className="small mt-2">
+        A 33-second tour with no sound: importing a list, reminders phase by phase, saving an army to the
+        cloud, sharing it with a friend, and the light and dark themes.
+      </figcaption>
+    </figure>
   </div>
 )
 
