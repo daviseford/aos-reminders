@@ -3,34 +3,37 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { checksumCertificationText } from '../../aos4/review/certification'
+import { loadCertificationReviewerResults } from '../../aos4/review/certificationEvidence'
+import {
+  canReuseCertificationShards,
+  shouldCompactCertificationOverlay,
+} from '../../aos4/review/certificationPrepareCommand'
+import { validateReviewLedger } from '../../aos4/review/findings'
+import { type ReviewPacketIndexEntry, type ReviewPacketSafeIndex } from '../../aos4/review/packets'
 import {
   AOS4_DETERMINISTIC_REVIEW_ENGINE_VERSION,
   AOS4_REVIEW_PROMPT_VERSION,
   AOS4_REVIEW_PROTOCOL_VERSION,
   AOS4_REVIEW_RUBRIC_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
-  canReuseCertificationShards,
+  checksumReviewRecord,
   createReviewAssignment,
+  reviewerConfigurationId,
+  type ReviewAssignment,
+  type ReviewCalibration,
+  type ReviewerMetadata,
+  type ReviewerResult,
+} from '../../aos4/review/records'
+import {
+  certificationExecutionProjection,
   createCertificationReuseIndex,
   createReviewCampaignExecution,
-  certificationExecutionProjection,
-  checksumReviewRecord,
-  checksumCertificationText,
-  loadCertificationReviewerResults,
   loadReusableCertificationEvidence,
   partitionReusableReviewEvidence,
   reviewCampaignExecutionIssues,
-  reviewerConfigurationId,
-  shouldCompactCertificationOverlay,
-  validateReviewLedger,
   type PriorCertificationReviewEvidence,
-  type ReviewAssignment,
-  type ReviewCalibration,
-  type ReviewPacketIndexEntry,
-  type ReviewPacketSafeIndex,
-  type ReviewerMetadata,
-  type ReviewerResult,
-} from '../../aos4/review'
+} from '../../aos4/review/reviewReuse'
 
 const digest = (value: string): string => createHash('sha256').update(value, 'utf8').digest('hex')
 const packetId = (value: string): ReviewerResult['packetId'] => `review-packet:sha256:${digest(value)}`
@@ -469,14 +472,11 @@ describe('certification verdict reuse', () => {
     try {
       const directory = path.join(repoRoot, 'certification')
       await mkdir(directory)
+      const beta = JSON.parse(
+        await readFile(path.join(process.cwd(), 'data/aos4/certifications/beta.json'), 'utf8')
+      )
       const manifest = JSON.parse(
-        await readFile(
-          path.join(
-            process.cwd(),
-            'data/aos4/certifications/aos4-corpus-2026-09-12-machine-r1/manifest.json'
-          ),
-          'utf8'
-        )
+        await readFile(path.join(process.cwd(), beta.directory, 'manifest.json'), 'utf8')
       )
       // The retained manifests bind a compact reuse index, which the loader reads before the
       // general inputs; drop it so the corrupted accepted-manifest binding is reached first.
