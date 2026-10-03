@@ -4,17 +4,12 @@ import * as XLSX from 'xlsx'
 import { describe, expect, it } from 'vitest'
 import { artifactChecksum, type ArtifactManifest } from '../../aos4/data'
 import type { GamesWorkshopDiscoveryResult, GamesWorkshopDownload } from '../../aos4/data/gamesWorkshop'
-import {
-  createRequestLimiter,
-  mapWithConcurrency,
-  observeGamesWorkshopRadar,
-  observeWahapediaRadar,
-  parseRobotsPolicy,
-  readRulesRadarConfig,
-  robotsAllows,
-  type RadarFetch,
-  type SourceObservationClassifications,
-} from '../../aos4/radar'
+import { readRulesRadarConfig } from '../../aos4/radar/config'
+import { type SourceObservationClassifications } from '../../aos4/radar/model'
+import { observeGamesWorkshopRadar } from '../../aos4/radar/observers/gamesWorkshop'
+import { createRequestLimiter, mapWithConcurrency } from '../../aos4/radar/observers/requestLimiter'
+import { parseRobotsPolicy, robotsAllows } from '../../aos4/radar/observers/robots'
+import { observeWahapediaRadar, type RadarFetch } from '../../aos4/radar/observers/wahapedia'
 import { parseRulesRadarObserveArguments } from '../../aos4/radar/observeCommand'
 import baselineFixture from '../fixtures/aos4/radar/baseline.json'
 

@@ -1,22 +1,23 @@
 import { describe, expect, it } from 'vitest'
+import { createRadarLane, createRadarReport } from '../../aos4/radar/compare'
 import {
   RULES_RADAR_ISSUE_MARKER,
   createGitHubIssueClient,
-  createRadarLane,
-  createRadarReport,
   renderManagedRulesRadarIssueBody,
   synchronizeRulesRadarIssue,
   type GitHubApiRequest,
   type GitHubApiTransport,
+  type RulesRadarGitHubClient,
+  type RulesRadarGitHubComment,
+  type RulesRadarGitHubIssue,
+} from '../../aos4/radar/githubIssue'
+import {
   type RadarAuthority,
   type RadarChangeKind,
   type RadarEvent,
   type RadarLane,
   type RadarSource,
-  type RulesRadarGitHubClient,
-  type RulesRadarGitHubComment,
-  type RulesRadarGitHubIssue,
-} from '../../aos4/radar'
+} from '../../aos4/radar/model'
 
 const observedAt = '2026-07-29T20:00:00.000Z'
 const checksum = (character: string): string => character.repeat(64)

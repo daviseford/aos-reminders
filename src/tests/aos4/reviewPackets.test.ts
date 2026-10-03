@@ -3,23 +3,29 @@ import os from 'node:os'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
-  AOS4_REVIEW_SCHEMA_VERSION,
   assertCalibrationControlOutcomes,
   assertInterspersedCalibrationControls,
-  assertReviewCacheComplete,
+} from '../../aos4/review/adversarialReviewCommand'
+import { assertReviewCacheComplete } from '../../aos4/review/packetCommand'
+import {
   assertReviewIndexMatchesPacketPairs,
   createComparisonTask,
   createExternalReviewExport,
-  createReviewAssignment,
-  loadReviewPacketPairs,
-  loadReviewPacketPairsByKey,
   prepareReviewPackets,
-  writeCreateOnlyFilesDirectory,
+  type ReviewPacketCandidate,
   type ReviewPacketShard,
   type ShardedReviewPacketWorkspace,
-  type ReviewPacketCandidate,
+} from '../../aos4/review/packets'
+import {
+  AOS4_REVIEW_SCHEMA_VERSION,
+  createReviewAssignment,
   type ReviewerResult,
-} from '../../aos4/review'
+} from '../../aos4/review/records'
+import {
+  loadReviewPacketPairs,
+  loadReviewPacketPairsByKey,
+  writeCreateOnlyFilesDirectory,
+} from '../../aos4/review/reviewWorkspace'
 import { identityAliasesRequireAdversarialReview, pageExcerpt } from '../../aos4/review/packetCommand'
 import { artifactId, factionId, rulesContextId, sourceRecordId } from '../../aos4/domain'
 

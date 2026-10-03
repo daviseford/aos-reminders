@@ -3,14 +3,13 @@ import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import type { ArtifactManifest } from '../../aos4/data'
+import { createRadarLane } from '../../aos4/radar/compare'
+import { type RadarEvent, type RadarLane } from '../../aos4/radar/model'
 import {
-  createRadarLane,
   pagesFromWahapediaSourceObservation,
   runRulesRadar,
   type CandidatePreparationInput,
-  type RadarEvent,
-  type RadarLane,
-} from '../../aos4/radar'
+} from '../../aos4/radar/rulesRadarCommand'
 
 const observedAt = '2026-07-29T20:00:00.000Z'
 const temporaryDirectories: string[] = []

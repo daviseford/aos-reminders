@@ -7,7 +7,7 @@ import {
   type AcquireArtifactResult,
   type ArtifactManifestEntry,
 } from '../../aos4/data'
-import { RequestBudgetExceededError } from '../../aos4/radar'
+import { RequestBudgetExceededError } from '../../aos4/radar/observers/requestLimiter'
 import {
   createWahapediaSourceObservation,
   discoverWahapediaExportUrls,

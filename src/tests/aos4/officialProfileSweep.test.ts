@@ -6,11 +6,11 @@ import { canonicalNameKey, foldUnicodeName, normalizedNameText } from '../../aos
 import {
   DEFAULT_OFFICIAL_NAMING_DISCREPANCIES_PATH,
   parseOfficialNamingDiscrepancyLedger,
-  parseOfficialProfileSweepArguments,
   sweepOfficialRosterOptions,
   type OfficialNamingDiscrepancy,
   type OfficialProfileSweepRecord,
-} from '../../aos4/review'
+} from '../../aos4/review/officialProfileSweep'
+import { parseOfficialProfileSweepArguments } from '../../aos4/review/officialProfileSweepCommand'
 
 interface OfficialBattleProfileLedger {
   records: Array<

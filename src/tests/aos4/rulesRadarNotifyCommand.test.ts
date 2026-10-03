@@ -2,18 +2,19 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
+import { createRadarLane, createRadarReport } from '../../aos4/radar/compare'
 import {
   RULES_RADAR_ISSUE_MARKER,
-  createRadarLane,
-  createRadarReport,
-  parseRulesRadarNotifyArguments,
-  renderRulesRadarIssueBody,
-  runRulesRadarNotification,
-  type RadarEvent,
   type RulesRadarGitHubClient,
   type RulesRadarGitHubComment,
   type RulesRadarGitHubIssue,
-} from '../../aos4/radar'
+} from '../../aos4/radar/githubIssue'
+import { type RadarEvent } from '../../aos4/radar/model'
+import { renderRulesRadarIssueBody } from '../../aos4/radar/report'
+import {
+  parseRulesRadarNotifyArguments,
+  runRulesRadarNotification,
+} from '../../aos4/radar/rulesRadarNotifyCommand'
 
 const temporaryDirectories: string[] = []
 const observedAt = '2026-07-29T20:00:00.000Z'

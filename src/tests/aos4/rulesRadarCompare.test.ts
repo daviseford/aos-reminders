@@ -9,12 +9,10 @@ import {
   createRadarLane,
   createRadarReport,
   mergeRadarLanes,
-  readRulesRadarConfig,
   validateRadarEvent,
-  validateRulesRadarConfig,
-  type RadarLane,
-  type SourceObservationClassifications,
-} from '../../aos4/radar'
+} from '../../aos4/radar/compare'
+import { readRulesRadarConfig, validateRulesRadarConfig } from '../../aos4/radar/config'
+import { type RadarLane, type SourceObservationClassifications } from '../../aos4/radar/model'
 import baselineFixture from '../fixtures/aos4/radar/baseline.json'
 
 const observedAt = '2026-07-29T20:00:00.000Z'
