@@ -3,22 +3,23 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
-  AOS4_REVIEW_PROTOCOL_VERSION,
-  AOS4_REVIEW_RUBRIC_VERSION,
   balancedFreshShardGroups,
-  createReviewAssignment,
-  createReviewPacket,
   defaultAdversarialReviewJobs,
   deterministicReviewerMetadata,
   parseAdversarialReviewArguments,
   runFreshWorkers,
-  runAdversarialReviewWorkerTask,
+} from '../../aos4/review/adversarialReviewCommand'
+import { runAdversarialReviewWorkerTask } from '../../aos4/review/adversarialReviewWorkerCommand'
+import { type ReviewPacketPair } from '../../aos4/review/packets'
+import {
+  AOS4_REVIEW_PROTOCOL_VERSION,
+  AOS4_REVIEW_RUBRIC_VERSION,
+  createReviewAssignment,
+  createReviewPacket,
   serializeReviewRecord,
-  writeCreateOnlyFilesDirectory,
-  writeCreateOnlyDirectory,
-  type ReviewPacketPair,
   type ReviewerResult,
-} from '../../aos4/review'
+} from '../../aos4/review/records'
+import { writeCreateOnlyDirectory, writeCreateOnlyFilesDirectory } from '../../aos4/review/reviewWorkspace'
 import type { SourceRecordId } from '../../aos4/domain'
 
 const pair = (): ReviewPacketPair => {

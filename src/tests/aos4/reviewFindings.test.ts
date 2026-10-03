@@ -1,17 +1,19 @@
 import {
+  ReviewValidationError,
+  importReviewerResultAtomic,
+  parseCertificationManifest,
+  parseReviewLedger,
+  validateReviewLedger,
+} from '../../aos4/review/findings'
+import {
   AOS4_CERTIFICATION_SCHEMA_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
-  ReviewValidationError,
   checksumReviewRecord,
   createReviewAssignment,
   createReviewFinding,
   createReviewPacket,
-  importReviewerResultAtomic,
-  parseCertificationManifest,
-  parseReviewLedger,
   reviewerConfigurationId,
   serializeReviewRecord,
-  validateReviewLedger,
   type CertificationManifest,
   type FindingResolution,
   type FindingVerification,
@@ -19,7 +21,7 @@ import {
   type ReviewLedger,
   type ReviewerMetadata,
   type ReviewerResult,
-} from '../../aos4/review'
+} from '../../aos4/review/records'
 import { artifactId, factionId, rulesContextId, sourceRecordId } from '../../aos4/domain'
 
 const CHECKSUM_A = 'a'.repeat(64)

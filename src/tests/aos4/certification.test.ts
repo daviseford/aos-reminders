@@ -3,55 +3,64 @@ import { access, mkdir, mkdtemp, rm, unlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import {
-  AOS4_REVIEW_PROTOCOL_VERSION,
-  AOS4_REVIEW_RUBRIC_VERSION,
-  AOS4_REVIEW_SCHEMA_VERSION,
-  CALIBRATION_CONTROL_CANDIDATE_KEYS,
   REQUIRED_CERTIFICATION_INPUTS,
-  REQUIRED_HIGH_RISK_COHORTS,
   appendFindingResolution,
   appendFindingVerification,
-  assertPreparableSourceInventory,
-  boundReviewPopulationIssues,
   calibrationEvidenceIssues,
   certificationChronologyIssues,
   certificationInventoryBinding,
   checksumCertificationText,
-  checksumReviewRecord,
-  createCertificationManifest,
   createCalibrationEvidenceReceipt,
-  createReviewCampaignExecution,
-  createReviewAssignment,
-  createReviewFinding,
-  createReviewPacket,
+  createCertificationManifest,
   emptyReviewLedger,
   evaluateCertification,
   importReviewerResultsAtomic,
-  isCanonicalInstant,
-  loadReusableCertificationEvidence,
+  type CertificationEvaluationInput,
+  verifyCertificationManifest,
+} from '../../aos4/review/certification'
+import {
+  boundReviewPopulationIssues,
   parseCertificationCommandArguments,
-  parseCertificationManifest,
+  runCertificationCheck,
+} from '../../aos4/review/certificationCommand'
+import {
+  assertPreparableSourceInventory,
   parseCertificationPreparationArguments,
   preparedCertificationManifest,
-  reviewerConfigurationId,
-  reviewIndexSamplingMetadataChecksum,
-  ReviewValidationError,
-  runCertificationCheck,
   runCertificationPreparation,
-  serializeReviewRecord,
   sourceSafeReviewLedger,
-  verifyCertificationManifest,
-  type CertificationEvaluationInput,
-  type CertificationInput,
+} from '../../aos4/review/certificationPrepareCommand'
+import { ReviewValidationError, parseCertificationManifest } from '../../aos4/review/findings'
+import {
+  CALIBRATION_CONTROL_CANDIDATE_KEYS,
+  REQUIRED_HIGH_RISK_COHORTS,
+  reviewIndexSamplingMetadataChecksum,
   type CalibrationCaseKind,
+  type ReviewPacketSafeIndex,
+} from '../../aos4/review/packets'
+import {
+  AOS4_REVIEW_PROTOCOL_VERSION,
+  AOS4_REVIEW_RUBRIC_VERSION,
+  AOS4_REVIEW_SCHEMA_VERSION,
+  checksumReviewRecord,
+  createReviewAssignment,
+  createReviewFinding,
+  createReviewPacket,
+  isCanonicalInstant,
+  reviewerConfigurationId,
+  serializeReviewRecord,
+  type CertificationInput,
   type ReviewFinding,
   type ReviewLedger,
   type ReviewPacket,
   type ReviewPacketId,
-  type ReviewPacketSafeIndex,
   type ReviewerMetadata,
   type ReviewerResult,
-} from '../../aos4/review'
+} from '../../aos4/review/records'
+import {
+  createReviewCampaignExecution,
+  loadReusableCertificationEvidence,
+} from '../../aos4/review/reviewReuse'
 import { AOS4_GOLDEN_TRUTH_CASES } from '../../aos4/review/pathology'
 import { ACCEPTED_MANIFEST_PATH } from '../../aos4/data/acceptedRevision'
 import { artifactId, type CanonicalId, type RulesContextId, type SourceRecordId } from '../../aos4/domain'

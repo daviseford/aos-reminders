@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'vitest'
 import {
-  RADAR_AUTHORITY_BY_SOURCE,
   RULES_RADAR_ALARM_SUBJECT_PREFIX,
-  createRadarLane,
-  createRadarMaterialFingerprint,
-  createRadarReport,
   decideRulesRadarAlarm,
   renderRulesRadarAlarmBody,
   renderRulesRadarAlarmSubject,
+} from '../../aos4/radar/alarm'
+import { createRadarLane, createRadarMaterialFingerprint, createRadarReport } from '../../aos4/radar/compare'
+import {
+  RADAR_AUTHORITY_BY_SOURCE,
   type RadarAuthority,
   type RadarChangeKind,
   type RadarEvent,
   type RadarLane,
   type RadarReport,
   type RadarSource,
-} from '../../aos4/radar'
+} from '../../aos4/radar/model'
 
 const observedAt = '2026-08-18T12:00:00.000Z'
 const laterObservedAt = '2026-08-19T05:17:00.000Z'

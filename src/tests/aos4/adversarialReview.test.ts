@@ -1,16 +1,18 @@
 import {
-  AOS4_REVIEW_PROTOCOL_VERSION,
-  AOS4_REVIEW_RUBRIC_VERSION,
-  assessAdversarialComparison,
   assertAgentBlindDerivations,
+  assessAdversarialComparison,
   createAdversarialComparisonResult,
   createAdversarialPairResults,
-  emptyReviewLedger,
+} from '../../aos4/review/adversarialReview'
+import { emptyReviewLedger } from '../../aos4/review/certification'
+import { type ReviewPacketPair } from '../../aos4/review/packets'
+import {
+  AOS4_REVIEW_PROTOCOL_VERSION,
+  AOS4_REVIEW_RUBRIC_VERSION,
   createReviewAssignment,
   createReviewPacket,
-  type ReviewPacketPair,
   type ReviewerMetadata,
-} from '../../aos4/review'
+} from '../../aos4/review/records'
 import type { SourceRecordId } from '../../aos4/domain'
 
 const SOURCE_ID =

@@ -5,7 +5,7 @@ import {
   inspectCatalogPathologies,
   inspectStructuredPathologies,
   pathologyReviewCohorts,
-} from '../../aos4/review'
+} from '../../aos4/review/pathology'
 import type { Aos4Catalog, BattleProfile, Weapon } from '../../aos4/domain'
 
 const catalogWith = (battleProfile: Partial<BattleProfile>, weapon: Partial<Weapon>): Aos4Catalog => {

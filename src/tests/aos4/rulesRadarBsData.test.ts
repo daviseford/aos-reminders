@@ -1,12 +1,12 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { readRulesRadarConfig } from '../../aos4/radar/config'
 import {
   observeBsDataRadar,
-  readRulesRadarConfig,
   type BsDataFetch,
   type BsDataFetchRequest,
-} from '../../aos4/radar'
+} from '../../aos4/radar/observers/bsData'
 
 const observedAt = '2026-07-29T20:00:00.000Z'
 const fixtures = path.join(process.cwd(), 'src', 'tests', 'fixtures', 'aos4', 'radar', 'bsdata')

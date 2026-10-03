@@ -7,18 +7,6 @@ import { Link } from 'react-router'
 import { navbarStyles } from 'theme/helperClasses'
 import { ROUTES } from 'utils/env'
 
-export const LoadingBtn = ({ text = 'Loading' }: { text?: string }) => (
-  <GenericButton disabled type="button">
-    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" /> {text}
-  </GenericButton>
-)
-
-export const OfflineBtn = ({ text = 'Offline' }: { text?: string }) => (
-  <GenericButton disabled type="button">
-    <FiWifiOff className="me-2 text-danger" /> {text}
-  </GenericButton>
-)
-
 export const LoadingHeader = () => {
   const { theme } = useTheme()
 

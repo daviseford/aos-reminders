@@ -8,7 +8,7 @@ import {
   applyCertificationRetentionPlan,
   parseCertificationPruneArguments,
   planCertificationRetention,
-} from '../../aos4/review'
+} from '../../aos4/review/certificationPruneCommand'
 
 const execFileAsync = promisify(execFile)
 
