@@ -897,15 +897,7 @@ small {
   opacity: 0.6;
 }
 
-/* IFrame sizes for stats */
-.StatsIFrame {
-  height: 900px;
-}
-
 @media (max-width: 768px) {
-  .StatsIFrame {
-    height: 920px;
-  }
   .Modal-Light {
     padding-top: 4%;
     padding-bottom: 4%;
@@ -920,9 +912,6 @@ small {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
   }
-  .StatsIFrame {
-    height: 600px;
-  }
   .Modal-Light {
     padding-top: 6%;
     padding-bottom: 6%;
@@ -933,9 +922,6 @@ small {
   .CardHeaderTitle {
     font-size: 1rem;
   }
-  .StatsIFrame {
-    height: 540px;
-  }
   .Modal-Light {
     padding-top: 5%;
     padding-bottom: 5%;
@@ -945,9 +931,6 @@ small {
 @media (max-width: 374px) {
   .CardHeaderTitle {
     font-size: 0.8rem;
-  }
-  .StatsIFrame {
-    height: 480px;
   }
 }
 
