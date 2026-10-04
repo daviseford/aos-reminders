@@ -129,8 +129,8 @@ const CurrentFeatures = () => (
   <div className={`${contentClass} mt-3`}>
     <ul className="lead">
       <li>
-        <strong>My Armies</strong>: save, load, rename, update, and delete your AoS 4 armies, on every device
-        you sign in on.
+        <strong>My Armies</strong>: save, load, rename, update, and delete your Age of Sigmar armies, on every
+        device you sign in on.
       </li>
       <li>
         <strong>Share Army</strong>: send a link a friend can open to take their own copy of your list.
@@ -142,7 +142,7 @@ const CurrentFeatures = () => (
 
     <p>
       Everything else is free, and stays free: the builder, importing, reminders, notes, hiding, reordering,
-      and the PDF.
+      and the printable PDF.
     </p>
   </div>
 )
