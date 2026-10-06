@@ -43,6 +43,7 @@ new event names.
 | `begin_checkout` | Stripe or PayPal checkout starts | Standard `currency`, `value`, `items`; `payment_provider` |
 | `purchase` | A recognized checkout return or PayPal approval completes | Standard `transaction_id`, `currency`, `value`, `items`; `payment_provider` |
 | `checkout_cancelled` | A recognized checkout is cancelled | `value`, `items`, `payment_provider` |
+| `checkout_error` | A checkout could not be opened, or a PayPal activation was not confirmed | `payment_provider`, `checkout_kind`, `checkout_stage`, `checkout_error_type`; `items` when a plan is known |
 
 The item catalog in `src/utils/plans.ts` owns stable analytics item IDs and numeric unit prices.
 Subscription and gift items use the categories `subscription` and `gift_subscription`.
@@ -66,11 +67,75 @@ parameters so the mapping stays obvious:
 | Account action | `account_action` |
 | Login origin | `login_origin` |
 | Payment provider | `payment_provider` |
+| Checkout kind | `checkout_kind` (pending registration, see below) |
+| Checkout stage | `checkout_stage` (pending registration, see below) |
+| Checkout error type | `checkout_error_type` (pending registration, see below) |
 
 The legacy `Event Category` and `Event Label` definitions remain for historical reports. No custom
 metrics are registered: ecommerce value and item quantity use GA4's standard fields, while import
 counts are diagnostic payloads rather than long-lived reporting dimensions. Custom definitions are
 not retroactive.
+
+## Checkout errors
+
+`checkout_error` records where a checkout stopped before the buyer reached the provider, or where we
+could not confirm a PayPal subscription afterwards. It complements `begin_checkout`,
+`checkout_cancelled`, and `purchase`; it never replaces or duplicates them. Every parameter is a
+closed vocabulary defined in `src/utils/analytics.ts`, so no exception message, URL, token, account
+or provider identifier can reach GA4 through it.
+
+`checkout_kind` is `subscription` or `gift_subscription`. `checkout_stage` is one of:
+
+| Stage | Provider | Meaning |
+|---|---|---|
+| `auth_token` | Stripe | No API access token could be obtained, usually an expired sign-in |
+| `session_create` | Stripe | The checkout-session request failed |
+| `session_response` | Stripe | The API answered without a hosted-checkout URL |
+| `redirect` | Stripe | Navigating to the hosted checkout threw |
+| `sdk_load` | PayPal | The PayPal SDK script did not load, so no PayPal button could appear |
+| `sdk_render` | PayPal | One plan's PayPal button failed to render |
+| `sdk_checkout` | PayPal | The PayPal SDK reported an error inside its checkout window |
+| `activation_confirmation` | PayPal | PayPal approved, but the confirmation dialog stopped waiting before the account showed active |
+
+`checkout_error_type` is `auth_required`, `network`, `unauthorized` (HTTP 401/403), `http_4xx`,
+`http_5xx`, `missing_url`, `navigation_failed`, `provider_error`, `timeout`, or `unknown`. It is
+derived from the error's class and HTTP status, never from its message.
+
+How to read it:
+
+- Cancelling is not an error. Stripe's cancel return and PayPal's `onCancel` still send only
+  `checkout_cancelled`, and closing the login popup still sends only `login_closed`.
+- `activation_confirmation` is not a payment failure. The buyer approved the subscription at
+  PayPal, and `purchase` (PayPal approval) has already been sent once. The event says only that our
+  confirmation did not arrive within the dialog's wait; the webhook may still land later. A buyer
+  who closes the dialog before it gives up sends nothing. The first activation request routinely
+  races PayPal's webhook and is retried, so its failure is not reported.
+- `sdk_load` and `sdk_render` describe a PayPal button that was unavailable, not a checkout that
+  was attempted. They can fire for visitors who never clicked anything; `sdk_render` fires once per
+  affected plan card. Count users rather than events, and do not add them to checkout starts.
+- Stripe stages all happen before the buyer reaches Stripe. Failures inside Stripe's hosted page,
+  silent abandonment, and session expiry are not visible to the browser; Stripe's own Checkout
+  Session outcomes are the source for those.
+- Like every browser event, `checkout_error` is lost when GA4 is blocked or the page unloads first.
+  An absence of errors is not proof that nothing failed.
+
+### Viewing checkout errors in GA4
+
+Until the three custom dimensions above are registered, GA4 receives the parameters but cannot
+break reports down by them (custom definitions are not retroactive). Activation after deployment
+is a manual GA4 Admin step:
+
+1. Admin → Data display → Custom definitions → Create custom dimension, scope **Event**, once for
+   each of `checkout_stage`, `checkout_error_type`, and `checkout_kind`, named as in the table above.
+2. Optionally confirm arrival first in DebugView or Realtime by filtering on `checkout_error`.
+
+To read the breakdown: Reports → Engagement → Events, search the table for `checkout_error`, and
+add **Payment provider** or **Checkout stage** as its secondary dimension (one at a time). For the
+full cross-tab, build an Explore free-form table with
+event name `checkout_error`, rows **Payment provider** × **Checkout stage** × **Checkout error
+type**, and the Event count and Total users metrics. Compare against `begin_checkout` for the same
+provider and window only as a lead: repeat clicks and blocked collection make the two counts
+non-joinable.
 
 ## Privacy rules
 

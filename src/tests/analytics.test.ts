@@ -160,3 +160,81 @@ describe('analytics event taxonomy', () => {
     })
   })
 })
+
+describe('checkout_error', () => {
+  it('sends only the closed provider, kind, stage, and error-type vocabulary', async () => {
+    const analytics = await loadAnalytics()
+    analytics.initializeAnalytics({ hostname: 'aosreminders.com', isProduction: true })
+    const item = {
+      item_category: 'subscription',
+      item_id: 'subscription-1-year',
+      item_name: '1 Year',
+      price: 11.88,
+      quantity: 1,
+    } as const
+
+    analytics.logCheckoutError({
+      errorType: 'http_5xx',
+      items: [item],
+      kind: 'subscription',
+      provider: 'stripe',
+      stage: 'session_create',
+    })
+    analytics.logCheckoutError({
+      errorType: 'provider_error',
+      kind: 'subscription',
+      provider: 'paypal',
+      stage: 'sdk_load',
+    })
+
+    expect(ga.event).toHaveBeenNthCalledWith(1, 'checkout_error', {
+      checkout_error_type: 'http_5xx',
+      checkout_kind: 'subscription',
+      checkout_stage: 'session_create',
+      items: [item],
+      payment_provider: 'stripe',
+    })
+    // An availability failure belongs to no plan, so it carries no items rather than an empty list.
+    expect(ga.event).toHaveBeenNthCalledWith(2, 'checkout_error', {
+      checkout_error_type: 'provider_error',
+      checkout_kind: 'subscription',
+      checkout_stage: 'sdk_load',
+      payment_provider: 'paypal',
+    })
+    // Not a purchase, so it must not look like one to GA4's ecommerce reports.
+    for (const [, parameters] of ga.event.mock.calls) {
+      expect(parameters).not.toHaveProperty('transaction_id')
+      expect(parameters).not.toHaveProperty('value')
+    }
+  })
+
+  it('never throws into the checkout path, even when GA4 does', async () => {
+    const analytics = await loadAnalytics()
+    analytics.initializeAnalytics({ hostname: 'aosreminders.com', isProduction: true })
+    ga.event.mockImplementationOnce(() => {
+      throw new Error('gtag is unavailable')
+    })
+
+    expect(() =>
+      analytics.logCheckoutError({
+        errorType: 'network',
+        kind: 'gift_subscription',
+        provider: 'stripe',
+        stage: 'session_create',
+      })
+    ).not.toThrow()
+  })
+
+  it('is inert outside production', async () => {
+    const analytics = await loadAnalytics()
+
+    analytics.logCheckoutError({
+      errorType: 'unknown',
+      kind: 'subscription',
+      provider: 'stripe',
+      stage: 'redirect',
+    })
+
+    expect(ga.event).not.toHaveBeenCalled()
+  })
+})

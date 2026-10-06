@@ -7,21 +7,26 @@ import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { act } from 'react'
 import { bestValuePlan, monthlySavingPct, SUBSCRIPTION_PLANS } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { SubscriptionApi } from '../../api/subscriptionApi'
+import { AuthenticationRequiredError } from 'utils/authToken'
+import { SubscriptionApi, SubscriptionApiError } from '../../api/subscriptionApi'
 
 interface PaypalButtonCallbacks {
   onCancel: () => void
   onClick: () => void
+  onError: () => void
+  onRenderError: () => void
   onSuccess: (data: IApprovalResponse) => Promise<void>
 }
 
 const paypal = vi.hoisted(() => ({
   callbacks: null as PaypalButtonCallbacks | null,
+  modal: null as { onConfirmationTimeout?: () => void } | null,
 }))
 
 const analytics = vi.hoisted(() => ({
   logBeginCheckout: vi.fn(),
   logCheckoutCancelled: vi.fn(),
+  logCheckoutError: vi.fn(),
   logClick: vi.fn(),
   logPurchase: vi.fn(),
 }))
@@ -30,7 +35,8 @@ const token = vi.hoisted(() => ({ get: vi.fn() }))
 
 vi.mock('utils/analytics', () => analytics)
 
-vi.mock('utils/authToken', () => ({
+vi.mock('utils/authToken', async importOriginal => ({
+  ...(await importOriginal<typeof import('utils/authToken')>()),
   useApiAccessToken: () => token.get,
 }))
 
@@ -52,7 +58,10 @@ vi.mock('components/payment/paypal/paypalButton', () => ({
 }))
 
 vi.mock('components/modals/paypal_post_subscribe_modal', () => ({
-  PaypalPostSubscribeModal: () => null,
+  PaypalPostSubscribeModal: (props: { onConfirmationTimeout?: () => void }) => {
+    paypal.modal = props
+    return null
+  },
 }))
 
 vi.mock('context/useTheme', () => ({
@@ -72,6 +81,7 @@ describe('subscription pricing plans', () => {
 
   beforeEach(() => {
     paypal.callbacks = null
+    paypal.modal = null
     token.get.mockReset()
     token.get.mockResolvedValue('audience-token')
     auth.isAuthenticated = true
@@ -332,5 +342,238 @@ describe('subscription pricing plans', () => {
       { subscriptionId: 'subscription-id' },
       'audience-token'
     )
+  })
+
+  describe('checkout_error reporting', () => {
+    const monthlyItem = {
+      item_category: 'subscription',
+      item_id: 'subscription-1-month',
+      item_name: '1 Month',
+      price: 1.99,
+      quantity: 1,
+    }
+
+    const renderPlan = async () => {
+      await act(async () => {
+        render(
+          <PlanComponent
+            supportPlan={SUBSCRIPTION_PLANS[0]}
+            paypalModalIsOpen={false}
+            setPaypalModalIsOpen={vi.fn()}
+          />,
+          container
+        )
+      })
+    }
+
+    const clickStripe = async () => {
+      await act(async () => {
+        container.querySelector('button')!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+        await new Promise(resolve => setTimeout(resolve, 0))
+      })
+    }
+
+    const withLocation = async (assign: (url: string) => void, run: () => Promise<void>) => {
+      const originalLocation = window.location
+      Object.defineProperty(window, 'location', {
+        configurable: true,
+        value: { ...originalLocation, assign },
+      })
+      try {
+        await run()
+      } finally {
+        Object.defineProperty(window, 'location', { configurable: true, value: originalLocation })
+      }
+    }
+
+    // Each sensitive string is planted in the failure itself, so a leak would show up in the payload.
+    const sensitive = 'https://checkout.stripe.com/c/pay/cs_live_secret?prefilled_email=general@example.com'
+
+    it.each([
+      {
+        name: 'an expired sign-in',
+        arrange: () => token.get.mockRejectedValue(new AuthenticationRequiredError(sensitive)),
+        stage: 'auth_token',
+        errorType: 'auth_required',
+      },
+      {
+        name: 'an unreachable API',
+        arrange: () =>
+          vi
+            .spyOn(SubscriptionApi, 'createCheckoutSession')
+            .mockRejectedValue(new SubscriptionApiError(sensitive)),
+        stage: 'session_create',
+        errorType: 'network',
+      },
+      {
+        name: 'a rejected token',
+        arrange: () =>
+          vi
+            .spyOn(SubscriptionApi, 'createCheckoutSession')
+            .mockRejectedValue(new SubscriptionApiError(sensitive, 401)),
+        stage: 'session_create',
+        errorType: 'unauthorized',
+      },
+      {
+        name: 'a rejected request',
+        arrange: () =>
+          vi
+            .spyOn(SubscriptionApi, 'createCheckoutSession')
+            .mockRejectedValue(new SubscriptionApiError(sensitive, 400)),
+        stage: 'session_create',
+        errorType: 'http_4xx',
+      },
+      {
+        name: 'a server failure',
+        arrange: () =>
+          vi
+            .spyOn(SubscriptionApi, 'createCheckoutSession')
+            .mockRejectedValue(new SubscriptionApiError(sensitive, 502)),
+        stage: 'session_create',
+        errorType: 'http_5xx',
+      },
+      {
+        name: 'an unrecognised exception',
+        arrange: () =>
+          vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockRejectedValue(new Error(sensitive)),
+        stage: 'session_create',
+        errorType: 'unknown',
+      },
+      {
+        name: 'a response without a checkout URL',
+        arrange: () => vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockResolvedValue({ body: {} }),
+        stage: 'session_response',
+        errorType: 'missing_url',
+      },
+    ])('reports $name as $stage/$errorType without the raw error', async ({ arrange, stage, errorType }) => {
+      arrange()
+      vi.spyOn(console, 'error').mockImplementation(() => undefined)
+      await renderPlan()
+      await clickStripe()
+
+      expect(analytics.logCheckoutError).toHaveBeenCalledTimes(1)
+      expect(analytics.logCheckoutError).toHaveBeenCalledWith({
+        errorType,
+        items: [monthlyItem],
+        kind: 'subscription',
+        provider: 'stripe',
+        stage,
+      })
+      const payload = JSON.stringify(analytics.logCheckoutError.mock.calls)
+      for (const leak of ['cs_live', 'checkout.stripe.com', '@example.com', 'audience-token']) {
+        expect(payload).not.toContain(leak)
+      }
+      // The visitor's experience is unchanged: the same alert, and the button comes back.
+      expect(container.querySelector('[role="alert"]')!.textContent).toContain(
+        'We could not open the checkout page'
+      )
+      expect(container.querySelector('button')?.disabled).toBe(false)
+      expect(analytics.logBeginCheckout).toHaveBeenCalledTimes(1)
+      expect(analytics.logPurchase).not.toHaveBeenCalled()
+    })
+
+    it('reports a hosted-checkout navigation that throws as a redirect failure', async () => {
+      vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockResolvedValue({ body: { url: sensitive } })
+      vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+      await withLocation(
+        () => {
+          throw new DOMException(sensitive, 'SecurityError')
+        },
+        async () => {
+          await renderPlan()
+          await clickStripe()
+        }
+      )
+
+      expect(analytics.logCheckoutError).toHaveBeenCalledWith({
+        errorType: 'navigation_failed',
+        items: [monthlyItem],
+        kind: 'subscription',
+        provider: 'stripe',
+        stage: 'redirect',
+      })
+      expect(JSON.stringify(analytics.logCheckoutError.mock.calls)).not.toContain('cs_live')
+    })
+
+    it('reports nothing when the hand-off succeeds', async () => {
+      vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockResolvedValue({
+        body: { url: 'https://checkout.stripe.com/c/pay/cs_test_123' },
+      })
+      const assign = vi.fn()
+
+      await withLocation(assign, async () => {
+        await renderPlan()
+        await clickStripe()
+      })
+
+      expect(assign).toHaveBeenCalledTimes(1)
+      expect(analytics.logCheckoutError).not.toHaveBeenCalled()
+      expect(analytics.logBeginCheckout).toHaveBeenCalledTimes(1)
+    })
+
+    it('reports PayPal SDK and render failures, but never a cancellation', async () => {
+      await renderPlan()
+
+      paypal.callbacks!.onClick()
+      paypal.callbacks!.onCancel()
+      expect(analytics.logCheckoutError).not.toHaveBeenCalled()
+      expect(analytics.logCheckoutCancelled).toHaveBeenCalledTimes(1)
+
+      paypal.callbacks!.onError()
+      paypal.callbacks!.onRenderError()
+
+      expect(analytics.logCheckoutError).toHaveBeenNthCalledWith(1, {
+        errorType: 'provider_error',
+        items: [monthlyItem],
+        kind: 'subscription',
+        provider: 'paypal',
+        stage: 'sdk_checkout',
+      })
+      expect(analytics.logCheckoutError).toHaveBeenNthCalledWith(2, {
+        errorType: 'provider_error',
+        items: [monthlyItem],
+        kind: 'subscription',
+        provider: 'paypal',
+        stage: 'sdk_render',
+      })
+      expect(analytics.logPurchase).not.toHaveBeenCalled()
+    })
+
+    /*
+     * PayPal's approval is the `purchase` event and stays exactly one. A confirmation that never
+     * arrives is a separate activation stage, not a second purchase and not a payment failure.
+     */
+    it('keeps PayPal approval as one purchase and reports an unconfirmed activation separately', async () => {
+      vi.spyOn(SubscriptionApi, 'requestGrant').mockRejectedValue(new SubscriptionApiError('not yet', 404))
+      await renderPlan()
+
+      await act(async () => {
+        await paypal.callbacks!.onSuccess({
+          billingToken: null,
+          facilitatorAccessToken: 'access-token',
+          orderID: 'order-id',
+          paymentID: null,
+          subscriptionID: 'I-SUBSCRIPTION',
+        })
+      })
+
+      // The first grant racing PayPal's webhook is expected, so it is not an error.
+      expect(analytics.logCheckoutError).not.toHaveBeenCalled()
+      expect(analytics.logPurchase).toHaveBeenCalledTimes(1)
+
+      act(() => paypal.modal!.onConfirmationTimeout!())
+
+      expect(analytics.logCheckoutError).toHaveBeenCalledTimes(1)
+      expect(analytics.logCheckoutError).toHaveBeenCalledWith({
+        errorType: 'timeout',
+        items: [monthlyItem],
+        kind: 'subscription',
+        provider: 'paypal',
+        stage: 'activation_confirmation',
+      })
+      expect(JSON.stringify(analytics.logCheckoutError.mock.calls)).not.toContain('I-SUBSCRIPTION')
+      expect(analytics.logPurchase).toHaveBeenCalledTimes(1)
+    })
   })
 })

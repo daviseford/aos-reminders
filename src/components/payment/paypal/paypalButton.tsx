@@ -20,6 +20,7 @@ interface IPaypalButtonsOptions {
   onApprove?: (data: IApprovalResponse) => unknown
   onCancel?: (data: unknown) => unknown
   onClick?: () => unknown
+  onError?: (error: unknown) => unknown
 }
 
 interface IPaypalButtonsInstance {
@@ -42,6 +43,10 @@ interface IPayPalButtonProps {
   onClick?: () => unknown
   onSuccess?: (data: IApprovalResponse) => unknown
   onCancel?: (data: unknown) => unknown
+  /** The SDK reported an error inside its checkout. The error itself is never passed on. */
+  onError?: () => unknown
+  /** The button could not be rendered, so this plan has no PayPal rail. */
+  onRenderError?: () => unknown
   style?: IStyle
 }
 
@@ -76,15 +81,15 @@ const PaypalButton = (props: IPayPalButtonProps) => {
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin: props.planTitle })
   const { paypalIsReady } = usePaypal()
-  const { onClick, onSuccess, onCancel, planId, style } = props
+  const { onClick, onSuccess, onCancel, onError, onRenderError, planId, style } = props
 
   const containerRef = useRef<HTMLDivElement>(null)
-  const handlersRef = useRef({ onClick, onSuccess, onCancel, login })
+  const handlersRef = useRef({ onClick, onSuccess, onCancel, onError, onRenderError, login })
   const email = user?.email
 
   // Keep the latest callbacks reachable without making them effect dependencies.
   useEffect(() => {
-    handlersRef.current = { onClick, onSuccess, onCancel, login }
+    handlersRef.current = { onClick, onSuccess, onCancel, onError, onRenderError, login }
   })
 
   // Serialised so a fresh style object literal on every render does not re-mount the button.
@@ -111,13 +116,23 @@ const PaypalButton = (props: IPayPalButtonProps) => {
       onApprove: (data: IApprovalResponse) => handlersRef.current.onSuccess?.(data),
       onCancel: (data: unknown) => handlersRef.current.onCancel?.(data),
       onClick: () => (isAuthenticated ? handlersRef.current.onClick?.() : handlersRef.current.login()),
+      /*
+       * Cancelling is onCancel, never this. The handler adds nothing to the page; it reports the
+       * stage and keeps the error itself in the console, where it went before there was a handler.
+       */
+      onError: (error: unknown) => {
+        console.error('The PayPal checkout reported an error.', error)
+        handlersRef.current.onError?.()
+      },
     })
 
     if (buttons.isEligible && !buttons.isEligible()) return
 
     void buttons.render(container).catch((error: unknown) => {
       // A rejection after teardown just means the container went away first.
-      if (!cancelled) console.error('Unable to render the PayPal button.', error)
+      if (cancelled) return
+      console.error('Unable to render the PayPal button.', error)
+      handlersRef.current.onRenderError?.()
     })
 
     return () => {
