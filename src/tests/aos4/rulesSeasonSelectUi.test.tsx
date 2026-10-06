@@ -4,9 +4,8 @@ import Home from 'components/routes/Home'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
-import { act } from 'react'
 import { MemoryRouter } from 'react-router'
-import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { createTestRoot, render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
 import { MemoryStorage } from 'tests/support/memoryStorage'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { RulesContextId } from '../../aos4/domain'
@@ -89,90 +88,107 @@ const storedArmy = (rulesContextId: RulesContextId) =>
   )
 
 describe('the rules-season select on the Home screen', () => {
-  let container: HTMLDivElement
-  let storage: MemoryStorage
-
   const flush = () => new Promise(resolve => setTimeout(resolve, 0))
 
-  const renderHome = async () => {
-    await act(async () => {
-      render(
-        <AppStatusProvider>
-          <SubscriptionProvider>
-            <ThemeProvider>
-              <MemoryRouter>
-                <Home />
-              </MemoryRouter>
-            </ThemeProvider>
-          </SubscriptionProvider>
-        </AppStatusProvider>,
-        container
-      )
-      await flush()
-    })
-    // A second flush: the first resolves the lazy child, this one settles its mount effects.
-    await act(async () => {
-      await flush()
-    })
-  }
-
-  const reload = async () => {
-    act(() => {
-      unmountComponentAtNode(container)
-    })
-    await renderHome()
-  }
-
-  const seasonInput = () =>
-    container.querySelector<HTMLInputElement>('input[aria-label="General\'s Handbook"]')
-
-  // The select's shown value: the masthead's singleValue that shares a control with the input.
-  const selectedSeason = () =>
-    Array.from(container.querySelectorAll('[class*="singleValue"]')).find(value =>
-      value.parentElement?.contains(seasonInput())
-    )?.textContent ?? null
-
-  // Open the select from the keyboard, as a player tabbing to it would, and read what it offers.
-  const openSeasons = async () => {
-    await act(async () => {
-      seasonInput()!.focus()
-      seasonInput()!.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
-      )
-      await flush()
-    })
-    return Array.from(container.querySelectorAll<HTMLElement>('[role="option"]'))
-  }
-
-  const pickSeason = async (label: string) => {
-    const option = (await openSeasons()).find(candidate => candidate.textContent?.trim() === label)
-    expect(option, `option "${label}"`).toBeDefined()
-    await act(async () => {
-      option!.click()
-      await flush()
-    })
-  }
-
-  const storedDocument = () =>
-    deserializeAos4ArmyDocumentStructure(storage.getItem(AOS4_ARMY_STORAGE_KEY) ?? '').document
-
-  const notice = () => container.querySelector('[data-testid="past-season-notice"]')
-
-  beforeEach(() => {
-    storage = new MemoryStorage()
+  /*
+   * Everything one test drives, bound when that test starts. A test that times out keeps running
+   * (vitest cannot stop it), so these close over its own container, storage and `act` rather than
+   * describe-scoped ones the next test reassigns (#2076).
+   */
+  const mountFixture = (signal: AbortSignal) => {
+    const { container, act, cleanup } = createTestRoot(signal)
+    const storage = new MemoryStorage()
     Object.defineProperty(window, 'localStorage', { configurable: true, value: storage })
-    container = document.createElement('div')
-    document.body.appendChild(container)
+
+    const renderHome = async () => {
+      await act(async () => {
+        render(
+          <AppStatusProvider>
+            <SubscriptionProvider>
+              <ThemeProvider>
+                <MemoryRouter>
+                  <Home />
+                </MemoryRouter>
+              </ThemeProvider>
+            </SubscriptionProvider>
+          </AppStatusProvider>,
+          container
+        )
+        await flush()
+      })
+      // A second flush: the first resolves the lazy child, this one settles its mount effects.
+      await act(async () => {
+        await flush()
+      })
+    }
+
+    const reload = async () => {
+      await act(() => {
+        unmountComponentAtNode(container)
+      })
+      await renderHome()
+    }
+
+    const seasonInput = () =>
+      container.querySelector<HTMLInputElement>('input[aria-label="General\'s Handbook"]')
+
+    // The select's shown value: the masthead's singleValue that shares a control with the input.
+    const selectedSeason = () =>
+      Array.from(container.querySelectorAll('[class*="singleValue"]')).find(value =>
+        value.parentElement?.contains(seasonInput())
+      )?.textContent ?? null
+
+    // Open the select from the keyboard, as a player tabbing to it would, and read what it offers.
+    const openSeasons = async () => {
+      await act(async () => {
+        seasonInput()!.focus()
+        seasonInput()!.dispatchEvent(
+          new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
+        )
+        await flush()
+      })
+      return Array.from(container.querySelectorAll<HTMLElement>('[role="option"]'))
+    }
+
+    const pickSeason = async (label: string) => {
+      const option = (await openSeasons()).find(candidate => candidate.textContent?.trim() === label)
+      expect(option, `option "${label}"`).toBeDefined()
+      await act(async () => {
+        option!.click()
+        await flush()
+      })
+    }
+
+    const storedDocument = () =>
+      deserializeAos4ArmyDocumentStructure(storage.getItem(AOS4_ARMY_STORAGE_KEY) ?? '').document
+
+    const notice = () => container.querySelector('[data-testid="past-season-notice"]')
+
+    return {
+      cleanup,
+      container,
+      notice,
+      openSeasons,
+      pickSeason,
+      reload,
+      renderHome,
+      seasonInput,
+      selectedSeason,
+      storage,
+      storedDocument,
+    }
+  }
+
+  let fixture: ReturnType<typeof mountFixture>
+
+  beforeEach(({ signal }) => {
+    fixture = mountFixture(signal)
   })
 
-  afterEach(() => {
-    act(() => {
-      unmountComponentAtNode(container)
-    })
-    container.remove()
-  })
+  afterEach(() => fixture.cleanup())
 
   it('offers exactly the catalog’s standard seasons, the sitting season first', async () => {
+    const { container, openSeasons, renderHome, storage } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(seasonal.id))
 
     await renderHome()
@@ -196,6 +212,7 @@ describe('the rules-season select on the Home screen', () => {
    * (current season)` wording this replaced (41 characters) would fail this check immediately.
    */
   it('keeps every season option short enough to stay on one line at the narrowest supported width', async () => {
+    const { openSeasons, renderHome, storage } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(seasonal.id))
 
     await renderHome()
@@ -211,6 +228,8 @@ describe('the rules-season select on the Home screen', () => {
    * one test overrun the per-test timeout when the whole suite runs.
    */
   it('moves the army from the sitting season to battletome only, and keeps it across a reload', async () => {
+    const { container, notice, pickSeason, reload, renderHome, selectedSeason, storage, storedDocument } =
+      fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(seasonal.id))
 
     await renderHome()
@@ -234,6 +253,8 @@ describe('the rules-season select on the Home screen', () => {
   })
 
   it('moves the army from battletome only into the past season, and keeps it across a reload', async () => {
+    const { container, notice, pickSeason, reload, renderHome, selectedSeason, storage, storedDocument } =
+      fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(current.id))
 
     await renderHome()
@@ -254,6 +275,8 @@ describe('the rules-season select on the Home screen', () => {
   })
 
   it('moves the army from the past season back to the sitting season, and keeps it across a reload', async () => {
+    const { container, notice, pickSeason, reload, renderHome, selectedSeason, storage, storedDocument } =
+      fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(pastSeason.id))
 
     await renderHome()
@@ -273,6 +296,7 @@ describe('the rules-season select on the Home screen', () => {
     ['battletome-only', () => current.id, NONE_LABEL],
     ['past-season', () => pastSeason.id, PAST_LABEL],
   ])('reflects a stored army already in the %s context', async (_name, contextId, label) => {
+    const { container, renderHome, selectedSeason, storage } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(contextId()))
 
     await renderHome()
@@ -286,6 +310,7 @@ describe('the rules-season select on the Home screen', () => {
    * speak for, so the masthead hides it rather than showing a value that would lie.
    */
   it('hides the select for a document it does not speak for', async () => {
+    const { container, renderHome, seasonInput, storage } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(spearheadContext.id))
 
     await renderHome()

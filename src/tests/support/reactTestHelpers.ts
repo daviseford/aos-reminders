@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { act, type ReactNode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 
 /**
@@ -37,6 +37,50 @@ export const unmountComponentAtNode = (container: Element): boolean => {
   root.unmount()
   roots.delete(container)
   return true
+}
+
+/**
+ * A container and an `act` that belong to one test, for suites whose tests can outlive their timeout.
+ *
+ * Vitest fails a timed-out test but cannot stop its body, which carries on into the tests after it.
+ * If it is inside an `act()` when the time runs out, that scope is still open when the next test
+ * opens its own; React does not support overlapping `act()` calls, stops flushing renders, and every
+ * later test in the file reads an empty screen. Its later steps would also drive whatever the next
+ * test had mounted. One slow test then reads as a run of unrelated failures (#2076).
+ *
+ * `act` refuses to start once `signal` (the test context's, which vitest aborts on a timeout) has
+ * aborted, so an abandoned body stops at its next step. `cleanup` waits for any `act` this test still
+ * has open before it unmounts and removes this test's container, and touches nothing else.
+ */
+export const createTestRoot = (signal: AbortSignal) => {
+  const container = document.createElement('div')
+  document.body.appendChild(container)
+  const open = new Set<Promise<void>>()
+
+  const ownedAct = async (callback: () => void | Promise<void>): Promise<void> => {
+    signal.throwIfAborted()
+    // Every `then` on the thenable `act()` returns pops its scope and flushes again, and React reports
+    // the second pop as an overlapping call, so take it exactly once and share the promise.
+    const pending = new Promise<void>((resolve, reject) => {
+      act(callback).then(resolve, reject)
+    })
+    open.add(pending)
+    try {
+      await pending
+    } finally {
+      open.delete(pending)
+    }
+  }
+
+  const cleanup = async () => {
+    await Promise.allSettled(open)
+    act(() => {
+      unmountComponentAtNode(container)
+    })
+    container.remove()
+  }
+
+  return { container, act: ownedAct, cleanup }
 }
 
 /**

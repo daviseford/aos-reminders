@@ -13,8 +13,7 @@ import { AppStatusProvider } from 'context/useAppStatus'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import { MemoryRouter } from 'react-router'
-import { act } from 'react'
-import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { createTestRoot, render } from 'tests/support/reactTestHelpers'
 import { MemoryStorage } from 'tests/support/memoryStorage'
 import { writeCloudArmyLink } from 'utils/cloudArmyLink'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -94,32 +93,47 @@ const remoteArmy = (id: string, name: string) => ({
 })
 
 describe('cloud army link reconciliation on load', () => {
-  let container: HTMLDivElement
-
   /*
-   * The reconciliation lives in Home's catalog-bound half, which is behind `lazy()` — so the render
-   * has to get past the shell's Suspense boundary before the effects under test have even mounted.
-   * The second flush covers the collection fetch those effects start.
+   * Everything one test drives, bound when that test starts: a test that times out keeps running,
+   * and must not reach the next test's screen through describe-scoped state (#2076).
    */
-  const renderHome = async () => {
-    await act(async () => {
-      render(
-        <AppStatusProvider>
-          <SubscriptionProvider>
-            <ThemeProvider>
-              <MemoryRouter>
-                <Home />
-              </MemoryRouter>
-            </ThemeProvider>
-          </SubscriptionProvider>
-        </AppStatusProvider>,
-        container
-      )
-      await new Promise(resolve => setTimeout(resolve, 0))
+  const mountFixture = (signal: AbortSignal) => {
+    const { container, act, cleanup } = createTestRoot(signal)
+    Object.defineProperty(window, 'localStorage', {
+      configurable: true,
+      value: new MemoryStorage(),
     })
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0))
-    })
+
+    /*
+     * The reconciliation lives in Home's catalog-bound half, which is behind `lazy()` — so the render
+     * has to get past the shell's Suspense boundary before the effects under test have even mounted.
+     * The second flush covers the collection fetch those effects start.
+     */
+    const renderHome = async () => {
+      await act(async () => {
+        render(
+          <AppStatusProvider>
+            <SubscriptionProvider>
+              <ThemeProvider>
+                <MemoryRouter>
+                  <Home />
+                </MemoryRouter>
+              </ThemeProvider>
+            </SubscriptionProvider>
+          </AppStatusProvider>,
+          container
+        )
+        await new Promise(resolve => setTimeout(resolve, 0))
+      })
+      await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 0))
+      })
+    }
+
+    const buttonLabels = () =>
+      Array.from(container.querySelectorAll('button')).map(button => button.textContent?.trim())
+
+    return { act, buttonLabels, cleanup, container, renderHome }
   }
 
   /** The state a reload starts from: a saved army on screen and a link naming its cloud record. */
@@ -134,10 +148,9 @@ describe('cloud army link reconciliation on load', () => {
 
   const storedLink = () => window.localStorage.getItem('aos-reminders:aos4:cloud-army-link:v1')
 
-  const buttonLabels = () =>
-    Array.from(container.querySelectorAll('button')).map(button => button.textContent?.trim())
+  let fixture: ReturnType<typeof mountFixture>
 
-  beforeEach(() => {
+  beforeEach(({ signal }) => {
     auth.isAuthenticated = true
     auth.isLoading = false
     auth.user = { email: 'owner@example.com' }
@@ -150,22 +163,13 @@ describe('cloud army link reconciliation on load', () => {
     armyApi.listArmies.mockResolvedValue([])
     getSubscription.mockReset()
     getSubscription.mockRejectedValue({ status: 404 })
-    Object.defineProperty(window, 'localStorage', {
-      configurable: true,
-      value: new MemoryStorage(),
-    })
-    container = document.createElement('div')
-    document.body.appendChild(container)
+    fixture = mountFixture(signal)
   })
 
-  afterEach(() => {
-    act(() => {
-      unmountComponentAtNode(container)
-    })
-    container.remove()
-  })
+  afterEach(() => fixture.cleanup())
 
   it('clears a link whose record the account no longer holds, without opening a modal', async () => {
+    const { buttonLabels, container, renderHome } = fixture
     seedLinkedDocument()
     armyApi.listArmies.mockResolvedValue([remoteArmy('cloud-other', 'Someone Else')])
 
@@ -183,6 +187,7 @@ describe('cloud army link reconciliation on load', () => {
    * elsewhere, when it was the only one, leaves a collection that is both loaded and empty.
    */
   it('clears the link when the deleted record was the last army on the account', async () => {
+    const { container, renderHome } = fixture
     seedLinkedDocument()
     armyApi.listArmies.mockResolvedValue([])
 
@@ -193,6 +198,7 @@ describe('cloud army link reconciliation on load', () => {
   })
 
   it('keeps a link whose record is still on the account, and names it', async () => {
+    const { container, renderHome } = fixture
     seedLinkedDocument()
     armyApi.listArmies.mockResolvedValue([remoteArmy(LINKED_ID, 'Tourney List')])
 
@@ -208,6 +214,7 @@ describe('cloud army link reconciliation on load', () => {
    * persistence the link exists to provide, so the link is kept and the toolbar still offers it.
    */
   it('keeps the link when the collection cannot be loaded, and does not retry in a loop', async () => {
+    const { act, container, renderHome } = fixture
     seedLinkedDocument()
     armyApi.listArmies.mockRejectedValue(new Error('Network unavailable'))
 
@@ -222,6 +229,7 @@ describe('cloud army link reconciliation on load', () => {
   })
 
   it('does not fetch the collection for a document that is not linked to one', async () => {
+    const { buttonLabels, renderHome } = fixture
     saveAos4ArmyDocument(window.localStorage, linkedDocument)
 
     await renderHome()

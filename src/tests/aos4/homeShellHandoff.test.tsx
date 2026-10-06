@@ -4,9 +4,8 @@ import Home from 'components/routes/Home'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
-import { act } from 'react'
 import { MemoryRouter } from 'react-router'
-import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { createTestRoot, render } from 'tests/support/reactTestHelpers'
 import { MemoryStorage } from 'tests/support/memoryStorage'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { CanonicalId, RulesContextId } from '../../aos4/domain'
@@ -197,88 +196,113 @@ const storedArmy = (
   )
 
 describe('the handoff from the Home shell to the catalog-bound half', () => {
-  let container: HTMLDivElement
-  let storage: MemoryStorage
-  let session: MemoryStorage
-
   const flush = () => new Promise(resolve => setTimeout(resolve, 0))
 
-  const renderHome = async () => {
-    await act(async () => {
-      render(
-        <AppStatusProvider>
-          <SubscriptionProvider>
-            <ThemeProvider>
-              <MemoryRouter>
-                <Home />
-              </MemoryRouter>
-            </ThemeProvider>
-          </SubscriptionProvider>
-        </AppStatusProvider>,
-        container
+  /*
+   * Everything one test drives, bound when that test starts: a test that times out keeps running,
+   * and must not reach the next test's screen through describe-scoped state (#2076).
+   */
+  const mountFixture = (signal: AbortSignal) => {
+    const { container, act, cleanup } = createTestRoot(signal)
+    const storage = new MemoryStorage()
+    const session = new MemoryStorage()
+    Object.defineProperty(window, 'localStorage', { configurable: true, value: storage })
+    Object.defineProperty(window, 'sessionStorage', { configurable: true, value: session })
+
+    const renderHome = async () => {
+      await act(async () => {
+        render(
+          <AppStatusProvider>
+            <SubscriptionProvider>
+              <ThemeProvider>
+                <MemoryRouter>
+                  <Home />
+                </MemoryRouter>
+              </ThemeProvider>
+            </SubscriptionProvider>
+          </AppStatusProvider>,
+          container
+        )
+        await flush()
+      })
+    }
+
+    // Resolving the gated import, then letting React commit the child and its effects.
+    const landTheCatalog = async () => {
+      await act(async () => {
+        gate.open()
+        await flush()
+      })
+      await act(async () => {
+        await flush()
+      })
+    }
+
+    const factionSlot = () =>
+      container
+        .querySelector<HTMLInputElement>('input[aria-label="Faction"]')!
+        .closest('.col-12') as HTMLElement
+
+    const selectedFactionName = () =>
+      factionSlot().querySelector('[class*="singleValue"]')?.textContent?.trim() ?? null
+
+    const openMenu = async (label: string) => {
+      const input = container.querySelector<HTMLInputElement>(`input[aria-label="${label}"]`)
+      expect(input).not.toBeNull()
+      await act(async () => {
+        input!.dispatchEvent(
+          new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
+        )
+        await flush()
+      })
+    }
+
+    const pick = async (label: string, optionText: string) => {
+      await openMenu(label)
+      const option = Array.from(container.querySelectorAll('[role="option"]')).find(
+        candidate => candidate.textContent?.trim() === optionText
       )
-      await flush()
-    })
-  }
+      expect(option, `no option "${optionText}" under ${label}`).not.toBeUndefined()
+      await act(async () => {
+        option!.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))
+        await flush()
+      })
+    }
 
-  // Resolving the gated import, then letting React commit the child and its effects.
-  const landTheCatalog = async () => {
-    await act(async () => {
-      gate.open()
-      await flush()
-    })
-    await act(async () => {
-      await flush()
-    })
-  }
+    const togglePlayMode = async () => {
+      await act(async () => {
+        container.querySelector<HTMLInputElement>('#game-mode-switch')!.click()
+        await flush()
+      })
+    }
 
-  const factionSlot = () =>
-    container
-      .querySelector<HTMLInputElement>('input[aria-label="Faction"]')!
-      .closest('.col-12') as HTMLElement
-
-  const selectedFactionName = () =>
-    factionSlot().querySelector('[class*="singleValue"]')?.textContent?.trim() ?? null
-
-  const openMenu = async (label: string) => {
-    const input = container.querySelector<HTMLInputElement>(`input[aria-label="${label}"]`)
-    expect(input).not.toBeNull()
-    await act(async () => {
-      input!.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
+    const armyOfRenownRow = () => {
+      const label = Array.from(container.querySelectorAll('span')).find(
+        span => span.textContent === 'Army of Renown:'
       )
-      await flush()
-    })
-  }
+      return label ? (label.nextElementSibling as HTMLElement) : null
+    }
 
-  const pick = async (label: string, optionText: string) => {
-    await openMenu(label)
-    const option = Array.from(container.querySelectorAll('[role="option"]')).find(
-      candidate => candidate.textContent?.trim() === optionText
-    )
-    expect(option, `no option "${optionText}" under ${label}`).not.toBeUndefined()
-    await act(async () => {
-      option!.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))
-      await flush()
-    })
-  }
+    const storedDocument = () =>
+      deserializeAos4ArmyDocumentStructure(storage.getItem(AOS4_ARMY_STORAGE_KEY) ?? '').document
 
-  const togglePlayMode = async () => {
-    await act(async () => {
-      container.querySelector<HTMLInputElement>('#game-mode-switch')!.click()
-      await flush()
-    })
+    return {
+      act,
+      armyOfRenownRow,
+      cleanup,
+      container,
+      factionSlot,
+      landTheCatalog,
+      openMenu,
+      pick,
+      renderHome,
+      selectedFactionName,
+      session,
+      storage,
+      storedDocument,
+      togglePlayMode,
+    }
   }
-
-  const armyOfRenownRow = () => {
-    const label = Array.from(container.querySelectorAll('span')).find(
-      span => span.textContent === 'Army of Renown:'
-    )
-    return label ? (label.nextElementSibling as HTMLElement) : null
-  }
-
-  const storedDocument = () =>
-    deserializeAos4ArmyDocumentStructure(storage.getItem(AOS4_ARMY_STORAGE_KEY) ?? '').document
 
   /*
    * Resolve the gated module once, before any test. `vi.importActual` inside the mock factory walks
@@ -290,25 +314,17 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
     await import('components/routes/HomeCatalogBound')
   })
 
-  beforeEach(() => {
+  let fixture: ReturnType<typeof mountFixture>
+
+  beforeEach(({ signal }) => {
     gate.arm()
     shareModalGate.broken = false
     analytics.logFactionSelection.mockClear()
     analytics.logGameModeChange.mockClear()
-    storage = new MemoryStorage()
-    session = new MemoryStorage()
-    Object.defineProperty(window, 'localStorage', { configurable: true, value: storage })
-    Object.defineProperty(window, 'sessionStorage', { configurable: true, value: session })
-    container = document.createElement('div')
-    document.body.appendChild(container)
+    fixture = mountFixture(signal)
   })
 
-  afterEach(() => {
-    act(() => {
-      unmountComponentAtNode(container)
-    })
-    container.remove()
-  })
+  afterEach(() => fixture.cleanup())
 
   /*
    * The splash covers the masthead while the catalog is in flight, so reaching the selector during
@@ -318,6 +334,8 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    * catalog-validated load landed.
    */
   it('keeps a faction picked during the wait, and applies it exactly once when the child lands', async () => {
+    const { container, landTheCatalog, pick, renderHome, selectedFactionName, storage, storedDocument } =
+      fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
     storage.setItem(
       CLOUD_ARMY_LINK_STORAGE_KEY,
@@ -353,6 +371,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
   })
 
   it('keeps Play mode chosen during the wait', async () => {
+    const { container, landTheCatalog, renderHome, storage, togglePlayMode } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
 
     await renderHome()
@@ -379,6 +398,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    * no row before the bindings, a live one after.
    */
   it('shows no Army of Renown row during the wait and a complete one at the reveal', async () => {
+    const { armyOfRenownRow, container, landTheCatalog, renderHome, storage } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
 
     await renderHome()
@@ -397,6 +417,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
   })
 
   it('shows no Army of Renown row before or after, for a faction that has none', async () => {
+    const { armyOfRenownRow, landTheCatalog, renderHome, storage } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(rowNamed('Seraphon').id, 'Seraphon'))
 
     await renderHome()
@@ -413,6 +434,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    * is still the one most likely to surprise, so the row's absence at the reveal is pinned here.
    */
   it('lands with no Army of Renown row for a context where the faction has none', async () => {
+    const { armyOfRenownRow, container, landTheCatalog, renderHome, selectedFactionName, storage } = fixture
     const rulesContextId = contextWithoutArmiesOfRenown(FLESH_EATER_COURTS)
     expect(rulesContextId).not.toBe(defaults.rulesContextId)
     storage.setItem(
@@ -436,6 +458,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    * whenever that chunk failed to arrive after the child had.
    */
   it('holds an incoming share id in the shell until the share modal takes responsibility for it', async () => {
+    const { act, container, landTheCatalog, renderHome, session } = fixture
     session.setItem(PENDING_SHARE_STORAGE_KEY, 'a'.repeat(32))
 
     await renderHome()
@@ -471,6 +494,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    * selector with no way back. The army was fine; only the modal was missing.
    */
   it('keeps the army and the masthead alive when a modal chunk fails', async () => {
+    const { act, container, landTheCatalog, renderHome, storage } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
 
     await renderHome()
@@ -498,6 +522,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    * lose the id. The key stays in session storage, where the reload the alert asks for finds it.
    */
   it('keeps the share id recoverable when the share modal chunk fails after the child arrived', async () => {
+    const { container, landTheCatalog, renderHome, session } = fixture
     shareModalGate.broken = true
     session.setItem(PENDING_SHARE_STORAGE_KEY, 'a'.repeat(32))
 
@@ -517,6 +542,18 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    * through the shell, so it is the one worth driving end to end.
    */
   it('drives faction, mode, and Army of Renown from the shell once the child is mounted', async () => {
+    const {
+      armyOfRenownRow,
+      container,
+      landTheCatalog,
+      openMenu,
+      pick,
+      renderHome,
+      selectedFactionName,
+      storage,
+      storedDocument,
+      togglePlayMode,
+    } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
 
     await renderHome()
@@ -551,6 +588,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    * never reported. One region, owned by the shell, alive across both halves, only ever updated.
    */
   it('announces the pending state and then the handoff, through one region that never remounts', async () => {
+    const { container, landTheCatalog, renderHome } = fixture
     const region = container.querySelector('[role="status"]')
     expect(region).toBeNull()
 
@@ -575,6 +613,7 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    * live Army of Renown select whose handler resolves against a catalog nothing is rendering.
    */
   it('withdraws the skip link and the live Army of Renown control when the child fails after mounting', async () => {
+    const { act, container, landTheCatalog, renderHome, storage } = fixture
     storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades'))
 
     await renderHome()
