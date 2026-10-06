@@ -327,7 +327,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
   it('loads the reviewed config and rejects stale repository paths', () => {
     expect(readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData.baselineSha).toBe(
-      'fe6b6bbf6876b66991a903fad2705ceb4b279793'
+      'b462cea0011be20e890afa9553827fe3d17df997'
     )
 
     const config = JSON.parse(
@@ -337,9 +337,11 @@ describe('AoS 4 Rules Radar comparison', () => {
     expect(() => validateRulesRadarConfig(config, { rootPath: process.cwd() })).toThrow(/stale or missing/)
   })
 
-  it('clears the reviewed BSData range while the newer unreviewed commit still alarms', () => {
-    // Reviewed 2026-10-06 (#1757): 17bcc13a → fe6b6bbf changed only Lores.cat. The newer b462cea0
-    // (Cities of Sigmar allies, Daughters of Khaine library) is not reviewed and must still surface.
+  it('clears the reviewed BSData range while any later commit still alarms', () => {
+    // Reviewed 2026-10-06 (#1757): fe6b6bbf → b462cea0 dropped an unreferenced Path to Glory
+    // manifestation-lore group from the Cities of Sigmar allies catalogue and moved the Shrine of
+    // Dark Tribute base size to the 130mm the runtime already ships. Nothing after b462cea0 is
+    // reviewed, so a later head must still surface.
     const { baselineSha } = readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData
     const observation = {
       schemaVersion: 1 as const,
@@ -351,30 +353,25 @@ describe('AoS 4 Rules Radar comparison', () => {
 
     const reviewed = compareBsDataObservation({
       ...observation,
-      headSha: 'fe6b6bbf6876b66991a903fad2705ceb4b279793',
+      headSha: 'b462cea0011be20e890afa9553827fe3d17df997',
       comparisonStatus: 'identical',
       changedPaths: [],
     })
     expect(reviewed.events).toEqual([])
 
-    const newer = compareBsDataObservation({
+    const later = compareBsDataObservation({
       ...observation,
-      headSha: 'b462cea0011be20e890afa9553827fe3d17df997',
+      headSha: 'c'.repeat(40),
       comparisonStatus: 'ahead',
-      changedPaths: ['Cities of Sigmar - Allies of the Free Cities.cat', 'Daughters of Khaine - Library.cat'],
+      changedPaths: ['Daughters of Khaine - Library.cat'],
     })
-    expect(newer.events).toHaveLength(1)
-    expect(newer.events[0]).toMatchObject({
+    expect(later.events).toHaveLength(1)
+    expect(later.events[0]).toMatchObject({
       class: 'material',
       changeKind: 'community-catalog-changed',
-      baselineFingerprint: 'fe6b6bbf6876b66991a903fad2705ceb4b279793',
-      observedFingerprint: 'b462cea0011be20e890afa9553827fe3d17df997',
-      evidence: {
-        changedPaths: [
-          'Cities of Sigmar - Allies of the Free Cities.cat',
-          'Daughters of Khaine - Library.cat',
-        ],
-      },
+      baselineFingerprint: 'b462cea0011be20e890afa9553827fe3d17df997',
+      observedFingerprint: 'c'.repeat(40),
+      evidence: { changedPaths: ['Daughters of Khaine - Library.cat'] },
     })
   })
 
