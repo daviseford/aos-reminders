@@ -10,8 +10,8 @@
   "bsData": {
     "repository": "BSData/age-of-sigmar-4th",
     "branch": "main",
-    "baselineSha": "fe6b6bbf6876b66991a903fad2705ceb4b279793",
-    "baselineReviewedAt": "2026-10-06T14:08:00.000Z"
+    "baselineSha": "b462cea0011be20e890afa9553827fe3d17df997",
+    "baselineReviewedAt": "2026-10-06T16:44:00.000Z"
   },
   "github": {
     "repository": "daviseford/aos-reminders",
