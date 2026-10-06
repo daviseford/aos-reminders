@@ -327,7 +327,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
   it('loads the reviewed config and rejects stale repository paths', () => {
     expect(readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData.baselineSha).toBe(
-      '17bcc13a62ed38ef3611468898c1169d3676ff1c'
+      'fe6b6bbf6876b66991a903fad2705ceb4b279793'
     )
 
     const config = JSON.parse(
@@ -335,6 +335,47 @@ describe('AoS 4 Rules Radar comparison', () => {
     )
     config.acceptedManifestPath = 'data/aos4/manifests/missing.json'
     expect(() => validateRulesRadarConfig(config, { rootPath: process.cwd() })).toThrow(/stale or missing/)
+  })
+
+  it('clears the reviewed BSData range while the newer unreviewed commit still alarms', () => {
+    // Reviewed 2026-10-06 (#1757): 17bcc13a → fe6b6bbf changed only Lores.cat. The newer b462cea0
+    // (Cities of Sigmar allies, Daughters of Khaine library) is not reviewed and must still surface.
+    const { baselineSha } = readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData
+    const observation = {
+      schemaVersion: 1 as const,
+      source: 'bsdata' as const,
+      observedAt,
+      repository: 'BSData/age-of-sigmar-4th',
+      baselineSha,
+    }
+
+    const reviewed = compareBsDataObservation({
+      ...observation,
+      headSha: 'fe6b6bbf6876b66991a903fad2705ceb4b279793',
+      comparisonStatus: 'identical',
+      changedPaths: [],
+    })
+    expect(reviewed.events).toEqual([])
+
+    const newer = compareBsDataObservation({
+      ...observation,
+      headSha: 'b462cea0011be20e890afa9553827fe3d17df997',
+      comparisonStatus: 'ahead',
+      changedPaths: ['Cities of Sigmar - Allies of the Free Cities.cat', 'Daughters of Khaine - Library.cat'],
+    })
+    expect(newer.events).toHaveLength(1)
+    expect(newer.events[0]).toMatchObject({
+      class: 'material',
+      changeKind: 'community-catalog-changed',
+      baselineFingerprint: 'fe6b6bbf6876b66991a903fad2705ceb4b279793',
+      observedFingerprint: 'b462cea0011be20e890afa9553827fe3d17df997',
+      evidence: {
+        changedPaths: [
+          'Cities of Sigmar - Allies of the Free Cities.cat',
+          'Daughters of Khaine - Library.cat',
+        ],
+      },
+    })
   })
 
   it('compares against the current accepted snapshot and reviewed classifications', () => {
