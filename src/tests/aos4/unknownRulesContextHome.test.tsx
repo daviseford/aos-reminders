@@ -11,8 +11,7 @@ import { AppStatusProvider } from 'context/useAppStatus'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import { MemoryRouter } from 'react-router'
-import { act } from 'react'
-import { render, unmountComponentAtNode } from 'tests/support/reactTestHelpers'
+import { createTestRoot, render } from 'tests/support/reactTestHelpers'
 import { MemoryStorage } from 'tests/support/memoryStorage'
 import { writeCloudArmyLink } from 'utils/cloudArmyLink'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -87,59 +86,85 @@ const futureSerialized = JSON.stringify({
 })
 
 describe('a stored army that uses a ruleset this release does not carry', () => {
-  let container: HTMLDivElement
-
   const flush = () => new Promise(resolve => setTimeout(resolve, 0))
 
-  const renderHome = async () => {
-    await act(async () => {
-      render(
-        <AppStatusProvider>
-          <SubscriptionProvider>
-            <ThemeProvider>
-              <MemoryRouter>
-                <Home />
-              </MemoryRouter>
-            </ThemeProvider>
-          </SubscriptionProvider>
-        </AppStatusProvider>,
-        container
+  /*
+   * Everything one test drives, bound when that test starts: a test that times out keeps running,
+   * and must not reach the next test's screen through describe-scoped state (#2076).
+   */
+  const mountFixture = (signal: AbortSignal) => {
+    const { container, act, cleanup } = createTestRoot(signal)
+    Object.defineProperty(window, 'localStorage', { configurable: true, value: new MemoryStorage() })
+    Object.defineProperty(window, 'sessionStorage', { configurable: true, value: new MemoryStorage() })
+
+    const renderHome = async () => {
+      await act(async () => {
+        render(
+          <AppStatusProvider>
+            <SubscriptionProvider>
+              <ThemeProvider>
+                <MemoryRouter>
+                  <Home />
+                </MemoryRouter>
+              </ThemeProvider>
+            </SubscriptionProvider>
+          </AppStatusProvider>,
+          container
+        )
+        await flush()
+      })
+      await act(async () => {
+        await flush()
+      })
+    }
+
+    const pickFaction = async (name: string) => {
+      const input = container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')
+      expect(input).not.toBeNull()
+      await act(async () => {
+        input!.dispatchEvent(
+          new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
+        )
+        await flush()
+      })
+      const option = Array.from(container.querySelectorAll('[role="option"]')).find(
+        candidate => candidate.textContent?.trim() === name
       )
-      await flush()
-    })
-    await act(async () => {
-      await flush()
-    })
+      expect(option, `no faction option "${name}"`).not.toBeUndefined()
+      await act(async () => {
+        option!.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))
+        await flush()
+      })
+    }
+
+    const clickUpdateArmy = async () => {
+      const button = Array.from(container.querySelectorAll('button')).find(
+        candidate => candidate.textContent?.trim() === 'Update Army'
+      )
+      expect(button, 'Update Army is not offered').not.toBeUndefined()
+      await act(async () => {
+        button!.click()
+        await flush()
+      })
+      await act(async () => {
+        await flush()
+      })
+    }
+
+    const updateNotice = () =>
+      Array.from(container.querySelectorAll('[role="alert"]')).find(alert =>
+        alert.textContent?.includes('Your saved army uses rules')
+      )
+
+    const buttonLabels = () =>
+      Array.from(container.querySelectorAll('button')).map(button => button.textContent?.trim())
+
+    return { act, buttonLabels, cleanup, clickUpdateArmy, container, pickFaction, renderHome, updateNotice }
   }
 
-  const pickFaction = async (name: string) => {
-    const input = container.querySelector<HTMLInputElement>('input[aria-label="Faction"]')
-    expect(input).not.toBeNull()
-    await act(async () => {
-      input!.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
-      )
-      await flush()
-    })
-    const option = Array.from(container.querySelectorAll('[role="option"]')).find(
-      candidate => candidate.textContent?.trim() === name
-    )
-    expect(option, `no faction option "${name}"`).not.toBeUndefined()
-    await act(async () => {
-      option!.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))
-      await flush()
-    })
-  }
+  let fixture: ReturnType<typeof mountFixture>
 
-  const updateNotice = () =>
-    Array.from(container.querySelectorAll('[role="alert"]')).find(alert =>
-      alert.textContent?.includes('Your saved army uses rules')
-    )
-
-  const buttonLabels = () =>
-    Array.from(container.querySelectorAll('button')).map(button => button.textContent?.trim())
-
-  beforeEach(() => {
+  beforeEach(({ signal }) => {
     auth.isAuthenticated = true
     auth.getAccessTokenSilently.mockReset()
     auth.getAccessTokenSilently.mockResolvedValue('access-token')
@@ -150,20 +175,13 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
     armyApi.listArmies.mockResolvedValue([])
     getSubscription.mockReset()
     getSubscription.mockRejectedValue({ status: 404 })
-    Object.defineProperty(window, 'localStorage', { configurable: true, value: new MemoryStorage() })
-    Object.defineProperty(window, 'sessionStorage', { configurable: true, value: new MemoryStorage() })
-    container = document.createElement('div')
-    document.body.appendChild(container)
+    fixture = mountFixture(signal)
   })
 
-  afterEach(() => {
-    act(() => {
-      unmountComponentAtNode(container)
-    })
-    container.remove()
-  })
+  afterEach(() => fixture.cleanup())
 
   it('keeps the stored army untouched while the stand-in is edited, and says why', async () => {
+    const { container, pickFaction, renderHome, updateNotice } = fixture
     window.localStorage.setItem(AOS4_ARMY_STORAGE_KEY, futureSerialized)
 
     await renderHome()
@@ -186,6 +204,7 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
   })
 
   it('neither uses nor clears the cloud link that describes the stored army', async () => {
+    const { buttonLabels, container, pickFaction, renderHome } = fixture
     window.localStorage.setItem(AOS4_ARMY_STORAGE_KEY, futureSerialized)
     writeCloudArmyLink({ id: LINKED_ID, name: 'Newer Release List', savedSignature: futureSerialized })
     const storedLink = window.localStorage.getItem(LINK_KEY)
@@ -201,6 +220,7 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
   })
 
   it('does not offer Update Army against a linked cloud army a newer release saved', async () => {
+    const { buttonLabels, renderHome, updateNotice } = fixture
     const localDocument = { ...createDefaultAos4ArmyDocument(), name: 'Tourney List' }
     saveAos4ArmyDocument(window.localStorage, localDocument)
     writeCloudArmyLink({ id: LINKED_ID, name: 'Tourney List' })
@@ -226,6 +246,7 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
   })
 
   it('still resets a corrupt stored army and saves the reset, as before', async () => {
+    const { renderHome, updateNotice } = fixture
     window.localStorage.setItem(AOS4_ARMY_STORAGE_KEY, JSON.stringify({ schemaVersion: 4 }))
 
     await renderHome()
@@ -237,6 +258,7 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
   })
 
   it('still saves edits to a known stored army, as before', async () => {
+    const { pickFaction, renderHome, updateNotice } = fixture
     saveAos4ArmyDocument(window.localStorage, createDefaultAos4ArmyDocument())
 
     await renderHome()
@@ -272,26 +294,13 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
       return { promise, reject, resolve }
     }
 
-    const clickUpdateArmy = async () => {
-      const button = Array.from(container.querySelectorAll('button')).find(
-        candidate => candidate.textContent?.trim() === 'Update Army'
-      )
-      expect(button, 'Update Army is not offered').not.toBeUndefined()
-      await act(async () => {
-        button!.click()
-        await flush()
-      })
-      await act(async () => {
-        await flush()
-      })
-    }
-
     beforeEach(() => {
       getSubscription.mockResolvedValue({ body: { active: true, subscribed: true } })
       armyApi.updateArmy.mockResolvedValue({ id: LINKED_ID, updatedAt: 3, document: localDocument })
     })
 
     it('is withheld while the list is loading, then offered once it confirms the record', async () => {
+      const { act, buttonLabels, clickUpdateArmy, container, renderHome } = fixture
       seedChangedLink()
       const listing = deferred<unknown[]>()
       armyApi.listArmies.mockReturnValue(listing.promise)
@@ -319,6 +328,7 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
     })
 
     it('is never offered when the list loads and marks the record as needing an update', async () => {
+      const { act, buttonLabels, renderHome } = fixture
       seedChangedLink()
       const listing = deferred<unknown[]>()
       armyApi.listArmies.mockReturnValue(listing.promise)
@@ -342,6 +352,7 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
     })
 
     it('is never offered after the list fails to load, and the link is kept', async () => {
+      const { act, buttonLabels, container, renderHome } = fixture
       seedChangedLink()
       const storedLink = window.localStorage.getItem(LINK_KEY)
       const listing = deferred<unknown[]>()
@@ -365,6 +376,7 @@ describe('a stored army that uses a ruleset this release does not carry', () => 
     })
 
     it('is withheld while signed out, where the list cannot load', async () => {
+      const { buttonLabels, renderHome } = fixture
       auth.isAuthenticated = false
       seedChangedLink()
 
