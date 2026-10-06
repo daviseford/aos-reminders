@@ -8,10 +8,11 @@ import DarkTheme from 'theme/dark'
 import LightTheme from 'theme/light'
 import { GiftedSubscriptionPlans } from 'utils/plans'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { SubscriptionApi } from '../../api/subscriptionApi'
+import { SubscriptionApi, SubscriptionApiError } from '../../api/subscriptionApi'
 
 const analytics = vi.hoisted(() => ({
   logBeginCheckout: vi.fn(),
+  logCheckoutError: vi.fn(),
   logClick: vi.fn(),
 }))
 
@@ -29,7 +30,8 @@ const themeContext = vi.hoisted(() => ({
 
 vi.mock('utils/analytics', () => analytics)
 
-vi.mock('utils/authToken', () => ({
+vi.mock('utils/authToken', async importOriginal => ({
+  ...(await importOriginal<typeof import('utils/authToken')>()),
   useApiAccessToken: () => token.get,
 }))
 
@@ -131,6 +133,7 @@ describe('gift subscription checkout', () => {
       })
       expect(session).toHaveBeenCalledWith({ kind: 'gift', plan: '1 Month', quantity: 3 }, 'audience-token')
       expect(assign).toHaveBeenCalledWith('https://checkout.stripe.com/c/pay/cs_test_gift')
+      expect(analytics.logCheckoutError).not.toHaveBeenCalled()
       // The page is unloading; a re-enabled button would read as failure.
       expect(container.querySelector<HTMLButtonElement>('tbody button')?.disabled).toBe(true)
     } finally {
@@ -165,6 +168,75 @@ describe('gift subscription checkout', () => {
     expect(alert!.textContent).toContain('We could not open the checkout page')
     // The control comes back rather than stranding the buyer on a dead button.
     expect(container.querySelector<HTMLButtonElement>('tbody button')?.disabled).toBe(false)
+  })
+
+  /*
+   * A gift that cannot open its checkout is reported as a gift, with the stage that failed and the
+   * quantity being bought, and never with the error's own text.
+   */
+  it('reports a failed gift session as a stage-tagged checkout_error', async () => {
+    vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockRejectedValue(
+      new SubscriptionApiError('Upstream said no for gifter@example.com', 503)
+    )
+    vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+    await act(async () => {
+      render(<GiftSubscriptions />, container)
+    })
+
+    const quantity = container.querySelector<HTMLInputElement>(
+      'input[aria-label="Quantity of 1 Month gifts"]'
+    )
+    await act(async () => {
+      quantity!.value = '2'
+      Simulate.change(quantity!)
+    })
+    await act(async () => {
+      container.querySelector('tbody button')!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    expect(analytics.logCheckoutError).toHaveBeenCalledTimes(1)
+    expect(analytics.logCheckoutError).toHaveBeenCalledWith({
+      errorType: 'http_5xx',
+      items: [
+        {
+          item_category: 'gift_subscription',
+          item_id: 'gift-subscription-1-month',
+          item_name: '1 Month',
+          price: 0.99,
+          quantity: 2,
+        },
+      ],
+      kind: 'gift_subscription',
+      provider: 'stripe',
+      stage: 'session_create',
+    })
+    expect(JSON.stringify(analytics.logCheckoutError.mock.calls)).not.toContain('example.com')
+    expect(container.querySelector('[role="alert"]')!.textContent).toContain(
+      'We could not open the checkout page'
+    )
+  })
+
+  it('reports a gift session answered without a URL as missing_url', async () => {
+    vi.spyOn(SubscriptionApi, 'createCheckoutSession').mockResolvedValue({ body: {} })
+    vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+    await act(async () => {
+      render(<GiftSubscriptions />, container)
+    })
+    await act(async () => {
+      container.querySelector('tbody button')!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+
+    expect(analytics.logCheckoutError).toHaveBeenCalledWith(
+      expect.objectContaining({
+        errorType: 'missing_url',
+        kind: 'gift_subscription',
+        stage: 'session_response',
+      })
+    )
   })
 
   it('uses dark-theme surfaces for the purchase table and quantity fields', async () => {

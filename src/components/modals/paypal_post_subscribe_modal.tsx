@@ -12,6 +12,11 @@ import { useSetInterval } from 'utils/hooks/useInterval'
 interface IModalComponentProps {
   modalIsOpen: boolean
   closeModal: () => void
+  /**
+   * Called once when the modal stops waiting without an active subscription. PayPal approved the
+   * subscription; only our confirmation of it is missing, so this is not a payment failure.
+   */
+  onConfirmationTimeout?: () => void
   retryGrant?: () => Promise<unknown>
 }
 
@@ -27,7 +32,12 @@ const POLL_INTERVAL_MS = 1000
 const POLL_TIMEOUT_MS = 90 * 1000
 const MAX_ATTEMPTS = POLL_TIMEOUT_MS / POLL_INTERVAL_MS
 
-export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen, retryGrant }: IModalComponentProps) => {
+export const PaypalPostSubscribeModal = ({
+  closeModal,
+  modalIsOpen,
+  onConfirmationTimeout,
+  retryGrant,
+}: IModalComponentProps) => {
   const { isActive, subscriptionLoading, getSubscription } = useSubscription()
   const { theme } = useTheme()
   const [interval, setInterval] = useState<number | null>(POLL_INTERVAL_MS)
@@ -44,6 +54,7 @@ export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen, retryGrant }
     }
     if (attempts >= MAX_ATTEMPTS) {
       setInterval(null)
+      onConfirmationTimeout?.()
       return
     }
     setAttempts(current => current + 1)

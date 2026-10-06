@@ -44,6 +44,49 @@ interface PurchaseEvent extends CheckoutEvent {
   transactionId: string
 }
 
+/**
+ * Where a checkout stopped before the buyer reached the provider, or before we confirmed it.
+ *
+ * - `auth_token`: no API access token, usually an expired sign-in
+ * - `session_create`: the checkout-session request failed
+ * - `session_response`: the API answered without a hosted-checkout URL
+ * - `redirect`: navigating to the hosted checkout threw
+ * - `sdk_load`: the PayPal SDK script did not load (the PayPal button cannot appear)
+ * - `sdk_render`: a PayPal button failed to render
+ * - `sdk_checkout`: the PayPal SDK reported an error inside its own checkout window
+ * - `activation_confirmation`: PayPal approved, but our account activation was not confirmed before
+ *   the confirmation dialog stopped waiting. This says nothing about whether the payment succeeded.
+ */
+export type CheckoutErrorStage =
+  | 'auth_token'
+  | 'session_create'
+  | 'session_response'
+  | 'redirect'
+  | 'sdk_load'
+  | 'sdk_render'
+  | 'sdk_checkout'
+  | 'activation_confirmation'
+
+export type CheckoutErrorType =
+  | 'auth_required'
+  | 'network'
+  | 'unauthorized'
+  | 'http_4xx'
+  | 'http_5xx'
+  | 'missing_url'
+  | 'navigation_failed'
+  | 'provider_error'
+  | 'timeout'
+  | 'unknown'
+
+interface CheckoutErrorEvent {
+  errorType: CheckoutErrorType
+  items?: AnalyticsCommerceItem[]
+  kind: AnalyticsCommerceItem['item_category']
+  provider: CheckoutEvent['provider']
+  stage: CheckoutErrorStage
+}
+
 type AnalyticsParameters = Record<string, unknown>
 
 const currentEnvironment = (): AnalyticsEnvironment => ({
@@ -191,6 +234,25 @@ export const logCheckoutCancelled = ({ items, provider }: CheckoutEvent): void =
     payment_provider: provider,
     value: commerceValue(items),
   })
+}
+
+/*
+ * Every parameter is a closed vocabulary: no exception message, URL, token, account or provider ID
+ * can reach GA4 through this event. It is reported from catch blocks on the payment path, so it
+ * swallows its own failures rather than turn a recoverable checkout error into an unhandled one.
+ */
+export const logCheckoutError = ({ errorType, items, kind, provider, stage }: CheckoutErrorEvent): void => {
+  try {
+    logToGA('checkout_error', {
+      checkout_error_type: errorType,
+      checkout_kind: kind,
+      checkout_stage: stage,
+      payment_provider: provider,
+      ...(items ? { items } : {}),
+    })
+  } catch {
+    // Analytics must never interrupt a checkout.
+  }
 }
 
 const commerceValue = (items: AnalyticsCommerceItem[]): number =>

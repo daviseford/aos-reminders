@@ -9,8 +9,9 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaCheck, FaGift, FaRegSmileBeam } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
 import { IGiftSubscription } from 'types/subscription'
-import { logBeginCheckout, logClick } from 'utils/analytics'
+import { type CheckoutErrorStage, logBeginCheckout, logCheckoutError, logClick } from 'utils/analytics'
 import { useApiAccessToken } from 'utils/authToken'
+import { checkoutErrorType } from 'utils/checkoutError'
 import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import {
@@ -224,18 +225,29 @@ const PlanComponent = ({ supportPlan }: { supportPlan: IGiftedSubscriptionPlans 
      * A failed hand-off is the one place it must come back off, because there is no fallback
      * checkout any more: the alert and a live button are all the buyer gets.
      */
+    let stage: CheckoutErrorStage = 'auth_token'
     try {
       const token = await getAccessToken()
+      stage = 'session_create'
       const { body } = await SubscriptionApi.createCheckoutSession(
         { kind: 'gift', plan: supportPlan.title, quantity },
         token
       )
+      stage = 'session_response'
       if (!body?.url) throw new Error('The checkout session endpoint answered without a URL.')
+      stage = 'redirect'
       window.location.assign(body.url)
     } catch (error) {
       console.error(error)
       setCheckoutError('We could not open the checkout page. Please try again.')
       setIsRedirecting(false)
+      logCheckoutError({
+        errorType: checkoutErrorType(stage, error),
+        items: [toGiftSubscriptionAnalyticsItem(supportPlan, quantity)],
+        kind: 'gift_subscription',
+        provider: 'stripe',
+        stage,
+      })
     }
   }
 
