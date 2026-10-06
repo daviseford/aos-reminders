@@ -152,7 +152,7 @@ describe('established account routes', () => {
       'Import current army lists from the AoS app, Listbot 4.0, and New Recruit.'
     )
     expect(container.textContent).toContain(
-      'save, load, rename, update, and delete your AoS 4 armies, on every device you sign in on.'
+      'save, load, rename, update, and delete your Age of Sigmar armies, on every device you sign in on.'
     )
     expect(container.textContent).toContain(
       'send a link a friend can open to take their own copy of your list.'

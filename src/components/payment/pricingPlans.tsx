@@ -10,8 +10,17 @@ import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
 import { FaStripe } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
-import { logBeginCheckout, logCheckoutCancelled, logClick, logPurchase } from 'utils/analytics'
+import {
+  type CheckoutErrorStage,
+  type CheckoutErrorType,
+  logBeginCheckout,
+  logCheckoutCancelled,
+  logCheckoutError,
+  logClick,
+  logPurchase,
+} from 'utils/analytics'
 import { useApiAccessToken } from 'utils/authToken'
+import { checkoutErrorType } from 'utils/checkoutError'
 import { isDev } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import {
@@ -23,12 +32,25 @@ import {
 } from 'utils/plans'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
+/*
+ * Once per failed SDK script, which the provider adds each time the plans mount without PayPal
+ * loaded. Without the SDK no PayPal button can appear, so this reports a rail that was unavailable
+ * rather than a checkout that was attempted.
+ */
+const logPaypalSdkLoadError = () =>
+  logCheckoutError({
+    errorType: 'provider_error',
+    kind: 'subscription',
+    provider: 'paypal',
+    stage: 'sdk_load',
+  })
+
 export const PricingPlans = () => {
   const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)
   const bestValue = bestValuePlan()
 
   return (
-    <PaypalProvider>
+    <PaypalProvider onLoadError={logPaypalSdkLoadError}>
       <div className="container">
         <PlansHeader />
         {/*
@@ -135,18 +157,29 @@ export const PlanComponent = (props: IPlanProps) => {
      * A failed hand-off is the one place it must come back off, because there is no fallback
      * checkout any more: the alert and a live button are all the visitor gets.
      */
+    let stage: CheckoutErrorStage = 'auth_token'
     try {
       const token = await getAccessToken()
+      stage = 'session_create'
       const { body } = await SubscriptionApi.createCheckoutSession(
         { kind: 'subscription', plan: supportPlan.title },
         token
       )
+      stage = 'session_response'
       if (!body?.url) throw new Error('The checkout session endpoint answered without a URL.')
+      stage = 'redirect'
       window.location.assign(body.url)
     } catch (error) {
       console.error(error)
       setCheckoutError('We could not open the checkout page. Please try again, or use PayPal instead.')
       setIsRedirecting(false)
+      logCheckoutError({
+        errorType: checkoutErrorType(stage, error),
+        items: [toSubscriptionAnalyticsItem(supportPlan)],
+        kind: 'subscription',
+        provider: 'stripe',
+        stage,
+      })
     }
   }
 
@@ -349,6 +382,9 @@ const PayPalComponent = (props: IPlanProps) => {
     props.setPaypalModalIsOpen(false)
   }
 
+  const logPaypalError = (stage: CheckoutErrorStage, errorType: CheckoutErrorType) =>
+    logCheckoutError({ errorType, items: [analyticsItem], kind: 'subscription', provider: 'paypal', stage })
+
   return (
     /*
      * A flex item beside the Stripe button now, so it carries PaymentChoiceOption rather than any
@@ -364,6 +400,8 @@ const PayPalComponent = (props: IPlanProps) => {
         <PayPalButton
           onClick={() => logBeginCheckout({ items: [analyticsItem], provider: 'paypal' })}
           onCancel={() => logCheckoutCancelled({ items: [analyticsItem], provider: 'paypal' })}
+          onError={() => logPaypalError('sdk_checkout', 'provider_error')}
+          onRenderError={() => logPaypalError('sdk_render', 'provider_error')}
           onSuccess={handleSuccess}
           planId={planId}
           planTitle={title}
@@ -373,6 +411,7 @@ const PayPalComponent = (props: IPlanProps) => {
         <PaypalPostSubscribeModal
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
+          onConfirmationTimeout={() => logPaypalError('activation_confirmation', 'timeout')}
           retryGrant={requestGrant}
         />
       )}

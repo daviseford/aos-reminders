@@ -16,9 +16,20 @@ const DEFAULT_OPTS = {
 
 const PaypalContext = React.createContext<IPaypalStatusProvider | void>(undefined)
 
-const PaypalProvider = ({ children }: React.PropsWithChildren<object>) => {
+interface IPaypalProviderProps {
+  /** Called once if the SDK script fails to load, which leaves no PayPal button to render. */
+  onLoadError?: () => void
+}
+
+const PaypalProvider = ({ children, onLoadError }: React.PropsWithChildren<IPaypalProviderProps>) => {
   const [paypalIsReady, setIsPaypalReady] = useState(false)
   const isMounted = useRef(false)
+  const onLoadErrorRef = useRef(onLoadError)
+
+  // Read through a ref so a new callback identity does not reload the SDK script.
+  useEffect(() => {
+    onLoadErrorRef.current = onLoadError
+  })
 
   useEffect(() => {
     isMounted.current = true
@@ -40,6 +51,7 @@ const PaypalProvider = ({ children }: React.PropsWithChildren<object>) => {
     script.onerror = () => {
       if (isMounted.current) setIsPaypalReady(false)
       console.error('The Paypal SDK could not be loaded.')
+      onLoadErrorRef.current?.()
     }
     document.body?.appendChild(script)
 
