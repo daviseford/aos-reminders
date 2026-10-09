@@ -74,7 +74,6 @@ export const SubscriptionPlans: ISubscriptionPlan[] = [
 ]
 
 export const SUBSCRIPTION_PLANS = SubscriptionPlans
-export type SubscriptionPlan = ISubscriptionPlan
 
 export const MAX_GIFT_QUANTITY = 99
 
