@@ -1,4 +1,3 @@
-import qs from 'qs'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { PAYPAL_CLIENT_ID } from 'utils/env'
 
@@ -11,7 +10,7 @@ const DEFAULT_OPTS = {
   'disable-funding': 'credit,card',
   components: 'buttons',
   currency: 'USD',
-  vault: true,
+  vault: 'true',
 }
 
 const PaypalContext = React.createContext<IPaypalStatusProvider | void>(undefined)
@@ -43,7 +42,7 @@ const PaypalProvider = ({ children, onLoadError }: React.PropsWithChildren<IPayp
 
     const script = document.createElement('script')
     script.type = 'text/javascript'
-    script.src = `https://www.paypal.com/sdk/js?${qs.stringify(DEFAULT_OPTS)}`
+    script.src = `https://www.paypal.com/sdk/js?${new URLSearchParams(DEFAULT_OPTS)}`
     script.async = true
     script.onload = () => {
       if (isMounted.current) setIsPaypalReady(true)

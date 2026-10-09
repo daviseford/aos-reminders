@@ -23,5 +23,3 @@ export interface Subscription {
   subscriptionStatus?: 'active' | 'canceled' | 'pending_activation' | 'temporary_grant'
   theme?: TThemeType
 }
-
-export type ISubscription = Subscription

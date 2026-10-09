@@ -65,6 +65,13 @@ export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<obj
    * feature exists to prevent.
    */
   const collectionGenerationRef = useRef(0)
+  /*
+   * The generation of the newest list request, which alone may clear `collectionLoading`. Mutations
+   * supersede the list without starting one, so they leave this alone and the pending load still
+   * clears its own flag. Without it, a superseded load finishing first stops the spinner while the
+   * newer one runs, and Saved Armies shows "No armies saved yet." to a player who has some.
+   */
+  const loadingGenerationRef = useRef(0)
 
   const supersedeCollection = useCallback(() => {
     collectionGenerationRef.current += 1
@@ -91,6 +98,7 @@ export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<obj
         return
       }
       const generation = supersedeCollection()
+      loadingGenerationRef.current = generation
       setCollectionLoading(true)
       if (reportErrors) setCollectionError(null)
       try {
@@ -106,7 +114,7 @@ export const ArmyCollectionProvider = ({ children }: React.PropsWithChildren<obj
         // `collectionLoaded` is deliberately not cleared: a failed refresh leaves the last good list
         // in place, and that list is still a real answer. Only signing out takes the answer away.
       } finally {
-        setCollectionLoading(false)
+        if (loadingGenerationRef.current === generation) setCollectionLoading(false)
       }
     },
     [getAccessToken, isAuthenticated, supersedeCollection]

@@ -1,5 +1,13 @@
 const REDEMPTION_KEY = 'redeem'
 
+/** The gift in a `/redeem?redeem=<giftId>&referrer=<userId>` link. A repeated key is rejected. */
+export const readRedemptionQuery = (search: string): { giftId: string; userId: string } | null => {
+  const params = new URLSearchParams(search)
+  const redeem = params.getAll('redeem')
+  const referrer = params.getAll('referrer')
+  return redeem.length === 1 && referrer.length === 1 ? { giftId: redeem[0], userId: referrer[0] } : null
+}
+
 export const RedemptionStorage = {
   clear: () => localStorage.removeItem(REDEMPTION_KEY),
   get: (): { giftId: string; userId: string } | null => {

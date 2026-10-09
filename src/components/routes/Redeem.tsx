@@ -6,28 +6,21 @@ import Contact from 'components/page/contact'
 import { RedemptionError, RedemptionLogin, RedemptionSuccess } from 'components/page/redemption'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
-import { isString } from 'lodash'
-import qs from 'qs'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { logAccountAction } from 'utils/analytics'
 import { useApiAccessToken } from 'utils/authToken'
 import useLogin from 'utils/hooks/useLogin'
-import { RedemptionStorage } from 'utils/redemptionStorage'
+import { readRedemptionQuery, RedemptionStorage } from 'utils/redemptionStorage'
 import { SubscriptionApi } from '../../api/subscriptionApi'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
-const queryRedemption = (): { giftId: string; userId: string } | null => {
-  const cached = RedemptionStorage.get()
-  if (cached) return cached
-
-  const { redeem, referrer } = qs.parse(window.location.search, { ignoreQueryPrefix: true })
-  return isString(redeem) && isString(referrer) ? { giftId: redeem, userId: referrer } : null
-}
+const queryRedemption = (): { giftId: string; userId: string } | null =>
+  RedemptionStorage.get() ?? readRedemptionQuery(window.location.search)
 
 const cacheQueryRedemption = () => {
-  const { redeem, referrer } = qs.parse(window.location.search, { ignoreQueryPrefix: true })
-  if (isString(redeem) && isString(referrer)) RedemptionStorage.set(redeem, referrer)
+  const query = readRedemptionQuery(window.location.search)
+  if (query) RedemptionStorage.set(query.giftId, query.userId)
 }
 
 const Redeem = () => {

@@ -41,6 +41,7 @@ const Probe = () => {
     armies,
     collectionError,
     collectionLoaded,
+    collectionLoading,
     createArmy,
     deleteArmy,
     ensureArmiesLoaded,
@@ -52,6 +53,7 @@ const Probe = () => {
       <span data-testid="armies">{armies.map(army => army.id).join(',')}</span>
       <span data-testid="error">{collectionError}</span>
       <span data-testid="loaded">{String(collectionLoaded)}</span>
+      <span data-testid="loading">{String(collectionLoading)}</span>
       <button onClick={() => void refreshArmies()}>Refresh</button>
       <button onClick={() => void createArmy({ ...currentDocument, name: 'Created' })}>Create</button>
       <button onClick={() => void updateArmy('cloud-1', { ...currentDocument, name: 'Updated' })}>
@@ -197,6 +199,76 @@ describe('cloud army collection state', () => {
 
     expect(container.querySelector('[data-testid="armies"]')?.textContent).toBe('cloud-2')
     expect(container.querySelector('[data-testid="loaded"]')?.textContent).toBe('false')
+  })
+
+  /*
+   * Saved Armies shows "No armies saved yet." whenever the list is empty and not loading. A load the
+   * player's own refresh superseded must not clear the flag while that refresh is still running.
+   */
+  it('keeps loading until the newest list request settles, not a superseded one', async () => {
+    const resolvers: Array<(armies: unknown[]) => void> = []
+    armyApi.listArmies.mockImplementation(
+      () =>
+        new Promise(resolve => {
+          resolvers.push(resolve as (armies: unknown[]) => void)
+        })
+    )
+    await renderProbe()
+
+    // The background load starts, then the modal's on-open refresh supersedes it.
+    await act(async () => {
+      container.querySelectorAll('button')[4].click()
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+    await act(async () => {
+      container.querySelectorAll('button')[0].click()
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+    expect(resolvers).toHaveLength(2)
+
+    await act(async () => {
+      resolvers[0]([])
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+    expect(container.querySelector('[data-testid="loading"]')?.textContent).toBe('true')
+
+    await act(async () => {
+      resolvers[1]([remoteArmy])
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+    expect(container.querySelector('[data-testid="armies"]')?.textContent).toBe('cloud-1')
+    expect(container.querySelector('[data-testid="loading"]')?.textContent).toBe('false')
+  })
+
+  it('clears loading when a mutation supersedes the only list request in flight', async () => {
+    let resolveList: (armies: unknown[]) => void = () => undefined
+    armyApi.listArmies.mockReturnValue(
+      new Promise(resolve => {
+        resolveList = resolve as (armies: unknown[]) => void
+      })
+    )
+    await renderProbe()
+
+    await act(async () => {
+      container.querySelectorAll('button')[0].click()
+      await Promise.resolve()
+    })
+    await act(async () => {
+      container.querySelectorAll('button')[1].click()
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+    await act(async () => {
+      resolveList([])
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    expect(container.querySelector('[data-testid="loading"]')?.textContent).toBe('false')
   })
 
   it('spends only one ensureArmiesLoaded attempt even when the load fails', async () => {
