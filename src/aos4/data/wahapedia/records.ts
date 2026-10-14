@@ -3,7 +3,11 @@ import type { ArtifactManifestEntry } from '../manifest'
 import type { WahapediaExportFileName } from './exportCatalog'
 
 export type WahapediaSourceFileName =
-  WahapediaExportFileName | 'WahapediaRules.html' | 'BSDataLibrary.cat' | 'BSDataCatalogue.cat'
+  | WahapediaExportFileName
+  | 'WahapediaRules.html'
+  | 'BSDataLibrary.cat'
+  | 'BSDataCatalogue.cat'
+  | 'GamesWorkshopSpearhead.pdf'
 
 export interface WahapediaExportInput {
   bytes: Uint8Array

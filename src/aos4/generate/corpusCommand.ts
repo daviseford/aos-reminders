@@ -13,6 +13,9 @@ import {
   extractGamesWorkshopBattleProfileSupplement,
   extractGamesWorkshopBattleProfiles,
   extractGamesWorkshopPdfText,
+  extractGamesWorkshopSpearheads,
+  mergeOfficialSpearheads,
+  type OfficialSpearheadSourceInput,
   mergeBsDataFactionOptions,
   mergeBsDataRegimentsOfRenown,
   mergeBsDataWarscrolls,
@@ -852,6 +855,65 @@ const extractOfficialBattleProfileFacts = async (
   return { effective, reviewed }
 }
 
+/**
+ * Reads each reviewed official Spearhead pack and fails closed unless the extracted armies match
+ * their pinned checksums and every unplaced fragment has a reviewed disposition.
+ */
+const extractOfficialSpearheadSources = async (
+  review: CorpusReview,
+  cache: ArtifactCache
+): Promise<OfficialSpearheadSourceInput[]> => {
+  const inputs: OfficialSpearheadSourceInput[] = []
+  for (const source of review.officialSpearheadSources ?? []) {
+    const document = review.officialDocuments.find(
+      candidate => candidate.artifact.checksum === source.artifactChecksum
+    )
+    if (!document) throw new Error(`Official Spearhead ${source.title} is not a reviewed official document`)
+    if (!review.approvedFactionIds.includes(source.faction.id)) {
+      throw new Error(`Official Spearhead faction ${source.faction.id} is not an approved faction`)
+    }
+    const bytes = await cache.get(source.artifactChecksum)
+    if (!bytes) throw new Error(`Official artifact ${source.artifactChecksum} is missing`)
+    const extracted = await extractGamesWorkshopSpearheads(bytes, source.artifactChecksum)
+    if (extracted.diagnostics.length) {
+      throw new Error(
+        `Official Spearhead extraction failed for ${source.title}:\n${extracted.diagnostics
+          .map(diagnostic => `- ${diagnostic.code} (page ${diagnostic.page ?? '?'}): ${diagnostic.message}`)
+          .join('\n')}`
+      )
+    }
+    const key = (values: string[]) => [...values].sort().join('|')
+    const extractedArmies = key(extracted.armies.map(army => `${army.name}:${army.checksum}`))
+    if (extractedArmies !== key(source.armies.map(army => `${army.printedName}:${army.checksum}`))) {
+      throw new Error(
+        `Official Spearhead ${source.title} no longer matches its reviewed armies: ${extractedArmies}`
+      )
+    }
+    const extractedFragments = key(extracted.fragments.map(fragment => `${fragment.page}:${fragment.text}`))
+    if (
+      extractedFragments !==
+      key(source.unplacedFragments.map(fragment => `${fragment.page}:${fragment.text}`))
+    ) {
+      throw new Error(
+        `Official Spearhead ${source.title} unplaced text needs a reviewed disposition: ${extractedFragments}`
+      )
+    }
+    const reviewedPages = new Set(document.sourceRecords.map(record => record.page))
+    const unreviewed = extracted.armies.flatMap(army => army.pages).filter(page => !reviewedPages.has(page))
+    if (unreviewed.length) {
+      throw new Error(`Official Spearhead ${source.title} cites unreviewed pages ${unreviewed.join(', ')}`)
+    }
+    inputs.push({
+      artifact: document.artifact,
+      factionId: source.faction.id,
+      factionName: source.faction.name,
+      armyNames: Object.fromEntries(source.armies.map(army => [army.printedName, army.name])),
+      armies: extracted.armies,
+    })
+  }
+  return inputs
+}
+
 const validateOfficialEvidence = async (
   review: CorpusReview,
   cache: ArtifactCache
@@ -1273,6 +1335,7 @@ export const loadAcceptedCorpusSourceData = async (
   const communitySources = await extractCommunityWarscrollFacts(review, cache)
   const communityOptionSources = await extractCommunityFactionOptionFacts(review, cache)
   const communityRegimentSources = await extractCommunityRegimentOfRenownFacts(review, cache)
+  const officialSpearheadSources = await extractOfficialSpearheadSources(review, cache)
   collectGarbage()
   const wahapediaHtml = await loadWahapediaHtmlPages(manifest, review, cache)
   collectGarbage()
@@ -1309,7 +1372,10 @@ export const loadAcceptedCorpusSourceData = async (
     manifest,
     review,
     acceptedDecoded: decoded,
-    decoded: { ...decoded, dataset: communityRegimentsMerged.dataset },
+    decoded: {
+      ...decoded,
+      dataset: mergeOfficialSpearheads(communityRegimentsMerged.dataset, officialSpearheadSources),
+    },
     officialBattleProfiles,
     reconciliation: communityRegimentsMerged.reconciliation,
     officialPageTextBySourceRecordId,

@@ -13,14 +13,26 @@ import type { CanonicalId } from './identity'
  * warscrolls at all, while the smallest real army offers eleven. Restoring the manifestation
  * warscrolls (#1791) is expected to settle where that content belongs and retire the container row
  * at generation time, at which point this has nothing left to exclude.
+ *
+ * A faction known only through an official Spearhead pack (Khazalite Holds, October 2026) offers
+ * its units one step removed, through the Spearhead army group that includes them, so a faction that
+ * offers a group of warscrolls is an army too. The container offers no such group.
  */
 export const armyFactions = (catalog: Aos4Catalog): Faction[] => {
   const warscrollIds = new Set<CanonicalId>(
     catalog.entities.flatMap(entity => (entity.kind === 'warscroll' ? [entity.id] : []))
   )
+  const groupsOfWarscrolls = new Set<CanonicalId>(
+    catalog.relationships.flatMap(relationship =>
+      relationship.kind === 'includes' && warscrollIds.has(relationship.to) ? [relationship.from] : []
+    )
+  )
   const offersWarscrolls = new Set<CanonicalId>(
     catalog.relationships.flatMap(relationship =>
-      warscrollIds.has(relationship.to) ? [relationship.from] : []
+      warscrollIds.has(relationship.to) ||
+      (relationship.kind === 'offers' && groupsOfWarscrolls.has(relationship.to))
+        ? [relationship.from]
+        : []
     )
   )
 

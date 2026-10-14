@@ -379,6 +379,20 @@ export interface CorpusRegimentOfRenown {
   variantReason?: string
 }
 
+/**
+ * A reviewed official Spearhead pack (an `officialDocuments` artifact) whose armies generation reads
+ * from the PDF itself. Each army's extracted content is pinned by checksum and every unplaced text
+ * fragment needs a reviewed disposition, so a re-upload or reader change fails closed until review.
+ */
+export interface CorpusOfficialSpearheadSource {
+  artifactChecksum: string
+  title: string
+  faction: { id: string; name: string }
+  reason: string
+  armies: Array<{ printedName: string; name: string; checksum: string }>
+  unplacedFragments: Array<{ page: number; text: string; reason: string }>
+}
+
 export interface CorpusReview {
   schemaVersion: typeof AOS4_CORPUS_REVIEW_SCHEMA_VERSION
   revision: string
@@ -412,6 +426,8 @@ export interface CorpusReview {
   ignoredSourceRecords: CorpusIgnoredSourceRecord[]
   timingOverrides: CorpusTimingOverride[]
   officialDocuments: CorpusOfficialDocument[]
+  /** Official Spearhead packs read directly into Spearhead content (no secondary carries them). */
+  officialSpearheadSources?: CorpusOfficialSpearheadSource[]
   currentWahapediaHtml?: {
     expectedArtifacts: number
     expectedFactionArtifacts?: number
@@ -549,6 +565,8 @@ const RECORD_ALIAS_PREFIXES: Array<{ prefix: string; publisher: IdentityAlias['p
   // BSData community records use the generic `other` publisher: the alias namespace is the
   // record ID itself, which already carries the bsdata provider and artifact checksum.
   { prefix: 'source-record:bsdata:', publisher: 'other' },
+  // Official Spearhead records alias on the pack section, without the artifact checksum.
+  { prefix: 'source-record:games-workshop:', publisher: 'games-workshop' },
 ]
 
 const recordAliasEntry = (
@@ -727,7 +745,9 @@ const identityDefinitions = (dataset: WahapediaDataset, review: CorpusReview): I
   ;(review.communityWarscrollSources ?? []).forEach(source =>
     add('publication', source.title, `community:${source.artifact.checksum}`, 'other')
   )
-  dataset.factions.forEach(record => add('faction', record.name, recordAlias(record.meta), 'wahapedia'))
+  dataset.factions.forEach(record =>
+    add('faction', record.name, recordAlias(record.meta), recordPublisher(record.meta))
+  )
   dataset.warscrolls.forEach(record => {
     add(
       isWarscrollRecord(record) ? 'warscroll' : 'content-group',
@@ -1723,6 +1743,9 @@ export const buildAos4Corpus = (
   const contextsFor = (meta: WahapediaRecordMeta): RulesContextId[] =>
     rulesContextIdsBySourceRecord.get(meta.sourceRecordId) ?? [contextId]
   const ignoredSourceRecordIds = new Set(review.ignoredSourceRecords.map(record => record.sourceRecordId))
+  const availabilityContextOverrides = new Map(
+    (review.contextOverrides ?? []).map(override => [override.sourceRecordId, override.rulesContextIds])
+  )
   const entities: ContentEntity[] = []
   const relationships: ContentRelationship[] = []
   const relationKeys = new Set<string>()
@@ -1871,7 +1894,8 @@ export const buildAos4Corpus = (
 
   const factionByExternalId = new Map<string, CanonicalId<'faction'>>()
   dataset.factions.forEach(record => {
-    const id = lookup('faction', 'wahapedia', recordAlias(record.meta)) as CanonicalId<'faction'> | undefined
+    const id = lookup('faction', recordPublisher(record.meta), recordAlias(record.meta)) as
+      CanonicalId<'faction'> | undefined
     if (!id) return
     factionByExternalId.set(record.id, id)
     entities.push({
@@ -1918,10 +1942,13 @@ export const buildAos4Corpus = (
     (review.warscrollKeywordOverrides ?? []).map(override => [override.sourceRecordId, override])
   )
   const universalFactionIds = new Set((review.universalFactionContent ?? []).map(entry => entry.factionId))
+  // A faction known only from an official Spearhead pack fields no universal matched-play content.
+  const spearheadOnly = (faction: (typeof dataset.factions)[number]) =>
+    faction.meta.rulesContextKinds?.length === 1 && faction.meta.rulesContextKinds[0] === 'spearhead'
   const everyArmyFactionId = uniqueSorted(
     dataset.factions.flatMap(faction => {
       const id = factionByExternalId.get(faction.id)
-      return id && !universalFactionIds.has(faction.id) ? [id] : []
+      return id && !universalFactionIds.has(faction.id) && !spearheadOnly(faction) ? [id] : []
     })
   )
   /**
@@ -2060,7 +2087,19 @@ export const buildAos4Corpus = (
       } satisfies ContentGroup)
     }
     if (!record.parentWarscrollId) {
-      factionIds.forEach(factionId => addRelationship('offers', factionId, id))
+      // A reviewed context override on one inclusion faction's availability record narrows only
+      // that faction's offer (Gotrek Gurnisson leaves Fyreslayers in October 2026 but stays in its
+      // 2025-26 past season); every other offer keeps the contexts its endpoints share.
+      const narrowedOfferContexts = new Map(
+        regimentRecords.flatMap(item => {
+          const factionId = factionByExternalId.get(item.factionId)
+          const overridden = availabilityContextOverrides.get(item.meta.sourceRecordId)
+          return factionId && overridden ? [[factionId, overridden] as const] : []
+        })
+      )
+      factionIds.forEach(factionId =>
+        addRelationship('offers', factionId, id, narrowedOfferContexts.get(factionId))
+      )
     }
 
     if (profileExists && parentKind === 'warscroll') {
@@ -2795,11 +2834,13 @@ export const buildAos4Corpus = (
       // current army, so an inclusion faction fielded in current play still offers a regiment the
       // official profiles retired to the historical context even when it has no historical content
       // of its own (Stumblefoot Gargant for Beasts of Chaos and Daughters of Khaine, #1757).
-      // Every other context still intersects.
+      // Every other context still intersects, as does a reviewed narrowing of this one offer.
       const fromContextIds = new Set(from.rulesContextIds)
       const fieldedInCurrentPlay = from.rulesContextIds.some(id => currentContextIdSet.has(id))
       const offeredContextIds = to.rulesContextIds.filter(
-        id => fromContextIds.has(id) || (fieldedInCurrentPlay && historicalContextIdSet.has(id))
+        id =>
+          (fromContextIds.has(id) || (fieldedInCurrentPlay && historicalContextIdSet.has(id))) &&
+          (!relationship.rulesContextIds || relationship.rulesContextIds.includes(id))
       )
       return offeredContextIds.length
         ? [{ ...relationship, rulesContextIds: uniqueSorted(offeredContextIds) }]
