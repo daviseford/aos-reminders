@@ -657,6 +657,16 @@ yarn data:aos4:inventory `
 Any missing, unexpected, inaccessible, or ambiguous entry blocks beta readiness. A non-material
 entry needs a specific evidence-backed disposition.
 
+The Wahapedia observation (`data:aos4:inventory:observe-wahapedia`) gives each request
+`--timeout-ms` (default 120000, at most 300000) for the whole response and retries only transport
+failures (`timeout`, `network-error`, `truncated-response`) up to `--retries` times (default 2, at
+most 3) after a 15 s, then 30 s backoff. Every retry is paced and counted against
+`--request-budget`, and running out of budget fails the whole observation. HTTP statuses, including
+429 and 5xx, and every URL-policy, media-type, size, or checksum failure are not retried, so the
+source stays `inaccessible`. The old fixed 30 s limit left 6 to 46 of about 85 sources
+inaccessible on 2026-10-14, when Wahapedia served 0.75-1.6 MB pages in 5 to 52 s. A run that
+still reports any inaccessible source is retaken, never bound.
+
 The inventory records every observation it combined: the producer, the publishers it covered, how
 many entries it contributed, and when it was observed. `observedAt` (and the manifest's
 `sourceObservedAt`) is the newest of those instants; `oldestObservedAt` (and

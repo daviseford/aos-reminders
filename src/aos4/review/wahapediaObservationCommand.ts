@@ -3,6 +3,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
   AcquisitionError,
+  type AcquisitionErrorCode,
   FileArtifactCache,
   acquireArtifact,
   createPinnedHttpsTransport,
@@ -35,7 +36,37 @@ export interface WahapediaObservationCommandInput {
   concurrency: number
   requestBudget: number
   paceMs: number
+  /** Whole-request limit, body included; defaults to `DEFAULT_TIMEOUT_MS`. */
+  timeoutMs?: number
+  /** Extra attempts after a transient transport failure; defaults to `DEFAULT_RETRIES`. */
+  retries?: number
 }
+
+/**
+ * Bounds chosen from the 2026-10-14 certification attempts, when Wahapedia served 0.75-1.6 MB
+ * pages in 5-52 s and the old fixed 30 s limit left 6-46 of ~85 sources inaccessible per run.
+ * 120 s is over twice the slowest observed page; two paced, budgeted retries with a linear
+ * backoff ride out a slow minute without hammering a struggling site.
+ */
+export const DEFAULT_TIMEOUT_MS = 120_000
+export const MAX_TIMEOUT_MS = 300_000
+export const DEFAULT_RETRIES = 2
+export const MAX_RETRIES = 3
+export const RETRY_BACKOFF_MS = 15_000
+
+/**
+ * Only transport failures are worth another attempt. HTTP statuses (including 429/5xx, whose
+ * Retry-After the acquisition error does not carry), URL-policy, media-type, size, and checksum
+ * failures fail on the first attempt, so the observation still degrades to `inaccessible`.
+ */
+const RETRIABLE_ACQUISITION_CODES = new Set<AcquisitionErrorCode>([
+  'timeout',
+  'network-error',
+  'truncated-response',
+])
+
+const isRetriable = (error: unknown): boolean =>
+  error instanceof AcquisitionError && RETRIABLE_ACQUISITION_CODES.has(error.code)
 
 type AcquireObservedArtifact = (request: AcquireArtifactRequest) => Promise<AcquireArtifactResult>
 
@@ -68,6 +99,8 @@ export const parseWahapediaObservationArguments = (values: string[]): WahapediaO
     concurrency: 3,
     requestBudget: 128,
     paceMs: 250,
+    timeoutMs: DEFAULT_TIMEOUT_MS,
+    retries: DEFAULT_RETRIES,
   }
   for (let index = 0; index < values.length; index += 1) {
     const value = values[index]
@@ -86,6 +119,12 @@ export const parseWahapediaObservationArguments = (values: string[]): WahapediaO
     } else if (value === '--pace-ms') {
       parsed.paceMs = Number.parseInt(nextValue(values, index, value), 10)
       index += 1
+    } else if (value === '--timeout-ms') {
+      parsed.timeoutMs = Number.parseInt(nextValue(values, index, value), 10)
+      index += 1
+    } else if (value === '--retries') {
+      parsed.retries = Number.parseInt(nextValue(values, index, value), 10)
+      index += 1
     } else {
       throw new Error(`Unknown argument: ${value}`)
     }
@@ -98,6 +137,14 @@ export const parseWahapediaObservationArguments = (values: string[]): WahapediaO
   }
   if (!Number.isSafeInteger(parsed.paceMs) || parsed.paceMs < 0 || parsed.paceMs > 60_000) {
     throw new Error('--pace-ms must be an integer from 0 to 60000')
+  }
+  const timeoutMs = parsed.timeoutMs ?? DEFAULT_TIMEOUT_MS
+  if (!Number.isSafeInteger(timeoutMs) || timeoutMs < 1_000 || timeoutMs > MAX_TIMEOUT_MS) {
+    throw new Error(`--timeout-ms must be an integer from 1000 to ${MAX_TIMEOUT_MS}`)
+  }
+  const retries = parsed.retries ?? DEFAULT_RETRIES
+  if (!Number.isSafeInteger(retries) || retries < 0 || retries > MAX_RETRIES) {
+    throw new Error(`--retries must be an integer from 0 to ${MAX_RETRIES}`)
   }
   return parsed
 }
@@ -112,23 +159,23 @@ const dependencies = (cacheDirectory: string) => ({
   },
 })
 
-const htmlRequest = (url: string): AcquireArtifactRequest => ({
+const htmlRequest = (url: string, timeoutMs: number): AcquireArtifactRequest => ({
   url,
   adapterVersion: 'wahapedia-discovery/1',
   allowedMediaTypes: ['text/html'],
   maxBytes: 16 * 1024 * 1024,
-  timeoutMs: 30_000,
+  timeoutMs,
 })
 
-const exportRequest = (url: string): AcquireArtifactRequest => ({
+const exportRequest = (url: string, timeoutMs: number): AcquireArtifactRequest => ({
   url,
   adapterVersion: 'wahapedia-discovery/1',
   allowedMediaTypes: ['text/csv'],
   maxBytes: 16 * 1024 * 1024,
-  timeoutMs: 30_000,
+  timeoutMs,
 })
 
-const spreadsheetRequest = (url: string): AcquireArtifactRequest => ({
+const spreadsheetRequest = (url: string, timeoutMs: number): AcquireArtifactRequest => ({
   url,
   adapterVersion: 'wahapedia-discovery/1',
   allowedMediaTypes: [
@@ -136,31 +183,44 @@ const spreadsheetRequest = (url: string): AcquireArtifactRequest => ({
     'application/octet-stream',
   ],
   maxBytes: 16 * 1024 * 1024,
-  timeoutMs: 30_000,
+  timeoutMs,
 })
 
-const robotsRequest = (): AcquireArtifactRequest => ({
+const robotsRequest = (timeoutMs: number): AcquireArtifactRequest => ({
   url: 'https://wahapedia.ru/robots.txt',
   adapterVersion: 'wahapedia-discovery/1',
   allowedMediaTypes: ['text/plain'],
   maxBytes: 1024 * 1024,
-  timeoutMs: 30_000,
+  timeoutMs,
 })
 
+/** Every attempt, retries included, passes through the limiter: paced and counted against the budget. */
 const acquireRequired = async (
   request: AcquireArtifactRequest,
   limiter: RequestLimiter,
-  acquire: AcquireObservedArtifact
-): Promise<AcquireArtifactResult> => limiter.run(() => acquire(request))
+  acquire: AcquireObservedArtifact,
+  retries: number,
+  wait: (milliseconds: number) => Promise<void>
+): Promise<AcquireArtifactResult> => {
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      return await limiter.run(() => acquire(request))
+    } catch (error) {
+      if (attempt >= retries || !isRetriable(error)) throw error
+      await wait(RETRY_BACKOFF_MS * (attempt + 1))
+    }
+  }
+}
+
+type FetchSource = (request: AcquireArtifactRequest) => Promise<AcquireArtifactResult>
 
 const acquireObserved = async (
   source: WahapediaObservedSource,
   request: AcquireArtifactRequest,
-  limiter: RequestLimiter,
-  acquire: AcquireObservedArtifact
+  fetchSource: FetchSource
 ): Promise<ObservedAcquisition> => {
   try {
-    const result = await acquireRequired(request, limiter, acquire)
+    const result = await fetchSource(request)
     return {
       source: {
         ...source,
@@ -194,11 +254,10 @@ const isHttpNotFound = (error: unknown): boolean =>
 const acquireObservedCollection = async (
   source: WahapediaObservedSource,
   request: AcquireArtifactRequest,
-  limiter: RequestLimiter,
-  acquire: AcquireObservedArtifact
+  fetchSource: FetchSource
 ): Promise<ObservedAcquisition | undefined> => {
   try {
-    const result = await acquireRequired(request, limiter, acquire)
+    const result = await fetchSource(request)
     return {
       source: {
         ...source,
@@ -235,33 +294,35 @@ export const observeWahapediaSources = async (
   providedDependencies: WahapediaObservationCommandDependencies = {}
 ): Promise<WahapediaObservationCommandResult> => {
   const observedAt = (providedDependencies.now ?? (() => new Date().toISOString()))()
+  const wait =
+    providedDependencies.wait ??
+    ((milliseconds: number) => new Promise<void>(resolve => setTimeout(resolve, milliseconds)))
   const limiter = createRequestLimiter({
     budget: input.requestBudget,
     paceMs: input.paceMs,
-    wait: providedDependencies.wait,
+    wait,
   })
   const acquire =
     providedDependencies.acquire ??
     ((request: AcquireArtifactRequest) => acquireArtifact(request, dependencies(input.cacheDirectory)))
-  const robots = await acquireRequired(robotsRequest(), limiter, acquire)
+  const timeoutMs = input.timeoutMs ?? DEFAULT_TIMEOUT_MS
+  const fetchSource: FetchSource = request =>
+    acquireRequired(request, limiter, acquire, input.retries ?? DEFAULT_RETRIES, wait)
+  const robots = await fetchSource(robotsRequest(timeoutMs))
   const robotsPolicy = parseRobotsPolicy(new TextDecoder('utf-8', { fatal: true }).decode(robots.bytes))
   assertRobotsAllows(robotsPolicy, WAHAPEDIA_DATA_EXPORT_URL)
-  const index = await acquireRequired(htmlRequest(WAHAPEDIA_DATA_EXPORT_URL), limiter, acquire)
+  const index = await fetchSource(htmlRequest(WAHAPEDIA_DATA_EXPORT_URL, timeoutMs))
   const indexHtml = new TextDecoder('utf-8', { fatal: true }).decode(index.bytes)
   const navFragmentUrl = discoverWahapediaNavFragmentUrl(indexHtml, index.entry.finalUrl)
   let navFragmentHtml: string | undefined
   if (navFragmentUrl) {
     assertRobotsAllows(robotsPolicy, navFragmentUrl)
-    const navFragment = await acquireRequired(htmlRequest(navFragmentUrl), limiter, acquire)
+    const navFragment = await fetchSource(htmlRequest(navFragmentUrl, timeoutMs))
     navFragmentHtml = new TextDecoder('utf-8', { fatal: true }).decode(navFragment.bytes)
   }
   const navigation = discoverWahapediaNavigation(indexHtml, index.entry.finalUrl, navFragmentHtml)
   assertRobotsAllows(robotsPolicy, navigation.exportSpecificationUrl)
-  const specification = await acquireRequired(
-    spreadsheetRequest(navigation.exportSpecificationUrl),
-    limiter,
-    acquire
-  )
+  const specification = await fetchSource(spreadsheetRequest(navigation.exportSpecificationUrl, timeoutMs))
   const exportUrls = discoverWahapediaExportUrls(specification.bytes)
   navigation.factionPages.forEach(faction => assertRobotsAllows(robotsPolicy, faction.url))
 
@@ -273,9 +334,8 @@ export const observeWahapediaSources = async (
         title: faction.title,
         availability: 'accessible',
       },
-      htmlRequest(faction.url),
-      limiter,
-      acquire
+      htmlRequest(faction.url, timeoutMs),
+      fetchSource
     )
   )
   const collectionSources: WahapediaObservedSource[] = factionAcquisitions.flatMap(acquisition => {
@@ -310,7 +370,7 @@ export const observeWahapediaSources = async (
   ;[...collectionSources, ...materialSources].forEach(source => assertRobotsAllows(robotsPolicy, source.url))
   const collectionAcquisitions = (
     await mapWithConcurrency(collectionSources, input.concurrency, source =>
-      acquireObservedCollection(source, htmlRequest(source.url), limiter, acquire)
+      acquireObservedCollection(source, htmlRequest(source.url, timeoutMs), fetchSource)
     )
   ).filter((value): value is ObservedAcquisition => value !== undefined)
   const materialAcquisitions = [
@@ -318,9 +378,8 @@ export const observeWahapediaSources = async (
     ...(await mapWithConcurrency(materialSources, input.concurrency, source =>
       acquireObserved(
         source,
-        source.kind === 'export' ? exportRequest(source.url) : htmlRequest(source.url),
-        limiter,
-        acquire
+        source.kind === 'export' ? exportRequest(source.url, timeoutMs) : htmlRequest(source.url, timeoutMs),
+        fetchSource
       )
     )),
   ]
