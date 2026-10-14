@@ -12,7 +12,13 @@ import {
   deserializeAos4ArmyDocument,
   serializeAos4ArmyDocument,
 } from '../../aos4/state'
-import { createAos4BuilderViewModel } from '../../aos4/view'
+import { createAos4PrintDocument } from '../../aos4/print/document'
+import {
+  type Aos4ReminderViewModel,
+  createAos4BuilderViewModel,
+  createAos4ReminderViewModel,
+  createPrintableAos4Reminders,
+} from '../../aos4/view'
 import { decodeAos4TextRoster } from '../../importers'
 
 /**
@@ -1014,6 +1020,58 @@ describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
           rulesContextId: current.id,
         }).selectedIds
       ).toContain(GOTREK_REGIMENT_ID)
+    })
+
+    describe('reminders and print for a kept pick', () => {
+      const UNOFFERED = 'Not available to this army'
+      const gotrekReminders = (reminders: Aos4ReminderViewModel[]) =>
+        reminders.filter(reminder =>
+          ['UNSTOPPABLE BATTLE FURY', '‘I’LL GET THERE MYSELF!’'].includes(reminder.name)
+        )
+      const labels = (reminder: { tags?: Array<{ label: string }> }) =>
+        (reminder.tags ?? []).map(tag => tag.label)
+
+      it.each([
+        ['current', () => current.id],
+        ['seasonal', () => seasonal.id],
+      ])(
+        'marks his rules as not available to a Fyreslayers army in %s play, on screen and in print',
+        (_label, contextId) => {
+          const saved = document(contextId(), [fyreslayers().id, GOTREK_REGIMENT_ID])
+          const reminders = createAos4ReminderViewModel(AOS4_CATALOG, saved)
+          // The pick stays selected, so its rules still show; they no longer read as current.
+          expect(gotrekReminders(reminders)).toHaveLength(2)
+          gotrekReminders(reminders).forEach(reminder => {
+            expect(labels(reminder)).toContain(UNOFFERED)
+            expect(reminder.accessibleLabel).toContain(UNOFFERED)
+          })
+          // Nothing else in the army carries the mark.
+          expect(reminders.filter(reminder => labels(reminder).includes(UNOFFERED))).toHaveLength(2)
+
+          const print = createAos4PrintDocument(createPrintableAos4Reminders(AOS4_CATALOG, saved), {
+            armyName: 'Fyreslayers with Gotrek',
+            factionName: 'Fyreslayers',
+          })
+          const printed = print.sections
+            .flatMap(section => section.rules)
+            .filter(rule => /BATTLE FURY|GET THERE MYSELF/.test(rule.title))
+          expect(printed).toHaveLength(2)
+          printed.forEach(rule => expect(labels(rule)).toContain(UNOFFERED))
+        }
+      )
+
+      it('leaves his rules unmarked where the regiment is offered', () => {
+        const pastSeasonArmy = document(pastSeason.id, [fyreslayers().id, GOTREK_REGIMENT_ID])
+        const stormcastArmy = document(seasonal.id, [
+          factionByName('Stormcast Eternals').id,
+          GOTREK_REGIMENT_ID,
+        ])
+        ;[pastSeasonArmy, stormcastArmy].forEach(army => {
+          const reminders = gotrekReminders(createAos4ReminderViewModel(AOS4_CATALOG, army))
+          expect(reminders).toHaveLength(2)
+          reminders.forEach(reminder => expect(labels(reminder)).not.toContain(UNOFFERED))
+        })
+      })
     })
 
     it('warns when an official app Fyreslayers roster buys the regiment', () => {

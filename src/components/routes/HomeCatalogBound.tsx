@@ -499,8 +499,11 @@ const HomeCatalogBound = ({
         // Clearing means starting over, and starting over means the application default context —
         // today the seasonal one, so the seasonal rules switch (issue #1994) comes back on. An
         // army left in an imported Spearhead or Legends context would otherwise keep a context
-        // choice the cleared army no longer explains.
-        rulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+        // choice the cleared army no longer explains. A faction that does not exist in the default
+        // context (Khazalite Holds is Spearhead-only, #1757) stays where it does exist.
+        rulesContextId: factionById.get(factionId)?.rulesContextIds.includes(AOS4_DEFAULT_RULES_CONTEXT_ID)
+          ? AOS4_DEFAULT_RULES_CONTEXT_ID
+          : current.rulesContextId,
         explicitSelectionIds: [factionId],
         reminderPreferences: {},
       })
@@ -572,19 +575,37 @@ const HomeCatalogBound = ({
         const rootIds = new Set(armiesOfRenown.map(option => option.value))
         const withoutRoots = current.explicitSelectionIds.filter(id => !rootIds.has(id))
         const nextExplicit = nextId ? [...withoutRoots, nextId] : withoutRoots
-        const probe = resolveSelection(AOS4_CATALOG, {
-          explicitIds: nextExplicit,
-          rulesContextId: current.rulesContextId,
-          allowsLegends: true,
-          allowsHistorical: true,
-        })
-        const stillOffered = new Set(probe.availableIds)
+        const offeredIds = (explicitIds: CanonicalId[]) =>
+          new Set(
+            resolveSelection(AOS4_CATALOG, {
+              explicitIds,
+              rulesContextId: current.rulesContextId,
+              allowsLegends: true,
+              allowsHistorical: true,
+            }).availableIds
+          )
+        const stillOffered = offeredIds(nextExplicit)
+        // A Regiment of Renown the army was not offered before the switch either (one kept from an
+        // earlier ruleset, #1757) is not the switch's to remove.
+        const offeredBefore = offeredIds(current.explicitSelectionIds)
+        const keptRegiment = (id: CanonicalId) => {
+          const entity = AOS4_CATALOG.entities.find(candidate => candidate.id === id)
+          return (
+            entity?.kind === 'content-group' &&
+            entity.groupType === 'regiment-of-renown' &&
+            !offeredBefore.has(id)
+          )
+        }
         return deriveAos4OverlayFlags(
           AOS4_CATALOG,
           createAos4ArmyDocument({
             ...current,
             explicitSelectionIds: nextExplicit.filter(
-              id => id === nextId || factionById.has(id as CanonicalId<'faction'>) || stillOffered.has(id)
+              id =>
+                id === nextId ||
+                factionById.has(id as CanonicalId<'faction'>) ||
+                stillOffered.has(id) ||
+                keptRegiment(id)
             ),
           })
         )
