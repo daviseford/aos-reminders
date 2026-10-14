@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
-import { execFile } from 'node:child_process'
+import { type ChildProcess, execFile } from 'node:child_process'
 import { createRequire } from 'node:module'
 import { availableParallelism } from 'node:os'
 import path from 'node:path'
@@ -212,6 +212,12 @@ const require = createRequire(import.meta.url)
 // (the same `dist/cli.mjs` the package.json data scripts invoke directly).
 const viteNodeRuntime = (): string => require.resolve('vite-node/cli')
 
+// A child that never spawned has no process to wait for; one that already exited has nothing left.
+const processExited = (child: ChildProcess): Promise<void> =>
+  child.pid === undefined || child.exitCode !== null || child.signalCode !== null
+    ? Promise.resolve()
+    : new Promise(resolve => child.once('exit', () => resolve()))
+
 const workerResultPath = (output: string, relativePath: string): string => {
   if (path.isAbsolute(relativePath)) {
     throw new Error(`Adversarial review worker result path must be relative: ${relativePath}`)
@@ -223,24 +229,48 @@ const workerResultPath = (output: string, relativePath: string): string => {
   return resolved
 }
 
+/** The process a fresh worker runs for one task: the executable and its arguments. */
+export type AdversarialReviewWorkerSpawn = (
+  taskPath: string,
+  output: string
+) => { file: string; args: string[] }
+
+const viteNodeWorkerSpawn = (): AdversarialReviewWorkerSpawn => {
+  const viteNode = viteNodeRuntime()
+  const workerCommand = fileURLToPath(new URL('./adversarialReviewWorkerCommand.ts', import.meta.url))
+  return (taskPath, output) => ({
+    file: process.execPath,
+    args: [viteNode, '--script', workerCommand, '--task', taskPath, '--output', output],
+  })
+}
+
+/**
+ * Runs each shard group in its own worker process. `spawnWorker` exists for tests that exercise the
+ * abort/settle ordering with a plain Node fixture instead of paying a TypeScript runtime startup per
+ * worker; every caller outside tests uses the vite-node worker command.
+ */
 export const runFreshWorkers = async (
   staging: string,
   task: Omit<AdversarialReviewWorkerTask, 'shards'>,
-  groups: FreshShardReference[][]
+  groups: FreshShardReference[][],
+  spawnWorker: AdversarialReviewWorkerSpawn = viteNodeWorkerSpawn()
 ): Promise<Map<number, FreshWorkerResultReference>> => {
-  const viteNode = viteNodeRuntime()
-  const workerCommand = fileURLToPath(new URL('./adversarialReviewWorkerCommand.ts', import.meta.url))
   const controller = new AbortController()
+  const children: ChildProcess[] = []
   const workers = groups.map(async (shards, workerIndex) => {
     const suffix = String(workerIndex + 1).padStart(4, '0')
     const taskPath = path.join(staging, `worker-task-${suffix}.json`)
     const output = path.join(staging, `worker-${suffix}`)
     await writeFile(taskPath, stableJson({ ...task, shards }), 'utf8')
-    await execFileAsync(
-      process.execPath,
-      [viteNode, '--script', workerCommand, '--task', taskPath, '--output', output],
-      { cwd: process.cwd(), windowsHide: true, maxBuffer: 64 * 1024 * 1024, signal: controller.signal }
-    )
+    const { file, args } = spawnWorker(taskPath, output)
+    const worker = execFileAsync(file, args, {
+      cwd: process.cwd(),
+      windowsHide: true,
+      maxBuffer: 64 * 1024 * 1024,
+      signal: controller.signal,
+    })
+    children.push(worker.child)
+    await worker
     await assertCreateOnlyDirectoryComplete(output)
     const receipt = await readJson<AdversarialReviewWorkerReceipt>(path.join(output, 'receipt.json'))
     if (receipt.schemaVersion !== 1 || receipt.revision !== task.revision) {
@@ -261,7 +291,12 @@ export const runFreshWorkers = async (
   const failure = settledWorkers.find(
     (result): result is PromiseRejectedResult => result.status === 'rejected'
   )
-  if (failure) throw failure.reason
+  if (failure) {
+    // execFile settles an aborted child once the kill is sent, not when it exits (POSIX delivers the
+    // signal asynchronously), so wait for every process before the caller removes their staging.
+    await Promise.all(children.map(processExited))
+    throw failure.reason
+  }
   const receipts = settledWorkers.map(
     result => (result as PromiseFulfilledResult<Awaited<(typeof workers)[number]>>).value
   )

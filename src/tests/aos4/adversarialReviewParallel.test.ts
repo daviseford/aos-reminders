@@ -1,6 +1,8 @@
-import { access, mkdtemp, readFile, readdir, rm } from 'node:fs/promises'
+import { readFileSync } from 'node:fs'
+import { access, mkdir, mkdtemp, readFile, readdir, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import {
   balancedFreshShardGroups,
@@ -97,6 +99,34 @@ const pair = (): ReviewPacketPair => {
     ],
   }
 }
+
+const fixtureWorker = fileURLToPath(
+  new URL('../fixtures/aos4/adversarialReview/fixtureWorker.mjs', import.meta.url)
+)
+
+const isLive = (pid: number): boolean => {
+  try {
+    process.kill(pid, 0)
+    return true
+  } catch {
+    return false
+  }
+}
+
+const workerTask = (workspace: string, revision: string) => ({
+  schemaVersion: 1 as const,
+  revision,
+  workspace,
+  assignmentId: createReviewAssignment({
+    packetIds: [`review-packet:sha256:${'e'.repeat(64)}`],
+    reviewer: deterministicReviewerMetadata('parallel-process-fixture'),
+    execution: 'local',
+    assignedAt: '2026-08-02T12:00:00.000Z',
+  }).id,
+  reviewer: deterministicReviewerMetadata('parallel-process-fixture'),
+  blindReviewedAt: '2026-08-02T12:01:00.000Z',
+  comparisonReviewedAt: '2026-08-02T12:02:00.000Z',
+})
 
 describe('bounded adversarial review workers', () => {
   it('balances fresh pair counts and validates job arguments', () => {
@@ -250,53 +280,103 @@ describe('bounded adversarial review workers', () => {
   it('settles sibling processes before cleaning up a failed parallel run', async () => {
     const root = await mkdtemp(path.join(tmpdir(), 'aos4-adversarial-worker-process-failure-'))
     try {
-      const workspace = path.join(root, 'workspace')
       const output = path.join(root, 'output')
-      const fixturePair = pair()
-      await writeCreateOnlyFilesDirectory(
-        workspace,
-        new Map([
-          ['packets/shard-0001.json', serializeReviewRecord({ schemaVersion: 1, pairs: [] })],
-          ['packets/shard-0002.json', serializeReviewRecord({ schemaVersion: 1, pairs: [fixturePair] })],
-        ])
-      )
-      const reviewer = deterministicReviewerMetadata('parallel-process-fixture')
-      const assignment = createReviewAssignment({
-        packetIds: [fixturePair.blindPacket.id, fixturePair.comparisonPacket.id],
-        reviewer,
-        execution: 'local',
-        assignedAt: '2026-08-02T12:00:00.000Z',
-      })
-
+      let siblingPid: number | undefined
+      let siblingLiveAtFailure: boolean | undefined
       await expect(
         writeCreateOnlyDirectory(output, async staging => {
-          await runFreshWorkers(
-            staging,
-            {
-              schemaVersion: 1,
-              revision: 'aos4-worker-process-fixture',
-              workspace,
-              assignmentId: assignment.id,
-              reviewer,
-              blindReviewedAt: '2026-08-02T12:01:00.000Z',
-              comparisonReviewedAt: '2026-08-02T12:02:00.000Z',
-            },
-            [
-              [{ index: 0, path: 'packets/shard-0001.json', freshPairKeys: ['missing-pair'] }],
-              [{ index: 1, path: 'packets/shard-0002.json', freshPairKeys: [fixturePair.pairKey] }],
-            ]
-          )
+          try {
+            await runFreshWorkers(
+              staging,
+              workerTask(path.join(root, 'workspace'), 'aos4-worker-process-fixture'),
+              [
+                [{ index: 0, path: 'packets/shard-0001.json', freshPairKeys: ['missing-pair'] }],
+                [{ index: 1, path: 'packets/shard-0002.json', freshPairKeys: ['live-pair'] }],
+              ],
+              (taskPath, workerOutput) => ({
+                file: process.execPath,
+                args: [fixtureWorker, '--task', taskPath, '--output', workerOutput],
+              })
+            )
+          } catch (error) {
+            // The failure reaches this callback before writeCreateOnlyDirectory removes staging. Read
+            // synchronously: a caller that rejected without settling its sibling would be checked here
+            // before the terminated process had gone.
+            siblingPid = Number(readFileSync(path.join(root, 'sibling.pid'), 'utf8'))
+            siblingLiveAtFailure = isLive(siblingPid)
+            throw error
+          }
         })
-      ).rejects.toThrow()
+      ).rejects.toThrow('Fixture worker shard is missing fresh pairs')
+      expect(siblingPid).toBeGreaterThan(0)
+      expect(siblingLiveAtFailure).toBe(false)
       await expect(access(output)).rejects.toThrow()
       expect((await readdir(root)).filter(name => name.includes('.staging-'))).toEqual([])
     } finally {
       await rm(root, { recursive: true, force: true })
     }
-    // The only case here that spawns real workers, and it spawns two: `runFreshWorkers` shells out
-    // to vite-node per group, so this pays two full runtime startups and then waits for the aborted
-    // sibling to settle before asserting the staging directory is gone. Measured at ~10s against the
-    // 5s default, which failed as a timeout and read like a hang in the abort path rather than a
-    // slow test. The other cases in this file never leave the process and finish in milliseconds.
+  })
+
+  it('keeps a spawn failure as the failure and still settles the live sibling', async () => {
+    const root = await mkdtemp(path.join(tmpdir(), 'aos4-adversarial-worker-spawn-failure-'))
+    try {
+      const output = path.join(root, 'output')
+      await expect(
+        writeCreateOnlyDirectory(output, staging =>
+          runFreshWorkers(
+            staging,
+            workerTask(path.join(root, 'workspace'), 'aos4-worker-process-fixture'),
+            [
+              [{ index: 0, path: 'packets/shard-0001.json', freshPairKeys: ['unspawned-pair'] }],
+              [{ index: 1, path: 'packets/shard-0002.json', freshPairKeys: ['live-pair'] }],
+            ],
+            (taskPath, workerOutput) =>
+              taskPath.endsWith('worker-task-0001.json')
+                ? { file: path.join(root, 'missing-executable'), args: [] }
+                : {
+                    file: process.execPath,
+                    args: [fixtureWorker, '--task', taskPath, '--output', workerOutput],
+                  }
+          ).then(() => undefined)
+        )
+      ).rejects.toMatchObject({ code: 'ENOENT' })
+      await expect(access(output)).rejects.toThrow()
+      expect((await readdir(root)).filter(name => name.includes('.staging-'))).toEqual([])
+    } finally {
+      await rm(root, { recursive: true, force: true })
+    }
+  })
+
+  it('runs the real worker command in its own process', async () => {
+    const root = await mkdtemp(path.join(tmpdir(), 'aos4-adversarial-worker-process-'))
+    try {
+      const workspace = path.join(root, 'workspace')
+      const staging = path.join(root, 'staging')
+      const fixturePair = pair()
+      await writeCreateOnlyFilesDirectory(
+        workspace,
+        new Map([
+          ['packets/shard-0001.json', serializeReviewRecord({ schemaVersion: 1, pairs: [fixturePair] })],
+        ])
+      )
+      await mkdir(staging)
+      const results = await runFreshWorkers(staging, workerTask(workspace, 'aos4-worker-process-fixture'), [
+        [{ index: 0, path: 'packets/shard-0001.json', freshPairKeys: [fixturePair.pairKey] }],
+      ])
+      expect(Array.from(results.keys())).toEqual([0])
+      const result = results.get(0)!
+      expect(result.path).toBe(path.join(staging, 'worker-0001', 'results', 'shard-0001.json'))
+      expect(result.resultCount).toBe(2)
+      const written = JSON.parse(await readFile(result.path, 'utf8')).results as ReviewerResult[]
+      expect(written.map(entry => entry.reviewedAt)).toEqual([
+        '2026-08-02T12:01:00.000Z',
+        '2026-08-02T12:02:00.000Z',
+      ])
+    } finally {
+      await rm(root, { recursive: true, force: true })
+    }
+    // The only case here that starts the real worker command, which runs under vite-node: one runtime
+    // startup, measured at ~1-10s depending on host load against the 5s default. The ordering of a
+    // failed parallel run is covered above with a plain Node fixture so it does not pay two startups.
   }, 60_000)
 })
