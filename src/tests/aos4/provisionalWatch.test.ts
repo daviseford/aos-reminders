@@ -55,8 +55,10 @@ describe('the provisional-verification watch', () => {
     // Behemat pages with the battletome (re-pinned as corpus 2026-09-25) and Krong the Club on all
     // 24 inclusion-faction collection pages (compared against the official page 5 and left on its
     // BSData source). Both retired, so the watch machinery idles on an empty list, as it did after
-    // the Ogor watches retired in 2026-08-28b.
-    expect(checkedIn.watches.length).toBe(0)
+    // the Ogor watches retired in 2026-08-28b. Corpus 2026-10-14 (#1757) adds one: the Wahapedia
+    // navigation gaining a Khazalite Holds faction page, the first source for the blocked
+    // matched-play Khazalite Holds intake (only its official Spearhead ships).
+    expect(checkedIn.watches.map(watch => watch.id)).toEqual(['wahapedia-khazalite-holds-faction'])
     checkedIn.watches.forEach(watch => {
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)
     })

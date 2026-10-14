@@ -89206,6 +89206,10 @@
         {
           "externalId": "official:256609b95c19f6c5d8c705760f0b580906dc27015368f4ebf3dc3db2f6f757e5",
           "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:39bde41dbfd564bf3e841dee7ef7133a9c5e39cb6efc50faf16b158d861fd078",
+          "publisher": "games-workshop"
         }
       ],
       "canonicalId": "publication:a34c95ee-e843-5efe-9275-0e1bb633ab48",
@@ -133636,6 +133640,666 @@
       "canonicalId": "ability:ef0904bf-6393-514b-ab14-74a893c3b331",
       "kind": "ability",
       "name": "EARTH-SHAKING STOMP"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:4e945694-f289-5d74-9ff8-2eafe870127f",
+      "kind": "publication",
+      "name": "Battle Profiles - Khazalite Holds"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:0361f30cff3152c0a4a8c29798bd960e27fbbe1e1cc64b634503ced9e8b5d9e6",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:b9423b26-7039-5c1c-ae04-2ce5458c7efc",
+      "kind": "publication",
+      "name": "Regiments of Renown - Khazalite Holds"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:2c66cb0eba59bb6ee6930e213145f4c73fbc20e9d99d9abc19b9a80876a6ce48",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:7e9c8e49-8457-5ba2-a707-d86329d467f6",
+      "kind": "publication",
+      "name": "Spearhead: Khazalite Holds - Drakkblud's Clanguard"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/battle-traits:honour-those-with-gazul",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:9bf9a5fc-1515-5d38-a5dc-2f19ae190745",
+      "kind": "ability",
+      "name": "HONOUR THOSE WITH GAZUL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/enhancements:brazen-intimidation",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:680b5deb-4f35-5af2-9c77-36ec3a4861c4",
+      "kind": "ability",
+      "name": "BRAZEN INTIMIDATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/enhancements:grudge-led-retribution",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:011b9ea1-19b6-5f92-989b-5a1c1dcb8760",
+      "kind": "ability",
+      "name": "GRUDGE-LED RETRIBUTION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/enhancements:ragnissons-cobalt-ale",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:a927e573-f993-5c4e-91b3-e84d5961fa8a",
+      "kind": "ability",
+      "name": "RAGNISSON’S COBALT ALE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/enhancements:well-honed-tactics",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:d1a59b6e-987f-52b7-98fe-199583a46dd1",
+      "kind": "ability",
+      "name": "WELL-HONED TACTICS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/regiment-abilities:guided-by-inghilde",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:a93eb574-2e68-5d02-812b-931c192c4387",
+      "kind": "ability",
+      "name": "GUIDED BY INGHILDE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/regiment-abilities:settle-the-grudge",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:33d86b51-217c-5c31-a3df-e859386a0dd7",
+      "kind": "ability",
+      "name": "SETTLE THE GRUDGE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:clanshields/ability:tough-as-stone",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:f0c26817-dc75-591d-be60-a9b69061bb00",
+      "kind": "ability",
+      "name": "TOUGH AS STONE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:gholems-of-gazul/ability:gazuls-might",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:f4ac13e5-cd82-560c-9c06-0a9db4722484",
+      "kind": "ability",
+      "name": "GAZUL’S MIGHT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:hjulda-drakkblud/ability:browbeater",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:46983673-51bb-5ed6-8d35-018fb713b35e",
+      "kind": "ability",
+      "name": "BROWBEATER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:oathkeeper-cannon/ability:oathkeeper-apprentice-runestriker",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:ae38ab63-ebf2-5e9e-a9a0-c6c25b66ef4f",
+      "kind": "ability",
+      "name": "OATHKEEPER APPRENTICE RUNESTRIKER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/battle-traits:berserk-charge",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:b6a3f20b-2e44-5888-926b-332d6fbea397",
+      "kind": "ability",
+      "name": "BERSERK CHARGE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/battle-traits:fiery-reinforcements",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:fd79d282-5d7e-5dfc-a126-4860337757ba",
+      "kind": "ability",
+      "name": "FIERY REINFORCEMENTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/battle-traits:fury-for-the-fallen",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:bc4fd2dc-4b98-5068-986b-20d06798de10",
+      "kind": "ability",
+      "name": "FURY FOR THE FALLEN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/enhancements:fyrespawn",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:a818191f-d75f-596a-a52b-84e88d41633f",
+      "kind": "ability",
+      "name": "FYRESPAWN"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/enhancements:halo-of-flames",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:81a9e391-2b9a-5fb1-b719-cf9b5c60f128",
+      "kind": "ability",
+      "name": "HALO OF FLAMES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/enhancements:lodgefather",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:b9f095b4-7a79-5682-9cf2-bbff5b22609e",
+      "kind": "ability",
+      "name": "LODGEFATHER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/enhancements:stoke-the-fire",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:e4cd2179-0567-5975-b6cb-be1de91298e2",
+      "kind": "ability",
+      "name": "STOKE THE FIRE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/regiment-abilities:eager-for-battle",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:9a4e97f8-c87b-52fd-9f02-eb47a00d6337",
+      "kind": "ability",
+      "name": "EAGER FOR BATTLE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/regiment-abilities:flaming-runes",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:fb1ab537-c64c-5d05-a1c2-3c4bf2a60950",
+      "kind": "ability",
+      "name": "FLAMING RUNES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-hearthguard/ability:molten-rockbolts",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:96a241be-72f5-5c31-949d-347e14885151",
+      "kind": "ability",
+      "name": "MOLTEN ROCKBOLTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-runefather-on-magmadroth/ability:battle-damaged",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:3caa2ff4-d0cb-5404-aedd-d128ce4736bb",
+      "kind": "ability",
+      "name": "BATTLE DAMAGED"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-runefather-on-magmadroth/ability:volcanic-blood",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:3fab915e-83e1-5ecb-adf1-e17efb55aa2e",
+      "kind": "ability",
+      "name": "VOLCANIC BLOOD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-runesmiter/ability:awaken-the-runes",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:22a6729f-e1a6-54c3-b2db-74f51b09b8bf",
+      "kind": "ability",
+      "name": "AWAKEN THE RUNES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:vulkyn-flameseekers/ability:confounded-beast",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:8acee2f3-8920-5abe-8956-8ba5b5a4eea6",
+      "kind": "ability",
+      "name": "CONFOUNDED BEAST!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/army",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:ba8594c5-b176-50ed-96fc-f4c5ba0cc50f",
+      "kind": "content-group",
+      "name": "Drakkblud’s Clanguard"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/battle-traits",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:4aea27d3-af52-57a2-abaf-70325cc76db4",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/enhancements",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:1e5f6426-2bd5-57c6-84d4-1719db49a1a3",
+      "kind": "content-group",
+      "name": "Enhancements"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/regiment-abilities",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:5899c706-13ca-5167-96e3-8076aa215838",
+      "kind": "content-group",
+      "name": "Regiment Abilities"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/type",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:26aaaf4e-e14f-5b50-b637-0fb303167f1c",
+      "kind": "content-group",
+      "name": "Drakkblud’s Clanguard"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/army",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:ecf0b5d0-b2ac-53eb-8c7c-5e7a2d9c7db5",
+      "kind": "content-group",
+      "name": "Magmic Fyrd"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/battle-traits",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:2256ddcd-070f-522b-98c3-c2893664afee",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/enhancements",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:66fad160-ffc5-55c6-8aa9-1fab2f665fcf",
+      "kind": "content-group",
+      "name": "Enhancements"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/regiment-abilities",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:9b49cc3c-0413-5d23-88f6-66e9f4d38f6b",
+      "kind": "content-group",
+      "name": "Regiment Abilities"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/type",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "content-group:83b27220-22ea-5c2b-b402-c72a2e9d3430",
+      "kind": "content-group",
+      "name": "Magmic Fyrd"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:faction",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "faction:0ead1bfe-c793-522f-88c7-fcb6989cadb8",
+      "kind": "faction",
+      "name": "Khazalite Holds"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:clanshields",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "warscroll:e5a9b8cb-ea88-5183-ad60-b4c303143638",
+      "kind": "warscroll",
+      "name": "Clanshields"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:gholems-of-gazul",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "warscroll:111379d9-ed9f-5f03-93f3-4ab8148a2878",
+      "kind": "warscroll",
+      "name": "Gholems of Gazul"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:hjulda-drakkblud",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "warscroll:a0894f44-93ab-537e-9f42-c12b8db02e1d",
+      "kind": "warscroll",
+      "name": "Hjulda Drakkblud"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:oathkeeper-cannon",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "warscroll:9ac76320-2b53-5400-b52e-1deb96372a7c",
+      "kind": "warscroll",
+      "name": "Oathkeeper Cannon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-hearthguard",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "warscroll:c3474a29-bc5b-5d8c-af70-7d68d4b2972e",
+      "kind": "warscroll",
+      "name": "Auric Hearthguard"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-runefather-on-magmadroth",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "warscroll:ce89e0e8-d1b3-594c-a14e-e50e8e9bf74a",
+      "kind": "warscroll",
+      "name": "Auric Runefather on Magmadroth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-runesmiter",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "warscroll:b451e8f9-158f-5802-a3d3-88db3aefd2a0",
+      "kind": "warscroll",
+      "name": "Auric Runesmiter"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:vulkyn-flameseekers",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "warscroll:2e02a353-827f-5f2e-969f-0cc3163a9efe",
+      "kind": "warscroll",
+      "name": "Vulkyn Flameseekers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:clanshields/weapon:1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:5f20c474-5a48-5982-9b07-371d79b4188c",
+      "kind": "weapon",
+      "name": "Kromdron Weapon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:gholems-of-gazul/weapon:1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:1082408a-d0ea-5065-b4df-e3e1674f7187",
+      "kind": "weapon",
+      "name": "Gazulite Great Hammer"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:hjulda-drakkblud/weapon:1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:25180c12-c9c8-5255-afee-b890475e47e4",
+      "kind": "weapon",
+      "name": "Azangrom"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:oathkeeper-cannon/weapon:1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:02e32ab2-3ff5-5476-adf7-d045cb3c664b",
+      "kind": "weapon",
+      "name": "Oathkeeper Shot"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:drakkbluds-clanguard/warscroll:oathkeeper-cannon/weapon:2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:4fa879a6-acd6-5c53-beef-e103169bad96",
+      "kind": "weapon",
+      "name": "Oathkeeper Crew Tools"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-hearthguard/weapon:1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:bcb7a3bd-d667-59a9-a963-1d2f203df76e",
+      "kind": "weapon",
+      "name": "Magmapike"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-hearthguard/weapon:2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:0b898710-497e-52f8-b0b3-37654b70bd09",
+      "kind": "weapon",
+      "name": "Magmapike"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-runefather-on-magmadroth/weapon:1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:5903fae7-8923-5d9c-b073-7e34ae2a518d",
+      "kind": "weapon",
+      "name": "Roaring Fyrestream"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-runefather-on-magmadroth/weapon:2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:12b8bed7-ad6e-5191-8e29-bbeeaec46f84",
+      "kind": "weapon",
+      "name": "Latchkey Grandaxe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-runefather-on-magmadroth/weapon:3",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:0e4ccb95-d98e-53af-b758-7f902e0ab587",
+      "kind": "weapon",
+      "name": "Magmadroth’s Maw, Claws and Horns"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:auric-runesmiter/weapon:1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:cd4f16af-36fb-5445-bf2e-d56bc802f862",
+      "kind": "weapon",
+      "name": "Latch-axe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:vulkyn-flameseekers/weapon:1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:3592f9a6-f54e-5a5e-97da-d9e621f7c21f",
+      "kind": "weapon",
+      "name": "Vulkyn Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "spearhead:khazalite-holds:magmic-fyrd/warscroll:vulkyn-flameseekers/weapon:2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "weapon:7ba8fabd-b00d-5716-89e3-ccb396504eda",
+      "kind": "weapon",
+      "name": "Kyndledroth’s Fangs"
     }
   ],
   "schemaVersion": 1

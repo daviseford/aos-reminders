@@ -63,8 +63,8 @@ describe('AoS 4 derived corpus artifacts', () => {
       'schemaVersion',
     ])
     expect(Object.keys(sources).sort()).toEqual(['sourceArtifacts', 'sourceRecords'])
-    expect(sources.sourceRecords).toHaveLength(20286)
-    expect(sources.sourceArtifacts).toHaveLength(234)
+    expect(sources.sourceRecords).toHaveLength(20322)
+    expect(sources.sourceArtifacts).toHaveLength(236)
   })
 
   it('keeps every core source-record index addressable in the sources artifact', () => {
@@ -147,8 +147,8 @@ describe('AoS 4 derived corpus artifacts', () => {
   })
 
   it('indexes every decoded faction and flags the ones a player can field', () => {
-    expect(AOS4_FACTION_INDEX.factions).toHaveLength(28)
-    expect(AOS4_FACTION_INDEX.factions.filter(row => row.playable)).toHaveLength(27)
+    expect(AOS4_FACTION_INDEX.factions).toHaveLength(29)
+    expect(AOS4_FACTION_INDEX.factions.filter(row => row.playable)).toHaveLength(28)
     // `Endless Spells` is a container row, not an army; see src/aos4/domain/armies.ts.
     expect(AOS4_FACTION_INDEX.factions.filter(row => !row.playable).map(row => row.name)).toEqual([
       'Endless Spells',

@@ -58,6 +58,9 @@ A summonable endless-spell-style unit belonging to a Manifestation Lore. Manifes
 ### Rules Context
 The partition of all rules content by where it is legal: current standard, the current seasonal handbook, Spearhead, Legends, and historical. Every entity and relationship declares the contexts it applies in, so parallel and retired rules never leak into each other.
 
+### Spearhead-Only Faction
+A faction that exists only in the Spearhead Rules Context because an official Spearhead pack is the only accepted source for it (Khazalite Holds, October 2026): its armies are read from the pack itself, it is an army through the Spearhead groups it offers rather than any directly offered warscroll, and it never receives matched-play content such as the universal manifestations. Its matched-play faction stays absent until a source prints those rules; a points-only faction is not a substitute.
+
 ### Overlay
 An opt-in widening of an army's Rules Context: Legends and historical content is offered on top of the primary context, grouped so its provenance stays visible. Replacement effects (an Army of Renown's exclusions) must reach overlay content too, or retired choices resurface.
 
