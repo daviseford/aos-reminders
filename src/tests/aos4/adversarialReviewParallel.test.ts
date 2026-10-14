@@ -311,7 +311,9 @@ describe('bounded adversarial review workers', () => {
       expect(siblingPid).toBeGreaterThan(0)
       expect(siblingLiveAtFailure).toBe(false)
       await expect(access(output)).rejects.toThrow()
-      expect((await readdir(root)).filter(name => name.includes('.staging-'))).toEqual([])
+      expect((await readdir(root)).filter(name => name.startsWith(`${path.basename(output)}.tmp-`))).toEqual(
+        []
+      )
     } finally {
       await rm(root, { recursive: true, force: true })
     }
@@ -341,7 +343,9 @@ describe('bounded adversarial review workers', () => {
         )
       ).rejects.toMatchObject({ code: 'ENOENT' })
       await expect(access(output)).rejects.toThrow()
-      expect((await readdir(root)).filter(name => name.includes('.staging-'))).toEqual([])
+      expect((await readdir(root)).filter(name => name.startsWith(`${path.basename(output)}.tmp-`))).toEqual(
+        []
+      )
     } finally {
       await rm(root, { recursive: true, force: true })
     }
