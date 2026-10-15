@@ -19,7 +19,7 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * hides follow them; rules the rewrite removed retire, and nothing is re-keyed onto them.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-02.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-14.json')
 const IRONJAWZ_COLLECTION =
   'source-record:wahapedia:html:https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html'
 const PACK =

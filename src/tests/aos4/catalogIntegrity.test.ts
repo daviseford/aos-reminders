@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-02.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-14.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-02-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-14-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_606)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_665)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,606 entities', () => {
+  it('reports no missing provenance for any of the 11,665 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_606)
+    ).toHaveLength(11_665)
   })
 })
 
@@ -192,17 +192,17 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(report).toMatchObject({
       status: 'strict-pass',
       summary: {
-        factions: 28,
-        warscrolls: 1303,
+        factions: 29,
+        warscrolls: 1311,
         battleProfiles: 1015,
-        abilities: 5151,
-        weapons: 2276,
-        sourceArtifacts: 244,
-        sourceRecords: 20292,
+        abilities: 5176,
+        weapons: 2289,
+        sourceArtifacts: 246,
+        sourceRecords: 20328,
         ignoredSourceRecords: 20464,
       },
       integrity: {
-        consumedSourceRecords: 20286,
+        consumedSourceRecords: 20322,
         issues: [],
         supersededSourceRecords: {
           count: 20458,
@@ -292,13 +292,13 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(244)
+    expect(acceptedManifest.artifacts).toHaveLength(246)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
-    ).toHaveLength(159)
+    ).toHaveLength(161)
     // No commit-pinned BSData catalogue remains. The Stormcast library, the three Ogor catalogues,
     // the three Sons of Behemat `gargants`-branch catalogues, and the Regiments of Renown catalogue
     // that carried Krong the Club's rules text (issue #1999) all retired once a pinned Wahapedia
@@ -536,7 +536,7 @@ describe('AoS 4 catalog generation integrity', () => {
       pastSeason.id,
     ])
     expectOfficialPublicationContexts('Red Gobbo Battleplan', [historical.id])
-    expectOfficialPublicationContexts('Legends compendium', [legends.id])
+    expectOfficialPublicationContexts('Legends Warscrolls', [legends.id])
     expectOfficialPublicationContexts('Faction Pack: Fyreslayers', [standard.id, pastSeason.id, seasonal.id])
     expectOfficialPublicationContexts(
       'Warhammer Age of Sigmar Core Rules, Spearhead Rules, Terrain List and Glossary',
@@ -560,8 +560,8 @@ describe('AoS 4 catalog generation integrity', () => {
     const allFactions = AOS4_FULL_CATALOG.entities.filter(
       (entity): entity is Faction => entity.kind === 'faction'
     )
-    expect(allFactions).toHaveLength(28)
-    expect(armies).toHaveLength(27)
+    expect(allFactions).toHaveLength(29)
+    expect(armies).toHaveLength(28)
     expect(allFactions.filter(faction => !armies.includes(faction)).map(faction => faction.name)).toEqual([
       'Endless Spells',
     ])

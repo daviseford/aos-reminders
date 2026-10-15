@@ -16,28 +16,29 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-10-02 snapshot is defined by:
+The accepted 2026-10-14 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-10-02.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 159 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037, and the Ironjawz warscroll collection at its 2026-10-02 bytes, issue #1999), pinned by SHA-256; no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
-| `data/aos4/reviews/corpus-2026-10-02.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-10-14.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 161 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037, and the Ironjawz warscroll collection at its 2026-10-02 bytes, issue #1999), pinned by SHA-256; the 2026-10-14 Games Workshop downloads (#1757: the re-published Regiments of Renown and the three Khazalite Holds packs pinned, the delisted Legends compendium and September 2025 Regiments of Renown no longer pinned); no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
+| `data/aos4/reviews/corpus-2026-10-14.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-10-02-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-10-02-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-10-14-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-10-14-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
-- 28 decoded source factions: 27 playable armies plus the Endless Spells container
-- 1,303 warscrolls and 1,015 battle profiles
-- 5,151 abilities
-- 2,276 weapons
-- 1,526 content groups
-- 244 source artifacts and 20,292 live source records
+- 29 decoded source factions: 28 playable armies (Khazalite Holds in Spearhead only) plus the
+  Endless Spells container
+- 1,311 warscrolls and 1,015 battle profiles
+- 5,176 abilities
+- 2,289 weapons
+- 1,536 content groups
+- 246 source artifacts and 20,328 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -47,6 +48,44 @@ The strict report currently records:
   2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
+- the 2026-10-14 official intake (#1757), on top of 2026-10-02, for the Games Workshop downloads
+  of 2026-10-13/14 (owner-approved scope and transition policy):
+  - *Legends compendium* (`eng_01-04`, `0ba8c36c...`) was delisted with no replacement (the asset
+    URL still serves the same bytes). It was reference evidence nothing else cited, so it is
+    unpinned; *Legends Warscrolls* and the core documents still anchor Legends.
+  - *Regiments of Renown* was re-published (`eng_14-10`, `39bde41d...`) in place of the September
+    2025 pack (`256609b9...`) with publication identity continuity (both checksums alias
+    `publication:a34c95ee...`). The only differences: the Gotrek Gurnisson page moved to the
+    Khazalite Holds battle profiles, Neferata's and Mannfred's regiments print Barrow Knights and
+    Barrow Guard (the names the runtime already ships), and one Nighthaunt line reads "the" for
+    "this". The reviewed Gotrek adoption (#2047) no longer cites the delisted page 5; the September
+    2026 Battle Profiles page 60 remains its in-force anchor.
+  - *Battle Profiles - Khazalite Holds* (`557e149b...`, page 3) lists the Gotrek Gurnisson
+    Regiment of Renown for eight factions without Fyreslayers; the core Battle Profiles (page 1)
+    give a republished set precedence. A reviewed context override on the Fyreslayers availability
+    record keeps that one offer only in the General's Handbook 2025-26 past season; the other eight
+    offers are unchanged. Saved Fyreslayers armies keep the pick (the builder shows it selected and
+    unavailable under the past-season header, and it can be removed but not re-added); imports of
+    a Fyreslayers roster with the regiment warn `inapplicable-selection` (the member line still
+    brings his warscroll, the documented member-shortcut convention). Generation now narrows a
+    regiment's offer only where a reviewed override targets that exact availability record.
+  - Khazalite Holds is a new faction. Its *Spearhead* pack (`2c66cb0e...`) prints two complete
+    Spearhead armies, Drakkblud's Clanguard (pages 1-4) and Magmic Fyrd (pages 5-8), which ship
+    from the PDF itself through the reviewed `officialSpearheadSources` entry: a positional reader
+    for the Spearhead print template (`src/aos4/data/gamesWorkshop/spearhead.ts`) verifies every
+    string against the page, pins each army's extracted checksum, and requires a disposition for
+    any unplaced text (one lone "Clanshields" label on page 2). The faction, ten content groups (two
+    armies, two army rule types, six rules groups), 25 abilities, 8 warscrolls, and 13 weapons exist
+    only in the Spearhead context; their identities alias on the pack section, so a re-upload keeps
+    every canonical id; and
+    Spearhead-only factions never receive the universal Endless Spells content.
+  - Matched-play Khazalite Holds stays blocked: the battle profiles' 35 unit rows and battletome
+    options and the *Regiments of Renown - Khazalite Holds* pack (`0361f30c...`: Fjori's Vengeance,
+    Thengin's Grudgesettlers) are reference evidence, because Battletome: Khazalite Holds is the only
+    source of their warscrolls and rules (the regiments also depend on its grudge marks and the
+    Grimhold Exile's Wrathful Wanderer). Fyreslayers keep their identities and in-force Faction Pack
+    and September 2026 Battle Profiles values; nothing is migrated or re-priced. A provisional watch
+    on the Wahapedia navigation reports a Khazalite Holds faction page
 - the 2026-10-02 Sons of Behemat Regiments of Renown rewrite (#1999), on top of 2026-10-01. The
   official *Regiments of Renown - Sons of Behemat* pack (2026-09-09, pinned as reference since
   2026-09-10) rewrote Odo Godswallow (p1: Protective Wards, a Mighty Walloper that gives the Menhir

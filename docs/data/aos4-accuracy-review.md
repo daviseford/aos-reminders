@@ -12,7 +12,45 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-10-02` (issue #1999): the four Sons of Behemat Regiments
+The current revision is `aos4-corpus-2026-10-14` (issue #1757): the owner-approved intake of the
+Games Workshop downloads of 2026-10-13/14 on top of `aos4-corpus-2026-10-02`. The manifest
+`accepted-2026-10-14.json` unpins the delisted Legends compendium and the September 2025
+Regiments of Renown, pins the re-published Regiments of Renown with publication identity
+continuity, and pins the three Khazalite Holds packs. The Khazalite Holds Spearhead pack is read
+directly into a Spearhead-only faction with both of its printed armies (`officialSpearheadSources`);
+a reviewed context override keeps Gotrek Gurnisson's Fyreslayers offer only in the 2025-26 past
+season; matched-play Khazalite Holds and its two regiments stay blocked on Battletome: Khazalite
+Holds. `aos4-maintenance.md` records the scope and every disposition. Its automated review is
+complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 246/246 |
+| Explicit non-material discovery entries | 9 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 625/625 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,328/20,328 |
+| Ignored-record dispositions (superseded + explicit) | 20,464/20,464 |
+| Live review pairs | 42,731/42,731 |
+| Independent outcomes | 85,462 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 157/157 |
+| Populated high-risk cohorts | 22/22 |
+
+The source inventory binds fresh observations taken for this intake: a `discover-official`
+snapshot observed at 2026-10-14T19:58:07Z (168 downloads, 7 explicit non-material) and the
+Wahapedia navigation and exports at 19:58:18Z (87 sources, 0 inaccessible, 90 requests with the
+bounded `--timeout-ms`/`--retries` observer). Every accepted artifact matched. The certification is
+`aos4-corpus-2026-10-14-machine-r1` (campaign 2026-10-14T20:06:29Z, certified 20:10:02Z). Its
+`--reuse-certification` offer of `aos4-corpus-2026-10-02-machine-r1` reused no pair (revision
+re-key), so all 42,731 pairs were evaluated fresh. Earlier the same day an unpin-only candidate was
+inventoried against a 13:3xZ Games Workshop snapshot; the Games Workshop downloads changed before
+certification (four new publications and one removal), so that candidate was never certified and
+the intake was widened instead of binding the stale snapshot.
+
+### `aos4-corpus-2026-10-02` (superseded)
+
+The current revision was `aos4-corpus-2026-10-02` (issue #1999): the four Sons of Behemat Regiments
 of Renown the September 2026 battletome rewrote (official *Regiments of Renown - Sons of Behemat*
 pages 1-4: Odo Godswallow, Bundo Whalebiter, One-eyed Grunnock, Big Drogg Fort-Kicka), on top of
 `aos4-corpus-2026-10-01`. The manifest `accepted-2026-10-02.json` swaps exactly one artifact, the
@@ -656,6 +694,16 @@ yarn data:aos4:inventory `
 
 Any missing, unexpected, inaccessible, or ambiguous entry blocks beta readiness. A non-material
 entry needs a specific evidence-backed disposition.
+
+The Wahapedia observation (`data:aos4:inventory:observe-wahapedia`) gives each request
+`--timeout-ms` (default 120000, at most 300000) for the whole response and retries only transport
+failures (`timeout`, `network-error`, `truncated-response`) up to `--retries` times (default 2, at
+most 3) after a 15 s, then 30 s backoff. Every retry is paced and counted against
+`--request-budget`, and running out of budget fails the whole observation. HTTP statuses, including
+429 and 5xx, and every URL-policy, media-type, size, or checksum failure are not retried, so the
+source stays `inaccessible`. The old fixed 30 s limit left 6 to 46 of about 85 sources
+inaccessible on 2026-10-14, when Wahapedia served 0.75-1.6 MB pages in 5 to 52 s. A run that
+still reports any inaccessible source is retaken, never bound.
 
 The inventory records every observation it combined: the producer, the publishers it covered, how
 many entries it contributed, and when it was observed. `observedAt` (and the manifest's

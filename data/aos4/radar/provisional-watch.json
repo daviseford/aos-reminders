@@ -1,4 +1,17 @@
 {
   "schemaVersion": 1,
-  "watches": []
+  "watches": [
+    {
+      "id": "wahapedia-khazalite-holds-faction",
+      "issueNumber": 1757,
+      "reason": "Corpus 2026-10-14 ships Khazalite Holds only as its two official Spearhead armies. The matched-play faction (the October 2026 battle profiles’ 35 units, Battletome: Khazalite Holds formations, enhancements, and lores) and its two Regiments of Renown (Fjori’s Vengeance, Thengin’s Grudgesettlers) stay blocked because no accepted source prints their rules. A Khazalite Holds faction page in the Wahapedia navigation is the first secondary source for that intake; the Fyreslayers-to-Khazalite Holds transition is owner-gated.",
+      "url": "https://wahapedia.ru/aos4/nav.html",
+      "sentinels": [
+        {
+          "label": "Khazalite Holds faction page (navigation link)",
+          "needle": "/factions/khazalite-holds"
+        }
+      ]
+    }
+  ]
 }

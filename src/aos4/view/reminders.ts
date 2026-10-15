@@ -441,7 +441,8 @@ const withPreferences = (
   entityById: Map<CanonicalId, ContentEntity>,
   seasonalContextIds: ReadonlySet<RulesContextId>,
   ruleNameByMatchKey: Map<string, string>,
-  bearerNameByRootId: ReadonlyMap<CanonicalId, string>
+  bearerNameByRootId: ReadonlyMap<CanonicalId, string>,
+  unofferedRegimentIds: ReadonlySet<CanonicalId>
 ): Aos4ReminderViewModel => {
   const preference = document.reminderPreferences[reminder.id]
   const details = timingDetails(reminder.timing)
@@ -450,6 +451,17 @@ const withPreferences = (
   // A picked source already names the grant; provenance covers only the faction-automatic rest.
   const provenance = grantedBy.length ? undefined : provenanceTag(reminder, entityById, seasonalContextIds)
   const attribution = provenance ? [provenance] : grantedBy
+  const unoffered: Aos4ReminderTag[] =
+    reminder.causes.length > 0 && reminder.causes.every(cause => unofferedRegimentIds.has(cause.rootId))
+      ? [
+          {
+            label: 'Not available to this army',
+            tone: 'provenance',
+            description:
+              'This Regiment of Renown is not available to this army under the selected rules. It stays on your saved list until you remove it.',
+          },
+        ]
+      : []
   const keyworded = keywordTags(reminder, ruleNameByMatchKey)
   const rulesModule = rulesModuleName(reminder, entityById)
   const cost = costTag(reminder)
@@ -459,11 +471,18 @@ const withPreferences = (
     windowKey: gameWindowKey(reminder.timing.window),
     windowLabel: label,
     typeLabel: details.join(' · '),
-    tags: [...(cost ? [cost] : []), ...attribution, ...keyworded, ...timingTags(reminder.timing)],
+    tags: [
+      ...(cost ? [cost] : []),
+      ...attribution,
+      ...unoffered,
+      ...keyworded,
+      ...timingTags(reminder.timing),
+    ],
     accessibleLabel: [
       reminder.name,
       ...(cost ? [cost.description] : []),
       ...attribution.map(tag => `From ${tag.label}`),
+      ...unoffered.map(tag => tag.label),
       ...keyworded.map(tag => `${tag.label} ability`),
       label,
       ...details,
@@ -522,6 +541,18 @@ export const createAos4ReminderViewModel = (
     const bearer = bearerId ? entityById.get(bearerId) : undefined
     if (bearer?.kind === 'warscroll') bearerNameByRootId.set(enhancementId as CanonicalId, bearer.name)
   })
+  /**
+   * A Regiment of Renown the army keeps from an earlier ruleset but its faction is no longer offered
+   * under the selected rules (Gotrek Gurnisson left Fyreslayers in October 2026, #1757). The pick
+   * stays selected, as everywhere else, and its reminders say so instead of reading as current.
+   */
+  const offered = new Set<CanonicalId>(selection.availableIds)
+  const unofferedRegimentIds = new Set(
+    document.explicitSelectionIds.filter(id => {
+      const entity = entityById.get(id)
+      return entity?.kind === 'content-group' && entity.groupType === 'regiment-of-renown' && !offered.has(id)
+    })
+  )
   const reminders = projected.map(reminder =>
     withPreferences(
       reminder,
@@ -529,7 +560,8 @@ export const createAos4ReminderViewModel = (
       entityById,
       seasonalContextIds,
       ruleNameByMatchKey,
-      bearerNameByRootId
+      bearerNameByRootId,
+      unofferedRegimentIds
     )
   )
   const baseOrder = new Map(reminders.map((reminder, index) => [reminder.id, index]))

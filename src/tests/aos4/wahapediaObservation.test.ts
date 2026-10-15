@@ -16,7 +16,13 @@ import {
   discoverWahapediaWarscrollCollection,
   WAHAPEDIA_DATA_EXPORT_URL,
 } from '../../aos4/review/wahapediaObservation'
-import { observeWahapediaSources } from '../../aos4/review/wahapediaObservationCommand'
+import {
+  DEFAULT_RETRIES,
+  DEFAULT_TIMEOUT_MS,
+  observeWahapediaSources,
+  parseWahapediaObservationArguments,
+  RETRY_BACKOFF_MS,
+} from '../../aos4/review/wahapediaObservationCommand'
 
 describe('Wahapedia independent source observation', () => {
   it('discovers rule and faction navigation without treating content links as inventory', () => {
@@ -248,6 +254,129 @@ describe('Wahapedia independent source observation', () => {
       )
     ).rejects.toBeInstanceOf(RequestBudgetExceededError)
     expect(requested).toHaveLength(4)
+  })
+})
+
+describe('Wahapedia observation transport resilience', () => {
+  const CORE_RULES_URL = 'https://wahapedia.ru/aos4/the-rules/the-core-rules/'
+  const timeout = () => new AcquisitionError('timeout', 'Request timed out after 120000ms')
+
+  /** Throws `errors` in order for `url`, then serves the fixture. */
+  const failingFirst = (requested: string[], url: string, errors: Error[]) => {
+    const fixture = fullObservationAcquire(requested, 'User-agent: *\nAllow: /')
+    const remaining = [...errors]
+    return async (request: AcquireArtifactRequest) => {
+      if (request.url === url && remaining.length) {
+        requested.push(request.url)
+        throw remaining.shift()!
+      }
+      return fixture(request)
+    }
+  }
+
+  const observe = (
+    input: Partial<ReturnType<typeof fullObservationInput>> & { retries?: number },
+    acquire: ReturnType<typeof failingFirst>,
+    waits: number[] = []
+  ) =>
+    observeWahapediaSources(
+      { ...fullObservationInput(), ...input },
+      {
+        acquire,
+        now: () => '2026-10-14T16:00:00.000Z',
+        wait: async milliseconds => {
+          waits.push(milliseconds)
+        },
+      }
+    )
+
+  const coreRules = (entries: Array<{ url: string; availability: string }>) =>
+    entries.find(entry => entry.url === CORE_RULES_URL)
+
+  it('retries a timed-out source with a linear backoff and records it accessible', async () => {
+    const requested: string[] = []
+    const waits: number[] = []
+    const { observation, requestCount } = await observe(
+      {},
+      failingFirst(requested, CORE_RULES_URL, [timeout(), timeout()]),
+      waits
+    )
+
+    expect(coreRules(observation.entries)?.availability).toBe('accessible')
+    expect(requested.filter(url => url === CORE_RULES_URL)).toHaveLength(DEFAULT_RETRIES + 1)
+    expect(waits).toEqual([RETRY_BACKOFF_MS, 2 * RETRY_BACKOFF_MS])
+    // Each retry is a real request: it is counted, not hidden from the budget.
+    expect(requestCount).toBe(requested.length)
+  })
+
+  it('marks a source inaccessible once its retries are exhausted', async () => {
+    const requested: string[] = []
+    const { observation } = await observe(
+      { retries: 1 },
+      failingFirst(requested, CORE_RULES_URL, [timeout(), timeout(), timeout()])
+    )
+
+    expect(coreRules(observation.entries)?.availability).toBe('inaccessible')
+    expect(requested.filter(url => url === CORE_RULES_URL)).toHaveLength(2)
+  })
+
+  it.each([
+    ['an HTTP status', new AcquisitionError('http-status', `Request to ${CORE_RULES_URL} returned HTTP 503`)],
+    ['a media-type failure', new AcquisitionError('unexpected-media-type', 'Unexpected media type')],
+    ['an oversized response', new AcquisitionError('response-too-large', 'Response exceeded the limit')],
+  ])('does not retry %s', async (_label, error) => {
+    const requested: string[] = []
+    const waits: number[] = []
+    const { observation } = await observe({}, failingFirst(requested, CORE_RULES_URL, [error]), waits)
+
+    expect(coreRules(observation.entries)?.availability).toBe('inaccessible')
+    expect(requested.filter(url => url === CORE_RULES_URL)).toHaveLength(1)
+    expect(waits).toEqual([])
+  })
+
+  it('fails closed when retries would exceed the request budget', async () => {
+    const requested: string[] = []
+    // The fixture needs 8 requests; two retries of one source make 10.
+    await expect(
+      observe(
+        { requestBudget: 9, concurrency: 1 },
+        failingFirst(requested, CORE_RULES_URL, [timeout(), timeout(), timeout()])
+      )
+    ).rejects.toBeInstanceOf(RequestBudgetExceededError)
+  })
+
+  it('gives every request the configured whole-request timeout', async () => {
+    const timeouts: number[] = []
+    const fixture = fullObservationAcquire([], 'User-agent: *\nAllow: /')
+    const capture = async (request: AcquireArtifactRequest) => {
+      timeouts.push(request.timeoutMs)
+      return fixture(request)
+    }
+
+    await observe({}, capture)
+    expect(new Set(timeouts)).toEqual(new Set([DEFAULT_TIMEOUT_MS]))
+
+    timeouts.length = 0
+    await observeWahapediaSources(
+      { ...fullObservationInput(), timeoutMs: 45_000 },
+      { acquire: capture, now: () => '2026-10-14T16:00:00.000Z', wait: async () => undefined }
+    )
+    expect(new Set(timeouts)).toEqual(new Set([45_000]))
+  })
+
+  it('parses bounded timeout and retry flags', () => {
+    expect(parseWahapediaObservationArguments([])).toMatchObject({
+      timeoutMs: DEFAULT_TIMEOUT_MS,
+      retries: DEFAULT_RETRIES,
+    })
+    expect(parseWahapediaObservationArguments(['--timeout-ms', '180000', '--retries', '0'])).toMatchObject({
+      timeoutMs: 180_000,
+      retries: 0,
+    })
+    expect(() => parseWahapediaObservationArguments(['--timeout-ms', '999'])).toThrow(/--timeout-ms/)
+    expect(() => parseWahapediaObservationArguments(['--timeout-ms', '300001'])).toThrow(/--timeout-ms/)
+    expect(() => parseWahapediaObservationArguments(['--retries', '4'])).toThrow(/--retries/)
+    expect(() => parseWahapediaObservationArguments(['--retries', '-1'])).toThrow(/--retries/)
   })
 })
 

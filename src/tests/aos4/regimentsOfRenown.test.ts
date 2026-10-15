@@ -7,8 +7,18 @@ import { resolveParsedRoster } from '../../aos4/import'
 import { projectReminders } from '../../aos4/reminders'
 import { createDefaultAos4ArmyDocument } from '../../aos4/runtime'
 import { resolveSelection } from '../../aos4/select'
-import { createAos4ArmyDocument } from '../../aos4/state'
-import { createAos4BuilderViewModel } from '../../aos4/view'
+import {
+  createAos4ArmyDocument,
+  deserializeAos4ArmyDocument,
+  serializeAos4ArmyDocument,
+} from '../../aos4/state'
+import { createAos4PrintDocument } from '../../aos4/print/document'
+import {
+  type Aos4ReminderViewModel,
+  createAos4BuilderViewModel,
+  createAos4ReminderViewModel,
+  createPrintableAos4Reminders,
+} from '../../aos4/view'
 import { decodeAos4TextRoster } from '../../importers'
 
 /**
@@ -22,7 +32,7 @@ import { decodeAos4TextRoster } from '../../importers'
  * applied to runtime.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-02.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-14.json')
 
 const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
 const factionByName = (name: string): Faction =>
@@ -934,6 +944,160 @@ describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
   it('keeps its canonical id and is offered by exactly its nine official inclusion factions', () => {
     expect(regimentByName('Gotrek Gurnisson').id).toBe(GOTREK_REGIMENT_ID)
     expect(offeringFactionNames(GOTREK_REGIMENT_ID)).toEqual(GOTREK_INCLUSION_FACTIONS)
+  })
+
+  /**
+   * October 2026 (#1757): the Khazalite Holds battle profiles (page 3) list the regiment for eight
+   * factions without Fyreslayers, and a republished set takes precedence (core Battle Profiles,
+   * page 1). A reviewed context override keeps the Fyreslayers offer only in the 2025-26 past
+   * season it was printed under; saved Fyreslayers armies keep the pick as out-of-context content.
+   */
+  describe('October 2026 Fyreslayers eligibility', () => {
+    const contextOf = (status: string) =>
+      AOS4_CATALOG.rulesContexts.find(context => context.status === status && context.mode === 'standard')!
+    const current = contextOf('current')
+    const pastSeason = contextOf('past-season')
+    const fyreslayers = () => factionByName('Fyreslayers')
+    const offeringFactionsIn = (contextId: string) => {
+      const factionNameById = new Map(
+        AOS4_CATALOG.entities.flatMap(entity => (entity.kind === 'faction' ? [[entity.id, entity.name]] : []))
+      )
+      return AOS4_CATALOG.relationships
+        .filter(
+          relationship =>
+            relationship.kind === 'offers' &&
+            relationship.to === GOTREK_REGIMENT_ID &&
+            (relationship.rulesContextIds ?? []).includes(contextId as never)
+        )
+        .map(relationship => factionNameById.get(relationship.from as never)!)
+        .sort()
+    }
+    const document = (rulesContextId: string, explicitSelectionIds: string[]) =>
+      createAos4ArmyDocument({
+        id: 'army:fyreslayers-gotrek',
+        name: 'Fyreslayers with Gotrek',
+        rulesContextId: rulesContextId as never,
+        explicitSelectionIds: explicitSelectionIds as never,
+      })
+    const gotrekOption = (rulesContextId: string, explicitSelectionIds: string[]) =>
+      createAos4BuilderViewModel(AOS4_CATALOG, document(rulesContextId, explicitSelectionIds)).options.find(
+        option => option.id === GOTREK_REGIMENT_ID
+      )
+
+    it('leaves Fyreslayers out of current and seasonal play and keeps them in the 2025-26 past season', () => {
+      const withoutFyreslayers = GOTREK_INCLUSION_FACTIONS.filter(name => name !== 'Fyreslayers')
+      expect(offeringFactionsIn(current.id)).toEqual(withoutFyreslayers)
+      expect(offeringFactionsIn(seasonal.id)).toEqual(withoutFyreslayers)
+      expect(offeringFactionsIn(pastSeason.id)).toEqual(GOTREK_INCLUSION_FACTIONS)
+    })
+
+    it('no longer offers the regiment to a new Fyreslayers army', () => {
+      ;[current.id, seasonal.id].forEach(contextId =>
+        expect(gotrekOption(contextId, [fyreslayers().id])).toBeUndefined()
+      )
+      expect(gotrekOption(pastSeason.id, [fyreslayers().id])).toMatchObject({
+        available: true,
+        selected: false,
+      })
+    })
+
+    it('keeps a saved Fyreslayers pick intact and files it as out-of-context content', () => {
+      const saved = document(current.id, [fyreslayers().id, GOTREK_REGIMENT_ID])
+      // Local storage, cloud armies, and share links all read a document through deserialization.
+      const reloaded = deserializeAos4ArmyDocument(serializeAos4ArmyDocument(saved), AOS4_CATALOG)
+      expect(reloaded.document?.explicitSelectionIds).toContain(GOTREK_REGIMENT_ID)
+      expect(reloaded.diagnostics).toEqual([])
+
+      const option = createAos4BuilderViewModel(AOS4_CATALOG, reloaded.document!).options.find(
+        candidate => candidate.id === GOTREK_REGIMENT_ID
+      )
+      // Selected but not available in current play: the builder files it with historical content
+      // instead of presenting it as a current choice, and the player can still remove it.
+      expect(option).toMatchObject({ selected: true, available: false, overlay: 'historical' })
+      expect(
+        resolveSelection(AOS4_CATALOG, {
+          explicitIds: reloaded.document!.explicitSelectionIds,
+          rulesContextId: current.id,
+        }).selectedIds
+      ).toContain(GOTREK_REGIMENT_ID)
+    })
+
+    describe('reminders and print for a kept pick', () => {
+      const UNOFFERED = 'Not available to this army'
+      const gotrekReminders = (reminders: Aos4ReminderViewModel[]) =>
+        reminders.filter(reminder =>
+          ['UNSTOPPABLE BATTLE FURY', '‘I’LL GET THERE MYSELF!’'].includes(reminder.name)
+        )
+      const labels = (reminder: { tags?: Array<{ label: string }> }) =>
+        (reminder.tags ?? []).map(tag => tag.label)
+
+      it.each([
+        ['current', () => current.id],
+        ['seasonal', () => seasonal.id],
+      ])(
+        'marks his rules as not available to a Fyreslayers army in %s play, on screen and in print',
+        (_label, contextId) => {
+          const saved = document(contextId(), [fyreslayers().id, GOTREK_REGIMENT_ID])
+          const reminders = createAos4ReminderViewModel(AOS4_CATALOG, saved)
+          // The pick stays selected, so its rules still show; they no longer read as current.
+          expect(gotrekReminders(reminders)).toHaveLength(2)
+          gotrekReminders(reminders).forEach(reminder => {
+            expect(labels(reminder)).toContain(UNOFFERED)
+            expect(reminder.accessibleLabel).toContain(UNOFFERED)
+          })
+          // Nothing else in the army carries the mark.
+          expect(reminders.filter(reminder => labels(reminder).includes(UNOFFERED))).toHaveLength(2)
+
+          const print = createAos4PrintDocument(createPrintableAos4Reminders(AOS4_CATALOG, saved), {
+            armyName: 'Fyreslayers with Gotrek',
+            factionName: 'Fyreslayers',
+          })
+          const printed = print.sections
+            .flatMap(section => section.rules)
+            .filter(rule => /BATTLE FURY|GET THERE MYSELF/.test(rule.title))
+          expect(printed).toHaveLength(2)
+          printed.forEach(rule => expect(labels(rule)).toContain(UNOFFERED))
+        }
+      )
+
+      it('leaves his rules unmarked where the regiment is offered', () => {
+        const pastSeasonArmy = document(pastSeason.id, [fyreslayers().id, GOTREK_REGIMENT_ID])
+        const stormcastArmy = document(seasonal.id, [
+          factionByName('Stormcast Eternals').id,
+          GOTREK_REGIMENT_ID,
+        ])
+        ;[pastSeasonArmy, stormcastArmy].forEach(army => {
+          const reminders = gotrekReminders(createAos4ReminderViewModel(AOS4_CATALOG, army))
+          expect(reminders).toHaveLength(2)
+          reminders.forEach(reminder => expect(labels(reminder)).not.toContain(UNOFFERED))
+        })
+      })
+    })
+
+    it('warns when an official app Fyreslayers roster buys the regiment', () => {
+      const { parsedRoster } = decodeAos4TextRoster(
+        [
+          'Gotrek import 320/2000 pts',
+          '-----',
+          'Fyreslayers',
+          "General's Handbook 2026-27",
+          '-----',
+          'Regiments of Renown',
+          'Gotrek Gurnisson (320)',
+          'Gotrek Gurnisson',
+          '-----',
+          'Created with Warhammer Age of Sigmar: The App',
+          'App: v1.36.0 (1) | Data: v466',
+          '',
+        ].join('\n')
+      )
+      const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster!, {
+        defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+        createDocumentId: () => 'army:fyreslayers-gotrek-import',
+      })
+      expect(preview.diagnostics.map(diagnostic => diagnostic.code)).toContain('inapplicable-selection')
+      expect(preview.proposedDocument?.explicitSelectionIds ?? []).not.toContain(GOTREK_REGIMENT_ID)
+    })
   })
 
   it('brings exactly his warscroll, with the printed profile, abilities, and weapon', () => {
