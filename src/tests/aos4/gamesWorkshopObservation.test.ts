@@ -1,5 +1,7 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import type { GamesWorkshopDownload } from '../../aos4/data/gamesWorkshop'
+import type { SourceObservationClassifications } from '../../aos4/radar/model'
 import {
   createGamesWorkshopSourceObservation,
   type GamesWorkshopDiscoverySnapshot,
@@ -87,5 +89,30 @@ describe('Games Workshop independent source observation', () => {
     expect(() =>
       createGamesWorkshopSourceObservation(snapshot([download('Bad host', 'https://example.com/rules.pdf')]))
     ).toThrow(/untrusted asset URL/)
+  })
+
+  it('classifies the reviewed Khazalite Holds Army Set Alternative Builds PDF as non-material while real rules stay material (#1757)', () => {
+    const classifications: SourceObservationClassifications = JSON.parse(
+      readFileSync('data/aos4/reviews/source-observation-classifications-2026-10-16.json', 'utf8')
+    )
+    const altBuildsUrl =
+      'https://assets.warhammer-community.com/eng_aos_khazalite_holds_army_set_alternative_builds-6qkmtiqmpp-xwf8rdga7o.pdf'
+    const altBuildsTitle = 'Khazalite Holds Army Set Alternative Builds'
+    const rules = download('Current rules', 'https://assets.warhammer-community.com/current-rules.pdf')
+    const everyClassifiedDownload = classifications.explicitlyNonMaterial.map(({ url }, index) =>
+      download(url === altBuildsUrl ? altBuildsTitle : `Classified ${index}`, url)
+    )
+
+    const result = createGamesWorkshopSourceObservation(
+      snapshot([...everyClassifiedDownload, rules]),
+      classifications
+    )
+
+    expect(result.entries).toContainEqual(
+      expect.objectContaining({ title: altBuildsTitle, scope: 'explicit-non-material' })
+    )
+    expect(result.entries).toContainEqual(
+      expect.objectContaining({ title: 'Current rules', scope: 'material' })
+    )
   })
 })
