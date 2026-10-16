@@ -286,6 +286,35 @@ describe('AoS 4 home presentation', () => {
     expect(cardTitles.indexOf('Artefacts of Power')).toBe(cardTitles.indexOf('Heroic Traits') + 1)
   })
 
+  /**
+   * #2083: the Artefacts card offered whole tables, so one artefact printed the whole table. It
+   * now offers each artefact, and picking one puts only that artefact on the reminders.
+   */
+  it('offers individual artefacts and reminds only the picked one', async () => {
+    const input = container.querySelector<HTMLInputElement>('input[aria-label="Artefacts of Power"]')
+    expect(input).not.toBeNull()
+    await act(async () => {
+      input!.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true })
+      )
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    const options = Array.from(container.querySelectorAll<HTMLElement>('[role="option"]'))
+    const offered = options.map(option => option.textContent?.trim())
+    expect(offered).toEqual(expect.arrayContaining(['Mirrorshield', 'Null Pendant', 'Quicksilver Draught']))
+    expect(offered).not.toContain('Artefacts of the Tempest')
+    expect(container.textContent).not.toContain('MIRRORSHIELD')
+
+    await act(async () => {
+      Simulate.click(options.find(option => option.textContent?.trim() === 'Mirrorshield')!)
+      await new Promise(resolve => setTimeout(resolve, 0))
+    })
+    const reminders = container.querySelector('.ReminderContainer')?.parentElement?.textContent ?? ''
+    expect(container.textContent).toContain('MIRRORSHIELD')
+    expect(reminders).not.toContain('NULL PENDANT')
+    expect(reminders).not.toContain('QUICKSILVER DRAUGHT')
+  })
+
   it('opens on a skip link that reaches the reminders, and a real footer landmark', () => {
     const skip = container.querySelector('a.SkipLink')
     expect(skip).not.toBeNull()

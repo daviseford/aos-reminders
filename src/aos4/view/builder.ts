@@ -55,6 +55,13 @@ const ABILITY_CHIP_CATEGORIES = new Set([
   'prayer-lore',
   'spell-lore',
 ])
+/**
+ * The enhancement categories a hand-built army picks one member at a time (#2083). AoS 4 asks for
+ * a hero's artefact or heroic trait, never a table, so the builder offers each member of an
+ * available table; the table itself shows only while an existing army still holds it. Lores stay
+ * whole-lore picks, and monstrous traits keep their import-only chips.
+ */
+const PICKABLE_MEMBER_CATEGORIES = new Set(['artefact-of-power', 'heroic-trait'])
 const CHIP_MINOR_WORDS = new Set(['a', 'an', 'and', 'of', 'the', 'to'])
 const chipCase = (value: string): string =>
   value
@@ -170,11 +177,30 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     }
   })
 
+  // Offering tables a player may now pick members from; AoR-granted tables are never offered.
+  const pickableTableIds = new Set(
+    selection.availableIds.filter(id => {
+      const entity = entityById.get(id)
+      return entity?.kind === 'content-group' && PICKABLE_MEMBER_CATEGORIES.has(entity.groupType)
+    })
+  )
+  const pickableMemberIds = Array.from(chipGroupByAbilityId)
+    .filter(([, group]) => pickableTableIds.has(group.id))
+    .map(([abilityId]) => abilityId)
+  const explicitIds = new Set(document.explicitSelectionIds)
+
   const options: Aos4BuilderOption[] = Array.from(
-    new Set([...document.explicitSelectionIds, ...selection.availableIds])
+    new Set([...document.explicitSelectionIds, ...selection.availableIds, ...pickableMemberIds])
   ).flatMap(id => {
     const entity = entityById.get(id)
     if (!entity) return []
+    if (
+      entity.kind === 'content-group' &&
+      PICKABLE_MEMBER_CATEGORIES.has(entity.groupType) &&
+      !explicitIds.has(id)
+    ) {
+      return []
+    }
     const chipGroup = entity.kind === 'ability' ? chipGroupByAbilityId.get(id) : undefined
     const seasonal = isSeasonExclusive(chipGroup ?? entity)
     // A season-exclusive selection held while the seasonal rules are off (issue #1994) is
@@ -196,8 +222,10 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
             : chipGroup
               ? { groupType: chipGroup.groupType }
               : {}),
-        selected: selected.has(id),
-        available: available.has(id),
+        // A member a selected table pulls in is not the player's pick: showing it selected would
+        // make a chip that removing cannot clear, because the table re-includes it.
+        selected: selected.has(id) && (entity.kind !== 'ability' || explicitIds.has(id)),
+        available: available.has(id) || Boolean(chipGroup && pickableTableIds.has(chipGroup.id)),
         ...(overlay ? { overlay } : {}),
         ...(seasonal ? { seasonal: true } : {}),
       },
@@ -280,4 +308,32 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     warscrolls,
     selection,
   }
+}
+
+/**
+ * Keeps a card's table and member picks from stacking (#2083): the latest pick wins. A newly
+ * picked member replaces its whole table, and a newly picked table replaces its members, so the
+ * reminders never hold the whole table beside the one artefact the player meant. Ids that were
+ * already selected stay as they are — an existing army's table survives until a member is picked.
+ */
+export const reconcileAos4EnhancementPicks = (
+  catalog: Aos4Catalog,
+  previousExplicitIds: readonly CanonicalId[],
+  selectedIds: readonly CanonicalId[]
+): CanonicalId[] => {
+  const previous = new Set(previousExplicitIds)
+  const added = new Set(selectedIds.filter(id => !previous.has(id)))
+  if (!added.size) return [...selectedIds]
+  const tableIds = new Set<CanonicalId>(
+    catalog.entities.flatMap(entity =>
+      entity.kind === 'content-group' && PICKABLE_MEMBER_CATEGORIES.has(entity.groupType) ? [entity.id] : []
+    )
+  )
+  const replaced = new Set<CanonicalId>()
+  catalog.relationships.forEach(relationship => {
+    if (relationship.kind !== 'includes' || !tableIds.has(relationship.from)) return
+    if (added.has(relationship.to) && !added.has(relationship.from)) replaced.add(relationship.from)
+    if (added.has(relationship.from) && !added.has(relationship.to)) replaced.add(relationship.to)
+  })
+  return selectedIds.filter(id => !replaced.has(id))
 }

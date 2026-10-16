@@ -24,6 +24,7 @@ import {
   createAos4ReminderViewModel,
   migrateAos4ReminderPreferences,
   pastSeasonCaveat,
+  reconcileAos4EnhancementPicks,
   type Aos4ReminderViewModel,
 } from '../../aos4/view'
 import type { Aos4RulesSeasonBinding } from 'components/page/homeHeader'
@@ -484,7 +485,7 @@ const HomeCatalogBound = ({
           ...current,
           explicitSelectionIds: [
             ...current.explicitSelectionIds.filter(id => !group.has(id)),
-            ...selectedIds,
+            ...reconcileAos4EnhancementPicks(AOS4_CATALOG, current.explicitSelectionIds, selectedIds),
           ],
         })
       )

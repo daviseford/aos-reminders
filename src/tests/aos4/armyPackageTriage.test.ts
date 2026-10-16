@@ -99,10 +99,14 @@ describe('Army of Renown package classification (#1844)', () => {
     expect(byName.get('Heroes of the First-Forged')?.overlay).toBeUndefined()
     expect(byName.get('Ruination Brotherhood')?.overlay).toBeUndefined()
     expect(byName.get('Astral Templars')?.overlay).toBe('legends')
-    // …and never as a card of their own group type.
+    // …and never as a card of their own group type. Enhancement cards offer members (#2083).
     const cardTypes = new Set(
       stormcast.options
-        .filter(option => option.kind === 'content-group' && option.groupType !== 'army-of-renown')
+        .filter(
+          option =>
+            (option.kind === 'content-group' || option.kind === 'ability') &&
+            option.groupType !== 'army-of-renown'
+        )
         .map(option => option.groupType)
     )
     RETIRED_PACKAGE_GROUP_TYPES.forEach(groupType => expect(cardTypes).not.toContain(groupType))
