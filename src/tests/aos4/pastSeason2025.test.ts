@@ -362,10 +362,21 @@ describe('the builder in a past-season army', () => {
       season: 'General’s Handbook 2025-26 (Scourge of Ghyran)',
       historical: 'Retired since 2025-26',
     })
-    const bigPersonalities = builder.options.filter(option => option.name === 'Big Personalities')
-    // The battletome table and the Scourge of Ghyran one share a name; the marker tells them apart.
-    expect(bigPersonalities.map(option => Boolean(option.seasonal)).sort()).toEqual([false, true])
-    bigPersonalities.forEach(option => expect(option.overlay).toBeUndefined())
+    // The battletome table and the Scourge of Ghyran one share a name; the builder offers their
+    // members (#2083), and the marker files each table's members under its own header.
+    const bigPersonalities = AOS4_CATALOG.entities.filter(
+      entity => entity.kind === 'content-group' && entity.name === 'Big Personalities'
+    )
+    const memberOptions = bigPersonalities.map(table =>
+      AOS4_CATALOG.relationships
+        .filter(relationship => relationship.kind === 'includes' && relationship.from === table.id)
+        .map(relationship => builder.options.find(option => option.id === relationship.to)!)
+    )
+    expect(memberOptions.map(options => options.every(option => option.seasonal)).sort()).toEqual([
+      false,
+      true,
+    ])
+    memberOptions.flat().forEach(option => expect(option.overlay).toBeUndefined())
     expect(builder.options.find(option => option.name === 'Big Toes')).toMatchObject({ seasonal: true })
   })
 
