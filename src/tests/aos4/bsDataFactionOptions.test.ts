@@ -475,7 +475,13 @@ describe('BSData Army of Renown root for a faction with no faction page (#1757)'
     <selectionEntry type="upgrade" name="Battle Traits: Test Army" id="bt" hidden="false">
       <profiles>
         ${profile('First Trait', 'p-1')}
-        ${profile('Second Trait', 'p-2')}
+        <profile name="Second Trait" typeName="Ability (Activated)" id="p-2" hidden="false">
+          <characteristics>
+            <characteristic name="Timing">Once Per Battle Round (Army), Reaction: Opponent declared a command</characteristic>
+            <characteristic name="Effect">Second Trait effect.</characteristic>
+            <characteristic name="Keywords"/>
+          </characteristics>
+        </profile>
       </profiles>
     </selectionEntry>
   </selectionEntries>
@@ -544,6 +550,11 @@ describe('BSData Army of Renown root for a faction with no faction page (#1757)'
       ['Battle Traits', 'First Trait'],
       ['Battle Traits', 'Second Trait'],
       ['Heroic Traits', 'Bold'],
+    ])
+    expect(merged.dataset.factionAbilities.map(ability => [ability.name, ability.isReaction])).toEqual([
+      ['First Trait', false],
+      ['Second Trait', true],
+      ['Bold', false],
     ])
   })
 

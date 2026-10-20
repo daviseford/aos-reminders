@@ -265,6 +265,12 @@ export interface CorpusCommunityFactionOption {
    * offers it in the seasonal context only, like the Wahapedia Scourge of Aqshy sections (#1757).
    */
   context?: 'seasonal'
+  /**
+   * A shared-catalogue lore that belongs to this Army of Renown, transcribed by another reviewed
+   * source of the same faction (#2087). The lore joins that army under the neutral application
+   * heading for its kind; the catalogue's own lore title only locates the container.
+   */
+  armyOfRenown?: string
 }
 
 /**
@@ -382,6 +388,12 @@ export interface CorpusArmyOfRenown {
    * an official document naming the army is accepted.
    */
   evidenceTier?: 'official' | 'secondary-provisional'
+  /**
+   * Source records of another faction's warscrolls the army's roster admits (Throngankor Alliance
+   * fields Kharadron Overlords units, #2087). Selecting the root offers each one; a pin no
+   * generated warscroll carries fails closed.
+   */
+  offersWarscrolls?: SourceRecordId[]
 }
 
 /**
@@ -1638,7 +1650,12 @@ const reviewDiagnostics = (
             'mark-of-vulcatrix',
             'battle-trait',
           ].includes(option.optionType) &&
-          (option.optionType !== 'battle-trait' || Boolean(option.faction?.trim()))
+          (option.optionType !== 'battle-trait' || Boolean(option.faction?.trim())) &&
+          (option.armyOfRenown === undefined ||
+            (Boolean(option.armyOfRenown.trim()) &&
+              !source.armyOfRenown &&
+              Boolean(source.faction?.trim()) &&
+              ['spell-lore', 'prayer-lore'].includes(option.optionType)))
       ) && new Set(factionOptions.map(option => option.section)).size === factionOptions.length
     const regiments = source.regimentsOfRenown ?? []
     const regimentsValid =
@@ -1965,7 +1982,7 @@ export const buildAos4Corpus = (
         ...[
           ...source.units.map(unit => unit.section),
           ...(source.factionOptions ?? [])
-            .filter(option => option.optionType !== 'battle-trait')
+            .filter(option => option.optionType !== 'battle-trait' && !option.armyOfRenown)
             .map(option => option.section),
           ...(source.regimentsOfRenown ?? []).map(regiment => regiment.section),
         ].map(section =>
@@ -1974,16 +1991,18 @@ export const buildAos4Corpus = (
             'provisional community transcription'
           )
         ),
-        // A battle-trait option has no subtype or single-card wrapper carrying its fact-level
-        // record, so the publication cites the per-ability records the dataset actually holds.
+        // A battle-trait option (or an Army of Renown lore) has no subtype or single-card wrapper
+        // carrying its fact-level record, so the publication cites the per-ability records the
+        // dataset actually holds — never one the review ignores, which generation does not consume.
         ...(source.factionOptions ?? [])
-          .filter(option => option.optionType === 'battle-trait')
+          .filter(option => option.optionType === 'battle-trait' || option.armyOfRenown)
           .flatMap(option =>
             dataset.factionAbilities
               .filter(
                 record =>
                   record.meta.section === option.section &&
-                  record.meta.artifactId === artifactId(source.artifact.checksum)
+                  record.meta.artifactId === artifactId(source.artifact.checksum) &&
+                  !ignoredSourceRecordIds.has(record.meta.sourceRecordId)
               )
               .map(record =>
                 sourceReference(record.meta.sourceRecordId, 'provisional community transcription')
@@ -2039,6 +2058,7 @@ export const buildAos4Corpus = (
   )
 
   const parentByWarscrollExternalId = new Map<string, CanonicalId>()
+  const warscrollIdBySourceRecordId = new Map<SourceRecordId, CanonicalId>()
   const warscrollKeywordOverrides = new Map(
     (review.warscrollKeywordOverrides ?? []).map(override => [override.sourceRecordId, override])
   )
@@ -2096,6 +2116,7 @@ export const buildAos4Corpus = (
     const id = lookup(parentKind, recordPublisher(record.meta), recordAlias(record.meta))
     if (!id) return
     parentByWarscrollExternalId.set(record.id, id)
+    if (parentKind === 'warscroll') warscrollIdBySourceRecordId.set(record.meta.sourceRecordId, id)
     const keywordRecords = keywordsByWarscroll.get(record.id) ?? []
     const regimentRecords = regimentRecordsByWarscroll.get(record.id) ?? []
     const baseRecords = basesByWarscroll.get(record.id) ?? []
@@ -2404,6 +2425,19 @@ export const buildAos4Corpus = (
         id,
       ])
       offeringFactionIds(record.factionId).forEach(offeringId => addRelationship('offers', offeringId, id))
+      ;(armyOfRenown.offersWarscrolls ?? []).forEach(warscrollSourceRecordId => {
+        const warscrollId = warscrollIdBySourceRecordId.get(warscrollSourceRecordId)
+        if (!warscrollId) {
+          diagnostics.push({
+            code: 'invalid-review',
+            severity: 'error',
+            subject: armyOfRenown.sourceRecordId,
+            message: `Army of Renown "${record.name.trim()}" offers ${warscrollSourceRecordId}, which no generated warscroll carries`,
+          })
+          return
+        }
+        addRelationship('offers', id, warscrollId)
+      })
     }
     trackReplaceable(record.factionId, id, resolvedGroupType)
   })
@@ -2698,13 +2732,29 @@ export const buildAos4Corpus = (
       ...(normalized.text.declare ? { declare: normalized.text.declare } : {}),
       effect: normalized.text.effect,
     }
+    // A reviewed reaction override on a source that prints its trigger clause without the
+    // "Reaction:" label keeps that clause, only when the override quotes the source condition
+    // exactly; no other timing text ever becomes a trigger (#2087).
+    const sourceCondition = record.conditionHtml.trim()
+    const reviewedTrigger =
+      timingOverride?.abilityKind === 'reaction' &&
+      !normalized.text.reactionTrigger &&
+      sourceCondition &&
+      timingOverride.timings.some(
+        timing => timing.kind === 'reaction' && timing.raw.trim() === sourceCondition
+      )
+        ? normalizeSourceText(sourceCondition).text || undefined
+        : undefined
+    const sourceText = reviewedTrigger
+      ? { ...normalized.text, reactionTrigger: reviewedTrigger }
+      : normalized.text
     const reactionText =
-      !normalized.text.effect && normalized.text.declare
+      !sourceText.effect && sourceText.declare
         ? {
-            effect: normalized.text.declare,
-            ...(normalized.text.reactionTrigger ? { reactionTrigger: normalized.text.reactionTrigger } : {}),
+            effect: sourceText.declare,
+            ...(sourceText.reactionTrigger ? { reactionTrigger: sourceText.reactionTrigger } : {}),
           }
-        : normalized.text
+        : sourceText
     const text = textOverride?.text ?? (abilityKind === 'reaction' ? reactionText : nonReactionText)
     const keywordOverride = abilityKeywordOverrides.get(record.meta.sourceRecordId)
     const addedKeywords = keywordOverride?.add ?? []

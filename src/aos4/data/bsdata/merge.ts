@@ -185,6 +185,13 @@ export interface BsDataFactionOptionSourceInput {
    * the source's official records.
    */
   armyOfRenown?: string
+  /**
+   * Lore sections of a shared catalogue (`Lores.cat`) that belong to an Army of Renown another
+   * catalogue transcribes, keyed by section (#2087). Each lore joins that army's existing root
+   * under the application's neutral kind heading (`Spell Lore`, `Prayer Lore`), never the
+   * catalogue's own lore title, and the merge fails closed if the army's root does not exist yet.
+   */
+  armyOfRenownSections?: Record<string, string>
 }
 
 const OPTION_TYPE_LABELS: Record<
@@ -242,6 +249,7 @@ export const mergeBsDataFactionOptions = (
   /** Option groups created for factions with no faction page, keyed per faction+group name. */
   const newTypes = new Map<string, WahapediaDataset['factionAbilityTypes'][number]>()
   const newAbilities: WahapediaDataset['factionAbilities'] = []
+  const deferredArmyOfRenownLores: Array<() => void> = []
 
   sources.forEach(source => {
     const sourceArtifactId = artifactId(source.artifact.checksum)
@@ -273,18 +281,22 @@ export const mergeBsDataFactionOptions = (
     /** Shared subtypes for grouped options (heroic traits, artefacts), keyed per faction+group. */
     const sharedSubtypes = new Map<string, { id: string; name: string; lines: number }>()
 
-    const mergeArmyOfRenownOption = (fact: BsDataFactionOptionFact, kindName: string): void => {
-      const armyName = source.armyOfRenown!
+    const mergeArmyOfRenownOption = (
+      fact: BsDataFactionOptionFact,
+      kindName: string,
+      armyName: string
+    ): void => {
       const factionId = source.faction ? factionIdByName.get(canonical(source.faction)) : undefined
       if (!factionId) {
         throw new Error(`BSData Army of Renown ${armyName} needs a reviewed, known source faction`)
       }
-      if (!['battle-trait', 'heroic-trait', 'artefact-of-power'].includes(fact.optionType)) {
+      const isLore = fact.optionType === 'spell-lore' || fact.optionType === 'prayer-lore'
+      if (!isLore && !['battle-trait', 'heroic-trait', 'artefact-of-power'].includes(fact.optionType)) {
         throw new Error(
           `BSData Army of Renown ${armyName} option ${fact.name} is an unsupported ${fact.optionType}`
         )
       }
-      if (fact.optionType !== 'battle-trait' && fact.abilities.length !== 1) {
+      if (fact.optionType !== 'battle-trait' && !isLore && fact.abilities.length !== 1) {
         throw new Error(
           `BSData Army of Renown ${armyName} option ${fact.name} is not exactly one ability card`
         )
@@ -292,6 +304,11 @@ export const mergeBsDataFactionOptions = (
       const rootSection = `army-of-renown:${canonical(armyName)}`
       const rootKey = `${factionId}:${rootSection}`
       let root = newTypes.get(rootKey)
+      if (!root && isLore) {
+        throw new Error(
+          `BSData Army of Renown ${armyName} lore ${fact.name} has no army root; its own catalogue must create it first`
+        )
+      }
       if (!root) {
         if (
           dataset.factionAbilityTypes.some(
@@ -339,7 +356,8 @@ export const mergeBsDataFactionOptions = (
       }
       const lineOffset = shared.lines
       shared.lines += fact.abilities.length
-      const singleCard = fact.optionType !== 'battle-trait'
+      // Battle traits and lores are containers of several cards; the rest are one card each.
+      const singleCard = fact.optionType !== 'battle-trait' && !isLore
       fact.abilities.forEach(ability => {
         const points = abilityPoints(ability)
         newAbilities.push({
@@ -353,7 +371,7 @@ export const mergeBsDataFactionOptions = (
           descriptionHtml: abilityDescription(ability),
           legendHtml: '',
           abilityType: abilityTypeLabel[ability.kind],
-          isReaction: /reactions*:/i.test(ability.timing),
+          isReaction: /\breaction\s*:/i.test(ability.timing),
           conditionHtml: abilityCondition(ability),
           keywordsHtml: ability.keywords.join(', '),
           abilityPhase: '',
@@ -376,7 +394,16 @@ export const mergeBsDataFactionOptions = (
       .forEach(fact => {
         const labels = OPTION_TYPE_LABELS[fact.optionType]
         if (source.armyOfRenown) {
-          mergeArmyOfRenownOption(fact, labels.typeGroupName)
+          mergeArmyOfRenownOption(fact, labels.typeGroupName, source.armyOfRenown)
+          return
+        }
+        const loreArmyName = source.armyOfRenownSections?.[fact.section]
+        if (loreArmyName) {
+          // Runs after every source, so the army's own catalogue has created its root whatever
+          // the reviewed source order.
+          deferredArmyOfRenownLores.push(() =>
+            mergeArmyOfRenownOption(fact, labels.typeGroupName, loreArmyName)
+          )
           return
         }
         const seasonal = source.seasonalSections?.includes(fact.section) ?? false
@@ -593,6 +620,7 @@ export const mergeBsDataFactionOptions = (
         })
       })
   })
+  deferredArmyOfRenownLores.forEach(merge => merge())
 
   return {
     dataset: {

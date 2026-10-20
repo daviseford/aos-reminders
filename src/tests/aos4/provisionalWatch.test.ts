@@ -57,8 +57,13 @@ describe('the provisional-verification watch', () => {
     // BSData source). Both retired, so the watch machinery idles on an empty list, as it did after
     // the Ogor watches retired in 2026-08-28b. Corpus 2026-10-14 (#1757) adds one: the Wahapedia
     // navigation gaining a Khazalite Holds faction page, the first source for the blocked
-    // matched-play Khazalite Holds intake (only its official Spearhead ships).
-    expect(checkedIn.watches.map(watch => watch.id)).toEqual(['wahapedia-khazalite-holds-faction'])
+    // matched-play Khazalite Holds intake (only its official Spearhead ships). Corpus 2026-10-20b
+    // (#2087) ships that intake from the unmerged BSData `khazalite-holds` branch and adds the
+    // second watch: `main` gaining the Khazalite Holds catalogue.
+    expect(checkedIn.watches.map(watch => watch.id)).toEqual([
+      'wahapedia-khazalite-holds-faction',
+      'bsdata-khazalite-holds-main',
+    ])
     checkedIn.watches.forEach(watch => {
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)
     })

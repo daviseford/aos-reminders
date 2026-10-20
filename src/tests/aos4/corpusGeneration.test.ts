@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { vi } from 'vitest'
 import { artifactChecksum, type ArtifactManifestEntry } from '../../aos4/data'
+import { extractBsDataFactionOptions, mergeBsDataFactionOptions } from '../../aos4/data/bsdata'
 import {
   WAHAPEDIA_EXPORT_FILES,
   decodeWahapediaExports,
@@ -980,6 +981,99 @@ describe('AoS 4 corpus generation', () => {
     )
   })
 
+  it('keeps an unlabelled source trigger only under a reviewed reaction override that quotes it (#2087)', async () => {
+    const clause = 'You declared a Spell ability for this unit'
+    const officialChecksum = 'f'.repeat(64)
+    const grammarRecordId = sourceRecordId('games-workshop', `${officialChecksum}:page:4`)
+    const build = async (raw: string) => {
+      const decoded = decodeWahapediaExports(await loadInputs())
+      const target = decoded.dataset.warscrollAbilities.find(
+        record => !/\breaction\s*:/i.test(record.conditionHtml) && /effect/i.test(record.descriptionHtml)
+      )!
+      target.conditionHtml = clause
+      target.isReaction = false
+      const reviewed: CorpusReview = {
+        ...review,
+        officialDocuments: [
+          {
+            title: 'Reaction grammar fixture',
+            documentKind: 'reference',
+            rulesContextIds: [review.rulesContext.id],
+            artifact: {
+              requestUrl: 'https://assets.warhammer-community.com/grammar-fixture.pdf',
+              finalUrl: 'https://assets.warhammer-community.com/grammar-fixture.pdf',
+              redirectChain: [],
+              retrievedAt: '2026-10-20T12:00:00.000Z',
+              adapterVersion: 'games-workshop-pdf/1',
+              mediaType: 'application/pdf',
+              byteLength: 1,
+              checksum: officialChecksum,
+            },
+            sourceRecords: [{ id: grammarRecordId, page: 4, recordChecksum: 'd'.repeat(64) }],
+          },
+        ],
+        normalizationDiagnosticPolicies: [
+          {
+            code: 'unknown-timing',
+            sourceRecordId: target.meta.sourceRecordId,
+            reason: 'The reviewed timing override classifies the unlabelled trigger.',
+          },
+        ],
+        timingOverrides: [
+          {
+            sourceRecordId: target.meta.sourceRecordId,
+            abilityKind: 'reaction',
+            timings: [{ kind: 'reaction', perspective: 'neutral', raw, window: { kind: 'reaction' } }],
+            reason: 'The source prints the trigger clause without its Reaction label.',
+            officialSourceRecordIds: [grammarRecordId],
+          },
+        ],
+      }
+      const result = buildAos4Corpus(
+        decoded,
+        createCorpusIdentityRegistry(decoded.dataset, reviewed),
+        reviewed
+      )
+      const abilityOf = (id: string) =>
+        result.catalog.entities.find(
+          entity => entity.kind === 'ability' && entity.sourceRefs.some(ref => ref.sourceRecordId === id)
+        )
+      return { result, ability: abilityOf(target.meta.sourceRecordId), abilityOf }
+    }
+    const baselineDecoded = decodeWahapediaExports(await loadInputs())
+    const baseline = buildAos4Corpus(
+      baselineDecoded,
+      createCorpusIdentityRegistry(baselineDecoded.dataset, review),
+      review
+    )
+    const labelled = baseline.catalog.entities.filter(
+      entity => entity.kind === 'ability' && entity.abilityKind === 'reaction'
+    )
+    expect(labelled.length).toBeGreaterThan(0)
+
+    const kept = await build(clause)
+    expect(kept.result.diagnostics).toEqual([])
+    expect(validateCatalog(kept.result.catalog)).toEqual([])
+    expect(kept.ability).toMatchObject({ abilityKind: 'reaction', text: { reactionTrigger: clause } })
+    expect(kept.ability?.kind === 'ability' ? kept.ability.text.effect : '').toBeTruthy()
+    // Labelled source reactions keep exactly the text they had without the override.
+    labelled.forEach(entity => {
+      const after = kept.abilityOf(entity.sourceRefs[0].sourceRecordId)
+      expect(after?.kind === 'ability' ? after.text : undefined).toEqual(
+        entity.kind === 'ability' ? entity.text : undefined
+      )
+    })
+
+    // Timing metadata that is not the source clause never becomes a trigger: still fail closed.
+    const refused = await build('Your Hero Phase')
+    expect(
+      refused.ability?.kind === 'ability' ? refused.ability.text.reactionTrigger : 'missing'
+    ).toBeUndefined()
+    expect(validateCatalog(refused.result.catalog)).toContainEqual(
+      expect.objectContaining({ code: 'missing-reaction-trigger' })
+    )
+  })
+
   it('rejects a context override that targets no accepted source record', async () => {
     const decoded = decodeWahapediaExports(await loadInputs())
     const stale = sourceRecordId(
@@ -1167,6 +1261,333 @@ describe('AoS 4 corpus generation', () => {
         relationship => relationship.kind === 'includes' && relationship.from === dangling.group.id
       )
     ).toEqual([])
+  })
+
+  it('offers pinned warscrolls of another faction only through the selected Army of Renown (#2087)', async () => {
+    const guestSourceRecordId = sourceRecordId('wahapedia', 'fixture-guest-unit')
+    const build = async (pins: ReturnType<typeof sourceRecordId>[]) => {
+      const decoded = decodeWahapediaExports(await loadInputs())
+      const [type] = decoded.dataset.factionAbilityTypes
+      const [unit] = decoded.dataset.warscrolls.filter(record => !record.regimentOfRenown)
+      const [host] = decoded.dataset.factions
+      decoded.dataset.factions.push({
+        ...host,
+        id: 'GUEST',
+        name: 'Guest Faction',
+        meta: { ...host.meta, sourceRecordId: sourceRecordId('wahapedia', 'fixture-guest-faction'), row: 97 },
+      })
+      decoded.dataset.warscrolls.push({
+        ...unit,
+        id: 'fixture-guest-unit',
+        name: 'Guest Unit',
+        factionId: 'GUEST',
+        meta: { ...unit.meta, sourceRecordId: guestSourceRecordId, row: 98 },
+      })
+      decoded.dataset.factionAbilityTypes.push({
+        ...type,
+        id: 'fixture-army',
+        name: 'Fixture Army',
+        armyOfRenown: true,
+        meta: { ...type.meta, sourceRecordId: sourceRecordId('wahapedia', 'fixture-army'), row: 99 },
+      })
+      // A root offers only once it carries rules; give it one army-wide ability.
+      const [ability] = decoded.dataset.factionAbilities
+      decoded.dataset.factionAbilities.push({
+        ...ability,
+        typeId: 'fixture-army',
+        typeName: 'Fixture Army',
+        subtypeId: '',
+        subtypeName: '',
+        name: 'Fixture Army Trait',
+        meta: { ...ability.meta, sourceRecordId: sourceRecordId('wahapedia', 'fixture-army-trait'), row: 96 },
+      })
+      const armyReview: CorpusReview = {
+        ...review,
+        approvedFactionIds: ['SCE', 'GUEST'],
+        armiesOfRenown: [
+          {
+            sourceRecordId: sourceRecordId('wahapedia', 'fixture-army'),
+            reason: 'fixture',
+            officialSourceRecordIds: [],
+            evidenceTier: 'secondary-provisional',
+            offersWarscrolls: pins,
+          },
+        ],
+      }
+      const identities = createCorpusIdentityRegistry(decoded.dataset, armyReview)
+      const result = buildAos4Corpus(decoded, identities, armyReview)
+      const entity = (name: string) => result.catalog.entities.find(item => item.name === name)!
+      return {
+        result,
+        faction: entity('Stormcast Eternals'),
+        root: entity('Fixture Army'),
+        guest: entity('Guest Unit'),
+      }
+    }
+
+    const { result, faction, root, guest } = await build([guestSourceRecordId])
+    expect(result.diagnostics.filter(diagnostic => diagnostic.severity === 'error')).toEqual([])
+    const regular = resolveSelection(result.catalog, {
+      explicitIds: [faction.id],
+      rulesContextId: review.rulesContext.id,
+    })
+    expect(regular.availableIds).toContain(root.id)
+    expect(regular.availableIds).not.toContain(guest.id)
+    const army = resolveSelection(result.catalog, {
+      explicitIds: [faction.id, root.id],
+      rulesContextId: review.rulesContext.id,
+    })
+    expect(army.diagnostics).toEqual([])
+    expect(army.availableIds).toContain(guest.id)
+
+    // A pin no generated warscroll carries blocks generation instead of vanishing.
+    const dangling = await build([sourceRecordId('wahapedia', 'no-such-unit')])
+    expect(dangling.result.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: sourceRecordId('wahapedia', 'fixture-army'),
+      })
+    )
+    expect(dangling.result.summary.status).toBe('blocked')
+  })
+
+  it('files a shared-catalogue lore under its Army of Renown with a neutral heading (#2087)', async () => {
+    const armyChecksum = '1'.repeat(64)
+    const loreChecksum = '2'.repeat(64)
+    const profile = (name: string, typeName: string, characteristics: Record<string, string>) =>
+      `<profile name="${name}" typeName="${typeName}" id="p-${name.length}" hidden="false"><characteristics>${Object.entries(
+        characteristics
+      )
+        .map(([key, value]) => `<characteristic name="${key}">${value}</characteristic>`)
+        .join('')}</characteristics></profile>`
+    const catalogue = (body: string) =>
+      new TextEncoder().encode(
+        `<?xml version="1.0" encoding="UTF-8"?><catalogue library="false" name="Fixture" type="catalogue">${body}</catalogue>`
+      )
+    const armyFacts = extractBsDataFactionOptions(
+      catalogue(
+        `<selectionEntries><selectionEntry type="upgrade" name="Battle Traits: Fixture Army" id="bt" hidden="false"><profiles>${profile(
+          'Fixture Oath',
+          'Ability (Passive)',
+          { Effect: 'Fixture oath effect.', Keywords: '' }
+        )}${profile('Fixture Translated Oath', 'Ability (Passive)', {
+          Effect: 'Fixture translated oath effect.',
+          Keywords: '',
+        })}</profiles></selectionEntry></selectionEntries>`
+      ),
+      armyChecksum,
+      [
+        {
+          name: 'Battle Traits: Fixture Army',
+          optionType: 'battle-trait',
+          groupName: 'Battle Traits: Fixture Army',
+          faction: 'Stormcast Eternals',
+        },
+      ]
+    ).facts
+    const loreFacts = extractBsDataFactionOptions(
+      catalogue(
+        `<sharedSelectionEntryGroups><selectionEntryGroup name="Fixture Army Spell Lore" id="g-l" hidden="false"><selectionEntries>${[
+          'Fixture Rune',
+          'Fixture Translated Rune',
+        ]
+          .map(
+            (name, index) =>
+              `<selectionEntry type="upgrade" name="${name}" id="e-${index}" hidden="false"><profiles>${profile(
+                name,
+                'Ability (Spell)',
+                {
+                  Timing: 'Your Hero Phase',
+                  'Casting Value': '6',
+                  Declare: 'Pick a friendly Wizard to cast this spell, then make a casting roll of 2D6.',
+                  Effect: `${name} effect.`,
+                  Keywords: 'Spell',
+                }
+              )}</profiles></selectionEntry>`
+          )
+          .join('')}</selectionEntries></selectionEntryGroup></sharedSelectionEntryGroups>`
+      ),
+      loreChecksum,
+      [{ name: 'Fixture Army Spell Lore', optionType: 'spell-lore', groupName: 'Fixture Army Spell Lore' }]
+    ).facts
+    expect(loreFacts.map(fact => fact.abilities.map(ability => ability.name))).toEqual([
+      ['Fixture Rune', 'Fixture Translated Rune'],
+    ])
+    expect(armyFacts.map(fact => fact.abilities.map(ability => ability.name))).toEqual([
+      ['Fixture Oath', 'Fixture Translated Oath'],
+    ])
+    // One card on each citation path (army battle trait, AoR lore) is excluded by review, like the
+    // translated Grimnir's Wrath and Transport Duardin.
+    const [includedTrait, ignoredTrait] = armyFacts[0].abilities.map(ability => ability.sourceRecordId)
+    const [includedSpell, ignoredSpell] = loreFacts[0].abilities.map(ability => ability.sourceRecordId)
+    const source = (checksum: string, facts: typeof armyFacts) => ({
+      artifact: { checksum, finalUrl: `https://example.invalid/${checksum}.cat` } as never,
+      repository: 'BSData/age-of-sigmar-4th',
+      facts,
+      officialSourceRecordIds: [],
+      faction: 'Stormcast Eternals',
+    })
+    const merge = async (loreArmy: string) => {
+      const decoded = decodeWahapediaExports(await loadInputs())
+      const merged = mergeBsDataFactionOptions(
+        decoded.dataset,
+        {
+          schemaVersion: 1,
+          pages: 0,
+          matchedOfficialUnitFacts: 0,
+          unmatchedOfficialUnitFacts: [],
+          discrepancies: [],
+        },
+        [
+          // The lore catalogue is reviewed first; its lore still joins the root the army creates.
+          { ...source(loreChecksum, loreFacts), armyOfRenownSections: { [loreFacts[0].section]: loreArmy } },
+          { ...source(armyChecksum, armyFacts), armyOfRenown: 'Fixture Army' },
+        ],
+        []
+      )
+      return { ...decoded, dataset: merged.dataset }
+    }
+    const decoded = await merge('Fixture Army')
+    const rootRecord = decoded.dataset.factionAbilityTypes.find(type => type.name === 'Fixture Army')!
+    const officialChecksum = '3'.repeat(64)
+    const officialRecordId = sourceRecordId('games-workshop', `${officialChecksum}:page:1`)
+    const commit = 'c'.repeat(40)
+    const reviewedSource = (checksum: string, extra: object) => ({
+      artifact: {
+        requestUrl: `https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/${commit}/${checksum}.cat`,
+        finalUrl: `https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/${commit}/${checksum}.cat`,
+        redirectChain: [],
+        retrievedAt: '2026-10-20T12:00:00.000Z',
+        adapterVersion: 'bsdata-cat/1',
+        mediaType: 'text/plain',
+        byteLength: 1,
+        checksum,
+      },
+      repository: 'BSData/age-of-sigmar-4th',
+      branch: 'fixture',
+      commit,
+      faction: 'Stormcast Eternals',
+      policyTier: 'community-fallback' as const,
+      status: 'provisional-pending-official-verification' as const,
+      authorizedAt: '2026-10-20T00:00:00.000Z',
+      authorizedBy: 'fixture',
+      verificationCondition: 'fixture',
+      title: 'Fixture catalogue (provisional)',
+      reason: 'fixture',
+      officialSourceRecordIds: [officialRecordId],
+      units: [],
+      ...extra,
+    })
+    const option = (fact: (typeof armyFacts)[number], extra: object = {}) => ({
+      name: fact.name,
+      optionType: fact.optionType,
+      groupName: fact.groupName,
+      section: fact.section,
+      recordChecksum: fact.factChecksum,
+      ...extra,
+    })
+    const armyReview: CorpusReview = {
+      ...review,
+      officialDocuments: [
+        {
+          title: 'Fixture battle profiles',
+          documentKind: 'reference',
+          rulesContextIds: [review.rulesContext.id],
+          artifact: {
+            requestUrl: 'https://assets.warhammer-community.com/fixture-profiles.pdf',
+            finalUrl: 'https://assets.warhammer-community.com/fixture-profiles.pdf',
+            redirectChain: [],
+            retrievedAt: '2026-10-20T12:00:00.000Z',
+            adapterVersion: 'games-workshop-pdf/1',
+            mediaType: 'application/pdf',
+            byteLength: 1,
+            checksum: officialChecksum,
+          },
+          sourceRecords: [{ id: officialRecordId, page: 1, recordChecksum: 'd'.repeat(64) }],
+        },
+      ],
+      communityWarscrollSources: [
+        reviewedSource(loreChecksum, {
+          factionOptions: [option(loreFacts[0], { armyOfRenown: 'Fixture Army' })],
+        }),
+        reviewedSource(armyChecksum, {
+          armyOfRenown: 'Fixture Army',
+          factionOptions: [option(armyFacts[0], { faction: 'Stormcast Eternals' })],
+        }),
+      ] as CorpusReview['communityWarscrollSources'],
+      armiesOfRenown: [
+        {
+          sourceRecordId: rootRecord.meta.sourceRecordId,
+          reason: 'fixture',
+          officialSourceRecordIds: [],
+          evidenceTier: 'secondary-provisional',
+        },
+      ],
+      ignoredSourceRecords: [
+        { sourceRecordId: ignoredTrait, reason: 'Translated card (fixture).' },
+        { sourceRecordId: ignoredSpell, reason: 'Translated card (fixture).' },
+      ],
+    }
+    const result = buildAos4Corpus(
+      decoded,
+      createCorpusIdentityRegistry(decoded.dataset, armyReview),
+      armyReview
+    )
+    expect(result.diagnostics.filter(diagnostic => diagnostic.severity === 'error')).toEqual([])
+    expect(validateCatalog(result.catalog)).toEqual([])
+    // Ignored cards stay excluded and dispositioned: no entity (publication or runtime) cites them,
+    // so integrity holds, while the included cards on both citation paths are still cited.
+    expect(validateGenerationIntegrity(result.catalog, result.dispositions).issues).toEqual([])
+    const cited = new Set(
+      result.catalog.entities.flatMap(entity => entity.sourceRefs.map(reference => reference.sourceRecordId))
+    )
+    expect(cited.has(ignoredTrait)).toBe(false)
+    expect(cited.has(ignoredSpell)).toBe(false)
+    expect(result.catalog.entities.filter(entity => /Translated/.test(entity.name))).toEqual([])
+    const publications = result.catalog.entities.filter(entity => entity.kind === 'publication')
+    const publicationRefs = publications.flatMap(entity =>
+      entity.sourceRefs.map(reference => reference.sourceRecordId)
+    )
+    expect(publicationRefs).toEqual(expect.arrayContaining([includedTrait, includedSpell]))
+    expect(result.dispositions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ sourceRecordId: ignoredTrait, status: 'ignored' }),
+        expect.objectContaining({ sourceRecordId: ignoredSpell, status: 'ignored' }),
+      ])
+    )
+    const named = (name: string) => result.catalog.entities.filter(entity => entity.name === name)
+    // The catalogue's lore title only locates the container; it never becomes a displayed name.
+    expect(named('Fixture Army Spell Lore')).toEqual([])
+    const [lore] = named('Spell Lore')
+    const [spell] = named('Fixture Rune')
+    const [root] = named('Fixture Army')
+    expect(lore).toMatchObject({ kind: 'content-group', groupType: 'spell-lore' })
+    expect(lore.sourceRefs.map(ref => ref.sourceRecordId)).toEqual([
+      sourceRecordId('bsdata', `${loreChecksum}:army-of-renown:fixturearmy:spelllore`),
+    ])
+    expect(spell).toMatchObject({ kind: 'ability', abilityKind: 'active' })
+    const edge = (from: string, to: string) =>
+      result.catalog.relationships.some(
+        relationship =>
+          relationship.kind === 'includes' && relationship.from === from && relationship.to === to
+      )
+    expect(edge(root.id, lore.id)).toBe(true)
+    const faction = named('Stormcast Eternals')[0]
+    const regular = resolveSelection(result.catalog, {
+      explicitIds: [faction.id],
+      rulesContextId: review.rulesContext.id,
+    })
+    expect(regular.selectedIds).not.toContain(spell.id)
+    const army = resolveSelection(result.catalog, {
+      explicitIds: [faction.id, root.id],
+      rulesContextId: review.rulesContext.id,
+    })
+    expect(army.diagnostics).toEqual([])
+    expect(army.selectedIds).toEqual(expect.arrayContaining([lore.id, spell.id]))
+
+    // A lore routed to an army no catalogue creates fails closed instead of inventing a root.
+    await expect(merge('Missing Army')).rejects.toThrow(/Missing Army lore .* has no army root/)
   })
 
   it('fails closed on a Legends warscroll override that names no live export record', () => {

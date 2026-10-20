@@ -1,7 +1,1592 @@
 {
   "authority": "games-workshop",
-  "generatedAt": "2026-10-20T13:03:00.000Z",
+  "generatedAt": "2026-10-20T18:30:00.000Z",
   "records": [
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "79dae570b0f2c4b07bd992f21f0de898f6574a861f9639e21ed5a3592dbe8309",
+        "faction": "Regiments of Renown",
+        "key": "page:3:regiment-of-renown:1",
+        "kind": "regiment-of-renown",
+        "name": "Fjori’s Flamebearers",
+        "notes": [
+          "This Regiment of Renown will move to Warhammer Legends on 1 June 2027. This Regiment of Renown can be included in the following factions: Cities of Sigmar, Daughters of Khaine, Idoneth Deepkin, Kharadron Overlords, Lumineth Realm-lords, Seraphon, Stormcast Eternals, Sylvaneth."
+        ],
+        "page": 3,
+        "points": 420,
+        "row": 1,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A3",
+        "unitSummary": [
+          "• 1 Grimhold Exile • 1 Auric Hearthguard unit with 5 models • 1 Hearthguard Berzerkers unit with 5 models • 1 Vulkite Berzerkers unit with Fyresteel Weapons with 10 models"
+        ]
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:regiment-of-renown:page:3:regiment-of-renown:1",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "7ee3a2eb8194d6f486e24c6a12daaeaa82593d1bd060332f047f5c31969aa45c",
+        "faction": "Regiments of Renown",
+        "key": "page:3:regiment-of-renown:2",
+        "kind": "regiment-of-renown",
+        "name": "Fjori’s Vengeance",
+        "notes": [
+          "This Regiment of Renown can be included in the following factions: Cities of Sigmar, Daughters of Khaine, Idoneth Deepkin, Kharadron Overlords, Lumineth Realm-lords, Seraphon, Stormcast Eternals, Sylvaneth."
+        ],
+        "page": 3,
+        "points": 310,
+        "row": 2,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A3",
+        "unitSummary": [
+          "• 1 Grimhold Exile • 1 Auric Flamekeeper • 1 Hearthguard Berzerkers unit with 5 models"
+        ]
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:regiment-of-renown:page:3:regiment-of-renown:2",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "dae98ba17bc9bc063d0c3ee4f210d375760aecfbd6de41d6275263344c16a37c",
+        "faction": "Regiments of Renown",
+        "key": "page:3:regiment-of-renown:3",
+        "kind": "regiment-of-renown",
+        "name": "Gotrek Gurnisson",
+        "notes": [
+          "This Regiment of Renown can be included in the following factions: Cities of Sigmar, Daughters of Khaine, Idoneth Deepkin, Kharadron Overlords, Lumineth Realm-lords, Seraphon, Stormcast Eternals, Sylvaneth."
+        ],
+        "page": 3,
+        "points": 220,
+        "row": 3,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A3",
+        "unitSummary": [
+          "• Gotrek Gurnisson"
+        ]
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:regiment-of-renown:page:3:regiment-of-renown:3",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "727deaec234b8d1dd7bc6df854631fc97f9f7df0e4f1da78a35e25825e955e6f",
+        "faction": "Regiments of Renown",
+        "key": "page:3:regiment-of-renown:4",
+        "kind": "regiment-of-renown",
+        "name": "Thengin’s Grudgesettlers",
+        "notes": [
+          "This Regiment of Renown can be included in the following factions: Cities of Sigmar, Daughters of Khaine, Idoneth Deepkin, Kharadron Overlords, Lumineth Realm-lords, Seraphon, Stormcast Eternals, Sylvaneth."
+        ],
+        "page": 3,
+        "points": 510,
+        "row": 4,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A3",
+        "unitSummary": [
+          "• 1 Runewright • 1 Clanshields unit with 10 models • 1 Oathkeeper Cannon • 1 Clangunners with Thrundok Rifles unit with 10 models"
+        ]
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:regiment-of-renown:page:3:regiment-of-renown:4",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "a5628eeff8dbdc64ea476cd8c991e60faeaa2398a02260075534665d2629b2a9",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:1",
+        "kind": "roster-option",
+        "name": "Wayfarer Nomads",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Battle Formation",
+        "page": 2,
+        "points": 0,
+        "row": 1,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:1",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "718989d51780c36b1ce7058b0eabda897c1317341183442c3befb3212a61760d",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:10",
+        "kind": "roster-option",
+        "name": "Hearthflares",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Artefact of Power",
+        "page": 2,
+        "points": 0,
+        "row": 10,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:10",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "6bda6e09fdfa40d5f4f9213c8fed1e3449046950419b4c37307ae24d53c19ace",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:11",
+        "kind": "roster-option",
+        "name": "Reverberations of the Runes",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Spell Lore",
+        "page": 2,
+        "points": 20,
+        "row": 11,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:11",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "7a277aeebefbb54ae86883a5c7891e26677213b2f564d109c3ec2bfbb934cb29",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:12",
+        "kind": "roster-option",
+        "name": "Resonance of the Runes",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Spell Lore",
+        "page": 2,
+        "points": 10,
+        "row": 12,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:12",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "9fdaa4aad3ee53b058401580e096cb05eaceba04fb8e3e9ff595d46741794c8d",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:13",
+        "kind": "roster-option",
+        "name": "Ancestor God Recitations",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Prayer Lore",
+        "page": 2,
+        "points": 10,
+        "row": 13,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:13",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "a9cf365695f81abc84abc02d263a83572c465543e1e4d5c9a93458c37520f216",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:14",
+        "kind": "roster-option",
+        "name": "Magmic Invocations",
+        "notes": [
+          "Magmic Invocations will move to Warhammer Legends on 1 June 2027."
+        ],
+        "optionType": "Manifestation Lore",
+        "page": 2,
+        "points": 0,
+        "row": 14,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:14",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "48413247ce840835dce98cc7703a4c09529e51ee5347ccea06b0440f705fcfdb",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:15",
+        "kind": "roster-option",
+        "name": "Magmic Battleforge",
+        "notes": [
+          "This terrain feature will move to Warhammer Legends on 1 June 2027."
+        ],
+        "optionType": "Faction Terrain",
+        "page": 2,
+        "points": 0,
+        "row": 15,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:15",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "seasonal",
+        "factChecksum": "82a98dbfdd5c7648b109820aa2b5ee073c2be4020fa86fd1c2cf242d56882e6d",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:16",
+        "kind": "roster-option",
+        "name": "Aureate Hide",
+        "notes": [
+          "Scourge of Aqshy"
+        ],
+        "optionType": "Mark of Vulcatrix",
+        "page": 2,
+        "points": 10,
+        "row": 16,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:16",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "seasonal",
+        "factChecksum": "5ff3cb4c5ee5aa666d21b200a3c23d0a68c0d32c692d927cf21ee867d1bb8ee9",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:17",
+        "kind": "roster-option",
+        "name": "Intense Fyrestream",
+        "notes": [
+          "Scourge of Aqshy"
+        ],
+        "optionType": "Mark of Vulcatrix",
+        "page": 2,
+        "points": 10,
+        "row": 17,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:17",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "seasonal",
+        "factChecksum": "81c408a281829475aa293cc177257888f85bebdd4225128361a88bbf385376f0",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:18",
+        "kind": "roster-option",
+        "name": "Thickened Scales",
+        "notes": [
+          "Scourge of Aqshy"
+        ],
+        "optionType": "Mark of Vulcatrix",
+        "page": 2,
+        "points": 20,
+        "row": 18,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:18",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "seasonal",
+        "factChecksum": "e0728ba50102df3cc37c4b789f9ed6b0ad296aea79b967aa8a8be7804ac9b066",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:19",
+        "kind": "roster-option",
+        "name": "Vulkyn Gifts",
+        "notes": [
+          "Scourge of Aqshy"
+        ],
+        "optionType": "Prayer Lore",
+        "page": 2,
+        "points": 0,
+        "row": 19,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:19",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "286ddd21f7be7a1e2d01d27c99b248c21ce2f7abaa8a96e8165bfa272f66b9f9",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:2",
+        "kind": "roster-option",
+        "name": "Hearthsworn Defenders",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Battle Formation",
+        "page": 2,
+        "points": 0,
+        "row": 2,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:2",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "0cca17a2c82d6b44420cff589e394f3d8c8bbd08c9ecfaa0e336418b20cfaf51",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:3",
+        "kind": "roster-option",
+        "name": "Unyielding Anvil",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Battle Formation",
+        "page": 2,
+        "points": 0,
+        "row": 3,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:3",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "73bba752226504d8bf6b7dd3fb7c926f7e92ec6c5f4bc3e4c5f1da6e56514fe2",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:4",
+        "kind": "roster-option",
+        "name": "War Callers",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Battle Formation",
+        "page": 2,
+        "points": 0,
+        "row": 4,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:4",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "47428b448c89e6414ea7cda3842764cfe44db1df355f8507bd18e7de989e975b",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:5",
+        "kind": "roster-option",
+        "name": "Innate Resonance",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Heroic Trait",
+        "page": 2,
+        "points": 10,
+        "row": 5,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:5",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "1e2ebbda7af5db1146cf84729a17105fd63bb05eae544fd6a9c59ada702ba2a9",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:6",
+        "kind": "roster-option",
+        "name": "Long of Beard or Braid",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Heroic Trait",
+        "page": 2,
+        "points": 0,
+        "row": 6,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:6",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "6548bf9429168354df6681fe128aa006b43d794c41d0f8a73378bd006a7058f7",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:7",
+        "kind": "roster-option",
+        "name": "Sworn to Vengeance",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Heroic Trait",
+        "page": 2,
+        "points": 0,
+        "row": 7,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:7",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "ea16e0644cf9b0e8636bdd7deb4f80b9e302d153a7f56ae0923af6009d6743b9",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:8",
+        "kind": "roster-option",
+        "name": "Deep-earth Runic Weapon",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Artefact of Power",
+        "page": 2,
+        "points": 0,
+        "row": 8,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:8",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "structured-reference",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "context": "standard",
+        "factChecksum": "6c70b031edaefb2309d50bf218e60f3b8c4e70b1a00ebb52874e57bc9f082885",
+        "faction": "Khazalite Holds",
+        "key": "page:2:roster-option:9",
+        "kind": "roster-option",
+        "name": "Flamescale Rune Cloak",
+        "notes": [
+          "Battletome: Khazalite Holds"
+        ],
+        "optionType": "Artefact of Power",
+        "page": 2,
+        "points": 0,
+        "row": 9,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2"
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:roster-option:page:2:roster-option:9",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "0646364ca006a4bb7081dbc1d1be833d1bfff04f0bb1d56b294743d7ce6a6306",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:1",
+        "kind": "unit",
+        "name": "Auric Flamekeeper",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen."
+        ],
+        "page": 1,
+        "points": 110,
+        "regimentOptions": [
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 1,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:1",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "affaf936578666097965f0b410538cdd24866959342dcc1b2b485272da85b4c0",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:10",
+        "kind": "unit",
+        "name": "Doomseeker",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen. This unit will move to Warhammer Legends on 1 June 2027."
+        ],
+        "page": 1,
+        "points": 100,
+        "regimentOptions": [
+          "Any Grimmdron"
+        ],
+        "relevantKeywords": [],
+        "row": 10,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:10",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "ba4427e15f391155b5974e00e05ce3ad2729743be37251359f9fdea5ba1d1939",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:11",
+        "kind": "unit",
+        "name": "Gotrek Gurnisson",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen."
+        ],
+        "page": 1,
+        "points": 220,
+        "regimentOptions": [
+          "None"
+        ],
+        "relevantKeywords": [],
+        "row": 11,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:11",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "cf181c6941d07725d7468ed5480452cb663d37fb243b72e969478820a48a1864",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:12",
+        "kind": "unit",
+        "name": "Grimhold Exile",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen."
+        ],
+        "page": 1,
+        "points": 110,
+        "regimentOptions": [
+          "Any Grimmdron"
+        ],
+        "relevantKeywords": [],
+        "row": 12,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:12",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "e328c759ff943d451112cf56faf4e8ae8d73d3e7116ee30fecfc541ff68998bc",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:13",
+        "kind": "unit",
+        "name": "Grimwrath Berzerker",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen. This unit will move to Warhammer Legends on 1 June 2027."
+        ],
+        "page": 1,
+        "points": 110,
+        "regimentOptions": [
+          "Any Grimmdron"
+        ],
+        "relevantKeywords": [],
+        "row": 13,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:13",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "170 × 105mm"
+        ],
+        "context": "standard",
+        "factChecksum": "188897d650dd7fa4963b7aa53fc25a30a193103e64bf7fe24f237b1c7b423e2a",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:14",
+        "kind": "unit",
+        "name": "High Kyng Valankrom",
+        "notes": [],
+        "page": 1,
+        "points": 390,
+        "regimentOptions": [
+          "0-1 Grimnir’s Chosen",
+          "0-1 Vulcatrix’s Chosen",
+          "Any Kromdron Noble",
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 14,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:14",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "912f21ab83e0940eebb55b57dd5947b226a5fc27d1d361886ab3462c6c3a8edd",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:15",
+        "kind": "unit",
+        "name": "Hjulda Drakkblud",
+        "notes": [
+          "This Hero can join an eligible regiment as a Kromdron Noble."
+        ],
+        "page": 1,
+        "points": 140,
+        "regimentOptions": [
+          "0-1 Grimnir’s Chosen",
+          "Any Kromdron Noble",
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 15,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:15",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm [1]",
+          "50mm [1]"
+        ],
+        "context": "standard",
+        "factChecksum": "8f202ab4b2de40d96f17de04ee3043e05561ad56d932ca43750ff468dfccb3b3",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:16",
+        "kind": "unit",
+        "name": "Ormyr and Ashtongue",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen."
+        ],
+        "page": 1,
+        "points": 140,
+        "regimentOptions": [
+          "0-1 Grimnir’s Chosen",
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 16,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:16",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "f3cd29c605c28d8943f8c8fd8de7e87d5d6202b0c16298624f174937a2568d02",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:17",
+        "kind": "unit",
+        "name": "Runewright",
+        "notes": [
+          "This Hero can join an eligible regiment as a Kromdron Noble."
+        ],
+        "page": 1,
+        "points": 110,
+        "regimentOptions": [
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 17,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:17",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "cc7e0813e0d6d54e665ba55f1a849ecba45df29a1f61c5cf1dea4ebec5cdf1d6",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:18",
+        "kind": "unit",
+        "name": "Thrynn",
+        "notes": [
+          "This Hero can join an eligible regiment as a Kromdron Noble."
+        ],
+        "page": 1,
+        "points": 120,
+        "regimentOptions": [
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 18,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:18",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "170 × 105mm"
+        ],
+        "context": "standard",
+        "factChecksum": "e0552e89a5443d514c5657bfb2fac2df8a48e2a5560dd1cd880078c50d2d07d2",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:19",
+        "kind": "unit",
+        "name": "Thrynn on War Throne",
+        "notes": [],
+        "page": 1,
+        "points": 340,
+        "regimentOptions": [
+          "0-1 Grimnir’s Chosen",
+          "Any Kromdron Noble",
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 19,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:19",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "d2182cf9096d39fab955d0f3efb604f2bf6448d8ba9f5b33554abca29eaa205d",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:2",
+        "kind": "unit",
+        "name": "Auric Runefather",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen."
+        ],
+        "page": 1,
+        "points": 130,
+        "regimentOptions": [
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 2,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:2",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "120 × 92mm"
+        ],
+        "context": "seasonal",
+        "factChecksum": "0c91602b92dcc45b20cabeb52fb7865c2b0318a51d3a79a769edb7d10b26e141",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:20",
+        "kind": "unit",
+        "name": "Scourge of Aqshy Auric Runeson on Magmadroth",
+        "notes": [
+          "This Hero can join an eligible regiment as Vulcatrix’s Chosen. This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
+        ],
+        "page": 1,
+        "points": 300,
+        "regimentOptions": [
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 20,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:20",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "120 × 92mm"
+        ],
+        "context": "standard",
+        "factChecksum": "552ec8415e30a4f6526ab4ad9ce89fc472a52f2b80e656a51c742ea2ecc326c2",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:3",
+        "kind": "unit",
+        "name": "Auric Runefather on Magmadroth",
+        "notes": [
+          "This Hero can join an eligible regiment as Vulcatrix’s Chosen."
+        ],
+        "page": 1,
+        "points": 320,
+        "regimentOptions": [
+          "0-1 Grimnir’s Chosen",
+          "0-1 Vulcatrix’s Chosen",
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 3,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:3",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "de62c89ba6a6d346eee7457b439749b9f2fb2af287b962f2f3b481729a6b2c3a",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:4",
+        "kind": "unit",
+        "name": "Auric Runemaster",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen. This unit will move to Warhammer Legends on 1 June 2027."
+        ],
+        "page": 1,
+        "points": 160,
+        "regimentOptions": [
+          "Any Grimmdron"
+        ],
+        "relevantKeywords": [],
+        "row": 4,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:4",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "b6ce91c5a3ca02948163077655a88dab856301435e92493df1ac5626027de631",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:5",
+        "kind": "unit",
+        "name": "Auric Runesmiter",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen."
+        ],
+        "page": 1,
+        "points": 110,
+        "regimentOptions": [
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 5,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:5",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "120 × 92mm"
+        ],
+        "context": "standard",
+        "factChecksum": "db75dd1973dbdce7cce703a43e31529a4dbc6d36b27dbd29ee1f0f844f0ba701",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:6",
+        "kind": "unit",
+        "name": "Auric Runesmiter on Magmadroth",
+        "notes": [
+          "This Hero can join an eligible regiment as Vulcatrix’s Chosen."
+        ],
+        "page": 1,
+        "points": 290,
+        "regimentOptions": [
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 6,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:6",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "6b024d851d7ab2ef0589fa36a330650f77540c4d24d4a308f519ac0b26f7b1ca",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:7",
+        "kind": "unit",
+        "name": "Auric Runeson",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen."
+        ],
+        "page": 1,
+        "points": 100,
+        "regimentOptions": [
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 7,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:7",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "120 × 92mm"
+        ],
+        "context": "standard",
+        "factChecksum": "4e2de8f7c8f9e349374300dc85f27cf2f4cca4481ec999ee681a30d48d327c46",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:8",
+        "kind": "unit",
+        "name": "Auric Runeson on Magmadroth",
+        "notes": [
+          "This Hero can join an eligible regiment as Vulcatrix’s Chosen."
+        ],
+        "page": 1,
+        "points": 290,
+        "regimentOptions": [
+          "Any Khazalite Holds"
+        ],
+        "relevantKeywords": [],
+        "row": 8,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:8",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "6e5e283fffa7cee863aff491f09d823ffa312a3834b551e8f5f72fdd60869d57",
+        "faction": "Khazalite Holds",
+        "key": "page:1:unit:9",
+        "kind": "unit",
+        "name": "Battlesmith",
+        "notes": [
+          "This Hero can join an eligible regiment as Grimnir’s Chosen. This unit will move to Warhammer Legends on 1 June 2027."
+        ],
+        "page": 1,
+        "points": 110,
+        "regimentOptions": [
+          "Any Grimmdron"
+        ],
+        "relevantKeywords": [],
+        "row": 9,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:1:unit:9",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "1963688f0ce861a78751ed9552d051fac3f66041b7aebf3529fb84073f5377eb",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:1",
+        "kind": "unit",
+        "name": "Auric Hearthguard",
+        "notes": [],
+        "page": 2,
+        "points": 110,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Grimmdron",
+          "Infantry"
+        ],
+        "row": 1,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 5
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:1",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "28.5mm"
+        ],
+        "context": "standard",
+        "factChecksum": "9ae4b8bc4e1a7dba86ff243029222363ea01eb735974428ec09886cdbcb77cf6",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:10",
+        "kind": "unit",
+        "name": "Valayan Guardians with Rune Axes and Shields",
+        "notes": [],
+        "page": 2,
+        "points": 110,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Kromdron",
+          "Infantry"
+        ],
+        "row": 10,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 5
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:10",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "28.5mm"
+        ],
+        "context": "standard",
+        "factChecksum": "14aa57fdf2010d2a7132fe083b20ed9d37a244b1abce4318740970a67bd9a0e3",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:11",
+        "kind": "unit",
+        "name": "Valayan Guardians with Runic Halberds",
+        "notes": [],
+        "page": 2,
+        "points": 110,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Kromdron",
+          "Infantry"
+        ],
+        "row": 11,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 5
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:11",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "bf8bb73ed0f3f07be8d991becd96171a272a763004d37ac84d9667d4bcc2cad6",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:12",
+        "kind": "unit",
+        "name": "Vulkite Berzerkers with Bladed Slingshields",
+        "notes": [
+          "This unit will move to Warhammer Legends on 1 June 2027."
+        ],
+        "page": 2,
+        "points": 150,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Grimmdron",
+          "Infantry"
+        ],
+        "row": 12,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 10
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:12",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "2c88c17c7926416d21a9ef46909117628dff69f863a04f6b1091ccb524cad745",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:13",
+        "kind": "unit",
+        "name": "Vulkite Berzerkers with Fyresteel Weapons",
+        "notes": [
+          "This unit will move to Warhammer Legends on 1 June 2027."
+        ],
+        "page": 2,
+        "points": 130,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Grimmdron",
+          "Infantry"
+        ],
+        "row": 13,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 10
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:13",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm [4]",
+          "28.5mm [5]"
+        ],
+        "context": "standard",
+        "factChecksum": "9ca34a2bec1883b82c5a9279353d9292d87085818e2683a635a977a8f57f121c",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:14",
+        "kind": "unit",
+        "name": "Vulkyn Flameseekers",
+        "notes": [],
+        "page": 2,
+        "points": 160,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Grimmdron",
+          "Infantry"
+        ],
+        "row": 14,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 9
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:14",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm [4]",
+          "28.5mm [5]"
+        ],
+        "context": "seasonal",
+        "factChecksum": "9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:15",
+        "kind": "unit",
+        "name": "Scourge of Aqshy Vulkyn Flameseekers",
+        "notes": [
+          "This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
+        ],
+        "page": 2,
+        "points": 190,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Grimmdron",
+          "Infantry"
+        ],
+        "row": 15,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 9
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:15",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "28.5mm"
+        ],
+        "context": "standard",
+        "factChecksum": "7d4fb8e4efe16b194d08825f3df395df65c4159e59ce3cc2b5c194bad1c42a9d",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:2",
+        "kind": "unit",
+        "name": "Clangunners with Thrundok Rifles",
+        "notes": [],
+        "page": 2,
+        "points": 140,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Kromdron",
+          "Infantry"
+        ],
+        "row": 2,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 10
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:2",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "28.5mm"
+        ],
+        "context": "standard",
+        "factChecksum": "57b27d33b23a09c0be9d0c3a7a894773b2339257fe3e7c050c6543fa7914154d",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:3",
+        "kind": "unit",
+        "name": "Clangunners with Thrundrin Shotcannons",
+        "notes": [],
+        "page": 2,
+        "points": 130,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Kromdron",
+          "Infantry"
+        ],
+        "row": 3,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 10
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:3",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "28.5mm"
+        ],
+        "context": "standard",
+        "factChecksum": "5b0afd33f34bc22b4b513bd74c2286c7303f09f031d826973d02fab993974db0",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:4",
+        "kind": "unit",
+        "name": "Clanshields",
+        "notes": [],
+        "page": 2,
+        "points": 110,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Kromdron",
+          "Infantry"
+        ],
+        "row": 4,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 10
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:4",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "50mm"
+        ],
+        "context": "standard",
+        "factChecksum": "711027fa2ad9f2b809c74bf1c45a00f7ad0e623185b818c92ec77707578b3ffd",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:5",
+        "kind": "unit",
+        "name": "Gholems of Gazul",
+        "notes": [],
+        "page": 2,
+        "points": 210,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "War Machine"
+        ],
+        "row": 5,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 3
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:5",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "50mm"
+        ],
+        "context": "standard",
+        "factChecksum": "a10f3f81644171cf909f846a5a8ede456381c3a13718395730710c45c436514b",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:6",
+        "kind": "unit",
+        "name": "Gholems of Valaya",
+        "notes": [],
+        "page": 2,
+        "points": 200,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "War Machine"
+        ],
+        "row": 6,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 3
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:6",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "32mm"
+        ],
+        "context": "standard",
+        "factChecksum": "ef2599a01497ed88c28b59ab003b1b3b56627f7cde231db9b84a6d5ea43cae2f",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:7",
+        "kind": "unit",
+        "name": "Hearthguard Berzerkers",
+        "notes": [],
+        "page": 2,
+        "points": 110,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Grimmdron",
+          "Infantry"
+        ],
+        "row": 7,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 5
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:7",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "100mm"
+        ],
+        "context": "standard",
+        "factChecksum": "d59f458cb30053a121208b648bcc61c5c68b9b5aa5d490d2af69bac3689fe971",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:8",
+        "kind": "unit",
+        "name": "Oathkeeper Cannon",
+        "notes": [],
+        "page": 2,
+        "points": 150,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Kromdron",
+          "War Machine"
+        ],
+        "row": 8,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:8",
+      "status": "effective"
+    },
+    {
+      "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
+      "disposition": "applied-to-runtime",
+      "documentTitle": "Battle Profiles - Khazalite Holds",
+      "fact": {
+        "baseSizes": [
+          "100mm"
+        ],
+        "context": "standard",
+        "factChecksum": "5b082ea9c8c2954f2fdec86f6cc722dda3c2c66db2dabc4c82ee5aa70ae0aa8e",
+        "faction": "Khazalite Holds",
+        "key": "page:2:unit:9",
+        "kind": "unit",
+        "name": "Stonebreaker Mortar",
+        "notes": [],
+        "page": 2,
+        "points": 140,
+        "regimentOptions": [],
+        "relevantKeywords": [
+          "Kromdron",
+          "War Machine"
+        ],
+        "row": 9,
+        "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
+        "unitSize": 1
+      },
+      "id": "games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29:unit:page:2:unit:9",
+      "status": "effective"
+    },
     {
       "artifactChecksum": "952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a",
       "disposition": "applied-to-runtime",
@@ -504,7 +2089,7 @@
     },
     {
       "artifactChecksum": "952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a",
-      "disposition": "applied-to-runtime",
+      "disposition": "superseded",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -525,11 +2110,11 @@
         ]
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:regiment-of-renown:page:60:regiment-of-renown:5",
-      "status": "effective"
+      "status": "superseded"
     },
     {
       "artifactChecksum": "952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a",
-      "disposition": "applied-to-runtime",
+      "disposition": "superseded",
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "standard",
@@ -550,7 +2135,7 @@
         ]
       },
       "id": "games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a:regiment-of-renown:page:60:regiment-of-renown:6",
-      "status": "effective"
+      "status": "superseded"
     },
     {
       "artifactChecksum": "952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a",
@@ -37039,14 +38624,14 @@
   ],
   "schemaVersion": 1,
   "summary": {
-    "appliedToRuntime": 1016,
-    "effective": 1312,
+    "appliedToRuntime": 1053,
+    "effective": 1368,
     "profileOnly": 1,
-    "records": 1312,
-    "regimentsOfRenown": 74,
-    "rosterOptions": 295,
-    "structuredReference": 295,
-    "superseded": 0,
-    "units": 943
+    "records": 1370,
+    "regimentsOfRenown": 78,
+    "rosterOptions": 314,
+    "structuredReference": 314,
+    "superseded": 2,
+    "units": 978
   }
 }

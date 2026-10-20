@@ -530,6 +530,9 @@ const extractCommunityFactionOptionFacts = async (
     const seasonalSections = options
       .filter(option => option.context === 'seasonal')
       .map(option => option.section)
+    const armyOfRenownSections = Object.fromEntries(
+      options.flatMap(option => (option.armyOfRenown ? [[option.section, option.armyOfRenown]] : []))
+    )
     inputs.push({
       artifact: source.artifact,
       repository: source.repository,
@@ -539,6 +542,7 @@ const extractCommunityFactionOptionFacts = async (
       ...(createsTypeSections.length ? { createsTypeSections } : {}),
       ...(seasonalSections.length ? { seasonalSections } : {}),
       ...(source.armyOfRenown ? { armyOfRenown: source.armyOfRenown } : {}),
+      ...(Object.keys(armyOfRenownSections).length ? { armyOfRenownSections } : {}),
     })
   }
   return inputs
