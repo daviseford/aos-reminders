@@ -81,7 +81,12 @@ The strict report currently records:
   - recorded, not overridden: the Legion of the First Prince Bloodcrushers copy reads "crushing
     charge roll" (no free official prints the Bloodcrushers warscroll; the Blades of Khorne copy
     still reads "Roll a D3"); Kurnoth Hunters with Greatswords 220 and the Scourge of Aqshy Slann
-    regiment options remain discrepancies the official values win;
+    regiment options remain discrepancies the official values win; two Wahapedia-only Scourge of
+    Ghyran battle profiles changed points, Kairic Acolytes 100 -> 110 and Mortek Guard 110 -> 100,
+    with no stated cause (erratum or transcription unknown). No pinned official record prints
+    these variants' points (the Scourge of Ghyran packs print none), so nothing confirms or
+    contradicts them and the current Wahapedia values ship. The past season pairs its content with
+    today's points, not frozen 2025-26 points, and roster fixtures are never a points authority;
   - identities: the extension appended only unknown aliases, then 432 re-sourced or re-ordered
     records moved back onto their existing canonical ids (0 ambiguous; final runtime diff 0
     removed/added pairs); 14 ids keep a corrected name with identical text. Wahapedia also
