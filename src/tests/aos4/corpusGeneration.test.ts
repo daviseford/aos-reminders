@@ -14,6 +14,7 @@ import {
   createCorpusIdentityRegistry,
   legendsWarscrollOverrideIds,
   validateGenerationIntegrity,
+  validateIdentityRegistry,
   type CorpusReview,
 } from '../../aos4/generate'
 import {
@@ -215,6 +216,118 @@ describe('AoS 4 corpus generation', () => {
       warscrolls: 1,
       abilities: 2,
       weapons: 2,
+    })
+  })
+
+  describe('retired identities (#1757)', () => {
+    // Corpus 2026-10-20: Wahapedia re-numbered the lines inside an export row, so a page weapon
+    // matched by name borrowed the line alias of the retired weapon its slot used to print. The
+    // retired entry keeps that alias (2026-09-25 precedent), so restoring it alone hands its ID on.
+    const page = sourceRecordId(
+      'wahapedia',
+      'html:https://wahapedia.ru/aos4/factions/fixture/warscrolls.html#datasheet:Fixture/weapon:1'
+    )
+    const pageAlias = {
+      publisher: 'wahapedia' as const,
+      externalId: decodeURIComponent(page.slice('source-record:wahapedia:'.length)),
+    }
+    const scenario = async () => {
+      const decoded = decodeWahapediaExports(await loadInputs())
+      const [retired, current] = decoded.dataset.warscrollWeapons
+      const registered = createCorpusIdentityRegistry(decoded.dataset, review)
+      const entryNamed = (name: string) => registered.entries.find(entry => entry.name === name)!
+      const registry = ({ retire = false, pageSlot = true } = {}) => ({
+        ...registered,
+        entries: registered.entries.map(entry =>
+          entry.name === retired.name && retire
+            ? { ...entry, retired: true as const }
+            : entry.name === current.name && pageSlot
+              ? { ...entry, aliases: [...entry.aliases, pageAlias] }
+              : entry
+        ),
+      })
+      const renumbered = {
+        ...decoded,
+        dataset: {
+          ...decoded.dataset,
+          warscrollWeapons: [
+            {
+              ...current,
+              meta: {
+                ...current.meta,
+                sourceRecordId: page,
+                identitySourceRecordId: retired.meta.sourceRecordId,
+              },
+            },
+          ],
+        },
+      }
+      const build = (input: typeof decoded, identities: typeof registered) => {
+        const result = buildAos4Corpus(input, identities, review)
+        return {
+          weapons: result.catalog.entities
+            .filter(entity => entity.kind === 'weapon')
+            .map(entity => entity.id),
+          identityErrors: result.diagnostics
+            .filter(diagnostic => diagnostic.code.startsWith('identity-'))
+            .map(diagnostic => [diagnostic.code, diagnostic.subject]),
+        }
+      }
+      return {
+        decoded,
+        renumbered,
+        build,
+        registry,
+        retiredId: entryNamed(retired.name).canonicalId,
+        currentId: entryNamed(current.name).canonicalId,
+        retiredAlias: `weapon:wahapedia:${decodeURIComponent(retired.meta.sourceRecordId.slice('source-record:wahapedia:'.length))}`,
+      }
+    }
+
+    it('hands a restored retired ID to the renumbered slot unless the entry is marked retired', async () => {
+      const { build, renumbered, registry, retiredId, currentId } = await scenario()
+      // Restoration alone: the current weapon resolves to the retired weapon's ID.
+      expect(build(renumbered, registry())).toEqual({ weapons: [retiredId], identityErrors: [] })
+      // Marked: the slot resolves through its own page alias; the retired entry keeps alias and ID.
+      const marked = registry({ retire: true })
+      expect(build(renumbered, marked)).toEqual({ weapons: [currentId], identityErrors: [] })
+      expect(marked.entries.find(entry => entry.canonicalId === retiredId)).toMatchObject({
+        retired: true,
+        aliases: registry().entries.find(entry => entry.canonicalId === retiredId)!.aliases,
+      })
+      expect(validateIdentityRegistry(marked)).toEqual([])
+    })
+
+    it('fails closed rather than resolving any current record to a retired ID', async () => {
+      const { build, decoded, renumbered, registry, retiredId, retiredAlias } = await scenario()
+      // No registered page alias to fall back on: the slot is unidentified, never the retired ID.
+      const unanchored = build(renumbered, registry({ retire: true, pageSlot: false }))
+      expect(unanchored.weapons).not.toContain(retiredId)
+      expect(unanchored.identityErrors).toEqual([
+        ['identity-not-found', `weapon:wahapedia:${pageAlias.externalId}`],
+      ])
+      // A record that still emits the retired alias itself is an error, not a quiet reactivation.
+      const reactivated = build(decoded, registry({ retire: true }))
+      expect(reactivated.weapons).not.toContain(retiredId)
+      expect(reactivated.identityErrors).toEqual([['identity-retired', retiredAlias]])
+    })
+
+    it('keeps unmarked registries and their shipped IDs exactly as before', async () => {
+      const { build, decoded, registry } = await scenario()
+      const unmarked = createCorpusIdentityRegistry(decoded.dataset, review)
+      expect(validateIdentityRegistry(unmarked)).toEqual([])
+      expect(buildAos4Corpus(decoded, unmarked, review).diagnostics).toEqual([])
+      // An unmarked borrowed alias still wins over the slot's own page alias, as for the IDs corpus
+      // 2026-08-25 shipped under a renumbered export line.
+      expect(build(decoded, registry()).identityErrors).toEqual([])
+      expect(
+        validateIdentityRegistry({
+          ...unmarked,
+          entries: unmarked.entries.map((entry, index) =>
+            index ? entry : ({ ...entry, retired: false } as unknown as typeof entry)
+          ),
+        }).map(issue => issue.code)
+      ).toEqual(['invalid-retired-marker'])
     })
   })
 

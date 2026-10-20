@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-14.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-20.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-14-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-20-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_665)
+    expect(AOS4_CATALOG.entities).toHaveLength(11_773)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,665 entities', () => {
+  it('reports no missing provenance for any of the 11,773 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_665)
+    ).toHaveLength(11_773)
   })
 })
 
@@ -195,18 +195,18 @@ describe('AoS 4 catalog generation integrity', () => {
         factions: 29,
         warscrolls: 1311,
         battleProfiles: 1015,
-        abilities: 5176,
-        weapons: 2289,
+        abilities: 5260,
+        weapons: 2286,
         sourceArtifacts: 246,
-        sourceRecords: 20328,
-        ignoredSourceRecords: 20464,
+        sourceRecords: 20439,
+        ignoredSourceRecords: 20964,
       },
       integrity: {
-        consumedSourceRecords: 20322,
+        consumedSourceRecords: 20433,
         issues: [],
         supersededSourceRecords: {
-          count: 20458,
-          checksum: '7182da3b54229d0b92b9d841c904b5436aa42f1cda808e6424008c71c10f459a',
+          count: 20958,
+          checksum: '18d8773acff0d46b96407d9652da28590f3be7aa9883814f6e9d0bb77926372e',
         },
       },
     })
@@ -413,12 +413,13 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('records every reviewed source diagnostic without leaving an unknown timing', () => {
     expect(report.sourceDiagnostics).toEqual({
-      reviewed: 1733,
+      reviewed: 1842,
       byCode: {
-        'duplicate-identical-record': 498,
-        'empty-association-record': 639,
-        'missing-faction': 2,
-        'polluted-marker': 594,
+        'duplicate-identical-record': 526,
+        'empty-association-record': 682,
+        'missing-faction': 3,
+        'missing-warscroll': 26,
+        'polluted-marker': 605,
       },
     })
     expect(
@@ -488,177 +489,187 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(memberless).toEqual(Object.keys(reviewedMemberlessRegiments).sort())
   })
 
-  it('keeps current, seasonal, past-season, Spearhead, Legends, and historical content separate', () => {
-    const standard = AOS4_FULL_CATALOG.rulesContexts.find(
-      context => context.mode === 'standard' && context.status === 'current'
-    )!
-    const spearhead = AOS4_FULL_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
-    const seasonal = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
-    const legends = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'legends')!
-    const historical = AOS4_FULL_CATALOG.rulesContexts.find(
-      context => context.name === 'Age of Sigmar Fourth Edition Historical'
-    )!
-    const pastSeason = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'past-season')!
+  // Scans the whole catalog per publication; already ~5 s at c9313eeb, past the default with corpus 2026-10-20.
+  it(
+    'keeps current, seasonal, past-season, Spearhead, Legends, and historical content separate',
+    { timeout: 30_000 },
+    () => {
+      const standard = AOS4_FULL_CATALOG.rulesContexts.find(
+        context => context.mode === 'standard' && context.status === 'current'
+      )!
+      const spearhead = AOS4_FULL_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
+      const seasonal = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
+      const legends = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'legends')!
+      const historical = AOS4_FULL_CATALOG.rulesContexts.find(
+        context => context.name === 'Age of Sigmar Fourth Edition Historical'
+      )!
+      const pastSeason = AOS4_FULL_CATALOG.rulesContexts.find(context => context.status === 'past-season')!
 
-    expect(AOS4_FULL_CATALOG.rulesContexts).toHaveLength(6)
-    expect(pastSeason.mode).toBe('standard')
-    expect(pastSeason.season).toBe('2025-26')
-    expect(pastSeason.battlepack).toBe('Scourge of Ghyran')
-    expect(pastSeason.validTo).toBe('2026-07-05')
-    expect(spearhead.battlepack).toBe('Spearhead')
-    expect(seasonal.season).toBe('2026-27')
-    expect(seasonal.battlepack).toBe('Scourge of Aqshy')
-    expect(legends.mode).toBe('other')
-    expect(historical.validTo).toBe('2026-07-05')
+      expect(AOS4_FULL_CATALOG.rulesContexts).toHaveLength(6)
+      expect(pastSeason.mode).toBe('standard')
+      expect(pastSeason.season).toBe('2025-26')
+      expect(pastSeason.battlepack).toBe('Scourge of Ghyran')
+      expect(pastSeason.validTo).toBe('2026-07-05')
+      expect(spearhead.battlepack).toBe('Spearhead')
+      expect(seasonal.season).toBe('2026-27')
+      expect(seasonal.battlepack).toBe('Scourge of Aqshy')
+      expect(legends.mode).toBe('other')
+      expect(historical.validTo).toBe('2026-07-05')
 
-    const officialPublication = (name: string) => {
-      const publication = AOS4_FULL_CATALOG.entities.find(
-        entity =>
-          entity.kind === 'publication' && entity.publisher === 'games-workshop' && entity.name === name
-      )
-      expect(publication).toBeDefined()
-      return publication!
-    }
-    const expectOfficialPublicationContexts = (name: string, expectedContextIds: string[]) => {
-      const publication = officialPublication(name)
-      expect(publication.rulesContextIds).toEqual([...expectedContextIds].sort())
-      publication.sourceRefs.forEach(reference => {
-        expect(
-          AOS4_FULL_CATALOG.sourceRecords.find(record => record.id === reference.sourceRecordId)
-            ?.rulesContextIds
-        ).toEqual([...expectedContextIds].sort())
-      })
-    }
-    expectOfficialPublicationContexts('Spearhead Reference', [spearhead.id])
-    expectOfficialPublicationContexts('Scourge of Aqshy - Stormcast Eternals', [seasonal.id])
-    expectOfficialPublicationContexts('Scourge of Ghyran - Stormcast Eternals', [
-      historical.id,
-      pastSeason.id,
-    ])
-    expectOfficialPublicationContexts('Red Gobbo Battleplan', [historical.id])
-    expectOfficialPublicationContexts('Legends Warscrolls', [legends.id])
-    expectOfficialPublicationContexts('Faction Pack: Fyreslayers', [standard.id, pastSeason.id, seasonal.id])
-    expectOfficialPublicationContexts(
-      'Warhammer Age of Sigmar Core Rules, Spearhead Rules, Terrain List and Glossary',
-      AOS4_FULL_CATALOG.rulesContexts.map(context => context.id)
-    )
-
-    const entitiesById = new Map(AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity]))
-    const factions = AOS4_FULL_CATALOG.entities.filter(
-      (entity): entity is Faction => entity.kind === 'faction' && entity.rulesContextIds.includes(standard.id)
-    )
-    expect(factions).toHaveLength(27)
-
-    /*
-     * Not every decoded faction row is an army. `Endless Spells` is a container for universal
-     * manifestations (#1796), and it is the only row of that shape: every real army offers at least
-     * eleven warscrolls, this one offers none. Restoring the manifestation warscrolls (#1791) is
-     * expected to retire the row, and this assertion should fail loudly when a second container
-     * appears or this one gains units, rather than letting either back into the army selector.
-     */
-    const armies = armyFactions(AOS4_FULL_CATALOG)
-    const allFactions = AOS4_FULL_CATALOG.entities.filter(
-      (entity): entity is Faction => entity.kind === 'faction'
-    )
-    expect(allFactions).toHaveLength(29)
-    expect(armies).toHaveLength(28)
-    expect(allFactions.filter(faction => !armies.includes(faction)).map(faction => faction.name)).toEqual([
-      'Endless Spells',
-    ])
-    expect(armies.filter(army => army.rulesContextIds.includes(seasonal.id))).toHaveLength(26)
-
-    AOS4_FULL_CATALOG.rulesContexts.forEach(context => {
-      const applicableFactions = AOS4_FULL_CATALOG.entities.filter(
-        (entity): entity is Faction =>
-          entity.kind === 'faction' && entity.rulesContextIds.includes(context.id)
-      )
-      expect(applicableFactions.length).toBeGreaterThan(0)
-      applicableFactions.forEach(faction => {
-        const selection = resolveSelection(AOS4_FULL_CATALOG, {
-          explicitIds: [faction.id],
-          rulesContextId: context.id,
-        })
-        expect(selection.diagnostics).toEqual([])
-        const warscrollNames = selection.availableIds.flatMap(id => {
-          const entity = entitiesById.get(id)
-          return entity?.kind === 'warscroll' ? [entity.name] : []
-        })
-        if (context.mode !== 'spearhead') {
-          expect(new Set(warscrollNames).size).toBe(warscrollNames.length)
-        }
-      })
-    })
-
-    expect(
-      AOS4_FULL_CATALOG.entities
-        .filter(
+      const officialPublication = (name: string) => {
+        const publication = AOS4_FULL_CATALOG.entities.find(
           entity =>
-            entity.kind === 'warscroll' &&
-            entity.factionIds.includes(
-              factions.find(faction => faction.name === 'Soulblight Gravelords')!.id
-            ) &&
-            entity.rulesContextIds.includes(standard.id)
+            entity.kind === 'publication' && entity.publisher === 'games-workshop' && entity.name === name
         )
-        .map(entity => entity.name)
-    ).toEqual(expect.arrayContaining(['Wight King on Skeletal Steed', 'Wight Lord on Skeletal Steed']))
+        expect(publication).toBeDefined()
+        return publication!
+      }
+      const expectOfficialPublicationContexts = (name: string, expectedContextIds: string[]) => {
+        const publication = officialPublication(name)
+        expect(publication.rulesContextIds).toEqual([...expectedContextIds].sort())
+        publication.sourceRefs.forEach(reference => {
+          expect(
+            AOS4_FULL_CATALOG.sourceRecords.find(record => record.id === reference.sourceRecordId)
+              ?.rulesContextIds
+          ).toEqual([...expectedContextIds].sort())
+        })
+      }
+      expectOfficialPublicationContexts('Spearhead Reference', [spearhead.id])
+      expectOfficialPublicationContexts('Scourge of Aqshy - Stormcast Eternals', [seasonal.id])
+      expectOfficialPublicationContexts('Scourge of Ghyran - Stormcast Eternals', [
+        historical.id,
+        pastSeason.id,
+      ])
+      expectOfficialPublicationContexts('Red Gobbo Battleplan', [historical.id])
+      expectOfficialPublicationContexts('Legends Warscrolls', [legends.id])
+      expectOfficialPublicationContexts('Faction Pack: Fyreslayers', [
+        standard.id,
+        pastSeason.id,
+        seasonal.id,
+      ])
+      expectOfficialPublicationContexts(
+        'Warhammer Age of Sigmar Core Rules, Spearhead Rules, Terrain List and Glossary',
+        AOS4_FULL_CATALOG.rulesContexts.map(context => context.id)
+      )
 
-    const gutterRunners = AOS4_FULL_CATALOG.entities.filter(
-      entity => entity.kind === 'warscroll' && entity.name === 'Gutter Runners'
-    )
-    expect(gutterRunners).toHaveLength(2)
-    expect(gutterRunners.map(warscroll => warscroll.rulesContextIds).sort()).toEqual(
-      [[seasonal.id, pastSeason.id, standard.id].sort(), [spearhead.id]].sort()
-    )
+      const entitiesById = new Map(AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity]))
+      const factions = AOS4_FULL_CATALOG.entities.filter(
+        (entity): entity is Faction =>
+          entity.kind === 'faction' && entity.rulesContextIds.includes(standard.id)
+      )
+      expect(factions).toHaveLength(27)
 
-    const profiles = AOS4_FULL_CATALOG.entities.filter(
-      entity =>
-        entity.kind === 'battle-profile' &&
-        gutterRunners.some(warscroll => warscroll.id === entity.warscrollId)
-    )
-    expect(profiles).toEqual([
-      expect.objectContaining({
-        unitSize: 10,
-        points: 150,
-        rulesContextIds: [seasonal.id, pastSeason.id, standard.id].sort(),
-      }),
-    ])
+      /*
+       * Not every decoded faction row is an army. `Endless Spells` is a container for universal
+       * manifestations (#1796), and it is the only row of that shape: every real army offers at least
+       * eleven warscrolls, this one offers none. Restoring the manifestation warscrolls (#1791) is
+       * expected to retire the row, and this assertion should fail loudly when a second container
+       * appears or this one gains units, rather than letting either back into the army selector.
+       */
+      const armies = armyFactions(AOS4_FULL_CATALOG)
+      const allFactions = AOS4_FULL_CATALOG.entities.filter(
+        (entity): entity is Faction => entity.kind === 'faction'
+      )
+      expect(allFactions).toHaveLength(29)
+      expect(armies).toHaveLength(28)
+      expect(allFactions.filter(faction => !armies.includes(faction)).map(faction => faction.name)).toEqual([
+        'Endless Spells',
+      ])
+      expect(armies.filter(army => army.rulesContextIds.includes(seasonal.id))).toHaveLength(26)
 
-    const celestarBallista = AOS4_FULL_CATALOG.entities.find(
-      entity => entity.kind === 'warscroll' && entity.name === 'Celestar Ballista'
-    )!
-    expect(celestarBallista.rulesContextIds).toEqual([legends.id])
-
-    const kragnosWarscrolls = AOS4_FULL_CATALOG.entities.filter(
-      (entity): entity is Warscroll =>
-        entity.kind === 'warscroll' &&
-        entity.name === 'Kragnos, the End of Empires' &&
-        entity.rulesContextIds.includes(legends.id)
-    )
-    expect(kragnosWarscrolls).toHaveLength(1)
-    expect(kragnosWarscrolls[0].factionIds.map(factionId => entitiesById.get(factionId)?.name)).toEqual([
-      'Bonesplitterz',
-    ])
-
-    const nighthaunt = factions.find(faction => faction.name === 'Nighthaunt')!
-    const nighthauntSelection = resolveSelection(AOS4_FULL_CATALOG, {
-      explicitIds: [nighthaunt.id],
-      rulesContextId: standard.id,
-    })
-    expect(
-      nighthauntSelection.availableIds.flatMap(id => {
-        const entity = entitiesById.get(id)
-        return entity ? [entity.name] : []
+      AOS4_FULL_CATALOG.rulesContexts.forEach(context => {
+        const applicableFactions = AOS4_FULL_CATALOG.entities.filter(
+          (entity): entity is Faction =>
+            entity.kind === 'faction' && entity.rulesContextIds.includes(context.id)
+        )
+        expect(applicableFactions.length).toBeGreaterThan(0)
+        applicableFactions.forEach(faction => {
+          const selection = resolveSelection(AOS4_FULL_CATALOG, {
+            explicitIds: [faction.id],
+            rulesContextId: context.id,
+          })
+          expect(selection.diagnostics).toEqual([])
+          const warscrollNames = selection.availableIds.flatMap(id => {
+            const entity = entitiesById.get(id)
+            return entity?.kind === 'warscroll' ? [entity.name] : []
+          })
+          if (context.mode !== 'spearhead') {
+            expect(new Set(warscrollNames).size).toBe(warscrollNames.length)
+          }
+        })
       })
-    ).not.toEqual(expect.arrayContaining(['Cursed Shacklehorde', 'Slasher Host', 'Cairn Wraith']))
 
-    const historicalWarscrolls = AOS4_FULL_CATALOG.entities.filter(
-      entity => entity.kind === 'warscroll' && entity.rulesContextIds.includes(historical.id)
-    )
-    expect(historicalWarscrolls).toHaveLength(42)
-    expect(historicalWarscrolls.every(warscroll => warscroll.name.startsWith('Scourge of Ghyran '))).toBe(
-      true
-    )
-  })
+      expect(
+        AOS4_FULL_CATALOG.entities
+          .filter(
+            entity =>
+              entity.kind === 'warscroll' &&
+              entity.factionIds.includes(
+                factions.find(faction => faction.name === 'Soulblight Gravelords')!.id
+              ) &&
+              entity.rulesContextIds.includes(standard.id)
+          )
+          .map(entity => entity.name)
+      ).toEqual(expect.arrayContaining(['Wight King on Skeletal Steed', 'Wight Lord on Skeletal Steed']))
+
+      const gutterRunners = AOS4_FULL_CATALOG.entities.filter(
+        entity => entity.kind === 'warscroll' && entity.name === 'Gutter Runners'
+      )
+      expect(gutterRunners).toHaveLength(2)
+      expect(gutterRunners.map(warscroll => warscroll.rulesContextIds).sort()).toEqual(
+        [[seasonal.id, pastSeason.id, standard.id].sort(), [spearhead.id]].sort()
+      )
+
+      const profiles = AOS4_FULL_CATALOG.entities.filter(
+        entity =>
+          entity.kind === 'battle-profile' &&
+          gutterRunners.some(warscroll => warscroll.id === entity.warscrollId)
+      )
+      expect(profiles).toEqual([
+        expect.objectContaining({
+          unitSize: 10,
+          points: 150,
+          rulesContextIds: [seasonal.id, pastSeason.id, standard.id].sort(),
+        }),
+      ])
+
+      const celestarBallista = AOS4_FULL_CATALOG.entities.find(
+        entity => entity.kind === 'warscroll' && entity.name === 'Celestar Ballista'
+      )!
+      expect(celestarBallista.rulesContextIds).toEqual([legends.id])
+
+      const kragnosWarscrolls = AOS4_FULL_CATALOG.entities.filter(
+        (entity): entity is Warscroll =>
+          entity.kind === 'warscroll' &&
+          entity.name === 'Kragnos, the End of Empires' &&
+          entity.rulesContextIds.includes(legends.id)
+      )
+      expect(kragnosWarscrolls).toHaveLength(1)
+      expect(kragnosWarscrolls[0].factionIds.map(factionId => entitiesById.get(factionId)?.name)).toEqual([
+        'Bonesplitterz',
+      ])
+
+      const nighthaunt = factions.find(faction => faction.name === 'Nighthaunt')!
+      const nighthauntSelection = resolveSelection(AOS4_FULL_CATALOG, {
+        explicitIds: [nighthaunt.id],
+        rulesContextId: standard.id,
+      })
+      expect(
+        nighthauntSelection.availableIds.flatMap(id => {
+          const entity = entitiesById.get(id)
+          return entity ? [entity.name] : []
+        })
+      ).not.toEqual(expect.arrayContaining(['Cursed Shacklehorde', 'Slasher Host', 'Cairn Wraith']))
+
+      const historicalWarscrolls = AOS4_FULL_CATALOG.entities.filter(
+        entity => entity.kind === 'warscroll' && entity.rulesContextIds.includes(historical.id)
+      )
+      expect(historicalWarscrolls).toHaveLength(42)
+      expect(historicalWarscrolls.every(warscroll => warscroll.name.startsWith('Scourge of Ghyran '))).toBe(
+        true
+      )
+    }
+  )
 
   it('requires explicit dispositions and blocks unsafe generated content', () => {
     const orphan = {

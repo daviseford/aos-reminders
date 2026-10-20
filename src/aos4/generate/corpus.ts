@@ -377,6 +377,13 @@ export interface CorpusRegimentOfRenown {
    * fails closed once the choice names the majority variant or no conflicting copy remains.
    */
   variantReason?: string
+  /**
+   * Reviewed bindings for ORGANISATION members the kept copy prints as plain text, to the member
+   * datasheet's collection anchor (Stumblefoot Gargant's Mancrusher Gargant after Wahapedia
+   * unlinked the DELETED regiment, #1757). Generation fails closed when the anchor is not a kept
+   * datasheet or the member is no longer plain text.
+   */
+  memberAnchors?: Array<{ name: string; url: string }>
 }
 
 /**
@@ -488,6 +495,7 @@ export interface CorpusReview {
 export type CorpusGenerationDiagnosticCode =
   | 'faction-approval-mismatch'
   | 'identity-not-found'
+  | 'identity-retired'
   | 'invalid-review'
   | 'missing-official-source-record'
   | 'regiment-of-renown-member-dangling'
@@ -588,6 +596,39 @@ const recordAlias = (meta: WahapediaRecordMeta): string => {
 
 const recordPublisher = (meta: WahapediaRecordMeta): IdentityAlias['publisher'] =>
   recordAliasEntry(meta).publisher
+
+/**
+ * A page ability or weapon borrows its export row's identity by name, but Wahapedia re-numbers the
+ * lines inside a row (corpus 2026-10-20: Gatebreaker `:4` became `:2`), so the borrowed line alias
+ * can be one a retired rule still owns. A retired entry keeps its export alias so its canonical ID
+ * stays registered (2026-09-25 precedent) and never lends it: the page record keeps its own alias.
+ */
+const withoutRetiredIdentityBorrows = (
+  dataset: WahapediaDataset,
+  registry: IdentityRegistry
+): WahapediaDataset => {
+  const retired = new Set(
+    registry.entries
+      .filter(entry => entry.retired)
+      .flatMap(entry => entry.aliases.map(alias => `${entry.kind}:${alias.publisher}:${alias.externalId}`))
+  )
+  const own = <TRecord extends { meta: WahapediaRecordMeta }>(
+    kind: EntityKind,
+    records: TRecord[]
+  ): TRecord[] =>
+    records.map(record => {
+      if (!record.meta.identitySourceRecordId) return record
+      if (!retired.has(`${kind}:${recordPublisher(record.meta)}:${recordAlias(record.meta)}`)) return record
+      const meta = { ...record.meta }
+      delete meta.identitySourceRecordId
+      return { ...record, meta }
+    })
+  return {
+    ...dataset,
+    warscrollAbilities: own('ability', dataset.warscrollAbilities),
+    warscrollWeapons: own('weapon', dataset.warscrollWeapons),
+  }
+}
 
 const battleProfileAlias = (record: WahapediaWarscrollRecord): string =>
   `${recordAlias(record.meta)}:battle-profile`
@@ -841,6 +882,15 @@ const identityLookup = (
   )
   return (kind, publisher, externalId) => {
     const entry = byAlias.get(`${kind}:${publisher}:${externalId}`)
+    if (entry?.retired) {
+      diagnostics.push({
+        code: 'identity-retired',
+        severity: 'error',
+        subject: `${kind}:${publisher}:${externalId}`,
+        message: `The source alias belongs to retired ${entry.canonicalId} (${entry.name}), which never names current content`,
+      })
+      return undefined
+    }
     if (!entry) {
       diagnostics.push({
         code: 'identity-not-found',
@@ -1735,7 +1785,7 @@ export const buildAos4Corpus = (
 ): CorpusGenerationResult => {
   const diagnostics = reviewDiagnostics(decoded, review)
   const lookup = identityLookup(identities, diagnostics)
-  const dataset = decoded.dataset
+  const dataset = withoutRetiredIdentityBorrows(decoded.dataset, identities)
   const contextId = review.rulesContext.id
   const reviewedRulesContexts = reviewRulesContexts(review)
   const allContextIds = reviewedRulesContexts.map(context => context.id)

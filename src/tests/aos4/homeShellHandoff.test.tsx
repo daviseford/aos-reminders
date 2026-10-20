@@ -167,6 +167,8 @@ const rowNamed = (name: string) => {
 }
 
 const FLESH_EATER_COURTS = rowNamed('Flesh-eater Courts')
+// Armies of Renown in matched play only, now that Legions of Nagash reaches Flesh-eater Courts everywhere.
+const SYLVANETH = rowNamed('Sylvaneth')
 
 /*
  * A rules context this faction is playable in but offers no Army of Renown in — Spearhead, in the
@@ -435,15 +437,12 @@ describe('the handoff from the Home shell to the catalog-bound half', () => {
    */
   it('lands with no Army of Renown row for a context where the faction has none', async () => {
     const { armyOfRenownRow, container, landTheCatalog, renderHome, selectedFactionName, storage } = fixture
-    const rulesContextId = contextWithoutArmiesOfRenown(FLESH_EATER_COURTS)
+    const rulesContextId = contextWithoutArmiesOfRenown(SYLVANETH)
     expect(rulesContextId).not.toBe(defaults.rulesContextId)
-    storage.setItem(
-      AOS4_ARMY_STORAGE_KEY,
-      storedArmy(FLESH_EATER_COURTS.id, 'Grand Court Nightblades', rulesContextId)
-    )
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(SYLVANETH.id, 'Sylvaneth', rulesContextId))
 
     await renderHome()
-    expect(selectedFactionName()).toBe('Flesh-eater Courts')
+    expect(selectedFactionName()).toBe('Sylvaneth')
 
     await landTheCatalog()
     expect(armyOfRenownRow()).toBeNull()

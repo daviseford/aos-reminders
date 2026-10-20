@@ -528,6 +528,10 @@ describe('Wahapedia warscroll HTML decoding', () => {
           <a name="Path-Upgrades"></a><h3>Path Upgrades</h3>
           ${ability('Passive', 'Campaign Rule')}
         </div>
+        <div class="sShowPathToGlory">
+          <a name="PATH-TO-GLORY:-COLLEGIATE-ARCANE"></a><h2>PATH TO GLORY: COLLEGIATE ARCANE</h2>
+          <table><tr><td><h3>Your Hero's Warscroll</h3>Unanchored campaign box.</td></tr></table>
+        </div>
         <a name="SPEARHEAD"></a><h2>SPEARHEAD</h2>
         <a name="Vigilant-Brotherhood"></a>
         <h2><img title="Expansion. Spearhead: Stormcast Eternals (4th edition)">Vigilant Brotherhood</h2>
@@ -603,6 +607,11 @@ describe('Wahapedia warscroll HTML decoding', () => {
             'You can choose for it to be an Astral Templars Army of Renown. If you do so, use the faction rules on these pages instead of the Stormcast Eternals faction rules.'
           )}
         </div>
+        ${section(
+          'Legions of Nagash',
+          '<div class="h2_ArmyOfRenown">Warhammer Legends: Army of Renown</div>',
+          'When you pick the Nighthaunt faction for your army, you can choose for it to be a Legions of Nagash Army of Renown.'
+        )}
         ${section('Scars of War', '', 'Season rules that merely mention an Army of Renown in passing.')}
       </body></html>
     `
@@ -616,6 +625,12 @@ describe('Wahapedia warscroll HTML decoding', () => {
     // The marker div classifies current sections; the replace-rules intro classifies Legends ones.
     expect(groupByExternalId.get('Ruination-Brotherhood')?.armyOfRenown).toBe(true)
     expect(groupByExternalId.get('Astral-Templars')?.armyOfRenown).toBe(true)
+    // A Legends marker outside the .sLegendary wrapper still places the army in Legends (#1757).
+    expect(groupByExternalId.get('Legions-of-Nagash')).toMatchObject({
+      armyOfRenown: true,
+      context: 'legends',
+    })
+    expect(groupByExternalId.get('Ruination-Brotherhood')?.context).toBe('standard')
     // A passing mention without the replace-rules sentence is not a classification.
     expect(groupByExternalId.get('Scars-of-War')?.armyOfRenown).toBeUndefined()
     expect(groupByExternalId.get('Battle-Traits')?.armyOfRenown).toBeUndefined()

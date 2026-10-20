@@ -16,29 +16,29 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-10-14 snapshot is defined by:
+The accepted 2026-10-20 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-10-14.json` | 13 Wahapedia exports (2026-08-25 14:30 publish), 161 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (the two Sons of Behemat pages re-pinned at their 2026-09-25 battletome republication the two Ossiarch Bonereapers pages at their 2026-09-30 bytes, issue #2037, and the Ironjawz warscroll collection at its 2026-10-02 bytes, issue #1999), pinned by SHA-256; the 2026-10-14 Games Workshop downloads (#1757: the re-published Regiments of Renown and the three Khazalite Holds packs pinned, the delisted Legends compendium and September 2025 Regiments of Renown no longer pinned); no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
-| `data/aos4/reviews/corpus-2026-10-14.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
-| `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
+| `data/aos4/manifests/accepted-2026-10-20.json` | 13 Wahapedia exports (2026-10-19 04:58:53 publish), 161 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (all re-pinned at their 2026-10-19/20 bytes except the one unchanged page, #1757), pinned by SHA-256; the 2026-10-14 Games Workshop downloads (#1757: the re-published Regiments of Renown and the three Khazalite Holds packs pinned, the delisted Legends compendium and September 2025 Regiments of Renown no longer pinned); no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
+| `data/aos4/reviews/corpus-2026-10-20.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs; `retired: true` keeps a rule the source no longer prints registered without ever resolving to it |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-10-14-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-10-14-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-10-20-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-10-20-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 29 decoded source factions: 28 playable armies (Khazalite Holds in Spearhead only) plus the
   Endless Spells container
 - 1,311 warscrolls and 1,015 battle profiles
-- 5,176 abilities
-- 2,289 weapons
-- 1,536 content groups
-- 246 source artifacts and 20,328 live source records
+- 5,260 abilities
+- 2,286 weapons
+- 1,560 content groups
+- 246 source artifacts and 20,439 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -48,6 +48,54 @@ The strict report currently records:
   2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
+- the 2026-10-20 Wahapedia refresh (#1757), on top of 2026-10-14: the Rules Radar alarm of
+  2026-10-20 (`Last_update.csv` `d3200be0...` -> `b82f1c68...`, 2026-10-19 04:58:53). 84 of 85
+  Wahapedia artifacts moved; at record level 639 changed, 1,693 markup-only, 187 added, 19 removed.
+  Wahapedia caught up with the September 2026 official update (its `Source.csv` now cites the
+  September Rules Updates, core Battle Profiles, Cities supplement and Scourge of Aqshy packs), so
+  errata the runtime still shipped in their earlier form now come from the pages (for example
+  Helsmiths of Hashut Amassed Legions, Bulls of the Ziggurat, Experimental Munitions and Arcane
+  Dominance; Nighthaunt There Is No Escape and Shadowy Aura; Putrescent Piety; the Spearhead Knight
+  of Shrouds Discorporate). Dispositions:
+  - official precedence: new reviewed text overrides keep the pinned official wording where the
+    page diverges (Destined Quarry, Spearhead: Tzaangor Warflocks p4; Brand of Unbreakable Bonds,
+    Scourge of Aqshy - Slaves to Darkness p1; Walk the Hidden Paths, Scourge of Ghyran - Sylvaneth
+    p1); six Stormcast heroes the page no longer badges Legends stay Legends through
+    `legendsWarscrollOverrides` (core Battle Profiles p66); eight overrides retired because the
+    page now prints the official text (Krittok Foulblade cost, Rotmire Creed Reinforcements,
+    Vengorian Lord Frenzied Surge Rampage, A Kingdom Deluded, Essence of the Gnaw, Sentenced to
+    Eternal Torment, Bellowing Waaagh!-cries, Lingering Burns) and the Despoilers override keeps
+    only its text;
+  - new content: the White Dwarf 03/26 Legions of Nagash Army of Renown on Flesh-eater Courts,
+    Nighthaunt, Ossiarch Bonereapers and Soulblight Gravelords, Legends context,
+    `secondary-provisional` (no pinned official document names it); The Evergreen Hunt battle
+    traits Nature Aetheric and Questing Tendrils (official Armies of Renown pp7-8); Blighted Wilds
+    Path to Glory groups;
+  - source defects handled mechanically and reviewed per record: Wahapedia prints its own keyword
+    markup HTML-encoded in 14 abilities (`source-marker-removed`, text identical to the 2026-10-14
+    runtime); a supplement `PATH TO GLORY: COLLEGIATE ARCANE` section is excluded like the core
+    one; a Legends Army of Renown marked only by its marker div decodes as Legends; an export row
+    linking into a faction page by fragment no longer lends its identity to every datasheet on that
+    page; Stumblefoot Gargant, whose member Wahapedia now prints as unlinked text, keeps its
+    Mancrusher Gargant member through a reviewed `memberAnchors` binding;
+  - recorded, not overridden: the Legion of the First Prince Bloodcrushers copy reads "crushing
+    charge roll" (no free official prints the Bloodcrushers warscroll; the Blades of Khorne copy
+    still reads "Roll a D3"); Kurnoth Hunters with Greatswords 220 and the Scourge of Aqshy Slann
+    regiment options remain discrepancies the official values win;
+  - identities: the extension appended only unknown aliases, then 432 re-sourced or re-ordered
+    records moved back onto their existing canonical ids (0 ambiguous; final runtime diff 0
+    removed/added pairs); 14 ids keep a corrected name with identical text. Wahapedia also
+    re-numbered the lines inside export rows (Gatebreaker `:4` became `:2`), so 68 rules the
+    runtime no longer prints own export aliases a current page rule now matches by name: those
+    entries stay registered under their own alias with `retired: true`, the generator never lends a
+    retired alias and fails with `identity-retired` if a record resolves to one, and each current
+    rule binds through its own page-slot alias (20 added). Four entries whose only alias was a page
+    slot now printing another rule (One-eyed Grunnock SHAKE THE EARTH and TIMBERRRRR!, Odo
+    Godswallow and Big Drogg Fort-Kicka TIMBERRRRR!; last shipped 2026-10-01) were dropped, as the
+    2026-09-25 positional-only retirements were. The 13 Cities of Sigmar and Hedonites page slots
+    already bound to another rule's export alias at 2026-10-14 keep their shipped ids (known gap).
+    Matched-play Khazalite Holds stays blocked: Wahapedia publishes no
+    Khazalite Holds page, and Fyreslayers are unchanged.
 - the 2026-10-14 official intake (#1757), on top of 2026-10-02, for the Games Workshop downloads
   of 2026-10-13/14 (owner-approved scope and transition policy):
   - *Legends compendium* (`eng_01-04`, `0ba8c36c...`) was delisted with no replacement (the asset

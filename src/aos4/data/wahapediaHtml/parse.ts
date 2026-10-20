@@ -875,6 +875,11 @@ const headingContext = (
   inherited?: WahapediaHtmlContext
 ): WahapediaHtmlContext => {
   if (heading.closest('.sLegendary')) return 'legends'
+  // Some Legends Armies of Renown sit outside `.sLegendary` and say so only in their marker.
+  const marker = heading.previousElementSibling
+  if (marker?.matches('div.h2_ArmyOfRenown') && /^Warhammer Legends\b/i.test(normalizedText(marker))) {
+    return 'legends'
+  }
   const fromTitle = pageContext(sourceTitle, '')
   return fromTitle === 'standard' ? (inherited ?? 'standard') : fromTitle
 }
@@ -996,7 +1001,8 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
         continue
       }
       if (!inFactionRules) continue
-      if (/^PATH TO GLORY$/i.test(text)) {
+      // Supplements add their own `PATH TO GLORY: <name>` sections (Collegiate Arcane, October 2026).
+      if (/^PATH TO GLORY\b/i.test(text)) {
         excludedSection = true
         inheritedContext = undefined
         typeGroup = undefined

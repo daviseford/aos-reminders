@@ -49,17 +49,6 @@
       ],
       "reason": "Armies of Renown (September 2026) page 24 prints Watch This! with \"Keywords Rampage, Destructive Impulse\". The re-pinned Wahapedia Sons of Behemat page (2026-09-25) prints only DESTRUCTIVE IMPULSE in its KEYWORDS strip, so official precedence adds RAMPAGE; the omission is recorded as a secondary discrepancy (issue #1999). Add-only: if the page starts printing RAMPAGE, generation fails closed and this entry retires.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-3%3Aability%3A7"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:3525c515cc9b7e1f96b7b76a70f2164810811e7608480ac7dfcd7ea49799124f%3Apage%3A3",
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A33"
-      ],
-      "reason": "The September 2026 Scourge of Aqshy - Soulblight Gravelords pack (page 3) and Rules Updates (page 33, \"Change ‘Frenzied Surge’ to:\") reprint the seasonal Vengorian Lord’s Frenzied Surge in full with no Keywords strip, while the same pack prints \"Keywords Rampage\" on the abilities that keep it (page 2). The accepted Wahapedia page still prints the pre-rewrite RAMPAGE keyword, so official precedence removes it. Remove-only: if the page stops printing RAMPAGE, generation fails closed and this entry retires (#1757).",
-      "remove": [
-        "RAMPAGE"
-      ],
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsoulblight-gravelords%2Fwarscrolls.html%23datasheet%3AScourge-of-Aqshy-Vengorian-Lord%2Fability%3A3"
     }
   ],
   "abilityTextOverrides": [
@@ -176,34 +165,12 @@
     },
     {
       "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A41"
-      ],
-      "reason": "The September 2026 Rules Updates page 41 (NEW) change the first sentence of the Flamers of Tzeentch's Lingering Burns to include units in reserve (#2060)",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdisciples-of-tzeentch%2Fwarscrolls.html%23datasheet%3AFlamers-of-Tzeentch%2Fability%3A2",
-      "text": {
-        "declare": "This unit can use this ability even if it has been destroyed or is in reserve. Pick any number of BURNING enemy units to be the targets.",
-        "effect": "Roll a D3 for each target. On a 1, the target no longer has the BURNING keyword. On a 2+, inflict an amount of mortal damage on the target equal to the roll."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A20"
       ],
       "reason": "The September 2026 Rules Updates page 20 change the Aethervoid Pendulum's Scything Blade effect; the secondary page prints 'Roll a dice for each targets' (#2060)",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fendless-spells%2F%23datasheet%3AAethervoid-Pendulum%2Fability%3A2",
       "text": {
         "effect": "This MANIFESTATION can move a distance up to its Move characteristic in one direction (see ‘The Pendulum Swings’). It can pass through models during that move and can end that move in combat. Then, pick up to 3 enemy units that this MANIFESTATION passed across during that move or that are within 1⁄2\" of it to be the targets. Roll a D6 for each target. On a 2+, inflict an amount of mortal damage on the target equal to the roll."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A43"
-      ],
-      "reason": "The September 2026 Rules Updates page 43 change the second sentence of A Kingdom Deluded; the secondary page prints 'the eect of that D applies' (#2060)",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2F%23faction-ability%3ABattle-Traits%3Aability%3A1",
-      "text": {
-        "declare": "You must use this ability at the start of each turn. If it is the first turn of the battle, pick a DELUSION from these battle traits or, unless otherwise specified, from the warscroll of a friendly unit on the battlefield. If it is not the first turn, make a delusion roll of D6.",
-        "effect": "On a delusion roll of 1-2, you must pick a different DELUSION to the one you picked last turn. On a 3-4, you must pick the same Delusion as the one you picked last turn, even if it is on the warscroll of a unit that has been destroyed. In such cases, the effect of that Delusion applies as if the unit had not been destroyed. On a 5-6, you must pick a DELUSION like you did in the first turn. For the rest of the turn, you believe the DELUSION you picked."
       }
     },
     {
@@ -378,17 +345,6 @@
     },
     {
       "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A62"
-      ],
-      "reason": "The September 2026 Rules Updates page 62 add the cumulative sentence to the Gork-roara's Bellowing Waaagh!-cries; this Kruleboyz copy prints 'afected' and 'efects' (the Ironjawz copy is correct) (#2060)",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fkruleboyz%2Fwarscrolls.html%23datasheet%3AGork-Roara%2Fability%3A1",
-      "text": {
-        "declare": "Pick a friendly IRONJAWZ or KRULEBOYZ WIZARD or PRIEST within 3\" of this MANIFESTATION to be the target.",
-        "effect": "Pick either 1 or 2 to add to casting rolls or chanting rolls for the target until the start of your next turn. Then, roll a number of dice equal to the number picked. For each 1-2, allocate 1 damage point to the target (ward rolls cannot be made for those damage points). For each 5+, until the start of your next turn, add 1 to charge rolls for friendly KRULEBOYZ or IRONJAWZ units while they are wholly within 12\" of this MANIFESTATION. Friendly units can be affected by this ability multiple times and the effects are cumulative."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A15"
       ],
       "reason": "The September 2026 Rules Updates page 15 (Spearhead: Fire and Jade, Glittering Phalanx) replace Shining Company: subtract 1 from hit rolls for attacks that target friendly units (#2060)",
@@ -463,17 +419,6 @@
     },
     {
       "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A58"
-      ],
-      "reason": "The September 2026 Rules Updates change the Scriptor Mortis's Sentenced to Eternal Torment so the SENTENCED keyword lasts for the rest of the battle.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2Fwarscrolls.html%23datasheet%3AScriptor-Mortis%2Fability%3A1",
-      "text": {
-        "declare": "Pick a visible enemy unit within 18\" of this unit to be the target.",
-        "effect": "Roll a dice. On a 3+, inflict 1 mortal damage on the target and the target has the SENTENCED keyword for the rest of the battle."
-      }
-    },
-    {
-      "officialSourceRecordIds": [
         "source-record:games-workshop:9341256d83906a6e4c044fd8145109706dea06c4dba10b7ec5e5fc664749ce18%3Apage%3A7",
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A27"
       ],
@@ -483,25 +428,6 @@
         "declare": "Pick a friendly SKINK WIZARD wholly within 18\" of this unit to be the target.",
         "effect": "Measure the range and visibility of the next SPELL ability used by this unit this phase from the target instead of from this unit.\nThe target is treated as the caster for the purpose of other abilities or spell effects, such as ‘Unbind’ or ‘The Earth Trembles’."
       }
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A32"
-      ],
-      "reason": "The September 2026 Rules Updates page 32 (Scourge of Aqshy, Skaven heroic traits) replace 'visible Skaven unit' with 'visible friendly Skaven unit' in Essence of the Gnaw (#2060)",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fskaven%2F%23faction-ability%3ADevious-Machinations-1%3Aability%3A3",
-      "text": {
-        "declare": "Pick another visible friendly SKAVEN unit wholly within 13\" of this unit and in combat to be the target.",
-        "effect": "For the rest of the turn, this unit has STRIKE-FIRST and the target has STRIKE-LAST."
-      }
-    },
-    {
-      "cost": null,
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A65"
-      ],
-      "reason": "The September 2026 Rules Updates page 65 remove the command point cost from Krittok Foulblade's A Reputation for Cunning (#2060)",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fskaven%2Fwarscrolls.html%23datasheet%3AKrittok-Foulblade%2Fability%3A2"
     },
     {
       "officialSourceRecordIds": [
@@ -527,11 +453,10 @@
       }
     },
     {
-      "name": "YOU WILL SERVE!",
       "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A67"
       ],
-      "reason": "The September 2026 Rules Updates replace the Despoilers ability Feral Ruin with 'YOU WILL SERVE!': the target must be friendly and must not have an Ensorcelled Banner. The reviewed override carries the new display name too; the ability keeps its canonical identity (#2060).",
+      "reason": "The September 2026 Rules Updates replace the Despoilers ability Feral Ruin with 'YOU WILL SERVE!': the target must be friendly and must not have an Ensorcelled Banner. The reviewed override carries the new display name too; the ability keeps its canonical identity (#2060). Corpus 2026-10-20: the re-pinned page prints the new name itself, so the override keeps only the text (the page still omits \"friendly\" before the target).",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-ability%3ADespoilers%3Aability%3A1",
       "text": {
         "declare": "Pick a friendly Daemon Prince to use this ability. Then, pick a visible friendly non-DAEMON non-UNIQUE SLAVES TO DARKNESS unit that does not have an Ensorcelled Banner wholly within 12\" of this unit to be the target.",
@@ -624,6 +549,38 @@
       "text": {
         "effect": "While the ash-clouds are low-lying:\nUnits, terrain features and MANIFESTATIONS cannot be set up in neutral territory.\nUnits, terrain features and MANIFESTATIONS cannot end a move within neutral territory unless they started that move wholly within neutral territory.\nModels, terrain features and MANIFESTATIONS are not visible to other models more than 3\" away unless a straight line can be drawn between any points on their bases that does not cross neutral territory."
       }
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:d6c38781ac6f38b48adc0add92977c6326720e67301e2bad4a472a2d0a1c275e%3Apage%3A4"
+      ],
+      "reason": "Official Spearhead: Disciples of Tzeentch - Tzaangor Warflocks page 4 prints Destined Quarry as damage allocated \"this phase by this unit’s shooting attacks\" and a bonus for \"friendly units\". The 2026-10-19 Wahapedia root page rewords it (any attacks, Warflock units only) with no free official source; official precedence keeps the printed wording the accepted runtime already ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdisciples-of-tzeentch%2F%23datasheet%3ATzaangor-Warflock%3ATzaangor-Skyfires%2Fability%3A1",
+      "text": {
+        "declare": "Pick an enemy unit that had any damage points allocated to it this phase by this unit’s shooting attacks to be the target.",
+        "effect": "Add 1 to hit rolls for combat attacks made by friendly units that target that enemy unit for the rest of the turn."
+      }
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:e76b0d4cf245b407b66c28ef92bf99d01f09cd4c77196d883b13314874eeb66e%3Apage%3A1"
+      ],
+      "reason": "Official Scourge of Aqshy - Slaves to Darkness (September 2026) page 1 prints Brand of Unbreakable Bonds without any Ensorcelled Banner restriction; the September 2026 Rules Updates page 33 add that restriction only to Brand of the Unaligned. The 2026-10-19 Wahapedia page also adds it here with no official source, so official precedence keeps the printed effect the accepted runtime already ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-ability%3ABrands-of-the-Dark-Gods%3Aability%3A1",
+      "text": {
+        "effect": "Remove this unit from the battlefield and set it up again wholly within 3\" of an objective you control and not in combat. This unit cannot use CHARGE abilities for the rest of the turn."
+      }
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:364cd67380a60b661c16846cc47a180d9311a820c6f7a6050f41cc7bdf704de7%3Apage%3A1"
+      ],
+      "reason": "Official Scourge of Ghyran - Sylvaneth page 1 prints Walk the Hidden Paths as targeting a unit \"wholly within 12\"\" of a friendly Awakened Wyldwood; the 2026-10-19 Wahapedia page drops \"wholly\" with no official source, so official precedence keeps the printed wording the accepted (historical-context) runtime already ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsylvaneth%2F%23faction-ability%3AWargrove-of-the-Burgeoning%3Aability%3A1",
+      "text": {
+        "declare": "Pick a friendly SYLVANETH unit wholly within 12\" of a friendly Awakened Wyldwood to be the target.",
+        "effect": "Remove the target from the battlefield and set it up again wholly within 12\" of another friendly Awakened Wyldwood and more than 9\" from all enemies."
+      }
     }
   ],
   "additionalRulesContexts": [
@@ -703,102 +660,6 @@
   "armiesOfRenown": [
     {
       "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A1",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A2"
-      ],
-      "reason": "The Croneseer's Pariahs is an official Army of Renown for Daughters of Khaine (Armies of Renown, July 2026, pages 1-2). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Daughters of Khaine rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdaughters-of-khaine%2F%23faction-group%3AThe-Croneseer-s-Pariahs"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A3",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A4"
-      ],
-      "reason": "Lofnir Drothkeepers is an official Army of Renown for Fyreslayers (Armies of Renown, July 2026, pages 3-4). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Fyreslayers rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Ffyreslayers%2F%23faction-group%3ALofnir-Drothkeepers"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A5",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A6"
-      ],
-      "reason": "Grundstok Expeditionary Force is an official Army of Renown for Kharadron Overlords (Armies of Renown, July 2026, pages 5-6). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Kharadron Overlords rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fkharadron-overlords%2F%23faction-group%3AGrundstok-Expeditionary-Force"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A7",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A8"
-      ],
-      "reason": "The Evergreen Hunt is an official Army of Renown for Sylvaneth (Armies of Renown, July 2026, pages 7-8). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Sylvaneth rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsylvaneth%2F%23faction-group%3AThe-Evergreen-Hunt"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A9",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A10"
-      ],
-      "reason": "Draconith Skywing is an official Army of Renown for Stormcast Eternals (Armies of Renown, July 2026, pages 9-10). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Stormcast Eternals rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fstormcast-eternals%2F%23faction-group%3ADraconith-Skywing"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A11",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A12"
-      ],
-      "reason": "The Swords of Chaos is an official Army of Renown for Slaves to Darkness (Armies of Renown, July 2026, pages 11-12). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Slaves to Darkness rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-group%3AThe-Swords-of-Chaos"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A13",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A14"
-      ],
-      "reason": "Tribes of the Snow Peaks is an official Army of Renown for Slaves to Darkness (Armies of Renown, July 2026, pages 13-14). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Slaves to Darkness rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-group%3ATribes-of-the-Snow-Peaks"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A15",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A16"
-      ],
-      "reason": "Scions of Nulahmia is an official Army of Renown for Soulblight Gravelords (Armies of Renown, July 2026, pages 15-16). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Soulblight Gravelords rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsoulblight-gravelords%2F%23faction-group%3AScions-of-Nulahmia"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A17",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A18"
-      ],
-      "reason": "Trugg's Troggherd is an official Army of Renown for Gloomspite Gitz (Armies of Renown, July 2026, pages 17-18). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Gloomspite Gitz rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2F%23faction-group%3ATrugg-s-Troggherd"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A19",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A20"
-      ],
-      "reason": "The Roving Maw is an official Army of Renown for Ogor Mawtribes (Armies of Renown, July 2026, pages 19-20). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Ogor Mawtribes rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-group%3AThe-Roving-Maw"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A21",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A22"
-      ],
-      "reason": "Krazogg's Grunta Stampede is an official Army of Renown for Ironjawz (Armies of Renown, July 2026, pages 21-22). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Ironjawz rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2F%23faction-group%3AKrazogg-s-Grunta-Stampede"
-    },
-    {
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A23",
-        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A24"
-      ],
-      "reason": "King Brodd's Stomp is an official Army of Renown for Sons of Behemat (Armies of Renown, September 2026, pages 23-24). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Sons of Behemat faction rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group. The September 2026 publication rewrote this Army of Renown for the new battletome (roster options became Big units and non-Unique Little units, its Rampage battle traits gained the Destructive Impulse keyword alongside Rampage and now test for Destructive Impulse rather than Rampage abilities, and several abilities were reworded); that rewrite is recorded here but deliberately not applied to runtime, because it references the battletome keyword architecture (Big, Little, Destructive Impulse) that no accepted text source carried at the time of the 2026-09-12 revision - Wahapedia had last published 2026-08-25 and BSData had no September 2026 Sons of Behemat content pinned yet. As of that 2026-09-12 state, the shipped text remained the July 2026 wording until a reviewed secondary page or catalogue carried the battletome structure (tracked by the provisional watch, issue #1999). The 2026-09-22 update below is the authoritative current state: BSData now supplies the battletome text for part of this Army of Renown. Updated 2026-09-22 (issue #1999): the BSData `gargants` branch catalogue (commit 2b7df92f) reconciles this Army of Renown’s seven rewritten battle traits exactly to pages 23-24 of the September 2026 Armies of Renown document, but the merge architecture has no attachment path for them this revision: an Army of Renown’s own battle-trait block decodes as a subtype of its root group (typeId resolves to the Army of Renown itself), never as a standalone faction-page ability-type record, and the community-option merge only attaches to the latter. Extending it to attach to an Army of Renown-owned subtype is a larger, untested adapter change than this revision makes; the seven battle traits stay deferred alongside the heroic trait (I Can Do That Better), artefact (Lucky Shiny Hat), and roster restriction, all pending that adapter extension or a Wahapedia republish of the page. The July 2026 wording remains unchanged and unreplaced. Updated 2026-09-25 (issue #1999): Wahapedia republished the Sons of Behemat faction page with the September 2026 battletome, re-pinned in the 2026-09-25 revision, and its King Brodd’s Stomp section now carries the rewrite natively: the seven battle traits (Big/Little, Destructive Impulse), the I Can Do That Better heroic trait, the Lucky Shiny Hat artefact, and the High Expectations prayer, so the September 2026 wording now ships from the page and the July 2026 wording leaves the runtime. Reviewed against Armies of Renown (September 2026) pages 23-24: every ability matches in substance except that the page’s KEYWORDS strip on the five Destructive Impulse battle traits (Wrath of Brodd, Smash It All to Bits, Double Stomp, Crafty Creepers, Watch This!) omits the RAMPAGE keyword the official pages print beside Destructive Impulse, which the reviewed abilityKeywordOverrides entries restore; two cosmetic transcription differences are recorded rather than overridden (Timberrrrr! reads “a friendly BIG unit or LITTLE unit model” where the official text reads “a friendly Big or Little model”, and Wrath of Brodd ends with a stray closing quotation mark).",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3AKing-Brodd-s-Stomp"
-    },
-    {
-      "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A36"
       ],
       "reason": "Gorechosen Champions is an official Army of Renown for Blades of Khorne: Rules Updates (July 2026) page 39 errata carry the heading \"ARMY OF RENOWN, GORECHOSEN CHAMPIONS\". Its faction-page section carries the source’s own Army of Renown classification and the replacement wording (\"use the faction rules on these pages instead of the Blades of Khorne faction rules\"), so it is classified as an army-of-renown root with replace semantics rather than a regular content group. Re-cited to the September 2026 Rules Updates re-publication (page 35 -> 36; #1757).",
@@ -839,6 +700,14 @@
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdaughters-of-khaine%2F%23faction-group%3AChampions-of-the-Arena"
     },
     {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A1",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A2"
+      ],
+      "reason": "The Croneseer's Pariahs is an official Army of Renown for Daughters of Khaine (Armies of Renown, July 2026, pages 1-2). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Daughters of Khaine rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdaughters-of-khaine%2F%23faction-group%3AThe-Croneseer-s-Pariahs"
+    },
+    {
       "evidenceTier": "secondary-provisional",
       "officialSourceRecordIds": [],
       "reason": "Zainthar Kai is a battletome Army of Renown for Daughters of Khaine. No free accepted official document names it, but the accepted faction page itself classifies the section as an Army of Renown with the replacement wording (\"use the faction rules on these pages instead of the Daughters of Khaine faction rules\"), so it is classified provisionally on the secondary source’s own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
@@ -866,6 +735,12 @@
     {
       "evidenceTier": "secondary-provisional",
       "officialSourceRecordIds": [],
+      "reason": "Legions of Nagash is a White Dwarf 03/26 Army of Renown that the 2026-10-19 Wahapedia Flesh-eater Courts page adds, marked \"Warhammer Legends: Army of Renown\". No free accepted official document names it (no pinned Games Workshop PDF mentions the army), but the accepted faction page itself classifies the section as a Legends Army of Renown, so it is classified provisionally on the secondary source's own classification, as the other White Dwarf Armies of Renown are (owner ruling 2026-08-01, #1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2F%23faction-group%3ALegions-of-Nagash"
+    },
+    {
+      "evidenceTier": "secondary-provisional",
+      "officialSourceRecordIds": [],
       "reason": "The Equinox Feast is a battletome Army of Renown for Flesh-eater Courts. No free accepted official document names it, but the accepted faction page itself classifies the section as an Army of Renown with the replacement wording (\"use the faction rules on these pages instead of the Flesh-eater Courts faction rules\"), so it is classified provisionally on the secondary source’s own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2F%23faction-group%3AThe-Equinox-Feast"
     },
@@ -874,6 +749,14 @@
       "officialSourceRecordIds": [],
       "reason": "The Knights of New Summercourt is a battletome Army of Renown for Flesh-eater Courts. No free accepted official document names it, but the accepted faction page itself classifies the section as an Army of Renown with the replacement wording (\"use the faction rules on these pages instead of the Flesh-eater Courts faction rules\"), so it is classified provisionally on the secondary source’s own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2F%23faction-group%3AThe-Knights-of-New-Summercourt"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A3",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A4"
+      ],
+      "reason": "Lofnir Drothkeepers is an official Army of Renown for Fyreslayers (Armies of Renown, July 2026, pages 3-4). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Fyreslayers rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Ffyreslayers%2F%23faction-group%3ALofnir-Drothkeepers"
     },
     {
       "evidenceTier": "secondary-provisional",
@@ -893,6 +776,14 @@
       ],
       "reason": "Droggz’s Gitmob is an official Army of Renown for Gloomspite Gitz: Rules Updates (July 2026) page 48 errata carry the heading \"ARMY OF RENOWN, DROGGZ’S GITMOB\". Its faction-page section carries the source’s own Army of Renown classification and the replacement wording (\"use the faction rules on these pages instead of the Gloomspite Gitz faction rules\"), so it is classified as an army-of-renown root with replace semantics rather than a regular content group. Re-cited to the September 2026 Rules Updates re-publication (page 44 -> 45; #1757).",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2F%23faction-group%3ADroggz-s-Gitmob"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A17",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A18"
+      ],
+      "reason": "Trugg's Troggherd is an official Army of Renown for Gloomspite Gitz (Armies of Renown, July 2026, pages 17-18). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Gloomspite Gitz rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2F%23faction-group%3ATrugg-s-Troggherd"
     },
     {
       "evidenceTier": "secondary-provisional",
@@ -947,10 +838,26 @@
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2F%23faction-group%3AIronsunz"
     },
     {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A21",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A22"
+      ],
+      "reason": "Krazogg's Grunta Stampede is an official Army of Renown for Ironjawz (Armies of Renown, July 2026, pages 21-22). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Ironjawz rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2F%23faction-group%3AKrazogg-s-Grunta-Stampede"
+    },
+    {
       "evidenceTier": "secondary-provisional",
       "officialSourceRecordIds": [],
       "reason": "Zoggrok’s Ironmongerz is a battletome Army of Renown for Ironjawz. No free accepted official document names it, but the accepted faction page itself classifies the section as an Army of Renown with the replacement wording (\"use the faction rules on these pages instead of the Ironjawz faction rules\"), so it is classified provisionally on the secondary source’s own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2F%23faction-group%3AZoggrok-s-Ironmongerz"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A5",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A6"
+      ],
+      "reason": "Grundstok Expeditionary Force is an official Army of Renown for Kharadron Overlords (Armies of Renown, July 2026, pages 5-6). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Kharadron Overlords rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fkharadron-overlords%2F%23faction-group%3AGrundstok-Expeditionary-Force"
     },
     {
       "officialSourceRecordIds": [
@@ -1012,6 +919,12 @@
     {
       "evidenceTier": "secondary-provisional",
       "officialSourceRecordIds": [],
+      "reason": "Legions of Nagash is a White Dwarf 03/26 Army of Renown that the 2026-10-19 Wahapedia Nighthaunt page adds, marked \"Warhammer Legends: Army of Renown\". No free accepted official document names it (no pinned Games Workshop PDF mentions the army), but the accepted faction page itself classifies the section as a Legends Army of Renown, so it is classified provisionally on the secondary source's own classification, as the other White Dwarf Armies of Renown are (owner ruling 2026-08-01, #1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2F%23faction-group%3ALegions-of-Nagash"
+    },
+    {
+      "evidenceTier": "secondary-provisional",
+      "officialSourceRecordIds": [],
       "reason": "The Clattering Procession is a battletome Army of Renown for Nighthaunt. No free accepted official document names it, but the accepted faction page itself classifies the section as an Army of Renown with the replacement wording (\"use the faction rules on these pages instead of the Nighthaunt faction rules\"), so it is classified provisionally on the secondary source’s own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2F%23faction-group%3AThe-Clattering-Procession"
     },
@@ -1020,6 +933,38 @@
       "officialSourceRecordIds": [],
       "reason": "The Eternal Nightmare is a battletome Army of Renown for Nighthaunt. No free accepted official document names it, but the accepted faction page itself classifies the section as an Army of Renown with the replacement wording (\"use the faction rules on these pages instead of the Nighthaunt faction rules\"), so it is classified provisionally on the secondary source’s own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2F%23faction-group%3AThe-Eternal-Nightmare"
+    },
+    {
+      "evidenceTier": "secondary-provisional",
+      "officialSourceRecordIds": [],
+      "reason": "Beastclaw Alfrostun is a Battletome: Ogor Mawtribes (July 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-08-28b) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. No free accepted official document names it (the August 2026 Rules Updates, the Armies of Renown July 2026 document, and Battle Profiles - Ogor Mawtribes were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-group%3ABeastclaw-Alfrostun"
+    },
+    {
+      "evidenceTier": "secondary-provisional",
+      "officialSourceRecordIds": [],
+      "reason": "Mawseeker Gollop is a Battletome: Ogor Mawtribes (July 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-08-28b) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. No free accepted official document names it (the August 2026 Rules Updates, the Armies of Renown July 2026 document, and Battle Profiles - Ogor Mawtribes were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-group%3AMawseeker-Gollop"
+    },
+    {
+      "evidenceTier": "secondary-provisional",
+      "officialSourceRecordIds": [],
+      "reason": "Meatfist Mawtribe is a Battletome: Ogor Mawtribes (July 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-08-28b) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. No free accepted official document names it (the August 2026 Rules Updates, the Armies of Renown July 2026 document, and Battle Profiles - Ogor Mawtribes were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-group%3AMeatfist-Mawtribe"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A19",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A20"
+      ],
+      "reason": "The Roving Maw is an official Army of Renown for Ogor Mawtribes (Armies of Renown, July 2026, pages 19-20). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Ogor Mawtribes rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-group%3AThe-Roving-Maw"
+    },
+    {
+      "evidenceTier": "secondary-provisional",
+      "officialSourceRecordIds": [],
+      "reason": "Legions of Nagash is a White Dwarf 03/26 Army of Renown that the 2026-10-19 Wahapedia Ossiarch Bonereapers page adds, marked \"Warhammer Legends: Army of Renown\". No free accepted official document names it (no pinned Games Workshop PDF mentions the army), but the accepted faction page itself classifies the section as a Legends Army of Renown, so it is classified provisionally on the secondary source's own classification, as the other White Dwarf Armies of Renown are (owner ruling 2026-08-01, #1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-group%3ALegions-of-Nagash"
     },
     {
       "evidenceTier": "secondary-provisional",
@@ -1062,6 +1007,42 @@
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-group%3ALegion-of-the-First-Prince"
     },
     {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A11",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A12"
+      ],
+      "reason": "The Swords of Chaos is an official Army of Renown for Slaves to Darkness (Armies of Renown, July 2026, pages 11-12). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Slaves to Darkness rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-group%3AThe-Swords-of-Chaos"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A13",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A14"
+      ],
+      "reason": "Tribes of the Snow Peaks is an official Army of Renown for Slaves to Darkness (Armies of Renown, July 2026, pages 13-14). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Slaves to Darkness rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-group%3ATribes-of-the-Snow-Peaks"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A23",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A24"
+      ],
+      "reason": "King Brodd's Stomp is an official Army of Renown for Sons of Behemat (Armies of Renown, September 2026, pages 23-24). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Sons of Behemat faction rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group. The September 2026 publication rewrote this Army of Renown for the new battletome (roster options became Big units and non-Unique Little units, its Rampage battle traits gained the Destructive Impulse keyword alongside Rampage and now test for Destructive Impulse rather than Rampage abilities, and several abilities were reworded); that rewrite is recorded here but deliberately not applied to runtime, because it references the battletome keyword architecture (Big, Little, Destructive Impulse) that no accepted text source carried at the time of the 2026-09-12 revision - Wahapedia had last published 2026-08-25 and BSData had no September 2026 Sons of Behemat content pinned yet. As of that 2026-09-12 state, the shipped text remained the July 2026 wording until a reviewed secondary page or catalogue carried the battletome structure (tracked by the provisional watch, issue #1999). The 2026-09-22 update below is the authoritative current state: BSData now supplies the battletome text for part of this Army of Renown. Updated 2026-09-22 (issue #1999): the BSData `gargants` branch catalogue (commit 2b7df92f) reconciles this Army of Renown’s seven rewritten battle traits exactly to pages 23-24 of the September 2026 Armies of Renown document, but the merge architecture has no attachment path for them this revision: an Army of Renown’s own battle-trait block decodes as a subtype of its root group (typeId resolves to the Army of Renown itself), never as a standalone faction-page ability-type record, and the community-option merge only attaches to the latter. Extending it to attach to an Army of Renown-owned subtype is a larger, untested adapter change than this revision makes; the seven battle traits stay deferred alongside the heroic trait (I Can Do That Better), artefact (Lucky Shiny Hat), and roster restriction, all pending that adapter extension or a Wahapedia republish of the page. The July 2026 wording remains unchanged and unreplaced. Updated 2026-09-25 (issue #1999): Wahapedia republished the Sons of Behemat faction page with the September 2026 battletome, re-pinned in the 2026-09-25 revision, and its King Brodd’s Stomp section now carries the rewrite natively: the seven battle traits (Big/Little, Destructive Impulse), the I Can Do That Better heroic trait, the Lucky Shiny Hat artefact, and the High Expectations prayer, so the September 2026 wording now ships from the page and the July 2026 wording leaves the runtime. Reviewed against Armies of Renown (September 2026) pages 23-24: every ability matches in substance except that the page’s KEYWORDS strip on the five Destructive Impulse battle traits (Wrath of Brodd, Smash It All to Bits, Double Stomp, Crafty Creepers, Watch This!) omits the RAMPAGE keyword the official pages print beside Destructive Impulse, which the reviewed abilityKeywordOverrides entries restore; two cosmetic transcription differences are recorded rather than overridden (Timberrrrr! reads “a friendly BIG unit or LITTLE unit model” where the official text reads “a friendly Big or Little model”, and Wrath of Brodd ends with a stray closing quotation mark).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3AKing-Brodd-s-Stomp"
+    },
+    {
+      "evidenceTier": "secondary-provisional",
+      "officialSourceRecordIds": [],
+      "reason": "Matriarch’s Mob is a Battletome: Sons of Behemat (September 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-09-25) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. Its section carries battle traits, the Marks of the Chooser’s Chosen enhancements, and a spell lore built around Ma Maegran. No free accepted official document names it (the September 2026 Armies of Renown, Battle Profiles - Sons of Behemat, the September 2026 core Battle Profiles, the September 2026 Rules Updates, and the Spearhead: Sons of Behemat - Stone Lobbas documents were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844) and the Ogor battletome precedent (corpus 2026-08-28b); an accepted official document naming the army verifies or corrects the entry (issue #1999).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3AMatriarch-s-Mob"
+    },
+    {
+      "evidenceTier": "secondary-provisional",
+      "officialSourceRecordIds": [],
+      "reason": "Stomper Tribe is a Battletome: Sons of Behemat (September 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-09-25) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. Its section carries battle traits, heroic traits, artefacts of power, and the Little Toes enhancements; it shares its name with, and is unrelated to, the index-era Stomper Tribe battle formation, which the page no longer publishes, so identity is the per-faction root, never the name. No free accepted official document names it (the September 2026 Armies of Renown, Battle Profiles - Sons of Behemat, the September 2026 core Battle Profiles, the September 2026 Rules Updates, and the Spearhead: Sons of Behemat - Stone Lobbas documents were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844) and the Ogor battletome precedent (corpus 2026-08-28b); an accepted official document naming the army verifies or corrects the entry (issue #1999).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3AStomper-Tribe"
+    },
+    {
       "evidenceTier": "secondary-provisional",
       "officialSourceRecordIds": [],
       "reason": "Barrow Legion is a battletome Army of Renown for Soulblight Gravelords. No free accepted official document names it, but the accepted faction page itself classifies the section as an Army of Renown with the replacement wording (\"use the faction rules on these pages instead of the Soulblight Gravelords faction rules\"), so it is classified provisionally on the secondary source’s own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
@@ -1076,8 +1057,30 @@
     {
       "evidenceTier": "secondary-provisional",
       "officialSourceRecordIds": [],
+      "reason": "Legions of Nagash is a White Dwarf 03/26 Army of Renown that the 2026-10-19 Wahapedia Soulblight Gravelords page adds, marked \"Warhammer Legends: Army of Renown\". No free accepted official document names it (no pinned Games Workshop PDF mentions the army), but the accepted faction page itself classifies the section as a Legends Army of Renown, so it is classified provisionally on the secondary source's own classification, as the other White Dwarf Armies of Renown are (owner ruling 2026-08-01, #1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsoulblight-gravelords%2F%23faction-group%3ALegions-of-Nagash"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A15",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A16"
+      ],
+      "reason": "Scions of Nulahmia is an official Army of Renown for Soulblight Gravelords (Armies of Renown, July 2026, pages 15-16). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Soulblight Gravelords rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsoulblight-gravelords%2F%23faction-group%3AScions-of-Nulahmia"
+    },
+    {
+      "evidenceTier": "secondary-provisional",
+      "officialSourceRecordIds": [],
       "reason": "Astral Templars is a White Dwarf 07/25 Army of Renown for Stormcast Eternals. No free accepted official document names it, but the accepted faction page itself classifies the section as an Army of Renown with the replacement wording (\"use the faction rules on these pages instead of the Stormcast Eternals faction rules\"), so it is classified provisionally on the secondary source’s own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fstormcast-eternals%2F%23faction-group%3AAstral-Templars"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A9",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A10"
+      ],
+      "reason": "Draconith Skywing is an official Army of Renown for Stormcast Eternals (Armies of Renown, July 2026, pages 9-10). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Stormcast Eternals rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fstormcast-eternals%2F%23faction-group%3ADraconith-Skywing"
     },
     {
       "evidenceTier": "secondary-provisional",
@@ -1106,34 +1109,12 @@
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsylvaneth%2F%23faction-group%3ASoulpod-Guardians"
     },
     {
-      "evidenceTier": "secondary-provisional",
-      "officialSourceRecordIds": [],
-      "reason": "Beastclaw Alfrostun is a Battletome: Ogor Mawtribes (July 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-08-28b) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. No free accepted official document names it (the August 2026 Rules Updates, the Armies of Renown July 2026 document, and Battle Profiles - Ogor Mawtribes were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-group%3ABeastclaw-Alfrostun"
-    },
-    {
-      "evidenceTier": "secondary-provisional",
-      "officialSourceRecordIds": [],
-      "reason": "Mawseeker Gollop is a Battletome: Ogor Mawtribes (July 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-08-28b) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. No free accepted official document names it (the August 2026 Rules Updates, the Armies of Renown July 2026 document, and Battle Profiles - Ogor Mawtribes were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-group%3AMawseeker-Gollop"
-    },
-    {
-      "evidenceTier": "secondary-provisional",
-      "officialSourceRecordIds": [],
-      "reason": "Meatfist Mawtribe is a Battletome: Ogor Mawtribes (July 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-08-28b) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. No free accepted official document names it (the August 2026 Rules Updates, the Armies of Renown July 2026 document, and Battle Profiles - Ogor Mawtribes were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-group%3AMeatfist-Mawtribe"
-    },
-    {
-      "evidenceTier": "secondary-provisional",
-      "officialSourceRecordIds": [],
-      "reason": "Matriarch’s Mob is a Battletome: Sons of Behemat (September 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-09-25) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. Its section carries battle traits, the Marks of the Chooser’s Chosen enhancements, and a spell lore built around Ma Maegran. No free accepted official document names it (the September 2026 Armies of Renown, Battle Profiles - Sons of Behemat, the September 2026 core Battle Profiles, the September 2026 Rules Updates, and the Spearhead: Sons of Behemat - Stone Lobbas documents were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844) and the Ogor battletome precedent (corpus 2026-08-28b); an accepted official document naming the army verifies or corrects the entry (issue #1999).",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3AMatriarch-s-Mob"
-    },
-    {
-      "evidenceTier": "secondary-provisional",
-      "officialSourceRecordIds": [],
-      "reason": "Stomper Tribe is a Battletome: Sons of Behemat (September 2026) Army of Renown that Wahapedia's battletome-current faction page (accepted 2026-09-25) classifies with the h2_ArmyOfRenown marker and the replace-rules wording. Its section carries battle traits, heroic traits, artefacts of power, and the Little Toes enhancements; it shares its name with, and is unrelated to, the index-era Stomper Tribe battle formation, which the page no longer publishes, so identity is the per-faction root, never the name. No free accepted official document names it (the September 2026 Armies of Renown, Battle Profiles - Sons of Behemat, the September 2026 core Battle Profiles, the September 2026 Rules Updates, and the Spearhead: Sons of Behemat - Stone Lobbas documents were checked), so it is classified provisionally on the secondary source's own classification, following the owner ruling of 2026-08-01 (daviseford/aos-reminders#1812, extended for #1844) and the Ogor battletome precedent (corpus 2026-08-28b); an accepted official document naming the army verifies or corrects the entry (issue #1999).",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-group%3AStomper-Tribe"
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A7",
+        "source-record:games-workshop:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74%3Apage%3A8"
+      ],
+      "reason": "The Evergreen Hunt is an official Army of Renown for Sylvaneth (Armies of Renown, July 2026, pages 7-8). Picking it replaces the faction rules (\"use the faction rules on these pages instead of the Sylvaneth rules\"), so its faction-page section is classified as an army-of-renown root with replace semantics rather than a regular content group.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsylvaneth%2F%23faction-group%3AThe-Evergreen-Hunt"
     }
   ],
   "communityWarscrollSources": [],
@@ -1418,23 +1399,23 @@
     ],
     "expectedArtifacts": 72,
     "expectedCollectionArtifacts": 27,
-    "expectedFactionAbilities": 1929,
+    "expectedFactionAbilities": 1983,
     "expectedFactionArtifacts": 28,
-    "expectedFactionGroups": 1079,
+    "expectedFactionGroups": 1099,
     "expectedFactionRootWarscrolls": 213,
-    "expectedRulesAbilities": 591,
+    "expectedRulesAbilities": 621,
     "expectedRulesArtifacts": 17,
-    "expectedRulesGroups": 214,
-    "expectedWarnings": 198,
+    "expectedRulesGroups": 218,
+    "expectedWarnings": 184,
     "expectedWarscrolls": 1303,
     "reconciliation": {
-      "checksum": "7a5db11e755182fa69a4189e9fc6d825399379bfb3b51b3bf9a23569d6045f82",
-      "expectedDiscrepancies": 625,
+      "checksum": "d11a1444c8c6cfcfde7562c13f4ce922b84f533d3c9a6ce57f74f32131e2e547",
+      "expectedDiscrepancies": 368,
       "expectedMatchedOfficialUnitFacts": 942,
       "expectedPages": 1303,
       "expectedUnmatchedOfficialUnitFacts": 1
     },
-    "reviewedAt": "2026-08-03T01:00:00.000Z",
+    "reviewedAt": "2026-10-20T10:50:00.000Z",
     "rulesPages": [
       {
         "application": "reference",
@@ -1625,18 +1606,180 @@
     {
       "code": "missing-faction",
       "file": "Warscrolls_RoRfactions.csv",
-      "reason": "The LCA association points to a faction absent from this accepted export and is explicitly dispositioned instead of inventing a faction.",
-      "row": 212
+      "reason": "The LCA association points to a faction absent from this accepted export and is explicitly dispositioned instead of inventing a faction. The 2026-10-19 export adds this One-eyed Grunnock (000001966) association; the regiment ships from the reviewed collection pages, not this row.",
+      "row": 154
     },
     {
       "code": "missing-faction",
       "file": "Warscrolls_RoRfactions.csv",
       "reason": "The LCA association points to a faction absent from this accepted export and is explicitly dispositioned instead of inventing a faction.",
-      "row": 283
+      "row": 208
+    },
+    {
+      "code": "missing-faction",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The LCA association points to a faction absent from this accepted export and is explicitly dispositioned instead of inventing a faction.",
+      "row": 279
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 243
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 244
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 245
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 246
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 247
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 248
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 249
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 250
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 251
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 252
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 253
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 254
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 255
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 256
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 257
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 258
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 259
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 260
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 261
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 262
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 263
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 264
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 265
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 266
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 267
+    },
+    {
+      "code": "missing-warscroll",
+      "file": "Warscrolls_RoRfactions.csv",
+      "reason": "The 2026-10-19 export removed the Stumblefoot Gargant regiment row (warscroll 000002030) from Warscrolls.csv but kept its inclusion-faction associations. The September 2026 core Battle Profiles prints the regiment DELETED and the corpus ships it only as historical content from the reviewed collection pages, so the orphaned association is dispositioned rather than resolved.",
+      "row": 268
     }
   ],
   "defaultRulesContextId": "rules-context:90000000-0000-4000-8000-000000000006",
-  "generatedAt": "2026-10-14T14:00:00.000Z",
+  "generatedAt": "2026-10-20T13:03:00.000Z",
   "ignoredSourceRecords": [
     {
       "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the General's Handbook 2024-25 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
@@ -1664,6 +1807,54 @@
     }
   ],
   "legendsWarscrollOverrides": [
+    {
+      "name": "Knight-Heraldor",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A66"
+      ],
+      "reason": "Wahapedia’s 2026-10-19 Stormcast Eternals warscroll collection dropped this hero’s 'will move to Warhammer Legends on 1 June 2025' note (it now prints only the Stormcast Exemplar note) while its export row keeps the Battletome Supplement source. The newest official core Battle Profiles (September 2026, page 66) still lists the unit under Warhammer Legends, so official precedence keeps it in the Legends context and lets the datasheet match its official Legends fact instead of leaving the fact profile-only (#1757).",
+      "warscrollId": "000000067"
+    },
+    {
+      "name": "Knight-Incantor",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A66"
+      ],
+      "reason": "Wahapedia’s 2026-10-19 Stormcast Eternals warscroll collection dropped this hero’s 'will move to Warhammer Legends on 1 June 2025' note (it now prints only the Stormcast Exemplar note) while its export row keeps the Battletome Supplement source. The newest official core Battle Profiles (September 2026, page 66) still lists the unit under Warhammer Legends, so official precedence keeps it in the Legends context and lets the datasheet match its official Legends fact instead of leaving the fact profile-only (#1757).",
+      "warscrollId": "000000068"
+    },
+    {
+      "name": "Lord-Arcanum",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A66"
+      ],
+      "reason": "Wahapedia’s 2026-10-19 Stormcast Eternals warscroll collection dropped this hero’s 'will move to Warhammer Legends on 1 June 2025' note (it now prints only the Stormcast Exemplar note) while its export row keeps the Battletome Supplement source. The newest official core Battle Profiles (September 2026, page 66) still lists the unit under Warhammer Legends, so official precedence keeps it in the Legends context and lets the datasheet match its official Legends fact instead of leaving the fact profile-only (#1757).",
+      "warscrollId": "000000074"
+    },
+    {
+      "name": "Lord-Castellant",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A66"
+      ],
+      "reason": "Wahapedia’s 2026-10-19 Stormcast Eternals warscroll collection dropped this hero’s 'will move to Warhammer Legends on 1 June 2025' note (it now prints only the Stormcast Exemplar note) while its export row keeps the Battletome Supplement source. The newest official core Battle Profiles (September 2026, page 66) still lists the unit under Warhammer Legends, so official precedence keeps it in the Legends context and lets the datasheet match its official Legends fact instead of leaving the fact profile-only (#1757).",
+      "warscrollId": "000000078"
+    },
+    {
+      "name": "Lord-Exorcist",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A66"
+      ],
+      "reason": "Wahapedia’s 2026-10-19 Stormcast Eternals warscroll collection dropped this hero’s 'will move to Warhammer Legends on 1 June 2025' note (it now prints only the Stormcast Exemplar note) while its export row keeps the Battletome Supplement source. The newest official core Battle Profiles (September 2026, page 66) still lists the unit under Warhammer Legends, so official precedence keeps it in the Legends context and lets the datasheet match its official Legends fact instead of leaving the fact profile-only (#1757).",
+      "warscrollId": "000000081"
+    },
+    {
+      "name": "Lord-Ordinator",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A66"
+      ],
+      "reason": "Wahapedia’s 2026-10-19 Stormcast Eternals warscroll collection dropped this hero’s 'will move to Warhammer Legends on 1 June 2025' note (it now prints only the Stormcast Exemplar note) while its export row keeps the Battletome Supplement source. The newest official core Battle Profiles (September 2026, page 66) still lists the unit under Warhammer Legends, so official precedence keeps it in the Legends context and lets the datasheet match its official Legends fact instead of leaving the fact profile-only (#1757).",
+      "warscrollId": "000000082"
+    },
     {
       "name": "Bladebringer, Herald on Hellflayer",
       "officialSourceRecordIds": [
@@ -1958,7 +2149,7 @@
     },
     {
       "code": "source-marker-removed",
-      "reason": "An HTML-encoded KY keyword wrapper is presentation metadata; the marker is removed while the Blacktalons keyword text in Lorai's ability is retained (same mechanical transform as the retired CSV record policy).",
+      "reason": "An HTML-encoded KY keyword wrapper is presentation metadata; the marker is removed while the Blacktalons keyword text in Lorai's ability is retained (same mechanical transform as the retired CSV record policy). The 2026-10-19 page prints the wrapper as an encoded <SPAN CLASS=\"KWB KWBU\"> instead of <KY>; the same mechanical removal keeps the keyword text, identical to the accepted 2026-10-14 runtime text (#1757).",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fstormcast-eternals%2Fwarscrolls.html%23datasheet%3ALorai-Child-of-the-Abyss%2Fability%3A2"
     },
     {
@@ -1968,6 +2159,76 @@
       ],
       "reason": "Wahapedia's markup truncates the keyword span one letter early ('INFANTR' + 'y') in the Outlaw Conqueror Cogfort's EVERYONE ABOARD! declare step; the full INFANTRY keyword is attested by an earlier span in the same text and by Regiments of Renown - Cities of Sigmar page 2, so the completion is reviewed and accepted (#2030).",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fblades-of-khorne%2Fwarscrolls.html%23datasheet%3AOutlaw-Conqueror-Cogfort%2Fability%3A2"
+    },
+    {
+      "code": "source-kind-correction",
+      "reason": "Babbling Wand is a continuously applicable effect; the contradictory Wahapedia label 'Reaction: Passive' on the 2026-10-19 Gloomspite Gitz collection page is classified as Passive instead of inventing a reaction trigger (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2Fwarscrolls.html%23datasheet%3ASkragrott-the-Loonking%2Fability%3A3"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside THE BLASTED STANDARD; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-ability%3AEnsorcelled-Banners%3Aability%3A3"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside ACCUSATIONS OF REGICIDE; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2Fwarscrolls.html%23datasheet%3AGrand-Justice-Gormayne%2Fability%3A2"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside CODE OF HONOUR; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2Fwarscrolls.html%23datasheet%3AAbhorrant-Ghoul-King%2Fability%3A1"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside THE ONE TRUE KING; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2Fwarscrolls.html%23datasheet%3AUshoran-Mortarch-of-Delusion%2Fability%3A2"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside A MAJESTIC MENAGERIE; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2Fwarscrolls.html%23datasheet%3AAbhorrant-Ghoul-King-on-Royal-Terrorgheist%2Fability%3A3"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside UTTER CONTEMPT; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2Fwarscrolls.html%23datasheet%3ANagash-Supreme-Lord-of-the-Undead%2Fability%3A2"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside BANISHING LITURGY; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2Fwarscrolls.html%23datasheet%3AAbhorrant-Cardinal%2Fability%3A2"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside UNKNOWING HERALD; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2Fwarscrolls.html%23datasheet%3AAthol-Khul%2Fability%3A1"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside SIR FELGRYN IS ABROAD!; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2Fwarscrolls.html%23datasheet%3AHigh-Falconer-Felgryn%2Fability%3A3"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside MUSICIANS, PLAY!; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fflesh-eater-courts%2Fwarscrolls.html%23datasheet%3AAbhorrant-Archregent%2Fability%3A1"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside THE BANNER OF RAGE; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-ability%3AEnsorcelled-Banners%3Aability%3A2"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside THE BANNER OF SCREAMING FLESH; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-ability%3AEnsorcelled-Banners%3Aability%3A5"
+    },
+    {
+      "code": "source-marker-removed",
+      "reason": "The 2026-10-19 Wahapedia page prints its own keyword markup HTML-encoded (<SPAN CLASS=\"KWB KWBU\">…</SPAN>) inside THE ERODING ICON; the encoded wrapper is presentation metadata and is removed while the keyword text is kept. The normalized text is identical to the text the accepted 2026-10-14 runtime ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-ability%3AEnsorcelled-Banners%3Aability%3A4"
     }
   ],
   "officialDocuments": [
@@ -10767,11 +11028,17 @@
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbeasts-of-chaos%2Fwarscrolls.html%23datasheet%3ASnerk-s-Trogg-Fer-Hire%2Fwarscroll"
     },
     {
+      "memberAnchors": [
+        {
+          "name": "Mancrusher Gargant",
+          "url": "https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html#Mancrusher-Gargant-1"
+        }
+      ],
       "officialSourceRecordIds": [
         "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59",
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A31"
       ],
-      "reason": "Stumblefoot Gargant was an official Regiment of Renown (Battle Profiles, July 2026, page 58, 140 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). The September 2026 Battle Profiles re-publication prints the row DELETED and struck through on page 59, and the Rules Updates page 31 deletes its erratum, so a reviewed context override keeps it historical (#1757).",
+      "reason": "Stumblefoot Gargant was an official Regiment of Renown (Battle Profiles, July 2026, page 58, 140 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). The September 2026 Battle Profiles re-publication prints the row DELETED and struck through on page 59, and the Rules Updates page 31 deletes its erratum, so a reviewed context override keeps it historical (#1757). Corpus 2026-10-20: Wahapedia now prints the DELETED regiment’s ORGANISATION member as unlinked text on every copy, so a reviewed member anchor keeps its Mancrusher Gargant member (the same collection anchor the earlier copies linked) in the historical overlay.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbeasts-of-chaos%2Fwarscrolls.html%23datasheet%3AStumblefoot-Gargant%2Fwarscroll"
     },
     {
@@ -10813,8 +11080,8 @@
       "officialSourceRecordIds": [
         "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A62"
       ],
-      "reason": "Krittok’s Clawpack is an official Regiment of Renown (Battle Profiles, July 2026, page 61, 380 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 61 -> 62; #1757).",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fblades-of-khorne%2Fwarscrolls.html%23datasheet%3AKrittok-s-Clawpack%2Fwarscroll"
+      "reason": "Krittok’s Clawpack is an official Regiment of Renown (Battle Profiles, July 2026, page 61, 380 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 61 -> 62; #1757). Corpus 2026-10-20 moves the classification to the beasts-of-chaos collection copy, which the dedupe now keeps (all pinned copies agree, so no variant choice applies).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbeasts-of-chaos%2Fwarscrolls.html%23datasheet%3AKrittok-s-Clawpack%2Fwarscroll"
     },
     {
       "officialSourceRecordIds": [
@@ -11193,59 +11460,55 @@
         "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59",
         "source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A4"
       ],
-      "reason": "Big Drogg Fort-Kicka is an official Regiment of Renown (Battle Profiles, July 2026, page 58, 450 points, official spelling \"Big Drogg Fort-kicker\"). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 58 -> 59; #1757).",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2Fwarscrolls.html%23datasheet%3ABig-Drogg-Fort-Kicka%2Fwarscroll",
-      "variantReason": "The September 2026 Sons of Behemat battletome rewrote this regiment. Official Regiments of Renown - Sons of Behemat (2026-09-09), page 4, prints Fortress Wrekka (a Once Per Battle (Army) reaction to Rip It Up and Chuck It) and a Grievous Halitosis that now acts at the end of any turn and caps the target’s control score, with no Rampage keyword and no Timberrrrr!, and drops Bonesplitterz from inclusion. The Ironjawz collection copy re-pinned on 2026-10-02 prints exactly that (as did the Ossiarch Bonereapers copy re-pinned on 2026-09-30), apart from misspelling “declared” as “delcared” in Fortress Wrekka’s reaction, a typography difference recorded rather than overridden because the official page prints that reaction split across two layout columns, which the machine review cannot ground; seven older pinned copies still print the pre-September faction-pack datasheet and outvote it, so the reviewed copy is kept over the stale majority (#1999)."
+      "reason": "Big Drogg Fort-Kicka is an official Regiment of Renown (Battle Profiles, July 2026, page 58, 450 points, official spelling \"Big Drogg Fort-kicker\"). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 58 -> 59; #1757). Corpus 2026-10-20 retires the variant choice: every pinned Wahapedia copy now prints the September 2026 rewrite. Corpus 2026-10-20 moves the classification to the bonesplitterz collection copy, which the dedupe now keeps (all pinned copies agree, so no variant choice applies).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbonesplitterz%2Fwarscrolls.html%23datasheet%3ABig-Drogg-Fort-Kicka%2Fwarscroll"
     },
     {
       "officialSourceRecordIds": [
         "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59",
         "source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A2"
       ],
-      "reason": "Bundo Whalebiter is an official Regiment of Renown (Battle Profiles, July 2026, page 58, 400 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 58 -> 59; #1757).",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2Fwarscrolls.html%23datasheet%3ABundo-Whalebiter%2Fwarscroll",
-      "variantReason": "The September 2026 Sons of Behemat battletome rewrote this regiment. Official Regiments of Renown - Sons of Behemat (2026-09-09), page 2, prints a single Once Per Battle (Army) Dead Cunning, For a Gargant (Strike-last and Ward (5+), then one of A Kunnin’ Ruse, A Nasty Surprise or Tricked Ya!), no Rampage keyword and no Timberrrrr!, and drops Bonesplitterz from inclusion. The Ironjawz collection copy re-pinned on 2026-10-02 prints exactly that, while the older pinned collection copies still print the pre-September faction-pack datasheet and outvote it, so the reviewed copy is kept over the stale majority (#1999)."
+      "reason": "Bundo Whalebiter is an official Regiment of Renown (Battle Profiles, July 2026, page 58, 400 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 58 -> 59; #1757). Corpus 2026-10-20 retires the variant choice: every pinned Wahapedia copy now prints the September 2026 rewrite. Corpus 2026-10-20 moves the classification to the bonesplitterz collection copy, which the dedupe now keeps (all pinned copies agree, so no variant choice applies).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbonesplitterz%2Fwarscrolls.html%23datasheet%3ABundo-Whalebiter%2Fwarscroll"
     },
     {
       "officialSourceRecordIds": [
         "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A64"
       ],
-      "reason": "Da Kountin’ Krew is an official Regiment of Renown (Battle Profiles, July 2026, page 63, 320 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 63 -> 64; #1757). Kept copy moved to the Ironjawz collection re-pinned on 2026-10-02 (issue #1999): that copy prints the September 2026 points (280) the official row already applies, which ties it 2-2 with the older copies, and the lexicographic tie-break keeps it. Its abilities, inclusion list and member are unchanged, and the regiment and its abilities keep their canonical ids.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2Fwarscrolls.html%23datasheet%3ADa-Kountin-Krew%2Fwarscroll"
+      "reason": "Da Kountin’ Krew is an official Regiment of Renown (Battle Profiles, July 2026, page 63, 320 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 63 -> 64; #1757). Kept copy moved to the Ironjawz collection re-pinned on 2026-10-02 (issue #1999): that copy prints the September 2026 points (280) the official row already applies, which ties it 2-2 with the older copies, and the lexicographic tie-break keeps it. Its abilities, inclusion list and member are unchanged, and the regiment and its abilities keep their canonical ids. Corpus 2026-10-20 moves the classification to the bonesplitterz collection copy, which the dedupe now keeps (all pinned copies agree, so no variant choice applies).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbonesplitterz%2Fwarscrolls.html%23datasheet%3ADa-Kountin-Krew%2Fwarscroll"
     },
     {
       "officialSourceRecordIds": [
         "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59",
         "source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A5"
       ],
-      "reason": "Krong the Club is an official Regiment of Renown (core Battle Profiles, 2026-09-23, page 59 row 7, 140 points; Regiments of Renown - Sons of Behemat, page 5). From corpus 2026-09-24 to 2026-09-29c its rules text came from the pinned BSData Regiments of Renown catalogue because no pinned Wahapedia page carried it; the 2026-09-30 re-pin of the Ossiarch Bonereapers warscroll collection (issue #2037) brings Wahapedia's copy, and generation requires a regiment to ship from exactly one source (duplicate-regiment-of-renown-source), so it moves to this page and the BSData catalogue retires. The copy agrees with the official row on the 140 points and the single Mancrusher Gargant member, and its inclusion list is the official row's 24 factions plus Legion of the First Prince, an Army of Renown the merge already skips as a known non-faction inclusion, so exactly the 24 official factions offer it. Its two abilities match page 5 word for word (timing, declare, effect, RAMPAGE keyword); the page prints the regiment and ability names in its own capitalisation (Krong The Club, JUMP UP AND DOWN) and drops the opening quote of 'Devastating Collapse' in Jump Up and Down, typography the ability-text override vocabulary cannot carry because it adds no official words, so the difference is recorded rather than overridden. The canonical ids of the regiment and both abilities are kept, so saved armies, notes and hidden reminders carry over (issue #2037). Kept copy moved to the Ironjawz collection re-pinned on 2026-10-02 (issue #1999), which prints an identical copy; the dedupe keeps the smallest source URL of the winning variant. Rules, offers and canonical ids are unchanged.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2Fwarscrolls.html%23datasheet%3AKrong-The-Club%2Fwarscroll"
+      "reason": "Krong the Club is an official Regiment of Renown (core Battle Profiles, 2026-09-23, page 59 row 7, 140 points; Regiments of Renown - Sons of Behemat, page 5). From corpus 2026-09-24 to 2026-09-29c its rules text came from the pinned BSData Regiments of Renown catalogue because no pinned Wahapedia page carried it; the 2026-09-30 re-pin of the Ossiarch Bonereapers warscroll collection (issue #2037) brings Wahapedia's copy, and generation requires a regiment to ship from exactly one source (duplicate-regiment-of-renown-source), so it moves to this page and the BSData catalogue retires. The copy agrees with the official row on the 140 points and the single Mancrusher Gargant member, and its inclusion list is the official row's 24 factions plus Legion of the First Prince, an Army of Renown the merge already skips as a known non-faction inclusion, so exactly the 24 official factions offer it. Its two abilities match page 5 word for word (timing, declare, effect, RAMPAGE keyword); the page prints the regiment and ability names in its own capitalisation (Krong The Club, JUMP UP AND DOWN) and drops the opening quote of 'Devastating Collapse' in Jump Up and Down, typography the ability-text override vocabulary cannot carry because it adds no official words, so the difference is recorded rather than overridden. The canonical ids of the regiment and both abilities are kept, so saved armies, notes and hidden reminders carry over (issue #2037). Kept copy moved to the Ironjawz collection re-pinned on 2026-10-02 (issue #1999), which prints an identical copy; the dedupe keeps the smallest source URL of the winning variant. Rules, offers and canonical ids are unchanged. Corpus 2026-10-20 moves the classification to the blades-of-khorne collection copy, which the dedupe now keeps (all pinned copies agree, so no variant choice applies).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fblades-of-khorne%2Fwarscrolls.html%23datasheet%3AKrong-The-Club%2Fwarscroll"
     },
     {
       "officialSourceRecordIds": [
         "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A64",
         "source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A1"
       ],
-      "reason": "Odo Godswallow is an official Regiment of Renown (Battle Profiles, July 2026, page 63, 420 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 63 -> 64; #1757).",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2Fwarscrolls.html%23datasheet%3AOdo-Godswallow%2Fwarscroll",
-      "variantReason": "The September 2026 Sons of Behemat battletome rewrote this regiment. Official Regiments of Renown - Sons of Behemat (2026-09-09), page 1, prints Protective Wards (Passive, Ward (6+)) and a Mighty Walloper that gives the Menhir Club Crit (2 Hits) against the chosen enemy Monster, with no Rampage keyword and no Timberrrrr!, and limits inclusion to Gloomspite Gitz, Ironjawz, Kruleboyz and Ogor Mawtribes. The Ironjawz collection copy re-pinned on 2026-10-02 prints exactly that, while the four older pinned copies (Bonesplitterz, Gloomspite Gitz, Ironjawz before the re-pin, Kruleboyz) still print the pre-September faction-pack datasheet and outvote it, so the reviewed copy is kept over the stale majority (#1999)."
+      "reason": "Odo Godswallow is an official Regiment of Renown (Battle Profiles, July 2026, page 63, 420 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 63 -> 64; #1757). Corpus 2026-10-20 retires the variant choice: every pinned Wahapedia copy now prints the September 2026 rewrite. Corpus 2026-10-20 moves the classification to the bonesplitterz collection copy, which the dedupe now keeps (all pinned copies agree, so no variant choice applies).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbonesplitterz%2Fwarscrolls.html%23datasheet%3AOdo-Godswallow%2Fwarscroll"
     },
     {
       "officialSourceRecordIds": [
         "source-record:games-workshop:052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750%3Apage%3A3",
         "source-record:games-workshop:9470e84348578fe29d35ad56f56c38211a682b28c651a22ed1d9890c9324e46c%3Apage%3A1"
       ],
-      "reason": "Okar’s Torrbad is an official Regiment of Renown (Battle Profiles - Ogor Mawtribes, August 2026, page 3, 490 points, marked NEW; Regiments of Renown - Ogor Mawtribes, page 1). Wahapedia first published its datasheet on the Sons of Behemat collection page re-pinned in the 2026-09-25 revision (the Gloomspite Gitz, Ironjawz and Kruleboyz collection pages that would also carry it stay pinned at earlier bytes). Its two abilities (Cling On Tight, Along the Icepaths), its inclusion list (Gloomspite Gitz, Ironjawz, Kruleboyz, Sons of Behemat) and its members (1 Huskard on Stonehorn, 1 Thundertusk Beastriders) match the official pack page 1 word for word, so it is classified as a regiment-of-renown content group offered by exactly those factions, with its regiment abilities and member warscrolls linked (issue #1858). Recorded discrepancy: the September 2026 core Battle Profiles, the single battle-profile source since corpus 2026-09-23, does not list it (nor Urrgar’s Maulerguts), so it carries no effective official points row; the omission is recorded on issue #1999 rather than read as a withdrawal (issue #1999). Kept copy moved to the Ironjawz collection re-pinned on 2026-10-02 (issue #1999), which prints an identical copy; the dedupe keeps the smallest source URL of the winning variant. Rules, offers and canonical ids are unchanged.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2Fwarscrolls.html%23datasheet%3AOkar-s-Torrbad%2Fwarscroll"
+      "reason": "Okar’s Torrbad is an official Regiment of Renown (Battle Profiles - Ogor Mawtribes, August 2026, page 3, 490 points, marked NEW; Regiments of Renown - Ogor Mawtribes, page 1). Wahapedia first published its datasheet on the Sons of Behemat collection page re-pinned in the 2026-09-25 revision (the Gloomspite Gitz, Ironjawz and Kruleboyz collection pages that would also carry it stay pinned at earlier bytes). Its two abilities (Cling On Tight, Along the Icepaths), its inclusion list (Gloomspite Gitz, Ironjawz, Kruleboyz, Sons of Behemat) and its members (1 Huskard on Stonehorn, 1 Thundertusk Beastriders) match the official pack page 1 word for word, so it is classified as a regiment-of-renown content group offered by exactly those factions, with its regiment abilities and member warscrolls linked (issue #1858). Recorded discrepancy: the September 2026 core Battle Profiles, the single battle-profile source since corpus 2026-09-23, does not list it (nor Urrgar’s Maulerguts), so it carries no effective official points row; the omission is recorded on issue #1999 rather than read as a withdrawal (issue #1999). Kept copy moved to the Ironjawz collection re-pinned on 2026-10-02 (issue #1999), which prints an identical copy; the dedupe keeps the smallest source URL of the winning variant. Rules, offers and canonical ids are unchanged. Corpus 2026-10-20 moves the classification to the gloomspite-gitz collection copy, which the dedupe now keeps (all pinned copies agree, so no variant choice applies).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2Fwarscrolls.html%23datasheet%3AOkar-s-Torrbad%2Fwarscroll"
     },
     {
       "officialSourceRecordIds": [
         "source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59",
         "source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A3"
       ],
-      "reason": "One-eyed Grunnock is an official Regiment of Renown (Battle Profiles, July 2026, page 58, 410 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 58 -> 59; #1757).",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2Fwarscrolls.html%23datasheet%3AOne-eyed-Grunnock%2Fwarscroll",
-      "variantReason": "The September 2026 Sons of Behemat battletome rewrote this regiment. Official Regiments of Renown - Sons of Behemat (2026-09-09), page 3, replaces Shake the Earth and Timberrrrr! with two Passive abilities, Titanic Stride and Earth-shaking Stomp, and drops Beasts of Chaos and Bonesplitterz from inclusion. The Ironjawz collection copy re-pinned on 2026-10-02 prints exactly that, while the older pinned collection copies still print the pre-September faction-pack datasheet and outvote it, so the reviewed copy is kept over the stale majority (#1999)."
+      "reason": "One-eyed Grunnock is an official Regiment of Renown (Battle Profiles, July 2026, page 58, 410 points). The accepted collection pages carry its full datasheet with the same inclusion list, so it is classified as a regiment-of-renown content group offered by exactly the factions that may include it, with its regiment abilities and member warscrolls linked (issue #1858). Re-cited to the September 2026 Battle Profiles re-publication (page 58 -> 59; #1757). Corpus 2026-10-20 retires the variant choice: every pinned Wahapedia copy now prints the September 2026 rewrite. Corpus 2026-10-20 moves the classification to the beasts-of-chaos collection copy, which the dedupe now keeps (all pinned copies agree, so no variant choice applies).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbeasts-of-chaos%2Fwarscrolls.html%23datasheet%3AOne-eyed-Grunnock%2Fwarscroll"
     },
     {
       "officialSourceRecordIds": [
@@ -11266,8 +11529,8 @@
         "source-record:games-workshop:052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750%3Apage%3A3",
         "source-record:games-workshop:9470e84348578fe29d35ad56f56c38211a682b28c651a22ed1d9890c9324e46c%3Apage%3A2"
       ],
-      "reason": "Urrgar’s Maulerguts is an official Regiment of Renown (Battle Profiles - Ogor Mawtribes, August 2026, page 3, 600 points, marked NEW; Regiments of Renown - Ogor Mawtribes, page 2). Wahapedia first published its datasheet on the Ossiarch Bonereapers collection page re-pinned in the 2026-09-30 revision (issue #2037); the other twelve inclusion factions' collection pages that would also carry it stay pinned at earlier bytes. Its two abilities (We’ll Be There - If the Pay’s Right, The Horns Hit Home), its inclusion list (Cities of Sigmar, Flesh-eater Courts, Fyreslayers, Gloomspite Gitz, Helsmiths of Hashut, Ironjawz, Kharadron Overlords, Kruleboyz, Ossiarch Bonereapers, Skaven, Slaves to Darkness, Soulblight Gravelords, Stormcast Eternals) and its member warscrolls (Tyrant on Glutthorn, Maulbeast Cavalry; the official organisation is 1 Tyrant on Glutthorn and 2 Maulbeast Cavalry) match the official pack page 2 word for word, apart from a hyphen where page 2 prints an en dash in the first ability's name, so it is classified as a regiment-of-renown content group offered by exactly those factions, with its regiment abilities and member warscrolls linked, the same path Okar’s Torrbad took in corpus 2026-09-25 (issue #1858). Recorded discrepancy: the September 2026 core Battle Profiles, the single battle-profile source since corpus 2026-09-23, does not list it (nor Okar’s Torrbad), so it carries no effective official points row; the omission is recorded on issue #1999 rather than read as a withdrawal. Kept copy moved to the Ironjawz collection re-pinned on 2026-10-02 (issue #1999), which prints an identical copy; the dedupe keeps the smallest source URL of the winning variant. Rules, offers and canonical ids are unchanged.",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2Fwarscrolls.html%23datasheet%3AUrrgar-s-Maulerguts%2Fwarscroll"
+      "reason": "Urrgar’s Maulerguts is an official Regiment of Renown (Battle Profiles - Ogor Mawtribes, August 2026, page 3, 600 points, marked NEW; Regiments of Renown - Ogor Mawtribes, page 2). Wahapedia first published its datasheet on the Ossiarch Bonereapers collection page re-pinned in the 2026-09-30 revision (issue #2037); the other twelve inclusion factions' collection pages that would also carry it stay pinned at earlier bytes. Its two abilities (We’ll Be There - If the Pay’s Right, The Horns Hit Home), its inclusion list (Cities of Sigmar, Flesh-eater Courts, Fyreslayers, Gloomspite Gitz, Helsmiths of Hashut, Ironjawz, Kharadron Overlords, Kruleboyz, Ossiarch Bonereapers, Skaven, Slaves to Darkness, Soulblight Gravelords, Stormcast Eternals) and its member warscrolls (Tyrant on Glutthorn, Maulbeast Cavalry; the official organisation is 1 Tyrant on Glutthorn and 2 Maulbeast Cavalry) match the official pack page 2 word for word, apart from a hyphen where page 2 prints an en dash in the first ability's name, so it is classified as a regiment-of-renown content group offered by exactly those factions, with its regiment abilities and member warscrolls linked, the same path Okar’s Torrbad took in corpus 2026-09-25 (issue #1858). Recorded discrepancy: the September 2026 core Battle Profiles, the single battle-profile source since corpus 2026-09-23, does not list it (nor Okar’s Torrbad), so it carries no effective official points row; the omission is recorded on issue #1999 rather than read as a withdrawal. Kept copy moved to the Ironjawz collection re-pinned on 2026-10-02 (issue #1999), which prints an identical copy; the dedupe keeps the smallest source URL of the winning variant. Rules, offers and canonical ids are unchanged. Corpus 2026-10-20 moves the classification to the cities-of-sigmar collection copy, which the dedupe now keeps (all pinned copies agree, so no variant choice applies).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fcities-of-sigmar%2Fwarscrolls.html%23datasheet%3AUrrgar-s-Maulerguts%2Fwarscroll"
     },
     {
       "officialSourceRecordIds": [
@@ -11291,7 +11554,7 @@
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2Fwarscrolls.html%23datasheet%3AThe-Summerking-s-Entourage%2Fwarscroll"
     }
   ],
-  "revision": "aos4-corpus-2026-10-14",
+  "revision": "aos4-corpus-2026-10-20",
   "rulesContext": {
     "id": "rules-context:90000000-0000-4000-8000-000000000001",
     "mode": "standard",
@@ -11301,9 +11564,9 @@
   },
   "schemaVersion": 1,
   "supersededSourceRecords": {
-    "checksum": "7182da3b54229d0b92b9d841c904b5436aa42f1cda808e6424008c71c10f459a",
-    "expectedCount": 20458,
-    "reason": "Current reviewed Wahapedia HTML replaces the accepted May 2026 bulk warscroll and faction-rule records. The July 2026 Ogor Mawtribes battletome content is sourced directly from the battletome-current Wahapedia pages re-pinned in the 2026-08-28b revision (issues #1812/#1828/#1850), so the index-era Ogor datasheets the earlier BSData replacement machinery dispositioned are no longer present in the source at all; the count drops by their 216 rows. Superseded rows remain dispositioned for audit but cannot enter the current runtime. Extended 2026-09-22 (issue #1999): the September 2026 Sons of Behemat battletome rewrites six legacy datasheets (King Brodd, Beast-smasher Mega-Gargant, Gatebreaker Mega-Gargant, Kraken-eater Mega-Gargant, Warstomper Mega-Gargant, Mancrusher Gargant); their prior Wahapedia rows (warscroll, abilities, weapons, keywords, bases) move to superseded, adding 92 rows, each rewrite adopting its replaced datasheet’s canonical identity. Reduced 2026-09-25 (issue #1999): Wahapedia republished the Sons of Behemat faction and warscroll collection pages with the September 2026 battletome, re-pinned in the 2026-09-25 revision, so the six rewritten datasheets are native page content and the 92 prior rows the BSData replacement superseded are no longer present in the source; the count drops by those 92 rows."
+    "checksum": "18d8773acff0d46b96407d9652da28590f3be7aa9883814f6e9d0bb77926372e",
+    "expectedCount": 20958,
+    "reason": "Current reviewed Wahapedia HTML replaces the accepted May 2026 bulk warscroll and faction-rule records. The July 2026 Ogor Mawtribes battletome content is sourced directly from the battletome-current Wahapedia pages re-pinned in the 2026-08-28b revision (issues #1812/#1828/#1850), so the index-era Ogor datasheets the earlier BSData replacement machinery dispositioned are no longer present in the source at all; the count drops by their 216 rows. Superseded rows remain dispositioned for audit but cannot enter the current runtime. Extended 2026-09-22 (issue #1999): the September 2026 Sons of Behemat battletome rewrites six legacy datasheets (King Brodd, Beast-smasher Mega-Gargant, Gatebreaker Mega-Gargant, Kraken-eater Mega-Gargant, Warstomper Mega-Gargant, Mancrusher Gargant); their prior Wahapedia rows (warscroll, abilities, weapons, keywords, bases) move to superseded, adding 92 rows, each rewrite adopting its replaced datasheet’s canonical identity. Reduced 2026-09-25 (issue #1999): Wahapedia republished the Sons of Behemat faction and warscroll collection pages with the September 2026 battletome, re-pinned in the 2026-09-25 revision, so the six rewritten datasheets are native page content and the 92 prior rows the BSData replacement superseded are no longer present in the source; the count drops by those 92 rows. Corpus 2026-10-20 re-pins the 2026-10-19 exports; the bulk rows they add (the September 2026 catch-up, Legions of Nagash, Blighted Wilds Path to Glory and re-numbered rows) are superseded by the reviewed pages on the same terms, so the count rises by 500."
   },
   "timingOverrides": [
     {
@@ -11545,6 +11808,29 @@
     {
       "abilityKind": "active",
       "officialSourceRecordIds": [
+        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A58"
+      ],
+      "reason": "The September 2026 Rules Updates page 58 change the timing of Pyregheists' Light a Pyre to 'Once Per Turn (Army)' with no named phase (#2048). The 2026-10-19 Wahapedia collection reverts to the pre-erratum 'Once Per Turn (Army), End of Any Turn', so official precedence keeps the erratum timing the accepted runtime already ships (#1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2Fwarscrolls.html%23datasheet%3APyregheists%2Fability%3A1",
+      "timings": [
+        {
+          "kind": "active",
+          "perspective": "neutral",
+          "raw": "Once Per Turn (Army)",
+          "usage": {
+            "limit": 1,
+            "period": "turn",
+            "scope": "army"
+          },
+          "window": {
+            "kind": "phase-independent"
+          }
+        }
+      ]
+    },
+    {
+      "abilityKind": "active",
+      "officialSourceRecordIds": [
         "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A67"
       ],
       "reason": "The September 2026 Rules Updates page 67 replace the Darkoath Warqueen's Ruin-blessed Conqueror with timing 'Once Per Turn (Army), Any Hero Phase' (#2060)",
@@ -11631,16 +11917,6 @@
         "ORRUK"
       ],
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbonesplitterz%2Fwarscrolls.html%23datasheet%3AHedkrakka-s-Madmob%2Fwarscroll"
-    },
-    {
-      "add": [
-        "REINFORCEMENTS"
-      ],
-      "officialSourceRecordIds": [
-        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A56"
-      ],
-      "reason": "The September 2026 Rules Updates page 56 (NEW; Spearhead: Bubonic Cell) add the Reinforcements keyword to the Rotmire Creed's warscroll (#2060)",
-      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fmaggotkin-of-nurgle%2F%23datasheet%3ABubonic-Cell%3ARotmire-Creed%2Fwarscroll"
     }
   ],
   "weaponProfileOverrides": [

@@ -61,6 +61,8 @@ const rowNamed = (name: string) => {
 // The three shapes the masthead has to tell apart, named rather than positional so a regenerated
 // index that reorders its rows does not silently change what is under test.
 const FLESH_EATER_COURTS = rowNamed('Flesh-eater Courts')
+// Armies of Renown in matched play only, now that Legions of Nagash reaches Flesh-eater Courts everywhere.
+const SYLVANETH = rowNamed('Sylvaneth')
 const SERAPHON = rowNamed('Seraphon')
 const ENDLESS_SPELLS = rowNamed('Endless Spells')
 
@@ -301,23 +303,22 @@ describe('the Home shell while the catalog-bound half is still loading', () => {
   })
 
   /*
-   * The same faction, the same stored selection, a different rules context — the case the retired
-   * context-blind reservation got wrong. With nothing reserved there is nothing to get wrong; this
-   * stays as a guard against the reservation coming back without its per-context answer.
+   * A faction with Armies of Renown under the default context, stored under one without them — the
+   * case the retired context-blind reservation got wrong. With nothing reserved there is nothing to
+   * get wrong; this stays as a guard against the reservation coming back without its per-context
+   * answer.
    */
   it('shows no Army of Renown row while pending on a context where the faction has none', async () => {
-    const rulesContextId = contextWithoutArmiesOfRenown(FLESH_EATER_COURTS)
+    const rulesContextId = contextWithoutArmiesOfRenown(SYLVANETH)
     // Non-default by construction: this faction does have them under the default context, which is
     // exactly why a context-blind flag reserved a row here.
     expect(rulesContextId).not.toBe(defaults.rulesContextId)
-    storage.setItem(
-      AOS4_ARMY_STORAGE_KEY,
-      storedArmy(FLESH_EATER_COURTS.id, 'Flesh-eater Courts', rulesContextId)
-    )
+    expect(SYLVANETH.armiesOfRenownContextIndexes).toContain(DEFAULT_CONTEXT_INDEX)
+    storage.setItem(AOS4_ARMY_STORAGE_KEY, storedArmy(SYLVANETH.id, 'Sylvaneth', rulesContextId))
 
     await renderHome()
 
-    expect(selectedFactionName()).toBe('Flesh-eater Courts')
+    expect(selectedFactionName()).toBe('Sylvaneth')
     expect(container.textContent).not.toContain('Army of Renown:')
     expect(container.querySelector('input[aria-label="Army of Renown"]')).toBeNull()
   })

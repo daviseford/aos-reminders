@@ -282,7 +282,12 @@ export const mergeCurrentWahapediaWarscrollPages = (
    * Export warscroll ids a reviewed Legends override pins (official precedence when Wahapedia's
    * CSV drops the Legends source of a unit the newest Battle Profiles still lists under Legends).
    */
-  legendsWarscrollIds: ReadonlySet<string> = new Set()
+  legendsWarscrollIds: ReadonlySet<string> = new Set(),
+  /**
+   * Reviewed collection anchors for plain-text ORGANISATION members, keyed by the regiment's kept
+   * source record id and then by member name.
+   */
+  regimentMemberAnchors: ReadonlyMap<string, ReadonlyMap<string, string>> = new Map()
 ): WahapediaHtmlMergeResult => {
   const duplicateReviewUrls = rulesPageReviews
     .map(review => review.url)
@@ -348,8 +353,12 @@ export const mergeCurrentWahapediaWarscrollPages = (
       return factionId ? [factionId] : []
     })
   )
+  // A link with a fragment points into a page (a faction root), not at a datasheet page, so its path
+  // would match every datasheet the root hosts.
   const oldWarscrollByPath = new Map(
-    dataset.warscrolls.filter(record => pathFor(record.link)).map(record => [pathFor(record.link), record])
+    dataset.warscrolls
+      .filter(record => pathFor(record.link) && !record.link.includes('#'))
+      .map(record => [pathFor(record.link), record])
   )
   const retainedWarscrolls = dataset.warscrolls.filter(
     record => contextForOldWarscroll(record, dataset) === 'spearhead' && !liveFactionIds.has(record.factionId)
@@ -618,13 +627,28 @@ export const mergeCurrentWahapediaWarscrollPages = (
       /* a page without a parseable URL simply cannot be a member target */
     }
   })
+  const usedMemberAnchors = new Set<string>()
   pages.forEach(page => {
     if (!page.regimentOfRenown) return
     const record = mergedRecordByPage.get(pageKey(page))
     if (!record) return
     const memberIds: string[] = []
     const unresolved: string[] = []
+    const anchors = regimentMemberAnchors.get(page.meta.sourceRecordId)
     page.regimentOfRenown.members.forEach(member => {
+      const reviewedAnchor = anchors?.get(member.name)
+      if (reviewedAnchor !== undefined) {
+        const url = new URL(reviewedAnchor)
+        const memberId = warscrollIdByAnchor.get(`${url.pathname.toLowerCase()}${url.hash}`)
+        if (member.href !== undefined || !memberId) {
+          throw new Error(
+            `Reviewed member anchor ${reviewedAnchor} for ${page.name} is stale: the member is linked or the anchor is not a kept datasheet`
+          )
+        }
+        usedMemberAnchors.add(`${page.meta.sourceRecordId}|${member.name}`)
+        memberIds.push(memberId)
+        return
+      }
       const byName = (): string | undefined => {
         const matches = (regimentOnlyByName.get(canonical(member.name)) ?? []).filter(
           candidate => candidate.context === page.context
@@ -653,6 +677,16 @@ export const mergeCurrentWahapediaWarscrollPages = (
     if (uniqueMemberIds.length) record.regimentOfRenownMemberIds = uniqueMemberIds
     if (unresolved.length) record.regimentOfRenownUnresolvedMembers = Array.from(new Set(unresolved))
   })
+  const unusedMemberAnchors = Array.from(regimentMemberAnchors).flatMap(([regiment, byName]) =>
+    Array.from(byName.keys())
+      .filter(name => !usedMemberAnchors.has(`${regiment}|${name}`))
+      .map(name => `${name} (${regiment})`)
+  )
+  if (unusedMemberAnchors.length) {
+    throw new Error(
+      `Reviewed member anchors match no kept regiment member: ${unusedMemberAnchors.join(', ')}`
+    )
+  }
 
   const keptAbilities = dataset.warscrollAbilities.filter(record => retainedIds.has(record.warscrollId))
   const keptWeapons = dataset.warscrollWeapons.filter(record => retainedIds.has(record.warscrollId))

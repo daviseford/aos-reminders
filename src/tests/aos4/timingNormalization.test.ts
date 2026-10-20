@@ -238,6 +238,18 @@ describe('AoS 4 source text normalization', () => {
     expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'source-marker-removed' }))
   })
 
+  it('removes encoded keyword span wrappers the source prints as text (#1757)', () => {
+    // The 2026-10-19 Flesh-eater Courts page, as decoded by the page parser.
+    const result = normalizeSourceText(
+      'While you believe this <span class="kwb2 kwbu">&lt;<span class="kwb3">S</span>PAN</span> ' +
+        '<span class="kwb kwbu">CLASS="KWB</span> <span class="kwb kwbu">KWBU"&gt;DELUSION&lt;/SPAN&gt;</span>, add 1.'
+    )
+
+    expect(result.text).toBe('While you believe this DELUSION, add 1.')
+    expect(result.diagnostics).toEqual([expect.objectContaining({ code: 'source-marker-removed' })])
+    expect(normalizeSourceText('Roll a dice. If the roll is <3, nothing happens.').diagnostics).toEqual([])
+  })
+
   it('completes a keyword span the source markup truncated mid-keyword (#2030)', () => {
     const result = normalizeSourceText(
       'Pick up to 1 friendly <span class="kwb">INFANTRY</span> <span class="kwb">HERO</span> and up to 1 friendly ' +

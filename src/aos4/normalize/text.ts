@@ -183,7 +183,8 @@ export const normalizeSourceText = (source: string): SourceTextNormalizationResu
   visit(fragment)
 
   const text = normalizeWhitespace(output.join(''))
-  const withoutEncodedMarkers = text.replace(/<\/?KY>/gi, '')
+  // Wahapedia sometimes prints its own keyword markup HTML-encoded, so it survives parsing as text.
+  const withoutEncodedMarkers = text.replace(/<\/?KY>/gi, '').replace(/<\/?SPAN(?: CLASS="[\w ]*")?>/gi, '')
   if (withoutEncodedMarkers !== text) {
     diagnostics.push({
       code: 'source-marker-removed',

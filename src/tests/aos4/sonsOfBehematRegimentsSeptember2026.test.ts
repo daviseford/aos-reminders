@@ -14,14 +14,13 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * regiment on each inclusion faction's collection page, and until corpus 2026-10-02 every pinned
  * copy except the 2026-09-30 Ossiarch Bonereapers one still printed the pre-September faction-pack
  * datasheet, so the majority rule shipped the old rules (issue #1999). Corpus 2026-10-02 re-pins the
- * Ironjawz collection, which prints all four rewrites, and a reviewed variant choice keeps that copy
- * over the stale majority. Rules that kept their name keep their canonical id, so saved notes and
+ * Ironjawz collection, which prints all four rewrites, and a reviewed variant choice kept that copy
+ * over the stale majority; corpus 2026-10-20 re-pins every collection, all copies now print the
+ * rewrite, so the choices retired and the dedupe keeps its usual copy (#1757). Rules that kept their name keep their canonical id, so saved notes and
  * hides follow them; rules the rewrite removed retire, and nothing is re-keyed onto them.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-14.json')
-const IRONJAWZ_COLLECTION =
-  'source-record:wahapedia:html:https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html'
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-20.json')
 const PACK =
   'source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A'
 
@@ -131,7 +130,7 @@ const RETIRED = [
 ]
 
 describe('September 2026 Sons of Behemat Regiments of Renown (issue #1999)', () => {
-  it('ships each regiment from the reviewed Ironjawz copy with the official citation', () => {
+  it('ships each regiment from its kept collection copy with the official citation', () => {
     const review = JSON.parse(readFileSync(REVIEW_PATH, 'utf8')) as {
       regimentsOfRenown: Array<{
         sourceRecordId: string
@@ -140,20 +139,22 @@ describe('September 2026 Sons of Behemat Regiments of Renown (issue #1999)', () 
       }>
     }
     Object.values(REGIMENTS).forEach(regiment => {
-      const entry = review.regimentsOfRenown.find(
-        candidate =>
-          decodeURIComponent(candidate.sourceRecordId) ===
-          `${IRONJAWZ_COLLECTION}#datasheet:${regiment.slug}/warscroll`
-      )!
-      expect(entry.variantReason).toMatch(/stale majority/)
+      const entries = review.regimentsOfRenown.filter(candidate =>
+        decodeURIComponent(candidate.sourceRecordId).endsWith(
+          `/warscrolls.html#datasheet:${regiment.slug}/warscroll`
+        )
+      )
+      expect(entries).toHaveLength(1)
+      const [entry] = entries
+      expect(entry.variantReason).toBeUndefined()
       expect(entry.officialSourceRecordIds).toContain(`${PACK}${regiment.page}`)
       const refs = AOS4_FULL_CATALOG.entities
         .find(entity => String(entity.id) === regiment.id)!
         .sourceRefs.map(reference => decodeURIComponent(reference.sourceRecordId))
-      expect(refs).toContain(`${IRONJAWZ_COLLECTION}#datasheet:${regiment.slug}/warscroll`)
+      expect(refs).toContain(decodeURIComponent(entry.sourceRecordId))
     })
-    // Only these four regiments override the majority.
-    expect(review.regimentsOfRenown.filter(entry => entry.variantReason).length).toBe(4)
+    // Every pinned copy agrees now, so no regiment overrides the majority.
+    expect(review.regimentsOfRenown.filter(entry => entry.variantReason).length).toBe(0)
   })
 
   it('offers each regiment to exactly its official inclusion factions', () => {

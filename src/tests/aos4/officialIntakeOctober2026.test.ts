@@ -29,10 +29,10 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 const readJson = <T>(...segments: string[]): T =>
   JSON.parse(readFileSync(path.join(process.cwd(), 'data', 'aos4', ...segments), 'utf8')) as T
 
-const manifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-14.json')
+const manifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-20.json')
 const review = readJson<{
   officialDocuments: Array<{ title: string; documentKind: string; artifact: { checksum: string } }>
-}>('reviews', 'corpus-2026-10-14.json')
+}>('reviews', 'corpus-2026-10-20.json')
 const identities = readJson<{
   entries: Array<{
     kind: string
