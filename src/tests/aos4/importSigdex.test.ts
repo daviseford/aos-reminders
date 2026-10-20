@@ -227,6 +227,87 @@ describe('Sigdex text import', () => {
     expect(preview.proposedDocument).toBeDefined()
   })
 
+  /**
+   * Sigdex writes a weapon option with a count of one bare (`• Skypike`), in the same shape as an
+   * enhancement bullet; only counts above one get the `2x` prefix (#2090).
+   */
+  describe('uncounted weapon-option bullets (#2090)', () => {
+    const kharadron = (...units: string[]) =>
+      resolveParsedRoster(
+        AOS4_CATALOG,
+        decode('Kharadron Overlords', "General's Handbook 2026-27", "General's Regiment", ...units)!,
+        {
+          defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+          createDocumentId: () => 'army:sigdex-weapon-bullets',
+        }
+      )
+    const unknownLabels = (preview: ReturnType<typeof kharadron>) =>
+      preview.diagnostics
+        .filter(diagnostic => diagnostic.code === 'unknown-selection')
+        .map(diagnostic => diagnostic.message)
+
+    it("skips a weapon of the bullet's own unit without a warning", () => {
+      const preview = kharadron(
+        'Arkanaut Admiral (130)',
+        '• General',
+        'Arkanaut Company (80)',
+        '• Skypike',
+        '• 2x Privateer Heavy Weapon'
+      )
+      expect(preview.diagnostics).toEqual([])
+      expect(preview.matches.map(match => match.label)).toEqual(
+        expect.arrayContaining(['Arkanaut Admiral', 'Arkanaut Company'])
+      )
+      expect(preview.matches.map(match => match.label)).not.toContain('Skypike')
+      expect(preview.proposedDocument).toBeDefined()
+    })
+
+    it('still imports a real enhancement bullet with its bearer', () => {
+      const preview = kharadron(
+        'Arkanaut Admiral (130)',
+        '• General',
+        '• Voidstone Orb',
+        'Arkanaut Company (80)',
+        '• Skypike'
+      )
+      expect(preview.diagnostics).toEqual([])
+      const ids = new Map(preview.matches.map(match => [match.label, match.canonicalId]))
+      expect(ids.get('Voidstone Orb')).toBeDefined()
+      expect(preview.proposedDocument!.enhancementBearers).toEqual({
+        [ids.get('Voidstone Orb')!]: ids.get('Arkanaut Admiral'),
+      })
+    })
+
+    it('still warns about an unknown label that is not a weapon of the unit', () => {
+      const preview = kharadron('Arkanaut Company (80)', '• Skypike', '• Gilded Monocle')
+      expect(unknownLabels(preview)).toEqual([expect.stringContaining('"Gilded Monocle"')])
+    })
+
+    it("still warns about another unit's weapon", () => {
+      // Skypike is an Arkanaut Company weapon, not the Admiral's.
+      const preview = kharadron('Arkanaut Admiral (130)', '• General', '• Skypike')
+      expect(unknownLabels(preview)).toEqual([expect.stringContaining('"Skypike"')])
+    })
+
+    it('still warns when the bearer itself did not resolve', () => {
+      const preview = kharadron('Arkanaut Admiral (130)', 'Arkanaut Kompany (80)', '• Skypike')
+      expect(unknownLabels(preview)).toEqual([
+        expect.stringContaining('"Arkanaut Kompany"'),
+        expect.stringContaining('"Skypike"'),
+      ])
+    })
+
+    it('leaves other importer sources unchanged', () => {
+      const parsed = decode('Kharadron Overlords', "General's Regiment", 'Arkanaut Company (80)', '• Skypike')!
+      const preview = resolveParsedRoster(
+        AOS4_CATALOG,
+        { ...parsed, source: 'official-app-text' },
+        { defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID, createDocumentId: () => 'army:other-source' }
+      )
+      expect(unknownLabels(preview)).toEqual([expect.stringContaining('"Skypike"')])
+    })
+  })
+
   it('parses an Army of Renown header into faction plus formation-style selection', () => {
     const parsed = decode(
       'Ogor Mawtribes | The Roving Maw',

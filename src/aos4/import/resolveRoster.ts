@@ -1011,22 +1011,53 @@ export const resolveParsedRoster = (
       })
     )
 
-  const matches = [
-    ...factionResolution.matches,
-    ...parsedRoster.selections
-      .filter(selection => selection.kindHint !== 'faction')
-      .flatMap(selection => {
-        const match = resolveRosterSelection(
-          catalog,
-          selection,
-          resolutionContexts(Boolean(selection.isLegends)),
-          allowsLegends,
-          armiesOfRenown,
-          diagnostics
-        )
-        return match ? [match] : []
-      }),
-  ]
+  /**
+   * Sigdex writes a weapon option with a count of one bare (`• Skypike`), the same shape as an
+   * enhancement bullet, so its parser cannot tell the two apart (#2090). A bullet that resolves to
+   * nothing is a weapon option only if it names a weapon of its own bearer, and only when that
+   * bearer resolved to exactly one warscroll; anything else keeps its warning. Real enhancements
+   * still match first, because this only looks at a bullet that has already failed to resolve.
+   */
+  const isSigdexBearerWeapon = (selection: ParsedRosterSelection, resolved: Aos4ImportMatch[]): boolean => {
+    if (parsedRoster.source !== 'sigdex-text' || !selection.bearer) return false
+    const { line, label } = selection.bearer
+    const bearerIds = new Set(
+      resolved
+        .filter(match => match.line === line && match.label === label)
+        .map(match => match.canonicalId)
+        .filter(id => entityById.get(id)?.kind === 'warscroll')
+    )
+    if (bearerIds.size !== 1) return false
+    const [bearerId] = Array.from(bearerIds)
+    const normalized = normalizeImportLabel(selection.label)
+    return catalog.relationships.some(relationship => {
+      if (relationship.kind !== 'includes' || relationship.from !== bearerId) return false
+      const weapon = entityById.get(relationship.to)
+      return weapon?.kind === 'weapon' && normalizeImportLabel(weapon.name) === normalized
+    })
+  }
+
+  const matches = [...factionResolution.matches]
+  parsedRoster.selections
+    .filter(selection => selection.kindHint !== 'faction')
+    .forEach(selection => {
+      const selectionDiagnostics: Aos4ImportDiagnostic[] = []
+      const match = resolveRosterSelection(
+        catalog,
+        selection,
+        resolutionContexts(Boolean(selection.isLegends)),
+        allowsLegends,
+        armiesOfRenown,
+        selectionDiagnostics
+      )
+      if (match) matches.push(match)
+      const weaponOption =
+        !match &&
+        selectionDiagnostics.length === 1 &&
+        selectionDiagnostics[0].code === 'unknown-selection' &&
+        isSigdexBearerWeapon(selection, matches)
+      if (!weaponOption) diagnostics.push(...selectionDiagnostics)
+    })
   matches.push(
     ...manifestationWarscrollMatches(catalog, entityById, matches, resolutionContexts(false), armiesOfRenown)
   )
