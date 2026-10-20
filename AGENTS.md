@@ -16,7 +16,7 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 This is an Age of Sigmar fourth-edition codebase:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted `aos4-corpus-2026-10-14` snapshot
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-10-20` snapshot
 - importing, cloud armies, and army sharing are AoS 4-native: roster parsers in
   `src/importers/` (official app text, Listbot text and file upload, Sigdex text, New Recruit
   `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
@@ -32,8 +32,8 @@ This is an Age of Sigmar fourth-edition codebase:
 - manifestations are a category of unit rather than an army: the five universal manifestation lores
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
-- the accepted corpus contains 1,311 warscrolls, 1,015 battle profiles, 5,176 abilities,
-  2,289 weapons, 1,536 content groups, and 20,328 live source records
+- the accepted corpus contains 1,311 warscrolls, 1,015 battle profiles, 5,260 abilities,
+  2,286 weapons, 1,560 content groups, and 20,439 live source records
 - the 78 Regiments of Renown are classified `regiment-of-renown` content groups (reviewed
   `regimentsOfRenown` input), offered by exactly their inclusion factions with their regiment
   abilities and member warscrolls linked (issue #1858), all from the accepted collection pages.
@@ -65,7 +65,7 @@ This is an Age of Sigmar fourth-edition codebase:
   kept historical) with today's warscrolls, battletomes, and points, and says so wherever it is
   offered (`docs/data/aos4-past-season-2025-26.md`); the browser defaults to the
   current 2026-27 seasonal context
-- strict generation consumes every live record and separately dispositions 20,458 superseded
+- strict generation consumes every live record and separately dispositions 20,958 superseded
   records (the May 2026 bulk warscroll/faction-rule rows and the seventeen index-era Ogor
   datasheets the July 2026 battletome rewrites replaced, issues #1850 and #1880) so none can leak
   into runtime; the Sons of Behemat battletome ships natively from the Wahapedia pages re-pinned
@@ -153,7 +153,7 @@ add public notes, or record billing/authorization detail in this repository.
 
 ## Data correctness and the beta gate
 
-The accepted `aos4-corpus-2026-10-14` snapshot is complete and machine-audited. The manifest, corpus
+The accepted `aos4-corpus-2026-10-20` snapshot is complete and machine-audited. The manifest, corpus
 review, stable identity registry, complete audit catalog, compact runtime projection, and generation
 report are checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML,
 duplicate identity, silent source conflict, or unreviewed source diagnostic.

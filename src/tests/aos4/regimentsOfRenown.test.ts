@@ -32,7 +32,7 @@ import { decodeAos4TextRoster } from '../../importers'
  * applied to runtime.
  */
 
-const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-14.json')
+const REVIEW_PATH = path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-20.json')
 
 const seasonal = AOS4_CATALOG.rulesContexts.find(context => context.status === 'seasonal')!
 const factionByName = (name: string): Faction =>
@@ -488,6 +488,7 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
  * exactly one source, so its rules text now comes from that page and the BSData catalogue retired.
  * Corpus 2026-10-02 re-pins the Ironjawz collection, which prints an identical copy; the dedupe keeps
  * the smallest source URL of the winning variant, so the kept record moves there (issue #1999).
+ * Corpus 2026-10-20 pins the Blades of Khorne collection's new copy, so the kept record moves again (#1757).
  * Its inclusion list, member, and points still agree with the one effective official battle-profile
  * row (the September 2026 core Battle Profiles, page 59 row 7), and official *Regiments of Renown –
  * Sons of Behemat* page 5 prints the same two abilities. The canonical ids of the regiment and both
@@ -500,7 +501,7 @@ describe('Krong the Club from the re-pinned Wahapedia collections (issues #1999,
   const MANCRUSHER_ID = 'warscroll:06a69891-28af-5713-862f-ac3fb4dafe8a'
   const SPEARHEAD_MANCRUSHER_ID = 'warscroll:b5b33938-2697-5d81-92c3-69d9731d4abf'
   const WAHAPEDIA_RECORD =
-    'source-record:wahapedia:html:https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#datasheet:Krong-The-Club/warscroll'
+    'source-record:wahapedia:html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Krong-The-Club/warscroll'
   const BATTLE_PROFILES_PAGE =
     'source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59'
   const REGIMENTS_PACK_PAGE =

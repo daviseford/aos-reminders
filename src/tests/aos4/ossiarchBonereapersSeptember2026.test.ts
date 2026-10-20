@@ -19,9 +19,10 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * other faction's Scourge of Ghyran content sits.
  */
 
-const RE_PINNED_ROOT = 'artifact:sha256:6f58ead2eb21e5977d5cedb2a0bf8c7d4da4303eefaf7ef61dae63460907b4dd'
+// Corpus 2026-10-20 re-pins both pages again (#1757); they still print the erratum.
+const RE_PINNED_ROOT = 'artifact:sha256:8ff472e60a69d314d7e7534c891ed0f4364e116e14d2e256211d68b6a74f9798'
 const RE_PINNED_COLLECTION =
-  'artifact:sha256:4298743d28966aa8f760d832134f17279b1d2e049ec7ed7a19a2cdec66d9d4e2'
+  'artifact:sha256:fa608dd7fddb8df945b6a89df98a58f203bce7bfd7a5ceae0a5d8a4b5a28cedb'
 const SURCHARGE = /reinforced and has more than half of its starting models/
 
 const entityById = new Map<string, ContentEntity>(

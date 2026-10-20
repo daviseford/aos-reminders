@@ -73,6 +73,81 @@ const emptyDatasetWith = (warscroll: WahapediaDataset['warscrolls'][number]): Wa
 }
 
 describe('current Wahapedia HTML reconciliation', () => {
+  it('never adopts an export identity whose link only points into a faction page', () => {
+    // The 2026-10-19 export links a virtual Legions of Nagash Nagash row to
+    // `/soulblight-gravelords/#Legions-of-Nagash`; by path alone that is the faction root, which
+    // hosts every Spearhead datasheet, so each of them adopted the row's id (#1757).
+    const dataset = emptyDataset()
+    dataset.warscrolls.push({
+      id: 'fragment-row',
+      name: 'Nagash, Supreme Lord of the Underworlds',
+      factionId: 'SCE',
+      sourceId: '',
+      legendHtml: '',
+      regimentOptions: '',
+      notesHtml: '',
+      descriptionHtml: '',
+      role: '',
+      virtual: true,
+      noReinforced: false,
+      link: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/#Legions-of-Nagash',
+      move: '10"',
+      save: '3+',
+      control: '5',
+      health: '20',
+      ward: '',
+      unitSize: '1',
+      cost: '',
+      meta: meta('Warscrolls.csv', 'fragment-row'),
+    })
+    const rootPage = (name: string): WahapediaHtmlWarscrollRecord => ({
+      recordKind: 'warscroll',
+      externalId: `Vigilant-Brotherhood:${name}`,
+      name,
+      factionName: 'Stormcast Eternals',
+      sourceTitle: '',
+      sourceUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/',
+      context: 'spearhead',
+      characteristics: { move: '5"', save: '3+', control: '1', health: '2' },
+      descriptionHtml: '',
+      keywords: ['ORDER', 'STORMCAST ETERNALS', 'INFANTRY'],
+      baseSizes: [],
+      regimentOptions: [],
+      notes: [],
+      weapons: [],
+      abilities: [],
+      meta: htmlMeta(`Vigilant-Brotherhood:${name}/warscroll`),
+      artifact,
+    })
+
+    // Control: a fragment-free link still carries its identity to the datasheet page it names.
+    dataset.warscrolls.push({
+      ...dataset.warscrolls[0],
+      id: 'old-prosecutors',
+      name: 'Prosecutors',
+      virtual: false,
+      link: '/aos4/factions/stormcast-eternals/Prosecutors',
+      meta: meta('Warscrolls.csv', 'old-prosecutors'),
+    })
+    const prosecutors: WahapediaHtmlWarscrollRecord = {
+      ...rootPage('Prosecutors'),
+      externalId: 'Prosecutors',
+      context: 'standard',
+      sourceUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/Prosecutors',
+      meta: htmlMeta('Prosecutors/warscroll'),
+    }
+
+    const merged = mergeCurrentWahapediaWarscrollPages(
+      dataset,
+      [rootPage('Liberators'), rootPage('Knight-Questor'), prosecutors],
+      [],
+      []
+    ).dataset.warscrolls
+
+    expect(merged.map(record => record.id)).not.toContain('fragment-row')
+    expect(merged.find(record => record.name === 'Prosecutors')?.id).toBe('old-prosecutors')
+  })
+
   it('applies official Battle Profile facts while retaining both sources and stable identity', () => {
     const dataset = emptyDataset()
     const oldMeta = meta('Warscrolls.csv', 'liberators')
@@ -931,5 +1006,30 @@ describe('current Wahapedia HTML reconciliation', () => {
     // Without a reviewed regiment-only adoption, a plain-text name never claims a datasheet.
     expect(merged('Lone Band', 'content-group').regimentOfRenownMemberIds).toBeUndefined()
     expect(merged('Lone Band', 'content-group').regimentOfRenownUnresolvedMembers).toEqual(['Lone Hero'])
+
+    // A reviewed member anchor binds the plain-text member to its collection datasheet (#1757:
+    // Stumblefoot Gargant's Mancrusher Gargant), and fails closed once it no longer applies.
+    const lonePages = () => [regiment('Lone Band', 'Lone Hero'), warscroll('Lone Hero', false)]
+    const loneBandId = regiment('Lone Band', 'Lone Hero').meta.sourceRecordId
+    const anchored = (url: string, pages = lonePages()) =>
+      mergeCurrentWahapediaWarscrollPages(
+        dataset,
+        pages,
+        [],
+        [],
+        [],
+        [],
+        new Set(),
+        new Map([[loneBandId, new Map([['Lone Hero', url]])]])
+      )
+    const withAnchor = anchored(`${fsUrl}#Lone-Hero`).dataset.warscrolls
+    const loneHero = withAnchor.find(record => record.name === 'Lone Hero')!
+    const loneBand = withAnchor.find(record => record.name === 'Lone Band')!
+    expect(loneBand.regimentOfRenownMemberIds).toEqual([loneHero.id])
+    expect(loneBand.regimentOfRenownUnresolvedMembers).toBeUndefined()
+    expect(() => anchored(`${fsUrl}#Missing-Hero`)).toThrow(/stale/)
+    expect(() => anchored(`${fsUrl}#Lone-Hero`, [warscroll('Lone Hero', false)])).toThrow(
+      /match no kept regiment member/
+    )
   })
 })

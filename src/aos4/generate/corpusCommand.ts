@@ -1346,7 +1346,15 @@ export const loadAcceptedCorpusSourceData = async (
     wahapediaHtml.factions,
     wahapediaHtml.rules,
     review.currentWahapediaHtml?.rulesPages ?? [],
-    legendsWarscrollOverrideIds(review, decoded.dataset.warscrolls)
+    legendsWarscrollOverrideIds(review, decoded.dataset.warscrolls),
+    new Map(
+      (review.regimentsOfRenown ?? [])
+        .filter(entry => entry.memberAnchors?.length)
+        .map(entry => [
+          entry.sourceRecordId,
+          new Map(entry.memberAnchors!.map(anchor => [anchor.name, anchor.url])),
+        ])
+    )
   )
   const communityMerged = mergeBsDataWarscrolls(
     merged.dataset,

@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+import { ACCEPTED_REVIEW_PATH } from '../../aos4/data/acceptedRevision'
 import type { Ability, ContentEntity, Warscroll, Weapon } from '../../aos4/domain'
 import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
 
@@ -23,6 +25,30 @@ const citesPage = (entity: ContentEntity, page: number): boolean =>
   entity.sourceRefs.some(
     reference => reference.sourceRecordId === `source-record:games-workshop:${RULES_UPDATES}%3Apage%3A${page}`
   )
+
+/**
+ * Errata the re-pinned 2026-10-19 Wahapedia pages print themselves (corpus 2026-10-20, #1757). The
+ * machine review rejects an override that contributes nothing, so these retired; the entity then
+ * cites only the page, and the Rules Updates page stays pinned as reviewed official evidence.
+ */
+const PRINTED_BY_PAGE = new Set([
+  'ability:64e4d2a6-d00c-5060-a657-15aa9a9b3715', // Lingering Burns
+  'ability:92596ad2-35c8-5a1d-b1a9-221200bd4ab2', // Essence of the Gnaw
+  'ability:10559569-28c9-5b11-a9b5-455883c6478e', // Sentenced to Eternal Torment
+  'ability:ff8569fc-42ad-584b-96cc-070c0d2f9680', // A Kingdom Deluded
+  'ability:074be6cf-f9f2-5962-8301-e2fba1a0c045', // Bellowing Waaagh!-cries
+])
+const pinnedRulesUpdatesPages = new Set(
+  (
+    JSON.parse(readFileSync(ACCEPTED_REVIEW_PATH, 'utf8')) as {
+      officialDocuments: Array<{ sourceRecords: Array<{ id: string }> }>
+    }
+  ).officialDocuments.flatMap(document => document.sourceRecords.map(record => record.id))
+)
+const citesOrPagePrints = (entity: ContentEntity, page: number): boolean =>
+  citesPage(entity, page) ||
+  (PRINTED_BY_PAGE.has(entity.id) &&
+    pinnedRulesUpdatesPages.has(`source-record:games-workshop:${RULES_UPDATES}%3Apage%3A${page}`))
 
 describe('Summon Shyish Reaper uses the September 2026 erratum for every army (#2060)', () => {
   const twelveInches =
@@ -225,7 +251,7 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
     const entity = ability(id)
     expect(entity.text[field]).toBe(expected)
     expect(entity.text[field]).not.toMatch(old)
-    expect(citesPage(entity, page)).toBe(true)
+    expect(citesOrPagePrints(entity, page)).toBe(true)
   })
 
   it('repairs the secondary letter-pair losses inside erratum wording', () => {
@@ -247,7 +273,8 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
       )
     )
     expect(ability('ability:ff8569fc-42ad-584b-96cc-070c0d2f9680').text.effect).toContain(
-      'In such cases, the effect of that Delusion applies as if the unit had not been destroyed.'
+      // The re-pinned page prints the keyword in capitals; the wording is the erratum's.
+      'In such cases, the effect of that DELUSION applies as if the unit had not been destroyed.'
     )
     expect(ability('ability:bac38434-3159-50f3-83cc-a6cb9b817136').text.effect).toBe(
       'The target can move up to D6". That move cannot pass through or end within the combat range of an enemy unit.'

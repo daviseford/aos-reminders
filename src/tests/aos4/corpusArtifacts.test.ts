@@ -63,7 +63,7 @@ describe('AoS 4 derived corpus artifacts', () => {
       'schemaVersion',
     ])
     expect(Object.keys(sources).sort()).toEqual(['sourceArtifacts', 'sourceRecords'])
-    expect(sources.sourceRecords).toHaveLength(20322)
+    expect(sources.sourceRecords).toHaveLength(20433)
     expect(sources.sourceArtifacts).toHaveLength(236)
   })
 
@@ -226,7 +226,8 @@ describe('AoS 4 derived corpus artifacts', () => {
       AOS4_FACTION_INDEX.rulesContextIds.map(
         rulesContextId => offeredByBuilder.filter(row => row.contextIds.includes(rulesContextId)).length
       )
-    ).toEqual([24, 7, 7, 7, 24, 24])
+      // Corpus 2026-10-20 adds the Legends Legions of Nagash Army of Renown to three more factions.
+    ).toEqual([24, 10, 10, 10, 24, 24])
   }, 120_000)
 
   it('reserves the Army of Renown row on the default context exactly as the builder fills it', () => {

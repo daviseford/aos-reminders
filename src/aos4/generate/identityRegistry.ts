@@ -12,6 +12,12 @@ export interface IdentityRegistryEntry {
   canonicalId: CanonicalId
   name: string
   aliases: IdentityAlias[]
+  /**
+   * A reviewed rule the source no longer prints. Its aliases and ID stay registered so stored
+   * documents keep pointing at nothing rather than at whatever the source slot prints now; the
+   * generator refuses to resolve any current record to it.
+   */
+  retired?: true
 }
 
 export interface IdentityRegistry {
@@ -20,7 +26,11 @@ export interface IdentityRegistry {
 }
 
 export type IdentityRegistryIssueCode =
-  'duplicate-canonical-id' | 'duplicate-source-alias' | 'canonical-kind-mismatch' | 'missing-source-alias'
+  | 'duplicate-canonical-id'
+  | 'duplicate-source-alias'
+  | 'canonical-kind-mismatch'
+  | 'missing-source-alias'
+  | 'invalid-retired-marker'
 
 export interface IdentityRegistryIssue {
   code: IdentityRegistryIssueCode
@@ -47,6 +57,13 @@ export const validateIdentityRegistry = (registry: IdentityRegistry): IdentityRe
         code: 'canonical-kind-mismatch',
         subject: entry.canonicalId,
         message: `Canonical ID ${entry.canonicalId} does not match ${entry.kind}`,
+      })
+    }
+    if ('retired' in entry && entry.retired !== true) {
+      issues.push({
+        code: 'invalid-retired-marker',
+        subject: entry.canonicalId,
+        message: `Canonical ID ${entry.canonicalId} has a retired marker other than true`,
       })
     }
     if (!entry.aliases.length) {

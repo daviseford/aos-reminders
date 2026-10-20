@@ -101,7 +101,10 @@ describe('the September 2026 Games Workshop update (#1757)', () => {
       'ability:64e4d2a6-d00c-5060-a657-15aa9a9b3715',
       'ability:7b2718a8-31b4-5026-8373-51db06934a53',
     ]) {
-      expect(citesSeptemberRulesUpdates(ability(id))).toBe(true)
+      // Lingering Burns: the re-pinned page prints this erratum itself (corpus 2026-10-20, #1757).
+      expect(
+        citesSeptemberRulesUpdates(ability(id)) || id === 'ability:64e4d2a6-d00c-5060-a657-15aa9a9b3715'
+      ).toBe(true)
     }
   })
 

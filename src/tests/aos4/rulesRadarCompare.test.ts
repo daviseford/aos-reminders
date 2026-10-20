@@ -327,7 +327,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
   it('loads the reviewed config and rejects stale repository paths', () => {
     expect(readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData.baselineSha).toBe(
-      'b462cea0011be20e890afa9553827fe3d17df997'
+      '28ca9405c89880a6cea0480603247993275dfb6b'
     )
 
     const config = JSON.parse(
@@ -338,10 +338,10 @@ describe('AoS 4 Rules Radar comparison', () => {
   })
 
   it('clears the reviewed BSData range while any later commit still alarms', () => {
-    // Reviewed 2026-10-06 (#1757): fe6b6bbf → b462cea0 dropped an unreferenced Path to Glory
-    // manifestation-lore group from the Cities of Sigmar allies catalogue and moved the Shrine of
-    // Dark Tribute base size to the 130mm the runtime already ships. Nothing after b462cea0 is
-    // reviewed, so a later head must still surface.
+    // Reviewed 2026-10-20 (#1757): b462cea0 → 28ca9405 only adds Sons of Behemat Path to Glory
+    // content (the Anvil of Apotheosis hero and the Path of the Footslogger/Heel), which the runtime
+    // does not carry, plus catalogue revision bumps. Nothing after 28ca9405 is reviewed, so a later
+    // head must still surface.
     const { baselineSha } = readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData
     const observation = {
       schemaVersion: 1 as const,
@@ -353,7 +353,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
     const reviewed = compareBsDataObservation({
       ...observation,
-      headSha: 'b462cea0011be20e890afa9553827fe3d17df997',
+      headSha: '28ca9405c89880a6cea0480603247993275dfb6b',
       comparisonStatus: 'identical',
       changedPaths: [],
     })
@@ -369,7 +369,7 @@ describe('AoS 4 Rules Radar comparison', () => {
     expect(later.events[0]).toMatchObject({
       class: 'material',
       changeKind: 'community-catalog-changed',
-      baselineFingerprint: 'b462cea0011be20e890afa9553827fe3d17df997',
+      baselineFingerprint: '28ca9405c89880a6cea0480603247993275dfb6b',
       observedFingerprint: 'c'.repeat(40),
       evidence: { changedPaths: ['Daughters of Khaine - Library.cat'] },
     })

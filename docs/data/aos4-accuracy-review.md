@@ -12,7 +12,47 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-10-14` (issue #1757): the owner-approved intake of the
+The current revision is `aos4-corpus-2026-10-20` (issue #1757): the Wahapedia refresh published
+2026-10-19 04:58:53 (`Last_update.csv` `b82f1c68...`) on top of `aos4-corpus-2026-10-14`. The manifest
+`accepted-2026-10-20.json` swaps 84 of the 85 Wahapedia artifacts; no Games Workshop or BSData
+artifact changed. Wahapedia caught up with the September 2026 official update, so errata the
+runtime had shipped in their earlier form now arrive from the re-pinned pages, and three reviewed
+overrides keep official wording where the pages diverge. `aos4-maintenance.md` records the scope,
+every disposition, and the identity review. Its automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 246/246 |
+| Explicit non-material discovery entries | 10 |
+| Official battle-profile facts | 1,312/1,312 |
+| Final official/secondary reconciliation discrepancies | 368/368 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 20,439/20,439 |
+| Ignored-record dispositions (superseded + explicit) | 20,964/20,964 |
+| Live review pairs | 43,085/43,085 |
+| Independent outcomes | 86,170 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 157/157 |
+| Populated high-risk cohorts | 22/22 |
+
+The source inventory binds fresh observations taken for this intake: a `discover-official`
+snapshot observed at 2026-10-20T13:12:10Z (169 downloads, 8 explicit non-material) and the
+Wahapedia navigation and exports at 13:12:16Z (87 sources, 0 inaccessible, 90 requests). Every
+accepted artifact matched. The certification is `aos4-corpus-2026-10-20-machine-r2` (campaign
+2026-10-20T15:52:53Z, certified 15:53:15Z), on the same inventory byte for byte (the manifest is
+unchanged and the observations were taken for this intake the same day). Its `--reuse-certification` offer of
+`aos4-corpus-2026-10-14-machine-r1` reused no pair (revision re-key), so all 43,085 pairs were
+evaluated fresh. A first campaign at 13:28:07Z on the same inventory reported five findings: five
+September 2026 Rules Updates text overrides (A Kingdom Deluded, Essence of the Gnaw, Sentenced to
+Eternal Torment, Bellowing Waaagh!-cries, Lingering Burns) no longer contributed anything because
+the re-pinned pages print the errata themselves. They were retired (rules wording unchanged; only
+keyword capitalisation and one line break moved) and the campaign rerun clean as `machine-r1`
+(13:41:46Z). Review then found that the identity rebinding had dropped 68 retired rules' registry
+entries; they were restored with a `retired` marker (generated runtime unchanged byte for byte), so
+`machine-r1` was discarded uncommitted and `machine-r2` re-ran every pair against the final inputs.
+
+### `aos4-corpus-2026-10-14` (superseded)
+
+The previous revision was `aos4-corpus-2026-10-14` (issue #1757): the owner-approved intake of the
 Games Workshop downloads of 2026-10-13/14 on top of `aos4-corpus-2026-10-02`. The manifest
 `accepted-2026-10-14.json` unpins the delisted Legends compendium and the September 2025
 Regiments of Renown, pins the re-published Regiments of Renown with publication identity

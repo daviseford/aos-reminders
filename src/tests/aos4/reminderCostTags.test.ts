@@ -177,13 +177,12 @@ describe('accepted casting and chanting value coverage (#2032)', () => {
   // remaining SACRED RITES records are the core chanting rule itself, which Wahapedia prints with
   // no badge. The September 2026 Rules Updates page 22 adds a chanting value of 2 only to the
   // historical General's Handbook 2025-26 copy, which a reviewed cost override has carried since
-  // corpus 2026-10-01 (#2060). The Cities of Sigmar Runelord's FORGEFIRE carries its value in a
-  // spell-class badge on a PRAYER ability, so the adapter fails closed rather than guess which
-  // kind of value it is.
+  // corpus 2026-10-01 (#2060). The Cities of Sigmar Runelord's FORGEFIRE used to carry its value in a spell-class
+  // badge on a PRAYER ability, so the adapter failed closed; the 2026-10-19 page prints a prayer
+  // badge, and it ships the chanting value 5 the official Cities of Sigmar supplement prints (#1757).
   const PRAYERS_WITHOUT_CHANTING_VALUE = new Set([
     'ability:a89234c6-b4b0-5a92-af47-e046f6e57bb8',
     'ability:aa42ff31-bafb-55e6-a80c-279f531558cf',
-    'ability:a5e8d40e-9d11-5b10-915e-8eae5b30fc23',
   ])
 
   it('gives every accepted SPELL ability a casting value', () => {
@@ -208,7 +207,9 @@ describe('accepted casting and chanting value coverage (#2032)', () => {
   it('ships the casting value of a spell whose datasheet prints no keyword strip', () => {
     const ability = abilities.find(candidate => candidate.id === RETRIBUTION_OR_SALVATION)
     expect(ability?.name).toBe('RETRIBUTION OR SALVATION')
-    expect(ability?.keywords ?? []).toEqual([])
+    // Corpus 2026-10-20 (#1757): the re-pinned page now prints the strip, so the badge is checked
+    // against it like any other spell.
+    expect(ability?.keywords ?? []).toEqual(['SPELL'])
     expect(ability?.cost).toEqual({ kind: 'spell', value: 7 })
 
     const reminder = reminderNamed(
