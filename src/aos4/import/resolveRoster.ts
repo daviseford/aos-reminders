@@ -1051,10 +1051,14 @@ export const resolveParsedRoster = (
         selectionDiagnostics
       )
       if (match) matches.push(match)
+      // Only the plain "couldn't find" warning may go: the Legends and switch-season variants share
+      // its code but name a real enhancement the player can still act on.
       const weaponOption =
         !match &&
         selectionDiagnostics.length === 1 &&
         selectionDiagnostics[0].code === 'unknown-selection' &&
+        !selectionDiagnostics[0].suggestedRulesContextId &&
+        (allowsLegends || !isLegendsOnly(catalog, selection.label, selection.kindHint)) &&
         isSigdexBearerWeapon(selection, matches)
       if (!weaponOption) diagnostics.push(...selectionDiagnostics)
     })

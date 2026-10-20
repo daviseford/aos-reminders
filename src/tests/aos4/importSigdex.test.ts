@@ -297,8 +297,98 @@ describe('Sigdex text import', () => {
       ])
     })
 
+    /**
+     * Synthetic collisions: the catalog is cloned with one entity renamed or added so that an
+     * enhancement shares its name with a weapon of the bullet's own bearer.
+     */
+    describe('when an enhancement shares a name with a weapon of its bearer', () => {
+      const LEGENDS_CONTEXT_ID = AOS4_CATALOG.rulesContexts.find(context => context.status === 'legends')!.id
+      const CORE_CONTEXT_ID = AOS4_CATALOG.rulesContexts.find(
+        context => context.mode === 'standard' && context.status === 'current'
+      )!.id
+      const resolveWith = (catalog: typeof AOS4_CATALOG, ...units: string[]) =>
+        resolveParsedRoster(
+          catalog,
+          decode('Kharadron Overlords', "General's Handbook 2026-27", "General's Regiment", ...units)!,
+          {
+            defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+            createDocumentId: () => 'army:sigdex-weapon-collision',
+          }
+        )
+      const withAbility = (name: string, rulesContextId: typeof LEGENDS_CONTEXT_ID): typeof AOS4_CATALOG => {
+        const template = AOS4_CATALOG.entities.find(entity => entity.kind === 'ability')!
+        return {
+          ...AOS4_CATALOG,
+          entities: [
+            ...AOS4_CATALOG.entities,
+            {
+              ...template,
+              id: `${template.id}-synthetic-2090` as typeof template.id,
+              name,
+              rulesContextIds: [rulesContextId],
+            },
+          ],
+        }
+      }
+
+      it('keeps the Legends warning for a Legends-only enhancement', () => {
+        const preview = resolveWith(
+          withAbility('Skypike', LEGENDS_CONTEXT_ID),
+          'Arkanaut Company (80)',
+          '• Skypike'
+        )
+        expect(unknownLabels(preview)).toEqual([expect.stringContaining('"Skypike" is Legends content')])
+      })
+
+      it('keeps the switch-context warning for an enhancement replaced this season', () => {
+        const preview = resolveWith(
+          withAbility('Skypike', CORE_CONTEXT_ID),
+          'Arkanaut Company (80)',
+          '• Skypike'
+        )
+        expect(preview.diagnostics).toEqual([
+          expect.objectContaining({ code: 'unknown-selection', suggestedRulesContextId: CORE_CONTEXT_ID }),
+        ])
+      })
+
+      it('imports the enhancement on its bearer rather than skipping it as a weapon', () => {
+        const admiral = AOS4_CATALOG.entities.find(
+          entity =>
+            entity.kind === 'warscroll' &&
+            entity.name === 'Arkanaut Admiral' &&
+            entity.rulesContextIds.includes(AOS4_DEFAULT_RULES_CONTEXT_ID)
+        )!
+        const skalfhammerId = AOS4_CATALOG.relationships.find(
+          relationship =>
+            relationship.kind === 'includes' &&
+            relationship.from === admiral.id &&
+            AOS4_CATALOG.entities.some(
+              entity => entity.id === relationship.to && entity.name === 'Skalfhammer'
+            )
+        )!.to
+        const catalog = {
+          ...AOS4_CATALOG,
+          entities: AOS4_CATALOG.entities.map(entity =>
+            entity.id === skalfhammerId ? { ...entity, name: 'Voidstone Orb' } : entity
+          ),
+        }
+        const preview = resolveWith(catalog, 'Arkanaut Admiral (130)', '• General', '• Voidstone Orb')
+        expect(preview.diagnostics).toEqual([])
+        const ids = new Map(preview.matches.map(match => [match.label, match.canonicalId]))
+        expect(ids.get('Voidstone Orb')).toMatch(/^(ability|content-group):/)
+        expect(preview.proposedDocument!.enhancementBearers).toEqual({
+          [ids.get('Voidstone Orb')!]: admiral.id,
+        })
+      })
+    })
+
     it('leaves other importer sources unchanged', () => {
-      const parsed = decode('Kharadron Overlords', "General's Regiment", 'Arkanaut Company (80)', '• Skypike')!
+      const parsed = decode(
+        'Kharadron Overlords',
+        "General's Regiment",
+        'Arkanaut Company (80)',
+        '• Skypike'
+      )!
       const preview = resolveParsedRoster(
         AOS4_CATALOG,
         { ...parsed, source: 'official-app-text' },
