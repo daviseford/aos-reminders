@@ -212,6 +212,16 @@ export interface CorpusCommunityWarscrollUnit {
    * points, and notes; the community transcription supplies everything else.
    */
   anchor?: 'faction-terrain'
+  /**
+   * `seasonal` anchors the warscroll on an official General's Handbook 2026-27 unit fact and
+   * offers it in the seasonal context only, like the Wahapedia Scourge of Aqshy datasheets (#1757).
+   */
+  context?: 'seasonal'
+  /**
+   * The official unit name when the catalogue spells the unit differently (BSData's "Vulkyn
+   * Flameseekers (Scourge of Aqshy)" is the official "Scourge of Aqshy Vulkyn Flameseekers").
+   */
+  officialName?: string
 }
 
 export interface CorpusCommunityFactionOption {
@@ -224,6 +234,7 @@ export interface CorpusCommunityFactionOption {
     | 'spell-lore'
     | 'prayer-lore'
     | 'realm-shaking-rampage'
+    | 'mark-of-vulcatrix'
     | 'battle-trait'
   /** The BSData selection-entry group (or, for lores and battle traits, the container) name. */
   groupName: string
@@ -242,6 +253,18 @@ export interface CorpusCommunityFactionOption {
    * Army of Renown's); the merge fails closed on an ambiguous name either way.
    */
   typeSourceRecordId?: SourceRecordId
+  /**
+   * The option's group has no faction-page ability-type record because its faction has no
+   * secondary faction page (#1757); the merge creates the group, anchored on the official facts.
+   */
+  createsType?: true
+  /** The one BSData group id to read when the catalogue repeats the group name (#1757). */
+  groupId?: string
+  /**
+   * `seasonal` anchors the option on an official General's Handbook 2026-27 roster-option fact and
+   * offers it in the seasonal context only, like the Wahapedia Scourge of Aqshy sections (#1757).
+   */
+  context?: 'seasonal'
 }
 
 /**
@@ -287,6 +310,17 @@ export interface CorpusCommunityWarscrollSource {
   /** Official page source records establishing the content (fallback condition (a)). */
   officialSourceRecordIds: SourceRecordId[]
   units: CorpusCommunityWarscrollUnit[]
+  /**
+   * The faction whose official facts anchor this source, where same-name official rows exist for
+   * several factions (Khazalite Holds re-publishes Fyreslayers units, #1757).
+   */
+  faction?: string
+  /**
+   * The Army of Renown this catalogue transcribes for a faction with no secondary faction page
+   * (#1757); its options become the army's root subgroups. A reviewed `armiesOfRenown` entry must
+   * still classify the created root.
+   */
+  armyOfRenown?: string
   /** Faction roster options (battle formations, traits, artefacts) supplied by this source. */
   factionOptions?: CorpusCommunityFactionOption[]
   /** Regiments of Renown whose rules text this source supplies (issue #1999). */
@@ -301,6 +335,21 @@ export interface CorpusCommunityWarscrollSource {
  */
 export interface CorpusUniversalFactionContent {
   factionId: string
+  reason: string
+}
+
+/**
+ * Content one faction's page carries that an official publication also gives another faction
+ * unchanged (#1757): Battle Profiles - Khazalite Holds lists the Fyreslayers `Magmic Invocations`
+ * manifestation lore, and BSData links both factions to the same lore. The named record (a lore
+ * group or a warscroll datasheet) keeps its single identity and gains an offer from `factionId`;
+ * nothing is copied, so the owner faction's armies are unchanged.
+ */
+export interface CorpusSharedFactionContent {
+  sourceRecordId: SourceRecordId
+  /** Dataset id of the additional offering faction. */
+  factionId: string
+  officialSourceRecordIds: SourceRecordId[]
   reason: string
 }
 
@@ -426,6 +475,7 @@ export interface CorpusReview {
   }>
   approvedFactionIds: string[]
   universalFactionContent?: CorpusUniversalFactionContent[]
+  sharedFactionContent?: CorpusSharedFactionContent[]
   armiesOfRenown?: CorpusArmyOfRenown[]
   regimentsOfRenown?: CorpusRegimentOfRenown[]
   decoderDiagnosticPolicies: CorpusDiagnosticPolicy[]
@@ -1585,6 +1635,7 @@ const reviewDiagnostics = (
             'spell-lore',
             'prayer-lore',
             'realm-shaking-rampage',
+            'mark-of-vulcatrix',
             'battle-trait',
           ].includes(option.optionType) &&
           (option.optionType !== 'battle-trait' || Boolean(option.faction?.trim()))
@@ -2013,6 +2064,23 @@ export const buildAos4Corpus = (
     universalFactionIds.has(ownerExternalFactionId)
       ? everyArmyFactionId
       : [factionByExternalId.get(ownerExternalFactionId)].flatMap(id => (id ? [id] : []))
+  const sharedFactionIdsBySourceRecordId = new Map<SourceRecordId, CanonicalId<'faction'>[]>()
+  ;(review.sharedFactionContent ?? []).forEach(entry => {
+    const factionId = factionByExternalId.get(entry.factionId)
+    if (factionId) {
+      sharedFactionIdsBySourceRecordId.set(entry.sourceRecordId, [
+        ...(sharedFactionIdsBySourceRecordId.get(entry.sourceRecordId) ?? []),
+        factionId,
+      ])
+    }
+  })
+  const sharedSourceRecordIdsUsed = new Set<SourceRecordId>()
+  /** The owner's offering factions plus any reviewed `sharedFactionContent` faction. */
+  const offeringFactionIdsFor = (ownerExternalFactionId: string, meta: WahapediaRecordMeta) => {
+    const shared = sharedFactionIdsBySourceRecordId.get(meta.sourceRecordId)
+    if (shared) sharedSourceRecordIdsUsed.add(meta.sourceRecordId)
+    return uniqueSorted([...offeringFactionIds(ownerExternalFactionId), ...(shared ?? [])])
+  }
   // Reviewed Regiment of Renown classification: the kept collection datasheets become
   // `regiment-of-renown` content groups offered by their inclusion factions (see
   // CorpusRegimentOfRenown).
@@ -2082,7 +2150,9 @@ export const buildAos4Corpus = (
      * through its regiment's ORGANISATION block, so no faction offers it directly either.
      */
     const factionIds = uniqueSorted([
-      ...(record.regimentOfRenown || record.regimentOfRenownOnly ? [] : offeringFactionIds(record.factionId)),
+      ...(record.regimentOfRenown || record.regimentOfRenownOnly
+        ? []
+        : offeringFactionIdsFor(record.factionId, record.meta)),
       ...regimentRecords.flatMap(item => {
         const factionId = factionByExternalId.get(item.factionId)
         return factionId ? [factionId] : []
@@ -2395,9 +2465,27 @@ export const buildAos4Corpus = (
     }
     addRelationship('includes', typeGroupByKey.get(`${record.factionId}:${record.typeId}`), id)
     if (!type || !isMandatoryType(type.name)) {
-      offeringFactionIds(record.factionId).forEach(factionId => addRelationship('offers', factionId, id))
+      offeringFactionIdsFor(record.factionId, record.meta).forEach(factionId =>
+        addRelationship('offers', factionId, id)
+      )
     }
     trackReplaceable(record.factionId, id, resolvedGroupType)
+  })
+  ;(review.sharedFactionContent ?? []).forEach(entry => {
+    if (
+      !sharedSourceRecordIdsUsed.has(entry.sourceRecordId) ||
+      !factionByExternalId.has(entry.factionId) ||
+      !entry.reason.trim() ||
+      entry.officialSourceRecordIds.length === 0
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: entry.sourceRecordId,
+        message:
+          'Shared faction content must name an offered lore group or warscroll record, a known faction, a reason, and official evidence',
+      })
+    }
   })
 
   const generalRulesPageByExternalId = new Map(

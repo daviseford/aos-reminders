@@ -80,6 +80,18 @@ export interface BsDataCommunitySourceInput {
    * roster-option fact supplies name, faction, points, and notes.
    */
   terrainAnchorSections?: string[]
+  /**
+   * Reviewed faction whose official facts anchor this source (#1757). Required where official
+   * rows of the same name exist for several factions, as when Khazalite Holds re-publishes
+   * Fyreslayers units: the anchor is then chosen by faction, never by whichever row comes first.
+   */
+  faction?: string
+  /**
+   * Catalogue sections anchored on an official General's Handbook 2026-27 (`seasonal`) unit fact
+   * and offered in the seasonal context only, keyed to the official unit name the catalogue
+   * spells differently (BSData "Vulkyn Flameseekers (Scourge of Aqshy)", #1757).
+   */
+  seasonalOfficialNamesBySection?: Record<string, string>
 }
 
 export interface BsDataMergeResult {
@@ -149,6 +161,30 @@ export interface BsDataFactionOptionSourceInput {
   facts: BsDataFactionOptionFact[]
   /** Official page source records that establish this content (policy condition (a)). */
   officialSourceRecordIds: SourceRecordId[]
+  /** Reviewed faction whose official roster options anchor this source; see `BsDataCommunitySourceInput`. */
+  faction?: string
+  /**
+   * Catalogue sections whose option group has no faction-page ability-type record because the
+   * faction has no secondary faction page at all (Khazalite Holds, #1757). The merge creates that
+   * group once per faction, anchored on the official roster-option fact (or, for battle traits, the
+   * source's official records), and fails closed if a faction-page record exists after all.
+   */
+  createsTypeSections?: string[]
+  /**
+   * Catalogue sections anchored on an official General's Handbook 2026-27 (`seasonal`) roster
+   * option and offered in the seasonal context only (#1757).
+   */
+  seasonalSections?: string[]
+  /**
+   * The Army of Renown this catalogue transcribes, when the faction has no secondary faction page
+   * to carry it (Khazalite Holds, #1757). The merge creates the army's root group, marked as an
+   * Army of Renown the way the Wahapedia decoder marks a faction-page section, and files each
+   * option under a root subgroup named for its kind (`Battle Traits`, `Heroic Traits`,
+   * `Artefacts of Power`), like a Wahapedia Army of Renown. The reviewed `armiesOfRenown` entry
+   * still classifies the root; no official roster-option row names these options, so they cite
+   * the source's official records.
+   */
+  armyOfRenown?: string
 }
 
 const OPTION_TYPE_LABELS: Record<
@@ -164,6 +200,7 @@ const OPTION_TYPE_LABELS: Record<
     officialOptionType: 'Realm-shaking Rampage',
     typeGroupName: 'Realm-shaking Rampages',
   },
+  'mark-of-vulcatrix': { officialOptionType: 'Mark of Vulcatrix', typeGroupName: 'Marks of Vulcatrix' },
   // Army-wide battle traits have no battle-profile row: the empty official option type routes the
   // merge to the source-level official anchor instead of a per-option roster-option match.
   'battle-trait': { officialOptionType: '', typeGroupName: 'Battle Traits' },
@@ -202,6 +239,8 @@ export const mergeBsDataFactionOptions = (
   const factionIdByName = new Map(dataset.factions.map(faction => [canonical(faction.name), faction.id]))
   const discrepancies = [...reconciliation.discrepancies]
   const newSubtypes: WahapediaDataset['factionAbilitySubtypes'] = []
+  /** Option groups created for factions with no faction page, keyed per faction+group name. */
+  const newTypes = new Map<string, WahapediaDataset['factionAbilityTypes'][number]>()
   const newAbilities: WahapediaDataset['factionAbilities'] = []
 
   sources.forEach(source => {
@@ -218,7 +257,8 @@ export const mergeBsDataFactionOptions = (
       recordSourceId: SourceRecordId,
       recordChecksum: string,
       section: string,
-      officialSourceRecordIds?: SourceRecordId[]
+      officialSourceRecordIds?: SourceRecordId[],
+      rulesContextKinds: NonNullable<WahapediaRecordMeta['rulesContextKinds']> = ['standard']
     ): WahapediaRecordMeta => ({
       file: 'BSDataCatalogue.cat',
       row: 0,
@@ -227,19 +267,126 @@ export const mergeBsDataFactionOptions = (
       identitySourceRecordId: identityFor(recordSourceId),
       recordChecksum,
       section,
-      rulesContextKinds: ['standard'],
+      rulesContextKinds,
       ...(officialSourceRecordIds?.length ? { officialSourceRecordIds } : {}),
     })
     /** Shared subtypes for grouped options (heroic traits, artefacts), keyed per faction+group. */
     const sharedSubtypes = new Map<string, { id: string; name: string; lines: number }>()
 
+    const mergeArmyOfRenownOption = (fact: BsDataFactionOptionFact, kindName: string): void => {
+      const armyName = source.armyOfRenown!
+      const factionId = source.faction ? factionIdByName.get(canonical(source.faction)) : undefined
+      if (!factionId) {
+        throw new Error(`BSData Army of Renown ${armyName} needs a reviewed, known source faction`)
+      }
+      if (!['battle-trait', 'heroic-trait', 'artefact-of-power'].includes(fact.optionType)) {
+        throw new Error(
+          `BSData Army of Renown ${armyName} option ${fact.name} is an unsupported ${fact.optionType}`
+        )
+      }
+      if (fact.optionType !== 'battle-trait' && fact.abilities.length !== 1) {
+        throw new Error(
+          `BSData Army of Renown ${armyName} option ${fact.name} is not exactly one ability card`
+        )
+      }
+      const rootSection = `army-of-renown:${canonical(armyName)}`
+      const rootKey = `${factionId}:${rootSection}`
+      let root = newTypes.get(rootKey)
+      if (!root) {
+        if (
+          dataset.factionAbilityTypes.some(
+            type => type.factionId === factionId && canonical(type.name) === canonical(armyName)
+          )
+        ) {
+          throw new Error(`BSData Army of Renown ${armyName} already has a faction-page record`)
+        }
+        const value = { factionId, name: armyName, armyOfRenown: true }
+        root = {
+          factionId,
+          id: bsDataGeneratedId(`${source.artifact.checksum}:${rootSection}`),
+          name: armyName,
+          descriptionHtml: '',
+          armyOfRenown: true,
+          meta: meta(
+            sourceRecordId('bsdata', `${source.artifact.checksum}:${rootSection}`),
+            checksum(value),
+            rootSection,
+            source.officialSourceRecordIds
+          ),
+        }
+        newTypes.set(rootKey, root)
+      }
+      const groupSection = `${rootSection}:${canonical(kindName)}`
+      const groupSourceRecordId = sourceRecordId('bsdata', `${source.artifact.checksum}:${groupSection}`)
+      let shared = sharedSubtypes.get(groupSection)
+      if (!shared) {
+        shared = { id: bsDataGeneratedId(groupSourceRecordId), name: kindName, lines: 0 }
+        sharedSubtypes.set(groupSection, shared)
+        newSubtypes.push({
+          factionId,
+          id: shared.id,
+          name: kindName,
+          typeId: root.id,
+          descriptionHtml: '',
+          legendHtml: '',
+          meta: meta(
+            groupSourceRecordId,
+            checksum({ factionId, army: armyName, group: kindName }),
+            groupSection,
+            source.officialSourceRecordIds
+          ),
+        })
+      }
+      const lineOffset = shared.lines
+      shared.lines += fact.abilities.length
+      const singleCard = fact.optionType !== 'battle-trait'
+      fact.abilities.forEach(ability => {
+        const points = abilityPoints(ability)
+        newAbilities.push({
+          factionId,
+          typeId: root!.id,
+          typeName: root!.name,
+          subtypeId: shared!.id,
+          subtypeName: shared!.name,
+          line: String(lineOffset + ability.line),
+          name: singleCard ? fact.name : ability.name,
+          descriptionHtml: abilityDescription(ability),
+          legendHtml: '',
+          abilityType: abilityTypeLabel[ability.kind],
+          isReaction: /reactions*:/i.test(ability.timing),
+          conditionHtml: abilityCondition(ability),
+          keywordsHtml: ability.keywords.join(', '),
+          abilityPhase: '',
+          pointsType: points.pointsType,
+          points: points.points,
+          meta: singleCard
+            ? meta(fact.sourceRecordId, fact.factChecksum, fact.section, source.officialSourceRecordIds)
+            : meta(
+                ability.sourceRecordId,
+                ability.recordChecksum,
+                fact.section,
+                source.officialSourceRecordIds
+              ),
+        })
+      })
+    }
+
     ;[...source.facts]
       .sort((left, right) => left.section.localeCompare(right.section))
       .forEach(fact => {
         const labels = OPTION_TYPE_LABELS[fact.optionType]
+        if (source.armyOfRenown) {
+          mergeArmyOfRenownOption(fact, labels.typeGroupName)
+          return
+        }
+        const seasonal = source.seasonalSections?.includes(fact.section) ?? false
+        const kinds: NonNullable<WahapediaRecordMeta['rulesContextKinds']> = seasonal
+          ? ['seasonal']
+          : ['standard']
         let official: GamesWorkshopRosterOptionFact | undefined
         let factionId: string | undefined
         if (fact.optionType === 'battle-trait') {
+          if (seasonal) throw new Error(`BSData battle traits ${fact.name} cannot be seasonal-only`)
           // No battle-profile row names army-wide battle traits: the reviewed entry supplies the
           // faction and the source-level official evidence carries the fallback-tier anchor.
           if (!fact.faction) {
@@ -255,9 +402,10 @@ export const mergeBsDataFactionOptions = (
         } else {
           const matches = officialOptions.filter(
             candidate =>
-              candidate.context === 'standard' &&
+              candidate.context === (seasonal ? 'seasonal' : 'standard') &&
               canonical(candidate.optionType) === canonical(labels.officialOptionType) &&
-              canonical(candidate.name) === canonical(fact.name)
+              canonical(candidate.name) === canonical(fact.name) &&
+              (!source.faction || canonical(candidate.faction) === canonical(source.faction))
           )
           if (matches.length !== 1) {
             // Legacy three-tier gate (superseded 2026-08-18, #1757); wording flattens with the schema.
@@ -280,14 +428,49 @@ export const mergeBsDataFactionOptions = (
             canonical(candidate.name) === canonical(labels.typeGroupName) &&
             (!fact.typeSourceRecordId || candidate.meta.sourceRecordId === fact.typeSourceRecordId)
         )
-        if (typeCandidates.length !== 1) {
-          throw new Error(
-            `BSData faction option ${fact.name} matches ${typeCandidates.length} ` +
-              `${labels.typeGroupName} groups for its faction; pin the reviewed ` +
-              'typeSourceRecordId to exactly one faction-page ability-type record'
-          )
+        const typeKey = `${optionFactionId}:${canonical(labels.typeGroupName)}`
+        let type: WahapediaDataset['factionAbilityTypes'][number]
+        if (source.createsTypeSections?.includes(fact.section)) {
+          if (typeCandidates.length) {
+            throw new Error(
+              `BSData faction option ${fact.name} creates its ${labels.typeGroupName} group, but the ` +
+                'faction already has a faction-page record for it; pin that record instead'
+            )
+          }
+          let created = newTypes.get(typeKey)
+          if (!created) {
+            const typeSection = `type:${canonical(optionFactionId)}:${canonical(labels.typeGroupName)}`
+            const typeSourceRecordId = sourceRecordId('bsdata', `${source.artifact.checksum}:${typeSection}`)
+            const value = { factionId: optionFactionId, name: labels.typeGroupName }
+            created = {
+              ...value,
+              id: bsDataGeneratedId(typeSection),
+              descriptionHtml: '',
+              meta: meta(
+                typeSourceRecordId,
+                checksum(value),
+                typeSection,
+                official ? [official.sourceRecordId] : source.officialSourceRecordIds,
+                kinds
+              ),
+            }
+            newTypes.set(typeKey, created)
+          } else if (!seasonal && created.meta.rulesContextKinds?.includes('standard') !== true) {
+            // A group first created for seasonal options also carries a standard one: widen it.
+            created = { ...created, meta: { ...created.meta, rulesContextKinds: ['standard'] } }
+            newTypes.set(typeKey, created)
+          }
+          type = created
+        } else {
+          if (typeCandidates.length !== 1) {
+            throw new Error(
+              `BSData faction option ${fact.name} matches ${typeCandidates.length} ` +
+                `${labels.typeGroupName} groups for its faction; pin the reviewed ` +
+                'typeSourceRecordId to exactly one faction-page ability-type record'
+            )
+          }
+          type = typeCandidates[0]
         }
-        const type = typeCandidates[0]
         const sourceUrl = `${source.artifact.finalUrl}#${fact.section}`
         if (official && fact.name !== official.name) {
           discrepancies.push({
@@ -301,7 +484,8 @@ export const mergeBsDataFactionOptions = (
         if (
           (fact.optionType === 'heroic-trait' ||
             fact.optionType === 'artefact-of-power' ||
-            fact.optionType === 'realm-shaking-rampage') &&
+            fact.optionType === 'realm-shaking-rampage' ||
+            fact.optionType === 'mark-of-vulcatrix') &&
           fact.abilities.length !== 1
         ) {
           throw new Error(
@@ -327,7 +511,8 @@ export const mergeBsDataFactionOptions = (
               fact.sourceRecordId,
               fact.factChecksum,
               fact.section,
-              official ? [official.sourceRecordId] : source.officialSourceRecordIds
+              official ? [official.sourceRecordId] : source.officialSourceRecordIds,
+              kinds
             ),
           })
         } else if (fact.optionType === 'battle-trait') {
@@ -336,7 +521,7 @@ export const mergeBsDataFactionOptions = (
           subtypeId = ''
           subtypeName = ''
         } else {
-          const key = `${optionFactionId}:${fact.optionType}:${canonical(fact.groupName)}`
+          const key = `${optionFactionId}:${fact.optionType}:${canonical(fact.groupName)}:${kinds[0]}`
           let shared = sharedSubtypes.get(key)
           if (!shared) {
             const groupSection = `option-group:${fact.groupName
@@ -362,7 +547,8 @@ export const mergeBsDataFactionOptions = (
                 groupSourceRecordId,
                 checksum({ factionId: optionFactionId, group: fact.groupName, optionType: fact.optionType }),
                 groupSection,
-                source.officialSourceRecordIds
+                source.officialSourceRecordIds,
+                kinds
               ),
             })
           }
@@ -378,7 +564,8 @@ export const mergeBsDataFactionOptions = (
         const singleCard =
           fact.optionType === 'heroic-trait' ||
           fact.optionType === 'artefact-of-power' ||
-          fact.optionType === 'realm-shaking-rampage'
+          fact.optionType === 'realm-shaking-rampage' ||
+          fact.optionType === 'mark-of-vulcatrix'
         const abilityOfficialIds = official ? [official.sourceRecordId] : source.officialSourceRecordIds
         fact.abilities.forEach(ability => {
           const points = abilityPoints(ability)
@@ -400,8 +587,8 @@ export const mergeBsDataFactionOptions = (
             pointsType: points.pointsType,
             points: points.points,
             meta: singleCard
-              ? meta(fact.sourceRecordId, fact.factChecksum, fact.section, abilityOfficialIds)
-              : meta(ability.sourceRecordId, ability.recordChecksum, fact.section, abilityOfficialIds),
+              ? meta(fact.sourceRecordId, fact.factChecksum, fact.section, abilityOfficialIds, kinds)
+              : meta(ability.sourceRecordId, ability.recordChecksum, fact.section, abilityOfficialIds, kinds),
           })
         })
       })
@@ -410,6 +597,7 @@ export const mergeBsDataFactionOptions = (
   return {
     dataset: {
       ...dataset,
+      factionAbilityTypes: [...dataset.factionAbilityTypes, ...Array.from(newTypes.values())],
       factionAbilitySubtypes: [...dataset.factionAbilitySubtypes, ...newSubtypes],
       factionAbilities: [...dataset.factionAbilities, ...newAbilities],
     },
@@ -466,7 +654,9 @@ export const mergeBsDataWarscrolls = (
            */
           const matches = officialTerrainOptions.filter(
             candidate =>
-              candidate.context === 'standard' && canonical(candidate.name) === canonical(fact.name)
+              candidate.context === 'standard' &&
+              canonical(candidate.name) === canonical(fact.name) &&
+              (!source.faction || canonical(candidate.faction) === canonical(source.faction))
           )
           if (matches.length !== 1) {
             // Legacy three-tier gate (superseded 2026-08-18, #1757); wording flattens with the schema.
@@ -489,18 +679,27 @@ export const mergeBsDataWarscrolls = (
             factChecksum: option.factChecksum,
           }
         } else {
-          const unit = officialUnits.find(
+          const seasonalName = source.seasonalOfficialNamesBySection?.[fact.section]
+          const units = officialUnits.filter(
             candidate =>
-              candidate.context === 'standard' && canonical(candidate.name) === canonical(fact.name)
+              candidate.context === (seasonalName ? 'seasonal' : 'standard') &&
+              canonical(candidate.name) === canonical(seasonalName ?? fact.name) &&
+              (!source.faction || canonical(candidate.faction) === canonical(source.faction))
           )
-          if (!unit) {
+          if (!units.length) {
             // Legacy three-tier gate (superseded 2026-08-18, #1757); wording flattens with the schema.
             throw new Error(
               `BSData warscroll ${fact.name} has no matching effective official unit fact; ` +
                 'the community fallback tier requires an official publication establishing the content'
             )
           }
-          official = unit
+          if (units.length > 1) {
+            throw new Error(
+              `BSData warscroll ${fact.name} matches ${units.length} effective official unit facts; ` +
+                'name the reviewed source faction'
+            )
+          }
+          official = units[0]
         }
         /**
          * A rewrite replaces an accepted Wahapedia datasheet (issue #1850): the community record
@@ -571,7 +770,10 @@ export const mergeBsDataWarscrolls = (
             officialSourceRecordId: official.sourceRecordId,
           })
         }
-        const contextKinds: NonNullable<WahapediaRecordMeta['rulesContextKinds']> = ['standard']
+        const contextKinds: NonNullable<WahapediaRecordMeta['rulesContextKinds']> = source
+          .seasonalOfficialNamesBySection?.[fact.section]
+          ? ['seasonal']
+          : ['standard']
         const identityFor = (recordSourceId: SourceRecordId): SourceRecordId => {
           // Identity aliases must survive BSData refreshes: strip the artifact checksum and key the
           // alias on the repository and catalogue section instead.
@@ -765,20 +967,36 @@ export interface BsDataRegimentOfRenownSourceInput {
   facts: BsDataRegimentOfRenownFact[]
   /** Official page source records that establish this content (the printed regiment rules). */
   officialSourceRecordIds: SourceRecordId[]
+  /**
+   * Reviewed faction whose warscrolls the members are (#1757): Khazalite Holds re-publishes
+   * Fyreslayers units under the same names, so members resolve within this faction only.
+   */
+  faction?: string
 }
 
 const INCLUSION_NOTE = /^This Regiment of Renown can be included in the following factions: (.+)\.$/
 
 /** `• 1 Mancrusher Gargant` → `{ name: 'Mancrusher Gargant', count: 1 }`. */
 const officialMembers = (fact: GamesWorkshopRegimentOfRenownFact): Array<{ name: string; count: number }> =>
-  fact.unitSummary.map(line => {
-    const match = line.trim().match(/^•\s*(\d+)\s+(.+)$/)
-    if (!match) {
+  fact.unitSummary.flatMap(line => {
+    // October 2026 rows print every member on one wrapped line, sized as units:
+    // "• 1 Runewright • 1 Clanshields unit with 10 models" (#1757).
+    const members = line.split('•').map(part => part.trim())
+    if (members.shift() !== '' || !members.length) {
       throw new Error(
         `Official regiment ${fact.name} lists an unreadable member line ${JSON.stringify(line)}`
       )
     }
-    return { name: match[2].trim(), count: Number.parseInt(match[1], 10) }
+    return members.map(member => {
+      const match = member.match(/^(\d+)\s+(.+?)(?:\s+unit(?:\s+(with\s+.+?))?\s+with\s+\d+\s+models)?$/)
+      if (!match) {
+        throw new Error(`Official regiment ${fact.name} lists an unreadable member ${JSON.stringify(member)}`)
+      }
+      return {
+        name: [match[2], match[3]].filter(Boolean).join(' ').trim(),
+        count: Number.parseInt(match[1], 10),
+      }
+    })
   })
 
 const memberKey = (members: Array<{ name: string; count: number }>): string =>
@@ -885,12 +1103,17 @@ export const mergeBsDataRegimentsOfRenown = (
               `organisation ${memberKey(members)}`
           )
         }
+        const memberFactionIds = source.faction ? factionsByName.get(canonical(source.faction)) : undefined
+        if (source.faction && memberFactionIds?.length !== 1) {
+          throw new Error(`BSData regiment ${fact.name} names an unknown member faction ${source.faction}`)
+        }
         const memberRecords = members.map(member => {
           const candidates = dataset.warscrolls.filter(
             record =>
               !record.regimentOfRenown &&
               canonical(record.name) === canonical(member.name) &&
-              (record.meta.rulesContextKinds ?? []).includes('standard')
+              (record.meta.rulesContextKinds ?? []).includes('standard') &&
+              (!memberFactionIds || record.factionId === memberFactionIds[0])
           )
           if (candidates.length !== 1) {
             throw new Error(

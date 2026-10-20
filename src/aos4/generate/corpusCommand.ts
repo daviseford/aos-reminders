@@ -465,6 +465,11 @@ const extractCommunityWarscrollFacts = async (
     const terrainAnchorSections = source.units
       .filter(unit => unit.anchor === 'faction-terrain')
       .map(unit => unit.section)
+    const seasonalOfficialNamesBySection = Object.fromEntries(
+      source.units.flatMap(unit =>
+        unit.context === 'seasonal' ? [[unit.section, unit.officialName ?? unit.name] as const] : []
+      )
+    )
     inputs.push({
       artifact: source.artifact,
       repository: source.repository,
@@ -473,6 +478,8 @@ const extractCommunityWarscrollFacts = async (
       ...(Object.keys(replacesBySection).length ? { replacesBySection } : {}),
       ...(Object.keys(renamesBySection).length ? { renamesBySection } : {}),
       ...(terrainAnchorSections.length ? { terrainAnchorSections } : {}),
+      ...(source.faction ? { faction: source.faction } : {}),
+      ...(Object.keys(seasonalOfficialNamesBySection).length ? { seasonalOfficialNamesBySection } : {}),
     })
   }
   return inputs
@@ -497,6 +504,7 @@ const extractCommunityFactionOptionFacts = async (
         groupName: option.groupName,
         ...(option.faction ? { faction: option.faction } : {}),
         ...(option.typeSourceRecordId ? { typeSourceRecordId: option.typeSourceRecordId } : {}),
+        ...(option.groupId ? { groupId: option.groupId } : {}),
       }))
     )
     const errors = extracted.diagnostics.filter(diagnostic => diagnostic.severity === 'error')
@@ -518,11 +526,19 @@ const extractCommunityFactionOptionFacts = async (
         )
       }
     })
+    const createsTypeSections = options.filter(option => option.createsType).map(option => option.section)
+    const seasonalSections = options
+      .filter(option => option.context === 'seasonal')
+      .map(option => option.section)
     inputs.push({
       artifact: source.artifact,
       repository: source.repository,
       facts: extracted.facts,
       officialSourceRecordIds: source.officialSourceRecordIds,
+      ...(source.faction ? { faction: source.faction } : {}),
+      ...(createsTypeSections.length ? { createsTypeSections } : {}),
+      ...(seasonalSections.length ? { seasonalSections } : {}),
+      ...(source.armyOfRenown ? { armyOfRenown: source.armyOfRenown } : {}),
     })
   }
   return inputs
@@ -567,6 +583,7 @@ const extractCommunityRegimentOfRenownFacts = async (
       repository: source.repository,
       facts: extracted.facts,
       officialSourceRecordIds: source.officialSourceRecordIds,
+      ...(source.faction ? { faction: source.faction } : {}),
     })
   }
   return inputs
@@ -1356,8 +1373,20 @@ export const loadAcceptedCorpusSourceData = async (
         ])
     )
   )
-  const communityMerged = mergeBsDataWarscrolls(
+  // A faction known first from its official Spearhead pack must exist before community sources
+  // that supply its matched-play rules can resolve it (#1757).
+  const matchedPlayFactionNames = new Set(
+    review.officialDocuments.flatMap(document =>
+      document.documentKind === 'battle-profile-supplement' && document.faction ? [document.faction] : []
+    )
+  )
+  const spearheadsMerged = mergeOfficialSpearheads(
     merged.dataset,
+    officialSpearheadSources,
+    matchedPlayFactionNames
+  )
+  const communityMerged = mergeBsDataWarscrolls(
+    spearheadsMerged,
     merged.reconciliation,
     communitySources,
     officialBattleProfiles.effective
@@ -1382,7 +1411,7 @@ export const loadAcceptedCorpusSourceData = async (
     acceptedDecoded: decoded,
     decoded: {
       ...decoded,
-      dataset: mergeOfficialSpearheads(communityRegimentsMerged.dataset, officialSpearheadSources),
+      dataset: communityRegimentsMerged.dataset,
     },
     officialBattleProfiles,
     reconciliation: communityRegimentsMerged.reconciliation,
