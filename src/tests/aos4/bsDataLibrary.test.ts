@@ -269,6 +269,65 @@ describe('BSData community-tier catalogue extraction', () => {
       )
     ).toThrow(/no matching effective official unit fact/)
   })
+
+  it('anchors on the reviewed faction when two factions print a unit of the same name (#1757)', () => {
+    const extraction = extractBsDataWarscrolls(encode(FIXTURE), CHECKSUM, ['Testfist Brute'])
+    const official = (faction: string, points: number): GamesWorkshopUnitProfileFact => ({
+      kind: 'unit',
+      key: `page:1:unit:${faction}`,
+      page: 1,
+      row: 1,
+      faction,
+      context: 'standard',
+      name: 'Testfist Brute',
+      unitSize: 1,
+      points,
+      regimentOptions: [],
+      relevantKeywords: [],
+      notes: [],
+      baseSizes: ['60mm'],
+      sourceRecordId: `source-record:games-workshop:${faction}` as never,
+      factChecksum: `official-${faction}`,
+    })
+    // The older faction's row comes first, as Fyreslayers precedes Khazalite Holds.
+    const officialFacts = [official('Old Faction', 100), official('New Faction', 150)]
+    const dataset = () =>
+      ({
+        factions: [
+          { id: 'OLD', name: 'Old Faction', link: '', meta: {} as never },
+          { id: 'NEW', name: 'New Faction', link: '', meta: {} as never },
+        ],
+        warscrolls: [],
+        warscrollAbilities: [],
+        warscrollWeapons: [],
+        warscrollKeywords: [],
+        warscrollBases: [],
+      }) as unknown as WahapediaDataset
+    const reconciliation: WahapediaHtmlReconciliation = {
+      schemaVersion: 1,
+      pages: 0,
+      matchedOfficialUnitFacts: 0,
+      unmatchedOfficialUnitFacts: [],
+      discrepancies: [],
+    }
+    const source = (faction?: string) => [
+      {
+        artifact: { checksum: CHECKSUM, finalUrl: 'https://example.invalid/x' } as never,
+        repository: 'BSData/test',
+        facts: extraction.facts,
+        officialSourceRecordIds: [officialFacts[1].sourceRecordId],
+        ...(faction ? { faction } : {}),
+      },
+    ]
+    expect(() => mergeBsDataWarscrolls(dataset(), reconciliation, source(), officialFacts)).toThrow(
+      /matches 2 effective official unit facts/
+    )
+    const merged = mergeBsDataWarscrolls(dataset(), reconciliation, source('New Faction'), officialFacts)
+    expect(merged.dataset.warscrolls[0]).toMatchObject({ factionId: 'NEW', cost: '150' })
+    expect(merged.dataset.warscrolls[0].meta.officialSourceRecordIds).toEqual([
+      'source-record:games-workshop:New Faction',
+    ])
+  })
 })
 
 describe('the standing fallback-tier policy record in the accepted review', () => {

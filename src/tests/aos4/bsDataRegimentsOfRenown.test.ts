@@ -378,4 +378,37 @@ describe('BSData Regiment of Renown merge (issue #1999, Krong the Club)', () => 
     ])
     expect(() => merge(duplicate, [official()])).toThrow(/duplicate-regiment-of-renown-source/)
   })
+
+  it('reads the October 2026 one-line, unit-sized organisation (#1757)', () => {
+    const oneLine = (unitSummary: string) => official({ unitSummary: [unitSummary] })
+    expect(
+      merge(dataset(), [oneLine('• 1 Mancrusher Gargant unit with 1 models')]).dataset.warscrolls
+    ).toHaveLength(4)
+    expect(() => merge(dataset(), [oneLine('• 1 Mancrusher Gargant • 1 Gatebreaker Mega-Gargant')])).toThrow(
+      /members/
+    )
+    expect(() => merge(dataset(), [oneLine('1 Mancrusher Gargant')])).toThrow(/unreadable member line/)
+  })
+
+  it('resolves members within the reviewed faction when two factions share a unit name (#1757)', () => {
+    const shared = dataset([warscroll('fyr-mancrusher', 'Mancrusher Gargant', 'IJ', ['standard'])])
+    expect(() => merge(shared, [official()])).toThrow(/current-standard warscroll/)
+    const merged = mergeBsDataRegimentsOfRenown(
+      shared,
+      reconciliation,
+      [
+        {
+          artifact,
+          repository: 'BSData/test',
+          facts: extracted(),
+          officialSourceRecordIds: [PAGE_FIVE],
+          faction: 'Sons of Behemat',
+        },
+      ],
+      [official()]
+    )
+    expect(
+      merged.dataset.warscrolls.find(record => record.name === 'Krong the Club')?.regimentOfRenownMemberIds
+    ).toEqual(['bsdata-mancrusher'])
+  })
 })
