@@ -320,9 +320,14 @@ describe('Sons of Behemat battletome on the re-pinned Wahapedia pages (issue #19
     )
   })
 
-  it('keeps no BSData catalogue in the corpus', () => {
+  it('keeps no Sons of Behemat BSData catalogue in the corpus', () => {
+    // Corpus 2026-10-26 (#2087) pins only the BSData khazalite-holds branch.
+    const khazaliteCommits =
+      /\/(5e52e2a5fbc41a594c9c8bd7c256d00286e39572|ea96eba39cf280633f4cb13e2df05de358ed729a)\//
     expect(
-      AOS4_FULL_CATALOG.sourceArtifacts.filter(artifact => artifact.authority.kind === 'community')
+      AOS4_FULL_CATALOG.sourceArtifacts.filter(
+        artifact => artifact.authority.kind === 'community' && !khazaliteCommits.test(artifact.sourceUrl)
+      )
     ).toEqual([])
   })
 })

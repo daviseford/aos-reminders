@@ -59,7 +59,8 @@ const offeringFactionNames = (groupId: string): string[] => {
 
 describe('Regiments of Renown in the corpus (issue #1858)', () => {
   it('classifies every source-classified Regiment of Renown with reviewed evidence', () => {
-    expect(regimentRoots).toHaveLength(78)
+    // Corpus 2026-10-26 (#2087) adds Khazalite Holds' Fjori’s Vengeance and Thengin’s Grudgesettlers.
+    expect(regimentRoots).toHaveLength(80)
     const review = JSON.parse(readFileSync(REVIEW_PATH, 'utf8')) as {
       regimentsOfRenown: Array<{
         officialSourceRecordIds: string[]
@@ -460,10 +461,12 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
     const rows = catalog.records.filter(record => record.fact.kind === 'regiment-of-renown')
     // From corpus 2026-09-29 (#1757) the page 59 Stumblefoot Gargant row, printed DELETED and
     // struck through, is no longer extracted as a fact.
-    expect(rows).toHaveLength(74)
+    // From corpus 2026-10-26 (#2087) Battle Profiles - Khazalite Holds (October 2026) page 3 adds
+    // four rows and, as the newer document, supersedes the September core rows for the two it reprints.
+    expect(rows).toHaveLength(78)
     expect(rows.map(record => record.fact.name)).not.toContain('Stumblefoot Gargant')
     const applied = rows.filter(record => record.disposition === 'applied-to-runtime')
-    expect(applied).toHaveLength(74)
+    expect(applied).toHaveLength(76)
     // From corpus 2026-09-23 (#1757) the September 2026 core Battle Profiles is the single
     // battle-profile source: it re-publishes the four Sons of Behemat regiment rows and Krong the
     // Club, so nothing is superseded, and the July 2026 Ogor Mawtribes supplement's two regiments
@@ -471,7 +474,12 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
     // that supplement. From corpus 2026-09-24 (#1999) Krong the Club's row applies too, since its
     // rules text ships from the pinned BSData Regiments of Renown catalogue, so no regiment row
     // remains a structured reference.
-    expect(rows.filter(record => record.disposition === 'superseded')).toEqual([])
+    expect(
+      rows
+        .filter(record => record.disposition === 'superseded')
+        .map(record => record.fact.name)
+        .sort()
+    ).toEqual(['Fjori’s Flamebearers', 'Gotrek Gurnisson'])
     expect(
       rows
         .filter(record => record.disposition === 'structured-reference')

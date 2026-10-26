@@ -1120,7 +1120,7 @@
       "sourceRecordId": "source-record:bsdata:17568f98d5530649f2a3a51c4da90b8bd7649db1fff58c252a090cc0ef767888%3Aarmy-of-renown%3Afyrdoffyrepeak",
       "evidenceTier": "secondary-provisional",
       "officialSourceRecordIds": [],
-      "reason": "Battletome: Khazalite Holds Army of Renown, transcribed in the pinned BSData Fyrd of Fyrepeak catalogue (BSData/age-of-sigmar-4th#1397); no free official document names it. Classified on that catalogue's own Army of Renown root."
+      "reason": "Battletome: Khazalite Holds Army of Renown, transcribed in the pinned BSData Fyrd of Fyrepeak catalogue (BSData/age-of-sigmar-4th#1397); no free official document names it. Classified provisionally on the catalogue's own Army of Renown root, the secondary source's own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry."
     },
     {
       "sourceRecordId": "source-record:bsdata:2427ed7e1384c24bb86041137de36947391f9680b5baa35d1c0e9618e5cbfd0d%3Aarmy-of-renown%3Athrongankoralliance",
@@ -1148,7 +1148,7 @@
         "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fkharadron-overlords%2Fwarscrolls.html%23datasheet%3AScourge-of-Aqshy-Endrinriggers%2Fwarscroll",
         "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fkharadron-overlords%2Fwarscrolls.html%23datasheet%3AScourge-of-Aqshy-Null-Khemist%2Fwarscroll"
       ],
-      "reason": "Battletome: Khazalite Holds Army of Renown, transcribed in the pinned BSData Throngankor Alliance catalogue (BSData/age-of-sigmar-4th#1397); no free official document names it. Its roster admits Kharadron Overlords units: the catalogue links them from the Kharadron Overlords library, and the root offers the 20 accepted current and General's Handbook 2026-27 Kharadron Overlords warscrolls it lists. Not offered: the two Scourge of Ghyran copies (past-season content) and Thundrik's Profiteers (Legends)."
+      "reason": "Battletome: Khazalite Holds Army of Renown, transcribed in the pinned BSData Throngankor Alliance catalogue (BSData/age-of-sigmar-4th#1397); no free official document names it. Its roster admits Kharadron Overlords units: the catalogue links them from the Kharadron Overlords library, and the root offers the 20 accepted current and General's Handbook 2026-27 Kharadron Overlords warscrolls it lists. Not offered: the two Scourge of Ghyran copies (past-season content) and Thundrik's Profiteers (Legends). Classified provisionally on the secondary source's own classification under the three-tier source policy (owner ruling 2026-08-01, daviseford/aos-reminders#1812, extended for #1844); an accepted official document naming the army verifies or corrects the entry."
     }
   ],
   "communityWarscrollSources": [

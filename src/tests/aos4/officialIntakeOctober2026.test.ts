@@ -7,6 +7,7 @@ import {
   type Ability,
   type CanonicalId,
   type ContentEntity,
+  type Faction,
   type Warscroll,
 } from '../../aos4/domain'
 import { AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
@@ -56,7 +57,7 @@ const entityNamed = (kind: string, name: string) =>
   entities.find(entity => entity.kind === kind && entity.name === name)
 const spearhead = AOS4_FULL_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
 const khazaliteHolds = entities.find(
-  entity => entity.kind === 'faction' && entity.name === 'Khazalite Holds'
+  (entity): entity is Faction => entity.kind === 'faction' && entity.name === 'Khazalite Holds'
 )!
 const related = (kind: string, from: string) =>
   AOS4_FULL_CATALOG.relationships
@@ -325,7 +326,9 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
       // The Khazalite Holds profiles print 110 for both heroes; they apply to the Khazalite Holds
       // copies only. The Fyreslayers warscrolls keep their own profiles and points.
       const points = (name: string, faction: string) => {
-        const factionId = entities.find(entity => entity.kind === 'faction' && entity.name === faction)!.id
+        const factionId = entities.find(
+          (entity): entity is Faction => entity.kind === 'faction' && entity.name === faction
+        )!.id
         const warscroll = entities.find(
           entity =>
             entity.kind === 'warscroll' && entity.name === name && entity.factionIds.includes(factionId)
