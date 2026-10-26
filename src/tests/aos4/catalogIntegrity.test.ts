@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-20b.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-26.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-20b-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-26-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -219,8 +219,8 @@ describe('AoS 4 catalog generation integrity', () => {
     // English source prints them. Everything else stays fully consumed.
     const translated = [
       'source-record:bsdata:2427ed7e1384c24bb86041137de36947391f9680b5baa35d1c0e9618e5cbfd0d%3Aoption%3Abattle-traits-throngankor-alliance%3Aability%3A4',
-      'source-record:bsdata:253a863e3df467d798bd91e2012bba89cfcdb349f36b4623f3780bdd686eeb0c%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2',
-      'source-record:bsdata:6f54b2108ba7fecfe6fb45c3ca4d70cbc373341a435df564f49373d9a82f655a%3Aoption%3Abattle-traits-khazalite-holds%3Aability%3A8',
+      'source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2',
+      'source-record:bsdata:299110685cdbabc36b3b7b8bae6650a391de8f971d244be79fc902e309f4ef4a%3Aoption%3Abattle-traits-khazalite-holds%3Aability%3A8',
     ]
     expect(report.integrity.dispositions).toHaveLength(9)
     report.integrity.dispositions.forEach(disposition => {
@@ -322,6 +322,8 @@ describe('AoS 4 catalog generation integrity', () => {
     ).toHaveLength(161)
     // Corpus 2026-10-20b (#2087) pins six Khazalite Holds catalogues from the unmerged BSData
     // `khazalite-holds` branch at 5e52e2a5, provisional until `main` or Wahapedia carries them.
+    // Corpus 2026-10-26 re-pins the two catalogues that changed upstream (the library and the faction
+    // catalogue) to ea96eba3; the other four are byte-identical there and stay at 5e52e2a5.
     // Before that, no commit-pinned BSData catalogue remained. The Stormcast library, the three Ogor catalogues,
     // the three Sons of Behemat `gargants`-branch catalogues, and the Regiments of Renown catalogue
     // that carried Krong the Club's rules text (issue #1999) all retired once a pinned Wahapedia
@@ -340,9 +342,12 @@ describe('AoS 4 catalog generation integrity', () => {
       'Lores.cat',
       'Regiments of Renown.cat',
     ])
+    const repinned = ['Khazalite Holds - Library.cat', 'Khazalite Holds.cat']
     bsDataArtifacts.forEach(artifact =>
       expect(artifact.finalUrl).toContain(
-        '/BSData/age-of-sigmar-4th/5e52e2a5fbc41a594c9c8bd7c256d00286e39572/'
+        repinned.includes(decodeURIComponent(artifact.finalUrl.split('/').pop()!))
+          ? '/BSData/age-of-sigmar-4th/ea96eba39cf280633f4cb13e2df05de358ed729a/'
+          : '/BSData/age-of-sigmar-4th/5e52e2a5fbc41a594c9c8bd7c256d00286e39572/'
       )
     )
     const htmlArtifacts = acceptedManifest.artifacts.filter(

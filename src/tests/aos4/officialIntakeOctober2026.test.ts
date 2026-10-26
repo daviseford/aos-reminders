@@ -340,5 +340,18 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
       expect(points('Auric Flamekeeper', 'Khazalite Holds')).toBe(110)
       expect(points('Grimhold Exile', 'Khazalite Holds')).toBe(110)
     })
+
+    it('follows the ea96eba3 BSData correction for Thrynn only (corpus 2026-10-26)', () => {
+      // BSData ea96eba3 dropped Companion from Thrynn on War Throne's Karak War Council's Armoury but
+      // still prints it on High Kyng Valankrom's. No official source prints either, so both stay as
+      // BSData records them, and the canonical weapon IDs are unchanged.
+      const keywords = (id: string) => {
+        const weapon = entityById.get(id as never)!
+        expect(weapon.name).toBe("Karak War Council's Armoury")
+        return weapon.kind === 'weapon' ? weapon.keywords.map(keyword => keyword.kind) : undefined
+      }
+      expect(keywords('weapon:c3948477-8a8f-5c39-8847-cca7ebdf7e10')).toEqual([])
+      expect(keywords('weapon:d4786c12-fe78-5ab8-b391-aeb255239457')).toEqual(['companion'])
+    })
   })
 })
