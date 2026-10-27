@@ -76,16 +76,15 @@ describe('the September 2026 Sons of Behemat battle-profile supplement (#1757)',
     stoneLobbas.forEach(group => expect(group.rulesContextIds).toEqual([spearhead.id]))
   })
 
-  it('records a reviewed deviation for only The Emberwatch, now that the battletome units ship', () => {
+  it('records no profile-only deviation once the battletome units and The Emberwatch ship', () => {
     const ledger = JSON.parse(
       readFileSync(
         path.join(process.cwd(), 'data', 'aos4', 'reviews', 'profile-only-deviations.json'),
         'utf8'
       )
     ) as { deviations: Array<{ faction: string; name: string }> }
-    expect(ledger.deviations.map(deviation => `${deviation.faction}: ${deviation.name}`).sort()).toEqual([
-      'Warhammer Legends: The Emberwatch',
-    ])
+    // The Emberwatch retired from the ledger in corpus 2026-10-27 (#1757).
+    expect(ledger.deviations).toEqual([])
   })
 
   it('carries the September 2026 Sons of Behemat publications as accepted official artifacts', () => {

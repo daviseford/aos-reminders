@@ -171,6 +171,24 @@ describe('Wahapedia warscroll HTML decoding', () => {
     expect(String(first.page?.abilities[0].meta.sourceRecordId)).toContain('ability%3A1')
   })
 
+  it('skips the errata panel the 2026-10-22 pages print under a datasheet (#1757)', () => {
+    // The panel re-renders the changed card with an empty timing bar and no keyword strip pairing.
+    const panel = `
+      <div class="Columns2 faqErrataColumns"><div class="faqErrataCol"><div class="errata">
+        Change 'Stalwart Defenders' to:
+        <table><tbody><tr><td class="abHeader" bgcolor=""><img class="abLogo"></td></tr></tbody></table>
+        <div class="abBody"><b>STALWART DEFENDERS</b><br><b>Effect:</b> Add 3 to this unit's control score.</div>
+        <table><tbody><tr><td class="abHeader" bgcolor=""><img class="abLogo"></td></tr></tbody></table>
+      </div></div></div>
+    `
+    const result = parseWahapediaWarscrollHtml(
+      input(warscrollHtml().replace('</section>', `${panel}</section>`))
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.page?.abilities.map(ability => ability.name)).toEqual(['Stalwart Defenders'])
+  })
+
   describe('ability cost badges', () => {
     it.each([
       ['1', undefined, 'Command', '1'],
@@ -639,6 +657,65 @@ describe('Wahapedia warscroll HTML decoding', () => {
     const marked = groupByExternalId.get('Ruination-Brotherhood')!
     const unmarkedTwin = groupByExternalId.get('Scars-of-War')!
     expect(Object.keys(marked.meta)).toEqual(Object.keys(unmarkedTwin.meta))
+  })
+
+  it('skips the FAQ/Errata notes the 2026-10-22 pages embed after sections (#1757)', () => {
+    const ability = (timing: string, name: string) => `
+      <table><tr><td class="abHeader">${timing}</td></tr></table>
+      <div class="abBody"><b>${name}:</b><b>Effect:</b> Resolve ${name}.</div>
+    `
+    // A note can restate a card with a header but no body, which must not shift the pairing.
+    const notes = `
+      <div class="faqErrataSpoiler faqErrataCollapsed">
+        <div class="faqErrataHead"><h3>Errata</h3></div>
+        <div class="faqErrataSpoilerBody">
+          <div class="errata_H">Spell Lore</div><div class="errata">Change the effect to: ‘New text.’</div>
+          <table><tr><td class="abHeader">Once Per Turn, Your Hero Phase</td></tr></table>
+        </div>
+      </div>
+      <div class="faqErrataSpoiler">
+        <div class="faqErrataHead"><h3>FAQ</h3></div>
+        <div class="faqErrataSpoilerBody">${ability('Passive', 'Restated Card')}</div>
+      </div>
+    `
+    const faction = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">Stormcast Eternals</span></h1>
+        <a name="Faction-Rules"></a><h2>Faction Rules</h2>
+        <a name="Battle-Traits"></a><h2>Battle Traits</h2>
+        ${ability('Your Hero Phase', 'Their Finest Hour')}
+        ${notes}
+        ${ability('Passive', 'Shock and Awe')}
+      </body></html>
+    `)
+    faction.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/stormcast-eternals/'
+    faction.artifact.finalUrl = faction.artifact.requestUrl
+    const rules = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">The Core Rules</span></h1>
+        <a name="Movement-Phase"></a><h2>14.1 Movement Phase</h2>
+        ${ability('Your Movement Phase', 'Normal Move')}
+        ${notes}
+        ${ability('Your Movement Phase', 'Run')}
+      </body></html>
+    `)
+    rules.artifact.requestUrl = 'https://wahapedia.ru/aos4/the-rules/the-core-rules/'
+    rules.artifact.finalUrl = rules.artifact.requestUrl
+
+    const factionResult = parseWahapediaFactionHtml(faction)
+    expect(factionResult.diagnostics).toEqual([])
+    expect(factionResult.page?.groups.map(group => group.name)).toEqual(['Battle Traits'])
+    expect(factionResult.page?.abilities.map(record => [record.name, record.groupExternalId])).toEqual([
+      ['Their Finest Hour', 'Battle-Traits'],
+      ['Shock and Awe', 'Battle-Traits'],
+    ])
+
+    const rulesResult = parseWahapediaRulesHtml(rules)
+    expect(rulesResult.diagnostics).toEqual([])
+    expect(rulesResult.page?.abilities.map(record => [record.name, record.groupExternalId])).toEqual([
+      ['Normal Move', 'Movement-Phase'],
+      ['Run', 'Movement-Phase'],
+    ])
   })
 
   it('decodes universal rules without retaining example-only ability cards', () => {

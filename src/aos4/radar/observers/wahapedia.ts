@@ -3,6 +3,7 @@ import {
   discoverWahapediaExportUrls,
   discoverWahapediaNavFragmentUrl,
   discoverWahapediaNavigation,
+  WAHAPEDIA_GLOSSARY_URL,
 } from '../../review/wahapediaObservation'
 import { compareWahapediaObservation, createRadarLane } from '../compare'
 import type { RulesRadarConfig } from '../config'
@@ -174,6 +175,21 @@ export const observeWahapediaRadar = async (
     })
     decodeText(lastUpdate, 'Wahapedia Last_update.csv')
 
+    // The glossary is reviewed only at exact bytes, so it is fingerprinted by content, not by URL.
+    // Navigation links it without the trailing slash the page redirects to.
+    const isGlossary = (url: string): boolean =>
+      url.replace(/\/$/, '') === WAHAPEDIA_GLOSSARY_URL.replace(/\/$/, '')
+    let glossaryFingerprint: string | undefined
+    if (navigation.rulesPages.some(entry => isGlossary(entry.url))) {
+      assertAllowed(WAHAPEDIA_GLOSSARY_URL)
+      const glossary = await fetch({
+        url: WAHAPEDIA_GLOSSARY_URL,
+        allowedMediaTypes: ['text/html'],
+        maxBytes: 16 * 1024 * 1024,
+      })
+      glossaryFingerprint = glossary.checksum.toLowerCase()
+    }
+
     const navigationEntries: WahapediaRadarObservationEntry[] = [
       ...navigation.factionPages.map(entry => ({
         kind: 'faction' as const,
@@ -185,7 +201,8 @@ export const observeWahapediaRadar = async (
         kind: 'rules-page' as const,
         locator: entry.url,
         title: entry.title,
-        fingerprint: navigationFingerprint({ locator: entry.url }),
+        fingerprint:
+          (isGlossary(entry.url) && glossaryFingerprint) || navigationFingerprint({ locator: entry.url }),
       })),
       {
         kind: 'export',

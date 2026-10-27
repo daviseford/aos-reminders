@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import type { ArtifactManifest, ArtifactManifestEntry } from '../data'
 import { stableCompactJson } from '../generate/serialization'
+import { WAHAPEDIA_GLOSSARY_FINGERPRINT, WAHAPEDIA_GLOSSARY_URL } from '../review/wahapediaObservation'
 import {
   RADAR_AUTHORITY_BY_SOURCE,
   RADAR_MATERIAL_CHANGE_KINDS,
@@ -359,8 +360,18 @@ export const compareWahapediaObservation = ({
   const observedByUrl = new Map(entries.map(entry => [entry.locator, entry]))
   const events: RadarEvent[] = []
 
+  const glossaryLocator = normalizedWahapediaUrl(WAHAPEDIA_GLOSSARY_URL)
   entries.forEach(entry => {
     const baseline = acceptedByUrl.get(entry.locator)
+    // Unpinned but reviewed non-material at these exact bytes; other or missing bytes stay material.
+    if (
+      !baseline &&
+      entry.kind === 'rules-page' &&
+      entry.locator === glossaryLocator &&
+      entry.fingerprint === WAHAPEDIA_GLOSSARY_FINGERPRINT
+    ) {
+      return
+    }
     const checksContentFingerprint = entry.kind === 'export' || observation.scope === 'full'
     if (!baseline || (checksContentFingerprint && baseline.checksum.toLowerCase() !== entry.fingerprint)) {
       events.push(

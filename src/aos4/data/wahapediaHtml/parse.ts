@@ -31,6 +31,13 @@ const repairMojibake = (value: string): string =>
     .replace(/Ã—/g, '×')
     .replace(/Â(?=[\s"'’“”])/g, '')
 
+// From the 2026-10-22 publish, pages embed FAQ/Errata notes: collapsible `.faqErrataSpoiler` blocks
+// after faction and rules sections, and `.faqErrataColumns` panels under datasheets. They quote the
+// official FAQ/errata and re-render the affected cards, often without a timing bar. The cards
+// themselves stay the rules source, so nothing inside a note is parsed as a rule.
+const outsideFaqErrata = (element: Element): boolean =>
+  !element.closest('.faqErrataSpoiler, .faqErrataColumns')
+
 const normalizedText = (element: Element | null | undefined): string =>
   repairMojibake(
     element?.textContent
@@ -336,8 +343,8 @@ const abilityRecords = (
   diagnostics: WahapediaHtmlDiagnostic[],
   scope?: string
 ): WahapediaHtmlAbilityRecord[] => {
-  const headers = Array.from(root.querySelectorAll('.abHeader:not(.abKeywordsBody)'))
-  const bodies = Array.from(root.querySelectorAll('.abBody'))
+  const headers = Array.from(root.querySelectorAll('.abHeader:not(.abKeywordsBody)')).filter(outsideFaqErrata)
+  const bodies = Array.from(root.querySelectorAll('.abBody')).filter(outsideFaqErrata)
   if (headers.length !== bodies.length) {
     diagnostics.push({
       code: 'ability-pair-mismatch',
@@ -905,8 +912,10 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     return result
   }
 
-  const headers = Array.from(document.querySelectorAll('.abHeader:not(.abKeywordsBody)'))
-  const bodies = Array.from(document.querySelectorAll('.abBody'))
+  const headers = Array.from(document.querySelectorAll('.abHeader:not(.abKeywordsBody)')).filter(
+    outsideFaqErrata
+  )
+  const bodies = Array.from(document.querySelectorAll('.abBody')).filter(outsideFaqErrata)
   if (headers.length !== bodies.length) {
     decoded.diagnostics.push({
       code: 'ability-pair-mismatch',
@@ -989,7 +998,7 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
   }
 
   for (const node of Array.from(document.querySelectorAll('h1, h2, h3, .abHeader:not(.abKeywordsBody)'))) {
-    if (node.closest('.tooltip_templates')) continue
+    if (node.closest('.tooltip_templates') || !outsideFaqErrata(node)) continue
     const text = normalizedText(node)
     if (node.matches('h2')) {
       if (/^Faction Rules$/i.test(text)) {
@@ -1157,8 +1166,10 @@ export const parseWahapediaRulesHtml = (input: WahapediaHtmlInput): WahapediaHtm
     return result
   }
 
-  const headers = Array.from(document.querySelectorAll('.abHeader:not(.abKeywordsBody)'))
-  const bodies = Array.from(document.querySelectorAll('.abBody'))
+  const headers = Array.from(document.querySelectorAll('.abHeader:not(.abKeywordsBody)')).filter(
+    outsideFaqErrata
+  )
+  const bodies = Array.from(document.querySelectorAll('.abBody')).filter(outsideFaqErrata)
   if (headers.length !== bodies.length) {
     decoded.diagnostics.push({
       code: 'ability-pair-mismatch',
@@ -1217,7 +1228,7 @@ export const parseWahapediaRulesHtml = (input: WahapediaHtmlInput): WahapediaHtm
   }
 
   for (const node of Array.from(document.querySelectorAll('h2, h3, .abHeader:not(.abKeywordsBody)'))) {
-    if (node.closest('.tooltip_templates')) continue
+    if (node.closest('.tooltip_templates') || !outsideFaqErrata(node)) continue
     const text = normalizedText(node)
     if (node.matches('h2')) {
       if (/^Books$/i.test(text)) {

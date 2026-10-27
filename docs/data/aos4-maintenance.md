@@ -16,29 +16,29 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-10-26 snapshot is defined by:
+The accepted 2026-10-27 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-10-26.json` | the 2026-10-20 manifest (13 Wahapedia exports, 161 official PDFs, 72 reviewed Wahapedia pages, all unchanged) plus six commit-pinned BSData catalogues from the unmerged `khazalite-holds` branch (#2087): `Khazalite Holds - Library.cat` and `Khazalite Holds.cat` at `ea96eba3`, `Khazalite Holds - Fyrd of Fyrepeak.cat`, `Khazalite Holds - Throngankor Alliance.cat`, `Lores.cat` and `Regiments of Renown.cat` at `5e52e2a5`, pinned by SHA-256 as provisional community transcriptions |
-| `data/aos4/reviews/corpus-2026-10-26.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-10-27.json` | the 2026-10-26 manifest with 84 of its 85 Wahapedia artifacts re-pinned to the 2026-10-22 18:12:05 publish (12 of 13 exports and all 72 reviewed pages; `Factions.csv` unchanged); 161 official PDFs unchanged; and the six commit-pinned BSData catalogues from the unmerged `khazalite-holds` branch (#2087): `Khazalite Holds - Library.cat` and `Khazalite Holds.cat` at `ea96eba3`, `Khazalite Holds - Fyrd of Fyrepeak.cat`, `Khazalite Holds - Throngankor Alliance.cat`, `Lores.cat` and `Regiments of Renown.cat` at `5e52e2a5`, pinned by SHA-256 as provisional community transcriptions |
+| `data/aos4/reviews/corpus-2026-10-27.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs; `retired: true` keeps a rule the source no longer prints registered without ever resolving to it |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-10-26-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-10-26-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-10-27-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-10-27-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 29 decoded source factions: 28 playable armies (Khazalite Holds in matched play and Spearhead,
   #2087) plus the Endless Spells container
-- 1,347 warscrolls and 1,051 battle profiles
-- 5,397 abilities
-- 2,344 weapons
-- 1,588 content groups
-- 252 source artifacts and 21,006 live source records
+- 1,362 warscrolls and 1,054 battle profiles
+- 5,443 abilities
+- 2,363 weapons
+- 1,601 content groups
+- 252 source artifacts and 21,153 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -47,12 +47,31 @@ The strict report currently records:
   Rhythmic Hammering (Runewright), whose condition prints no timing label and which no official
   document prints
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,370 extracted GW battle-profile facts: 1,053 applied to runtime, 1 profile-only gap
-  (The Emberwatch), 314 structured references, and 2 superseded (#2087: Battle Profiles - Khazalite
+- 1,370 extracted GW battle-profile facts: 1,054 applied to runtime, no profile-only gap (The
+  Emberwatch, the last one, ships from Wahapedia since corpus 2026-10-27), 314 structured
+  references, and 2 superseded (#2087: Battle Profiles - Khazalite
   Holds (October 2026) reprints the Fjori’s Flamebearers and Gotrek Gurnisson regiment rows, so the
   September 2026 core rows give way to it); text the core Battle Profiles strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
+- the 2026-10-27 Wahapedia refresh (#1757), on top of 2026-10-26: the Rules Radar alarm of
+  2026-10-27 (`Last_update.csv` `b82f1c68...` -> `cc6be68c...`, 2026-10-22 18:12:05). 84 of 85
+  Wahapedia artifacts moved. At page level the change is additive: three new Spearhead armies
+  (Hedonites of Slaanesh Epicurean Revellers and Ogor Mawtribes Warglutt Marauders, whose official
+  Spearhead PDFs were already pinned as reference, and Ogor Mawtribes Mawseeker Mob, which no free
+  official document prints), two historical Scourge of Ghyran Daughters of Khaine warscrolls
+  (Krethusa the Croneseer, Bloodwrack Shrine), The Emberwatch (Legends; its profile-only deviation
+  retired) and the General's Handbook 2024-25 Unbind ability. Three existing records changed: the
+  Akhelian Tide Guard Spearhead Biovoltaic Blast now matches its official Spearhead PDF (page 3;
+  the Soulraid Hunt copy is unchanged), Summon Heart of Fury now reads as the spell its keywords
+  and cost already said (no free official document prints the card), and a Scourge of Ghyran
+  Abhorrant Gorewarden regiment option lost a leaked source marker. Callis and Toll's base size
+  now agrees with the official 28.5mm. The pages now embed FAQ/Errata notes (`.faqErrataSpoiler`
+  blocks and `.faqErrataColumns` datasheet panels) that quote official errata and re-render cards,
+  often without a timing bar; the parser skips them and the cards stay the rules source (see the
+  errata reconciliation in the PR). 29 row-bound decoder policies moved down two rows with
+  unchanged bytes; 127 new identities, 33 re-anchored records rebound onto their existing ids
+  (no shared id changed name)
 - the 2026-10-26 Khazalite Holds matched-play intake (#2087), on top of 2026-10-20: the faction,
   its two Armies of Renown (Fyrd of Fyrepeak, Throngankor Alliance) and two Regiments of Renown
   from the six pinned BSData catalogues, with points, sizes and rosters from Battle Profiles -

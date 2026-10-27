@@ -63,10 +63,18 @@ const factionByName = (name: string): Faction =>
     (entity): entity is Faction => entity.kind === 'faction' && entity.name === name
   )!
 
+const spearheadContextIds = new Set(
+  AOS4_FULL_CATALOG.rulesContexts.filter(context => context.mode === 'spearhead').map(context => context.id)
+)
+
 const warscrollFor = (faction: Faction, name: string): Warscroll | undefined =>
   AOS4_FULL_CATALOG.entities.find(
     (entity): entity is Warscroll =>
-      entity.kind === 'warscroll' && entity.name === name && entity.factionIds.includes(faction.id)
+      entity.kind === 'warscroll' &&
+      entity.name === name &&
+      entity.factionIds.includes(faction.id) &&
+      // Corpus 2026-10-27 adds Spearhead copies named Cleavers and Gutseers (Mawseeker Mob).
+      !entity.rulesContextIds.some(id => spearheadContextIds.has(id))
   )
 
 const documentFor = (faction: Faction, warscroll: Warscroll): Aos4ArmyDocument =>
@@ -289,7 +297,8 @@ describe('Ogor battletome units ship from the verified Wahapedia pages (2026-08-
     // and the counts survived the 2026-08-28b swap to the Wahapedia battletome pages intact.
     expect(byContext(context => context.mode === 'standard' && context.status === 'current')).toBe(54)
     expect(byContext(context => context.status === 'seasonal')).toBe(56)
-    expect(byContext(context => context.mode === 'spearhead')).toBe(9)
+    // Corpus 2026-10-27 (#1757) adds the Warglutt Marauders and Mawseeker Mob Spearheads (8 warscrolls).
+    expect(byContext(context => context.mode === 'spearhead')).toBe(17)
     expect(byContext(context => context.status === 'legends')).toBe(2)
     expect(byContext(context => context.status === 'historical')).toBe(2)
 

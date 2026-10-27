@@ -1,6 +1,6 @@
 {
   "authority": "games-workshop",
-  "generatedAt": "2026-10-26T18:00:00.000Z",
+  "generatedAt": "2026-10-27T14:50:00.000Z",
   "records": [
     {
       "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
@@ -33935,7 +33935,7 @@
     },
     {
       "artifactChecksum": "952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
@@ -38624,9 +38624,9 @@
   ],
   "schemaVersion": 1,
   "summary": {
-    "appliedToRuntime": 1053,
+    "appliedToRuntime": 1054,
     "effective": 1368,
-    "profileOnly": 1,
+    "profileOnly": 0,
     "records": 1370,
     "regimentsOfRenown": 78,
     "rosterOptions": 314,

@@ -131,28 +131,20 @@ describe('the official-first intake gate (#1820)', () => {
   it('accepts the current baseline: the accepted reconciliation passes with the recorded ledger', () => {
     const reconciliation = JSON.parse(
       readFileSync(
-        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-10-20-reconciliation.json'),
+        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-10-27-reconciliation.json'),
         'utf8'
       )
     ) as WahapediaHtmlReconciliation
     const review = JSON.parse(
-      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-20.json'), 'utf8')
+      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-10-27.json'), 'utf8')
     ) as CorpusReview
     const ledger = parseProfileOnlyDeviationLedger(
       JSON.parse(readFileSync(path.join(process.cwd(), DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH), 'utf8'))
     )
-    // The 2026-09-22 population is The Emberwatch only (deferred for its Legends context); the
-    // four September 2026 Battletome: Sons of Behemat units now ship from the pinned BSData
-    // catalogue (issue #1999), leaving the gate's baseline back to its 2026-08-01b size of one.
-    expect(reconciliation.unmatchedOfficialUnitFacts).toHaveLength(1)
-    expect(ledger.deviations).toEqual([
-      expect.objectContaining({
-        faction: 'Warhammer Legends',
-        name: 'The Emberwatch',
-        targetDate: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
-      }),
-    ])
-    expect(ledger.deviations[0].reason).toMatch(/legends/i)
+    // The last deviation, The Emberwatch (Legends), retired in corpus 2026-10-27 (#1757) when
+    // Wahapedia published its warscroll: no official unit fact is profile-only and the ledger is empty.
+    expect(reconciliation.unmatchedOfficialUnitFacts).toHaveLength(0)
+    expect(ledger.deviations).toEqual([])
     expect(
       profileOnlyGateIssues(reconciliation.unmatchedOfficialUnitFacts, ledger, review.officialDocuments)
     ).toEqual([])
