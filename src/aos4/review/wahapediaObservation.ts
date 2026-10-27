@@ -12,12 +12,9 @@ export const WAHAPEDIA_DATA_EXPORT_URL = 'https://wahapedia.ru/aos4/the-rules/da
  * fingerprint stays material. Its definitions are summaries that defer to the rules modules, and 841
  * of its 900 FAQ/Errata sentences are verbatim on the accepted FAQs, core rules or General's Handbook
  * pages. Of the rest, 57 are on other accepted rules pages or official PDFs; one rewords "No, unless"
- * as "No, not unless" and one is a flavour line the catalog does not store.
- *
- * The certified disposition string below overstates this: the app does ship core-rules abilities
- * (taken from those accepted pages), and the page is non-material because it is redundant with them,
- * not because core rules are out of scope. Rewording it changes the certified source inventory, so
- * the correction is deferred to the next certification cycle.
+ * as "No, not unless" and one is a flavour line the catalog does not store. The page is non-material
+ * because it repeats those sources, not because core rules are out of scope (the app ships core-rules
+ * abilities); the disposition says so from corpus 2026-10-27 (#2087).
  */
 export const WAHAPEDIA_GLOSSARY_URL = 'https://wahapedia.ru/aos4/the-rules/glossary/' as const
 export const WAHAPEDIA_GLOSSARY_FINGERPRINT =
@@ -217,7 +214,7 @@ const dispositionFor = ({ kind, url, fingerprint }: WahapediaObservedSource): st
     url === WAHAPEDIA_GLOSSARY_URL &&
     fingerprint?.toLowerCase() === WAHAPEDIA_GLOSSARY_FINGERPRINT
   ) {
-    return 'Glossary of rules-definition summaries that defers to the rules modules, with FAQ/Errata restating the accepted FAQs page and core rules; AoS Reminders carries no core-rules prose or glossary.'
+    return 'Glossary of rules-definition summaries that defers to the rules modules; its FAQ/Errata repeat the accepted FAQs, core-rules and General’s Handbook pages and official PDFs the app already reads, so it adds no rule of its own.'
   }
   if (kind === 'data-export-index') {
     return 'Discovery index describing Wahapedia exports; it contains no game rule or characteristic data.'

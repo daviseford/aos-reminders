@@ -24,19 +24,23 @@ automated review is complete:
 | Official battle-profile facts | 1,370/1,370 |
 | Final official/secondary reconciliation discrepancies | 380/380 |
 | Official profile-only facts | 0/0 |
-| Live audit source records | 21,153/21,153 |
+| Live audit source records | 21,158/21,158 |
 | Ignored-record dispositions (superseded + explicit) | 21,162/21,162 |
-| Live review pairs | 44,066/44,066 |
-| Independent outcomes | 88,132 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 44,071/44,071 |
+| Independent outcomes | 88,142 pass; 0 finding; 0 cannot-verify |
 
 The source inventory binds fresh observations taken for this intake: a `discover-official`
 snapshot (169 downloads, the same 8 explicit non-material dispositions), the six pinned BSData
 files at `ea96eba3` and `5e52e2a5`, and the Wahapedia navigation and exports (88 sources, 0
-inaccessible, 91 requests), observed between 2026-10-27T16:09:29Z and 16:12:08Z. Every accepted
+inaccessible), observed between 2026-10-27T16:09:29Z and 19:36:45Z; the Wahapedia observation was
+retaken at 19:36Z so the inventory carries the reworded Glossary disposition. Every accepted
 artifact matched, and the Glossary still matched its reviewed fingerprint. The certification is
-`aos4-corpus-2026-10-27-machine-r1` (campaign 2026-10-27T16:23:50Z). Its `--reuse-certification`
-offer of `aos4-corpus-2026-10-26-machine-r1` reused no pair (revision re-key), so all pairs were
-evaluated fresh.
+`aos4-corpus-2026-10-27-machine-r2` (campaign 2026-10-27T19:59:20Z), reusing 23,168 unchanged pairs
+from `aos4-corpus-2026-10-27-machine-r1`, the first certification of this revision, before the
+Spearhead membership repair and the reserve-condition overrides. A campaign at 19:28:50Z rejected
+two of the four reserve-condition overrides because each official page prints the condition away
+from the card and the packet excerpt only covered the card. Packet preparation now also centres the
+excerpt on each line an ability-text override adds, and the next campaign accepted all four.
 
 ### `aos4-corpus-2026-10-26` (superseded)
 

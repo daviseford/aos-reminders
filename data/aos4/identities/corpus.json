@@ -141474,6 +141474,39 @@
       "canonicalId": "weapon:748e488e-ec93-5741-a50b-948104dad6b9",
       "kind": "weapon",
       "name": "Stormwrought Weapon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#datasheet:Epicurean-Revellers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:eb6f7aaf-519e-52d3-9a0f-a8a6f2748b17",
+      "kind": "content-group",
+      "name": "Epicurean Revellers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Mawseeker-Mob/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:f31677ab-82e8-53f5-8b49-d88ca352fc16",
+      "kind": "content-group",
+      "name": "Mawseeker Mob"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Warglutt-Marauders/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:fa8e31c8-5732-5c66-9472-d224a0add216",
+      "kind": "content-group",
+      "name": "Warglutt Marauders"
     }
   ],
   "schemaVersion": 1

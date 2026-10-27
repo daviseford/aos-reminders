@@ -37,8 +37,8 @@ The strict report currently records:
 - 1,362 warscrolls and 1,054 battle profiles
 - 5,443 abilities
 - 2,363 weapons
-- 1,601 content groups
-- 252 source artifacts and 21,153 live source records
+- 1,604 content groups
+- 252 source artifacts and 21,158 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -68,10 +68,19 @@ The strict report currently records:
   Abhorrant Gorewarden regiment option lost a leaked source marker. Callis and Toll's base size
   now agrees with the official 28.5mm. The pages now embed FAQ/Errata notes (`.faqErrataSpoiler`
   blocks and `.faqErrataColumns` datasheet panels) that quote official errata and re-render cards,
-  often without a timing bar; the parser skips them and the cards stay the rules source (see the
-  errata reconciliation in the PR). 29 row-bound decoder policies moved down two rows with
-  unchanged bytes; 127 new identities, 33 re-anchored records rebound onto their existing ids
-  (no shared id changed name)
+  often without a timing bar; the parser skips them and the cards stay the rules source. Every
+  note was reconciled against the runtime (PR #2094), which led to two reviewed corrections:
+  Stumblefoot Gargant's historical Projectile Vomit follows its Grotmas Advent card (page 6), and
+  the Squigalanche, Let's Get Stuck In, Bellowing Arrival and Dreaded Arrival Spearhead reserve
+  abilities now carry the reserve condition their official Spearhead pages and the September
+  Rules Updates (pages 15, 16, 18) print before the card. The page also anchors some Spearhead
+  datasheets (`Saurus-Warriors-2`), which used to cost them their army; the parser now keeps an
+  anchored Spearhead datasheet in the army heading above it, so the three new Spearheads and the
+  Gnawfeast Clawpack, Akhelian Tide Guard and Sunblooded Prowlers keep their units. Spearhead
+  battle traits Wahapedia prints as prose rather than as a card (Temptations of Slaanesh, the
+  Heartflayer Troupe Blood Rites, Tides of Death) are still not imported (#2095). 29 row-bound
+  decoder policies moved down two rows with unchanged bytes; 130 new identities, 33 re-anchored
+  records rebound onto their existing ids (no shared id changed name)
 - the 2026-10-26 Khazalite Holds matched-play intake (#2087), on top of 2026-10-20: the faction,
   its two Armies of Renown (Fyrd of Fyrepeak, Throngankor Alliance) and two Regiments of Renown
   from the six pinned BSData catalogues, with points, sizes and rosters from Battle Profiles -

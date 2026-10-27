@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(12_173)
+    expect(AOS4_CATALOG.entities).toHaveLength(12_176)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 12,173 entities', () => {
+  it('reports no missing provenance for any of the 12,176 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(12_173)
+    ).toHaveLength(12_176)
   })
 })
 
@@ -204,11 +204,11 @@ describe('AoS 4 catalog generation integrity', () => {
         abilities: 5443,
         weapons: 2363,
         sourceArtifacts: 252,
-        sourceRecords: 21153,
+        sourceRecords: 21158,
         ignoredSourceRecords: 21162,
       },
       integrity: {
-        consumedSourceRecords: 21143,
+        consumedSourceRecords: 21148,
         issues: [],
         supersededSourceRecords: {
           count: 21152,

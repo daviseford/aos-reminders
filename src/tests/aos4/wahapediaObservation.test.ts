@@ -152,7 +152,7 @@ describe('Wahapedia independent source observation', () => {
     ])
     expect(observation.entries[0]).toMatchObject({
       fingerprint: 'd3afb7b475f07e9b4845bc34037c67fa1157fb34d3e9be7879806fc6387207bb',
-      disposition: expect.stringMatching(/carries no core-rules prose or glossary/),
+      disposition: expect.stringMatching(/adds no rule of its own/),
     })
   })
 

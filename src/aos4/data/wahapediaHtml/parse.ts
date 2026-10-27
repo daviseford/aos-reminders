@@ -375,7 +375,8 @@ const parseDatasheet = (
   diagnostics: WahapediaHtmlDiagnostic[],
   scope?: string,
   fallbackGroupId?: string,
-  fallbackGroupName?: string
+  fallbackGroupName?: string,
+  groupAnchoredDatasheets = false
 ): WahapediaHtmlWarscrollRecord | undefined => {
   const headerName = normalizedText(datasheet.querySelector('.wsHeaderIn'))
   if (!headerName) {
@@ -469,7 +470,7 @@ const parseDatasheet = (
   const value = {
     recordKind,
     externalId,
-    ...(!anchoredExternalId && fallbackGroupId
+    ...((!anchoredExternalId || groupAnchoredDatasheets) && fallbackGroupId
       ? {
           parentExternalId: fallbackGroupId,
           ...(fallbackGroupName ? { parentName: fallbackGroupName } : {}),
@@ -619,7 +620,10 @@ const parseWahapediaWarscrollCollection = (
       decoded.diagnostics,
       `datasheet:${index + 1}`,
       precedingHeading ? headingExternalId(precedingHeading) : undefined,
-      precedingHeading ? normalizedText(precedingHeading) : undefined
+      precedingHeading ? normalizedText(precedingHeading) : undefined,
+      // A Spearhead datasheet belongs to the army heading above it. From the 2026-10-22 publish
+      // Wahapedia anchors some of them (`Saurus-Warriors-2`), which used to cost them that parent.
+      spearheadOnly
     )
     return page ? [page] : []
   })

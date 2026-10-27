@@ -14427,18 +14427,26 @@
       "keywords": [],
       "kind": "ability",
       "name": "LET'S GET STUCK IN",
-      "revision": "3f57128166eb7003ff96d7f8f07f3a2abf19eb43fc64bff11acad0346e00fbd3",
+      "revision": "421ad88cdcf48ed589af77e8480e1428403af1be404938c85c0bcda9e7207c70",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A18",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:2e4490a3a02581d685878f49373974e465570437d5e3838b25c4de21e9e84027%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-ability%3ABattle-Traits-1%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit wholly within friendly territory, wholly within 6\" of the battlefield edge, and not in combat."
+        "effect": "A unit of Ironguts with 4 models is not set up during the deployment phase. Instead, in the third battle round, that unit can use the following ability:\nSet up this unit wholly within friendly territory, wholly within 6\" of the battlefield edge, and not in combat."
       },
       "timings": [
         {
@@ -36791,18 +36799,26 @@
       ],
       "kind": "ability",
       "name": "BELLOWING ARRIVAL",
-      "revision": "9cba04b454a82008f20ee8e8063a84bab45aaef1f19a5d7f3be534fdf3a3adae",
+      "revision": "64231842ffdd1abca48671f75302ae1aac5791ff5e43868f92b32d3f11953f28",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A16",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:c210be1999d6a29de4da02744fe03cb87bf5c84a194a7a8a6631800cc4796633%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-ability%3ABattle-Traits-2%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit anywhere on the battlefield, within 1\" of a battlefield edge and more than 6\" from all enemy units."
+        "effect": "Your Ironblaster, Mournfang Pack and 1 unit of Ogor Gluttons are not set up during the deployment phase. Instead, from the third battle round onwards, they can use the following ability:\nSet up this unit anywhere on the battlefield, within 1\" of a battlefield edge and more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -42299,18 +42315,26 @@
       "keywords": [],
       "kind": "ability",
       "name": "SQUIGALANCHE",
-      "revision": "2f9c4a9ca77ae22de4e79bc3b64b60a8efff9f9599a410743023cfd9c12b04d8",
+      "revision": "8428dae3e722939d350d44de26cfe5d81545a1ed7159d2043b2cec3f28e7f19e",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A15",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:e8bf035b01b53db3b69ca7334b622cdb2a260210ea03384801e29efb32735cea%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2F%23faction-ability%3ABattle-Traits-6%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit wholly within your territory, wholly within 3\" of a battlefield edge and more than 6\" from all enemy units."
+        "effect": "One of your units of Squig Hoppers is not set up during the deployment phase. Instead, from the third battle round onwards, they can use the following ability:\nSet up this unit wholly within your territory, wholly within 3\" of a battlefield edge and more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -88103,18 +88127,22 @@
       "keywords": [],
       "kind": "ability",
       "name": "DREADED ARRIVAL",
-      "revision": "40f9bfcd576b1f89ef5fda2955cb69dcc24b18366bb84a526d70c746cd4449db",
+      "revision": "f82391144479ce761680afe048eb1b7c0a99e071447934443c3f6bc43fa36f63",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A16",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-ability%3ABattle-Traits-6%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit wholly within your territory, within 1\" of a battlefield edge and more than 6\" from all enemy units."
+        "effect": "Your Chaos Knights unit is not set up during the deployment phase. Instead, from the second battle round onwards, they can use the following ability:\nSet up this unit wholly within your territory, within 1\" of a battlefield edge and more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -261507,6 +261535,21 @@
       ]
     },
     {
+      "groupType": "supplemental-content",
+      "id": "content-group:eb6f7aaf-519e-52d3-9a0f-a8a6f2748b17",
+      "kind": "content-group",
+      "name": "Epicurean Revellers",
+      "revision": "6dc96887aa7a5d6df49bdfdb432ef744fb8b141c287d393ac01dc15e8809a5f2",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fhedonites-of-slaanesh%2F%23datasheet%3AEpicurean-Revellers%2Fwarscroll"
+        }
+      ]
+    },
+    {
       "groupType": "prayer-lore",
       "id": "content-group:eb83f0c4-484f-5d58-8063-18378b0952ee",
       "kind": "content-group",
@@ -262493,6 +262536,21 @@
       ]
     },
     {
+      "groupType": "supplemental-content",
+      "id": "content-group:f31677ab-82e8-53f5-8b49-d88ca352fc16",
+      "kind": "content-group",
+      "name": "Mawseeker Mob",
+      "revision": "03a893476a9ed88ea99a176a602f09a208315881d0f1dd33ac0bc9634a37f992",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23datasheet%3AMawseeker-Mob%2Fwarscroll"
+        }
+      ]
+    },
+    {
       "groupType": "general-rules",
       "id": "content-group:f3397efe-541a-58fd-96c4-0296dfe065cb",
       "kind": "content-group",
@@ -263387,6 +263445,21 @@
       "sourceRefs": [
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fbonesplitterz%2F%23faction-group%3AHeroic-Traits"
+        }
+      ]
+    },
+    {
+      "groupType": "supplemental-content",
+      "id": "content-group:fa8e31c8-5732-5c66-9472-d224a0add216",
+      "kind": "content-group",
+      "name": "Warglutt Marauders",
+      "revision": "b171647e336c90f59008899ea44607fd581184d5122d770d98b106f140759f6a",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23datasheet%3AWarglutt-Marauders%2Fwarscroll"
         }
       ]
     },
@@ -268391,6 +268464,12 @@
         },
         {
           "sourceRecordId": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A15"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A16"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A18"
         },
         {
           "sourceRecordId": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A20"
@@ -291394,7 +291473,7 @@
       ],
       "kind": "warscroll",
       "name": "Gutseers",
-      "revision": "e7b0bdcd0bc7acaa4b33f83b951c432dd82c3b5186ddb8e649135a3dd2c38979",
+      "revision": "aa7a2cde9c6dbe05a6e156ddc95c4754c24e4f114de74324543bf3f2c7d9796d",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -291549,7 +291628,7 @@
       ],
       "kind": "warscroll",
       "name": "Saurus Warriors",
-      "revision": "ab932723e67d7186709768c3475c8e35cb9c519381f9c843e3abd4d20cdc5f00",
+      "revision": "aeb810aeff4ba76ae4b0e608f8537db0fa9736eab63393d53eb6cb4f03dee212",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -292737,7 +292816,7 @@
       ],
       "kind": "warscroll",
       "name": "Seekers",
-      "revision": "6247acc0a5367b00bed6208a8913d8e7ddc5ebc391ce3ebcd1b032b7b2b3e1e3",
+      "revision": "66381ae913dd1a7385bf2c0520ae8c22b002c58e4c4ffb7a65f42671d4e0d59f",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -301771,7 +301850,7 @@
       ],
       "kind": "warscroll",
       "name": "Daemonettes",
-      "revision": "1d81cf2e6e6615c805a03037c02fc7a2fab27365a46f3d014ad8b5dec1400d02",
+      "revision": "30d01f37e3f0c7649c6574664eef5ad9c4491048044abc90ff22a74317de86f3",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -308357,7 +308436,7 @@
       ],
       "kind": "warscroll",
       "name": "Fiends",
-      "revision": "e5b025cbdde638ee879cbfc3bd5d9385f16d7706f0461ebe931a8719517319da",
+      "revision": "3aaf655aa35158302679302171b383799982311ab2ce6660f1ab335b9a96226f",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -313696,7 +313775,7 @@
       ],
       "kind": "warscroll",
       "name": "Cleavers",
-      "revision": "dae4ccf035e27089f773e5f42bed9e399ef299feb52acb9413a9cef6560b39dd",
+      "revision": "f1ac5fa565eb039afad9cae7ac79a66874efd03a5978d0c73fa90399c5b02c7d",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -315875,7 +315954,7 @@
       ],
       "kind": "warscroll",
       "name": "Butcher",
-      "revision": "2654c0f6554ebd141f14f46b54ba3f7ab5a53ddaf328d51c2447949fdc0acf56",
+      "revision": "a3527c0f9e62d338e149e6280bf86030ad5c89b30078dfbb770f9a6e821d0ab0",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -316762,7 +316841,7 @@
       ],
       "kind": "warscroll",
       "name": "Tyrant",
-      "revision": "294019e61fd423b5725dc5d7060a0f0192291643fbb4b73141dd773ba1c46e07",
+      "revision": "bb3bc52b563e6c42f2e07c964fac2e89323685e39f0d3df807726ddf94517787",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -318200,7 +318279,7 @@
       ],
       "kind": "warscroll",
       "name": "Clanrats",
-      "revision": "bd0e0c0d2f61a06f739671bca4f7a94d5272a1faa6a2f7ff438bdec2fb1ad371",
+      "revision": "9144e9161fde8e4ebd03c51f5ecea2d20938d430f68aa2dea5f67d0b21715ee2",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -327387,7 +327466,7 @@
       ],
       "kind": "warscroll",
       "name": "Gluttons",
-      "revision": "582d9a5bb05c32346619a4b712ff7c72fd8ef5a8f4e7ccb67ed227455724adc5",
+      "revision": "1fa77f2e7ef8f51e228837c543412017626f5af70b368048e298389682751746",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -337771,7 +337850,7 @@
       ],
       "kind": "warscroll",
       "name": "Akhelian Morrsarr Guard",
-      "revision": "de5e16ba3208ba740dc230c208d99d95c0a31b967318f24d0ef5c9bb5bfc2081",
+      "revision": "185e9cb2780ca9f3a7c2e9251904f8c98bd19e68daccb7e0b5413b8d5c63d5ec",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -338540,7 +338619,7 @@
       ],
       "kind": "warscroll",
       "name": "Maulbeast Cavalry",
-      "revision": "c478b3a9eb24fdcaedd7ef7dcd23e877cb8a2dc17e5ef61fe60b5ad8f50b20e0",
+      "revision": "5b510b83b79462fbe7ef3eb830fd800d31513059f6fb82492cddd7f0d7525608",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -338831,7 +338910,7 @@
       ],
       "kind": "warscroll",
       "name": "Ironguts",
-      "revision": "0f5abe6b7c70232500e2330599b1115480f9453818ca24d656b105e5d5897d78",
+      "revision": "a69e01e5fb09f9f99cdf94a8e558d12b2505b512531818735d6167ddd6d6bd00",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -340468,7 +340547,7 @@
       ],
       "kind": "warscroll",
       "name": "Thricefold Discord",
-      "revision": "c9eda5931e9323647abf8847d639bb05ee5c5e1444ee0d1c35d29ce6d80bdb9b",
+      "revision": "a60f139dcf3dac592a98bfc7cd7626c364777072b9f5bc722d9738a8a4d60371",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -343717,7 +343796,7 @@
       ],
       "kind": "warscroll",
       "name": "Gorger Mawpack",
-      "revision": "c5d86b8fd1079dccaed2fb33fc5b4f568aac292cce40449c105fc29ba4bd24a4",
+      "revision": "07ece37b79e013c4b747cfd8341dd45846717d5221e68a847118878d49ab9a7a",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
@@ -424456,15 +424535,6 @@
       "to": "warscroll:1053116d-bba6-513e-9499-69c191c4f0b5"
     },
     {
-      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
-      "id": "relationship:0822f2b82663f0acfe90c39d04eec489",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:e29f4642-5216-5fd8-a8f5-cea1beb1576d"
-    },
-    {
       "from": "content-group:49c19fbb-72a7-5940-9f60-d1c47df1af6f",
       "id": "relationship:0825b15c091a725e642a6b3b13d70537",
       "kind": "excludes",
@@ -429738,15 +429808,6 @@
       "to": "ability:d7d5a2a1-02f2-5c37-80d8-cfd7ff449147"
     },
     {
-      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
-      "id": "relationship:1062f9af0bcbb21e1deebd903eafe9f6",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:88403d89-b5b8-5e63-9f89-022885ce6128"
-    },
-    {
       "from": "content-group:3698d9a7-fd06-524a-981e-2c2d4a93cf9c",
       "id": "relationship:10697bb4e34e301858a34b38642b8da2",
       "kind": "includes",
@@ -432567,15 +432628,6 @@
       "to": "content-group:6afe7746-b325-521f-a31e-8371caebfad6"
     },
     {
-      "from": "faction:4df09a85-c7ef-5cba-89db-5ff0f4a0b8ed",
-      "id": "relationship:14c0d41a82f17f52854cb877cc28b5d5",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:634cd81a-be30-5e64-8124-856c919a1f5c"
-    },
-    {
       "from": "content-group:e0cca1f5-e4d3-55a0-8834-ed1992d87815",
       "id": "relationship:14c1933739824620523aea63b7e6168b",
       "kind": "includes",
@@ -433597,6 +433649,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "content-group:1ca77bba-ea4a-52af-bf40-41d02cce69b4"
+    },
+    {
+      "from": "content-group:f31677ab-82e8-53f5-8b49-d88ca352fc16",
+      "id": "relationship:16b96567ca63a1005fb507aa2e2d438c",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:88403d89-b5b8-5e63-9f89-022885ce6128"
     },
     {
       "from": "faction:5b9d7142-ce11-515b-a1bd-37bddfad592a",
@@ -436962,15 +437023,6 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "ability:52df4c79-548b-52b8-b3f9-66bcbf3da517"
-    },
-    {
-      "from": "faction:4df09a85-c7ef-5cba-89db-5ff0f4a0b8ed",
-      "id": "relationship:1bf91082bd7eea3bc51e0501f76fc46f",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:750ae83e-460b-5b41-9a98-085f32b59e91"
     },
     {
       "from": "warscroll:9ab4a64e-a93f-50ad-b98f-6de9c51bf7cb",
@@ -455719,6 +455771,15 @@
       "to": "ability:ebc73cba-814d-5cdd-9b62-4952a93f50fd"
     },
     {
+      "from": "content-group:eb6f7aaf-519e-52d3-9a0f-a8a6f2748b17",
+      "id": "relationship:3ab5f239ddbfc4cf183940cbace234c7",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:634cd81a-be30-5e64-8124-856c919a1f5c"
+    },
+    {
       "from": "content-group:383ea3dd-b1f7-5a82-8ecc-2f949d3e6fe2",
       "id": "relationship:3ab6e7cb4e9161335af3a84cd49fc7c5",
       "kind": "offers",
@@ -463349,6 +463410,15 @@
       "to": "battle-profile:edb662a7-8706-5046-8df1-1401e7bb1c03"
     },
     {
+      "from": "content-group:f31677ab-82e8-53f5-8b49-d88ca352fc16",
+      "id": "relationship:46d213f663af9de1e32d61fa8f334788",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:3d122d08-969d-5187-8ffb-b80038be568a"
+    },
+    {
       "from": "content-group:d4c3155f-3139-5764-9f52-17d490a8d956",
       "id": "relationship:46d2a69dedfa7fe706c0e3253501a30e",
       "kind": "includes",
@@ -463880,6 +463950,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "ability:5e9487d9-d232-5d2b-bcd0-2bdc0150cac8"
+    },
+    {
+      "from": "content-group:21e5305b-870a-57b3-b10e-8a937bc986a4",
+      "id": "relationship:47ab53845988e6641e7b25658e0d08d4",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:972c37df-de2e-57d6-becd-7d57440cfe5d"
     },
     {
       "from": "warscroll:817ceba6-d910-5d4e-86dd-50ec0c5e4200",
@@ -468808,15 +468887,6 @@
       "to": "content-group:39218480-4910-59e2-93e1-5d5dea840c35"
     },
     {
-      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
-      "id": "relationship:501ef3f2d948d0f8ee4b33283b486a68",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:d31273a2-6e04-5120-aaec-dc80d3dfa8be"
-    },
-    {
       "from": "content-group:41d4e9b0-feab-5d2f-9d9b-7788c3d6d0bc",
       "id": "relationship:501f620853a8f2fc75ffe716a0393509",
       "kind": "includes",
@@ -468888,6 +468958,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "ability:7a296fb1-a4a5-5284-bb8d-f8e09ceec930"
+    },
+    {
+      "from": "content-group:4647b509-19a6-5eee-84da-9e61c8d14db9",
+      "id": "relationship:5041e2f1e1838d3416ee6ef167fb99aa",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:d03d0c0a-0fa8-5992-bce6-06a48bb22bf1"
     },
     {
       "from": "warscroll:b1addb00-d2de-538b-8891-5c4449879477",
@@ -469421,6 +469500,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "ability:af2b403e-fcca-5248-b47a-c63aae348022"
+    },
+    {
+      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
+      "id": "relationship:50f4d2962e9f7ce0282a3c50301a19df",
+      "kind": "offers",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "content-group:fa8e31c8-5732-5c66-9472-d224a0add216"
     },
     {
       "from": "faction:898f1d47-6f98-59f2-b5b7-e6865b2dfb79",
@@ -472688,15 +472776,6 @@
       "to": "warscroll:9ba50dfc-4753-5f90-a367-9b404d8844b0"
     },
     {
-      "from": "faction:2ed6da96-b5ea-5a74-a417-fe41ab0c49a8",
-      "id": "relationship:55e97ef3a1ad427c7eaf4450569b2248",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:3d537ff9-41a4-5b14-9110-8946f7a2f750"
-    },
-    {
       "from": "content-group:056b0292-b269-5455-861b-33e5aab009aa",
       "id": "relationship:55ed1cf80a96fa8e5999206dfcf4bf80",
       "kind": "includes",
@@ -473770,6 +473849,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "ability:54e69e74-29e2-50ae-8d57-7f73e864bed1"
+    },
+    {
+      "from": "content-group:eb6f7aaf-519e-52d3-9a0f-a8a6f2748b17",
+      "id": "relationship:5849b8ccf0caece37b3308b3ebd76a31",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:415a061a-fb32-5734-ba1f-ce1b3419c184"
     },
     {
       "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
@@ -476547,6 +476635,15 @@
       "to": "weapon:ac20d263-a2fe-551d-b5f7-4ae0cadc3fea"
     },
     {
+      "from": "faction:4df09a85-c7ef-5cba-89db-5ff0f4a0b8ed",
+      "id": "relationship:5cc87326764b0ea3c49f0af3f119d86b",
+      "kind": "offers",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "content-group:eb6f7aaf-519e-52d3-9a0f-a8a6f2748b17"
+    },
+    {
       "from": "warscroll:3b675642-56ff-5216-9fde-a677b9bcfecf",
       "id": "relationship:5cc8f29ae8615ca35e8fd379c255683b",
       "kind": "includes",
@@ -478461,15 +478558,6 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "battle-profile:f27a8485-c530-5a87-8534-3caa4b2b3a07"
-    },
-    {
-      "from": "faction:4df09a85-c7ef-5cba-89db-5ff0f4a0b8ed",
-      "id": "relationship:5f8557e9d026c0b673770883fdf98351",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:d8a3d8ba-64de-54c5-bdb8-a1e085fdf3a8"
     },
     {
       "from": "content-group:9182a25b-da91-5ee1-bc38-d606fd42db22",
@@ -488779,15 +488867,6 @@
       "to": "weapon:161671aa-f302-549d-ba00-41629bb4ae3a"
     },
     {
-      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
-      "id": "relationship:70830646fbec7284d6774b95825ccb2b",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:3d122d08-969d-5187-8ffb-b80038be568a"
-    },
-    {
       "from": "content-group:a9bf15e4-2f59-5059-a92c-560b170ce756",
       "id": "relationship:708c0255e28bfdc011d26bb652a6344d",
       "kind": "includes",
@@ -497957,6 +498036,15 @@
       "to": "warscroll:0c51c248-4465-54f8-bd79-728a539c2e61"
     },
     {
+      "from": "content-group:f31677ab-82e8-53f5-8b49-d88ca352fc16",
+      "id": "relationship:7f8ed985f03a68982b041d5dd850f26f",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:e29f4642-5216-5fd8-a8f5-cea1beb1576d"
+    },
+    {
       "from": "faction:898f1d47-6f98-59f2-b5b7-e6865b2dfb79",
       "id": "relationship:7f908586e8e849fc2d2191f6649e4453",
       "kind": "offers",
@@ -499562,6 +499650,15 @@
       "to": "ability:4b3a0ff3-c723-5923-b89e-20da58af45da"
     },
     {
+      "from": "content-group:fa8e31c8-5732-5c66-9472-d224a0add216",
+      "id": "relationship:8269ec4968715473a0485cd15beb5d2b",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:b6053a05-35c6-56ff-a5f4-6174e487d920"
+    },
+    {
       "from": "content-group:112e64b5-8436-5706-a42f-0e5de8ea50b5",
       "id": "relationship:8270255246c87ea996dd4aedcff82ea3",
       "kind": "includes",
@@ -500020,15 +500117,6 @@
       "to": "warscroll:2cbc023a-869d-5c91-87e0-b272ee186f7e"
     },
     {
-      "from": "faction:336daaf4-fa12-57ff-9ddc-b99a6a0382f7",
-      "id": "relationship:8322e88ba4aceea7be0abb97cf8a9fea",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:d03d0c0a-0fa8-5992-bce6-06a48bb22bf1"
-    },
-    {
       "from": "faction:26c5ea0d-7e4c-5440-b7c5-ffb2bae39c42",
       "id": "relationship:8326a226b889c2e48d070cb274cb0b8a",
       "kind": "offers",
@@ -500354,15 +500442,6 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "content-group:af940503-3f5b-50ee-83ff-e94e18b3532b"
-    },
-    {
-      "from": "faction:898f1d47-6f98-59f2-b5b7-e6865b2dfb79",
-      "id": "relationship:83a1aba0add90f300914b437f1b00129",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:972c37df-de2e-57d6-becd-7d57440cfe5d"
     },
     {
       "from": "warscroll:d99d56de-6b51-593e-95cc-1e3b4e790794",
@@ -500999,6 +501078,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "ability:afc68ef4-12a0-5f2d-8dca-3d9e2d5af30e"
+    },
+    {
+      "from": "content-group:fa8e31c8-5732-5c66-9472-d224a0add216",
+      "id": "relationship:8487552e02f030231e8dd496b0ac9d90",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:d31273a2-6e04-5120-aaec-dc80d3dfa8be"
     },
     {
       "from": "warscroll:8c182c07-27b7-510f-b8aa-4dc17d033576",
@@ -513241,6 +513329,15 @@
       "to": "ability:80ce7fc7-c6e2-52f5-95df-249975d1e843"
     },
     {
+      "from": "content-group:26351f51-7348-579a-b469-044e1040a549",
+      "id": "relationship:9915d9ac75fd844215253924f68770e2",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:3d537ff9-41a4-5b14-9110-8946f7a2f750"
+    },
+    {
       "from": "warscroll:09cd3ab9-9d66-5f16-83d3-faeef552d04d",
       "id": "relationship:991ca1e4a91a942e9d75bb23ab403e68",
       "kind": "includes",
@@ -513409,6 +513506,15 @@
         "rules-context:90000000-0000-4000-8000-000000000004"
       ],
       "to": "ability:d2e3394a-b873-5fc9-af5f-436bd3c1ba13"
+    },
+    {
+      "from": "content-group:f31677ab-82e8-53f5-8b49-d88ca352fc16",
+      "id": "relationship:995c5f289b6d9c22dfd74a50512aee94",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:8fd489e7-e06b-5f94-af32-9802d25ec621"
     },
     {
       "from": "warscroll:a5b8b672-5ad6-5227-ae5f-f8daf2ce14e2",
@@ -516214,15 +516320,6 @@
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "to": "ability:840e5fbe-019a-57d5-b4da-b763c164959b"
-    },
-    {
-      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
-      "id": "relationship:9e1123243d87d0d00bbe635e8b74f9fc",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:8fd489e7-e06b-5f94-af32-9802d25ec621"
     },
     {
       "from": "faction:8658a21b-51d6-5dca-b06c-b3796c00aee6",
@@ -532114,6 +532211,15 @@
       "to": "battle-profile:f9998190-319f-52dc-9f53-a27efac1319c"
     },
     {
+      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
+      "id": "relationship:b687425934740e3ba0d8e70364fd43eb",
+      "kind": "offers",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "content-group:f31677ab-82e8-53f5-8b49-d88ca352fc16"
+    },
+    {
       "from": "warscroll:3c39b31f-62a5-585c-ad3e-c040b88eb028",
       "id": "relationship:b693fdd34812691f7a30f5215217e5d2",
       "kind": "includes",
@@ -536539,6 +536645,15 @@
       "to": "ability:690ece59-9208-513d-b4b8-7d6d2ea7e6e8"
     },
     {
+      "from": "content-group:fa8e31c8-5732-5c66-9472-d224a0add216",
+      "id": "relationship:bdc5bcb00d3b8cf70d3b4cdce2076156",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:93b4ab0f-cb15-5a13-ab6f-21da153701f7"
+    },
+    {
       "from": "faction:7ac1f55f-9fc1-5473-8514-ba8de2589cb0",
       "id": "relationship:bdc757a7df078cd805039ab249daffc2",
       "kind": "offers",
@@ -539004,15 +539119,6 @@
       "to": "weapon:15397d3a-c815-5418-ad3d-06ecce61785b"
     },
     {
-      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
-      "id": "relationship:c1c501d436016b84b6e663379658d11e",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:93b4ab0f-cb15-5a13-ab6f-21da153701f7"
-    },
-    {
       "from": "warscroll:01655e1e-1788-598b-9e8e-68cf700f1adf",
       "id": "relationship:c1c5a277afbaec1411f7c6ffe1c0f0fc",
       "kind": "includes",
@@ -540567,15 +540673,6 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "ability:06fce930-ef5a-5788-a856-483404fc11ac"
-    },
-    {
-      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
-      "id": "relationship:c3eea50d5d840bf3b960734bd2ada1e0",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:d226537a-f373-59f6-bfdc-423cf60e9e33"
     },
     {
       "from": "content-group:9dc3f11a-b059-5d92-94b0-171d3b7000a6",
@@ -545455,6 +545552,15 @@
       "to": "ability:8b31253c-395d-5f9d-8be1-07aae5704c5f"
     },
     {
+      "from": "content-group:eb6f7aaf-519e-52d3-9a0f-a8a6f2748b17",
+      "id": "relationship:cc423a983d14d1dba025821cb4d28cd9",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:d8a3d8ba-64de-54c5-bdb8-a1e085fdf3a8"
+    },
+    {
       "from": "warscroll:5127f026-0691-5967-b24e-883442734415",
       "id": "relationship:cc460ba057d8fd5dc14a3079664f599d",
       "kind": "includes",
@@ -546909,15 +547015,6 @@
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "to": "ability:a32b6a55-f937-5e55-b215-1a6fc98cf74b"
-    },
-    {
-      "from": "faction:6e6eb059-7938-5cef-b6db-9b694bad9e15",
-      "id": "relationship:ce8ec909d5909e478961162d7f448c1d",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:b6053a05-35c6-56ff-a5f4-6174e487d920"
     },
     {
       "from": "faction:685674e4-5dc7-5a42-a92e-d0719ca2a58d",
@@ -568836,6 +568933,15 @@
       "to": "weapon:f95eb3a6-9765-5bf5-b10b-852ed12153a2"
     },
     {
+      "from": "content-group:fa8e31c8-5732-5c66-9472-d224a0add216",
+      "id": "relationship:f392104dab30314f2987394f73dd86dd",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:d226537a-f373-59f6-bfdc-423cf60e9e33"
+    },
+    {
       "from": "warscroll:044fb62e-4ac6-5055-b5fa-8b9afd4b5536",
       "id": "relationship:f3932ad235fb525423f13af035d59c64",
       "kind": "includes",
@@ -573081,15 +573187,6 @@
       "to": "content-group:ef441e92-dfe9-55b1-b213-f0f5db985249"
     },
     {
-      "from": "faction:4df09a85-c7ef-5cba-89db-5ff0f4a0b8ed",
-      "id": "relationship:fa5672f9049c878ef6bdc60b3bb31426",
-      "kind": "offers",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000002"
-      ],
-      "to": "warscroll:415a061a-fb32-5734-ba1f-ce1b3419c184"
-    },
-    {
       "from": "warscroll:c5fdcc2f-96f3-5b53-9174-76683a4675bc",
       "id": "relationship:fa5998eb5dc21ba2c317f3f0d4e75764",
       "kind": "includes",
@@ -573821,6 +573918,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "warscroll:cdefbf2f-162d-594c-a6f8-f58a8db7d29b"
+    },
+    {
+      "from": "content-group:eb6f7aaf-519e-52d3-9a0f-a8a6f2748b17",
+      "id": "relationship:fbcc182a8328f134e96c669c87307519",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "warscroll:750ae83e-460b-5b41-9a98-085f32b59e91"
     },
     {
       "from": "faction:151c54f6-a281-5cea-b5ff-3dacd3afec43",
@@ -588860,6 +588966,40 @@
         "page": 15
       },
       "recordChecksum": "59e89facb60e8a5684b1233a4c22b9e97e2f20b80e734728e6faf3d4d85ab57a",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000002",
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000004",
+        "rules-context:90000000-0000-4000-8000-000000000005",
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315",
+      "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A16",
+      "locator": {
+        "kind": "page",
+        "page": 16
+      },
+      "recordChecksum": "35b71a902a6bd5da84b49e457d1b6b3067df25371bd9a04e4a865331010b7171",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000001",
+        "rules-context:90000000-0000-4000-8000-000000000002",
+        "rules-context:90000000-0000-4000-8000-000000000003",
+        "rules-context:90000000-0000-4000-8000-000000000004",
+        "rules-context:90000000-0000-4000-8000-000000000005",
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315",
+      "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A18",
+      "locator": {
+        "kind": "page",
+        "page": 18
+      },
+      "recordChecksum": "93c7f418a932ca9ce7be568bab9a3eeb640816791ee65f1261baa86b1735975d",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
         "rules-context:90000000-0000-4000-8000-000000000002",
@@ -691266,7 +691406,7 @@
         "kind": "section",
         "section": "datasheet:Daemonettes-1/warscroll"
       },
-      "recordChecksum": "1d81cf2e6e6615c805a03037c02fc7a2fab27365a46f3d014ad8b5dec1400d02",
+      "recordChecksum": "30d01f37e3f0c7649c6574664eef5ad9c4491048044abc90ff22a74317de86f3",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -691279,6 +691419,18 @@
         "section": "datasheet:Daemonettes-1/weapon:1"
       },
       "recordChecksum": "c9d0617d1dd13a78900f0eccc02be81a889c1a8bbe5a594afee2e9e07ee195cf",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:41b5127675d1bf91beda5b61f18cd816d27344a5f453ec25056c818b2768c5e1",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fhedonites-of-slaanesh%2F%23datasheet%3AEpicurean-Revellers%2Fwarscroll",
+      "locator": {
+        "kind": "section",
+        "section": "datasheet:Epicurean-Revellers/warscroll"
+      },
+      "recordChecksum": "6dc96887aa7a5d6df49bdfdb432ef744fb8b141c287d393ac01dc15e8809a5f2",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -691302,7 +691454,7 @@
         "kind": "section",
         "section": "datasheet:Fiends-1/warscroll"
       },
-      "recordChecksum": "e5b025cbdde638ee879cbfc3bd5d9385f16d7706f0461ebe931a8719517319da",
+      "recordChecksum": "3aaf655aa35158302679302171b383799982311ab2ce6660f1ab335b9a96226f",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -691338,7 +691490,7 @@
         "kind": "section",
         "section": "datasheet:Seekers-1/warscroll"
       },
-      "recordChecksum": "6247acc0a5367b00bed6208a8913d8e7ddc5ebc391ce3ebcd1b032b7b2b3e1e3",
+      "recordChecksum": "66381ae913dd1a7385bf2c0520ae8c22b002c58e4c4ffb7a65f42671d4e0d59f",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -691398,7 +691550,7 @@
         "kind": "section",
         "section": "datasheet:Thricefold-Discord-1/warscroll"
       },
-      "recordChecksum": "c9eda5931e9323647abf8847d639bb05ee5c5e1444ee0d1c35d29ce6d80bdb9b",
+      "recordChecksum": "a60f139dcf3dac592a98bfc7cd7626c364777072b9f5bc722d9738a8a4d60371",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -705007,7 +705159,7 @@
         "kind": "section",
         "section": "datasheet:Akhelian-Morrsarr-Guard-2/warscroll"
       },
-      "recordChecksum": "de5e16ba3208ba740dc230c208d99d95c0a31b967318f24d0ef5c9bb5bfc2081",
+      "recordChecksum": "185e9cb2780ca9f3a7c2e9251904f8c98bd19e68daccb7e0b5413b8d5c63d5ec",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -755996,7 +756148,7 @@
         "kind": "section",
         "section": "datasheet:Butcher-1/warscroll"
       },
-      "recordChecksum": "2654c0f6554ebd141f14f46b54ba3f7ab5a53ddaf328d51c2447949fdc0acf56",
+      "recordChecksum": "a3527c0f9e62d338e149e6280bf86030ad5c89b30078dfbb770f9a6e821d0ab0",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -756032,7 +756184,7 @@
         "kind": "section",
         "section": "datasheet:Cleavers-1/warscroll"
       },
-      "recordChecksum": "dae4ccf035e27089f773e5f42bed9e399ef299feb52acb9413a9cef6560b39dd",
+      "recordChecksum": "f1ac5fa565eb039afad9cae7ac79a66874efd03a5978d0c73fa90399c5b02c7d",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -756068,7 +756220,7 @@
         "kind": "section",
         "section": "datasheet:Gluttons-1/warscroll"
       },
-      "recordChecksum": "582d9a5bb05c32346619a4b712ff7c72fd8ef5a8f4e7ccb67ed227455724adc5",
+      "recordChecksum": "1fa77f2e7ef8f51e228837c543412017626f5af70b368048e298389682751746",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -756104,7 +756256,7 @@
         "kind": "section",
         "section": "datasheet:Gorger-Mawpack-1/warscroll"
       },
-      "recordChecksum": "c5d86b8fd1079dccaed2fb33fc5b4f568aac292cce40449c105fc29ba4bd24a4",
+      "recordChecksum": "07ece37b79e013c4b747cfd8341dd45846717d5221e68a847118878d49ab9a7a",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -756140,7 +756292,7 @@
         "kind": "section",
         "section": "datasheet:Gutseers-1/warscroll"
       },
-      "recordChecksum": "e7b0bdcd0bc7acaa4b33f83b951c432dd82c3b5186ddb8e649135a3dd2c38979",
+      "recordChecksum": "aa7a2cde9c6dbe05a6e156ddc95c4754c24e4f114de74324543bf3f2c7d9796d",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -756176,7 +756328,7 @@
         "kind": "section",
         "section": "datasheet:Ironguts-2/warscroll"
       },
-      "recordChecksum": "0f5abe6b7c70232500e2330599b1115480f9453818ca24d656b105e5d5897d78",
+      "recordChecksum": "a69e01e5fb09f9f99cdf94a8e558d12b2505b512531818735d6167ddd6d6bd00",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -756212,7 +756364,7 @@
         "kind": "section",
         "section": "datasheet:Maulbeast-Cavalry-1/warscroll"
       },
-      "recordChecksum": "c478b3a9eb24fdcaedd7ef7dcd23e877cb8a2dc17e5ef61fe60b5ad8f50b20e0",
+      "recordChecksum": "5b510b83b79462fbe7ef3eb830fd800d31513059f6fb82492cddd7f0d7525608",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -756237,6 +756389,18 @@
         "section": "datasheet:Maulbeast-Cavalry-1/weapon:2"
       },
       "recordChecksum": "3279a4d412756eeecc8a9ec8e7db9d69ddeceee6e7efc7b64083e863429d39fd",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:6f1a0bbbd9a3c0162fb77673820cbb56dec5ebf5790531743a8cb90442edcdc1",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23datasheet%3AMawseeker-Mob%2Fwarscroll",
+      "locator": {
+        "kind": "section",
+        "section": "datasheet:Mawseeker-Mob/warscroll"
+      },
+      "recordChecksum": "03a893476a9ed88ea99a176a602f09a208315881d0f1dd33ac0bc9634a37f992",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -756488,7 +756652,7 @@
         "kind": "section",
         "section": "datasheet:Tyrant-2/warscroll"
       },
-      "recordChecksum": "294019e61fd423b5725dc5d7060a0f0192291643fbb4b73141dd773ba1c46e07",
+      "recordChecksum": "bb3bc52b563e6c42f2e07c964fac2e89323685e39f0d3df807726ddf94517787",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -756765,6 +756929,18 @@
         "section": "datasheet:Tyrant-s-Bellow:Tyrant/weapon:3"
       },
       "recordChecksum": "c972a3b42f167953cd22162ede68aa4e114acc04f92ae8847166fba65971c639",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:6f1a0bbbd9a3c0162fb77673820cbb56dec5ebf5790531743a8cb90442edcdc1",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23datasheet%3AWarglutt-Marauders%2Fwarscroll",
+      "locator": {
+        "kind": "section",
+        "section": "datasheet:Warglutt-Marauders/warscroll"
+      },
+      "recordChecksum": "b171647e336c90f59008899ea44607fd581184d5122d770d98b106f140759f6a",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -774813,7 +774989,7 @@
         "kind": "section",
         "section": "datasheet:Saurus-Warriors-2/warscroll"
       },
-      "recordChecksum": "ab932723e67d7186709768c3475c8e35cb9c519381f9c843e3abd4d20cdc5f00",
+      "recordChecksum": "aeb810aeff4ba76ae4b0e608f8537db0fa9736eab63393d53eb6cb4f03dee212",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -783295,7 +783471,7 @@
         "kind": "section",
         "section": "datasheet:Clanrats-2/warscroll"
       },
-      "recordChecksum": "bd0e0c0d2f61a06f739671bca4f7a94d5272a1faa6a2f7ff438bdec2fb1ad371",
+      "recordChecksum": "9144e9161fde8e4ebd03c51f5ecea2d20938d430f68aa2dea5f67d0b21715ee2",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]

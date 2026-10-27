@@ -593,6 +593,49 @@
         "declare": "Pick this unit to use this ability if it has not used a RAMPAGE ability this turn. Then, pick a point on the battlefield within 6\" of this unit and pick each enemy unit within 3\" of that point to be the targets.",
         "effect": "Roll a D3 for each target. On a 2+, inflict an amount of mortal damage on that target equal to the roll."
       }
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:e8bf035b01b53db3b69ca7334b622cdb2a260210ea03384801e29efb32735cea%3Apage%3A2",
+        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A15"
+      ],
+      "reason": "Spearhead: Gloomspite Gitz - Bad Moon Madmob page 2 and the September 2026 Rules Updates page 15 print Squigalanche after its reserve condition: one unit of Squig Hoppers starts in reserve and can use it from the third battle round onwards. The page prints the ability card without the reserve condition that comes before it, so the reminder would let the unit arrive in any battle round (found reconciling the 2026-10-22 FAQ/Errata notes, corpus 2026-10-27, #1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2F%23faction-ability%3ABattle-Traits-6%3Aability%3A1",
+      "text": {
+        "effect": "One of your units of Squig Hoppers is not set up during the deployment phase. Instead, from the third battle round onwards, they can use the following ability:\nSet up this unit wholly within your territory, wholly within 3\" of a battlefield edge and more than 6\" from all enemy units."
+      }
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A16"
+      ],
+      "reason": "The September 2026 Rules Updates page 16 adds Dreaded Arrival to the Bloodwind Legion battle traits after its reserve condition: the Chaos Knights start in reserve and arrive from the second battle round onwards. The page prints the ability card without the reserve condition that comes before it, so the reminder would let the unit arrive in any battle round (found reconciling the 2026-10-22 FAQ/Errata notes, corpus 2026-10-27, #1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fslaves-to-darkness%2F%23faction-ability%3ABattle-Traits-6%3Aability%3A1",
+      "text": {
+        "effect": "Your Chaos Knights unit is not set up during the deployment phase. Instead, from the second battle round onwards, they can use the following ability:\nSet up this unit wholly within your territory, within 1\" of a battlefield edge and more than 6\" from all enemy units."
+      }
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:2e4490a3a02581d685878f49373974e465570437d5e3838b25c4de21e9e84027%3Apage%3A2",
+        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A18"
+      ],
+      "reason": "Spearhead: Ogor Mawtribes - Scrapglutt page 2 and the September 2026 Rules Updates page 18 (Better Late than Never) print Let’s Get Stuck In after its reserve condition: a 4-model Ironguts unit starts in reserve and arrives in the third battle round. The page prints the ability card without the reserve condition that comes before it, so the reminder would let the unit arrive in any battle round (found reconciling the 2026-10-22 FAQ/Errata notes, corpus 2026-10-27, #1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-ability%3ABattle-Traits-1%3Aability%3A1",
+      "text": {
+        "effect": "A unit of Ironguts with 4 models is not set up during the deployment phase. Instead, in the third battle round, that unit can use the following ability:\nSet up this unit wholly within friendly territory, wholly within 6\" of the battlefield edge, and not in combat."
+      }
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:c210be1999d6a29de4da02744fe03cb87bf5c84a194a7a8a6631800cc4796633%3Apage%3A2",
+        "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A16"
+      ],
+      "reason": "Spearhead: Ogor Mawtribes - Tyrant’s Bellow page 2 and the September 2026 Rules Updates page 16 (On the Mawpath) print Bellowing Arrival after its reserve condition: the Ironblaster, Mournfang Pack and one Gluttons unit start in reserve and arrive from the third battle round onwards. The page prints the ability card without the reserve condition that comes before it, so the reminder would let the unit arrive in any battle round (found reconciling the 2026-10-22 FAQ/Errata notes, corpus 2026-10-27, #1757).",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-ability%3ABattle-Traits-2%3Aability%3A1",
+      "text": {
+        "effect": "Your Ironblaster, Mournfang Pack and 1 unit of Ogor Gluttons are not set up during the deployment phase. Instead, from the third battle round onwards, they can use the following ability:\nSet up this unit anywhere on the battlefield, within 1\" of a battlefield edge and more than 6\" from all enemy units."
+      }
     }
   ],
   "additionalRulesContexts": [
@@ -6537,6 +6580,16 @@
           "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A15",
           "page": 15,
           "recordChecksum": "59e89facb60e8a5684b1233a4c22b9e97e2f20b80e734728e6faf3d4d85ab57a"
+        },
+        {
+          "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A16",
+          "page": 16,
+          "recordChecksum": "35b71a902a6bd5da84b49e457d1b6b3067df25371bd9a04e4a865331010b7171"
+        },
+        {
+          "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A18",
+          "page": 18,
+          "recordChecksum": "93c7f418a932ca9ce7be568bab9a3eeb640816791ee65f1261baa86b1735975d"
         },
         {
           "id": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A20",

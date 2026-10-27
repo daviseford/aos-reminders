@@ -26,7 +26,11 @@ import {
   loadReviewPacketPairsByKey,
   writeCreateOnlyFilesDirectory,
 } from '../../aos4/review/reviewWorkspace'
-import { identityAliasesRequireAdversarialReview, pageExcerpt } from '../../aos4/review/packetCommand'
+import {
+  identityAliasesRequireAdversarialReview,
+  officialOverrideExcerptNeedles,
+  pageExcerpt,
+} from '../../aos4/review/packetCommand'
 import { artifactId, factionId, rulesContextId, sourceRecordId } from '../../aos4/domain'
 
 const SOURCE_CHECKSUM = 'a'.repeat(64)
@@ -129,6 +133,38 @@ describe('AoS 4 review packet preparation', () => {
     expect(pageExcerpt(page, ['Hedkrakka’s Madmob', 'ORRUK'])).toContain(
       'Remove ‘ Orruk ’ from the keywords bar.'
     )
+  })
+
+  it('focuses an ability-text override excerpt on every line it adds, such as a reserve condition (#1757)', () => {
+    const condition =
+      'Your Ironblaster, Mournfang Pack and 1 unit of Ogor Gluttons are not set up during the deployment phase. Instead, from the third battle round onwards, they can use the following ability:'
+    const effect =
+      'Set up this unit anywhere on the battlefield, within 1" of a battlefield edge and more than 6" from all enemy units.'
+    const page = `ON THE MAWPATH ${condition} PULVERISING GIRTH: ${'unrelated '.repeat(300)}BELLOWING ARRIVAL: A mighty roar. Effect: ${effect}`
+    const override = {
+      field: 'abilityTextOverrides',
+      value: {
+        text: {
+          effect: `${condition}
+${effect}`,
+        },
+      },
+    }
+
+    expect(pageExcerpt(page, officialOverrideExcerptNeedles('BELLOWING ARRIVAL', []))).not.toContain(
+      condition
+    )
+    const needles = officialOverrideExcerptNeedles('BELLOWING ARRIVAL', [override])
+    expect(needles).toEqual(['BELLOWING ARRIVAL', condition, effect])
+    expect(pageExcerpt(page, needles)).toContain(condition)
+    expect(pageExcerpt(page, needles)).toContain(`BELLOWING ARRIVAL: A mighty roar. Effect: ${effect}`)
+    // Keyword overrides keep their needles; other overrides add none.
+    expect(
+      officialOverrideExcerptNeedles('Hedkrakka’s Madmob', [
+        { field: 'warscrollKeywordOverrides', value: { remove: ['ORRUK'] } },
+        { field: 'timingOverrides', value: { timings: [] } },
+      ])
+    ).toEqual(['Hedkrakka’s Madmob', 'Hedkrakka Madmob', 'ORRUK'])
   })
 
   it('builds deterministic blind/comparison pairs and a source-safe index', () => {

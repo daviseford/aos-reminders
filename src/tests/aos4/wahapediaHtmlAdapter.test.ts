@@ -865,6 +865,37 @@ describe('Wahapedia warscroll HTML decoding', () => {
     expect(parseWahapediaFactionRootWarscrollsHtml(source, scope).pages).toEqual([])
   })
 
+  it('keeps an anchored Spearhead datasheet in the army heading above it (#1757)', () => {
+    // From 2026-10-22 Wahapedia anchors a second copy of a unit (`Saurus-Warriors-2`); the copy
+    // without an anchor already took its army from the heading.
+    const sheet = (anchor: string) => `
+      <section class="datasheet">
+        ${anchor ? `<a name="${anchor}"></a>` : ''}
+        <div class="nails-header"><span class="nails">•</span>SPEARHEAD WARSCROLL<span class="nails">•</span></div>
+        <h1 class="wsHeaderIn">Saurus Warriors</h1>
+        <span class="wsMove">5"</span><span class="wsWounds">1</span><span class="wsSave">4+</span><span class="wsBravery">1</span>
+      </section>`
+    const source = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">Seraphon</span></h1>
+        <a name="Starscale-Warhost"></a><h2>Starscale Warhost</h2>
+        ${sheet('')}
+        <a name="Sunblooded-Prowlers"></a><h2>Sunblooded Prowlers</h2>
+        ${sheet('Saurus-Warriors-2')}
+      </body></html>
+    `)
+    source.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/seraphon/'
+    source.artifact.finalUrl = source.artifact.requestUrl
+
+    const warscrolls = parseWahapediaFactionRootWarscrollsHtml(source, 'spearhead').pages.filter(
+      page => page.recordKind === 'warscroll'
+    )
+    expect(warscrolls.map(page => [page.externalId, page.parentExternalId])).toEqual([
+      ['Starscale-Warhost:Saurus-Warriors', 'Starscale-Warhost'],
+      ['Saurus-Warriors-2', 'Sunblooded-Prowlers'],
+    ])
+  })
+
   it('fails a faction page that decodes to no rules, whatever the faction is called', () => {
     const source = input(`
       <html><body>
