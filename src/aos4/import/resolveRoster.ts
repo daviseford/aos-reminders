@@ -569,7 +569,9 @@ const resolveRosterSelection = (
   resolutionContexts: ResolutionContext[],
   allowsLegends: boolean,
   armiesOfRenown: ArmyOfRenownIndex,
-  diagnostics: Aos4ImportDiagnostic[]
+  diagnostics: Aos4ImportDiagnostic[],
+  /** Warscrolls the roster's own selected groups include; they settle a same-name collision. */
+  groupMemberIds: ReadonlySet<CanonicalId> = new Set()
 ): Aos4ImportMatch | undefined => {
   const matchInContext = ({ context, reachableIds, directlyOfferedIds }: ResolutionContext) => {
     const rulesContextId = context.id
@@ -775,7 +777,13 @@ const resolveRosterSelection = (
 
   for (const { candidates } of perContext) {
     if (candidates.length === 1) return matched(candidates[0])
-    if (candidates.length > 1) return ambiguous(candidates)
+    if (candidates.length > 1) {
+      // Two Spearhead armies of one faction can field same-named units (Tyrant in Tyrant's Bellow
+      // and Warglutt Marauders, #1757). A unit the selected army itself includes is the one the
+      // roster meant; with no such army, or several, the name stays ambiguous.
+      const members = candidates.filter(candidate => groupMemberIds.has(candidate.id))
+      return members.length === 1 ? matched(members[0]) : ambiguous(candidates)
+    }
   }
   const known = perContext.some(({ contextCandidates }) => contextCandidates.length > 0)
 
@@ -1011,21 +1019,68 @@ export const resolveParsedRoster = (
       })
     )
 
+  const resolveSelections = (
+    selections: ParsedRosterSelection[],
+    groupMemberIds?: ReadonlySet<CanonicalId>
+  ): Aos4ImportMatch[] =>
+    selections.flatMap(selection => {
+      const match = resolveRosterSelection(
+        catalog,
+        selection,
+        resolutionContexts(Boolean(selection.isLegends)),
+        allowsLegends,
+        armiesOfRenown,
+        diagnostics,
+        groupMemberIds
+      )
+      return match ? [match] : []
+    })
+  /**
+   * Groups resolve before warscrolls so a unit name can be read in the army the roster chose. A
+   * Spearhead army resolves to its rules container, and its units hang off the same-named group the
+   * faction offers in that context, so both are searched for members.
+   */
+  const groupMatches = resolveSelections(
+    parsedRoster.selections.filter(
+      selection => selection.kindHint !== 'faction' && selection.kindHint !== 'warscroll'
+    )
+  )
+  const effectiveReachable = reachableByContextId.get(effectiveContext.id) ?? new Set<CanonicalId>()
+  const selectedGroupNames = new Set(
+    groupMatches.flatMap(match => {
+      const entity = entityById.get(match.canonicalId)
+      return entity?.kind === 'content-group' ? [normalizeImportLabel(entity.name)] : []
+    })
+  )
+  const selectedGroupIds = new Set<CanonicalId>([
+    ...groupMatches.map(match => match.canonicalId),
+    ...catalog.entities
+      .filter(
+        entity =>
+          entity.kind === 'content-group' &&
+          effectiveReachable.has(entity.id) &&
+          selectedGroupNames.has(normalizeImportLabel(entity.name))
+      )
+      .map(entity => entity.id),
+  ])
+  const groupMemberIds = new Set<CanonicalId>(
+    catalog.relationships
+      .filter(
+        relationship =>
+          relationship.kind === 'includes' &&
+          selectedGroupIds.has(relationship.from) &&
+          relationshipIsApplicable(relationship, effectiveContext.id) &&
+          entityById.get(relationship.to)?.kind === 'warscroll'
+      )
+      .map(relationship => relationship.to)
+  )
   const matches = [
     ...factionResolution.matches,
-    ...parsedRoster.selections
-      .filter(selection => selection.kindHint !== 'faction')
-      .flatMap(selection => {
-        const match = resolveRosterSelection(
-          catalog,
-          selection,
-          resolutionContexts(Boolean(selection.isLegends)),
-          allowsLegends,
-          armiesOfRenown,
-          diagnostics
-        )
-        return match ? [match] : []
-      }),
+    ...groupMatches,
+    ...resolveSelections(
+      parsedRoster.selections.filter(selection => selection.kindHint === 'warscroll'),
+      groupMemberIds
+    ),
   ]
   matches.push(
     ...manifestationWarscrollMatches(catalog, entityById, matches, resolutionContexts(false), armiesOfRenown)
