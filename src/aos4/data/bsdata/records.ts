@@ -82,6 +82,7 @@ export type BsDataFactionOptionType =
   | 'spell-lore'
   | 'prayer-lore'
   | 'realm-shaking-rampage'
+  | 'mark-of-vulcatrix'
   | 'battle-trait'
 
 export interface BsDataFactionOptionFact {

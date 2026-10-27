@@ -7,6 +7,7 @@ import {
   type Ability,
   type CanonicalId,
   type ContentEntity,
+  type Faction,
   type Warscroll,
 } from '../../aos4/domain'
 import { AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
@@ -56,7 +57,7 @@ const entityNamed = (kind: string, name: string) =>
   entities.find(entity => entity.kind === kind && entity.name === name)
 const spearhead = AOS4_FULL_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
 const khazaliteHolds = entities.find(
-  entity => entity.kind === 'faction' && entity.name === 'Khazalite Holds'
+  (entity): entity is Faction => entity.kind === 'faction' && entity.name === 'Khazalite Holds'
 )!
 const related = (kind: string, from: string) =>
   AOS4_FULL_CATALOG.relationships
@@ -66,15 +67,15 @@ const groupOf = (name: string, groupType: string) =>
   related('offers', khazaliteHolds.id).find(
     entity => entity.kind === 'content-group' && entity.name === name && entity.groupType === groupType
   )!
-/** Everything Khazalite Holds reaches through its offers and includes. */
-const reachable = (): ContentEntity[] => {
+/** Everything reachable through offers and includes from the given roots (default: Khazalite Holds' offers). */
+const reachable = (roots?: ContentEntity[]): ContentEntity[] => {
   const seen = new Map<CanonicalId, ContentEntity>()
   const visit = (entity: ContentEntity) => {
     if (seen.has(entity.id)) return
     seen.set(entity.id, entity)
     ;[...related('offers', entity.id), ...related('includes', entity.id)].forEach(visit)
   }
-  related('offers', khazaliteHolds.id).forEach(visit)
+  ;(roots ?? related('offers', khazaliteHolds.id)).forEach(visit)
   return Array.from(seen.values())
 }
 
@@ -102,8 +103,18 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
   })
 
   describe('Khazalite Holds Spearhead, read from the official pack', () => {
-    it('is a Spearhead-only army offering both printed Spearheads', () => {
-      expect(khazaliteHolds.rulesContextIds).toEqual([spearhead.id])
+    it('offers both printed Spearheads beside its matched-play contexts', () => {
+      // Corpus 2026-10-20b (#2087) adds the matched-play faction additively; Spearhead stays.
+      const contexts = khazaliteHolds.rulesContextIds.map(id => {
+        const context = AOS4_FULL_CATALOG.rulesContexts.find(candidate => candidate.id === id)!
+        return `${context.mode}:${context.status}`
+      })
+      expect(contexts.sort()).toEqual([
+        'spearhead:current',
+        'standard:current',
+        'standard:past-season',
+        'standard:seasonal',
+      ])
       expect(armyFactions(AOS4_FULL_CATALOG).map(faction => faction.id)).toContain(khazaliteHolds.id)
       const units = (army: string) =>
         related('includes', groupOf(army, 'supplemental-content').id)
@@ -125,19 +136,27 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
     })
 
     it('carries the printed warscrolls with official provenance in the Spearhead context only', () => {
-      const content = reachable()
+      // Matched-play Khazalite Holds (#2087) is reachable too, so walk only what the faction offers
+      // in the Spearhead context.
+      const content = reachable(
+        related('offers', khazaliteHolds.id).filter(
+          entity => entity.rulesContextIds.length === 1 && entity.rulesContextIds[0] === spearhead.id
+        )
+      )
       expect(content.length).toBeGreaterThan(50)
       content.forEach(entity => {
         expect(entity.rulesContextIds).toEqual([spearhead.id])
         expect(entity.sourceRefs.length).toBeGreaterThan(0)
         entity.sourceRefs.forEach(reference => expect(reference.sourceRecordId).toContain(KH_SPEARHEAD))
       })
-      const hjulda = entityNamed('warscroll', 'Hjulda Drakkblud') as Warscroll
+      const spearheadWarscroll = (name: string) =>
+        content.find(entity => entity.kind === 'warscroll' && entity.name === name) as Warscroll
+      const hjulda = spearheadWarscroll('Hjulda Drakkblud')
       expect(hjulda).toMatchObject({
         characteristics: { move: '4"', save: '3+', control: '2', health: '5' },
         keywords: ['HERO', 'INFANTRY'],
       })
-      const runefather = entityNamed('warscroll', 'Auric Runefather on Magmadroth') as Warscroll
+      const runefather = spearheadWarscroll('Auric Runefather on Magmadroth')
       expect(runefather.characteristics).toMatchObject({
         move: '10"',
         save: '4+',
@@ -183,7 +202,9 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
       spearheadAliases.forEach(alias => expect(alias.externalId).not.toContain(KH_SPEARHEAD))
     })
 
-    it('lands an imported Khazalite Holds roster in the Spearhead rules context', () => {
+    it('lands an imported unit-less Khazalite Holds roster in the default matched-play context', () => {
+      // Until corpus 2026-10-20b (#2087) the faction existed only in Spearhead, so this roster landed
+      // there. With matched play shipped, a roster naming only the faction takes the default context.
       const { parsedRoster } = decodeAos4TextRoster(
         [
           'Clanguard 0/0 pts',
@@ -200,25 +221,26 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
         createDocumentId: () => 'army:khazalite-holds',
       })
       expect(preview.proposedDocument).toMatchObject({
-        rulesContextId: spearhead.id,
+        rulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
         explicitSelectionIds: [khazaliteHolds.id],
       })
     })
   })
 
-  describe('matched-play Khazalite Holds stays blocked', () => {
-    it('ships no Khazalite Holds content outside the Spearhead context', () => {
+  describe('matched-play Khazalite Holds ships additively (corpus 2026-10-20b, #2087)', () => {
+    it('keeps Spearhead content Spearhead-only and offers the universal manifestations in matched play', () => {
+      // The faction itself now spans Spearhead and matched play; everything else the pack sources stays.
       entities
-        .filter(entity => entity.kind !== 'publication')
+        .filter(entity => entity.kind !== 'publication' && entity.id !== khazaliteHolds.id)
         .filter(entity =>
           entity.sourceRefs.some(reference => reference.sourceRecordId.includes(KH_SPEARHEAD))
         )
         .forEach(entity => expect(entity.rulesContextIds).toEqual([spearhead.id]))
       const manifestation = entityNamed('warscroll', 'Purple Sun of Shyish') as Warscroll
-      expect(manifestation.factionIds).not.toContain(khazaliteHolds.id)
+      expect(manifestation.factionIds).toContain(khazaliteHolds.id)
     })
 
-    it('holds the battle profiles and regiments packs as reference evidence that no rule cites', () => {
+    it('cites the battle profiles and regiments packs as official evidence for the new content', () => {
       ;[
         ['Battle Profiles - Khazalite Holds', KH_BATTLE_PROFILES],
         ['Regiments of Renown - Khazalite Holds', KH_REGIMENTS],
@@ -229,21 +251,110 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
           title,
           documentKind: 'reference',
         })
-        const citing = entities.filter(entity =>
-          entity.sourceRefs.some(reference => reference.sourceRecordId.includes(checksum))
-        )
-        // The Gotrek eligibility override cites battle profiles page 3 as review evidence only.
-        expect(citing.map(entity => `${entity.kind}:${entity.name}`)).toEqual([`publication:${title}`])
       })
-      expect(entityNamed('content-group', 'Fjori’s Vengeance')).toBeUndefined()
-      expect(entityNamed('content-group', 'Thengin’s Grudgesettlers')).toBeUndefined()
+      const citing = (checksum: string) =>
+        entities
+          .filter(entity => entity.sourceRefs.some(reference => reference.sourceRecordId.includes(checksum)))
+          .map(entity => `${entity.kind}:${entity.name}`)
+      expect(citing(KH_REGIMENTS).sort()).toEqual([
+        'content-group:Fjori’s Vengeance',
+        'content-group:Thengin’s Grudgesettlers',
+        'publication:Regiments of Renown - Khazalite Holds',
+      ])
+      expect(citing(KH_BATTLE_PROFILES)).toEqual(
+        expect.arrayContaining([
+          'publication:Battle Profiles - Khazalite Holds',
+          'content-group:Fjori’s Vengeance',
+          'content-group:Thengin’s Grudgesettlers',
+          'warscroll:Runewright',
+          'battle-profile:Runewright battle profile',
+        ])
+      )
     })
 
-    it('keeps the in-force Fyreslayers points until the battletome is taken in', () => {
+    it('offers the source-supported Armies of Renown and leaves the source-blocked cards out', () => {
+      const army = (name: string) =>
+        related('offers', khazaliteHolds.id).find(
+          entity =>
+            entity.kind === 'content-group' && entity.name === name && entity.groupType === 'army-of-renown'
+        )
+      const contents = (name: string) =>
+        related('includes', army(name)!.id)
+          .flatMap(group => related('includes', group.id))
+          .map(entity => entity.name)
+          .sort()
+      expect(contents('Throngankor Alliance')).toEqual([
+        'Allied Grudgement',
+        'Duardin Pride',
+        'Hammer and Anvil',
+        'Redeclaration of Alliance',
+        'Rune of Defence',
+        'Rune of Spirit',
+        'Stone and Sky',
+        'Stronger When Alloyed',
+        'The Vice',
+        'Throngankor Flare',
+      ])
+      expect(contents('Fyrd of Fyrepeak')).toEqual([
+        'Grimmdron Grudges',
+        'Rune of Fortune',
+        'Rune of Guarding',
+        'Rune of Speed',
+        'Rune of Spellbreaking',
+        'Rune of Striking',
+      ])
+      // Translated from the French edition with no English source yet: absent, not supported.
+      expect(army('Throng of Valankrom')).toBeUndefined()
+      ;[
+        'Transport Duardin',
+        'Grimnir’s Wrath Will Burn Bright!',
+        "Grimnir's Wrath Will Burn Bright!",
+      ].forEach(name => expect(entityNamed('ability', name)).toBeUndefined())
+      const khazaliteRunefather = entities.find(
+        entity =>
+          entity.kind === 'warscroll' &&
+          entity.name === 'Auric Runefather on Magmadroth' &&
+          entity.factionIds.includes(khazaliteHolds.id) &&
+          !entity.rulesContextIds.includes(spearhead.id)
+      )!
+      expect(related('includes', khazaliteRunefather.id).map(entity => entity.name)).not.toContain(
+        'Warrior-kings'
+      )
+    })
+
+    it('keeps the in-force Fyreslayers points beside the Khazalite Holds profiles', () => {
       // The Khazalite Holds profiles print 110 for both heroes; they apply to the Khazalite Holds
-      // faction, which ships only its Spearhead until a source prints its battletome rules.
-      expect(entityNamed('battle-profile', 'Auric Flamekeeper battle profile')).toMatchObject({ points: 80 })
-      expect(entityNamed('battle-profile', 'Grimhold Exile battle profile')).toMatchObject({ points: 90 })
+      // copies only. The Fyreslayers warscrolls keep their own profiles and points.
+      const points = (name: string, faction: string) => {
+        const factionId = entities.find(
+          (entity): entity is Faction => entity.kind === 'faction' && entity.name === faction
+        )!.id
+        const warscroll = entities.find(
+          entity =>
+            entity.kind === 'warscroll' && entity.name === name && entity.factionIds.includes(factionId)
+        )!
+        const profile = entities.find(
+          entity => entity.kind === 'battle-profile' && entity.warscrollId === warscroll.id
+        )
+        return profile?.kind === 'battle-profile' ? profile.points : undefined
+      }
+      expect(points('Auric Flamekeeper', 'Fyreslayers')).toBe(80)
+      expect(points('Grimhold Exile', 'Fyreslayers')).toBe(90)
+      expect(points('Auric Flamekeeper', 'Khazalite Holds')).toBe(110)
+      expect(points('Grimhold Exile', 'Khazalite Holds')).toBe(110)
+    })
+
+    it('follows the ea96eba3 BSData correction for Thrynn only (corpus 2026-10-26)', () => {
+      // BSData ea96eba3 dropped Companion from Thrynn on War Throne's Karak War Council's Armoury but
+      // still prints it on High Kyng Valankrom's. No official source prints either, so both stay as
+      // BSData records them, and the canonical weapon IDs are unchanged.
+      const keywords = (id: string) => {
+        const weapon = entityById.get(id as never)!
+        expect(weapon.name).toBe("Karak War Council's Armoury")
+        return weapon.kind === 'weapon' ? weapon.keywords.map(keyword => keyword.kind) : undefined
+      }
+      expect(keywords('weapon:c3948477-8a8f-5c39-8847-cca7ebdf7e10')).toEqual([])
+      expect(keywords('weapon:d4786c12-fe78-5ab8-b391-aeb255239457')).toEqual(['companion'])
     })
   })
 })

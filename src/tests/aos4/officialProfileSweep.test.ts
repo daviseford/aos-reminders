@@ -284,16 +284,17 @@ describe('official-profile sweep', () => {
     // unmatched. From corpus 2026-09-23 (#1757) the September 2026 Battle Profiles is the single
     // battle-profile source: its page 58 carries these picks, nothing is superseded, and the twenty
     // July 2026 Ogor Mawtribes supplement enhancement rows it does not re-publish left the ledger
-    // with that supplement.
+    // with that supplement. Corpus 2026-10-26 (#2087) adds the 19 Battle Profiles - Khazalite Holds
+    // (October 2026) roster options, all matched by name.
     const result = sweepOfficialRosterOptions(
       ledger.records,
       AOS4_RUNTIME_PROJECTION.entities,
       reviewedDiscrepancies
     )
     expect(result).toEqual({
-      rosterOptionRecords: 295,
-      comparedRosterOptions: 295,
-      matchedByName: 294,
+      rosterOptionRecords: 314,
+      comparedRosterOptions: 314,
+      matchedByName: 313,
       matchedByReviewedDiscrepancy: 1,
       findings: [],
     })

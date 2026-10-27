@@ -730,7 +730,7 @@ const extractRegimentFacts = (
     )
     if (!name) return []
     const unitSummary = withoutColumnHeader(
-      textValue(nearestRowItems(items, rows, rowIndex, 120, 245)),
+      textValue(centeredWrappedCellItemsForRow(items, rows, rowIndex, 120, 245)),
       /^UNIT SUMMARY\s*/i
     )
     const notes = withoutColumnHeader(

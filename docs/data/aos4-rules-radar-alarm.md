@@ -59,6 +59,15 @@ page tweak or a site-wide refresh (2026-08-25: 51 of 85 moved, all 10 CSV export
 Wahapedia is a co-equal secondary: an official document wins any conflict, and a Wahapedia change
 never overrides a reviewed official fact.
 
+**Known expected event: the Glossary page.** From 2026-10-26 Wahapedia lists
+`/aos4/the-rules/glossary/`, which is not a pinned artifact, so the radar reports it as a new rules
+page on every full run. The source inventory treats it as non-material only at the reviewed
+fingerprint `d3afb7b4…07bb` (#2087), so an unchanged page needs no data action: note it on the
+alarm and close. If the observed bytes differ, the source inventory classifies it as material and
+certification blocks: reconcile its FAQ/Errata against the accepted FAQs, core-rules, General's
+Handbook pages and official PDFs, sentence by sentence as for 2026-10-26, before re-reviewing the
+fingerprint. Teaching the radar Wahapedia non-material dispositions is a tracked follow-up (#2087).
+
 Reduce a site-wide refresh before reading it:
 
 1. **Acquire the candidate** with the accepted manifest's 72 page URLs as the pages file and a

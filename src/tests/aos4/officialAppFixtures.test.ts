@@ -119,7 +119,11 @@ describe('official app list resolution', () => {
     // Corpus 2026-10-14 adds the two official Khazalite Holds Spearhead armies (Drakkblud’s
     // Clanguard, Magmic Fyrd), indexed like every Wahapedia Spearhead army (Saga Axeband).
     // Corpus 2026-10-20 adds Legions of Nagash to four Death factions (#1757).
-    expect(index.containerIds.size).toBe(120)
+    // Corpus 2026-10-20b adds the two source-supported Khazalite Holds Armies of Renown (#2087).
+    expect(containerNames).toContain('Throngankor Alliance')
+    expect(containerNames).toContain('Fyrd of Fyrepeak')
+    expect(containerNames).not.toContain('Throng of Valankrom')
+    expect(index.containerIds.size).toBe(122)
   })
 
   it('resolves an Army of Renown and the lores nested under it', () => {

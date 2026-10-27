@@ -12,7 +12,49 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-10-20` (issue #1757): the Wahapedia refresh published
+The current revision is `aos4-corpus-2026-10-26` (issue #2087): matched-play Khazalite Holds on top
+of `aos4-corpus-2026-10-20`. The manifest `accepted-2026-10-26.json` keeps every 2026-10-20
+artifact and adds six commit-pinned BSData catalogues from the unmerged `khazalite-holds` branch
+(library and faction catalogue at `ea96eba3`, the other four at `5e52e2a5`) as provisional community
+sources. The army is partial; `aos4-maintenance.md` lists what stays absent. Its automated review is
+complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 252/252 |
+| Explicit non-material discovery entries | 11 |
+| Official battle-profile facts | 1,370/1,370 |
+| Final official/secondary reconciliation discrepancies | 381/381 |
+| Official profile-only facts | 1/1 |
+| Live audit source records | 21,006/21,006 |
+| Ignored-record dispositions (superseded + explicit) | 20,968/20,968 |
+| Live review pairs | 43,727/43,727 |
+| Independent outcomes | 87,454 pass; 0 finding; 0 cannot-verify |
+| Supported faction/context strata | 160/160 |
+| Populated high-risk cohorts | 22/22 |
+
+The source inventory binds fresh observations taken for this intake: a `discover-official`
+snapshot observed at 2026-10-26T23:13:24Z (169 downloads, 8 explicit non-material, the 2026-10-20
+dispositions), the six pinned BSData files at 23:15:10Z (`5e52e2a5`, 4) and 23:15:21Z (`ea96eba3`,
+2), and the Wahapedia navigation and exports at 23:22:28Z (88 sources, 0 inaccessible, 91
+requests). Every accepted artifact matched.
+Wahapedia's navigation now lists a Glossary page (`/aos4/the-rules/glossary/`) that it did not on
+2026-10-20. The observer classifies that exact URL as explicitly non-material: its definitions are
+summaries that defer to the rules modules, and its FAQ/Errata repeat the accepted pages (841 of 900
+sentences verbatim on the accepted FAQs, core rules or General's Handbook pages, 57 more on other
+accepted rules pages or official PDFs, one rewording of "No, unless" and one flavour line the
+catalog does not store). The certification is `aos4-corpus-2026-10-26-machine-r1` (campaign
+2026-10-26T23:53:41Z, prepared 2026-10-27T00:02:01Z). Its `--reuse-certification` offer of
+`aos4-corpus-2026-10-20-machine-r2` reused no pair (revision re-key), so all 43,727 pairs were
+evaluated fresh. A first campaign at 23:25:39Z reported one finding: a reviewed timing override
+labelled Rhythmic Hammering (Runewright) a reaction on the strength of the Quick Start Guide's
+generic reaction form, which does not print that card. The card prints no timing label and no
+official document prints the warscroll, so the record is now ignored as source-blocked (one
+ability and its warscroll edge removed) instead of shipping an inferred timing.
+
+### `aos4-corpus-2026-10-20` (superseded)
+
+The previous revision was `aos4-corpus-2026-10-20` (issue #1757): the Wahapedia refresh published
 2026-10-19 04:58:53 (`Last_update.csv` `b82f1c68...`) on top of `aos4-corpus-2026-10-14`. The manifest
 `accepted-2026-10-20.json` swaps 84 of the 85 Wahapedia artifacts; no Games Workshop or BSData
 artifact changed. Wahapedia caught up with the September 2026 official update, so errata the

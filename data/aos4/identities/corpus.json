@@ -136903,6 +136903,3369 @@
       "kind": "weapon",
       "name": "Skullshatter Crossbow",
       "retired": true
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:ancestor-god-recitations:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:ccc4f381-4eff-5ea2-869a-8fd82d9ffc4b",
+      "kind": "ability",
+      "name": "Recitation to Valaya"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:ancestor-god-recitations:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:87c1bf94-110b-5608-9159-33fe1150ea87",
+      "kind": "ability",
+      "name": "Recitation to Gazul"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:ancestor-god-recitations:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:ab9258f1-6c84-54e7-9e98-f72378300949",
+      "kind": "ability",
+      "name": "Recitation to Grimnir"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:aureate-hide",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:62106260-b935-5942-bb0a-c44b2bbb73a5",
+      "kind": "ability",
+      "name": "Aureate Hide"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-fyrd-of-fyrepeak:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:55f44253-6ce7-5e05-856f-74aa2b459697",
+      "kind": "ability",
+      "name": "Grimmdron Grudges"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-fyrd-of-fyrepeak:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:8ee96bf2-217b-5eee-bd96-b7127d91c072",
+      "kind": "ability",
+      "name": "Rune of Fortune"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-fyrd-of-fyrepeak:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:591df6cc-63d9-5e51-b0a0-58117029af56",
+      "kind": "ability",
+      "name": "Rune of Spellbreaking"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-fyrd-of-fyrepeak:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1c21af4e-7c8f-5cf2-a244-905f40962609",
+      "kind": "ability",
+      "name": "Rune of Guarding"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-fyrd-of-fyrepeak:ability:5",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f9cb4718-5d28-5569-88fe-4caa7f480b09",
+      "kind": "ability",
+      "name": "Rune of Speed"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-fyrd-of-fyrepeak:ability:6",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:5f512365-9584-551b-aef9-c0e5e54d6565",
+      "kind": "ability",
+      "name": "Rune of Striking"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-khazalite-holds:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:29e20bef-ebb1-5ba8-9017-89d5ad51deb7",
+      "kind": "ability",
+      "name": "Thorgrim's Beard! There Are Grudges to Be Settled!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-khazalite-holds:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f3949415-443d-5ef9-8edd-7bd2228f06ec",
+      "kind": "ability",
+      "name": "Reclaim the Karaks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-khazalite-holds:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:4074464d-9200-5343-a37e-ede56a6708d7",
+      "kind": "ability",
+      "name": "Let It Be Known!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-khazalite-holds:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:6bab91ea-6129-560a-a5a1-985e423b762f",
+      "kind": "ability",
+      "name": "Gazul, Remember the Fallen!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-khazalite-holds:ability:5",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:aa5f0acb-6f70-5092-a552-5ae6cf8b2fbc",
+      "kind": "ability",
+      "name": "We Honour Valaya!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-khazalite-holds:ability:6",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:3d18ed24-54d6-5f25-bc40-82afa42054ab",
+      "kind": "ability",
+      "name": "Inghilde, Our Light in the Darkness"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-khazalite-holds:ability:7",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b2332585-0c38-5607-9b9a-4d826a6f1cf3",
+      "kind": "ability",
+      "name": "By Grungni, Stand Firm!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-khazalite-holds:ability:8",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:7f715245-0106-5a1e-a858-c9974c7f98d6",
+      "kind": "ability",
+      "name": "Grimnir's Wrath Will Burn Bright!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-khazalite-holds:ability:9",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e1d0a930-2bc2-5ff3-94cc-8097f8584d80",
+      "kind": "ability",
+      "name": "Enlighten Us with Your Wisdom, Grombrindal!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-throngankor-alliance:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:9c1c904c-5693-571a-85fe-34cd7a119bd0",
+      "kind": "ability",
+      "name": "Stone and Sky"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-throngankor-alliance:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:6f9d1bff-c863-58fe-b166-c543f2af3bc7",
+      "kind": "ability",
+      "name": "Duardin Pride"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-throngankor-alliance:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:3e294148-6d14-5ab6-bc9c-3368666b4e1e",
+      "kind": "ability",
+      "name": "Hammer and Anvil"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-throngankor-alliance:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:9f526577-ded2-518c-a786-f4c220852ff5",
+      "kind": "ability",
+      "name": "Transport Duardin"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-throngankor-alliance:ability:5",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d5aa3e34-f900-531d-a4aa-9dd55aa1406b",
+      "kind": "ability",
+      "name": "The Vice"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:battle-traits-throngankor-alliance:ability:6",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a1092036-a0ca-538b-b2bb-7e518e895040",
+      "kind": "ability",
+      "name": "Allied Grudgement"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:deep-earth-runic-weapon",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:2752a779-6e9a-5eee-8f9c-f451a95d217e",
+      "kind": "ability",
+      "name": "Deep-earth Runic Weapon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:flamescale-rune-cloak",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:8c16e46e-d5fb-5936-ab3c-1ccab8e247c3",
+      "kind": "ability",
+      "name": "Flamescale Rune Cloak"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:hearthflares",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f3897066-e8cd-5dc7-8877-e3e7d54d0993",
+      "kind": "ability",
+      "name": "Hearthflares"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:hearthsworn-defenders:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:0c0cb7cc-1efb-5211-a89d-ad0c39847e2e",
+      "kind": "ability",
+      "name": "Lock Shields!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:innate-resonance",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b3335164-09fb-5f8d-bcc1-5ba510372c10",
+      "kind": "ability",
+      "name": "Innate Resonance"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:intense-fyrestream",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:cb393cf6-04a0-538b-8449-33c3e9573997",
+      "kind": "ability",
+      "name": "Intense Fyrestream"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:long-of-beard-or-braid",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:7a1ba3b7-fb99-5266-803e-277eb4fc788b",
+      "kind": "ability",
+      "name": "Long of Beard or Braid"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:resonance-of-the-runes:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:48be0c2b-475f-5d52-be2c-a25b138079d3",
+      "kind": "ability",
+      "name": "Rune of Might"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:resonance-of-the-runes:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:22172bf1-26c6-5fa2-bffc-af26cb23a835",
+      "kind": "ability",
+      "name": "Rune of Sanctuary"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:resonance-of-the-runes:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:adb158a2-3156-5989-9a61-56f80aeb11bf",
+      "kind": "ability",
+      "name": "Rune of Warding"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:reverberations-of-the-runes:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:5007e946-dd90-5a76-bc61-fa3371908386",
+      "kind": "ability",
+      "name": "Rune of Dismay"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:reverberations-of-the-runes:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:98d45324-c982-5153-8d64-58cd33e56deb",
+      "kind": "ability",
+      "name": "Rune of Courage"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:reverberations-of-the-runes:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:07275441-dfda-5cdb-a896-93f5325249c4",
+      "kind": "ability",
+      "name": "Rune of the Furnace"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:stronger-when-alloyed",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a0f33a74-d4e2-5063-b5fa-dd3a9fa30952",
+      "kind": "ability",
+      "name": "Stronger When Alloyed"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:sworn-to-vengeance",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b8143dd1-6e39-5b52-8125-0b772a27bbcb",
+      "kind": "ability",
+      "name": "Sworn to Vengeance"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:thickened-scales",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:882fafd6-eefd-529d-89b7-970ee2c0610e",
+      "kind": "ability",
+      "name": "Thickened Scales"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:throngankor-flare",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:4d2072b4-1b3c-5c58-bdfc-23e2d750f655",
+      "kind": "ability",
+      "name": "Throngankor Flare"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:unyielding-anvil:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:ba159429-70b4-579e-aa4e-1ec5e482428a",
+      "kind": "ability",
+      "name": "Stalwart Resolve"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e5ae35ae-8462-5736-bd79-a49a0038fd2d",
+      "kind": "ability",
+      "name": "Fury of Vulcatrix"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:bdb1df65-cae8-5cd1-ab32-fdadb364ea57",
+      "kind": "ability",
+      "name": "Ichor of the Ur-Salamander"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1e697406-5db1-5b23-99c5-45eec3dcf7dd",
+      "kind": "ability",
+      "name": "Blazing Impetus"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:war-callers:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a04bb320-6c5c-520a-9503-f7a2aa61853b",
+      "kind": "ability",
+      "name": "Bellicose Belligerents"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:wayfarer-nomads:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f846ae0e-77b6-59c1-80ac-959886dbc799",
+      "kind": "ability",
+      "name": "Well-travelled Roamers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:regiment:fjoris-vengeance:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b50e1306-81c7-58a0-89c7-3dac5b26f3e2",
+      "kind": "ability",
+      "name": "Itinerant Grimmdron"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:regiment:thengins-grudgesettlers:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:0f17b136-1564-5b17-b9d3-22fa5c609e3f",
+      "kind": "ability",
+      "name": "Rune of Stoicism"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:regiment:thengins-grudgesettlers:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b3badc51-f5e3-5e59-b892-993c46d5235a",
+      "kind": "ability",
+      "name": "Grudgesettlers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-flamekeeper:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:fbd18bbc-bc23-54e2-9e0b-4671454f5af1",
+      "kind": "ability",
+      "name": "Fire-fuelled Anger"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-flamekeeper:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:7ecc8358-465f-579b-bd03-6b26186fc8e9",
+      "kind": "ability",
+      "name": "Relight the Fire"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-flamekeeper:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:68d5f035-ad26-548d-8fb0-252b31379528",
+      "kind": "ability",
+      "name": "Masterflame Rune"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-hearthguard:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a9816f52-e986-5345-8fcb-f50ee35532a4",
+      "kind": "ability",
+      "name": "Focused Ire"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-hearthguard:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:18c1ae24-8da6-534c-b51a-1bde10fbddd9",
+      "kind": "ability",
+      "name": "Molten Rockbolts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather-on-magmadroth:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:fb8553ae-80f7-5f58-b919-8fa6f9b7854f",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather-on-magmadroth:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e6499ca4-3e6b-5968-926e-8dc53cb200b8",
+      "kind": "ability",
+      "name": "Warrior-kings"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather-on-magmadroth:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:17d8ace7-73f9-52a2-9a35-0761d77048be",
+      "kind": "ability",
+      "name": "Raging Inferno"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather-on-magmadroth:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:ebdfcd7b-a12e-5d4c-b6c0-1ddaef61406b",
+      "kind": "ability",
+      "name": "Volcanic Blood"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:81fbbbe6-b37e-54ad-a827-2e1cb2669b32",
+      "kind": "ability",
+      "name": "Royal Retinue"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c59725ce-866c-5d08-a006-1c49f735874a",
+      "kind": "ability",
+      "name": "Commanding Presence"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runemaster:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a1d3d9dc-4793-5a6e-a515-6bcccafc7bd5",
+      "kind": "ability",
+      "name": "High Priest of the Zharrgrim"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runemaster:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:2c166a1c-6603-5d6d-88f7-d98ce23cfc6d",
+      "kind": "ability",
+      "name": "Master of the Runes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter-on-magmadroth:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1516546b-0d25-5130-81be-304eaed82d1a",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter-on-magmadroth:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c0fcd2ea-6ee0-57d1-aab4-f129a41453a1",
+      "kind": "ability",
+      "name": "Volcanic Blood"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter-on-magmadroth:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:74258f73-dcd2-53fb-930f-5edb3ae3d521",
+      "kind": "ability",
+      "name": "Runic Empowerment"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter-on-magmadroth:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:9ee93cbf-4530-5202-bc55-34729a29f1f6",
+      "kind": "ability",
+      "name": "Lashing Tail"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f048fc9f-91a5-5881-bcf7-ec49f151bf4c",
+      "kind": "ability",
+      "name": "Righteous Wrath"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:68f301cc-052e-5822-8c14-7d3e355bc85c",
+      "kind": "ability",
+      "name": "Magmic Passage"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:241c323d-faec-5b32-a2d1-cab03491acea",
+      "kind": "ability",
+      "name": "Volcanic Blood"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:94a4781f-5c40-523e-a9d0-35f241e1d8e4",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b32ae2b4-202b-536b-896c-56f8b81bfebf",
+      "kind": "ability",
+      "name": "Fire, Blood and Vengeance"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:72904354-57c8-580e-98ef-f2833e385fec",
+      "kind": "ability",
+      "name": "Seeing Red"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:fae8a2ed-af8b-5490-9ba8-3ee0f9978f30",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:fe5e9510-6043-54ac-a974-0141d37b8053",
+      "kind": "ability",
+      "name": "Volcanic Blood"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:eed665cc-3291-55b9-b84f-2e2e3435b677",
+      "kind": "ability",
+      "name": "Packdroth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:5e9487d9-d232-5d2b-bcd0-2bdc0150cac8",
+      "kind": "ability",
+      "name": "Calamitous Crash"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:8590a711-e4a8-5c54-815a-8798b8832f5d",
+      "kind": "ability",
+      "name": "Fearless Charge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:596c1b61-35a6-5558-9ec1-4258464db810",
+      "kind": "ability",
+      "name": "Dauntless Assault"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:battlesmith:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:bbb98c3a-005e-549f-9a38-6b85f56f9447",
+      "kind": "ability",
+      "name": "Icon of Grimnir"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:battlesmith:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f9cb7199-f27a-5ceb-9317-7e8c0e343e08",
+      "kind": "ability",
+      "name": "Bard of the Lodge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundok-rifles:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:47d3c72a-7322-5a68-8102-d4fe80d7a1b1",
+      "kind": "ability",
+      "name": "Thrundok Hail"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundok-rifles:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:52959157-2eff-5029-9cea-ba616fe752f5",
+      "kind": "ability",
+      "name": "Settled with a Bullet"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundrin-shotcannons:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e1eea9e8-6a5e-59d8-a29a-1cdc700a517f",
+      "kind": "ability",
+      "name": "Blasted and Dazed"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundrin-shotcannons:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b109c3a2-74fc-5279-ae49-0cd5b852428b",
+      "kind": "ability",
+      "name": "Grim Retaliation"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clanshields:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a56b20dd-e1d1-537d-be67-c680328af9c4",
+      "kind": "ability",
+      "name": "Tough as Stone"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clanshields:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:04a62ccc-a9f6-5dad-be1d-4ad809fc12a3",
+      "kind": "ability",
+      "name": "Remember Their Names"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:doomseeker:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:4d47aacc-9b50-5676-956c-89330cb9184d",
+      "kind": "ability",
+      "name": "Runic Power"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:doomseeker:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:fba34fc1-325f-51d8-aba2-6da450324cfc",
+      "kind": "ability",
+      "name": "Oathbound"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-gazul:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:ba8082c7-6df2-53d8-bf4c-9d38d1320e15",
+      "kind": "ability",
+      "name": "Runes of Gazul"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-gazul:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:08bd524a-9a1c-5e80-95c4-058e436a6d0c",
+      "kind": "ability",
+      "name": "Armour-crushing Swings"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-valaya:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:0b52ac60-a68b-51e2-ac9d-4471e737afdc",
+      "kind": "ability",
+      "name": "Icons of Valaya"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-valaya:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:18847a0e-b94d-55c7-9d4a-1f18ee328ad4",
+      "kind": "ability",
+      "name": "Shield Strike"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gotrek-gurnisson:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b4ac216c-26db-5df4-89f4-fd09c01b7def",
+      "kind": "ability",
+      "name": "Indifferent and Pragmatic"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gotrek-gurnisson:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1f7c96c6-4f4a-5b0d-b01a-8781ae091842",
+      "kind": "ability",
+      "name": "Too Stubborn to Die"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gotrek-gurnisson:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:59e871a2-cf15-5d9e-b7c1-430991305efe",
+      "kind": "ability",
+      "name": "A Glorious Doom"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimhold-exile:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c9d5787a-9c25-5788-9134-c8607d06e7c1",
+      "kind": "ability",
+      "name": "Wrathful Wanderer"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimhold-exile:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a40946d1-0a63-5db9-81de-e9402560c0d7",
+      "kind": "ability",
+      "name": "Alone but Never Outnumbered"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimhold-exile:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:973b6172-05ac-54cc-82c7-33c0237f0c07",
+      "kind": "ability",
+      "name": "Relentless Wrath"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimwrath-berzerker:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:cc3637e4-7af2-5365-84d1-ba3d84d06a2c",
+      "kind": "ability",
+      "name": "Grimwrath Oaths"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimwrath-berzerker:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:2b28ac4b-4c2f-5aa1-a906-8ca5cdb4713d",
+      "kind": "ability",
+      "name": "Battle-fury"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hearthguard-berzerkers:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d80dff45-fbbd-51c1-bab9-848abcf2e7e8",
+      "kind": "ability",
+      "name": "Duty unto Death"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hearthguard-berzerkers:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d822817b-a20a-5397-aa2b-835b00e481e8",
+      "kind": "ability",
+      "name": "Fury of Grimnir"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:81bd3fb8-b589-50ca-aeb7-f60596a324f1",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:30c72b8f-5a20-5397-8ea7-e120a946fc48",
+      "kind": "ability",
+      "name": "Defend the High Throne!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:97b1c25f-06f3-51d9-8cdd-4801d4598d6c",
+      "kind": "ability",
+      "name": "High Kyng's War Council"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:50258080-b51b-5cfc-960d-8ad3b03f8da8",
+      "kind": "ability",
+      "name": "Stirring the High Kyng's Ire"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom:ability:5",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e5bb00d6-f8b8-5461-b739-11ebe465ad96",
+      "kind": "ability",
+      "name": "Tide of Stone"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hjulda-drakkblud:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:08bc6966-9d90-56a4-909c-548655cc080e",
+      "kind": "ability",
+      "name": "Book of Fallen Holds"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hjulda-drakkblud:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:bb4c18f8-894b-5353-a025-3b847040bcc7",
+      "kind": "ability",
+      "name": "Talisman of the Lost Karak"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hjulda-drakkblud:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b1be6df2-f4f5-5791-a201-6db17b609d91",
+      "kind": "ability",
+      "name": "Last of Her Clan"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:magmic-battleforge:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f0b137dd-a253-5550-9401-736c0e560615",
+      "kind": "ability",
+      "name": "Spending the Forge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:magmic-battleforge:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:07f93e8d-23b2-5fcd-9eb8-7693393ad7f1",
+      "kind": "ability",
+      "name": "Molten Blessing"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:oathkeeper-cannon:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:4e1856a1-1daa-5228-a9ef-e78085d0f511",
+      "kind": "ability",
+      "name": "Artillerist's Revenge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:oathkeeper-cannon:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c50869dd-d1e0-5cc6-9e65-c89b9e4ed760",
+      "kind": "ability",
+      "name": "Oathkeeper Apprentice Runestriker"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ormyr-and-ashtongue:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:50006b78-6f86-5864-958e-f9b65e5702a7",
+      "kind": "ability",
+      "name": "Vulcatrix's Fury"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ormyr-and-ashtongue:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:6151c106-12b6-536d-8f61-0b66252d8ef1",
+      "kind": "ability",
+      "name": "Drothmaster at Heart"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ormyr-and-ashtongue:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:8ebe9b92-8783-595d-8639-c4e083a06cd8",
+      "kind": "ability",
+      "name": "Smoke and Ash"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:runewright:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:919a9418-69ec-5d07-8184-be41554576b6",
+      "kind": "ability",
+      "name": "Grudgement of the Forge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:runewright:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:281ae3d2-4a0a-5c25-bc87-585c8a0296f7",
+      "kind": "ability",
+      "name": "Rhythmic Hammering"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:stonebreaker-mortar:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:6d83b1a7-8b71-5dff-bcbc-1e2aa0875568",
+      "kind": "ability",
+      "name": "Artillerist's Revenge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:stonebreaker-mortar:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:0ab591a6-3d6f-5363-b7dc-6bda51fd01d3",
+      "kind": "ability",
+      "name": "Stonebreaker Apprentice Runestriker"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:205f5cb2-6ff4-52bf-95f9-8493f683418d",
+      "kind": "ability",
+      "name": "Battle Damaged"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:a824a1b5-6a3b-592f-846b-a5827b3fa3b9",
+      "kind": "ability",
+      "name": "Defend the Throne!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne:ability:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:3097649b-fa5f-5d33-ade4-c17a6cf72113",
+      "kind": "ability",
+      "name": "Karak War Council"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne:ability:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:4f5c2d63-1494-50a3-b9a8-b544f7db958e",
+      "kind": "ability",
+      "name": "Forge a Path"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne:ability:5",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:48efef91-9bd9-57e4-9a01-1cc2393fc0d3",
+      "kind": "ability",
+      "name": "Tectonic Impact"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:e281beee-0dab-543a-8455-6b280342864d",
+      "kind": "ability",
+      "name": "Steadfast Retribution"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:7a865230-a484-55ae-98b1-e85cfcc83720",
+      "kind": "ability",
+      "name": "Fight Shoulder to Shoulder"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:valayan-guardians-with-rune-axes-and-shields:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:54200c0d-26cd-5984-b412-879f15815f07",
+      "kind": "ability",
+      "name": "Shield Maidens"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:valayan-guardians-with-rune-axes-and-shields:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f1236c27-62ea-5c92-a83a-601907f199c0",
+      "kind": "ability",
+      "name": "Protection of Valaya"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:valayan-guardians-with-runic-halberds:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:1072f981-159c-5ed7-8c4a-aec631d34812",
+      "kind": "ability",
+      "name": "Warriors of the Hearth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkite-berzerkers-with-bladed-slingshields:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:26eb3db2-6ad4-5273-9922-3059dc8a2377",
+      "kind": "ability",
+      "name": "Berserk Fury"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkite-berzerkers-with-fyresteel-weapons:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:4594f0a1-aeb7-50fe-b423-6b36b7424d4b",
+      "kind": "ability",
+      "name": "Whirlwind of Destruction"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:c9e563bb-654b-521b-8f51-b789b4f3f04d",
+      "kind": "ability",
+      "name": "Fiery Disposition"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:57dd94f8-1790-5a1e-adcc-756ab075ed01",
+      "kind": "ability",
+      "name": "Blunt Their Horns and Fangs!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:7054defc-cac1-5420-a097-9e9352193c89",
+      "kind": "ability",
+      "name": "Drothmasters"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-flamekeeper:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:6bafe8b8-78cb-55ca-9e58-22bc145d38c6",
+      "kind": "battle-profile",
+      "name": "Auric Flamekeeper battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-hearthguard:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:d24438f0-c109-55cd-b734-2e092486ca00",
+      "kind": "battle-profile",
+      "name": "Auric Hearthguard battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather-on-magmadroth:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:00a788cd-7f41-564a-a953-d2c314393523",
+      "kind": "battle-profile",
+      "name": "Auric Runefather on Magmadroth battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:667e289c-b9dd-5cd0-aeb3-b53a5d23c666",
+      "kind": "battle-profile",
+      "name": "Auric Runefather battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runemaster:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:35533af7-a1fc-5fef-9d9c-a838bfaed816",
+      "kind": "battle-profile",
+      "name": "Auric Runemaster battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter-on-magmadroth:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:97bcc08d-f212-579e-85c0-b8312345c5c2",
+      "kind": "battle-profile",
+      "name": "Auric Runesmiter on Magmadroth battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:f69d9a89-e0fc-5d8f-8c6d-d6745e8b20ae",
+      "kind": "battle-profile",
+      "name": "Auric Runesmiter battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:19a44910-9e14-50d0-bacf-68a35be44ff9",
+      "kind": "battle-profile",
+      "name": "Scourge of Aqshy Auric Runeson on Magmadroth battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:5281e22a-e9c3-53d7-bf50-5776c79a2526",
+      "kind": "battle-profile",
+      "name": "Auric Runeson on Magmadroth battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:0754ead1-2e89-508f-8c1f-a52c343ac3d9",
+      "kind": "battle-profile",
+      "name": "Auric Runeson battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:battlesmith:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:eff3c951-9ad4-541e-a274-a3f6d470dc05",
+      "kind": "battle-profile",
+      "name": "Battlesmith battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundok-rifles:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:cac74179-a5d8-581e-956c-b72d3e7a00d3",
+      "kind": "battle-profile",
+      "name": "Clangunners with Thrundok Rifles battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundrin-shotcannons:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:39681b02-62a9-5a66-b8a6-63ef1db91e68",
+      "kind": "battle-profile",
+      "name": "Clangunners with Thrundrin Shotcannons battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clanshields:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:380e5feb-69ab-5f69-8857-ad3424dcd4cb",
+      "kind": "battle-profile",
+      "name": "Clanshields battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:doomseeker:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:9360270a-b503-5ec7-b355-950d8e2f7cca",
+      "kind": "battle-profile",
+      "name": "Doomseeker battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-gazul:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:ebeeaf8b-8d52-5287-b8ff-e3d0cd3b3ccb",
+      "kind": "battle-profile",
+      "name": "Gholems of Gazul battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-valaya:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:0046be9d-3618-5ba9-bdf1-b4ded1895b1d",
+      "kind": "battle-profile",
+      "name": "Gholems of Valaya battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gotrek-gurnisson:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:0d87f670-d667-5e09-86ce-664d89009f40",
+      "kind": "battle-profile",
+      "name": "Gotrek Gurnisson battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimhold-exile:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:d3329612-c466-53c7-82c5-6cc309df96af",
+      "kind": "battle-profile",
+      "name": "Grimhold Exile battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimwrath-berzerker:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:bdbcdc98-aa6a-5540-bffe-17adc8d181d0",
+      "kind": "battle-profile",
+      "name": "Grimwrath Berzerker battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hearthguard-berzerkers:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:860ef21a-e8f7-5aa7-9a76-1d24d984a764",
+      "kind": "battle-profile",
+      "name": "Hearthguard Berzerkers battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:55292c34-e8d0-5f8c-b218-62a34b166471",
+      "kind": "battle-profile",
+      "name": "High Kyng Valankrom battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hjulda-drakkblud:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:6788547b-a6d8-5245-adbd-da76b6f3caf1",
+      "kind": "battle-profile",
+      "name": "Hjulda Drakkblud battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:magmic-battleforge:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:ba354e24-16b9-563a-8870-253e5b06b6fc",
+      "kind": "battle-profile",
+      "name": "Magmic Battleforge battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:oathkeeper-cannon:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:5ca64034-7c43-5a87-91cd-84a391b47e10",
+      "kind": "battle-profile",
+      "name": "Oathkeeper Cannon battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ormyr-and-ashtongue:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:d6f1e6a6-7e10-5058-88c8-8566cae1e16b",
+      "kind": "battle-profile",
+      "name": "Ormyr and Ashtongue battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:runewright:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:06761c39-9d5d-50bf-b21b-547874d52c51",
+      "kind": "battle-profile",
+      "name": "Runewright battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:stonebreaker-mortar:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:0fd735f8-c0a1-522a-b4be-a2bb8ff2471f",
+      "kind": "battle-profile",
+      "name": "Stonebreaker Mortar battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:f87724f1-6a5f-50f7-9453-06abe6d4ffe1",
+      "kind": "battle-profile",
+      "name": "Thrynn on War Throne battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:50a8e3c2-4c2f-5473-a654-ee47f0081c62",
+      "kind": "battle-profile",
+      "name": "Thrynn battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:valayan-guardians-with-rune-axes-and-shields:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:6e0196a1-51ac-5639-a5e9-075ffc140f92",
+      "kind": "battle-profile",
+      "name": "Valayan Guardians with Rune Axes and Shields battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:valayan-guardians-with-runic-halberds:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:f4cda467-bcc7-5728-ace5-3bff23ac0204",
+      "kind": "battle-profile",
+      "name": "Valayan Guardians with Runic Halberds battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkite-berzerkers-with-bladed-slingshields:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:9aae4b29-b19d-5083-a431-e7c8911ee605",
+      "kind": "battle-profile",
+      "name": "Vulkite Berzerkers with Bladed Slingshields battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkite-berzerkers-with-fyresteel-weapons:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:24729501-af03-5f86-86cc-6c23acfdb262",
+      "kind": "battle-profile",
+      "name": "Vulkite Berzerkers with Fyresteel Weapons battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:a636df1e-8547-5f1d-91fe-31cab3f238cb",
+      "kind": "battle-profile",
+      "name": "Scourge of Aqshy Vulkyn Flameseekers battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:a5987304-84d5-5352-947f-b5a14f5492ad",
+      "kind": "battle-profile",
+      "name": "Vulkyn Flameseekers battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:army-of-renown:fyrdoffyrepeak",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:b7864ca0-a6e7-5b22-a58c-f9df6d8ba8a1",
+      "kind": "content-group",
+      "name": "Fyrd of Fyrepeak"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:army-of-renown:fyrdoffyrepeak:battletraits",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:eee9eb49-e17e-5949-9936-62c0fb36f2f4",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:army-of-renown:throngankoralliance",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:383ea3dd-b1f7-5a82-8ecc-2f949d3e6fe2",
+      "kind": "content-group",
+      "name": "Throngankor Alliance"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:army-of-renown:throngankoralliance:artefactsofpower",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:f0479a80-eacc-50c1-b3a1-4675858478d4",
+      "kind": "content-group",
+      "name": "Artefacts of Power"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:army-of-renown:throngankoralliance:battletraits",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:fe489c8c-c1ac-52fc-91fa-09a6b45d2a1e",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:army-of-renown:throngankoralliance:heroictraits",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:88fd09d0-32f9-59de-8043-a3f08ff56068",
+      "kind": "content-group",
+      "name": "Heroic Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option-group:heirlooms-of-the-karaks",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:006f5e63-6a31-57f4-b81f-11c64b124a68",
+      "kind": "content-group",
+      "name": "Heirlooms of the Karaks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option-group:marks-of-vulcatrix",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:a49d7e37-0ff1-5073-ba2f-fdcd8c3ec68e",
+      "kind": "content-group",
+      "name": "Marks of Vulcatrix"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option-group:revered-duardin-attributes",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:39bf044b-705c-50fb-a6ed-d9f836ff0411",
+      "kind": "content-group",
+      "name": "Revered Duardin Attributes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:ancestor-god-recitations",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:b1a43357-de98-5b9e-a201-ede089687839",
+      "kind": "content-group",
+      "name": "Ancestor God Recitations"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:hearthsworn-defenders",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:8215669a-0748-55f9-b43d-fb137e2f2964",
+      "kind": "content-group",
+      "name": "Hearthsworn Defenders"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:resonance-of-the-runes",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:112e64b5-8436-5706-a42f-0e5de8ea50b5",
+      "kind": "content-group",
+      "name": "Resonance of the Runes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:reverberations-of-the-runes",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:92d3dafa-df10-503d-856c-ff388e7f3a90",
+      "kind": "content-group",
+      "name": "Reverberations of the Runes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:unyielding-anvil",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:b56af0b2-5607-567a-91bc-9d536dff8b65",
+      "kind": "content-group",
+      "name": "Unyielding Anvil"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:4860989d-2d00-548f-8ca4-3cb03d96333b",
+      "kind": "content-group",
+      "name": "Vulkyn Gifts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:war-callers",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:551a307b-a3a0-5939-bfb2-e0f9dacb29ca",
+      "kind": "content-group",
+      "name": "War Callers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:wayfarer-nomads",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:6cd722cd-d8b6-5afd-af87-45c19fd92ab5",
+      "kind": "content-group",
+      "name": "Wayfarer Nomads"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:regiment:fjoris-vengeance",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:e0e14bc4-715c-5636-83f1-ecd03e2ba164",
+      "kind": "content-group",
+      "name": "Fjori’s Vengeance"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:regiment:thengins-grudgesettlers",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:3dead61b-5405-57ae-a8ec-b3776b97fe2e",
+      "kind": "content-group",
+      "name": "Thengin’s Grudgesettlers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:artefactsofpower",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:d8cdaa0a-15da-53e3-b2fc-deaba3d99c97",
+      "kind": "content-group",
+      "name": "Artefacts of Power"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:battleformations",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:aae9b35d-8dbf-5488-8acc-9556fdcbb217",
+      "kind": "content-group",
+      "name": "Battle Formations"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:battletraits",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:5908b6c2-067b-59fc-9731-142b8c7b0896",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:heroictraits",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:d6c5d103-4716-5c44-937f-e542f31bc5c5",
+      "kind": "content-group",
+      "name": "Heroic Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:marksofvulcatrix",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:eefeaba6-1ef7-5f69-9db9-f990a9970801",
+      "kind": "content-group",
+      "name": "Marks of Vulcatrix"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:prayerlore",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:70f4e470-62e6-52b6-8c5f-847691c7d30e",
+      "kind": "content-group",
+      "name": "Prayer Lore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:spelllore",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:99a03765-48f0-518a-8c88-e1c052b1c2d4",
+      "kind": "content-group",
+      "name": "Spell Lore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:17568f98d5530649f2a3a51c4da90b8bd7649db1fff58c252a090cc0ef767888",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:fe44a63a-e8cb-5bfa-8f66-040f28b499ba",
+      "kind": "publication",
+      "name": "BSData Khazalite Holds - Fyrd of Fyrepeak Army of Renown, khazalite-holds branch (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:2427ed7e1384c24bb86041137de36947391f9680b5baa35d1c0e9618e5cbfd0d",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:b001deb6-94bb-5dc8-9ddc-6d2b91cfddcd",
+      "kind": "publication",
+      "name": "BSData Khazalite Holds - Throngankor Alliance Army of Renown, khazalite-holds branch (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:253a863e3df467d798bd91e2012bba89cfcdb349f36b4623f3780bdd686eeb0c",
+          "publisher": "other"
+        },
+        {
+          "externalId": "community:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:c5575658-9d3e-5315-bf44-20ebce52907a",
+      "kind": "publication",
+      "name": "BSData Khazalite Holds library, khazalite-holds branch (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:4b977ba202b62293854ed292361f7ae74bd55581132c8fc1bdee0e29e35d25d4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:97c777c3-496f-5e54-acd6-e5677048c661",
+      "kind": "publication",
+      "name": "BSData shared Lores catalogue - Khazalite Holds battletome lores, khazalite-holds branch (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:6f54b2108ba7fecfe6fb45c3ca4d70cbc373341a435df564f49373d9a82f655a",
+          "publisher": "other"
+        },
+        {
+          "externalId": "community:299110685cdbabc36b3b7b8bae6650a391de8f971d244be79fc902e309f4ef4a",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:3ed963c4-05ad-5755-8152-08ee09559c72",
+      "kind": "publication",
+      "name": "BSData Khazalite Holds faction catalogue, khazalite-holds branch (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:79f1deaac0271a7258a5cb95924d123ff66bb2f73abe9e51ffa8d689a42798a6",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:3b2e5280-207d-5df3-9a0c-c73b3d6a75fb",
+      "kind": "publication",
+      "name": "BSData Regiments of Renown catalogue - Khazalite Holds regiments, khazalite-holds branch (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-flamekeeper",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:2d25e963-9417-502f-83c6-4fe561ae4b06",
+      "kind": "warscroll",
+      "name": "Auric Flamekeeper"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-hearthguard",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:2dfeb86a-f7f9-548c-aff7-61fe99372e07",
+      "kind": "warscroll",
+      "name": "Auric Hearthguard"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:5478b813-655a-5f17-a5a9-27e3053a8ea3",
+      "kind": "warscroll",
+      "name": "Auric Runefather"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather-on-magmadroth",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:cbdec8d3-f71c-5e8a-acf2-596d180943c7",
+      "kind": "warscroll",
+      "name": "Auric Runefather on Magmadroth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runemaster",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:32b34c15-4cf7-56ad-b7a7-90469729e67b",
+      "kind": "warscroll",
+      "name": "Auric Runemaster"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:66ae2137-993b-5d05-8207-dcd7d66b14c2",
+      "kind": "warscroll",
+      "name": "Auric Runesmiter"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter-on-magmadroth",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:4865e382-675e-5f5a-ac5e-c006dc30d1fc",
+      "kind": "warscroll",
+      "name": "Auric Runesmiter on Magmadroth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:1e2fc74c-171d-5c30-b582-e2ba14329473",
+      "kind": "warscroll",
+      "name": "Auric Runeson"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:aa893b0b-edcf-5a1e-84f6-c81741bd8a7e",
+      "kind": "warscroll",
+      "name": "Auric Runeson on Magmadroth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
+      "kind": "warscroll",
+      "name": "Scourge of Aqshy Auric Runeson on Magmadroth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:battlesmith",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:8202ed76-09fa-5643-84c9-0aba396cb3e6",
+      "kind": "warscroll",
+      "name": "Battlesmith"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundok-rifles",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:5c35c506-7ce7-5cde-b4a2-efd8c5bc2e31",
+      "kind": "warscroll",
+      "name": "Clangunners with Thrundok Rifles"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundrin-shotcannons",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:0fdaebb2-a965-5426-9104-f1b737a084fa",
+      "kind": "warscroll",
+      "name": "Clangunners with Thrundrin Shotcannons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clanshields",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:48b84fae-a54b-59cb-9f93-826ba6055c2a",
+      "kind": "warscroll",
+      "name": "Clanshields"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:doomseeker",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:a6e2ec8f-f129-5d24-bfd2-e4cec6c2f42f",
+      "kind": "warscroll",
+      "name": "Doomseeker"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-gazul",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:c99712ea-9941-505f-a80d-7d9d4e4691b4",
+      "kind": "warscroll",
+      "name": "Gholems of Gazul"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-valaya",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:5d8fa355-7d34-55e9-b2d5-0618ab3d527a",
+      "kind": "warscroll",
+      "name": "Gholems of Valaya"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gotrek-gurnisson",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:47db169b-2fcb-5b56-9c82-08fc450369f9",
+      "kind": "warscroll",
+      "name": "Gotrek Gurnisson"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimhold-exile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:79b2a0ad-456a-5709-a313-7924e42cb325",
+      "kind": "warscroll",
+      "name": "Grimhold Exile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimwrath-berzerker",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:329edaa8-f3a9-50e2-9dc7-2ce9eb3898ec",
+      "kind": "warscroll",
+      "name": "Grimwrath Berzerker"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hearthguard-berzerkers",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:a03d4f4e-aeed-5c02-bd06-0d361fdc26ef",
+      "kind": "warscroll",
+      "name": "Hearthguard Berzerkers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:289eea88-82c7-5c9e-80b6-5d9faae921f9",
+      "kind": "warscroll",
+      "name": "High Kyng Valankrom"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hjulda-drakkblud",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:bb27fcea-6883-559f-9e96-cbcffca8444d",
+      "kind": "warscroll",
+      "name": "Hjulda Drakkblud"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:magmic-battleforge",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:8c7b9059-931a-5a6b-bdbf-2d34aba81810",
+      "kind": "warscroll",
+      "name": "Magmic Battleforge"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:oathkeeper-cannon",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:b2c624a5-876e-5394-9025-7812444f4ee6",
+      "kind": "warscroll",
+      "name": "Oathkeeper Cannon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ormyr-and-ashtongue",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:6c1edd40-9f70-5371-b726-1b3c73954480",
+      "kind": "warscroll",
+      "name": "Ormyr and Ashtongue"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:runewright",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:29cd35c6-773c-5fdb-b8be-06fd008e1c05",
+      "kind": "warscroll",
+      "name": "Runewright"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:stonebreaker-mortar",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:4bc34fd6-eb88-5e22-8463-ffdea70b968c",
+      "kind": "warscroll",
+      "name": "Stonebreaker Mortar"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:cd9aa845-ee43-5ddd-b42d-3f8496262157",
+      "kind": "warscroll",
+      "name": "Thrynn"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:1183227a-9abb-5977-9ce1-1af7770b3524",
+      "kind": "warscroll",
+      "name": "Thrynn on War Throne"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:valayan-guardians-with-rune-axes-and-shields",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:2bf79fed-08be-5915-8fa3-3652eaf57622",
+      "kind": "warscroll",
+      "name": "Valayan Guardians with Rune Axes and Shields"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:valayan-guardians-with-runic-halberds",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:24d351e6-e1b2-5eb3-b011-68ed1f3acbf6",
+      "kind": "warscroll",
+      "name": "Valayan Guardians with Runic Halberds"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkite-berzerkers-with-bladed-slingshields",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:682b8ad0-4d0d-574d-a0a8-38162f00821b",
+      "kind": "warscroll",
+      "name": "Vulkite Berzerkers with Bladed Slingshields"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkite-berzerkers-with-fyresteel-weapons",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:76f53a3b-cc35-5ea9-a880-008be7f807a0",
+      "kind": "warscroll",
+      "name": "Vulkite Berzerkers with Fyresteel Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:ed766c1f-15dc-55b0-b775-7f2443a85fd2",
+      "kind": "warscroll",
+      "name": "Vulkyn Flameseekers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:03b032cd-69f8-59ff-9c87-7f40bb5b5d32",
+      "kind": "warscroll",
+      "name": "Scourge of Aqshy Vulkyn Flameseekers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-flamekeeper:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:deec5736-05a1-5b61-aa7e-c1b7103d08fc",
+      "kind": "weapon",
+      "name": "Brazier Axe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-hearthguard:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:11dc5b7f-aa9a-55dc-bb89-be18383b11c7",
+      "kind": "weapon",
+      "name": "Magmapike"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-hearthguard:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:c6faf8fd-79c5-5e97-b036-96b5ad05d36d",
+      "kind": "weapon",
+      "name": "Magmapike"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather-on-magmadroth:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:8f83d349-5c06-5a20-9160-7c8145b07e00",
+      "kind": "weapon",
+      "name": "Roaring Fyrestream"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather-on-magmadroth:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ff273ad2-64de-5754-a193-eee97862ac32",
+      "kind": "weapon",
+      "name": "Latchkey Grandaxe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather-on-magmadroth:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:0bc29f24-79e7-5072-9104-649ffb203474",
+      "kind": "weapon",
+      "name": "Magmadroth's Maw, Claws and Horns"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runefather:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:f19e09ff-6f85-5664-b48f-acfacf601c15",
+      "kind": "weapon",
+      "name": "Latchkey Grandaxe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runemaster:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:cc1d5f0d-b362-5c53-805b-e26f7c43af82",
+      "kind": "weapon",
+      "name": "Brazier Staff"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter-on-magmadroth:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ae4a72ae-744d-5ff7-9b39-d0e21914ebf4",
+      "kind": "weapon",
+      "name": "Roaring Fyrestream"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter-on-magmadroth:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ab809126-5819-5191-985e-898fbc68699b",
+      "kind": "weapon",
+      "name": "Latch-axe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter-on-magmadroth:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:a5a0c6b5-af8b-5d84-870b-4a588a38725c",
+      "kind": "weapon",
+      "name": "Magmadroth's Maw, Claws and Horns"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runesmiter:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:44fb8c35-2c17-5987-bc4c-6631a8d391c0",
+      "kind": "weapon",
+      "name": "Latch-axe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:60b36e24-4d5c-5b8c-af5d-9a49e180ff0a",
+      "kind": "weapon",
+      "name": "Ancestral Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:906a070f-fed4-5196-9c5b-f86aaa1ef772",
+      "kind": "weapon",
+      "name": "Roaring Fyrestream"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:9d071f48-2414-57fe-a4f0-1fdd13b51f59",
+      "kind": "weapon",
+      "name": "Magmadroth's Blazing Maw"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:f4627921-183a-570c-9f6d-cda91a44a0b7",
+      "kind": "weapon",
+      "name": "Magmadroth's Claws and Horns"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:fa6fd2fb-dd60-549a-933d-cbed7a1933ff",
+      "kind": "weapon",
+      "name": "Roaring Fyrestream"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:cb4c438c-6e87-5e64-b483-ea64def52f56",
+      "kind": "weapon",
+      "name": "Ancestral Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:92c83650-231b-56fd-a1ce-85accfcfc489",
+      "kind": "weapon",
+      "name": "Magmadroth's Maw, Claws and Horns"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:b0604ce2-f624-5fc7-8da4-ab325167a18e",
+      "kind": "weapon",
+      "name": "Ancestral Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:battlesmith:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:abe083af-add9-53f2-88ef-d7dab51bb72f",
+      "kind": "weapon",
+      "name": "Ancestral Battle-axe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundok-rifles:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:039cb3fa-c8df-53be-9106-f9067dbbf2db",
+      "kind": "weapon",
+      "name": "Thrundok Rifle"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundok-rifles:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ee39b1e9-d9c1-549d-aa28-008b926b70cb",
+      "kind": "weapon",
+      "name": "Rifle Butt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundrin-shotcannons:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ba3b9045-5f14-52c2-bfff-df8411343f1e",
+      "kind": "weapon",
+      "name": "Thrundrin Shotcannon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clangunners-with-thrundrin-shotcannons:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:526a73e3-f99f-56d9-a43f-a148f8b03809",
+      "kind": "weapon",
+      "name": "Shotcannon Butt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:clanshields:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:97fe94f5-7a72-516e-9ae3-f0c7b5eea532",
+      "kind": "weapon",
+      "name": "Kromdron Weapon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:doomseeker:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:3574f539-830a-5f95-9b0f-9fbaf3229ecc",
+      "kind": "weapon",
+      "name": "Doomseeker Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-gazul:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:503ac423-fe6f-524d-8bbc-a9ac5720dc82",
+      "kind": "weapon",
+      "name": "Gazulite Great Hammer"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gholems-of-valaya:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:5acef29b-ac2c-53f6-8868-1aca089c177b",
+      "kind": "weapon",
+      "name": "Valayan Great Axe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:gotrek-gurnisson:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:f9b3b6a4-a3f4-54b5-80ae-cdba8958c666",
+      "kind": "weapon",
+      "name": "Zangrom-Thaz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimhold-exile:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:d71948e9-abf6-59c1-ba48-43ee03656e70",
+      "kind": "weapon",
+      "name": "Fyre-rune Hammers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:grimwrath-berzerker:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:fafadb45-cdb8-5b1f-b874-3ff6ae6b333c",
+      "kind": "weapon",
+      "name": "Fyrestorm Greataxe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hearthguard-berzerkers:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:77ec3c42-e5a4-5928-9fba-c15f26d9b8bc",
+      "kind": "weapon",
+      "name": "Broadaxe or Flamestrike Poleaxe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:a157b4db-2f54-57a8-b37e-d4d6c0877e3c",
+      "kind": "weapon",
+      "name": "Forge-spark Lightning"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:dbcf38bd-5edb-5e49-af5d-f666d83e7db5",
+      "kind": "weapon",
+      "name": "Bharadreng"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:high-kyng-valankrom:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:d4786c12-fe78-5ab8-b391-aeb255239457",
+      "kind": "weapon",
+      "name": "Karak War Council's Armoury"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:hjulda-drakkblud:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:153211b8-d02c-5181-be30-81275982b5dc",
+      "kind": "weapon",
+      "name": "Azangrom"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:oathkeeper-cannon:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:25d6444e-937c-549b-9a60-a98742e4b912",
+      "kind": "weapon",
+      "name": "Oathkeeper Shot"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:oathkeeper-cannon:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ce260d1c-8a5b-5dd7-9986-98ab313659b3",
+      "kind": "weapon",
+      "name": "Oathkeeper Crew Tools"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ormyr-and-ashtongue:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:98caf96a-0da4-529f-88a5-fb07f5b41649",
+      "kind": "weapon",
+      "name": "Ormyr's Double-bladed Axe and Punchblade"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:ormyr-and-ashtongue:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:fb3db326-b2e4-51fa-b497-1e1196e6493b",
+      "kind": "weapon",
+      "name": "Ashtongue's Maw and Claws"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:runewright:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:551f9a52-8160-5140-9ac1-f0ee2d9006c0",
+      "kind": "weapon",
+      "name": "Runic Forgehammers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:stonebreaker-mortar:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:d8a0da76-d9e6-5b90-993f-331d2b476e71",
+      "kind": "weapon",
+      "name": "Stonebreaker Shot"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:stonebreaker-mortar:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:2d0f6257-294b-5d23-9d5c-4c5725d21fa9",
+      "kind": "weapon",
+      "name": "Stonebreaker Crew Tools"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:deff1d3d-82ca-53b9-be8a-61b2d8c76f9e",
+      "kind": "weapon",
+      "name": "Forge-spark Lightning"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:281ddcf7-c9c2-5ddc-b95e-d9d5fdf4f7f9",
+      "kind": "weapon",
+      "name": "Thrynn's Runeweapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn-on-war-throne:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:c3948477-8a8f-5c39-8847-cca7ebdf7e10",
+      "kind": "weapon",
+      "name": "Karak War Council's Armoury"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:thrynn:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:d0b910db-8747-5e6d-9013-83855ae5d879",
+      "kind": "weapon",
+      "name": "Grudgehammer and Runic Axe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:valayan-guardians-with-rune-axes-and-shields:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:936326d5-115e-5ad6-8a41-5fab4adb20ca",
+      "kind": "weapon",
+      "name": "Valayan Rune Axe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:valayan-guardians-with-runic-halberds:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:9d58c7b4-11a4-5759-9f2c-92905f3c4764",
+      "kind": "weapon",
+      "name": "Valayan Runic Halberd"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkite-berzerkers-with-bladed-slingshields:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:05b5da6c-ad09-5eaf-923a-1e3c5d52458a",
+      "kind": "weapon",
+      "name": "Fyresteel Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkite-berzerkers-with-fyresteel-weapons:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:96f09269-27f1-51f0-a265-9335bc73a4bb",
+      "kind": "weapon",
+      "name": "Fyresteel Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:7c90c81a-6c7f-5d88-b967-a1a4e29001d2",
+      "kind": "weapon",
+      "name": "Vulkyn Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:9c7128b5-2286-5367-8acc-493cc1b15077",
+      "kind": "weapon",
+      "name": "Emberteeth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:86a1878c-dcf9-5233-9961-c15a8f1038ec",
+      "kind": "weapon",
+      "name": "Vulkyn Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:c7a2f76c-2fed-567e-95d3-def78fc58f8d",
+      "kind": "weapon",
+      "name": "Vulkyn Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:d65e5260-dba1-59fe-b7aa-453fbc58d0bc",
+      "kind": "weapon",
+      "name": "Kyndledroth's Fangs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ceb8f980-6066-5d2e-8ed2-ff4266f58c27",
+      "kind": "weapon",
+      "name": "Vulkyn Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:throngankor-alliance-prayer-lore:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:ff7dbe1a-8b30-5b26-adf3-138bc33abd70",
+      "kind": "ability",
+      "name": "Redeclaration of Alliance"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:throngankor-alliance-spell-lore:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:d2f8fac2-2b3b-5a52-9fae-e4f6e5aed689",
+      "kind": "ability",
+      "name": "Rune of Spirit"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:option:throngankor-alliance-spell-lore:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:b1c15182-61df-587d-b31c-868531bf477d",
+      "kind": "ability",
+      "name": "Rune of Defence"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:army-of-renown:throngankoralliance:prayerlore",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:4014e03e-02b8-5768-a290-081126a28a17",
+      "kind": "content-group",
+      "name": "Prayer Lore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:army-of-renown:throngankoralliance:spelllore",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "content-group:b7c188f8-4a80-5c73-9725-3bb251515b6e",
+      "kind": "content-group",
+      "name": "Spell Lore"
     }
   ],
   "schemaVersion": 1

@@ -1,6 +1,5 @@
 // @vitest-environment jsdom
 
-import type { CanonicalId } from '../../aos4/domain'
 import { AOS4_CATALOG, AOS4_DEFAULT_RULES_CONTEXT_ID } from '../../aos4/generated'
 import { AOS4_ARMY_STORAGE_KEY } from '../../aos4/runtime'
 import { createAos4ArmyDocument, serializeAos4ArmyDocument } from '../../aos4/state'
@@ -17,10 +16,10 @@ import { MemoryStorage } from 'tests/support/memoryStorage'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 /*
- * Clear Army starts the army over in the application default rules context. Khazalite Holds
- * (October 2026, #1757) is the first faction that exists only in Spearhead, so a cleared imported
- * or loaded Khazalite Holds army must stay where its faction exists instead of becoming a faction
- * with nothing to field.
+ * Clear Army starts the army over in the application default rules context. A faction the default
+ * context does not carry must stay where it exists instead of becoming a faction with nothing to
+ * field. Khazalite Holds was Spearhead-only from October 2026 (#1757) until corpus 2026-10-26
+ * (#2087) gave it matched play; Bonesplitterz, which exists only in Legends, is now the case.
  */
 
 const auth = vi.hoisted(() => ({
@@ -55,13 +54,9 @@ vi.mock('react-router', async () => {
 })
 
 const spearhead = AOS4_CATALOG.rulesContexts.find(context => context.mode === 'spearhead')!
+const legends = AOS4_CATALOG.rulesContexts.find(context => context.status === 'legends')!
 const factionNamed = (name: string) =>
   AOS4_CATALOG.entities.find(entity => entity.kind === 'faction' && entity.name === name)!
-const offeredGroup = (factionId: CanonicalId, name: string) =>
-  AOS4_CATALOG.relationships
-    .filter(relationship => relationship.kind === 'offers' && relationship.from === factionId)
-    .map(relationship => AOS4_CATALOG.entities.find(entity => entity.id === relationship.to)!)
-    .find(entity => entity.kind === 'content-group' && entity.name === name)!
 
 describe('Clear Army', () => {
   const flush = () => new Promise(resolve => setTimeout(resolve, 0))
@@ -142,10 +137,9 @@ describe('Clear Army', () => {
       )
     )
 
-  it('keeps a Spearhead-only faction in Spearhead, still able to field its armies', async () => {
-    const khazaliteHolds = factionNamed('Khazalite Holds')
-    const army = offeredGroup(khazaliteHolds.id, 'Drakkblud’s Clanguard')
-    storeArmy(spearhead.id, [khazaliteHolds.id, army.id])
+  it('keeps a faction outside the default context where it exists', async () => {
+    const bonesplitterz = factionNamed('Bonesplitterz')
+    storeArmy(legends.id, [bonesplitterz.id])
     const { clickButton, container, renderHome, storedArmy } = fixture
 
     await renderHome()
@@ -153,14 +147,14 @@ describe('Clear Army', () => {
     await clickButton('Clear army')
 
     expect(storedArmy()).toMatchObject({
-      rulesContextId: spearhead.id,
-      explicitSelectionIds: [khazaliteHolds.id],
+      rulesContextId: legends.id,
+      explicitSelectionIds: [bonesplitterz.id],
     })
-    // The masthead still names the faction: its selector lists Khazalite Holds only in Spearhead.
+    // The masthead still names the faction: its selector lists Bonesplitterz only in Legends.
     const factionSelect = container
       .querySelector('input[aria-label="Faction"]')
       ?.closest('[class*="container"]')
-    expect(factionSelect?.querySelector('[class*="singleValue"]')?.textContent).toBe('Khazalite Holds')
+    expect(factionSelect?.querySelector('[class*="singleValue"]')?.textContent).toBe('Bonesplitterz')
   })
 
   it('still starts an ordinary faction over in the application default context', async () => {

@@ -3,13 +3,25 @@
   "watches": [
     {
       "id": "wahapedia-khazalite-holds-faction",
-      "issueNumber": 1757,
-      "reason": "Corpus 2026-10-14 ships Khazalite Holds only as its two official Spearhead armies. The matched-play faction (the October 2026 battle profiles’ 35 units, Battletome: Khazalite Holds formations, enhancements, and lores) and its two Regiments of Renown (Fjori’s Vengeance, Thengin’s Grudgesettlers) stay blocked because no accepted source prints their rules. A Khazalite Holds faction page in the Wahapedia navigation is the first secondary source for that intake; the Fyreslayers-to-Khazalite Holds transition is owner-gated.",
+      "issueNumber": 2087,
+      "reason": "Corpus 2026-10-26 ships the Khazalite Holds matched-play faction, its Fyrd of Fyrepeak and Throngankor Alliance Armies of Renown and its two new Regiments of Renown from the draft BSData khazalite-holds branch (BSData/age-of-sigmar-4th#1397, pinned 5e52e2a5; library and faction catalogue re-pinned to ea96eba3), anchored on the October 2026 official Battle Profiles and Rules of Renown. Translated text, invented lore titles and the whole Throng of Valankrom Army of Renown stay source-blocked, and inferred keywords, doubtful photo readings and unchecked Fyreslayers copies ship with a per-fact provisional basis (#2087). A Wahapedia Khazalite Holds faction page is the first preferred-secondary source to verify or replace them.",
       "url": "https://wahapedia.ru/aos4/nav.html",
       "sentinels": [
         {
           "label": "Khazalite Holds faction page (navigation link)",
           "needle": "/factions/khazalite-holds"
+        }
+      ]
+    },
+    {
+      "id": "bsdata-khazalite-holds-main",
+      "issueNumber": 2087,
+      "reason": "Corpus 2026-10-26 ships the Khazalite Holds matched-play faction, its Fyrd of Fyrepeak and Throngankor Alliance Armies of Renown and its two new Regiments of Renown from the draft BSData khazalite-holds branch (BSData/age-of-sigmar-4th#1397, pinned 5e52e2a5; library and faction catalogue re-pinned to ea96eba3), anchored on the October 2026 official Battle Profiles and Rules of Renown. Translated text, invented lore titles and the whole Throng of Valankrom Army of Renown stay source-blocked, and inferred keywords, doubtful photo readings and unchecked Fyreslayers copies ship with a per-fact provisional basis (#2087). BSData merging the branch to main publishes the reviewed catalogues; re-pin from main and re-verify through the standard candidate intake.",
+      "url": "https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/Age%20of%20Sigmar%204.0.gst",
+      "sentinels": [
+        {
+          "label": "Battletome: Khazalite Holds publication on BSData main",
+          "needle": "Battletome: Khazalite Holds"
         }
       ]
     }
