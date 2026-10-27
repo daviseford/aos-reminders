@@ -3,7 +3,7 @@
   "generatedAt": "2026-10-26T18:00:00.000Z",
   "identities": "data/aos4/identities/corpus.json",
   "integrity": {
-    "consumedSourceRecords": 20997,
+    "consumedSourceRecords": 20996,
     "dispositions": [
       {
         "reason": "Transport Duardin (Throngankor Alliance battle traits): its 6\" range and model-count wording are translated from the French edition (BSData/age-of-sigmar-4th#1397); source-blocked until an English source prints it (#2087).",
@@ -18,6 +18,11 @@
       {
         "reason": "Warrior-kings (Auric Runefather on Magmadroth): the first paragraph is translated from the French edition (BSData/age-of-sigmar-4th#1397); a partly translated card is source-blocked rather than shipped incomplete (#2087).",
         "sourceRecordId": "source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2",
+        "status": "ignored"
+      },
+      {
+        "reason": "Rhythmic Hammering (Runewright) prints its condition \"You declared a Spell ability from the 'Reverberations of the Runes' or the 'Resonance of the Runes' for this unit\" with no \"Reaction:\" label or phase in the community transcription (BSData/age-of-sigmar-4th#1397), and no official document prints the warscroll, so its timing is source-blocked: the generator ships no unclassified timing, and the machine review rejects a timing the official evidence does not print (#2087).",
+        "sourceRecordId": "source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Arunewright%3Aability%3A2",
         "status": "ignored"
       },
       {
@@ -60,8 +65,8 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 36594464,
-      "checksum": "b1195d67f6f9ad47461832c62baa3fade2ffe899515c6a255aa86f8fbdc81b8b"
+      "byteLength": 36591785,
+      "checksum": "0f9b8ff10f3bbef6bbb43790edb7711e649419aa3f7a0b0b6c9e029046c96b47"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
       "byteLength": 1457508,
@@ -84,16 +89,16 @@
       "checksum": "040c792f8527bd918b764652ebce8c9fa5339b257461947f4a9e4ecb3299af48"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
-      "byteLength": 6881938,
-      "checksum": "c30a78238e8361814f18662dbc6aef95d4e8adcec29eb286088287f2adb67a37"
+      "byteLength": 6880764,
+      "checksum": "aa967cb372bea9b6ca07e715d9af4bc2ef9cbd8cd7644b92af049956199f410c"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 14294183,
-      "checksum": "2c567c9da4155c41729e99365780bed17772d1be02897c7ff0a03e376322cdec"
+      "byteLength": 14292697,
+      "checksum": "93f313c4811c4f32bca1a660102ce80ec8b86b0115d88e5c8989f6703f19c301"
     },
     "src/aos4/generated/corpus/runtime.sources.json": {
-      "byteLength": 7412247,
-      "checksum": "1af7192be6a0327457cf6ee17ce6d256987275e5ab1bbc6393abbd0cb41e6f01"
+      "byteLength": 7411935,
+      "checksum": "5480d18fe192682e6ce6fb5c7a5fa54df57b142214dffa25c16b5e9114d6a076"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-10-26.json",
@@ -110,14 +115,14 @@
   },
   "status": "strict-pass",
   "summary": {
-    "abilities": 5398,
+    "abilities": 5397,
     "attribution": "Powered by Wahapedia",
     "battleProfiles": 1051,
     "contentGroups": 1588,
     "factions": 29,
-    "ignoredSourceRecords": 20967,
+    "ignoredSourceRecords": 20968,
     "publications": 318,
-    "relationships": 14896,
+    "relationships": 14895,
     "revision": "aos4-corpus-2026-10-26",
     "schemaVersion": 1,
     "sourceArtifacts": 252,

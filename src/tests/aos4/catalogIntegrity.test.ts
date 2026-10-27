@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(12_075)
+    expect(AOS4_CATALOG.entities).toHaveLength(12_074)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 12,075 entities', () => {
+  it('reports no missing provenance for any of the 12,074 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(12_075)
+    ).toHaveLength(12_074)
   })
 })
 
@@ -196,16 +196,18 @@ describe('AoS 4 catalog generation integrity', () => {
         // Corpus 2026-10-20b (#2087): matched-play Khazalite Holds from six provisional BSData
         // catalogues; the three ignored records are its translated cards (Grimnir's Wrath Will Burn
         // Bright!, Warrior-kings, Transport Duardin), which stay absent until an English source.
+        // Corpus 2026-10-26 also ignores the Runewright's Rhythmic Hammering, whose timing is
+        // source-blocked.
         warscrolls: 1347,
         battleProfiles: 1051,
-        abilities: 5398,
+        abilities: 5397,
         weapons: 2344,
         sourceArtifacts: 252,
         sourceRecords: 21006,
-        ignoredSourceRecords: 20967,
+        ignoredSourceRecords: 20968,
       },
       integrity: {
-        consumedSourceRecords: 20997,
+        consumedSourceRecords: 20996,
         issues: [],
         supersededSourceRecords: {
           count: 20958,
@@ -222,11 +224,19 @@ describe('AoS 4 catalog generation integrity', () => {
       'source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2',
       'source-record:bsdata:299110685cdbabc36b3b7b8bae6650a391de8f971d244be79fc902e309f4ef4a%3Aoption%3Abattle-traits-khazalite-holds%3Aability%3A8',
     ]
-    expect(report.integrity.dispositions).toHaveLength(9)
+    // Corpus 2026-10-26: Rhythmic Hammering prints no timing label and no official card exists.
+    const sourceBlocked = [
+      'source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Arunewright%3Aability%3A2',
+    ]
+    expect(report.integrity.dispositions).toHaveLength(10)
     report.integrity.dispositions.forEach(disposition => {
       expect(disposition.status).toBe('ignored')
       if (translated.includes(disposition.sourceRecordId)) {
         expect(disposition.reason).toMatch(/translated .*French edition/)
+        return
+      }
+      if (sourceBlocked.includes(disposition.sourceRecordId)) {
+        expect(disposition.reason).toMatch(/timing is source-blocked/)
         return
       }
       expect(disposition.reason).toMatch(/example/i)
@@ -235,7 +245,7 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(
       report.integrity.dispositions.filter(disposition => translated.includes(disposition.sourceRecordId))
     ).toHaveLength(3)
-    translated.forEach(id =>
+    ;[...translated, ...sourceBlocked].forEach(id =>
       expect(AOS4_FULL_CATALOG.sourceRecords.map(record => record.id)).not.toContain(id)
     )
     expect(report.integrity.supersededSourceRecords.reason.trim()).not.toBe('')

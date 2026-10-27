@@ -16,38 +16,49 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-10-20 snapshot is defined by:
+The accepted 2026-10-26 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-10-20.json` | 13 Wahapedia exports (2026-10-19 04:58:53 publish), 161 official PDFs (the 2026-09-23 Games Workshop update: Rules Updates, core Battle Profiles (re-pinned to Games Workshop’s 2026-09-25 re-upload), six Scourge of Aqshy packs, the Cities of Sigmar supplement, and the Bubonic Cell Spearhead, alongside the September 2026 Sons of Behemat publications), and 72 reviewed Wahapedia pages (all re-pinned at their 2026-10-19/20 bytes except the one unchanged page, #1757), pinned by SHA-256; the 2026-10-14 Games Workshop downloads (#1757: the re-published Regiments of Renown and the three Khazalite Holds packs pinned, the delisted Legends compendium and September 2025 Regiments of Renown no longer pinned); no BSData catalogue remains (the `Regiments of Renown.cat` pin for Krong the Club retired with the Ossiarch re-pin) |
-| `data/aos4/reviews/corpus-2026-10-20.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-10-26.json` | the 2026-10-20 manifest (13 Wahapedia exports, 161 official PDFs, 72 reviewed Wahapedia pages, all unchanged) plus six commit-pinned BSData catalogues from the unmerged `khazalite-holds` branch (#2087): `Khazalite Holds - Library.cat` and `Khazalite Holds.cat` at `ea96eba3`, `Khazalite Holds - Fyrd of Fyrepeak.cat`, `Khazalite Holds - Throngankor Alliance.cat`, `Lores.cat` and `Regiments of Renown.cat` at `5e52e2a5`, pinned by SHA-256 as provisional community transcriptions |
+| `data/aos4/reviews/corpus-2026-10-26.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs; `retired: true` keeps a rule the source no longer prints registered without ever resolving to it |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-10-20-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-10-20-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-10-26-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-10-26-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
-- 29 decoded source factions: 28 playable armies (Khazalite Holds in Spearhead only) plus the
-  Endless Spells container
-- 1,311 warscrolls and 1,015 battle profiles
-- 5,260 abilities
-- 2,286 weapons
-- 1,560 content groups
-- 246 source artifacts and 20,439 live source records
+- 29 decoded source factions: 28 playable armies (Khazalite Holds in matched play and Spearhead,
+  #2087) plus the Endless Spells container
+- 1,347 warscrolls and 1,051 battle profiles
+- 5,397 abilities
+- 2,344 weapons
+- 1,588 content groups
+- 252 source artifacts and 21,006 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
+- 4 Khazalite Holds BSData records explicitly ignored as source-blocked (#2087): Grimnir's Wrath
+  Will Burn Bright!, Warrior-kings and Transport Duardin (translated from the French edition), and
+  Rhythmic Hammering (Runewright), whose condition prints no timing label and which no official
+  document prints
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,312 extracted GW battle-profile facts: 1,016 applied to runtime, 1 profile-only gap
-  (The Emberwatch), and 295 structured references; nothing is superseded, because the September
-  2026 core Battle Profiles is the single battle-profile source, and text it strikes through is not
+- 1,370 extracted GW battle-profile facts: 1,053 applied to runtime, 1 profile-only gap
+  (The Emberwatch), 314 structured references, and 2 superseded (#2087: Battle Profiles - Khazalite
+  Holds (October 2026) reprints the Fjori’s Flamebearers and Gotrek Gurnisson regiment rows, so the
+  September 2026 core rows give way to it); text the core Battle Profiles strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts record their struck notes as `struckNotes`)
+- the 2026-10-26 Khazalite Holds matched-play intake (#2087), on top of 2026-10-20: the faction,
+  its two Armies of Renown (Fyrd of Fyrepeak, Throngankor Alliance) and two Regiments of Renown
+  from the six pinned BSData catalogues, with points, sizes and rosters from Battle Profiles -
+  Khazalite Holds (October 2026). Fyreslayers and every pre-intake identity are unchanged. The
+  army is partial: translated cards, Throng of Valankrom, Fyrd of Fyrepeak's Foe-seeker, Lodge Relic
+  and prayer lore, and Rhythmic Hammering stay absent until a usable source prints them
 - the 2026-10-20 Wahapedia refresh (#1757), on top of 2026-10-14: the Rules Radar alarm of
   2026-10-20 (`Last_update.csv` `d3200be0...` -> `b82f1c68...`, 2026-10-19 04:58:53). 84 of 85
   Wahapedia artifacts moved; at record level 639 changed, 1,693 markup-only, 187 added, 19 removed.

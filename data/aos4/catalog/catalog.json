@@ -30871,48 +30871,6 @@
       ]
     },
     {
-      "abilityKind": "reaction",
-      "actor": "unit",
-      "id": "ability:281ae3d2-4a0a-5c25-bc87-585c8a0296f7",
-      "keywords": [],
-      "kind": "ability",
-      "name": "Rhythmic Hammering",
-      "revision": "06d2de5cf88ff94ed07b9874805752460ee4c2d2b471fc1c915f6f17dc670dca",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000001",
-        "rules-context:90000000-0000-4000-8000-000000000005",
-        "rules-context:90000000-0000-4000-8000-000000000006"
-      ],
-      "sourceRefs": [
-        {
-          "sourceRecordId": "source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Arunewright%3Aability%3A2",
-          "transformation": "normalized reminder ability"
-        },
-        {
-          "sourceRecordId": "source-record:games-workshop:29573197f01e47457ca5db40f4a616a2008d9eee128c4d00cb4f0d2a781b947d%3Apage%3A4",
-          "transformation": "reviewed official reconciliation evidence"
-        },
-        {
-          "sourceRecordId": "source-record:games-workshop:29573197f01e47457ca5db40f4a616a2008d9eee128c4d00cb4f0d2a781b947d%3Apage%3A5",
-          "transformation": "reviewed official reconciliation evidence"
-        }
-      ],
-      "text": {
-        "effect": "If the casting roll for that spell equals or exceeds its casting value, make a rhythmic hammering roll of 2D6.\nIf a rhythmic hammering roll is lower than that spell's casting value, the spell fails and its effect is not resolved.\nIf a rhythmic hammering roll equals or exceeds that spell's casting value, increase the range of that spell by 3\". You can keep making rhythmic hammering rolls for that spell until you roll lower than its casting value. The effects of this ability are cumulative.",
-        "reactionTrigger": "You declared a Spell ability from the 'Reverberations of the Runes' or the 'Resonance of the Runes' for this unit"
-      },
-      "timings": [
-        {
-          "kind": "reaction",
-          "perspective": "neutral",
-          "raw": "You declared a Spell ability from the 'Reverberations of the Runes' or the 'Resonance of the Runes' for this unit",
-          "window": {
-            "kind": "reaction"
-          }
-        }
-      ]
-    },
-    {
       "abilityKind": "active",
       "actor": "army",
       "cost": {
@@ -487455,17 +487413,6 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "content-group:ab5c7bc3-b7ca-5b83-ad47-6dc890c61184"
-    },
-    {
-      "from": "warscroll:29cd35c6-773c-5fdb-b8be-06fd008e1c05",
-      "id": "relationship:738f49997f9bbd9213d11949ba932131",
-      "kind": "includes",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000001",
-        "rules-context:90000000-0000-4000-8000-000000000005",
-        "rules-context:90000000-0000-4000-8000-000000000006"
-      ],
-      "to": "ability:281ae3d2-4a0a-5c25-bc87-585c8a0296f7"
     },
     {
       "from": "faction:8658a21b-51d6-5dca-b06c-b3796c00aee6",

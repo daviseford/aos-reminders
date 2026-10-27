@@ -63,8 +63,9 @@ describe('AoS 4 derived corpus artifacts', () => {
       'schemaVersion',
     ])
     expect(Object.keys(sources).sort()).toEqual(['sourceArtifacts', 'sourceRecords'])
-    // Corpus 2026-10-26 adds the six pinned Khazalite Holds BSData catalogues and their records.
-    expect(sources.sourceRecords).toHaveLength(20997)
+    // Corpus 2026-10-26 adds the six pinned Khazalite Holds BSData catalogues and their records
+    // (less the ignored Rhythmic Hammering record).
+    expect(sources.sourceRecords).toHaveLength(20996)
     expect(sources.sourceArtifacts).toHaveLength(242)
   })
 

@@ -7,6 +7,13 @@ import type {
 } from './sourceInventory'
 
 export const WAHAPEDIA_DATA_EXPORT_URL = 'https://wahapedia.ru/aos4/the-rules/data-export/' as const
+/**
+ * First observed 2026-10-26 (#2087). Its definitions are summaries that defer to the rules modules,
+ * and 841 of its 900 FAQ/Errata sentences are verbatim on the accepted FAQs, core rules or
+ * General's Handbook pages. Of the rest, 57 are on other accepted rules pages or official PDFs; one
+ * rewords "No, unless" as "No, not unless" and one is a flavour line the catalog does not store.
+ */
+export const WAHAPEDIA_GLOSSARY_URL = 'https://wahapedia.ru/aos4/the-rules/glossary/' as const
 
 export type WahapediaObservedSourceKind =
   | 'data-export-index'
@@ -196,7 +203,10 @@ export const discoverWahapediaExportUrls = (bytes: Uint8Array): string[] => {
   return unique
 }
 
-const dispositionForKind = (kind: WahapediaObservedSourceKind): string | undefined => {
+const dispositionFor = ({ kind, url }: WahapediaObservedSource): string | undefined => {
+  if (kind === 'rules-page' && url === WAHAPEDIA_GLOSSARY_URL) {
+    return 'Glossary of rules-definition summaries that defers to the rules modules, with FAQ/Errata restating the accepted FAQs page and core rules; AoS Reminders carries no core-rules prose or glossary.'
+  }
   if (kind === 'data-export-index') {
     return 'Discovery index describing Wahapedia exports; it contains no game rule or characteristic data.'
   }
@@ -244,7 +254,7 @@ export const createWahapediaSourceObservation = (
   })
   const entries: SourceObservationEntry[] = Array.from(byUrl.values())
     .map(source => {
-      const disposition = dispositionForKind(source.kind)
+      const disposition = dispositionFor(source)
       return {
         publisher: 'wahapedia' as const,
         url: source.url,
