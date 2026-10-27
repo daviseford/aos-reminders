@@ -122,6 +122,59 @@ describe('Wahapedia independent source observation', () => {
     ).toBe('https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html')
   })
 
+  it('marks only the exact glossary page non-material among the rules pages (#2087)', () => {
+    const observation = createWahapediaSourceObservation('2026-10-26T23:17:12.000Z', [
+      {
+        kind: 'rules-page',
+        title: 'Glossary',
+        url: 'https://wahapedia.ru/aos4/the-rules/glossary/',
+        availability: 'accessible',
+        fingerprint: 'd3afb7b475f07e9b4845bc34037c67fa1157fb34d3e9be7879806fc6387207bb',
+      },
+      {
+        kind: 'rules-page',
+        title: 'Glossary (other)',
+        url: 'https://wahapedia.ru/aos4/the-rules/glossary-2/',
+        availability: 'accessible',
+      },
+      {
+        kind: 'faction-page',
+        title: 'Not a rules page',
+        url: 'https://wahapedia.ru/aos4/factions/glossary/',
+        availability: 'accessible',
+      },
+    ])
+
+    expect(observation.entries.map(entry => [entry.title, entry.scope])).toEqual([
+      ['Glossary', 'explicit-non-material'],
+      ['Glossary (other)', 'material'],
+      ['Not a rules page', 'material'],
+    ])
+    expect(observation.entries[0]).toMatchObject({
+      fingerprint: 'd3afb7b475f07e9b4845bc34037c67fa1157fb34d3e9be7879806fc6387207bb',
+      disposition: expect.stringMatching(/carries no core-rules prose or glossary/),
+    })
+  })
+
+  it('keeps a changed or unfingerprinted glossary page material (#2087)', () => {
+    const glossary = (title: string, fingerprint?: string) => ({
+      kind: 'rules-page' as const,
+      title,
+      url: 'https://wahapedia.ru/aos4/the-rules/glossary/',
+      availability: 'accessible' as const,
+      ...(fingerprint ? { fingerprint } : {}),
+    })
+    const scopeOf = (fingerprint?: string) =>
+      createWahapediaSourceObservation('2026-10-27T00:00:00.000Z', [glossary('Glossary', fingerprint)])
+        .entries[0].scope
+
+    expect(scopeOf('0'.repeat(64))).toBe('material')
+    expect(scopeOf(undefined)).toBe('material')
+    expect(scopeOf('D3AFB7B475F07E9B4845BC34037C67FA1157FB34D3E9BE7879806FC6387207BB')).toBe(
+      'explicit-non-material'
+    )
+  })
+
   it('marks discovery documents non-material while keeping game data fail-closed', () => {
     const observation = createWahapediaSourceObservation('2026-07-28T18:00:00.000Z', [
       {

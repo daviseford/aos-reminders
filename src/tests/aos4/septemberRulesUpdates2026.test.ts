@@ -38,6 +38,7 @@ const SEPTEMBER_RULES_UPDATES = '03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55
 // Games Workshop re-uploaded the September 2026 core Battle Profiles on 2026-09-25 (same title
 // and date; Khainite Shadowstalkers 100 -> 130 points); corpus 2026-09-25 re-pinned it (#1999).
 const SEPTEMBER_BATTLE_PROFILES = '952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a'
+const KHAZALITE_BATTLE_PROFILES = '557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29'
 
 const entityById = new Map<string, ContentEntity>(
   AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity])
@@ -151,8 +152,9 @@ describe('the September 2026 Games Workshop update (#1757)', () => {
 
   it('takes every battle profile from the September 2026 core document', () => {
     const effective = ledger.records.filter(record => record.status === 'effective')
+    // Corpus 2026-10-26 (#2087) also applies Battle Profiles - Khazalite Holds (October 2026).
     expect(new Set(effective.map(record => record.artifactChecksum))).toEqual(
-      new Set([SEPTEMBER_BATTLE_PROFILES])
+      new Set([SEPTEMBER_BATTLE_PROFILES, KHAZALITE_BATTLE_PROFILES])
     )
     // Exactly one effective official Krong the Club anchor (it was printed by both the Sons of
     // Behemat supplement and the September core document).

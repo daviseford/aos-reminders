@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-20.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-26.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-20-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-26-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(11_773)
+    expect(AOS4_CATALOG.entities).toHaveLength(12_074)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 11,773 entities', () => {
+  it('reports no missing provenance for any of the 12,074 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(11_773)
+    ).toHaveLength(12_074)
   })
 })
 
@@ -193,16 +193,21 @@ describe('AoS 4 catalog generation integrity', () => {
       status: 'strict-pass',
       summary: {
         factions: 29,
-        warscrolls: 1311,
-        battleProfiles: 1015,
-        abilities: 5260,
-        weapons: 2286,
-        sourceArtifacts: 246,
-        sourceRecords: 20439,
-        ignoredSourceRecords: 20964,
+        // Corpus 2026-10-20b (#2087): matched-play Khazalite Holds from six provisional BSData
+        // catalogues; the three ignored records are its translated cards (Grimnir's Wrath Will Burn
+        // Bright!, Warrior-kings, Transport Duardin), which stay absent until an English source.
+        // Corpus 2026-10-26 also ignores the Runewright's Rhythmic Hammering, whose timing is
+        // source-blocked.
+        warscrolls: 1347,
+        battleProfiles: 1051,
+        abilities: 5397,
+        weapons: 2344,
+        sourceArtifacts: 252,
+        sourceRecords: 21006,
+        ignoredSourceRecords: 20968,
       },
       integrity: {
-        consumedSourceRecords: 20433,
+        consumedSourceRecords: 20996,
         issues: [],
         supersededSourceRecords: {
           count: 20958,
@@ -210,14 +215,39 @@ describe('AoS 4 catalog generation integrity', () => {
         },
       },
     })
-    // The six ignored dispositions are exactly the illustrative core-rules example ability cards
-    // (customer report 2026-07-31); everything else stays fully consumed.
-    expect(report.integrity.dispositions).toHaveLength(6)
+    // Six ignored dispositions are exactly the illustrative core-rules example ability cards
+    // (customer report 2026-07-31). Corpus 2026-10-20b (#2087) ignores three more: the Khazalite
+    // Holds cards translated from the French edition, which stay absent (not supported) until an
+    // English source prints them. Everything else stays fully consumed.
+    const translated = [
+      'source-record:bsdata:2427ed7e1384c24bb86041137de36947391f9680b5baa35d1c0e9618e5cbfd0d%3Aoption%3Abattle-traits-throngankor-alliance%3Aability%3A4',
+      'source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2',
+      'source-record:bsdata:299110685cdbabc36b3b7b8bae6650a391de8f971d244be79fc902e309f4ef4a%3Aoption%3Abattle-traits-khazalite-holds%3Aability%3A8',
+    ]
+    // Corpus 2026-10-26: Rhythmic Hammering prints no timing label and no official card exists.
+    const sourceBlocked = [
+      'source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Arunewright%3Aability%3A2',
+    ]
+    expect(report.integrity.dispositions).toHaveLength(10)
     report.integrity.dispositions.forEach(disposition => {
       expect(disposition.status).toBe('ignored')
+      if (translated.includes(disposition.sourceRecordId)) {
+        expect(disposition.reason).toMatch(/translated .*French edition/)
+        return
+      }
+      if (sourceBlocked.includes(disposition.sourceRecordId)) {
+        expect(disposition.reason).toMatch(/timing is source-blocked/)
+        return
+      }
       expect(disposition.reason).toMatch(/example/i)
       expect(disposition.sourceRecordId).toMatch(/rules-ability%3A(?:Spells|Prayers)%3Aability/)
     })
+    expect(
+      report.integrity.dispositions.filter(disposition => translated.includes(disposition.sourceRecordId))
+    ).toHaveLength(3)
+    ;[...translated, ...sourceBlocked].forEach(id =>
+      expect(AOS4_FULL_CATALOG.sourceRecords.map(record => record.id)).not.toContain(id)
+    )
     expect(report.integrity.supersededSourceRecords.reason.trim()).not.toBe('')
   })
 
@@ -258,7 +288,7 @@ describe('AoS 4 catalog generation integrity', () => {
       'Primal Energy',
       'Twilit Sorceries',
     ]
-    lores.forEach(lore => expect(offeringFactionCount(lore, 'content-group')).toBe(26))
+    lores.forEach(lore => expect(offeringFactionCount(lore, 'content-group')).toBe(27))
     // One warscroll from each lore, so a change that drops a section is visible here.
     const warscrolls = [
       'Chronomantic Cogs',
@@ -268,7 +298,7 @@ describe('AoS 4 catalog generation integrity', () => {
       'Emerald Lifeswarm',
       'Umbral Spellportal',
     ]
-    warscrolls.forEach(warscroll => expect(offeringFactionCount(warscroll, 'warscroll')).toBe(26))
+    warscrolls.forEach(warscroll => expect(offeringFactionCount(warscroll, 'warscroll')).toBe(27))
     /**
      * The container offers no warscroll of its own, which is the thing `armyFactions` reads to keep
      * it out of the selector. It still receives the universal rules modules every faction row does.
@@ -292,20 +322,43 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(246)
+    // Corpus 2026-10-20b (#2087) adds the six Khazalite Holds BSData catalogues.
+    expect(acceptedManifest.artifacts).toHaveLength(252)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
     ).toHaveLength(161)
-    // No commit-pinned BSData catalogue remains. The Stormcast library, the three Ogor catalogues,
+    // Corpus 2026-10-20b (#2087) pins six Khazalite Holds catalogues from the unmerged BSData
+    // `khazalite-holds` branch at 5e52e2a5, provisional until `main` or Wahapedia carries them.
+    // Corpus 2026-10-26 re-pins the two catalogues that changed upstream (the library and the faction
+    // catalogue) to ea96eba3; the other four are byte-identical there and stay at 5e52e2a5.
+    // Before that, no commit-pinned BSData catalogue remained. The Stormcast library, the three Ogor catalogues,
     // the three Sons of Behemat `gargants`-branch catalogues, and the Regiments of Renown catalogue
     // that carried Krong the Club's rules text (issue #1999) all retired once a pinned Wahapedia
     // page published the same content (2026-08-01d, 2026-08-28b, 2026-09-25, and the 2026-09-30
     // Ossiarch Bonereapers re-pin, issue #2037).
-    expect(acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'bsdata-cat/1')).toEqual(
-      []
+    const bsDataArtifacts = acceptedManifest.artifacts.filter(
+      artifact => artifact.adapterVersion === 'bsdata-cat/1'
+    )
+    expect(
+      bsDataArtifacts.map(artifact => decodeURIComponent(artifact.finalUrl.split('/').pop()!)).sort()
+    ).toEqual([
+      'Khazalite Holds - Fyrd of Fyrepeak.cat',
+      'Khazalite Holds - Library.cat',
+      'Khazalite Holds - Throngankor Alliance.cat',
+      'Khazalite Holds.cat',
+      'Lores.cat',
+      'Regiments of Renown.cat',
+    ])
+    const repinned = ['Khazalite Holds - Library.cat', 'Khazalite Holds.cat']
+    bsDataArtifacts.forEach(artifact =>
+      expect(artifact.finalUrl).toContain(
+        repinned.includes(decodeURIComponent(artifact.finalUrl.split('/').pop()!))
+          ? '/BSData/age-of-sigmar-4th/ea96eba39cf280633f4cb13e2df05de358ed729a/'
+          : '/BSData/age-of-sigmar-4th/5e52e2a5fbc41a594c9c8bd7c256d00286e39572/'
+      )
     )
     const htmlArtifacts = acceptedManifest.artifacts.filter(
       artifact => artifact.adapterVersion === 'wahapedia-html/1'
@@ -342,11 +395,15 @@ describe('AoS 4 catalog generation integrity', () => {
         }),
       ])
     )
-    // Community-tier artifacts must always be distinguishable and explicitly provisional. The last
-    // one, the BSData Regiments of Renown catalogue the 2026-09-24 revision added for Krong the
-    // Club's rules text, retired when the 2026-09-30 Ossiarch Bonereapers re-pin (#2037) brought
-    // Wahapedia's copy of the regiment.
-    expect(AOS4_FULL_CATALOG.sourceArtifacts.filter(artifact => artifact.publisher === 'other')).toEqual([])
+    // Community-tier artifacts must always be distinguishable and explicitly provisional. The
+    // 2026-09-30 re-pin (#2037) retired the last one; corpus 2026-10-20b (#2087) adds the six
+    // Khazalite Holds BSData catalogues, each titled provisional.
+    const community = AOS4_FULL_CATALOG.sourceArtifacts.filter(artifact => artifact.publisher === 'other')
+    expect(community).toHaveLength(6)
+    community.forEach(artifact => {
+      expect(artifact.authority).toEqual({ kind: 'community' })
+      expect(artifact.title).toMatch(/^BSData .*provisional/)
+    })
     expect(AOS4_GENERATION_AUDIT).toMatchObject({
       attribution: 'Powered by Wahapedia',
       acknowledgedDiagnostics: [],
@@ -356,12 +413,15 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('dispositions every official battle-profile fact without inventing missing rules', () => {
     expect(officialBattleProfiles.summary).toEqual({
-      records: 1312,
-      effective: 1312,
-      superseded: 0,
-      units: 943,
-      rosterOptions: 295,
-      regimentsOfRenown: 74,
+      // Corpus 2026-10-20b (#2087) adds Battle Profiles - Khazalite Holds: 58 rows, of which the
+      // October Gotrek Gurnisson and Fjori's Flamebearers regiment rows supersede the September
+      // ones in the ledger (kept as audit evidence; runtime regiment eligibility is unchanged).
+      records: 1370,
+      effective: 1368,
+      superseded: 2,
+      units: 978,
+      rosterOptions: 314,
+      regimentsOfRenown: 78,
       // The September 2026 Sons of Behemat supplement superseded the July 2026 main-document
       // rows it re-published (ten unit rows and, by name, four regiment-of-renown rows) and
       // applied its points corrections. As of 2026-09-22 (issue #1999) the four brand-new
@@ -381,11 +441,11 @@ describe('AoS 4 catalog generation integrity', () => {
       // every roster-option row, the Sons of Behemat picks among them, is a structured reference by
       // design. From corpus 2026-09-29 (#1757) extraction drops text the Battle Profiles strikes
       // through, so the page 59 Stumblefoot Gargant row, printed DELETED, is no longer a fact.
-      appliedToRuntime: 1016,
+      appliedToRuntime: 1053,
       profileOnly: 1,
-      structuredReference: 295,
+      structuredReference: 314,
     })
-    expect(officialBattleProfiles.records).toHaveLength(1312)
+    expect(officialBattleProfiles.records).toHaveLength(1370)
     officialBattleProfiles.records.forEach(record => {
       expect(record.fact.factChecksum).toMatch(/^[0-9a-f]{64}$/)
       expect(record.fact.sourceRecordId).toMatch(/^source-record:games-workshop:/)
@@ -485,7 +545,10 @@ describe('AoS 4 catalog generation integrity', () => {
       )
       .map(regiment => regiment.name)
       .sort()
-    expect(regiments).toHaveLength(78)
+    expect(regiments).toHaveLength(80)
+    expect(regiments.map(regiment => regiment.name)).toEqual(
+      expect.arrayContaining(['Fjori’s Vengeance', 'Thengin’s Grudgesettlers'])
+    )
     expect(memberless).toEqual(Object.keys(reviewedMemberlessRegiments).sort())
   })
 
@@ -557,7 +620,8 @@ describe('AoS 4 catalog generation integrity', () => {
         (entity): entity is Faction =>
           entity.kind === 'faction' && entity.rulesContextIds.includes(standard.id)
       )
-      expect(factions).toHaveLength(27)
+      expect(factions).toHaveLength(28)
+      expect(factions.map(faction => faction.name)).toContain('Khazalite Holds')
 
       /*
        * Not every decoded faction row is an army. `Endless Spells` is a container for universal
@@ -575,7 +639,8 @@ describe('AoS 4 catalog generation integrity', () => {
       expect(allFactions.filter(faction => !armies.includes(faction)).map(faction => faction.name)).toEqual([
         'Endless Spells',
       ])
-      expect(armies.filter(army => army.rulesContextIds.includes(seasonal.id))).toHaveLength(26)
+      // Khazalite Holds joins the seasonal context with corpus 2026-10-20b (#2087).
+      expect(armies.filter(army => army.rulesContextIds.includes(seasonal.id))).toHaveLength(27)
 
       AOS4_FULL_CATALOG.rulesContexts.forEach(context => {
         const applicableFactions = AOS4_FULL_CATALOG.entities.filter(

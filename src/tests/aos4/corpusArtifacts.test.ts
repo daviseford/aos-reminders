@@ -63,8 +63,10 @@ describe('AoS 4 derived corpus artifacts', () => {
       'schemaVersion',
     ])
     expect(Object.keys(sources).sort()).toEqual(['sourceArtifacts', 'sourceRecords'])
-    expect(sources.sourceRecords).toHaveLength(20433)
-    expect(sources.sourceArtifacts).toHaveLength(236)
+    // Corpus 2026-10-26 adds the six pinned Khazalite Holds BSData catalogues and their records
+    // (less the ignored Rhythmic Hammering record).
+    expect(sources.sourceRecords).toHaveLength(20996)
+    expect(sources.sourceArtifacts).toHaveLength(242)
   })
 
   it('keeps every core source-record index addressable in the sources artifact', () => {
@@ -219,7 +221,7 @@ describe('AoS 4 derived corpus artifacts', () => {
     /*
      * And the shape of the answer, so a regeneration that emptied the field — reserving nothing,
      * anywhere — or that flattened it back to one context's answer for all of them fails here. The
-     * three matched-play contexts (current, the 2025-26 past season, and 2026-27) agree at 24; the
+     * three matched-play contexts (current, the 2025-26 past season, and 2026-27) agree at 25; the
      * three that do not are exactly what the old flag got wrong.
      */
     expect(
@@ -227,7 +229,8 @@ describe('AoS 4 derived corpus artifacts', () => {
         rulesContextId => offeredByBuilder.filter(row => row.contextIds.includes(rulesContextId)).length
       )
       // Corpus 2026-10-20 adds the Legends Legions of Nagash Army of Renown to three more factions.
-    ).toEqual([24, 10, 10, 10, 24, 24])
+      // Corpus 2026-10-26 adds Khazalite Holds' Fyrd of Fyrepeak and Throngankor.
+    ).toEqual([25, 10, 10, 10, 25, 25])
   }, 120_000)
 
   it('reserves the Army of Renown row on the default context exactly as the builder fills it', () => {
@@ -236,7 +239,7 @@ describe('AoS 4 derived corpus artifacts', () => {
     // KTD8 reserves the slot off this list; a list nobody is in would reserve nothing at all.
     expect(
       AOS4_FACTION_INDEX.factions.filter(row => row.armiesOfRenownContextIndexes.includes(defaultIndex))
-    ).toHaveLength(24)
+    ).toHaveLength(25)
   })
 
   it('stays small enough to load ahead of the corpus', () => {

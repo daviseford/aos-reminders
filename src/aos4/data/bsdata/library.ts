@@ -276,6 +276,12 @@ export interface BsDataFactionOptionSpec {
   /** Reviewed routing metadata carried onto the fact; see `BsDataFactionOptionFact`. */
   faction?: string
   typeSourceRecordId?: SourceRecordId
+  /**
+   * The BSData id of the one group (or lore container) to read, when a catalogue carries several
+   * of the same name with different rules, such as the Fyreslayers and Khazalite Holds `Vulkyn
+   * Gifts` in `Lores.cat` (#1757).
+   */
+  groupId?: string
 }
 
 /**
@@ -323,12 +329,18 @@ export const extractBsDataFactionOptions = (
           ? descendantElements(root, 'selectionEntry').filter(
               entry => (entry.attributes.name ?? '').trim() === option.groupName
             )
-          : groups.filter(candidate => (candidate.attributes.name ?? '').trim() === option.groupName)
+          : groups.filter(
+              candidate =>
+                (candidate.attributes.name ?? '').trim() === option.groupName &&
+                (!option.groupId || candidate.attributes.id === option.groupId)
+            )
     } else {
       // A catalogue may carry several groups with the same name (e.g. a seasonal and a battletome
       // `Plunder of the Mawtribes`); search them all and fail closed on an ambiguous option name.
       const namedGroups = groups.filter(
-        candidate => (candidate.attributes.name ?? '').trim() === option.groupName
+        candidate =>
+          (candidate.attributes.name ?? '').trim() === option.groupName &&
+          (!option.groupId || candidate.attributes.id === option.groupId)
       )
       if (!namedGroups.length) {
         diagnostics.push({

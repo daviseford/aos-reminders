@@ -38,10 +38,16 @@ const abilityDescription = (ability: GamesWorkshopSpearheadAbility): string =>
  *
  * Each record is a section of the official artifact citing its printed page; its identity alias
  * drops the artifact checksum so a re-upload of the same pack keeps every canonical id.
+ *
+ * A faction named in `matchedPlayFactionNames` (one an effective official battle-profile supplement
+ * establishes, #1757) is a matched-play army as well: its faction record joins the standard
+ * contexts so matched-play content merged onto it is offered, while its Spearhead records stay
+ * Spearhead-only.
  */
 export const mergeOfficialSpearheads = (
   dataset: WahapediaDataset,
-  sources: OfficialSpearheadSourceInput[]
+  sources: OfficialSpearheadSourceInput[],
+  matchedPlayFactionNames: ReadonlySet<string> = new Set()
 ): WahapediaDataset => {
   if (!sources.length) return dataset
   const merged: WahapediaDataset = {
@@ -74,7 +80,13 @@ export const mergeOfficialSpearheads = (
     })
     const factionSection = `${source.armies[0]?.section.split(':')[0]}:faction`
     const faction = { id: source.factionId, name: source.factionName, link: source.artifact.finalUrl }
-    merged.factions.push({ ...faction, meta: meta(factionSection, faction, source.armies[0]?.pages[0] ?? 1) })
+    const factionMeta = meta(factionSection, faction, source.armies[0]?.pages[0] ?? 1)
+    merged.factions.push({
+      ...faction,
+      meta: matchedPlayFactionNames.has(source.factionName)
+        ? { ...factionMeta, rulesContextKinds: ['spearhead', 'standard'] }
+        : factionMeta,
+    })
 
     source.armies.forEach(army => {
       const armyName = source.armyNames[army.name]

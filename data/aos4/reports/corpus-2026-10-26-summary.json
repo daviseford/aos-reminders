@@ -1,0 +1,134 @@
+{
+  "acceptedManifest": "data/aos4/manifests/accepted-2026-10-26.json",
+  "generatedAt": "2026-10-26T18:00:00.000Z",
+  "identities": "data/aos4/identities/corpus.json",
+  "integrity": {
+    "consumedSourceRecords": 20996,
+    "dispositions": [
+      {
+        "reason": "Transport Duardin (Throngankor Alliance battle traits): its 6\" range and model-count wording are translated from the French edition (BSData/age-of-sigmar-4th#1397); source-blocked until an English source prints it (#2087).",
+        "sourceRecordId": "source-record:bsdata:2427ed7e1384c24bb86041137de36947391f9680b5baa35d1c0e9618e5cbfd0d%3Aoption%3Abattle-traits-throngankor-alliance%3Aability%3A4",
+        "status": "ignored"
+      },
+      {
+        "reason": "Grimnir's Wrath Will Burn Bright! (Khazalite Holds battle traits) is translated whole from the French edition of the battletome (BSData/age-of-sigmar-4th#1397); translated wording is source-blocked until an English source prints it (#2087).",
+        "sourceRecordId": "source-record:bsdata:299110685cdbabc36b3b7b8bae6650a391de8f971d244be79fc902e309f4ef4a%3Aoption%3Abattle-traits-khazalite-holds%3Aability%3A8",
+        "status": "ignored"
+      },
+      {
+        "reason": "Warrior-kings (Auric Runefather on Magmadroth): the first paragraph is translated from the French edition (BSData/age-of-sigmar-4th#1397); a partly translated card is source-blocked rather than shipped incomplete (#2087).",
+        "sourceRecordId": "source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2",
+        "status": "ignored"
+      },
+      {
+        "reason": "Rhythmic Hammering (Runewright) prints its condition \"You declared a Spell ability from the 'Reverberations of the Runes' or the 'Resonance of the Runes' for this unit\" with no \"Reaction:\" label or phase in the community transcription (BSData/age-of-sigmar-4th#1397), and no official document prints the warscroll, so its timing is source-blocked: the generator ships no unclassified timing, and the machine review rejects a timing the official evidence does not print (#2087).",
+        "sourceRecordId": "source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Arunewright%3Aability%3A2",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the General's Handbook 2024-25 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2024-25%2F%23rules-ability%3APrayers%3Aability%3A1",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE SPELL card (Mystic Shield) that the General's Handbook 2024-25 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2024-25%2F%23rules-ability%3ASpells%3Aability%3A1",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the General's Handbook 2025-26 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2025-26%2F%23rules-ability%3APrayers%3Aability%3A2",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE SPELL card (Mystic Shield) that the General's Handbook 2025-26 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fgeneral-s-handbook-2025-26%2F%23rules-ability%3ASpells%3Aability%3A1",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the core rules page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fthe-core-rules%2F%23rules-ability%3APrayers%3Aability%3A2",
+        "status": "ignored"
+      },
+      {
+        "reason": "Illustrative EXAMPLE SPELL card (Mystic Shield) that the core rules page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
+        "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fthe-core-rules%2F%23rules-ability%3ASpells%3Aability%3A1",
+        "status": "ignored"
+      }
+    ],
+    "issues": [],
+    "supersededSourceRecords": {
+      "checksum": "18d8773acff0d46b96407d9652da28590f3be7aa9883814f6e9d0bb77926372e",
+      "count": 20958,
+      "reason": "Current reviewed Wahapedia HTML replaces the accepted May 2026 bulk warscroll and faction-rule records. The July 2026 Ogor Mawtribes battletome content is sourced directly from the battletome-current Wahapedia pages re-pinned in the 2026-08-28b revision (issues #1812/#1828/#1850), so the index-era Ogor datasheets the earlier BSData replacement machinery dispositioned are no longer present in the source at all; the count drops by their 216 rows. Superseded rows remain dispositioned for audit but cannot enter the current runtime. Extended 2026-09-22 (issue #1999): the September 2026 Sons of Behemat battletome rewrites six legacy datasheets (King Brodd, Beast-smasher Mega-Gargant, Gatebreaker Mega-Gargant, Kraken-eater Mega-Gargant, Warstomper Mega-Gargant, Mancrusher Gargant); their prior Wahapedia rows (warscroll, abilities, weapons, keywords, bases) move to superseded, adding 92 rows, each rewrite adopting its replaced datasheet’s canonical identity. Reduced 2026-09-25 (issue #1999): Wahapedia republished the Sons of Behemat faction and warscroll collection pages with the September 2026 battletome, re-pinned in the 2026-09-25 revision, so the six rewritten datasheets are native page content and the 92 prior rows the BSData replacement superseded are no longer present in the source; the count drops by those 92 rows. Corpus 2026-10-20 re-pins the 2026-10-19 exports; the bulk rows they add (the September 2026 catch-up, Legions of Nagash, Blighted Wilds Path to Glory and re-numbered rows) are superseded by the reviewed pages on the same terms, so the count rises by 500."
+    }
+  },
+  "products": {
+    "data/aos4/catalog/catalog.json": {
+      "byteLength": 36591785,
+      "checksum": "0f9b8ff10f3bbef6bbb43790edb7711e649419aa3f7a0b0b6c9e029046c96b47"
+    },
+    "data/aos4/catalog/official-battle-profiles.json": {
+      "byteLength": 1457508,
+      "checksum": "76b979b635c8e4919bf8b6fc4073ab09139af75d2821afb22dc8ebeba6c6474b"
+    },
+    "data/aos4/identities/corpus.json": {
+      "byteLength": 4000593,
+      "checksum": "5956e85ae4c8add6aa103fbd55110b9034f5c5802923a0aa916aec94ff62bc27"
+    },
+    "data/aos4/reports/corpus-2026-10-26-reconciliation.json": {
+      "byteLength": 154276,
+      "checksum": "7a1a064214f27a13dc5e3dcf074437dbf07cf84a56c7d9cd530f601f829b9843"
+    },
+    "src/aos4/generated/corpus/defaults.json": {
+      "byteLength": 169,
+      "checksum": "56f2897a563b6a9e6a31e83ce8ffd9e3d361d12aa0a8890bf24d374264ffb0a6"
+    },
+    "src/aos4/generated/corpus/faction-index.json": {
+      "byteLength": 5321,
+      "checksum": "040c792f8527bd918b764652ebce8c9fa5339b257461947f4a9e4ecb3299af48"
+    },
+    "src/aos4/generated/corpus/runtime.core.json": {
+      "byteLength": 6880764,
+      "checksum": "aa967cb372bea9b6ca07e715d9af4bc2ef9cbd8cd7644b92af049956199f410c"
+    },
+    "src/aos4/generated/corpus/runtime.json": {
+      "byteLength": 14292697,
+      "checksum": "93f313c4811c4f32bca1a660102ce80ec8b86b0115d88e5c8989f6703f19c301"
+    },
+    "src/aos4/generated/corpus/runtime.sources.json": {
+      "byteLength": 7411935,
+      "checksum": "5480d18fe192682e6ce6fb5c7a5fa54df57b142214dffa25c16b5e9114d6a076"
+    }
+  },
+  "review": "data/aos4/reviews/corpus-2026-10-26.json",
+  "schemaVersion": 1,
+  "sourceDiagnostics": {
+    "byCode": {
+      "duplicate-identical-record": 526,
+      "empty-association-record": 682,
+      "missing-faction": 3,
+      "missing-warscroll": 26,
+      "polluted-marker": 605
+    },
+    "reviewed": 1842
+  },
+  "status": "strict-pass",
+  "summary": {
+    "abilities": 5397,
+    "attribution": "Powered by Wahapedia",
+    "battleProfiles": 1051,
+    "contentGroups": 1588,
+    "factions": 29,
+    "ignoredSourceRecords": 20968,
+    "publications": 318,
+    "relationships": 14895,
+    "revision": "aos4-corpus-2026-10-26",
+    "schemaVersion": 1,
+    "sourceArtifacts": 252,
+    "sourceRecords": 21006,
+    "status": "strict-pass",
+    "warscrolls": 1347,
+    "weapons": 2344
+  }
+}
