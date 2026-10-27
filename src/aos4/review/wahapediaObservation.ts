@@ -8,12 +8,20 @@ import type {
 
 export const WAHAPEDIA_DATA_EXPORT_URL = 'https://wahapedia.ru/aos4/the-rules/data-export/' as const
 /**
- * First observed 2026-10-26 (#2087). Its definitions are summaries that defer to the rules modules,
- * and 841 of its 900 FAQ/Errata sentences are verbatim on the accepted FAQs, core rules or
- * General's Handbook pages. Of the rest, 57 are on other accepted rules pages or official PDFs; one
- * rewords "No, unless" as "No, not unless" and one is a flavour line the catalog does not store.
+ * First observed 2026-10-26 (#2087), and reviewed only at these exact bytes: any other or missing
+ * fingerprint stays material. Its definitions are summaries that defer to the rules modules, and 841
+ * of its 900 FAQ/Errata sentences are verbatim on the accepted FAQs, core rules or General's Handbook
+ * pages. Of the rest, 57 are on other accepted rules pages or official PDFs; one rewords "No, unless"
+ * as "No, not unless" and one is a flavour line the catalog does not store.
+ *
+ * The certified disposition string below overstates this: the app does ship core-rules abilities
+ * (taken from those accepted pages), and the page is non-material because it is redundant with them,
+ * not because core rules are out of scope. Rewording it changes the certified source inventory, so
+ * the correction is deferred to the next certification cycle.
  */
 export const WAHAPEDIA_GLOSSARY_URL = 'https://wahapedia.ru/aos4/the-rules/glossary/' as const
+export const WAHAPEDIA_GLOSSARY_FINGERPRINT =
+  'd3afb7b475f07e9b4845bc34037c67fa1157fb34d3e9be7879806fc6387207bb' as const
 
 export type WahapediaObservedSourceKind =
   | 'data-export-index'
@@ -203,8 +211,12 @@ export const discoverWahapediaExportUrls = (bytes: Uint8Array): string[] => {
   return unique
 }
 
-const dispositionFor = ({ kind, url }: WahapediaObservedSource): string | undefined => {
-  if (kind === 'rules-page' && url === WAHAPEDIA_GLOSSARY_URL) {
+const dispositionFor = ({ kind, url, fingerprint }: WahapediaObservedSource): string | undefined => {
+  if (
+    kind === 'rules-page' &&
+    url === WAHAPEDIA_GLOSSARY_URL &&
+    fingerprint?.toLowerCase() === WAHAPEDIA_GLOSSARY_FINGERPRINT
+  ) {
     return 'Glossary of rules-definition summaries that defers to the rules modules, with FAQ/Errata restating the accepted FAQs page and core rules; AoS Reminders carries no core-rules prose or glossary.'
   }
   if (kind === 'data-export-index') {

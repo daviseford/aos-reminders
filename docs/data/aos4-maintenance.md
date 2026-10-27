@@ -58,7 +58,10 @@ The strict report currently records:
   from the six pinned BSData catalogues, with points, sizes and rosters from Battle Profiles -
   Khazalite Holds (October 2026). Fyreslayers and every pre-intake identity are unchanged. The
   army is partial: translated cards, Throng of Valankrom, Fyrd of Fyrepeak's Foe-seeker, Lodge Relic
-  and prayer lore, and Rhythmic Hammering stay absent until a usable source prints them
+  and prayer lore, and Rhythmic Hammering stay absent until a usable source prints them. The
+  intermediate `2026-10-20b` manifest, review and reports stay checked in as that intake's earlier
+  draft revision; nothing points at them (`acceptedRevision`, `beta.json` and the radar use
+  2026-10-26), and removing them is a separate cleanup
 - the 2026-10-20 Wahapedia refresh (#1757), on top of 2026-10-14: the Rules Radar alarm of
   2026-10-20 (`Last_update.csv` `d3200be0...` -> `b82f1c68...`, 2026-10-19 04:58:53). 84 of 85
   Wahapedia artifacts moved; at record level 639 changed, 1,693 markup-only, 187 added, 19 removed.

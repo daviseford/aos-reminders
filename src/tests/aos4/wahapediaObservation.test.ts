@@ -156,6 +156,25 @@ describe('Wahapedia independent source observation', () => {
     })
   })
 
+  it('keeps a changed or unfingerprinted glossary page material (#2087)', () => {
+    const glossary = (title: string, fingerprint?: string) => ({
+      kind: 'rules-page' as const,
+      title,
+      url: 'https://wahapedia.ru/aos4/the-rules/glossary/',
+      availability: 'accessible' as const,
+      ...(fingerprint ? { fingerprint } : {}),
+    })
+    const scopeOf = (fingerprint?: string) =>
+      createWahapediaSourceObservation('2026-10-27T00:00:00.000Z', [glossary('Glossary', fingerprint)])
+        .entries[0].scope
+
+    expect(scopeOf('0'.repeat(64))).toBe('material')
+    expect(scopeOf(undefined)).toBe('material')
+    expect(scopeOf('D3AFB7B475F07E9B4845BC34037C67FA1157FB34D3E9BE7879806FC6387207BB')).toBe(
+      'explicit-non-material'
+    )
+  })
+
   it('marks discovery documents non-material while keeping game data fail-closed', () => {
     const observation = createWahapediaSourceObservation('2026-07-28T18:00:00.000Z', [
       {
