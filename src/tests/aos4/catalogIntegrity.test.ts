@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-26.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-27.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-26-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-27-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(12_074)
+    expect(AOS4_CATALOG.entities).toHaveLength(12_186)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 12,074 entities', () => {
+  it('reports no missing provenance for any of the 12,186 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(12_074)
+    ).toHaveLength(12_186)
   })
 })
 
@@ -197,21 +197,23 @@ describe('AoS 4 catalog generation integrity', () => {
         // catalogues; the three ignored records are its translated cards (Grimnir's Wrath Will Burn
         // Bright!, Warrior-kings, Transport Duardin), which stay absent until an English source.
         // Corpus 2026-10-26 also ignores the Runewright's Rhythmic Hammering, whose timing is
-        // source-blocked.
-        warscrolls: 1347,
-        battleProfiles: 1051,
-        abilities: 5397,
-        weapons: 2344,
+        // source-blocked. Corpus 2026-10-27 (#1757) adds three Wahapedia Spearheads, two historical
+        // Daughters of Khaine warscrolls, The Emberwatch and the 2024-25 handbook's Unbind, then seven
+        // Spearhead battle-trait rules Wahapedia prints as prose and their three groups (#2095).
+        warscrolls: 1362,
+        battleProfiles: 1054,
+        abilities: 5450,
+        weapons: 2363,
         sourceArtifacts: 252,
-        sourceRecords: 21006,
-        ignoredSourceRecords: 20968,
+        sourceRecords: 21168,
+        ignoredSourceRecords: 21162,
       },
       integrity: {
-        consumedSourceRecords: 20996,
+        consumedSourceRecords: 21158,
         issues: [],
         supersededSourceRecords: {
-          count: 20958,
-          checksum: '18d8773acff0d46b96407d9652da28590f3be7aa9883814f6e9d0bb77926372e',
+          count: 21152,
+          checksum: '9cb033a8ebacdaa63875dd2316ed6412ff5107b4d60b67be92be27ec189bde42',
         },
       },
     })
@@ -441,8 +443,9 @@ describe('AoS 4 catalog generation integrity', () => {
       // every roster-option row, the Sons of Behemat picks among them, is a structured reference by
       // design. From corpus 2026-09-29 (#1757) extraction drops text the Battle Profiles strikes
       // through, so the page 59 Stumblefoot Gargant row, printed DELETED, is no longer a fact.
-      appliedToRuntime: 1053,
-      profileOnly: 1,
+      // Corpus 2026-10-27 (#1757): Wahapedia now publishes The Emberwatch, the last profile-only fact.
+      appliedToRuntime: 1054,
+      profileOnly: 0,
       structuredReference: 314,
     })
     expect(officialBattleProfiles.records).toHaveLength(1370)
@@ -452,7 +455,7 @@ describe('AoS 4 catalog generation integrity', () => {
     })
     expect(
       officialBattleProfiles.records.filter(record => record.disposition === 'profile-only')
-    ).toHaveLength(1)
+    ).toHaveLength(0)
   })
 
   it('does not allow superseded bulk rule rows into the live catalog', () => {
@@ -473,13 +476,13 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('records every reviewed source diagnostic without leaving an unknown timing', () => {
     expect(report.sourceDiagnostics).toEqual({
-      reviewed: 1842,
+      reviewed: 1851,
       byCode: {
-        'duplicate-identical-record': 526,
-        'empty-association-record': 682,
+        'duplicate-identical-record': 532,
+        'empty-association-record': 684,
         'missing-faction': 3,
         'missing-warscroll': 26,
-        'polluted-marker': 605,
+        'polluted-marker': 606,
       },
     })
     expect(
@@ -729,7 +732,7 @@ describe('AoS 4 catalog generation integrity', () => {
       const historicalWarscrolls = AOS4_FULL_CATALOG.entities.filter(
         entity => entity.kind === 'warscroll' && entity.rulesContextIds.includes(historical.id)
       )
-      expect(historicalWarscrolls).toHaveLength(42)
+      expect(historicalWarscrolls).toHaveLength(44)
       expect(historicalWarscrolls.every(warscroll => warscroll.name.startsWith('Scourge of Ghyran '))).toBe(
         true
       )

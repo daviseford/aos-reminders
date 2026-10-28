@@ -64,8 +64,10 @@ describe('AoS 4 derived corpus artifacts', () => {
     ])
     expect(Object.keys(sources).sort()).toEqual(['sourceArtifacts', 'sourceRecords'])
     // Corpus 2026-10-26 adds the six pinned Khazalite Holds BSData catalogues and their records
-    // (less the ignored Rhythmic Hammering record).
-    expect(sources.sourceRecords).toHaveLength(20996)
+    // (less the ignored Rhythmic Hammering record). Corpus 2026-10-27 adds the 2026-10-22 Wahapedia
+    // Spearheads, historical Daughters of Khaine warscrolls and The Emberwatch (#1757), and the ten
+    // records of the Spearhead battle-trait rules Wahapedia prints as prose (#2095).
+    expect(sources.sourceRecords).toHaveLength(21158)
     expect(sources.sourceArtifacts).toHaveLength(242)
   })
 

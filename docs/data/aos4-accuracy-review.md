@@ -12,7 +12,50 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-10-26` (issue #2087): matched-play Khazalite Holds on top
+The current revision is `aos4-corpus-2026-10-27` (issue #1757): the Wahapedia publish of
+2026-10-22 18:12:05 on top of `aos4-corpus-2026-10-26`. The manifest `accepted-2026-10-27.json`
+re-pins 84 of the 85 Wahapedia artifacts and keeps every official PDF and BSData catalogue. Its
+automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 252/252 |
+| Explicit non-material discovery entries | 11 |
+| Official battle-profile facts | 1,370/1,370 |
+| Final official/secondary reconciliation discrepancies | 380/380 |
+| Official profile-only facts | 0/0 |
+| Live audit source records | 21,168/21,168 |
+| Ignored-record dispositions (superseded + explicit) | 21,162/21,162 |
+| Live review pairs | 44,081/44,081 |
+| Independent outcomes | 88,162 pass; 0 finding; 0 cannot-verify |
+
+The source inventory binds fresh observations taken for this intake: a `discover-official`
+snapshot (169 downloads, the same 8 explicit non-material dispositions), the six pinned BSData
+files at `ea96eba3` and `5e52e2a5`, and the Wahapedia navigation and exports (88 sources, 0
+inaccessible), observed between 2026-10-27T16:09:29Z and 19:36:45Z; the Wahapedia observation was
+retaken at 19:36Z so the inventory carries the reworded Glossary disposition. Every accepted
+artifact matched, and the Glossary still matched its reviewed fingerprint. The certification is
+`aos4-corpus-2026-10-27-machine-r2` (campaign 2026-10-27T19:59:20Z), reusing 23,168 unchanged pairs
+from `aos4-corpus-2026-10-27-machine-r1`, the first certification of this revision, before the
+Spearhead membership repair and the reserve-condition overrides. A campaign at 19:28:50Z rejected
+two of the four reserve-condition overrides because each official page prints the condition away
+from the card and the packet excerpt only covered the card. Packet preparation now also centres the
+excerpt on each line an ability-text override adds, and the next campaign accepted all four.
+
+The current certification is `aos4-corpus-2026-10-27-machine-r3` (campaign 2026-10-28T02:26:26Z),
+reusing 27,518 unchanged pairs from `machine-r2` against the same source inventory. It adds the
+Spearhead battle-trait rules Wahapedia prints as titled prose instead of ability cards (#2095):
+Temptations of Slaanesh, the Heartflayer Troupe's Blood Rites, Tides of Death, Cycle of Corruption
+and Ossiarch Commands with timings reviewed against their official Spearhead pages; Bullstomper and
+Boulder Basher, which only set the general's keywords and print no timing, as untimed army rules;
+and the reserve condition in front of eleven more arrival cards. A campaign at 2026-10-28T01:42:26Z
+rejected a Passive timing for Bullstomper and Boulder Basher (the official pages print none) and the
+Tides of Death table, whose last row lay outside the excerpt; the rules became untimed army rules,
+and the excerpt now also centres on the text of each table row an override reads as one line.
+
+### `aos4-corpus-2026-10-26` (superseded)
+
+The revision `aos4-corpus-2026-10-26` (issue #2087): matched-play Khazalite Holds on top
 of `aos4-corpus-2026-10-20`. The manifest `accepted-2026-10-26.json` keeps every 2026-10-20
 artifact and adds six commit-pinned BSData catalogues from the unmerged `khazalite-holds` branch
 (library and faction catalogue at `ea96eba3`, the other four at `5e52e2a5`) as provisional community

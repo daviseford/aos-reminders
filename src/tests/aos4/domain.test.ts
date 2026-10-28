@@ -367,6 +367,37 @@ describe('AoS 4 domain', () => {
     )
   })
 
+  it('accepts an untimed army rule only in the army-rule window (#2095)', () => {
+    const rule = {
+      ...ability,
+      id: abilityId('10000000-0000-4000-8000-000000000020'),
+      abilityKind: 'rule' as const,
+      text: { effect: 'Your general has the HERO keyword.' },
+      timings: [{ kind: 'rule' as const, window: { kind: 'army-rule' as const }, raw: '' }],
+    }
+    const valid = createCatalog()
+    valid.entities.push(rule)
+    expect(validateCatalog(valid)).not.toContainEqual(
+      expect.objectContaining({ code: 'invalid-rule-timing' })
+    )
+
+    const passiveWindow = createCatalog()
+    passiveWindow.entities.push({ ...rule, timings: [{ kind: 'rule', window: { kind: 'always' }, raw: '' }] })
+    expect(validateCatalog(passiveWindow)).toContainEqual(
+      expect.objectContaining({ code: 'invalid-rule-timing' })
+    )
+
+    const passiveInArmyRule = createCatalog()
+    passiveInArmyRule.entities.push({
+      ...rule,
+      abilityKind: 'passive',
+      timings: [{ kind: 'passive', window: { kind: 'army-rule' }, raw: 'Passive' }],
+    })
+    expect(validateCatalog(passiveInArmyRule)).toContainEqual(
+      expect.objectContaining({ code: 'invalid-rule-timing' })
+    )
+  })
+
   it('rejects invalid battle-round qualifiers', () => {
     const catalog = createCatalog()
     const invalidRound = structuredClone(ability)

@@ -6,6 +6,8 @@ const phaseOrder = new Map(TURN_PHASES.map(phase => [phase.id, phase.order]))
 
 const windowOrder = (timing: AbilityTiming): number => {
   switch (timing.window.kind) {
+    case 'army-rule':
+      return -10
     case 'battle-start':
       return 0
     case 'deployment':
@@ -39,6 +41,7 @@ const laneOrder = {
   active: 0,
   reaction: 1,
   passive: 2,
+  rule: 3,
 } as const
 
 const roundOrder = (timing: AbilityTiming): number =>

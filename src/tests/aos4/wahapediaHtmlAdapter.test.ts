@@ -171,6 +171,24 @@ describe('Wahapedia warscroll HTML decoding', () => {
     expect(String(first.page?.abilities[0].meta.sourceRecordId)).toContain('ability%3A1')
   })
 
+  it('skips the errata panel the 2026-10-22 pages print under a datasheet (#1757)', () => {
+    // The panel re-renders the changed card with an empty timing bar and no keyword strip pairing.
+    const panel = `
+      <div class="Columns2 faqErrataColumns"><div class="faqErrataCol"><div class="errata">
+        Change 'Stalwart Defenders' to:
+        <table><tbody><tr><td class="abHeader" bgcolor=""><img class="abLogo"></td></tr></tbody></table>
+        <div class="abBody"><b>STALWART DEFENDERS</b><br><b>Effect:</b> Add 3 to this unit's control score.</div>
+        <table><tbody><tr><td class="abHeader" bgcolor=""><img class="abLogo"></td></tr></tbody></table>
+      </div></div></div>
+    `
+    const result = parseWahapediaWarscrollHtml(
+      input(warscrollHtml().replace('</section>', `${panel}</section>`))
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.page?.abilities.map(ability => ability.name)).toEqual(['Stalwart Defenders'])
+  })
+
   describe('ability cost badges', () => {
     it.each([
       ['1', undefined, 'Command', '1'],
@@ -641,6 +659,135 @@ describe('Wahapedia warscroll HTML decoding', () => {
     expect(Object.keys(marked.meta)).toEqual(Object.keys(unmarkedTwin.meta))
   })
 
+  it('skips the FAQ/Errata notes the 2026-10-22 pages embed after sections (#1757)', () => {
+    const ability = (timing: string, name: string) => `
+      <table><tr><td class="abHeader">${timing}</td></tr></table>
+      <div class="abBody"><b>${name}:</b><b>Effect:</b> Resolve ${name}.</div>
+    `
+    // A note can restate a card with a header but no body, which must not shift the pairing.
+    const notes = `
+      <div class="faqErrataSpoiler faqErrataCollapsed">
+        <div class="faqErrataHead"><h3>Errata</h3></div>
+        <div class="faqErrataSpoilerBody">
+          <div class="errata_H">Spell Lore</div><div class="errata">Change the effect to: ‘New text.’</div>
+          <table><tr><td class="abHeader">Once Per Turn, Your Hero Phase</td></tr></table>
+        </div>
+      </div>
+      <div class="faqErrataSpoiler">
+        <div class="faqErrataHead"><h3>FAQ</h3></div>
+        <div class="faqErrataSpoilerBody">${ability('Passive', 'Restated Card')}</div>
+      </div>
+    `
+    const faction = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">Stormcast Eternals</span></h1>
+        <a name="Faction-Rules"></a><h2>Faction Rules</h2>
+        <a name="Battle-Traits"></a><h2>Battle Traits</h2>
+        ${ability('Your Hero Phase', 'Their Finest Hour')}
+        ${notes}
+        ${ability('Passive', 'Shock and Awe')}
+      </body></html>
+    `)
+    faction.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/stormcast-eternals/'
+    faction.artifact.finalUrl = faction.artifact.requestUrl
+    const rules = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">The Core Rules</span></h1>
+        <a name="Movement-Phase"></a><h2>14.1 Movement Phase</h2>
+        ${ability('Your Movement Phase', 'Normal Move')}
+        ${notes}
+        ${ability('Your Movement Phase', 'Run')}
+      </body></html>
+    `)
+    rules.artifact.requestUrl = 'https://wahapedia.ru/aos4/the-rules/the-core-rules/'
+    rules.artifact.finalUrl = rules.artifact.requestUrl
+
+    const factionResult = parseWahapediaFactionHtml(faction)
+    expect(factionResult.diagnostics).toEqual([])
+    expect(factionResult.page?.groups.map(group => group.name)).toEqual(['Battle Traits'])
+    expect(factionResult.page?.abilities.map(record => [record.name, record.groupExternalId])).toEqual([
+      ['Their Finest Hour', 'Battle-Traits'],
+      ['Shock and Awe', 'Battle-Traits'],
+    ])
+
+    const rulesResult = parseWahapediaRulesHtml(rules)
+    expect(rulesResult.diagnostics).toEqual([])
+    expect(rulesResult.page?.abilities.map(record => [record.name, record.groupExternalId])).toEqual([
+      ['Normal Move', 'Movement-Phase'],
+      ['Run', 'Movement-Phase'],
+    ])
+  })
+
+  it('reads Spearhead battle traits printed as prose, but not the prose that introduces a card (#2095)', () => {
+    const card = (timing: string, name: string) => `
+      <table><tr><td class="abHeader">${timing}</td></tr></table>
+      <div class="abBody"><b>${name}:</b><b>Effect:</b> Resolve ${name}.</div>
+    `
+    const faction = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">Idoneth Deepkin</span></h1>
+        <a name="Faction-Rules"></a><h2>Faction Rules</h2>
+        <h2>SPEARHEAD</h2>
+        <a name="Soulraid-Hunt"></a><h2>Soulraid Hunt</h2>
+        <div class="clFl sSpearhead">
+          <a name="Battle-Traits-5"></a><h3>Battle Traits</h3>
+          <div class="Columns2"><div>
+            <div class="h_custom">TIDES OF DEATH</div>
+            <p class="ShowFluff legend2">The tides build to a crescendo.</p>In each battle round, all friendly
+            units have the <b>Tides of Death</b> passive ability shown in the table below.<br><br>
+          </div>
+          <table><tr><td><b>1</b></td><td><b>LOW TIDE:</b> <p class="ShowFluff">Refracted.</p><b>Effect:</b>
+            Subtract 1 from hit rolls for shooting attacks that target this unit.</td></tr></table></div>
+        </div>
+        <div class="clFl sSpearhead">
+          <a name="Regiment-Abilities-5"></a><h3>Regiment Abilities</h3>
+          ${card('Passive', 'Way of the Cresting Wave')}
+        </div>
+        <a name="Tithe-Reaper-Echelon"></a><h2>Tithe-Reaper Echelon</h2>
+        <div class="clFl sSpearhead">
+          <a name="Battle-Traits-6"></a><h3>Battle Traits</h3>
+          <div><div class="h_custom">RESERVE CONTINGENT</div>
+            <p class="ShowFluff">Reinforcements march.</p>One of your Mortek Guard units is not set up during the
+            deployment phase. Instead, from the third battle round onwards, it can use the following ability:<br>
+            ${card('Your Movement Phase', 'Contingent Arrival')}
+          </div>
+          <div class="h_custom">OSSIARCH COMMANDS</div>At the start of the battle round, you receive 2 Ossiarch
+          command points.
+          ${card('Any Combat Phase', 'Empower Nadirite Weapons')}
+        </div>
+      </body></html>
+    `)
+    faction.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/idoneth-deepkin/'
+    faction.artifact.finalUrl = faction.artifact.requestUrl
+
+    const result = parseWahapediaFactionHtml(faction)
+    expect(result.diagnostics).toEqual([])
+    expect(
+      result.page?.abilities.map(record => [
+        record.externalId,
+        record.name,
+        record.context,
+        record.conditionHtml,
+      ])
+    ).toEqual([
+      ['Battle-Traits-5:prose:1', 'TIDES OF DEATH', 'spearhead', ''],
+      ['Regiment-Abilities-5:ability:1', 'Way of the Cresting Wave', 'spearhead', 'Passive'],
+      ['Battle-Traits-6:prose:1', 'OSSIARCH COMMANDS', 'spearhead', ''],
+      ['Battle-Traits-6:ability:1', 'Contingent Arrival', 'spearhead', 'Your Movement Phase'],
+      ['Battle-Traits-6:ability:2', 'Empower Nadirite Weapons', 'spearhead', 'Any Combat Phase'],
+    ])
+    const commands = result.page!.abilities[2]
+    expect(commands.descriptionHtml).toContain('2 Ossiarch')
+    expect(commands.descriptionHtml).not.toMatch(/Empower|Mortek|Effect:/)
+    const trait = result.page!.abilities[0]
+    expect(trait.descriptionHtml).toContain('Tides of Death')
+    expect(trait.descriptionHtml).toContain('LOW TIDE:')
+    expect(trait.descriptionHtml).not.toMatch(/TIDES OF DEATH|crescendo|Refracted|Battle Traits/)
+    expect(result.page?.groups.find(group => group.externalId === 'Battle-Traits-5')?.parentExternalId).toBe(
+      'Soulraid-Hunt'
+    )
+  })
+
   it('decodes universal rules without retaining example-only ability cards', () => {
     const ability = (timing: string, name: string) => `
       <table><tr><td class="abHeader">${timing}</td></tr></table>
@@ -786,6 +933,37 @@ describe('Wahapedia warscroll HTML decoding', () => {
 
     expect(scope).toEqual('spearhead')
     expect(parseWahapediaFactionRootWarscrollsHtml(source, scope).pages).toEqual([])
+  })
+
+  it('keeps an anchored Spearhead datasheet in the army heading above it (#1757)', () => {
+    // From 2026-10-22 Wahapedia anchors a second copy of a unit (`Saurus-Warriors-2`); the copy
+    // without an anchor already took its army from the heading.
+    const sheet = (anchor: string) => `
+      <section class="datasheet">
+        ${anchor ? `<a name="${anchor}"></a>` : ''}
+        <div class="nails-header"><span class="nails">•</span>SPEARHEAD WARSCROLL<span class="nails">•</span></div>
+        <h1 class="wsHeaderIn">Saurus Warriors</h1>
+        <span class="wsMove">5"</span><span class="wsWounds">1</span><span class="wsSave">4+</span><span class="wsBravery">1</span>
+      </section>`
+    const source = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">Seraphon</span></h1>
+        <a name="Starscale-Warhost"></a><h2>Starscale Warhost</h2>
+        ${sheet('')}
+        <a name="Sunblooded-Prowlers"></a><h2>Sunblooded Prowlers</h2>
+        ${sheet('Saurus-Warriors-2')}
+      </body></html>
+    `)
+    source.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/seraphon/'
+    source.artifact.finalUrl = source.artifact.requestUrl
+
+    const warscrolls = parseWahapediaFactionRootWarscrollsHtml(source, 'spearhead').pages.filter(
+      page => page.recordKind === 'warscroll'
+    )
+    expect(warscrolls.map(page => [page.externalId, page.parentExternalId])).toEqual([
+      ['Starscale-Warhost:Saurus-Warriors', 'Starscale-Warhost'],
+      ['Saurus-Warriors-2', 'Sunblooded-Prowlers'],
+    ])
   })
 
   it('fails a faction page that decodes to no rules, whatever the faction is called', () => {

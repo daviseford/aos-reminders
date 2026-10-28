@@ -265,6 +265,46 @@ const canonicalSearchText = (value: string): { text: string; offsets: number[] }
   return { text: characters.join(''), offsets }
 }
 
+/**
+ * What an official override's page excerpt is centred on. An erratum may name the rule without the
+ * source's possessive ('Whirlpool Fury' for WHIRLPOOL'S FURY) or name no unit at all ('ALL
+ * WARSCROLLS ... Remove Orruk'), so the excerpt also looks for those forms and for the keywords the
+ * override adds or removes. Each line of an ability-text override is a needle too: a page can print
+ * a reserve condition away from the card it governs (Spearhead: Ogor Mawtribes - Tyrant's Bellow
+ * page 2, #1757), and a line the page does not print verbatim finds nothing. A table row the override
+ * reads as one `label: text` line is printed with flavour and an `Effect:` label in between, so the
+ * text after its first colon is a needle too (Spearhead: Idoneth Deepkin - Soulraid Hunt page 2, #2095).
+ */
+export const officialOverrideExcerptNeedles = (
+  focus: string | undefined,
+  overrides: ReadonlyArray<{ field: string; value: unknown }>
+): string[] =>
+  Array.from(
+    new Set(
+      [
+        focus,
+        focus?.replace(/[’']s\b/gi, ''),
+        ...overrides.flatMap(({ field, value }) =>
+          field === 'warscrollKeywordOverrides' || field === 'abilityKeywordOverrides'
+            ? [
+                ...((value as { add?: string[] }).add ?? []),
+                ...((value as { remove?: string[] }).remove ?? []),
+              ]
+            : field === 'abilityTextOverrides'
+              ? Object.values((value as { text?: Record<string, unknown> }).text ?? {}).flatMap(text =>
+                  typeof text === 'string'
+                    ? text.split('\n').flatMap(line => {
+                        const rest = line.slice(line.indexOf(': ') + 2)
+                        return line.includes(': ') && rest.length >= 20 ? [line, rest] : [line]
+                      })
+                    : []
+                )
+              : []
+        ),
+      ].filter((value): value is string => Boolean(value?.trim()))
+    )
+  )
+
 export const pageExcerpt = (
   pageText: string | undefined,
   needle?: string | readonly string[]
@@ -542,25 +582,7 @@ const buildSourceCandidates = (
       entities.find(entity => entity.kind === 'warscroll')?.name ??
       entities[0]?.name ??
       keyword
-    // An erratum may name the rule without the source's possessive ('Whirlpool Fury' for
-    // WHIRLPOOL'S FURY) or name no unit at all ('ALL WARSCROLLS ... Remove Orruk'), so the excerpt
-    // also looks for those forms and for the keywords the override itself adds or removes.
-    const overrideExcerptNeedles = Array.from(
-      new Set(
-        [
-          overrideExcerptFocus,
-          overrideExcerptFocus?.replace(/[’']s\b/gi, ''),
-          ...reviewOverrides.flatMap(({ field, value }) =>
-            field === 'warscrollKeywordOverrides' || field === 'abilityKeywordOverrides'
-              ? [
-                  ...((value as { add?: string[] }).add ?? []),
-                  ...((value as { remove?: string[] }).remove ?? []),
-                ]
-              : []
-          ),
-        ].filter((value): value is string => Boolean(value?.trim()))
-      )
-    )
+    const overrideExcerptNeedles = officialOverrideExcerptNeedles(overrideExcerptFocus, reviewOverrides)
     const officialOverrideEvidence = officialOverrideSourceIds.map(sourceRecordId => {
       const officialRecord = sourceRecordById.get(sourceRecordId)
       if (!officialRecord) {

@@ -6933,6 +6933,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/seraphon/#datasheet:Saurus-Warriors-2/ability:1",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/seraphon/#datasheet:Sunblooded-Prowlers:Saurus-Warriors/ability:1",
           "publisher": "wahapedia"
         }
@@ -8635,6 +8639,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#datasheet:Clanrats/ability:1",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "Warscrolls_abilities.csv:000000251:1",
           "publisher": "wahapedia"
         }
@@ -9275,7 +9283,7 @@
     {
       "aliases": [
         {
-          "externalId": "Faction_abilities.csv:SY:000000655:000002298:7",
+          "externalId": "Faction_abilities.csv:SY:000000655:000002298:8",
           "publisher": "wahapedia"
         }
       ],
@@ -12212,7 +12220,7 @@
     {
       "aliases": [
         {
-          "externalId": "Faction_abilities.csv:SY:000000655:000002298:6",
+          "externalId": "Faction_abilities.csv:SY:000000655:000002298:9",
           "publisher": "wahapedia"
         }
       ],
@@ -12697,6 +12705,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#datasheet:Akhelian-Morrsarr-Guard-2/ability:1",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#datasheet:Akhelian-Tide-Guard:Akhelian-Morrsarr-Guard/ability:1",
           "publisher": "wahapedia"
@@ -13681,6 +13693,10 @@
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/warscrolls.html#datasheet:Festus-the-Leechlord/ability:1",
           "publisher": "wahapedia"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000000931:1",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:3ce20414-1008-5ef3-8317-a87535da8043",
@@ -13744,6 +13760,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Tyrant-s-Bellow:Tyrant/ability:1",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "Warscrolls_abilities.csv:000003346:1",
           "publisher": "wahapedia"
@@ -28315,6 +28335,10 @@
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/warscrolls.html#datasheet:Scourge-of-Aqshy-Putrid-Blightkings/ability:2",
           "publisher": "wahapedia"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000003580:2",
+          "publisher": "wahapedia"
         }
       ],
       "canonicalId": "ability:7c9a6ccb-8584-5751-ac6a-40cab80001c5",
@@ -32819,7 +32843,7 @@
     {
       "aliases": [
         {
-          "externalId": "Faction_abilities.csv:SY:000000655:000002298:2",
+          "externalId": "Faction_abilities.csv:SY:000000655:000002298:5",
           "publisher": "wahapedia"
         }
       ],
@@ -35693,6 +35717,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Scrapglutt:Ironguts/ability:1",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "Warscrolls_abilities.csv:000003312:1",
           "publisher": "wahapedia"
@@ -51185,6 +51213,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/#datasheet:Clanrats-2/ability:1",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/#datasheet:Gnawfeast-Clawpack:Clanrats/ability:1",
           "publisher": "wahapedia"
         }
@@ -51262,7 +51294,7 @@
     {
       "aliases": [
         {
-          "externalId": "Faction_abilities.csv:SY:000000655:000002298:5",
+          "externalId": "Faction_abilities.csv:SY:000000655:000002298:7",
           "publisher": "wahapedia"
         }
       ],
@@ -51927,6 +51959,10 @@
       "aliases": [
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/warscrolls.html#datasheet:Scourge-of-Aqshy-Putrid-Blightkings/ability:1",
+          "publisher": "wahapedia"
+        },
+        {
+          "externalId": "Warscrolls_abilities.csv:000003580:1",
           "publisher": "wahapedia"
         }
       ],
@@ -68581,6 +68617,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#datasheet:Clanrats/warscroll:battle-profile",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "Warscrolls.csv:000000251:battle-profile",
           "publisher": "wahapedia"
@@ -91749,6 +91789,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Tyrant-s-Bellow:Tyrant/warscroll",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "Warscrolls.csv:000003346",
           "publisher": "wahapedia"
         }
@@ -94245,6 +94289,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/seraphon/#datasheet:Saurus-Warriors-2/warscroll",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/seraphon/#datasheet:Sunblooded-Prowlers:Saurus-Warriors/warscroll",
           "publisher": "wahapedia"
         }
@@ -95152,6 +95200,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#datasheet:Clanrats/warscroll",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "Warscrolls.csv:000000251",
           "publisher": "wahapedia"
@@ -96453,6 +96505,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Scrapglutt:Ironguts/warscroll",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "Warscrolls.csv:000003312",
           "publisher": "wahapedia"
@@ -99132,6 +99188,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/#datasheet:Clanrats-2/warscroll",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/#datasheet:Gnawfeast-Clawpack:Clanrats/warscroll",
           "publisher": "wahapedia"
@@ -102808,6 +102868,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#datasheet:Akhelian-Morrsarr-Guard-2/warscroll",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#datasheet:Akhelian-Tide-Guard:Akhelian-Morrsarr-Guard/warscroll",
           "publisher": "wahapedia"
@@ -106610,6 +106674,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#datasheet:Clanrats/weapon:1",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "Warscrolls_weapons.csv:000000251:1",
           "publisher": "wahapedia"
         }
@@ -107327,6 +107395,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Tyrant-s-Bellow:Tyrant/weapon:2",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "Warscrolls_weapons.csv:000003346:2",
           "publisher": "wahapedia"
         }
@@ -107415,7 +107487,7 @@
     {
       "aliases": [
         {
-          "externalId": "Warscrolls_weapons.csv:000001748:2",
+          "externalId": "Warscrolls_weapons.csv:000001748:1",
           "publisher": "wahapedia"
         }
       ],
@@ -108726,7 +108798,7 @@
     {
       "aliases": [
         {
-          "externalId": "Warscrolls_weapons.csv:000001748:1",
+          "externalId": "Warscrolls_weapons.csv:000001748:2",
           "publisher": "wahapedia"
         }
       ],
@@ -109070,6 +109142,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Tyrant-s-Bellow:Tyrant/weapon:3",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "Warscrolls_weapons.csv:000003346:3",
           "publisher": "wahapedia"
@@ -114083,6 +114159,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/seraphon/#datasheet:Saurus-Warriors-2/weapon:1",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/seraphon/#datasheet:Sunblooded-Prowlers:Saurus-Warriors/weapon:1",
           "publisher": "wahapedia"
         }
@@ -117129,6 +117209,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#datasheet:Akhelian-Morrsarr-Guard-2/weapon:2",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#datasheet:Akhelian-Tide-Guard:Akhelian-Morrsarr-Guard/weapon:1",
           "publisher": "wahapedia"
         }
@@ -118197,6 +118281,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/#datasheet:Clanrats-2/weapon:1",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/skaven/#datasheet:Gnawfeast-Clawpack:Clanrats/weapon:1",
           "publisher": "wahapedia"
@@ -123964,6 +124052,10 @@
     {
       "aliases": [
         {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Scrapglutt:Ironguts/weapon:1",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "Warscrolls_weapons.csv:000003312:1",
           "publisher": "wahapedia"
         }
@@ -125217,6 +125309,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Tyrant-s-Bellow:Tyrant/weapon:1",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "Warscrolls_weapons.csv:000003346:1",
           "publisher": "wahapedia"
@@ -126493,6 +126589,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#datasheet:Akhelian-Morrsarr-Guard-2/weapon:1",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#datasheet:Akhelian-Tide-Guard:Akhelian-Morrsarr-Guard/weapon:2",
           "publisher": "wahapedia"
@@ -135420,6 +135520,10 @@
     {
       "aliases": [
         {
+          "externalId": "Faction_abilities.csv:SY:000000655:000002298:2",
+          "publisher": "wahapedia"
+        },
+        {
           "externalId": "html:https://wahapedia.ru/aos4/factions/sylvaneth/#faction-ability:Battle-Traits-1:ability:1",
           "publisher": "wahapedia"
         }
@@ -135430,6 +135534,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:SY:000000655:000002298:6",
+          "publisher": "wahapedia"
+        },
         {
           "externalId": "html:https://wahapedia.ru/aos4/factions/sylvaneth/#faction-ability:Battle-Traits-1:ability:5",
           "publisher": "wahapedia"
@@ -140266,6 +140374,1249 @@
       "canonicalId": "content-group:b7c188f8-4a80-5c73-9725-3bb251515b6e",
       "kind": "content-group",
       "name": "Spell Lore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-ability:Battle-Traits-Epicurean-Revellers:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:9730f13f-e366-5655-8bb2-ca3e24a86ad8",
+      "kind": "ability",
+      "name": "FAVOUR MOST FICKLE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-ability:Enhancements-Epicurean-Revellers:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:0039b93b-3dcc-5215-9e19-1a2df65ca78a",
+      "kind": "ability",
+      "name": "TWISTED GRACE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-ability:Enhancements-Epicurean-Revellers:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:15094842-1f0a-52c0-83f2-0850ab770f8b",
+      "kind": "ability",
+      "name": "EXCESS OF VIOLENCE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-ability:Enhancements-Epicurean-Revellers:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:195af701-1d5b-5db2-9122-0d0200051b55",
+      "kind": "ability",
+      "name": "HIGH COURTIERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-ability:Enhancements-Epicurean-Revellers:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:1b0652e2-18f7-574f-b7f2-5b01193c4f00",
+      "kind": "ability",
+      "name": "IRRESISTIBLE SOUL-MUSK"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-ability:Regiment-Abilities-Epicurean-Revellers:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c2cd9173-6748-5889-baba-fdba38c698db",
+      "kind": "ability",
+      "name": "BRINGERS OF DEGRADATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-ability:Regiment-Abilities-Epicurean-Revellers:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ede83923-9118-51e0-86cf-a6473a09191e",
+      "kind": "ability",
+      "name": "DAEMONIC ONSLAUGHT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Ironguts-2/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7d4ad668-c720-51b8-814c-6d8c23bfb233",
+      "kind": "ability",
+      "name": "STOMPING MARAUDERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Tyrant-2/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d71417b1-f3b5-5a18-abd1-e76ded5803a7",
+      "kind": "ability",
+      "name": "ROARING WARLORD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-Mawseeker-Mob:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:0be0eba7-a58a-5fc0-874c-0855708e1595",
+      "kind": "ability",
+      "name": "FRENZIED HUNTERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-Mawseeker-Mob:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:0e111e86-0e1e-564e-9b02-caf19aa218e8",
+      "kind": "ability",
+      "name": "WOT? NO MEAT!?"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-Mawseeker-Mob:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:dc69476c-b33e-51d3-92b9-f156d259de5e",
+      "kind": "ability",
+      "name": "CHUCK 'EM IN THE POT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-Warglutt-Marauders:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ac3f5edd-265b-5037-a72e-5b0298539e6e",
+      "kind": "ability",
+      "name": "MORE OGORS, MY LORD"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Battle-Traits-Warglutt-Marauders:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:bc2dde6f-d639-54f1-8d11-7e20172c26f8",
+      "kind": "ability",
+      "name": "SCOFF DOWN FRESH FLESH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Enhancements-Mawseeker-Mob:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8693659e-b896-56a2-a1f5-276e1e5227fc",
+      "kind": "ability",
+      "name": "WELL-STOCKED LARDER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Enhancements-Mawseeker-Mob:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:6ef24911-5bbb-5629-b8a1-db55d98eaa56",
+      "kind": "ability",
+      "name": "DISGUSTING EATER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Enhancements-Mawseeker-Mob:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c6f5740f-912d-5ee6-b5d1-e115b0a02f69",
+      "kind": "ability",
+      "name": "GENEROUS PORTIONS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Enhancements-Mawseeker-Mob:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:28fe8cca-64d3-5bab-8f52-16bc80c467eb",
+      "kind": "ability",
+      "name": "HUNGER PANGS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Enhancements-Warglutt-Marauders:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:23012a61-fbb7-5b27-9267-11f4bb23a1ba",
+      "kind": "ability",
+      "name": "WALLWRECKER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Enhancements-Warglutt-Marauders:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d9234742-3986-55c4-9601-2fd3b261fd1c",
+      "kind": "ability",
+      "name": "DEATHCHEATER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Enhancements-Warglutt-Marauders:ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5f2ceb48-49c0-5959-ae1e-61071b09a96d",
+      "kind": "ability",
+      "name": "LUNGBURSTER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Enhancements-Warglutt-Marauders:ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8cc18f45-09f2-59e4-99b6-82b05d995f0f",
+      "kind": "ability",
+      "name": "GRISTLEGOBBLER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Regiment-Abilities-Mawseeker-Mob:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4ad26be0-82be-559a-b340-a8698c80f5c3",
+      "kind": "ability",
+      "name": "DISH TESTERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Regiment-Abilities-Mawseeker-Mob:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a4acc4cb-cb57-5c8b-8c69-df912d99dc33",
+      "kind": "ability",
+      "name": "EAGER PROCURERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Regiment-Abilities-Warglutt-Marauders:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:29fe7949-94a9-50a5-8695-a7f0ffb6fa03",
+      "kind": "ability",
+      "name": "BRUTISH BARGING"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-ability:Regiment-Abilities-Warglutt-Marauders:ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:9896c5ec-83e7-5909-8c7f-d2b0b40dfb9a",
+      "kind": "ability",
+      "name": "BLINDING DUST CLOUDS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/the-rules/general-s-handbook-2024-25/#rules-ability:Unbinding-Spells:ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:4a25add7-cda6-5a5f-ab2d-042767edaec9",
+      "kind": "ability",
+      "name": "UNBIND"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002376:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2fa36788-43a4-562f-88cb-29ad288c0030",
+      "kind": "ability",
+      "name": "THE CRONESEER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002376:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a71fe5a1-8e8a-50fd-88f2-550f14a78b72",
+      "kind": "ability",
+      "name": "BLOOD RITUAL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002376:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5b3bdd86-cf05-5ae4-ab4b-7657eeb9c1ed",
+      "kind": "ability",
+      "name": "GIFT OF FORESIGHT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002377:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:90a2e9cc-3607-5ad1-acc7-dba3284c4d8e",
+      "kind": "ability",
+      "name": "REFLECTED AGONY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000002377:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:fd77d48b-56b1-5d09-83da-9e2b59f75374",
+      "kind": "ability",
+      "name": "WRACKING GAZE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003825:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8e72c06e-1bed-52e2-90cd-a6bd39a2107e",
+      "kind": "ability",
+      "name": "THRICEFOLD COURT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003825:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7b8ff08f-4789-5336-98bc-3dda7eb40f39",
+      "kind": "ability",
+      "name": "DISPENSERS OF FAVOUR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003826:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d28ffbec-273a-56a3-a791-3974804f07a8",
+      "kind": "ability",
+      "name": "SOPORIFIC MUSK"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003827:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5d233256-31ce-563a-94f5-b76e8081e3fc",
+      "kind": "ability",
+      "name": "LITHE AND SWIFT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003828:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c2230628-4391-55db-ad54-0868955924f3",
+      "kind": "ability",
+      "name": "QUICKSILVER SPEED"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003830:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a0d01e5d-0cbc-5399-8ef2-c681e08ea8de",
+      "kind": "ability",
+      "name": "WALL OF MEAT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003832:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:daa6c284-81b4-583d-a230-0894d6980149",
+      "kind": "ability",
+      "name": "SHOCK AND GORE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003833:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:af3777b5-231f-5c57-b3d3-96bc167585a5",
+      "kind": "ability",
+      "name": "RUST-MAW"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003833:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:15feb650-52b0-5f85-a4c0-7978630fdf07",
+      "kind": "ability",
+      "name": "BUTCHER'S CAULDRON"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003834:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e050b0c5-be7d-5af3-ac31-4e01a401a068",
+      "kind": "ability",
+      "name": "A TASTE FOR THE ARCANE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003835:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:8076f41c-7ec7-57d0-85d4-1693e71381fc",
+      "kind": "ability",
+      "name": "CONDUITS OF GUT MAGIC"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003836:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ca45ac32-96cf-5397-bee4-4465e2f4af9d",
+      "kind": "ability",
+      "name": "BESTIAL HUNGER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003837:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:53173561-778c-59a1-9081-52625a83f3ee",
+      "kind": "ability",
+      "name": "VANGUARD CHAMBER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000003837:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:9e968b7d-bb4d-514a-ae17-b2809e5fd6f4",
+      "kind": "ability",
+      "name": "MERCILESS SENTINELS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000002376:battle-profile",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "battle-profile:2bf00c72-8cd2-5152-af8e-b8ebb4a55340",
+      "kind": "battle-profile",
+      "name": "Scourge of Ghyran Krethusa the Croneseer battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000002377:battle-profile",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "battle-profile:23068eb7-91ac-576b-9cf5-9f17691b334c",
+      "kind": "battle-profile",
+      "name": "Scourge of Ghyran Bloodwrack Shrine battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003837:battle-profile",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "battle-profile:abcd68aa-5766-5e84-b989-c1440d218ca8",
+      "kind": "battle-profile",
+      "name": "The Emberwatch battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_types.csv:HS:000001140",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c869e0ee-aabe-5fe9-9781-f59a79a6ae1b",
+      "kind": "content-group",
+      "name": "Epicurean Revellers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_types.csv:OM:000001141",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:9566705b-388a-5cc6-b800-71189eaf000f",
+      "kind": "content-group",
+      "name": "Warglutt Marauders"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_types.csv:OM:000001142",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:44d5d98d-cead-53e0-8ed0-079d1a90748b",
+      "kind": "content-group",
+      "name": "Mawseeker Mob"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-group:Battle-Traits-Epicurean-Revellers",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:7d9a89c6-f302-5843-a479-4ab5d7f253d8",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-group:Enhancements-Epicurean-Revellers",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:2fd73bc4-5f73-50f9-adb7-ff4d574fd5d3",
+      "kind": "content-group",
+      "name": "Enhancements"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-group:Regiment-Abilities-Epicurean-Revellers",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:ef52352c-34c9-52ab-b3d5-10994c25933f",
+      "kind": "content-group",
+      "name": "Regiment Abilities"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Battle-Traits-Mawseeker-Mob",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:af6fe05b-83da-5084-be32-c65f4249822d",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Battle-Traits-Warglutt-Marauders",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:0c7fd524-3099-5317-a391-3062ef60bb0a",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Enhancements-Mawseeker-Mob",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:03c42a64-7ffb-5364-ae3a-3b7425ef3b04",
+      "kind": "content-group",
+      "name": "Enhancements"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Enhancements-Warglutt-Marauders",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c910d6eb-64d9-5c79-99df-541fb7ce71a0",
+      "kind": "content-group",
+      "name": "Enhancements"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Regiment-Abilities-Mawseeker-Mob",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:05e6eef8-d12c-51c4-b018-e1f748342c11",
+      "kind": "content-group",
+      "name": "Regiment Abilities"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#faction-group:Regiment-Abilities-Warglutt-Marauders",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:2e66134f-0f89-5cec-b924-6b018f9c96d8",
+      "kind": "content-group",
+      "name": "Regiment Abilities"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/the-rules/general-s-handbook-2024-25/#rules-group:Unbinding-Spells",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:4fac56eb-0157-50f8-ab6a-09744d3d1dd1",
+      "kind": "content-group",
+      "name": "4.0 Unbinding Spells"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Last_update.csv:2026-10-22 18:12:05",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:0cfa9758-1c3c-53df-8640-28fe90a7ae19",
+      "kind": "publication",
+      "name": "Wahapedia AoS 4 export 2026-10-22 18:12:05"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000295",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:75046082-6489-539e-9664-fa6fff0b8366",
+      "kind": "publication",
+      "name": "Spearhead: Epicurean Revellers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000296",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:4b06602d-69c5-5b21-adc8-6577524b438b",
+      "kind": "publication",
+      "name": "Spearhead: Warglutt Marauders"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Source.csv:000000297",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "publication:de586a8b-fcd2-5348-a820-8ab3ef514780",
+      "kind": "publication",
+      "name": "Spearhead: Mawseeker Mob"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Ironguts-2/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:d31273a2-6e04-5120-aaec-dc80d3dfa8be",
+      "kind": "warscroll",
+      "name": "Ironguts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Tyrant-2/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:93b4ab0f-cb15-5a13-ab6f-21da153701f7",
+      "kind": "warscroll",
+      "name": "Tyrant"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000002376",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:c2b235c7-749f-5bc1-9558-38ab8b1f79e1",
+      "kind": "warscroll",
+      "name": "Scourge of Ghyran Krethusa the Croneseer"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000002377",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:57bc82e9-9122-5d97-a712-d802756797ce",
+      "kind": "warscroll",
+      "name": "Scourge of Ghyran Bloodwrack Shrine"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003825",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:d8a3d8ba-64de-54c5-bdb8-a1e085fdf3a8",
+      "kind": "warscroll",
+      "name": "Thricefold Discord"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003826",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:750ae83e-460b-5b41-9a98-085f32b59e91",
+      "kind": "warscroll",
+      "name": "Fiends"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003827",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:634cd81a-be30-5e64-8124-856c919a1f5c",
+      "kind": "warscroll",
+      "name": "Daemonettes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003828",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:415a061a-fb32-5734-ba1f-ce1b3419c184",
+      "kind": "warscroll",
+      "name": "Seekers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003830",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:b6053a05-35c6-56ff-a5f4-6174e487d920",
+      "kind": "warscroll",
+      "name": "Gluttons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003832",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:d226537a-f373-59f6-bfdc-423cf60e9e33",
+      "kind": "warscroll",
+      "name": "Maulbeast Cavalry"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003833",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:8fd489e7-e06b-5f94-af32-9802d25ec621",
+      "kind": "warscroll",
+      "name": "Butcher"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003834",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:88403d89-b5b8-5e63-9f89-022885ce6128",
+      "kind": "warscroll",
+      "name": "Cleavers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003835",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:3d122d08-969d-5187-8ffb-b80038be568a",
+      "kind": "warscroll",
+      "name": "Gutseers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003836",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:e29f4642-5216-5fd8-a8f5-cea1beb1576d",
+      "kind": "warscroll",
+      "name": "Gorger Mawpack"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000003837",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:a565bf16-daff-53d8-ab5b-33c1cb64838c",
+      "kind": "warscroll",
+      "name": "The Emberwatch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Ironguts-2/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:79cb41ea-9edd-5a78-ac6c-3b281f5b0ce7",
+      "kind": "weapon",
+      "name": "Irongut Weapon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Tyrant-2/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:239488bd-f85b-5007-9412-beea48e1ae65",
+      "kind": "weapon",
+      "name": "Tyrant's Meatcleavers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000002376:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:d37a05d6-86a2-5027-a031-f548329ac48c",
+      "kind": "weapon",
+      "name": "Staff of Morai-Heg"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000002377:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:3c2ffcc7-9c48-5b7c-8b49-d2a3f45dff49",
+      "kind": "weapon",
+      "name": "Bloodwrack Gaze"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000002377:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:161671aa-f302-549d-ba00-41629bb4ae3a",
+      "kind": "weapon",
+      "name": "Medusa’s Spear and Shrinekeeper’s Goadstaves"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003825:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:c868d4a5-9c3c-557a-b07f-a41387f7e6ff",
+      "kind": "weapon",
+      "name": "Thricefold Arsenal"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003826:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:4e68f7f6-391f-5c47-8372-a5d53736cd1c",
+      "kind": "weapon",
+      "name": "Deadly Pincers and Barbed Stinger"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003827:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:30afad94-89c7-5627-b632-4fa5f632100a",
+      "kind": "weapon",
+      "name": "Piercing Claws"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003828:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:9fcf6f81-3d49-59f4-b85c-c2ab9a646abb",
+      "kind": "weapon",
+      "name": "Agonising Claws"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003828:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:58ae11be-2305-5093-942f-a47d939e254f",
+      "kind": "weapon",
+      "name": "Steed’s Poisoned Tongue"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003830:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:44322f7f-b41b-51c3-ad34-4155a4b10e00",
+      "kind": "weapon",
+      "name": "Glutton Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003832:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:accb51b6-44bf-5797-98c4-9c4e64a100f7",
+      "kind": "weapon",
+      "name": "Gutbiter Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003832:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:28724fc3-d397-5245-8086-001a88b7e79a",
+      "kind": "weapon",
+      "name": "Maulbeast's Horns and Fangs"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003833:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:beda6a0d-c6e9-5704-9205-d263e1ffe72a",
+      "kind": "weapon",
+      "name": "Butcher's Tools"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003834:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:3c76764e-ff73-5e73-b5a6-2033e6e975cc",
+      "kind": "weapon",
+      "name": "Cleaver's Tools"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003835:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:f784cb30-103b-5492-80da-ff3674de3488",
+      "kind": "weapon",
+      "name": "Gutseer's Tools"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003836:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:0a548308-4b8e-5e0e-843c-aa9a542d0cdd",
+      "kind": "weapon",
+      "name": "Clubs, Claws and Jaws"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003837:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:2a440fe7-5277-5a1e-bb95-b729d792bbad",
+      "kind": "weapon",
+      "name": "Boltstorm Weapon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000003837:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:748e488e-ec93-5741-a50b-948104dad6b9",
+      "kind": "weapon",
+      "name": "Stormwrought Weapon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#datasheet:Epicurean-Revellers/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:eb6f7aaf-519e-52d3-9a0f-a8a6f2748b17",
+      "kind": "content-group",
+      "name": "Epicurean Revellers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Mawseeker-Mob/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:f31677ab-82e8-53f5-8b49-d88ca352fc16",
+      "kind": "content-group",
+      "name": "Mawseeker Mob"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ogor-mawtribes/#datasheet:Warglutt-Marauders/warscroll",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:fa8e31c8-5732-5c66-9472-d224a0add216",
+      "kind": "content-group",
+      "name": "Warglutt Marauders"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/#faction-ability:Battle-Traits-5:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2806b8c3-22c0-5a64-9aa4-82812993abe1",
+      "kind": "ability",
+      "name": "BLOOD RITES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-ability:Battle-Traits-1:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:003e56ae-e995-5185-a780-8c8e4a9d79e0",
+      "kind": "ability",
+      "name": "TEMPTATIONS OF SLAANESH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#faction-ability:Battle-Traits-5:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a2df15b8-e094-5d74-852a-8f1cb73e1bcc",
+      "kind": "ability",
+      "name": "TIDES OF DEATH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/#faction-ability:Battle-Traits-5:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d86869bc-6d63-5a0a-b6af-d6cf20338067",
+      "kind": "ability",
+      "name": "CYCLE OF CORRUPTION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/#faction-ability:Battle-Traits-6:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:666df0a3-abef-5ba9-a83c-755753598505",
+      "kind": "ability",
+      "name": "OSSIARCH COMMANDS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-1:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a555f5b6-bb19-5a1d-b6d6-77f406685a2d",
+      "kind": "ability",
+      "name": "BULLSTOMPER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-6:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:406ff0f2-d627-57cf-9791-3984cacde196",
+      "kind": "ability",
+      "name": "Boulder Basher"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/#faction-group:Battle-Traits-5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:75864014-c38a-51b2-be44-dfd8c98c7119",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-group:Battle-Traits-1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:e8660f80-b077-5cf7-b2ee-0e959fd3ad49",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#faction-group:Battle-Traits-5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:07954c8e-b6ff-59d9-9d3e-be7da708caa1",
+      "kind": "content-group",
+      "name": "Battle Traits"
     }
   ],
   "schemaVersion": 1

@@ -31,6 +31,13 @@ const repairMojibake = (value: string): string =>
     .replace(/Ã—/g, '×')
     .replace(/Â(?=[\s"'’“”])/g, '')
 
+// From the 2026-10-22 publish, pages embed FAQ/Errata notes: collapsible `.faqErrataSpoiler` blocks
+// after faction and rules sections, and `.faqErrataColumns` panels under datasheets. They quote the
+// official FAQ/errata and re-render the affected cards, often without a timing bar. The cards
+// themselves stay the rules source, so nothing inside a note is parsed as a rule.
+const outsideFaqErrata = (element: Element): boolean =>
+  !element.closest('.faqErrataSpoiler, .faqErrataColumns')
+
 const normalizedText = (element: Element | null | undefined): string =>
   repairMojibake(
     element?.textContent
@@ -336,8 +343,8 @@ const abilityRecords = (
   diagnostics: WahapediaHtmlDiagnostic[],
   scope?: string
 ): WahapediaHtmlAbilityRecord[] => {
-  const headers = Array.from(root.querySelectorAll('.abHeader:not(.abKeywordsBody)'))
-  const bodies = Array.from(root.querySelectorAll('.abBody'))
+  const headers = Array.from(root.querySelectorAll('.abHeader:not(.abKeywordsBody)')).filter(outsideFaqErrata)
+  const bodies = Array.from(root.querySelectorAll('.abBody')).filter(outsideFaqErrata)
   if (headers.length !== bodies.length) {
     diagnostics.push({
       code: 'ability-pair-mismatch',
@@ -368,7 +375,8 @@ const parseDatasheet = (
   diagnostics: WahapediaHtmlDiagnostic[],
   scope?: string,
   fallbackGroupId?: string,
-  fallbackGroupName?: string
+  fallbackGroupName?: string,
+  groupAnchoredDatasheets = false
 ): WahapediaHtmlWarscrollRecord | undefined => {
   const headerName = normalizedText(datasheet.querySelector('.wsHeaderIn'))
   if (!headerName) {
@@ -462,7 +470,7 @@ const parseDatasheet = (
   const value = {
     recordKind,
     externalId,
-    ...(!anchoredExternalId && fallbackGroupId
+    ...((!anchoredExternalId || groupAnchoredDatasheets) && fallbackGroupId
       ? {
           parentExternalId: fallbackGroupId,
           ...(fallbackGroupName ? { parentName: fallbackGroupName } : {}),
@@ -612,7 +620,10 @@ const parseWahapediaWarscrollCollection = (
       decoded.diagnostics,
       `datasheet:${index + 1}`,
       precedingHeading ? headingExternalId(precedingHeading) : undefined,
-      precedingHeading ? normalizedText(precedingHeading) : undefined
+      precedingHeading ? normalizedText(precedingHeading) : undefined,
+      // A Spearhead datasheet belongs to the army heading above it. From the 2026-10-22 publish
+      // Wahapedia anchors some of them (`Saurus-Warriors-2`), which used to cost them that parent.
+      spearheadOnly
     )
     return page ? [page] : []
   })
@@ -905,8 +916,10 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     return result
   }
 
-  const headers = Array.from(document.querySelectorAll('.abHeader:not(.abKeywordsBody)'))
-  const bodies = Array.from(document.querySelectorAll('.abBody'))
+  const headers = Array.from(document.querySelectorAll('.abHeader:not(.abKeywordsBody)')).filter(
+    outsideFaqErrata
+  )
+  const bodies = Array.from(document.querySelectorAll('.abBody')).filter(outsideFaqErrata)
   if (headers.length !== bodies.length) {
     decoded.diagnostics.push({
       code: 'ability-pair-mismatch',
@@ -988,8 +1001,68 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     return group
   }
 
+  // Spearhead Battle Traits print some rules as titled prose (`.h_custom`) instead of ability cards:
+  // whole traits (Temptations of Slaanesh, Tides of Death), the standalone rules beside a section's
+  // cards (Cycle of Corruption, Ossiarch Commands, a general's keywords), and the reserve conditions
+  // that introduce an arrival card. Each block runs from its title to the next title or card. A block
+  // that ends by introducing an ability belongs to that card; any other block is a rule of its own.
+  // It prints no timing bar, so its timing comes from review. Prose records take their own `prose`
+  // slot so the section's card numbering never shifts (#2095).
+  const addProseBattleTraits = (heading: Element, group: WahapediaHtmlFactionGroupRecord) => {
+    const section = heading.parentElement
+    if (!section || Array.from(section.querySelectorAll('h1, h2, h3')).some(other => other !== heading)) {
+      return
+    }
+    const titles = Array.from(section.querySelectorAll('.h_custom'))
+    const boundaries = Array.from(section.querySelectorAll('.h_custom, table')).filter(
+      element => element.matches('.h_custom') || element.querySelector('.abHeader')
+    )
+    let prose = 0
+    titles.forEach(title => {
+      const range = document.createRange()
+      range.setStartAfter(title)
+      const next = boundaries.find(
+        element =>
+          title.compareDocumentPosition(element) & document.defaultView!.Node.DOCUMENT_POSITION_FOLLOWING
+      )
+      if (next) range.setEndBefore(next)
+      else range.setEnd(section, section.childNodes.length)
+      const body = document.createElement('div')
+      body.append(range.cloneContents())
+      body.querySelectorAll('a[name], h3, .h_custom, .ShowFluff').forEach(element => element.remove())
+      const name = normalizedText(title)
+      const text = normalizedText(body)
+      // shortcut: the source's own wording ("…can use the following ability:") marks a card's
+      // preamble; a reworded introducer would surface as a new prose record and fail the reviewed counts.
+      if (!name || !text || /\buse (?:the )?[^.:]*\babilit(?:y|ies)\s*[.:]?$/i.test(text)) return
+      prose += 1
+      const value = {
+        line: prose,
+        name,
+        descriptionHtml: repairMojibake(body.innerHTML.trim()),
+        conditionHtml: '',
+        keywordsHtml: '',
+        abilityType: '',
+        abilityPhase: '',
+        isReaction: false,
+        pointsType: '',
+        points: '',
+        prose: true as const,
+      }
+      groupsWithAbilities.add(group)
+      const externalId = `${group.externalId}:prose:${prose}`
+      abilities.push({
+        ...value,
+        externalId,
+        groupExternalId: group.externalId,
+        context: group.context,
+        meta: recordMeta(input, `faction-ability:${externalId}`, value),
+      })
+    })
+  }
+
   for (const node of Array.from(document.querySelectorAll('h1, h2, h3, .abHeader:not(.abKeywordsBody)'))) {
-    if (node.closest('.tooltip_templates')) continue
+    if (node.closest('.tooltip_templates') || !outsideFaqErrata(node)) continue
     const text = normalizedText(node)
     if (node.matches('h2')) {
       if (/^Faction Rules$/i.test(text)) {
@@ -1031,6 +1104,7 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     if (node.matches('h3')) {
       skipSubgroup = /^Warscrolls$/i.test(text)
       subgroup = skipSubgroup || !typeGroup ? undefined : addGroup(node, typeGroup)
+      if (subgroup && /^Battle Traits$/i.test(text)) addProseBattleTraits(node, subgroup)
       continue
     }
     // Warscroll abilities belong to their datasheet, never to the surrounding rule group. Battletome
@@ -1157,8 +1231,10 @@ export const parseWahapediaRulesHtml = (input: WahapediaHtmlInput): WahapediaHtm
     return result
   }
 
-  const headers = Array.from(document.querySelectorAll('.abHeader:not(.abKeywordsBody)'))
-  const bodies = Array.from(document.querySelectorAll('.abBody'))
+  const headers = Array.from(document.querySelectorAll('.abHeader:not(.abKeywordsBody)')).filter(
+    outsideFaqErrata
+  )
+  const bodies = Array.from(document.querySelectorAll('.abBody')).filter(outsideFaqErrata)
   if (headers.length !== bodies.length) {
     decoded.diagnostics.push({
       code: 'ability-pair-mismatch',
@@ -1217,7 +1293,7 @@ export const parseWahapediaRulesHtml = (input: WahapediaHtmlInput): WahapediaHtm
   }
 
   for (const node of Array.from(document.querySelectorAll('h2, h3, .abHeader:not(.abKeywordsBody)'))) {
-    if (node.closest('.tooltip_templates')) continue
+    if (node.closest('.tooltip_templates') || !outsideFaqErrata(node)) continue
     const text = normalizedText(node)
     if (node.matches('h2')) {
       if (/^Books$/i.test(text)) {

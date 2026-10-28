@@ -569,7 +569,9 @@ const resolveRosterSelection = (
   resolutionContexts: ResolutionContext[],
   allowsLegends: boolean,
   armiesOfRenown: ArmyOfRenownIndex,
-  diagnostics: Aos4ImportDiagnostic[]
+  diagnostics: Aos4ImportDiagnostic[],
+  /** Warscrolls the roster's own selected groups include; they settle a same-name collision. */
+  groupMemberIds: ReadonlySet<CanonicalId> = new Set()
 ): Aos4ImportMatch | undefined => {
   const matchInContext = ({ context, reachableIds, directlyOfferedIds }: ResolutionContext) => {
     const rulesContextId = context.id
@@ -775,7 +777,13 @@ const resolveRosterSelection = (
 
   for (const { candidates } of perContext) {
     if (candidates.length === 1) return matched(candidates[0])
-    if (candidates.length > 1) return ambiguous(candidates)
+    if (candidates.length > 1) {
+      // Two Spearhead armies of one faction can field same-named units (Tyrant in Tyrant's Bellow
+      // and Warglutt Marauders, #1757). A unit the selected army itself includes is the one the
+      // roster meant; with no such army, or several, the name stays ambiguous.
+      const members = candidates.filter(candidate => groupMemberIds.has(candidate.id))
+      return members.length === 1 ? matched(members[0]) : ambiguous(candidates)
+    }
   }
   const known = perContext.some(({ contextCandidates }) => contextCandidates.length > 0)
 
@@ -1037,10 +1045,11 @@ export const resolveParsedRoster = (
     })
   }
 
-  const matches = [...factionResolution.matches]
-  parsedRoster.selections
-    .filter(selection => selection.kindHint !== 'faction')
-    .forEach(selection => {
+  const resolveSelections = (
+    selections: ParsedRosterSelection[],
+    groupMemberIds?: ReadonlySet<CanonicalId>
+  ) =>
+    selections.map(selection => {
       const selectionDiagnostics: Aos4ImportDiagnostic[] = []
       const match = resolveRosterSelection(
         catalog,
@@ -1048,20 +1057,71 @@ export const resolveParsedRoster = (
         resolutionContexts(Boolean(selection.isLegends)),
         allowsLegends,
         armiesOfRenown,
-        selectionDiagnostics
+        selectionDiagnostics,
+        groupMemberIds
       )
-      if (match) matches.push(match)
-      // Only the plain "couldn't find" warning may go: the Legends and switch-season variants share
-      // its code but name a real enhancement the player can still act on.
-      const weaponOption =
-        !match &&
-        selectionDiagnostics.length === 1 &&
-        selectionDiagnostics[0].code === 'unknown-selection' &&
-        !selectionDiagnostics[0].suggestedRulesContextId &&
-        (allowsLegends || !isLegendsOnly(catalog, selection.label, selection.kindHint)) &&
-        isSigdexBearerWeapon(selection, matches)
-      if (!weaponOption) diagnostics.push(...selectionDiagnostics)
+      return { selection, match, selectionDiagnostics }
     })
+  const matchesOf = (resolutions: ReturnType<typeof resolveSelections>): Aos4ImportMatch[] =>
+    resolutions.flatMap(({ match }) => (match ? [match] : []))
+  /**
+   * Groups resolve before warscrolls so a unit name can be read in the army the roster chose. A
+   * Spearhead army resolves to its rules container, and its units hang off the same-named group the
+   * faction offers in that context, so both are searched for members.
+   */
+  const groupResolutions = resolveSelections(
+    parsedRoster.selections.filter(
+      selection => selection.kindHint !== 'faction' && selection.kindHint !== 'warscroll'
+    )
+  )
+  const groupMatches = matchesOf(groupResolutions)
+  const effectiveReachable = reachableByContextId.get(effectiveContext.id) ?? new Set<CanonicalId>()
+  const selectedGroupNames = new Set(
+    groupMatches.flatMap(match => {
+      const entity = entityById.get(match.canonicalId)
+      return entity?.kind === 'content-group' ? [normalizeImportLabel(entity.name)] : []
+    })
+  )
+  const selectedGroupIds = new Set<CanonicalId>([
+    ...groupMatches.map(match => match.canonicalId),
+    ...catalog.entities
+      .filter(
+        entity =>
+          entity.kind === 'content-group' &&
+          effectiveReachable.has(entity.id) &&
+          selectedGroupNames.has(normalizeImportLabel(entity.name))
+      )
+      .map(entity => entity.id),
+  ])
+  const groupMemberIds = new Set<CanonicalId>(
+    catalog.relationships
+      .filter(
+        relationship =>
+          relationship.kind === 'includes' &&
+          selectedGroupIds.has(relationship.from) &&
+          relationshipIsApplicable(relationship, effectiveContext.id) &&
+          entityById.get(relationship.to)?.kind === 'warscroll'
+      )
+      .map(relationship => relationship.to)
+  )
+  const warscrollResolutions = resolveSelections(
+    parsedRoster.selections.filter(selection => selection.kindHint === 'warscroll'),
+    groupMemberIds
+  )
+  const matches = [...factionResolution.matches, ...groupMatches, ...matchesOf(warscrollResolutions)]
+  // A weapon option's bearer is a warscroll, which resolves after the bullet, so the check waits for
+  // every selection. Only the plain "couldn't find" warning may go: the Legends and switch-season
+  // variants share its code but name a real enhancement the player can still act on.
+  ;[...groupResolutions, ...warscrollResolutions].forEach(({ selection, match, selectionDiagnostics }) => {
+    const weaponOption =
+      !match &&
+      selectionDiagnostics.length === 1 &&
+      selectionDiagnostics[0].code === 'unknown-selection' &&
+      !selectionDiagnostics[0].suggestedRulesContextId &&
+      (allowsLegends || !isLegendsOnly(catalog, selection.label, selection.kindHint)) &&
+      isSigdexBearerWeapon(selection, matches)
+    if (!weaponOption) diagnostics.push(...selectionDiagnostics)
+  })
   matches.push(
     ...manifestationWarscrollMatches(catalog, entityById, matches, resolutionContexts(false), armiesOfRenown)
   )

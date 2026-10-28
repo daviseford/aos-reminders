@@ -123,7 +123,11 @@ describe('official app list resolution', () => {
     expect(containerNames).toContain('Throngankor Alliance')
     expect(containerNames).toContain('Fyrd of Fyrepeak')
     expect(containerNames).not.toContain('Throng of Valankrom')
-    expect(index.containerIds.size).toBe(122)
+    // Corpus 2026-10-27 adds three Wahapedia Spearhead armies (#1757).
+    expect(containerNames).toEqual(
+      expect.arrayContaining(['Epicurean Revellers', 'Warglutt Marauders', 'Mawseeker Mob'])
+    )
+    expect(index.containerIds.size).toBe(125)
   })
 
   it('resolves an Army of Renown and the lores nested under it', () => {

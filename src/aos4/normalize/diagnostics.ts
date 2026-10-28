@@ -2,6 +2,7 @@ import type { SourceRecordId } from '../domain'
 
 export type NormalizationDiagnosticCode =
   | 'unknown-timing'
+  | 'untimed-rule'
   | 'conflicting-perspective'
   | 'conflicting-window'
   | 'unsafe-html-element'

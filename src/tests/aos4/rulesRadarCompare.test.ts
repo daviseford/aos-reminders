@@ -327,7 +327,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
   it('loads the reviewed config and rejects stale repository paths', () => {
     expect(readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData.baselineSha).toBe(
-      '28ca9405c89880a6cea0480603247993275dfb6b'
+      '6909c1401ee52c63b5187a7c2d00fb34190479bd'
     )
 
     const config = JSON.parse(
@@ -338,9 +338,9 @@ describe('AoS 4 Rules Radar comparison', () => {
   })
 
   it('clears the reviewed BSData range while any later commit still alarms', () => {
-    // Reviewed 2026-10-20 (#1757): b462cea0 → 28ca9405 only adds Sons of Behemat Path to Glory
-    // content (the Anvil of Apotheosis hero and the Path of the Footslogger/Heel), which the runtime
-    // does not carry, plus catalogue revision bumps. Nothing after 28ca9405 is reviewed, so a later
+    // Reviewed 2026-10-27 (#1757): 28ca9405 → 6909c140 changes four library catalogues; the
+    // Chainghasts, Twistweald and Darkoath Marauders edits are already in the runtime and the Hedonites
+    // one is Path to Glory content it does not carry. Nothing after 6909c140 is reviewed, so a later
     // head must still surface.
     const { baselineSha } = readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData
     const observation = {
@@ -353,7 +353,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
     const reviewed = compareBsDataObservation({
       ...observation,
-      headSha: '28ca9405c89880a6cea0480603247993275dfb6b',
+      headSha: '6909c1401ee52c63b5187a7c2d00fb34190479bd',
       comparisonStatus: 'identical',
       changedPaths: [],
     })
@@ -369,7 +369,7 @@ describe('AoS 4 Rules Radar comparison', () => {
     expect(later.events[0]).toMatchObject({
       class: 'material',
       changeKind: 'community-catalog-changed',
-      baselineFingerprint: '28ca9405c89880a6cea0480603247993275dfb6b',
+      baselineFingerprint: '6909c1401ee52c63b5187a7c2d00fb34190479bd',
       observedFingerprint: 'c'.repeat(40),
       evidence: { changedPaths: ['Daughters of Khaine - Library.cat'] },
     })
