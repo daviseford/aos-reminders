@@ -1019,32 +1019,62 @@ export const resolveParsedRoster = (
       })
     )
 
+  /**
+   * Sigdex writes a weapon option with a count of one bare (`• Skypike`), the same shape as an
+   * enhancement bullet, so its parser cannot tell the two apart (#2090). A bullet that resolves to
+   * nothing is a weapon option only if it names a weapon of its own bearer, and only when that
+   * bearer resolved to exactly one warscroll; anything else keeps its warning. Real enhancements
+   * still match first, because this only looks at a bullet that has already failed to resolve.
+   */
+  const isSigdexBearerWeapon = (selection: ParsedRosterSelection, resolved: Aos4ImportMatch[]): boolean => {
+    if (parsedRoster.source !== 'sigdex-text' || !selection.bearer) return false
+    const { line, label } = selection.bearer
+    const bearerIds = new Set(
+      resolved
+        .filter(match => match.line === line && match.label === label)
+        .map(match => match.canonicalId)
+        .filter(id => entityById.get(id)?.kind === 'warscroll')
+    )
+    if (bearerIds.size !== 1) return false
+    const [bearerId] = Array.from(bearerIds)
+    const normalized = normalizeImportLabel(selection.label)
+    return catalog.relationships.some(relationship => {
+      if (relationship.kind !== 'includes' || relationship.from !== bearerId) return false
+      const weapon = entityById.get(relationship.to)
+      return weapon?.kind === 'weapon' && normalizeImportLabel(weapon.name) === normalized
+    })
+  }
+
   const resolveSelections = (
     selections: ParsedRosterSelection[],
     groupMemberIds?: ReadonlySet<CanonicalId>
-  ): Aos4ImportMatch[] =>
-    selections.flatMap(selection => {
+  ) =>
+    selections.map(selection => {
+      const selectionDiagnostics: Aos4ImportDiagnostic[] = []
       const match = resolveRosterSelection(
         catalog,
         selection,
         resolutionContexts(Boolean(selection.isLegends)),
         allowsLegends,
         armiesOfRenown,
-        diagnostics,
+        selectionDiagnostics,
         groupMemberIds
       )
-      return match ? [match] : []
+      return { selection, match, selectionDiagnostics }
     })
+  const matchesOf = (resolutions: ReturnType<typeof resolveSelections>): Aos4ImportMatch[] =>
+    resolutions.flatMap(({ match }) => (match ? [match] : []))
   /**
    * Groups resolve before warscrolls so a unit name can be read in the army the roster chose. A
    * Spearhead army resolves to its rules container, and its units hang off the same-named group the
    * faction offers in that context, so both are searched for members.
    */
-  const groupMatches = resolveSelections(
+  const groupResolutions = resolveSelections(
     parsedRoster.selections.filter(
       selection => selection.kindHint !== 'faction' && selection.kindHint !== 'warscroll'
     )
   )
+  const groupMatches = matchesOf(groupResolutions)
   const effectiveReachable = reachableByContextId.get(effectiveContext.id) ?? new Set<CanonicalId>()
   const selectedGroupNames = new Set(
     groupMatches.flatMap(match => {
@@ -1074,14 +1104,24 @@ export const resolveParsedRoster = (
       )
       .map(relationship => relationship.to)
   )
-  const matches = [
-    ...factionResolution.matches,
-    ...groupMatches,
-    ...resolveSelections(
-      parsedRoster.selections.filter(selection => selection.kindHint === 'warscroll'),
-      groupMemberIds
-    ),
-  ]
+  const warscrollResolutions = resolveSelections(
+    parsedRoster.selections.filter(selection => selection.kindHint === 'warscroll'),
+    groupMemberIds
+  )
+  const matches = [...factionResolution.matches, ...groupMatches, ...matchesOf(warscrollResolutions)]
+  // A weapon option's bearer is a warscroll, which resolves after the bullet, so the check waits for
+  // every selection. Only the plain "couldn't find" warning may go: the Legends and switch-season
+  // variants share its code but name a real enhancement the player can still act on.
+  ;[...groupResolutions, ...warscrollResolutions].forEach(({ selection, match, selectionDiagnostics }) => {
+    const weaponOption =
+      !match &&
+      selectionDiagnostics.length === 1 &&
+      selectionDiagnostics[0].code === 'unknown-selection' &&
+      !selectionDiagnostics[0].suggestedRulesContextId &&
+      (allowsLegends || !isLegendsOnly(catalog, selection.label, selection.kindHint)) &&
+      isSigdexBearerWeapon(selection, matches)
+    if (!weaponOption) diagnostics.push(...selectionDiagnostics)
+  })
   matches.push(
     ...manifestationWarscrollMatches(catalog, entityById, matches, resolutionContexts(false), armiesOfRenown)
   )
