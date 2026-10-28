@@ -718,6 +718,76 @@ describe('Wahapedia warscroll HTML decoding', () => {
     ])
   })
 
+  it('reads Spearhead battle traits printed as prose, but not the prose that introduces a card (#2095)', () => {
+    const card = (timing: string, name: string) => `
+      <table><tr><td class="abHeader">${timing}</td></tr></table>
+      <div class="abBody"><b>${name}:</b><b>Effect:</b> Resolve ${name}.</div>
+    `
+    const faction = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">Idoneth Deepkin</span></h1>
+        <a name="Faction-Rules"></a><h2>Faction Rules</h2>
+        <h2>SPEARHEAD</h2>
+        <a name="Soulraid-Hunt"></a><h2>Soulraid Hunt</h2>
+        <div class="clFl sSpearhead">
+          <a name="Battle-Traits-5"></a><h3>Battle Traits</h3>
+          <div class="Columns2"><div>
+            <div class="h_custom">TIDES OF DEATH</div>
+            <p class="ShowFluff legend2">The tides build to a crescendo.</p>In each battle round, all friendly
+            units have the <b>Tides of Death</b> passive ability shown in the table below.<br><br>
+          </div>
+          <table><tr><td><b>1</b></td><td><b>LOW TIDE:</b> <p class="ShowFluff">Refracted.</p><b>Effect:</b>
+            Subtract 1 from hit rolls for shooting attacks that target this unit.</td></tr></table></div>
+        </div>
+        <div class="clFl sSpearhead">
+          <a name="Regiment-Abilities-5"></a><h3>Regiment Abilities</h3>
+          ${card('Passive', 'Way of the Cresting Wave')}
+        </div>
+        <a name="Tithe-Reaper-Echelon"></a><h2>Tithe-Reaper Echelon</h2>
+        <div class="clFl sSpearhead">
+          <a name="Battle-Traits-6"></a><h3>Battle Traits</h3>
+          <div><div class="h_custom">RESERVE CONTINGENT</div>
+            <p class="ShowFluff">Reinforcements march.</p>One of your Mortek Guard units is not set up during the
+            deployment phase. Instead, from the third battle round onwards, it can use the following ability:<br>
+            ${card('Your Movement Phase', 'Contingent Arrival')}
+          </div>
+          <div class="h_custom">OSSIARCH COMMANDS</div>At the start of the battle round, you receive 2 Ossiarch
+          command points.
+          ${card('Any Combat Phase', 'Empower Nadirite Weapons')}
+        </div>
+      </body></html>
+    `)
+    faction.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/idoneth-deepkin/'
+    faction.artifact.finalUrl = faction.artifact.requestUrl
+
+    const result = parseWahapediaFactionHtml(faction)
+    expect(result.diagnostics).toEqual([])
+    expect(
+      result.page?.abilities.map(record => [
+        record.externalId,
+        record.name,
+        record.context,
+        record.conditionHtml,
+      ])
+    ).toEqual([
+      ['Battle-Traits-5:prose:1', 'TIDES OF DEATH', 'spearhead', ''],
+      ['Regiment-Abilities-5:ability:1', 'Way of the Cresting Wave', 'spearhead', 'Passive'],
+      ['Battle-Traits-6:prose:1', 'OSSIARCH COMMANDS', 'spearhead', ''],
+      ['Battle-Traits-6:ability:1', 'Contingent Arrival', 'spearhead', 'Your Movement Phase'],
+      ['Battle-Traits-6:ability:2', 'Empower Nadirite Weapons', 'spearhead', 'Any Combat Phase'],
+    ])
+    const commands = result.page!.abilities[2]
+    expect(commands.descriptionHtml).toContain('2 Ossiarch')
+    expect(commands.descriptionHtml).not.toMatch(/Empower|Mortek|Effect:/)
+    const trait = result.page!.abilities[0]
+    expect(trait.descriptionHtml).toContain('Tides of Death')
+    expect(trait.descriptionHtml).toContain('LOW TIDE:')
+    expect(trait.descriptionHtml).not.toMatch(/TIDES OF DEATH|crescendo|Refracted|Battle Traits/)
+    expect(result.page?.groups.find(group => group.externalId === 'Battle-Traits-5')?.parentExternalId).toBe(
+      'Soulraid-Hunt'
+    )
+  })
+
   it('decodes universal rules without retaining example-only ability cards', () => {
     const ability = (timing: string, name: string) => `
       <table><tr><td class="abHeader">${timing}</td></tr></table>

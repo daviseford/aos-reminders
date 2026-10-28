@@ -169,6 +169,45 @@
       ]
     },
     {
+      "abilityKind": "passive",
+      "actor": "army",
+      "id": "ability:003e56ae-e995-5185-a780-8c8e4a9d79e0",
+      "keywords": [],
+      "kind": "ability",
+      "name": "TEMPTATIONS OF SLAANESH",
+      "revision": "1a1c8f6a80304fed3ff08ec7c6a5f2e7f8d31a97f70d442f79387a357afc5e33",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A15",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:607775cab94d2176d4a96c8d30de367fbcecea62cdbe50862dbd129e8a7a83f9%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fhedonites-of-slaanesh%2F%23faction-ability%3ABattle-Traits-1%3Aprose%3A1",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "You receive 6 temptation dice at the start of the battle round. Each time your opponent makes a failed hit roll, a failed wound roll or a failed save roll, you can offer them a temptation dice. If they accept your offer, that roll is replaced with a 6. Rolls replaced in this way cannot be re-rolled or modified.\nEach time your opponent accepts your offer of a temptation dice, you gain D6 depravity points. Each time your opponent rejects your offer of a temptation dice, inflict D3 mortal damage on the unit for which the roll was made.\nYou cannot offer your opponent a temptation dice for the same enemy unit more than once per phase. At the end of the battle round, all remaining temptation dice are lost.\nAll friendly units gain passive abilities from the table below based on the number of depravity points you have. These abilities are cumulative.\n12+ – TANTALISING TORMENT: This unit can use a RUN ability and still use CHARGE abilities later in the turn.\n18+ – SADISTIC SPITE: This unit’s melee weapons have Crit (Mortal).\n24+ – OBLIVIOUS INDULGENCE: This unit has WARD (5+)."
+      },
+      "timings": [
+        {
+          "kind": "passive",
+          "perspective": "neutral",
+          "raw": "Passive",
+          "window": {
+            "kind": "always"
+          }
+        }
+      ]
+    },
+    {
       "abilityKind": "active",
       "actor": "unit",
       "id": "ability:00584d78-549a-5820-81ee-a350c635cddd",
@@ -2264,18 +2303,22 @@
       ],
       "kind": "ability",
       "name": "LIGHTNING-STRIKE ARRIVAL",
-      "revision": "fff46cc5f644b4fc4e8939ae32ca6f879bf8ef174178c499bda211d1bf53f726",
+      "revision": "051841dd21003a86fca01d8924c20fa4d35f96ec15e9fde2b1b6f447ad5479b5",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:3a3c901779b5fb74d3f6dc11882838a2dd3f96cc664ca0537197c9ad57c987c2%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fstormcast-eternals%2F%23faction-ability%3ABattle-Traits-7%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit anywhere on the battlefield more than 6\" from all enemy units."
+        "effect": "Yndrasta and your Annihilators unit are not set up during the deployment phase. Instead, from the third battle round onwards, they can use the following ability:\nSet up this unit anywhere on the battlefield more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -8799,18 +8842,22 @@
       "keywords": [],
       "kind": "ability",
       "name": "FRENZIED HUNTERS",
-      "revision": "6f6005b97a7ffa82796039246b636ea2dfdfbdd86135767ef2c338d83a1afc87",
+      "revision": "a24f921396680b19598a13e1838f6eb90dc1ceb91837e22b4ceea5e4e4ebb10d",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:e04b8c1239d45585ff2fe96aa930fb5dfed7507909699a8435a17aa72a3cc797%3Apage%3A6",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-ability%3ABattle-Traits-Mawseeker-Mob%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit within 1\" of a battlefield edge and more than 6\" from all enemy units."
+        "effect": "Your Gorger Mawpack is not set up during the deployment phase. Instead, from the second battle round onwards, they can use the following ability:\nSet up this unit within 1\" of a battlefield edge and more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -9410,18 +9457,22 @@
       "keywords": [],
       "kind": "ability",
       "name": "CHAMELEON AMBUSH",
-      "revision": "23a1aaabf9d2a886e75428a7ed4183ffeb7eafa89799dbcbad7e19ee3c2572cb",
+      "revision": "e218e11c79eaaa25c60daafc85ad9194b35c4a0e9c2cfbeb224c1564a3ae9cf4",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:58ec318574e274125ead3e001dcbf9965df6b4f4dbd9286c5feb380420565330%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fseraphon%2F%23faction-ability%3ABattle-Traits-2%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit anywhere on the battlefield more than 6\" from all enemy units."
+        "effect": "Your 2 Hunters of Huanchi units and the Spawn of Chotec are not set up during the deployment phase. Instead, from the third battle round onwards, they can use the following ability:\nSet up this unit anywhere on the battlefield more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -9543,18 +9594,22 @@
       ],
       "kind": "ability",
       "name": "CONTINGENT ARRIVAL",
-      "revision": "c265242e73fb976fa8a144c83a3f0869ee8790b817bfa724aa5669a7c19a02a6",
+      "revision": "59de3732de788731af5a72fb9a31ec8cdfbfbbe3ec9ae66f214a494df8da1e40",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:3f9b6818767a57a08c08d010ad72c5f10e984fdbac7de041cdf448a976ae0445%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ABattle-Traits-6%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit anywhere on the battlefield wholly within 3\" of a battlefield edge and more than 6\" from all enemy units."
+        "effect": "One of your Mortek Guard units is not set up during the deployment phase. Instead, from the third battle round onwards, it can use the following ability:\nSet up this unit anywhere on the battlefield wholly within 3\" of a battlefield edge and more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -24530,18 +24585,22 @@
       "keywords": [],
       "kind": "ability",
       "name": "CACKLING ARRIVAL",
-      "revision": "04e171f5b071ee5218dfe5f1624782ec7881e0a6c07ac96ccbafeb81309708b7",
+      "revision": "037af13cf51b6eee578eacd3077a0b5780313dc33386eefae5e44f23dfb07ceb",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:ffde34191ec7b50a4bcf98e2e2372205c9b48a1c433eb3fc05d234df81f9c3ef%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2F%23faction-ability%3ABattle-Traits-4%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "declare": "Pick 1 of your units in reserve.",
+        "declare": "1 of your Bladegheist Revenants units and 1 of your Dreadscythe Harridans units start the battle in reserve. From the second battle round onwards, you can use the following ability:\nPick 1 of your units in reserve.",
         "effect": "Set up that unit anywhere on the battlefield more than 6\" from all enemy units."
       },
       "timings": [
@@ -31147,6 +31206,41 @@
       ]
     },
     {
+      "abilityKind": "passive",
+      "actor": "army",
+      "id": "ability:2806b8c3-22c0-5a64-9aa4-82812993abe1",
+      "keywords": [],
+      "kind": "ability",
+      "name": "BLOOD RITES",
+      "revision": "27255a36e9d657f2ed12ceb3888fa483e6b802afbd5bfad803cfc3490bc19426",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:7153de6330d3827f8c86c491f62250470e964feef93145b0fd1cd113e20825be%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdaughters-of-khaine%2F%23faction-ability%3ABattle-Traits-5%3Aprose%3A1",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "At the start of each battle round, all friendly units gain the Blood Rites passive ability that corresponds to the current battle round number, as shown in the table (units keep all Blood Rites abilities gained in previous battle rounds).\n1 – QUICKENING BLOODLUST: Add 1 to run rolls for this unit.\n2 – HEADLONG FURY: Add 1 to charge rolls for this unit.\n3 – ZEALOT’S RAGE: Add 1 to hit rolls for combat attacks made by this unit.\n4 – SLAUGHTERER’S STRENGTH: Add 1 to wound rolls for combat attacks made by this unit."
+      },
+      "timings": [
+        {
+          "kind": "passive",
+          "perspective": "neutral",
+          "raw": "Passive",
+          "window": {
+            "kind": "always"
+          }
+        }
+      ]
+    },
+    {
       "abilityKind": "active",
       "actor": "army",
       "cost": {
@@ -32164,18 +32258,22 @@
       ],
       "kind": "ability",
       "name": "DAEMONIC SUMMONING",
-      "revision": "c28a72d32d84db4a2c3ef7ee9191186e3c9c64a48ef34e8d60957203920b1d74",
+      "revision": "0f55a38861bb51a83a225b87914a3822667a1198bc039b8d3d18a9ad81d50f25",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:68635a5a3a857bfd88a023951e9223f4d40f5bc20c81cd2dc4f3dd01f150cbf7%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fmaggotkin-of-nurgle%2F%23faction-ability%3ABattle-Traits-4%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit anywhere on the battlefield more than 6\" from all enemy units."
+        "effect": "One of your Pusgoyle Blightlords and one of your Plaguebearers units are not set up during the deployment phase. Instead, from the third battle round onwards, they can use the following ability:\nSet up this unit anywhere on the battlefield more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -47947,18 +48045,22 @@
       "keywords": [],
       "kind": "ability",
       "name": "THE RISING DEAD",
-      "revision": "f2e9afa75ae4b7bb8f7f5dc99402168a16c051c1b44b07197e8e11d8bc18f18d",
+      "revision": "f7a02ccb575f46197ebf05fa153b345e0412997cc95ab9fa8d70af5df9899102",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:19d1a5a884ffff7c2cbc11b21db71a560880c541ac21830f2c608f5492f3fada%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsoulblight-gravelords%2F%23faction-ability%3ABattle-Traits-6%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit anywhere on the battlefield wholly within 3\" of a battlefield edge and more than 6\" from all enemy units."
+        "effect": "One of your Deathrattle Skeletons units is not set up during the deployment phase. Instead, from the third battle round onwards, it can use the following ability:\nSet up this unit anywhere on the battlefield wholly within 3\" of a battlefield edge and more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -48493,6 +48595,41 @@
           "window": {
             "kind": "turn-phase",
             "phase": "charge"
+          }
+        }
+      ]
+    },
+    {
+      "abilityKind": "rule",
+      "actor": "army",
+      "id": "ability:406ff0f2-d627-57cf-9791-3984cacde196",
+      "keywords": [],
+      "kind": "ability",
+      "name": "Boulder Basher",
+      "revision": "d2c2123411f22d457f97ab2892a388ccbc4dd76f3cc70ff502ee6375cd61a8f5",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:830765205fa3ed7a1ae7e2bdf2a444938eaa5ec13d92cc7372dbdc822826dbda%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-6%3Aprose%3A1",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "Add the HERO keyword to your general’s warscroll and remove the REINFORCEMENTS keyword."
+      },
+      "timings": [
+        {
+          "kind": "rule",
+          "perspective": "neutral",
+          "raw": "",
+          "window": {
+            "kind": "army-rule"
           }
         }
       ]
@@ -77713,6 +77850,41 @@
           "raw": "Passive",
           "window": {
             "kind": "always"
+          }
+        }
+      ]
+    },
+    {
+      "abilityKind": "active",
+      "actor": "army",
+      "id": "ability:666df0a3-abef-5ba9-a83c-755753598505",
+      "keywords": [],
+      "kind": "ability",
+      "name": "OSSIARCH COMMANDS",
+      "revision": "be0d670c3e96c0a929d2ea1b1fb74cf1c1a1620f6f2b2687ae05540fd83ff1e2",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:3f9b6818767a57a08c08d010ad72c5f10e984fdbac7de041cdf448a976ae0445%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ABattle-Traits-6%3Aprose%3A1",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "OSSIARCH COMMANDS are abilities that can only be used by spending Ossiarch command points. At the start of the battle round, you receive 2 Ossiarch command points. Each OSSIARCH COMMAND costs 1 Ossiarch command point to use.\nThe same unit cannot use more than one OSSIARCH COMMAND in the same phase. At the end of the battle round, all remaining Ossiarch command points are lost."
+      },
+      "timings": [
+        {
+          "kind": "active",
+          "perspective": "neutral",
+          "raw": "At the start of the battle round",
+          "window": {
+            "kind": "battle-round-start"
           }
         }
       ]
@@ -119165,18 +119337,22 @@
       ],
       "kind": "ability",
       "name": "SWOOP DOWN",
-      "revision": "1755bc7fedd6e0281c1b4035aa0bf1aaacb2f50359ec7476cc4489ddb24589d8",
+      "revision": "fcad58c9d35ede08b1f7b17abad29ce1beefc7180a701b587dba49f32848bad8",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:eaaab843dbb2f434c6bb983da9aee18a284ae466d5daa81e918c62b8da4c03f0%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsoulblight-gravelords%2F%23faction-ability%3ABattle-Traits-5%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit anywhere on the battlefield more than 6\" from all enemy units."
+        "effect": "Your Vargheists unit is not set up during the deployment phase. Instead, from the third battle round onwards, it can use the following ability:\nSet up this unit anywhere on the battlefield more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -124466,6 +124642,41 @@
       ]
     },
     {
+      "abilityKind": "passive",
+      "actor": "army",
+      "id": "ability:a2df15b8-e094-5d74-852a-8f1cb73e1bcc",
+      "keywords": [],
+      "kind": "ability",
+      "name": "TIDES OF DEATH",
+      "revision": "809730312155e775c77d0f0c9e6559546a407c30bb4b1f4dd9232abd316ddd0a",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:809b80ad5db07f193a33312132e2caae0dae8dc47ff604fc3519edfedeafe015%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fidoneth-deepkin%2F%23faction-ability%3ABattle-Traits-5%3Aprose%3A1",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "In each battle round, all friendly units have the Tides of Death passive ability that corresponds to the current battle round number, as shown in the table below.\n1 – LOW TIDE: Subtract 1 from hit rolls for shooting attacks that target this unit.\n2 – FLOOD TIDE: This unit can use a RUN ability and still use SHOOT and/or CHARGE abilities later in the turn.\n3 – HIGH TIDE: This unit has STRIKE-FIRST.\n4 – EBB TIDE: This unit can use a RETREAT ability and still use SHOOT and/or CHARGE abilities later in the turn."
+      },
+      "timings": [
+        {
+          "kind": "passive",
+          "perspective": "neutral",
+          "raw": "Passive",
+          "window": {
+            "kind": "always"
+          }
+        }
+      ]
+    },
+    {
       "abilityKind": "active",
       "actor": "unit",
       "id": "ability:a308b646-8aad-5000-9d04-09ac53c71e29",
@@ -126940,6 +127151,41 @@
           "window": {
             "kind": "turn-phase",
             "phase": "combat"
+          }
+        }
+      ]
+    },
+    {
+      "abilityKind": "rule",
+      "actor": "army",
+      "id": "ability:a555f5b6-bb19-5a1d-b6d6-77f406685a2d",
+      "keywords": [],
+      "kind": "ability",
+      "name": "BULLSTOMPER",
+      "revision": "72872c08015f8c741837cc4333dbb78c864c097e2fd8ff026e6243fc3f390c93",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:c653c64e7f74aff0b550bfe9693b1dadcf9451c80e11af0bf7486d867444e781%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-1%3Aprose%3A1",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "Your general has the HERO keyword (in addition to the MONSTER keyword) but does not have the REINFORCEMENTS keyword or icon."
+      },
+      "timings": [
+        {
+          "kind": "rule",
+          "perspective": "neutral",
+          "raw": "",
+          "window": {
+            "kind": "army-rule"
           }
         }
       ]
@@ -132992,18 +133238,22 @@
       "keywords": [],
       "kind": "ability",
       "name": "MORE OGORS, MY LORD",
-      "revision": "3948f7a48cd37c8878a2929fb1901420d0072df3320c49a7ea50ba3d07b5a0e5",
+      "revision": "38f805a02a0b75d7d9ff4359b7730b027ff3670995728f3fa40ca1175dfc1d14",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:e04b8c1239d45585ff2fe96aa930fb5dfed7507909699a8435a17aa72a3cc797%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fogor-mawtribes%2F%23faction-ability%3ABattle-Traits-Warglutt-Marauders%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit anywhere on the battlefield so that every model is within 1\" of a battlefield edge and more than 6\" from all enemy units."
+        "effect": "Your unit of Gluttons with 3 models and 1 of your Maulbeast Cavalry units are not set up during the deployment phase. Instead, from the third battle round onwards, they can use the following ability:\nSet up this unit anywhere on the battlefield so that every model is within 1\" of a battlefield edge and more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -143762,18 +144012,22 @@
       "keywords": [],
       "kind": "ability",
       "name": "DREAD DESCENT",
-      "revision": "5aa78cd74784b33672b0569e44fa21e9818ec4ffcebf5121e23590132267e270",
+      "revision": "7f0e523482c0401d10a54ac5d55d0ff3def35ab877bcb524fc21860f4ebb5aba",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:a0d45622e6406975fa31df32ffe56176bfe0473579160cf5a3eab63f65924ca5%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ABattle-Traits-7%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit anywhere on the battlefield more than 6\" from all enemy units."
+        "effect": "Your unit of Morghast Archai is not set up during the deployment phase. Instead, from the second battle round onwards, it can use the following ability:\nSet up this unit anywhere on the battlefield more than 6\" from all enemy units."
       },
       "timings": [
         {
@@ -167618,6 +167872,41 @@
           "raw": "Deployment Phase",
           "window": {
             "kind": "deployment"
+          }
+        }
+      ]
+    },
+    {
+      "abilityKind": "passive",
+      "actor": "army",
+      "id": "ability:d86869bc-6d63-5a0a-b6af-d6cf20338067",
+      "keywords": [],
+      "kind": "ability",
+      "name": "CYCLE OF CORRUPTION",
+      "revision": "47499d98604ae92d6cae87698b6a067a11096f259397ce2c6d1b92f9926f93b7",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:781d851eac5f6a7eea3800b6626e831b5ee5f6662d10c7c944b5ee5a29c7b14d%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fmaggotkin-of-nurgle%2F%23faction-ability%3ABattle-Traits-5%3Aprose%3A1",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "If it is the first battle round, roll a dice to determine which CYCLE ability can be used this battle round. If you roll a 5 or 6, roll again.\nIf it is not the first battle round, the next CYCLE ability in the sequence is used this battle round instead of any previous CYCLE abilities.\n1 – NUMBERLESS PESTS\n4 – NAUSEOUS REVULSION\n2 – PLAGUE OF MISERY\n3 – BURGEONING FILTH"
+      },
+      "timings": [
+        {
+          "kind": "passive",
+          "perspective": "neutral",
+          "raw": "Passive",
+          "window": {
+            "kind": "always"
           }
         }
       ]
@@ -195025,18 +195314,22 @@
       "keywords": [],
       "kind": "ability",
       "name": "SUDDEN AMBUSH",
-      "revision": "877e201ef17893e6372cdcafa2eb0091e409cccd9a89ffb0f030fab97ef8c0fb",
+      "revision": "92c94dd8df1ee77c16e79aa62a910dd2920580595bbd417009fe2cfbc92e3425",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ],
       "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:57dd24b01270ab5fa01b1860db2f30c229016c5e1c4b3e27076ef3e3920942c6%3Apage%3A2",
+          "transformation": "reviewed official reconciliation evidence"
+        },
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fcities-of-sigmar%2F%23faction-ability%3ABattle-Traits-5%3Aability%3A1",
           "transformation": "normalized reminder ability"
         }
       ],
       "text": {
-        "effect": "Set up this unit within 6\" of an enemy unit and not in combat."
+        "effect": "Your Whisperblade is not set up during the deployment phase. Instead, from the second battle round onwards, it can use the following ability:\nSet up this unit within 6\" of an enemy unit and not in combat."
       },
       "timings": [
         {
@@ -235354,6 +235647,21 @@
       ]
     },
     {
+      "groupType": "soulraid-hunt",
+      "id": "content-group:07954c8e-b6ff-59d9-9d3e-be7da708caa1",
+      "kind": "content-group",
+      "name": "Battle Traits",
+      "revision": "73abce4a1e33acf15cc8566f2bbf34680324f916116909330576243fc9b1ad29",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fidoneth-deepkin%2F%23faction-group%3ABattle-Traits-5"
+        }
+      ]
+    },
+    {
       "groupType": "manifestation-lore",
       "id": "content-group:079b7ad5-41ff-5d92-8595-fe3b0f61dff6",
       "kind": "content-group",
@@ -247634,6 +247942,21 @@
       "sourceRefs": [
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2F%23faction-group%3ALore-of-Frazzlegit"
+        }
+      ]
+    },
+    {
+      "groupType": "heartflayer-troupe",
+      "id": "content-group:75864014-c38a-51b2-be44-dfd8c98c7119",
+      "kind": "content-group",
+      "name": "Battle Traits",
+      "revision": "933ea20adf8b16e9e0f60a370b4f2592c69eb64f00307784f253402a50e1d933",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdaughters-of-khaine%2F%23faction-group%3ABattle-Traits-5"
         }
       ]
     },
@@ -260955,6 +261278,21 @@
       "sourceRefs": [
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fblades-of-khorne%2F%23faction-group%3ABlood-Tithe-Abilities"
+        }
+      ]
+    },
+    {
+      "groupType": "blades-of-the-lurid-dream",
+      "id": "content-group:e8660f80-b077-5cf7-b2ee-0e959fd3ad49",
+      "kind": "content-group",
+      "name": "Battle Traits",
+      "revision": "5f09946e0827af84d74c716653f5b7c5b49d3dc0780fd61c53d6f72eabb75f6f",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fhedonites-of-slaanesh%2F%23faction-group%3ABattle-Traits-1"
         }
       ]
     },
@@ -438795,6 +439133,15 @@
       "to": "ability:0cd86806-845f-5e9e-bd97-78518b671a91"
     },
     {
+      "from": "content-group:1cedea52-2fd4-56d1-a5a8-0c2d88ca213b",
+      "id": "relationship:1e8a5e9e0f9bdb8dffcb63e47b1c702f",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "ability:a555f5b6-bb19-5a1d-b6d6-77f406685a2d"
+    },
+    {
       "from": "warscroll:b4bfbc15-f6da-52ea-a66c-590fa2e2e83b",
       "id": "relationship:1e8bda702a6c9d6a7c9ee483c4bf2686",
       "kind": "includes",
@@ -457478,6 +457825,15 @@
       "to": "content-group:66e22ebe-f222-5688-b369-ce1a1a930f92"
     },
     {
+      "from": "faction:a7ea09c4-af98-5c10-b517-cb1509879206",
+      "id": "relationship:3d3e9f4215c7bae0fbcf727f86b9d146",
+      "kind": "offers",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "content-group:75864014-c38a-51b2-be44-dfd8c98c7119"
+    },
+    {
       "from": "content-group:87c4ac7f-16a7-528b-b211-abe40b075a78",
       "id": "relationship:3d3f469d22ca2ae8b87728d7a407d9de",
       "kind": "includes",
@@ -461186,6 +461542,15 @@
       "to": "content-group:776d6730-96ba-5610-a390-1982d430e37c"
     },
     {
+      "from": "faction:4df09a85-c7ef-5cba-89db-5ff0f4a0b8ed",
+      "id": "relationship:43020aeebe13592bd84945c34480c0f0",
+      "kind": "offers",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "content-group:e8660f80-b077-5cf7-b2ee-0e959fd3ad49"
+    },
+    {
       "from": "faction:bd4c3ac6-6450-52a1-a82f-c987cfa361f0",
       "id": "relationship:4302a1285d7d4d875d4d9a466e85b856",
       "kind": "offers",
@@ -461954,6 +462319,15 @@
         "rules-context:90000000-0000-4000-8000-000000000004"
       ],
       "to": "warscroll:3d665764-768c-5a40-8b73-af7e029f9a3b"
+    },
+    {
+      "from": "content-group:3d2e30c2-f7f3-5928-8aa9-129264487f5a",
+      "id": "relationship:44503d275fc05da48c5cfc7883aaf8fb",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "ability:666df0a3-abef-5ba9-a83c-755753598505"
     },
     {
       "from": "warscroll:b22612ca-bb60-54ef-89fb-40982aab0fb6",
@@ -466115,6 +466489,15 @@
       "to": "weapon:a388cef1-96ee-5f37-a937-217c37aa8b8f"
     },
     {
+      "from": "content-group:6dd9a5fa-ec56-58c2-9d57-58dc976708e7",
+      "id": "relationship:4b3649496de17b06fbaf40c987e60ca4",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "content-group:07954c8e-b6ff-59d9-9d3e-be7da708caa1"
+    },
+    {
       "from": "warscroll:a2ee1773-46c4-5c23-a9b0-a1cfc8e9db7a",
       "id": "relationship:4b3723266a6ef5e62ca7151122854fb4",
       "kind": "includes",
@@ -469251,6 +469634,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "ability:1411a208-8a59-5bda-9fbe-1a53c854a7d2"
+    },
+    {
+      "from": "content-group:5126a322-8d10-5561-9fec-fbf7536fca4a",
+      "id": "relationship:50ae5b31a1f08468033fbed1601298d5",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "content-group:75864014-c38a-51b2-be44-dfd8c98c7119"
     },
     {
       "from": "warscroll:dd169ad3-0a98-5035-b50e-56a676b3cf28",
@@ -473197,6 +473589,15 @@
         "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "to": "content-group:093507bc-c5fd-5038-868b-92b3afd1c8d3"
+    },
+    {
+      "from": "content-group:a1e5610e-5237-5a19-9c5c-6a9c95b480cc",
+      "id": "relationship:56f2ec900c4d8c810770ab7b51e236cc",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "content-group:e8660f80-b077-5cf7-b2ee-0e959fd3ad49"
     },
     {
       "from": "faction:b6a863d4-7e16-5748-a7ab-d47627ef3e1e",
@@ -515567,6 +515968,15 @@
       "to": "content-group:06aaa051-f206-59e5-bc66-b82032e2f124"
     },
     {
+      "from": "content-group:dd4770a0-847d-5ed5-9c4e-789098b30b95",
+      "id": "relationship:9ce30d23b5d634f26996f9a0d2ba0768",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "ability:406ff0f2-d627-57cf-9791-3984cacde196"
+    },
+    {
       "from": "warscroll:f8933dc7-37f4-51fb-b704-f44261543bf4",
       "id": "relationship:9cf312c8afa1470c50a6b556362f0924",
       "kind": "includes",
@@ -535697,6 +536107,15 @@
       "to": "ability:558324e0-4118-5722-a0b1-8c85a6b0a3cb"
     },
     {
+      "from": "content-group:07954c8e-b6ff-59d9-9d3e-be7da708caa1",
+      "id": "relationship:bc17c0fa3f4483a964df72b25a8d680f",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "ability:a2df15b8-e094-5d74-852a-8f1cb73e1bcc"
+    },
+    {
       "from": "content-group:00a66ba0-55bb-55ed-ab4f-de842f53ab0b",
       "id": "relationship:bc1bac58e7f6ab1710432a0c06c631d9",
       "kind": "includes",
@@ -546382,6 +546801,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "content-group:6ab41cb9-fff2-51e6-930b-fb134bdc1736"
+    },
+    {
+      "from": "faction:336daaf4-fa12-57ff-9ddc-b99a6a0382f7",
+      "id": "relationship:cda8682c6338fb32e6d97bbfe2adf5bd",
+      "kind": "offers",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "content-group:07954c8e-b6ff-59d9-9d3e-be7da708caa1"
     },
     {
       "from": "warscroll:c4a39cc7-92db-5111-81ac-80a44a1ff857",
@@ -564518,6 +564946,15 @@
       "to": "content-group:40537739-2df0-5686-93c5-45f3e8f3e940"
     },
     {
+      "from": "content-group:4dcdda40-dbf9-54f2-8496-aded60c0ec13",
+      "id": "relationship:eb3339f408efd48326457f428f4bfef3",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "ability:d86869bc-6d63-5a0a-b6af-d6cf20338067"
+    },
+    {
       "from": "content-group:f2d2c4dc-b0ac-50ff-8487-41f8642e25c0",
       "id": "relationship:eb35921dfeea8617f3007fba0f50cdb2",
       "kind": "includes",
@@ -568900,6 +569337,15 @@
       "to": "content-group:de1fd40e-6948-5c7c-a327-f256956ff438"
     },
     {
+      "from": "content-group:75864014-c38a-51b2-be44-dfd8c98c7119",
+      "id": "relationship:f37be5acc2b2097104d65279a33c756a",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "ability:2806b8c3-22c0-5a64-9aa4-82812993abe1"
+    },
+    {
       "from": "warscroll:ce20778f-a151-5d2d-80fb-ebcdfa3d19b4",
       "id": "relationship:f37ee0a45a4d7410da64edd09b41e193",
       "kind": "includes",
@@ -569636,6 +570082,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "content-group:a2ffd2cb-a2ce-5e66-bee1-6ce9b8da9bc5"
+    },
+    {
+      "from": "content-group:e8660f80-b077-5cf7-b2ee-0e959fd3ad49",
+      "id": "relationship:f4cb900bd715cd81a155e0f8e5213962",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ],
+      "to": "ability:003e56ae-e995-5185-a780-8c8e4a9d79e0"
     },
     {
       "from": "content-group:e9d43909-c2fc-5926-8fa3-cc072768bea0",
@@ -644658,6 +645113,18 @@
     },
     {
       "artifactId": "artifact:sha256:9ee56b9da8b774a1354f345fa7494449d1004a898b9fe441ba29d3545d685b87",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdaughters-of-khaine%2F%23faction-ability%3ABattle-Traits-5%3Aprose%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "faction-ability:Battle-Traits-5:prose:1"
+      },
+      "recordChecksum": "54dd1500c71f7a4c331c60b1d4d5cce600a817869f62040cd0691f73c4206627",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:9ee56b9da8b774a1354f345fa7494449d1004a898b9fe441ba29d3545d685b87",
       "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdaughters-of-khaine%2F%23faction-ability%3ABattle-Traits-6%3Aability%3A1",
       "locator": {
         "kind": "section",
@@ -645605,6 +646072,18 @@
         "rules-context:90000000-0000-4000-8000-000000000001",
         "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:9ee56b9da8b774a1354f345fa7494449d1004a898b9fe441ba29d3545d685b87",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fdaughters-of-khaine%2F%23faction-group%3ABattle-Traits-5",
+      "locator": {
+        "kind": "section",
+        "section": "faction-group:Battle-Traits-5"
+      },
+      "recordChecksum": "933ea20adf8b16e9e0f60a370b4f2592c69eb64f00307784f253402a50e1d933",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
       ]
     },
     {
@@ -691647,6 +692126,18 @@
     },
     {
       "artifactId": "artifact:sha256:41b5127675d1bf91beda5b61f18cd816d27344a5f453ec25056c818b2768c5e1",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fhedonites-of-slaanesh%2F%23faction-ability%3ABattle-Traits-1%3Aprose%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "faction-ability:Battle-Traits-1:prose:1"
+      },
+      "recordChecksum": "87fec64e2ef94b8bd61d496b4ae59cea5d53f1100950c43d1bcd0dc738aec5d5",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:41b5127675d1bf91beda5b61f18cd816d27344a5f453ec25056c818b2768c5e1",
       "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fhedonites-of-slaanesh%2F%23faction-ability%3ABattle-Traits-3%3Aability%3A1",
       "locator": {
         "kind": "section",
@@ -692612,6 +693103,18 @@
         "rules-context:90000000-0000-4000-8000-000000000001",
         "rules-context:90000000-0000-4000-8000-000000000005",
         "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:41b5127675d1bf91beda5b61f18cd816d27344a5f453ec25056c818b2768c5e1",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fhedonites-of-slaanesh%2F%23faction-group%3ABattle-Traits-1",
+      "locator": {
+        "kind": "section",
+        "section": "faction-group:Battle-Traits-1"
+      },
+      "recordChecksum": "5f09946e0827af84d74c716653f5b7c5b49d3dc0780fd61c53d6f72eabb75f6f",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
       ]
     },
     {
@@ -705742,6 +706245,18 @@
     },
     {
       "artifactId": "artifact:sha256:5e6d62283b3269c9166c393654d83f9c345125c63f9d30a5f88b9e2e003fcc78",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fidoneth-deepkin%2F%23faction-ability%3ABattle-Traits-5%3Aprose%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "faction-ability:Battle-Traits-5:prose:1"
+      },
+      "recordChecksum": "534a956772d7e0f63a53e36295dbdeae99607e60184aeda08fa4fad24d734fb3",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:5e6d62283b3269c9166c393654d83f9c345125c63f9d30a5f88b9e2e003fcc78",
       "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fidoneth-deepkin%2F%23faction-ability%3ABattle-Traits%3Aability%3A1",
       "locator": {
         "kind": "section",
@@ -706545,6 +707060,18 @@
         "section": "faction-group:Battle-Traits-4"
       },
       "recordChecksum": "592eb7295f0167814003f03b11a994cf8e43958c361a10f9cd826370ffa4aca0",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:5e6d62283b3269c9166c393654d83f9c345125c63f9d30a5f88b9e2e003fcc78",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fidoneth-deepkin%2F%23faction-group%3ABattle-Traits-5",
+      "locator": {
+        "kind": "section",
+        "section": "faction-group:Battle-Traits-5"
+      },
+      "recordChecksum": "73abce4a1e33acf15cc8566f2bbf34680324f916116909330576243fc9b1ad29",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -739208,6 +739735,18 @@
     },
     {
       "artifactId": "artifact:sha256:06e0a2cf982604c405445f522890827dc1e7bd6d1a8663be75adf64951a3b159",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fmaggotkin-of-nurgle%2F%23faction-ability%3ABattle-Traits-5%3Aprose%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "faction-ability:Battle-Traits-5:prose:1"
+      },
+      "recordChecksum": "8135ae9a0016b5ac165d8af91f4be5ccbe889b40918c1fbbf1fac2231c6768e9",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:06e0a2cf982604c405445f522890827dc1e7bd6d1a8663be75adf64951a3b159",
       "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fmaggotkin-of-nurgle%2F%23faction-ability%3ABattle-Traits%3Aability%3A1",
       "locator": {
         "kind": "section",
@@ -767396,6 +767935,18 @@
         "section": "faction-ability:Battle-Traits-6:ability:1"
       },
       "recordChecksum": "c265242e73fb976fa8a144c83a3f0869ee8790b817bfa724aa5669a7c19a02a6",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:226fe0b4b6336cd9518d7efd6ef48bec7780bd32fb7233b1c3d140538c8d81a4",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fossiarch-bonereapers%2F%23faction-ability%3ABattle-Traits-6%3Aprose%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "faction-ability:Battle-Traits-6:prose:1"
+      },
+      "recordChecksum": "42e0810c498995355ace72301806209a3540c1c421ea42b70f63b86b7a04bbcc",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]
@@ -808726,6 +809277,18 @@
     },
     {
       "artifactId": "artifact:sha256:9535012d7e7a52a93103d0779d727fbf6e300ef23656d16d2b3b3c1726dad159",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-1%3Aprose%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "faction-ability:Battle-Traits-1:prose:1"
+      },
+      "recordChecksum": "72872c08015f8c741837cc4333dbb78c864c097e2fd8ff026e6243fc3f390c93",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:9535012d7e7a52a93103d0779d727fbf6e300ef23656d16d2b3b3c1726dad159",
       "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-3%3Aability%3A1",
       "locator": {
         "kind": "section",
@@ -808968,6 +809531,18 @@
         "section": "faction-ability:Battle-Traits-6:ability:2"
       },
       "recordChecksum": "a8ead7285ffe0f05bbd8697dcd92a1da70d9f90d571696154c529ce6712e5636",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:9535012d7e7a52a93103d0779d727fbf6e300ef23656d16d2b3b3c1726dad159",
+      "id": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fsons-of-behemat%2F%23faction-ability%3ABattle-Traits-6%3Aprose%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "faction-ability:Battle-Traits-6:prose:1"
+      },
+      "recordChecksum": "d2c2123411f22d457f97ab2892a388ccbc4dd76f3cc70ff502ee6375cd61a8f5",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
       ]

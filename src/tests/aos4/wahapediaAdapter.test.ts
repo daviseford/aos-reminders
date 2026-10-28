@@ -320,6 +320,34 @@ describe('Wahapedia AoS 4 export adapter', () => {
     )
   })
 
+  it('keeps a prose rule with no timing bar as an untimed army rule, and only a prose rule (#2095)', async () => {
+    const { dataset } = decodeWahapediaExports(await loadInputs())
+    const prose = {
+      ...dataset.factionAbilities[0],
+      conditionHtml: '',
+      isReaction: false,
+      prose: true as const,
+    }
+    const fact = normalizeWahapediaAbility(prose, 'army')
+
+    expect(fact.abilityKind).toBe('rule')
+    expect(fact.timings).toEqual([
+      { kind: 'rule', window: { kind: 'army-rule' }, perspective: 'neutral', raw: '' },
+    ])
+    expect(fact.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'untimed-rule', severity: 'warning' })
+    )
+    expect(fact.diagnostics).not.toContainEqual(expect.objectContaining({ code: 'unknown-timing' }))
+
+    // A card that lost its timing bar is still unknown, never quietly an army rule.
+    const card = normalizeWahapediaAbility({ ...prose, prose: undefined }, 'army')
+    expect(card.abilityKind).not.toBe('rule')
+    expect(card.timings.map(timing => timing.window.kind)).not.toContain('army-rule')
+    // A prose block that does print a timing reads it as usual.
+    const timed = normalizeWahapediaAbility({ ...prose, conditionHtml: 'Passive' }, 'army')
+    expect(timed.abilityKind).toBe('passive')
+  })
+
   it('classifies the contradictory source label Reaction: Passive as passive', async () => {
     const { dataset } = decodeWahapediaExports(await loadInputs())
     const record = {

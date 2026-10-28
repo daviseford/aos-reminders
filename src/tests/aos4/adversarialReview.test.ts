@@ -5,6 +5,7 @@ import {
   createAdversarialPairResults,
 } from '../../aos4/review/adversarialReview'
 import { emptyReviewLedger } from '../../aos4/review/certification'
+import { officialOverrideExcerptNeedles, pageExcerpt } from '../../aos4/review/packetCommand'
 import { type ReviewPacketPair } from '../../aos4/review/packets'
 import {
   AOS4_REVIEW_PROTOCOL_VERSION,
@@ -1318,6 +1319,59 @@ describe('official ability overrides the September 2026 errata need (#2060)', ()
         abilityPair(withDeclare, { name: 'LIGHTNING MASTER', text: trimmed }, { text: trimmed }, erratum)
       )
     ).toEqual(expect.arrayContaining(['official-override.ability-text.evidence']))
+  })
+
+  describe('a round table the override reads one line per row (#2095)', () => {
+    const intro =
+      'In each battle round, all friendly units have the Tides of Death passive ability that corresponds to the current battle round number, as shown in the table below.'
+    const retreat =
+      'This unit can use a RETREAT ability and still use SHOOT and/or CHARGE abilities later in the turn.'
+    // The card's last row sits past the excerpt window around the trait's name.
+    const page = `TIDES OF DEATH The tides build. ${intro} ROUND ABILITY 1 LOW TIDE: The Idoneth move. Effect: Subtract 1 from hit rolls for shooting attacks that target this unit. ${'unrelated '.repeat(150)}4 EBB TIDE: The Idoneth withdraw. Effect: ${retreat}`
+    const source = {
+      name: 'TIDES OF DEATH',
+      conditionHtml: '',
+      descriptionHtml: `${intro}<br>ROUND<br>ABILITY<br>1<br><b>LOW TIDE:</b> <b>Effect:</b> Subtract 1 from hit rolls for shooting attacks that target this unit.<br>4<br><b>EBB TIDE:</b> <b>Effect:</b> ${retreat}`,
+    }
+    const pair = (lastRow: string) => {
+      const text = {
+        effect: [
+          intro,
+          '1 – LOW TIDE: Subtract 1 from hit rolls for shooting attacks that target this unit.',
+          lastRow,
+        ].join('\n'),
+      }
+      const excerpt = pageExcerpt(
+        page,
+        officialOverrideExcerptNeedles('TIDES OF DEATH', [{ field: 'abilityTextOverrides', value: { text } }])
+      )!
+      return abilityPair(
+        source,
+        { name: 'TIDES OF DEATH', abilityKind: 'passive', text, timings: [] },
+        { text },
+        excerpt
+      )
+    }
+
+    it('grounds every row the official card prints', () => {
+      expect(fieldsOf(pair(`4 – EBB TIDE: ${retreat}`))).not.toContain(
+        'official-override.ability-text.evidence'
+      )
+    })
+
+    it('still rejects a row whose effect the official card does not print', () => {
+      expect(fieldsOf(pair('4 – EBB TIDE: This unit has WARD (5+).'))).toEqual(
+        expect.arrayContaining(['official-override.ability-text.evidence'])
+      )
+    })
+
+    it('takes its needles only from this override, never from text it does not carry', () => {
+      const needles = officialOverrideExcerptNeedles('TIDES OF DEATH', [
+        { field: 'abilityTextOverrides', value: { text: { effect: `4 – EBB TIDE: ${retreat}` } } },
+      ])
+      expect(needles).toEqual(['TIDES OF DEATH', `4 – EBB TIDE: ${retreat}`, retreat])
+      expect(pageExcerpt('NO SUCH CARD here.', needles)).toBe('NO SUCH CARD here.')
+    })
   })
 
   it('rejects a deletion-only correction the official page never prints', () => {

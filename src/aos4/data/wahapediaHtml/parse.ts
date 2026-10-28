@@ -1001,6 +1001,66 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     return group
   }
 
+  // Spearhead Battle Traits print some rules as titled prose (`.h_custom`) instead of ability cards:
+  // whole traits (Temptations of Slaanesh, Tides of Death), the standalone rules beside a section's
+  // cards (Cycle of Corruption, Ossiarch Commands, a general's keywords), and the reserve conditions
+  // that introduce an arrival card. Each block runs from its title to the next title or card. A block
+  // that ends by introducing an ability belongs to that card; any other block is a rule of its own.
+  // It prints no timing bar, so its timing comes from review. Prose records take their own `prose`
+  // slot so the section's card numbering never shifts (#2095).
+  const addProseBattleTraits = (heading: Element, group: WahapediaHtmlFactionGroupRecord) => {
+    const section = heading.parentElement
+    if (!section || Array.from(section.querySelectorAll('h1, h2, h3')).some(other => other !== heading)) {
+      return
+    }
+    const titles = Array.from(section.querySelectorAll('.h_custom'))
+    const boundaries = Array.from(section.querySelectorAll('.h_custom, table')).filter(
+      element => element.matches('.h_custom') || element.querySelector('.abHeader')
+    )
+    let prose = 0
+    titles.forEach(title => {
+      const range = document.createRange()
+      range.setStartAfter(title)
+      const next = boundaries.find(
+        element =>
+          title.compareDocumentPosition(element) & document.defaultView!.Node.DOCUMENT_POSITION_FOLLOWING
+      )
+      if (next) range.setEndBefore(next)
+      else range.setEnd(section, section.childNodes.length)
+      const body = document.createElement('div')
+      body.append(range.cloneContents())
+      body.querySelectorAll('a[name], h3, .h_custom, .ShowFluff').forEach(element => element.remove())
+      const name = normalizedText(title)
+      const text = normalizedText(body)
+      // shortcut: the source's own wording ("…can use the following ability:") marks a card's
+      // preamble; a reworded introducer would surface as a new prose record and fail the reviewed counts.
+      if (!name || !text || /\buse (?:the )?[^.:]*\babilit(?:y|ies)\s*[.:]?$/i.test(text)) return
+      prose += 1
+      const value = {
+        line: prose,
+        name,
+        descriptionHtml: repairMojibake(body.innerHTML.trim()),
+        conditionHtml: '',
+        keywordsHtml: '',
+        abilityType: '',
+        abilityPhase: '',
+        isReaction: false,
+        pointsType: '',
+        points: '',
+        prose: true as const,
+      }
+      groupsWithAbilities.add(group)
+      const externalId = `${group.externalId}:prose:${prose}`
+      abilities.push({
+        ...value,
+        externalId,
+        groupExternalId: group.externalId,
+        context: group.context,
+        meta: recordMeta(input, `faction-ability:${externalId}`, value),
+      })
+    })
+  }
+
   for (const node of Array.from(document.querySelectorAll('h1, h2, h3, .abHeader:not(.abKeywordsBody)'))) {
     if (node.closest('.tooltip_templates') || !outsideFaqErrata(node)) continue
     const text = normalizedText(node)
@@ -1044,6 +1104,7 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     if (node.matches('h3')) {
       skipSubgroup = /^Warscrolls$/i.test(text)
       subgroup = skipSubgroup || !typeGroup ? undefined : addGroup(node, typeGroup)
+      if (subgroup && /^Battle Traits$/i.test(text)) addProseBattleTraits(node, subgroup)
       continue
     }
     // Warscroll abilities belong to their datasheet, never to the surrounding rule group. Battletome

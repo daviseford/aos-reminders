@@ -40,6 +40,8 @@ export interface WahapediaHtmlAbilityRecord {
   isReaction: boolean
   pointsType: string
   points: string
+  /** Printed as a titled prose block, not an ability card: there is no timing bar to read (#2095). */
+  prose?: true
   meta: WahapediaHtmlRecordMeta
 }
 

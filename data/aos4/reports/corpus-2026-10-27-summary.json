@@ -3,7 +3,7 @@
   "generatedAt": "2026-10-27T14:50:00.000Z",
   "identities": "data/aos4/identities/corpus.json",
   "integrity": {
-    "consumedSourceRecords": 21148,
+    "consumedSourceRecords": 21158,
     "dispositions": [
       {
         "reason": "Transport Duardin (Throngankor Alliance battle traits): its 6\" range and model-count wording are translated from the French edition (BSData/age-of-sigmar-4th#1397); source-blocked until an English source prints it (#2087).",
@@ -65,16 +65,16 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 36830540,
-      "checksum": "2e0a8b9f95e21b1e6341b53a55c522fa276e0b53a3183d25ececb3d2d244a318"
+      "byteLength": 36858103,
+      "checksum": "3509db1df20ac3d7d71891218d66b702a87d6b29bde50860344fcde281baa5e0"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
       "byteLength": 1457514,
       "checksum": "53c7bb7f3f20b54fcdae7e56673018a56a7c2295b481744b8bef775e457efc99"
     },
     "data/aos4/identities/corpus.json": {
-      "byteLength": 4038026,
-      "checksum": "c699256e67e5b5e5dcd9cf9aad75c80f4b2c4645e4dda4f2a3cd3f095579c1ea"
+      "byteLength": 4041519,
+      "checksum": "fd91578a10efe293ed755b9ff49516105dbcabd60164d88c225be77cf6a3c727"
     },
     "data/aos4/reports/corpus-2026-10-27-reconciliation.json": {
       "byteLength": 153428,
@@ -89,16 +89,16 @@
       "checksum": "cb59ce1ab7fd8e41219b82c4a9d759d8c0917d76cbc0272fe8a67c573c51e24d"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
-      "byteLength": 6933030,
-      "checksum": "1545fbabb381bfad841aedb31766dddeba26ef3337e11400221a61279ebc9951"
+      "byteLength": 6942134,
+      "checksum": "1bbc87ea725e2cb7a93f1a4f6eb00ba0d6c2a8f67cd510233687922d97c08b69"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 14397666,
-      "checksum": "93bc796f94b8b48d7282cfe759575ddfdc7dee20ff6d37f147eeaaab7b060382"
+      "byteLength": 14410297,
+      "checksum": "8c236488e9287741d235513a3d46a84efbe41952101cfa6d4d7f4dea983c7163"
     },
     "src/aos4/generated/corpus/runtime.sources.json": {
-      "byteLength": 7464638,
-      "checksum": "8de75bea6ca334f7230aa295298f716beb1f7535a23d6573cec3fcd114bfcc1b"
+      "byteLength": 7468165,
+      "checksum": "2c287c82358af436cbabadef3c2870f2f672d5ee4a0c2210910420b99e1bb92d"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-10-27.json",
@@ -115,18 +115,18 @@
   },
   "status": "strict-pass",
   "summary": {
-    "abilities": 5443,
+    "abilities": 5450,
     "attribution": "Powered by Wahapedia",
     "battleProfiles": 1054,
-    "contentGroups": 1604,
+    "contentGroups": 1607,
     "factions": 29,
     "ignoredSourceRecords": 21162,
     "publications": 321,
-    "relationships": 14999,
+    "relationships": 15012,
     "revision": "aos4-corpus-2026-10-27",
     "schemaVersion": 1,
     "sourceArtifacts": 252,
-    "sourceRecords": 21158,
+    "sourceRecords": 21168,
     "status": "strict-pass",
     "warscrolls": 1362,
     "weapons": 2363

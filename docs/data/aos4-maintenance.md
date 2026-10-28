@@ -77,8 +77,12 @@ The strict report currently records:
   datasheets (`Saurus-Warriors-2`), which used to cost them their army; the parser now keeps an
   anchored Spearhead datasheet in the army heading above it, so the three new Spearheads and the
   Gnawfeast Clawpack, Akhelian Tide Guard and Sunblooded Prowlers keep their units. Spearhead
-  battle traits Wahapedia prints as prose rather than as a card (Temptations of Slaanesh, the
-  Heartflayer Troupe Blood Rites, Tides of Death) are still not imported (#2095). 29 row-bound
+  Battle Traits sections print some rules as titled prose (`.h_custom`) instead of cards (#2095):
+  a block that ends by introducing an ability is that card's preamble, and any other block is a
+  rule of its own in a `prose` slot that never shifts card numbering. Seven are imported
+  (Temptations of Slaanesh, the Heartflayer Troupe Blood Rites, Tides of Death, Cycle of
+  Corruption, Ossiarch Commands, and Bullstomper and Boulder Basher as untimed army rules), and
+  eleven more arrival cards carry the reserve condition their official pages print. 29 row-bound
   decoder policies moved down two rows with unchanged bytes; 130 new identities, 33 re-anchored
   records rebound onto their existing ids (no shared id changed name)
 - the 2026-10-26 Khazalite Holds matched-play intake (#2087), on top of 2026-10-20: the faction,

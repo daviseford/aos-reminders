@@ -167,6 +167,27 @@ ${effect}`,
     ).toEqual(['Hedkrakka’s Madmob', 'Hedkrakka Madmob', 'ORRUK'])
   })
 
+  it('also focuses on the text of a table row the override reads as one line (#2095)', () => {
+    const effect =
+      'This unit can use a Retreat ability and still use Shoot and/or Charge abilities later in the turn.'
+    const page = `TIDES OF DEATH In each battle round … ${'unrelated '.repeat(300)}4 EBB TIDE: The Idoneth withdraw. Effect: ${effect}`
+    const row = `4 – EBB TIDE: ${effect}`
+    const override = {
+      field: 'abilityTextOverrides',
+      value: { text: { effect: `In each battle round …\n${row}` } },
+    }
+
+    const needles = officialOverrideExcerptNeedles('TIDES OF DEATH', [override])
+    expect(needles).toEqual(['TIDES OF DEATH', 'In each battle round …', row, effect])
+    expect(pageExcerpt(page, needles)).toContain(`Effect: ${effect}`)
+    // A short label tail is not a needle of its own.
+    expect(
+      officialOverrideExcerptNeedles(undefined, [
+        { field: 'abilityTextOverrides', value: { text: { effect: '1 – NUMBERLESS PESTS: Passive' } } },
+      ])
+    ).toEqual(['1 – NUMBERLESS PESTS: Passive'])
+  })
+
   it('builds deterministic blind/comparison pairs and a source-safe index', () => {
     const candidates = [
       candidate('official', {

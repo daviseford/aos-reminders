@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(12_176)
+    expect(AOS4_CATALOG.entities).toHaveLength(12_186)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 12,176 entities', () => {
+  it('reports no missing provenance for any of the 12,186 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(12_176)
+    ).toHaveLength(12_186)
   })
 })
 
@@ -198,17 +198,18 @@ describe('AoS 4 catalog generation integrity', () => {
         // Bright!, Warrior-kings, Transport Duardin), which stay absent until an English source.
         // Corpus 2026-10-26 also ignores the Runewright's Rhythmic Hammering, whose timing is
         // source-blocked. Corpus 2026-10-27 (#1757) adds three Wahapedia Spearheads, two historical
-        // Daughters of Khaine warscrolls, The Emberwatch and the 2024-25 handbook's Unbind.
+        // Daughters of Khaine warscrolls, The Emberwatch and the 2024-25 handbook's Unbind, then seven
+        // Spearhead battle-trait rules Wahapedia prints as prose and their three groups (#2095).
         warscrolls: 1362,
         battleProfiles: 1054,
-        abilities: 5443,
+        abilities: 5450,
         weapons: 2363,
         sourceArtifacts: 252,
-        sourceRecords: 21158,
+        sourceRecords: 21168,
         ignoredSourceRecords: 21162,
       },
       integrity: {
-        consumedSourceRecords: 21148,
+        consumedSourceRecords: 21158,
         issues: [],
         supersededSourceRecords: {
           count: 21152,

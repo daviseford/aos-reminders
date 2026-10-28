@@ -848,6 +848,7 @@ export const mergeCurrentWahapediaWarscrollPages = (
           abilityPhase: ability.abilityPhase,
           pointsType: ability.pointsType,
           points: ability.points,
+          ...(ability.prose ? { prose: true as const } : {}),
           meta: metaFromHtml(
             ability.meta,
             'Faction_abilities.csv',

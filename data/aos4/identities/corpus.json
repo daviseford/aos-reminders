@@ -141507,6 +141507,116 @@
       "canonicalId": "content-group:fa8e31c8-5732-5c66-9472-d224a0add216",
       "kind": "content-group",
       "name": "Warglutt Marauders"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/#faction-ability:Battle-Traits-5:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2806b8c3-22c0-5a64-9aa4-82812993abe1",
+      "kind": "ability",
+      "name": "BLOOD RITES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-ability:Battle-Traits-1:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:003e56ae-e995-5185-a780-8c8e4a9d79e0",
+      "kind": "ability",
+      "name": "TEMPTATIONS OF SLAANESH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#faction-ability:Battle-Traits-5:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a2df15b8-e094-5d74-852a-8f1cb73e1bcc",
+      "kind": "ability",
+      "name": "TIDES OF DEATH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/#faction-ability:Battle-Traits-5:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d86869bc-6d63-5a0a-b6af-d6cf20338067",
+      "kind": "ability",
+      "name": "CYCLE OF CORRUPTION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/#faction-ability:Battle-Traits-6:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:666df0a3-abef-5ba9-a83c-755753598505",
+      "kind": "ability",
+      "name": "OSSIARCH COMMANDS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-1:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:a555f5b6-bb19-5a1d-b6d6-77f406685a2d",
+      "kind": "ability",
+      "name": "BULLSTOMPER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/sons-of-behemat/#faction-ability:Battle-Traits-6:prose:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:406ff0f2-d627-57cf-9791-3984cacde196",
+      "kind": "ability",
+      "name": "Boulder Basher"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/daughters-of-khaine/#faction-group:Battle-Traits-5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:75864014-c38a-51b2-be44-dfd8c98c7119",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/#faction-group:Battle-Traits-1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:e8660f80-b077-5cf7-b2ee-0e959fd3ad49",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/idoneth-deepkin/#faction-group:Battle-Traits-5",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:07954c8e-b6ff-59d9-9d3e-be7da708caa1",
+      "kind": "content-group",
+      "name": "Battle Traits"
     }
   ],
   "schemaVersion": 1

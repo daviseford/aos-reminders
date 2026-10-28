@@ -26,6 +26,8 @@ const phaseNames = new Map(TURN_PHASES.map(phase => [phase.id, phase.name]))
 
 const windowLabel = (timing: AbilityTiming): string => {
   switch (timing.window.kind) {
+    case 'army-rule':
+      return 'Army Rules'
     case 'battle-start':
       return 'Start of Battle'
     case 'deployment':
@@ -94,6 +96,7 @@ const kindDescription: Record<TimingKind, string> = {
   active: 'Used by declaring it during the listed window.',
   reaction: 'Used only when its trigger happens, interrupting the current sequence.',
   passive: 'Always in effect. There is nothing to declare.',
+  rule: 'An army rule printed with no timing. There is nothing to declare.',
 }
 
 const perspectiveDescription: Record<TimingPerspective, string> = {
@@ -123,6 +126,8 @@ const kindTone: Record<TimingKind, Aos4ReminderTagTone> = {
   active: 'kind-active',
   reaction: 'kind-reaction',
   passive: 'kind-passive',
+  // An untimed army rule reads like a passive tag; it reuses that tone rather than adding a new style.
+  rule: 'kind-passive',
 }
 
 const perspectiveTone = (perspective: TimingPerspective): Aos4ReminderTagTone => {

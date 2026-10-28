@@ -15,6 +15,8 @@ const TURN_PHASE_IDS = new Set<string>(TURN_PHASES.map(phase => phase.id))
 export const isTurnPhaseId = (value: string): value is TurnPhaseId => TURN_PHASE_IDS.has(value)
 
 export type GameWindow =
+  /** A rule printed with no timing bar that shapes the army itself, such as a general's keywords. */
+  | { kind: 'army-rule' }
   | { kind: 'battle-start' }
   | { kind: 'deployment' }
   | { kind: 'battle-round-start'; round?: number }
@@ -27,7 +29,7 @@ export type GameWindow =
   | { kind: 'unknown' }
 
 export type TimingPerspective = 'your' | 'enemy' | 'any' | 'neutral'
-export type TimingKind = 'active' | 'reaction' | 'passive'
+export type TimingKind = 'active' | 'reaction' | 'passive' | 'rule'
 export type CombatPriority = 'strike-first' | 'normal' | 'strike-last'
 export type UsagePeriod = 'phase' | 'turn' | 'battle-round' | 'battle'
 export type UsageScope = 'unit' | 'player' | 'army'

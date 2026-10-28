@@ -1,7 +1,8 @@
 import type { DomainEntity } from './entity'
 import type { AbilityTiming } from './game'
 
-export type AbilityKind = 'active' | 'reaction' | 'passive'
+/** `rule`: an untimed army rule the source prints as prose rather than as an ability card (#2095). */
+export type AbilityKind = 'active' | 'reaction' | 'passive' | 'rule'
 export type AbilityActor = 'unit' | 'player' | 'army' | 'terrain' | 'manifestation' | 'other'
 
 export interface AbilityText {

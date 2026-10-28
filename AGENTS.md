@@ -32,8 +32,8 @@ This is an Age of Sigmar fourth-edition codebase:
 - manifestations are a category of unit rather than an army: the five universal manifestation lores
   and their 18 warscrolls come off the `Endless Spells` container page and are offered by all 27
   armies instead of by the container, through the review's `universalFactionContent` gate
-- the accepted corpus contains 1,311 warscrolls, 1,015 battle profiles, 5,260 abilities,
-  2,286 weapons, 1,560 content groups, and 20,439 live source records
+- the accepted corpus contains 1,362 warscrolls, 1,054 battle profiles, 5,450 abilities,
+  2,363 weapons, 1,607 content groups, and 21,168 live source records
 - the 78 Regiments of Renown are classified `regiment-of-renown` content groups (reviewed
   `regimentsOfRenown` input), offered by exactly their inclusion factions with their regiment
   abilities and member warscrolls linked (issue #1858), all from the accepted collection pages.
@@ -65,7 +65,7 @@ This is an Age of Sigmar fourth-edition codebase:
   kept historical) with today's warscrolls, battletomes, and points, and says so wherever it is
   offered (`docs/data/aos4-past-season-2025-26.md`); the browser defaults to the
   current 2026-27 seasonal context
-- strict generation consumes every live record and separately dispositions 20,958 superseded
+- strict generation consumes every live record and separately dispositions 21,152 superseded
   records (the May 2026 bulk warscroll/faction-rule rows and the seventeen index-era Ogor
   datasheets the July 2026 battletome rewrites replaced, issues #1850 and #1880) so none can leak
   into runtime; the Sons of Behemat battletome ships natively from the Wahapedia pages re-pinned
@@ -343,9 +343,12 @@ artifacts must never supply player-facing runtime content; generation integrity 
 `src/aos4/domain/` defines:
 
 - stable branded canonical IDs
-- seven ordered turn phases plus battle/deployment/round/phase-independent/triggered-reaction/
-  always/unknown windows; round boundaries may carry a specific positive battle-round number
-- active, reaction, and passive ability timings
+- seven ordered turn phases plus army-rule/battle/deployment/round/phase-independent/
+  triggered-reaction/always/unknown windows; round boundaries may carry a specific positive
+  battle-round number
+- active, reaction, and passive ability timings, plus untimed army rules: a rule the source prints
+  as prose with no timing bar (a general's keywords, #2095) is an `army-rule`, never an invented
+  Passive timing, and needs a reviewed `untimed-rule` disposition citing its official page
 - perspective, combat priority, and scoped usage limits
 - declare/trigger/effect text
 - weapons and structured keywords

@@ -313,7 +313,8 @@ describe('Sons of Behemat battletome on the re-pinned Wahapedia pages (issue #19
     )
     expect(rules.map(group => [group.name, memberNames(group)]).sort()).toEqual(
       [
-        ['Battle Traits', ['BOWLED OVER', 'CLOSE ONE EYE']],
+        // Boulder Basher is the untimed general rule the page prints as prose (#2095).
+        ['Battle Traits', ['BOWLED OVER', 'Boulder Basher', 'CLOSE ONE EYE']],
         ['Enhancements', ['HUMONGOUS STRIDES', 'HUNGRY GOBBLER', 'LUCKY ROCK', '’ARD ’EAD']],
         ['Regiment Abilities', ['GREEDY AND GRABBY', 'SURLY SORTS']],
       ].sort()

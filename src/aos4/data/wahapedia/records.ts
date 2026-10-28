@@ -99,6 +99,8 @@ export interface WahapediaAbilityFields {
   abilityPhase: string
   pointsType: string
   points: string
+  /** A rule the current HTML prints as prose with no timing bar (#2095). */
+  prose?: true
 }
 
 export interface WahapediaWarscrollAbilityRecord extends WahapediaAbilityFields {

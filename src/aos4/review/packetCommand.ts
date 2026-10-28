@@ -271,7 +271,9 @@ const canonicalSearchText = (value: string): { text: string; offsets: number[] }
  * WARSCROLLS ... Remove Orruk'), so the excerpt also looks for those forms and for the keywords the
  * override adds or removes. Each line of an ability-text override is a needle too: a page can print
  * a reserve condition away from the card it governs (Spearhead: Ogor Mawtribes - Tyrant's Bellow
- * page 2, #1757), and a line the page does not print verbatim finds nothing.
+ * page 2, #1757), and a line the page does not print verbatim finds nothing. A table row the override
+ * reads as one `label: text` line is printed with flavour and an `Effect:` label in between, so the
+ * text after its first colon is a needle too (Spearhead: Idoneth Deepkin - Soulraid Hunt page 2, #2095).
  */
 export const officialOverrideExcerptNeedles = (
   focus: string | undefined,
@@ -290,7 +292,12 @@ export const officialOverrideExcerptNeedles = (
               ]
             : field === 'abilityTextOverrides'
               ? Object.values((value as { text?: Record<string, unknown> }).text ?? {}).flatMap(text =>
-                  typeof text === 'string' ? text.split('\n') : []
+                  typeof text === 'string'
+                    ? text.split('\n').flatMap(line => {
+                        const rest = line.slice(line.indexOf(': ') + 2)
+                        return line.includes(': ') && rest.length >= 20 ? [line, rest] : [line]
+                      })
+                    : []
                 )
               : []
         ),

@@ -104,7 +104,19 @@ export const normalizeWahapediaWeapon = (
   }
 }
 
+// A prose rule prints no timing bar: it is an untimed army rule until review supplies a timing.
+const isUntimedProse = (record: WahapediaAbilityRecord): boolean =>
+  record.prose === true && !record.conditionHtml.trim()
+
+const UNTIMED_RULE_TIMING: AbilityTiming = {
+  kind: 'rule',
+  window: { kind: 'army-rule' },
+  perspective: 'neutral',
+  raw: '',
+}
+
 const abilityKind = (record: WahapediaAbilityRecord): AbilityKind => {
+  if (isUntimedProse(record)) return 'rule'
   if (/\breaction\s*:\s*passive\b/i.test(record.conditionHtml)) return 'passive'
   if (/\breaction\s*:/i.test(record.conditionHtml)) return 'reaction'
   if (/\bpassive\b/i.test(record.conditionHtml)) return 'passive'
@@ -262,13 +274,27 @@ export const normalizeWahapediaAbility = (
     timingOptions,
     primaryTiming.timings[0]
   )
-  const timings = effectTimings ? effectTimings.timings : primaryTiming.timings
-  const timingDiagnostics = effectTimings
+  const untimed = isUntimedProse(record)
+  const timings = untimed
+    ? [UNTIMED_RULE_TIMING]
+    : effectTimings
+      ? effectTimings.timings
+      : primaryTiming.timings
+  const timingDiagnostics: NormalizationDiagnostic[] = untimed
     ? [
-        ...primaryTiming.diagnostics.filter(diagnostic => diagnostic.code !== 'unknown-timing'),
-        ...effectTimings.diagnostics,
+        {
+          code: 'untimed-rule',
+          severity: 'warning',
+          message:
+            'The source prints this rule as prose with no timing bar; it is kept as an untimed army rule',
+        },
       ]
-    : primaryTiming.diagnostics
+    : effectTimings
+      ? [
+          ...primaryTiming.diagnostics.filter(diagnostic => diagnostic.code !== 'unknown-timing'),
+          ...effectTimings.diagnostics,
+        ]
+      : primaryTiming.diagnostics
   const sourcePhaseDiagnostics = sourcePhaseConflict(record, kind, actor, timings)
   const keywords = normalizeKeywords(record.keywordsHtml)
   const conditionIsReaction = /\breaction\s*:/i.test(record.conditionHtml)

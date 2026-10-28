@@ -82,6 +82,7 @@ export type DomainValidationIssueCode =
   | 'missing-reaction-trigger'
   | 'ability-timing-kind-mismatch'
   | 'invalid-passive-timing'
+  | 'invalid-rule-timing'
   | 'invalid-usage-limit'
   | 'invalid-weapon-profile'
   | 'invalid-warscroll-characteristics'
@@ -337,6 +338,17 @@ export const validateCatalog = (catalog: Aos4Catalog): DomainValidationIssue[] =
         code: 'invalid-passive-timing',
         subject: entity.id,
         message: `Passive ability ${entity.id} must use an always/passive timing`,
+      })
+    }
+
+    if (
+      entity.timings.some(timing => (timing.kind === 'rule') !== (timing.window.kind === 'army-rule')) ||
+      (entity.abilityKind === 'rule' && entity.timings.length !== 1)
+    ) {
+      issues.push({
+        code: 'invalid-rule-timing',
+        subject: entity.id,
+        message: `Ability ${entity.id} must pair an untimed rule with exactly the army-rule window`,
       })
     }
   })
