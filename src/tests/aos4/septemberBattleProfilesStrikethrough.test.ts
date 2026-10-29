@@ -34,52 +34,33 @@ const struckFacts = ledger.records.map(record => record.fact).filter(fact => fac
 const battleProfiles = AOS4_FULL_CATALOG.entities.filter(
   (entity): entity is BattleProfile => entity.kind === 'battle-profile'
 )
-const profilesFor = (fact: LedgerRecord['fact']): BattleProfile[] =>
-  battleProfiles.filter(
-    profile =>
-      profile.name === `${fact.name} battle profile` &&
-      profile.sourceRefs.some(reference => reference.sourceRecordId === fact.sourceRecordId)
-  )
-
 describe('struck text in the September 2026 Battle Profiles (#1757)', () => {
-  it('records exactly the struck notes the official document prints', () => {
-    expect(struckFacts).toHaveLength(34)
-    const reinforcement = struckFacts.filter(fact => fact.struckNotes!.includes(REINFORCEMENT))
-    expect(reinforcement).toHaveLength(33)
-    expect(reinforcement.map(fact => fact.name)).toEqual(
-      expect.arrayContaining([
-        'Khainite Shadowstalkers',
-        'Scourge of Aqshy Khainite Shadowstalkers',
-        'Pyregheists',
-        'Gutter Runners',
-        'Corvus Cabal',
-      ])
-    )
-    expect(struckFacts.filter(fact => !fact.struckNotes!.includes(REINFORCEMENT))).toEqual([
-      expect.objectContaining({
-        name: 'Scourge of Aqshy Saurus Scar-Veteran on Aggradon',
-        context: 'seasonal',
-        struckNotes: ['This Hero can join an eligible regiment as a Favoured Spawning.'],
-      }),
-    ])
-    struckFacts.forEach(fact => fact.struckNotes!.forEach(note => expect(fact.notes).not.toContain(note)))
+  // The October 2026 re-publication (corpus 2026-10-29) drops the 34 struck notes outright rather
+  // than striking them, so no accepted fact carries struck text and the notes stay out of runtime.
+  const formerlyStruck = [
+    'Khainite Shadowstalkers',
+    'Scourge of Aqshy Khainite Shadowstalkers',
+    'Pyregheists',
+    'Gutter Runners',
+    'Corvus Cabal',
+  ]
+  const profilesNamed = (name: string): BattleProfile[] =>
+    battleProfiles.filter(profile => profile.name === `${name} battle profile`)
+
+  it('records no struck notes once the October 2026 re-publication removes them', () => {
+    expect(struckFacts).toEqual([])
   })
 
-  it('no longer ships a reinforcement restriction the official row strikes', () => {
-    struckFacts
-      .filter(fact => fact.struckNotes!.includes(REINFORCEMENT))
-      .forEach(fact => {
-        const profiles = profilesFor(fact)
-        expect(profiles, fact.name).not.toHaveLength(0)
-        profiles.forEach(profile => expect(profile.notes, fact.name).not.toContain(REINFORCEMENT))
-      })
+  it('no longer ships a reinforcement restriction the official row struck', () => {
+    formerlyStruck.forEach(name => {
+      const profiles = profilesNamed(name)
+      expect(profiles, name).not.toHaveLength(0)
+      profiles.forEach(profile => expect(profile.notes, name).not.toContain(REINFORCEMENT))
+    })
   })
 
   it('no longer ships the struck Favoured Spawning note', () => {
-    const [scarVeteran] = struckFacts.filter(
-      fact => fact.context === 'seasonal' && /Scar-Veteran/.test(fact.name)
-    )
-    const profiles = profilesFor(scarVeteran)
+    const profiles = profilesNamed('Scourge of Aqshy Saurus Scar-Veteran on Aggradon')
     expect(profiles).toHaveLength(1)
     expect(profiles[0].notes.join(' ')).not.toMatch(/Favoured Spawning/)
     expect(profiles[0].notes).toContain(

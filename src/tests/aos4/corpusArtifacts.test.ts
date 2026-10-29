@@ -66,9 +66,11 @@ describe('AoS 4 derived corpus artifacts', () => {
     // Corpus 2026-10-26 adds the six pinned Khazalite Holds BSData catalogues and their records
     // (less the ignored Rhythmic Hammering record). Corpus 2026-10-27 adds the 2026-10-22 Wahapedia
     // Spearheads, historical Daughters of Khaine warscrolls and The Emberwatch (#1757), and the ten
-    // records of the Spearhead battle-trait rules Wahapedia prints as prose (#2095).
-    expect(sources.sourceRecords).toHaveLength(21158)
-    expect(sources.sourceArtifacts).toHaveLength(242)
+    // records of the Spearhead battle-trait rules Wahapedia prints as prose (#2095). Corpus 2026-10-29
+    // swaps 12 re-published October PDFs in, drops 5 delisted ones and adds two BSData Legends
+    // catalogues (#1757).
+    expect(sources.sourceRecords).toHaveLength(21224)
+    expect(sources.sourceArtifacts).toHaveLength(239)
   })
 
   it('keeps every core source-record index addressable in the sources artifact', () => {
@@ -231,8 +233,9 @@ describe('AoS 4 derived corpus artifacts', () => {
         rulesContextId => offeredByBuilder.filter(row => row.contextIds.includes(rulesContextId)).length
       )
       // Corpus 2026-10-20 adds the Legends Legions of Nagash Army of Renown to three more factions.
-      // Corpus 2026-10-26 adds Khazalite Holds' Fyrd of Fyrepeak and Throngankor.
-    ).toEqual([25, 10, 10, 10, 25, 25])
+      // Corpus 2026-10-26 adds Khazalite Holds' Fyrd of Fyrepeak and Throngankor. Corpus 2026-10-29
+      // adds its Legends The Duardin Ascendant variant, reachable in the three overlay-led contexts.
+    ).toEqual([25, 11, 11, 11, 25, 25])
   }, 120_000)
 
   it('reserves the Army of Renown row on the default context exactly as the builder fills it', () => {

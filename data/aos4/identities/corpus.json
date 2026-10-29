@@ -87871,6 +87871,10 @@
         {
           "externalId": "official:7153de6330d3827f8c86c491f62250470e964feef93145b0fd1cd113e20825be",
           "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:cadc11be33909812b7d8a626b841811f483e211aca5ae63322bbf87e00044185",
+          "publisher": "games-workshop"
         }
       ],
       "canonicalId": "publication:289857f2-ae40-504f-b870-0a26157e95f7",
@@ -87892,6 +87896,10 @@
       "aliases": [
         {
           "externalId": "official:58ec318574e274125ead3e001dcbf9965df6b4f4dbd9286c5feb380420565330",
+          "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:6efb2297c1e97d01092511a00563e4430b1ea0ae1ed7a106f922135a92991d5d",
           "publisher": "games-workshop"
         }
       ],
@@ -88371,6 +88379,10 @@
         {
           "externalId": "official:92cdb032db024f69674f71c583d51166f268829b733c3a81ff6bc8f26e009af2",
           "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:e407b2912d3f9e2213666d71239ad45b740bc576470e6fc91b4df8d588ffcc8c",
+          "publisher": "games-workshop"
         }
       ],
       "canonicalId": "publication:4b799520-42fa-5140-a7b6-c4b0eace7542",
@@ -88412,6 +88424,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "official:a2807b01cf964e2b1aa08aa9a705ee6387c432830088aa404451547faad97769",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "official:b4fe9a0b7e405437053ce140da05e0d3e9ea86f6bc19d9dc6ccacabedec2c7b4",
           "publisher": "games-workshop"
@@ -88797,6 +88813,10 @@
         {
           "externalId": "official:2927f52d6542378312d513e9dbaec493b0e7e8fa16f742bf876c435643665c74",
           "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:b0f7dec423b6108afcdad97c056326c1863464cc34c9fc98fcc159df95a4437c",
+          "publisher": "games-workshop"
         }
       ],
       "canonicalId": "publication:6c93843a-b154-538a-ac80-c80abbebb917",
@@ -88946,6 +88966,10 @@
           "publisher": "games-workshop"
         },
         {
+          "externalId": "official:3c422789b278cc4fbfe60ab46a0f92e4ce055501a71c34c298e3f0b6cc5ccfbe",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "official:db1c375ed0947f89650a575198238236eb18a63b1d05c12a6a88f3e60f7bb5e6",
           "publisher": "games-workshop"
         },
@@ -88984,6 +89008,10 @@
       "aliases": [
         {
           "externalId": "official:2a3ef6386f1151747ae47bb6826de2bfd3ad7471e9deef849169dccfffdbe821",
+          "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:3f7169986c609f14339eb7702782d967a3cc7bcd09164e82b4083f0f31b1f924",
           "publisher": "games-workshop"
         },
         {
@@ -89085,6 +89113,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "official:04211671fa23be5467277f90fbafb39a67b9c5b56e2f4a118ff3d46003ce0b67",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "official:5fbaa128ff5087235bb133b5e48a0885119d7a0e4422aa38e3c71604db2f81f2",
           "publisher": "games-workshop"
@@ -89632,6 +89664,10 @@
         {
           "externalId": "official:5d05c0feae5aceded233544447b5b65075ccb6b42b83e3c0d7fa917b37229c96",
           "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:8c21a920e912726c300248eb22ec851bb68357492b82911404b2ad9c2dc9bdde",
+          "publisher": "games-workshop"
         }
       ],
       "canonicalId": "publication:abadd400-730c-5e58-844f-35af96410c3c",
@@ -89812,6 +89848,10 @@
         {
           "externalId": "official:1be8fdf4d50dcabaab12b31d93d2dfd26d3791561ab8caf2574f937883fba98a",
           "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:4edeca7675dc75a98e218fca8126ea23e3a3c19ee89a15c40c9729e4c0c2755e",
+          "publisher": "games-workshop"
         }
       ],
       "canonicalId": "publication:ba77a53c-3415-52fb-91f2-14c4319a6242",
@@ -89969,6 +90009,10 @@
         },
         {
           "externalId": "official:5abd7519ff2ae09f528bafaae1545ca2614944890ac055769418060a3b28f9d3",
+          "publisher": "games-workshop"
+        },
+        {
+          "externalId": "official:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
           "publisher": "games-workshop"
         }
       ],
@@ -90701,6 +90745,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "official:23e47617923c942b14d608a141b3efcf3c269fc1867ebbec77bdb4872340c072",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "official:64cbf4bd20cd400f4e609236e1f16d53d73f6b74ced10f0ca34192c0f08b47be",
           "publisher": "games-workshop"
@@ -141617,6 +141665,754 @@
       "canonicalId": "content-group:07954c8e-b6ff-59d9-9d3e-be7da708caa1",
       "kind": "content-group",
       "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Grombrindal-The-White-Dwarf/ability:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:caf079b9-6944-5292-b076-56933d7b7244",
+      "kind": "ability",
+      "name": "ARMOUR OF GLIMRIL SCALES"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Grombrindal-The-White-Dwarf/ability:2",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:090034ad-9910-5d0d-93a6-1c8698f42ea5",
+      "kind": "ability",
+      "name": "RUNE AXE OF GRIMNIR"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Grombrindal-The-White-Dwarf/ability:3",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:07fcdf1d-93d2-568d-9c3a-c2f87ede0cae",
+      "kind": "ability",
+      "name": "AS STERN AS STONE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Grombrindal-The-White-Dwarf/ability:4",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:9959f637-e214-5ee3-b04b-68bf42b06b55",
+      "kind": "ability",
+      "name": "LIVING LEGEND"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000002685:battle-profile",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "battle-profile:6b6701a4-19c9-5751-9231-b666aef30cc0",
+      "kind": "battle-profile",
+      "name": "Grombrindal, the White Dwarf battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000002685",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:fe771512-960d-5e9d-82fb-8aaa11da55da",
+      "kind": "warscroll",
+      "name": "Grombrindal, the White Dwarf"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "html:https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#datasheet:Grombrindal-The-White-Dwarf/weapon:1",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:146ea351-a8d1-5a11-a016-601c66b77301",
+      "kind": "weapon",
+      "name": "Rune Axe of Grimnir"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:greycap-fusiliers:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:ade1df97-326d-5cc1-be50-5900fe177f66",
+      "kind": "ability",
+      "name": "Into Them, Greycaps!"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:greycap-fusiliers:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:942fe06b-a8e4-5f4b-b9e7-2f355d6ebca0",
+      "kind": "ability",
+      "name": "Greycap Squire"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lethisian-consecrators:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:56eec5c8-9444-5521-8f60-00f77a7c27bf",
+      "kind": "ability",
+      "name": "Blessed Fire"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:raven-priest-of-morrda:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:f1a1e71c-acc0-5699-a5f8-149b5745bbc2",
+      "kind": "ability",
+      "name": "The Raven Cult"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:spirit-of-the-hands:ability:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:7c2d6815-704d-54f4-9122-8b9ab4fd5354",
+      "kind": "ability",
+      "name": "Sustained Bombardment"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:spirit-of-the-hands:ability:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "ability:06c31499-322b-54ca-bfe5-c4b30801fb6b",
+      "kind": "ability",
+      "name": "Veteran Batteries"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:greycap-fusiliers:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:61e6fe96-182e-5099-bd42-98a92f494d7c",
+      "kind": "battle-profile",
+      "name": "Greycap Fusiliers battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lethisian-consecrators:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:e3fb4be3-e489-5085-a14e-e1864fb4c823",
+      "kind": "battle-profile",
+      "name": "Lethisian Consecrators battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:raven-priest-of-morrda:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:b421a34f-3cc7-5383-9024-227c889aed44",
+      "kind": "battle-profile",
+      "name": "Raven Priest of Morrda battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:spirit-of-the-hands:battle-profile",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "battle-profile:e093392e-5575-584f-8094-12e33bea3ee2",
+      "kind": "battle-profile",
+      "name": "Spirit of the Hands battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:0719de8c64487b1453f6f12120fb9f7aa88c6754a2aaa171714f3c123e2d3308",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:7c99fc9c-605e-5b38-bb35-d94056a6e71d",
+      "kind": "publication",
+      "name": "BSData Cities of Sigmar - Lethis [LEGENDS] catalogue, main (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "community:58c633779d44b7cc63e4845f0f083e6f151c78d83edc0266a70a1063f72fbff8",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "publication:ff90c935-29e1-5d79-8ee1-92101dbc753a",
+      "kind": "publication",
+      "name": "BSData Cities of Sigmar - Greywater Fastness [LEGENDS] catalogue, main (provisional community transcription, pending official verification)"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:greycap-fusiliers",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:fb78e7a3-b445-5e07-a428-234297003622",
+      "kind": "warscroll",
+      "name": "Greycap Fusiliers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lethisian-consecrators",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:800cdb59-c347-58d0-86c4-43a3e435b372",
+      "kind": "warscroll",
+      "name": "Lethisian Consecrators"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:raven-priest-of-morrda",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:c733f40b-77b8-5e0e-a7db-4e43771d16d2",
+      "kind": "warscroll",
+      "name": "Raven Priest of Morrda"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:spirit-of-the-hands",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "warscroll:d0d201ac-d051-520b-a880-1b086709de81",
+      "kind": "warscroll",
+      "name": "Spirit of the Hands"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:greycap-fusiliers:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:57c98978-0fd8-51e8-99a3-35c4c147c69e",
+      "kind": "weapon",
+      "name": "Greycap Fusil-cannon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:greycap-fusiliers:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:ab9de02b-ed00-580d-971a-21cbb19a1272",
+      "kind": "weapon",
+      "name": "Greycap Bayonets"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lethisian-consecrators:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:5ac69c8a-b9b9-52de-b51b-3bf5eea0be3c",
+      "kind": "weapon",
+      "name": "Consecrator Arsenal"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lethisian-consecrators:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:21760984-683e-5ce1-876e-c2ad63533be4",
+      "kind": "weapon",
+      "name": "Consecrator Bardiche"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lethisian-consecrators:weapon:3",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:96387d89-80c7-5f0b-87b6-3a88e890dd6f",
+      "kind": "weapon",
+      "name": "Consecrator Arsenal"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:lethisian-consecrators:weapon:4",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:57dcf766-54dd-5f89-83fd-2b0fd3523540",
+      "kind": "weapon",
+      "name": "Consecrator Bardiche"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:raven-priest-of-morrda:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:4125741b-de85-5f8b-a13f-5e939f0953b4",
+      "kind": "weapon",
+      "name": "Morrdan Hammer"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:spirit-of-the-hands:weapon:1",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:739a506e-cc5b-5df3-a79a-01c225e0da5e",
+      "kind": "weapon",
+      "name": "Masterwork Cannon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "BSData/age-of-sigmar-4th:unit:spirit-of-the-hands:weapon:2",
+          "publisher": "other"
+        }
+      ],
+      "canonicalId": "weapon:60510144-dee6-5397-b517-a18d14fb8845",
+      "kind": "weapon",
+      "name": "Crew's Tools and Sidearms"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "b0f7dec423b6108afcdad97c056326c1863464cc34c9fc98fcc159df95a4437c:page:3#blazing-vengeance|variant:GW-KHZ",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "ability:e857d124-1576-5923-a99d-65a02cef7bdf",
+      "kind": "ability",
+      "name": "BLAZING VENGEANCE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000698:000002368:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:09331cd4-47e8-5fda-a196-0359f71a4a1f",
+      "kind": "ability",
+      "name": "DARING TAMERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000698:000002368:3|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:ea18de37-be36-5ef5-ae0c-ec6add5f328b",
+      "kind": "ability",
+      "name": "SKILLED DROTHWRANGLERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000698:000002368:4|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:de03cf45-3974-509f-bce7-d4c28c292f1f",
+      "kind": "ability",
+      "name": "FEROCIOUS HEAT"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000698:000002368:5|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:c9c4f55f-f19f-5734-9201-8b3da449f5ba",
+      "kind": "ability",
+      "name": "REARING STRIKE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000698:000002368:6|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:db22087a-f3aa-5284-a03b-e39743527bea",
+      "kind": "ability",
+      "name": "SEARING CLAWS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000698:000002369:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:03a8434b-899a-56ab-871a-8704745e2c5c",
+      "kind": "ability",
+      "name": "RAISED AROUND BEASTS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000698:000002370:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:33edadc8-22e4-5a4c-977e-8126ca93cd1f",
+      "kind": "ability",
+      "name": "MASTERY OVER MONSTERS"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000698:000002371:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:5e61cf1f-7d08-5ba1-93b1-979af6987fe9",
+      "kind": "ability",
+      "name": "SUMMON MOLTEN INFERNOTH"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000698:000002372:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:80e9e591-a6f8-51b5-b8fa-6739376f7586",
+      "kind": "ability",
+      "name": "BREATH OF VULCATRIX"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000899:000003388:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d7c29f68-95da-5bb8-b9f2-88224554c846",
+      "kind": "ability",
+      "name": "DUARDRAZHAL"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000899:000003388:3|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7bedbeb7-2660-5574-adc6-b2221d594a06",
+      "kind": "ability",
+      "name": "'AS THE ANCESTORS INTENDED!'"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000899:000003388:4|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:f1c89f72-06d7-5345-93b7-289b92d5fc44",
+      "kind": "ability",
+      "name": "'PAH! NOW THIS IS A SHOT...'"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000899:000003388:5|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:503f9f7b-6392-5f65-9bff-f67c450a5201",
+      "kind": "ability",
+      "name": "'AS ONE, KINFOLK!'"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000899:000003388:6|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:2f1c33e7-472e-5543-b739-0f3440009200",
+      "kind": "ability",
+      "name": "'SETTLE EVERY GRUDGE! KHAZUK!'"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000899:000003389:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:58960679-51d0-5195-8f36-69345a4dae82",
+      "kind": "ability",
+      "name": "TIRELESS PURPOSE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000899:000003390:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:3c16ed84-1ab5-567d-a9c9-b16426cb3d33",
+      "kind": "ability",
+      "name": "VALAYAN HEARTH-BANNER"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000899:000003391:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7fd6ee79-9171-523f-a17d-89b321c55316",
+      "kind": "ability",
+      "name": "SPIRIT OF THE WHITE DWARF"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_abilities.csv:FY:000000899:000003391:3|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:7dc4ed9c-4c3a-5b9c-9200-61d4ddd2e84c",
+      "kind": "ability",
+      "name": "OATH OF RESTORATION"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000000232:1|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:e0148e3d-cbe3-5bfd-b3e6-9811c7a43162",
+      "kind": "ability",
+      "name": "BERSERK FURY"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_abilities.csv:000000232:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "ability:d159f733-89e0-5efc-b61a-32e67f56e7ba",
+      "kind": "ability",
+      "name": "FJUL’S RETINUE"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000000232|variant:GW-KHZ:battle-profile",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "battle-profile:807d43f2-6914-5233-962b-941e9e7b8a39",
+      "kind": "battle-profile",
+      "name": "The Chosen Axes battle profile"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:FY:000002368:000000698|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:2c5841b4-96c5-5129-8716-120646d56cd9",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:FY:000002369:000000698|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:c6ed99ce-555c-55f2-8f0d-b6a7bba9b18c",
+      "kind": "content-group",
+      "name": "Heroic Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:FY:000002370:000000698|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:d0fbed62-d441-586d-b719-db5aad780337",
+      "kind": "content-group",
+      "name": "Artefacts of Power"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:FY:000002371:000000698|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:4c0f0dd4-d8af-5dbc-ac78-e44fbe33bd52",
+      "kind": "content-group",
+      "name": "Manifestation Lore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:FY:000002372:000000698|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:b2975d4e-b27c-59d7-9ab2-57e39b60ad78",
+      "kind": "content-group",
+      "name": "Prayer Lore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:FY:000003388:000000899|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:1bab47f8-0bb5-5104-ae0f-4d7a40657c70",
+      "kind": "content-group",
+      "name": "Battle Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:FY:000003389:000000899|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:d1fcda0a-3aa6-5f44-85e9-b0f20ca1d501",
+      "kind": "content-group",
+      "name": "Heroic Traits"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:FY:000003390:000000899|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:9789ea86-a45c-5c79-a111-27dafe0cab76",
+      "kind": "content-group",
+      "name": "Artefacts of Power"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_subtypes.csv:FY:000003391:000000899|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:43540491-a141-5b04-8f6b-41624db5cd5f",
+      "kind": "content-group",
+      "name": "Prayer Lore"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_types.csv:FY:000000698|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:086bf1c5-b07a-51e5-b19b-05f5ef011f40",
+      "kind": "content-group",
+      "name": "Lofnir Drothkeepers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Faction_ability_types.csv:FY:000000899|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "content-group:28c71de6-5e89-5e14-b70b-43fa61dc793a",
+      "kind": "content-group",
+      "name": "The Duardin Ascendant"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls.csv:000000232|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "warscroll:1cfc9f69-ddb4-594f-b96e-39b87f9db8d6",
+      "kind": "warscroll",
+      "name": "The Chosen Axes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000000232:1|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:ea93159d-55ae-5d45-a93c-b2f4c1b08f43",
+      "kind": "weapon",
+      "name": "Fyresteel Weapons"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "Warscrolls_weapons.csv:000000232:2|variant:GW-KHZ",
+          "publisher": "wahapedia"
+        }
+      ],
+      "canonicalId": "weapon:6a9e4afd-c027-5bfc-a539-a6b960ab203e",
+      "kind": "weapon",
+      "name": "Latchkey Grandaxe"
     }
   ],
   "schemaVersion": 1

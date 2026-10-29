@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-27.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-10-29.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-27-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-10-29-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(12_186)
+    expect(AOS4_CATALOG.entities).toHaveLength(12_250)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 12,186 entities', () => {
+  it('reports no missing provenance for any of the 12,250 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(12_186)
+    ).toHaveLength(12_250)
   })
 })
 
@@ -200,16 +200,21 @@ describe('AoS 4 catalog generation integrity', () => {
         // source-blocked. Corpus 2026-10-27 (#1757) adds three Wahapedia Spearheads, two historical
         // Daughters of Khaine warscrolls, The Emberwatch and the 2024-25 handbook's Unbind, then seven
         // Spearhead battle-trait rules Wahapedia prints as prose and their three groups (#2095).
-        warscrolls: 1362,
-        battleProfiles: 1054,
-        abilities: 5450,
-        weapons: 2363,
-        sourceArtifacts: 252,
-        sourceRecords: 21168,
-        ignoredSourceRecords: 21162,
+        // Corpus 2026-10-29 (#1757): the October 2026 official intake drops five delisted documents,
+        // adds five White Dwarf Legends units (Grombrindal adopted from Wahapedia, four from BSData
+        // Legends catalogues) and un-ignores the Runewright's Rhythmic Hammering (RU page 55).
+        // Its faction variants add Khazalite Holds copies of Lofnir Drothkeepers, The Duardin Ascendant
+        // and The Chosen Axes (36 entities, Blazing Vengeance among them).
+        warscrolls: 1368,
+        battleProfiles: 1060,
+        abilities: 5482,
+        weapons: 2375,
+        sourceArtifacts: 249,
+        sourceRecords: 21233,
+        ignoredSourceRecords: 21161,
       },
       integrity: {
-        consumedSourceRecords: 21158,
+        consumedSourceRecords: 21224,
         issues: [],
         supersededSourceRecords: {
           count: 21152,
@@ -226,11 +231,10 @@ describe('AoS 4 catalog generation integrity', () => {
       'source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2',
       'source-record:bsdata:299110685cdbabc36b3b7b8bae6650a391de8f971d244be79fc902e309f4ef4a%3Aoption%3Abattle-traits-khazalite-holds%3Aability%3A8',
     ]
-    // Corpus 2026-10-26: Rhythmic Hammering prints no timing label and no official card exists.
-    const sourceBlocked = [
-      'source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Arunewright%3Aability%3A2',
-    ]
-    expect(report.integrity.dispositions).toHaveLength(10)
+    // Corpus 2026-10-26 ignored Rhythmic Hammering as source-blocked; corpus 2026-10-29 consumes it
+    // again because the October 2026 Rules Updates (page 55) print its Reaction label (#1757).
+    const sourceBlocked: string[] = []
+    expect(report.integrity.dispositions).toHaveLength(9)
     report.integrity.dispositions.forEach(disposition => {
       expect(disposition.status).toBe('ignored')
       if (translated.includes(disposition.sourceRecordId)) {
@@ -325,13 +329,13 @@ describe('AoS 4 catalog generation integrity', () => {
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
     // Corpus 2026-10-20b (#2087) adds the six Khazalite Holds BSData catalogues.
-    expect(acceptedManifest.artifacts).toHaveLength(252)
+    expect(acceptedManifest.artifacts).toHaveLength(249)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
-    ).toHaveLength(161)
+    ).toHaveLength(156)
     // Corpus 2026-10-20b (#2087) pins six Khazalite Holds catalogues from the unmerged BSData
     // `khazalite-holds` branch at 5e52e2a5, provisional until `main` or Wahapedia carries them.
     // Corpus 2026-10-26 re-pins the two catalogues that changed upstream (the library and the faction
@@ -347,6 +351,10 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(
       bsDataArtifacts.map(artifact => decodeURIComponent(artifact.finalUrl.split('/').pop()!)).sort()
     ).toEqual([
+      // Corpus 2026-10-29 (#1757): two Cities of Sigmar Legends catalogues at BSData main 6909c140
+      // carry four White Dwarf Legends units no other accepted source prints.
+      'Cities of Sigmar - Greywater Fastness [LEGENDS].cat',
+      'Cities of Sigmar - Lethis [LEGENDS.cat',
       'Khazalite Holds - Fyrd of Fyrepeak.cat',
       'Khazalite Holds - Library.cat',
       'Khazalite Holds - Throngankor Alliance.cat',
@@ -355,13 +363,16 @@ describe('AoS 4 catalog generation integrity', () => {
       'Regiments of Renown.cat',
     ])
     const repinned = ['Khazalite Holds - Library.cat', 'Khazalite Holds.cat']
-    bsDataArtifacts.forEach(artifact =>
+    bsDataArtifacts.forEach(artifact => {
+      const file = decodeURIComponent(artifact.finalUrl.split('/').pop()!)
       expect(artifact.finalUrl).toContain(
-        repinned.includes(decodeURIComponent(artifact.finalUrl.split('/').pop()!))
-          ? '/BSData/age-of-sigmar-4th/ea96eba39cf280633f4cb13e2df05de358ed729a/'
-          : '/BSData/age-of-sigmar-4th/5e52e2a5fbc41a594c9c8bd7c256d00286e39572/'
+        file.startsWith('Cities of Sigmar - ')
+          ? '/BSData/age-of-sigmar-4th/6909c1401ee52c63b5187a7c2d00fb34190479bd/'
+          : repinned.includes(file)
+            ? '/BSData/age-of-sigmar-4th/ea96eba39cf280633f4cb13e2df05de358ed729a/'
+            : '/BSData/age-of-sigmar-4th/5e52e2a5fbc41a594c9c8bd7c256d00286e39572/'
       )
-    )
+    })
     const htmlArtifacts = acceptedManifest.artifacts.filter(
       artifact => artifact.adapterVersion === 'wahapedia-html/1'
     )
@@ -399,9 +410,10 @@ describe('AoS 4 catalog generation integrity', () => {
     )
     // Community-tier artifacts must always be distinguishable and explicitly provisional. The
     // 2026-09-30 re-pin (#2037) retired the last one; corpus 2026-10-20b (#2087) adds the six
-    // Khazalite Holds BSData catalogues, each titled provisional.
+    // Khazalite Holds BSData catalogues, each titled provisional; corpus 2026-10-29 (#1757) adds two
+    // Cities of Sigmar Legends catalogues.
     const community = AOS4_FULL_CATALOG.sourceArtifacts.filter(artifact => artifact.publisher === 'other')
-    expect(community).toHaveLength(6)
+    expect(community).toHaveLength(8)
     community.forEach(artifact => {
       expect(artifact.authority).toEqual({ kind: 'community' })
       expect(artifact.title).toMatch(/^BSData .*provisional/)
@@ -418,11 +430,11 @@ describe('AoS 4 catalog generation integrity', () => {
       // Corpus 2026-10-20b (#2087) adds Battle Profiles - Khazalite Holds: 58 rows, of which the
       // October Gotrek Gurnisson and Fjori's Flamebearers regiment rows supersede the September
       // ones in the ledger (kept as audit evidence; runtime regiment eligibility is unchanged).
-      records: 1370,
-      effective: 1368,
+      records: 1424,
+      effective: 1422,
       superseded: 2,
-      units: 978,
-      rosterOptions: 314,
+      units: 993,
+      rosterOptions: 353,
       regimentsOfRenown: 78,
       // The September 2026 Sons of Behemat supplement superseded the July 2026 main-document
       // rows it re-published (ten unit rows and, by name, four regiment-of-renown rows) and
@@ -444,11 +456,13 @@ describe('AoS 4 catalog generation integrity', () => {
       // design. From corpus 2026-09-29 (#1757) extraction drops text the Battle Profiles strikes
       // through, so the page 59 Stumblefoot Gargant row, printed DELETED, is no longer a fact.
       // Corpus 2026-10-27 (#1757): Wahapedia now publishes The Emberwatch, the last profile-only fact.
-      appliedToRuntime: 1054,
+      // Corpus 2026-10-29 (#1757): the October 2026 core Battle Profiles adds 15 White Dwarf Legends
+      // rows (page 75); every one resolves to a shipped warscroll, so none is profile-only.
+      appliedToRuntime: 1069,
       profileOnly: 0,
-      structuredReference: 314,
+      structuredReference: 353,
     })
-    expect(officialBattleProfiles.records).toHaveLength(1370)
+    expect(officialBattleProfiles.records).toHaveLength(1424)
     officialBattleProfiles.records.forEach(record => {
       expect(record.fact.factChecksum).toMatch(/^[0-9a-f]{64}$/)
       expect(record.fact.sourceRecordId).toMatch(/^source-record:games-workshop:/)

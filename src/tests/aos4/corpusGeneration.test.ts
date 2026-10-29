@@ -571,6 +571,68 @@ describe('AoS 4 corpus generation', () => {
     expect(result.summary.status).toBe('blocked')
   })
 
+  it('adds an official weapon ability the source omits and fails closed once the source prints it', async () => {
+    // October 2026 Rules Updates pages 28-29 add Crit (Auto-wound) to three Nighthaunt weapons (#1757).
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const target = decoded.dataset.warscrollWeapons[0]
+    const officialChecksum = 'f'.repeat(64)
+    const officialSourceRecordId = sourceRecordId('games-workshop', `${officialChecksum}:page:1`)
+    const withOverride = (addAbilityLabels: string[]): CorpusReview => ({
+      ...review,
+      officialDocuments: [
+        {
+          title: 'Official weapon ability fixture',
+          documentKind: 'reference',
+          rulesContextIds: [review.rulesContext.id],
+          artifact: {
+            requestUrl: 'https://assets.warhammer-community.com/weapon-ability-fixture.pdf',
+            finalUrl: 'https://assets.warhammer-community.com/weapon-ability-fixture.pdf',
+            redirectChain: [],
+            retrievedAt: '2026-10-29T09:56:51.515Z',
+            adapterVersion: 'games-workshop-pdf/1',
+            mediaType: 'application/pdf',
+            byteLength: 1,
+            checksum: officialChecksum,
+          },
+          sourceRecords: [{ id: officialSourceRecordId, page: 1, recordChecksum: 'e'.repeat(64) }],
+        },
+      ],
+      weaponProfileOverrides: [
+        {
+          sourceRecordId: target.meta.sourceRecordId,
+          profile: {},
+          addAbilityLabels,
+          reason: 'The official erratum adds a weapon ability the secondary source does not print yet.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    })
+    const build = (reviewed: CorpusReview) =>
+      buildAos4Corpus(decoded, createCorpusIdentityRegistry(decoded.dataset, reviewed), reviewed)
+
+    const applied = build(withOverride(['Crit (Auto-wound)']))
+    const weapon = applied.catalog.entities.find(
+      entity =>
+        entity.kind === 'weapon' &&
+        entity.sourceRefs.some(reference => reference.sourceRecordId === target.meta.sourceRecordId)
+    )
+    expect(applied.diagnostics).toEqual([])
+    expect(weapon).toMatchObject({
+      keywords: expect.arrayContaining([{ kind: 'crit-auto-wound', raw: 'Crit (Auto-wound)' }]),
+    })
+
+    const invalid = (labels: string[]) =>
+      build(withOverride(labels)).diagnostics.filter(
+        diagnostic =>
+          diagnostic.code === 'invalid-review' && diagnostic.subject === target.meta.sourceRecordId
+      )
+    expect(invalid(['Not a weapon ability'])).toHaveLength(1)
+    target.abilitiesHtml = target.abilitiesHtml
+      ? `${target.abilitiesHtml}, Crit (Auto-wound)`
+      : 'Crit (Auto-wound)'
+    expect(invalid(['Crit (Auto-wound)'])).toHaveLength(1)
+  })
+
   it('applies official ability text and warscroll keyword corrections without mutating source records', async () => {
     const decoded = decodeWahapediaExports(await loadInputs())
     const targetAbility = decoded.dataset.warscrollAbilities[0]
@@ -1062,6 +1124,15 @@ describe('AoS 4 corpus generation', () => {
       expect(after?.kind === 'ability' ? after.text : undefined).toEqual(
         entity.kind === 'ability' ? entity.text : undefined
       )
+    })
+
+    // The October 2026 Rules Updates add a `Reaction:` label to a printed clause (Rhythmic Hammering,
+    // page 55, #1757): the labelled clause keeps the same trigger.
+    const labelledClause = await build(`Reaction: ${clause}`)
+    expect(labelledClause.result.diagnostics).toEqual([])
+    expect(labelledClause.ability).toMatchObject({
+      abilityKind: 'reaction',
+      text: { reactionTrigger: clause },
     })
 
     // Timing metadata that is not the source clause never becomes a trigger: still fail closed.
@@ -1609,6 +1680,13 @@ describe('AoS 4 corpus generation', () => {
       )
     ).toEqual(new Set(['000000338']))
     expect(legendsWarscrollOverrideIds({}, warscrolls)).toEqual(new Set())
+    // Official naming normalization may recase a name between stages; that is not a retarget.
+    expect(
+      legendsWarscrollOverrideIds(
+        { legendsWarscrollOverrides: [override('000000338', 'Viceleader, herald of Slaanesh')] },
+        warscrolls
+      )
+    ).toEqual(new Set(['000000338']))
     // A reused id must not silently retarget: the exact export name is part of the pin.
     expect(() =>
       legendsWarscrollOverrideIds(

@@ -291,13 +291,50 @@ describe('official-profile sweep', () => {
       AOS4_RUNTIME_PROJECTION.entities,
       reviewedDiscrepancies
     )
-    expect(result).toEqual({
-      rosterOptionRecords: 314,
-      comparedRosterOptions: 314,
-      matchedByName: 313,
+    // Corpus 2026-10-29 (#1757) extracts the Legends pages' roster-option tables: 27 Legends picks
+    // the runtime carries, and the 12 White Dwarf Custom Rig and Ironweld Innovation rows (page 75)
+    // whose rules only White Dwarf issue 528 prints - no pinned Wahapedia page and no BSData
+    // catalogue carries them. Exactly those 12 stay unmatched; anything else fails closed.
+    expect(result).toMatchObject({
+      rosterOptionRecords: 353,
+      comparedRosterOptions: 353,
+      matchedByName: 340,
       matchedByReviewedDiscrepancy: 1,
-      findings: [],
     })
+    expect(
+      result.findings.map(finding => ({
+        code: finding.code,
+        name: 'name' in finding ? finding.name : undefined,
+        context: 'context' in finding ? finding.context : undefined,
+        page: 'page' in finding ? finding.page : undefined,
+      }))
+    ).toEqual(
+      [
+        'Black Comet of Lethis',
+        'Bladefort',
+        'Chamonite-imbued Ammunition',
+        'Custom Flame-hurlers',
+        'Hyshian Lighthouse',
+        'Osseous Fortification',
+        'Razor-net Launchers',
+        'Siege Bolas',
+        'Siege Master',
+        'Stone King',
+        'The Fire Devil of Greywater',
+        'War Shrine',
+      ].map(name => ({ code: 'unmatched-roster-option', name, context: 'legends', page: 75 }))
+    )
+  })
+
+  it('keeps the printed White Dwarf issue on every page 75 Custom Rig and Ironweld row (#1757 review C2)', () => {
+    const rows = ledger.records.filter(
+      record =>
+        record.fact.kind === 'roster-option' &&
+        (record.fact as { page?: number }).page === 75 &&
+        (record.fact as { context?: string }).context === 'legends'
+    )
+    expect(rows).toHaveLength(12)
+    rows.forEach(row => expect((row.fact as { notes?: string[] }).notes).toContain('Issue 528'))
   })
 
   it('still matches every #1851 false-negative name in the real data', () => {

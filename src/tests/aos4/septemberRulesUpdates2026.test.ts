@@ -34,10 +34,10 @@ const ledger = readJson<{ records: OfficialBattleProfileRecord[] }>(
   'official-battle-profiles.json'
 )
 
-const SEPTEMBER_RULES_UPDATES = '03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315'
+const SEPTEMBER_RULES_UPDATES = '3c422789b278cc4fbfe60ab46a0f92e4ce055501a71c34c298e3f0b6cc5ccfbe'
 // Games Workshop re-uploaded the September 2026 core Battle Profiles on 2026-09-25 (same title
 // and date; Khainite Shadowstalkers 100 -> 130 points); corpus 2026-09-25 re-pinned it (#1999).
-const SEPTEMBER_BATTLE_PROFILES = '952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a'
+const SEPTEMBER_BATTLE_PROFILES = '04211671fa23be5467277f90fbafb39a67b9c5b56e2f4a118ff3d46003ce0b67'
 const KHAZALITE_BATTLE_PROFILES = '557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29'
 
 const entityById = new Map<string, ContentEntity>(

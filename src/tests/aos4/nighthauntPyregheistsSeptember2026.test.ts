@@ -19,7 +19,7 @@ import { createAos4ReminderViewModel } from '../../aos4/view'
 
 const LIGHT_A_PYRE_ID = 'ability:a703721c-5a81-540b-a065-1c46cb84f7b5' as CanonicalId<'ability'>
 const RULES_UPDATES_PAGE_58 =
-  'source-record:games-workshop:03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315%3Apage%3A58'
+  'source-record:games-workshop:3c422789b278cc4fbfe60ab46a0f92e4ce055501a71c34c298e3f0b6cc5ccfbe%3Apage%3A58'
 
 const pyregheists = AOS4_CATALOG.entities.find(
   (entity): entity is Warscroll => entity.kind === 'warscroll' && entity.name === 'Pyregheists'
