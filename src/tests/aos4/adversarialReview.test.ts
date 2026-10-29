@@ -21,6 +21,9 @@ const SOURCE_ID =
 const RECORD_CHECKSUM = 'b'.repeat(64)
 const EXCERPT_REF = `review-evidence:sha256:${'c'.repeat(64)}`
 const OFFICIAL_EXCERPT_REF = `review-evidence:sha256:${'d'.repeat(64)}`
+// A Wahapedia weapon record names its card in its own id (`#datasheet:Tomb-Banshee/weapon:1`).
+const TOMB_BANSHEE_WEAPON_ID =
+  'source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2Fwarscrolls.html%23datasheet%3ATomb-Banshee%2Fweapon%3A1' as SourceRecordId
 const SECONDARY_SOURCE_ID =
   'source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Ffixture%2Fwarscrolls.html%23fixture' as SourceRecordId
 
@@ -145,11 +148,12 @@ const secondaryPair = (
     excerpt: string
     /** The entity a faction variant's override is bound to (#1757). */
     canonicalEntityId?: string
-  }
+  },
+  secondarySourceId: SourceRecordId = SECONDARY_SOURCE_ID
 ): ReviewPacketPair => {
   const sourceEvidence = [
     {
-      sourceRecordId: SECONDARY_SOURCE_ID,
+      sourceRecordId: secondarySourceId,
       recordChecksum: RECORD_CHECKSUM,
       locator: { kind: 'section' as const, section: 'fixture' },
       authority: 'secondary' as const,
@@ -194,7 +198,7 @@ const secondaryPair = (
         path: 'data/aos4/catalog/catalog.json',
         field: 'sourceRecords',
         value: {
-          id: SECONDARY_SOURCE_ID,
+          id: secondarySourceId,
           recordChecksum: RECORD_CHECKSUM,
           locator: { kind: 'section', section: 'fixture' },
         },
@@ -223,7 +227,7 @@ const secondaryPair = (
   return {
     pairKey: 'review-pair:secondary-fixture',
     samplingMetadataChecksum: RECORD_CHECKSUM,
-    candidateKey: `source-record:${SECONDARY_SOURCE_ID}`,
+    candidateKey: `source-record:${secondarySourceId}`,
     category: 'source-record',
     factionIds: [],
     calibration: false,
@@ -1553,11 +1557,16 @@ describe('official ability overrides the September 2026 errata need (#2060)', ()
 describe('October 2026 official evidence forms (#1757)', () => {
   const findingFields = (reviewPair: ReviewPacketPair) =>
     assessAdversarialComparison(reviewPair).findings.map(finding => finding.subject.field)
-  const keywordPair = (keywords: string[], change: Record<string, unknown>, excerpt: string) =>
+  const keywordPair = (
+    keywords: string[],
+    change: Record<string, unknown>,
+    excerpt: string,
+    name = 'Fixture Warscroll'
+  ) =>
     secondaryPair(
       'warscroll',
-      { name: 'Fixture Warscroll' },
-      { kind: 'warscroll', name: 'Fixture Warscroll', keywords },
+      { name },
+      { kind: 'warscroll', name, keywords },
       ['high-risk:official-override'],
       {
         field: 'warscrollKeywordOverrides',
@@ -1578,25 +1587,40 @@ describe('October 2026 official evidence forms (#1757)', () => {
     const kept = ['CHAMPION (1/10)', 'INFANTRY']
     expect(
       evidenceFindings(
-        keywordPair(kept, change, 'GUTTER RUNNERS Change the Champion keyword to Champion (1/10).')
+        keywordPair(
+          kept,
+          change,
+          'SKAVEN, GUTTER RUNNERS Change the Champion keyword to Champion (1/10).',
+          'Gutter Runners'
+        )
       )
     ).toEqual([])
     // Negative control: the page mentions both keywords but instructs no change.
     expect(
       evidenceFindings(
-        keywordPair(kept, change, 'GUTTER RUNNERS Champion and Champion (1/10) units appear here.')
+        keywordPair(
+          kept,
+          change,
+          'SKAVEN, GUTTER RUNNERS Champion and Champion (1/10) units appear here.',
+          'Gutter Runners'
+        )
       )
     ).toHaveLength(2)
   })
 
   it('reads `Replace the X keywords with the Y keywords` as removing X only', () => {
     const excerpt =
-      'Replace the Fyreslayers and Magmadroth keywords with the Khazalite Holds and Grimmdron keywords.'
+      '✹ NEW KHAZALITE HOLDS, AURIC RUNESON ON MAGMADROTH Replace the Fyreslayers and Magmadroth keywords with the Khazalite Holds and Grimmdron keywords �'
+    const runeson = 'Scourge of Aqshy Auric Runeson on Magmadroth'
     expect(
-      evidenceFindings(keywordPair(['GRIMMDRON', 'KHAZALITE HOLDS'], { remove: ['MAGMADROTH'] }, excerpt))
+      evidenceFindings(
+        keywordPair(['GRIMMDRON', 'KHAZALITE HOLDS'], { remove: ['MAGMADROTH'] }, excerpt, runeson)
+      )
     ).toEqual([])
     // Negative control: a keyword named only after `with` is never removed by it.
-    expect(evidenceFindings(keywordPair(['MAGMADROTH'], { remove: ['GRIMMDRON'] }, excerpt))).toHaveLength(1)
+    expect(
+      evidenceFindings(keywordPair(['MAGMADROTH'], { remove: ['GRIMMDRON'] }, excerpt, runeson))
+    ).toHaveLength(1)
   })
 
   it('grounds a reprinted card by its own grand-alliance keyword strip', () => {
@@ -1672,17 +1696,20 @@ describe('October 2026 official evidence forms (#1757)', () => {
         {
           field: 'weaponProfileOverrides',
           value: {
-            sourceRecordId: SECONDARY_SOURCE_ID,
+            sourceRecordId: TOMB_BANSHEE_WEAPON_ID,
             profile: {},
             addAbilityLabels: ['Crit (Auto-wound)'],
             reason: 'October 2026.',
             officialSourceRecordIds: [SOURCE_ID],
           },
           excerpt,
-        }
+        },
+        TOMB_BANSHEE_WEAPON_ID
       )
     expect(
-      findingFields(weaponPair('Add ‘Crit (Auto-wound)’ to the Piercing Scream weapon profile.'))
+      findingFields(
+        weaponPair('✹ NEW TOMB BANSHEE Add ‘Crit (Auto-wound)’ to the Piercing Scream weapon profile �')
+      )
     ).toEqual([])
     // Negative control: printing the label is not an instruction to add it.
     expect(findingFields(weaponPair('Piercing Scream: Crit (Auto-wound) is described here.'))).toContain(
@@ -1884,5 +1911,264 @@ describe('instructed keyword substitutions in ability text (#1757)', () => {
       'ARMY OF RENOWN, THE DUARDIN ASCENDANT (ISSUE 506) Do not Change all instances of ‘Fyreslayers’ and Fyreslayers to ‘Khazalite Holds’ and Khazalite Holds respectively'
     )
     expect(textFindings(substitutionPair(renamed, negated)).length).toBeGreaterThan(0)
+  })
+})
+
+describe('official instructions bind their card and are never negated (#1757 review K1-K3)', () => {
+  const fieldsOf = (reviewPair: ReviewPacketPair) =>
+    assessAdversarialComparison(reviewPair).findings.map(finding => finding.subject.field)
+  const cardWeaponId = (card: string, line = 1) =>
+    `source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fnighthaunt%2Fwarscrolls.html%23datasheet%3A${card}%2Fweapon%3A${line}` as SourceRecordId
+  const weaponPair = (weapon: string, sourceId: SourceRecordId, excerpt: string) =>
+    secondaryPair(
+      'warscroll-weapon',
+      { name: weapon, weaponType: 'MELEE', abilitiesHtml: '', range: '' },
+      {
+        kind: 'weapon',
+        name: weapon,
+        weaponType: 'melee',
+        keywords: [{ kind: 'crit-auto-wound', raw: 'Crit (Auto-wound)' }],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'weaponProfileOverrides',
+        value: {
+          sourceRecordId: sourceId,
+          profile: {},
+          addAbilityLabels: ['Crit (Auto-wound)'],
+          reason: 'October 2026.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt,
+      },
+      sourceId
+    )
+  const weaponEvidence = (reviewPair: ReviewPacketPair) =>
+    fieldsOf(reviewPair).filter(field => field === 'official-override.weapon-ability.evidence')
+  // Rules Updates October 2026 page 29, as the packet excerpt carries it.
+  const page29 =
+    '… HEADSMEN’S CURSE Change the Save characteristic to 5+ � Change Ward (6+) to Ward (5+) � Delete the trailing comma in the keywords � ✹ NEW Add ‘Crit (Auto-wound)’ to the Tool of Judgement weapon profile � THORNS OF THE BRIAR QUEEN Change Ward (6+) to Ward (5+) � ✹ NEW Add ‘Crit (Auto-wound)’ to the Piercing Scream weapon profile � BLADES OF KHORNE Add the Blood-hungry weapon ability …'
+
+  it('K1: grounds a weapon label under its own card heading, across that card’s earlier instructions', () => {
+    expect(
+      weaponEvidence(weaponPair('Tool of Judgement', cardWeaponId('The-Headsmen-s-Curse', 2), page29))
+    ).toEqual([])
+    expect(
+      weaponEvidence(weaponPair('Piercing Scream', cardWeaponId('Thorns-of-the-Briar-Queen'), page29))
+    ).toEqual([])
+  })
+
+  it('K1: rejects another weapon, another card and a negated instruction', () => {
+    const banshee = cardWeaponId('Tomb-Banshee')
+    // The reviewer's cases, through the review entry point.
+    expect(
+      weaponEvidence(
+        weaponPair(
+          'Piercing Scream',
+          banshee,
+          '✹ NEW TOMB BANSHEE Add ‘Crit (Auto-wound)’ to the Other Weapon weapon profile.'
+        )
+      )
+    ).toHaveLength(1)
+    expect(
+      weaponEvidence(
+        weaponPair(
+          'Piercing Scream',
+          banshee,
+          '✹ NEW TOMB BANSHEE Do not add ‘Crit (Auto-wound)’ to the Piercing Scream weapon profile.'
+        )
+      )
+    ).toHaveLength(1)
+    // Page 29 adds the label to the Thorns of the Briar Queen Piercing Scream, never the Tomb Banshee's.
+    expect(weaponEvidence(weaponPair('Piercing Scream', banshee, page29))).toHaveLength(1)
+    // A weapon record whose id names no card is never bound.
+    expect(weaponEvidence(weaponPair('Piercing Scream', SECONDARY_SOURCE_ID, page29))).toHaveLength(1)
+  })
+
+  const keywordPair = (name: string, keywords: string[], change: Record<string, unknown>, excerpt: string) =>
+    secondaryPair(
+      'warscroll',
+      { name },
+      { kind: 'warscroll', name, keywords },
+      ['high-risk:official-override'],
+      {
+        field: 'warscrollKeywordOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          ...change,
+          reason: 'October 2026.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt,
+      }
+    )
+  const keywordEvidence = (reviewPair: ReviewPacketPair) =>
+    fieldsOf(reviewPair).filter(field => field === 'official-override.warscroll-keyword.evidence')
+  const champion = { remove: ['CHAMPION'], add: ['CHAMPION (1/10)'] }
+  const championKeywords = ['CHAMPION (1/10)', 'INFANTRY']
+  // Rules Updates October 2026 pages 28 and 33, as packet excerpts carry them.
+  const page28 =
+    '… SKAVEN, GUTTER RUNNERS Change ‘1 in every 10 models in this unit can be armed with Saboteur Bombs’ to: ‘1/10 models in this unit can be armed with Saboteur Bombs in addition to their other weapons’ � ✹ NEW Change the Champion keyword to Champion (1/10) � ✹ NEW Add the following to the declare step of ‘Bomb Rats’ …'
+  const page33 =
+    '… � ✹ NEW OGOR MAWTRIBES, HUSKARD ON THUNDERTUSK Change the Beastclaw Raiders keyword to Beastclaw � ✹ NEW OGOR MAWTRIBES, FROSTLORD ON THUNDERTUSK Change the Beastclaw Raiders keyword to Beastclaw � …'
+  const beastclaw = { remove: ['BEASTCLAW RAIDERS'], add: ['BEASTCLAW'] }
+
+  it('K2: grounds keyword changes under the warscroll’s own heading, on the real page shapes', () => {
+    expect(keywordEvidence(keywordPair('Gutter Runners', championKeywords, champion, page28))).toEqual([])
+    expect(
+      keywordEvidence(
+        keywordPair('Scourge of Aqshy Frostlord on Thundertusk', ['BEASTCLAW'], beastclaw, page33)
+      )
+    ).toEqual([])
+  })
+
+  it('K2: rejects another card’s keyword change and a negated one, for both roles', () => {
+    // The reviewer's cases, through the review entry point: one finding for the removal, one for the addition.
+    expect(
+      keywordEvidence(
+        keywordPair(
+          'Fixture Warscroll',
+          championKeywords,
+          champion,
+          'OTHER CARD Change the Champion keyword to Champion (1/10).'
+        )
+      )
+    ).toHaveLength(2)
+    expect(
+      keywordEvidence(
+        keywordPair(
+          'Fixture Warscroll',
+          championKeywords,
+          champion,
+          'FIXTURE WARSCROLL Do not change the Champion keyword to Champion (1/10).'
+        )
+      )
+    ).toHaveLength(2)
+    // A neighbouring heading's instruction on the same page grounds nothing for this warscroll.
+    expect(
+      keywordEvidence(keywordPair('Scourge of Aqshy Stonehorn Beastriders', ['BEASTCLAW'], beastclaw, page33))
+    ).toHaveLength(2)
+    // A later card's name after the instruction's own sentence never binds it.
+    expect(
+      keywordEvidence(
+        keywordPair(
+          'Gutter Runners',
+          championKeywords,
+          champion,
+          'OTHER CARD Change the Champion keyword to Champion (1/10). GUTTER RUNNERS are fast.'
+        )
+      )
+    ).toHaveLength(2)
+    const replace =
+      'KHAZALITE HOLDS, AURIC RUNESON ON MAGMADROTH Do not replace the Fyreslayers and Magmadroth keywords with the Khazalite Holds and Grimmdron keywords.'
+    expect(
+      keywordEvidence(
+        keywordPair(
+          'Scourge of Aqshy Auric Runeson on Magmadroth',
+          ['GRIMMDRON'],
+          { remove: ['MAGMADROTH'], add: ['GRIMMDRON'] },
+          replace
+        )
+      )
+    ).toHaveLength(2)
+  })
+
+  it('K3: rejects a negated timing prefix', () => {
+    const condition = 'You declared a Spell ability from the Reverberations of the Runes for this unit'
+    const timingPair = (excerpt: string) =>
+      secondaryPair(
+        'faction-ability',
+        {
+          name: 'Rhythmic Hammering',
+          conditionHtml: condition,
+          descriptionHtml: '<b>Effect:</b> Make a roll.',
+          keywordsHtml: '',
+          isReaction: false,
+        },
+        {
+          kind: 'ability',
+          name: 'Rhythmic Hammering',
+          abilityKind: 'reaction',
+          keywords: [],
+          text: { effect: 'Make a roll.', reactionTrigger: condition },
+          timings: [
+            {
+              kind: 'reaction',
+              perspective: 'neutral',
+              raw: `Reaction: ${condition}`,
+              window: { kind: 'reaction' },
+            },
+          ],
+        },
+        ['high-risk:official-override'],
+        {
+          field: 'timingOverrides',
+          value: {
+            sourceRecordId: SECONDARY_SOURCE_ID,
+            abilityKind: 'reaction',
+            timings: [
+              {
+                kind: 'reaction',
+                perspective: 'neutral',
+                raw: `Reaction: ${condition}`,
+                window: { kind: 'reaction' },
+              },
+            ],
+            reason: 'October 2026.',
+            officialSourceRecordIds: [SOURCE_ID],
+          },
+          excerpt,
+        }
+      )
+    const timingFindings = (reviewPair: ReviewPacketPair) =>
+      fieldsOf(reviewPair).filter(field => /ability-timing|ability-kind/.test(field))
+    // Rules Updates October 2026 page 55.
+    expect(
+      timingFindings(
+        timingPair(
+          'BATTLETOME: KHAZALITE HOLDS ✹ NEW RUNEWRIGHT Add ‘Reaction:’ to the start of the timing of ‘Rhythmic Hammering’ �'
+        )
+      )
+    ).toEqual([])
+    expect(
+      timingFindings(
+        timingPair(
+          '✹ NEW RUNEWRIGHT Do not add ‘Reaction:’ to the start of the timing of ‘Rhythmic Hammering’.'
+        )
+      ).length
+    ).toBeGreaterThan(0)
+  })
+
+  it('sweep: a negated legacy keyword removal or addition grounds nothing', () => {
+    expect(
+      keywordEvidence(
+        keywordPair(
+          'Hedkrakka’s Madmob',
+          ['DESTRUCTION'],
+          { remove: ['ORRUK'] },
+          'ALL WARSCROLLS Remove ‘ Orruk ’ from the keywords bar �'
+        )
+      )
+    ).toEqual([])
+    expect(
+      keywordEvidence(
+        keywordPair(
+          'Hedkrakka’s Madmob',
+          ['DESTRUCTION'],
+          { remove: ['ORRUK'] },
+          'ALL WARSCROLLS Do not remove ‘ Orruk ’ from the keywords bar �'
+        )
+      )
+    ).toHaveLength(1)
+    expect(
+      keywordEvidence(
+        keywordPair(
+          'Fixture Warscroll',
+          ['HERO', 'REINFORCEMENTS'],
+          { add: ['REINFORCEMENTS'] },
+          'Do not add the Reinforcements keyword to this warscroll.'
+        )
+      )
+    ).toHaveLength(1)
   })
 })

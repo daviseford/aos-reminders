@@ -657,14 +657,13 @@ const extractRosterOptionFacts = (
   const items = live(pageItems)
   const rows = rosterRows(items)
   return rows.flatMap((row, rowIndex) => {
-    const optionType = withoutColumnHeader(
-      textValue(
-        // The White Dwarf page prints an `Issue NNN` column inside the type column, and its NAME
-        // column starts at x 151.6 (other pages 152.2), so the boundary sits at 150.
-        nearestRowItems(items, rows, rowIndex, 30, 150).filter(item => !/^Issue \d+$/.test(item.str.trim()))
-      ),
-      /^TYPE\s*/i
-    )
+    // The White Dwarf page prints an `Issue NNN` column inside the type column, and its NAME
+    // column starts at x 151.6 (other pages 152.2), so the boundary sits at 150.
+    const typeItems = nearestRowItems(items, rows, rowIndex, 30, 150)
+    const isIssue = (item: PositionedItem) => /^Issue \d+$/.test(item.str.trim())
+    // The printed issue is the row's source (#1757 review C2), kept verbatim as a note.
+    const issue = typeItems.find(isIssue)?.str.trim()
+    const optionType = withoutColumnHeader(textValue(typeItems.filter(item => !isIssue(item))), /^TYPE\s*/i)
       .replace(/^(?:✹|NEW|UPDATED|U\s*PDATED)\s*/gi, '')
       .replace(/^[^A-Za-z0-9]+/, '')
     const name = cleanName(
@@ -686,7 +685,7 @@ const extractRosterOptionFacts = (
       optionType,
       name,
       points: row.value,
-      notes: notes ? [notes] : [],
+      notes: [...(notes ? [notes] : []), ...(issue ? [issue] : [])],
       sourceRecordId: sourceId(checksum, page),
     }
     return [withChecksum(fact)]

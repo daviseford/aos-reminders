@@ -8792,13 +8792,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "089d9b49b8314d704dbc6a75b40b3ea5fe8822e7e44f0d301d3be5ba8929d4fd",
+        "factChecksum": "f682af4c56026455fcbaa55e6462ac5808e5502374d8d7078fa60b95078c7b58",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:1",
         "kind": "roster-option",
         "name": "The Fire Devil of Greywater",
         "notes": [
-          "Conqueror Cogfort only"
+          "Conqueror Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Custom Rig",
         "page": 75,
@@ -8815,13 +8816,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "fc6cb63f9eb3b14323aefde51623ab64ed39f1889b9023f42111d5ef5e6452d4",
+        "factChecksum": "23e5765cce5406e45ff31c39e145a356ceb22d804307004a1326a011feb390d5",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:10",
         "kind": "roster-option",
         "name": "Siege Bolas",
         "notes": [
-          "Cannonade Cogfort only"
+          "Cannonade Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Ironweld Innovation",
         "page": 75,
@@ -8838,13 +8840,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "bde7848a1e8cfba29ee3eab5c7e1676ee0df3d9370993c045dcebd0370fca3e9",
+        "factChecksum": "c05ed99622ba0dc5c5d1bfee58ab442be7b57bf1b83f58e58a2b591f1e2edfb8",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:11",
         "kind": "roster-option",
         "name": "Osseous Fortification",
         "notes": [
-          "Conqueror Cogfort or Cannonade Cogfort only"
+          "Conqueror Cogfort or Cannonade Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Ironweld Innovation",
         "page": 75,
@@ -8861,13 +8864,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "95a7db9fcae6ac373274726032e9389596b7d3b00a8e75028ffbe4a104100634",
+        "factChecksum": "7233f02bfdfbc38d697cdcac967cb73ed6ba5adee7d7444612cebeab3a033f8b",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:12",
         "kind": "roster-option",
         "name": "War Shrine",
         "notes": [
-          "Conqueror Cogfort or Cannonade Cogfort only"
+          "Conqueror Cogfort or Cannonade Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Ironweld Innovation",
         "page": 75,
@@ -8884,13 +8888,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "825c1cccb7d71b9e79840ed70247aa020dc26f86be5da93de4fd7d4d0d6a9e9d",
+        "factChecksum": "f4ff6e7cdd44483023fdc9c5ec0182b0547d228b32eb8e165d15922b1bd29825",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:2",
         "kind": "roster-option",
         "name": "Stone King",
         "notes": [
-          "Cannonade Cogfort only"
+          "Cannonade Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Custom Rig",
         "page": 75,
@@ -8907,13 +8912,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "120902f4acc5488f4e4969e757a0cc307f95b4df69f51d0dd2b3af64f99186de",
+        "factChecksum": "6e05ec7ab89ad9c3ad309aa359cad8a6b59baed2f159a0bc1b5535be06a673f1",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:3",
         "kind": "roster-option",
         "name": "Black Comet of Lethis",
         "notes": [
-          "Cannonade Cogfort only"
+          "Cannonade Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Custom Rig",
         "page": 75,
@@ -8930,13 +8936,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "a1b5fd05d47b877fe5366c0f41ab5b2c8d5b83b03578487c360db34489533718",
+        "factChecksum": "be7278a00a3d8e5c754f6ee02ff354c9f48ea0761f4312254097efae97c4e262",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:4",
         "kind": "roster-option",
         "name": "Siege Master",
         "notes": [
-          "Conqueror Cogfort only"
+          "Conqueror Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Custom Rig",
         "page": 75,
@@ -8953,13 +8960,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "4324578b3b9eaacb9bb4e391ea711af9924c99196e6ebaea66ce7595605b5358",
+        "factChecksum": "ade22ff81983eab0ba839d8b632db4b3340aa5a0ec5d7d95821f3735236bdf63",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:5",
         "kind": "roster-option",
         "name": "Hyshian Lighthouse",
         "notes": [
-          "Cannonade Cogfort only"
+          "Cannonade Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Custom Rig",
         "page": 75,
@@ -8976,13 +8984,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "7c6c30578f1811903c5808ce68044375d1b3c0dc101cc3d8ab398baa139f1ebd",
+        "factChecksum": "55e6ae1ad279b048dd8690198f0ba24bfa4d21b1efc7d5734eff83a001398a61",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:6",
         "kind": "roster-option",
         "name": "Bladefort",
         "notes": [
-          "Conqueror Cogfort only"
+          "Conqueror Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Custom Rig",
         "page": 75,
@@ -8999,13 +9008,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "0985a1e4048b51e897b30ac580576a3b6a1f07f38dac99786b05c8fc327e849f",
+        "factChecksum": "db7dcfe38dba0f2bd20cbecfdb739682eec6abf97fb966c036096b1dc61d4202",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:7",
         "kind": "roster-option",
         "name": "Chamonite-imbued Ammunition",
         "notes": [
-          "Conqueror Cogfort only"
+          "Conqueror Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Ironweld Innovation",
         "page": 75,
@@ -9022,13 +9032,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "eaa82669b1ab59260cc422d532e1e1d8a895154255687c3cfcfd4df939bb19f8",
+        "factChecksum": "4e4220e2a172103d9af74c2864ac09c9188bfa1e5c698eb805d47ef4ef576303",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:8",
         "kind": "roster-option",
         "name": "Custom Flame-hurlers",
         "notes": [
-          "Conqueror Cogfort or Cannonade Cogfort only"
+          "Conqueror Cogfort or Cannonade Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Ironweld Innovation",
         "page": 75,
@@ -9045,13 +9056,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "context": "legends",
-        "factChecksum": "79d2667d5732b5baa768f1c0c0164bcb974ae53ac6acf4a9f2a06d5c92e26b11",
+        "factChecksum": "9e3696727cc90b37d9db6915bd377b3893343b7b0a0d6af571d01977f1e4a695",
         "faction": "Warhammer Legends",
         "key": "page:75:roster-option:9",
         "kind": "roster-option",
         "name": "Razor-net Launchers",
         "notes": [
-          "Conqueror Cogfort or Cannonade Cogfort only"
+          "Conqueror Cogfort or Cannonade Cogfort only",
+          "Issue 528"
         ],
         "optionType": "Ironweld Innovation",
         "page": 75,

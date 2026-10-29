@@ -326,6 +326,17 @@ describe('official-profile sweep', () => {
     )
   })
 
+  it('keeps the printed White Dwarf issue on every page 75 Custom Rig and Ironweld row (#1757 review C2)', () => {
+    const rows = ledger.records.filter(
+      record =>
+        record.fact.kind === 'roster-option' &&
+        (record.fact as { page?: number }).page === 75 &&
+        (record.fact as { context?: string }).context === 'legends'
+    )
+    expect(rows).toHaveLength(12)
+    rows.forEach(row => expect((row.fact as { notes?: string[] }).notes).toContain('Issue 528'))
+  })
+
   it('still matches every #1851 false-negative name in the real data', () => {
     const findingsFor = (name: string) => {
       const rows = ledger.records.filter(

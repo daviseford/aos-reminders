@@ -831,12 +831,19 @@ const officialEvidenceSupportsKeywordRemoval = (officialText: string, keyword: s
   if (!keywordPattern) return false
   const action = String.raw`\b(?:remove|removes|removed|removing|delete|deletes|deleted|deleting|no longer (?:has|have))\b`
   const boundedText = String.raw`[^.!?\r\n]{0,160}`
+  // A negated instruction (`Do not remove ...`) never removes it (#1757 review sweep).
   return (
-    new RegExp(`${action}${boundedText}\\b${keywordPattern}\\b`, 'i').test(officialText) ||
-    new RegExp(
-      `\\b${keywordPattern}\\b${boundedText}\\b(?:keyword\\s+)?(?:is|are)\\s+(?:removed|deleted)\\b`,
-      'i'
-    ).test(officialText)
+    officialInstructionHolds(
+      officialText,
+      new RegExp(`${action}${boundedText}\\b${keywordPattern}\\b`, 'gi')
+    ) ||
+    officialInstructionHolds(
+      officialText,
+      new RegExp(
+        `\\b${keywordPattern}\\b${boundedText}\\b(?:keyword\\s+)?(?:is|are)\\s+(?:removed|deleted)\\b`,
+        'gi'
+      )
+    )
   )
 }
 
@@ -844,15 +851,87 @@ const officialEvidenceSupportsKeywordRemoval = (officialText: string, keyword: s
 const officialEvidenceSupportsKeywordAddition = (officialText: string, keyword: string): boolean => {
   const keywordPattern = escapeRegularExpression(visibleSourceText(keyword)).replace(/\s+/g, '\\s+')
   if (!keywordPattern) return false
-  return new RegExp(
-    String.raw`\badd\s+(?:the\s+)?${keywordPattern}(?:\s+keyword)?\b[^.!?\r\n]{0,80}\b(?:keywords?|warscroll)\b`,
-    'i'
-  ).test(officialText)
+  // A negated instruction (`Do not add ...`) never adds it (#1757 review sweep).
+  return officialInstructionHolds(
+    officialText,
+    new RegExp(
+      String.raw`\badd\s+(?:the\s+)?${keywordPattern}(?:\s+keyword)?\b[^.!?\r\n]{0,80}\b(?:keywords?|warscroll)\b`,
+      'gi'
+    )
+  )
 }
 
 const keywordPatternOf = (keyword: string): string =>
   escapeRegularExpression(visibleSourceText(keyword)).replace(/\s+/g, String.raw`\s+`)
 const keywordEnd = String.raw`(?![A-Za-z0-9])`
+
+/** Words that turn the instruction after them around: `Do not add ...`, `never change ...`. */
+const NEGATED_CLAUSE = /\b(?:not|never|no|don['’]?t|doesn['’]?t|cannot|can['’]?t)\s*$/i
+const INSTRUCTION_VERB = /\b(?:Change|Replace|Add|Remove|Delete|In\s+the)\b/
+// The trailing ALL-CAPS run of a heading: `OGOR MAWTRIBES, FROSTLORD ON THUNDERTUSK`.
+const CAPS_HEADING = /((?:[A-Z0-9][A-Z0-9’'&().:-]*,?\s+)*[A-Z0-9][A-Z0-9’'&().:-]*,?)\s*$/
+
+/** A card or section name as an erratum heading prints it, without `The` or `Scourge of Aqshy`. */
+const instructionAnchorNames = (names: readonly unknown[]): string[] =>
+  Array.from(
+    new Set(
+      names.flatMap(name => {
+        if (typeof name !== 'string') return []
+        const visible = visibleSourceText(name)
+        return [visible, visible.replace(/^(?:the|scourge\s+of\s+aqshy)\s+/i, '')]
+          .map(sourceComparableText)
+          .filter(value => value.length >= 4)
+      })
+    )
+  )
+
+/**
+ * Rules Updates print an ALL-CAPS heading (`TOMB BANSHEE`, `OGOR MAWTRIBES, HUSKARD ON THUNDERTUSK`)
+ * and then its instructions, separated by `�` and each new one flagged `✹ NEW`. An instruction's
+ * heading is the nearest one before it: walking back over the `�`-separated instructions of the same
+ * card, never across an excerpt break.
+ */
+const officialInstructionHeading = (before: string): string | undefined => {
+  const region = before.slice(Math.max(before.lastIndexOf('…'), before.lastIndexOf('\n')) + 1)
+  const segments = region.split('�')
+  for (let index = segments.length - 1; index >= Math.max(0, segments.length - 12); index -= 1) {
+    const head = segments[index].replace(/✹\s*NEW\b/g, ' ').split(INSTRUCTION_VERB)[0]
+    const heading = CAPS_HEADING.exec(head)?.[1]
+    if (heading && /[A-Z]{3}/.test(heading)) return heading
+  }
+  return undefined
+}
+
+/**
+ * An official instruction matched by `pattern` (global) counts only when it is not negated (`Do not
+ * add ...`) and, given anchors, only when it is bound to them: its own clause names one (`... to the
+ * Piercing Scream weapon profile`) or the heading it sits under does (`TOMB BANSHEE`). No anchor, no
+ * heading, or another card's heading grounds nothing.
+ */
+const officialInstructionHolds = (
+  officialText: string,
+  pattern: RegExp,
+  anchors?: readonly unknown[]
+): boolean => {
+  const anchorNames = anchors ? instructionAnchorNames(anchors) : []
+  return Array.from(officialText.matchAll(pattern)).some(match => {
+    const before = officialText.slice(0, match.index)
+    const clause = before.slice(
+      Math.max(...['.', '!', '?', '�', '✹', '…', '\n'].map(mark => before.lastIndexOf(mark))) + 1
+    )
+    if (NEGATED_CLAUSE.test(clause)) return false
+    if (!anchors) return true
+    const after = officialText.slice((match.index ?? 0) + match[0].length)
+    // The instruction's own clause ends at its sentence; a name printed after that is another entry's.
+    const instruction = `${match[0]}${after.slice(0, after.search(/[.!?�✹…\n]|$/))}`
+    const heading = officialInstructionHeading(before)
+    return anchorNames.some(
+      name =>
+        sourceComparableText(instruction).includes(name) ||
+        (heading !== undefined && sourceComparableText(heading).includes(name))
+    )
+  })
+}
 
 /**
  * `✹ NEW ARMY OF RENOWN, THE DUARDIN ASCENDANT (ISSUE 506) Change all instances of ‘Fyreslayers’ and
@@ -909,29 +988,29 @@ const officialSubstitutionGrounds = (
 /**
  * October 2026 Rules Updates phrasing: `Change the Champion keyword to Champion (1/10)` and
  * `Replace the Fyreslayers and Magmadroth keywords with the Khazalite Holds and Grimmdron keywords`.
- * The keyword before `to`/`with` is removed; the keyword after it is added.
+ * The keyword before `to`/`with` is removed; the keyword after it is added. The instruction must be
+ * bound to this warscroll (`OGOR MAWTRIBES, FROSTLORD ON THUNDERTUSK Change ...`) and not negated.
  */
 const officialEvidenceChangesKeyword = (
   officialText: string,
   keyword: string,
-  role: 'removed' | 'added'
+  role: 'removed' | 'added',
+  anchors: readonly unknown[]
 ): boolean => {
   const pattern = keywordPatternOf(keyword)
   if (!pattern) return false
   const span = String.raw`[^.!?\r]{0,80}?`
-  return role === 'removed'
-    ? new RegExp(String.raw`\bchange\s+the\s+${pattern}\s+keyword\s+to\b`, 'i').test(officialText) ||
-        new RegExp(
+  const forms =
+    role === 'removed'
+      ? [
+          String.raw`\bchange\s+the\s+${pattern}\s+keyword\s+to\b`,
           String.raw`\breplace\s+the\b${span}\b${pattern}${keywordEnd}${span}\bkeywords?\s+with\b`,
-          'i'
-        ).test(officialText)
-    : new RegExp(String.raw`\bchange\s+the\s+${span}\bkeyword\s+to\s+${pattern}${keywordEnd}`, 'i').test(
-        officialText
-      ) ||
-        new RegExp(
+        ]
+      : [
+          String.raw`\bchange\s+the\s+${span}\bkeyword\s+to\s+${pattern}${keywordEnd}`,
           String.raw`\breplace\s+the\b${span}\bkeywords?\s+with\s+the\b${span}\b${pattern}${keywordEnd}${span}\bkeywords?\b`,
-          'i'
-        ).test(officialText)
+        ]
+  return forms.some(form => officialInstructionHolds(officialText, new RegExp(form, 'gi'), anchors))
 }
 
 const GRAND_ALLIANCES = ['ORDER', 'CHAOS', 'DEATH', 'DESTRUCTION']
@@ -989,14 +1068,34 @@ const officialReprintSupportsKeyword = (
   )
 }
 
-/** `Add ‘Crit (Auto-wound)’ to the Piercing Scream weapon profile` (October 2026 Rules Updates). */
-const officialEvidenceAddsWeaponAbility = (officialText: string, label: string): boolean => {
+/**
+ * `TOMB BANSHEE Add ‘Crit (Auto-wound)’ to the Piercing Scream weapon profile` (October 2026 Rules
+ * Updates): the instruction names this weapon, sits under this weapon's card heading, and is not
+ * negated.
+ */
+const officialEvidenceAddsWeaponAbility = (
+  officialText: string,
+  label: string,
+  weaponName: unknown,
+  cardNames: readonly unknown[]
+): boolean => {
   const pattern = keywordPatternOf(label)
-  if (!pattern) return false
-  return new RegExp(
-    String.raw`\badd\s+['‘’"]?${pattern}['‘’"]?\s+to\s+the\b[^.!?\r]{0,80}?\bweapon\s+profile\b`,
-    'i'
-  ).test(officialText)
+  const weapon = typeof weaponName === 'string' ? keywordPatternOf(weaponName) : ''
+  if (!pattern || !weapon) return false
+  return officialInstructionHolds(
+    officialText,
+    new RegExp(
+      String.raw`\badd\s+['‘’"]?${pattern}['‘’"]?\s+to\s+the\s+${weapon}\s+weapon\s+profile\b`,
+      'gi'
+    ),
+    cardNames
+  )
+}
+
+/** The card a Wahapedia weapon record belongs to, from its own id: `#datasheet:Tomb-Banshee/weapon:1`. */
+const weaponCardNameOf = (sourceRecordId: string | undefined): string | undefined => {
+  const slug = /datasheet(?:%3A|:)([^%/#]+)(?:%2F|\/)weapon/i.exec(sourceRecordId ?? '')?.[1]
+  return slug ? decodeURIComponent(slug).replace(/-/g, ' ') : undefined
 }
 
 /** The official text prints the keyword in a `Keywords` strip, not merely somewhere in prose. */
@@ -1204,7 +1303,11 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
             )
           )
         }
-        if (!officialEvidenceAddsWeaponAbility(officialText, label)) {
+        if (
+          !officialEvidenceAddsWeaponAbility(officialText, label, weapon?.name, [
+            weaponCardNameOf(String(override.value.sourceRecordId ?? '')),
+          ])
+        ) {
           checks.push(
             failed(
               'official-override.weapon-ability.evidence',
@@ -1402,10 +1505,14 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
         const condition = visibleSourceText(evidenceJsonValue(pair)?.value.conditionHtml ?? '')
         return (
           sourceComparableText(condition) === sourceComparableText(match[2]) &&
-          new RegExp(
-            String.raw`\badd\s+['‘’"]?${escapeRegularExpression(match[1])}['‘’"]?\s+to\s+the\s+start\s+of\s+the\s+timing\s+of\s+['‘’"]?${escapeRegularExpression(name).replace(/\s+/g, String.raw`\s+`)}`,
-            'i'
-          ).test(officialText)
+          // Never `Do not add ...` (#1757 review).
+          officialInstructionHolds(
+            officialText,
+            new RegExp(
+              String.raw`\badd\s+['‘’"]?${escapeRegularExpression(match[1])}['‘’"]?\s+to\s+the\s+start\s+of\s+the\s+timing\s+of\s+['‘’"]?${escapeRegularExpression(name).replace(/\s+/g, String.raw`\s+`)}`,
+              'gi'
+            )
+          )
         )
       }
       if (Array.isArray(override.value.timings)) {
@@ -1446,6 +1553,8 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
       const keywords = Array.isArray(warscroll?.keywords) ? warscroll.keywords.map(String) : []
       const removed = Array.isArray(override.value.remove) ? override.value.remove.map(String) : []
       const added = Array.isArray(override.value.add) ? override.value.add.map(String) : []
+      // The warscroll the erratum must name, as generated and as the secondary record prints it.
+      const keywordAnchors = [warscroll?.name, evidenceJsonValue(pair)?.value.name]
       added.forEach(keyword => {
         if (!keywords.some(value => sourceComparableText(value) === sourceComparableText(keyword))) {
           checks.push(
@@ -1459,7 +1568,7 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
         }
         if (
           !officialEvidenceSupportsKeywordAddition(officialText, keyword) &&
-          !officialEvidenceChangesKeyword(officialText, keyword, 'added') &&
+          !officialEvidenceChangesKeyword(officialText, keyword, 'added', keywordAnchors) &&
           !officialReprintSupportsKeyword(officialText, keywords, keyword, 'added')
         ) {
           checks.push(
@@ -1484,7 +1593,7 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
         }
         if (
           !officialEvidenceSupportsKeywordRemoval(officialText, keyword) &&
-          !officialEvidenceChangesKeyword(officialText, keyword, 'removed') &&
+          !officialEvidenceChangesKeyword(officialText, keyword, 'removed', keywordAnchors) &&
           !officialReprintSupportsKeyword(officialText, keywords, keyword, 'removed')
         ) {
           checks.push(

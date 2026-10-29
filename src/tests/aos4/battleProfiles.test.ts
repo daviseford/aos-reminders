@@ -787,14 +787,14 @@ describe('Games Workshop Battle Profiles extraction', () => {
         optionType: 'Custom Rig',
         name: 'The Fire Devil of Greywater',
         points: 20,
-        notes: ['Conqueror Cogfort only'],
+        notes: ['Conqueror Cogfort only', 'Issue 528'],
       }),
       expect.objectContaining({
         context: 'legends',
         optionType: 'Ironweld Innovation',
         name: 'Custom Flame-hurlers',
         points: 10,
-        notes: ['Conqueror Cogfort or Cannonade Cogfort only'],
+        notes: ['Conqueror Cogfort or Cannonade Cogfort only', 'Issue 528'],
       }),
     ])
   })

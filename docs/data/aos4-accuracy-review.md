@@ -34,8 +34,14 @@ The source inventory binds fresh observations taken for this intake: a `discover
 snapshot (164 sources, 8 explicit non-material dispositions), the eight pinned BSData files at
 `ea96eba3`, `5e52e2a5` and `6909c140`, and the Wahapedia navigation and exports (88 sources, 0
 inaccessible, 2026-10-29T14:14:49Z). Every accepted artifact matched. The certification is
-`aos4-corpus-2026-10-29-machine-r2` (campaign 2026-10-29T15:37:01Z), with every pair evaluated
-fresh against the same inventory. It replaces `machine-r1` (campaign 15:11:22Z), whose rename check
+`aos4-corpus-2026-10-29-machine-r3` (campaign 2026-10-29T22:40:19Z), with every pair evaluated
+fresh against the same inventory. It follows the independent reviews of the candidate: every
+official instruction the reviewer reads (keyword change and replace, added weapon label, timing
+prefix, keyword add and remove) is now refused when negated (`Do not add ...`), and the keyword
+change and weapon label instructions must sit under, or name, the warscroll or card they edit. The
+page 75 Custom Rig and Ironweld Innovation rows now keep their printed `Issue 528` source. It
+replaces `machine-r2` (campaign 15:37:01Z), which in turn replaced `machine-r1` (campaign
+15:11:22Z), whose rename check
 did not yet tie a `Change all instances of` instruction to the section it edits. A campaign at
 15:36:46Z that reused all of `machine-r1`'s pairs never ran the changed check, so it was not
 certified.
@@ -46,10 +52,11 @@ are kept unchanged under `.cache/aos4/review/adversarial-aos4-corpus-2026-10-29*
 preparing machine. Each was resolved by reading that form exactly, never by loosening a check:
 
 - `Change the X keyword to Y` and `Replace the X keywords with ...` errata change only the
-  keywords they name.
+  keywords they name, and only for the warscroll their heading or sentence names.
 - A reprinted Legends card grounds a keyword change by its own grand-alliance keyword strip, built
   only from the card's own keywords. A removed keyword must not continue that strip's comma run.
-- `Add 'Crit (Auto-wound)' to the ... weapon profile` grounds that weapon label only.
+- `Add 'Crit (Auto-wound)' to the <weapon> weapon profile` grounds that label only on the named
+  weapon of the card whose heading it sits under (`TOMB BANSHEE`, `THORNS OF THE BRIAR QUEEN`).
 - `Add 'Reaction:' to the start of the timing of '<name>'` grounds that prefix on the named
   ability's own printed condition only.
 - `Change all instances of X to Y` grounds a text field only when the instruction's own erratum
