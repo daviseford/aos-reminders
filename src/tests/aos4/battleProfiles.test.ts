@@ -688,6 +688,117 @@ describe('Games Workshop Battle Profiles extraction', () => {
     })
   })
 
+  it('reads October 2026 unit names without badge glyphs, footnotes, or the White Dwarf issue column', async () => {
+    // October 2026 page 14 lifts `-Magnate` a hair above `Brokk Grungsson, Lord`, page 48 prints a
+    // full-width footnote just under its last row, and page 75 adds an `Issue NNN` column (#1757).
+    const result = await extractGamesWorkshopBattleProfiles(
+      new Uint8Array([1]),
+      'a'.repeat(64),
+      fakeLoader(64, {
+        14: [
+          item('UNIT SIZE', 155, 760),
+          item('HEROES', 40, 750),
+          item('\u0007', 35.26, 700),
+          item('Brokk Grungsson, Lord', 35.26, 700),
+          item('-', 113.17, 700.0001),
+          item('Magnate', 115.98, 700.0001),
+          item('1', 173.66, 696),
+          item('260', 223.51, 696),
+          item('Any', 259.19, 692),
+          item('of Barak-Nar', 35.26, 692),
+        ],
+        22: [
+          item('UNIT SIZE', 155, 760),
+          item('UNITS', 40, 750),
+          item('Scourge of Aqshy', 35.95, 700),
+          item('1', 174.34, 696),
+          item('290', 224.24, 696),
+          item('Monster', 259.88, 696),
+          item('160mm', 523.11, 696),
+          item('Revenant Draconith', 35.95, 692),
+          {
+            str: 'The following units no longer have current warscrolls: Grave Guard; Black Knights.',
+            x: 34.02,
+            y: 666.2,
+            width: 520,
+          },
+        ],
+        64: [
+          item('UNIT SIZE', 155, 760),
+          item('LEGENDS HEROES', 35.83, 750),
+          item('Hamilcar Bear-Eater', 35.8, 700),
+          item('Issue 503', 112.69, 700),
+          item('1', 173.84, 700),
+          item('230', 223.76, 700),
+          item('Any Astral Templars', 259.39, 700),
+          item('40mm', 524.39, 700),
+        ],
+      })
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.facts.filter(fact => [14, 22, 64].includes(fact.page)).map(fact => fact.name)).toEqual([
+      'Brokk Grungsson, Lord-Magnate of Barak-Nar',
+      'Scourge of Aqshy Revenant Draconith',
+      'Hamilcar Bear-Eater',
+    ])
+  })
+
+  it('reads a Legends page roster-option table below its units (October 2026 White Dwarf page)', async () => {
+    // Page 75 prints Custom Rig and Ironweld Innovation rows under the White Dwarf Legends units,
+    // with an `Issue NNN` cell in the type column and names starting at x 151.6 (#1757).
+    const result = await extractGamesWorkshopBattleProfiles(
+      new Uint8Array([1]),
+      'a'.repeat(64),
+      fakeLoader(64, {
+        64: [
+          item('UNIT SIZE', 155, 760),
+          item('LEGENDS HEROES', 35.83, 750),
+          item('Hamilcar Bear-Eater', 35.8, 700),
+          item('1', 173.84, 700),
+          item('230', 223.76, 700),
+          item('Any Astral Templars', 259.39, 700),
+          item('TYPE', 35.83, 600),
+          item('NAME', 151.69, 600),
+          item('POINTS', 279.04, 600),
+          item('NOTES', 324.61, 600),
+          item('Custom Rig', 35.8, 588),
+          item('Issue 528', 112.68, 588),
+          item('The Fire Devil of Greywater', 151.66, 588),
+          item('20', 290.89, 588),
+          item('Conqueror Cogfort', 324.57, 588),
+          item('only', 392.64, 588),
+          item('Ironweld Innovation', 35.77, 577),
+          item('Issue 528', 112.66, 577),
+          item('Custom Flame-hurlers', 151.64, 577),
+          item('10', 291.05, 577),
+          item('Conqueror Cogfort or Cannonade Cogfort only', 324.55, 577),
+        ],
+      })
+    )
+
+    expect(result.diagnostics).toEqual([])
+    const page = result.facts.filter(fact => fact.page === 64)
+    expect(page.filter(fact => fact.kind === 'unit').map(fact => fact.name)).toEqual(['Hamilcar Bear-Eater'])
+    expect(page.filter(fact => fact.kind === 'roster-option')).toEqual([
+      expect.objectContaining({
+        context: 'legends',
+        faction: 'Warhammer Legends',
+        optionType: 'Custom Rig',
+        name: 'The Fire Devil of Greywater',
+        points: 20,
+        notes: ['Conqueror Cogfort only'],
+      }),
+      expect.objectContaining({
+        context: 'legends',
+        optionType: 'Ironweld Innovation',
+        name: 'Custom Flame-hurlers',
+        points: 10,
+        notes: ['Conqueror Cogfort or Cannonade Cogfort only'],
+      }),
+    ])
+  })
+
   it('reads each page section from its printed title rather than its page number', async () => {
     // The September 2026 edition gave Cities of Sigmar a fifth page, moving every later section
     // down one page: page 7 is still Cities of Sigmar, page 57 is Sons of Behemat, and the

@@ -1,3 +1,4 @@
+import type { CorpusFactionVariant, CorpusVariantAbility } from './factionVariants'
 import { createHash } from 'node:crypto'
 import type { ArtifactManifestEntry, WahapediaRulesPageReview } from '../data'
 import {
@@ -48,6 +49,10 @@ import type { SourceDisposition } from './integrity'
 
 export const AOS4_CORPUS_REVIEW_SCHEMA_VERSION = 1 as const
 
+/** Override key: a reviewed faction variant's overrides apply to that variant's records only. */
+export const overrideKey = (sourceRecordId: SourceRecordId, variantFactionId?: string): string =>
+  variantFactionId ? `${sourceRecordId}|variant:${variantFactionId}` : sourceRecordId
+
 export interface CorpusDiagnosticPolicy {
   code: string
   reason: string
@@ -63,6 +68,8 @@ export interface CorpusIgnoredSourceRecord {
 }
 
 export interface CorpusTimingOverride {
+  /** A reviewed faction variant this override is scoped to (`factionVariants`); absent = the original record. */
+  variantFactionId?: string
   sourceRecordId: SourceRecordId
   abilityKind: AbilityKind
   timings: AbilityTiming[]
@@ -78,6 +85,8 @@ export interface CorpusTimingOverride {
  * At least one of the three must be present.
  */
 export interface CorpusAbilityTextOverride {
+  /** A reviewed faction variant this override is scoped to (`factionVariants`); absent = the original record. */
+  variantFactionId?: string
   sourceRecordId: SourceRecordId
   text?: Ability['text']
   name?: string
@@ -145,6 +154,11 @@ export interface CorpusLegendsWarscrollOverride {
 export interface CorpusWeaponProfileOverride {
   sourceRecordId: SourceRecordId
   profile: Partial<Pick<Weapon['profile'], 'rangeInches' | 'attacks' | 'hit' | 'wound' | 'rend' | 'damage'>>
+  /**
+   * Weapon abilities an erratum adds that the secondary source does not print yet, exactly as the
+   * official page prints them (e.g. `Crit (Auto-wound)`). A source that catches up fails closed.
+   */
+  addAbilityLabels?: string[]
   reason: string
   officialSourceRecordIds: SourceRecordId[]
 }
@@ -155,6 +169,8 @@ export interface CorpusWeaponProfileOverride {
  * republished source that catches up fails closed, and the entry retires.
  */
 export interface CorpusWarscrollKeywordOverride {
+  /** A reviewed faction variant this override is scoped to (`factionVariants`); absent = the original record. */
+  variantFactionId?: string
   sourceRecordId: SourceRecordId
   remove?: string[]
   add?: string[]
@@ -215,8 +231,10 @@ export interface CorpusCommunityWarscrollUnit {
   /**
    * `seasonal` anchors the warscroll on an official General's Handbook 2026-27 unit fact and
    * offers it in the seasonal context only, like the Wahapedia Scourge of Aqshy datasheets (#1757).
+   * `legends` anchors it on an official Warhammer Legends unit fact (faction `Warhammer Legends`)
+   * and offers it in the Legends context only, by the source's reviewed `faction` (#1757).
    */
-  context?: 'seasonal'
+  context?: 'seasonal' | 'legends'
   /**
    * The official unit name when the catalogue spells the unit differently (BSData's "Vulkyn
    * Flameseekers (Scourge of Aqshy)" is the official "Scourge of Aqshy Vulkyn Flameseekers").
@@ -346,7 +364,7 @@ export interface CorpusUniversalFactionContent {
 
 /**
  * Content one faction's page carries that an official publication also gives another faction
- * unchanged (#1757): Battle Profiles - Khazalite Holds lists the Fyreslayers `Magmic Invocations`
+ * unchanged (#1757). For a reviewed Regiment of Renown it adds an inclusion faction: Battle Profiles - Khazalite Holds lists the Fyreslayers `Magmic Invocations`
  * manifestation lore, and BSData links both factions to the same lore. The named record (a lore
  * group or a warscroll datasheet) keeps its single identity and gains an offer from `factionId`;
  * nothing is copied, so the owner faction's armies are unchanged.
@@ -488,6 +506,9 @@ export interface CorpusReview {
   approvedFactionIds: string[]
   universalFactionContent?: CorpusUniversalFactionContent[]
   sharedFactionContent?: CorpusSharedFactionContent[]
+  /** Reviewed faction variants and the official-only rules they add (#1757); see factionVariants.ts. */
+  factionVariants?: CorpusFactionVariant[]
+  variantAbilities?: CorpusVariantAbility[]
   armiesOfRenown?: CorpusArmyOfRenown[]
   regimentsOfRenown?: CorpusRegimentOfRenown[]
   decoderDiagnosticPolicies: CorpusDiagnosticPolicy[]
@@ -721,7 +742,7 @@ const contextLabel = (value: string): string =>
 
 /**
  * Export warscroll ids the review pins to the Legends context. Every override must name a live
- * export record by id and exact name: a stale or mistyped entry fails generation rather than
+ * export record by id and name (ignoring case): a stale or mistyped entry fails generation rather than
  * silently guarding nothing.
  */
 export const legendsWarscrollOverrideIds = (
@@ -732,7 +753,9 @@ export const legendsWarscrollOverrideIds = (
   const ids = new Set<string>()
   ;(review.legendsWarscrollOverrides ?? []).forEach(override => {
     const name = byId.get(override.warscrollId)
-    if (name === undefined || name !== override.name) {
+    // Case-insensitive: official naming normalization recases a name between pipeline stages
+    // (`Grombrindal, The White Dwarf` / `the`), which is not a retarget.
+    if (name === undefined || name.toLowerCase() !== override.name.toLowerCase()) {
       throw new Error(
         `Legends warscroll override ${override.warscrollId} (${override.name}) does not match a ` +
           `Wahapedia export warscroll${name === undefined ? '' : ` (export name: ${name})`}`
@@ -1460,20 +1483,34 @@ const reviewDiagnostics = (
       message: 'The default rules context is not present in the reviewed contexts',
     })
   }
-  const weaponSourceIds = new Set(decoded.dataset.warscrollWeapons.map(record => record.meta.sourceRecordId))
+  const weaponRecordsById = new Map(
+    decoded.dataset.warscrollWeapons.map(record => [record.meta.sourceRecordId, record])
+  )
   const seenWeaponOverrides = new Set<SourceRecordId>()
   ;(review.weaponProfileOverrides ?? []).forEach(override => {
     const profileEntries = Object.entries(override.profile)
+    const addedLabels = override.addAbilityLabels ?? []
+    const record = weaponRecordsById.get(override.sourceRecordId)
+    const printedLabels = record
+      ? new Set(normalizeWahapediaWeapon(record).abilityLabels.map(label => label.toLowerCase()))
+      : new Set<string>()
     const invalidProfile =
-      profileEntries.length === 0 ||
+      (profileEntries.length === 0 && addedLabels.length === 0) ||
       profileEntries.some(([field, value]) =>
         field === 'rangeInches'
           ? !Number.isSafeInteger(value) || (value as number) <= 0
           : typeof value !== 'string' || !value.trim()
+      ) ||
+      new Set(addedLabels.map(label => label.toLowerCase())).size !== addedLabels.length ||
+      addedLabels.some(
+        label =>
+          !label.trim() ||
+          printedLabels.has(label.toLowerCase()) ||
+          weaponKeywords([label])[0].kind === 'other'
       )
     if (
       seenWeaponOverrides.has(override.sourceRecordId) ||
-      !weaponSourceIds.has(override.sourceRecordId) ||
+      !record ||
       invalidProfile ||
       !override.reason.trim() ||
       override.officialSourceRecordIds.length === 0
@@ -1483,7 +1520,7 @@ const reviewDiagnostics = (
         severity: 'error',
         subject: override.sourceRecordId,
         message:
-          'Weapon profile override must uniquely target an accepted weapon, change a non-empty profile field, and cite official evidence',
+          'Weapon profile override must uniquely target an accepted weapon, change a non-empty profile field or add a recognised weapon ability the source does not print, and cite official evidence',
       })
     }
     seenWeaponOverrides.add(override.sourceRecordId)
@@ -1500,7 +1537,7 @@ const reviewDiagnostics = (
           !review.ignoredSourceRecords.some(ignored => ignored.sourceRecordId === sourceRecordId)
       )
   )
-  const seenAbilityTextOverrides = new Set<SourceRecordId>()
+  const seenAbilityTextOverrides = new Set<string>()
   ;(review.abilityTextOverrides ?? []).forEach(override => {
     const textValid =
       override.text === undefined ||
@@ -1517,7 +1554,7 @@ const reviewDiagnostics = (
         Number.isSafeInteger(override.cost.value) &&
         override.cost.value > 0)
     if (
-      seenAbilityTextOverrides.has(override.sourceRecordId) ||
+      seenAbilityTextOverrides.has(overrideKey(override.sourceRecordId, override.variantFactionId)) ||
       !abilitySourceIds.has(override.sourceRecordId) ||
       (override.text === undefined && override.name === undefined && override.cost === undefined) ||
       !textValid ||
@@ -1534,7 +1571,7 @@ const reviewDiagnostics = (
           'Ability text override must uniquely target an accepted ability, change valid text, name, or cost, and cite official evidence',
       })
     }
-    seenAbilityTextOverrides.add(override.sourceRecordId)
+    seenAbilityTextOverrides.add(overrideKey(override.sourceRecordId, override.variantFactionId))
   })
   // A context override that names no decoded record changes nothing, so a mistyped or stale
   // target would silently leave the record in the context the override exists to move it out of.
@@ -1713,7 +1750,7 @@ const reviewDiagnostics = (
     keywords.add(keyword)
     keywordsByWarscrollId.set(record.warscrollId, keywords)
   })
-  const seenWarscrollKeywordOverrides = new Set<SourceRecordId>()
+  const seenWarscrollKeywordOverrides = new Set<string>()
   ;(review.warscrollKeywordOverrides ?? []).forEach(override => {
     const warscroll = warscrollBySourceRecordId.get(override.sourceRecordId)
     const removed = override.remove ?? []
@@ -1722,7 +1759,7 @@ const reviewDiagnostics = (
       ? (keywordsByWarscrollId.get(warscroll.id) ?? new Set<string>())
       : new Set<string>()
     if (
-      seenWarscrollKeywordOverrides.has(override.sourceRecordId) ||
+      seenWarscrollKeywordOverrides.has(overrideKey(override.sourceRecordId, override.variantFactionId)) ||
       !warscroll ||
       !(removed.length + added.length) ||
       [...removed, ...added].some(value => !value.trim() || value !== value.trim().toUpperCase()) ||
@@ -1740,7 +1777,7 @@ const reviewDiagnostics = (
           'Warscroll keyword override must uniquely target an accepted warscroll, change keywords, and cite official evidence',
       })
     }
-    seenWarscrollKeywordOverrides.add(override.sourceRecordId)
+    seenWarscrollKeywordOverrides.add(overrideKey(override.sourceRecordId, override.variantFactionId))
   })
   return diagnostics
 }
@@ -2060,7 +2097,10 @@ export const buildAos4Corpus = (
   const parentByWarscrollExternalId = new Map<string, CanonicalId>()
   const warscrollIdBySourceRecordId = new Map<SourceRecordId, CanonicalId>()
   const warscrollKeywordOverrides = new Map(
-    (review.warscrollKeywordOverrides ?? []).map(override => [override.sourceRecordId, override])
+    (review.warscrollKeywordOverrides ?? []).map(override => [
+      overrideKey(override.sourceRecordId, override.variantFactionId),
+      override,
+    ])
   )
   const universalFactionIds = new Set((review.universalFactionContent ?? []).map(entry => entry.factionId))
   // A faction known only from an official Spearhead pack fields no universal matched-play content.
@@ -2101,6 +2141,12 @@ export const buildAos4Corpus = (
     if (shared) sharedSourceRecordIdsUsed.add(meta.sourceRecordId)
     return uniqueSorted([...offeringFactionIds(ownerExternalFactionId), ...(shared ?? [])])
   }
+  /** Reviewed `sharedFactionContent` factions alone, for a regiment offered by its inclusion list. */
+  const sharedFactionIdsFor = (meta: WahapediaRecordMeta): CanonicalId<'faction'>[] => {
+    const shared = sharedFactionIdsBySourceRecordId.get(meta.sourceRecordId)
+    if (shared) sharedSourceRecordIdsUsed.add(meta.sourceRecordId)
+    return shared ?? []
+  }
   // Reviewed Regiment of Renown classification: the kept collection datasheets become
   // `regiment-of-renown` content groups offered by their inclusion factions (see
   // CorpusRegimentOfRenown).
@@ -2116,13 +2162,18 @@ export const buildAos4Corpus = (
     const id = lookup(parentKind, recordPublisher(record.meta), recordAlias(record.meta))
     if (!id) return
     parentByWarscrollExternalId.set(record.id, id)
-    if (parentKind === 'warscroll') warscrollIdBySourceRecordId.set(record.meta.sourceRecordId, id)
+    // A faction variant copy shares its original's source record; the original keeps the entry.
+    if (parentKind === 'warscroll' && !record.meta.variantFactionId) {
+      warscrollIdBySourceRecordId.set(record.meta.sourceRecordId, id)
+    }
     const keywordRecords = keywordsByWarscroll.get(record.id) ?? []
     const regimentRecords = regimentRecordsByWarscroll.get(record.id) ?? []
     const baseRecords = basesByWarscroll.get(record.id) ?? []
     const organisationRecords = organisationByWarscroll.get(record.id) ?? []
     const profileExists = hasBattleProfile(record)
-    const keywordOverride = warscrollKeywordOverrides.get(record.meta.sourceRecordId)
+    const keywordOverride = warscrollKeywordOverrides.get(
+      overrideKey(record.meta.sourceRecordId, record.meta.variantFactionId)
+    )
     const removedKeywords = new Set((keywordOverride?.remove ?? []).map(value => value.trim().toUpperCase()))
     const keywords = uniqueSorted([
       ...keywordRecords
@@ -2174,6 +2225,9 @@ export const buildAos4Corpus = (
       ...(record.regimentOfRenown || record.regimentOfRenownOnly
         ? []
         : offeringFactionIdsFor(record.factionId, record.meta)),
+      // An official re-publication can add an inclusion faction no secondary page carries yet
+      // (October 2026: Khazalite Holds alongside the existing list, #1757).
+      ...(regimentOfRenown ? sharedFactionIdsFor(record.meta) : []),
       ...regimentRecords.flatMap(item => {
         const factionId = factionByExternalId.get(item.factionId)
         return factionId ? [factionId] : []
@@ -2679,20 +2733,29 @@ export const buildAos4Corpus = (
       .filter(policy => !policy.sourceRecordId)
       .map(policy => [policy.code, policy])
   )
-  const timingOverrides = new Map(review.timingOverrides.map(override => [override.sourceRecordId, override]))
+  const timingOverrides = new Map(
+    review.timingOverrides.map(override => [
+      overrideKey(override.sourceRecordId, override.variantFactionId),
+      override,
+    ])
+  )
   const abilityTextOverrides = new Map(
-    (review.abilityTextOverrides ?? []).map(override => [override.sourceRecordId, override])
+    (review.abilityTextOverrides ?? []).map(override => [
+      overrideKey(override.sourceRecordId, override.variantFactionId),
+      override,
+    ])
   )
   const abilityKeywordOverrides = new Map(
     (review.abilityKeywordOverrides ?? []).map(override => [override.sourceRecordId, override])
   )
-  const abilityIdBySource = new Map<SourceRecordId, CanonicalId<'ability'>>()
+  // Keyed like overrides: a faction variant's copy shares its original's source record (#1757).
+  const abilityIdBySource = new Map<string, CanonicalId<'ability'>>()
   const addAbility = (record: AbilityRecord, actor: Ability['actor']) => {
     if (ignoredSourceRecordIds.has(record.meta.sourceRecordId)) return
     const id = lookup('ability', recordPublisher(record.meta), recordAlias(record.meta)) as
       CanonicalId<'ability'> | undefined
     if (!id) return
-    abilityIdBySource.set(record.meta.sourceRecordId, id)
+    abilityIdBySource.set(overrideKey(record.meta.sourceRecordId, record.meta.variantFactionId), id)
     const normalized = normalizeWahapediaAbility(record, actor)
     normalized.diagnostics.forEach(diagnostic => {
       const policy =
@@ -2707,8 +2770,9 @@ export const buildAos4Corpus = (
         })
       }
     })
-    const timingOverride = timingOverrides.get(record.meta.sourceRecordId)
-    const textOverride = abilityTextOverrides.get(record.meta.sourceRecordId)
+    const recordOverrideKey = overrideKey(record.meta.sourceRecordId, record.meta.variantFactionId)
+    const timingOverride = timingOverrides.get(recordOverrideKey)
+    const textOverride = abilityTextOverrides.get(recordOverrideKey)
     const abilityKind = timingOverride?.abilityKind ?? normalized.abilityKind
     const sourceCost = abilityCost(record)
     const cost =
@@ -2741,7 +2805,10 @@ export const buildAos4Corpus = (
       !normalized.text.reactionTrigger &&
       sourceCondition &&
       timingOverride.timings.some(
-        timing => timing.kind === 'reaction' && timing.raw.trim() === sourceCondition
+        timing =>
+          timing.kind === 'reaction' &&
+          // Or the condition behind an official `Reaction:` label the erratum adds (#1757).
+          (timing.raw.trim() === sourceCondition || timing.raw.trim() === `Reaction: ${sourceCondition}`)
       )
         ? normalizeSourceText(sourceCondition).text || undefined
         : undefined
@@ -2823,11 +2890,13 @@ export const buildAos4Corpus = (
     addRelationship(
       'includes',
       parentByWarscrollExternalId.get(record.warscrollId),
-      abilityIdBySource.get(record.meta.sourceRecordId)
+      abilityIdBySource.get(overrideKey(record.meta.sourceRecordId, record.meta.variantFactionId))
     )
   )
   dataset.factionAbilities.forEach(record => {
-    const abilityId = abilityIdBySource.get(record.meta.sourceRecordId)
+    const abilityId = abilityIdBySource.get(
+      overrideKey(record.meta.sourceRecordId, record.meta.variantFactionId)
+    )
     const type = factionAbilityTypeByKey.get(`${record.factionId}:${record.typeId}`)
     const subtypeId = subtypeGroupByKey.get(`${record.factionId}:${record.subtypeId}`)
     if (subtypeId) {
@@ -2874,7 +2943,7 @@ export const buildAos4Corpus = (
     addRelationship(
       'includes',
       generalRuleGroupIdByExternalId.get(record.groupId),
-      abilityIdBySource.get(record.meta.sourceRecordId)
+      abilityIdBySource.get(overrideKey(record.meta.sourceRecordId, record.meta.variantFactionId))
     )
   )
 
@@ -2947,6 +3016,7 @@ export const buildAos4Corpus = (
                 profile.wound,
                 profile.rend,
                 profile.damage,
+                ...(profileOverride.addAbilityLabels ?? []),
                 ...officialEvidence,
               ].join('\n'),
               'utf8'
@@ -2956,7 +3026,7 @@ export const buildAos4Corpus = (
       name: normalized.name,
       weaponType: normalized.weaponType,
       profile,
-      keywords: weaponKeywords(normalized.abilityLabels),
+      keywords: weaponKeywords([...normalized.abilityLabels, ...(profileOverride?.addAbilityLabels ?? [])]),
       rulesContextIds: contextsFor(record.meta),
       sourceRefs: sortedSourceReferences([
         sourceReference(record.meta.sourceRecordId, 'normalized weapon profile'),

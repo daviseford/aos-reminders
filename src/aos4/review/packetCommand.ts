@@ -560,6 +560,10 @@ const buildSourceCandidates = (
       ...(sourceData.review.abilityKeywordOverrides ?? [])
         .filter(override => override.sourceRecordId === sourceRecord.id)
         .map(override => ({ field: 'abilityKeywordOverrides', value: override })),
+      // Weapon abilities an erratum adds (#1757) are verified against their official evidence.
+      ...(sourceData.review.weaponProfileOverrides ?? [])
+        .filter(override => override.sourceRecordId === sourceRecord.id && override.addAbilityLabels?.length)
+        .map(override => ({ field: 'weaponProfileOverrides', value: override })),
     ]
     const officialOverrideSourceIds = Array.from(
       new Set(reviewOverrides.flatMap(({ value }) => value.officialSourceRecordIds))
@@ -582,7 +586,29 @@ const buildSourceCandidates = (
       entities.find(entity => entity.kind === 'warscroll')?.name ??
       entities[0]?.name ??
       keyword
-    const overrideExcerptNeedles = officialOverrideExcerptNeedles(overrideExcerptFocus, reviewOverrides)
+    // A reprinted card's keyword change is evidenced by its own grand-alliance keyword strip
+    // (`Death, Ossiarch Bonereapers`), so centre an excerpt on it too (#1757).
+    const keywordStripNeedles = reviewOverrides.some(
+      override => override.field === 'warscrollKeywordOverrides'
+    )
+      ? entities.flatMap(entity => {
+          if (entity.kind !== 'warscroll') return []
+          const alliances = entity.keywords.filter(keyword =>
+            ['ORDER', 'CHAOS', 'DEATH', 'DESTRUCTION'].includes(keyword.toUpperCase())
+          )
+          return alliances.flatMap(alliance =>
+            entity.keywords.filter(keyword => keyword !== alliance).map(keyword => `${alliance}, ${keyword}`)
+          )
+        })
+      : []
+    const overrideExcerptNeedles = [
+      ...officialOverrideExcerptNeedles(overrideExcerptFocus, reviewOverrides),
+      ...keywordStripNeedles,
+      // A rename erratum (`Change all instances of ‘Fyreslayers’ ...`) never names the ability it edits.
+      ...(reviewOverrides.some(override => override.field === 'abilityTextOverrides')
+        ? ['Change all instances of']
+        : []),
+    ]
     const officialOverrideEvidence = officialOverrideSourceIds.map(sourceRecordId => {
       const officialRecord = sourceRecordById.get(sourceRecordId)
       if (!officialRecord) {
@@ -658,11 +684,34 @@ const buildSourceCandidates = (
       ],
       generatedDestinations: [
         ...generatedDestinations(sourceRecord, entities, runtimeById),
-        ...reviewOverrides.map(override => ({
-          path: reviewPath.replaceAll('\\', '/'),
-          field: override.field,
-          value: override.value,
-        })),
+        ...reviewOverrides.map(override => {
+          // A faction variant shares its original's source record (#1757): bind each override to
+          // the one entity it changes, so a variant's override is never compared with the original.
+          const kind =
+            override.field === 'warscrollKeywordOverrides'
+              ? 'warscroll'
+              : override.field === 'weaponProfileOverrides'
+                ? 'weapon'
+                : 'ability'
+          const candidates = entities.filter(entity => entity.kind === kind)
+          const variantOf = (entityId: CanonicalId): string | undefined =>
+            identitiesByEntity
+              .get(entityId)
+              ?.aliases.map(alias => /\|variant:(.+)$/.exec(alias.externalId)?.[1])
+              .find(Boolean)
+          const destination = candidates.some(entity => variantOf(entity.id))
+            ? candidates.find(
+                entity =>
+                  variantOf(entity.id) === (override.value as { variantFactionId?: string }).variantFactionId
+              )
+            : undefined
+          return {
+            path: reviewPath.replaceAll('\\', '/'),
+            field: override.field,
+            value: override.value,
+            ...(destination ? { canonicalEntityId: destination.id } : {}),
+          }
+        }),
         // A live-but-ignored source record intentionally generates no entity; bind the durable
         // review disposition so the independent comparison verifies the absence instead of
         // reporting a missing generated entity.

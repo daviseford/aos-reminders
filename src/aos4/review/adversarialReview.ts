@@ -354,7 +354,8 @@ const abilitySourceFidelityChecks = (
 const weaponSourceFidelityChecks = (
   source: Record<string, unknown>,
   weapon: Record<string, unknown> | undefined,
-  officialOverride: boolean
+  officialOverride: boolean,
+  officiallyAddedLabels: string[] = []
 ): FailedCheck[] => {
   if (!weapon) return [failed('secondary.source-weapon', 'Source weapon has no generated weapon entity')]
   const checks = [
@@ -377,6 +378,8 @@ const weaponSourceFidelityChecks = (
   if (Array.isArray(weapon.keywords)) {
     weapon.keywords.forEach((keyword, index) => {
       const value = isRecord(keyword) ? keyword.raw : keyword
+      if (officiallyAddedLabels.some(label => sourceComparableText(label) === sourceComparableText(value)))
+        return
       checks.push(...unsupportedGeneratedText(`weapon-keywords[${index}]`, abilityText, value))
     })
   }
@@ -545,7 +548,11 @@ const secondarySourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] =>
     return weaponSourceFidelityChecks(
       value,
       entityOfKind(entities, 'weapon'),
-      pair.comparisonPacket.cohortIds.includes('high-risk:official-override')
+      pair.comparisonPacket.cohortIds.includes('high-risk:official-override'),
+      // Officially added weapon abilities are checked against their official evidence instead.
+      reviewOverrideDestinations(pair, 'weaponProfileOverrides').flatMap(override =>
+        Array.isArray(override.addAbilityLabels) ? override.addAbilityLabels.map(String) : []
+      )
     )
   }
   if (recordKind === 'warscroll') return warscrollSourceFidelityChecks(pair, value, entities)
@@ -669,10 +676,21 @@ const evidenceReferences = (evidence: ReviewPacketSourceEvidence[]) =>
 
 const reviewOverrideDestinations = (
   pair: ReviewPacketPair,
-  field: 'abilityTextOverrides' | 'timingOverrides' | 'warscrollKeywordOverrides' | 'abilityKeywordOverrides'
+  field:
+    | 'abilityTextOverrides'
+    | 'timingOverrides'
+    | 'warscrollKeywordOverrides'
+    | 'abilityKeywordOverrides'
+    | 'weaponProfileOverrides'
 ): Record<string, unknown>[] =>
   pair.comparisonPacket.generatedDestinations.flatMap(destination =>
-    destination.field === field && isRecord(destination.value) ? [destination.value] : []
+    destination.field === field && isRecord(destination.value)
+      ? [
+          destination.canonicalEntityId
+            ? { ...destination.value, destinationEntityId: destination.canonicalEntityId }
+            : destination.value,
+        ]
+      : []
   )
 
 const officialOverrideEvidenceText = (
@@ -832,6 +850,134 @@ const officialEvidenceSupportsKeywordAddition = (officialText: string, keyword: 
   ).test(officialText)
 }
 
+/**
+ * `Change all instances of ‘Fyreslayers’ and Fyreslayers to ‘Khazalite Holds’ and Khazalite Holds
+ * respectively` (October 2026 Rules Updates page 33): a field is grounded when it is exactly the
+ * secondary record's own field with the instructed substitutions applied, and nothing else changed.
+ */
+const officialSubstitutionGrounds = (secondary: string | undefined, value: unknown, officialText: string) => {
+  if (!secondary || typeof value !== 'string') return false
+  const quote = `['‘’"]?`
+  const word = String.raw`[A-Za-z][A-Za-z' -]*?`
+  const substitutions = Array.from(
+    officialText.matchAll(
+      new RegExp(
+        String.raw`\bchange\s+all\s+instances\s+of\s+${quote}(${word})${quote}(?:\s+and\s+${quote}${word}${quote})?\s+to\s+${quote}(${word})${quote}(?=\s+and\s|\s+respectively\b|\s*[.�\r\n]|$)`,
+        'gi'
+      )
+    )
+  ).map(match => ({ from: match[1].trim(), to: match[2].trim() }))
+  // One instruction at a time: a page carries renames for other cards too (`... Fyreslayers to Grimmdron`).
+  // shortcut: the instruction is not tied to its card heading, upgrade if two renames of one word collide.
+  return substitutions.some(({ from, to }) => {
+    const substituted = secondary.replace(
+      new RegExp(String.raw`\b${escapeRegularExpression(from).replace(/\s+/g, String.raw`\s+`)}\b`, 'gi'),
+      to
+    )
+    return (
+      sourceComparableText(substituted) !== sourceComparableText(secondary) &&
+      sourceComparableText(substituted) === sourceComparableText(value)
+    )
+  })
+}
+
+const keywordPatternOf = (keyword: string): string =>
+  escapeRegularExpression(visibleSourceText(keyword)).replace(/\s+/g, String.raw`\s+`)
+const keywordEnd = String.raw`(?![A-Za-z0-9])`
+
+/**
+ * October 2026 Rules Updates phrasing: `Change the Champion keyword to Champion (1/10)` and
+ * `Replace the Fyreslayers and Magmadroth keywords with the Khazalite Holds and Grimmdron keywords`.
+ * The keyword before `to`/`with` is removed; the keyword after it is added.
+ */
+const officialEvidenceChangesKeyword = (
+  officialText: string,
+  keyword: string,
+  role: 'removed' | 'added'
+): boolean => {
+  const pattern = keywordPatternOf(keyword)
+  if (!pattern) return false
+  const span = String.raw`[^.!?\r]{0,80}?`
+  return role === 'removed'
+    ? new RegExp(String.raw`\bchange\s+the\s+${pattern}\s+keyword\s+to\b`, 'i').test(officialText) ||
+        new RegExp(
+          String.raw`\breplace\s+the\b${span}\b${pattern}${keywordEnd}${span}\bkeywords?\s+with\b`,
+          'i'
+        ).test(officialText)
+    : new RegExp(String.raw`\bchange\s+the\s+${span}\bkeyword\s+to\s+${pattern}${keywordEnd}`, 'i').test(
+        officialText
+      ) ||
+        new RegExp(
+          String.raw`\breplace\s+the\b${span}\bkeywords?\s+with\s+the\b${span}\b${pattern}${keywordEnd}${span}\bkeywords?\b`,
+          'i'
+        ).test(officialText)
+}
+
+const GRAND_ALLIANCES = ['ORDER', 'CHAOS', 'DEATH', 'DESTRUCTION']
+
+/**
+ * A reprinted warscroll card (October 2026 Legends Warscrolls) prints its faction keyword strip as a
+ * comma-separated run that starts with its grand alliance: `Order, Khazalite Holds, Duardin,
+ * Grimmdron`. A page that prints two cards interleaves their text but keeps each run unbroken. The
+ * strip grounds the change when it is built only from this warscroll's own keywords (its grand
+ * alliance and at least one more) and contains an added keyword, or lacks a removed one without
+ * that keyword printed straight after it.
+ */
+const officialReprintStrips = (
+  officialText: string,
+  warscrollKeywords: string[]
+): Array<{ items: string[]; after: string }> => {
+  const keywords = warscrollKeywords.map(String)
+  const alliances = keywords.filter(keyword => GRAND_ALLIANCES.includes(keyword.toUpperCase()))
+  const members = keywords
+    .filter(keyword => !GRAND_ALLIANCES.includes(keyword.toUpperCase()))
+    .sort((left, right) => right.length - left.length)
+    .map(keywordPatternOf)
+    .filter(Boolean)
+  if (!alliances.length || !members.length) return []
+  const member = `(?:${members.join('|')})${keywordEnd}`
+  return alliances.flatMap(alliance =>
+    Array.from(
+      officialText.matchAll(
+        new RegExp(String.raw`\b${keywordPatternOf(alliance)}(?:\s*,\s*${member})+`, 'gi')
+      )
+    ).map(match => ({
+      items: match[0].split(/\s*,\s*/).map(value => sourceComparableText(value)),
+      after: officialText.slice((match.index ?? 0) + match[0].length),
+    }))
+  )
+}
+
+const officialReprintSupportsKeyword = (
+  officialText: string,
+  warscrollKeywords: string[],
+  keyword: string,
+  role: 'removed' | 'added'
+): boolean => {
+  const target = sourceComparableText(keyword)
+  if (role === 'added') {
+    return officialReprintStrips(officialText, warscrollKeywords).some(({ items }) => items.includes(target))
+  }
+  // The removed keyword must not continue this strip's own comma run (`..., Mortisan`).
+  const printedAfter = new RegExp(
+    String.raw`^(?:\s*,\s*[^,.\r\n]{1,40}?)*?\s*,\s*${keywordPatternOf(keyword)}${keywordEnd}`,
+    'i'
+  )
+  return officialReprintStrips(officialText, warscrollKeywords).some(
+    ({ items, after }) => !items.includes(target) && !printedAfter.test(after)
+  )
+}
+
+/** `Add ‘Crit (Auto-wound)’ to the Piercing Scream weapon profile` (October 2026 Rules Updates). */
+const officialEvidenceAddsWeaponAbility = (officialText: string, label: string): boolean => {
+  const pattern = keywordPatternOf(label)
+  if (!pattern) return false
+  return new RegExp(
+    String.raw`\badd\s+['‘’"]?${pattern}['‘’"]?\s+to\s+the\b[^.!?\r]{0,80}?\bweapon\s+profile\b`,
+    'i'
+  ).test(officialText)
+}
+
 /** The official text prints the keyword in a `Keywords` strip, not merely somewhere in prose. */
 const officialEvidencePrintsKeyword = (officialText: string, keyword: string): boolean => {
   const keywordPattern = escapeRegularExpression(visibleSourceText(keyword)).replace(/\s+/g, '\\s+')
@@ -967,6 +1113,10 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
       field: 'warscrollKeywordOverrides' as const,
       value,
     })),
+    ...reviewOverrideDestinations(pair, 'weaponProfileOverrides').map(value => ({
+      field: 'weaponProfileOverrides' as const,
+      value,
+    })),
   ]
   if (!overrides.length) return []
 
@@ -983,11 +1133,17 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
     .map(evidence => (evidence.excerptRef ? (evidenceBlocks.get(evidence.excerptRef) ?? '') : ''))
     .join('\n')
   const entities = generatedCatalogEntities(pair)
-  const ability = entityOfKind(entities, 'ability')
-  const warscroll = entityOfKind(entities, 'warscroll')
   const checks: FailedCheck[] = []
 
   overrides.forEach(override => {
+    // A faction variant's override names the entity it changes (#1757); otherwise the packet's one
+    // entity of that kind is the destination.
+    const destinationOfKind = (kind: string) =>
+      typeof override.value.destinationEntityId === 'string'
+        ? entities.find(entity => entity.kind === kind && entity.id === override.value.destinationEntityId)
+        : entityOfKind(entities, kind)
+    const ability = destinationOfKind('ability')
+    const warscroll = destinationOfKind('warscroll')
     const officialSourceRecordIds: SourceRecordId[] = Array.isArray(override.value.officialSourceRecordIds)
       ? override.value.officialSourceRecordIds.map(value => String(value) as SourceRecordId)
       : []
@@ -1009,6 +1165,36 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
     }
     const officialText = officialOverrideEvidenceText(pair, officialSourceRecordIds, evidenceBlocks)
 
+    if (override.field === 'weaponProfileOverrides') {
+      const weapon = destinationOfKind('weapon')
+      const generated = Array.isArray(weapon?.keywords)
+        ? weapon.keywords.map(keyword => sourceComparableText(isRecord(keyword) ? keyword.raw : keyword))
+        : []
+      const added = Array.isArray(override.value.addAbilityLabels)
+        ? override.value.addAbilityLabels.map(String)
+        : []
+      added.forEach(label => {
+        if (!generated.includes(sourceComparableText(label))) {
+          checks.push(
+            failed(
+              'official-override.weapon-ability.add',
+              'Generated weapon lacks an officially added ability',
+              label
+            )
+          )
+        }
+        if (!officialEvidenceAddsWeaponAbility(officialText, label)) {
+          checks.push(
+            failed(
+              'official-override.weapon-ability.evidence',
+              'Official evidence does not support the reviewed weapon ability addition',
+              label
+            )
+          )
+        }
+      })
+      return
+    }
     if (override.field === 'abilityKeywordOverrides') {
       const keywords = Array.isArray(ability?.keywords) ? ability.keywords.map(String) : []
       const added = Array.isArray(override.value.add) ? override.value.add.map(String) : []
@@ -1087,10 +1273,12 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
         // inside a sentence).
         const fieldIsOfficialReplacement = (value: unknown) =>
           generatedTextIsGrounded(officialText, value, true)
+        const secondaryFieldsForSubstitution = secondaryAbilityTextFields(pair)
         Object.entries(override.value.text).forEach(([field, value]) => {
           if (
             fieldIsOfficialReplacement(value) ||
-            officialEvidencePrintsEdits(secondaryText, value, officialText)
+            officialEvidencePrintsEdits(secondaryText, value, officialText) ||
+            officialSubstitutionGrounds(secondaryFieldsForSubstitution[field], value, officialText)
           ) {
             return
           }
@@ -1103,7 +1291,16 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
             )
           )
         })
-        const generatedText = Object.values(override.value.text).map(String).join(' ')
+        // Rules order (trigger, declare, effect), the order the secondary record prints them in.
+        const fieldOrder = ['reactionTrigger', 'declare', 'effect']
+        const generatedText = Object.entries(override.value.text)
+          .sort(
+            ([left], [right]) =>
+              (fieldOrder.indexOf(left) + 1 || fieldOrder.length + 1) -
+              (fieldOrder.indexOf(right) + 1 || fieldOrder.length + 1)
+          )
+          .map(([, value]) => String(value))
+          .join(' ')
         const officialContributions = unmatchedGeneratedTokenRuns(secondaryText, generatedText)
         // An erratum that only deletes words adds none, so it contributes nothing new; it is still
         // official when the official evidence prints every resulting field whole.
@@ -1165,9 +1362,25 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
           )
         )
       }
+      // `Add ‘Reaction:’ to the start of the timing of ‘Rhythmic Hammering’` (October 2026 Rules
+      // Updates page 55): the raw timing is that prefix before the secondary record's own condition.
+      const officialPrefixGrounds = (raw: unknown): boolean => {
+        const match = /^(\S+:)\s*([\s\S]+)$/.exec(String(raw ?? ''))
+        const name = String(ability?.name ?? '')
+        if (!match || !name) return false
+        const condition = visibleSourceText(evidenceJsonValue(pair)?.value.conditionHtml ?? '')
+        return (
+          sourceComparableText(condition) === sourceComparableText(match[2]) &&
+          new RegExp(
+            String.raw`\badd\s+['‘’"]?${escapeRegularExpression(match[1])}['‘’"]?\s+to\s+the\s+start\s+of\s+the\s+timing\s+of\s+['‘’"]?${escapeRegularExpression(name).replace(/\s+/g, String.raw`\s+`)}`,
+            'i'
+          ).test(officialText)
+        )
+      }
       if (Array.isArray(override.value.timings)) {
         override.value.timings.forEach((timing, index) => {
           if (!isRecord(timing)) return
+          if (officialPrefixGrounds(timing.raw)) return
           checks.push(
             ...unsupportedGeneratedText(
               `official-override.ability-timing[${index}]`,
@@ -1186,7 +1399,7 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
             timing =>
               isRecord(timing) &&
               timing.kind === override.value.abilityKind &&
-              generatedTextIsGrounded(officialText, timing.raw, true)
+              (generatedTextIsGrounded(officialText, timing.raw, true) || officialPrefixGrounds(timing.raw))
           ))
       if (!kindIsGrounded) {
         checks.push(
@@ -1213,7 +1426,11 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
             )
           )
         }
-        if (!officialEvidenceSupportsKeywordAddition(officialText, keyword)) {
+        if (
+          !officialEvidenceSupportsKeywordAddition(officialText, keyword) &&
+          !officialEvidenceChangesKeyword(officialText, keyword, 'added') &&
+          !officialReprintSupportsKeyword(officialText, keywords, keyword, 'added')
+        ) {
           checks.push(
             failed(
               'official-override.warscroll-keyword.evidence',
@@ -1234,7 +1451,11 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
             )
           )
         }
-        if (!officialEvidenceSupportsKeywordRemoval(officialText, keyword)) {
+        if (
+          !officialEvidenceSupportsKeywordRemoval(officialText, keyword) &&
+          !officialEvidenceChangesKeyword(officialText, keyword, 'removed') &&
+          !officialReprintSupportsKeyword(officialText, keywords, keyword, 'removed')
+        ) {
           checks.push(
             failed(
               'official-override.warscroll-keyword.evidence',

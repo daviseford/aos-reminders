@@ -109,7 +109,9 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
         const context = AOS4_FULL_CATALOG.rulesContexts.find(candidate => candidate.id === id)!
         return `${context.mode}:${context.status}`
       })
+      // Corpus 2026-10-29 (#1757): its Chosen Axes and The Duardin Ascendant variants are Legends.
       expect(contexts.sort()).toEqual([
+        'other:legends',
         'spearhead:current',
         'standard:current',
         'standard:past-season',

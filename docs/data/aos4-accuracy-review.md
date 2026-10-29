@@ -12,7 +12,53 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-10-27` (issue #1757): the Wahapedia publish of
+The current revision is `aos4-corpus-2026-10-29` (issue #1757): the Games Workshop publications of
+2026-10-28 on top of `aos4-corpus-2026-10-27`. The manifest `accepted-2026-10-29.json` holds 249
+artifacts: the 12 new October publications replace 12 predecessors, 5 delisted documents with no
+successor leave, and two commit-pinned BSData Legends catalogues (Greywater Fastness, Lethis at
+`6909c140`) join. Its automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 249/249 |
+| Explicit non-material discovery entries | 11 |
+| Official battle-profile facts | 1,424/1,424 |
+| Final official/secondary reconciliation discrepancies | 399/399 |
+| Official profile-only facts | 0/0 |
+| Live audit source records | 21,233/21,233 |
+| Ignored-record dispositions (superseded + explicit) | 21,161/21,161 |
+| Live review pairs | 44,218/44,218 |
+| Independent outcomes | 88,436 pass; 0 finding; 0 cannot-verify |
+
+The source inventory binds fresh observations taken for this intake: a `discover-official`
+snapshot (164 sources, 8 explicit non-material dispositions), the eight pinned BSData files at
+`ea96eba3`, `5e52e2a5` and `6909c140`, and the Wahapedia navigation and exports (88 sources, 0
+inaccessible, 2026-10-29T14:14:49Z). Every accepted artifact matched. The certification is
+`aos4-corpus-2026-10-29-machine-r1` (campaign 2026-10-29T15:11:22Z), with no pairs reused.
+
+Four earlier campaigns of this revision (14:20:15Z, 14:43:07Z, 14:56:13Z and 15:04:26Z, 44, 8, 5
+and 1 findings) each rejected forms of official evidence the reviewer did not read yet. They
+are kept unchanged under `.cache/aos4/review/adversarial-aos4-corpus-2026-10-29*` on the
+preparing machine. Each was resolved by reading that form exactly, never by loosening a check:
+
+- `Change the X keyword to Y` and `Replace the X keywords with ...` errata change only the
+  keywords they name.
+- A reprinted Legends card grounds a keyword change by its own grand-alliance keyword strip, built
+  only from the card's own keywords. A removed keyword must not continue that strip's comma run.
+- `Add 'Crit (Auto-wound)' to the ... weapon profile` grounds that weapon label only.
+- `Add 'Reaction:' to the start of the timing of '<name>'` grounds that prefix on the named
+  ability's own printed condition only.
+- `Change all instances of X to Y` grounds a text field only when it is the secondary text with
+  that one rename applied and nothing else changed.
+- A Khazalite Holds faction variant's override is compared with the variant, never with the
+  Fyreslayers original it shares a source record with.
+
+One campaign also found a generator bug: Fyreslayers ability groups listed the Khazalite variant
+abilities. It was fixed before certification.
+
+### `aos4-corpus-2026-10-27` (superseded)
+
+The revision `aos4-corpus-2026-10-27` (issue #1757): the Wahapedia publish of
 2026-10-22 18:12:05 on top of `aos4-corpus-2026-10-26`. The manifest `accepted-2026-10-27.json`
 re-pins 84 of the 85 Wahapedia artifacts and keeps every official PDF and BSData catalogue. Its
 automated review is complete:
@@ -42,7 +88,7 @@ two of the four reserve-condition overrides because each official page prints th
 from the card and the packet excerpt only covered the card. Packet preparation now also centres the
 excerpt on each line an ability-text override adds, and the next campaign accepted all four.
 
-The current certification is `aos4-corpus-2026-10-27-machine-r3` (campaign 2026-10-28T02:26:26Z),
+Its last certification was `aos4-corpus-2026-10-27-machine-r3` (campaign 2026-10-28T02:26:26Z),
 reusing 27,518 unchanged pairs from `machine-r2` against the same source inventory. It adds the
 Spearhead battle-trait rules Wahapedia prints as titled prose instead of ability cards (#2095):
 Temptations of Slaanesh, the Heartflayer Troupe's Blood Rites, Tides of Death, Cycle of Corruption

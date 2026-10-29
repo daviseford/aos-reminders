@@ -57,7 +57,18 @@ const named = (kind: string, name: string) =>
   AOS4_CATALOG.entities.find(entity => entity.kind === kind && entity.name === name)!
 const fyreslayers = named('faction', 'Fyreslayers')
 const gotrek = named('content-group', 'Gotrek Gurnisson')
-const lofnirDrothkeepers = named('content-group', 'Lofnir Drothkeepers')
+// Khazalite Holds has its own Lofnir Drothkeepers since corpus 2026-10-29 (#1757): take the Fyreslayers one.
+const lofnirDrothkeepers = AOS4_CATALOG.entities.find(
+  entity =>
+    entity.kind === 'content-group' &&
+    entity.name === 'Lofnir Drothkeepers' &&
+    AOS4_CATALOG.relationships.some(
+      relationship =>
+        relationship.kind === 'offers' &&
+        relationship.from === fyreslayers.id &&
+        relationship.to === entity.id
+    )
+)!
 
 describe('a saved Fyreslayers army that kept Gotrek Gurnisson', () => {
   const flush = () => new Promise(resolve => setTimeout(resolve, 0))

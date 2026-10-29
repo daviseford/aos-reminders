@@ -16,44 +16,90 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-10-27 snapshot is defined by:
+The accepted 2026-10-29 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-10-27.json` | the 2026-10-26 manifest with 84 of its 85 Wahapedia artifacts re-pinned to the 2026-10-22 18:12:05 publish (12 of 13 exports and all 72 reviewed pages; `Factions.csv` unchanged); 161 official PDFs unchanged; and the six commit-pinned BSData catalogues from the unmerged `khazalite-holds` branch (#2087): `Khazalite Holds - Library.cat` and `Khazalite Holds.cat` at `ea96eba3`, `Khazalite Holds - Fyrd of Fyrepeak.cat`, `Khazalite Holds - Throngankor Alliance.cat`, `Lores.cat` and `Regiments of Renown.cat` at `5e52e2a5`, pinned by SHA-256 as provisional community transcriptions |
-| `data/aos4/reviews/corpus-2026-10-27.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-10-29.json` | the 2026-10-27 manifest with the twelve official PDFs Games Workshop re-published on 2026-10-28 swapped in place (publication identity continuity), the five delisted official documents with no successor removed (Battle Profiles - Ogor Mawtribes and - Sons of Behemat, the February 2025 Ogor Mawtribes and Sons of Behemat faction packs, Legends Regiment of Renown - Heroes of the Jade Abbey), and two BSData Cities of Sigmar Legends catalogues pinned at `main` `6909c140` (provisional community transcriptions); 249 artifacts |
+| `data/aos4/reviews/corpus-2026-10-29.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs; `retired: true` keeps a rule the source no longer prints registered without ever resolving to it |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-10-27-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-10-27-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-10-29-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-10-29-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 29 decoded source factions: 28 playable armies (Khazalite Holds in matched play and Spearhead,
   #2087) plus the Endless Spells container
-- 1,362 warscrolls and 1,054 battle profiles
-- 5,443 abilities
-- 2,363 weapons
-- 1,604 content groups
-- 252 source artifacts and 21,158 live source records
+- 1,367 warscrolls and 1,059 battle profiles
+- 5,461 abilities
+- 2,373 weapons
+- 1,607 content groups
+- 249 source artifacts and 21,224 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
-- 4 Khazalite Holds BSData records explicitly ignored as source-blocked (#2087): Grimnir's Wrath
-  Will Burn Bright!, Warrior-kings and Transport Duardin (translated from the French edition), and
-  Rhythmic Hammering (Runewright), whose condition prints no timing label and which no official
-  document prints
+- 3 Khazalite Holds BSData records explicitly ignored as source-blocked (#2087): Grimnir's Wrath
+  Will Burn Bright!, Warrior-kings and Transport Duardin (translated from the French edition);
+  Rhythmic Hammering (Runewright) ships again since corpus 2026-10-29, when the October 2026 Rules
+  Updates (page 55) printed its missing Reaction label
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,370 extracted GW battle-profile facts: 1,054 applied to runtime, no profile-only gap (The
-  Emberwatch, the last one, ships from Wahapedia since corpus 2026-10-27), 314 structured
+- 1,385 extracted GW battle-profile facts: 1,069 applied to runtime, no profile-only gap (The
+  Emberwatch, the last one, ships from Wahapedia since corpus 2026-10-27; the 15 White Dwarf
+  Legends rows the October 2026 core document adds all resolve, corpus 2026-10-29), 314 structured
   references, and 2 superseded (#2087: Battle Profiles - Khazalite
   Holds (October 2026) reprints the Fjori’s Flamebearers and Gotrek Gurnisson regiment rows, so the
   September 2026 core rows give way to it); text the core Battle Profiles strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
-  and 34 unit facts record their struck notes as `struckNotes`)
+  and 34 unit facts recorded their struck notes as `struckNotes` until the October 2026
+  re-publication dropped those notes outright, corpus 2026-10-29)
+- the 2026-10-29 Games Workshop update (#1757): the Rules Radar alarm of 2026-10-29 (12 new and
+  17 removed publications, all of Games Workshop's 28 October 2026 re-publication). Twelve
+  documents re-pinned with publication identity continuity and their review citations re-keyed
+  page by page (text-verified; the Spearheads now print two warscrolls per page and the Rules
+  Updates re-flowed from page 27). Five delisted documents with no successor were unpinned; the
+  October core Battle Profiles reprints every Sons of Behemat supplement row, and the Okar's
+  Torrbad and Urrgar's Maulerguts regiments keep only their Regiments of Renown - Ogor Mawtribes
+  anchor. The Stumblefoot Gargant entries drop their Rules Updates citation (October no longer
+  prints the deleted row or its erratum). The extractor now orders a cell by printed line (the
+  October changed-row badge lifts part of a wrapped name), strips the badge glyph, and keeps
+  footnotes and the White Dwarf `Issue` column out of unit names; the September, Khazalite Holds and
+  supplement extractions are byte-identical. Applied: Verminlord Corruptor 310 to 260 points; five
+  Spearhead regiment abilities gain Once Per Turn (Army); Champion (1/10) or (1/8) on Gutter Runners,
+  Ydrilan Riverblades, Pyregheists and The Twistweald; Beastclaw on the seasonal Frostlord on
+  Thundertusk; Bomb Rats, Eat 'Em Alive and Feed the Maw text; Crit (Auto-wound) on the Tomb Banshee
+  and Thorns of the Briar Queen Piercing Scream and the Headsmen's Curse Tool of Judgement (new
+  `addAbilityLabels` on weapon profile overrides); the Runewright's Rhythmic Hammering as a reaction
+  (Rules Updates page 55); the Khazalite Holds copies of the Scourge of Aqshy Vulkyn Gifts, Aureate
+  Hide and Auric Runeson keywords (the Fyreslayers copies stay unchanged per the page 25 designer's
+  note and the owner's additive decision); and keyword removals the October Legends Warscrolls print
+  without a Rules Updates entry (Kainan's Reapers Mortisan; Gorlok Blackpowder and Hrothgorn
+  Mantrapper Ogor). The October core Battle Profiles adds a White Dwarf Legends page: ten units the
+  runtime offered in matched play moved to the Legends context (Hamilcar Bear-Eater, The Grand
+  Necromystic, Dakkbad Grotkicker, the three Khul heroes, four Pyrofane units), and five it did not
+  carry were added in Legends only (Grombrindal adopted from the pinned Wahapedia Cities of Sigmar
+  collection; Greycap Fusiliers, Spirit of the Hands, Lethisian Consecrators and Raven Priest of
+  Morrda from BSData Legends catalogues through the new `context: 'legends'` community unit), so the
+  profile-only ledger stays empty. Their Army of Renown-only and Khul mutual-exclusion notes ship as
+  official notes; the product does not enforce army construction. Saved armies keep these
+  selections: the existing overlay-flag derivation (#1815) marks a stored or loaded army Legends
+  when it selects them, so their reminders keep showing (verified in a browser against the base
+  build); a cloud army is only rewritten when the player updates it. The October documents
+  re-target Fyreslayers content to Khazalite Holds; under the owner's additive decision both ship:
+  24 Regiments of Renown also offered to Khazalite Holds (`sharedFactionContent`, now honoured for
+  regiments), and reviewed faction variants (`factionVariants`, `variantAbilities`) give Khazalite
+  Holds its own Lofnir Drothkeepers (Skilled Drothwranglers and Breath of Vulcatrix rewritten,
+  Blazing Vengeance added, Armies of Renown pages 3-4), The Duardin Ascendant (Rules Updates page
+  33) and The Chosen Axes (Legends Warscrolls page 18) with their own ids, while the Fyreslayers
+  originals keep theirs. Battle-profile precedence now follows publication recency, so the
+  28 October core rows (Gotrek Gurnisson 320) supersede the 14 October Khazalite Holds supplement's.
+  The Legends pages' roster-option tables are extracted as structured references (27 Legends picks,
+  and the 12 White Dwarf Custom Rig and Ironweld Innovation rows no secondary carries); Army of
+  Renown regiment options (Matriarch's Mob, Stomper Tribe) stay outside the product's scope like
+  every Army of Renown's roster and regiment options. Certified as `aos4-corpus-2026-10-29-machine-r1`
 - the 2026-10-27 Wahapedia refresh (#1757), on top of 2026-10-26: the Rules Radar alarm of
   2026-10-27 (`Last_update.csv` `b82f1c68...` -> `cc6be68c...`, 2026-10-22 18:12:05). 84 of 85
   Wahapedia artifacts moved. At page level the change is additive: three new Spearhead armies

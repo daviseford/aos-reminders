@@ -136,9 +136,15 @@ const secondaryPair = (
   cohortIds: string[] = [],
   officialOverride?: {
     field:
-      'abilityTextOverrides' | 'timingOverrides' | 'warscrollKeywordOverrides' | 'abilityKeywordOverrides'
+      | 'abilityTextOverrides'
+      | 'timingOverrides'
+      | 'warscrollKeywordOverrides'
+      | 'abilityKeywordOverrides'
+      | 'weaponProfileOverrides'
     value: Record<string, unknown>
     excerpt: string
+    /** The entity a faction variant's override is bound to (#1757). */
+    canonicalEntityId?: string
   }
 ): ReviewPacketPair => {
   const sourceEvidence = [
@@ -204,6 +210,9 @@ const secondaryPair = (
               path: 'data/aos4/reviews/custom-review.json',
               field: officialOverride.field,
               value: officialOverride.value,
+              ...(officialOverride.canonicalEntityId
+                ? { canonicalEntityId: officialOverride.canonicalEntityId as never }
+                : {}),
             },
           ]
         : []),
@@ -1533,5 +1542,295 @@ describe('official ability overrides the September 2026 errata need (#2060)', ()
         ])
       )
     ).toEqual(['official-override.warscroll-keyword.evidence'])
+  })
+})
+
+describe('October 2026 official evidence forms (#1757)', () => {
+  const findingFields = (reviewPair: ReviewPacketPair) =>
+    assessAdversarialComparison(reviewPair).findings.map(finding => finding.subject.field)
+  const keywordPair = (keywords: string[], change: Record<string, unknown>, excerpt: string) =>
+    secondaryPair(
+      'warscroll',
+      { name: 'Fixture Warscroll' },
+      { kind: 'warscroll', name: 'Fixture Warscroll', keywords },
+      ['high-risk:official-override'],
+      {
+        field: 'warscrollKeywordOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          ...change,
+          reason: 'October 2026.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt,
+      }
+    )
+  const evidenceFindings = (reviewPair: ReviewPacketPair) =>
+    findingFields(reviewPair).filter(field => field === 'official-override.warscroll-keyword.evidence')
+
+  it('reads `Change the X keyword to Y` as removing X and adding Y, and nothing else', () => {
+    const change = { remove: ['CHAMPION'], add: ['CHAMPION (1/10)'] }
+    const kept = ['CHAMPION (1/10)', 'INFANTRY']
+    expect(
+      evidenceFindings(
+        keywordPair(kept, change, 'GUTTER RUNNERS Change the Champion keyword to Champion (1/10).')
+      )
+    ).toEqual([])
+    // Negative control: the page mentions both keywords but instructs no change.
+    expect(
+      evidenceFindings(
+        keywordPair(kept, change, 'GUTTER RUNNERS Champion and Champion (1/10) units appear here.')
+      )
+    ).toHaveLength(2)
+  })
+
+  it('reads `Replace the X keywords with the Y keywords` as removing X only', () => {
+    const excerpt =
+      'Replace the Fyreslayers and Magmadroth keywords with the Khazalite Holds and Grimmdron keywords.'
+    expect(
+      evidenceFindings(keywordPair(['GRIMMDRON', 'KHAZALITE HOLDS'], { remove: ['MAGMADROTH'] }, excerpt))
+    ).toEqual([])
+    // Negative control: a keyword named only after `with` is never removed by it.
+    expect(evidenceFindings(keywordPair(['MAGMADROTH'], { remove: ['GRIMMDRON'] }, excerpt))).toHaveLength(1)
+  })
+
+  it('grounds a reprinted card by its own grand-alliance keyword strip', () => {
+    const chosenAxes = ['CHAMPION', 'DUARDIN', 'GRIMMDRON', 'INFANTRY', 'KHAZALITE HOLDS', 'ORDER']
+    // Two cards share the page and their strips run together, as October Legends page 18 prints them.
+    const page18 =
+      '• LEGENDS WARSCROLL • Order, Daughters of Khaine, Aelf Order, Khazalite Holds, Duardin,\nGrimmdron RANGED WEAPONS'
+    expect(
+      evidenceFindings(
+        keywordPair(chosenAxes, { remove: ['FYRESLAYERS'], add: ['KHAZALITE HOLDS', 'GRIMMDRON'] }, page18)
+      )
+    ).toEqual([])
+    // Negative controls: the keyword printed only in prose, and a strip that still prints the removed keyword.
+    expect(
+      evidenceFindings(
+        keywordPair(chosenAxes, { add: ['KHAZALITE HOLDS'] }, 'These Khazalite Holds warriors fight.')
+      )
+    ).toHaveLength(1)
+    expect(
+      evidenceFindings(
+        keywordPair(
+          ['DEATH', 'OSSIARCH BONEREAPERS'],
+          { remove: ['MORTISAN'] },
+          'Death, Ossiarch Bonereapers, Mortisan MELEE WEAPONS'
+        )
+      )
+    ).toHaveLength(1)
+    expect(
+      evidenceFindings(
+        keywordPair(
+          ['DEATH', 'OSSIARCH BONEREAPERS'],
+          { remove: ['MORTISAN'] },
+          'Death, Ossiarch Bonereapers Death, Soulblight Gravelords'
+        )
+      )
+    ).toEqual([])
+    // A neighbouring card's run (`Gloomspite Gitz, Moonclan`) is not this card's continuation (page 42).
+    expect(
+      evidenceFindings(
+        keywordPair(
+          ['DESTRUCTION', 'HERO', 'INFANTRY', 'OGOR MAWTRIBES', 'UNIQUE'],
+          { remove: ['OGOR'] },
+          'Destruction, Gloomspite Gitz, Moonclan Destruction, Ogor Mawtribes RANGED WEAPONS'
+        )
+      )
+    ).toEqual([])
+    expect(
+      evidenceFindings(
+        keywordPair(
+          ['DESTRUCTION', 'OGOR MAWTRIBES'],
+          { remove: ['OGOR'] },
+          'Destruction, Ogor Mawtribes, Gutbuster, Ogor RANGED WEAPONS'
+        )
+      )
+    ).toHaveLength(1)
+  })
+
+  it('accepts an added weapon ability only where the erratum instructs it', () => {
+    const weaponPair = (excerpt: string) =>
+      secondaryPair(
+        'warscroll-weapon',
+        { name: 'Piercing Scream', weaponType: 'RANGED', abilitiesHtml: 'Shoot in Combat', range: '10"' },
+        {
+          kind: 'weapon',
+          name: 'Piercing Scream',
+          weaponType: 'ranged',
+          keywords: [
+            { kind: 'shoot-in-combat', raw: 'Shoot in Combat' },
+            { kind: 'crit-auto-wound', raw: 'Crit (Auto-wound)' },
+          ],
+        },
+        ['high-risk:official-override'],
+        {
+          field: 'weaponProfileOverrides',
+          value: {
+            sourceRecordId: SECONDARY_SOURCE_ID,
+            profile: {},
+            addAbilityLabels: ['Crit (Auto-wound)'],
+            reason: 'October 2026.',
+            officialSourceRecordIds: [SOURCE_ID],
+          },
+          excerpt,
+        }
+      )
+    expect(
+      findingFields(weaponPair('Add ‘Crit (Auto-wound)’ to the Piercing Scream weapon profile.'))
+    ).toEqual([])
+    // Negative control: printing the label is not an instruction to add it.
+    expect(findingFields(weaponPair('Piercing Scream: Crit (Auto-wound) is described here.'))).toContain(
+      'official-override.weapon-ability.evidence'
+    )
+  })
+
+  it('grounds an instructed timing prefix only on the named ability and its own condition', () => {
+    const condition = 'You declared a Spell ability from the Reverberations of the Runes for this unit'
+    const timingPair = (name: string, excerpt: string, raw = `Reaction: ${condition}`) =>
+      secondaryPair(
+        'faction-ability',
+        {
+          name,
+          conditionHtml: condition,
+          descriptionHtml: '<b>Effect:</b> Make a roll.',
+          keywordsHtml: '',
+          isReaction: false,
+        },
+        {
+          kind: 'ability',
+          name,
+          abilityKind: 'reaction',
+          keywords: [],
+          text: { effect: 'Make a roll.', reactionTrigger: condition },
+          timings: [{ kind: 'reaction', perspective: 'neutral', raw, window: { kind: 'reaction' } }],
+        },
+        ['high-risk:official-override'],
+        {
+          field: 'timingOverrides',
+          value: {
+            sourceRecordId: SECONDARY_SOURCE_ID,
+            abilityKind: 'reaction',
+            timings: [{ kind: 'reaction', perspective: 'neutral', raw, window: { kind: 'reaction' } }],
+            reason: 'October 2026.',
+            officialSourceRecordIds: [SOURCE_ID],
+          },
+          excerpt,
+        }
+      )
+    const instruction = 'Add ‘Reaction:’ to the start of the timing of ‘Rhythmic Hammering’.'
+    const timingFindings = (reviewPair: ReviewPacketPair) =>
+      findingFields(reviewPair).filter(field => /ability-timing|ability-kind/.test(field))
+    expect(timingFindings(timingPair('Rhythmic Hammering', instruction))).toEqual([])
+    // Negative controls: another ability's instruction, and a raw timing that departs from the condition.
+    expect(timingFindings(timingPair('Molten Runes', instruction)).length).toBeGreaterThan(0)
+    expect(
+      timingFindings(timingPair('Rhythmic Hammering', instruction, 'Reaction: You declared any ability'))
+        .length
+    ).toBeGreaterThan(0)
+  })
+
+  it('compares a faction variant’s override with the variant, never the original', () => {
+    const original = {
+      id: 'ability:original',
+      kind: 'ability',
+      name: 'SKILLED DROTHWRANGLERS',
+      abilityKind: 'passive',
+      keywords: [],
+      text: { effect: 'Old.' },
+      timings: [],
+    }
+    const variant = {
+      ...original,
+      id: 'ability:variant',
+      text: { effect: 'The timing of Packdroth changes.' },
+    }
+    const variantPair = (canonicalEntityId?: string) =>
+      secondaryPair(
+        'faction-ability',
+        {
+          name: 'SKILLED DROTHWRANGLERS',
+          conditionHtml: 'Passive',
+          descriptionHtml: '<b>Effect:</b> Old.',
+          keywordsHtml: '',
+        },
+        [original, variant],
+        ['high-risk:official-override'],
+        {
+          field: 'abilityTextOverrides',
+          value: {
+            sourceRecordId: SECONDARY_SOURCE_ID,
+            variantFactionId: 'GW-KHZ',
+            text: { effect: 'The timing of Packdroth changes.' },
+            reason: 'October 2026.',
+            officialSourceRecordIds: [SOURCE_ID],
+          },
+          excerpt: 'Effect: The timing of Packdroth changes.',
+          canonicalEntityId,
+        }
+      )
+    const destination = (reviewPair: ReviewPacketPair) =>
+      findingFields(reviewPair).filter(field => field === 'official-override.ability-text.destination')
+    expect(destination(variantPair('ability:variant'))).toEqual([])
+    // Negative control: unbound, the override is compared with the first (original) entity and fails.
+    expect(destination(variantPair())).toEqual(['official-override.ability-text.destination'])
+  })
+})
+
+describe('instructed keyword substitutions in ability text (#1757)', () => {
+  const secondary =
+    'Friendly DUARDIN ASCENDANT units are unified while they are wholly within 12" of at least 1 FYRESLAYERS, 1 KHARADRON OVERLORDS and 1 CITIES OF SIGMAR DUARDIN unit.'
+  const substitutionPair = (effect: string, excerpt: string) =>
+    secondaryPair(
+      'faction-ability',
+      {
+        name: 'DUARDRAZHAL',
+        conditionHtml: 'Passive',
+        descriptionHtml: `<b>Effect:</b> ${secondary}`,
+        keywordsHtml: '',
+      },
+      {
+        id: 'ability:variant',
+        kind: 'ability',
+        name: 'DUARDRAZHAL',
+        abilityKind: 'passive',
+        keywords: [],
+        text: { effect },
+        timings: [{ kind: 'passive', perspective: 'neutral', raw: 'Passive', window: { kind: 'always' } }],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'abilityTextOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          variantFactionId: 'GW-KHZ',
+          text: { effect },
+          reason: 'October 2026.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt,
+        canonicalEntityId: 'ability:variant',
+      }
+    )
+  // Page 33 also renames Fyreslayers to Grimmdron for another card; each instruction applies alone.
+  const instruction =
+    'Change all instances of Fyreslayers to Grimmdron � ARMY OF RENOWN, THE DUARDIN ASCENDANT Change all instances of ‘Fyreslayers’ and Fyreslayers to ‘Khazalite Holds’ and Khazalite Holds respectively.'
+  const textFindings = (reviewPair: ReviewPacketPair) =>
+    assessAdversarialComparison(reviewPair)
+      .findings.map(finding => finding.subject.field)
+      .filter(field => /ability-text/.test(field))
+  const substituted = secondary.replace('FYRESLAYERS', 'KHAZALITE HOLDS')
+
+  it('grounds a field that is exactly the secondary text with the instructed substitution', () => {
+    expect(textFindings(substitutionPair(substituted, instruction))).toEqual([])
+  })
+
+  it('rejects an extra change beside the substitution, and a substitution with no instruction', () => {
+    expect(
+      textFindings(substitutionPair(substituted.replace('12"', '18"'), instruction)).length
+    ).toBeGreaterThan(0)
+    expect(
+      textFindings(substitutionPair(substituted, 'THE DUARDIN ASCENDANT is a Legends Army of Renown.')).length
+    ).toBeGreaterThan(0)
   })
 })

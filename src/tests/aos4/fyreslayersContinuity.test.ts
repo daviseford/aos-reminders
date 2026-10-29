@@ -83,12 +83,80 @@ describe('Fyreslayers armies saved before the Khazalite Holds intake (#2087)', (
     const shared = Array.from(offered(fyreslayers.id)).filter(
       id => offered(khazalite.id).has(id) && !everyArmy.has(id)
     )
-    // Only the Magmic Invocations lore and its three manifestations are offered to both.
+    // The Magmic Invocations lore and its three manifestations are offered to both, and since corpus
+    // 2026-10-29 (#1757) the Regiments of Renown whose October 2026 inclusion lists name Khazalite
+    // Holds (Fyreslayers keeps its offer under the owner's additive decision).
     expect(shared.map(id => AOS4_CATALOG.entities.find(entity => entity.id === id)!.name).sort()).toEqual([
+      'Enforcers of the Tithe',
+      'Exile Scavengers',
       'Magmic Invocations',
       'Molten Infernoth',
+      'Nurgle’s Gift',
       'Runic Fyrewall',
+      'The Blacktalons',
+      'The Horizon Seekers',
+      'Valnir’s Stormwing',
       'Zharrgron Flame-spitter',
     ])
+  })
+})
+
+describe('Khazalite Holds faction variants beside the Fyreslayers originals (#1757)', () => {
+  const offeredGroup = (factionName: string, name: string) => {
+    const faction = AOS4_CATALOG.entities.find(
+      entity => entity.kind === 'faction' && entity.name === factionName
+    )!
+    return AOS4_CATALOG.entities.find(
+      entity =>
+        entity.name === name &&
+        AOS4_CATALOG.relationships.some(
+          relationship =>
+            relationship.kind === 'offers' &&
+            relationship.from === faction.id &&
+            relationship.to === entity.id
+        )
+    )!
+  }
+  const abilitiesUnder = (groupId: string): Array<{ name: string; text: string }> => {
+    const children = (id: string): string[] =>
+      AOS4_CATALOG.relationships
+        .filter(relationship => relationship.kind === 'includes' && relationship.from === id)
+        .flatMap(relationship => [relationship.to as string, ...children(relationship.to as string)])
+    return children(groupId).flatMap(id => {
+      const entity = AOS4_CATALOG.entities.find(candidate => candidate.id === id)
+      return entity?.kind === 'ability' ? [{ name: entity.name, text: JSON.stringify(entity.text) }] : []
+    })
+  }
+
+  it('keeps the Fyreslayers Lofnir Drothkeepers unchanged and gives Khazalite Holds the October rules', () => {
+    const fyreslayers = abilitiesUnder(offeredGroup('Fyreslayers', 'Lofnir Drothkeepers').id)
+    const khazalite = abilitiesUnder(offeredGroup('Khazalite Holds', 'Lofnir Drothkeepers').id)
+    expect(offeredGroup('Fyreslayers', 'Lofnir Drothkeepers').id).toBe(
+      'content-group:755f54da-1cf3-5685-b462-b4aed3e7a67b'
+    )
+    expect(fyreslayers.map(ability => ability.name)).not.toContain('BLAZING VENGEANCE')
+    expect(fyreslayers.find(ability => ability.name === 'SKILLED DROTHWRANGLERS')!.text).toMatch(
+      /hitched a lift/
+    )
+    expect(fyreslayers.find(ability => ability.name === 'BREATH OF VULCATRIX')!.text).toMatch(
+      /DROTHKEEPERS MAGMADROTH/
+    )
+    // Armies of Renown (October 2026) pages 3-4.
+    expect(khazalite.map(ability => ability.name)).toContain('BLAZING VENGEANCE')
+    expect(khazalite.find(ability => ability.name === 'SKILLED DROTHWRANGLERS')!.text).toMatch(/Packdroth/)
+    expect(khazalite.find(ability => ability.name === 'BREATH OF VULCATRIX')!.text).toMatch(
+      /DROTHKEEPERS MONSTER/
+    )
+    expect(khazalite).toHaveLength(fyreslayers.length + 1)
+  })
+
+  it('words each faction’s The Duardin Ascendant for that faction', () => {
+    const duardrazhal = (factionName: string) =>
+      abilitiesUnder(offeredGroup(factionName, 'The Duardin Ascendant').id).find(
+        ability => ability.name === 'DUARDRAZHAL'
+      )!.text
+    expect(duardrazhal('Fyreslayers')).toMatch(/at least 1 FYRESLAYERS/)
+    // Rules Updates (October 2026) page 33.
+    expect(duardrazhal('Khazalite Holds')).toMatch(/at least 1 KHAZALITE HOLDS/)
   })
 })

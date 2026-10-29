@@ -100,9 +100,17 @@ const BATTLETOME_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legend
   { faction: 'Sylvaneth', name: 'Soulpod Guardians' },
 ]
 
+// Corpus 2026-10-29 (#1757): reviewed faction variants give Khazalite Holds its own copies of two
+// Fyreslayers Armies of Renown the October 2026 publications re-target; Fyreslayers keeps the
+// originals. A variant reuses its original's classification entry, so it adds no review entry.
+const FACTION_VARIANT_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legends?: true }> = [
+  { faction: 'Khazalite Holds', name: 'Lofnir Drothkeepers' },
+  { faction: 'Khazalite Holds', name: 'The Duardin Ascendant', legends: true },
+]
 const ALL_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legends?: true }> = [
   ...OFFICIAL_ARMIES_OF_RENOWN,
   ...BATTLETOME_ARMIES_OF_RENOWN,
+  ...FACTION_VARIANT_ARMIES_OF_RENOWN,
 ]
 
 const REPLACED_GROUP_TYPES = new Set([
@@ -143,7 +151,9 @@ describe('Armies of Renown as a top-level replacing choice', () => {
         evidenceTier?: string
       }>
     }
-    expect(review.armiesOfRenown).toHaveLength(ALL_ARMIES_OF_RENOWN.length)
+    expect(review.armiesOfRenown).toHaveLength(
+      ALL_ARMIES_OF_RENOWN.length - FACTION_VARIANT_ARMIES_OF_RENOWN.length
+    )
     review.armiesOfRenown.forEach(entry => {
       expect(entry.reason).toMatch(/Arm(y|ies) of Renown/)
       if (entry.evidenceTier === undefined) {

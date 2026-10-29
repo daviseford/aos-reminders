@@ -92,6 +92,12 @@ export interface BsDataCommunitySourceInput {
    * spells differently (BSData "Vulkyn Flameseekers (Scourge of Aqshy)", #1757).
    */
   seasonalOfficialNamesBySection?: Record<string, string>
+  /**
+   * Catalogue sections anchored on an official Warhammer Legends unit fact and offered in the
+   * Legends context only (the October 2026 Battle Profiles White Dwarf page, #1757). The official
+   * row's faction is `Warhammer Legends`, so the reviewed `faction` names the offering army.
+   */
+  legendsSections?: string[]
 }
 
 export interface BsDataMergeResult {
@@ -708,11 +714,15 @@ export const mergeBsDataWarscrolls = (
           }
         } else {
           const seasonalName = source.seasonalOfficialNamesBySection?.[fact.section]
+          const legends = source.legendsSections?.includes(fact.section) ?? false
+          if (legends && (seasonalName || !source.faction)) {
+            throw new Error(`BSData Legends warscroll ${fact.name} needs a reviewed offering faction`)
+          }
           const units = officialUnits.filter(
             candidate =>
-              candidate.context === (seasonalName ? 'seasonal' : 'standard') &&
+              candidate.context === (legends ? 'legends' : seasonalName ? 'seasonal' : 'standard') &&
               canonical(candidate.name) === canonical(seasonalName ?? fact.name) &&
-              (!source.faction || canonical(candidate.faction) === canonical(source.faction))
+              (legends || !source.faction || canonical(candidate.faction) === canonical(source.faction))
           )
           if (!units.length) {
             // Legacy three-tier gate (superseded 2026-08-18, #1757); wording flattens with the schema.
@@ -775,9 +785,11 @@ export const mergeBsDataWarscrolls = (
           // (issue #1880). Roster-option anchors are never official unit facts: do not count them.
           matchedChecksums.add(official.factChecksum)
         }
-        const factionId = factionIdByName.get(canonical(official.faction))
+        const legendsSection = source.legendsSections?.includes(fact.section) ?? false
+        const offeringFaction = legendsSection ? source.faction! : official.faction
+        const factionId = factionIdByName.get(canonical(offeringFaction))
         if (!factionId) {
-          throw new Error(`BSData warscroll ${fact.name} names an unknown faction ${official.faction}`)
+          throw new Error(`BSData warscroll ${fact.name} names an unknown faction ${offeringFaction}`)
         }
         const sourceUrl = `${source.artifact.finalUrl}#${fact.section}`
         if (fact.name !== official.name) {
@@ -798,10 +810,11 @@ export const mergeBsDataWarscrolls = (
             officialSourceRecordId: official.sourceRecordId,
           })
         }
-        const contextKinds: NonNullable<WahapediaRecordMeta['rulesContextKinds']> = source
-          .seasonalOfficialNamesBySection?.[fact.section]
-          ? ['seasonal']
-          : ['standard']
+        const contextKinds: NonNullable<WahapediaRecordMeta['rulesContextKinds']> = legendsSection
+          ? ['legends']
+          : source.seasonalOfficialNamesBySection?.[fact.section]
+            ? ['seasonal']
+            : ['standard']
         const identityFor = (recordSourceId: SourceRecordId): SourceRecordId => {
           // Identity aliases must survive BSData refreshes: strip the artifact checksum and key the
           // alias on the repository and catalogue section instead.

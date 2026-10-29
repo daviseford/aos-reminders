@@ -27,6 +27,11 @@ export interface WahapediaRecordMeta {
   rulesContextKinds?: Array<'standard' | 'seasonal' | 'spearhead' | 'legends' | 'historical'>
   identitySourceRecordId?: SourceRecordId
   officialSourceRecordIds?: SourceRecordId[]
+  /**
+   * Set on a reviewed faction variant (#1757): a copy of this record another faction offers with
+   * its own identity, so overrides scoped to that faction never touch the original record.
+   */
+  variantFactionId?: string
 }
 
 export interface WahapediaFactionRecord {

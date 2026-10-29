@@ -1,3 +1,4 @@
+import { applyFactionVariants } from './factionVariants'
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -470,6 +471,7 @@ const extractCommunityWarscrollFacts = async (
         unit.context === 'seasonal' ? [[unit.section, unit.officialName ?? unit.name] as const] : []
       )
     )
+    const legendsSections = source.units.filter(unit => unit.context === 'legends').map(unit => unit.section)
     inputs.push({
       artifact: source.artifact,
       repository: source.repository,
@@ -480,6 +482,7 @@ const extractCommunityWarscrollFacts = async (
       ...(terrainAnchorSections.length ? { terrainAnchorSections } : {}),
       ...(source.faction ? { faction: source.faction } : {}),
       ...(Object.keys(seasonalOfficialNamesBySection).length ? { seasonalOfficialNamesBySection } : {}),
+      ...(legendsSections.length ? { legendsSections } : {}),
     })
   }
   return inputs
@@ -806,6 +809,82 @@ const loadWahapediaHtmlPages = async (
   return { warscrolls: pages, factions, rules }
 }
 
+/**
+ * The newer official publication wins (source-of-truth policy): a supplement's rows supersede the
+ * main document's rows for the same regiment (or the same faction's units) only when the
+ * supplement is newer, and a newer main document supersedes an older supplement's rows (the
+ * 28 October 2026 core Battle Profiles over the 14 October Khazalite Holds supplement, #1757).
+ * Documents are ordered by their reviewed official publicationDate; a document without one fails.
+ */
+export const resolveBattleProfilePrecedence = (
+  extractedByDocument: Array<{
+    document: Pick<
+      CorpusReview['officialDocuments'][number],
+      'artifact' | 'documentKind' | 'title' | 'publicationDate'
+    >
+    facts: GamesWorkshopBattleProfileFact[]
+  }>,
+  supplementFactions: ReadonlySet<string>
+): { effective: GamesWorkshopBattleProfileFact[]; reviewed: ReviewedOfficialBattleProfileFact[] } => {
+  // Ordered by the reviewed official publication date (the downloads catalog's date for the
+  // re-publication), never by network metadata: a document without one, or two documents printing
+  // the same row on the same date, cannot be ordered and fail closed.
+  const publishedAt = (
+    document: Pick<CorpusReview['officialDocuments'][number], 'publicationDate' | 'title'>
+  ): number => {
+    const value = /^\d{4}-\d{2}-\d{2}$/.test(document.publicationDate ?? '')
+      ? Date.parse(`${document.publicationDate}T00:00:00Z`)
+      : Number.NaN
+    if (Number.isNaN(value)) {
+      throw new Error(
+        `Battle-profile document ${document.title} has no reviewed publicationDate to order it by`
+      )
+    }
+    return value
+  }
+  const rowKey = (fact: GamesWorkshopBattleProfileFact): string =>
+    fact.kind === 'regiment-of-renown'
+      ? `regiment:${canonicalOfficialProfileName(fact.name)}`
+      : `faction:${fact.faction}`
+  const newestByKind = (kind: 'battle-profiles' | 'battle-profile-supplement') => {
+    const newest = new Map<string, number>()
+    extractedByDocument
+      .filter(entry => entry.document.documentKind === kind)
+      .forEach(({ document, facts }) =>
+        facts.forEach(fact => {
+          const key = rowKey(fact)
+          newest.set(key, Math.max(newest.get(key) ?? 0, publishedAt(document)))
+        })
+      )
+    return newest
+  }
+  const newestSupplement = newestByKind('battle-profile-supplement')
+  const newestMain = newestByKind('battle-profiles')
+  const effective: GamesWorkshopBattleProfileFact[] = []
+  const reviewed: ReviewedOfficialBattleProfileFact[] = []
+  for (const { document, facts } of extractedByDocument) {
+    facts.forEach(fact => {
+      const key = rowKey(fact)
+      const covered = fact.kind === 'regiment-of-renown' || supplementFactions.has(fact.faction)
+      const rival = (document.documentKind === 'battle-profiles' ? newestSupplement : newestMain).get(key)
+      if (covered && rival === publishedAt(document)) {
+        throw new Error(
+          `Battle-profile row ${fact.name} is printed by a main document and a supplement on the same date`
+        )
+      }
+      const superseded = covered && (rival ?? 0) > publishedAt(document)
+      reviewed.push({
+        artifactChecksum: document.artifact.checksum,
+        documentTitle: document.title,
+        status: superseded ? 'superseded' : 'effective',
+        fact,
+      })
+      if (!superseded) effective.push(fact)
+    })
+  }
+  return { effective, reviewed }
+}
+
 const extractOfficialBattleProfileFacts = async (
   review: CorpusReview,
   cache: ArtifactCache
@@ -845,34 +924,7 @@ const extractOfficialBattleProfileFacts = async (
     }
     extractedByDocument.push({ document, facts: extracted.facts })
   }
-  // A supplement's regiment-of-renown rows are the newer official word on the regiments they
-  // name (the September 2026 Sons of Behemat supplement re-published four rows the July 2026
-  // main document carries), so the matching main-document rows are superseded by name.
-  const supplementRegimentNames = new Set(
-    extractedByDocument
-      .filter(entry => entry.document.documentKind === 'battle-profile-supplement')
-      .flatMap(entry => entry.facts)
-      .filter(fact => fact.kind === 'regiment-of-renown')
-      .map(fact => canonicalOfficialProfileName(fact.name))
-  )
-  const effective: GamesWorkshopBattleProfileFact[] = []
-  const reviewed: ReviewedOfficialBattleProfileFact[] = []
-  for (const { document, facts } of extractedByDocument) {
-    facts.forEach(fact => {
-      const superseded =
-        document.documentKind === 'battle-profiles' &&
-        (fact.kind !== 'regiment-of-renown'
-          ? supplementFactions.has(fact.faction)
-          : supplementRegimentNames.has(canonicalOfficialProfileName(fact.name)))
-      reviewed.push({
-        artifactChecksum: document.artifact.checksum,
-        documentTitle: document.title,
-        status: superseded ? 'superseded' : 'effective',
-        fact,
-      })
-      if (!superseded) effective.push(fact)
-    })
-  }
+  const { effective, reviewed } = resolveBattleProfilePrecedence(extractedByDocument, supplementFactions)
   return { effective, reviewed }
 }
 
@@ -1415,7 +1467,13 @@ export const loadAcceptedCorpusSourceData = async (
     acceptedDecoded: decoded,
     decoded: {
       ...decoded,
-      dataset: communityRegimentsMerged.dataset,
+      // Reviewed faction variants copy secondary records onto another faction after every merge, so a
+      // copy carries the merged record exactly (#1757).
+      dataset: applyFactionVariants(
+        communityRegimentsMerged.dataset,
+        review.factionVariants,
+        review.variantAbilities
+      ),
     },
     officialBattleProfiles,
     reconciliation: communityRegimentsMerged.reconciliation,

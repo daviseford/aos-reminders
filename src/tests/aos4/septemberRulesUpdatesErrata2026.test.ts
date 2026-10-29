@@ -11,7 +11,7 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * corrected rule, the reprint), so each also cites the September document.
  */
 
-const RULES_UPDATES = '03f602f23a103504ca24b5bf5ac3c4f7fc83be769696d55252928ae5009de315'
+const RULES_UPDATES = '3c422789b278cc4fbfe60ab46a0f92e4ce055501a71c34c298e3f0b6cc5ccfbe'
 
 const entityById = new Map<string, ContentEntity>(
   AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity])
@@ -70,14 +70,14 @@ describe('Summon Shyish Reaper uses the September 2026 erratum for every army (#
     expect(summon.cost).toEqual({ kind: 'spell', value: 6 })
   })
 
-  it('cites page 58 on both Army of Renown copies', () => {
-    expect(citesPage(ability('ability:29b435ca-1b95-5dbc-a229-0b426059d82e'), 58)).toBe(true)
-    expect(citesPage(ability('ability:60de0166-0d8c-5ffe-9892-144cc2f91093'), 58)).toBe(true)
+  it('cites page 59 on both Army of Renown copies', () => {
+    expect(citesPage(ability('ability:29b435ca-1b95-5dbc-a229-0b426059d82e'), 59)).toBe(true)
+    expect(citesPage(ability('ability:60de0166-0d8c-5ffe-9892-144cc2f91093'), 59)).toBe(true)
   })
 })
 
 describe('Summon Unholy Reliquary uses the September 2026 erratum for every army (#2060)', () => {
-  // Rules Updates page 70 names the Manifestations of the Grave lore; the owner ruled on 2026-10-01
+  // Rules Updates page 70 (October 2026: page 71) names the Manifestations of the Grave lore; the owner ruled on 2026-10-01
   // that it applies to every copy, as with Summon Shyish Reaper.
   const erratum =
     'Set up an Unholy Reliquary wholly within 18" of the caster, visible to them and more than 3" from all enemy units.'
@@ -96,8 +96,8 @@ describe('Summon Unholy Reliquary uses the September 2026 erratum for every army
     expect(summon.cost).toEqual({ kind: 'spell', value: 6 })
   })
 
-  it('cites page 70 on the Knights of the Crimson Keep copy', () => {
-    expect(citesPage(ability('ability:e57cb4e8-1fe1-56ff-b093-9a76c568517e'), 70)).toBe(true)
+  it('cites page 71 on the Knights of the Crimson Keep copy', () => {
+    expect(citesPage(ability('ability:e57cb4e8-1fe1-56ff-b093-9a76c568517e'), 71)).toBe(true)
   })
 })
 
@@ -139,7 +139,7 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
       'effect',
       'Set the Attacks characteristic of the target’s Warpvolt Scourgers to 10 for the rest of the turn.',
       /On a 2\+/,
-      65,
+      66,
     ],
     [
       'Abyssal Dweller loses its Move penalty',
@@ -147,7 +147,7 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
       'effect',
       'For the rest of the battle, while enemy units are contesting the target objective, those units cannot use RUN, RETREAT or CHARGE abilities.',
       /battle round number/,
-      33,
+      32,
     ],
     [
       'Rolling Ash-clouds covers terrain features',
@@ -171,7 +171,7 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
       'effect',
       'If this unit’s shooting attacks inflicted damage on the target this turn, apply 1 of the following effects. Otherwise, roll a dice. On a 3+, apply 1 of the following effects:\nPhantasmal Solvent: If the target has a Move characteristic of ‘-’, inflict 6 mortal damage on the target.\nAcidic Fug: Inflict D3 mortal damage on the target.\nCorrosive Mist: Inflict 1 mortal damage on each enemy unit within the target’s combat range.\nChoking Vapours: If the target is a WIZARD, subtract 1 from its power level until the start of your next turn.\nFear-laced Hallucinogen: If the target is a PRIEST, remove D3 ritual points from it.\nUnholy Prescription: Ward rolls cannot be made for the target for the rest of the turn.',
       /Fling Concoctions|roll two dice/,
-      58,
+      59,
     ],
     [
       'Song of the Lost heals any target',
@@ -179,7 +179,7 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
       'effect',
       'Until the start of your next turn, subtract 1 from wound rolls for attacks that target that friendly unit. In addition, if the chanting roll was 8+, pick 1 of the following effects:\nYou can Heal (3) the target.\nIf the target is not a MONSTER, ignore modifiers to save rolls for the target (positive and negative) until the start of your next turn.',
       /If the target is a MONSTER, Heal/,
-      73,
+      75,
     ],
     [
       'Essence of the Gnaw targets a friendly unit',
@@ -243,7 +243,7 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
       'effect',
       'This unit’s attacks score critical hits on unmodified hit rolls of 5+ for the rest of the turn.',
       /Despoiler Axes/,
-      29,
+      28,
     ],
   ]
 
@@ -297,7 +297,7 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
     ].forEach(id => {
       const text = Object.values(ability(id).text).join('\n')
       expect(text.replaceAll(cauldron, '')).not.toMatch(/CAULDRON OF BLOOD/)
-      expect(citesPage(ability(id), 32)).toBe(true)
+      expect(citesPage(ability(id), 30)).toBe(true)
     })
   })
 })

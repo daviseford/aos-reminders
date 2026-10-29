@@ -137,9 +137,21 @@ const sectionForTitle = (value: string): BattleProfileSection | undefined => {
   return faction ? { kind: 'faction', faction } : undefined
 }
 
-const textValue = (items: PositionedItem[]): string =>
+// Items on one printed line can report baselines a hair apart (the October 2026 edition's row badge
+// lifts `-Magnate` above `Brokk Grungsson, Lord`), so order by printed line before x.
+const printedLineOrder = (items: PositionedItem[]): PositionedItem[] =>
   items
-    .sort((left, right) => right.y - left.y || left.x - right.x)
+    .sort((left, right) => right.y - left.y)
+    .reduce<PositionedItem[][]>((lines, item) => {
+      const line = lines.at(-1)
+      if (line && Math.abs(line[0].y - item.y) < 0.5) line.push(item)
+      else lines.push([item])
+      return lines
+    }, [])
+    .flatMap(line => line.sort((left, right) => left.x - right.x))
+
+const textValue = (items: PositionedItem[]): string =>
+  printedLineOrder(items)
     .map(item => item.str.trim())
     .filter(Boolean)
     .join(' ')
@@ -276,6 +288,8 @@ const BASE_SIZE_QUALIFIER = /^(?:or|and|champion is)$/i
 const cleanName = (value: string): string =>
   cleanExtractedText(
     value
+      // pdf.js decodes the October 2026 changed-row badge as U+0007
+      .replaceAll('\u0007', ' ')
       .replace(/(?:^|\s)(?:✹|NEW|UPDATED|DELETED)(?=\s|$)/gi, ' ')
       .replace(
         /(?:^|\s)(?:HEROES|UNITS|FACTION TERRAIN|WAR MACHINES|MONSTERS|LEGENDS|R\s*EGIMENTS|MERCENARY|NAME)(?=\s|$)/gi,
@@ -567,7 +581,15 @@ const extractUnitFacts = (
   return rows.flatMap((row, rowIndex) => {
     const points = pointsForUnitRow(items, row)
     if (points === undefined) return []
-    const name = cleanName(textValue(nearestRowItems(items, rows, rowIndex, 30, 150)))
+    // A name cell ends before the unit-size column: a full-width page footnote (October 2026 Soulblight
+    // page 48) and the White Dwarf page's `Issue NNN` column are not part of the name.
+    const name = cleanName(
+      textValue(
+        nearestRowItems(items, rows, rowIndex, 30, 150).filter(
+          item => item.x + (item.width ?? 0) < 170 && !/^Issue \d+$/.test(item.str.trim())
+        )
+      )
+    )
     if (!name || name.length < 3) return []
     const section = sectionForRow(items, row)
     const thirdColumn = withoutColumnHeader(
@@ -629,19 +651,24 @@ const extractRosterOptionFacts = (
   pageItems: PositionedItem[],
   page: number,
   checksum: string,
-  faction: string
+  faction: string,
+  legends = false
 ): GamesWorkshopRosterOptionFact[] => {
   const items = live(pageItems)
   const rows = rosterRows(items)
   return rows.flatMap((row, rowIndex) => {
     const optionType = withoutColumnHeader(
-      textValue(nearestRowItems(items, rows, rowIndex, 30, 152)),
+      textValue(
+        // The White Dwarf page prints an `Issue NNN` column inside the type column, and its NAME
+        // column starts at x 151.6 (other pages 152.2), so the boundary sits at 150.
+        nearestRowItems(items, rows, rowIndex, 30, 150).filter(item => !/^Issue \d+$/.test(item.str.trim()))
+      ),
       /^TYPE\s*/i
     )
       .replace(/^(?:✹|NEW|UPDATED|U\s*PDATED)\s*/gi, '')
       .replace(/^[^A-Za-z0-9]+/, '')
     const name = cleanName(
-      withoutColumnHeader(textValue(nearestRowItems(items, rows, rowIndex, 152, 275)), /^NAME\s*/i)
+      withoutColumnHeader(textValue(nearestRowItems(items, rows, rowIndex, 150, 275)), /^NAME\s*/i)
     )
     if (!optionType || !name) return []
     const notes = withoutColumnHeader(
@@ -655,7 +682,7 @@ const extractRosterOptionFacts = (
       page,
       row: rowIndex + 1,
       faction,
-      context: seasonal ? ('seasonal' as const) : ('standard' as const),
+      context: legends ? ('legends' as const) : seasonal ? ('seasonal' as const) : ('standard' as const),
       optionType,
       name,
       points: row.value,
@@ -792,7 +819,28 @@ const extractSectionFacts = (
 ): GamesWorkshopBattleProfileFact[] => {
   if (section.kind === 'manifestation-lores') return extractManifestationFacts(items, page, checksum)
   if (section.kind === 'regiments-of-renown') return extractRegimentFacts(items, page, checksum)
-  if (section.kind === 'legends') return extractUnitFacts(items, page, checksum, 'Warhammer Legends', true)
+  if (section.kind === 'legends') {
+    // The October 2026 White Dwarf Legends page (75) prints a roster-option table (Custom Rigs,
+    // Ironweld Innovations) under its units; split at that table's TYPE header.
+    const rosterHeader = items.find(item => item.x < 60 && /^TYPE$/i.test(item.str.trim()))
+    if (!rosterHeader) return extractUnitFacts(items, page, checksum, 'Warhammer Legends', true)
+    return [
+      ...extractUnitFacts(
+        items.filter(item => item.y > rosterHeader.y + 0.5),
+        page,
+        checksum,
+        'Warhammer Legends',
+        true
+      ),
+      ...extractRosterOptionFacts(
+        items.filter(item => item.y <= rosterHeader.y + 0.5),
+        page,
+        checksum,
+        'Warhammer Legends',
+        true
+      ),
+    ]
+  }
   return items.some(
     item => item.x >= 145 && item.x < 205 && /^U\s*NIT\s*SIZE$/i.test(item.str.replace(/\s+/g, ' ').trim())
   )
