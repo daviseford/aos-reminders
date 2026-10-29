@@ -1378,7 +1378,12 @@ describe('official ability overrides the September 2026 errata need (#2060)', ()
       const needles = officialOverrideExcerptNeedles('TIDES OF DEATH', [
         { field: 'abilityTextOverrides', value: { text: { effect: `4 – EBB TIDE: ${retreat}` } } },
       ])
-      expect(needles).toEqual(['TIDES OF DEATH', `4 – EBB TIDE: ${retreat}`, retreat])
+      expect(needles).toEqual([
+        'TIDES OF DEATH',
+        'Change all instances of',
+        `4 – EBB TIDE: ${retreat}`,
+        retreat,
+      ])
       expect(pageExcerpt('NO SUCH CARD here.', needles)).toBe('NO SUCH CARD here.')
     })
   })
@@ -1780,11 +1785,37 @@ describe('October 2026 official evidence forms (#1757)', () => {
 describe('instructed keyword substitutions in ability text (#1757)', () => {
   const secondary =
     'Friendly DUARDIN ASCENDANT units are unified while they are wholly within 12" of at least 1 FYRESLAYERS, 1 KHARADRON OVERLORDS and 1 CITIES OF SIGMAR DUARDIN unit.'
-  const substitutionPair = (effect: string, excerpt: string) =>
+  const renamed = secondary.replace('FYRESLAYERS', 'KHAZALITE HOLDS')
+  const rulesUpdatesPage = (duardinEntry: string) =>
+    [
+      '® RULES UPDATES OCTOBER 2026 ✹ NEW KHAZALITE HOLDS, VULKYN GIFTS Change all instances of Fyreslayers to',
+      'Grimmdron � Change all instances of Magmadroth to Monster � ✹ NEW OGOR MAWTRIBES, HUSKARD ON',
+      'THUNDERTUSK Change the Beastclaw Raiders keyword to Beastclaw � ✹ NEW WHITE DWARF The following White',
+      'Dwarf content is of Legends status: Pyrofane Cult Army of Renown (Issue 514) ✹ NEW',
+      duardinEntry,
+      '� 33',
+    ].join('\n')
+  const duardinEntry =
+    'ARMY OF RENOWN, THE DUARDIN ASCENDANT (ISSUE 506) Change all instances of ‘Fyreslayers’ and Fyreslayers to ‘Khazalite Holds’ and Khazalite Holds respectively'
+  // The packet entry point: the excerpt a prepared packet carries for this override.
+  const packetExcerpt = (page: string, effect: string) =>
+    pageExcerpt(
+      page,
+      officialOverrideExcerptNeedles('DUARDRAZHAL', [
+        { field: 'abilityTextOverrides', value: { text: { effect } } },
+      ])
+    ) ?? ''
+  const substitutionPair = (
+    effect: string,
+    page: string,
+    typeName = 'The Duardin Ascendant',
+    name = 'DUARDRAZHAL'
+  ) =>
     secondaryPair(
       'faction-ability',
       {
-        name: 'DUARDRAZHAL',
+        name,
+        typeName,
         conditionHtml: 'Passive',
         descriptionHtml: `<b>Effect:</b> ${secondary}`,
         keywordsHtml: '',
@@ -1792,7 +1823,7 @@ describe('instructed keyword substitutions in ability text (#1757)', () => {
       {
         id: 'ability:variant',
         kind: 'ability',
-        name: 'DUARDRAZHAL',
+        name,
         abilityKind: 'passive',
         keywords: [],
         text: { effect },
@@ -1808,29 +1839,50 @@ describe('instructed keyword substitutions in ability text (#1757)', () => {
           reason: 'October 2026.',
           officialSourceRecordIds: [SOURCE_ID],
         },
-        excerpt,
+        excerpt: packetExcerpt(page, effect),
         canonicalEntityId: 'ability:variant',
       }
     )
-  // Page 33 also renames Fyreslayers to Grimmdron for another card; each instruction applies alone.
-  const instruction =
-    'Change all instances of Fyreslayers to Grimmdron � ARMY OF RENOWN, THE DUARDIN ASCENDANT Change all instances of ‘Fyreslayers’ and Fyreslayers to ‘Khazalite Holds’ and Khazalite Holds respectively.'
   const textFindings = (reviewPair: ReviewPacketPair) =>
     assessAdversarialComparison(reviewPair)
       .findings.map(finding => finding.subject.field)
       .filter(field => /ability-text/.test(field))
-  const substituted = secondary.replace('FYRESLAYERS', 'KHAZALITE HOLDS')
 
-  it('grounds a field that is exactly the secondary text with the instructed substitution', () => {
-    expect(textFindings(substitutionPair(substituted, instruction))).toEqual([])
+  it('carries the named entry heading into the packet excerpt', () => {
+    expect(packetExcerpt(rulesUpdatesPage(duardinEntry), renamed)).toContain(
+      'ARMY OF RENOWN, THE DUARDIN ASCENDANT (ISSUE 506) Change all instances of ‘Fyreslayers’'
+    )
   })
 
-  it('rejects an extra change beside the substitution, and a substitution with no instruction', () => {
+  it('grounds the rename its own section heading instructs, beside another rename of the same word', () => {
+    expect(textFindings(substitutionPair(renamed, rulesUpdatesPage(duardinEntry)))).toEqual([])
+  })
+
+  it('never takes a rename from another section of the same page', () => {
+    // `KHAZALITE HOLDS, VULKYN GIFTS` renames Fyreslayers to Grimmdron; Duardrazhal is not in it.
+    const grimmdron = secondary.replace('FYRESLAYERS', 'Grimmdron')
+    expect(textFindings(substitutionPair(grimmdron, rulesUpdatesPage(duardinEntry))).length).toBeGreaterThan(
+      0
+    )
+    // With its own entry removed, the other section's same-word rename grounds nothing.
+    const withoutEntry = rulesUpdatesPage('ARMY OF RENOWN, THE DUARDIN ASCENDANT (ISSUE 506) is unchanged')
+    expect(textFindings(substitutionPair(grimmdron, withoutEntry)).length).toBeGreaterThan(0)
+    expect(textFindings(substitutionPair(renamed, withoutEntry)).length).toBeGreaterThan(0)
+  })
+
+  it('rejects a record from another section, a wrong replacement, an extra change and a negated rename', () => {
+    const page = rulesUpdatesPage(duardinEntry)
+    // Wrong card: a Vulkyn Gifts record of another section can't borrow the Duardin Ascendant entry.
     expect(
-      textFindings(substitutionPair(substituted.replace('12"', '18"'), instruction)).length
+      textFindings(substitutionPair(renamed, page, 'Lodge Rites', 'FYRESLAYER PRIDE')).length
     ).toBeGreaterThan(0)
     expect(
-      textFindings(substitutionPair(substituted, 'THE DUARDIN ASCENDANT is a Legends Army of Renown.')).length
+      textFindings(substitutionPair(secondary.replace('FYRESLAYERS', 'KHARADRON OVERLORDS'), page)).length
     ).toBeGreaterThan(0)
+    expect(textFindings(substitutionPair(renamed.replace('12"', '18"'), page)).length).toBeGreaterThan(0)
+    const negated = rulesUpdatesPage(
+      'ARMY OF RENOWN, THE DUARDIN ASCENDANT (ISSUE 506) Do not Change all instances of ‘Fyreslayers’ and Fyreslayers to ‘Khazalite Holds’ and Khazalite Holds respectively'
+    )
+    expect(textFindings(substitutionPair(renamed, negated)).length).toBeGreaterThan(0)
   })
 })

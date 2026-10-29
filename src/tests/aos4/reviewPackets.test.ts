@@ -155,7 +155,7 @@ ${effect}`,
       condition
     )
     const needles = officialOverrideExcerptNeedles('BELLOWING ARRIVAL', [override])
-    expect(needles).toEqual(['BELLOWING ARRIVAL', condition, effect])
+    expect(needles).toEqual(['BELLOWING ARRIVAL', 'Change all instances of', condition, effect])
     expect(pageExcerpt(page, needles)).toContain(condition)
     expect(pageExcerpt(page, needles)).toContain(`BELLOWING ARRIVAL: A mighty roar. Effect: ${effect}`)
     // Keyword overrides keep their needles; other overrides add none.
@@ -178,14 +178,20 @@ ${effect}`,
     }
 
     const needles = officialOverrideExcerptNeedles('TIDES OF DEATH', [override])
-    expect(needles).toEqual(['TIDES OF DEATH', 'In each battle round …', row, effect])
+    expect(needles).toEqual([
+      'TIDES OF DEATH',
+      'Change all instances of',
+      'In each battle round …',
+      row,
+      effect,
+    ])
     expect(pageExcerpt(page, needles)).toContain(`Effect: ${effect}`)
     // A short label tail is not a needle of its own.
     expect(
       officialOverrideExcerptNeedles(undefined, [
         { field: 'abilityTextOverrides', value: { text: { effect: '1 – NUMBERLESS PESTS: Passive' } } },
       ])
-    ).toEqual(['1 – NUMBERLESS PESTS: Passive'])
+    ).toEqual(['Change all instances of', '1 – NUMBERLESS PESTS: Passive'])
   })
 
   it('builds deterministic blind/comparison pairs and a source-safe index', () => {

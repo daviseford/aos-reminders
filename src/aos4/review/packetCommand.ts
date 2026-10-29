@@ -291,13 +291,16 @@ export const officialOverrideExcerptNeedles = (
                 ...((value as { remove?: string[] }).remove ?? []),
               ]
             : field === 'abilityTextOverrides'
-              ? Object.values((value as { text?: Record<string, unknown> }).text ?? {}).flatMap(text =>
-                  typeof text === 'string'
-                    ? text.split('\n').flatMap(line => {
-                        const rest = line.slice(line.indexOf(': ') + 2)
-                        return line.includes(': ') && rest.length >= 20 ? [line, rest] : [line]
-                      })
-                    : []
+              ? // A rename erratum (`Change all instances of ‘Fyreslayers’ ...`) never names the ability it edits.
+                ['Change all instances of'].concat(
+                  Object.values((value as { text?: Record<string, unknown> }).text ?? {}).flatMap(text =>
+                    typeof text === 'string'
+                      ? text.split('\n').flatMap(line => {
+                          const rest = line.slice(line.indexOf(': ') + 2)
+                          return line.includes(': ') && rest.length >= 20 ? [line, rest] : [line]
+                        })
+                      : []
+                  )
                 )
               : []
         ),
@@ -604,10 +607,6 @@ const buildSourceCandidates = (
     const overrideExcerptNeedles = [
       ...officialOverrideExcerptNeedles(overrideExcerptFocus, reviewOverrides),
       ...keywordStripNeedles,
-      // A rename erratum (`Change all instances of ‘Fyreslayers’ ...`) never names the ability it edits.
-      ...(reviewOverrides.some(override => override.field === 'abilityTextOverrides')
-        ? ['Change all instances of']
-        : []),
     ]
     const officialOverrideEvidence = officialOverrideSourceIds.map(sourceRecordId => {
       const officialRecord = sourceRecordById.get(sourceRecordId)

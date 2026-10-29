@@ -99,7 +99,7 @@ The strict report currently records:
   The Legends pages' roster-option tables are extracted as structured references (27 Legends picks,
   and the 12 White Dwarf Custom Rig and Ironweld Innovation rows no secondary carries); Army of
   Renown regiment options (Matriarch's Mob, Stomper Tribe) stay outside the product's scope like
-  every Army of Renown's roster and regiment options. Certified as `aos4-corpus-2026-10-29-machine-r1`
+  every Army of Renown's roster and regiment options. Certified as `aos4-corpus-2026-10-29-machine-r2`
 - the 2026-10-27 Wahapedia refresh (#1757), on top of 2026-10-26: the Rules Radar alarm of
   2026-10-27 (`Last_update.csv` `b82f1c68...` -> `cc6be68c...`, 2026-10-22 18:12:05). 84 of 85
   Wahapedia artifacts moved. At page level the change is additive: three new Spearhead armies

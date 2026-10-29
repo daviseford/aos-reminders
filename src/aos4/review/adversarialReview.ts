@@ -850,29 +850,54 @@ const officialEvidenceSupportsKeywordAddition = (officialText: string, keyword: 
   ).test(officialText)
 }
 
+const keywordPatternOf = (keyword: string): string =>
+  escapeRegularExpression(visibleSourceText(keyword)).replace(/\s+/g, String.raw`\s+`)
+const keywordEnd = String.raw`(?![A-Za-z0-9])`
+
 /**
- * `Change all instances of ‘Fyreslayers’ and Fyreslayers to ‘Khazalite Holds’ and Khazalite Holds
- * respectively` (October 2026 Rules Updates page 33): a field is grounded when it is exactly the
- * secondary record's own field with the instructed substitutions applied, and nothing else changed.
+ * `✹ NEW ARMY OF RENOWN, THE DUARDIN ASCENDANT (ISSUE 506) Change all instances of ‘Fyreslayers’ and
+ * Fyreslayers to ‘Khazalite Holds’ and Khazalite Holds respectively` (October 2026 Rules Updates page
+ * 33). Each erratum entry opens with `✹` and a heading naming what it edits; its instructions follow,
+ * separated by `�`. A field is grounded only by an instruction whose own entry heading names the
+ * secondary record's section or the ability itself, when the field is exactly the secondary field
+ * with that one rename applied and nothing else changed. The same page renames Fyreslayers to
+ * Grimmdron under `KHAZALITE HOLDS, VULKYN GIFTS`, which never grounds another section.
  */
-const officialSubstitutionGrounds = (secondary: string | undefined, value: unknown, officialText: string) => {
+const officialSubstitutionGrounds = (
+  secondary: string | undefined,
+  value: unknown,
+  officialText: string,
+  anchors: readonly string[]
+) => {
   if (!secondary || typeof value !== 'string') return false
+  const anchorPatterns = anchors
+    .map(anchor => visibleSourceText(anchor).trim())
+    .filter(anchor => anchor.length >= 3)
+    .map(anchor => new RegExp(String.raw`\b${keywordPatternOf(anchor)}${keywordEnd}`, 'i'))
+  if (!anchorPatterns.length) return false
   const quote = `['‘’"]?`
   const word = String.raw`[A-Za-z][A-Za-z' -]*?`
-  const substitutions = Array.from(
-    officialText.matchAll(
-      new RegExp(
-        String.raw`\bchange\s+all\s+instances\s+of\s+${quote}(${word})${quote}(?:\s+and\s+${quote}${word}${quote})?\s+to\s+${quote}(${word})${quote}(?=\s+and\s|\s+respectively\b|\s*[.�\r\n]|$)`,
-        'gi'
-      )
-    )
-  ).map(match => ({ from: match[1].trim(), to: match[2].trim() }))
-  // One instruction at a time: a page carries renames for other cards too (`... Fyreslayers to Grimmdron`).
-  // shortcut: the instruction is not tied to its card heading, upgrade if two renames of one word collide.
-  return substitutions.some(({ from, to }) => {
+  const instruction = new RegExp(
+    String.raw`\bChange\s+all\s+instances\s+of\s+${quote}(${word})${quote}(?:\s+and\s+${quote}${word}${quote})?\s+to\s+${quote}(${word})${quote}(?=\s+and\s|\s+respectively\b|\s*[.\uFFFD\r\n]|$)`,
+    'g'
+  )
+  return Array.from(officialText.matchAll(instruction)).some(match => {
+    const before = officialText.slice(0, match.index)
+    // The entry starts after the last `✹`, or after an excerpt break; never borrow a heading across one.
+    const entryStart = Math.max(before.lastIndexOf('✹'), before.lastIndexOf('…'), before.lastIndexOf('\n'))
+    const entry = before.slice(entryStart + 1)
+    // The heading is the entry's text before its first instruction; a later instruction in the same
+    // entry (`... to Grimmdron � Change all instances of Magmadroth to Monster`) shares that heading.
+    const heading = entry.split(/\b(?:Change|Replace|Add|Remove|Delete|In\s+the)\b/)[0]
+    if (!anchorPatterns.some(pattern => pattern.test(heading))) return false
+    // `... Do not change ...` or `... no longer ...` never instructs the rename.
+    if (/\b(?:not|never|no\s+longer)\s*$/i.test(heading)) return false
+    // Each instruction starts an entry or follows the `�` that ends the previous one.
+    if (!/(?:^|\uFFFD)\s*$/.test(entry.slice(heading.length)) && entry.slice(heading.length).trim())
+      return false
     const substituted = secondary.replace(
-      new RegExp(String.raw`\b${escapeRegularExpression(from).replace(/\s+/g, String.raw`\s+`)}\b`, 'gi'),
-      to
+      new RegExp(String.raw`\b${keywordPatternOf(match[1].trim())}${keywordEnd}`, 'gi'),
+      match[2].trim()
     )
     return (
       sourceComparableText(substituted) !== sourceComparableText(secondary) &&
@@ -880,10 +905,6 @@ const officialSubstitutionGrounds = (secondary: string | undefined, value: unkno
     )
   })
 }
-
-const keywordPatternOf = (keyword: string): string =>
-  escapeRegularExpression(visibleSourceText(keyword)).replace(/\s+/g, String.raw`\s+`)
-const keywordEnd = String.raw`(?![A-Za-z0-9])`
 
 /**
  * October 2026 Rules Updates phrasing: `Change the Champion keyword to Champion (1/10)` and
@@ -1274,11 +1295,21 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
         const fieldIsOfficialReplacement = (value: unknown) =>
           generatedTextIsGrounded(officialText, value, true)
         const secondaryFieldsForSubstitution = secondaryAbilityTextFields(pair)
+        // The section the secondary record prints the ability under (`The Duardin Ascendant`), or its name.
+        const substitutionAnchors = [
+          evidenceJsonValue(pair)?.value.typeName,
+          evidenceJsonValue(pair)?.value.name,
+        ].filter((anchor): anchor is string => typeof anchor === 'string')
         Object.entries(override.value.text).forEach(([field, value]) => {
           if (
             fieldIsOfficialReplacement(value) ||
             officialEvidencePrintsEdits(secondaryText, value, officialText) ||
-            officialSubstitutionGrounds(secondaryFieldsForSubstitution[field], value, officialText)
+            officialSubstitutionGrounds(
+              secondaryFieldsForSubstitution[field],
+              value,
+              officialText,
+              substitutionAnchors
+            )
           ) {
             return
           }

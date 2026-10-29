@@ -34,7 +34,11 @@ The source inventory binds fresh observations taken for this intake: a `discover
 snapshot (164 sources, 8 explicit non-material dispositions), the eight pinned BSData files at
 `ea96eba3`, `5e52e2a5` and `6909c140`, and the Wahapedia navigation and exports (88 sources, 0
 inaccessible, 2026-10-29T14:14:49Z). Every accepted artifact matched. The certification is
-`aos4-corpus-2026-10-29-machine-r1` (campaign 2026-10-29T15:11:22Z), with no pairs reused.
+`aos4-corpus-2026-10-29-machine-r2` (campaign 2026-10-29T15:37:01Z), with every pair evaluated
+fresh against the same inventory. It replaces `machine-r1` (campaign 15:11:22Z), whose rename check
+did not yet tie a `Change all instances of` instruction to the section it edits. A campaign at
+15:36:46Z that reused all of `machine-r1`'s pairs never ran the changed check, so it was not
+certified.
 
 Four earlier campaigns of this revision (14:20:15Z, 14:43:07Z, 14:56:13Z and 15:04:26Z, 44, 8, 5
 and 1 findings) each rejected forms of official evidence the reviewer did not read yet. They
@@ -48,8 +52,11 @@ preparing machine. Each was resolved by reading that form exactly, never by loos
 - `Add 'Crit (Auto-wound)' to the ... weapon profile` grounds that weapon label only.
 - `Add 'Reaction:' to the start of the timing of '<name>'` grounds that prefix on the named
   ability's own printed condition only.
-- `Change all instances of X to Y` grounds a text field only when it is the secondary text with
-  that one rename applied and nothing else changed.
+- `Change all instances of X to Y` grounds a text field only when the instruction's own erratum
+  entry heading (`ARMY OF RENOWN, THE DUARDIN ASCENDANT`) names the secondary record's section or
+  the ability, and the field is the secondary text with that one rename applied and nothing else
+  changed. The same page's `KHAZALITE HOLDS, VULKYN GIFTS` rename of Fyreslayers to Grimmdron
+  never grounds another section.
 - A Khazalite Holds faction variant's override is compared with the variant, never with the
   Fyreslayers original it shares a source record with.
 
