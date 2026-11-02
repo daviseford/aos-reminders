@@ -328,6 +328,80 @@ describe('BSData community-tier catalogue extraction', () => {
       'source-record:games-workshop:New Faction',
     ])
   })
+
+  it('anchors a Legends unit on its Warhammer Legends row and offers it in Legends only (#1757)', () => {
+    // October 2026 Battle Profiles page 75 lists White Dwarf Legends units under the Warhammer
+    // Legends faction; the reviewed source faction names the army that offers them.
+    const extraction = extractBsDataWarscrolls(encode(FIXTURE), CHECKSUM, ['Testfist Brute'])
+    const [fact] = extraction.facts
+    const officialFacts: GamesWorkshopUnitProfileFact[] = [
+      {
+        kind: 'unit',
+        key: 'page:75:unit:1',
+        page: 75,
+        row: 1,
+        faction: 'Warhammer Legends',
+        context: 'legends',
+        name: 'Testfist Brute',
+        unitSize: 1,
+        points: 180,
+        regimentOptions: [],
+        relevantKeywords: [],
+        notes: ['This unit can only be included in a Test Army of Renown.'],
+        baseSizes: ['60mm'],
+        sourceRecordId: 'source-record:games-workshop:legends' as never,
+        factChecksum: 'official-legends',
+      },
+    ]
+    const dataset = () =>
+      ({
+        factions: [{ id: 'HOME', name: 'Home Faction', link: '', meta: {} as never }],
+        warscrolls: [],
+        warscrollAbilities: [],
+        warscrollWeapons: [],
+        warscrollKeywords: [],
+        warscrollBases: [],
+      }) as unknown as WahapediaDataset
+    const reconciliation: WahapediaHtmlReconciliation = {
+      schemaVersion: 1,
+      pages: 0,
+      matchedOfficialUnitFacts: 0,
+      unmatchedOfficialUnitFacts: [],
+      discrepancies: [],
+    }
+    const source = (extra: Record<string, unknown>) => [
+      {
+        artifact: { checksum: CHECKSUM, finalUrl: 'https://example.invalid/x' } as never,
+        repository: 'BSData/test',
+        facts: extraction.facts,
+        officialSourceRecordIds: [officialFacts[0].sourceRecordId],
+        ...extra,
+      },
+    ]
+
+    // Without the reviewed Legends section the Legends row anchors nothing.
+    expect(() =>
+      mergeBsDataWarscrolls(dataset(), reconciliation, source({ faction: 'Home Faction' }), officialFacts)
+    ).toThrow(/no matching effective official unit fact/)
+    // A Legends section must name the army that offers it.
+    expect(() =>
+      mergeBsDataWarscrolls(
+        dataset(),
+        reconciliation,
+        source({ legendsSections: [fact.section] }),
+        officialFacts
+      )
+    ).toThrow(/needs a reviewed offering faction/)
+    const merged = mergeBsDataWarscrolls(
+      dataset(),
+      reconciliation,
+      source({ faction: 'Home Faction', legendsSections: [fact.section] }),
+      officialFacts
+    )
+    expect(merged.dataset.warscrolls[0]).toMatchObject({ factionId: 'HOME', cost: '180' })
+    expect(merged.dataset.warscrolls[0].meta.rulesContextKinds).toEqual(['legends'])
+    expect(merged.reconciliation.matchedOfficialUnitFacts).toBe(1)
+  })
 })
 
 describe('the standing fallback-tier policy record in the accepted review', () => {

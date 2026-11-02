@@ -87,14 +87,16 @@ describe('the September 2026 Sons of Behemat battle-profile supplement (#1757)',
     expect(ledger.deviations).toEqual([])
   })
 
-  it('carries the September 2026 Sons of Behemat publications as accepted official artifacts', () => {
+  it('carries the current Sons of Behemat publications as accepted official artifacts', () => {
     const titles = AOS4_FULL_CATALOG.sourceArtifacts.map(artifact => artifact.title)
     expect(titles).toEqual(
       expect.arrayContaining([
-        'Battle Profiles - Sons of Behemat',
         'Regiments of Renown - Sons of Behemat',
         'Spearhead: Sons of Behemat - Stone Lobbas',
       ])
     )
+    // Games Workshop delisted the supplement on 2026-10-28; the October 2026 core Battle Profiles
+    // reprints all 46 of its rows, so it is unpinned (corpus 2026-10-29, #1757).
+    expect(titles).not.toContain('Battle Profiles - Sons of Behemat')
   })
 })

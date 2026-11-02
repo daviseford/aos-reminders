@@ -127,7 +127,8 @@ describe('official app list resolution', () => {
     expect(containerNames).toEqual(
       expect.arrayContaining(['Epicurean Revellers', 'Warglutt Marauders', 'Mawseeker Mob'])
     )
-    expect(index.containerIds.size).toBe(125)
+    // Corpus 2026-10-29 adds the Khazalite Holds Lofnir Drothkeepers and The Duardin Ascendant variants (#1757).
+    expect(index.containerIds.size).toBe(127)
   })
 
   it('resolves an Army of Renown and the lores nested under it', () => {

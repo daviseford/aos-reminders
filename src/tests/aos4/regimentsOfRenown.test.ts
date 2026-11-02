@@ -511,7 +511,7 @@ describe('Krong the Club from the re-pinned Wahapedia collections (issues #1999,
   const WAHAPEDIA_RECORD =
     'source-record:wahapedia:html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Krong-The-Club/warscroll'
   const BATTLE_PROFILES_PAGE =
-    'source-record:games-workshop:952d125157bdb4fc363e0f93ac521941d9a32d4caa6c00059c24cc63e8a6a20a%3Apage%3A59'
+    'source-record:games-workshop:04211671fa23be5467277f90fbafb39a67b9c5b56e2f4a118ff3d46003ce0b67%3Apage%3A59'
   const REGIMENTS_PACK_PAGE =
     'source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A5'
   const OFFICIAL_INCLUSION = [
@@ -527,6 +527,8 @@ describe('Krong the Club from the re-pinned Wahapedia collections (issues #1999,
     'Idoneth Deepkin',
     'Ironjawz',
     'Kharadron Overlords',
+    // October 2026 core Battle Profiles names Khazalite Holds; Fyreslayers stays (owner's additive decision, #1757).
+    'Khazalite Holds',
     'Kruleboyz',
     'Lumineth Realm-lords',
     'Maggotkin of Nurgle',
@@ -570,7 +572,7 @@ describe('Krong the Club from the re-pinned Wahapedia collections (issues #1999,
     )
   })
 
-  it('is one classified regiment offered by exactly the 24 official inclusion factions', () => {
+  it('is one classified regiment offered by exactly the 25 official inclusion factions', () => {
     expect(offeringFactionNames(KRONG_ID)).toEqual(OFFICIAL_INCLUSION)
     expect(offeringFactionNames(KRONG_ID)).not.toContain('Sons of Behemat')
   })
@@ -750,6 +752,8 @@ describe('Cogfort Regiments of Renown (issue #2030)', () => {
     'Idoneth Deepkin',
     'Ironjawz',
     'Kharadron Overlords',
+    // October 2026 core Battle Profiles names Khazalite Holds; Fyreslayers stays (owner's additive decision, #1757).
+    'Khazalite Holds',
     'Kruleboyz',
     'Lumineth Realm-lords',
     'Maggotkin of Nurgle',

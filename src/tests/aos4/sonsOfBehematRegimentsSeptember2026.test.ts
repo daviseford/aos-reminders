@@ -68,6 +68,8 @@ const REGIMENTS = {
       'Idoneth Deepkin',
       'Ironjawz',
       'Kharadron Overlords',
+      // October 2026 core Battle Profiles names Khazalite Holds; Fyreslayers stays (owner's additive decision, #1757).
+      'Khazalite Holds',
       'Kruleboyz',
       'Lumineth Realm-lords',
       'Ogor Mawtribes',
