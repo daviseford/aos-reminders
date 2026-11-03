@@ -12,7 +12,37 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-10-29` (issue #1757): the Games Workshop publications of
+The current revision is `aos4-corpus-2026-11-03` (issue #1757): the 17 accepted Wahapedia rules
+pages re-pinned at their 2026-11-03 bytes on top of `aos4-corpus-2026-10-29`. The manifest
+`accepted-2026-11-03.json` holds the same 249 artifacts at the same URLs; only those 17 checksums
+moved. Every card the parser reads from them is unchanged, and the generated products are
+identical once the 17 artifact ids are masked. The page text that changed repeats the
+already-pinned October 2026 Rules Updates (the Regiment of Renown faction-rules exception on page 8,
+three FAQ answers on pages 11-12). Its automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 249/249 |
+| Explicit non-material discovery entries | 11 |
+| Official battle-profile facts | 1,424/1,424 |
+| Final official/secondary reconciliation discrepancies | 399/399 |
+| Official profile-only facts | 0/0 |
+| Live audit source records | 21,233/21,233 |
+| Ignored-record dispositions (superseded + explicit) | 21,161/21,161 |
+| Live review pairs | 44,218/44,218 |
+| Independent outcomes | 88,436 pass; 0 finding; 0 cannot-verify |
+
+The source inventory binds fresh observations taken for this intake on 2026-11-03: a
+`discover-official` snapshot (164 sources, 8 explicit non-material dispositions, 19:01:56Z), the
+eight pinned BSData files at `5e52e2a5`, `ea96eba3` and `6909c140` (19:02:05Z to 19:02:17Z), and the
+Wahapedia navigation and exports (88 sources, 0 inaccessible, 19:03:15Z). Every accepted artifact
+matched. The certification is `aos4-corpus-2026-11-03-machine-r1` (campaign 2026-11-03T19:05:45Z,
+evaluated 19:06:12Z). It offered `aos4-corpus-2026-10-29-machine-r3` for reuse, but every pair was
+evaluated fresh (0 reused), because the re-pinned artifact ids re-key the pairs.
+
+### `aos4-corpus-2026-10-29` (superseded)
+
+The revision `aos4-corpus-2026-10-29` (issue #1757): the Games Workshop publications of
 2026-10-28 on top of `aos4-corpus-2026-10-27`. The manifest `accepted-2026-10-29.json` holds 249
 artifacts: the 12 new October publications replace 12 predecessors, 5 delisted documents with no
 successor leave, and two commit-pinned BSData Legends catalogues (Greywater Fastness, Lethis at
