@@ -327,7 +327,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
   it('loads the reviewed config and rejects stale repository paths', () => {
     expect(readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData.baselineSha).toBe(
-      '6909c1401ee52c63b5187a7c2d00fb34190479bd'
+      'd2334be52281ff2e9729c382eec6033d74647876'
     )
 
     const config = JSON.parse(
@@ -338,9 +338,10 @@ describe('AoS 4 Rules Radar comparison', () => {
   })
 
   it('clears the reviewed BSData range while any later commit still alarms', () => {
-    // Reviewed 2026-10-27 (#1757): 28ca9405 → 6909c140 changes four library catalogues; the
-    // Chainghasts, Twistweald and Darkoath Marauders edits are already in the runtime and the Hedonites
-    // one is Path to Glory content it does not carry. Nothing after 6909c140 is reviewed, so a later
+    // Reviewed 2026-11-03 (#1757): 6909c140 → d2334be5 is one commit across four catalogues
+    // (Freeguild Command Corps Auxiliaries Control 2, Petulant Wrath, Right Gitz in da Right Place
+    // as a spell, the Ashen Smog/Hateful Fractures casting values, a Disgustingly Devoted colour).
+    // The runtime already ships every one of them. Nothing after d2334be5 is reviewed, so a later
     // head must still surface.
     const { baselineSha } = readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData
     const observation = {
@@ -348,12 +349,33 @@ describe('AoS 4 Rules Radar comparison', () => {
       source: 'bsdata' as const,
       observedAt,
       repository: 'BSData/age-of-sigmar-4th',
-      baselineSha,
     }
+    const alarmedPaths = [
+      'Cities of Sigmar - Library.cat',
+      'Hedonites of Slaanesh - The Decadent Host.cat',
+      'Lores.cat',
+      'Maggotkin of Nurgle - Library.cat',
+    ]
+
+    // The 2026-11-03 alarm, as observed against the previous baseline.
+    const alarmed = compareBsDataObservation({
+      ...observation,
+      baselineSha: '6909c1401ee52c63b5187a7c2d00fb34190479bd',
+      headSha: 'd2334be52281ff2e9729c382eec6033d74647876',
+      comparisonStatus: 'ahead',
+      changedPaths: alarmedPaths,
+    })
+    expect(alarmed.events).toHaveLength(1)
+    expect(alarmed.events[0]).toMatchObject({
+      baselineFingerprint: '6909c1401ee52c63b5187a7c2d00fb34190479bd',
+      observedFingerprint: 'd2334be52281ff2e9729c382eec6033d74647876',
+      evidence: { changedPaths: alarmedPaths },
+    })
 
     const reviewed = compareBsDataObservation({
       ...observation,
-      headSha: '6909c1401ee52c63b5187a7c2d00fb34190479bd',
+      baselineSha,
+      headSha: 'd2334be52281ff2e9729c382eec6033d74647876',
       comparisonStatus: 'identical',
       changedPaths: [],
     })
@@ -361,6 +383,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
     const later = compareBsDataObservation({
       ...observation,
+      baselineSha,
       headSha: 'c'.repeat(40),
       comparisonStatus: 'ahead',
       changedPaths: ['Daughters of Khaine - Library.cat'],
@@ -369,10 +392,45 @@ describe('AoS 4 Rules Radar comparison', () => {
     expect(later.events[0]).toMatchObject({
       class: 'material',
       changeKind: 'community-catalog-changed',
-      baselineFingerprint: '6909c1401ee52c63b5187a7c2d00fb34190479bd',
+      baselineFingerprint: 'd2334be52281ff2e9729c382eec6033d74647876',
       observedFingerprint: 'c'.repeat(40),
       evidence: { changedPaths: ['Daughters of Khaine - Library.cat'] },
     })
+  })
+
+  it('clears only the re-reviewed glossary bytes from the 2026-11-03 alarm (#1757)', () => {
+    // Literal event from the alarm: the navigation links the page without its trailing slash.
+    const glossaryEvents = (fingerprint: string) =>
+      compareWahapediaObservation({
+        acceptedManifest: baseline.manifest,
+        observation: {
+          schemaVersion: 1,
+          source: 'wahapedia',
+          scope: 'sentinel',
+          observedAt,
+          entries: [
+            {
+              kind: 'rules-page',
+              locator: 'https://wahapedia.ru/aos4/the-rules/the-core-rules/',
+              title: 'The Core Rules',
+              fingerprint: checksum('b'),
+            },
+            {
+              kind: 'rules-page',
+              locator: 'https://wahapedia.ru/aos4/the-rules/glossary',
+              title: 'Glossary',
+              fingerprint,
+            },
+          ],
+        },
+      }).events.map(event => [event.changeKind, event.locator, event.observedFingerprint])
+
+    expect(glossaryEvents('028919775c318ab80c409d48dc27f1957662700a133ffd364fc87fca39cea3e9')).toEqual([])
+    // The bytes reviewed for #2087 are no longer live, so they alarm again if they come back.
+    const superseded = 'd3afb7b475f07e9b4845bc34037c67fa1157fb34d3e9be7879806fc6387207bb'
+    expect(glossaryEvents(superseded)).toEqual([
+      ['new-rules-page', 'https://wahapedia.ru/aos4/the-rules/glossary', superseded],
+    ])
   })
 
   it('compares against the current accepted snapshot and reviewed classifications', () => {

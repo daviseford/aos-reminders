@@ -8,17 +8,20 @@ import type {
 
 export const WAHAPEDIA_DATA_EXPORT_URL = 'https://wahapedia.ru/aos4/the-rules/data-export/' as const
 /**
- * First observed 2026-10-26 (#2087), and reviewed only at these exact bytes: any other or missing
- * fingerprint stays material. Its definitions are summaries that defer to the rules modules, and 841
- * of its 900 FAQ/Errata sentences are verbatim on the accepted FAQs, core rules or General's Handbook
- * pages. Of the rest, 57 are on other accepted rules pages or official PDFs; one rewords "No, unless"
- * as "No, not unless" and one is a flavour line the catalog does not store. The page is non-material
- * because it repeats those sources, not because core rules are out of scope (the app ships core-rules
- * abilities); the disposition says so from corpus 2026-10-27 (#2087).
+ * First observed 2026-10-26 (#2087), and reviewed only at exact bytes: any other or missing
+ * fingerprint stays material. Its definitions are summaries that defer to the rules modules; the
+ * page is non-material because its FAQ/Errata repeat accepted sources, not because core rules are
+ * out of scope (the app ships core-rules abilities).
+ *
+ * Re-reviewed 2026-11-03 (#1757) at new bytes that group the definitions by publication and add a
+ * 2026-27 section. All 211 distinct FAQ/Errata sentences repeat official PDFs or accepted pages
+ * (one is the known "No, not unless" rewording), and every 2026-27 rules difference is an October
+ * 2026 Rules Updates change the runtime already ships or does not carry as a record. The earlier
+ * reviewed bytes (d3afb7b4…07bb) are no longer live and alarm again if they return.
  */
 export const WAHAPEDIA_GLOSSARY_URL = 'https://wahapedia.ru/aos4/the-rules/glossary/' as const
 export const WAHAPEDIA_GLOSSARY_FINGERPRINT =
-  'd3afb7b475f07e9b4845bc34037c67fa1157fb34d3e9be7879806fc6387207bb' as const
+  '028919775c318ab80c409d48dc27f1957662700a133ffd364fc87fca39cea3e9' as const
 
 export type WahapediaObservedSourceKind =
   | 'data-export-index'

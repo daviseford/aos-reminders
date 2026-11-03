@@ -129,7 +129,7 @@ describe('Wahapedia independent source observation', () => {
         title: 'Glossary',
         url: 'https://wahapedia.ru/aos4/the-rules/glossary/',
         availability: 'accessible',
-        fingerprint: 'd3afb7b475f07e9b4845bc34037c67fa1157fb34d3e9be7879806fc6387207bb',
+        fingerprint: '028919775c318ab80c409d48dc27f1957662700a133ffd364fc87fca39cea3e9',
       },
       {
         kind: 'rules-page',
@@ -151,7 +151,7 @@ describe('Wahapedia independent source observation', () => {
       ['Not a rules page', 'material'],
     ])
     expect(observation.entries[0]).toMatchObject({
-      fingerprint: 'd3afb7b475f07e9b4845bc34037c67fa1157fb34d3e9be7879806fc6387207bb',
+      fingerprint: '028919775c318ab80c409d48dc27f1957662700a133ffd364fc87fca39cea3e9',
       disposition: expect.stringMatching(/adds no rule of its own/),
     })
   })
@@ -170,9 +170,11 @@ describe('Wahapedia independent source observation', () => {
 
     expect(scopeOf('0'.repeat(64))).toBe('material')
     expect(scopeOf(undefined)).toBe('material')
-    expect(scopeOf('D3AFB7B475F07E9B4845BC34037C67FA1157FB34D3E9BE7879806FC6387207BB')).toBe(
+    expect(scopeOf('028919775C318AB80C409D48DC27F1957662700A133FFD364FC87FCA39CEA3E9')).toBe(
       'explicit-non-material'
     )
+    // The bytes reviewed for #2087 are superseded (#1757, 2026-11-03): they no longer pass.
+    expect(scopeOf('d3afb7b475f07e9b4845bc34037c67fa1157fb34d3e9be7879806fc6387207bb')).toBe('material')
   })
 
   it('marks discovery documents non-material while keeping game data fail-closed', () => {
