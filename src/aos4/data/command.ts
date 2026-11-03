@@ -49,17 +49,26 @@ const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308])
 const normalizedMediaType = (response: HttpResponse): string =>
   (getHeader(response.headers, 'content-type') ?? '').split(';')[0].trim().toLowerCase()
 
-const readCached = async (cache: ArtifactCache, entry: ArtifactManifestEntry): Promise<Uint8Array> => {
+const readCachedIfPresent = async (
+  cache: ArtifactCache,
+  entry: ArtifactManifestEntry
+): Promise<Uint8Array | undefined> => {
   const bytes = await cache.get(entry.checksum)
-  if (!bytes) {
-    throw new AcquisitionError('cache-miss', `Cache is missing artifact ${entry.checksum}`)
-  }
+  if (!bytes) return undefined
   assertArtifactChecksum(bytes, entry.checksum, 'cache-corrupt')
   if (bytes.byteLength !== entry.byteLength) {
     throw new AcquisitionError(
       'cache-corrupt',
       `Cached artifact ${entry.checksum} has an unexpected byte length`
     )
+  }
+  return bytes
+}
+
+const readCached = async (cache: ArtifactCache, entry: ArtifactManifestEntry): Promise<Uint8Array> => {
+  const bytes = await readCachedIfPresent(cache, entry)
+  if (!bytes) {
+    throw new AcquisitionError('cache-miss', `Cache is missing artifact ${entry.checksum}`)
   }
   return bytes
 }
@@ -105,6 +114,8 @@ export const acquireArtifact = async (
     }
   }
 
+  // Revalidate only bytes this cache can replay: a 304 against an empty cache has nothing to serve.
+  const cachedAccepted = accepted ? await readCachedIfPresent(dependencies.cache, accepted) : undefined
   const maxRedirects = request.maxRedirects ?? 5
   const redirectChain: string[] = []
   const visited = new Set<string>()
@@ -122,7 +133,7 @@ export const acquireArtifact = async (
       {
         url: validated.url,
         headers:
-          accepted?.finalUrl === validated.url
+          cachedAccepted && accepted?.finalUrl === validated.url
             ? { 'accept-encoding': 'identity', ...conditionalHeaders(accepted) }
             : { 'accept-encoding': 'identity' },
         approvedAddresses: validated.approvedAddresses,
@@ -158,12 +169,15 @@ export const acquireArtifact = async (
     }
 
     if (response.status === 304) {
-      if (!accepted || accepted.finalUrl !== validated.url) {
+      if (!accepted || !cachedAccepted || accepted.finalUrl !== validated.url) {
         await discardResponseBody(response)
-        throw new AcquisitionError('http-status', `Received 304 without an accepted artifact`)
+        throw new AcquisitionError(
+          'http-status',
+          `Received 304 from ${validated.url} for a request that was not conditional`
+        )
       }
       await discardResponseBody(response)
-      const bytes = await readCached(dependencies.cache, accepted)
+      const bytes = cachedAccepted
       const entry: ArtifactManifestEntry = {
         ...accepted,
         finalUrl: validated.url,

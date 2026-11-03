@@ -59,6 +59,17 @@ page tweak or a site-wide refresh (2026-08-25: 51 of 85 moved, all 10 CSV export
 Wahapedia is a co-equal secondary: an official document wins any conflict, and a Wahapedia change
 never overrides a reviewed official fact.
 
+**Accepted rules pages.** Wahapedia can change a `/aos4/the-rules/<page>/` page without moving
+`Last_update.csv` (2026-11-03: all 17 accepted rules pages had new bytes). So the sentinel also
+fetches every rules page the accepted manifest pins and compares its bytes with the pinned
+checksum. Matching bytes raise nothing; other bytes raise a material `navigation-changed` event
+with both checksums and expand the lane. A failed fetch fails the lane closed. The check is raw
+bytes, not semantic: a markup-only change alarms too and needs the same review as any other.
+Clear it by re-pinning reviewed bytes through the candidate cycle. Pages are fetched one at a time
+under the Wahapedia request budget (`requestBudgets.wahapedia`, 32: about 6 sentinel requests plus
+one per pinned rules page). Raise the budget if a new pinned rules page would exceed it. Faction
+pages are still fingerprinted by URL only.
+
 **The Glossary page.** From 2026-10-26 Wahapedia lists `/aos4/the-rules/glossary/`, which is not
 a pinned artifact. It is non-material only at one reviewed fingerprint, currently `02891977…e3e9`
 (2026-11-03; first `d3afb7b4…07bb`, #2087). Both the source inventory and the radar check that:
@@ -223,9 +234,12 @@ them one at a time, each only after the previous one is satisfied.
   Draft the copy in the PR and run it past the owner before changing the banner.
 - The PR title, commit, and description reference the managed issue (`#1757`); do not close the
   issue by hand — the radar closes it when the final active lane clears.
-- After merge, dispatch `AoS 4 Rules Radar` with `source: all` (not report-only). Confirm the run
-  posts a delta comment that clears the lane and that the new `bsData.baselineSha` appears in the
-  managed issue body.
+- After merge, dispatch `AoS 4 Rules Radar` with `source: all` (not report-only). Confirm the
+  run's `report.json` has no events for the lane, the managed issue body says "No active events"
+  for it, and the radar closed the issue itself once every lane cleared (it updates the body and
+  closes without a clearing comment). For a BSData review, confirm the new baseline in the run
+  artifact's `observation/bsdata-observation.json` (`baselineSha`, `comparisonStatus`). The issue
+  body stores only active events and fingerprints, so a baseline never appears there.
 - Do not edit the managed issue body: it embeds the fingerprint state the alarm decision reads.
   The only reason to touch it is the issue-recovery path when an alarm was provably lost.
 - Reproduce locally with `yarn data:aos4:radar:observe` / `observe-bsdata` / `radar --report-only`

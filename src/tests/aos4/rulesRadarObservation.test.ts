@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { artifactChecksum, type ArtifactManifest } from '../../aos4/data'
 import type { GamesWorkshopDiscoveryResult, GamesWorkshopDownload } from '../../aos4/data/gamesWorkshop'
 import { readRulesRadarConfig } from '../../aos4/radar/config'
-import { type SourceObservationClassifications } from '../../aos4/radar/model'
+import { type RadarEvent, type SourceObservationClassifications } from '../../aos4/radar/model'
 import { observeGamesWorkshopRadar } from '../../aos4/radar/observers/gamesWorkshop'
 import { createRequestLimiter, mapWithConcurrency } from '../../aos4/radar/observers/requestLimiter'
 import { parseRobotsPolicy, robotsAllows } from '../../aos4/radar/observers/robots'
@@ -160,6 +160,7 @@ describe('AoS 4 Rules Radar source observation', () => {
         fetch: fixtureFetch(requested, {
           robots: fixtureText('robots-allowed.txt'),
           lastUpdate: fixtureText('Last_update.csv'),
+          coreRules: 'core rules',
         }),
       }
     )
@@ -170,8 +171,9 @@ describe('AoS 4 Rules Radar source observation', () => {
       'https://wahapedia.ru/aos4/nav.html',
       'https://wahapedia.ru/aos4/Export%20Data%20Specs.xlsx',
       config.wahapedia.lastUpdateUrl,
+      CORE_RULES_URL,
     ])
-    expect(result.requestCount).toBe(5)
+    expect(result.requestCount).toBe(6)
     expect(result.requiresExpandedObservation).toBe(true)
     expect(result.observation?.entries.map(entry => entry.kind)).toEqual(['faction', 'rules-page', 'export'])
   })
@@ -197,6 +199,7 @@ describe('AoS 4 Rules Radar source observation', () => {
             <a href="/aos4/Export%20Data%20Specs.xlsx">Export specification</a>
           `,
           lastUpdate: fixtureText('Last_update.csv'),
+          coreRules: 'core rules',
         }),
       }
     )
@@ -206,9 +209,55 @@ describe('AoS 4 Rules Radar source observation', () => {
       config.wahapedia.navigationUrl,
       'https://wahapedia.ru/aos4/Export%20Data%20Specs.xlsx',
       config.wahapedia.lastUpdateUrl,
+      CORE_RULES_URL,
     ])
-    expect(result.requestCount).toBe(4)
+    expect(result.requestCount).toBe(5)
     expect(result.observation?.entries.map(entry => entry.kind)).toEqual(['faction', 'rules-page', 'export'])
+  })
+
+  describe('accepted rules pages while Last_update.csv is unchanged (#1757 follow-up)', () => {
+    const lastUpdate = fixtureText('Last_update.csv')
+    const unchangedLastUpdate = artifactChecksum(bytes(lastUpdate))
+    // The fixture navigation also lists an unpinned faction; only rules-page events matter here.
+    const rulesPageEvents = (events: RadarEvent[]) =>
+      events.filter(event => event.locator.includes('/the-rules/'))
+    const observe = (coreRules: string | undefined, coreRulesChecksum: string) =>
+      observeWahapediaRadar(
+        { config, acceptedManifest: manifestWithAcceptedLastUpdate(unchangedLastUpdate, coreRulesChecksum) },
+        {
+          now: () => observedAt,
+          fetch: fixtureFetch([], { robots: fixtureText('robots-allowed.txt'), lastUpdate, coreRules }),
+        }
+      )
+
+    it('stays quiet when the page still has its accepted bytes', async () => {
+      const result = await observe('core rules', artifactChecksum(bytes('core rules')))
+
+      expect(rulesPageEvents(result.lane.events)).toEqual([])
+    })
+
+    it('reports a changed page as material with both content fingerprints', async () => {
+      const accepted = artifactChecksum(bytes('core rules'))
+      const result = await observe('core rules, revised', accepted)
+
+      expect(rulesPageEvents(result.lane.events)).toEqual([
+        expect.objectContaining({
+          class: 'material',
+          changeKind: 'navigation-changed',
+          locator: 'https://wahapedia.ru/aos4/the-rules/the-core-rules',
+          baselineFingerprint: accepted,
+          observedFingerprint: artifactChecksum(bytes('core rules, revised')),
+        }),
+      ])
+    })
+
+    it('fails closed when the page cannot be fetched', async () => {
+      const result = await observe(undefined, artifactChecksum(bytes('core rules')))
+
+      expect(result.lane.events).toEqual([
+        expect.objectContaining({ class: 'operational', changeKind: 'source-contract-changed' }),
+      ])
+    })
   })
 
   it('fails closed with an operational event when the navigation lists no pages', async () => {
@@ -319,10 +368,19 @@ describe('AoS 4 Rules Radar source observation', () => {
   })
 })
 
-const manifestWithAcceptedLastUpdate = (lastUpdateChecksum: string): ArtifactManifest => ({
+const CORE_RULES_URL = 'https://wahapedia.ru/aos4/the-rules/the-core-rules/'
+
+const manifestWithAcceptedLastUpdate = (
+  lastUpdateChecksum: string,
+  coreRulesChecksum?: string
+): ArtifactManifest => ({
   schemaVersion: 1,
   artifacts: [
-    ...baseline.manifest.artifacts,
+    ...baseline.manifest.artifacts.map(artifact =>
+      coreRulesChecksum && artifact.finalUrl === CORE_RULES_URL
+        ? { ...artifact, checksum: coreRulesChecksum }
+        : artifact
+    ),
     {
       requestUrl: config.wahapedia.lastUpdateUrl,
       finalUrl: config.wahapedia.lastUpdateUrl,
@@ -338,7 +396,7 @@ const manifestWithAcceptedLastUpdate = (lastUpdateChecksum: string): ArtifactMan
 
 const fixtureFetch = (
   requested: string[],
-  overrides: { robots: string; index?: string; nav?: string; lastUpdate: string }
+  overrides: { robots: string; index?: string; nav?: string; lastUpdate: string; coreRules?: string }
 ): RadarFetch => {
   const specification = workbookBytes()
   return async request => {
@@ -354,6 +412,8 @@ const fixtureFetch = (
       body = specification
     } else if (request.url === config.wahapedia.lastUpdateUrl) {
       body = bytes(overrides.lastUpdate)
+    } else if (request.url === CORE_RULES_URL && overrides.coreRules !== undefined) {
+      body = bytes(overrides.coreRules)
     } else {
       throw new Error(`Unexpected fixture URL ${request.url}`)
     }

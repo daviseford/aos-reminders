@@ -5,7 +5,7 @@ import {
   discoverWahapediaNavigation,
   WAHAPEDIA_GLOSSARY_URL,
 } from '../../review/wahapediaObservation'
-import { compareWahapediaObservation, createRadarLane } from '../compare'
+import { compareWahapediaObservation, isAcceptedWahapediaRulesPage, createRadarLane } from '../compare'
 import type { RulesRadarConfig } from '../config'
 import type {
   RadarEvent,
@@ -190,6 +190,20 @@ export const observeWahapediaRadar = async (
       glossaryFingerprint = glossary.checksum.toLowerCase()
     }
 
+    // Accepted rules pages can change without Last_update.csv moving, so compare their bytes too.
+    const isAcceptedRulesPage = isAcceptedWahapediaRulesPage(input.acceptedManifest)
+    const rulesPageFingerprints = new Map<string, string>()
+    for (const entry of navigation.rulesPages) {
+      if (isGlossary(entry.url) || !isAcceptedRulesPage(entry.url)) continue
+      assertAllowed(entry.url)
+      const page = await fetch({
+        url: entry.url,
+        allowedMediaTypes: ['text/html'],
+        maxBytes: 16 * 1024 * 1024,
+      })
+      rulesPageFingerprints.set(entry.url, page.checksum.toLowerCase())
+    }
+
     const navigationEntries: WahapediaRadarObservationEntry[] = [
       ...navigation.factionPages.map(entry => ({
         kind: 'faction' as const,
@@ -202,7 +216,9 @@ export const observeWahapediaRadar = async (
         locator: entry.url,
         title: entry.title,
         fingerprint:
-          (isGlossary(entry.url) && glossaryFingerprint) || navigationFingerprint({ locator: entry.url }),
+          (isGlossary(entry.url) && glossaryFingerprint) ||
+          rulesPageFingerprints.get(entry.url) ||
+          navigationFingerprint({ locator: entry.url }),
       })),
       {
         kind: 'export',
