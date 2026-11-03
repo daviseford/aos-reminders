@@ -393,7 +393,7 @@ describe('AoS 4 source acquisition', () => {
     class ConditionalOrigin implements HttpTransport {
       readonly requests: HttpRequest[] = []
       constructor(
-        private readonly bytesFor: (url: string) => Uint8Array,
+        private readonly bytesFor: (url: string) => Uint8Array<ArrayBuffer>,
         private readonly etag: string
       ) {}
       async request(request: HttpRequest): Promise<HttpResponse> {
@@ -488,7 +488,10 @@ describe('AoS 4 source acquisition', () => {
           acceptedManifest,
           requestPauseMs: 0,
           acquire: candidate =>
-            acquireArtifact(candidate, dependencies(origin, new FileArtifactCache(directory))),
+            acquireArtifact(
+              candidate,
+              dependencies(origin, undefined, { cache: new FileArtifactCache(directory) })
+            ),
         })
 
         expect(origin.requests.map(sent => sent.url)).toEqual(urls)
