@@ -1,8 +1,12 @@
-import { readFile } from 'node:fs/promises'
+import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
 import path from 'node:path'
 import {
   AcquisitionError,
+  FileArtifactCache,
   MemoryArtifactCache,
+  WAHAPEDIA_EXPORT_FILES,
+  acquireCandidateArtifacts,
   acquireArtifact,
   artifactChecksum,
   createArtifactManifest,
@@ -382,6 +386,123 @@ describe('AoS 4 source acquisition', () => {
         dependencies(new FakeTransport([]), cache)
       )
     ).rejects.toBeInstanceOf(AcquisitionError)
+  })
+
+  describe('revalidation against the local cache (Rules Radar run 41591692986)', () => {
+    // An origin that honours conditional requests: 304 only when the client asked for one.
+    class ConditionalOrigin implements HttpTransport {
+      readonly requests: HttpRequest[] = []
+      constructor(
+        private readonly bytesFor: (url: string) => Uint8Array,
+        private readonly etag: string
+      ) {}
+      async request(request: HttpRequest): Promise<HttpResponse> {
+        this.requests.push(request)
+        if (request.headers['if-none-match'] === this.etag)
+          return response(304, new Uint8Array(), { etag: this.etag })
+        return response(200, this.bytesFor(request.url), { 'content-type': 'text/csv', etag: this.etag })
+      }
+    }
+
+    const acceptedFor = (bytes: Uint8Array, url = request.url): ArtifactManifestEntry => ({
+      requestUrl: url,
+      finalUrl: url,
+      redirectChain: [],
+      retrievedAt: now(),
+      adapterVersion: request.adapterVersion,
+      mediaType: 'text/csv',
+      byteLength: bytes.byteLength,
+      checksum: artifactChecksum(bytes),
+      etag: '"accepted"',
+      lastModified: 'Thu, 22 Oct 2026 15:06:55 GMT',
+    })
+
+    it('downloads unconditionally when the cache lacks the accepted bytes', async () => {
+      const bytes = await fixture('wahapedia-mini.csv')
+      const acceptedManifest = createArtifactManifest([acceptedFor(bytes)])
+      const origin = new ConditionalOrigin(() => bytes, '"accepted"')
+      const cache = new MemoryArtifactCache()
+
+      const result = await acquireArtifact({ ...request, acceptedManifest }, dependencies(origin, cache))
+
+      expect(origin.requests).toHaveLength(1)
+      expect(origin.requests[0].headers).not.toHaveProperty('if-none-match')
+      expect(origin.requests[0].headers).not.toHaveProperty('if-modified-since')
+      expect(result.changed).toBe(false)
+      expect(result.bytes).toEqual(bytes)
+      expect(await cache.get(result.entry.checksum)).toEqual(bytes)
+    })
+
+    it('revalidates and reuses valid cached bytes without downloading them', async () => {
+      const bytes = await fixture('wahapedia-mini.csv')
+      const acceptedManifest = createArtifactManifest([acceptedFor(bytes)])
+      const origin = new ConditionalOrigin(() => new Uint8Array([1]), '"accepted"')
+      const cache = new MemoryArtifactCache()
+      await cache.put(artifactChecksum(bytes), bytes)
+
+      const result = await acquireArtifact({ ...request, acceptedManifest }, dependencies(origin, cache))
+
+      expect(origin.requests[0].headers).toMatchObject({
+        'if-none-match': '"accepted"',
+        'if-modified-since': 'Thu, 22 Oct 2026 15:06:55 GMT',
+      })
+      expect(result.changed).toBe(false)
+      expect(result.bytes).toEqual(bytes)
+    })
+
+    it('fails closed on corrupt cached bytes before contacting the source', async () => {
+      const bytes = await fixture('wahapedia-mini.csv')
+      const acceptedManifest = createArtifactManifest([acceptedFor(bytes)])
+      const origin = new ConditionalOrigin(() => bytes, '"accepted"')
+      const cache = new MemoryArtifactCache()
+      await cache.put(artifactChecksum(bytes), new Uint8Array([0]))
+
+      await expect(
+        acquireArtifact({ ...request, acceptedManifest }, dependencies(origin, cache))
+      ).rejects.toMatchObject({ code: 'cache-corrupt' })
+      expect(origin.requests).toHaveLength(0)
+    })
+
+    it('rejects a 304 answering a request that was not conditional', async () => {
+      const bytes = await fixture('wahapedia-mini.csv')
+      const acceptedManifest = createArtifactManifest([acceptedFor(bytes)])
+      const transport = new FakeTransport([response(304)])
+
+      await expect(
+        acquireArtifact({ ...request, acceptedManifest }, dependencies(transport))
+      ).rejects.toMatchObject({ code: 'http-status' })
+    })
+
+    it('prepares a Wahapedia candidate into an empty file cache through the real acquisition chain', async () => {
+      const urls = WAHAPEDIA_EXPORT_FILES.map(file => `https://wahapedia.ru/aos4/${file}`)
+      const bytesFor = (url: string) =>
+        new TextEncoder().encode(`id|url
+1|${url}
+`)
+      const acceptedManifest = createArtifactManifest(urls.map(url => acceptedFor(bytesFor(url), url)))
+      const origin = new ConditionalOrigin(bytesFor, '"accepted"')
+      const directory = await mkdtemp(path.join(tmpdir(), 'aos4-empty-cache-'))
+      try {
+        const acquired = await acquireCandidateArtifacts({
+          sources: ['wahapedia'],
+          acceptedManifest,
+          requestPauseMs: 0,
+          acquire: candidate =>
+            acquireArtifact(candidate, dependencies(origin, new FileArtifactCache(directory))),
+        })
+
+        expect(origin.requests.map(sent => sent.url)).toEqual(urls)
+        expect(origin.requests.every(sent => !('if-none-match' in sent.headers))).toBe(true)
+        expect(acquired.manifest.artifacts.map(entry => entry.checksum).sort()).toEqual(
+          urls.map(url => artifactChecksum(bytesFor(url))).sort()
+        )
+        expect((await readdir(directory)).sort()).toEqual(
+          urls.map(url => artifactChecksum(bytesFor(url))).sort()
+        )
+      } finally {
+        await rm(directory, { recursive: true, force: true })
+      }
+    })
   })
 
   it('serializes manifests deterministically regardless of insertion order', () => {
