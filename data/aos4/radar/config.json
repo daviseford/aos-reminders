@@ -23,7 +23,7 @@
   },
   "requestBudgets": {
     "games-workshop": 4,
-    "wahapedia": 8,
+    "wahapedia": 32,
     "bsdata": 4
   }
 }

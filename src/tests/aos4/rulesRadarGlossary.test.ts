@@ -41,10 +41,13 @@ const page = (url: string, checksum: string) => ({
   checksum,
 })
 
+// Accepted rules pages are fetched by content, so the fixture serves the accepted bytes.
+const CORE_RULES = '<html>The Core Rules</html>'
+
 const acceptedManifest: ArtifactManifest = {
   schemaVersion: 1,
   artifacts: [
-    page('https://wahapedia.ru/aos4/the-rules/the-core-rules/', 'a'.repeat(64)),
+    page('https://wahapedia.ru/aos4/the-rules/the-core-rules/', artifactChecksum(bytes(CORE_RULES))),
     page('https://wahapedia.ru/aos4/factions/stormcast-eternals/', 'b'.repeat(64)),
     {
       ...page(config.wahapedia.lastUpdateUrl, artifactChecksum(bytes(lastUpdate))),
@@ -84,6 +87,7 @@ const fetchWith =
     else if (request.url === 'https://wahapedia.ru/aos4/nav.html') body = bytes(nav(glossary.listed))
     else if (request.url.endsWith('.xlsx')) body = workbook()
     else if (request.url === config.wahapedia.lastUpdateUrl) body = bytes(lastUpdate)
+    else if (request.url === 'https://wahapedia.ru/aos4/the-rules/the-core-rules/') body = bytes(CORE_RULES)
     else if (request.url === WAHAPEDIA_GLOSSARY_URL && glossary.body !== undefined)
       body = bytes(glossary.body)
     else throw new Error(`Unexpected fixture URL ${request.url}`)
@@ -102,7 +106,7 @@ describe('Rules Radar Wahapedia glossary disposition (#1757)', () => {
     const result = await observe({ listed: true, body: REVIEWED_GLOSSARY }, requested)
 
     expect(requested).toContain(WAHAPEDIA_GLOSSARY_URL)
-    expect(result.requestCount).toBe(6)
+    expect(result.requestCount).toBe(7)
     expect(result.lane.events).toEqual([])
     expect(result.requiresExpandedObservation).toBe(false)
   })
@@ -139,7 +143,7 @@ describe('Rules Radar Wahapedia glossary disposition (#1757)', () => {
             kind: 'rules-page',
             locator: 'https://wahapedia.ru/aos4/the-rules/the-core-rules/',
             title: 'Core',
-            fingerprint: 'c'.repeat(64),
+            fingerprint: artifactChecksum(bytes(CORE_RULES)),
           },
           {
             kind: 'faction',
@@ -195,7 +199,7 @@ describe('Rules Radar Wahapedia glossary disposition (#1757)', () => {
     const result = await observe({ listed: false }, requested)
 
     expect(requested).not.toContain(WAHAPEDIA_GLOSSARY_URL)
-    expect(result.requestCount).toBe(5)
+    expect(result.requestCount).toBe(6)
     expect(result.lane.events).toEqual([])
   })
 })

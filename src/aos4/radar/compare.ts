@@ -309,6 +309,20 @@ const includedInWahapediaScope = (
   return /^\/aos4\/the-rules\/[^/]+\/?$/i.test(url.pathname)
 }
 
+/** Whether a URL is an accepted rules page; the sentinel fingerprints those by content. */
+export const isAcceptedWahapediaRulesPage = (manifest: ArtifactManifest): ((url: string) => boolean) => {
+  const accepted = new Set(
+    artifactsForSource(manifest, 'wahapedia')
+      .filter(
+        artifact =>
+          wahapediaKindForUrl(artifact.finalUrl) === 'rules-page' &&
+          includedInWahapediaScope(artifact, 'sentinel')
+      )
+      .map(artifact => normalizedWahapediaUrl(artifact.finalUrl))
+  )
+  return url => accepted.has(normalizedWahapediaUrl(url))
+}
+
 const newWahapediaKind = (kind: WahapediaObservationEntryKind): RadarChangeKind =>
   kind === 'faction' ? 'new-faction' : kind === 'rules-page' ? 'new-rules-page' : 'export-changed'
 
@@ -372,7 +386,8 @@ export const compareWahapediaObservation = ({
     ) {
       return
     }
-    const checksContentFingerprint = entry.kind === 'export' || observation.scope === 'full'
+    const checksContentFingerprint =
+      entry.kind === 'export' || entry.kind === 'rules-page' || observation.scope === 'full'
     if (!baseline || (checksContentFingerprint && baseline.checksum.toLowerCase() !== entry.fingerprint)) {
       events.push(
         createEvent(
