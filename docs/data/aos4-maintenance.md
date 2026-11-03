@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-10-29 snapshot is defined by:
+The accepted 2026-11-03 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-10-29.json` | the 2026-10-27 manifest with the twelve official PDFs Games Workshop re-published on 2026-10-28 swapped in place (publication identity continuity), the five delisted official documents with no successor removed (Battle Profiles - Ogor Mawtribes and - Sons of Behemat, the February 2025 Ogor Mawtribes and Sons of Behemat faction packs, Legends Regiment of Renown - Heroes of the Jade Abbey), and two BSData Cities of Sigmar Legends catalogues pinned at `main` `6909c140` (provisional community transcriptions); 249 artifacts |
-| `data/aos4/reviews/corpus-2026-10-29.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-11-03.json` | the 2026-10-29 manifest with the 17 Wahapedia rules pages re-pinned at their 2026-11-03 bytes (same URLs; every consumed card unchanged, #1757); 249 artifacts. The 2026-10-29 manifest it copies holds the twelve official PDFs Games Workshop re-published on 2026-10-28 (publication identity continuity), drops the five delisted official documents with no successor, and pins two BSData Cities of Sigmar Legends catalogues at `main` `6909c140` (provisional community transcriptions) |
+| `data/aos4/reviews/corpus-2026-11-03.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs; `retired: true` keeps a rule the source no longer prints registered without ever resolving to it |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-10-29-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-10-29-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-11-03-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-11-03-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -56,6 +56,13 @@ The strict report currently records:
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts recorded their struck notes as `struckNotes` until the October 2026
   re-publication dropped those notes outright, corpus 2026-10-29)
+- the 2026-11-03 Wahapedia rules-page re-pin (#1757), on top of 2026-10-29: the Rules Radar alarm
+  of 2026-11-03 (17 `navigation-changed` events, the first run after #2099 began fingerprinting
+  accepted rules pages). Only the 17 rules-page artifacts moved. Every card the parser reads is
+  unchanged (858 of 858 record checksums). The text changes catch up to the already-pinned October 2026
+  Rules Updates: the Regiment of Renown faction-rules exception (page 8) and three FAQ answers
+  (pages 11-12). No runtime record carries that text, so generation changed only the artifact ids
+  of the 17 pages. Certified as `aos4-corpus-2026-11-03-machine-r1`
 - the 2026-10-29 Games Workshop update (#1757): the Rules Radar alarm of 2026-10-29 (12 new and
   17 removed publications, all of Games Workshop's 28 October 2026 re-publication). Twelve
   documents re-pinned with publication identity continuity and their review citations re-keyed
