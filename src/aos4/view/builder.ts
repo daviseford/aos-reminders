@@ -7,7 +7,7 @@ import type {
   RulesContext,
   Warscroll,
 } from '../domain'
-import { resolveSelection } from '../select'
+import { prepareSelectionCatalog, resolvePreparedSelection } from '../select'
 import type { Aos4ArmyDocument } from '../state'
 
 export interface Aos4BuilderOption {
@@ -105,21 +105,22 @@ const builderGroupLabels = (
 export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4ArmyDocument) => {
   // Every army offers its full catalog: current-standard content plus the Legends and historical
   // (Scourge of Ghyran) overlays. Options carry an `overlay` marker so the UI can group them
-  // rather than asking the player to opt in first.
-  const selection = resolveSelection(catalog, {
+  // rather than asking the player to opt in first. The three passes share one catalog preparation.
+  const prepared = prepareSelectionCatalog(catalog)
+  const selection = resolvePreparedSelection(prepared, {
     explicitIds: document.explicitSelectionIds,
     rulesContextId: document.rulesContextId,
     allowsLegends: true,
     allowsHistorical: true,
   })
   const strictAvailable = new Set(
-    resolveSelection(catalog, {
+    resolvePreparedSelection(prepared, {
       explicitIds: document.explicitSelectionIds,
       rulesContextId: document.rulesContextId,
     }).availableIds
   )
   const legendsAvailable = new Set(
-    resolveSelection(catalog, {
+    resolvePreparedSelection(prepared, {
       explicitIds: document.explicitSelectionIds,
       rulesContextId: document.rulesContextId,
       allowsLegends: true,
