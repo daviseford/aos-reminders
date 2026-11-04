@@ -53,18 +53,18 @@ const createCatalog = (): Aos4Catalog => ({
     group(ids.legendsUnit, [legends]),
   ],
   relationships: [
-    { id: 'rel:faction-offers-formation', kind: 'offers', from: ids.faction, to: ids.formation },
-    { id: 'rel:faction-offers-legends', kind: 'offers', from: ids.faction, to: ids.legendsUnit },
-    { id: 'rel:formation-includes-ability', kind: 'includes', from: ids.formation, to: ids.ability },
-    { id: 'rel:ability-includes-formation', kind: 'includes', from: ids.ability, to: ids.formation },
+    { id: 'relationship:faction-offers-formation', kind: 'offers', from: ids.faction, to: ids.formation },
+    { id: 'relationship:faction-offers-legends', kind: 'offers', from: ids.faction, to: ids.legendsUnit },
+    { id: 'relationship:formation-includes-ability', kind: 'includes', from: ids.formation, to: ids.ability },
+    { id: 'relationship:ability-includes-formation', kind: 'includes', from: ids.ability, to: ids.formation },
     {
-      id: 'rel:dangling',
+      id: 'relationship:dangling',
       kind: 'includes',
       from: ids.faction,
       to: contentGroupId('31000000-0000-4000-8000-0000000000ff'),
     },
     {
-      id: 'rel:ghost-context',
+      id: 'relationship:ghost-context',
       kind: 'offers',
       from: ids.faction,
       to: ids.ability,
@@ -129,7 +129,7 @@ describe('prepared selection catalog', () => {
 
     catalog.entities.push(group(ids.late))
     catalog.relationships.push({
-      id: 'rel:faction-offers-late',
+      id: 'relationship:faction-offers-late',
       kind: 'offers',
       from: ids.faction,
       to: ids.late,
@@ -146,7 +146,7 @@ describe('prepared selection catalog', () => {
     const first = createCatalog()
     const second = createCatalog()
     second.relationships = second.relationships.filter(
-      relationship => relationship.id !== 'rel:faction-offers-formation'
+      relationship => relationship.id !== 'relationship:faction-offers-formation'
     )
     const input = { explicitIds: [ids.faction], rulesContextId: standard }
     const preparedFirst = prepareSelectionCatalog(first)
