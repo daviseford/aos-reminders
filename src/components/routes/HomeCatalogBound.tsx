@@ -414,7 +414,13 @@ const HomeCatalogBound = ({
     )
   }, [initialLoad, onDocumentValidated])
 
-  const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
+  /*
+   * Every note keystroke, hide, and reorder makes a fresh document, yet the builder never reads
+   * reminder preferences, so it is keyed by value on everything else the document holds. Dropping
+   * only that one field means a new or forgotten builder input still rebuilds it.
+   */
+  const builderKey = JSON.stringify({ ...document, reminderPreferences: undefined })
+  const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [builderKey])
   const reminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
   const hiddenCount = reminders.filter(reminder => reminder.hidden).length
   const factionName = factionById.get(factionId)?.name ?? 'Age of Sigmar 4'
