@@ -1,5 +1,12 @@
-import type { Aos4Catalog, CanonicalId, ContentEntity, ContentRelationship, RulesContextId } from '../domain'
-import { createCatalogIndex } from './catalog'
+import type {
+  Aos4Catalog,
+  CanonicalId,
+  ContentEntity,
+  ContentRelationship,
+  RulesContext,
+  RulesContextId,
+} from '../domain'
+import { createCatalogIndex, type CatalogIndex } from './catalog'
 import { normalizeSelectionDiagnostics, type SelectionDiagnostic } from './diagnostics'
 
 export interface ResolveSelectionInput {
@@ -66,20 +73,126 @@ const sortCauses = (causes: SelectionCause[]): SelectionCause[] =>
       left.relationshipPath.join('>').localeCompare(right.relationshipPath.join('>'))
   )
 
-export const resolveSelection = (catalog: Aos4Catalog, input: ResolveSelectionInput): ResolvedSelection => {
-  const index = createCatalogIndex(catalog)
+interface ApplicableRelationships {
+  contextIds: ReadonlySet<RulesContextId>
+  excludes: readonly ContentRelationship[]
+  danglingDiagnostics: readonly SelectionDiagnostic[]
+}
+
+/**
+ * The army-independent half of selection resolution, computed once per catalog snapshot.
+ *
+ * The snapshot is owned by whoever prepares it and reflects the catalog at that moment: it keeps
+ * references to the catalog's entities and relationships, so re-prepare after mutating the catalog.
+ * `resolveSelection` prepares afresh on every call; hold a prepared catalog only where the catalog
+ * cannot change between resolves.
+ */
+export interface PreparedSelectionCatalog {
+  readonly index: CatalogIndex
+  readonly rulesContexts: readonly RulesContext[]
+  readonly contextIds: ReadonlySet<RulesContextId>
+  readonly missingContextDiagnostics: readonly SelectionDiagnostic[]
+  /** Every relationship, sorted by id once; filtering keeps this order. */
+  readonly relationshipsById: readonly ContentRelationship[]
+  /** Applicable relationships per rules context and overlay combination, filled on first use. */
+  readonly applicableByKey: Map<string, ApplicableRelationships>
+}
+
+export const prepareSelectionCatalog = (catalog: Aos4Catalog): PreparedSelectionCatalog => {
   const contextIds = new Set(catalog.rulesContexts.map(context => context.id))
+  const missingContextDiagnostics: SelectionDiagnostic[] = []
+  catalog.relationships.forEach(relationship => {
+    relationship.rulesContextIds?.forEach(contextId => {
+      if (!contextIds.has(contextId)) {
+        missingContextDiagnostics.push({
+          code: 'missing-relationship-context',
+          severity: 'error',
+          subject: relationship.id,
+          message: `Relationship ${relationship.id} refers to missing rules context ${contextId}`,
+          rulesContextId: contextId,
+        })
+      }
+    })
+  })
+
+  return {
+    index: createCatalogIndex(catalog),
+    rulesContexts: [...catalog.rulesContexts],
+    contextIds,
+    missingContextDiagnostics,
+    relationshipsById: [...catalog.relationships].sort((left, right) => left.id.localeCompare(right.id)),
+    applicableByKey: new Map(),
+  }
+}
+
+const applicableRelationshipsFor = (
+  prepared: PreparedSelectionCatalog,
+  input: ResolveSelectionInput
+): ApplicableRelationships => {
+  const key = `${input.rulesContextId}|${Boolean(input.allowsLegends)}|${Boolean(input.allowsHistorical)}`
+  const cached = prepared.applicableByKey.get(key)
+  if (cached) return cached
+
   const overlayStatuses = new Set(
     [input.allowsLegends ? 'legends' : undefined, input.allowsHistorical ? 'historical' : undefined].filter(
       (status): status is string => Boolean(status)
     )
   )
-  const applicableContextIds = new Set<RulesContextId>([
+  const contextIds = new Set<RulesContextId>([
     input.rulesContextId,
-    ...catalog.rulesContexts
+    ...prepared.rulesContexts
       .filter(context => overlayStatuses.has(context.status))
       .map(context => context.id),
   ])
+  const relationships = prepared.relationshipsById.filter(relationship =>
+    isRelationshipApplicable(relationship, contextIds)
+  )
+  const danglingDiagnostics: SelectionDiagnostic[] = []
+  relationships.forEach(relationship => {
+    if (!prepared.index.entitiesById.has(relationship.from)) {
+      danglingDiagnostics.push({
+        code: 'dangling-relationship-source',
+        severity: 'error',
+        subject: relationship.id,
+        message: `Relationship ${relationship.id} has missing source ${relationship.from}`,
+        entityIds: [relationship.from],
+      })
+    }
+    if (!prepared.index.entitiesById.has(relationship.to)) {
+      danglingDiagnostics.push({
+        code: 'dangling-relationship-target',
+        severity: 'error',
+        subject: relationship.id,
+        message: `Relationship ${relationship.id} has missing target ${relationship.to}`,
+        entityIds: [relationship.to],
+      })
+    }
+  })
+  const applicable = {
+    contextIds,
+    excludes: relationships.filter(relationship => relationship.kind === 'excludes'),
+    danglingDiagnostics,
+  }
+  prepared.applicableByKey.set(key, applicable)
+  return applicable
+}
+
+// Prepared diagnostics are shared across resolves; hand each result its own copies.
+const copyDiagnostic = (diagnostic: SelectionDiagnostic): SelectionDiagnostic => ({
+  ...diagnostic,
+  ...(diagnostic.entityIds ? { entityIds: [...diagnostic.entityIds] } : {}),
+})
+
+export const resolveSelection = (catalog: Aos4Catalog, input: ResolveSelectionInput): ResolvedSelection =>
+  resolvePreparedSelection(prepareSelectionCatalog(catalog), input)
+
+export const resolvePreparedSelection = (
+  prepared: PreparedSelectionCatalog,
+  input: ResolveSelectionInput
+): ResolvedSelection => {
+  const { index, contextIds } = prepared
+  const applicable = applicableRelationshipsFor(prepared, input)
+  const applicableContextIds = applicable.contextIds
   const overlayNames = [
     input.allowsLegends ? 'Legends' : undefined,
     input.allowsHistorical ? 'historical content' : undefined,
@@ -99,44 +212,10 @@ export const resolveSelection = (catalog: Aos4Catalog, input: ResolveSelectionIn
     })
   }
 
-  catalog.relationships.forEach(relationship => {
-    relationship.rulesContextIds?.forEach(contextId => {
-      if (!contextIds.has(contextId)) {
-        diagnostics.push({
-          code: 'missing-relationship-context',
-          severity: 'error',
-          subject: relationship.id,
-          message: `Relationship ${relationship.id} refers to missing rules context ${contextId}`,
-          rulesContextId: contextId,
-        })
-      }
-    })
-  })
-
-  const applicableRelationships = catalog.relationships
-    .filter(relationship => isRelationshipApplicable(relationship, applicableContextIds))
-    .sort((left, right) => left.id.localeCompare(right.id))
-
-  applicableRelationships.forEach(relationship => {
-    if (!index.entitiesById.has(relationship.from)) {
-      diagnostics.push({
-        code: 'dangling-relationship-source',
-        severity: 'error',
-        subject: relationship.id,
-        message: `Relationship ${relationship.id} has missing source ${relationship.from}`,
-        entityIds: [relationship.from],
-      })
-    }
-    if (!index.entitiesById.has(relationship.to)) {
-      diagnostics.push({
-        code: 'dangling-relationship-target',
-        severity: 'error',
-        subject: relationship.id,
-        message: `Relationship ${relationship.id} has missing target ${relationship.to}`,
-        entityIds: [relationship.to],
-      })
-    }
-  })
+  diagnostics.push(
+    ...prepared.missingContextDiagnostics.map(copyDiagnostic),
+    ...applicable.danglingDiagnostics.map(copyDiagnostic)
+  )
 
   interface ResolutionPass {
     selectedIds: Set<CanonicalId>
@@ -257,31 +336,27 @@ export const resolveSelection = (catalog: Aos4Catalog, input: ResolveSelectionIn
   const firstPass = runPass(new Set())
   const explicitIdSet = new Set(input.explicitIds)
   const suppressedIds = new Set<CanonicalId>()
-  applicableRelationships
-    .filter(relationship => relationship.kind === 'excludes')
-    .forEach(relationship => {
-      if (!firstPass.selectedIds.has(relationship.from)) return
-      if (explicitIdSet.has(relationship.to)) return
-      suppressedIds.add(relationship.to)
-    })
+  applicable.excludes.forEach(relationship => {
+    if (!firstPass.selectedIds.has(relationship.from)) return
+    if (explicitIdSet.has(relationship.to)) return
+    suppressedIds.add(relationship.to)
+  })
   const finalPass = suppressedIds.size ? runPass(suppressedIds) : firstPass
   const { selectedIds, availableIds, causes } = finalPass
   diagnostics.push(...finalPass.diagnostics)
 
-  applicableRelationships
-    .filter(relationship => relationship.kind === 'excludes')
-    .forEach(relationship => {
-      if (selectedIds.has(relationship.from) && selectedIds.has(relationship.to)) {
-        diagnostics.push({
-          code: 'excluded-selection',
-          severity: 'error',
-          subject: relationship.id,
-          message: `Selected content ${relationship.from} excludes ${relationship.to}`,
-          entityIds: [relationship.from, relationship.to],
-          rulesContextId: input.rulesContextId,
-        })
-      }
-    })
+  applicable.excludes.forEach(relationship => {
+    if (selectedIds.has(relationship.from) && selectedIds.has(relationship.to)) {
+      diagnostics.push({
+        code: 'excluded-selection',
+        severity: 'error',
+        subject: relationship.id,
+        message: `Selected content ${relationship.from} excludes ${relationship.to}`,
+        entityIds: [relationship.from, relationship.to],
+        rulesContextId: input.rulesContextId,
+      })
+    }
+  })
 
   return {
     explicitIds: sortIds(
