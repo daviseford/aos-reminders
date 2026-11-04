@@ -203,6 +203,16 @@ const ReminderEntry = ({
   const { theme } = useTheme()
   const isMobile = useIsMobile()
   const [editingNote, setEditingNote] = useState(false)
+  /*
+   * The note box shows what the player typed, not the saved note. The army stores notes trimmed on
+   * every change, so a box bound to the saved note loses a space typed at the end before the next
+   * key arrives: "a", space, "b" became "ab" (#2105). The draft is shown while it still trims to the
+   * saved note; once the saved note changes some other way (another army loaded, the army cleared),
+   * the box shows the saved note again.
+   */
+  const savedNote = reminder.note ?? ''
+  const [noteDraft, setNoteDraft] = useState(savedNote)
+  const noteValue = noteDraft.trim() === savedNote ? noteDraft : savedNote
   const [sources, setSources] = useState<SourceState>({ status: 'idle' })
 
   /*
@@ -310,8 +320,11 @@ const ReminderEntry = ({
               className={`NoteInput form-control ${theme.bgColor} ${theme.text} d-print-none`}
               aria-label={`Note for ${reminder.name}`}
               placeholder="Add a note..."
-              value={reminder.note ?? ''}
-              onChange={event => onNote(reminder, event.target.value)}
+              value={noteValue}
+              onChange={event => {
+                setNoteDraft(event.target.value)
+                onNote(reminder, event.target.value)
+              }}
             />
           )}
           {reminder.note && (
