@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-11-03 snapshot is defined by:
+The accepted 2026-11-10 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-11-03.json` | the 2026-10-29 manifest with the 17 Wahapedia rules pages re-pinned at their 2026-11-03 bytes (same URLs; every consumed card unchanged, #1757); 249 artifacts. The 2026-10-29 manifest it copies holds the twelve official PDFs Games Workshop re-published on 2026-10-28 (publication identity continuity), drops the five delisted official documents with no successor, and pins two BSData Cities of Sigmar Legends catalogues at `main` `6909c140` (provisional community transcriptions) |
-| `data/aos4/reviews/corpus-2026-11-03.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-11-10.json` | the 2026-11-03 manifest with the six Khazalite Holds BSData catalogues re-pinned from the `khazalite-holds` branch (`5e52e2a5`, `ea96eba3`) to BSData `main` `487e2d9f`, which merged that branch on 2026-11-07 (#1757; four new checksums, two byte-identical files at their new URLs); 249 artifacts. The 2026-11-03 manifest it copies is the 2026-10-29 manifest with the 17 Wahapedia rules pages re-pinned at their 2026-11-03 bytes (same URLs; every consumed card unchanged, #1757); 249 artifacts. The 2026-10-29 manifest it copies holds the twelve official PDFs Games Workshop re-published on 2026-10-28 (publication identity continuity), drops the five delisted official documents with no successor, and pins two BSData Cities of Sigmar Legends catalogues at `main` `6909c140` (provisional community transcriptions) |
+| `data/aos4/reviews/corpus-2026-11-10.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs; `retired: true` keeps a rule the source no longer prints registered without ever resolving to it |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-11-03-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-11-03-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-11-10-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-11-10-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -38,7 +38,7 @@ The strict report currently records:
 - 5,461 abilities
 - 2,373 weapons
 - 1,607 content groups
-- 249 source artifacts and 21,224 live source records
+- 249 source artifacts and 21,223 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -56,6 +56,20 @@ The strict report currently records:
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts recorded their struck notes as `struckNotes` until the October 2026
   re-publication dropped those notes outright, corpus 2026-10-29)
+- the 2026-11-10 BSData re-pin (#1757), on top of 2026-11-03: the Rules Radar alarm of 2026-11-10
+  (BSData `d2334be5` → `487e2d9f`, 22 commits, 44 catalogues) is BSData merging its
+  `khazalite-holds` branch into `main`, folding Fyreslayers into Khazalite Holds, with the October
+  2026 battle profiles and rules updates. The six Khazalite Holds catalogues the corpus pins moved
+  from the branch to `main` `487e2d9f`. The extracted facts changed in six places, and five were
+  already shipped from the October 2026 Rules Updates. The sixth is the one rules change: High Kyng
+  Valankrom's Karak War Council's Armoury loses Companion, as the Thrynn on War Throne copy already
+  did. Two reviewed overrides are now no-ops and are retired, because `main` prints the official
+  wording itself: the MAGMADROTH removal on the Scourge of Aqshy Auric Runeson on Magmadroth
+  (Rules Updates page 33), and Rhythmic Hammering's Reaction label (page 55, with its
+  `unknown-timing` policy). The Fyreslayers fold, Gotrek Gurnisson's removal from the Fyreslayers
+  inclusion list and the new Throng of Valankrom and Fyrd of Fyrepeak lores are not adopted
+  (#2087: additive decision, source-blocked translations). The `bsdata-khazalite-holds-main`
+  provisional watch retired. Certified as `aos4-corpus-2026-11-10-machine-r1`
 - the 2026-11-03 Wahapedia rules-page re-pin (#1757), on top of 2026-10-29: the Rules Radar alarm
   of 2026-11-03 (17 `navigation-changed` events, the first run after #2099 began fingerprinting
   accepted rules pages). Only the 17 rules-page artifacts moved. Every card the parser reads is
@@ -832,8 +846,9 @@ rather than a pending-verification queue: a hit starts a reconciliation, not a m
 replacement. The reviewed sentinel list is `data/aos4/radar/provisional-watch.json`; a hit
 comments once per finding-set on the tracking issue (deduplicated by a fingerprint marker) so the
 standard candidate intake can run. Like the radar, the watch is evidence, not acceptance. Run it
-locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`. The list is currently
-empty, so the watch idles. The three Ogor watches fired on 2026-08-28 and retired with the
+locally with `yarn data:aos4:radar:watch-provisional --output <new-directory>`. The list holds one
+watch, `wahapedia-khazalite-holds-faction` (#2087); `bsdata-khazalite-holds-main` fired on
+2026-11-07 when BSData merged its `khazalite-holds` branch and retired with corpus 2026-11-10. The three Ogor watches fired on 2026-08-28 and retired with the
 2026-08-28b intake; the four BSData `main` file watches fired on 2026-09-23 when BSData merged the
 `gargants` branch, and retired; and the two Wahapedia watches for #1999 (the Sons of Behemat
 faction page, and Krong the Club on the Blades of Khorne collection page) fired on 2026-09-25 and

@@ -322,7 +322,8 @@ describe('Sons of Behemat battletome on the re-pinned Wahapedia pages (issue #19
   })
 
   it('keeps no Sons of Behemat BSData catalogue in the corpus', () => {
-    // Corpus 2026-10-26 (#2087) pins the BSData khazalite-holds branch; corpus 2026-10-29 (#1757)
+    // Corpus 2026-10-26 (#2087) pins the BSData khazalite-holds branch (re-pinned to main 487e2d9f in
+    // corpus 2026-11-10); corpus 2026-10-29 (#1757)
     // adds two Cities of Sigmar Legends catalogues at main. Neither is a Sons of Behemat catalogue.
     // The exact set: any other community catalogue fails here (#1757 review C6).
     const pinned = (commit: string, file: string) =>
@@ -335,15 +336,15 @@ describe('Sons of Behemat battletome on the re-pinned Wahapedia pages (issue #19
     ).toEqual(
       [
         pinned(
-          '5e52e2a5fbc41a594c9c8bd7c256d00286e39572',
+          '487e2d9fcdd94ff8ec684ebf33de91149db58da9',
           'Khazalite%20Holds%20-%20Fyrd%20of%20Fyrepeak.cat'
         ),
         pinned(
-          '5e52e2a5fbc41a594c9c8bd7c256d00286e39572',
+          '487e2d9fcdd94ff8ec684ebf33de91149db58da9',
           'Khazalite%20Holds%20-%20Throngankor%20Alliance.cat'
         ),
-        pinned('5e52e2a5fbc41a594c9c8bd7c256d00286e39572', 'Lores.cat'),
-        pinned('5e52e2a5fbc41a594c9c8bd7c256d00286e39572', 'Regiments%20of%20Renown.cat'),
+        pinned('487e2d9fcdd94ff8ec684ebf33de91149db58da9', 'Lores.cat'),
+        pinned('487e2d9fcdd94ff8ec684ebf33de91149db58da9', 'Regiments%20of%20Renown.cat'),
         pinned(
           '6909c1401ee52c63b5187a7c2d00fb34190479bd',
           'Cities%20of%20Sigmar%20-%20Greywater%20Fastness%20%5BLEGENDS%5D.cat'
@@ -352,8 +353,8 @@ describe('Sons of Behemat battletome on the re-pinned Wahapedia pages (issue #19
           '6909c1401ee52c63b5187a7c2d00fb34190479bd',
           'Cities%20of%20Sigmar%20-%20Lethis%20%5BLEGENDS.cat'
         ),
-        pinned('ea96eba39cf280633f4cb13e2df05de358ed729a', 'Khazalite%20Holds%20-%20Library.cat'),
-        pinned('ea96eba39cf280633f4cb13e2df05de358ed729a', 'Khazalite%20Holds.cat'),
+        pinned('487e2d9fcdd94ff8ec684ebf33de91149db58da9', 'Khazalite%20Holds%20-%20Library.cat'),
+        pinned('487e2d9fcdd94ff8ec684ebf33de91149db58da9', 'Khazalite%20Holds.cat'),
       ].sort()
     )
   })

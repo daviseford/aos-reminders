@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-11-03.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-11-10.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-11-03-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-11-10-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -204,17 +204,18 @@ describe('AoS 4 catalog generation integrity', () => {
         // adds five White Dwarf Legends units (Grombrindal adopted from Wahapedia, four from BSData
         // Legends catalogues) and un-ignores the Runewright's Rhythmic Hammering (RU page 55).
         // Its faction variants add Khazalite Holds copies of Lofnir Drothkeepers, The Duardin Ascendant
-        // and The Chosen Axes (36 entities, Blazing Vengeance among them).
+        // and The Chosen Axes (36 entities, Blazing Vengeance among them). Corpus 2026-11-10 re-pins the
+        // Khazalite Holds BSData catalogues at main, one keyword record fewer (#1757).
         warscrolls: 1368,
         battleProfiles: 1060,
         abilities: 5482,
         weapons: 2375,
         sourceArtifacts: 249,
-        sourceRecords: 21233,
+        sourceRecords: 21232,
         ignoredSourceRecords: 21161,
       },
       integrity: {
-        consumedSourceRecords: 21224,
+        consumedSourceRecords: 21223,
         issues: [],
         supersededSourceRecords: {
           count: 21152,
@@ -228,8 +229,8 @@ describe('AoS 4 catalog generation integrity', () => {
     // English source prints them. Everything else stays fully consumed.
     const translated = [
       'source-record:bsdata:2427ed7e1384c24bb86041137de36947391f9680b5baa35d1c0e9618e5cbfd0d%3Aoption%3Abattle-traits-throngankor-alliance%3Aability%3A4',
-      'source-record:bsdata:2aa35a3fd653cac60fe2a6375c207e9b84854025bbc89be20cda6946f0dc038d%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2',
-      'source-record:bsdata:299110685cdbabc36b3b7b8bae6650a391de8f971d244be79fc902e309f4ef4a%3Aoption%3Abattle-traits-khazalite-holds%3Aability%3A8',
+      'source-record:bsdata:9f65b0d4dcdd58c8823349a5b0bd55505b8f269c7460b87df24d24ac3bfb227c%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2',
+      'source-record:bsdata:949681f85edc2e98c9e43a63eb11fc58b8f7522e6c9c4fd134122df1181516b7%3Aoption%3Abattle-traits-khazalite-holds%3Aability%3A8',
     ]
     // Corpus 2026-10-26 ignored Rhythmic Hammering as source-blocked; corpus 2026-10-29 consumes it
     // again because the October 2026 Rules Updates (page 55) print its Reaction label (#1757).
@@ -339,7 +340,8 @@ describe('AoS 4 catalog generation integrity', () => {
     // Corpus 2026-10-20b (#2087) pins six Khazalite Holds catalogues from the unmerged BSData
     // `khazalite-holds` branch at 5e52e2a5, provisional until `main` or Wahapedia carries them.
     // Corpus 2026-10-26 re-pins the two catalogues that changed upstream (the library and the faction
-    // catalogue) to ea96eba3; the other four are byte-identical there and stay at 5e52e2a5.
+    // catalogue) to ea96eba3; the other four are byte-identical there and stay at 5e52e2a5. Corpus
+    // 2026-11-10 (#1757) re-pins all six to BSData main 487e2d9f after BSData merged the branch.
     // Before that, no commit-pinned BSData catalogue remained. The Stormcast library, the three Ogor catalogues,
     // the three Sons of Behemat `gargants`-branch catalogues, and the Regiments of Renown catalogue
     // that carried Krong the Club's rules text (issue #1999) all retired once a pinned Wahapedia
@@ -362,15 +364,12 @@ describe('AoS 4 catalog generation integrity', () => {
       'Lores.cat',
       'Regiments of Renown.cat',
     ])
-    const repinned = ['Khazalite Holds - Library.cat', 'Khazalite Holds.cat']
     bsDataArtifacts.forEach(artifact => {
       const file = decodeURIComponent(artifact.finalUrl.split('/').pop()!)
       expect(artifact.finalUrl).toContain(
         file.startsWith('Cities of Sigmar - ')
           ? '/BSData/age-of-sigmar-4th/6909c1401ee52c63b5187a7c2d00fb34190479bd/'
-          : repinned.includes(file)
-            ? '/BSData/age-of-sigmar-4th/ea96eba39cf280633f4cb13e2df05de358ed729a/'
-            : '/BSData/age-of-sigmar-4th/5e52e2a5fbc41a594c9c8bd7c256d00286e39572/'
+          : '/BSData/age-of-sigmar-4th/487e2d9fcdd94ff8ec684ebf33de91149db58da9/'
       )
     })
     const htmlArtifacts = acceptedManifest.artifacts.filter(

@@ -68,8 +68,9 @@ describe('AoS 4 derived corpus artifacts', () => {
     // Spearheads, historical Daughters of Khaine warscrolls and The Emberwatch (#1757), and the ten
     // records of the Spearhead battle-trait rules Wahapedia prints as prose (#2095). Corpus 2026-10-29
     // swaps 12 re-published October PDFs in, drops 5 delisted ones and adds two BSData Legends
-    // catalogues (#1757).
-    expect(sources.sourceRecords).toHaveLength(21224)
+    // catalogues (#1757). Corpus 2026-11-10 re-pins the Khazalite Holds catalogues at BSData main,
+    // which no longer prints the MAGMADROTH keyword record the reviewed override removed (#1757).
+    expect(sources.sourceRecords).toHaveLength(21223)
     expect(sources.sourceArtifacts).toHaveLength(239)
   })
 

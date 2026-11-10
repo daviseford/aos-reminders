@@ -12,7 +12,41 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-11-03` (issue #1757): the 17 accepted Wahapedia rules
+The current revision is `aos4-corpus-2026-11-10` (issue #1757): the six Khazalite Holds BSData
+catalogues re-pinned from the `khazalite-holds` branch to BSData `main` `487e2d9f`, on top of
+`aos4-corpus-2026-11-03`. The manifest `accepted-2026-11-10.json` holds the same 249 artifacts;
+four checksums moved, and two byte-identical files changed only their URLs. The one rules change is
+High Kyng Valankrom's Karak War Council's Armoury losing Companion. Two overrides (the Scourge of
+Aqshy Auric Runeson's MAGMADROTH removal and Rhythmic Hammering's Reaction timing) retired because
+the source now prints them, so one keyword source record left the corpus. Its automated review is
+complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 249/249 |
+| Explicit non-material discovery entries | 11 |
+| Official battle-profile facts | 1,424/1,424 |
+| Final official/secondary reconciliation discrepancies | 399/399 |
+| Official profile-only facts | 0/0 |
+| Live audit source records | 21,232/21,232 |
+| Ignored-record dispositions (superseded + explicit) | 21,161/21,161 |
+| Live review pairs | 44,217/44,217 |
+| Independent outcomes | 88,434 pass; 0 finding; 0 cannot-verify |
+
+The source inventory binds fresh observations taken for this intake on 2026-11-10: a
+`discover-official` snapshot (164 sources, 20:30:25Z), the six Khazalite Holds files at `487e2d9f`
+(20:30:45Z), the two Cities of Sigmar Legends files at `6909c140` (20:30:53Z), and the Wahapedia
+navigation and exports (88 sources, 0 inaccessible, 20:31:11Z). Every accepted artifact matched. A
+first campaign (20:38:45Z) returned one major finding. The Rhythmic Hammering timing override was
+no longer grounded, because the re-pinned source already prints the Reaction label. The override
+was retired, and the products were regenerated and replayed. The certification is
+`aos4-corpus-2026-11-10-machine-r1` (campaign 2026-11-10T20:51:34Z, evaluated 20:52:05Z). It offered
+`aos4-corpus-2026-11-03-machine-r1` for reuse, but every pair was evaluated fresh (0 reused),
+because the re-pinned artifact ids re-key the pairs.
+
+### `aos4-corpus-2026-11-03` (superseded)
+
+The revision `aos4-corpus-2026-11-03` (issue #1757): the 17 accepted Wahapedia rules
 pages re-pinned at their 2026-11-03 bytes on top of `aos4-corpus-2026-10-29`. The manifest
 `accepted-2026-11-03.json` holds the same 249 artifacts at the same URLs; only those 17 checksums
 moved. Every card the parser reads from them is unchanged, and the generated products are
