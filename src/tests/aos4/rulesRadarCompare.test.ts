@@ -327,7 +327,7 @@ describe('AoS 4 Rules Radar comparison', () => {
 
   it('loads the reviewed config and rejects stale repository paths', () => {
     expect(readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData.baselineSha).toBe(
-      'd2334be52281ff2e9729c382eec6033d74647876'
+      '487e2d9fcdd94ff8ec684ebf33de91149db58da9'
     )
 
     const config = JSON.parse(
@@ -338,11 +338,13 @@ describe('AoS 4 Rules Radar comparison', () => {
   })
 
   it('clears the reviewed BSData range while any later commit still alarms', () => {
-    // Reviewed 2026-11-03 (#1757): 6909c140 → d2334be5 is one commit across four catalogues
-    // (Freeguild Command Corps Auxiliaries Control 2, Petulant Wrath, Right Gitz in da Right Place
-    // as a spell, the Ashen Smog/Hateful Fractures casting values, a Disgustingly Devoted colour).
-    // The runtime already ships every one of them. Nothing after d2334be5 is reviewed, so a later
-    // head must still surface.
+    // Reviewed 2026-11-10 (#1757): d2334be5 → 487e2d9f is 22 commits across 44 catalogues, BSData
+    // merging its khazalite-holds branch (Fyreslayers folded into Khazalite Holds) with the
+    // October 2026 battle profiles and rules updates. The one shipped record that moved (High Kyng
+    // Valankrom's Karak War Council's Armoury losing Companion) entered through the corpus
+    // 2026-11-10 re-pin; every other change is already shipped, formatting-only, or content the
+    // corpus does not take from BSData. Nothing after 487e2d9f is reviewed, so a later head must
+    // still surface.
     const { baselineSha } = readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData
     const observation = {
       schemaVersion: 1 as const,
@@ -351,31 +353,32 @@ describe('AoS 4 Rules Radar comparison', () => {
       repository: 'BSData/age-of-sigmar-4th',
     }
     const alarmedPaths = [
-      'Cities of Sigmar - Library.cat',
-      'Hedonites of Slaanesh - The Decadent Host.cat',
+      'Age of Sigmar 4.0.gst',
+      'Khazalite Holds - Library.cat',
+      'Khazalite Holds.cat',
       'Lores.cat',
-      'Maggotkin of Nurgle - Library.cat',
+      'Regiments of Renown.cat',
     ]
 
-    // The 2026-11-03 alarm, as observed against the previous baseline.
+    // The 2026-11-10 alarm, as observed against the previous baseline.
     const alarmed = compareBsDataObservation({
       ...observation,
-      baselineSha: '6909c1401ee52c63b5187a7c2d00fb34190479bd',
-      headSha: 'd2334be52281ff2e9729c382eec6033d74647876',
+      baselineSha: 'd2334be52281ff2e9729c382eec6033d74647876',
+      headSha: '487e2d9fcdd94ff8ec684ebf33de91149db58da9',
       comparisonStatus: 'ahead',
       changedPaths: alarmedPaths,
     })
     expect(alarmed.events).toHaveLength(1)
     expect(alarmed.events[0]).toMatchObject({
-      baselineFingerprint: '6909c1401ee52c63b5187a7c2d00fb34190479bd',
-      observedFingerprint: 'd2334be52281ff2e9729c382eec6033d74647876',
+      baselineFingerprint: 'd2334be52281ff2e9729c382eec6033d74647876',
+      observedFingerprint: '487e2d9fcdd94ff8ec684ebf33de91149db58da9',
       evidence: { changedPaths: alarmedPaths },
     })
 
     const reviewed = compareBsDataObservation({
       ...observation,
       baselineSha,
-      headSha: 'd2334be52281ff2e9729c382eec6033d74647876',
+      headSha: '487e2d9fcdd94ff8ec684ebf33de91149db58da9',
       comparisonStatus: 'identical',
       changedPaths: [],
     })
@@ -392,7 +395,7 @@ describe('AoS 4 Rules Radar comparison', () => {
     expect(later.events[0]).toMatchObject({
       class: 'material',
       changeKind: 'community-catalog-changed',
-      baselineFingerprint: 'd2334be52281ff2e9729c382eec6033d74647876',
+      baselineFingerprint: '487e2d9fcdd94ff8ec684ebf33de91149db58da9',
       observedFingerprint: 'c'.repeat(40),
       evidence: { changedPaths: ['Daughters of Khaine - Library.cat'] },
     })

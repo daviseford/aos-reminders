@@ -59,11 +59,10 @@ describe('the provisional-verification watch', () => {
     // navigation gaining a Khazalite Holds faction page, the first source for the blocked
     // matched-play Khazalite Holds intake (only its official Spearhead ships). Corpus 2026-10-20b
     // (#2087) ships that intake from the unmerged BSData `khazalite-holds` branch and adds the
-    // second watch: `main` gaining the Khazalite Holds catalogue.
-    expect(checkedIn.watches.map(watch => watch.id)).toEqual([
-      'wahapedia-khazalite-holds-faction',
-      'bsdata-khazalite-holds-main',
-    ])
+    // second watch: `main` gaining the Khazalite Holds catalogue. That watch fired when BSData
+    // merged the branch to `main` (487e2d9f, 2026-11-07) and retired with the corpus 2026-11-10
+    // re-pin from `main` (#1757); the Wahapedia faction-page watch remains.
+    expect(checkedIn.watches.map(watch => watch.id)).toEqual(['wahapedia-khazalite-holds-faction'])
     checkedIn.watches.forEach(watch => {
       expect(['wahapedia.ru', 'raw.githubusercontent.com']).toContain(new URL(watch.url).hostname)
     })
