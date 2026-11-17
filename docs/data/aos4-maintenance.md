@@ -16,46 +16,65 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-11-10 snapshot is defined by:
+The accepted 2026-11-17 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-11-10.json` | the 2026-11-03 manifest with the six Khazalite Holds BSData catalogues re-pinned from the `khazalite-holds` branch (`5e52e2a5`, `ea96eba3`) to BSData `main` `487e2d9f`, which merged that branch on 2026-11-07 (#1757; four new checksums, two byte-identical files at their new URLs); 249 artifacts. The 2026-11-03 manifest it copies is the 2026-10-29 manifest with the 17 Wahapedia rules pages re-pinned at their 2026-11-03 bytes (same URLs; every consumed card unchanged, #1757); 249 artifacts. The 2026-10-29 manifest it copies holds the twelve official PDFs Games Workshop re-published on 2026-10-28 (publication identity continuity), drops the five delisted official documents with no successor, and pins two BSData Cities of Sigmar Legends catalogues at `main` `6909c140` (provisional community transcriptions) |
-| `data/aos4/reviews/corpus-2026-11-10.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-11-17.json` | the 2026-11-10 manifest without its eight BSData catalogues (`BSData/age-of-sigmar-4th` was taken down by the Games Workshop DMCA notice of 2026-11-12) and with the Wahapedia Ravaged Coast rules page re-pinned at its 2026-11-17 bytes (#1757); 241 artifacts. The 2026-11-10 manifest it copies is the 2026-11-03 manifest with the six Khazalite Holds BSData catalogues re-pinned from the `khazalite-holds` branch (`5e52e2a5`, `ea96eba3`) to BSData `main` `487e2d9f`, which merged that branch on 2026-11-07 (#1757; four new checksums, two byte-identical files at their new URLs); 249 artifacts. The 2026-11-03 manifest it copies is the 2026-10-29 manifest with the 17 Wahapedia rules pages re-pinned at their 2026-11-03 bytes (same URLs; every consumed card unchanged, #1757); 249 artifacts. The 2026-10-29 manifest it copies holds the twelve official PDFs Games Workshop re-published on 2026-10-28 (publication identity continuity), drops the five delisted official documents with no successor, and pins two BSData Cities of Sigmar Legends catalogues at `main` `6909c140` (provisional community transcriptions) |
+| `data/aos4/reviews/corpus-2026-11-17.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs; `retired: true` keeps a rule the source no longer prints registered without ever resolving to it |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-11-10-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-11-10-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-11-17-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-11-17-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 29 decoded source factions: 28 playable armies (Khazalite Holds in matched play and Spearhead,
   #2087) plus the Endless Spells container
-- 1,367 warscrolls and 1,059 battle profiles
-- 5,461 abilities
-- 2,373 weapons
-- 1,607 content groups
-- 249 source artifacts and 21,223 live source records
+- 1,368 warscrolls (40 profile-only, see below) and 1,060 battle profiles
+- 5,347 abilities
+- 2,308 weapons
+- 1,596 content groups
+- 241 source artifacts and 20,759 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
-- 3 Khazalite Holds BSData records explicitly ignored as source-blocked (#2087): Grimnir's Wrath
-  Will Burn Bright!, Warrior-kings and Transport Duardin (translated from the French edition);
-  Rhythmic Hammering (Runewright) ships again since corpus 2026-10-29, when the October 2026 Rules
-  Updates (page 55) printed its missing Reaction label
+- no BSData record: the three translated Khazalite Holds cards corpus 2026-10-20b ignored left with
+  their catalogues in corpus 2026-11-17 (#1757)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,385 extracted GW battle-profile facts: 1,069 applied to runtime, no profile-only gap (The
-  Emberwatch, the last one, ships from Wahapedia since corpus 2026-10-27; the 15 White Dwarf
-  Legends rows the October 2026 core document adds all resolve, corpus 2026-10-29), 314 structured
+- 1,385 extracted GW battle-profile facts: 1,030 applied to runtime, 39 reviewed profile-only
+  gaps (corpus 2026-11-17: 34 Khazalite Holds and 4 White Dwarf Legends rows whose rules only
+  BSData carried; ledger `data/aos4/reviews/profile-only-deviations.json`), 314 structured
   references, and 2 superseded (#2087: Battle Profiles - Khazalite
   Holds (October 2026) reprints the Fjori’s Flamebearers and Gotrek Gurnisson regiment rows, so the
   September 2026 core rows give way to it); text the core Battle Profiles strikes through is not
   extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
   and 34 unit facts recorded their struck notes as `struckNotes` until the October 2026
   re-publication dropped those notes outright, corpus 2026-10-29)
+- the 2026-11-17 BSData removal and Ravaged Coast re-pin (#1757), on top of 2026-11-10. The
+  Wahapedia Ravaged Coast page changed only the names of two Path of the Duellist cards that had
+  repeated their neighbours' names (DEADLY RIPOSTE → SWIFT AS THE WILL, PRECISE THRUST →
+  ASTOUNDING TECHNIQUE; same rules text, same ids). The same week Games Workshop's DMCA notice
+  (2026-11-12) took `BSData/age-of-sigmar-4th` down, and four of the eight pinned catalogues were
+  never pushed to the private archive, so no corpus could be regenerated or certified while it pinned
+  them. Under the owner's disposition every BSData input left: the 36 Khazalite Holds units
+  (Magmic Battleforge on its Faction Terrain row) and the four White Dwarf Legends units ship
+  profile-only from their official rows, with their canonical ids and points, no rules text and a
+  `rulesAvailability: 'profile-only'` marker; the Khazalite Holds battletome rules (battle traits,
+  formations, heroic traits, artefacts, three lores) and the Fyrd of Fyrepeak and Throngankor
+  Alliance Armies of Renown are retired (232 identities marked `retired`), and the faction carries a
+  reviewed `unavailableRules` notice the app shows. What an official pack prints moved to that pack:
+  Fjori's Vengeance and Thengin's Grudgesettlers come from Regiments of Renown - Khazalite Holds
+  pages 1-2 through a bounded page reader, and the seasonal Vulkyn Gifts lore and three Marks of
+  Vulcatrix from Scourge of Aqshy - Khazalite Holds page 1, transcribed in the review and required to
+  appear in the page text. The two seasonal Khazalite Holds warscrolls that pack prints (pages 2-3)
+  stay profile-only: its full-page warscroll layout has no reader yet. Canonical ids held throughout
+  (15 official aliases appended to the existing identities). The radar's BSData lane is disabled by
+  reviewed config. Certified as `aos4-corpus-2026-11-17-machine-r1` against fresh observations
+  (Games Workshop and Wahapedia 2026-11-17 16:03Z)
 - the 2026-11-10 BSData re-pin (#1757), on top of 2026-11-03: the Rules Radar alarm of 2026-11-10
   (BSData `d2334be5` → `487e2d9f`, 22 commits, 44 catalogues) is BSData merging its
   `khazalite-holds` branch into `main`, folding Fyreslayers into Khazalite Holds, with the October
@@ -753,7 +772,11 @@ Sources form a two-tier hierarchy:
 
 1. **Official Games Workshop publications are authoritative.** Use the newest applicable
    publication; it wins every conflict with either secondary.
-2. **Wahapedia and BSData are co-equal preferred secondaries.** Use
+2. **Wahapedia and BSData are co-equal preferred secondaries.** (BSData suspended: since corpus
+   2026-11-17, #1757, `BSData/age-of-sigmar-4th` is gone after the Games Workshop DMCA notice of
+   2026-11-12, the corpus pins no BSData file, and `data/aos4/radar/config.json` disables its lane
+   with `bsData.status: "disabled"`. Re-enabling it needs a reviewed decision and a new baseline
+   review; nothing re-enables it automatically.) Use
    [Wahapedia's AoS 4 exports](https://wahapedia.ru/aos4/the-rules/data-export/) and bounded
    current faction pages, and commit-pinned catalogues from
    [BSData/age-of-sigmar-4th](https://github.com/BSData/age-of-sigmar-4th), as the coherent
@@ -827,7 +850,8 @@ When an alarm email or managed-issue update arrives, follow
 works and records the reviews it has produced.
 
 The Rules Radar is a quiet, official-first source-change sentinel. The workflow checks Games
-Workshop daily at minute 17 and checks Wahapedia plus BSData weekly at minute 43. A changed
+Workshop daily at minute 17 and checks Wahapedia plus BSData weekly at minute 43. A BSData lane the
+config marks `disabled` (since 2026-11-17, #1757) makes no request and reports no events. A changed
 Wahapedia sentinel expands to the existing bounded full observation before candidate evidence is
 prepared. Within the Rules Radar, BSData is a change signal; BSData bytes enter a candidate only
 through the reviewed intake above, commit-pinned and checksum-pinned, never through radar
