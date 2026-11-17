@@ -18,6 +18,14 @@ export interface RulesRadarConfig {
     branch: string
     baselineSha: string
     baselineReviewedAt: string
+    /**
+     * `disabled`: the lane is switched off by a reviewed decision (#1757: the repository was taken
+     * down and the corpus no longer pins it). It observes nothing and raises nothing; turning it back
+     * on is an explicit, reviewed config change, never automatic.
+     */
+    status: 'active' | 'disabled'
+    disabledReason?: string
+    disabledAt?: string
   }
   github: {
     repository: string
@@ -94,6 +102,25 @@ export const validateRulesRadarConfig = (
   if (Number.isNaN(Date.parse(baselineReviewedAt))) {
     throw new Error('bsData.baselineReviewedAt must be an ISO instant')
   }
+  const bsDataStatus = value.bsData.status ?? 'active'
+  if (bsDataStatus !== 'active' && bsDataStatus !== 'disabled') {
+    throw new Error('bsData.status must be active or disabled')
+  }
+  const disabledReason =
+    bsDataStatus === 'disabled'
+      ? nonEmptyString(value.bsData.disabledReason, 'bsData.disabledReason')
+      : undefined
+  const disabledAt =
+    bsDataStatus === 'disabled' ? nonEmptyString(value.bsData.disabledAt, 'bsData.disabledAt') : undefined
+  if (disabledAt !== undefined && Number.isNaN(Date.parse(disabledAt))) {
+    throw new Error('bsData.disabledAt must be an ISO instant')
+  }
+  if (
+    bsDataStatus === 'active' &&
+    (value.bsData.disabledReason !== undefined || value.bsData.disabledAt !== undefined)
+  ) {
+    throw new Error('bsData.disabledReason and bsData.disabledAt are only valid on a disabled lane')
+  }
   if (
     !Array.isArray(value.github.labels) ||
     value.github.labels.length === 0 ||
@@ -124,6 +151,9 @@ export const validateRulesRadarConfig = (
       branch: nonEmptyString(value.bsData.branch, 'bsData.branch'),
       baselineSha: baselineSha.toLowerCase(),
       baselineReviewedAt: new Date(baselineReviewedAt).toISOString(),
+      status: bsDataStatus,
+      ...(disabledReason !== undefined ? { disabledReason } : {}),
+      ...(disabledAt !== undefined ? { disabledAt: new Date(disabledAt).toISOString() } : {}),
     },
     github: {
       repository: repositoryPath(value.github.repository, 'github.repository'),

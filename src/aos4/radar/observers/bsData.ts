@@ -137,6 +137,10 @@ export const observeBsDataRadar = async (
   dependencies: BsDataRadarObserverDependencies
 ): Promise<BsDataRadarObserverResult> => {
   const observedAt = dependencies.now()
+  // A reviewed disabled lane (#1757) makes no request and raises nothing.
+  if (input.config.bsData.status === 'disabled') {
+    return { lane: createRadarLane('bsdata', observedAt, [], input.workflowUrl), requestCount: 0 }
+  }
   const { repository, branch, baselineSha } = input.config.bsData
   const limiter = createRequestLimiter({ budget: input.config.requestBudgets.bsdata })
   let headSha: string | null = null
