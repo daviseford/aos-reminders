@@ -25,7 +25,7 @@ const config = {
     status: 'active' as const,
   },
 }
-const rawConfig = (): Record<string, any> =>
+const rawConfig = (): { bsData: Record<string, unknown> } & Record<string, unknown> =>
   JSON.parse(readFileSync(path.join(process.cwd(), 'data', 'aos4', 'radar', 'config.json'), 'utf8'))
 
 describe('AoS 4 Rules Radar BSData lane after the takedown (#1757)', () => {

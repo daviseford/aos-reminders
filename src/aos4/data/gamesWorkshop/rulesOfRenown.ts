@@ -48,7 +48,7 @@ export const extractOfficialRegimentOfRenownPage = (
   artifactChecksum: string
 ): BsDataRegimentOfRenownFact => {
   const lines = input.text
-    .replace(/ /g, ' ')
+    .replace(new RegExp(String.fromCharCode(160), 'g'), ' ')
     .split('\n')
     .map(line => line.trim())
     .filter(Boolean)
