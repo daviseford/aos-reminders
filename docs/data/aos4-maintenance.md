@@ -65,7 +65,7 @@ The strict report currently records:
   profile-only from their official rows, with their canonical ids and points, no rules text and a
   `rulesAvailability: 'profile-only'` marker; the Khazalite Holds battletome rules (battle traits,
   formations, heroic traits, artefacts, three lores) and the Fyrd of Fyrepeak and Throngankor
-  Alliance Armies of Renown are retired (232 identities marked `retired`), and the faction carries a
+  Alliance Armies of Renown are retired (221 identities marked `retired`), and the faction carries a
   reviewed `unavailableRules` notice the app shows. What an official pack prints moved to that pack:
   Fjori's Vengeance and Thengin's Grudgesettlers come from Regiments of Renown - Khazalite Holds
   pages 1-2 through a bounded page reader, and the seasonal Vulkyn Gifts lore and three Marks of
