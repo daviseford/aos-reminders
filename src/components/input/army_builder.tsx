@@ -18,7 +18,18 @@ interface Option {
   label: string
   value: CanonicalId
   disabled: boolean
+  profileOnly?: boolean
 }
+
+// Marks a unit whose abilities and weapons are temporarily unavailable (#1757), in the menu and on its chip.
+const formatOptionLabel = (option: Option) =>
+  option.profileOnly ? (
+    <>
+      {option.label} <span className="badge bg-warning text-dark ms-1">Rules unavailable</span>
+    </>
+  ) : (
+    option.label
+  )
 
 interface SelectionGroup {
   key: string
@@ -91,6 +102,7 @@ const SelectionCard = ({
     label: option.name,
     value: option.id,
     disabled: !option.available && !option.selected,
+    ...(option.profileOnly ? { profileOnly: true } : {}),
   })
   // Current-standard content lists first; season-exclusive, Legends, and Scourge of Ghyran
   // content is always offered but sits under its own group header so its provenance stays
@@ -143,6 +155,7 @@ const SelectionCard = ({
             isClearable
             closeMenuOnSelect={false}
             isOptionDisabled={option => option.disabled}
+            formatOptionLabel={formatOptionLabel}
             onChange={(values: MultiValue<Option>) =>
               onSetGroupSelections(
                 group.options.map(option => option.id),

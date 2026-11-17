@@ -26,6 +26,8 @@ export interface Aos4BuilderOption {
    * the builder tell two same-named options apart.
    */
   seasonal?: boolean
+  /** A warscroll whose abilities and weapons are temporarily unavailable (#1757). */
+  profileOnly?: boolean
 }
 
 export interface Aos4BuilderWarscroll {
@@ -76,6 +78,34 @@ const chipCase = (value: string): string =>
           )
     )
     .join(' ')
+
+export const AOS4_RULES_UNAVAILABLE_MESSAGE =
+  'Some rules are temporarily unavailable. Units and points are preserved, but reminders for affected units and faction options are incomplete. Check your official publications.'
+
+/**
+ * What the army is missing while a rules source is withdrawn (#1757): the warning text plus one
+ * line per affected category. Shared by the builder warning and the printed sheet.
+ */
+export interface Aos4RulesNotice {
+  message: string
+  affected: string[]
+}
+
+const rulesNotice = (
+  profileOnlyUnitNames: string[],
+  unavailableRules: string[],
+  unavailableSelectionCount: number
+): Aos4RulesNotice | undefined => {
+  const affected = [
+    ...(profileOnlyUnitNames.length ? [`Units without rules: ${profileOnlyUnitNames.join(', ')}`] : []),
+    ...(unavailableRules.length ? [`Faction rules unavailable: ${unavailableRules.join('; ')}`] : []),
+    ...(unavailableSelectionCount === 1 ? ['1 saved selection is temporarily unavailable'] : []),
+    ...(unavailableSelectionCount > 1
+      ? [`${unavailableSelectionCount} saved selections are temporarily unavailable`]
+      : []),
+  ]
+  return affected.length ? { message: AOS4_RULES_UNAVAILABLE_MESSAGE, affected } : undefined
+}
 
 /**
  * The builder's grouped-option headers. The season header is derived from the season's context
@@ -229,6 +259,9 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
         available: available.has(id) || Boolean(chipGroup && pickableTableIds.has(chipGroup.id)),
         ...(overlay ? { overlay } : {}),
         ...(seasonal ? { seasonal: true } : {}),
+        ...(entity.kind === 'warscroll' && entity.rulesAvailability === 'profile-only'
+          ? { profileOnly: true }
+          : {}),
       },
     ]
   })
@@ -300,6 +333,10 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     })
     .sort((left, right) => left.name.localeCompare(right.name))
 
+  const faction = document.explicitSelectionIds
+    .map(id => entityById.get(id))
+    .find(entity => entity?.kind === 'faction')
+
   return {
     armyId: document.id,
     armyName: document.name,
@@ -308,6 +345,13 @@ export const createAos4BuilderViewModel = (catalog: Aos4Catalog, document: Aos4A
     options,
     warscrolls,
     selection,
+    rulesNotice: rulesNotice(
+      warscrolls
+        .filter(warscroll => (entityById.get(warscroll.id) as Warscroll).rulesAvailability === 'profile-only')
+        .map(warscroll => warscroll.name),
+      faction?.kind === 'faction' ? (faction.unavailableRules ?? []) : [],
+      document.unavailableSelectionIds?.length ?? 0
+    ),
   }
 }
 

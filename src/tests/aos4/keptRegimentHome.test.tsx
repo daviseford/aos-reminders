@@ -161,6 +161,29 @@ describe('a saved Fyreslayers army that kept Gotrek Gurnisson', () => {
     expect(container.textContent).toContain('Not available to this army')
   })
 
+  it('keeps a selection this runtime lacks and warns about it (#1757)', async () => {
+    const withdrawnId = 'content-group:ffffffff-ffff-4fff-8fff-ffffffffffff'
+    storeArmy([fyreslayers.id, gotrek.id, withdrawnId])
+    const { container, renderHome, storedSelections } = fixture
+
+    await renderHome()
+
+    const stored = JSON.parse(window.localStorage.getItem(AOS4_ARMY_STORAGE_KEY) ?? '{}')
+    expect(storedSelections()).toEqual(expect.arrayContaining([fyreslayers.id, gotrek.id]))
+    expect(stored.unavailableSelectionIds).toEqual([withdrawnId])
+    expect(container.textContent).toContain('Some rules are temporarily unavailable')
+    expect(container.textContent).toContain('1 saved selection is temporarily unavailable')
+  })
+
+  it('shows no rules warning for an unaffected army', async () => {
+    storeArmy([fyreslayers.id, gotrek.id])
+    const { container, renderHome } = fixture
+
+    await renderHome()
+
+    expect(container.textContent).not.toContain('Some rules are temporarily unavailable')
+  })
+
   it('leaves the pick alone when an Army of Renown is chosen', async () => {
     storeArmy([fyreslayers.id, gotrek.id])
     const { pickArmyOfRenown, renderHome, storedSelections } = fixture

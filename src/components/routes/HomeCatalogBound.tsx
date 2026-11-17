@@ -29,6 +29,7 @@ import {
 } from '../../aos4/view'
 import type { Aos4RulesSeasonBinding } from 'components/page/homeHeader'
 import Reminders, { type ReminderSourceLink } from 'components/info/reminders'
+import RulesNotice from 'components/info/rulesNotice'
 import ArmyBuilder from 'components/input/army_builder'
 import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import Toolbar from 'components/input/toolbar/toolbar'
@@ -458,6 +459,7 @@ const HomeCatalogBound = ({
         armyName: document.name,
         factionName,
         warscrolls: builder.warscrolls,
+        ...(builder.rulesNotice ? { rulesNotice: builder.rulesNotice } : {}),
       },
       options
     )
@@ -512,6 +514,7 @@ const HomeCatalogBound = ({
           ? AOS4_DEFAULT_RULES_CONTEXT_ID
           : current.rulesContextId,
         explicitSelectionIds: [factionId],
+        unavailableSelectionIds: undefined,
         reminderPreferences: {},
       })
     )
@@ -739,6 +742,8 @@ const HomeCatalogBound = ({
           </div>
         </div>
       )}
+
+      <RulesNotice notice={builder.rulesNotice} />
 
       {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
 

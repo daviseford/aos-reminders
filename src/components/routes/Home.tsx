@@ -239,6 +239,8 @@ const Home = () => {
         // retired context id forward would pair it with a faction that was never offered there.
         rulesContextId: rulesContextIndex === -1 ? defaults.rulesContextId : current.rulesContextId,
         explicitSelectionIds: [nextFactionId],
+        // A new faction starts clean; the old army's set-aside selections are not this army's.
+        unavailableSelectionIds: undefined,
         reminderPreferences: {},
       })
     )
