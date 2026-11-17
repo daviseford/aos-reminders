@@ -1683,11 +1683,11 @@
     "expectedWarnings": 184,
     "expectedWarscrolls": 1319,
     "reconciliation": {
-      "checksum": "3bf1c5e65209315e730a9603a3b621b4248529c6dda0ac48c0522be0de565885",
+      "checksum": "52ca38ec3a165081cfe6e9e7eaaa4f31931bf446b0a693a43594e77cd61856b1",
       "expectedDiscrepancies": 386,
-      "expectedMatchedOfficialUnitFacts": 954,
+      "expectedMatchedOfficialUnitFacts": 956,
       "expectedPages": 1319,
-      "expectedUnmatchedOfficialUnitFacts": 39
+      "expectedUnmatchedOfficialUnitFacts": 37
     },
     "reviewedAt": "2026-10-27T16:30:00.000Z",
     "rulesPages": [
@@ -13040,6 +13040,30 @@
       "reason": "The October 2026 Armies of Renown (page 3) adds ‘Blazing Vengeance’ to the Khazalite Holds Lofnir Drothkeepers battle traits; no secondary record prints it yet, so it is normalized from the official page (corpus 2026-10-29, #1757)."
     }
   ],
+  "officialWarscrollPages": [
+    {
+      "artifactChecksum": "877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "page": 2,
+      "printedTitle": "Auric Runeson on Magmadroth",
+      "name": "Scourge of Aqshy Auric Runeson on Magmadroth",
+      "faction": "Khazalite Holds",
+      "context": "seasonal",
+      "identitySourceRecordId": "source-record:bsdata:BSData%2Fage-of-sigmar-4th%3Aunit%3Aauric-runeson-on-magmadroth-scourge-of-aqshy",
+      "checksum": "6320e99143e3d32dd726d5bfd2fe97078448ccaace1b048e818e30bdf27f6112",
+      "reason": "Scourge of Aqshy - Khazalite Holds (28 October 2026) page 2 prints this warscroll in full; it previously came from BSData. BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757)."
+    },
+    {
+      "artifactChecksum": "877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "page": 3,
+      "printedTitle": "Vulkyn Flameseekers",
+      "name": "Scourge of Aqshy Vulkyn Flameseekers",
+      "faction": "Khazalite Holds",
+      "context": "seasonal",
+      "identitySourceRecordId": "source-record:bsdata:BSData%2Fage-of-sigmar-4th%3Aunit%3Avulkyn-flameseekers-scourge-of-aqshy",
+      "checksum": "83817192e2821faa04c9f31736e96ea1573341414e2ac21e92bf66150f562602",
+      "reason": "Scourge of Aqshy - Khazalite Holds (28 October 2026) page 3 prints this warscroll in full; it previously came from BSData. BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757)."
+    }
+  ],
   "profileOnlyWarscrolls": [
     {
       "name": "Auric Flamekeeper",
@@ -13223,20 +13247,6 @@
       "context": "standard",
       "identitySourceRecordId": "source-record:bsdata:BSData%2Fage-of-sigmar-4th%3Aunit%3Arunewright",
       "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text."
-    },
-    {
-      "name": "Scourge of Aqshy Auric Runeson on Magmadroth",
-      "faction": "Khazalite Holds",
-      "context": "seasonal",
-      "identitySourceRecordId": "source-record:bsdata:BSData%2Fage-of-sigmar-4th%3Aunit%3Aauric-runeson-on-magmadroth-scourge-of-aqshy",
-      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text."
-    },
-    {
-      "name": "Scourge of Aqshy Vulkyn Flameseekers",
-      "faction": "Khazalite Holds",
-      "context": "seasonal",
-      "identitySourceRecordId": "source-record:bsdata:BSData%2Fage-of-sigmar-4th%3Aunit%3Avulkyn-flameseekers-scourge-of-aqshy",
-      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text."
     },
     {
       "name": "Stonebreaker Mortar",

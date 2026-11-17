@@ -27329,6 +27329,37 @@
       ]
     },
     {
+      "abilityKind": "passive",
+      "actor": "unit",
+      "id": "ability:241c323d-faec-5b32-a2d1-cab03491acea",
+      "keywords": [],
+      "kind": "ability",
+      "name": "VOLCANIC BLOOD",
+      "revision": "3fee56ded4198e20e7fb457bc9e5fbe6e88e9548de90e7e6f48797e0d193580a",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fability%3Avolcanic-blood",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "Each time you make an unmodified save roll of 1 for a combat attack that targets this unit, inflict 1 mortal damage on the attacking unit after the Fight ability has been resolved."
+      },
+      "timings": [
+        {
+          "kind": "passive",
+          "perspective": "neutral",
+          "raw": "Passive",
+          "window": {
+            "kind": "always"
+          }
+        }
+      ]
+    },
+    {
       "abilityKind": "active",
       "actor": "unit",
       "id": "ability:2421b297-8969-5036-9ec0-2232ab1037da",
@@ -85706,6 +85737,45 @@
     {
       "abilityKind": "active",
       "actor": "unit",
+      "id": "ability:72904354-57c8-580e-98ef-f2833e385fec",
+      "keywords": [
+        "RAMPAGE"
+      ],
+      "kind": "ability",
+      "name": "SEEING RED",
+      "revision": "4e3da3e415e0a0fd8556f8980f9ed5d418ae7718932101c60ab103cbd01c4b93",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fability%3Aseeing-red",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "Spend 1 rage dice. If your opponent’s fury level is lower than yours, they must increase their fury level by 1, to a maximum of 7. Then, pick 1 of the following effects:\nChannelled Ire: Add 1 to the Attacks characteristic of this unit’s Companion melee weapons for the rest of the turn.\nCathartic Release: Roll a number of dice equal to your fury level. For each 4+, Heal (1) this unit.\nShield of Anger: This unit has Ward (5+) for the rest of the turn."
+      },
+      "timings": [
+        {
+          "kind": "active",
+          "perspective": "any",
+          "raw": "Once Per Turn (Army), Any Combat Phase",
+          "usage": {
+            "limit": 1,
+            "period": "turn",
+            "scope": "army"
+          },
+          "window": {
+            "kind": "turn-phase",
+            "phase": "combat"
+          }
+        }
+      ]
+    },
+    {
+      "abilityKind": "active",
+      "actor": "unit",
       "id": "ability:7292ff04-55f8-5ec6-a1ec-f4bc7d0e278a",
       "keywords": [],
       "kind": "ability",
@@ -110593,6 +110663,37 @@
           "window": {
             "kind": "turn-phase",
             "phase": "end-of-turn"
+          }
+        }
+      ]
+    },
+    {
+      "abilityKind": "passive",
+      "actor": "unit",
+      "id": "ability:94a4781f-5c40-523e-a9d0-35f241e1d8e4",
+      "keywords": [],
+      "kind": "ability",
+      "name": "BATTLE DAMAGED",
+      "revision": "03ae3e318d1ad67a7a235f450c9c9c687e8d02001662c8e6d1f5222dae40de40",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fability%3Abattle-damaged",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "While this unit has 10 or more damage points, the Attacks characteristic of its Magmadroth’s Claws and Horns is 4."
+      },
+      "timings": [
+        {
+          "kind": "passive",
+          "perspective": "neutral",
+          "raw": "Passive",
+          "window": {
+            "kind": "always"
           }
         }
       ]
@@ -135902,6 +136003,38 @@
     {
       "abilityKind": "active",
       "actor": "unit",
+      "id": "ability:b32ae2b4-202b-536b-896c-56f8b81bfebf",
+      "keywords": [],
+      "kind": "ability",
+      "name": "FIRE, BLOOD AND VENGEANCE",
+      "revision": "bbffe9c6faaed5299de253442363130851fa496ac995d595d45cbf10b62f8d61",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fability%3Afire-blood-and-vengeance",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "declare": "Pick a friendly Auric Runefather on Magmadroth on the battlefield to be the target.",
+        "effect": "Add 1 to the Damage characteristic of this unit’s melee weapons, including Companion weapons, while the target is in combat, damaged or destroyed."
+      },
+      "timings": [
+        {
+          "kind": "active",
+          "perspective": "neutral",
+          "raw": "Deployment Phase",
+          "window": {
+            "kind": "deployment"
+          }
+        }
+      ]
+    },
+    {
+      "abilityKind": "active",
+      "actor": "unit",
       "id": "ability:b3321b30-75ce-5b42-b4ea-2e2a2816d8f1",
       "keywords": [],
       "kind": "ability",
@@ -153274,6 +153407,43 @@
           "raw": "Passive",
           "window": {
             "kind": "always"
+          }
+        }
+      ]
+    },
+    {
+      "abilityKind": "active",
+      "actor": "unit",
+      "id": "ability:c9e563bb-654b-521b-8f51-b789b4f3f04d",
+      "keywords": [],
+      "kind": "ability",
+      "name": "FIERY DISPOSITION",
+      "revision": "8749fe451f9106644b92ff230f06efab20e1e29c289c20405fff6bd85776f11a",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fability%3Afiery-disposition",
+          "transformation": "normalized reminder ability"
+        }
+      ],
+      "text": {
+        "effect": "Spend 1 rage dice. If your opponent’s fury level is lower than yours, they must increase their fury level by 1, to a maximum of 7. Then, pick 1 of the following effects to apply until the start of your next turn, where X is equal to your fury level.\nVigour of the Ur-Salamander: Add X\" to this unit’s Move characteristic.\nFiery Determination: Add X to this unit’s control score.\nKyndlewrath: Add X to the Attacks characteristic of this unit’s Emberteeth."
+      },
+      "timings": [
+        {
+          "kind": "active",
+          "perspective": "your",
+          "raw": "Once Per Turn (Army), Your Hero Phase",
+          "usage": {
+            "limit": 1,
+            "period": "turn",
+            "scope": "army"
+          },
+          "window": {
+            "kind": "turn-phase",
+            "phase": "hero"
           }
         }
       ]
@@ -196999,22 +197169,26 @@
       "regimentOptions": [
         "Any Khazalite Holds"
       ],
-      "revision": "5c677b4253d5f8c4947d491e36b00434a442fabcfb295f1a580f7ecb2298ef4d",
+      "revision": "62ad096caccfa957d2a1594ea3873e1f0524ff35a277203ac1ce4be86972d8c1",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "sourceRefs": [
         {
-          "sourceRecordId": "source-record:games-workshop:0c91602b92dcc45b20cabeb52fb7865c2b0318a51d3a79a769edb7d10b26e141%3Aprofile-only%3Apage%3A1%3Aunit%3A20%3Abase%3A1",
-          "transformation": "normalized base size"
-        },
-        {
           "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
           "transformation": "authoritative battle-profile fact"
         },
         {
-          "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Aprofile-only%3Apage%3A1%3Aunit%3A20",
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth",
           "transformation": "normalized battle profile"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fbase%3A1",
+          "transformation": "normalized base size"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Apage%3A2",
+          "transformation": "authoritative battle-profile fact"
         }
       ],
       "unitSize": 1,
@@ -218467,11 +218641,12 @@
       "kind": "battle-profile",
       "name": "Scourge of Aqshy Vulkyn Flameseekers battle profile",
       "notes": [
+        "Each model in this unit is armed with Vulkyn Weapons. • 1/9 models is a Kyndledroth and must replace their weapons with Emberteeth. • The champion is a Vulkyn Runefather and cannot replace their weapons.",
         "This unit is legal for Matched Play for battles fought using the General’s Handbook 2026-27 battlepack."
       ],
       "points": 190,
       "regimentOptions": [],
-      "revision": "212867991069c7d963be6046d91031925401348069dd1583d0aa85921f635283",
+      "revision": "8c9768bb0c886e0bb2738413f2671cb4247b97fe3a3f54ab08dab1d979caf3a3",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
@@ -218481,16 +218656,20 @@
           "transformation": "authoritative battle-profile fact"
         },
         {
-          "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Aprofile-only%3Apage%3A2%3Aunit%3A15",
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers",
           "transformation": "normalized battle profile"
         },
         {
-          "sourceRecordId": "source-record:games-workshop:9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161%3Aprofile-only%3Apage%3A2%3Aunit%3A15%3Abase%3A1",
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fbase%3A1",
           "transformation": "normalized base size"
         },
         {
-          "sourceRecordId": "source-record:games-workshop:9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161%3Aprofile-only%3Apage%3A2%3Aunit%3A15%3Abase%3A2",
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fbase%3A2",
           "transformation": "normalized base size"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Apage%3A3",
+          "transformation": "authoritative battle-profile fact"
         }
       ],
       "unitSize": 9,
@@ -269894,23 +270073,28 @@
     },
     {
       "characteristics": {
-        "control": "",
-        "health": "",
-        "move": "",
-        "save": ""
+        "control": "1",
+        "health": "2",
+        "move": "4\"",
+        "save": "5+",
+        "ward": "6+"
       },
       "factionIds": [
         "faction:0ead1bfe-c793-522f-88c7-fcb6989cadb8"
       ],
       "id": "warscroll:03b032cd-69f8-59ff-9c87-7f40bb5b5d32",
       "keywords": [
+        "CHAMPION (1/9)",
+        "DUARDIN",
         "GRIMMDRON",
-        "INFANTRY"
+        "INFANTRY",
+        "KHAZALITE HOLDS",
+        "ORDER",
+        "WARD (6+)"
       ],
       "kind": "warscroll",
       "name": "Scourge of Aqshy Vulkyn Flameseekers",
-      "revision": "212867991069c7d963be6046d91031925401348069dd1583d0aa85921f635283",
-      "rulesAvailability": "profile-only",
+      "revision": "8c9768bb0c886e0bb2738413f2671cb4247b97fe3a3f54ab08dab1d979caf3a3",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
@@ -269920,15 +270104,39 @@
           "transformation": "authoritative battle-profile reconciliation"
         },
         {
-          "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Aprofile-only%3Apage%3A2%3Aunit%3A15"
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers"
         },
         {
-          "sourceRecordId": "source-record:games-workshop:9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161%3Aprofile-only%3Apage%3A2%3Aunit%3A15%3Akeyword%3A1",
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A1",
           "transformation": "normalized keyword"
         },
         {
-          "sourceRecordId": "source-record:games-workshop:9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161%3Aprofile-only%3Apage%3A2%3Aunit%3A15%3Akeyword%3A2",
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A2",
           "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A3",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A4",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A5",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A6",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A7",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Apage%3A3",
+          "transformation": "authoritative battle-profile reconciliation"
         }
       ]
     },
@@ -295432,20 +295640,28 @@
     },
     {
       "characteristics": {
-        "control": "",
-        "health": "",
-        "move": "",
-        "save": ""
+        "control": "5",
+        "health": "14",
+        "move": "10\"",
+        "save": "4+",
+        "ward": "6+"
       },
       "factionIds": [
         "faction:0ead1bfe-c793-522f-88c7-fcb6989cadb8"
       ],
       "id": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
-      "keywords": [],
+      "keywords": [
+        "DUARDIN",
+        "GRIMMDRON",
+        "HERO",
+        "KHAZALITE HOLDS",
+        "MONSTER",
+        "ORDER",
+        "WARD (6+)"
+      ],
       "kind": "warscroll",
       "name": "Scourge of Aqshy Auric Runeson on Magmadroth",
-      "revision": "5c677b4253d5f8c4947d491e36b00434a442fabcfb295f1a580f7ecb2298ef4d",
-      "rulesAvailability": "profile-only",
+      "revision": "62ad096caccfa957d2a1594ea3873e1f0524ff35a277203ac1ce4be86972d8c1",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
@@ -295455,7 +295671,39 @@
           "transformation": "authoritative battle-profile reconciliation"
         },
         {
-          "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Aprofile-only%3Apage%3A1%3Aunit%3A20"
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A1",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A2",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A3",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A4",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A5",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A6",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A7",
+          "transformation": "normalized keyword"
+        },
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Apage%3A2",
+          "transformation": "authoritative battle-profile reconciliation"
         }
       ]
     },
@@ -370302,6 +370550,35 @@
       "weaponType": "melee"
     },
     {
+      "id": "weapon:60b36e24-4d5c-5b8c-af5d-9a49e180ff0a",
+      "keywords": [
+        {
+          "kind": "anti",
+          "raw": "Anti-Monster (+1 Rend)"
+        }
+      ],
+      "kind": "weapon",
+      "name": "Ancestral Weapons",
+      "profile": {
+        "attacks": "5",
+        "damage": "2",
+        "hit": "3+",
+        "rend": "1",
+        "wound": "3+"
+      },
+      "revision": "b498951dc689644702cd647adcd84713f8311ac06d7c1d82d53601c4bbac6110",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fweapon%3A2",
+          "transformation": "normalized weapon profile"
+        }
+      ],
+      "weaponType": "melee"
+    },
+    {
       "id": "weapon:60d03f86-ab23-53d2-af58-15ee0ea4abb5",
       "keywords": [
         {
@@ -378626,6 +378903,35 @@
       "weaponType": "melee"
     },
     {
+      "id": "weapon:7c90c81a-6c7f-5d88-b967-a1a4e29001d2",
+      "keywords": [
+        {
+          "kind": "anti",
+          "raw": "Anti-Monster (+1 Rend)"
+        }
+      ],
+      "kind": "weapon",
+      "name": "Vulkyn Weapons",
+      "profile": {
+        "attacks": "3",
+        "damage": "1",
+        "hit": "3+",
+        "rend": "1",
+        "wound": "3+"
+      },
+      "revision": "9353dc49a049bf8aaac7b65c15059ba85a8c28c6f8349224c693415755a2d9a4",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fweapon%3A1",
+          "transformation": "normalized weapon profile"
+        }
+      ],
+      "weaponType": "melee"
+    },
+    {
       "id": "weapon:7c9ed611-432e-53e0-b2f1-8072d4757456",
       "keywords": [
         {
@@ -383100,6 +383406,40 @@
       "weaponType": "melee"
     },
     {
+      "id": "weapon:906a070f-fed4-5196-9c5b-f86aaa1ef772",
+      "keywords": [
+        {
+          "kind": "anti",
+          "raw": "Anti-Infantry (+1 Rend)"
+        },
+        {
+          "kind": "companion",
+          "raw": "Companion"
+        }
+      ],
+      "kind": "weapon",
+      "name": "Roaring Fyrestream",
+      "profile": {
+        "attacks": "4",
+        "damage": "D3",
+        "hit": "3+",
+        "rangeInches": 10,
+        "rend": "1",
+        "wound": "3+"
+      },
+      "revision": "e866906c18eefd4a44eb96e64b7321b6e271354998435bc7873c303b414e9744",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fweapon%3A1",
+          "transformation": "normalized weapon profile"
+        }
+      ],
+      "weaponType": "ranged"
+    },
+    {
       "id": "weapon:907b3949-affe-5d3d-8d69-66b16f087cd2",
       "keywords": [],
       "kind": "weapon",
@@ -386341,6 +386681,39 @@
       "weaponType": "melee"
     },
     {
+      "id": "weapon:9c7128b5-2286-5367-8acc-493cc1b15077",
+      "keywords": [
+        {
+          "kind": "crit-mortal",
+          "raw": "Crit (Mortal)"
+        },
+        {
+          "kind": "companion",
+          "raw": "Companion"
+        }
+      ],
+      "kind": "weapon",
+      "name": "Emberteeth",
+      "profile": {
+        "attacks": "1",
+        "damage": "2",
+        "hit": "3+",
+        "rend": "-",
+        "wound": "3+"
+      },
+      "revision": "0bcbc10efcafa48427ad04e414047dc0fc38894253242c3ce71afa50330d4512",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fweapon%3A2",
+          "transformation": "normalized weapon profile"
+        }
+      ],
+      "weaponType": "melee"
+    },
+    {
       "id": "weapon:9cb91ec4-13ac-5280-b3f2-3cd36f49d948",
       "keywords": [],
       "kind": "weapon",
@@ -386414,6 +386787,35 @@
       "sourceRefs": [
         {
           "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fironjawz%2Fwarscrolls.html%23datasheet%3AIronskull-s-Boyz%2Fweapon%3A1",
+          "transformation": "normalized weapon profile"
+        }
+      ],
+      "weaponType": "melee"
+    },
+    {
+      "id": "weapon:9d071f48-2414-57fe-a4f0-1fdd13b51f59",
+      "keywords": [
+        {
+          "kind": "companion",
+          "raw": "Companion"
+        }
+      ],
+      "kind": "weapon",
+      "name": "Magmadroth’s Blazing Maw",
+      "profile": {
+        "attacks": "2",
+        "damage": "3",
+        "hit": "4+",
+        "rend": "2",
+        "wound": "2+"
+      },
+      "revision": "b0590acc5867f0401e59660825f245d9325edff97e6b4881641dc20db65b9518",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fweapon%3A4",
           "transformation": "normalized weapon profile"
         }
       ],
@@ -410606,6 +411008,35 @@
       "weaponType": "melee"
     },
     {
+      "id": "weapon:f4627921-183a-570c-9f6d-cda91a44a0b7",
+      "keywords": [
+        {
+          "kind": "companion",
+          "raw": "Companion"
+        }
+      ],
+      "kind": "weapon",
+      "name": "Magmadroth’s Claws and Horns",
+      "profile": {
+        "attacks": "6",
+        "damage": "2",
+        "hit": "4+",
+        "rend": "1",
+        "wound": "2+"
+      },
+      "revision": "55844dcc6b716baaf0d4b92c9cdcaf645a4005a38b48f7c6a04a822bf4387135",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "sourceRefs": [
+        {
+          "sourceRecordId": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fweapon%3A3",
+          "transformation": "normalized weapon profile"
+        }
+      ],
+      "weaponType": "melee"
+    },
+    {
       "id": "weapon:f47da463-f253-5d83-9a2f-bef44183c76f",
       "keywords": [
         {
@@ -414784,6 +415215,15 @@
         "rules-context:90000000-0000-4000-8000-000000000005"
       ],
       "to": "ability:a71fe5a1-8e8a-50fd-88f2-550f14a78b72"
+    },
+    {
+      "from": "warscroll:03b032cd-69f8-59ff-9c87-7f40bb5b5d32",
+      "id": "relationship:0289ad9e60e63ad1f86992eabc0e53ba",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "weapon:9c7128b5-2286-5367-8acc-493cc1b15077"
     },
     {
       "from": "content-group:11568c3b-2111-5259-aade-a37c940732e3",
@@ -440021,6 +440461,15 @@
       "to": "warscroll:a8c605ed-b0e8-5b99-9b01-526cc8cb9970"
     },
     {
+      "from": "warscroll:03b032cd-69f8-59ff-9c87-7f40bb5b5d32",
+      "id": "relationship:2c4788b993dd66bdb0c0a146384fea59",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "ability:c9e563bb-654b-521b-8f51-b789b4f3f04d"
+    },
+    {
       "from": "warscroll:24298c57-1e41-5651-b9a6-8cd315517246",
       "id": "relationship:2c4a752de54b5a8495a849eaf881d698",
       "kind": "includes",
@@ -447610,6 +448059,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "weapon:35acbe43-2771-5e43-9d3d-95ab569785a4"
+    },
+    {
+      "from": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
+      "id": "relationship:38b3a0716a27d5214567c29c31dbb944",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "weapon:60b36e24-4d5c-5b8c-af5d-9a49e180ff0a"
     },
     {
       "from": "content-group:9f86f94e-1a18-50fb-a856-a8c82c13274a",
@@ -463251,6 +463709,15 @@
       "to": "weapon:3da76aca-82bf-555f-afb4-5f485c0e2889"
     },
     {
+      "from": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
+      "id": "relationship:52445a22ddacfdbcfd8d944d8803fdc5",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "ability:b32ae2b4-202b-536b-896c-56f8b81bfebf"
+    },
+    {
       "from": "content-group:3ab3d63a-72fb-5546-b4c9-16ca53e46928",
       "id": "relationship:52485b9652fe63dc6d208440ce6a97e8",
       "kind": "includes",
@@ -463541,6 +464008,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "content-group:0c327b4b-4e3c-53f6-8467-2f78f2d5d649"
+    },
+    {
+      "from": "warscroll:03b032cd-69f8-59ff-9c87-7f40bb5b5d32",
+      "id": "relationship:5292a672a1058352966c99d346e4e81b",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "weapon:7c90c81a-6c7f-5d88-b967-a1a4e29001d2"
     },
     {
       "from": "warscroll:c3bb5d41-2321-594b-b321-5a61d1640ace",
@@ -489580,6 +490056,15 @@
       "to": "weapon:32441541-c15d-5ffd-95c5-d172c5e371b9"
     },
     {
+      "from": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
+      "id": "relationship:7dc86575594ab8d26b077e99152ab427",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "weapon:906a070f-fed4-5196-9c5b-f86aaa1ef772"
+    },
+    {
       "from": "content-group:3ae01a20-1d88-5515-bea6-19e6edbfaade",
       "id": "relationship:7dc8ede9aaa915d07a7c4d56366e570b",
       "kind": "excludes",
@@ -490437,6 +490922,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "ability:b635369a-4787-53a5-aec8-a133bc842352"
+    },
+    {
+      "from": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
+      "id": "relationship:7f1a35b324c0eaed38ed7972ddc6ae04",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "ability:94a4781f-5c40-523e-a9d0-35f241e1d8e4"
     },
     {
       "from": "content-group:17434215-4e53-5ce1-95ef-f937442f70f9",
@@ -501153,6 +501647,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "content-group:d9e9e3f1-f688-5cbc-b112-5a743a742c1d"
+    },
+    {
+      "from": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
+      "id": "relationship:915955eb07be36312a37b6821af75f1b",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "weapon:f4627921-183a-570c-9f6d-cda91a44a0b7"
     },
     {
       "from": "content-group:34f10e11-1ac7-5fdd-bc97-22a3372a3039",
@@ -524519,6 +525022,15 @@
       "to": "warscroll:b7f73f9c-9f10-5b25-a74f-34bbaa9d4dbb"
     },
     {
+      "from": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
+      "id": "relationship:b6e9be36b30d98ac44484da7a1de3b12",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "weapon:9d071f48-2414-57fe-a4f0-1fdd13b51f59"
+    },
+    {
       "from": "warscroll:cc845739-f115-5a96-ab8c-5d69152461b7",
       "id": "relationship:b6ea904932312e5c4fbd29e04066a43b",
       "kind": "includes",
@@ -543614,6 +544126,15 @@
         "rules-context:90000000-0000-4000-8000-000000000006"
       ],
       "to": "content-group:9641aaac-0f15-58a4-b3bf-15eec814eca3"
+    },
+    {
+      "from": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
+      "id": "relationship:d6cf3253e1255f5a3a5f680419e891fe",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "ability:72904354-57c8-580e-98ef-f2833e385fec"
     },
     {
       "from": "faction:33167839-7fb5-5074-8e3e-d0d012a00398",
@@ -566257,6 +566778,15 @@
       "to": "ability:f6499423-05df-526a-a051-1c07d0691636"
     },
     {
+      "from": "warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa",
+      "id": "relationship:fd0f88b9421f02faf2386ab30b603f05",
+      "kind": "includes",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ],
+      "to": "ability:241c323d-faec-5b32-a2d1-cab03491acea"
+    },
+    {
       "from": "warscroll:27298b5d-a62a-5a48-91dc-53ce70ffc89f",
       "id": "relationship:fd116046f1ca20603fd1745f4812fd4a",
       "kind": "includes",
@@ -573710,18 +574240,6 @@
       ]
     },
     {
-      "artifactId": "artifact:sha256:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
-      "id": "source-record:games-workshop:0c91602b92dcc45b20cabeb52fb7865c2b0318a51d3a79a769edb7d10b26e141%3Aprofile-only%3Apage%3A1%3Aunit%3A20%3Abase%3A1",
-      "locator": {
-        "kind": "section",
-        "section": "profile-only:page:1:unit:20"
-      },
-      "recordChecksum": "af109e6fcce8d6709edb4cf71e9701f25cd5adcf9e5ddcae28fa09bb1fdc2643",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000006"
-      ]
-    },
-    {
       "artifactId": "artifact:sha256:147f22e0ea8f319948e5e3e79683c395965115a663728d14b31dbd52e93cd1c4",
       "id": "source-record:games-workshop:147f22e0ea8f319948e5e3e79683c395965115a663728d14b31dbd52e93cd1c4%3Apage%3A1",
       "locator": {
@@ -579804,18 +580322,6 @@
     },
     {
       "artifactId": "artifact:sha256:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
-      "id": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Aprofile-only%3Apage%3A1%3Aunit%3A20",
-      "locator": {
-        "kind": "section",
-        "section": "profile-only:page:1:unit:20"
-      },
-      "recordChecksum": "0c91602b92dcc45b20cabeb52fb7865c2b0318a51d3a79a769edb7d10b26e141",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000006"
-      ]
-    },
-    {
-      "artifactId": "artifact:sha256:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
       "id": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Aprofile-only%3Apage%3A1%3Aunit%3A3",
       "locator": {
         "kind": "section",
@@ -580007,18 +580513,6 @@
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000001",
         "rules-context:90000000-0000-4000-8000-000000000005",
-        "rules-context:90000000-0000-4000-8000-000000000006"
-      ]
-    },
-    {
-      "artifactId": "artifact:sha256:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
-      "id": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Aprofile-only%3Apage%3A2%3Aunit%3A15",
-      "locator": {
-        "kind": "section",
-        "section": "profile-only:page:2:unit:15"
-      },
-      "recordChecksum": "9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161",
-      "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000006"
       ]
     },
@@ -581984,6 +582478,366 @@
       "recordChecksum": "16b50e8c6633b285a575d431f7782ae30e961123a73be807bb6b640b7759c3ae",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth"
+      },
+      "recordChecksum": "12b19ac1ffbfb8a56f431a5560dfceaa5f17a215a8f2cdec70f89a3ee4a38ef7",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fability%3Abattle-damaged",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:battle-damaged"
+      },
+      "recordChecksum": "03ae3e318d1ad67a7a235f450c9c9c687e8d02001662c8e6d1f5222dae40de40",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fability%3Afire-blood-and-vengeance",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:fire-blood-and-vengeance"
+      },
+      "recordChecksum": "bbffe9c6faaed5299de253442363130851fa496ac995d595d45cbf10b62f8d61",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fability%3Aseeing-red",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:seeing-red"
+      },
+      "recordChecksum": "4e3da3e415e0a0fd8556f8980f9ed5d418ae7718932101c60ab103cbd01c4b93",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fability%3Avolcanic-blood",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:volcanic-blood"
+      },
+      "recordChecksum": "3fee56ded4198e20e7fb457bc9e5fbe6e88e9548de90e7e6f48797e0d193580a",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fbase%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/base:1"
+      },
+      "recordChecksum": "14223450cc70c09ae139e2ace379204dafc7611548604f14ed6745906adb2ffa",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/keyword:1"
+      },
+      "recordChecksum": "3dd26628341ee01e3403e236757928f3a00a38ca7604c8f1bf61650114ea1489",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A2",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/keyword:2"
+      },
+      "recordChecksum": "6379abfe3b0584f63b0eebc10823b6c5d501b8b4cc1af3684e917e32d95ad2f5",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A3",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/keyword:3"
+      },
+      "recordChecksum": "d21eb764e5fd05f418f897082ed0bceb8a5a27f037b671f64dd0cd0ff1671d34",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A4",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/keyword:4"
+      },
+      "recordChecksum": "fbb28751b4002bef9f1ea277d09216a075c9a42af446188cf6aa8f4a4e3e3e26",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A5",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/keyword:5"
+      },
+      "recordChecksum": "45f737c04ca9de6dfcca9c73b31d0c144d4bd4df19cfa8c5bdf99068d37b2ed8",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A6",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/keyword:6"
+      },
+      "recordChecksum": "27fc661c6d01653ea4c37dd2cfc73dfef0f969dff604894d1a21f6a9c19f9c5b",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fkeyword%3A7",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/keyword:7"
+      },
+      "recordChecksum": "43651ff215d027adf245f8ec8aad292df1decbc7fda3af44a3ce4f2d219a635b",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fweapon%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:1"
+      },
+      "recordChecksum": "e866906c18eefd4a44eb96e64b7321b6e271354998435bc7873c303b414e9744",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fweapon%3A2",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:2"
+      },
+      "recordChecksum": "b498951dc689644702cd647adcd84713f8311ac06d7c1d82d53601c4bbac6110",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fweapon%3A3",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:3"
+      },
+      "recordChecksum": "55844dcc6b716baaf0d4b92c9cdcaf645a4005a38b48f7c6a04a822bf4387135",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Aauric-runeson-on-magmadroth%2Fweapon%3A4",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:4"
+      },
+      "recordChecksum": "b0590acc5867f0401e59660825f245d9325edff97e6b4881641dc20db65b9518",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers"
+      },
+      "recordChecksum": "59f859434a0af79d75804fa1d7f49272917ddd5ed8fe73e768d5e43ca84f31fe",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fability%3Afiery-disposition",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/ability:fiery-disposition"
+      },
+      "recordChecksum": "8749fe451f9106644b92ff230f06efab20e1e29c289c20405fff6bd85776f11a",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fbase%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/base:1"
+      },
+      "recordChecksum": "0189b5787394e8aaa055d25bea0f00e7b28f25fa02f70e14d210f6c5639c5cb2",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fbase%3A2",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/base:2"
+      },
+      "recordChecksum": "b55b27dd68f19252c3e62ad257921f382ed58afd65c3949a6ce4f629ac8b51d0",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/keyword:1"
+      },
+      "recordChecksum": "0da6ebc91158add05e3ab885575aea1c8824cce6c75fba693a4f46be6ea5bf13",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A2",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/keyword:2"
+      },
+      "recordChecksum": "813ea9c6470f2da435f062c026cc8520d28afca740b1c259ae667a51bfece3e5",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A3",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/keyword:3"
+      },
+      "recordChecksum": "fe5b5f7de4a1bf724ae100f0c848b53a90bb6d3a27a75db0054e2f2e5b163c91",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A4",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/keyword:4"
+      },
+      "recordChecksum": "af061f6fb801598b774c018cdc7bc32d6210f3a32006f9c481718d2daa122b99",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A5",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/keyword:5"
+      },
+      "recordChecksum": "06331053dda474e661145e5e7ee85f1dbe8df1ff05b65336e5de3243a301dff9",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A6",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/keyword:6"
+      },
+      "recordChecksum": "d1f96547ae0ee6bf47c9c9f29340c8fe4e6791cf6163936360c6bc6317fc2ecd",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fkeyword%3A7",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/keyword:7"
+      },
+      "recordChecksum": "e4e13b6acab19c7381a7d3f91c34cc080b7ffe16a7164e8ef2bf644c327c5c49",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fweapon%3A1",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/weapon:1"
+      },
+      "recordChecksum": "9353dc49a049bf8aaac7b65c15059ba85a8c28c6f8349224c693415755a2d9a4",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
+      ]
+    },
+    {
+      "artifactId": "artifact:sha256:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c",
+      "id": "source-record:games-workshop:877dd06520a22c49c276169dcec121a371e9bdc595fa78f6148fc143fe1d753c%3Aofficial-warscroll%3Akhazalite-holds%3Aseasonal%3Avulkyn-flameseekers%2Fweapon%3A2",
+      "locator": {
+        "kind": "section",
+        "section": "official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/weapon:2"
+      },
+      "recordChecksum": "0bcbc10efcafa48427ad04e414047dc0fc38894253242c3ce71afa50330d4512",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000006"
       ]
     },
     {
@@ -584126,54 +584980,6 @@
       "recordChecksum": "c6437d55627c146f0ce04122a20d428fa00b4bc62826d7ba2830f217b2e6c058",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000002"
-      ]
-    },
-    {
-      "artifactId": "artifact:sha256:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
-      "id": "source-record:games-workshop:9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161%3Aprofile-only%3Apage%3A2%3Aunit%3A15%3Abase%3A1",
-      "locator": {
-        "kind": "section",
-        "section": "profile-only:page:2:unit:15"
-      },
-      "recordChecksum": "fa67dd1bc3aa7c7123760a756ebfabde4008541883dc34b31173b88b94ac145c",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000006"
-      ]
-    },
-    {
-      "artifactId": "artifact:sha256:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
-      "id": "source-record:games-workshop:9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161%3Aprofile-only%3Apage%3A2%3Aunit%3A15%3Abase%3A2",
-      "locator": {
-        "kind": "section",
-        "section": "profile-only:page:2:unit:15"
-      },
-      "recordChecksum": "95e889c27f7d8e99fb2e6c088db60d4df1452378e5ed6104002d15233fcfc2e6",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000006"
-      ]
-    },
-    {
-      "artifactId": "artifact:sha256:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
-      "id": "source-record:games-workshop:9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161%3Aprofile-only%3Apage%3A2%3Aunit%3A15%3Akeyword%3A1",
-      "locator": {
-        "kind": "section",
-        "section": "profile-only:page:2:unit:15"
-      },
-      "recordChecksum": "52651990b23af88f4288807038c22a6f4709dc9bb72b851788e55983530c7694",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000006"
-      ]
-    },
-    {
-      "artifactId": "artifact:sha256:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
-      "id": "source-record:games-workshop:9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161%3Aprofile-only%3Apage%3A2%3Aunit%3A15%3Akeyword%3A2",
-      "locator": {
-        "kind": "section",
-        "section": "profile-only:page:2:unit:15"
-      },
-      "recordChecksum": "512c1f58be89e380aac8b0659271384d54705ce56f35885d8cf3e65df554eb30",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000006"
       ]
     },
     {

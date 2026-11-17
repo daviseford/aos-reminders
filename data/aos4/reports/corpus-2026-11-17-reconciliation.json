@@ -2703,7 +2703,7 @@
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#The-Twistweald"
     }
   ],
-  "matchedOfficialUnitFacts": 954,
+  "matchedOfficialUnitFacts": 956,
   "pages": 1319,
   "schemaVersion": 1,
   "unmatchedOfficialUnitFacts": [
@@ -2956,26 +2956,6 @@
       "reason": "No current Wahapedia warscroll page was available; the official profile is retained as an explicit profile-only gap.",
       "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
       "unitSize": 1
-    },
-    {
-      "context": "seasonal",
-      "factChecksum": "0c91602b92dcc45b20cabeb52fb7865c2b0318a51d3a79a769edb7d10b26e141",
-      "faction": "Khazalite Holds",
-      "name": "Scourge of Aqshy Auric Runeson on Magmadroth",
-      "points": 300,
-      "reason": "No current Wahapedia warscroll page was available; the official profile is retained as an explicit profile-only gap.",
-      "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A1",
-      "unitSize": 1
-    },
-    {
-      "context": "seasonal",
-      "factChecksum": "9b6c24f015d90f206f95304af3ec355adcfac2f55517b68626bb89aa172f8161",
-      "faction": "Khazalite Holds",
-      "name": "Scourge of Aqshy Vulkyn Flameseekers",
-      "points": 190,
-      "reason": "No current Wahapedia warscroll page was available; the official profile is retained as an explicit profile-only gap.",
-      "sourceRecordId": "source-record:games-workshop:557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29%3Apage%3A2",
-      "unitSize": 9
     },
     {
       "context": "standard",

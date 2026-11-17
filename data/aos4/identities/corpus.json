@@ -137927,17 +137927,24 @@
     {
       "aliases": [
         {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:volcanic-blood",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:1",
           "publisher": "other"
         }
       ],
       "canonicalId": "ability:241c323d-faec-5b32-a2d1-cab03491acea",
       "kind": "ability",
-      "name": "Volcanic Blood",
-      "retired": true
+      "name": "Volcanic Blood"
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:battle-damaged",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:2",
           "publisher": "other"
@@ -137945,11 +137952,14 @@
       ],
       "canonicalId": "ability:94a4781f-5c40-523e-a9d0-35f241e1d8e4",
       "kind": "ability",
-      "name": "Battle Damaged",
-      "retired": true
+      "name": "Battle Damaged"
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:fire-blood-and-vengeance",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:3",
           "publisher": "other"
@@ -137957,11 +137967,14 @@
       ],
       "canonicalId": "ability:b32ae2b4-202b-536b-896c-56f8b81bfebf",
       "kind": "ability",
-      "name": "Fire, Blood and Vengeance",
-      "retired": true
+      "name": "Fire, Blood and Vengeance"
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:seeing-red",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:4",
           "publisher": "other"
@@ -137969,8 +137982,7 @@
       ],
       "canonicalId": "ability:72904354-57c8-580e-98ef-f2833e385fec",
       "kind": "ability",
-      "name": "Seeing Red",
-      "retired": true
+      "name": "Seeing Red"
     },
     {
       "aliases": [
@@ -138707,14 +138719,17 @@
     {
       "aliases": [
         {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/ability:fiery-disposition",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:ability:1",
           "publisher": "other"
         }
       ],
       "canonicalId": "ability:c9e563bb-654b-521b-8f51-b789b4f3f04d",
       "kind": "ability",
-      "name": "Fiery Disposition",
-      "retired": true
+      "name": "Fiery Disposition"
     },
     {
       "aliases": [
@@ -140105,17 +140120,24 @@
     {
       "aliases": [
         {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:2",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:1",
           "publisher": "other"
         }
       ],
       "canonicalId": "weapon:60b36e24-4d5c-5b8c-af5d-9a49e180ff0a",
       "kind": "weapon",
-      "name": "Ancestral Weapons",
-      "retired": true
+      "name": "Ancestral Weapons"
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:1",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:2",
           "publisher": "other"
@@ -140123,11 +140145,14 @@
       ],
       "canonicalId": "weapon:906a070f-fed4-5196-9c5b-f86aaa1ef772",
       "kind": "weapon",
-      "name": "Roaring Fyrestream",
-      "retired": true
+      "name": "Roaring Fyrestream"
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:4",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:3",
           "publisher": "other"
@@ -140135,11 +140160,14 @@
       ],
       "canonicalId": "weapon:9d071f48-2414-57fe-a4f0-1fdd13b51f59",
       "kind": "weapon",
-      "name": "Magmadroth's Blazing Maw",
-      "retired": true
+      "name": "Magmadroth's Blazing Maw"
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:3",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:4",
           "publisher": "other"
@@ -140147,8 +140175,7 @@
       ],
       "canonicalId": "weapon:f4627921-183a-570c-9f6d-cda91a44a0b7",
       "kind": "weapon",
-      "name": "Magmadroth's Claws and Horns",
-      "retired": true
+      "name": "Magmadroth's Claws and Horns"
     },
     {
       "aliases": [
@@ -140585,17 +140612,24 @@
     {
       "aliases": [
         {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/weapon:1",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:weapon:1",
           "publisher": "other"
         }
       ],
       "canonicalId": "weapon:7c90c81a-6c7f-5d88-b967-a1a4e29001d2",
       "kind": "weapon",
-      "name": "Vulkyn Weapons",
-      "retired": true
+      "name": "Vulkyn Weapons"
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/weapon:2",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:weapon:2",
           "publisher": "other"
@@ -140603,8 +140637,7 @@
       ],
       "canonicalId": "weapon:9c7128b5-2286-5367-8acc-493cc1b15077",
       "kind": "weapon",
-      "name": "Emberteeth",
-      "retired": true
+      "name": "Emberteeth"
     },
     {
       "aliases": [

@@ -1,5 +1,6 @@
 import type { CorpusFactionVariant, CorpusVariantAbility } from './factionVariants'
 import type { CorpusProfileOnlyWarscroll } from '../data/gamesWorkshop/profileOnlyMerge'
+import type { CorpusOfficialWarscrollPage } from '../data/gamesWorkshop/officialWarscrollMerge'
 import { createHash } from 'node:crypto'
 import type { ArtifactManifestEntry, WahapediaRulesPageReview } from '../data'
 import {
@@ -617,6 +618,8 @@ export interface CorpusReview {
   communityWarscrollSources?: CorpusCommunityWarscrollSource[]
   /** Reviewed official units shipped from their battle-profile row alone (#1757); see profileOnlyMerge.ts. */
   profileOnlyWarscrolls?: CorpusProfileOnlyWarscroll[]
+  /** Official full-page warscrolls read from a reviewed pack page (#1757); see officialWarscrollMerge.ts. */
+  officialWarscrollPages?: CorpusOfficialWarscrollPage[]
   /** Official Rules of Renown pages that supply Regiment of Renown rules (#1757). */
   officialRegimentOfRenownSources?: CorpusOfficialRegimentOfRenownSource[]
   /** Official faction packs transcribed by review and verified against the page text (#1757). */

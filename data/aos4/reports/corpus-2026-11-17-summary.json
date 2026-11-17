@@ -3,7 +3,7 @@
   "generatedAt": "2026-10-29T10:58:31.000Z",
   "identities": "data/aos4/identities/corpus.json",
   "integrity": {
-    "consumedSourceRecords": 20759,
+    "consumedSourceRecords": 20782,
     "dispositions": [
       {
         "reason": "Illustrative EXAMPLE PRAYER card (Resurrection) that the General's Handbook 2024-25 page reproduces from the core rulebook to show the ability-card format; it is not a playable AoS 4 ability and must not appear as a reminder (customer report 2026-07-31).",
@@ -45,20 +45,20 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 36198585,
-      "checksum": "9b25b4d484de51704168cc5646c187efc75446c4023e8c3cd21dabfde05d5564"
+      "byteLength": 36235581,
+      "checksum": "770d0bf869d9141dcc2b1492510afe342a1cd0e9190ce0d84322a49b67411b98"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
-      "byteLength": 1509142,
-      "checksum": "fd8496f37ef69ef004098e309cd9a4357ac784d493c8dd4d2e756952edf8489b"
+      "byteLength": 1509154,
+      "checksum": "56047203dde4799640e900955ab65d3f03a6239b49a983a8e2edcffacec7cf09"
     },
     "data/aos4/identities/corpus.json": {
-      "byteLength": 4073648,
-      "checksum": "28ac99b101390b8120d36161cc02fa2c2fcdce66d0880eabbf10e7dc74ff1462"
+      "byteLength": 4075518,
+      "checksum": "0e6f9e90fd8cd189a083ba7242fe27b843674246f738d3b192c43e3a6e25f680"
     },
     "data/aos4/reports/corpus-2026-11-17-reconciliation.json": {
-      "byteLength": 175755,
-      "checksum": "3bf1c5e65209315e730a9603a3b621b4248529c6dda0ac48c0522be0de565885"
+      "byteLength": 174685,
+      "checksum": "52ca38ec3a165081cfe6e9e7eaaa4f31931bf446b0a693a43594e77cd61856b1"
     },
     "src/aos4/generated/corpus/defaults.json": {
       "byteLength": 169,
@@ -69,16 +69,16 @@
       "checksum": "6d80404627182ece045bd12a6b054e2a296d4aa7075c4470c9fac16e8896ed2b"
     },
     "src/aos4/generated/corpus/runtime.core.json": {
-      "byteLength": 6826162,
-      "checksum": "49d1764693a16c0c7433c20c3622ad8aede36b201fb6491ad855e71242338c55"
+      "byteLength": 6832836,
+      "checksum": "06ab4b0c0524a4b3f56062b4174cc6f7613b1729b30c6f1a98f3d63fe2cf283c"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 14156878,
-      "checksum": "89cce316d155dbc3f219eccbea5b84efa3f0798f8f8a841b4ccd9bdcba8e505b"
+      "byteLength": 14174289,
+      "checksum": "2845940c7100d9e69476c052d38488177367774ad244c97a343a1580bcc1be2f"
     },
     "src/aos4/generated/corpus/runtime.sources.json": {
-      "byteLength": 7330718,
-      "checksum": "b73a09d95d7f85578acda207f6444e5343a904900984c9c16a52c3eabbfac41d"
+      "byteLength": 7341455,
+      "checksum": "3032344bddddf417a43befeae8cf7f38fd574bb5a768c944cd512fed3f4d27f5"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-11-17.json",
@@ -95,20 +95,20 @@
   },
   "status": "strict-pass",
   "summary": {
-    "abilities": 5347,
+    "abilities": 5352,
     "attribution": "Powered by Wahapedia",
     "battleProfiles": 1060,
     "contentGroups": 1596,
     "factions": 29,
     "ignoredSourceRecords": 21158,
     "publications": 310,
-    "relationships": 14825,
+    "relationships": 14836,
     "revision": "aos4-corpus-2026-11-17",
     "schemaVersion": 1,
     "sourceArtifacts": 241,
-    "sourceRecords": 20765,
+    "sourceRecords": 20788,
     "status": "strict-pass",
     "warscrolls": 1368,
-    "weapons": 2308
+    "weapons": 2314
   }
 }

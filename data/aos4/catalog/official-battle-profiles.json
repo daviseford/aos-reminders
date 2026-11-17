@@ -39204,7 +39204,7 @@
     },
     {
       "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Khazalite Holds",
       "fact": {
         "baseSizes": [
@@ -39625,7 +39625,7 @@
     },
     {
       "artifactChecksum": "557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29",
-      "disposition": "profile-only",
+      "disposition": "applied-to-runtime",
       "documentTitle": "Battle Profiles - Khazalite Holds",
       "fact": {
         "baseSizes": [
@@ -39888,9 +39888,9 @@
   ],
   "schemaVersion": 1,
   "summary": {
-    "appliedToRuntime": 1030,
+    "appliedToRuntime": 1032,
     "effective": 1422,
-    "profileOnly": 39,
+    "profileOnly": 37,
     "records": 1424,
     "regimentsOfRenown": 78,
     "rosterOptions": 353,

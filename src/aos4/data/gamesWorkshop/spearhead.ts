@@ -94,7 +94,7 @@ export interface GamesWorkshopSpearheadExtraction {
   diagnostics: GamesWorkshopSpearheadDiagnostic[]
 }
 
-interface Item {
+export interface Item {
   str: string
   x: number
   y: number
@@ -102,7 +102,7 @@ interface Item {
   height: number
 }
 
-interface Segment {
+export interface Segment {
   x: number
   right: number
   y: number
@@ -139,7 +139,7 @@ const slug = (value: string): string =>
     .replace(/^-|-$/g, '')
     .toLowerCase()
 
-const toItems = (items: PdfTextItem[]): Item[] =>
+export const toItems = (items: PdfTextItem[]): Item[] =>
   items.flatMap(item =>
     item.str.trim() && item.x !== undefined && item.y !== undefined
       ? [{ str: item.str, x: item.x, y: item.y, width: item.width ?? 0, height: item.height ?? 0 }]
@@ -157,7 +157,7 @@ const joinItems = (items: Item[]): string =>
   }, '')
 
 /** Groups items into baseline lines, then splits each line at wide gaps into column segments. */
-const segmentsOf = (items: Item[]): Segment[] => {
+export const segmentsOf = (items: Item[]): Segment[] => {
   const sorted = [...items].sort((left, right) => right.y - left.y || left.x - right.x)
   const lines: Item[][] = []
   sorted.forEach(item => {
@@ -201,7 +201,7 @@ const splitName = (segment: Segment): { name: string; rest: string } => {
   }
 }
 
-interface ParsedColumnAbility {
+export interface ParsedColumnAbility {
   ability: Omit<GamesWorkshopSpearheadAbility, 'section' | 'page'>
   nameY: number
 }
@@ -213,7 +213,7 @@ interface ParsedColumnAbility {
  * a paragraph break belong to the next ability as its preface. Lines no ability can claim are
  * returned so the caller can report them.
  */
-const parseColumn = (
+export const parseColumn = (
   column: Segment[],
   isBannerSegment: (segment: Segment) => boolean
 ): { abilities: ParsedColumnAbility[]; unplaced: Segment[] } => {

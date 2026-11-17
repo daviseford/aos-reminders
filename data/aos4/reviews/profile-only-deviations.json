@@ -178,20 +178,6 @@
     },
     {
       "faction": "Khazalite Holds",
-      "name": "Scourge of Aqshy Auric Runeson on Magmadroth",
-      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
-      "targetDate": "2027-02-17",
-      "recordedAt": "2026-11-17"
-    },
-    {
-      "faction": "Khazalite Holds",
-      "name": "Scourge of Aqshy Vulkyn Flameseekers",
-      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
-      "targetDate": "2027-02-17",
-      "recordedAt": "2026-11-17"
-    },
-    {
-      "faction": "Khazalite Holds",
       "name": "Stonebreaker Mortar",
       "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
       "targetDate": "2027-02-17",

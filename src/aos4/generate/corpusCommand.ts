@@ -1,6 +1,8 @@
 import { applyFactionVariants } from './factionVariants'
 import { createHash } from 'node:crypto'
 import { mergeOfficialProfileOnlyWarscrolls } from '../data/gamesWorkshop/profileOnlyMerge'
+import { mergeOfficialWarscrollPages } from '../data/gamesWorkshop/officialWarscrollMerge'
+import { extractOfficialWarscrollPage } from '../data/gamesWorkshop/scourgeWarscroll'
 import { extractOfficialRegimentOfRenownPage } from '../data/gamesWorkshop/rulesOfRenown'
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -1068,6 +1070,31 @@ export const extractOfficialFactionOptionSources = (
     }
   })
 
+/** Reviewed official warscroll pages (#1757), each read from its pinned artifact. */
+const extractOfficialWarscrollSources = async (review: CorpusReview, cache: ArtifactCache) => {
+  const sources: Parameters<typeof mergeOfficialWarscrollPages>[2] = []
+  for (const entry of review.officialWarscrollPages ?? []) {
+    const document = review.officialDocuments.find(
+      candidate => candidate.artifact.checksum === entry.artifactChecksum
+    )
+    if (!document?.sourceRecords.some(record => record.page === entry.page)) {
+      throw new Error(`Official warscroll ${entry.name} cites an unreviewed page ${entry.page}`)
+    }
+    const bytes = await cache.get(entry.artifactChecksum)
+    if (!bytes) throw new Error(`Official artifact ${entry.artifactChecksum} is missing`)
+    const section = `official-warscroll:${entry.faction}:${entry.context}:${entry.printedTitle}`
+      .normalize('NFKD')
+      .replace(/[’']/g, '')
+      .replace(/[^A-Za-z0-9:]+/g, '-')
+      .toLowerCase()
+    sources.push({
+      entry,
+      warscroll: await extractOfficialWarscrollPage(bytes, entry.page, entry.printedTitle, section),
+    })
+  }
+  return sources
+}
+
 const extractOfficialSpearheadSources = async (
   review: CorpusReview,
   cache: ArtifactCache
@@ -1545,6 +1572,7 @@ export const loadAcceptedCorpusSourceData = async (
   const communityOptionSources = await extractCommunityFactionOptionFacts(review, cache)
   const communityRegimentSources = await extractCommunityRegimentOfRenownFacts(review, cache)
   const officialSpearheadSources = await extractOfficialSpearheadSources(review, cache)
+  const officialWarscrollSources = await extractOfficialWarscrollSources(review, cache)
   collectGarbage()
   const wahapediaHtml = await loadWahapediaHtmlPages(manifest, review, cache)
   collectGarbage()
@@ -1585,15 +1613,21 @@ export const loadAcceptedCorpusSourceData = async (
   )
   // Reviewed official units no rules source carries stay selectable from their official row
   // alone (#1757); regiments below resolve their members to these records.
-  const profileOnlyDataset = mergeOfficialProfileOnlyWarscrolls(
+  const officialWarscrollsMerged = mergeOfficialWarscrollPages(
     communityMerged.dataset,
     communityMerged.reconciliation,
+    officialWarscrollSources,
+    officialBattleProfiles.reviewed
+  )
+  const profileOnlyDataset = mergeOfficialProfileOnlyWarscrolls(
+    officialWarscrollsMerged.dataset,
+    officialWarscrollsMerged.reconciliation,
     review.profileOnlyWarscrolls ?? [],
     officialBattleProfiles.reviewed
   )
   const communityOptionsMerged = mergeBsDataFactionOptions(
     profileOnlyDataset,
-    communityMerged.reconciliation,
+    officialWarscrollsMerged.reconciliation,
     [
       ...communityOptionSources,
       ...extractOfficialFactionOptionSources(review, officialPageTextBySourceRecordId),
