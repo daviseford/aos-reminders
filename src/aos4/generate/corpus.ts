@@ -1,4 +1,5 @@
 import type { CorpusFactionVariant, CorpusVariantAbility } from './factionVariants'
+import type { CorpusProfileOnlyWarscroll } from '../data/gamesWorkshop/profileOnlyMerge'
 import { createHash } from 'node:crypto'
 import type { ArtifactManifestEntry, WahapediaRulesPageReview } from '../data'
 import {
@@ -479,6 +480,54 @@ export interface CorpusOfficialSpearheadSource {
   unplacedFragments: Array<{ page: number; text: string; reason: string }>
 }
 
+export interface CorpusFactionRulesAvailability {
+  /** Dataset id of the faction (e.g. `GW-KHZ`). */
+  factionId: string
+  /** Short player-facing labels of the unavailable rules, in display order. */
+  unavailableRules: string[]
+  reason: string
+}
+
+/**
+ * Faction options an official pack prints whose only previous source was a community catalogue
+ * (#1757). The review transcribes each card; generation requires every field to appear in the cited
+ * page's extracted text, then merges them exactly like a community option source.
+ */
+export interface CorpusOfficialFactionOptionSource {
+  artifactChecksum: string
+  page: number
+  faction: string
+  /** Official roster-option or faction records that establish the options (the battle-profile row). */
+  officialSourceRecordIds: SourceRecordId[]
+  options: Array<{
+    name: string
+    optionType: 'prayer-lore' | 'spell-lore' | 'mark-of-vulcatrix' | 'heroic-trait' | 'artefact-of-power'
+    groupName: string
+    section: string
+    createsType?: boolean
+    context?: 'seasonal'
+    abilities: Array<{
+      name: string
+      timing: string
+      declare?: string
+      effect: string
+      keywords: string[]
+      costValue?: number
+    }>
+  }>
+  reason: string
+}
+
+export interface CorpusOfficialRegimentOfRenownSource {
+  /** The official Rules of Renown document, by artifact checksum. */
+  artifactChecksum: string
+  /** Faction whose warscrolls the members are. */
+  faction: string
+  /** Printed regiment name to its 1-based page. */
+  pages: Record<string, number>
+  reason: string
+}
+
 export interface CorpusReview {
   schemaVersion: typeof AOS4_CORPUS_REVIEW_SCHEMA_VERSION
   revision: string
@@ -566,6 +615,14 @@ export interface CorpusReview {
   }
   defaultRulesContextId?: RulesContextId
   communityWarscrollSources?: CorpusCommunityWarscrollSource[]
+  /** Reviewed official units shipped from their battle-profile row alone (#1757); see profileOnlyMerge.ts. */
+  profileOnlyWarscrolls?: CorpusProfileOnlyWarscroll[]
+  /** Official Rules of Renown pages that supply Regiment of Renown rules (#1757). */
+  officialRegimentOfRenownSources?: CorpusOfficialRegimentOfRenownSource[]
+  /** Official faction packs transcribed by review and verified against the page text (#1757). */
+  officialFactionOptionSources?: CorpusOfficialFactionOptionSource[]
+  /** Reviewed notice of faction rules no accepted source carries (#1757), shown to players. */
+  factionRulesAvailability?: CorpusFactionRulesAvailability[]
   abilityTextOverrides?: CorpusAbilityTextOverride[]
   contextOverrides?: CorpusContextOverride[]
   pastSeasonContexts?: CorpusPastSeasonContext[]
@@ -791,7 +848,9 @@ const isLegendsWarscroll = (
 }
 
 const isWarscrollRecord = (record: WahapediaWarscrollRecord): boolean =>
-  hasWarscrollCharacteristics(record) && (!record.virtual || integerValue(record.unitSize) !== undefined)
+  // A reviewed profile-only unit (#1757) has an official battle profile but no characteristics.
+  (hasWarscrollCharacteristics(record) || record.profileOnly === true) &&
+  (!record.virtual || integerValue(record.unitSize) !== undefined)
 
 const hasBattleProfile = (record: WahapediaWarscrollRecord): boolean => {
   const unitSize = integerValue(record.unitSize)
@@ -2055,11 +2114,15 @@ export const buildAos4Corpus = (
       CanonicalId<'faction'> | undefined
     if (!id) return
     factionByExternalId.set(record.id, id)
+    const unavailableRules = (review.factionRulesAvailability ?? []).find(
+      entry => entry.factionId === record.id
+    )?.unavailableRules
     entities.push({
       id,
       kind: 'faction',
       revision: record.meta.recordChecksum,
       name: record.name.trim(),
+      ...(unavailableRules?.length ? { unavailableRules: [...unavailableRules] } : {}),
       rulesContextIds: contextsFor(record.meta),
       sourceRefs: [sourceReference(record.meta.sourceRecordId)],
     } satisfies Faction)
@@ -2260,6 +2323,7 @@ export const buildAos4Corpus = (
           health: record.health.trim(),
           ...(record.ward.trim() ? { ward: record.ward.trim() } : {}),
         },
+        ...(record.profileOnly ? { rulesAvailability: 'profile-only' as const } : {}),
         rulesContextIds: contextsFor(record.meta),
         sourceRefs: parentRefs,
       } satisfies Warscroll)

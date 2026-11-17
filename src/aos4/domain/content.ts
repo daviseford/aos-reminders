@@ -12,7 +12,10 @@ export interface Publication extends DomainEntity<'publication'> {
   publisher: SourceArtifact['publisher']
 }
 
-export type Faction = DomainEntity<'faction'>
+export interface Faction extends DomainEntity<'faction'> {
+  /** Reviewed labels of faction rules no accepted source currently carries (#1757). */
+  unavailableRules?: string[]
+}
 
 export interface WarscrollCharacteristics {
   move: string
@@ -26,6 +29,8 @@ export interface Warscroll extends DomainEntity<'warscroll'> {
   factionIds: CanonicalId<'faction'>[]
   keywords: string[]
   characteristics: WarscrollCharacteristics
+  /** Profile-only: selectable from its official battle profile, but no accepted source carries its rules. */
+  rulesAvailability?: 'profile-only'
 }
 
 export interface BattleProfile extends DomainEntity<'battle-profile'> {

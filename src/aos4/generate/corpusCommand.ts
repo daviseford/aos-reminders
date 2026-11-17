@@ -1,4 +1,7 @@
 import { applyFactionVariants } from './factionVariants'
+import { createHash } from 'node:crypto'
+import { mergeOfficialProfileOnlyWarscrolls } from '../data/gamesWorkshop/profileOnlyMerge'
+import { extractOfficialRegimentOfRenownPage } from '../data/gamesWorkshop/rulesOfRenown'
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -49,6 +52,7 @@ import {
 } from '../data/wahapedia'
 import {
   armyFactions,
+  sourceRecordId,
   validateCatalog,
   type Aos4Catalog,
   type CanonicalId,
@@ -932,6 +936,138 @@ const extractOfficialBattleProfileFacts = async (
  * Reads each reviewed official Spearhead pack and fails closed unless the extracted armies match
  * their pinned checksums and every unplaced fragment has a reviewed disposition.
  */
+/**
+ * Official Rules of Renown pages read into the Regiment of Renown merge (#1757): the page prints the
+ * rules text the community catalogue used to supply, and the official battle-profile row still
+ * establishes the name, points, inclusion and members.
+ */
+const extractOfficialRegimentOfRenownSources = (
+  review: CorpusReview,
+  pageTextBySourceRecordId: ReadonlyMap<string, string>
+): BsDataRegimentOfRenownSourceInput[] =>
+  (review.officialRegimentOfRenownSources ?? []).map(source => {
+    const document = review.officialDocuments.find(
+      candidate => candidate.artifact.checksum === source.artifactChecksum
+    )
+    if (!document) {
+      throw new Error(
+        `Official Rules of Renown ${source.artifactChecksum} is not a reviewed official document`
+      )
+    }
+    const entries = Object.entries(source.pages)
+    if (!entries.length) throw new Error(`Official Rules of Renown ${document.title} names no regiments`)
+    const officialSourceRecordIds: SourceRecordId[] = []
+    const facts = entries.map(([name, page]) => {
+      const record = document.sourceRecords.find(candidate => candidate.page === page)
+      const text = record ? pageTextBySourceRecordId.get(record.id) : undefined
+      if (!record || text === undefined) {
+        throw new Error(`Official Rules of Renown ${document.title} page ${page} is not reviewed evidence`)
+      }
+      officialSourceRecordIds.push(record.id)
+      const fact = extractOfficialRegimentOfRenownPage(
+        { page, text, pageSourceRecordId: record.id },
+        source.artifactChecksum
+      )
+      if (
+        fact.name.replace(/[^a-z0-9]/gi, '').toLowerCase() !== name.replace(/[^a-z0-9]/gi, '').toLowerCase()
+      ) {
+        throw new Error(`Official Rules of Renown page ${page} prints ${fact.name}, not the reviewed ${name}`)
+      }
+      return fact
+    })
+    return {
+      artifact: document.artifact,
+      repository: 'games-workshop-rules-of-renown',
+      facts,
+      officialSourceRecordIds,
+      faction: source.faction,
+      publisher: 'games-workshop' as const,
+    }
+  })
+
+const squashText = (value: string): string => value.replace(/[^A-Za-z0-9]/g, '').toUpperCase()
+
+/**
+ * Official faction-pack options transcribed by review (#1757). Every transcribed field must appear in
+ * the cited page's extracted text, so a transcription can only restate what the page prints.
+ */
+const extractOfficialFactionOptionSources = (
+  review: CorpusReview,
+  pageTextBySourceRecordId: ReadonlyMap<string, string>
+): BsDataFactionOptionSourceInput[] =>
+  (review.officialFactionOptionSources ?? []).map(source => {
+    const document = review.officialDocuments.find(
+      candidate => candidate.artifact.checksum === source.artifactChecksum
+    )
+    const record = document?.sourceRecords.find(candidate => candidate.page === source.page)
+    const text = record ? pageTextBySourceRecordId.get(record.id) : undefined
+    if (!document || !record || text === undefined) {
+      throw new Error(
+        `Official faction options ${source.artifactChecksum} page ${source.page} are not reviewed evidence`
+      )
+    }
+    const page = squashText(text)
+    const checksumOf = (value: unknown) => createHash('sha256').update(JSON.stringify(value)).digest('hex')
+    const facts = source.options.map(option => {
+      const abilities = option.abilities.map((ability, index) => {
+        ;[ability.name, ability.timing, ability.declare, ability.effect, ...ability.keywords].forEach(
+          value => {
+            if (value && !page.includes(squashText(value))) {
+              throw new Error(
+                `Official option ${option.name} ability ${ability.name} is not printed on ${document.title} page ${source.page}`
+              )
+            }
+          }
+        )
+        const kind: 'passive' | 'prayer' | 'spell' | 'activated' =
+          ability.timing === 'Passive'
+            ? 'passive'
+            : ability.keywords.includes('Prayer')
+              ? 'prayer'
+              : ability.keywords.includes('Spell')
+                ? 'spell'
+                : 'activated'
+        return {
+          line: index + 1,
+          name: ability.name,
+          kind,
+          timing: ability.timing,
+          ...(ability.declare ? { declare: ability.declare } : {}),
+          effect: ability.effect,
+          keywords: ability.keywords,
+          ...(ability.costValue !== undefined ? { costValue: ability.costValue } : {}),
+          sourceRecordId: sourceRecordId(
+            'games-workshop',
+            `${source.artifactChecksum}:${option.section}:ability:${index + 1}`
+          ),
+          recordChecksum: checksumOf(ability),
+        }
+      })
+      return {
+        kind: 'faction-option' as const,
+        optionType: option.optionType,
+        name: option.name,
+        section: option.section,
+        groupName: option.groupName,
+        abilities,
+        sourceRecordId: sourceRecordId('games-workshop', `${source.artifactChecksum}:${option.section}`),
+        factChecksum: checksumOf({ name: option.name, abilities: option.abilities }),
+      }
+    })
+    return {
+      artifact: document.artifact,
+      repository: 'games-workshop-faction-pack',
+      facts,
+      officialSourceRecordIds: [record.id, ...source.officialSourceRecordIds],
+      faction: source.faction,
+      createsTypeSections: source.options.filter(option => option.createsType).map(option => option.section),
+      seasonalSections: source.options
+        .filter(option => option.context === 'seasonal')
+        .map(option => option.section),
+      publisher: 'games-workshop' as const,
+    }
+  })
+
 const extractOfficialSpearheadSources = async (
   review: CorpusReview,
   cache: ArtifactCache
@@ -1447,10 +1583,21 @@ export const loadAcceptedCorpusSourceData = async (
     communitySources,
     officialBattleProfiles.effective
   )
-  const communityOptionsMerged = mergeBsDataFactionOptions(
+  // Reviewed official units no rules source carries stay selectable from their official row
+  // alone (#1757); regiments below resolve their members to these records.
+  const profileOnlyDataset = mergeOfficialProfileOnlyWarscrolls(
     communityMerged.dataset,
     communityMerged.reconciliation,
-    communityOptionSources,
+    review.profileOnlyWarscrolls ?? [],
+    officialBattleProfiles.reviewed
+  )
+  const communityOptionsMerged = mergeBsDataFactionOptions(
+    profileOnlyDataset,
+    communityMerged.reconciliation,
+    [
+      ...communityOptionSources,
+      ...extractOfficialFactionOptionSources(review, officialPageTextBySourceRecordId),
+    ],
     officialBattleProfiles.effective
   )
   // Regiments run last: a member must resolve to the live warscroll ids the rewrites above left.
@@ -1460,7 +1607,19 @@ export const loadAcceptedCorpusSourceData = async (
     communityRegimentSources,
     officialBattleProfiles.effective
   )
-  validateReviewedReconciliation(review, communityRegimentsMerged.reconciliation)
+  const officialRegimentsMerged = mergeBsDataRegimentsOfRenown(
+    communityRegimentsMerged.dataset,
+    communityRegimentsMerged.reconciliation,
+    extractOfficialRegimentOfRenownSources(review, officialPageTextBySourceRecordId),
+    officialBattleProfiles.effective
+  )
+  validateReviewedReconciliation(review, officialRegimentsMerged.reconciliation)
+  const knownFactionIds = new Set(officialRegimentsMerged.dataset.factions.map(faction => faction.id))
+  ;(review.factionRulesAvailability ?? []).forEach(entry => {
+    if (!knownFactionIds.has(entry.factionId) || !entry.unavailableRules.length) {
+      throw new Error(`Faction rules availability names unknown or empty faction ${entry.factionId}`)
+    }
+  })
   return {
     manifest,
     review,
@@ -1470,13 +1629,13 @@ export const loadAcceptedCorpusSourceData = async (
       // Reviewed faction variants copy secondary records onto another faction after every merge, so a
       // copy carries the merged record exactly (#1757).
       dataset: applyFactionVariants(
-        communityRegimentsMerged.dataset,
+        officialRegimentsMerged.dataset,
         review.factionVariants,
         review.variantAbilities
       ),
     },
     officialBattleProfiles,
-    reconciliation: communityRegimentsMerged.reconciliation,
+    reconciliation: officialRegimentsMerged.reconciliation,
     officialPageTextBySourceRecordId,
   }
 }

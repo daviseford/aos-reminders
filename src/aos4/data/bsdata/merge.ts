@@ -198,6 +198,8 @@ export interface BsDataFactionOptionSourceInput {
    * catalogue's own lore title, and the merge fails closed if the army's root does not exist yet.
    */
   armyOfRenownSections?: Record<string, string>
+  /** Publisher of the rules text (#1757): an official faction pack reuses this merge. */
+  publisher?: 'bsdata' | 'games-workshop'
 }
 
 const OPTION_TYPE_LABELS: Record<
@@ -259,13 +261,14 @@ export const mergeBsDataFactionOptions = (
 
   sources.forEach(source => {
     const sourceArtifactId = artifactId(source.artifact.checksum)
+    const publisher = source.publisher ?? 'bsdata'
     const identityFor = (recordSourceId: SourceRecordId): SourceRecordId => {
       // Identity aliases must survive BSData refreshes: strip the artifact checksum and key the
       // alias on the repository and catalogue section instead.
       const suffix = decodeURIComponent(String(recordSourceId)).slice(
-        `source-record:bsdata:${source.artifact.checksum}:`.length
+        `source-record:${publisher}:${source.artifact.checksum}:`.length
       )
-      return sourceRecordId('bsdata', `${source.repository}:${suffix}`)
+      return sourceRecordId(publisher, `${source.repository}:${suffix}`)
     }
     const meta = (
       recordSourceId: SourceRecordId,
@@ -274,7 +277,7 @@ export const mergeBsDataFactionOptions = (
       officialSourceRecordIds?: SourceRecordId[],
       rulesContextKinds: NonNullable<WahapediaRecordMeta['rulesContextKinds']> = ['standard']
     ): WahapediaRecordMeta => ({
-      file: 'BSDataCatalogue.cat',
+      file: publisher === 'games-workshop' ? 'GamesWorkshopRules.pdf' : 'BSDataCatalogue.cat',
       row: 0,
       artifactId: sourceArtifactId,
       sourceRecordId: recordSourceId,
@@ -331,7 +334,7 @@ export const mergeBsDataFactionOptions = (
           descriptionHtml: '',
           armyOfRenown: true,
           meta: meta(
-            sourceRecordId('bsdata', `${source.artifact.checksum}:${rootSection}`),
+            sourceRecordId(publisher, `${source.artifact.checksum}:${rootSection}`),
             checksum(value),
             rootSection,
             source.officialSourceRecordIds
@@ -340,7 +343,7 @@ export const mergeBsDataFactionOptions = (
         newTypes.set(rootKey, root)
       }
       const groupSection = `${rootSection}:${canonical(kindName)}`
-      const groupSourceRecordId = sourceRecordId('bsdata', `${source.artifact.checksum}:${groupSection}`)
+      const groupSourceRecordId = sourceRecordId(publisher, `${source.artifact.checksum}:${groupSection}`)
       let shared = sharedSubtypes.get(groupSection)
       if (!shared) {
         shared = { id: bsDataGeneratedId(groupSourceRecordId), name: kindName, lines: 0 }
@@ -473,7 +476,7 @@ export const mergeBsDataFactionOptions = (
           let created = newTypes.get(typeKey)
           if (!created) {
             const typeSection = `type:${canonical(optionFactionId)}:${canonical(labels.typeGroupName)}`
-            const typeSourceRecordId = sourceRecordId('bsdata', `${source.artifact.checksum}:${typeSection}`)
+            const typeSourceRecordId = sourceRecordId(publisher, `${source.artifact.checksum}:${typeSection}`)
             const value = { factionId: optionFactionId, name: labels.typeGroupName }
             created = {
               ...value,
@@ -564,7 +567,7 @@ export const mergeBsDataFactionOptions = (
               .replace(/^-+|-+$/g, '')
               .toLowerCase()}`
             const groupSourceRecordId = sourceRecordId(
-              'bsdata',
+              publisher,
               `${source.artifact.checksum}:${groupSection}`
             )
             shared = { id: bsDataGeneratedId(groupSourceRecordId), name: fact.groupName, lines: 0 }
@@ -1013,6 +1016,11 @@ export interface BsDataRegimentOfRenownSourceInput {
    * Fyreslayers units under the same names, so members resolve within this faction only.
    */
   faction?: string
+  /**
+   * Publisher of the rules text (#1757): an official Rules of Renown page replaces a community
+   * catalogue with the same merge, keyed on its own checksum-free identity alias.
+   */
+  publisher?: 'bsdata' | 'games-workshop'
 }
 
 const INCLUSION_NOTE = /^This Regiment of Renown can be included in the following factions: (.+)\.$/
@@ -1082,13 +1090,14 @@ export const mergeBsDataRegimentsOfRenown = (
 
   sources.forEach(source => {
     const sourceArtifactId = artifactId(source.artifact.checksum)
+    const publisher = source.publisher ?? 'bsdata'
     const identityFor = (recordSourceId: SourceRecordId): SourceRecordId => {
-      // Identity aliases must survive BSData refreshes: strip the artifact checksum and key the
-      // alias on the repository and catalogue section instead.
+      // Identity aliases must survive source refreshes: strip the artifact checksum and key the
+      // alias on the repository (or official document family) and section instead.
       const suffix = decodeURIComponent(String(recordSourceId)).slice(
-        `source-record:bsdata:${source.artifact.checksum}:`.length
+        `source-record:${publisher}:${source.artifact.checksum}:`.length
       )
-      return sourceRecordId('bsdata', `${source.repository}:${suffix}`)
+      return sourceRecordId(publisher, `${source.repository}:${suffix}`)
     }
     ;[...source.facts]
       .sort((left, right) => left.section.localeCompare(right.section))
@@ -1182,7 +1191,7 @@ export const mergeBsDataRegimentsOfRenown = (
           recordChecksum: string,
           officialSourceRecordIds?: SourceRecordId[]
         ): WahapediaRecordMeta => ({
-          file: 'BSDataCatalogue.cat',
+          file: publisher === 'games-workshop' ? 'GamesWorkshopRules.pdf' : 'BSDataCatalogue.cat',
           row: 0,
           artifactId: sourceArtifactId,
           sourceRecordId: recordSourceId,
@@ -1247,7 +1256,7 @@ export const mergeBsDataRegimentsOfRenown = (
             factionId,
             meta: meta(
               sourceRecordId(
-                'bsdata',
+                publisher,
                 `${source.artifact.checksum}:${fact.section}:availability:${factionId}`
               ),
               checksum(value),

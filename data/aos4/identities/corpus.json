@@ -137096,6 +137096,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-faction-pack:option:aureate-hide",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:aureate-hide",
           "publisher": "other"
         }
@@ -137393,6 +137397,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-faction-pack:option:intense-fyrestream",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:intense-fyrestream",
           "publisher": "other"
         }
@@ -137503,6 +137511,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-faction-pack:option:thickened-scales",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:thickened-scales",
           "publisher": "other"
         }
@@ -137536,6 +137548,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-faction-pack:option:vulkyn-gifts:ability:1",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts:ability:1",
           "publisher": "other"
         }
@@ -137547,6 +137563,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-faction-pack:option:vulkyn-gifts:ability:2",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts:ability:2",
           "publisher": "other"
         }
@@ -137557,6 +137577,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:option:vulkyn-gifts:ability:3",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts:ability:3",
           "publisher": "other"
@@ -137591,6 +137615,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-rules-of-renown:regiment:fjoris-vengeance:ability:1",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:regiment:fjoris-vengeance:ability:1",
           "publisher": "other"
         }
@@ -137602,6 +137630,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-rules-of-renown:regiment:thengins-grudgesettlers:ability:1",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:regiment:thengins-grudgesettlers:ability:1",
           "publisher": "other"
         }
@@ -137612,6 +137644,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-rules-of-renown:regiment:thengins-grudgesettlers:ability:2",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:regiment:thengins-grudgesettlers:ability:2",
           "publisher": "other"
@@ -139054,6 +139090,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-faction-pack:option-group:marks-of-vulcatrix",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:option-group:marks-of-vulcatrix",
           "publisher": "other"
         }
@@ -139131,6 +139171,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-faction-pack:option:vulkyn-gifts",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts",
           "publisher": "other"
         }
@@ -139164,6 +139208,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-rules-of-renown:regiment:fjoris-vengeance",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:regiment:fjoris-vengeance",
           "publisher": "other"
         }
@@ -139174,6 +139222,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-rules-of-renown:regiment:thengins-grudgesettlers",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:regiment:thengins-grudgesettlers",
           "publisher": "other"
@@ -139230,6 +139282,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-faction-pack:type:gwkhz:marksofvulcatrix",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:marksofvulcatrix",
           "publisher": "other"
         }
@@ -139240,6 +139296,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:type:gwkhz:prayerlore",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:prayerlore",
           "publisher": "other"
