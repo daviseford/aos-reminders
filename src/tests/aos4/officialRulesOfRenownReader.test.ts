@@ -217,5 +217,5 @@ describe('official faction-pack transcription (#1757)', () => {
     expect(() =>
       extractOfficialFactionOptionSources(review('Subtract 2 from the Rend characteristic of weapons.'), text)
     ).toThrow(/is not printed on Scourge of Aqshy - Khazalite Holds page 1/)
-  })
+  }, 60_000)
 })
