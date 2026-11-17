@@ -219,3 +219,79 @@ describe('official faction-pack transcription (#1757)', () => {
     ).toThrow(/is not printed on Scourge of Aqshy - Khazalite Holds page 1/)
   }, 60_000)
 })
+
+describe('official full-page warscroll reader (#1757)', () => {
+  const item = (str: string, x: number, y: number, height: number) => ({
+    str,
+    x,
+    y,
+    width: str.length * 4,
+    height,
+  })
+  const page = [
+    item('• SCOU RGE OF AQSH Y WA R SCROLL •', 73, 706, 10),
+    item('V ULK Y N FLA M ESEEK ER S', 51, 681, 18),
+    item('6+', 120, 645, 14),
+    item('4"', 83, 627, 14),
+    item('2', 68, 610, 14),
+    item('5+', 100, 610, 14),
+    item('1', 86, 589, 14),
+    item('MELEE WEAPONS', 74, 543, 9),
+    item('Emberteeth', 93, 508, 9),
+    item('Companion', 68, 499, 9),
+    item('1', 194, 503, 10),
+    item('3+', 212, 503, 10),
+    item('3+', 233, 503, 10),
+    item('-', 258, 503, 10),
+    item('2', 279, 503, 10),
+    item('Passive', 61, 424, 8),
+    item('KINDLED:', 55, 412, 8),
+    item('Effect:', 55, 379, 8),
+    item('Add 1 to save rolls for this unit.', 79, 379, 8),
+    item('KEY WORDS', 60, 96, 7),
+    item('Infantry, Ward (6+)', 136, 102, 8),
+    item('Order, Khazalite Holds', 137, 91, 8),
+  ]
+
+  it('reads the stat badge, weapons, abilities and keywords from relative positions', async () => {
+    const { parseOfficialWarscrollPage } = await import('../../aos4/data/gamesWorkshop/scourgeWarscroll')
+    const warscroll = parseOfficialWarscrollPage(page, 3, 'Vulkyn Flameseekers', 'test')
+    expect(warscroll).toMatchObject({
+      move: '4"',
+      save: '5+',
+      health: '2',
+      control: '1',
+      ward: '6+',
+      keywords: ['INFANTRY', 'WARD (6+)', 'ORDER', 'KHAZALITE HOLDS'],
+      weapons: [
+        expect.objectContaining({
+          name: 'Emberteeth',
+          attacks: '1',
+          hit: '3+',
+          rend: '-',
+          damage: '2',
+          abilities: 'Companion',
+        }),
+      ],
+      abilities: [
+        expect.objectContaining({
+          name: 'KINDLED',
+          timing: 'Passive',
+          effect: 'Add 1 to save rolls for this unit.',
+        }),
+      ],
+    })
+  })
+
+  it('fails closed without the banner, on another title, or when the ward disagrees', async () => {
+    const { parseOfficialWarscrollPage } = await import('../../aos4/data/gamesWorkshop/scourgeWarscroll')
+    expect(() => parseOfficialWarscrollPage(page.slice(1), 3, 'Vulkyn Flameseekers', 'test')).toThrow(
+      /banner/
+    )
+    expect(() => parseOfficialWarscrollPage(page, 3, 'Auric Runeson', 'test')).toThrow(/title/)
+    const noWard = page.map(entry =>
+      entry.str === 'Infantry, Ward (6+)' ? { ...entry, str: 'Infantry' } : entry
+    )
+    expect(() => parseOfficialWarscrollPage(noWard, 3, 'Vulkyn Flameseekers', 'test')).toThrow(/ward/)
+  })
+})

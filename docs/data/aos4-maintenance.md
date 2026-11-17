@@ -34,19 +34,19 @@ The strict report currently records:
 
 - 29 decoded source factions: 28 playable armies (Khazalite Holds in matched play and Spearhead,
   #2087) plus the Endless Spells container
-- 1,368 warscrolls (40 profile-only, see below) and 1,060 battle profiles
-- 5,347 abilities
-- 2,308 weapons
+- 1,368 warscrolls (38 profile-only, see below) and 1,060 battle profiles
+- 5,352 abilities
+- 2,314 weapons
 - 1,596 content groups
-- 241 source artifacts and 20,759 live source records
+- 241 source artifacts and 20,782 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - no BSData record: the three translated Khazalite Holds cards corpus 2026-10-20b ignored left with
   their catalogues in corpus 2026-11-17 (#1757)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,385 extracted GW battle-profile facts: 1,030 applied to runtime, 39 reviewed profile-only
-  gaps (corpus 2026-11-17: 34 Khazalite Holds and 4 White Dwarf Legends rows whose rules only
+- 1,385 extracted GW battle-profile facts: 1,032 applied to runtime, 37 reviewed profile-only
+  gaps (corpus 2026-11-17: 33 Khazalite Holds and 4 White Dwarf Legends rows whose rules only
   BSData carried; ledger `data/aos4/reviews/profile-only-deviations.json`), 314 structured
   references, and 2 superseded (#2087: Battle Profiles - Khazalite
   Holds (October 2026) reprints the Fjori’s Flamebearers and Gotrek Gurnisson regiment rows, so the
@@ -60,7 +60,7 @@ The strict report currently records:
   ASTOUNDING TECHNIQUE; same rules text, same ids). The same week Games Workshop's DMCA notice
   (2026-11-12) took `BSData/age-of-sigmar-4th` down, and four of the eight pinned catalogues were
   never pushed to the private archive, so no corpus could be regenerated or certified while it pinned
-  them. Under the owner's disposition every BSData input left: the 36 Khazalite Holds units
+  them. Under the owner's disposition every BSData input left: 34 Khazalite Holds units
   (Magmic Battleforge on its Faction Terrain row) and the four White Dwarf Legends units ship
   profile-only from their official rows, with their canonical ids and points, no rules text and a
   `rulesAvailability: 'profile-only'` marker; the Khazalite Holds battletome rules (battle traits,
@@ -70,11 +70,15 @@ The strict report currently records:
   Fjori's Vengeance and Thengin's Grudgesettlers come from Regiments of Renown - Khazalite Holds
   pages 1-2 through a bounded page reader, and the seasonal Vulkyn Gifts lore and three Marks of
   Vulcatrix from Scourge of Aqshy - Khazalite Holds page 1, transcribed in the review and required to
-  appear in the page text. The two seasonal Khazalite Holds warscrolls that pack prints (pages 2-3)
-  stay profile-only: its full-page warscroll layout has no reader yet. Canonical ids held throughout
-  (15 official aliases appended to the existing identities). The radar's BSData lane is disabled by
-  reviewed config. Certified as `aos4-corpus-2026-11-17-machine-r1` against fresh observations
-  (Games Workshop and Wahapedia 2026-11-17 16:03Z)
+  appear in the page text. The two seasonal Khazalite Holds warscrolls that pack prints in full (Scourge of
+  Aqshy Auric Runeson on Magmadroth and Scourge of Aqshy Vulkyn Flameseekers, pages 2-3) come from a
+  bounded full-page warscroll reader (relative stat-badge, weapon-row, rules-column and keyword
+  geometry; every string must be printed on the page; the review pins each extraction checksum). Canonical ids held throughout
+  (26 official aliases appended to the existing identities, 11 of them un-retiring the two seasonal
+  warscrolls' abilities and weapons). The radar's BSData lane is disabled by
+  reviewed config. Certified as `aos4-corpus-2026-11-17-machine-r2` against fresh observations
+  (Games Workshop and Wahapedia 2026-11-17 17:31Z); `machine-r1` (16:03Z observations, before the
+  seasonal warscroll reader) stays as the reuse source it overlays
 - the 2026-11-10 BSData re-pin (#1757), on top of 2026-11-03: the Rules Radar alarm of 2026-11-10
   (BSData `d2334be5` → `487e2d9f`, 22 commits, 44 catalogues) is BSData merging its
   `khazalite-holds` branch into `main`, folding Fyreslayers into Khazalite Holds, with the October

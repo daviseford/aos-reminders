@@ -52,7 +52,7 @@ describe('BSData independence (corpus 2026-11-17, #1757)', () => {
       (entity): entity is Warscroll =>
         entity.kind === 'warscroll' && entity.rulesAvailability === 'profile-only'
     )
-    expect(profileOnly).toHaveLength(40)
+    expect(profileOnly).toHaveLength(38)
     profileOnly.forEach(unit => {
       expect(includes(unit.id).filter(entity => entity.kind !== 'battle-profile')).toEqual([])
       const profiles = includes(unit.id).filter(entity => entity.kind === 'battle-profile')
@@ -176,5 +176,35 @@ describe('BSData independence (corpus 2026-11-17, #1757)', () => {
       existsSync(path.join(process.cwd(), 'data/aos4/certifications/aos4-corpus-2026-11-10-machine-r1'))
     ).toBe(true)
     expect(typeof extractBsDataWarscrolls).toBe('function')
+  })
+})
+
+describe('official Scourge of Aqshy - Khazalite Holds warscrolls (#1757)', () => {
+  it('ships both seasonal warscrolls from the official pack with their canonical ids', () => {
+    const runeson = warscroll('warscroll:5aebcca6-f377-522a-bd8a-9565f914a5aa')
+    expect(runeson).toMatchObject({
+      name: 'Scourge of Aqshy Auric Runeson on Magmadroth',
+      characteristics: { move: '10"', save: '4+', control: '5', health: '14', ward: '6+' },
+    })
+    expect(runeson.rulesAvailability).toBeUndefined()
+    const contents = includes(runeson.id)
+    expect(
+      contents
+        .filter(entity => entity.kind === 'weapon')
+        .map(entity => entity.id)
+        .sort()
+    ).toEqual([
+      'weapon:60b36e24-4d5c-5b8c-af5d-9a49e180ff0a',
+      'weapon:906a070f-fed4-5196-9c5b-f86aaa1ef772',
+      'weapon:9d071f48-2414-57fe-a4f0-1fdd13b51f59',
+      'weapon:f4627921-183a-570c-9f6d-cda91a44a0b7',
+    ])
+    const seeingRed = contents.find(entity => entity.id === 'ability:72904354-57c8-580e-98ef-f2833e385fec')
+    expect(seeingRed).toMatchObject({ name: 'SEEING RED', keywords: ['RAMPAGE'] })
+    const flameseekers = warscroll('warscroll:03b032cd-69f8-59ff-9c87-7f40bb5b5d32')
+    expect(flameseekers.rulesAvailability).toBeUndefined()
+    expect(includes(flameseekers.id).map(entity => entity.name)).toEqual(
+      expect.arrayContaining(['FIERY DISPOSITION', 'Vulkyn Weapons', 'Emberteeth'])
+    )
   })
 })

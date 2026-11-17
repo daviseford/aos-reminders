@@ -142,10 +142,10 @@ describe('the official-first intake gate (#1820)', () => {
       JSON.parse(readFileSync(path.join(process.cwd(), DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH), 'utf8'))
     )
     // The last deviation, The Emberwatch (Legends), retired in corpus 2026-10-27 (#1757). Corpus
-    // 2026-11-17 (#1757) ledgers the 39 official unit rows that lost their only rules source when
-    // BSData was taken down: 34 Khazalite Holds rows and four White Dwarf Legends rows.
-    expect(reconciliation.unmatchedOfficialUnitFacts).toHaveLength(39)
-    expect(ledger.deviations).toHaveLength(39)
+    // 2026-11-17 (#1757) ledgers the 37 official unit rows that lost their only rules source when
+    // BSData was taken down: 33 Khazalite Holds rows and four White Dwarf Legends rows.
+    expect(reconciliation.unmatchedOfficialUnitFacts).toHaveLength(37)
+    expect(ledger.deviations).toHaveLength(37)
     expect(new Set(ledger.deviations.map(deviation => deviation.faction))).toEqual(
       new Set(['Khazalite Holds', 'Warhammer Legends'])
     )

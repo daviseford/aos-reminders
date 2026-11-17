@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(12_018)
+    expect(AOS4_CATALOG.entities).toHaveLength(12_029)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 12,018 entities', () => {
+  it('reports no missing provenance for any of the 12,029 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(12_018)
+    ).toHaveLength(12_029)
   })
 })
 
@@ -207,19 +207,19 @@ describe('AoS 4 catalog generation integrity', () => {
         // and The Chosen Axes (36 entities, Blazing Vengeance among them). Corpus 2026-11-10 re-pins the
         // Khazalite Holds BSData catalogues at main, one keyword record fewer (#1757). Corpus 2026-11-17
         // (#1757) removes every BSData input after the takedown: the 36 Khazalite Holds and four Legends
-        // units stay as profile-only warscrolls, their BSData-only rules and the faction's battletome
-        // rules leave (135 abilities, 67 weapons), and the three translated-card dispositions go with
+        // units stay (all but the two seasonal warscrolls the official Scourge of Aqshy pack prints) as profile-only warscrolls, their BSData-only rules and the faction's battletome
+        // rules leave (130 abilities, 61 weapons), and the three translated-card dispositions go with
         // their source.
         warscrolls: 1368,
         battleProfiles: 1060,
-        abilities: 5347,
-        weapons: 2308,
+        abilities: 5352,
+        weapons: 2314,
         sourceArtifacts: 241,
-        sourceRecords: 20765,
+        sourceRecords: 20788,
         ignoredSourceRecords: 21158,
       },
       integrity: {
-        consumedSourceRecords: 20759,
+        consumedSourceRecords: 20782,
         issues: [],
         supersededSourceRecords: {
           count: 21152,
@@ -435,10 +435,10 @@ describe('AoS 4 catalog generation integrity', () => {
       // Corpus 2026-10-27 (#1757): Wahapedia now publishes The Emberwatch, the last profile-only fact.
       // Corpus 2026-10-29 (#1757): the October 2026 core Battle Profiles adds 15 White Dwarf Legends
       // rows (page 75); every one resolves to a shipped warscroll, so none is profile-only.
-      // Corpus 2026-11-17 (#1757): with BSData gone, 39 official unit rows (34 Khazalite Holds, four
+      // Corpus 2026-11-17 (#1757): with BSData gone, 37 official unit rows (33 Khazalite Holds, four
       // White Dwarf Legends, ledgered in profile-only-deviations.json) ship from the official row alone.
-      appliedToRuntime: 1030,
-      profileOnly: 39,
+      appliedToRuntime: 1032,
+      profileOnly: 37,
       structuredReference: 353,
     })
     expect(officialBattleProfiles.records).toHaveLength(1424)
@@ -448,7 +448,7 @@ describe('AoS 4 catalog generation integrity', () => {
     })
     expect(
       officialBattleProfiles.records.filter(record => record.disposition === 'profile-only')
-    ).toHaveLength(39)
+    ).toHaveLength(37)
   })
 
   it('does not allow superseded bulk rule rows into the live catalog', () => {

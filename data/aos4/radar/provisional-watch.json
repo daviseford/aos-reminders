@@ -4,7 +4,7 @@
     {
       "id": "wahapedia-khazalite-holds-faction",
       "issueNumber": 2087,
-      "reason": "Corpus 2026-11-17 (#1757) removed every BSData input after the Games Workshop DMCA notice of 2026-11-12: the 36 Khazalite Holds matched-play units ship profile-only (official points, no rules text) and the battletome faction rules and the Fyrd of Fyrepeak and Throngankor Alliance Armies of Renown are retired, with an in-app notice. A Wahapedia Khazalite Holds faction page is the first preferred-secondary source that could restore them through a normal candidate intake (#2087). Earlier history: corpus 2026-10-26 shipped this content provisionally from the BSData khazalite-holds catalogues.",
+      "reason": "Corpus 2026-11-17 (#1757) removed every BSData input after the Games Workshop DMCA notice of 2026-11-12: 34 Khazalite Holds matched-play units ship profile-only (official points, no rules text) and the battletome faction rules and the Fyrd of Fyrepeak and Throngankor Alliance Armies of Renown are retired, with an in-app notice. A Wahapedia Khazalite Holds faction page is the first preferred-secondary source that could restore them through a normal candidate intake (#2087). Earlier history: corpus 2026-10-26 shipped this content provisionally from the BSData khazalite-holds catalogues.",
       "url": "https://wahapedia.ru/aos4/nav.html",
       "sentinels": [
         {

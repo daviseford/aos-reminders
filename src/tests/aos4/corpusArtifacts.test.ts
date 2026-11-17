@@ -71,7 +71,7 @@ describe('AoS 4 derived corpus artifacts', () => {
     // catalogues (#1757). Corpus 2026-11-10 re-pins the Khazalite Holds catalogues at BSData main,
     // which no longer prints the MAGMADROTH keyword record the reviewed override removed (#1757).
     // Corpus 2026-11-17 removes every BSData catalogue and its records after the takedown (#1757).
-    expect(sources.sourceRecords).toHaveLength(20759)
+    expect(sources.sourceRecords).toHaveLength(20782)
     expect(sources.sourceArtifacts).toHaveLength(231)
   })
 

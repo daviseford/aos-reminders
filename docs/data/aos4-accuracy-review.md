@@ -16,10 +16,10 @@ The current revision is `aos4-corpus-2026-11-17` (issue #1757): every BSData inp
 the Games Workshop DMCA notice of 2026-11-12 took `BSData/age-of-sigmar-4th` down, and the Wahapedia
 Ravaged Coast rules page re-pinned (two Path of the Duellist card names), on top of
 `aos4-corpus-2026-11-10`. The manifest `accepted-2026-11-17.json` holds 241 artifacts (the eight
-BSData catalogues removed, one rules-page checksum moved). Forty units ship profile-only with their
+BSData catalogues removed, one rules-page checksum moved). Thirty-eight units ship profile-only with their
 canonical ids, the Khazalite Holds battletome rules and two Armies of Renown are retired with an
-in-app notice, and the two Khazalite Holds Regiments of Renown and the seasonal Vulkyn Gifts and
-Marks of Vulcatrix come from their official packs (`aos4-maintenance.md` has the detail). Its
+in-app notice, and the two Khazalite Holds Regiments of Renown, the seasonal Vulkyn Gifts and
+Marks of Vulcatrix, and the two seasonal Khazalite Holds warscrolls come from their official packs (`aos4-maintenance.md` has the detail). Its
 automated review is complete:
 
 | Measure | Result |
@@ -28,19 +28,21 @@ automated review is complete:
 | Explicit non-material discovery entries | 11 |
 | Official battle-profile facts | 1,424/1,424 |
 | Final official/secondary reconciliation discrepancies | 386/386 |
-| Official profile-only facts (reviewed deviations) | 39/39 |
-| Live audit source records | 20,765/20,765 |
+| Official profile-only facts (reviewed deviations) | 37/37 |
+| Live audit source records | 20,788/20,788 |
 | Ignored-record dispositions (superseded + explicit) | 21,158/21,158 |
-| Live review pairs | 43,773/43,773 |
-| Independent outcomes | 87,546 pass; 0 finding; 0 cannot-verify |
+| Live review pairs | 43,794/43,794 |
+| Independent outcomes | 87,588 pass; 0 finding; 0 cannot-verify |
 
 The source inventory binds fresh observations taken for this intake on 2026-11-17: a
 `discover-official` snapshot observed with the reviewed classifications (164 sources, 8 explicitly
-non-material, 16:03:29Z) and the Wahapedia navigation, rules pages and exports (88 sources, 0
-inaccessible, 16:03:53Z). No BSData observation is bound, because the corpus pins no BSData file.
-Every accepted artifact matched. The certification is `aos4-corpus-2026-11-17-machine-r1` (campaign
-2026-11-17T16:06:17Z, evaluated 16:06:42Z). It offered `aos4-corpus-2026-11-10-machine-r1` for reuse,
-but every pair was evaluated fresh (0 reused).
+non-material, 17:31:19Z) and the Wahapedia navigation, rules pages and exports (88 sources, 0
+inaccessible, 17:31:26Z). No BSData observation is bound, because the corpus pins no BSData file.
+Every accepted artifact matched. The certification is `aos4-corpus-2026-11-17-machine-r2` (campaign
+2026-11-17T17:33:46Z, evaluated 17:33:58Z). It reused 22,978 unchanged pairs from
+`aos4-corpus-2026-11-17-machine-r1` (the same revision certified at 16:06Z, before the seasonal
+warscroll reader; it offered `aos4-corpus-2026-11-10-machine-r1` and reused none) and evaluated
+20,816 fresh.
 
 ### `aos4-corpus-2026-11-10` (superseded)
 
