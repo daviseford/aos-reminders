@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "acceptedManifestPath": "data/aos4/manifests/accepted-2026-11-10.json",
+  "acceptedManifestPath": "data/aos4/manifests/accepted-2026-11-17.json",
   "sourceClassificationsPath": "data/aos4/reviews/source-observation-classifications-2026-10-16.json",
   "wahapedia": {
     "rootUrl": "https://wahapedia.ru/",
@@ -11,7 +11,10 @@
     "repository": "BSData/age-of-sigmar-4th",
     "branch": "main",
     "baselineSha": "487e2d9fcdd94ff8ec684ebf33de91149db58da9",
-    "baselineReviewedAt": "2026-11-10T20:52:05.000Z"
+    "baselineReviewedAt": "2026-11-10T20:52:05.000Z",
+    "status": "disabled",
+    "disabledReason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md). Corpus 2026-11-17 pins no BSData file. Re-enabling needs a reviewed decision and a new baseline review (#1757).",
+    "disabledAt": "2026-11-17T00:00:00.000Z"
   },
   "github": {
     "repository": "daviseford/aos-reminders",

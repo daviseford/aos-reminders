@@ -294,20 +294,27 @@ describe('official-profile sweep', () => {
     // Corpus 2026-10-29 (#1757) extracts the Legends pages' roster-option tables: 27 Legends picks
     // the runtime carries, and the 12 White Dwarf Custom Rig and Ironweld Innovation rows (page 75)
     // whose rules only White Dwarf issue 528 prints - no pinned Wahapedia page and no BSData
-    // catalogue carries them. Exactly those 12 stay unmatched; anything else fails closed.
+    // catalogue carries them. Exactly those 12 stay unmatched; anything else fails closed. Corpus
+    // 2026-11-17 (#1757) adds the 13 Khazalite Holds battletome picks (Battle Profiles - Khazalite
+    // Holds page 2) whose rules only BSData carried: retired after the takedown, named by the faction's
+    // unavailable-rules notice.
     expect(result).toMatchObject({
       rosterOptionRecords: 353,
       comparedRosterOptions: 353,
-      matchedByName: 340,
+      matchedByName: 327,
       matchedByReviewedDiscrepancy: 1,
     })
+    const byName = (left: { name?: string }, right: { name?: string }) =>
+      (left.name ?? '').localeCompare(right.name ?? '')
     expect(
-      result.findings.map(finding => ({
-        code: finding.code,
-        name: 'name' in finding ? finding.name : undefined,
-        context: 'context' in finding ? finding.context : undefined,
-        page: 'page' in finding ? finding.page : undefined,
-      }))
+      result.findings
+        .map(finding => ({
+          code: finding.code,
+          name: 'name' in finding ? finding.name : undefined,
+          context: 'context' in finding ? finding.context : undefined,
+          page: 'page' in finding ? finding.page : undefined,
+        }))
+        .sort(byName)
     ).toEqual(
       [
         'Black Comet of Lethis',
@@ -322,7 +329,26 @@ describe('official-profile sweep', () => {
         'Stone King',
         'The Fire Devil of Greywater',
         'War Shrine',
-      ].map(name => ({ code: 'unmatched-roster-option', name, context: 'legends', page: 75 }))
+      ]
+        .map(name => ({ code: 'unmatched-roster-option', name, context: 'legends', page: 75 }))
+        .concat(
+          [
+            'Ancestor God Recitations',
+            'Deep-earth Runic Weapon',
+            'Flamescale Rune Cloak',
+            'Hearthflares',
+            'Hearthsworn Defenders',
+            'Innate Resonance',
+            'Long of Beard or Braid',
+            'Resonance of the Runes',
+            'Reverberations of the Runes',
+            'Sworn to Vengeance',
+            'Unyielding Anvil',
+            'War Callers',
+            'Wayfarer Nomads',
+          ].map(name => ({ code: 'unmatched-roster-option', name, context: 'standard', page: 2 }))
+        )
+        .sort(byName)
     )
   })
 

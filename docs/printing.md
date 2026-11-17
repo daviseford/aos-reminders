@@ -306,6 +306,13 @@ The toolbar's **Download PDF** button opens a modal with layout (Standard/Compac
 warscroll-and-points summary: `createAos4PrintDocument` accepts `{ includeSummary: false }` and
 simply leaves `PrintDocument.summary` unset (#1602).
 
+When some of the army's rules are temporarily unavailable (a profile-only unit, a faction with
+`unavailableRules`, or saved selections the runtime set aside), the builder view model's
+`rulesNotice` is passed as `PrintArmyInput.rulesNotice` and printed as a leading `Rules
+Availability` section with the same warning and affected list the builder shows (#1757). An
+unaffected army passes no notice, so its print document is unchanged. The on-screen warning is not
+`d-print-none`, so browser printing carries it too.
+
 Plain browser printing (`Ctrl+P`) still works against the live app DOM, using the pre-existing
 `@media print` rules and `d-print-none` classes in `css/index.scss`. It is not a designed print
 path — the PDF is.

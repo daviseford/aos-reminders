@@ -286,7 +286,8 @@ export const inspectCatalogPathologies = (catalog: Aos4Catalog): PathologyIssue[
       entity.baseSizes.forEach((value, index) =>
         issues.push(...baseSizeIssues(value, entity.id, `${root}.baseSizes[${index}]`))
       )
-    } else if (entity.kind === 'warscroll') {
+    } else if (entity.kind === 'warscroll' && entity.rulesAvailability !== 'profile-only') {
+      // A reviewed profile-only unit (#1757) has no characteristics to check.
       const values = entity.characteristics
       issues.push(
         ...characteristicIssue(

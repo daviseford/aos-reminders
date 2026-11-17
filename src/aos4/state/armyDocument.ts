@@ -35,6 +35,17 @@ export interface Aos4ArmyDocument {
   allowsHistorical?: boolean
   explicitSelectionIds: CanonicalId[]
   /**
+   * Saved selections the loading catalog does not carry, kept rather than deleted (#1757).
+   *
+   * A rules source can be withdrawn before a replacement lands, taking formations, traits, or
+   * Armies of Renown out of the runtime while saved armies still hold them. The catalog-bound
+   * deserializer moves such an ID here instead of dropping it, and moves it back into
+   * `explicitSelectionIds` once a later catalog carries it again. Sorted, deduplicated, never
+   * overlapping `explicitSelectionIds`, bounded, and serialized only when non-empty, so documents
+   * without one round-trip byte-identically to schema 1 output written before the field existed.
+   */
+  unavailableSelectionIds?: CanonicalId[]
+  /**
    * Which unit carries each enhancement, keyed enhancement ID → bearer warscroll ID.
    *
    * An imported roster assigns its artefacts and heroic traits to a specific hero, and without
@@ -123,6 +134,7 @@ const KNOWN_TOP_LEVEL_FIELDS = new Set([
   'allowsLegends',
   'allowsHistorical',
   'explicitSelectionIds',
+  'unavailableSelectionIds',
   'enhancementBearers',
   'reminderPreferences',
 ])
@@ -140,6 +152,8 @@ const MAX_UNKNOWN_FIELD_VALUE_BYTES = 4_096
 const MAX_UNKNOWN_FIELDS_TOTAL_BYTES = 16_384
 const MAX_UNKNOWN_FIELD_VALUE_DEPTH = 6
 const MAX_UNKNOWN_FIELD_VALUE_NODES = 500
+const MAX_UNAVAILABLE_SELECTION_IDS = 256
+const MAX_UNAVAILABLE_SELECTION_ID_LENGTH = 128
 
 /**
  * Whether a JSON value (from `JSON.parse`, so never a function, symbol, or cycle) stays within the
@@ -248,7 +262,15 @@ export const createAos4ArmyDocument = (
   }
 ): Aos4ArmyDocument => {
   const explicitSelectionIds = sortedUnique(input.explicitSelectionIds)
-  const enhancementBearers = normalizedBearers(input.enhancementBearers, explicitSelectionIds)
+  const explicitIds = new Set(explicitSelectionIds)
+  const unavailableSelectionIds = sortedUnique(input.unavailableSelectionIds ?? [])
+    .filter(id => !explicitIds.has(id) && id.length <= MAX_UNAVAILABLE_SELECTION_ID_LENGTH)
+    .slice(0, MAX_UNAVAILABLE_SELECTION_IDS)
+  // A bearer naming an unavailable enhancement or unit keeps its attribution for when it returns.
+  const enhancementBearers = normalizedBearers(input.enhancementBearers, [
+    ...explicitSelectionIds,
+    ...unavailableSelectionIds,
+  ])
   const unknownFields = boundedUnknownFields(input.unknownFields)
   return {
     schemaVersion: AOS4_ARMY_DOCUMENT_SCHEMA_VERSION,
@@ -258,6 +280,7 @@ export const createAos4ArmyDocument = (
     ...(input.allowsLegends ? { allowsLegends: true } : {}),
     ...(input.allowsHistorical ? { allowsHistorical: true } : {}),
     explicitSelectionIds,
+    ...(unavailableSelectionIds.length ? { unavailableSelectionIds } : {}),
     ...(enhancementBearers ? { enhancementBearers } : {}),
     reminderPreferences: Object.fromEntries(
       Object.entries(input.reminderPreferences ?? {})
@@ -319,6 +342,7 @@ interface Aos4ArmyDocumentShape {
   allowsLegends: boolean
   allowsHistorical: boolean
   explicitSelectionIds: string[]
+  unavailableSelectionIds: string[]
   enhancementBearers: Record<string, string>
   reminderPreferences: Record<string, unknown>
   unknownFields?: Record<string, unknown>
@@ -374,6 +398,9 @@ const readAos4ArmyDocumentShape = (
     (value.allowsHistorical !== undefined && typeof value.allowsHistorical !== 'boolean') ||
     !Array.isArray(value.explicitSelectionIds) ||
     value.explicitSelectionIds.some(id => typeof id !== 'string') ||
+    (value.unavailableSelectionIds !== undefined &&
+      (!Array.isArray(value.unavailableSelectionIds) ||
+        value.unavailableSelectionIds.some(id => typeof id !== 'string'))) ||
     (value.enhancementBearers !== undefined &&
       (!isObject(value.enhancementBearers) ||
         Object.values(value.enhancementBearers).some(id => typeof id !== 'string'))) ||
@@ -403,6 +430,7 @@ const readAos4ArmyDocumentShape = (
       allowsLegends: value.allowsLegends === true,
       allowsHistorical: value.allowsHistorical === true,
       explicitSelectionIds: value.explicitSelectionIds as string[],
+      unavailableSelectionIds: (value.unavailableSelectionIds ?? []) as string[],
       enhancementBearers: (value.enhancementBearers ?? {}) as Record<string, string>,
       reminderPreferences: value.reminderPreferences,
       unknownFields: boundedUnknownFields(unknownFieldCandidate, shapeDiagnostics),
@@ -468,21 +496,27 @@ export const deserializeAos4ArmyDocument = (
 
   /*
    * A selection the catalog no longer carries is a rules update's doing, not the user's: a
-   * battletome rewrite can retire a warscroll the army legitimately held. Filtering the dead ID
-   * with a warning keeps the rest of the army alive; failing the whole document here used to reset
-   * a stored army to the default the moment one of its units left the catalog.
+   * battletome rewrite can retire a warscroll the army legitimately held, and a withdrawn source
+   * can take a formation or Army of Renown out until its replacement lands (#1757). The ID moves to
+   * `unavailableSelectionIds` with a warning, so the rest of the army stays alive and a re-save
+   * keeps it; one held there that this catalog carries again is restored to the selections.
    */
   const entityIds = entityIdSet(catalog)
-  const explicitSelectionIds = shape.explicitSelectionIds.filter(id => {
-    if (entityIds.has(id as CanonicalId)) return true
+  const explicitSelectionIds: CanonicalId[] = []
+  const unavailableSelectionIds: CanonicalId[] = []
+  ;[...shape.explicitSelectionIds, ...shape.unavailableSelectionIds].forEach(id => {
+    if (entityIds.has(id as CanonicalId)) {
+      explicitSelectionIds.push(id as CanonicalId)
+      return
+    }
+    unavailableSelectionIds.push(id as CanonicalId)
     diagnostics.push({
       code: 'missing-selection',
       severity: 'warning',
       message: `Army document refers to missing selection ${id}`,
       subject: id,
     })
-    return false
-  }) as CanonicalId[]
+  })
 
   const reminderPreferences = readReminderPreferences(shape.reminderPreferences, diagnostics)
 
@@ -498,8 +532,7 @@ export const deserializeAos4ArmyDocument = (
       ...(shape.allowsLegends ? { allowsLegends: true } : {}),
       ...(shape.allowsHistorical ? { allowsHistorical: true } : {}),
       explicitSelectionIds,
-      // Normalization drops any entry whose enhancement or bearer was filtered above, so a
-      // catalog update that retires either ID costs the army the attribution, never the document.
+      unavailableSelectionIds,
       enhancementBearers: shape.enhancementBearers as Aos4ArmyDocument['enhancementBearers'],
       reminderPreferences,
       unknownFields: shape.unknownFields,
@@ -535,12 +568,12 @@ export const unknownAos4RulesContextId = (
  *
  * The two checks it drops are the only reason `deserializeAos4ArmyDocument` needs a catalog at all:
  * a rules context the catalog does not carry fails the whole document, and an entity ID it does not
- * carry is dropped with a warning. Both need all 11,480 entities in memory, which is precisely what
+ * carry is set aside with a warning. Both need all 11,480 entities in memory, which is precisely what
  * the shell paints without waiting for.
  *
  * Skipping them is safe only because this is never the last word. The catalog-bound child runs
  * `loadAos4ArmyDocument` on mount and its result wins, so a selection this accepts and the catalog
- * has since retired is pruned a moment later rather than never. What the shell must *not* do is
+ * has since retired is set aside a moment later rather than never. What the shell must *not* do is
  * persist what this accepted before that happens — see the save guard in `Home.tsx`.
  */
 export const deserializeAos4ArmyDocumentStructure = (
@@ -564,6 +597,7 @@ export const deserializeAos4ArmyDocumentStructure = (
       ...(shape.allowsLegends ? { allowsLegends: true } : {}),
       ...(shape.allowsHistorical ? { allowsHistorical: true } : {}),
       explicitSelectionIds: shape.explicitSelectionIds as CanonicalId[],
+      unavailableSelectionIds: shape.unavailableSelectionIds as CanonicalId[],
       enhancementBearers: shape.enhancementBearers as Aos4ArmyDocument['enhancementBearers'],
       reminderPreferences,
       unknownFields: shape.unknownFields,

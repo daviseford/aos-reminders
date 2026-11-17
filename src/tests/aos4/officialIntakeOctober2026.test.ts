@@ -258,7 +258,11 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
         entities
           .filter(entity => entity.sourceRefs.some(reference => reference.sourceRecordId.includes(checksum)))
           .map(entity => `${entity.kind}:${entity.name}`)
+      // Corpus 2026-11-17 (#1757): the regiments' rules text now comes from this pack's pages too.
       expect(citing(KH_REGIMENTS).sort()).toEqual([
+        'ability:GRUDGESETTLERS',
+        'ability:ITINERANT GRIMMDRON',
+        'ability:RUNE OF STOICISM',
         'content-group:Fjori’s Vengeance',
         'content-group:Thengin’s Grudgesettlers',
         'publication:Regiments of Renown - Khazalite Holds',
@@ -274,44 +278,25 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
       )
     })
 
-    it('offers the source-supported Armies of Renown and leaves the source-blocked cards out', () => {
+    it('retires the BSData-only Armies of Renown and ships the units profile-only (#1757)', () => {
+      // Corpus 2026-11-17: BSData was taken down, so Fyrd of Fyrepeak and Throngankor Alliance (BSData
+      // only) are retired and the faction says so; Throng of Valankrom and the translated cards stay absent.
       const army = (name: string) =>
         related('offers', khazaliteHolds.id).find(
           entity =>
             entity.kind === 'content-group' && entity.name === name && entity.groupType === 'army-of-renown'
         )
-      const contents = (name: string) =>
-        related('includes', army(name)!.id)
-          .flatMap(group => related('includes', group.id))
-          .map(entity => entity.name)
-          .sort()
-      expect(contents('Throngankor Alliance')).toEqual([
-        'Allied Grudgement',
-        'Duardin Pride',
-        'Hammer and Anvil',
-        'Redeclaration of Alliance',
-        'Rune of Defence',
-        'Rune of Spirit',
-        'Stone and Sky',
-        'Stronger When Alloyed',
-        'The Vice',
-        'Throngankor Flare',
-      ])
-      expect(contents('Fyrd of Fyrepeak')).toEqual([
-        'Grimmdron Grudges',
-        'Rune of Fortune',
-        'Rune of Guarding',
-        'Rune of Speed',
-        'Rune of Spellbreaking',
-        'Rune of Striking',
-      ])
-      // Translated from the French edition with no English source yet: absent, not supported.
-      expect(army('Throng of Valankrom')).toBeUndefined()
+      ;['Fyrd of Fyrepeak', 'Throngankor Alliance', 'Throng of Valankrom'].forEach(name =>
+        expect(army(name)).toBeUndefined()
+      )
       ;[
         'Transport Duardin',
         'Grimnir’s Wrath Will Burn Bright!',
         "Grimnir's Wrath Will Burn Bright!",
       ].forEach(name => expect(entityNamed('ability', name)).toBeUndefined())
+      expect(khazaliteHolds.unavailableRules).toEqual(
+        expect.arrayContaining(['Armies of Renown: Fyrd of Fyrepeak, Throngankor Alliance'])
+      )
       const khazaliteRunefather = entities.find(
         entity =>
           entity.kind === 'warscroll' &&
@@ -319,9 +304,13 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
           entity.factionIds.includes(khazaliteHolds.id) &&
           !entity.rulesContextIds.includes(spearhead.id)
       )!
-      expect(related('includes', khazaliteRunefather.id).map(entity => entity.name)).not.toContain(
-        'Warrior-kings'
+      expect(khazaliteRunefather).toMatchObject({ id: 'warscroll:cbdec8d3-f71c-5e8a-acf2-596d180943c7' })
+      expect(khazaliteRunefather.kind === 'warscroll' && khazaliteRunefather.rulesAvailability).toBe(
+        'profile-only'
       )
+      expect(
+        related('includes', khazaliteRunefather.id).filter(entity => entity.kind !== 'battle-profile')
+      ).toEqual([])
     })
 
     it('keeps the in-force Fyreslayers points beside the Khazalite Holds profiles', () => {
@@ -346,18 +335,18 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
       expect(points('Grimhold Exile', 'Khazalite Holds')).toBe(110)
     })
 
-    it('follows the BSData Companion corrections for both Karak War Council Armoury copies (#1757)', () => {
-      // BSData ea96eba3 dropped Companion from Thrynn on War Throne's Karak War Council's Armoury
-      // (corpus 2026-10-26); BSData main 487e2d9f drops it from High Kyng Valankrom's too (corpus
-      // 2026-11-10, #1757). No official source prints either, so both follow BSData, and the canonical
-      // weapon IDs are unchanged.
-      const keywords = (id: string) => {
-        const weapon = entityById.get(id as never)!
-        expect(weapon.name).toBe("Karak War Council's Armoury")
-        return weapon.kind === 'weapon' ? weapon.keywords.map(keyword => keyword.kind) : undefined
-      }
-      expect(keywords('weapon:c3948477-8a8f-5c39-8847-cca7ebdf7e10')).toEqual([])
-      expect(keywords('weapon:d4786c12-fe78-5ab8-b391-aeb255239457')).toEqual([])
+    it('retires both BSData Karak War Council Armoury copies with their units kept (#1757)', () => {
+      // Corpus 2026-11-17: the two weapons came only from BSData, so they leave with it; Thrynn on War
+      // Throne and High Kyng Valankrom keep their canonical warscroll ids as profile-only units.
+      ;['weapon:c3948477-8a8f-5c39-8847-cca7ebdf7e10', 'weapon:d4786c12-fe78-5ab8-b391-aeb255239457'].forEach(
+        id => expect(entityById.get(id as never)).toBeUndefined()
+      )
+      ;[
+        ['warscroll:1183227a-9abb-5977-9ce1-1af7770b3524', 'Thrynn on War Throne'],
+        ['warscroll:289eea88-82c7-5c9e-80b6-5d9faae921f9', 'High Kyng Valankrom'],
+      ].forEach(([id, name]) =>
+        expect(entityById.get(id as never)).toMatchObject({ name, rulesAvailability: 'profile-only' })
+      )
     })
   })
 })

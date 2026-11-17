@@ -83,8 +83,9 @@ describe('the September 2026 Sons of Behemat battle-profile supplement (#1757)',
         'utf8'
       )
     ) as { deviations: Array<{ faction: string; name: string }> }
-    // The Emberwatch retired from the ledger in corpus 2026-10-27 (#1757).
-    expect(ledger.deviations).toEqual([])
+    // The Emberwatch retired from the ledger in corpus 2026-10-27 (#1757). Corpus 2026-11-17 ledgers
+    // only Khazalite Holds and Legends rows after the BSData takedown, none for Sons of Behemat.
+    expect(ledger.deviations.filter(deviation => /behemat/i.test(deviation.faction))).toEqual([])
   })
 
   it('carries the current Sons of Behemat publications as accepted official artifacts', () => {

@@ -12,7 +12,13 @@ export interface Publication extends DomainEntity<'publication'> {
   publisher: SourceArtifact['publisher']
 }
 
-export type Faction = DomainEntity<'faction'>
+export interface Faction extends DomainEntity<'faction'> {
+  /**
+   * Reviewed labels for faction rules the runtime cannot currently ship ("Battle traits"), so the
+   * app can say what an army of this faction is missing instead of implying complete rules (#1757).
+   */
+  unavailableRules?: string[]
+}
 
 export interface WarscrollCharacteristics {
   move: string
@@ -26,6 +32,11 @@ export interface Warscroll extends DomainEntity<'warscroll'> {
   factionIds: CanonicalId<'faction'>[]
   keywords: string[]
   characteristics: WarscrollCharacteristics
+  /**
+   * The warscroll ships its identity, points, and profile only: no abilities, weapons, or
+   * characteristics are currently available for it (#1757).
+   */
+  rulesAvailability?: 'profile-only'
 }
 
 export interface BattleProfile extends DomainEntity<'battle-profile'> {
@@ -214,6 +225,8 @@ export const validateCatalog = (catalog: Aos4Catalog): DomainValidationIssue[] =
 
   catalog.entities.forEach(entity => {
     if (entity.kind === 'warscroll') {
+      // A profile-only warscroll has no characteristics to retain by definition.
+      if (entity.rulesAvailability === 'profile-only') return
       const { move, save, control, health } = entity.characteristics
       if ([move, save, control, health].some(value => !value.trim())) {
         issues.push({

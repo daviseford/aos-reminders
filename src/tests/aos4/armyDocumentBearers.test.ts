@@ -66,7 +66,7 @@ describe('army document enhancement bearers (#1989)', () => {
     expect(structural.document?.enhancementBearers).toEqual({ [firstId]: secondId })
   })
 
-  it('loses only the attribution when a catalog update retires the bearer', () => {
+  it('sets a bearer the catalog no longer carries aside with its attribution (#1757)', () => {
     const value = JSON.parse(serializeAos4ArmyDocument(createDocument({ [firstId]: secondId })))
     value.explicitSelectionIds.push(DEAD_SELECTION_ID)
     value.enhancementBearers[secondId] = DEAD_SELECTION_ID
@@ -74,7 +74,11 @@ describe('army document enhancement bearers (#1989)', () => {
     const restored = deserializeAos4ArmyDocument(JSON.stringify(value), AOS4_CATALOG)
 
     expect(restored.document?.explicitSelectionIds).toEqual(createDocument().explicitSelectionIds)
-    expect(restored.document?.enhancementBearers).toEqual({ [firstId]: secondId })
+    expect(restored.document?.unavailableSelectionIds).toEqual([DEAD_SELECTION_ID])
+    expect(restored.document?.enhancementBearers).toEqual({
+      [firstId]: secondId,
+      [secondId]: DEAD_SELECTION_ID,
+    })
     expect(restored.diagnostics).toEqual([
       expect.objectContaining({ code: 'missing-selection', severity: 'warning' }),
     ])

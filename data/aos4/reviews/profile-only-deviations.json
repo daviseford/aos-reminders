@@ -1,4 +1,264 @@
 {
   "schemaVersion": 1,
-  "deviations": []
+  "deviations": [
+    {
+      "faction": "Khazalite Holds",
+      "name": "Auric Flamekeeper",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Auric Hearthguard",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Auric Runefather",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Auric Runefather on Magmadroth",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Auric Runemaster",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Auric Runesmiter",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Auric Runesmiter on Magmadroth",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Auric Runeson",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Auric Runeson on Magmadroth",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Battlesmith",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Clangunners with Thrundok Rifles",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Clangunners with Thrundrin Shotcannons",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Clanshields",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Doomseeker",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Gholems of Gazul",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Gholems of Valaya",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Gotrek Gurnisson",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Grimhold Exile",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Grimwrath Berzerker",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Hearthguard Berzerkers",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "High Kyng Valankrom",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Hjulda Drakkblud",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Oathkeeper Cannon",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Ormyr and Ashtongue",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Runewright",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Stonebreaker Mortar",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Thrynn",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Thrynn on War Throne",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 1) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Valayan Guardians with Rune Axes and Shields",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Valayan Guardians with Runic Halberds",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Vulkite Berzerkers with Bladed Slingshields",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Vulkite Berzerkers with Fyresteel Weapons",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Khazalite Holds",
+      "name": "Vulkyn Flameseekers",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (Battletome: Khazalite Holds, a paid publication), so it ships from its official battle-profile row (Battle Profiles - Khazalite Holds, page 2) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Warhammer Legends",
+      "name": "Greycap Fusiliers",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (a White Dwarf Legends warscroll), so it ships from its official battle-profile row (Battle Profiles, page 75) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Warhammer Legends",
+      "name": "Lethisian Consecrators",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (a White Dwarf Legends warscroll), so it ships from its official battle-profile row (Battle Profiles, page 75) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Warhammer Legends",
+      "name": "Raven Priest of Morrda",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (a White Dwarf Legends warscroll), so it ships from its official battle-profile row (Battle Profiles, page 75) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    },
+    {
+      "faction": "Warhammer Legends",
+      "name": "Spirit of the Hands",
+      "reason": "BSData/age-of-sigmar-4th was disabled by the Games Workshop DMCA notice of 2026-11-12 (github/dmca 2026/11/2026-11-12-warhammer.md); corpus 2026-11-17 removes every BSData input under the owner-approved disposition (#1757). No accepted source carries this unit's rules (a White Dwarf Legends warscroll), so it ships from its official battle-profile row (Battle Profiles, page 75) with its canonical id unchanged and no rules text.",
+      "targetDate": "2027-02-17",
+      "recordedAt": "2026-11-17"
+    }
+  ]
 }

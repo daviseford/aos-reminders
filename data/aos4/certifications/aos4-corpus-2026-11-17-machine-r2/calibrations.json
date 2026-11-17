@@ -1,0 +1,40 @@
+[
+  {
+    "calibratedAt": "2026-11-17T17:33:50.324Z",
+    "correctCannotVerifyCases": 1,
+    "evidence": {
+      "assignmentId": "review-assignment:sha256:0c6e4d83cfd2ba45dfdc57900dcffa39c5efa3e9086ea8a2a1a68e9a4fc83554",
+      "blindResultsChecksum": "441b6b80a26b40a58740118cf6d58626b06f821b1d5618bcf7539f7b7d54facc",
+      "comparisonResultsChecksum": "4bc6286501926c101a28e01ff8994dbc17969afd4f4f607f2c52b55b22996e1a",
+      "controlPairKeysChecksum": "304e4e0cf60682ec3d829691af28e441c815c2b2e008480744e09f277e09eb8f",
+      "receiptChecksum": "e301fb999892416d425110c4f12981e75609a872e4d703e654d9b00f07c30e53"
+    },
+    "foundSeededBlockerMajorDefects": 1,
+    "insufficientEvidenceCases": 1,
+    "passed": true,
+    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
+    "rubricVersion": "aos4-rubric/v2",
+    "schemaVersion": 1,
+    "seededBlockerMajorDefects": 1,
+    "unsupportedExpectedValues": 0
+  },
+  {
+    "calibratedAt": "2026-11-17T16:06:21.408Z",
+    "correctCannotVerifyCases": 1,
+    "evidence": {
+      "assignmentId": "review-assignment:sha256:7baf5287bd6dfb1eeca4a4c066b0cfd53b8e77a05e81d35446f7c18057ea3087",
+      "blindResultsChecksum": "ad40b88f87593d6bf7da6806bde09f600316bdc5cb4dc51a9b0d0b034283a899",
+      "comparisonResultsChecksum": "247354e5c1d951af42cf596c2c816fb6040eda267ee83f801b4d4bb4d840c60b",
+      "controlPairKeysChecksum": "304e4e0cf60682ec3d829691af28e441c815c2b2e008480744e09f277e09eb8f",
+      "receiptChecksum": "eb1cc654a7facfab30ff37ee1de8908c861fe6cbcf6f86a258ed43c4cd3774b4"
+    },
+    "foundSeededBlockerMajorDefects": 1,
+    "insufficientEvidenceCases": 1,
+    "passed": true,
+    "reviewerConfigurationId": "reviewer-configuration:sha256:20630b248110757c479b246ef31a1d59f32c3b22df0d2bbd013aa90f336a38fb",
+    "rubricVersion": "aos4-rubric/v2",
+    "schemaVersion": 1,
+    "seededBlockerMajorDefects": 1,
+    "unsupportedExpectedValues": 0
+  }
+]

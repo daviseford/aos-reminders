@@ -8,6 +8,8 @@ export type WahapediaSourceFileName =
   | 'BSDataLibrary.cat'
   | 'BSDataCatalogue.cat'
   | 'GamesWorkshopSpearhead.pdf'
+  | 'GamesWorkshopBattleProfiles.pdf'
+  | 'GamesWorkshopRules.pdf'
 
 export interface WahapediaExportInput {
   bytes: Uint8Array
@@ -71,6 +73,11 @@ export interface WahapediaWarscrollRecord {
    * a reviewed `adoptedWarscrolls` entry with `availability: 'regiment-of-renown'`.
    */
   regimentOfRenownOnly?: true
+  /**
+   * Reviewed profile-only unit (#1757): selectable from its official battle-profile row alone; no
+   * accepted source carries its rules, so it has no abilities, weapons or characteristics.
+   */
+  profileOnly?: true
   name: string
   factionId: string
   sourceId: string

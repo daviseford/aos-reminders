@@ -137069,7 +137069,8 @@
       ],
       "canonicalId": "ability:ccc4f381-4eff-5ea2-869a-8fd82d9ffc4b",
       "kind": "ability",
-      "name": "Recitation to Valaya"
+      "name": "Recitation to Valaya",
+      "retired": true
     },
     {
       "aliases": [
@@ -137080,7 +137081,8 @@
       ],
       "canonicalId": "ability:87c1bf94-110b-5608-9159-33fe1150ea87",
       "kind": "ability",
-      "name": "Recitation to Gazul"
+      "name": "Recitation to Gazul",
+      "retired": true
     },
     {
       "aliases": [
@@ -137091,10 +137093,15 @@
       ],
       "canonicalId": "ability:ab9258f1-6c84-54e7-9e98-f72378300949",
       "kind": "ability",
-      "name": "Recitation to Grimnir"
+      "name": "Recitation to Grimnir",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:option:aureate-hide",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:option:aureate-hide",
           "publisher": "other"
@@ -137113,7 +137120,8 @@
       ],
       "canonicalId": "ability:55f44253-6ce7-5e05-856f-74aa2b459697",
       "kind": "ability",
-      "name": "Grimmdron Grudges"
+      "name": "Grimmdron Grudges",
+      "retired": true
     },
     {
       "aliases": [
@@ -137124,7 +137132,8 @@
       ],
       "canonicalId": "ability:8ee96bf2-217b-5eee-bd96-b7127d91c072",
       "kind": "ability",
-      "name": "Rune of Fortune"
+      "name": "Rune of Fortune",
+      "retired": true
     },
     {
       "aliases": [
@@ -137135,7 +137144,8 @@
       ],
       "canonicalId": "ability:591df6cc-63d9-5e51-b0a0-58117029af56",
       "kind": "ability",
-      "name": "Rune of Spellbreaking"
+      "name": "Rune of Spellbreaking",
+      "retired": true
     },
     {
       "aliases": [
@@ -137146,7 +137156,8 @@
       ],
       "canonicalId": "ability:1c21af4e-7c8f-5cf2-a244-905f40962609",
       "kind": "ability",
-      "name": "Rune of Guarding"
+      "name": "Rune of Guarding",
+      "retired": true
     },
     {
       "aliases": [
@@ -137157,7 +137168,8 @@
       ],
       "canonicalId": "ability:f9cb4718-5d28-5569-88fe-4caa7f480b09",
       "kind": "ability",
-      "name": "Rune of Speed"
+      "name": "Rune of Speed",
+      "retired": true
     },
     {
       "aliases": [
@@ -137168,7 +137180,8 @@
       ],
       "canonicalId": "ability:5f512365-9584-551b-aef9-c0e5e54d6565",
       "kind": "ability",
-      "name": "Rune of Striking"
+      "name": "Rune of Striking",
+      "retired": true
     },
     {
       "aliases": [
@@ -137179,7 +137192,8 @@
       ],
       "canonicalId": "ability:29e20bef-ebb1-5ba8-9017-89d5ad51deb7",
       "kind": "ability",
-      "name": "Thorgrim's Beard! There Are Grudges to Be Settled!"
+      "name": "Thorgrim's Beard! There Are Grudges to Be Settled!",
+      "retired": true
     },
     {
       "aliases": [
@@ -137190,7 +137204,8 @@
       ],
       "canonicalId": "ability:f3949415-443d-5ef9-8edd-7bd2228f06ec",
       "kind": "ability",
-      "name": "Reclaim the Karaks"
+      "name": "Reclaim the Karaks",
+      "retired": true
     },
     {
       "aliases": [
@@ -137201,7 +137216,8 @@
       ],
       "canonicalId": "ability:4074464d-9200-5343-a37e-ede56a6708d7",
       "kind": "ability",
-      "name": "Let It Be Known!"
+      "name": "Let It Be Known!",
+      "retired": true
     },
     {
       "aliases": [
@@ -137212,7 +137228,8 @@
       ],
       "canonicalId": "ability:6bab91ea-6129-560a-a5a1-985e423b762f",
       "kind": "ability",
-      "name": "Gazul, Remember the Fallen!"
+      "name": "Gazul, Remember the Fallen!",
+      "retired": true
     },
     {
       "aliases": [
@@ -137223,7 +137240,8 @@
       ],
       "canonicalId": "ability:aa5f0acb-6f70-5092-a552-5ae6cf8b2fbc",
       "kind": "ability",
-      "name": "We Honour Valaya!"
+      "name": "We Honour Valaya!",
+      "retired": true
     },
     {
       "aliases": [
@@ -137234,7 +137252,8 @@
       ],
       "canonicalId": "ability:3d18ed24-54d6-5f25-bc40-82afa42054ab",
       "kind": "ability",
-      "name": "Inghilde, Our Light in the Darkness"
+      "name": "Inghilde, Our Light in the Darkness",
+      "retired": true
     },
     {
       "aliases": [
@@ -137245,7 +137264,8 @@
       ],
       "canonicalId": "ability:b2332585-0c38-5607-9b9a-4d826a6f1cf3",
       "kind": "ability",
-      "name": "By Grungni, Stand Firm!"
+      "name": "By Grungni, Stand Firm!",
+      "retired": true
     },
     {
       "aliases": [
@@ -137267,7 +137287,8 @@
       ],
       "canonicalId": "ability:e1d0a930-2bc2-5ff3-94cc-8097f8584d80",
       "kind": "ability",
-      "name": "Enlighten Us with Your Wisdom, Grombrindal!"
+      "name": "Enlighten Us with Your Wisdom, Grombrindal!",
+      "retired": true
     },
     {
       "aliases": [
@@ -137278,7 +137299,8 @@
       ],
       "canonicalId": "ability:9c1c904c-5693-571a-85fe-34cd7a119bd0",
       "kind": "ability",
-      "name": "Stone and Sky"
+      "name": "Stone and Sky",
+      "retired": true
     },
     {
       "aliases": [
@@ -137289,7 +137311,8 @@
       ],
       "canonicalId": "ability:6f9d1bff-c863-58fe-b166-c543f2af3bc7",
       "kind": "ability",
-      "name": "Duardin Pride"
+      "name": "Duardin Pride",
+      "retired": true
     },
     {
       "aliases": [
@@ -137300,7 +137323,8 @@
       ],
       "canonicalId": "ability:3e294148-6d14-5ab6-bc9c-3368666b4e1e",
       "kind": "ability",
-      "name": "Hammer and Anvil"
+      "name": "Hammer and Anvil",
+      "retired": true
     },
     {
       "aliases": [
@@ -137322,7 +137346,8 @@
       ],
       "canonicalId": "ability:d5aa3e34-f900-531d-a4aa-9dd55aa1406b",
       "kind": "ability",
-      "name": "The Vice"
+      "name": "The Vice",
+      "retired": true
     },
     {
       "aliases": [
@@ -137333,7 +137358,8 @@
       ],
       "canonicalId": "ability:a1092036-a0ca-538b-b2bb-7e518e895040",
       "kind": "ability",
-      "name": "Allied Grudgement"
+      "name": "Allied Grudgement",
+      "retired": true
     },
     {
       "aliases": [
@@ -137344,7 +137370,8 @@
       ],
       "canonicalId": "ability:2752a779-6e9a-5eee-8f9c-f451a95d217e",
       "kind": "ability",
-      "name": "Deep-earth Runic Weapon"
+      "name": "Deep-earth Runic Weapon",
+      "retired": true
     },
     {
       "aliases": [
@@ -137355,7 +137382,8 @@
       ],
       "canonicalId": "ability:8c16e46e-d5fb-5936-ab3c-1ccab8e247c3",
       "kind": "ability",
-      "name": "Flamescale Rune Cloak"
+      "name": "Flamescale Rune Cloak",
+      "retired": true
     },
     {
       "aliases": [
@@ -137366,7 +137394,8 @@
       ],
       "canonicalId": "ability:f3897066-e8cd-5dc7-8877-e3e7d54d0993",
       "kind": "ability",
-      "name": "Hearthflares"
+      "name": "Hearthflares",
+      "retired": true
     },
     {
       "aliases": [
@@ -137377,7 +137406,8 @@
       ],
       "canonicalId": "ability:0c0cb7cc-1efb-5211-a89d-ad0c39847e2e",
       "kind": "ability",
-      "name": "Lock Shields!"
+      "name": "Lock Shields!",
+      "retired": true
     },
     {
       "aliases": [
@@ -137388,10 +137418,15 @@
       ],
       "canonicalId": "ability:b3335164-09fb-5f8d-bcc1-5ba510372c10",
       "kind": "ability",
-      "name": "Innate Resonance"
+      "name": "Innate Resonance",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:option:intense-fyrestream",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:option:intense-fyrestream",
           "publisher": "other"
@@ -137410,7 +137445,8 @@
       ],
       "canonicalId": "ability:7a1ba3b7-fb99-5266-803e-277eb4fc788b",
       "kind": "ability",
-      "name": "Long of Beard or Braid"
+      "name": "Long of Beard or Braid",
+      "retired": true
     },
     {
       "aliases": [
@@ -137421,7 +137457,8 @@
       ],
       "canonicalId": "ability:48be0c2b-475f-5d52-be2c-a25b138079d3",
       "kind": "ability",
-      "name": "Rune of Might"
+      "name": "Rune of Might",
+      "retired": true
     },
     {
       "aliases": [
@@ -137432,7 +137469,8 @@
       ],
       "canonicalId": "ability:22172bf1-26c6-5fa2-bffc-af26cb23a835",
       "kind": "ability",
-      "name": "Rune of Sanctuary"
+      "name": "Rune of Sanctuary",
+      "retired": true
     },
     {
       "aliases": [
@@ -137443,7 +137481,8 @@
       ],
       "canonicalId": "ability:adb158a2-3156-5989-9a61-56f80aeb11bf",
       "kind": "ability",
-      "name": "Rune of Warding"
+      "name": "Rune of Warding",
+      "retired": true
     },
     {
       "aliases": [
@@ -137454,7 +137493,8 @@
       ],
       "canonicalId": "ability:5007e946-dd90-5a76-bc61-fa3371908386",
       "kind": "ability",
-      "name": "Rune of Dismay"
+      "name": "Rune of Dismay",
+      "retired": true
     },
     {
       "aliases": [
@@ -137465,7 +137505,8 @@
       ],
       "canonicalId": "ability:98d45324-c982-5153-8d64-58cd33e56deb",
       "kind": "ability",
-      "name": "Rune of Courage"
+      "name": "Rune of Courage",
+      "retired": true
     },
     {
       "aliases": [
@@ -137476,7 +137517,8 @@
       ],
       "canonicalId": "ability:07275441-dfda-5cdb-a896-93f5325249c4",
       "kind": "ability",
-      "name": "Rune of the Furnace"
+      "name": "Rune of the Furnace",
+      "retired": true
     },
     {
       "aliases": [
@@ -137487,7 +137529,8 @@
       ],
       "canonicalId": "ability:a0f33a74-d4e2-5063-b5fa-dd3a9fa30952",
       "kind": "ability",
-      "name": "Stronger When Alloyed"
+      "name": "Stronger When Alloyed",
+      "retired": true
     },
     {
       "aliases": [
@@ -137498,10 +137541,15 @@
       ],
       "canonicalId": "ability:b8143dd1-6e39-5b52-8125-0b772a27bbcb",
       "kind": "ability",
-      "name": "Sworn to Vengeance"
+      "name": "Sworn to Vengeance",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:option:thickened-scales",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:option:thickened-scales",
           "publisher": "other"
@@ -137520,7 +137568,8 @@
       ],
       "canonicalId": "ability:4d2072b4-1b3c-5c58-bdfc-23e2d750f655",
       "kind": "ability",
-      "name": "Throngankor Flare"
+      "name": "Throngankor Flare",
+      "retired": true
     },
     {
       "aliases": [
@@ -137531,10 +137580,15 @@
       ],
       "canonicalId": "ability:ba159429-70b4-579e-aa4e-1ec5e482428a",
       "kind": "ability",
-      "name": "Stalwart Resolve"
+      "name": "Stalwart Resolve",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:option:vulkyn-gifts:ability:1",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts:ability:1",
           "publisher": "other"
@@ -137547,6 +137601,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-faction-pack:option:vulkyn-gifts:ability:2",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts:ability:2",
           "publisher": "other"
         }
@@ -137557,6 +137615,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:option:vulkyn-gifts:ability:3",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts:ability:3",
           "publisher": "other"
@@ -137575,7 +137637,8 @@
       ],
       "canonicalId": "ability:a04bb320-6c5c-520a-9503-f7a2aa61853b",
       "kind": "ability",
-      "name": "Bellicose Belligerents"
+      "name": "Bellicose Belligerents",
+      "retired": true
     },
     {
       "aliases": [
@@ -137586,10 +137649,15 @@
       ],
       "canonicalId": "ability:f846ae0e-77b6-59c1-80ac-959886dbc799",
       "kind": "ability",
-      "name": "Well-travelled Roamers"
+      "name": "Well-travelled Roamers",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-rules-of-renown:regiment:fjoris-vengeance:ability:1",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:regiment:fjoris-vengeance:ability:1",
           "publisher": "other"
@@ -137602,6 +137670,10 @@
     {
       "aliases": [
         {
+          "externalId": "games-workshop-rules-of-renown:regiment:thengins-grudgesettlers:ability:1",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:regiment:thengins-grudgesettlers:ability:1",
           "publisher": "other"
         }
@@ -137612,6 +137684,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-rules-of-renown:regiment:thengins-grudgesettlers:ability:2",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:regiment:thengins-grudgesettlers:ability:2",
           "publisher": "other"
@@ -137630,7 +137706,8 @@
       ],
       "canonicalId": "ability:fbd18bbc-bc23-54e2-9e0b-4671454f5af1",
       "kind": "ability",
-      "name": "Fire-fuelled Anger"
+      "name": "Fire-fuelled Anger",
+      "retired": true
     },
     {
       "aliases": [
@@ -137641,7 +137718,8 @@
       ],
       "canonicalId": "ability:7ecc8358-465f-579b-bd03-6b26186fc8e9",
       "kind": "ability",
-      "name": "Relight the Fire"
+      "name": "Relight the Fire",
+      "retired": true
     },
     {
       "aliases": [
@@ -137652,7 +137730,8 @@
       ],
       "canonicalId": "ability:68d5f035-ad26-548d-8fb0-252b31379528",
       "kind": "ability",
-      "name": "Masterflame Rune"
+      "name": "Masterflame Rune",
+      "retired": true
     },
     {
       "aliases": [
@@ -137663,7 +137742,8 @@
       ],
       "canonicalId": "ability:a9816f52-e986-5345-8fcb-f50ee35532a4",
       "kind": "ability",
-      "name": "Focused Ire"
+      "name": "Focused Ire",
+      "retired": true
     },
     {
       "aliases": [
@@ -137674,7 +137754,8 @@
       ],
       "canonicalId": "ability:18c1ae24-8da6-534c-b51a-1bde10fbddd9",
       "kind": "ability",
-      "name": "Molten Rockbolts"
+      "name": "Molten Rockbolts",
+      "retired": true
     },
     {
       "aliases": [
@@ -137685,7 +137766,8 @@
       ],
       "canonicalId": "ability:fb8553ae-80f7-5f58-b919-8fa6f9b7854f",
       "kind": "ability",
-      "name": "Battle Damaged"
+      "name": "Battle Damaged",
+      "retired": true
     },
     {
       "aliases": [
@@ -137707,7 +137789,8 @@
       ],
       "canonicalId": "ability:17d8ace7-73f9-52a2-9a35-0761d77048be",
       "kind": "ability",
-      "name": "Raging Inferno"
+      "name": "Raging Inferno",
+      "retired": true
     },
     {
       "aliases": [
@@ -137718,7 +137801,8 @@
       ],
       "canonicalId": "ability:ebdfcd7b-a12e-5d4c-b6c0-1ddaef61406b",
       "kind": "ability",
-      "name": "Volcanic Blood"
+      "name": "Volcanic Blood",
+      "retired": true
     },
     {
       "aliases": [
@@ -137729,7 +137813,8 @@
       ],
       "canonicalId": "ability:81fbbbe6-b37e-54ad-a827-2e1cb2669b32",
       "kind": "ability",
-      "name": "Royal Retinue"
+      "name": "Royal Retinue",
+      "retired": true
     },
     {
       "aliases": [
@@ -137740,7 +137825,8 @@
       ],
       "canonicalId": "ability:c59725ce-866c-5d08-a006-1c49f735874a",
       "kind": "ability",
-      "name": "Commanding Presence"
+      "name": "Commanding Presence",
+      "retired": true
     },
     {
       "aliases": [
@@ -137751,7 +137837,8 @@
       ],
       "canonicalId": "ability:a1d3d9dc-4793-5a6e-a515-6bcccafc7bd5",
       "kind": "ability",
-      "name": "High Priest of the Zharrgrim"
+      "name": "High Priest of the Zharrgrim",
+      "retired": true
     },
     {
       "aliases": [
@@ -137762,7 +137849,8 @@
       ],
       "canonicalId": "ability:2c166a1c-6603-5d6d-88f7-d98ce23cfc6d",
       "kind": "ability",
-      "name": "Master of the Runes"
+      "name": "Master of the Runes",
+      "retired": true
     },
     {
       "aliases": [
@@ -137773,7 +137861,8 @@
       ],
       "canonicalId": "ability:1516546b-0d25-5130-81be-304eaed82d1a",
       "kind": "ability",
-      "name": "Battle Damaged"
+      "name": "Battle Damaged",
+      "retired": true
     },
     {
       "aliases": [
@@ -137784,7 +137873,8 @@
       ],
       "canonicalId": "ability:c0fcd2ea-6ee0-57d1-aab4-f129a41453a1",
       "kind": "ability",
-      "name": "Volcanic Blood"
+      "name": "Volcanic Blood",
+      "retired": true
     },
     {
       "aliases": [
@@ -137795,7 +137885,8 @@
       ],
       "canonicalId": "ability:74258f73-dcd2-53fb-930f-5edb3ae3d521",
       "kind": "ability",
-      "name": "Runic Empowerment"
+      "name": "Runic Empowerment",
+      "retired": true
     },
     {
       "aliases": [
@@ -137806,7 +137897,8 @@
       ],
       "canonicalId": "ability:9ee93cbf-4530-5202-bc55-34729a29f1f6",
       "kind": "ability",
-      "name": "Lashing Tail"
+      "name": "Lashing Tail",
+      "retired": true
     },
     {
       "aliases": [
@@ -137817,7 +137909,8 @@
       ],
       "canonicalId": "ability:f048fc9f-91a5-5881-bcf7-ec49f151bf4c",
       "kind": "ability",
-      "name": "Righteous Wrath"
+      "name": "Righteous Wrath",
+      "retired": true
     },
     {
       "aliases": [
@@ -137828,10 +137921,15 @@
       ],
       "canonicalId": "ability:68f301cc-052e-5822-8c14-7d3e355bc85c",
       "kind": "ability",
-      "name": "Magmic Passage"
+      "name": "Magmic Passage",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:volcanic-blood",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:1",
           "publisher": "other"
@@ -137844,6 +137942,10 @@
     {
       "aliases": [
         {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:battle-damaged",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:2",
           "publisher": "other"
         }
@@ -137855,6 +137957,10 @@
     {
       "aliases": [
         {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:fire-blood-and-vengeance",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:3",
           "publisher": "other"
         }
@@ -137865,6 +137971,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/ability:seeing-red",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:ability:4",
           "publisher": "other"
@@ -137883,7 +137993,8 @@
       ],
       "canonicalId": "ability:fae8a2ed-af8b-5490-9ba8-3ee0f9978f30",
       "kind": "ability",
-      "name": "Battle Damaged"
+      "name": "Battle Damaged",
+      "retired": true
     },
     {
       "aliases": [
@@ -137894,7 +138005,8 @@
       ],
       "canonicalId": "ability:fe5e9510-6043-54ac-a974-0141d37b8053",
       "kind": "ability",
-      "name": "Volcanic Blood"
+      "name": "Volcanic Blood",
+      "retired": true
     },
     {
       "aliases": [
@@ -137905,7 +138017,8 @@
       ],
       "canonicalId": "ability:eed665cc-3291-55b9-b84f-2e2e3435b677",
       "kind": "ability",
-      "name": "Packdroth"
+      "name": "Packdroth",
+      "retired": true
     },
     {
       "aliases": [
@@ -137916,7 +138029,8 @@
       ],
       "canonicalId": "ability:5e9487d9-d232-5d2b-bcd0-2bdc0150cac8",
       "kind": "ability",
-      "name": "Calamitous Crash"
+      "name": "Calamitous Crash",
+      "retired": true
     },
     {
       "aliases": [
@@ -137927,7 +138041,8 @@
       ],
       "canonicalId": "ability:8590a711-e4a8-5c54-815a-8798b8832f5d",
       "kind": "ability",
-      "name": "Fearless Charge"
+      "name": "Fearless Charge",
+      "retired": true
     },
     {
       "aliases": [
@@ -137938,7 +138053,8 @@
       ],
       "canonicalId": "ability:596c1b61-35a6-5558-9ec1-4258464db810",
       "kind": "ability",
-      "name": "Dauntless Assault"
+      "name": "Dauntless Assault",
+      "retired": true
     },
     {
       "aliases": [
@@ -137949,7 +138065,8 @@
       ],
       "canonicalId": "ability:bbb98c3a-005e-549f-9a38-6b85f56f9447",
       "kind": "ability",
-      "name": "Icon of Grimnir"
+      "name": "Icon of Grimnir",
+      "retired": true
     },
     {
       "aliases": [
@@ -137960,7 +138077,8 @@
       ],
       "canonicalId": "ability:f9cb7199-f27a-5ceb-9317-7e8c0e343e08",
       "kind": "ability",
-      "name": "Bard of the Lodge"
+      "name": "Bard of the Lodge",
+      "retired": true
     },
     {
       "aliases": [
@@ -137971,7 +138089,8 @@
       ],
       "canonicalId": "ability:47d3c72a-7322-5a68-8102-d4fe80d7a1b1",
       "kind": "ability",
-      "name": "Thrundok Hail"
+      "name": "Thrundok Hail",
+      "retired": true
     },
     {
       "aliases": [
@@ -137982,7 +138101,8 @@
       ],
       "canonicalId": "ability:52959157-2eff-5029-9cea-ba616fe752f5",
       "kind": "ability",
-      "name": "Settled with a Bullet"
+      "name": "Settled with a Bullet",
+      "retired": true
     },
     {
       "aliases": [
@@ -137993,7 +138113,8 @@
       ],
       "canonicalId": "ability:e1eea9e8-6a5e-59d8-a29a-1cdc700a517f",
       "kind": "ability",
-      "name": "Blasted and Dazed"
+      "name": "Blasted and Dazed",
+      "retired": true
     },
     {
       "aliases": [
@@ -138004,7 +138125,8 @@
       ],
       "canonicalId": "ability:b109c3a2-74fc-5279-ae49-0cd5b852428b",
       "kind": "ability",
-      "name": "Grim Retaliation"
+      "name": "Grim Retaliation",
+      "retired": true
     },
     {
       "aliases": [
@@ -138015,7 +138137,8 @@
       ],
       "canonicalId": "ability:a56b20dd-e1d1-537d-be67-c680328af9c4",
       "kind": "ability",
-      "name": "Tough as Stone"
+      "name": "Tough as Stone",
+      "retired": true
     },
     {
       "aliases": [
@@ -138026,7 +138149,8 @@
       ],
       "canonicalId": "ability:04a62ccc-a9f6-5dad-be1d-4ad809fc12a3",
       "kind": "ability",
-      "name": "Remember Their Names"
+      "name": "Remember Their Names",
+      "retired": true
     },
     {
       "aliases": [
@@ -138037,7 +138161,8 @@
       ],
       "canonicalId": "ability:4d47aacc-9b50-5676-956c-89330cb9184d",
       "kind": "ability",
-      "name": "Runic Power"
+      "name": "Runic Power",
+      "retired": true
     },
     {
       "aliases": [
@@ -138048,7 +138173,8 @@
       ],
       "canonicalId": "ability:fba34fc1-325f-51d8-aba2-6da450324cfc",
       "kind": "ability",
-      "name": "Oathbound"
+      "name": "Oathbound",
+      "retired": true
     },
     {
       "aliases": [
@@ -138059,7 +138185,8 @@
       ],
       "canonicalId": "ability:ba8082c7-6df2-53d8-bf4c-9d38d1320e15",
       "kind": "ability",
-      "name": "Runes of Gazul"
+      "name": "Runes of Gazul",
+      "retired": true
     },
     {
       "aliases": [
@@ -138070,7 +138197,8 @@
       ],
       "canonicalId": "ability:08bd524a-9a1c-5e80-95c4-058e436a6d0c",
       "kind": "ability",
-      "name": "Armour-crushing Swings"
+      "name": "Armour-crushing Swings",
+      "retired": true
     },
     {
       "aliases": [
@@ -138081,7 +138209,8 @@
       ],
       "canonicalId": "ability:0b52ac60-a68b-51e2-ac9d-4471e737afdc",
       "kind": "ability",
-      "name": "Icons of Valaya"
+      "name": "Icons of Valaya",
+      "retired": true
     },
     {
       "aliases": [
@@ -138092,7 +138221,8 @@
       ],
       "canonicalId": "ability:18847a0e-b94d-55c7-9d4a-1f18ee328ad4",
       "kind": "ability",
-      "name": "Shield Strike"
+      "name": "Shield Strike",
+      "retired": true
     },
     {
       "aliases": [
@@ -138103,7 +138233,8 @@
       ],
       "canonicalId": "ability:b4ac216c-26db-5df4-89f4-fd09c01b7def",
       "kind": "ability",
-      "name": "Indifferent and Pragmatic"
+      "name": "Indifferent and Pragmatic",
+      "retired": true
     },
     {
       "aliases": [
@@ -138114,7 +138245,8 @@
       ],
       "canonicalId": "ability:1f7c96c6-4f4a-5b0d-b01a-8781ae091842",
       "kind": "ability",
-      "name": "Too Stubborn to Die"
+      "name": "Too Stubborn to Die",
+      "retired": true
     },
     {
       "aliases": [
@@ -138125,7 +138257,8 @@
       ],
       "canonicalId": "ability:59e871a2-cf15-5d9e-b7c1-430991305efe",
       "kind": "ability",
-      "name": "A Glorious Doom"
+      "name": "A Glorious Doom",
+      "retired": true
     },
     {
       "aliases": [
@@ -138136,7 +138269,8 @@
       ],
       "canonicalId": "ability:c9d5787a-9c25-5788-9134-c8607d06e7c1",
       "kind": "ability",
-      "name": "Wrathful Wanderer"
+      "name": "Wrathful Wanderer",
+      "retired": true
     },
     {
       "aliases": [
@@ -138147,7 +138281,8 @@
       ],
       "canonicalId": "ability:a40946d1-0a63-5db9-81de-e9402560c0d7",
       "kind": "ability",
-      "name": "Alone but Never Outnumbered"
+      "name": "Alone but Never Outnumbered",
+      "retired": true
     },
     {
       "aliases": [
@@ -138158,7 +138293,8 @@
       ],
       "canonicalId": "ability:973b6172-05ac-54cc-82c7-33c0237f0c07",
       "kind": "ability",
-      "name": "Relentless Wrath"
+      "name": "Relentless Wrath",
+      "retired": true
     },
     {
       "aliases": [
@@ -138169,7 +138305,8 @@
       ],
       "canonicalId": "ability:cc3637e4-7af2-5365-84d1-ba3d84d06a2c",
       "kind": "ability",
-      "name": "Grimwrath Oaths"
+      "name": "Grimwrath Oaths",
+      "retired": true
     },
     {
       "aliases": [
@@ -138180,7 +138317,8 @@
       ],
       "canonicalId": "ability:2b28ac4b-4c2f-5aa1-a906-8ca5cdb4713d",
       "kind": "ability",
-      "name": "Battle-fury"
+      "name": "Battle-fury",
+      "retired": true
     },
     {
       "aliases": [
@@ -138191,7 +138329,8 @@
       ],
       "canonicalId": "ability:d80dff45-fbbd-51c1-bab9-848abcf2e7e8",
       "kind": "ability",
-      "name": "Duty unto Death"
+      "name": "Duty unto Death",
+      "retired": true
     },
     {
       "aliases": [
@@ -138202,7 +138341,8 @@
       ],
       "canonicalId": "ability:d822817b-a20a-5397-aa2b-835b00e481e8",
       "kind": "ability",
-      "name": "Fury of Grimnir"
+      "name": "Fury of Grimnir",
+      "retired": true
     },
     {
       "aliases": [
@@ -138213,7 +138353,8 @@
       ],
       "canonicalId": "ability:81bd3fb8-b589-50ca-aeb7-f60596a324f1",
       "kind": "ability",
-      "name": "Battle Damaged"
+      "name": "Battle Damaged",
+      "retired": true
     },
     {
       "aliases": [
@@ -138224,7 +138365,8 @@
       ],
       "canonicalId": "ability:30c72b8f-5a20-5397-8ea7-e120a946fc48",
       "kind": "ability",
-      "name": "Defend the High Throne!"
+      "name": "Defend the High Throne!",
+      "retired": true
     },
     {
       "aliases": [
@@ -138235,7 +138377,8 @@
       ],
       "canonicalId": "ability:97b1c25f-06f3-51d9-8cdd-4801d4598d6c",
       "kind": "ability",
-      "name": "High Kyng's War Council"
+      "name": "High Kyng's War Council",
+      "retired": true
     },
     {
       "aliases": [
@@ -138246,7 +138389,8 @@
       ],
       "canonicalId": "ability:50258080-b51b-5cfc-960d-8ad3b03f8da8",
       "kind": "ability",
-      "name": "Stirring the High Kyng's Ire"
+      "name": "Stirring the High Kyng's Ire",
+      "retired": true
     },
     {
       "aliases": [
@@ -138257,7 +138401,8 @@
       ],
       "canonicalId": "ability:e5bb00d6-f8b8-5461-b739-11ebe465ad96",
       "kind": "ability",
-      "name": "Tide of Stone"
+      "name": "Tide of Stone",
+      "retired": true
     },
     {
       "aliases": [
@@ -138268,7 +138413,8 @@
       ],
       "canonicalId": "ability:08bc6966-9d90-56a4-909c-548655cc080e",
       "kind": "ability",
-      "name": "Book of Fallen Holds"
+      "name": "Book of Fallen Holds",
+      "retired": true
     },
     {
       "aliases": [
@@ -138279,7 +138425,8 @@
       ],
       "canonicalId": "ability:bb4c18f8-894b-5353-a025-3b847040bcc7",
       "kind": "ability",
-      "name": "Talisman of the Lost Karak"
+      "name": "Talisman of the Lost Karak",
+      "retired": true
     },
     {
       "aliases": [
@@ -138290,7 +138437,8 @@
       ],
       "canonicalId": "ability:b1be6df2-f4f5-5791-a201-6db17b609d91",
       "kind": "ability",
-      "name": "Last of Her Clan"
+      "name": "Last of Her Clan",
+      "retired": true
     },
     {
       "aliases": [
@@ -138301,7 +138449,8 @@
       ],
       "canonicalId": "ability:f0b137dd-a253-5550-9401-736c0e560615",
       "kind": "ability",
-      "name": "Spending the Forge"
+      "name": "Spending the Forge",
+      "retired": true
     },
     {
       "aliases": [
@@ -138312,7 +138461,8 @@
       ],
       "canonicalId": "ability:07f93e8d-23b2-5fcd-9eb8-7693393ad7f1",
       "kind": "ability",
-      "name": "Molten Blessing"
+      "name": "Molten Blessing",
+      "retired": true
     },
     {
       "aliases": [
@@ -138323,7 +138473,8 @@
       ],
       "canonicalId": "ability:4e1856a1-1daa-5228-a9ef-e78085d0f511",
       "kind": "ability",
-      "name": "Artillerist's Revenge"
+      "name": "Artillerist's Revenge",
+      "retired": true
     },
     {
       "aliases": [
@@ -138334,7 +138485,8 @@
       ],
       "canonicalId": "ability:c50869dd-d1e0-5cc6-9e65-c89b9e4ed760",
       "kind": "ability",
-      "name": "Oathkeeper Apprentice Runestriker"
+      "name": "Oathkeeper Apprentice Runestriker",
+      "retired": true
     },
     {
       "aliases": [
@@ -138345,7 +138497,8 @@
       ],
       "canonicalId": "ability:50006b78-6f86-5864-958e-f9b65e5702a7",
       "kind": "ability",
-      "name": "Vulcatrix's Fury"
+      "name": "Vulcatrix's Fury",
+      "retired": true
     },
     {
       "aliases": [
@@ -138356,7 +138509,8 @@
       ],
       "canonicalId": "ability:6151c106-12b6-536d-8f61-0b66252d8ef1",
       "kind": "ability",
-      "name": "Drothmaster at Heart"
+      "name": "Drothmaster at Heart",
+      "retired": true
     },
     {
       "aliases": [
@@ -138367,7 +138521,8 @@
       ],
       "canonicalId": "ability:8ebe9b92-8783-595d-8639-c4e083a06cd8",
       "kind": "ability",
-      "name": "Smoke and Ash"
+      "name": "Smoke and Ash",
+      "retired": true
     },
     {
       "aliases": [
@@ -138378,7 +138533,8 @@
       ],
       "canonicalId": "ability:919a9418-69ec-5d07-8184-be41554576b6",
       "kind": "ability",
-      "name": "Grudgement of the Forge"
+      "name": "Grudgement of the Forge",
+      "retired": true
     },
     {
       "aliases": [
@@ -138389,7 +138545,8 @@
       ],
       "canonicalId": "ability:281ae3d2-4a0a-5c25-bc87-585c8a0296f7",
       "kind": "ability",
-      "name": "Rhythmic Hammering"
+      "name": "Rhythmic Hammering",
+      "retired": true
     },
     {
       "aliases": [
@@ -138400,7 +138557,8 @@
       ],
       "canonicalId": "ability:6d83b1a7-8b71-5dff-bcbc-1e2aa0875568",
       "kind": "ability",
-      "name": "Artillerist's Revenge"
+      "name": "Artillerist's Revenge",
+      "retired": true
     },
     {
       "aliases": [
@@ -138411,7 +138569,8 @@
       ],
       "canonicalId": "ability:0ab591a6-3d6f-5363-b7dc-6bda51fd01d3",
       "kind": "ability",
-      "name": "Stonebreaker Apprentice Runestriker"
+      "name": "Stonebreaker Apprentice Runestriker",
+      "retired": true
     },
     {
       "aliases": [
@@ -138422,7 +138581,8 @@
       ],
       "canonicalId": "ability:205f5cb2-6ff4-52bf-95f9-8493f683418d",
       "kind": "ability",
-      "name": "Battle Damaged"
+      "name": "Battle Damaged",
+      "retired": true
     },
     {
       "aliases": [
@@ -138433,7 +138593,8 @@
       ],
       "canonicalId": "ability:a824a1b5-6a3b-592f-846b-a5827b3fa3b9",
       "kind": "ability",
-      "name": "Defend the Throne!"
+      "name": "Defend the Throne!",
+      "retired": true
     },
     {
       "aliases": [
@@ -138444,7 +138605,8 @@
       ],
       "canonicalId": "ability:3097649b-fa5f-5d33-ade4-c17a6cf72113",
       "kind": "ability",
-      "name": "Karak War Council"
+      "name": "Karak War Council",
+      "retired": true
     },
     {
       "aliases": [
@@ -138455,7 +138617,8 @@
       ],
       "canonicalId": "ability:4f5c2d63-1494-50a3-b9a8-b544f7db958e",
       "kind": "ability",
-      "name": "Forge a Path"
+      "name": "Forge a Path",
+      "retired": true
     },
     {
       "aliases": [
@@ -138466,7 +138629,8 @@
       ],
       "canonicalId": "ability:48efef91-9bd9-57e4-9a01-1cc2393fc0d3",
       "kind": "ability",
-      "name": "Tectonic Impact"
+      "name": "Tectonic Impact",
+      "retired": true
     },
     {
       "aliases": [
@@ -138477,7 +138641,8 @@
       ],
       "canonicalId": "ability:e281beee-0dab-543a-8455-6b280342864d",
       "kind": "ability",
-      "name": "Steadfast Retribution"
+      "name": "Steadfast Retribution",
+      "retired": true
     },
     {
       "aliases": [
@@ -138488,7 +138653,8 @@
       ],
       "canonicalId": "ability:7a865230-a484-55ae-98b1-e85cfcc83720",
       "kind": "ability",
-      "name": "Fight Shoulder to Shoulder"
+      "name": "Fight Shoulder to Shoulder",
+      "retired": true
     },
     {
       "aliases": [
@@ -138499,7 +138665,8 @@
       ],
       "canonicalId": "ability:54200c0d-26cd-5984-b412-879f15815f07",
       "kind": "ability",
-      "name": "Shield Maidens"
+      "name": "Shield Maidens",
+      "retired": true
     },
     {
       "aliases": [
@@ -138510,7 +138677,8 @@
       ],
       "canonicalId": "ability:f1236c27-62ea-5c92-a83a-601907f199c0",
       "kind": "ability",
-      "name": "Protection of Valaya"
+      "name": "Protection of Valaya",
+      "retired": true
     },
     {
       "aliases": [
@@ -138521,7 +138689,8 @@
       ],
       "canonicalId": "ability:1072f981-159c-5ed7-8c4a-aec631d34812",
       "kind": "ability",
-      "name": "Warriors of the Hearth"
+      "name": "Warriors of the Hearth",
+      "retired": true
     },
     {
       "aliases": [
@@ -138532,7 +138701,8 @@
       ],
       "canonicalId": "ability:26eb3db2-6ad4-5273-9922-3059dc8a2377",
       "kind": "ability",
-      "name": "Berserk Fury"
+      "name": "Berserk Fury",
+      "retired": true
     },
     {
       "aliases": [
@@ -138543,10 +138713,15 @@
       ],
       "canonicalId": "ability:4594f0a1-aeb7-50fe-b423-6b36b7424d4b",
       "kind": "ability",
-      "name": "Whirlwind of Destruction"
+      "name": "Whirlwind of Destruction",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/ability:fiery-disposition",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:ability:1",
           "publisher": "other"
@@ -138565,7 +138740,8 @@
       ],
       "canonicalId": "ability:57dd94f8-1790-5a1e-adcc-756ab075ed01",
       "kind": "ability",
-      "name": "Blunt Their Horns and Fangs!"
+      "name": "Blunt Their Horns and Fangs!",
+      "retired": true
     },
     {
       "aliases": [
@@ -138576,7 +138752,8 @@
       ],
       "canonicalId": "ability:7054defc-cac1-5420-a097-9e9352193c89",
       "kind": "ability",
-      "name": "Drothmasters"
+      "name": "Drothmasters",
+      "retired": true
     },
     {
       "aliases": [
@@ -138983,7 +139160,8 @@
       ],
       "canonicalId": "content-group:b7864ca0-a6e7-5b22-a58c-f9df6d8ba8a1",
       "kind": "content-group",
-      "name": "Fyrd of Fyrepeak"
+      "name": "Fyrd of Fyrepeak",
+      "retired": true
     },
     {
       "aliases": [
@@ -138994,7 +139172,8 @@
       ],
       "canonicalId": "content-group:eee9eb49-e17e-5949-9936-62c0fb36f2f4",
       "kind": "content-group",
-      "name": "Battle Traits"
+      "name": "Battle Traits",
+      "retired": true
     },
     {
       "aliases": [
@@ -139005,7 +139184,8 @@
       ],
       "canonicalId": "content-group:383ea3dd-b1f7-5a82-8ecc-2f949d3e6fe2",
       "kind": "content-group",
-      "name": "Throngankor Alliance"
+      "name": "Throngankor Alliance",
+      "retired": true
     },
     {
       "aliases": [
@@ -139016,7 +139196,8 @@
       ],
       "canonicalId": "content-group:f0479a80-eacc-50c1-b3a1-4675858478d4",
       "kind": "content-group",
-      "name": "Artefacts of Power"
+      "name": "Artefacts of Power",
+      "retired": true
     },
     {
       "aliases": [
@@ -139027,7 +139208,8 @@
       ],
       "canonicalId": "content-group:fe489c8c-c1ac-52fc-91fa-09a6b45d2a1e",
       "kind": "content-group",
-      "name": "Battle Traits"
+      "name": "Battle Traits",
+      "retired": true
     },
     {
       "aliases": [
@@ -139038,7 +139220,8 @@
       ],
       "canonicalId": "content-group:88fd09d0-32f9-59de-8043-a3f08ff56068",
       "kind": "content-group",
-      "name": "Heroic Traits"
+      "name": "Heroic Traits",
+      "retired": true
     },
     {
       "aliases": [
@@ -139049,10 +139232,15 @@
       ],
       "canonicalId": "content-group:006f5e63-6a31-57f4-b81f-11c64b124a68",
       "kind": "content-group",
-      "name": "Heirlooms of the Karaks"
+      "name": "Heirlooms of the Karaks",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:option-group:marks-of-vulcatrix",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:option-group:marks-of-vulcatrix",
           "publisher": "other"
@@ -139071,7 +139259,8 @@
       ],
       "canonicalId": "content-group:39bf044b-705c-50fb-a6ed-d9f836ff0411",
       "kind": "content-group",
-      "name": "Revered Duardin Attributes"
+      "name": "Revered Duardin Attributes",
+      "retired": true
     },
     {
       "aliases": [
@@ -139082,7 +139271,8 @@
       ],
       "canonicalId": "content-group:b1a43357-de98-5b9e-a201-ede089687839",
       "kind": "content-group",
-      "name": "Ancestor God Recitations"
+      "name": "Ancestor God Recitations",
+      "retired": true
     },
     {
       "aliases": [
@@ -139093,7 +139283,8 @@
       ],
       "canonicalId": "content-group:8215669a-0748-55f9-b43d-fb137e2f2964",
       "kind": "content-group",
-      "name": "Hearthsworn Defenders"
+      "name": "Hearthsworn Defenders",
+      "retired": true
     },
     {
       "aliases": [
@@ -139104,7 +139295,8 @@
       ],
       "canonicalId": "content-group:112e64b5-8436-5706-a42f-0e5de8ea50b5",
       "kind": "content-group",
-      "name": "Resonance of the Runes"
+      "name": "Resonance of the Runes",
+      "retired": true
     },
     {
       "aliases": [
@@ -139115,7 +139307,8 @@
       ],
       "canonicalId": "content-group:92d3dafa-df10-503d-856c-ff388e7f3a90",
       "kind": "content-group",
-      "name": "Reverberations of the Runes"
+      "name": "Reverberations of the Runes",
+      "retired": true
     },
     {
       "aliases": [
@@ -139126,10 +139319,15 @@
       ],
       "canonicalId": "content-group:b56af0b2-5607-567a-91bc-9d536dff8b65",
       "kind": "content-group",
-      "name": "Unyielding Anvil"
+      "name": "Unyielding Anvil",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:option:vulkyn-gifts",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:option:vulkyn-gifts",
           "publisher": "other"
@@ -139148,7 +139346,8 @@
       ],
       "canonicalId": "content-group:551a307b-a3a0-5939-bfb2-e0f9dacb29ca",
       "kind": "content-group",
-      "name": "War Callers"
+      "name": "War Callers",
+      "retired": true
     },
     {
       "aliases": [
@@ -139159,10 +139358,15 @@
       ],
       "canonicalId": "content-group:6cd722cd-d8b6-5afd-af87-45c19fd92ab5",
       "kind": "content-group",
-      "name": "Wayfarer Nomads"
+      "name": "Wayfarer Nomads",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-rules-of-renown:regiment:fjoris-vengeance",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:regiment:fjoris-vengeance",
           "publisher": "other"
@@ -139174,6 +139378,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-rules-of-renown:regiment:thengins-grudgesettlers",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:regiment:thengins-grudgesettlers",
           "publisher": "other"
@@ -139192,7 +139400,8 @@
       ],
       "canonicalId": "content-group:d8cdaa0a-15da-53e3-b2fc-deaba3d99c97",
       "kind": "content-group",
-      "name": "Artefacts of Power"
+      "name": "Artefacts of Power",
+      "retired": true
     },
     {
       "aliases": [
@@ -139203,7 +139412,8 @@
       ],
       "canonicalId": "content-group:aae9b35d-8dbf-5488-8acc-9556fdcbb217",
       "kind": "content-group",
-      "name": "Battle Formations"
+      "name": "Battle Formations",
+      "retired": true
     },
     {
       "aliases": [
@@ -139214,7 +139424,8 @@
       ],
       "canonicalId": "content-group:5908b6c2-067b-59fc-9731-142b8c7b0896",
       "kind": "content-group",
-      "name": "Battle Traits"
+      "name": "Battle Traits",
+      "retired": true
     },
     {
       "aliases": [
@@ -139225,10 +139436,15 @@
       ],
       "canonicalId": "content-group:d6c5d103-4716-5c44-937f-e542f31bc5c5",
       "kind": "content-group",
-      "name": "Heroic Traits"
+      "name": "Heroic Traits",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:type:gwkhz:marksofvulcatrix",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:marksofvulcatrix",
           "publisher": "other"
@@ -139240,6 +139456,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "games-workshop-faction-pack:type:gwkhz:prayerlore",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:type:gwkhz:prayerlore",
           "publisher": "other"
@@ -139258,7 +139478,8 @@
       ],
       "canonicalId": "content-group:99a03765-48f0-518a-8c88-e1c052b1c2d4",
       "kind": "content-group",
-      "name": "Spell Lore"
+      "name": "Spell Lore",
+      "retired": true
     },
     {
       "aliases": [
@@ -139269,7 +139490,8 @@
       ],
       "canonicalId": "publication:fe44a63a-e8cb-5bfa-8f66-040f28b499ba",
       "kind": "publication",
-      "name": "BSData Khazalite Holds - Fyrd of Fyrepeak Army of Renown, khazalite-holds branch (provisional community transcription, pending official verification)"
+      "name": "BSData Khazalite Holds - Fyrd of Fyrepeak Army of Renown, khazalite-holds branch (provisional community transcription, pending official verification)",
+      "retired": true
     },
     {
       "aliases": [
@@ -139280,7 +139502,8 @@
       ],
       "canonicalId": "publication:b001deb6-94bb-5dc8-9ddc-6d2b91cfddcd",
       "kind": "publication",
-      "name": "BSData Khazalite Holds - Throngankor Alliance Army of Renown, khazalite-holds branch (provisional community transcription, pending official verification)"
+      "name": "BSData Khazalite Holds - Throngankor Alliance Army of Renown, khazalite-holds branch (provisional community transcription, pending official verification)",
+      "retired": true
     },
     {
       "aliases": [
@@ -139299,7 +139522,8 @@
       ],
       "canonicalId": "publication:c5575658-9d3e-5315-bf44-20ebce52907a",
       "kind": "publication",
-      "name": "BSData Khazalite Holds library, khazalite-holds branch (provisional community transcription, pending official verification)"
+      "name": "BSData Khazalite Holds library, khazalite-holds branch (provisional community transcription, pending official verification)",
+      "retired": true
     },
     {
       "aliases": [
@@ -139314,7 +139538,8 @@
       ],
       "canonicalId": "publication:97c777c3-496f-5e54-acd6-e5677048c661",
       "kind": "publication",
-      "name": "BSData shared Lores catalogue - Khazalite Holds battletome lores, khazalite-holds branch (provisional community transcription, pending official verification)"
+      "name": "BSData shared Lores catalogue - Khazalite Holds battletome lores, khazalite-holds branch (provisional community transcription, pending official verification)",
+      "retired": true
     },
     {
       "aliases": [
@@ -139333,7 +139558,8 @@
       ],
       "canonicalId": "publication:3ed963c4-05ad-5755-8152-08ee09559c72",
       "kind": "publication",
-      "name": "BSData Khazalite Holds faction catalogue, khazalite-holds branch (provisional community transcription, pending official verification)"
+      "name": "BSData Khazalite Holds faction catalogue, khazalite-holds branch (provisional community transcription, pending official verification)",
+      "retired": true
     },
     {
       "aliases": [
@@ -139348,7 +139574,8 @@
       ],
       "canonicalId": "publication:3b2e5280-207d-5df3-9a0c-c73b3d6a75fb",
       "kind": "publication",
-      "name": "BSData Regiments of Renown catalogue - Khazalite Holds regiments, khazalite-holds branch (provisional community transcription, pending official verification)"
+      "name": "BSData Regiments of Renown catalogue - Khazalite Holds regiments, khazalite-holds branch (provisional community transcription, pending official verification)",
+      "retired": true
     },
     {
       "aliases": [
@@ -139755,7 +139982,8 @@
       ],
       "canonicalId": "weapon:deec5736-05a1-5b61-aa7e-c1b7103d08fc",
       "kind": "weapon",
-      "name": "Brazier Axe"
+      "name": "Brazier Axe",
+      "retired": true
     },
     {
       "aliases": [
@@ -139766,7 +139994,8 @@
       ],
       "canonicalId": "weapon:11dc5b7f-aa9a-55dc-bb89-be18383b11c7",
       "kind": "weapon",
-      "name": "Magmapike"
+      "name": "Magmapike",
+      "retired": true
     },
     {
       "aliases": [
@@ -139777,7 +140006,8 @@
       ],
       "canonicalId": "weapon:c6faf8fd-79c5-5e97-b036-96b5ad05d36d",
       "kind": "weapon",
-      "name": "Magmapike"
+      "name": "Magmapike",
+      "retired": true
     },
     {
       "aliases": [
@@ -139788,7 +140018,8 @@
       ],
       "canonicalId": "weapon:8f83d349-5c06-5a20-9160-7c8145b07e00",
       "kind": "weapon",
-      "name": "Roaring Fyrestream"
+      "name": "Roaring Fyrestream",
+      "retired": true
     },
     {
       "aliases": [
@@ -139799,7 +140030,8 @@
       ],
       "canonicalId": "weapon:ff273ad2-64de-5754-a193-eee97862ac32",
       "kind": "weapon",
-      "name": "Latchkey Grandaxe"
+      "name": "Latchkey Grandaxe",
+      "retired": true
     },
     {
       "aliases": [
@@ -139810,7 +140042,8 @@
       ],
       "canonicalId": "weapon:0bc29f24-79e7-5072-9104-649ffb203474",
       "kind": "weapon",
-      "name": "Magmadroth's Maw, Claws and Horns"
+      "name": "Magmadroth's Maw, Claws and Horns",
+      "retired": true
     },
     {
       "aliases": [
@@ -139821,7 +140054,8 @@
       ],
       "canonicalId": "weapon:f19e09ff-6f85-5664-b48f-acfacf601c15",
       "kind": "weapon",
-      "name": "Latchkey Grandaxe"
+      "name": "Latchkey Grandaxe",
+      "retired": true
     },
     {
       "aliases": [
@@ -139832,7 +140066,8 @@
       ],
       "canonicalId": "weapon:cc1d5f0d-b362-5c53-805b-e26f7c43af82",
       "kind": "weapon",
-      "name": "Brazier Staff"
+      "name": "Brazier Staff",
+      "retired": true
     },
     {
       "aliases": [
@@ -139843,7 +140078,8 @@
       ],
       "canonicalId": "weapon:ae4a72ae-744d-5ff7-9b39-d0e21914ebf4",
       "kind": "weapon",
-      "name": "Roaring Fyrestream"
+      "name": "Roaring Fyrestream",
+      "retired": true
     },
     {
       "aliases": [
@@ -139854,7 +140090,8 @@
       ],
       "canonicalId": "weapon:ab809126-5819-5191-985e-898fbc68699b",
       "kind": "weapon",
-      "name": "Latch-axe"
+      "name": "Latch-axe",
+      "retired": true
     },
     {
       "aliases": [
@@ -139865,7 +140102,8 @@
       ],
       "canonicalId": "weapon:a5a0c6b5-af8b-5d84-870b-4a588a38725c",
       "kind": "weapon",
-      "name": "Magmadroth's Maw, Claws and Horns"
+      "name": "Magmadroth's Maw, Claws and Horns",
+      "retired": true
     },
     {
       "aliases": [
@@ -139876,10 +140114,15 @@
       ],
       "canonicalId": "weapon:44fb8c35-2c17-5987-bc4c-6631a8d391c0",
       "kind": "weapon",
-      "name": "Latch-axe"
+      "name": "Latch-axe",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:2",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:1",
           "publisher": "other"
@@ -139892,6 +140135,10 @@
     {
       "aliases": [
         {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:1",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:2",
           "publisher": "other"
         }
@@ -139903,6 +140150,10 @@
     {
       "aliases": [
         {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:4",
+          "publisher": "games-workshop"
+        },
+        {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:3",
           "publisher": "other"
         }
@@ -139913,6 +140164,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:auric-runeson-on-magmadroth/weapon:3",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:auric-runeson-on-magmadroth-scourge-of-aqshy:weapon:4",
           "publisher": "other"
@@ -139931,7 +140186,8 @@
       ],
       "canonicalId": "weapon:fa6fd2fb-dd60-549a-933d-cbed7a1933ff",
       "kind": "weapon",
-      "name": "Roaring Fyrestream"
+      "name": "Roaring Fyrestream",
+      "retired": true
     },
     {
       "aliases": [
@@ -139942,7 +140198,8 @@
       ],
       "canonicalId": "weapon:cb4c438c-6e87-5e64-b483-ea64def52f56",
       "kind": "weapon",
-      "name": "Ancestral Weapons"
+      "name": "Ancestral Weapons",
+      "retired": true
     },
     {
       "aliases": [
@@ -139953,7 +140210,8 @@
       ],
       "canonicalId": "weapon:92c83650-231b-56fd-a1ce-85accfcfc489",
       "kind": "weapon",
-      "name": "Magmadroth's Maw, Claws and Horns"
+      "name": "Magmadroth's Maw, Claws and Horns",
+      "retired": true
     },
     {
       "aliases": [
@@ -139964,7 +140222,8 @@
       ],
       "canonicalId": "weapon:b0604ce2-f624-5fc7-8da4-ab325167a18e",
       "kind": "weapon",
-      "name": "Ancestral Weapons"
+      "name": "Ancestral Weapons",
+      "retired": true
     },
     {
       "aliases": [
@@ -139975,7 +140234,8 @@
       ],
       "canonicalId": "weapon:abe083af-add9-53f2-88ef-d7dab51bb72f",
       "kind": "weapon",
-      "name": "Ancestral Battle-axe"
+      "name": "Ancestral Battle-axe",
+      "retired": true
     },
     {
       "aliases": [
@@ -139986,7 +140246,8 @@
       ],
       "canonicalId": "weapon:039cb3fa-c8df-53be-9106-f9067dbbf2db",
       "kind": "weapon",
-      "name": "Thrundok Rifle"
+      "name": "Thrundok Rifle",
+      "retired": true
     },
     {
       "aliases": [
@@ -139997,7 +140258,8 @@
       ],
       "canonicalId": "weapon:ee39b1e9-d9c1-549d-aa28-008b926b70cb",
       "kind": "weapon",
-      "name": "Rifle Butt"
+      "name": "Rifle Butt",
+      "retired": true
     },
     {
       "aliases": [
@@ -140008,7 +140270,8 @@
       ],
       "canonicalId": "weapon:ba3b9045-5f14-52c2-bfff-df8411343f1e",
       "kind": "weapon",
-      "name": "Thrundrin Shotcannon"
+      "name": "Thrundrin Shotcannon",
+      "retired": true
     },
     {
       "aliases": [
@@ -140019,7 +140282,8 @@
       ],
       "canonicalId": "weapon:526a73e3-f99f-56d9-a43f-a148f8b03809",
       "kind": "weapon",
-      "name": "Shotcannon Butt"
+      "name": "Shotcannon Butt",
+      "retired": true
     },
     {
       "aliases": [
@@ -140030,7 +140294,8 @@
       ],
       "canonicalId": "weapon:97fe94f5-7a72-516e-9ae3-f0c7b5eea532",
       "kind": "weapon",
-      "name": "Kromdron Weapon"
+      "name": "Kromdron Weapon",
+      "retired": true
     },
     {
       "aliases": [
@@ -140041,7 +140306,8 @@
       ],
       "canonicalId": "weapon:3574f539-830a-5f95-9b0f-9fbaf3229ecc",
       "kind": "weapon",
-      "name": "Doomseeker Weapons"
+      "name": "Doomseeker Weapons",
+      "retired": true
     },
     {
       "aliases": [
@@ -140052,7 +140318,8 @@
       ],
       "canonicalId": "weapon:503ac423-fe6f-524d-8bbc-a9ac5720dc82",
       "kind": "weapon",
-      "name": "Gazulite Great Hammer"
+      "name": "Gazulite Great Hammer",
+      "retired": true
     },
     {
       "aliases": [
@@ -140063,7 +140330,8 @@
       ],
       "canonicalId": "weapon:5acef29b-ac2c-53f6-8868-1aca089c177b",
       "kind": "weapon",
-      "name": "Valayan Great Axe"
+      "name": "Valayan Great Axe",
+      "retired": true
     },
     {
       "aliases": [
@@ -140074,7 +140342,8 @@
       ],
       "canonicalId": "weapon:f9b3b6a4-a3f4-54b5-80ae-cdba8958c666",
       "kind": "weapon",
-      "name": "Zangrom-Thaz"
+      "name": "Zangrom-Thaz",
+      "retired": true
     },
     {
       "aliases": [
@@ -140085,7 +140354,8 @@
       ],
       "canonicalId": "weapon:d71948e9-abf6-59c1-ba48-43ee03656e70",
       "kind": "weapon",
-      "name": "Fyre-rune Hammers"
+      "name": "Fyre-rune Hammers",
+      "retired": true
     },
     {
       "aliases": [
@@ -140096,7 +140366,8 @@
       ],
       "canonicalId": "weapon:fafadb45-cdb8-5b1f-b874-3ff6ae6b333c",
       "kind": "weapon",
-      "name": "Fyrestorm Greataxe"
+      "name": "Fyrestorm Greataxe",
+      "retired": true
     },
     {
       "aliases": [
@@ -140107,7 +140378,8 @@
       ],
       "canonicalId": "weapon:77ec3c42-e5a4-5928-9fba-c15f26d9b8bc",
       "kind": "weapon",
-      "name": "Broadaxe or Flamestrike Poleaxe"
+      "name": "Broadaxe or Flamestrike Poleaxe",
+      "retired": true
     },
     {
       "aliases": [
@@ -140118,7 +140390,8 @@
       ],
       "canonicalId": "weapon:a157b4db-2f54-57a8-b37e-d4d6c0877e3c",
       "kind": "weapon",
-      "name": "Forge-spark Lightning"
+      "name": "Forge-spark Lightning",
+      "retired": true
     },
     {
       "aliases": [
@@ -140129,7 +140402,8 @@
       ],
       "canonicalId": "weapon:dbcf38bd-5edb-5e49-af5d-f666d83e7db5",
       "kind": "weapon",
-      "name": "Bharadreng"
+      "name": "Bharadreng",
+      "retired": true
     },
     {
       "aliases": [
@@ -140140,7 +140414,8 @@
       ],
       "canonicalId": "weapon:d4786c12-fe78-5ab8-b391-aeb255239457",
       "kind": "weapon",
-      "name": "Karak War Council's Armoury"
+      "name": "Karak War Council's Armoury",
+      "retired": true
     },
     {
       "aliases": [
@@ -140151,7 +140426,8 @@
       ],
       "canonicalId": "weapon:153211b8-d02c-5181-be30-81275982b5dc",
       "kind": "weapon",
-      "name": "Azangrom"
+      "name": "Azangrom",
+      "retired": true
     },
     {
       "aliases": [
@@ -140162,7 +140438,8 @@
       ],
       "canonicalId": "weapon:25d6444e-937c-549b-9a60-a98742e4b912",
       "kind": "weapon",
-      "name": "Oathkeeper Shot"
+      "name": "Oathkeeper Shot",
+      "retired": true
     },
     {
       "aliases": [
@@ -140173,7 +140450,8 @@
       ],
       "canonicalId": "weapon:ce260d1c-8a5b-5dd7-9986-98ab313659b3",
       "kind": "weapon",
-      "name": "Oathkeeper Crew Tools"
+      "name": "Oathkeeper Crew Tools",
+      "retired": true
     },
     {
       "aliases": [
@@ -140184,7 +140462,8 @@
       ],
       "canonicalId": "weapon:98caf96a-0da4-529f-88a5-fb07f5b41649",
       "kind": "weapon",
-      "name": "Ormyr's Double-bladed Axe and Punchblade"
+      "name": "Ormyr's Double-bladed Axe and Punchblade",
+      "retired": true
     },
     {
       "aliases": [
@@ -140195,7 +140474,8 @@
       ],
       "canonicalId": "weapon:fb3db326-b2e4-51fa-b497-1e1196e6493b",
       "kind": "weapon",
-      "name": "Ashtongue's Maw and Claws"
+      "name": "Ashtongue's Maw and Claws",
+      "retired": true
     },
     {
       "aliases": [
@@ -140206,7 +140486,8 @@
       ],
       "canonicalId": "weapon:551f9a52-8160-5140-9ac1-f0ee2d9006c0",
       "kind": "weapon",
-      "name": "Runic Forgehammers"
+      "name": "Runic Forgehammers",
+      "retired": true
     },
     {
       "aliases": [
@@ -140217,7 +140498,8 @@
       ],
       "canonicalId": "weapon:d8a0da76-d9e6-5b90-993f-331d2b476e71",
       "kind": "weapon",
-      "name": "Stonebreaker Shot"
+      "name": "Stonebreaker Shot",
+      "retired": true
     },
     {
       "aliases": [
@@ -140228,7 +140510,8 @@
       ],
       "canonicalId": "weapon:2d0f6257-294b-5d23-9d5c-4c5725d21fa9",
       "kind": "weapon",
-      "name": "Stonebreaker Crew Tools"
+      "name": "Stonebreaker Crew Tools",
+      "retired": true
     },
     {
       "aliases": [
@@ -140239,7 +140522,8 @@
       ],
       "canonicalId": "weapon:deff1d3d-82ca-53b9-be8a-61b2d8c76f9e",
       "kind": "weapon",
-      "name": "Forge-spark Lightning"
+      "name": "Forge-spark Lightning",
+      "retired": true
     },
     {
       "aliases": [
@@ -140250,7 +140534,8 @@
       ],
       "canonicalId": "weapon:281ddcf7-c9c2-5ddc-b95e-d9d5fdf4f7f9",
       "kind": "weapon",
-      "name": "Thrynn's Runeweapons"
+      "name": "Thrynn's Runeweapons",
+      "retired": true
     },
     {
       "aliases": [
@@ -140261,7 +140546,8 @@
       ],
       "canonicalId": "weapon:c3948477-8a8f-5c39-8847-cca7ebdf7e10",
       "kind": "weapon",
-      "name": "Karak War Council's Armoury"
+      "name": "Karak War Council's Armoury",
+      "retired": true
     },
     {
       "aliases": [
@@ -140272,7 +140558,8 @@
       ],
       "canonicalId": "weapon:d0b910db-8747-5e6d-9013-83855ae5d879",
       "kind": "weapon",
-      "name": "Grudgehammer and Runic Axe"
+      "name": "Grudgehammer and Runic Axe",
+      "retired": true
     },
     {
       "aliases": [
@@ -140283,7 +140570,8 @@
       ],
       "canonicalId": "weapon:936326d5-115e-5ad6-8a41-5fab4adb20ca",
       "kind": "weapon",
-      "name": "Valayan Rune Axe"
+      "name": "Valayan Rune Axe",
+      "retired": true
     },
     {
       "aliases": [
@@ -140294,7 +140582,8 @@
       ],
       "canonicalId": "weapon:9d58c7b4-11a4-5759-9f2c-92905f3c4764",
       "kind": "weapon",
-      "name": "Valayan Runic Halberd"
+      "name": "Valayan Runic Halberd",
+      "retired": true
     },
     {
       "aliases": [
@@ -140305,7 +140594,8 @@
       ],
       "canonicalId": "weapon:05b5da6c-ad09-5eaf-923a-1e3c5d52458a",
       "kind": "weapon",
-      "name": "Fyresteel Weapons"
+      "name": "Fyresteel Weapons",
+      "retired": true
     },
     {
       "aliases": [
@@ -140316,10 +140606,15 @@
       ],
       "canonicalId": "weapon:96f09269-27f1-51f0-a265-9335bc73a4bb",
       "kind": "weapon",
-      "name": "Fyresteel Weapons"
+      "name": "Fyresteel Weapons",
+      "retired": true
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/weapon:1",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:weapon:1",
           "publisher": "other"
@@ -140331,6 +140626,10 @@
     },
     {
       "aliases": [
+        {
+          "externalId": "official-warscroll:official-warscroll:khazalite-holds:seasonal:vulkyn-flameseekers/weapon:2",
+          "publisher": "games-workshop"
+        },
         {
           "externalId": "BSData/age-of-sigmar-4th:unit:vulkyn-flameseekers-scourge-of-aqshy:weapon:2",
           "publisher": "other"
@@ -140349,7 +140648,8 @@
       ],
       "canonicalId": "weapon:86a1878c-dcf9-5233-9961-c15a8f1038ec",
       "kind": "weapon",
-      "name": "Vulkyn Weapons"
+      "name": "Vulkyn Weapons",
+      "retired": true
     },
     {
       "aliases": [
@@ -140360,7 +140660,8 @@
       ],
       "canonicalId": "weapon:c7a2f76c-2fed-567e-95d3-def78fc58f8d",
       "kind": "weapon",
-      "name": "Vulkyn Weapons"
+      "name": "Vulkyn Weapons",
+      "retired": true
     },
     {
       "aliases": [
@@ -140371,7 +140672,8 @@
       ],
       "canonicalId": "weapon:d65e5260-dba1-59fe-b7aa-453fbc58d0bc",
       "kind": "weapon",
-      "name": "Kyndledroth's Fangs"
+      "name": "Kyndledroth's Fangs",
+      "retired": true
     },
     {
       "aliases": [
@@ -140382,7 +140684,8 @@
       ],
       "canonicalId": "weapon:ceb8f980-6066-5d2e-8ed2-ff4266f58c27",
       "kind": "weapon",
-      "name": "Vulkyn Weapons"
+      "name": "Vulkyn Weapons",
+      "retired": true
     },
     {
       "aliases": [
@@ -140393,7 +140696,8 @@
       ],
       "canonicalId": "ability:ff7dbe1a-8b30-5b26-adf3-138bc33abd70",
       "kind": "ability",
-      "name": "Redeclaration of Alliance"
+      "name": "Redeclaration of Alliance",
+      "retired": true
     },
     {
       "aliases": [
@@ -140404,7 +140708,8 @@
       ],
       "canonicalId": "ability:d2f8fac2-2b3b-5a52-9fae-e4f6e5aed689",
       "kind": "ability",
-      "name": "Rune of Spirit"
+      "name": "Rune of Spirit",
+      "retired": true
     },
     {
       "aliases": [
@@ -140415,7 +140720,8 @@
       ],
       "canonicalId": "ability:b1c15182-61df-587d-b31c-868531bf477d",
       "kind": "ability",
-      "name": "Rune of Defence"
+      "name": "Rune of Defence",
+      "retired": true
     },
     {
       "aliases": [
@@ -140426,7 +140732,8 @@
       ],
       "canonicalId": "content-group:4014e03e-02b8-5768-a290-081126a28a17",
       "kind": "content-group",
-      "name": "Prayer Lore"
+      "name": "Prayer Lore",
+      "retired": true
     },
     {
       "aliases": [
@@ -140437,7 +140744,8 @@
       ],
       "canonicalId": "content-group:b7c188f8-4a80-5c73-9725-3bb251515b6e",
       "kind": "content-group",
-      "name": "Spell Lore"
+      "name": "Spell Lore",
+      "retired": true
     },
     {
       "aliases": [
@@ -141768,7 +142076,8 @@
       ],
       "canonicalId": "ability:ade1df97-326d-5cc1-be50-5900fe177f66",
       "kind": "ability",
-      "name": "Into Them, Greycaps!"
+      "name": "Into Them, Greycaps!",
+      "retired": true
     },
     {
       "aliases": [
@@ -141779,7 +142088,8 @@
       ],
       "canonicalId": "ability:942fe06b-a8e4-5f4b-b9e7-2f355d6ebca0",
       "kind": "ability",
-      "name": "Greycap Squire"
+      "name": "Greycap Squire",
+      "retired": true
     },
     {
       "aliases": [
@@ -141790,7 +142100,8 @@
       ],
       "canonicalId": "ability:56eec5c8-9444-5521-8f60-00f77a7c27bf",
       "kind": "ability",
-      "name": "Blessed Fire"
+      "name": "Blessed Fire",
+      "retired": true
     },
     {
       "aliases": [
@@ -141801,7 +142112,8 @@
       ],
       "canonicalId": "ability:f1a1e71c-acc0-5699-a5f8-149b5745bbc2",
       "kind": "ability",
-      "name": "The Raven Cult"
+      "name": "The Raven Cult",
+      "retired": true
     },
     {
       "aliases": [
@@ -141812,7 +142124,8 @@
       ],
       "canonicalId": "ability:7c2d6815-704d-54f4-9122-8b9ab4fd5354",
       "kind": "ability",
-      "name": "Sustained Bombardment"
+      "name": "Sustained Bombardment",
+      "retired": true
     },
     {
       "aliases": [
@@ -141823,7 +142136,8 @@
       ],
       "canonicalId": "ability:06c31499-322b-54ca-bfe5-c4b30801fb6b",
       "kind": "ability",
-      "name": "Veteran Batteries"
+      "name": "Veteran Batteries",
+      "retired": true
     },
     {
       "aliases": [
@@ -141878,7 +142192,8 @@
       ],
       "canonicalId": "publication:7c99fc9c-605e-5b38-bb35-d94056a6e71d",
       "kind": "publication",
-      "name": "BSData Cities of Sigmar - Lethis [LEGENDS] catalogue, main (provisional community transcription, pending official verification)"
+      "name": "BSData Cities of Sigmar - Lethis [LEGENDS] catalogue, main (provisional community transcription, pending official verification)",
+      "retired": true
     },
     {
       "aliases": [
@@ -141889,7 +142204,8 @@
       ],
       "canonicalId": "publication:ff90c935-29e1-5d79-8ee1-92101dbc753a",
       "kind": "publication",
-      "name": "BSData Cities of Sigmar - Greywater Fastness [LEGENDS] catalogue, main (provisional community transcription, pending official verification)"
+      "name": "BSData Cities of Sigmar - Greywater Fastness [LEGENDS] catalogue, main (provisional community transcription, pending official verification)",
+      "retired": true
     },
     {
       "aliases": [
@@ -141944,7 +142260,8 @@
       ],
       "canonicalId": "weapon:57c98978-0fd8-51e8-99a3-35c4c147c69e",
       "kind": "weapon",
-      "name": "Greycap Fusil-cannon"
+      "name": "Greycap Fusil-cannon",
+      "retired": true
     },
     {
       "aliases": [
@@ -141955,7 +142272,8 @@
       ],
       "canonicalId": "weapon:ab9de02b-ed00-580d-971a-21cbb19a1272",
       "kind": "weapon",
-      "name": "Greycap Bayonets"
+      "name": "Greycap Bayonets",
+      "retired": true
     },
     {
       "aliases": [
@@ -141966,7 +142284,8 @@
       ],
       "canonicalId": "weapon:5ac69c8a-b9b9-52de-b51b-3bf5eea0be3c",
       "kind": "weapon",
-      "name": "Consecrator Arsenal"
+      "name": "Consecrator Arsenal",
+      "retired": true
     },
     {
       "aliases": [
@@ -141977,7 +142296,8 @@
       ],
       "canonicalId": "weapon:21760984-683e-5ce1-876e-c2ad63533be4",
       "kind": "weapon",
-      "name": "Consecrator Bardiche"
+      "name": "Consecrator Bardiche",
+      "retired": true
     },
     {
       "aliases": [
@@ -141988,7 +142308,8 @@
       ],
       "canonicalId": "weapon:96387d89-80c7-5f0b-87b6-3a88e890dd6f",
       "kind": "weapon",
-      "name": "Consecrator Arsenal"
+      "name": "Consecrator Arsenal",
+      "retired": true
     },
     {
       "aliases": [
@@ -141999,7 +142320,8 @@
       ],
       "canonicalId": "weapon:57dcf766-54dd-5f89-83fd-2b0fd3523540",
       "kind": "weapon",
-      "name": "Consecrator Bardiche"
+      "name": "Consecrator Bardiche",
+      "retired": true
     },
     {
       "aliases": [
@@ -142010,7 +142332,8 @@
       ],
       "canonicalId": "weapon:4125741b-de85-5f8b-a13f-5e939f0953b4",
       "kind": "weapon",
-      "name": "Morrdan Hammer"
+      "name": "Morrdan Hammer",
+      "retired": true
     },
     {
       "aliases": [
@@ -142021,7 +142344,8 @@
       ],
       "canonicalId": "weapon:739a506e-cc5b-5df3-a79a-01c225e0da5e",
       "kind": "weapon",
-      "name": "Masterwork Cannon"
+      "name": "Masterwork Cannon",
+      "retired": true
     },
     {
       "aliases": [
@@ -142032,7 +142356,8 @@
       ],
       "canonicalId": "weapon:60510144-dee6-5397-b517-a18d14fb8845",
       "kind": "weapon",
-      "name": "Crew's Tools and Sidearms"
+      "name": "Crew's Tools and Sidearms",
+      "retired": true
     },
     {
       "aliases": [

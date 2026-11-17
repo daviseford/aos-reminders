@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-11-10.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-11-17.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-11-10-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-11-17-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -120,7 +120,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
   })
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
-    expect(AOS4_CATALOG.entities).toHaveLength(12_250)
+    expect(AOS4_CATALOG.entities).toHaveLength(12_029)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -160,7 +160,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 12,250 entities', () => {
+  it('reports no missing provenance for any of the 12,029 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -172,7 +172,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(12_250)
+    ).toHaveLength(12_029)
   })
 })
 
@@ -205,17 +205,21 @@ describe('AoS 4 catalog generation integrity', () => {
         // Legends catalogues) and un-ignores the Runewright's Rhythmic Hammering (RU page 55).
         // Its faction variants add Khazalite Holds copies of Lofnir Drothkeepers, The Duardin Ascendant
         // and The Chosen Axes (36 entities, Blazing Vengeance among them). Corpus 2026-11-10 re-pins the
-        // Khazalite Holds BSData catalogues at main, one keyword record fewer (#1757).
+        // Khazalite Holds BSData catalogues at main, one keyword record fewer (#1757). Corpus 2026-11-17
+        // (#1757) removes every BSData input after the takedown: the 36 Khazalite Holds and four Legends
+        // units stay (all but the two seasonal warscrolls the official Scourge of Aqshy pack prints) as profile-only warscrolls, their BSData-only rules and the faction's battletome
+        // rules leave (130 abilities, 61 weapons), and the three translated-card dispositions go with
+        // their source.
         warscrolls: 1368,
         battleProfiles: 1060,
-        abilities: 5482,
-        weapons: 2375,
-        sourceArtifacts: 249,
-        sourceRecords: 21232,
-        ignoredSourceRecords: 21161,
+        abilities: 5352,
+        weapons: 2314,
+        sourceArtifacts: 241,
+        sourceRecords: 20788,
+        ignoredSourceRecords: 21158,
       },
       integrity: {
-        consumedSourceRecords: 21223,
+        consumedSourceRecords: 20782,
         issues: [],
         supersededSourceRecords: {
           count: 21152,
@@ -227,15 +231,12 @@ describe('AoS 4 catalog generation integrity', () => {
     // (customer report 2026-07-31). Corpus 2026-10-20b (#2087) ignores three more: the Khazalite
     // Holds cards translated from the French edition, which stay absent (not supported) until an
     // English source prints them. Everything else stays fully consumed.
-    const translated = [
-      'source-record:bsdata:2427ed7e1384c24bb86041137de36947391f9680b5baa35d1c0e9618e5cbfd0d%3Aoption%3Abattle-traits-throngankor-alliance%3Aability%3A4',
-      'source-record:bsdata:9f65b0d4dcdd58c8823349a5b0bd55505b8f269c7460b87df24d24ac3bfb227c%3Aunit%3Aauric-runefather-on-magmadroth%3Aability%3A2',
-      'source-record:bsdata:949681f85edc2e98c9e43a63eb11fc58b8f7522e6c9c4fd134122df1181516b7%3Aoption%3Abattle-traits-khazalite-holds%3Aability%3A8',
-    ]
+    // Corpus 2026-11-17 (#1757) removes the BSData catalogues those three cards came from.
+    const translated: string[] = []
     // Corpus 2026-10-26 ignored Rhythmic Hammering as source-blocked; corpus 2026-10-29 consumes it
     // again because the October 2026 Rules Updates (page 55) print its Reaction label (#1757).
     const sourceBlocked: string[] = []
-    expect(report.integrity.dispositions).toHaveLength(9)
+    expect(report.integrity.dispositions).toHaveLength(6)
     report.integrity.dispositions.forEach(disposition => {
       expect(disposition.status).toBe('ignored')
       if (translated.includes(disposition.sourceRecordId)) {
@@ -251,7 +252,7 @@ describe('AoS 4 catalog generation integrity', () => {
     })
     expect(
       report.integrity.dispositions.filter(disposition => translated.includes(disposition.sourceRecordId))
-    ).toHaveLength(3)
+    ).toHaveLength(0)
     ;[...translated, ...sourceBlocked].forEach(id =>
       expect(AOS4_FULL_CATALOG.sourceRecords.map(record => record.id)).not.toContain(id)
     )
@@ -329,8 +330,9 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    // Corpus 2026-10-20b (#2087) adds the six Khazalite Holds BSData catalogues.
-    expect(acceptedManifest.artifacts).toHaveLength(249)
+    // Corpus 2026-10-20b (#2087) adds the six Khazalite Holds BSData catalogues; corpus 2026-11-17
+    // (#1757) removes all eight BSData catalogues after the takedown.
+    expect(acceptedManifest.artifacts).toHaveLength(241)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
@@ -347,31 +349,11 @@ describe('AoS 4 catalog generation integrity', () => {
     // that carried Krong the Club's rules text (issue #1999) all retired once a pinned Wahapedia
     // page published the same content (2026-08-01d, 2026-08-28b, 2026-09-25, and the 2026-09-30
     // Ossiarch Bonereapers re-pin, issue #2037).
-    const bsDataArtifacts = acceptedManifest.artifacts.filter(
-      artifact => artifact.adapterVersion === 'bsdata-cat/1'
+    // Corpus 2026-11-17 (#1757): BSData/age-of-sigmar-4th was taken down (Games Workshop DMCA notice,
+    // 2026-11-12), so the accepted corpus pins no BSData catalogue at all.
+    expect(acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'bsdata-cat/1')).toEqual(
+      []
     )
-    expect(
-      bsDataArtifacts.map(artifact => decodeURIComponent(artifact.finalUrl.split('/').pop()!)).sort()
-    ).toEqual([
-      // Corpus 2026-10-29 (#1757): two Cities of Sigmar Legends catalogues at BSData main 6909c140
-      // carry four White Dwarf Legends units no other accepted source prints.
-      'Cities of Sigmar - Greywater Fastness [LEGENDS].cat',
-      'Cities of Sigmar - Lethis [LEGENDS.cat',
-      'Khazalite Holds - Fyrd of Fyrepeak.cat',
-      'Khazalite Holds - Library.cat',
-      'Khazalite Holds - Throngankor Alliance.cat',
-      'Khazalite Holds.cat',
-      'Lores.cat',
-      'Regiments of Renown.cat',
-    ])
-    bsDataArtifacts.forEach(artifact => {
-      const file = decodeURIComponent(artifact.finalUrl.split('/').pop()!)
-      expect(artifact.finalUrl).toContain(
-        file.startsWith('Cities of Sigmar - ')
-          ? '/BSData/age-of-sigmar-4th/6909c1401ee52c63b5187a7c2d00fb34190479bd/'
-          : '/BSData/age-of-sigmar-4th/487e2d9fcdd94ff8ec684ebf33de91149db58da9/'
-      )
-    })
     const htmlArtifacts = acceptedManifest.artifacts.filter(
       artifact => artifact.adapterVersion === 'wahapedia-html/1'
     )
@@ -411,12 +393,8 @@ describe('AoS 4 catalog generation integrity', () => {
     // 2026-09-30 re-pin (#2037) retired the last one; corpus 2026-10-20b (#2087) adds the six
     // Khazalite Holds BSData catalogues, each titled provisional; corpus 2026-10-29 (#1757) adds two
     // Cities of Sigmar Legends catalogues.
-    const community = AOS4_FULL_CATALOG.sourceArtifacts.filter(artifact => artifact.publisher === 'other')
-    expect(community).toHaveLength(8)
-    community.forEach(artifact => {
-      expect(artifact.authority).toEqual({ kind: 'community' })
-      expect(artifact.title).toMatch(/^BSData .*provisional/)
-    })
+    // Corpus 2026-11-17 (#1757) removes all eight after the BSData takedown.
+    expect(AOS4_FULL_CATALOG.sourceArtifacts.filter(artifact => artifact.publisher === 'other')).toEqual([])
     expect(AOS4_GENERATION_AUDIT).toMatchObject({
       attribution: 'Powered by Wahapedia',
       acknowledgedDiagnostics: [],
@@ -457,8 +435,10 @@ describe('AoS 4 catalog generation integrity', () => {
       // Corpus 2026-10-27 (#1757): Wahapedia now publishes The Emberwatch, the last profile-only fact.
       // Corpus 2026-10-29 (#1757): the October 2026 core Battle Profiles adds 15 White Dwarf Legends
       // rows (page 75); every one resolves to a shipped warscroll, so none is profile-only.
-      appliedToRuntime: 1069,
-      profileOnly: 0,
+      // Corpus 2026-11-17 (#1757): with BSData gone, 37 official unit rows (33 Khazalite Holds, four
+      // White Dwarf Legends, ledgered in profile-only-deviations.json) ship from the official row alone.
+      appliedToRuntime: 1032,
+      profileOnly: 37,
       structuredReference: 353,
     })
     expect(officialBattleProfiles.records).toHaveLength(1424)
@@ -468,7 +448,7 @@ describe('AoS 4 catalog generation integrity', () => {
     })
     expect(
       officialBattleProfiles.records.filter(record => record.disposition === 'profile-only')
-    ).toHaveLength(0)
+    ).toHaveLength(37)
   })
 
   it('does not allow superseded bulk rule rows into the live catalog', () => {
