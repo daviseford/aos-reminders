@@ -199,7 +199,9 @@ describe('official Scourge of Aqshy - Khazalite Holds warscrolls (#1757)', () =>
       'weapon:9d071f48-2414-57fe-a4f0-1fdd13b51f59',
       'weapon:f4627921-183a-570c-9f6d-cda91a44a0b7',
     ])
-    const seeingRed = contents.find(entity => entity.id === 'ability:72904354-57c8-580e-98ef-f2833e385fec')
+    const seeingRed = contents.find(
+      entity => entity.id === ('ability:72904354-57c8-580e-98ef-f2833e385fec' as CanonicalId)
+    )
     expect(seeingRed).toMatchObject({ name: 'SEEING RED', keywords: ['RAMPAGE'] })
     const flameseekers = warscroll('warscroll:03b032cd-69f8-59ff-9c87-7f40bb5b5d32')
     expect(flameseekers.rulesAvailability).toBeUndefined()
