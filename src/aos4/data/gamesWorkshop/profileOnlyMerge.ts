@@ -159,7 +159,9 @@ export const mergeOfficialProfileOnlyWarscrolls = (
       unitSize: String(fact.unitSize),
       cost: String(fact.points),
       meta: {
-        ...meta(fact.sourceRecordId, fact.factChecksum),
+        // The unit's own record (the page record serves every context the page prints, which would
+        // widen a seasonal-only row into standard play); the page is cited as official evidence.
+        ...meta(sourceRecordId('games-workshop', `${artifactChecksum}:${section}`), fact.factChecksum),
         identitySourceRecordId: entry.identitySourceRecordId,
       },
     })
