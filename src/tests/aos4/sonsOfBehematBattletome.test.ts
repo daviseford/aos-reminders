@@ -326,36 +326,11 @@ describe('Sons of Behemat battletome on the re-pinned Wahapedia pages (issue #19
     // corpus 2026-11-10); corpus 2026-10-29 (#1757)
     // adds two Cities of Sigmar Legends catalogues at main. Neither is a Sons of Behemat catalogue.
     // The exact set: any other community catalogue fails here (#1757 review C6).
-    const pinned = (commit: string, file: string) =>
-      `https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/${commit}/${file}`
+    // Corpus 2026-11-17 (#1757) removes every BSData catalogue after the takedown, so none remains.
     expect(
       AOS4_FULL_CATALOG.sourceArtifacts
         .filter(artifact => artifact.authority.kind === 'community')
         .map(artifact => artifact.sourceUrl)
-        .sort()
-    ).toEqual(
-      [
-        pinned(
-          '487e2d9fcdd94ff8ec684ebf33de91149db58da9',
-          'Khazalite%20Holds%20-%20Fyrd%20of%20Fyrepeak.cat'
-        ),
-        pinned(
-          '487e2d9fcdd94ff8ec684ebf33de91149db58da9',
-          'Khazalite%20Holds%20-%20Throngankor%20Alliance.cat'
-        ),
-        pinned('487e2d9fcdd94ff8ec684ebf33de91149db58da9', 'Lores.cat'),
-        pinned('487e2d9fcdd94ff8ec684ebf33de91149db58da9', 'Regiments%20of%20Renown.cat'),
-        pinned(
-          '6909c1401ee52c63b5187a7c2d00fb34190479bd',
-          'Cities%20of%20Sigmar%20-%20Greywater%20Fastness%20%5BLEGENDS%5D.cat'
-        ),
-        pinned(
-          '6909c1401ee52c63b5187a7c2d00fb34190479bd',
-          'Cities%20of%20Sigmar%20-%20Lethis%20%5BLEGENDS.cat'
-        ),
-        pinned('487e2d9fcdd94ff8ec684ebf33de91149db58da9', 'Khazalite%20Holds%20-%20Library.cat'),
-        pinned('487e2d9fcdd94ff8ec684ebf33de91149db58da9', 'Khazalite%20Holds.cat'),
-      ].sort()
-    )
+    ).toEqual([])
   })
 })

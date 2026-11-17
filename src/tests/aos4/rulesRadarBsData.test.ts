@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { readRulesRadarConfig } from '../../aos4/radar/config'
+import { readRulesRadarConfig, validateRulesRadarConfig } from '../../aos4/radar/config'
 import {
   observeBsDataRadar,
   type BsDataFetch,
@@ -12,7 +12,65 @@ const observedAt = '2026-07-29T20:00:00.000Z'
 const fixtures = path.join(process.cwd(), 'src', 'tests', 'fixtures', 'aos4', 'radar', 'bsdata')
 const fixture = (name: string): string => readFileSync(path.join(fixtures, name), 'utf8')
 const bytes = (value: string): Uint8Array => new TextEncoder().encode(value)
-const config = readRulesRadarConfig('data/aos4/radar/config.json', process.cwd())
+const repoConfig = readRulesRadarConfig('data/aos4/radar/config.json', process.cwd())
+// The repository disables the lane (#1757); the dormant adapter stays covered with an explicitly
+// re-enabled copy, which is what a reviewed re-enablement would produce.
+const config = {
+  ...repoConfig,
+  bsData: {
+    repository: repoConfig.bsData.repository,
+    branch: repoConfig.bsData.branch,
+    baselineSha: repoConfig.bsData.baselineSha,
+    baselineReviewedAt: repoConfig.bsData.baselineReviewedAt,
+    status: 'active' as const,
+  },
+}
+const rawConfig = (): Record<string, any> =>
+  JSON.parse(readFileSync(path.join(process.cwd(), 'data', 'aos4', 'radar', 'config.json'), 'utf8'))
+
+describe('AoS 4 Rules Radar BSData lane after the takedown (#1757)', () => {
+  it('keeps the lane disabled by a reviewed, dated decision', () => {
+    expect(repoConfig.bsData).toMatchObject({
+      status: 'disabled',
+      disabledReason: expect.stringMatching(/DMCA/),
+      disabledAt: '2026-11-17T00:00:00.000Z',
+    })
+  })
+
+  it('makes no request and raises nothing while disabled', async () => {
+    const requests: BsDataFetchRequest[] = []
+    const result = await observeBsDataRadar(
+      { config: repoConfig },
+      {
+        now: () => observedAt,
+        fetch: responseFetch(requests, { head: '{}', compare: '{}' }, { headStatus: 403 }),
+      }
+    )
+    expect(requests).toEqual([])
+    expect(result.requestCount).toBe(0)
+    expect(result.lane.events).toEqual([])
+    expect(result.observation).toBeUndefined()
+  })
+
+  it('rejects a disabled lane without its reason and an unknown status', () => {
+    const options = { rootPath: process.cwd() }
+    const disabledWithout = (field: string) => {
+      const value = rawConfig()
+      delete value.bsData[field]
+      return value
+    }
+    expect(() => validateRulesRadarConfig(disabledWithout('disabledReason'), options)).toThrow(
+      /disabledReason/
+    )
+    expect(() => validateRulesRadarConfig(disabledWithout('disabledAt'), options)).toThrow(/disabledAt/)
+    const unknown = rawConfig()
+    unknown.bsData.status = 'paused'
+    expect(() => validateRulesRadarConfig(unknown, options)).toThrow(/bsData.status/)
+    const activeWithReason = rawConfig()
+    activeWithReason.bsData.status = 'active'
+    expect(() => validateRulesRadarConfig(activeWithReason, options)).toThrow(/only valid on a disabled lane/)
+  })
+})
 
 describe('AoS 4 Rules Radar BSData observation', () => {
   it('stops after the branch lookup when the reviewed head is unchanged', async () => {

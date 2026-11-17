@@ -991,7 +991,7 @@ const squashText = (value: string): string => value.replace(/[^A-Za-z0-9]/g, '')
  * Official faction-pack options transcribed by review (#1757). Every transcribed field must appear in
  * the cited page's extracted text, so a transcription can only restate what the page prints.
  */
-const extractOfficialFactionOptionSources = (
+export const extractOfficialFactionOptionSources = (
   review: CorpusReview,
   pageTextBySourceRecordId: ReadonlyMap<string, string>
 ): BsDataFactionOptionSourceInput[] =>

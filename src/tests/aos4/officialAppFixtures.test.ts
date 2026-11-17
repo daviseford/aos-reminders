@@ -120,15 +120,17 @@ describe('official app list resolution', () => {
     // Clanguard, Magmic Fyrd), indexed like every Wahapedia Spearhead army (Saga Axeband).
     // Corpus 2026-10-20 adds Legions of Nagash to four Death factions (#1757).
     // Corpus 2026-10-20b adds the two source-supported Khazalite Holds Armies of Renown (#2087).
-    expect(containerNames).toContain('Throngankor Alliance')
-    expect(containerNames).toContain('Fyrd of Fyrepeak')
+    // Corpus 2026-11-17 (#1757) retires both after the BSData takedown.
+    expect(containerNames).not.toContain('Throngankor Alliance')
+    expect(containerNames).not.toContain('Fyrd of Fyrepeak')
     expect(containerNames).not.toContain('Throng of Valankrom')
     // Corpus 2026-10-27 adds three Wahapedia Spearhead armies (#1757).
     expect(containerNames).toEqual(
       expect.arrayContaining(['Epicurean Revellers', 'Warglutt Marauders', 'Mawseeker Mob'])
     )
-    // Corpus 2026-10-29 adds the Khazalite Holds Lofnir Drothkeepers and The Duardin Ascendant variants (#1757).
-    expect(index.containerIds.size).toBe(127)
+    // Corpus 2026-10-29 adds the Khazalite Holds Lofnir Drothkeepers and The Duardin Ascendant variants (#1757);
+    // corpus 2026-11-17 retires Fyrd of Fyrepeak and Throngankor Alliance (#1757).
+    expect(index.containerIds.size).toBe(125)
   })
 
   it('resolves an Army of Renown and the lores nested under it', () => {

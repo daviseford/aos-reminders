@@ -71,9 +71,9 @@ const BATTLETOME_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legend
   { faction: 'Kharadron Overlords', name: 'Pioneer Outpost' },
   { faction: 'Kharadron Overlords', name: 'The Duardin Ascendant', legends: true },
   { faction: 'Kharadron Overlords', name: 'The Magnate’s Crew' },
-  // Corpus 2026-10-26 (#2087): secondary-provisional, from the pinned BSData khazalite-holds catalogues.
-  { faction: 'Khazalite Holds', name: 'Fyrd of Fyrepeak' },
-  { faction: 'Khazalite Holds', name: 'Throngankor Alliance' },
+  // Corpus 2026-10-26 (#2087) shipped Fyrd of Fyrepeak and Throngankor Alliance from the pinned BSData
+  // khazalite-holds catalogues; corpus 2026-11-17 (#1757) retires both after the BSData takedown (no
+  // other source prints them), and the faction notice names them as unavailable.
   { faction: 'Kruleboyz', name: 'Big Waaagh!' },
   { faction: 'Kruleboyz', name: 'Murkvast Menagerie' },
   { faction: 'Lumineth Realm-lords', name: 'Aelementiri Conclave' },
