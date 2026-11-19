@@ -177,15 +177,18 @@ export const withExportFactionPages = (
   factionsCsv: string,
   baseUrl: string = WAHAPEDIA_DATA_EXPORT_URL
 ): WahapediaNavigationDiscovery => {
-  const listed = new Set(navigation.factionPages.map(page => page.url))
+  // Navigation and the export both print faction links without a trailing slash, the accepted
+  // manifest with one: a page's identity ignores it (#2113).
+  const pageKey = (url: string) => url.replace(/\/+$/, '').toLowerCase()
+  const listed = new Set(navigation.factionPages.map(page => pageKey(page.url)))
   const exported = factionsCsv
     .split(/\r?\n/)
     .slice(1)
     .flatMap(line => {
       const [, title, link] = line.split('|').map(value => value?.trim())
       if (!title || !link) return []
-      const url = normalizedUrl(link.endsWith('/') ? link : `${link}/`, baseUrl)
-      return /^\/aos4\/factions\/[^/]+\/$/i.test(new URL(url).pathname) && !listed.has(url)
+      const url = normalizedUrl(link, baseUrl)
+      return /^\/aos4\/factions\/[^/]+\/?$/i.test(new URL(url).pathname) && !listed.has(pageKey(url))
         ? [{ url, title }]
         : []
     })
