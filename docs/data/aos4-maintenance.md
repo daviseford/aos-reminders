@@ -16,44 +16,104 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-11-17 snapshot is defined by:
+The accepted 2026-11-19 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-11-17.json` | the 2026-11-10 manifest without its eight BSData catalogues (`BSData/age-of-sigmar-4th` was taken down by the Games Workshop DMCA notice of 2026-11-12) and with the Wahapedia Ravaged Coast rules page re-pinned at its 2026-11-17 bytes (#1757); 241 artifacts. The 2026-11-10 manifest it copies is the 2026-11-03 manifest with the six Khazalite Holds BSData catalogues re-pinned from the `khazalite-holds` branch (`5e52e2a5`, `ea96eba3`) to BSData `main` `487e2d9f`, which merged that branch on 2026-11-07 (#1757; four new checksums, two byte-identical files at their new URLs); 249 artifacts. The 2026-11-03 manifest it copies is the 2026-10-29 manifest with the 17 Wahapedia rules pages re-pinned at their 2026-11-03 bytes (same URLs; every consumed card unchanged, #1757); 249 artifacts. The 2026-10-29 manifest it copies holds the twelve official PDFs Games Workshop re-published on 2026-10-28 (publication identity continuity), drops the five delisted official documents with no successor, and pins two BSData Cities of Sigmar Legends catalogues at `main` `6909c140` (provisional community transcriptions) |
-| `data/aos4/reviews/corpus-2026-11-17.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-11-19.json` | the 2026-11-17 manifest with Games Workshop's 18 November 2026 Battle Profiles and Rules Updates in place of their 28 October predecessors (publication identity continuity), the new Battletome Supplement: Khazalite Holds, the new Wahapedia Khazalite Holds faction root and warscroll collection (published 2026-11-19 ahead of the CSV exports) and the Fyreslayers root and collection re-pinned at their 2026-11-19 bytes (#1757); 244 artifacts. The 2026-11-17 manifest it copies is the 2026-11-10 manifest without its eight BSData catalogues (`BSData/age-of-sigmar-4th` was taken down by the Games Workshop DMCA notice of 2026-11-12) and with the Wahapedia Ravaged Coast rules page re-pinned at its 2026-11-17 bytes (#1757); 241 artifacts. The 2026-11-10 manifest it copies is the 2026-11-03 manifest with the six Khazalite Holds BSData catalogues re-pinned from the `khazalite-holds` branch (`5e52e2a5`, `ea96eba3`) to BSData `main` `487e2d9f`, which merged that branch on 2026-11-07 (#1757; four new checksums, two byte-identical files at their new URLs); 249 artifacts. The 2026-11-03 manifest it copies is the 2026-10-29 manifest with the 17 Wahapedia rules pages re-pinned at their 2026-11-03 bytes (same URLs; every consumed card unchanged, #1757); 249 artifacts. The 2026-10-29 manifest it copies holds the twelve official PDFs Games Workshop re-published on 2026-10-28 (publication identity continuity), drops the five delisted official documents with no successor, and pins two BSData Cities of Sigmar Legends catalogues at `main` `6909c140` (provisional community transcriptions) |
+| `data/aos4/reviews/corpus-2026-11-19.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs; `retired: true` keeps a rule the source no longer prints registered without ever resolving to it |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-11-17-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-11-17-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-11-19-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-11-19-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
 - 29 decoded source factions: 28 playable armies (Khazalite Holds in matched play and Spearhead,
   #2087) plus the Endless Spells container
-- 1,368 warscrolls (38 profile-only, see below) and 1,060 battle profiles
-- 5,352 abilities
-- 2,314 weapons
-- 1,596 content groups
-- 241 source artifacts and 20,782 live source records
+- 1,374 warscrolls (4 profile-only, see below) and 1,059 battle profiles
+- 5,519 abilities
+- 2,370 weapons
+- 1,635 content groups
+- 244 source artifacts and 21,301 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
 - no BSData record: the three translated Khazalite Holds cards corpus 2026-10-20b ignored left with
   their catalogues in corpus 2026-11-17 (#1757)
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
-- 1,385 extracted GW battle-profile facts: 1,032 applied to runtime, 37 reviewed profile-only
-  gaps (corpus 2026-11-17: 33 Khazalite Holds and 4 White Dwarf Legends rows whose rules only
-  BSData carried; ledger `data/aos4/reviews/profile-only-deviations.json`), 314 structured
-  references, and 2 superseded (#2087: Battle Profiles - Khazalite
-  Holds (October 2026) reprints the Fjori’s Flamebearers and Gotrek Gurnisson regiment rows, so the
-  September 2026 core rows give way to it); text the core Battle Profiles strikes through is not
-  extracted (corpus 2026-09-29, #1757: the `DELETED` Stumblefoot Gargant row is no longer a fact,
-  and 34 unit facts recorded their struck notes as `struckNotes` until the October 2026
-  re-publication dropped those notes outright, corpus 2026-10-29)
+- 1,650 extracted GW battle-profile facts (1,592 effective): 1,045 applied to runtime, 4 reviewed
+  profile-only gaps (the four White Dwarf Legends rows whose rules only BSData carried; ledger
+  `data/aos4/reviews/profile-only-deviations.json`), 543 structured references and 58 superseded
+  (the October 2026 Battle Profiles - Khazalite Holds rows the November 2026 core document
+  reprints). Corpus 2026-11-19 also reads an enhancement table printed on the same page as unit
+  tables: earlier extractions silently dropped those rows (about 207 roster-option facts across
+  eleven factions in the October edition, all structured references, no runtime effect). Text the
+  core Battle Profiles strikes through is not extracted (corpus 2026-09-29, #1757)
+- the 2026-11-19 Games Workshop and Wahapedia Khazalite Holds update (#1757), on top of
+  2026-11-17. The Rules Radar alarm of 2026-11-19 reported Games Workshop's 18 November 2026
+  downloads: Battle Profiles and Rules Updates replaced their 28 October predecessors (publication
+  identity continuity, 241 review citations re-keyed page by page, the restructured regiment
+  pages resolved by content) and Battletome Supplement: Khazalite Holds is new. The certification
+  inventory then found that Wahapedia had published a Khazalite Holds faction root and warscroll
+  collection the same day (the full battletome, ahead of its CSV exports) and moved Fyreslayers out
+  of its navigation; the owner approved ingesting it in the same revision. Dispositions:
+  - Battle Profiles (18 November 2026): the Fyreslayers section is gone and a full Khazalite Holds
+    section joins the core document (new points such as Auric Flamekeeper 110 and Ormyr and
+    Ashtongue size 2; Any Grimmdron regiment options; Legends notices for 1 June 2027; one
+    Hearthguard Berzerkers row). Gotrek Gurnisson's Regiment of Renown is 270 points and Fjori's
+    Flamebearers carries a Legends notice (regiments carry no runtime points). Under the owner's
+    additive contract (#1757 comment of 2026-10-20) Fyreslayers stays selectable with its rules and
+    ids unchanged; with no official Fyreslayers row left, its 20 battle profiles fall back to the
+    Wahapedia values (same points; casing such as "Any FYRESLAYERS", one singular unit name and the
+    Vulkyn Flameseekers bases differ). The extractor learned the Khazalite Holds section title and
+    shared enhancement/unit pages; Regiment of Renown members now read a core bullet as one unit
+    of that many models.
+  - Rules Updates (18 November 2026): the Lance of Ossia errata (page 65) apply as four reviewed
+    overrides (Vengeful Outriders, Fury of Zandtos, Silent Menace, Blood-smeared Hooves); the
+    Throngankor Alliance errata, Path of the Conqueror and the new FAQs touch nothing the runtime
+    carries as a record.
+  - Wahapedia Khazalite Holds (2026-11-19): bound to the reviewed faction id `GW-KHZ` through
+    `currentWahapediaHtml.factionsWithoutExport`; the adapter reads its Spearhead armies printed as
+    `h3` headings, and a reviewed name equivalence matches "Rune Axe and Shields". The page now
+    supplies every Khazalite Holds rule, so the stopgaps retire: the official Spearhead reader,
+    the official warscroll and option pages, 27 profile-only rows (and their ledger entries), the
+    Lofnir Drothkeepers faction variant and the unavailable-rules notice. Lofnir Drothkeepers is
+    classified from the October 2026 Armies of Renown; Throngankor Alliance, Fyrd of Fyrepeak and
+    Valankrom's War Throng are battletome Armies of Renown on the `secondary-provisional` tier.
+    Official precedence: three reviewed overrides keep the official wording where the page
+    differs (Fiery Reinforcements' reserve condition, Spearhead page 6; the "this uni" typo in
+    Tough as Stone, Spearhead page 3; Skilled Drothwranglers stays passive, Armies of Renown
+    page 3), and ten field discrepancies resolve to the November Battle Profiles. Battletome
+    Supplement: Khazalite Holds (Auric Runemaster, Battlesmith, Doomseeker, Grimwrath Berzerker,
+    both Vulkite Berzerkers, three manifestations, Magmic Battleforge, Magmic Invocations) is
+    pinned as official evidence the Wahapedia copies are reconciled against.
+  - Identities: every Wahapedia Khazalite Holds record bound to a prior Khazalite Holds id only
+    when that id's own alias names the same unit (and context), option, Army of Renown or Spearhead
+    army and part, with the rule name matching inside it (same-name weapons pair by printed line):
+    372 bindings, 173 of them un-retiring ids the 2026-11-17 BSData removal had retired; 61 new
+    ids for content that never shipped for Khazalite Holds (its copy of the Saga Axeband
+    Spearhead, Valankrom's War Throng, the Fyrd of Fyrepeak and Throngankor lores, Scourge of
+    Ghyran copies and the Other Enhancements type). Two ids leave: the Khazalite Holds Magmic
+    Battleforge battle profile (Wahapedia prints none for terrain) and the old Marks of Vulcatrix
+    type group (the marks now sit under Other Enhancements). Khazalite Holds also stops borrowing the
+    Fyreslayers Magmic Invocations lore and its three manifestations (shared since corpus
+    2026-10-29) and offers its own, with their own ids, because its copies print different rules
+    (Grimmdron Priest chanters, grudge marks); a saved Khazalite Holds army that picked the
+    Fyreslayers copies shows them as unavailable, and Fyreslayers is unchanged.
+  - Enhancement rows first extracted this revision: every one matches the runtime except three
+    genuine naming differences, recorded in `data/aos4/reviews/official-naming-discrepancies.json`
+    (Argent Shards / Argent Shard, Loonshrine / Bad Moon Loonshrine, Blood Blessings of Khorne /
+    Wahapedia's "Blood Blesssings of Khorne"), and one Wahapedia mislabel: the Blades of Khorne
+    Brazen Mutation the page calls FRENZIED TASKMASTER is the official BLADE-LIMBS card (Scourge of
+    Aqshy - Blades of Khorne page 1), now a reviewed name override that also renames the card
+    players pick (pre-existing, found by the new extraction).
+  - Inventory and radar: both observers also take faction pages from Wahapedia's live
+    `Factions.csv`, so the Fyreslayers pages it still links are observed after leaving the
+    navigation.
 - the 2026-11-17 BSData removal and Ravaged Coast re-pin (#1757), on top of 2026-11-10. The
   Wahapedia Ravaged Coast page changed only the names of two Path of the Duellist cards that had
   repeated their neighbours' names (DEADLY RIPOSTE → SWIFT AS THE WILL, PRECISE THRUST →

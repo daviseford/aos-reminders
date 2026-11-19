@@ -50,6 +50,7 @@ const REGIMENTS_OF_RENOWN_OCTOBER_2026 = '39bde41dbfd564bf3e841dee7ef7133a9c5e39
 const KH_BATTLE_PROFILES = '557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29'
 const KH_REGIMENTS = '0361f30cff3152c0a4a8c29798bd960e27fbbe1e1cc64b634503ced9e8b5d9e6'
 const KH_SPEARHEAD = '2c66cb0eba59bb6ee6930e213145f4c73fbc20e9d99d9abc19b9a80876a6ce48'
+const NOVEMBER_BATTLE_PROFILES = '9665dfb25e893ea49706ecf5670e037f8c5836445b6fe8a97ec4c4bc6945a469'
 
 const entities = AOS4_FULL_CATALOG.entities
 const entityById = new Map(entities.map(entity => [entity.id, entity]))
@@ -137,7 +138,7 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
       ])
     })
 
-    it('carries the printed warscrolls with official provenance in the Spearhead context only', () => {
+    it('carries the printed warscrolls in the Spearhead context only, official wording where it differs', () => {
       // Matched-play Khazalite Holds (#2087) is reachable too, so walk only what the faction offers
       // in the Spearhead context.
       const content = reachable(
@@ -146,11 +147,28 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
         )
       )
       expect(content.length).toBeGreaterThan(50)
+      // corpus 2026-11-19 (#1757): the Wahapedia Khazalite Holds page now supplies the Spearhead content;
+      // the official pack stays the precedence source for the two reviewed overrides (pages 3 and 6).
+      const wahapediaRoot =
+        'source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fkhazalite-holds%2F%23'
       content.forEach(entity => {
         expect(entity.rulesContextIds).toEqual([spearhead.id])
         expect(entity.sourceRefs.length).toBeGreaterThan(0)
-        entity.sourceRefs.forEach(reference => expect(reference.sourceRecordId).toContain(KH_SPEARHEAD))
+        entity.sourceRefs.forEach(reference =>
+          expect(
+            reference.sourceRecordId.startsWith(wahapediaRoot) ||
+              reference.sourceRecordId.includes(KH_SPEARHEAD)
+          ).toBe(true)
+        )
       })
+      expect(
+        content
+          .filter(entity =>
+            entity.sourceRefs.some(reference => reference.sourceRecordId.includes(KH_SPEARHEAD))
+          )
+          .map(entity => `${entity.kind}:${entity.name}`)
+          .sort()
+      ).toEqual(['ability:FIERY REINFORCEMENTS', 'ability:TOUGH AS STONE'])
       const spearheadWarscroll = (name: string) =>
         content.find(entity => entity.kind === 'warscroll' && entity.name === name) as Warscroll
       const hjulda = spearheadWarscroll('Hjulda Drakkblud')
@@ -267,36 +285,40 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
         'content-group:Thengin’s Grudgesettlers',
         'publication:Regiments of Renown - Khazalite Holds',
       ])
-      expect(citing(KH_BATTLE_PROFILES)).toEqual(
-        expect.arrayContaining([
-          'publication:Battle Profiles - Khazalite Holds',
-          'content-group:Fjori’s Vengeance',
-          'content-group:Thengin’s Grudgesettlers',
-          'warscroll:Runewright',
-          'battle-profile:Runewright battle profile',
-        ])
+      // corpus 2026-11-19 (#1757): the 18 November core Battle Profiles prints the Khazalite Holds
+      // unit rows, so the pack is cited only by its publication and the two regiments.
+      expect(citing(KH_BATTLE_PROFILES).sort()).toEqual([
+        'content-group:Fjori’s Vengeance',
+        'content-group:Thengin’s Grudgesettlers',
+        'publication:Battle Profiles - Khazalite Holds',
+      ])
+      expect(citing(NOVEMBER_BATTLE_PROFILES)).toEqual(
+        expect.arrayContaining(['warscroll:Runewright', 'battle-profile:Runewright battle profile'])
       )
     })
 
-    it('retires the BSData-only Armies of Renown and ships the units profile-only (#1757)', () => {
-      // Corpus 2026-11-17: BSData was taken down, so Fyrd of Fyrepeak and Throngankor Alliance (BSData
-      // only) are retired and the faction says so; Throng of Valankrom and the translated cards stay absent.
-      const army = (name: string) =>
-        related('offers', khazaliteHolds.id).find(
-          entity =>
-            entity.kind === 'content-group' && entity.name === name && entity.groupType === 'army-of-renown'
-        )
-      ;['Fyrd of Fyrepeak', 'Throngankor Alliance', 'Throng of Valankrom'].forEach(name =>
-        expect(army(name)).toBeUndefined()
-      )
+    it('ships the battletome Armies of Renown and the units with rules from Wahapedia (#1757)', () => {
+      // Corpus 2026-11-17 retired Fyrd of Fyrepeak and Throngankor Alliance with BSData; corpus
+      // 2026-11-19 (#1757) ships them again from Wahapedia on their un-retired ids, adds Valankrom's
+      // War Throng, and retires the unavailable-rules notice. The translated cards stay absent.
+      expect(
+        related('offers', khazaliteHolds.id)
+          .filter(entity => entity.kind === 'content-group' && entity.groupType === 'army-of-renown')
+          .map(entity => `${entity.id} ${entity.name}`)
+          .sort()
+      ).toEqual([
+        'content-group:086bf1c5-b07a-51e5-b19b-05f5ef011f40 Lofnir Drothkeepers',
+        'content-group:138c6b46-1b42-52d2-8ff2-b594293edc2f Valankrom’s War Throng',
+        'content-group:28c71de6-5e89-5e14-b70b-43fa61dc793a The Duardin Ascendant',
+        'content-group:383ea3dd-b1f7-5a82-8ecc-2f949d3e6fe2 Throngankor Alliance',
+        'content-group:b7864ca0-a6e7-5b22-a58c-f9df6d8ba8a1 Fyrd of Fyrepeak',
+      ])
       ;[
         'Transport Duardin',
         'Grimnir’s Wrath Will Burn Bright!',
         "Grimnir's Wrath Will Burn Bright!",
       ].forEach(name => expect(entityNamed('ability', name)).toBeUndefined())
-      expect(khazaliteHolds.unavailableRules).toEqual(
-        expect.arrayContaining(['Armies of Renown: Fyrd of Fyrepeak, Throngankor Alliance'])
-      )
+      expect(khazaliteHolds.unavailableRules).toBeUndefined()
       const khazaliteRunefather = entities.find(
         entity =>
           entity.kind === 'warscroll' &&
@@ -305,12 +327,23 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
           !entity.rulesContextIds.includes(spearhead.id)
       )!
       expect(khazaliteRunefather).toMatchObject({ id: 'warscroll:cbdec8d3-f71c-5e8a-acf2-596d180943c7' })
-      expect(khazaliteRunefather.kind === 'warscroll' && khazaliteRunefather.rulesAvailability).toBe(
-        'profile-only'
-      )
       expect(
-        related('includes', khazaliteRunefather.id).filter(entity => entity.kind !== 'battle-profile')
-      ).toEqual([])
+        khazaliteRunefather.kind === 'warscroll' && khazaliteRunefather.rulesAvailability
+      ).toBeUndefined()
+      expect(
+        related('includes', khazaliteRunefather.id)
+          .map(entity => `${entity.kind}:${entity.name}`)
+          .sort()
+      ).toEqual([
+        'ability:BATTLE DAMAGED',
+        'ability:RAGING INFERNO',
+        'ability:VOLCANIC BLOOD',
+        'ability:WARRIOR-KINGS',
+        'battle-profile:Auric Runefather on Magmadroth battle profile',
+        'weapon:Latchkey Grandaxe',
+        'weapon:Magmadroth’s Maw, Claws and Horns',
+        'weapon:Roaring Fyrestream',
+      ])
     })
 
     it('keeps the in-force Fyreslayers points beside the Khazalite Holds profiles', () => {
@@ -335,18 +368,30 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
       expect(points('Grimhold Exile', 'Khazalite Holds')).toBe(110)
     })
 
-    it('retires both BSData Karak War Council Armoury copies with their units kept (#1757)', () => {
-      // Corpus 2026-11-17: the two weapons came only from BSData, so they leave with it; Thrynn on War
-      // Throne and High Kyng Valankrom keep their canonical warscroll ids as profile-only units.
-      ;['weapon:c3948477-8a8f-5c39-8847-cca7ebdf7e10', 'weapon:d4786c12-fe78-5ab8-b391-aeb255239457'].forEach(
-        id => expect(entityById.get(id as never)).toBeUndefined()
-      )
+    it('ships both Karak War Council Armoury copies again on their canonical ids (#1757)', () => {
+      // Corpus 2026-11-17 retired the two BSData-only weapons; corpus 2026-11-19 (#1757) un-retires them
+      // from Wahapedia, each on its own warscroll, which keeps its canonical id and now carries rules.
       ;[
-        ['warscroll:1183227a-9abb-5977-9ce1-1af7770b3524', 'Thrynn on War Throne'],
-        ['warscroll:289eea88-82c7-5c9e-80b6-5d9faae921f9', 'High Kyng Valankrom'],
-      ].forEach(([id, name]) =>
-        expect(entityById.get(id as never)).toMatchObject({ name, rulesAvailability: 'profile-only' })
-      )
+        [
+          'warscroll:1183227a-9abb-5977-9ce1-1af7770b3524',
+          'Thrynn on War Throne',
+          'weapon:c3948477-8a8f-5c39-8847-cca7ebdf7e10',
+        ],
+        [
+          'warscroll:289eea88-82c7-5c9e-80b6-5d9faae921f9',
+          'High Kyng Valankrom',
+          'weapon:d4786c12-fe78-5ab8-b391-aeb255239457',
+        ],
+      ].forEach(([id, name, weapon]) => {
+        const unit = entityById.get(id as never)
+        expect(unit).toMatchObject({ name })
+        expect(unit?.kind === 'warscroll' && unit.rulesAvailability).toBeUndefined()
+        expect(entityById.get(weapon as never)).toMatchObject({
+          kind: 'weapon',
+          name: 'Karak War Council’s Armoury',
+        })
+        expect(related('includes', id).map(entity => entity.id)).toContain(weapon)
+      })
     })
   })
 })

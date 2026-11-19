@@ -172,11 +172,11 @@ occurrence, Legends, Spearhead, General's Handbook 2026-27 (`Scourge of Aqshy`).
 
 ## Evidence on Hand
 
-- **The accepted corpus** `aos4-corpus-2026-11-17`: 29 decoded source factions (28 playable armies,
-  Khazalite Holds with partial matched-play support, plus the Endless Spells container), 1,368
-  warscrolls (38 of them profile-only: selectable with official points, no rules text, after the
-  BSData takedown), 1,060 battle profiles, 5,352 abilities, 2,314 weapons, 1,596 content groups, and
-  20,788 live source records. Checked in under
+- **The accepted corpus** `aos4-corpus-2026-11-19`: 29 decoded source factions (28 playable armies,
+  Khazalite Holds with its battletome rules from the Wahapedia Khazalite Holds pages, plus the
+  Endless Spells container), 1,374 warscrolls (4 of them profile-only: White Dwarf Legends units
+  selectable with official points, no rules text), 1,059 battle profiles, 5,519 abilities, 2,370
+  weapons, 1,635 content groups, and 21,307 live source records. Checked in under
   `src/aos4/generated/corpus/`.
 - **A beta certification** binding that corpus to a complete machine review — 87,588 results across
   43,794 source/generated pairs, zero live findings, zero `cannot-verify` outcomes. Verifiable

@@ -15,6 +15,7 @@ import {
   discoverWahapediaNavigation,
   discoverWahapediaWarscrollCollection,
   WAHAPEDIA_DATA_EXPORT_URL,
+  withExportFactionPages,
 } from '../../aos4/review/wahapediaObservation'
 import {
   DEFAULT_RETRIES,
@@ -499,3 +500,31 @@ const fullObservationAcquire = (
     }
   }
 }
+
+describe('faction pages linked from Factions.csv (#1757, 2026-11-19)', () => {
+  const navigation = {
+    rulesPages: [{ url: 'https://wahapedia.ru/aos4/the-rules/the-core-rules/', title: 'Core Rules' }],
+    factionPages: [{ url: 'https://wahapedia.ru/aos4/factions/khazalite-holds/', title: 'Khazalite Holds' }],
+    exportSpecificationUrl: 'https://wahapedia.ru/aos4/Export%20Data%20Specs.xlsx',
+  }
+  const csv = [
+    'id|name|link|',
+    'FY|Fyreslayers|https://wahapedia.ru/aos4/factions/fyreslayers|',
+    'KHZ|Khazalite Holds|https://wahapedia.ru/aos4/factions/khazalite-holds|',
+    'XX|Not a faction|https://wahapedia.ru/aos4/the-rules/the-core-rules|',
+    '',
+  ].join('\r\n')
+
+  it('adds an exported faction page the navigation dropped, once, with a trailing slash', () => {
+    expect(withExportFactionPages(navigation, csv).factionPages).toEqual([
+      { url: 'https://wahapedia.ru/aos4/factions/fyreslayers/', title: 'Fyreslayers' },
+      { url: 'https://wahapedia.ru/aos4/factions/khazalite-holds/', title: 'Khazalite Holds' },
+    ])
+  })
+
+  it('leaves the navigation unchanged when the export links nothing new', () => {
+    expect(withExportFactionPages(navigation, 'id|name|link|\n').factionPages).toEqual(
+      navigation.factionPages
+    )
+  })
+})

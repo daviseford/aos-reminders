@@ -11,7 +11,8 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * Legions: the extra point a reinforced unit with more than half its models used to cost. The
  * pinned Wahapedia pages predated the erratum; the re-pinned root and collection pages print it,
  * so the corrected text ships from the page itself, without an override. The Lance of Ossia
- * abilities keep their surcharge: page 64 does not name them and the page still prints it.
+ * abilities kept their surcharge (page 64 does not name them) until corpus 2026-11-19 (#1757): the
+ * 18 November 2026 Rules Updates page 65 removes it, shipped through reviewed overrides.
  *
  * The re-pinned root page also wraps the Scourge of Ghyran battle formations and lore in its
  * Legendary styling. Official Scourge of Ghyran - Ossiarch Bonereapers page 1 prints them as
@@ -24,6 +25,8 @@ const RE_PINNED_ROOT = 'artifact:sha256:226fe0b4b6336cd9518d7efd6ef48bec7780bd32
 const RE_PINNED_COLLECTION =
   'artifact:sha256:cf6d569a19edf06fe3e291589c58b4d4c48ceb6816e0d2d39fefa4f9bc0fd1f1'
 const SURCHARGE = /reinforced and has more than half of its starting models/
+const NOVEMBER_RULES_UPDATES_PAGE_65 =
+  'source-record:games-workshop:d78cb5c2bf1bdbd72a04804f3f7872bdf3a307a910ee1b0e51bea93ba9673fda%3Apage%3A65'
 
 const entityById = new Map<string, ContentEntity>(
   AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity])
@@ -85,18 +88,46 @@ describe('Ossiarch Bonereapers September 2026 Rules Updates page 64 (#2037)', ()
     expect(katakros.timings.map(timing => timing.raw)).toEqual(['Any Combat Phase'])
   })
 
+  // corpus 2026-11-19 (#1757): the November 2026 Rules Updates page 65 drops the Lance of Ossia
+  // surcharge and rewords the declare steps; reviewed overrides ship the printed text.
   it.each([
-    ['ability:1cc1cbd2-23e1-5741-ac02-0e13461db4c5', 'VENGEFUL OUTRIDERS'],
-    ['ability:3c26fbf7-0d57-555a-86de-b1bf803bc849', 'FURY OF ZANDTOS'],
-    ['ability:59b31e18-1482-5bb2-a0c6-54640b0536c1', 'SILENT MENACE'],
-    ['ability:a8b3634f-afa1-5b34-b626-b0c9a4100f5b', 'BLOOD-SMEARED HOOVES'],
-  ])('keeps the Lance of Ossia surcharge page 64 does not remove on %s (%s)', (id, name) => {
-    const lance = ability(id)
-    expect(lance.name).toBe(name)
-    expect(lance.text.effect).toMatch(
-      /If the target is reinforced and has more than half of its starting models, spend 2 relentless discipline points instead\./
-    )
-  })
+    [
+      'ability:1cc1cbd2-23e1-5741-ac02-0e13461db4c5',
+      'VENGEFUL OUTRIDERS',
+      'Pick a friendly LANCE OF OSSIA unit that has not used a RELENTLESS DISCIPLINE ability this phase to use this ability',
+      'Spend 1 relentless discipline point. Add 2" to that unit’s Move characteristic for the rest of the phase.',
+    ],
+    [
+      'ability:3c26fbf7-0d57-555a-86de-b1bf803bc849',
+      'FURY OF ZANDTOS',
+      'Pick a friendly LANCE OF OSSIA unit that charged this turn and that has not used a RELENTLESS DISCIPLINE ability this phase to use this ability.',
+      'Spend 1 relentless discipline point. That unit’s melee weapons, including Companion weapons, have Crit (2 Hits) for the rest of the turn.',
+    ],
+    [
+      'ability:59b31e18-1482-5bb2-a0c6-54640b0536c1',
+      'SILENT MENACE',
+      undefined,
+      'Spend 1 relentless discipline point. The target cannot use the ‘Redeploy’ command for the rest of the turn.',
+    ],
+    [
+      'ability:a8b3634f-afa1-5b34-b626-b0c9a4100f5b',
+      'BLOOD-SMEARED HOOVES',
+      'Pick a friendly LANCE OF OSSIA unit that charged this turn and has not used a RELENTLESS DISCIPLINE ability this phase to use this ability.',
+      'Spend 1 relentless discipline point. Add 1 to the Rend characteristic of that unit’s weapons, including Companion weapons, for the rest of the turn.',
+    ],
+  ])(
+    'ships the November Rules Updates page 65 Lance of Ossia erratum on %s (%s)',
+    (id, name, declare, effect) => {
+      const lance = ability(id)
+      expect(lance.name).toBe(name)
+      expect(lance.text.declare).toBe(declare)
+      expect(lance.text.effect).toBe(effect)
+      expect(lance.text.effect).not.toMatch(SURCHARGE)
+      expect(lance.sourceRefs.map(reference => reference.sourceRecordId)).toContain(
+        NOVEMBER_RULES_UPDATES_PAGE_65
+      )
+    }
+  )
 
   it('shows the corrected battle traits in an Ossiarch Bonereapers army’s reminders', () => {
     const faction = AOS4_FULL_CATALOG.entities.find(

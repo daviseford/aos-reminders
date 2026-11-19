@@ -22,6 +22,7 @@ import { createAos4BuilderViewModel } from '../../aos4/view'
 const OFFICIAL_ARMIES_OF_RENOWN: Array<{ faction: string; name: string }> = [
   { faction: 'Daughters of Khaine', name: 'The Croneseer’s Pariahs' },
   { faction: 'Fyreslayers', name: 'Lofnir Drothkeepers' },
+  { faction: 'Khazalite Holds', name: 'Lofnir Drothkeepers' },
   { faction: 'Kharadron Overlords', name: 'Grundstok Expeditionary Force' },
   { faction: 'Sylvaneth', name: 'The Evergreen Hunt' },
   { faction: 'Stormcast Eternals', name: 'Draconith Skywing' },
@@ -72,8 +73,11 @@ const BATTLETOME_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legend
   { faction: 'Kharadron Overlords', name: 'The Duardin Ascendant', legends: true },
   { faction: 'Kharadron Overlords', name: 'The Magnate’s Crew' },
   // Corpus 2026-10-26 (#2087) shipped Fyrd of Fyrepeak and Throngankor Alliance from the pinned BSData
-  // khazalite-holds catalogues; corpus 2026-11-17 (#1757) retires both after the BSData takedown (no
-  // other source prints them), and the faction notice names them as unavailable.
+  // khazalite-holds catalogues; corpus 2026-11-17 (#1757) retired both after the BSData takedown.
+  // Corpus 2026-11-19 (#1757): the Wahapedia Khazalite Holds page prints them and Valankrom's War Throng.
+  { faction: 'Khazalite Holds', name: 'Fyrd of Fyrepeak' },
+  { faction: 'Khazalite Holds', name: 'Throngankor Alliance' },
+  { faction: 'Khazalite Holds', name: 'Valankrom’s War Throng' },
   { faction: 'Kruleboyz', name: 'Big Waaagh!' },
   { faction: 'Kruleboyz', name: 'Murkvast Menagerie' },
   { faction: 'Lumineth Realm-lords', name: 'Aelementiri Conclave' },
@@ -104,7 +108,8 @@ const BATTLETOME_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legend
 // Fyreslayers Armies of Renown the October 2026 publications re-target; Fyreslayers keeps the
 // originals. A variant reuses its original's classification entry, so it adds no review entry.
 const FACTION_VARIANT_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legends?: true }> = [
-  { faction: 'Khazalite Holds', name: 'Lofnir Drothkeepers' },
+  // Corpus 2026-11-19 (#1757): Khazalite Holds' Lofnir Drothkeepers now comes from its own Wahapedia
+  // page, classified from the official Armies of Renown (listed with the official armies).
   { faction: 'Khazalite Holds', name: 'The Duardin Ascendant', legends: true },
 ]
 const ALL_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legends?: true }> = [
@@ -166,7 +171,8 @@ describe('Armies of Renown as a top-level replacing choice', () => {
         expect(entry.reason).toMatch(/three-tier source policy|secondary source's own classification/)
       }
     })
-    expect(review.armiesOfRenown.filter(entry => entry.evidenceTier === undefined)).toHaveLength(24)
+    // corpus 2026-11-19 (#1757): + Khazalite Holds Lofnir Drothkeepers (official Armies of Renown pp3-4).
+    expect(review.armiesOfRenown.filter(entry => entry.evidenceTier === undefined)).toHaveLength(25)
   })
 
   it('offers each faction exactly its own Armies of Renown', () => {

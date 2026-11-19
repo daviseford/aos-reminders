@@ -97,6 +97,7 @@ const PROFILE_FACTIONS = [
   'Fyreslayers',
   'Idoneth Deepkin',
   'Kharadron Overlords',
+  'Khazalite Holds',
   'Lumineth Realm-lords',
   'Seraphon',
   'Stormcast Eternals',
@@ -840,11 +841,32 @@ const extractSectionFacts = (
       ),
     ]
   }
-  return items.some(
-    item => item.x >= 145 && item.x < 205 && /^U\s*NIT\s*SIZE$/i.test(item.str.replace(/\s+/g, ' ').trim())
-  )
-    ? extractUnitFacts(items, page, checksum, section.faction)
-    : extractRosterOptionFacts(items, page, checksum, section.faction)
+  const isUnitHeader = (item: PositionedItem) =>
+    item.x >= 145 && item.x < 205 && /^U\s*NIT\s*SIZE$/i.test(item.str.replace(/\s+/g, ' ').trim())
+  const isTypeHeader = (item: PositionedItem) => item.x < 60 && /^TYPE$/i.test(item.str.trim())
+  const headers = items.filter(item => isUnitHeader(item) || isTypeHeader(item)).sort((l, r) => r.y - l.y)
+  const extractTable = (tableItems: PositionedItem[], units: boolean) =>
+    units
+      ? extractUnitFacts(tableItems, page, checksum, section.faction)
+      : extractRosterOptionFacts(tableItems, page, checksum, section.faction)
+  if (!headers.some(isTypeHeader) || !headers.some(isUnitHeader)) {
+    return extractTable(items, headers.some(isUnitHeader))
+  }
+  // The November 2026 Khazalite Holds page (15) prints its enhancement table above its unit tables;
+  // an enhancement table runs from its TYPE header to the next header below; the rest is units.
+  const inRosterTable = (item: PositionedItem) =>
+    headers.some((header, index) => {
+      if (!isTypeHeader(header)) return false
+      const next = headers[index + 1]
+      return (index === 0 || item.y <= header.y + 0.5) && (!next || item.y > next.y + 0.5)
+    })
+  return [
+    ...extractTable(
+      items.filter(item => !inRosterTable(item)),
+      true
+    ),
+    ...extractTable(items.filter(inRosterTable), false),
+  ]
 }
 
 const extract = async (

@@ -967,13 +967,22 @@ const officialSubstitutionGrounds = (
     const entry = before.slice(entryStart + 1)
     // The heading is the entry's text before its first instruction; a later instruction in the same
     // entry (`... to Grimmdron � Change all instances of Magmadroth to Monster`) shares that heading.
-    const heading = entry.split(/\b(?:Change|Replace|Add|Remove|Delete|In\s+the)\b/)[0]
-    if (!anchorPatterns.some(pattern => pattern.test(heading))) return false
+    const entryHeading = entry.split(/\b(?:Change|Replace|Add|Remove|Delete|In\s+the)\b/)[0]
+    // November 2026 prints some entries without the `✹` badge: then the entry's heading is the
+    // capitals run printed directly before the instruction (`ARMY OF RENOWN, THE DUARDIN ASCENDANT
+    // (ISSUE 506) Change all instances of ...`).
+    const printedHeading = /([A-Z0-9][A-Z0-9 ,’'()&:-]{2,})\s*$/.exec(before)?.[1] ?? ''
+    const heading = anchorPatterns.some(pattern => pattern.test(entryHeading))
+      ? entryHeading
+      : anchorPatterns.some(pattern => pattern.test(printedHeading))
+        ? printedHeading
+        : undefined
+    if (heading === undefined) return false
+    const headingEnd = heading === entryHeading ? heading.length : entry.length
     // `... Do not change ...` or `... no longer ...` never instructs the rename.
     if (/\b(?:not|never|no\s+longer)\s*$/i.test(heading)) return false
     // Each instruction starts an entry or follows the `�` that ends the previous one.
-    if (!/(?:^|\uFFFD)\s*$/.test(entry.slice(heading.length)) && entry.slice(heading.length).trim())
-      return false
+    if (!/(?:^|\uFFFD)\s*$/.test(entry.slice(headingEnd)) && entry.slice(headingEnd).trim()) return false
     const substituted = secondary.replace(
       new RegExp(String.raw`\b${keywordPatternOf(match[1].trim())}${keywordEnd}`, 'gi'),
       match[2].trim()
@@ -983,6 +992,72 @@ const officialSubstitutionGrounds = (
       sourceComparableText(substituted) === sourceComparableText(value)
     )
   })
+}
+
+/**
+ * November 2026 Rules Updates list instructions (page 65, Army of Renown, The Lance of Ossia):
+ * `Remove the second sentence of the effect of the following abilities: • ‘Vengeful Outriders’ ...`
+ * and `In the declare step of the following abilities, change ‘to be the target’ to ‘to use this
+ * ability’, and in the effect, change ‘the target’ to ‘that unit’: • ‘Vengeful Outriders’ ...`.
+ * A field is grounded only when the ability is named in the instruction's own bullet list and the
+ * field is exactly the secondary field with every listed edit for it applied (and at least one).
+ */
+const LIST_ORDINALS: Record<string, number> = { first: 0, second: 1, third: 2 }
+const officialListInstructionGrounds = (
+  secondary: string | undefined,
+  field: string,
+  value: unknown,
+  officialText: string,
+  abilityName: string | undefined
+) => {
+  if (!secondary || typeof value !== 'string' || !abilityName) return false
+  const quote = "['‘’]"
+  const bulletList = String.raw`((?:\s*•\s*['‘’][^'‘’]+['‘’])+)`
+  const bulletsNameAbility = (bullets: string) =>
+    Array.from(bullets.matchAll(/•\s*['‘’]([^'‘’]+)['‘’]/g)).some(
+      bullet => sourceComparableText(bullet[1]) === sourceComparableText(abilityName)
+    )
+  const fieldOf = (printed: string) => (/declare/i.test(printed) ? 'declare' : 'effect')
+  const escape = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const edits: Array<(text: string) => string> = []
+  const removals = new RegExp(
+    String.raw`(?<!\bnot\s)\bRemove the (first|second|third) sentence of the (effect|declare step) of the following abilities:` +
+      bulletList,
+    'gi'
+  )
+  for (const match of Array.from(officialText.matchAll(removals))) {
+    if (fieldOf(match[2]) !== field || !bulletsNameAbility(match[3])) continue
+    const index = LIST_ORDINALS[match[1].toLowerCase()]
+    edits.push(text => {
+      const sentences = text.trim().split(/(?<=[.!?])\s+/)
+      return sentences.length > index ? sentences.filter((_, at) => at !== index).join(' ') : text
+    })
+  }
+  const changes = new RegExp(
+    String.raw`\bIn the (declare step|effect) of the following abilities, change ${quote}([^'‘’]+)${quote} to ${quote}([^'‘’]+)${quote}(?:, and in the (declare step|effect), change ${quote}([^'‘’]+)${quote} to ${quote}([^'‘’]+)${quote})?:` +
+      bulletList,
+    'gi'
+  )
+  for (const match of Array.from(officialText.matchAll(changes))) {
+    if (!bulletsNameAbility(match[7])) continue
+    const pairs: Array<[string, string, string]> = [[match[1], match[2], match[3]]]
+    if (match[4]) pairs.push([match[4], match[5], match[6]])
+    pairs
+      .filter(([printed]) => fieldOf(printed) === field)
+      .forEach(([, from, to]) =>
+        edits.push(text =>
+          text.replace(new RegExp(String.raw`\b${escape(from)}\b`, 'gi'), found =>
+            /^[A-Z]/.test(found) ? to.charAt(0).toUpperCase() + to.slice(1) : to
+          )
+        )
+      )
+  }
+  if (!edits.length) return false
+  const edited = edits.reduce((text, edit) => edit(text), secondary)
+  return (
+    sourceComparableText(edited) !== sourceComparableText(secondary) &&
+    sourceComparableText(edited) === sourceComparableText(value)
+  )
 }
 
 /**
@@ -1403,9 +1478,19 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
           evidenceJsonValue(pair)?.value.typeName,
           evidenceJsonValue(pair)?.value.name,
         ].filter((anchor): anchor is string => typeof anchor === 'string')
+        const abilityName = evidenceJsonValue(pair)?.value.name
+        const listGrounded = (field: string, value: unknown) =>
+          officialListInstructionGrounds(
+            secondaryFieldsForSubstitution[field],
+            field,
+            value,
+            officialText,
+            typeof abilityName === 'string' ? abilityName : undefined
+          )
         Object.entries(override.value.text).forEach(([field, value]) => {
           if (
             fieldIsOfficialReplacement(value) ||
+            listGrounded(field, value) ||
             officialEvidencePrintsEdits(secondaryText, value, officialText) ||
             officialSubstitutionGrounds(
               secondaryFieldsForSubstitution[field],
@@ -1450,7 +1535,17 @@ const officialOverrideChecks = (pair: ReviewPacketPair): FailedCheck[] => {
                 sourceComparableText(secondaryFields[field]) === sourceComparableText(value))
           ) &&
           Object.values(override.value.text).some(value => fieldIsOfficialReplacement(value))
-        if (!officialContributions.length && !officialDeletion) {
+        // A list instruction (`Remove the second sentence ...`, `change ‘X’ to ‘Y’ ...`) is itself
+        // the official contribution when it grounds every field the override changed.
+        const listInstructionOverride =
+          Object.entries(override.value.text).some(([field, value]) => listGrounded(field, value)) &&
+          Object.entries(override.value.text).every(
+            ([field, value]) =>
+              listGrounded(field, value) ||
+              (secondaryFields[field] !== undefined &&
+                sourceComparableText(secondaryFields[field]) === sourceComparableText(value))
+          )
+        if (!listInstructionOverride && !officialContributions.length && !officialDeletion) {
           checks.push(
             failed(
               'official-override.ability-text.evidence',

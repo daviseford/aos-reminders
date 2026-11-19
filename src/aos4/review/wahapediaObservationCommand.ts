@@ -17,6 +17,7 @@ import {
   discoverWahapediaExportUrls,
   discoverWahapediaNavFragmentUrl,
   discoverWahapediaNavigation,
+  withExportFactionPages,
   discoverWahapediaWarscrollCollection,
   WAHAPEDIA_DATA_EXPORT_URL,
   type WahapediaObservedSource,
@@ -320,10 +321,24 @@ export const observeWahapediaSources = async (
     const navFragment = await fetchSource(htmlRequest(navFragmentUrl, timeoutMs))
     navFragmentHtml = new TextDecoder('utf-8', { fatal: true }).decode(navFragment.bytes)
   }
-  const navigation = discoverWahapediaNavigation(indexHtml, index.entry.finalUrl, navFragmentHtml)
-  assertRobotsAllows(robotsPolicy, navigation.exportSpecificationUrl)
-  const specification = await fetchSource(spreadsheetRequest(navigation.exportSpecificationUrl, timeoutMs))
+  const listedNavigation = discoverWahapediaNavigation(indexHtml, index.entry.finalUrl, navFragmentHtml)
+  assertRobotsAllows(robotsPolicy, listedNavigation.exportSpecificationUrl)
+  const specification = await fetchSource(
+    spreadsheetRequest(listedNavigation.exportSpecificationUrl, timeoutMs)
+  )
   const exportUrls = discoverWahapediaExportUrls(specification.bytes)
+  // Faction pages the Factions.csv export still links are observed too (#1757, 2026-11-19).
+  const factionsCsvUrl = exportUrls.find(url => /\/Factions\.csv$/i.test(new URL(url).pathname))
+  if (factionsCsvUrl) assertRobotsAllows(robotsPolicy, factionsCsvUrl)
+  const navigation = factionsCsvUrl
+    ? withExportFactionPages(
+        listedNavigation,
+        new TextDecoder('utf-8', { fatal: true }).decode(
+          (await fetchSource(exportRequest(factionsCsvUrl, timeoutMs))).bytes
+        ),
+        index.entry.finalUrl
+      )
+    : listedNavigation
   navigation.factionPages.forEach(faction => assertRobotsAllows(robotsPolicy, faction.url))
 
   const factionAcquisitions = await mapWithConcurrency(navigation.factionPages, input.concurrency, faction =>

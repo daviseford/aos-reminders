@@ -131,12 +131,12 @@ describe('the official-first intake gate (#1820)', () => {
   it('accepts the current baseline: the accepted reconciliation passes with the recorded ledger', () => {
     const reconciliation = JSON.parse(
       readFileSync(
-        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-11-17-reconciliation.json'),
+        path.join(process.cwd(), 'data', 'aos4', 'reports', 'corpus-2026-11-19-reconciliation.json'),
         'utf8'
       )
     ) as WahapediaHtmlReconciliation
     const review = JSON.parse(
-      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-11-17.json'), 'utf8')
+      readFileSync(path.join(process.cwd(), 'data', 'aos4', 'reviews', 'corpus-2026-11-19.json'), 'utf8')
     ) as CorpusReview
     const ledger = parseProfileOnlyDeviationLedger(
       JSON.parse(readFileSync(path.join(process.cwd(), DEFAULT_PROFILE_ONLY_DEVIATIONS_PATH), 'utf8'))
@@ -144,10 +144,12 @@ describe('the official-first intake gate (#1820)', () => {
     // The last deviation, The Emberwatch (Legends), retired in corpus 2026-10-27 (#1757). Corpus
     // 2026-11-17 (#1757) ledgers the 37 official unit rows that lost their only rules source when
     // BSData was taken down: 33 Khazalite Holds rows and four White Dwarf Legends rows.
-    expect(reconciliation.unmatchedOfficialUnitFacts).toHaveLength(37)
-    expect(ledger.deviations).toHaveLength(37)
+    // corpus 2026-11-19 (#1757): Wahapedia now prints every Khazalite Holds rule, so its 33 rows retire
+    // and only the four White Dwarf Legends rows remain.
+    expect(reconciliation.unmatchedOfficialUnitFacts).toHaveLength(4)
+    expect(ledger.deviations).toHaveLength(4)
     expect(new Set(ledger.deviations.map(deviation => deviation.faction))).toEqual(
-      new Set(['Khazalite Holds', 'Warhammer Legends'])
+      new Set(['Warhammer Legends'])
     )
     ledger.deviations.forEach(deviation => expect(deviation.reason).toMatch(/BSData.*DMCA/))
     expect(

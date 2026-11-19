@@ -1041,9 +1041,12 @@ const officialMembers = (fact: GamesWorkshopRegimentOfRenownFact): Array<{ name:
       if (!match) {
         throw new Error(`Official regiment ${fact.name} lists an unreadable member ${JSON.stringify(member)}`)
       }
+      // Without "unit with M models" the number is the model count of one unit: the November 2026
+      // core rows print "• 5 Hearthguard Berzerkers" and list a second unit as its own bullet (#1757).
+      const sizedAsUnits = /\bwith\s+\d+\s+models$/.test(member)
       return {
         name: [match[2], match[3]].filter(Boolean).join(' ').trim(),
-        count: Number.parseInt(match[1], 10),
+        count: sizedAsUnits ? Number.parseInt(match[1], 10) : 1,
       }
     })
   })

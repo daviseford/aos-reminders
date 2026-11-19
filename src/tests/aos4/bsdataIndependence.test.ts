@@ -47,20 +47,44 @@ describe('BSData independence (corpus 2026-11-17, #1757)', () => {
     expect(radar.bsData.status).toBe('disabled')
   })
 
-  it('keeps the affected units selectable with their canonical ids and official points, without rules', () => {
+  it('keeps the affected units selectable with their canonical ids and official points', () => {
     const profileOnly = AOS4_CATALOG.entities.filter(
       (entity): entity is Warscroll =>
         entity.kind === 'warscroll' && entity.rulesAvailability === 'profile-only'
     )
-    expect(profileOnly).toHaveLength(38)
+    // corpus 2026-11-19 (#1757): Wahapedia now prints every Khazalite Holds rule, so only the four
+    // White Dwarf Legends units stay profile-only.
+    expect(profileOnly.map(unit => unit.id).sort()).toEqual(
+      [
+        'warscroll:800cdb59-c347-58d0-86c4-43a3e435b372',
+        'warscroll:d0d201ac-d051-520b-a880-1b086709de81',
+        GREYCAP_FUSILIERS,
+        RAVEN_PRIEST,
+      ].sort()
+    )
     profileOnly.forEach(unit => {
       expect(includes(unit.id).filter(entity => entity.kind !== 'battle-profile')).toEqual([])
       const profiles = includes(unit.id).filter(entity => entity.kind === 'battle-profile')
       expect(profiles).toHaveLength(1)
     })
+    // corpus 2026-11-19 (#1757): Clanshields keeps its canonical id and points and carries its
+    // Wahapedia rules again.
     const clanshields = warscroll(CLANSHIELDS)
-    expect(clanshields).toMatchObject({ name: 'Clanshields', rulesAvailability: 'profile-only' })
-    expect(includes(CLANSHIELDS)).toEqual([expect.objectContaining({ kind: 'battle-profile', points: 110 })])
+    expect(clanshields.name).toBe('Clanshields')
+    expect(clanshields.rulesAvailability).toBeUndefined()
+    expect(
+      includes(CLANSHIELDS)
+        .map(entity => `${entity.kind}:${entity.name}`)
+        .sort()
+    ).toEqual([
+      'ability:REMEMBER THEIR NAMES',
+      'ability:TOUGH AS STONE',
+      'battle-profile:Clanshields battle profile',
+      'weapon:Kromdron Weapon',
+    ])
+    expect(includes(CLANSHIELDS)).toEqual(
+      expect.arrayContaining([expect.objectContaining({ kind: 'battle-profile', points: 110 })])
+    )
 
     const khazalite = faction('Khazalite Holds')
     const selection = resolveSelection(AOS4_CATALOG, {
@@ -69,13 +93,13 @@ describe('BSData independence (corpus 2026-11-17, #1757)', () => {
     })
     expect(selection.diagnostics).toEqual([])
     expect(selection.selectedIds).toContain(CLANSHIELDS)
-    // No reminder is attributed to a unit whose rules are unavailable.
+    // corpus 2026-11-19 (#1757): its rules now project reminders, and the unavailable-rules notice retired.
     expect(
       projectReminders(AOS4_CATALOG, selection).filter(reminder =>
         reminder.contributingEntityIds.includes(CLANSHIELDS as CanonicalId)
       )
-    ).toEqual([])
-    expect(khazalite.unavailableRules).toEqual(expect.arrayContaining(['Battle traits', 'Battle formations']))
+    ).not.toEqual([])
+    expect(khazalite.unavailableRules).toBeUndefined()
   })
 
   it('offers the four Legends units profile-only in the Legends context only', () => {
@@ -95,7 +119,7 @@ describe('BSData independence (corpus 2026-11-17, #1757)', () => {
   })
 
   it('imports a Khazalite Holds list by name onto the same canonical ids', () => {
-    // Wayfarer Nomads is a retired battletome formation: the importer reports it instead of guessing.
+    // corpus 2026-11-19 (#1757): Wayfarer Nomads ships again from Wahapedia on its un-retired id.
     const { parsedRoster } = decodeAos4TextRoster(
       [
         'Khazalite Holds',
@@ -114,12 +138,10 @@ describe('BSData independence (corpus 2026-11-17, #1757)', () => {
       createDocumentId: () => 'army:bsdata-independence',
     })
     expect(preview.matches.find(match => match.label === 'Clanshields')?.canonicalId).toBe(CLANSHIELDS)
-    expect(preview.diagnostics).toEqual(
-      expect.arrayContaining([expect.objectContaining({ code: 'unknown-selection', line: 2 })])
+    expect(preview.matches.find(match => match.label === 'Wayfarer Nomads')?.canonicalId).toBe(
+      'content-group:6cd722cd-d8b6-5afd-af87-45c19fd92ab5'
     )
-    expect(preview.diagnostics).toEqual(
-      expect.arrayContaining([expect.objectContaining({ code: 'unknown-selection' })])
-    )
+    expect(preview.diagnostics.map(diagnostic => diagnostic.code)).toEqual(['unsupported-context'])
   })
 
   it('ships both Khazalite Holds regiments from the official Rules of Renown pack', () => {

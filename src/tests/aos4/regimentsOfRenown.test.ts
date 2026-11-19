@@ -463,7 +463,9 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
     // struck through, is no longer extracted as a fact.
     // From corpus 2026-10-26 (#2087) Battle Profiles - Khazalite Holds (October 2026) page 3 adds
     // four rows and, as the newer document, supersedes the September core rows for the two it reprints.
-    expect(rows).toHaveLength(78)
+    // corpus 2026-11-19 (#1757): the 18 November core Battle Profiles prints all four Khazalite Holds
+    // regiments, superseding every Battle Profiles - Khazalite Holds page 3 row: 76 core rows + 4 superseded.
+    expect(rows).toHaveLength(80)
     expect(rows.map(record => record.fact.name)).not.toContain('Stumblefoot Gargant')
     const applied = rows.filter(record => record.disposition === 'applied-to-runtime')
     expect(applied).toHaveLength(76)
@@ -479,7 +481,7 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
         .filter(record => record.disposition === 'superseded')
         .map(record => record.fact.name)
         .sort()
-    ).toEqual(['Fjori’s Flamebearers', 'Gotrek Gurnisson'])
+    ).toEqual(['Fjori’s Flamebearers', 'Fjori’s Vengeance', 'Gotrek Gurnisson', 'Thengin’s Grudgesettlers'])
     expect(
       rows
         .filter(record => record.disposition === 'structured-reference')
@@ -511,7 +513,7 @@ describe('Krong the Club from the re-pinned Wahapedia collections (issues #1999,
   const WAHAPEDIA_RECORD =
     'source-record:wahapedia:html:https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#datasheet:Krong-The-Club/warscroll'
   const BATTLE_PROFILES_PAGE =
-    'source-record:games-workshop:04211671fa23be5467277f90fbafb39a67b9c5b56e2f4a118ff3d46003ce0b67%3Apage%3A59'
+    'source-record:games-workshop:9665dfb25e893ea49706ecf5670e037f8c5836445b6fe8a97ec4c4bc6945a469%3Apage%3A59'
   const REGIMENTS_PACK_PAGE =
     'source-record:games-workshop:a5030c646f10ed0e49a7667657bf8c08feb94badc4bbfbedfa49fd25905784d4%3Apage%3A5'
   const OFFICIAL_INCLUSION = [
