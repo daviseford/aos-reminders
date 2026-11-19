@@ -350,7 +350,9 @@ describe('BSData Regiment of Renown merge (issue #1999, Krong the Club)', () => 
   })
 
   it('fails closed when the official organisation and the BSData member link disagree', () => {
-    expect(() => merge(dataset(), [official({ unitSummary: ['• 2 Mancrusher Gargant'] })])).toThrow(/members/)
+    expect(() =>
+      merge(dataset(), [official({ unitSummary: ['• 1 Mancrusher Gargant • 1 Mancrusher Gargant'] })])
+    ).toThrow(/members/)
     expect(() => merge(dataset(), [official({ unitSummary: ['• 1 Gatebreaker Mega-Gargant'] })])).toThrow(
       /members/
     )
@@ -388,6 +390,13 @@ describe('BSData Regiment of Renown merge (issue #1999, Krong the Club)', () => 
       /members/
     )
     expect(() => merge(dataset(), [oneLine('1 Mancrusher Gargant')])).toThrow(/unreadable member line/)
+  })
+
+  it('reads a November 2026 core bullet as one unit of that many models (#1757)', () => {
+    // "• 5 Hearthguard Berzerkers" is one unit of five; a second unit prints as its own bullet.
+    expect(
+      merge(dataset(), [official({ unitSummary: ['• 2 Mancrusher Gargant'] })]).dataset.warscrolls
+    ).toHaveLength(4)
   })
 
   it('resolves members within the reviewed faction when two factions share a unit name (#1757)', () => {

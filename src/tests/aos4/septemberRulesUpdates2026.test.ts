@@ -34,10 +34,10 @@ const ledger = readJson<{ records: OfficialBattleProfileRecord[] }>(
   'official-battle-profiles.json'
 )
 
-const SEPTEMBER_RULES_UPDATES = '3c422789b278cc4fbfe60ab46a0f92e4ce055501a71c34c298e3f0b6cc5ccfbe'
+const SEPTEMBER_RULES_UPDATES = 'd78cb5c2bf1bdbd72a04804f3f7872bdf3a307a910ee1b0e51bea93ba9673fda'
 // Games Workshop re-uploaded the September 2026 core Battle Profiles on 2026-09-25 (same title
 // and date; Khainite Shadowstalkers 100 -> 130 points); corpus 2026-09-25 re-pinned it (#1999).
-const SEPTEMBER_BATTLE_PROFILES = '04211671fa23be5467277f90fbafb39a67b9c5b56e2f4a118ff3d46003ce0b67'
+const SEPTEMBER_BATTLE_PROFILES = '9665dfb25e893ea49706ecf5670e037f8c5836445b6fe8a97ec4c4bc6945a469'
 const KHAZALITE_BATTLE_PROFILES = '557e149b1a71cff84b10276d0f46db26bb83533cb0e5a148a30cd6999ff49f29'
 
 const entityById = new Map<string, ContentEntity>(
@@ -152,10 +152,17 @@ describe('the September 2026 Games Workshop update (#1757)', () => {
 
   it('takes every battle profile from the September 2026 core document', () => {
     const effective = ledger.records.filter(record => record.status === 'effective')
-    // Corpus 2026-10-26 (#2087) also applies Battle Profiles - Khazalite Holds (October 2026).
+    // Corpus 2026-10-26 (#2087) also applied Battle Profiles - Khazalite Holds (October 2026).
+    // corpus 2026-11-19 (#1757): the 18 November core document prints Khazalite Holds itself, so every
+    // Khazalite Holds pack row is superseded and the core document is the single effective source.
     expect(new Set(effective.map(record => record.artifactChecksum))).toEqual(
-      new Set([SEPTEMBER_BATTLE_PROFILES, KHAZALITE_BATTLE_PROFILES])
+      new Set([SEPTEMBER_BATTLE_PROFILES])
     )
+    const khazalitePack = ledger.records.filter(
+      record => record.artifactChecksum === KHAZALITE_BATTLE_PROFILES
+    )
+    expect(khazalitePack).toHaveLength(58)
+    khazalitePack.forEach(record => expect(record.status).toBe('superseded'))
     // Exactly one effective official Krong the Club anchor (it was printed by both the Sons of
     // Behemat supplement and the September core document).
     const krong = ledger.records.filter(

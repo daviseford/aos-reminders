@@ -1912,6 +1912,162 @@ describe('instructed keyword substitutions in ability text (#1757)', () => {
     )
     expect(textFindings(substitutionPair(renamed, negated)).length).toBeGreaterThan(0)
   })
+
+  it('grounds the rename when the November 2026 page prints its entry without the ✹ badge', () => {
+    const november = [
+      '® RULES UPDATES NOVEMBER 2026 KHAZALITE HOLDS, VULKYN GIFTS Change all instances of Fyreslayers to',
+      'Grimmdron � Change all instances of Magmadroth to Monster � OGOR MAWTRIBES, HUSKARD ON',
+      'THUNDERTUSK Change the Beastclaw Raiders keyword to Beastclaw � WHITE DWARF The following White',
+      'Dwarf content is of Legends status: Pyrofane Cult Army of Renown (Issue 514) Custom Rigs (Issue 528)',
+      duardinEntry,
+      '� 33',
+    ].join('\n')
+    expect(textFindings(substitutionPair(renamed, november))).toEqual([])
+    // The other section's Grimmdron rename still grounds nothing for this record.
+    const grimmdron = secondary.replace('FYRESLAYERS', 'Grimmdron')
+    expect(textFindings(substitutionPair(grimmdron, november)).length).toBeGreaterThan(0)
+  })
+})
+
+describe('November 2026 Rules Updates instruction forms (#1757)', () => {
+  const textFindingsOf = (reviewPair: ReviewPacketPair) =>
+    assessAdversarialComparison(reviewPair)
+      .findings.map(finding => finding.subject.field)
+      .filter(field => /ability-text/.test(field))
+  const pairFor = (name: string, secondaryHtml: string, text: Record<string, string>, page: string) =>
+    secondaryPair(
+      'faction-ability',
+      {
+        name,
+        typeName: 'The Lance of Ossia',
+        conditionHtml: 'Your Movement Phase',
+        descriptionHtml: secondaryHtml,
+        keywordsHtml: '',
+      },
+      {
+        id: 'ability:lance',
+        kind: 'ability',
+        name,
+        abilityKind: 'active',
+        keywords: [],
+        text,
+        timings: [
+          {
+            kind: 'active',
+            perspective: 'your',
+            raw: 'Your Movement Phase',
+            window: { kind: 'turn-phase', phase: 'movement' },
+          },
+        ],
+      },
+      ['high-risk:official-override'],
+      {
+        field: 'abilityTextOverrides',
+        value: {
+          sourceRecordId: SECONDARY_SOURCE_ID,
+          text,
+          reason: 'November 2026.',
+          officialSourceRecordIds: [SOURCE_ID],
+        },
+        excerpt:
+          pageExcerpt(
+            page,
+            officialOverrideExcerptNeedles(name, [{ field: 'abilityTextOverrides', value: { text } }])
+          ) ?? '',
+        canonicalEntityId: 'ability:lance',
+      }
+    )
+  const lancePage = (instructions: string) =>
+    [
+      '® RULES UPDATES NOVEMBER 2026 ARMY OF RENOWN, THE NULL MYRIAD In the Roster Options box, change',
+      '‘Any Ossiarch Bonereapers Infantry units’ to ‘Any non-Hero Ossiarch Bonereapers Infantry units’ � ✹ NEW',
+      instructions,
+      '✹ NEW PATH TO GLORY, PATH OF THE CONQUEROR Change the timing of ‘Scholar of the Deathly Arts’ � 65',
+    ].join('\n')
+  const lanceInstructions =
+    'ARMY OF RENOWN, THE LANCE OF OSSIA Remove the second sentence of the effect of the following abilities: • ‘Vengeful Outriders’ • ‘Silent Menace’ In the declare step of the following abilities, change ‘to be the target’ to ‘to use this ability’, and in the effect, change ‘the target’ to ‘that unit’: • ‘Vengeful Outriders’'
+  const outridersHtml =
+    '<b>Declare:</b> Pick a friendly LANCE OF OSSIA unit to be the target.<br><b>Effect:</b> Spend 1 point. If the target is reinforced, spend 2 points instead. Add 2" to the target’s Move characteristic.'
+  const menaceHtml =
+    '<b>Declare:</b> Pick a friendly LANCE OF OSSIA unit to use this ability.<br><b>Effect:</b> Spend 1 point. If the target is reinforced, spend 2 points instead. The target cannot use the ‘Redeploy’ command.'
+
+  it('grounds a sentence removal and listed phrase changes for an ability the bullet list names', () => {
+    const page = lancePage(lanceInstructions)
+    expect(
+      textFindingsOf(
+        pairFor(
+          'VENGEFUL OUTRIDERS',
+          outridersHtml,
+          {
+            declare: 'Pick a friendly LANCE OF OSSIA unit to use this ability.',
+            effect: 'Spend 1 point. Add 2" to that unit’s Move characteristic.',
+          },
+          page
+        )
+      )
+    ).toEqual([])
+    // Silent Menace is in the removal list only: its effect keeps “The target”.
+    expect(
+      textFindingsOf(
+        pairFor(
+          'SILENT MENACE',
+          menaceHtml,
+          { effect: 'Spend 1 point. The target cannot use the ‘Redeploy’ command.' },
+          page
+        )
+      )
+    ).toEqual([])
+  })
+
+  it('rejects an unlisted ability, an edit the page does not print, and a negated instruction', () => {
+    const page = lancePage(lanceInstructions)
+    // Silent Menace is not in the change list, so “that unit” is not grounded for it.
+    expect(
+      textFindingsOf(
+        pairFor(
+          'SILENT MENACE',
+          menaceHtml,
+          { effect: 'Spend 1 point. That unit cannot use the ‘Redeploy’ command.' },
+          page
+        )
+      ).length
+    ).toBeGreaterThan(0)
+    // An ability the bullet list never names cannot borrow the instruction.
+    expect(
+      textFindingsOf(
+        pairFor(
+          'FURY OF ZANDTOS',
+          menaceHtml,
+          { effect: 'Spend 1 point. The target cannot use the ‘Redeploy’ command.' },
+          page
+        )
+      ).length
+    ).toBeGreaterThan(0)
+    // An extra change beside the instructed one is not grounded.
+    expect(
+      textFindingsOf(
+        pairFor(
+          'SILENT MENACE',
+          menaceHtml,
+          { effect: 'Spend 2 points. The target cannot use the ‘Redeploy’ command.' },
+          page
+        )
+      ).length
+    ).toBeGreaterThan(0)
+    const negated = lancePage(
+      lanceInstructions.replace('Remove the second sentence', 'Do not remove the second sentence')
+    )
+    expect(
+      textFindingsOf(
+        pairFor(
+          'SILENT MENACE',
+          menaceHtml,
+          { effect: 'Spend 1 point. The target cannot use the ‘Redeploy’ command.' },
+          negated
+        )
+      ).length
+    ).toBeGreaterThan(0)
+  })
 })
 
 describe('official instructions bind their card and are never negated (#1757 review K1-K3)', () => {

@@ -167,6 +167,32 @@ export const discoverWahapediaNavigation = (
 }
 
 /**
+ * Faction pages Wahapedia's own `Factions.csv` export links that its navigation no longer lists
+ * (2026-11-19: Fyreslayers left the navigation when Khazalite Holds arrived, yet the export still
+ * links its page, which stays published). Discovery stays independent of the accepted manifest:
+ * both surfaces are Wahapedia's own, and a page in neither is still missing or unexpected (#1757).
+ */
+export const withExportFactionPages = (
+  navigation: WahapediaNavigationDiscovery,
+  factionsCsv: string,
+  baseUrl: string = WAHAPEDIA_DATA_EXPORT_URL
+): WahapediaNavigationDiscovery => {
+  const listed = new Set(navigation.factionPages.map(page => page.url))
+  const exported = factionsCsv
+    .split(/\r?\n/)
+    .slice(1)
+    .flatMap(line => {
+      const [, title, link] = line.split('|').map(value => value?.trim())
+      if (!title || !link) return []
+      const url = normalizedUrl(link.endsWith('/') ? link : `${link}/`, baseUrl)
+      return /^\/aos4\/factions\/[^/]+\/$/i.test(new URL(url).pathname) && !listed.has(url)
+        ? [{ url, title }]
+        : []
+    })
+  return { ...navigation, factionPages: uniqueLinks([...navigation.factionPages, ...exported]) }
+}
+
+/**
  * The `.datasheetsCollated` link block Wahapedia used to print on every faction root page is gone
  * from the live site (observed 2026-09-22: the faction page's own nav column now anchors
  * `#Warscrolls` to an inline section instead of linking the standalone collection page). The

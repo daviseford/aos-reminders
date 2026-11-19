@@ -11,7 +11,7 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  * corrected rule, the reprint), so each also cites the September document.
  */
 
-const RULES_UPDATES = '3c422789b278cc4fbfe60ab46a0f92e4ce055501a71c34c298e3f0b6cc5ccfbe'
+const RULES_UPDATES = 'd78cb5c2bf1bdbd72a04804f3f7872bdf3a307a910ee1b0e51bea93ba9673fda'
 
 const entityById = new Map<string, ContentEntity>(
   AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity])
@@ -77,7 +77,7 @@ describe('Summon Shyish Reaper uses the September 2026 erratum for every army (#
 })
 
 describe('Summon Unholy Reliquary uses the September 2026 erratum for every army (#2060)', () => {
-  // Rules Updates page 70 (October 2026: page 71) names the Manifestations of the Grave lore; the owner ruled on 2026-10-01
+  // Rules Updates page 70 (October 2026: page 71; corpus 2026-11-19 (#1757): November 2026 page 72) names the Manifestations of the Grave lore; the owner ruled on 2026-10-01
   // that it applies to every copy, as with Summon Shyish Reaper.
   const erratum =
     'Set up an Unholy Reliquary wholly within 18" of the caster, visible to them and more than 3" from all enemy units.'
@@ -96,8 +96,9 @@ describe('Summon Unholy Reliquary uses the September 2026 erratum for every army
     expect(summon.cost).toEqual({ kind: 'spell', value: 6 })
   })
 
-  it('cites page 71 on the Knights of the Crimson Keep copy', () => {
-    expect(citesPage(ability('ability:e57cb4e8-1fe1-56ff-b093-9a76c568517e'), 71)).toBe(true)
+  it('cites page 72 on the Knights of the Crimson Keep copy', () => {
+    // corpus 2026-11-19 (#1757): the November Rules Updates inserts Ossiarch errata page 65, so later pages shift +1.
+    expect(citesPage(ability('ability:e57cb4e8-1fe1-56ff-b093-9a76c568517e'), 72)).toBe(true)
   })
 })
 
@@ -139,7 +140,8 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
       'effect',
       'Set the Attacks characteristic of the target’s Warpvolt Scourgers to 10 for the rest of the turn.',
       /On a 2\+/,
-      66,
+      // corpus 2026-11-19 (#1757): November Rules Updates page (was 66).
+      67,
     ],
     [
       'Abyssal Dweller loses its Move penalty',
@@ -179,7 +181,8 @@ describe('September 2026 Rules Updates ability text (#2060)', () => {
       'effect',
       'Until the start of your next turn, subtract 1 from wound rolls for attacks that target that friendly unit. In addition, if the chanting roll was 8+, pick 1 of the following effects:\nYou can Heal (3) the target.\nIf the target is not a MONSTER, ignore modifiers to save rolls for the target (positive and negative) until the start of your next turn.',
       /If the target is a MONSTER, Heal/,
-      75,
+      // corpus 2026-11-19 (#1757): November Rules Updates page (was 75).
+      76,
     ],
     [
       'Essence of the Gnaw targets a friendly unit',

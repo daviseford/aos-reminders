@@ -799,6 +799,49 @@ describe('Games Workshop Battle Profiles extraction', () => {
     ])
   })
 
+  it('reads a faction page whose enhancement table sits above its unit table (November 2026 Khazalite Holds)', async () => {
+    // Page 15 prints the Khazalite Holds TYPE table above its UNITS table; a page with a unit-size
+    // header used to be read as units only, silently dropping every enhancement row (#1757).
+    const result = await extractGamesWorkshopBattleProfiles(
+      new Uint8Array([1]),
+      'a'.repeat(64),
+      fakeLoader(64, {
+        15: [
+          { str: 'KHAZALITE HOLDS', x: 35, y: 800, height: 19 },
+          item('TYPE', 35.83, 760),
+          item('NAME', 151.69, 760),
+          item('POINTS', 279.04, 760),
+          item('NOTES', 324.61, 760),
+          item('Faction Terrain', 35.8, 740),
+          item('Magmic Battleforge', 151.66, 740),
+          item('0', 290.89, 740),
+          item('Battletome Supplement: Khazalite Holds.', 324.57, 740),
+          item('UNIT SIZE', 155, 700),
+          item('UNITS', 35.83, 690),
+          item('Hearthguard Berzerkers', 35.8, 660),
+          item('5', 173.84, 660),
+          item('110', 223.76, 660),
+          item('Grimmdron, Infantry', 259.39, 660),
+        ],
+      })
+    )
+
+    expect(result.diagnostics).toEqual([])
+    const page = result.facts.filter(fact => fact.page === 15)
+    expect(page.filter(fact => fact.kind === 'unit')).toEqual([
+      expect.objectContaining({ faction: 'Khazalite Holds', name: 'Hearthguard Berzerkers', points: 110 }),
+    ])
+    expect(page.filter(fact => fact.kind === 'roster-option')).toEqual([
+      expect.objectContaining({
+        faction: 'Khazalite Holds',
+        optionType: 'Faction Terrain',
+        name: 'Magmic Battleforge',
+        points: 0,
+        notes: ['Battletome Supplement: Khazalite Holds.'],
+      }),
+    ])
+  })
+
   it('reads each page section from its printed title rather than its page number', async () => {
     // The September 2026 edition gave Cities of Sigmar a fifth page, moving every later section
     // down one page: page 7 is still Cities of Sigmar, page 57 is Sons of Behemat, and the

@@ -83,21 +83,32 @@ describe('Fyreslayers armies saved before the Khazalite Holds intake (#2087)', (
     const shared = Array.from(offered(fyreslayers.id)).filter(
       id => offered(khazalite.id).has(id) && !everyArmy.has(id)
     )
-    // The Magmic Invocations lore and its three manifestations are offered to both, and since corpus
-    // 2026-10-29 (#1757) the Regiments of Renown whose October 2026 inclusion lists name Khazalite
-    // Holds (Fyreslayers keeps its offer under the owner's additive decision).
+    // Since corpus 2026-10-29 (#1757) the Regiments of Renown whose October 2026 inclusion lists name
+    // Khazalite Holds (Fyreslayers keeps its offer under the owner's additive decision). Corpus
+    // 2026-11-19 (#1757): Khazalite Holds no longer borrows the Fyreslayers Magmic Invocations lore and
+    // manifestations; it offers its own (Grimmdron Priest chanters, grudge marks), with their own ids.
     expect(shared.map(id => AOS4_CATALOG.entities.find(entity => entity.id === id)!.name).sort()).toEqual([
       'Enforcers of the Tithe',
       'Exile Scavengers',
-      'Magmic Invocations',
-      'Molten Infernoth',
       'Nurgle’s Gift',
-      'Runic Fyrewall',
       'The Blacktalons',
       'The Horizon Seekers',
       'Valnir’s Stormwing',
-      'Zharrgron Flame-spitter',
     ])
+    const named = (factionId: string, name: string) =>
+      Array.from(offered(factionId)).filter(
+        id => AOS4_CATALOG.entities.find(entity => entity.id === id)!.name === name
+      )
+    for (const name of [
+      'Magmic Invocations',
+      'Molten Infernoth',
+      'Runic Fyrewall',
+      'Zharrgron Flame-spitter',
+    ]) {
+      expect(named(fyreslayers.id, name)).toHaveLength(1)
+      expect(named(khazalite.id, name)).toHaveLength(1)
+      expect(named(khazalite.id, name)[0]).not.toBe(named(fyreslayers.id, name)[0])
+    }
   })
 })
 

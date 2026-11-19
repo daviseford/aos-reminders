@@ -1070,6 +1070,53 @@ export const extractOfficialFactionOptionSources = (
     }
   })
 
+/**
+ * A reviewed faction page the CSV exports do not list yet joins the decoded factions under its
+ * reviewed id (#1757). Fails closed unless exactly one decoded faction page carries the name, no
+ * export faction has it, and the id is unused.
+ */
+const withFactionsWithoutExport = (
+  dataset: WahapediaDecodeResult['dataset'],
+  review: CorpusReview,
+  factionPages: Array<{ factionName: string; sourceUrl: string }>,
+  manifest: { artifacts: Array<{ finalUrl: string; checksum: string }> }
+): WahapediaDecodeResult['dataset'] => {
+  const entries = review.currentWahapediaHtml?.factionsWithoutExport ?? []
+  if (!entries.length) return dataset
+  const canonicalName = (value: string) => value.replace(/[^a-z0-9]/gi, '').toLowerCase()
+  const factions = [...dataset.factions]
+  entries.forEach(entry => {
+    const pages = factionPages.filter(page => canonicalName(page.factionName) === canonicalName(entry.name))
+    if (pages.length !== 1) {
+      throw new Error(`Reviewed export-less faction ${entry.name} matches ${pages.length} faction pages`)
+    }
+    if (factions.some(faction => canonicalName(faction.name) === canonicalName(entry.name))) {
+      throw new Error(`Reviewed export-less faction ${entry.name} is already an export faction`)
+    }
+    if (factions.some(faction => faction.id === entry.factionId)) {
+      throw new Error(`Reviewed export-less faction id ${entry.factionId} is already in use`)
+    }
+    const url = pages[0].sourceUrl
+    const artifact = manifest.artifacts.find(candidate => candidate.finalUrl === url)
+    if (!artifact) throw new Error(`Reviewed export-less faction ${entry.name} page ${url} is not pinned`)
+    const value = { id: entry.factionId, name: entry.name, link: url }
+    const recordId = sourceRecordId('wahapedia', `html:${url}#faction`)
+    factions.push({
+      ...value,
+      meta: {
+        file: 'WahapediaRules.html',
+        row: 0,
+        artifactId: `artifact:sha256:${artifact.checksum}`,
+        sourceRecordId: recordId,
+        identitySourceRecordId: recordId,
+        recordChecksum: createHash('sha256').update(JSON.stringify(value), 'utf8').digest('hex'),
+        section: 'faction',
+      },
+    } as unknown as (typeof factions)[number])
+  })
+  return { ...dataset, factions }
+}
+
 /** Reviewed official warscroll pages (#1757), each read from its pinned artifact. */
 const extractOfficialWarscrollSources = async (review: CorpusReview, cache: ArtifactCache) => {
   const sources: Parameters<typeof mergeOfficialWarscrollPages>[2] = []
@@ -1577,7 +1624,7 @@ export const loadAcceptedCorpusSourceData = async (
   const wahapediaHtml = await loadWahapediaHtmlPages(manifest, review, cache)
   collectGarbage()
   const merged = mergeCurrentWahapediaWarscrollPages(
-    decoded.dataset,
+    withFactionsWithoutExport(decoded.dataset, review, wahapediaHtml.factions, manifest),
     wahapediaHtml.warscrolls,
     officialBattleProfiles.effective,
     wahapediaHtml.factions,

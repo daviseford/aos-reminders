@@ -162,6 +162,21 @@ describe('official naming-discrepancy ledger', () => {
         reason: expect.stringContaining('#1851'),
         recordedAt: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
       }),
+      // corpus 2026-11-19 (#1757): rows first extracted from enhancement tables beside unit tables.
+      ...[
+        ['Disciples of Tzeentch', 'Argent Shards', 'Argent Shard'],
+        ['Gloomspite Gitz', 'Loonshrine', 'Bad Moon Loonshrine'],
+        ['Blades of Khorne', 'Blood Blessings of Khorne', 'Blood Blesssings of Khorne'],
+      ].map(([faction, officialName, runtimeName]) =>
+        expect.objectContaining({
+          faction,
+          context: 'standard',
+          officialName,
+          runtimeName,
+          reason: expect.stringContaining('#1851'),
+          recordedAt: '2026-11-19',
+        })
+      ),
     ])
   })
 
@@ -298,11 +313,15 @@ describe('official-profile sweep', () => {
     // 2026-11-17 (#1757) adds the 13 Khazalite Holds battletome picks (Battle Profiles - Khazalite
     // Holds page 2) whose rules only BSData carried: retired after the takedown, named by the faction's
     // unavailable-rules notice.
+    // corpus 2026-11-19 (#1757): the November 2026 Battle Profiles replaces the October edition and
+    // the extractor reads enhancement tables printed beside unit tables (562 rows, 543 effective);
+    // the Wahapedia Khazalite Holds page now carries the 13 battletome picks; three new reviewed
+    // naming discrepancies, and Blade-limbs matches through its reviewed name override.
     expect(result).toMatchObject({
-      rosterOptionRecords: 353,
-      comparedRosterOptions: 353,
-      matchedByName: 327,
-      matchedByReviewedDiscrepancy: 1,
+      rosterOptionRecords: 562,
+      comparedRosterOptions: 543,
+      matchedByName: 527,
+      matchedByReviewedDiscrepancy: 4,
     })
     const byName = (left: { name?: string }, right: { name?: string }) =>
       (left.name ?? '').localeCompare(right.name ?? '')
@@ -330,24 +349,8 @@ describe('official-profile sweep', () => {
         'The Fire Devil of Greywater',
         'War Shrine',
       ]
+        // corpus 2026-11-19 (#1757): the 13 Khazalite Holds battletome picks now match the Wahapedia page.
         .map(name => ({ code: 'unmatched-roster-option', name, context: 'legends', page: 75 }))
-        .concat(
-          [
-            'Ancestor God Recitations',
-            'Deep-earth Runic Weapon',
-            'Flamescale Rune Cloak',
-            'Hearthflares',
-            'Hearthsworn Defenders',
-            'Innate Resonance',
-            'Long of Beard or Braid',
-            'Resonance of the Runes',
-            'Reverberations of the Runes',
-            'Sworn to Vengeance',
-            'Unyielding Anvil',
-            'War Callers',
-            'Wayfarer Nomads',
-          ].map(name => ({ code: 'unmatched-roster-option', name, context: 'standard', page: 2 }))
-        )
         .sort(byName)
     )
   })

@@ -12,7 +12,42 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-11-17` (issue #1757): every BSData input removed after
+The current revision is `aos4-corpus-2026-11-19` (issue #1757): Games Workshop's 18 November 2026
+Battle Profiles and Rules Updates in place of their 28 October editions, Battletome Supplement:
+Khazalite Holds pinned as official evidence, and the Wahapedia Khazalite Holds faction root and
+warscroll collection (published 2026-11-19, ingested with owner approval) with the Fyreslayers pages
+re-pinned, on top of `aos4-corpus-2026-11-17`. The manifest `accepted-2026-11-19.json` holds 244
+artifacts. Khazalite Holds now ships its battletome rules from the Wahapedia page with its existing
+canonical ids (173 retired ids restored by provenance), four profile-only units remain (White Dwarf
+Legends), and `aos4-maintenance.md` has every disposition. Its automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 11 |
+| Official battle-profile facts | 1,650/1,650 |
+| Final official/secondary reconciliation discrepancies | 387/387 |
+| Official profile-only facts (reviewed deviations) | 4/4 |
+| Live audit source records | 21,307/21,307 |
+| Ignored-record dispositions (superseded + explicit) | 21,158/21,158 |
+| Live review pairs | 44,507/44,507 |
+| Independent outcomes | 89,014 pass; 0 finding; 0 cannot-verify |
+
+The source inventory binds fresh observations taken for this intake on 2026-11-19: a
+`discover-official` snapshot observed with the reviewed classifications (165 sources, 8 explicitly
+non-material) and the Wahapedia navigation, `Factions.csv`-linked faction pages, rules pages and
+exports (90 sources, 0 inaccessible; 148 requests under `--request-budget 160` after a first attempt
+exhausted the default 128 on retries), 18:23:51Z to 18:26:40Z. Every accepted artifact matched. The
+certification is `aos4-corpus-2026-11-19-machine-r1` (campaign 2026-11-19T19:00:42Z, evaluated
+19:02:05Z); it offered `aos4-corpus-2026-11-17-machine-r2` for reuse and reused none (every pair
+re-keyed). An earlier campaign of the same inputs raised five findings the reviewer could not
+ground: the Lance of Ossia list instructions (`Remove the second sentence ... of the following
+abilities`, `change ‘X’ to ‘Y’ ...: • ‘ability’`) and a Duardin Ascendant rename whose entry lost its
+`✹` badge in November. The reviewer now reads both forms (bound to the bullet list and the printed
+entry heading, with negative controls), and the fresh campaign passed.
+
+### `aos4-corpus-2026-11-17` (superseded)
+This revision was `aos4-corpus-2026-11-17` (issue #1757): every BSData input removed after
 the Games Workshop DMCA notice of 2026-11-12 took `BSData/age-of-sigmar-4th` down, and the Wahapedia
 Ravaged Coast rules page re-pinned (two Path of the Duellist card names), on top of
 `aos4-corpus-2026-11-10`. The manifest `accepted-2026-11-17.json` holds 241 artifacts (the eight

@@ -600,6 +600,11 @@ export interface CorpusReview {
       availability?: 'regiment-of-renown'
     }>
     rulesPages?: WahapediaRulesPageReview[]
+    /**
+     * Faction pages Wahapedia publishes before its CSV exports list the faction (Khazalite Holds,
+     * 2026-11-19, #1757): each binds to the reviewed dataset faction id the corpus already uses.
+     */
+    factionsWithoutExport?: Array<{ name: string; factionId: string; reason: string }>
     reconciliation?: {
       checksum: string
       expectedPages: number
@@ -2990,7 +2995,11 @@ export const buildAos4Corpus = (
       id: choiceId,
       kind: 'content-group',
       revision: record.meta.recordChecksum,
-      name: record.name.trim(),
+      // A reviewed name override renames the card players pick, not only the ability (#1757).
+      name: (
+        abilityTextOverrides.get(overrideKey(record.meta.sourceRecordId, record.meta.variantFactionId))
+          ?.name ?? record.name
+      ).trim(),
       groupType: wrapperGroupType,
       rulesContextIds: contextsFor(record.meta),
       sourceRefs: [sourceReference(record.meta.sourceRecordId, 'selection wrapper')],

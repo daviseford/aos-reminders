@@ -90,6 +90,11 @@ const comparableOfficialName = (value: string): string =>
       .replace(/\bThe Knives of the Crone\b/i, 'Knives of the Crone')
       .replace(/\bThe Emberwatch\b/i, 'Emberwatch')
       .replace(/\bPlague Censer Bearers\b/i, 'Plague Censer Bearer')
+      // Wahapedia's Khazalite Holds collection (2026-11-19) prints "Rune Axe and Shields" (#1757).
+      .replace(
+        /\bValayan Guardians with Rune Axes and Shields\b/i,
+        'Valayan Guardians with Rune Axe and Shields'
+      )
   )
 
 const normalizedList = (values: string[]): string =>

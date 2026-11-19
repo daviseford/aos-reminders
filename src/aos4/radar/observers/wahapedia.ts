@@ -3,6 +3,7 @@ import {
   discoverWahapediaExportUrls,
   discoverWahapediaNavFragmentUrl,
   discoverWahapediaNavigation,
+  withExportFactionPages,
   WAHAPEDIA_GLOSSARY_URL,
 } from '../../review/wahapediaObservation'
 import { compareWahapediaObservation, isAcceptedWahapediaRulesPage, createRadarLane } from '../compare'
@@ -150,14 +151,14 @@ export const observeWahapediaRadar = async (
       })
       navFragmentHtml = decodeText(navFragmentArtifact, 'Wahapedia navigation fragment')
     }
-    const navigation = discoverWahapediaNavigation(
+    const listedNavigation = discoverWahapediaNavigation(
       navigationHtml,
       navigationArtifact.finalUrl,
       navFragmentHtml
     )
-    assertAllowed(navigation.exportSpecificationUrl)
+    assertAllowed(listedNavigation.exportSpecificationUrl)
     const specification = await fetch({
-      url: navigation.exportSpecificationUrl,
+      url: listedNavigation.exportSpecificationUrl,
       allowedMediaTypes: [
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'application/octet-stream',
@@ -174,6 +175,23 @@ export const observeWahapediaRadar = async (
       maxBytes: 16 * 1024,
     })
     decodeText(lastUpdate, 'Wahapedia Last_update.csv')
+    // A faction page the Factions.csv export still links is watched even after it leaves the
+    // navigation (Fyreslayers, 2026-11-19, #1757).
+    const factionsCsvUrl = exports.find(url => /\/Factions\.csv$/i.test(new URL(url).pathname))
+    let navigation = listedNavigation
+    if (factionsCsvUrl) {
+      assertAllowed(factionsCsvUrl)
+      const factionsCsv = await fetch({
+        url: factionsCsvUrl,
+        allowedMediaTypes: ['text/csv', 'text/plain'],
+        maxBytes: 1024 * 1024,
+      })
+      navigation = withExportFactionPages(
+        listedNavigation,
+        decodeText(factionsCsv, 'Wahapedia Factions.csv'),
+        navigationArtifact.finalUrl
+      )
+    }
 
     // The glossary is reviewed only at exact bytes, so it is fingerprinted by content, not by URL.
     // Navigation links it without the trailing slash the page redirects to.

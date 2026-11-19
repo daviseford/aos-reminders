@@ -610,7 +610,10 @@ const parseWahapediaWarscrollCollection = (
     return result
   }
   const pages = datasheets.flatMap((datasheet, index) => {
-    const precedingHeading = Array.from(decoded.document!.querySelectorAll('h2'))
+    // A Khazalite Holds root (2026-11-19) heads its Spearhead armies with `h3.outline_header3` (#1757).
+    const precedingHeading = Array.from(
+      decoded.document!.querySelectorAll(spearheadOnly ? 'h2, h3.outline_header3:not(.h2_pge)' : 'h2')
+    )
       .filter(heading => Boolean(heading.compareDocumentPosition(datasheet) & 4))
       .at(-1)
     const page = parseDatasheet(
@@ -1101,6 +1104,14 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
     }
     if (!inFactionRules || excludedSection) continue
     if (node.matches('h1')) continue
+    // The Khazalite Holds root (2026-11-19) prints its Spearhead army names as `h3.outline_header3`
+    // where other roots print an `h2`; its rule subsections stay `h3.h2_pge` (#1757).
+    if (node.matches('h3.outline_header3:not(.h2_pge)') && inheritedContext === 'spearhead') {
+      typeGroup = addGroup(node)
+      subgroup = undefined
+      skipSubgroup = false
+      continue
+    }
     if (node.matches('h3')) {
       skipSubgroup = /^Warscrolls$/i.test(text)
       subgroup = skipSubgroup || !typeGroup ? undefined : addGroup(node, typeGroup)
