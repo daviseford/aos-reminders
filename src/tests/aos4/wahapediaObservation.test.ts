@@ -515,9 +515,10 @@ describe('faction pages linked from Factions.csv (#1757, 2026-11-19)', () => {
     '',
   ].join('\r\n')
 
-  it('adds an exported faction page the navigation dropped, once, with a trailing slash', () => {
+  // #2113: the export link keeps its own (slashless) form; identity ignores the trailing slash.
+  it('adds an exported faction page the navigation dropped, once', () => {
     expect(withExportFactionPages(navigation, csv).factionPages).toEqual([
-      { url: 'https://wahapedia.ru/aos4/factions/fyreslayers/', title: 'Fyreslayers' },
+      { url: 'https://wahapedia.ru/aos4/factions/fyreslayers', title: 'Fyreslayers' },
       { url: 'https://wahapedia.ru/aos4/factions/khazalite-holds/', title: 'Khazalite Holds' },
     ])
   })
