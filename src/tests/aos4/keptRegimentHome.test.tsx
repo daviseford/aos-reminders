@@ -157,7 +157,8 @@ describe('a saved Fyreslayers army that kept Gotrek Gurnisson', () => {
     await renderHome()
 
     expect(storedSelections()).toContain(gotrek.id)
-    expect(container.textContent).toContain('UNSTOPPABLE BATTLE FURY')
+    // corpus 2026-11-24 (#1757): the regiment's member is now the Khazalite Holds Gotrek warscroll.
+    expect(container.textContent).toContain('A GLORIOUS DOOM')
     expect(container.textContent).toContain('Not available to this army')
   })
 

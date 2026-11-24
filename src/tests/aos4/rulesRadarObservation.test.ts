@@ -11,7 +11,11 @@ import { createRequestLimiter, mapWithConcurrency } from '../../aos4/radar/obser
 import { parseRobotsPolicy, robotsAllows } from '../../aos4/radar/observers/robots'
 import { observeWahapediaRadar, type RadarFetch } from '../../aos4/radar/observers/wahapedia'
 import { parseRulesRadarObserveArguments } from '../../aos4/radar/observeCommand'
+import { WAHAPEDIA_RETAINED_FACTION_PAGES } from '../../aos4/review/wahapediaObservation'
 import baselineFixture from '../fixtures/aos4/radar/baseline.json'
+
+// The reviewed retained Fyreslayers page is fetched once no surface lists it (#1757).
+const RETAINED_FYRESLAYERS_URL = WAHAPEDIA_RETAINED_FACTION_PAGES[0].url
 
 const observedAt = '2026-07-29T20:00:00.000Z'
 const fixtures = path.join(process.cwd(), 'src', 'tests', 'fixtures', 'aos4', 'radar')
@@ -171,11 +175,17 @@ describe('AoS 4 Rules Radar source observation', () => {
       'https://wahapedia.ru/aos4/nav.html',
       'https://wahapedia.ru/aos4/Export%20Data%20Specs.xlsx',
       config.wahapedia.lastUpdateUrl,
+      RETAINED_FYRESLAYERS_URL,
       CORE_RULES_URL,
     ])
-    expect(result.requestCount).toBe(6)
+    expect(result.requestCount).toBe(7)
     expect(result.requiresExpandedObservation).toBe(true)
-    expect(result.observation?.entries.map(entry => entry.kind)).toEqual(['faction', 'rules-page', 'export'])
+    expect(result.observation?.entries.map(entry => entry.kind)).toEqual([
+      'faction',
+      'faction',
+      'rules-page',
+      'export',
+    ])
   })
 
   it('parses inline navigation without fetching a fragment when the page has none', async () => {
@@ -209,10 +219,16 @@ describe('AoS 4 Rules Radar source observation', () => {
       config.wahapedia.navigationUrl,
       'https://wahapedia.ru/aos4/Export%20Data%20Specs.xlsx',
       config.wahapedia.lastUpdateUrl,
+      RETAINED_FYRESLAYERS_URL,
       CORE_RULES_URL,
     ])
-    expect(result.requestCount).toBe(5)
-    expect(result.observation?.entries.map(entry => entry.kind)).toEqual(['faction', 'rules-page', 'export'])
+    expect(result.requestCount).toBe(6)
+    expect(result.observation?.entries.map(entry => entry.kind)).toEqual([
+      'faction',
+      'faction',
+      'rules-page',
+      'export',
+    ])
   })
 
   describe('accepted rules pages while Last_update.csv is unchanged (#1757 follow-up)', () => {
@@ -412,6 +428,8 @@ const fixtureFetch = (
       body = specification
     } else if (request.url === config.wahapedia.lastUpdateUrl) {
       body = bytes(overrides.lastUpdate)
+    } else if (request.url === RETAINED_FYRESLAYERS_URL) {
+      body = bytes('<html></html>')
     } else if (request.url === CORE_RULES_URL && overrides.coreRules !== undefined) {
       body = bytes(overrides.coreRules)
     } else {

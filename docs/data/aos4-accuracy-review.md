@@ -12,7 +12,36 @@ full automated gate.
 
 ## Current campaign
 
-The current revision is `aos4-corpus-2026-11-19` (issue #1757): Games Workshop's 18 November 2026
+The current revision is `aos4-corpus-2026-11-24` (issue #1757): the Wahapedia 2026-11-22 21:15:57
+export refresh (68 of 87 pinned Wahapedia artifacts re-pinned; the two Fyreslayers pages, delisted but
+still served byte-identical, stay pinned and observed) on top of `aos4-corpus-2026-11-19`. The
+manifest `accepted-2026-11-24.json` holds 244 artifacts; `aos4-maintenance.md` has every disposition.
+Its automated review is complete:
+
+| Measure | Result |
+| --- | ---: |
+| Accepted artifacts independently inventoried | 244/244 |
+| Explicit non-material discovery entries | 11 |
+| Final official/secondary reconciliation discrepancies | 360/360 |
+| Live audit source records | 21,360/21,360 |
+| Ignored-record dispositions (superseded + explicit) | 21,556/21,556 |
+| Live review pairs | 44,931/44,931 |
+| Independent outcomes | 89,862 pass; 0 finding; 0 cannot-verify |
+
+The source inventory binds fresh observations taken for this intake on 2026-11-24: a
+`discover-official` snapshot observed with the reviewed classifications (165 sources, 8 explicitly
+non-material), and the Wahapedia navigation, `Factions.csv`-linked and reviewed retained faction pages,
+rules pages and exports (90 sources, 0 inaccessible, 94 requests under `--request-budget 160`),
+observed 20:42:52Z to 20:43:04Z. Every accepted artifact matched. The certification is
+`aos4-corpus-2026-11-24-machine-r1` (campaign 2026-11-24T21:21:45Z, evaluated 21:23:13Z). It is a
+fully fresh campaign with no reuse offered. An earlier fresh campaign of the first candidate
+(20:54:04Z) raised 10 findings: nine text overrides that the re-published pages now print word for
+word, and one name override citing a Rules Updates FAQ mention where the pinned Scourge of Aqshy -
+Skaven card prints another name. All ten overrides were retired before this campaign.
+
+### `aos4-corpus-2026-11-19` (superseded)
+
+This revision was `aos4-corpus-2026-11-19` (issue #1757): Games Workshop's 18 November 2026
 Battle Profiles and Rules Updates in place of their 28 October editions, Battletome Supplement:
 Khazalite Holds pinned as official evidence, and the Wahapedia Khazalite Holds faction root and
 warscroll collection (published 2026-11-19, ingested with owner approval) with the Fyreslayers pages

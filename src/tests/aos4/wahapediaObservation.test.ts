@@ -289,7 +289,12 @@ describe('Wahapedia independent source observation', () => {
     })
 
     const collectionEntries = observation.entries.filter(entry => /warscrolls\.html/.test(entry.url))
+    // The reviewed retained Fyreslayers page (#1757) derives its collection in the same way.
     expect(collectionEntries).toEqual([
+      expect.objectContaining({
+        url: 'https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html',
+        availability: 'accessible',
+      }),
       expect.objectContaining({
         url: 'https://wahapedia.ru/aos4/factions/sons-of-behemat/warscrolls.html',
         availability: 'accessible',

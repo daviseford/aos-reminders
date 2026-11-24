@@ -99,9 +99,9 @@ const certifiedRuntime = JSON.parse(
   sourceRecords: Array<{ id: string }>
 }
 
-const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-11-19.json')
+const acceptedManifest = readJson<ArtifactManifest>('manifests', 'accepted-2026-11-24.json')
 const identityRegistry = readJson<IdentityRegistry>('identities', 'corpus.json')
-const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-11-19-summary.json')
+const report = readJson<CorpusSummaryReport>('reports', 'corpus-2026-11-24-summary.json')
 const officialBattleProfiles = readJson<OfficialBattleProfileReport>(
   'catalog',
   'official-battle-profiles.json'
@@ -121,7 +121,8 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
 
   it('keeps a side-table entry for every entity, matching the records that entity cites', () => {
     // corpus 2026-11-19 (#1757): Khazalite Holds rules from Wahapedia (173 un-retired, 61 new ids, two removed)
-    expect(AOS4_CATALOG.entities).toHaveLength(12_297)
+    // corpus 2026-11-24 (#1757): one net new entity from the re-pinned Wahapedia pages.
+    expect(AOS4_CATALOG.entities).toHaveLength(12_298)
     expect(AOS4_SOURCE_RECORD_INDEXES.size).toBe(AOS4_CATALOG.entities.length)
     // Every kind, not only the 5,121 abilities a reminder cites: an ability-keyed table could not
     // back the provenance guarantee for the other 6,429.
@@ -161,7 +162,8 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
     expect(issues).toHaveLength(AOS4_CATALOG.entities.length)
   })
 
-  it('reports no missing provenance for any of the 12,297 entities', () => {
+  // corpus 2026-11-24 (#1757): 12,297 -> 12,298 entities.
+  it('reports no missing provenance for any of the 12,298 entities', () => {
     const provenance = validateCatalog(AOS4_FULL_CATALOG).filter(
       issue => issue.code === 'missing-entity-provenance'
     )
@@ -173,7 +175,7 @@ describe('AoS 4 catalog provenance after the core/sources split', () => {
         ...AOS4_FULL_CATALOG,
         entities: AOS4_FULL_CATALOG.entities.map(entity => ({ ...entity, sourceRefs: [] })),
       }).filter(issue => issue.code === 'missing-entity-provenance')
-    ).toHaveLength(12_297)
+    ).toHaveLength(12_298)
   })
 })
 
@@ -213,20 +215,22 @@ describe('AoS 4 catalog generation integrity', () => {
         // their source.
         // corpus 2026-11-19 (#1757): Wahapedia Khazalite Holds root and warscrolls pages plus the
         // Battletome Supplement ship the faction's rules again; the KH Magmic Battleforge profile leaves.
+        // corpus 2026-11-24 (#1757): 68 re-pinned Wahapedia pages add 53 records; the 2026-11-22
+        // export adds 398 superseded bulk rows.
         warscrolls: 1374,
         battleProfiles: 1059,
         abilities: 5519,
         weapons: 2370,
         sourceArtifacts: 244,
-        sourceRecords: 21307,
-        ignoredSourceRecords: 21158,
+        sourceRecords: 21360,
+        ignoredSourceRecords: 21556,
       },
       integrity: {
-        consumedSourceRecords: 21301,
+        consumedSourceRecords: 21354,
         issues: [],
         supersededSourceRecords: {
-          count: 21152,
-          checksum: '9cb033a8ebacdaa63875dd2316ed6412ff5107b4d60b67be92be27ec189bde42',
+          count: 21550,
+          checksum: '0340e4962a82438b9e63b2e21a59af0e3341164bd4efa4dcc7917a9e89c681a3',
         },
       },
     })
@@ -477,14 +481,15 @@ describe('AoS 4 catalog generation integrity', () => {
   })
 
   it('records every reviewed source diagnostic without leaving an unknown timing', () => {
+    // corpus 2026-11-24 (#1757): the 68 re-pinned Wahapedia pages bring 37 more reviewed diagnostics.
     expect(report.sourceDiagnostics).toEqual({
-      reviewed: 1851,
+      reviewed: 1888,
       byCode: {
-        'duplicate-identical-record': 532,
-        'empty-association-record': 684,
-        'missing-faction': 3,
+        'duplicate-identical-record': 545,
+        'empty-association-record': 700,
+        'missing-faction': 1,
         'missing-warscroll': 26,
-        'polluted-marker': 606,
+        'polluted-marker': 616,
       },
     })
     expect(
@@ -529,8 +534,8 @@ describe('AoS 4 catalog generation integrity', () => {
     const reviewedMemberlessRegiments = {
       // Their source datasheets' ORGANISATION blocks name members only as plain text, and no
       // reviewed regiment-only adoption carries those names. Gotrek Gurnisson left this list
-      // when his adoption landed (#2047).
-      'Heroes of The Jade Abbey': 'plain-text members with no reviewed adoption',
+      // when his adoption landed (#2047). corpus 2026-11-24 (#1757): Heroes of The Jade Abbey left
+      // it when Wahapedia linked its member, Kelthannor the Forest Prince.
       'Mask of the Deceiver': 'plain-text members with no reviewed adoption',
       'The Sorrowmourn Choir': 'plain-text members with no reviewed adoption',
     }

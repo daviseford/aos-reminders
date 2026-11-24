@@ -10,6 +10,7 @@ import { observeWahapediaRadar, type RadarFetch } from '../../aos4/radar/observe
 import {
   WAHAPEDIA_GLOSSARY_FINGERPRINT,
   WAHAPEDIA_GLOSSARY_URL,
+  WAHAPEDIA_RETAINED_FACTION_PAGES,
 } from '../../aos4/review/wahapediaObservation'
 
 const REVIEWED_GLOSSARY = '<html><body><h1>Glossary</h1><p>Reviewed bytes.</p></body></html>'
@@ -49,6 +50,8 @@ const acceptedManifest: ArtifactManifest = {
   artifacts: [
     page('https://wahapedia.ru/aos4/the-rules/the-core-rules/', artifactChecksum(bytes(CORE_RULES))),
     page('https://wahapedia.ru/aos4/factions/stormcast-eternals/', 'b'.repeat(64)),
+    // Pinned like the accepted manifest; observed through the reviewed retained list (#1757).
+    page('https://wahapedia.ru/aos4/factions/fyreslayers/', 'c'.repeat(64)),
     {
       ...page(config.wahapedia.lastUpdateUrl, artifactChecksum(bytes(lastUpdate))),
       adapterVersion: 'wahapedia-export/1',
@@ -88,6 +91,7 @@ const fetchWith =
     else if (request.url.endsWith('.xlsx')) body = workbook()
     else if (request.url === config.wahapedia.lastUpdateUrl) body = bytes(lastUpdate)
     else if (request.url === 'https://wahapedia.ru/aos4/the-rules/the-core-rules/') body = bytes(CORE_RULES)
+    else if (request.url === WAHAPEDIA_RETAINED_FACTION_PAGES[0].url) body = bytes('<html></html>')
     else if (request.url === WAHAPEDIA_GLOSSARY_URL && glossary.body !== undefined)
       body = bytes(glossary.body)
     else throw new Error(`Unexpected fixture URL ${request.url}`)
@@ -106,7 +110,7 @@ describe('Rules Radar Wahapedia glossary disposition (#1757)', () => {
     const result = await observe({ listed: true, body: REVIEWED_GLOSSARY }, requested)
 
     expect(requested).toContain(WAHAPEDIA_GLOSSARY_URL)
-    expect(result.requestCount).toBe(7)
+    expect(result.requestCount).toBe(8)
     expect(result.lane.events).toEqual([])
     expect(result.requiresExpandedObservation).toBe(false)
   })
@@ -150,6 +154,12 @@ describe('Rules Radar Wahapedia glossary disposition (#1757)', () => {
             locator: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/',
             title: 'SCE',
             fingerprint: 'd'.repeat(64),
+          },
+          {
+            kind: 'faction',
+            locator: 'https://wahapedia.ru/aos4/factions/fyreslayers/',
+            title: 'Fyreslayers',
+            fingerprint: 'e'.repeat(64),
           },
           {
             kind: 'export',
@@ -199,7 +209,7 @@ describe('Rules Radar Wahapedia glossary disposition (#1757)', () => {
     const result = await observe({ listed: false }, requested)
 
     expect(requested).not.toContain(WAHAPEDIA_GLOSSARY_URL)
-    expect(result.requestCount).toBe(6)
+    expect(result.requestCount).toBe(7)
     expect(result.lane.events).toEqual([])
   })
 })

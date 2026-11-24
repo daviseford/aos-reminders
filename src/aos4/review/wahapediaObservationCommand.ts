@@ -18,6 +18,7 @@ import {
   discoverWahapediaNavFragmentUrl,
   discoverWahapediaNavigation,
   withExportFactionPages,
+  withRetainedFactionPages,
   discoverWahapediaWarscrollCollection,
   WAHAPEDIA_DATA_EXPORT_URL,
   type WahapediaObservedSource,
@@ -330,7 +331,7 @@ export const observeWahapediaSources = async (
   // Faction pages the Factions.csv export still links are observed too (#1757, 2026-11-19).
   const factionsCsvUrl = exportUrls.find(url => /\/Factions\.csv$/i.test(new URL(url).pathname))
   if (factionsCsvUrl) assertRobotsAllows(robotsPolicy, factionsCsvUrl)
-  const navigation = factionsCsvUrl
+  const exportedNavigation = factionsCsvUrl
     ? withExportFactionPages(
         listedNavigation,
         new TextDecoder('utf-8', { fatal: true }).decode(
@@ -339,6 +340,8 @@ export const observeWahapediaSources = async (
         index.entry.finalUrl
       )
     : listedNavigation
+  // Reviewed retained pages stay observed once no Wahapedia surface lists them (#1757).
+  const navigation = withRetainedFactionPages(exportedNavigation)
   navigation.factionPages.forEach(faction => assertRobotsAllows(robotsPolicy, faction.url))
 
   const factionAcquisitions = await mapWithConcurrency(navigation.factionPages, input.concurrency, faction =>

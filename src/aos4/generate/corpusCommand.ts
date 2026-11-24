@@ -1638,6 +1638,16 @@ export const loadAcceptedCorpusSourceData = async (
           entry.sourceRecordId,
           new Map(entry.memberAnchors!.map(anchor => [anchor.name, anchor.url])),
         ])
+    ),
+    new Map(
+      (review.regimentsOfRenown ?? [])
+        .filter(entry => entry.retainedInclusions?.length)
+        .map(entry => {
+          if (entry.retainedInclusions!.some(value => !value.name.trim() || !value.reason.trim())) {
+            throw new Error(`Retained inclusion review entry for ${entry.sourceRecordId} is malformed`)
+          }
+          return [entry.sourceRecordId, entry.retainedInclusions!.map(value => value.name)]
+        })
     )
   )
   // A faction known first from its official Spearhead pack must exist before community sources

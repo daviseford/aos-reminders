@@ -1031,5 +1031,41 @@ describe('current Wahapedia HTML reconciliation', () => {
     expect(() => anchored(`${fsUrl}#Lone-Hero`, [warscroll('Lone Hero', false)])).toThrow(
       /match no kept regiment member/
     )
+
+    // A reviewed retained inclusion keeps an offer the kept copy stopped printing (#1757: the
+    // 2026-11-22 export swaps Fyreslayers for Khazalite Holds), and fails closed once stale.
+    const withoutFyreslayers = (): WahapediaHtmlWarscrollRecord => {
+      const page = regiment('Lone Band', 'Lone Hero')
+      return {
+        ...page,
+        regimentOfRenown: { ...page.regimentOfRenown!, inclusionFactionNames: ['Cities of Sigmar'] },
+      }
+    }
+    const retained = (pages: WahapediaHtmlWarscrollRecord[]) =>
+      mergeCurrentWahapediaWarscrollPages(
+        dataset,
+        pages,
+        [],
+        [],
+        [],
+        [],
+        new Set(),
+        new Map(),
+        new Map([[loneBandId, ['Fyreslayers']]])
+      )
+    const offeredBy = (pages: WahapediaHtmlWarscrollRecord[], merge = retained) => {
+      const result = merge(pages).dataset
+      const band = result.warscrolls.find(record => record.name === 'Lone Band')!
+      return result.regimentOfRenownFactions
+        .filter(row => row.warscrollId === band.id)
+        .map(row => row.factionId)
+        .sort()
+    }
+    expect(
+      offeredBy([withoutFyreslayers()], pages => mergeCurrentWahapediaWarscrollPages(dataset, pages, [], []))
+    ).toEqual(['COS'])
+    expect(offeredBy([withoutFyreslayers()])).toEqual(['COS', 'FS'])
+    expect(() => retained(lonePages())).toThrow(/printed again/)
+    expect(() => retained([warscroll('Lone Hero', false)])).toThrow(/match no kept regiment/)
   })
 })

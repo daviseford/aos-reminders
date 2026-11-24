@@ -16,19 +16,19 @@ retrieved safely and decoded.
 
 ## Current accepted snapshot
 
-The accepted 2026-11-19 snapshot is defined by:
+The accepted 2026-11-24 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-11-19.json` | the 2026-11-17 manifest with Games Workshop's 18 November 2026 Battle Profiles and Rules Updates in place of their 28 October predecessors (publication identity continuity), the new Battletome Supplement: Khazalite Holds, the new Wahapedia Khazalite Holds faction root and warscroll collection (published 2026-11-19 ahead of the CSV exports) and the Fyreslayers root and collection re-pinned at their 2026-11-19 bytes (#1757); 244 artifacts. The 2026-11-17 manifest it copies is the 2026-11-10 manifest without its eight BSData catalogues (`BSData/age-of-sigmar-4th` was taken down by the Games Workshop DMCA notice of 2026-11-12) and with the Wahapedia Ravaged Coast rules page re-pinned at its 2026-11-17 bytes (#1757); 241 artifacts. The 2026-11-10 manifest it copies is the 2026-11-03 manifest with the six Khazalite Holds BSData catalogues re-pinned from the `khazalite-holds` branch (`5e52e2a5`, `ea96eba3`) to BSData `main` `487e2d9f`, which merged that branch on 2026-11-07 (#1757; four new checksums, two byte-identical files at their new URLs); 249 artifacts. The 2026-11-03 manifest it copies is the 2026-10-29 manifest with the 17 Wahapedia rules pages re-pinned at their 2026-11-03 bytes (same URLs; every consumed card unchanged, #1757); 249 artifacts. The 2026-10-29 manifest it copies holds the twelve official PDFs Games Workshop re-published on 2026-10-28 (publication identity continuity), drops the five delisted official documents with no successor, and pins two BSData Cities of Sigmar Legends catalogues at `main` `6909c140` (provisional community transcriptions) |
-| `data/aos4/reviews/corpus-2026-11-19.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
+| `data/aos4/manifests/accepted-2026-11-24.json` | the 2026-11-19 manifest with the 68 Wahapedia artifacts the 2026-11-22 21:15:57 publish moved re-pinned at their 2026-11-24 bytes (same URLs: every export and every faction root and collection except the byte-identical Fyreslayers pages; the 17 rules pages did not move) (#1757); 244 artifacts. The 2026-11-19 manifest it copies is the 2026-11-17 manifest with Games Workshop's 18 November 2026 Battle Profiles and Rules Updates in place of their 28 October predecessors (publication identity continuity), the new Battletome Supplement: Khazalite Holds, the new Wahapedia Khazalite Holds faction root and warscroll collection (published 2026-11-19 ahead of the CSV exports) and the Fyreslayers root and collection re-pinned at their 2026-11-19 bytes (#1757); 244 artifacts. The 2026-11-17 manifest it copies is the 2026-11-10 manifest without its eight BSData catalogues (`BSData/age-of-sigmar-4th` was taken down by the Games Workshop DMCA notice of 2026-11-12) and with the Wahapedia Ravaged Coast rules page re-pinned at its 2026-11-17 bytes (#1757); 241 artifacts. The 2026-11-10 manifest it copies is the 2026-11-03 manifest with the six Khazalite Holds BSData catalogues re-pinned from the `khazalite-holds` branch (`5e52e2a5`, `ea96eba3`) to BSData `main` `487e2d9f`, which merged that branch on 2026-11-07 (#1757; four new checksums, two byte-identical files at their new URLs); 249 artifacts. The 2026-11-03 manifest it copies is the 2026-10-29 manifest with the 17 Wahapedia rules pages re-pinned at their 2026-11-03 bytes (same URLs; every consumed card unchanged, #1757); 249 artifacts. The 2026-10-29 manifest it copies holds the twelve official PDFs Games Workshop re-published on 2026-10-28 (publication identity continuity), drops the five delisted official documents with no successor, and pins two BSData Cities of Sigmar Legends catalogues at `main` `6909c140` (provisional community transcriptions) |
+| `data/aos4/reviews/corpus-2026-11-24.json` | faction approval, diagnostic policies, exact exceptions, semantic overrides, dispositions, official evidence, and the past-season boundary (#2042) |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs; `retired: true` keeps a rule the source no longer prints registered without ever resolving to it |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
 | `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
 | `src/aos4/generated/corpus/runtime.json` | compact application projection |
 | `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
-| `data/aos4/reports/corpus-2026-11-19-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
-| `data/aos4/reports/corpus-2026-11-19-summary.json` | strict-gate counts, dispositions, and product checksums |
+| `data/aos4/reports/corpus-2026-11-24-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-11-24-summary.json` | strict-gate counts, dispositions, and product checksums |
 
 The strict report currently records:
 
@@ -38,7 +38,7 @@ The strict report currently records:
 - 5,519 abilities
 - 2,370 weapons
 - 1,635 content groups
-- 244 source artifacts and 21,301 live source records
+- 244 source artifacts and 21,354 live source records
 - every live record consumed or explicitly dispositioned, with zero unresolved integrity issues
 - 6 illustrative core-rules example ability cards (Mystic Shield / Resurrection) explicitly
   ignored so they never appear as reminders (customer report 2026-07-31)
@@ -53,6 +53,44 @@ The strict report currently records:
   tables: earlier extractions silently dropped those rows (about 207 roster-option facts across
   eleven factions in the October edition, all structured references, no runtime effect). Text the
   core Battle Profiles strikes through is not extracted (corpus 2026-09-29, #1757)
+- the 2026-11-24 Wahapedia export refresh (#1757), on top of 2026-11-19. The Rules Radar alarm of
+  2026-11-24 (run 45342988518) reported `Last_update.csv` moving to the 2026-11-22 21:15:57 publish
+  and Fyreslayers as a removed faction. Wahapedia re-published 68 of its 87 pinned artifacts: all 13
+  exports and every faction root and collection except Fyreslayers, whose two pages are still served
+  byte-identical to their 2026-11-19 pins. `Factions.csv` now lists Khazalite Holds (id `KH`) and no
+  longer lists Fyreslayers. Dispositions:
+  - Fyreslayers: a delisting, not a rules removal. Both observers keep the pages through the reviewed
+    `WAHAPEDIA_RETAINED_FACTION_PAGES` list and fail closed once a page stops being served. The
+    faction binds through `currentWahapediaHtml.factionsWithoutExport` to its former export id `FY`,
+    so every Fyreslayers id is unchanged. Khazalite Holds is now an export faction, so its review
+    references move from `GW-KHZ` to `KH`.
+  - The pages caught up with official errata, so 17 overrides the source now prints retire: five
+    `CHAMPION (1/n)` and Beastclaw keyword overrides, three Nighthaunt `Crit (Auto-wound)` weapon
+    overrides, and nine text overrides (Eat 'Em Alive, Feed the Maw, Despoilers, Whirlpool Fury, Killa
+    Beat and four Lance of Ossia traits). Silent Menace regains its Declare step, which the retired
+    override had dropped. Typos are fixed, and The Duardin Ascendant copies now print Khazalite Holds (October
+    2026 Rules Updates page 33). Gotrek Gurnisson's regiment prints its current eight-faction list.
+  - Fjori's Vengeance and Thengin's Grudgesettlers are now on the Wahapedia collections, so the
+    official Regiments of Renown - Khazalite Holds stopgap retires and the pack stays cited evidence.
+    A reviewed override keeps Grudgesettlers as the single Effect that page 2 prints.
+  - The Khazalite Holds page prints The Duardin Ascendant and The Chosen Axes natively, with the
+    reviewed variant text, so both variants and their two overrides retire. The Duardin Ascendant
+    keeps its Legends context through 14 context overrides, because the page omits the Legends
+    wrapper that the other three copies carry.
+  - Regiment inclusion lists swap Fyreslayers for Khazalite Holds. Under the additive contract,
+    Fyreslayers keeps all 24 offers, and Gotrek's past-season offer (owner decision 2026-10-14), through
+    the new reviewed `regimentsOfRenown[].retainedInclusions`. Generation fails closed once the copy
+    prints the name again.
+  - The Scourge of Aqshy Grey Seer on Screaming Bell abilities now carry the names the pinned Scourge of
+    Aqshy - Skaven pack (page 2) prints: PEALING PORTAL (was CRACKS CALL) and ECHOES OF THE VERMINDOOM
+    (was PEAL OF DOOM), with the same rules text.
+  - Identities: 640 aliases are bound onto existing ids by provenance (the same source record, a
+    re-anchored slot, the retired variant, the official regiment or the faction row) and 6 new
+    publications are minted. No id moves to a different rule. Runtime: 6 publications added and 5
+    removed (the old export and the four Fyreslayers `Source.csv` rows). 14 rules texts or names
+    change and two battle-profile rows change. Relationships go +16/−5: Heroes of The Jade Abbey
+    resolves in Legends, Urrgar's Maulerguts is offered to Khazalite Holds, and Fjori's
+    Flamebearers and Gotrek link the current Khazalite Holds warscrolls.
 - the 2026-11-19 Games Workshop and Wahapedia Khazalite Holds update (#1757), on top of
   2026-11-17. The Rules Radar alarm of 2026-11-19 reported Games Workshop's 18 November 2026
   downloads: Battle Profiles and Rules Updates replaced their 28 October predecessors (publication

@@ -465,6 +465,13 @@ export interface CorpusRegimentOfRenown {
    * datasheet or the member is no longer plain text.
    */
   memberAnchors?: Array<{ name: string; url: string }>
+  /**
+   * Inclusion factions the kept copy no longer prints that the corpus keeps offering (Gotrek
+   * Gurnisson's Fyreslayers offer, confined by a reviewed context override to the 2025-26 past
+   * season, after Wahapedia dropped Fyreslayers in the 2026-11-22 export, #1757). Generation fails
+   * closed once the copy prints the name again or the regiment no longer exists.
+   */
+  retainedInclusions?: Array<{ name: string; reason: string }>
 }
 
 /**

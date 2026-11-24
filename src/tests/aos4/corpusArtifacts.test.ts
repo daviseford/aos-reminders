@@ -73,7 +73,8 @@ describe('AoS 4 derived corpus artifacts', () => {
     // Corpus 2026-11-17 removes every BSData catalogue and its records after the takedown (#1757).
     // corpus 2026-11-19 (#1757): the Wahapedia Khazalite Holds root and warscrolls pages and the pinned
     // Battletome Supplement: Khazalite Holds add their records.
-    expect(sources.sourceRecords).toHaveLength(21301)
+    // corpus 2026-11-24 (#1757): the 68 re-pinned Wahapedia pages add 53 consumed records.
+    expect(sources.sourceRecords).toHaveLength(21354)
     expect(sources.sourceArtifacts).toHaveLength(234)
   })
 
