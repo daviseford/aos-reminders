@@ -7,6 +7,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('utils/analytics', () => ({ logBannerClose: vi.fn(), logBannerView: vi.fn() }))
 
+const NOVEMBER_COPY =
+  'The November rules update is in. Warscrolls and army rules across many factions now include the latest errata and fixes. If anything looks wrong, please let us know.'
+const storageKey = (name: string) => `aos-reminders:aos4:banner:${name}`
+
 describe('AppBanner rules-update note', () => {
   let container: HTMLDivElement
 
@@ -24,16 +28,27 @@ describe('AppBanner rules-update note', () => {
     container.remove()
   })
 
-  it('says only that the latest September errata has been added (#2060)', () => {
+  const bannerText = () => container.querySelector('[role="alert"]')?.textContent?.replace(/\s+/g, ' ').trim()
+
+  it('shows the owner-approved November copy (#1757)', () => {
     act(() => render(<AppBanner />, container))
-    expect(container.querySelector('[role="alert"]')?.textContent?.trim()).toBe(
-      'The latest September errata has been added.'
-    )
+    expect(bannerText()).toBe(NOVEMBER_COPY)
   })
 
-  it('shows again to people who dismissed the previous rules note', () => {
-    window.localStorage.setItem('aos-reminders:aos4:banner:2026-09-rules-update-4', 'hidden')
+  it('shows again to people who dismissed the previous September rules note', () => {
+    window.localStorage.setItem(storageKey('2026-09-rules-update-5'), 'hidden')
     act(() => render(<AppBanner />, container))
-    expect(container.textContent).toContain('The latest September errata has been added.')
+    expect(bannerText()).toBe(NOVEMBER_COPY)
+  })
+
+  it('stays dismissed after closing it once', () => {
+    act(() => render(<AppBanner />, container))
+    act(() => container.querySelector<HTMLButtonElement>('button[aria-label="Close notification"]')!.click())
+    expect(container.querySelector('[role="alert"]')).toBeNull()
+    expect(window.localStorage.getItem(storageKey('2026-11-rules-update-1'))).toBe('hidden')
+
+    act(() => unmountComponentAtNode(container))
+    act(() => render(<AppBanner />, container))
+    expect(container.querySelector('[role="alert"]')).toBeNull()
   })
 })
