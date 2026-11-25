@@ -277,10 +277,10 @@ describe('October 2026 official intake (corpus 2026-10-14)', () => {
           .filter(entity => entity.sourceRefs.some(reference => reference.sourceRecordId.includes(checksum)))
           .map(entity => `${entity.kind}:${entity.name}`)
       // Corpus 2026-11-17 (#1757): the regiments' rules text now comes from this pack's pages too.
+      // corpus 2026-11-24 (#1757): both regiments now source from the Wahapedia Cities of Sigmar
+      // collection copy, so only the GRUDGESETTLERS override (pack page 2) still cites the pack text.
       expect(citing(KH_REGIMENTS).sort()).toEqual([
         'ability:GRUDGESETTLERS',
-        'ability:ITINERANT GRIMMDRON',
-        'ability:RUNE OF STOICISM',
         'content-group:Fjori’s Vengeance',
         'content-group:Thengin’s Grudgesettlers',
         'publication:Regiments of Renown - Khazalite Holds',

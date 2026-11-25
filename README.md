@@ -36,7 +36,7 @@ The release provides:
 | Capabilities | Printing, importing, cloud armies, and sharing delivered |
 | Package modernization | Underway |
 
-The beta gate binds the accepted `aos4-corpus-2026-11-19` revision to a complete automated
+The beta gate binds the accepted `aos4-corpus-2026-11-24` revision to a complete automated
 review of 87,588 results across 43,794 source/generated pairs, with zero live findings and zero
 `cannot-verify` outcomes. Run `yarn data:aos4:verify:beta` to verify the committed evidence without
 network or cache access. Future reports and source updates reopen only the affected data through the

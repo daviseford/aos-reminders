@@ -83,10 +83,12 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
     expect(review.regimentsOfRenown.filter(entry => entry.evidenceTier === undefined)).toHaveLength(77)
   })
 
-  it('offers Urrgar’s Maulerguts to exactly its thirteen official inclusion factions (#2037)', () => {
+  it('offers Urrgar’s Maulerguts to exactly its fourteen official inclusion factions (#2037)', () => {
     // First published by the Ossiarch Bonereapers collection page re-pinned in corpus 2026-09-30.
     // Regiments of Renown - Ogor Mawtribes page 2 prints the same inclusion list, members, and two
     // abilities; the September 2026 core Battle Profiles omits it, like Okar’s Torrbad.
+    // corpus 2026-11-24 (#1757): the Wahapedia inclusion list and the November 2026 Battle Profiles
+    // add Khazalite Holds; Fyreslayers keeps its offer.
     const regiment = regimentByName('Urrgar’s Maulerguts')
     expect(regiment.rulesContextIds).toEqual(
       expect.arrayContaining([seasonal.id, AOS4_CATALOG.rulesContexts.find(c => c.status === 'current')!.id])
@@ -99,6 +101,7 @@ describe('Regiments of Renown in the corpus (issue #1858)', () => {
       'Helsmiths of Hashut',
       'Ironjawz',
       'Kharadron Overlords',
+      'Khazalite Holds',
       'Kruleboyz',
       'Ossiarch Bonereapers',
       'Skaven',
@@ -935,11 +938,14 @@ describe('importing a roster that buys a Cogfort regiment (#2030)', () => {
  * text and the native-faction filter dropped the warscroll, so the regiment had no member and the
  * content-free-group prune removed every offer: no army could take Gotrek. The adapter now reads
  * plain-text members and a reviewed regiment-only adoption keeps the Fyreslayers collection copy.
+ * corpus 2026-11-24 (#1757): Wahapedia now links the member to the Khazalite Holds collection
+ * warscroll, which matches the November 2026 Battle Profiles, so that copy is the member.
  */
 describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
   const GOTREK_REGIMENT_ID =
     'content-group:ae141d5e-97b3-5c03-802f-abdc3800e52f' as CanonicalId<'content-group'>
-  const GOTREK_WARSCROLL_ID = 'warscroll:4c80ed84-2b6e-5b2d-b363-5686a079c9a8' as CanonicalId<'warscroll'>
+  // corpus 2026-11-24 (#1757): the Khazalite Holds collection copy (was warscroll:4c80ed84-…).
+  const GOTREK_WARSCROLL_ID = 'warscroll:47db169b-2fcb-5b56-9c82-08fc450369f9' as CanonicalId<'warscroll'>
   const GOTREK_INCLUSION_FACTIONS = [
     'Cities of Sigmar',
     'Daughters of Khaine',
@@ -1039,9 +1045,10 @@ describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
 
     describe('reminders and print for a kept pick', () => {
       const UNOFFERED = 'Not available to this army'
+      // corpus 2026-11-24 (#1757): the Khazalite Holds warscroll's abilities.
       const gotrekReminders = (reminders: Aos4ReminderViewModel[]) =>
         reminders.filter(reminder =>
-          ['UNSTOPPABLE BATTLE FURY', '‘I’LL GET THERE MYSELF!’'].includes(reminder.name)
+          ['INDIFFERENT AND PRAGMATIC', 'TOO STUBBORN TO DIE', 'A GLORIOUS DOOM'].includes(reminder.name)
         )
       const labels = (reminder: { tags?: Array<{ label: string }> }) =>
         (reminder.tags ?? []).map(tag => tag.label)
@@ -1055,13 +1062,14 @@ describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
           const saved = document(contextId(), [fyreslayers().id, GOTREK_REGIMENT_ID])
           const reminders = createAos4ReminderViewModel(AOS4_CATALOG, saved)
           // The pick stays selected, so its rules still show; they no longer read as current.
-          expect(gotrekReminders(reminders)).toHaveLength(2)
+          // corpus 2026-11-24 (#1757): the Khazalite Holds warscroll has three abilities (was two).
+          expect(gotrekReminders(reminders)).toHaveLength(3)
           gotrekReminders(reminders).forEach(reminder => {
             expect(labels(reminder)).toContain(UNOFFERED)
             expect(reminder.accessibleLabel).toContain(UNOFFERED)
           })
           // Nothing else in the army carries the mark.
-          expect(reminders.filter(reminder => labels(reminder).includes(UNOFFERED))).toHaveLength(2)
+          expect(reminders.filter(reminder => labels(reminder).includes(UNOFFERED))).toHaveLength(3)
 
           const print = createAos4PrintDocument(createPrintableAos4Reminders(AOS4_CATALOG, saved), {
             armyName: 'Fyreslayers with Gotrek',
@@ -1069,8 +1077,8 @@ describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
           })
           const printed = print.sections
             .flatMap(section => section.rules)
-            .filter(rule => /BATTLE FURY|GET THERE MYSELF/.test(rule.title))
-          expect(printed).toHaveLength(2)
+            .filter(rule => /INDIFFERENT AND PRAGMATIC|TOO STUBBORN TO DIE|A GLORIOUS DOOM/.test(rule.title))
+          expect(printed).toHaveLength(3)
           printed.forEach(rule => expect(labels(rule)).toContain(UNOFFERED))
         }
       )
@@ -1083,7 +1091,8 @@ describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
         ])
         ;[pastSeasonArmy, stormcastArmy].forEach(army => {
           const reminders = gotrekReminders(createAos4ReminderViewModel(AOS4_CATALOG, army))
-          expect(reminders).toHaveLength(2)
+          // corpus 2026-11-24 (#1757): three abilities on the Khazalite Holds warscroll.
+          expect(reminders).toHaveLength(3)
           reminders.forEach(reminder => expect(labels(reminder)).not.toContain(UNOFFERED))
         })
       })
@@ -1125,28 +1134,33 @@ describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
     expect(warscroll).toMatchObject({
       name: 'Gotrek Gurnisson',
       characteristics: { move: '4"', health: '8', save: '5+', control: '2', ward: '3+' },
-      keywords: ['DUARDIN', 'HERO', 'INFANTRY', 'ORDER', 'UNIQUE', 'WARD (3+)'],
+      // corpus 2026-11-24 (#1757): the Khazalite Holds copy carries its faction keyword.
+      keywords: ['DUARDIN', 'HERO', 'INFANTRY', 'KHAZALITE HOLDS', 'ORDER', 'UNIQUE', 'WARD (3+)'],
     })
     const members = includedEntities(GOTREK_WARSCROLL_ID)
+    // corpus 2026-11-24 (#1757): the Khazalite Holds warscroll's rules and its battle profile; its
+    // weapon prints the official "Zangrom-Thaz" spelling the Fyreslayers copy's "Zangrom-az" lacked.
     expect(members.map(entity => `${entity.kind}:${entity.name}`).sort()).toEqual([
-      'ability:UNSTOPPABLE BATTLE FURY',
-      'ability:‘I’LL GET THERE MYSELF!’',
-      // Wahapedia prints "Zangrom-az"; the official page prints "Zangrom-Thaz". No reviewed
-      // weapon-name override exists, so the secondary spelling ships and the discrepancy is kept.
-      'weapon:Zangrom-az',
+      'ability:A GLORIOUS DOOM',
+      'ability:INDIFFERENT AND PRAGMATIC',
+      'ability:TOO STUBBORN TO DIE',
+      'battle-profile:Gotrek Gurnisson battle profile',
+      'weapon:Zangrom-Thaz',
     ])
-    const fury = members.find((entity): entity is Ability => entity.name === 'UNSTOPPABLE BATTLE FURY')!
-    expect(fury.timings).toEqual([
-      expect.objectContaining({ raw: 'Any Combat Phase', window: { kind: 'turn-phase', phase: 'combat' } }),
-    ])
+    const doom = members.find((entity): entity is Ability => entity.name === 'A GLORIOUS DOOM')!
+    expect(doom.timings).toEqual([expect.objectContaining({ raw: 'Passive', window: { kind: 'always' } })])
   })
 
-  it('never offers his warscroll directly: he is fielded only through the regiment', () => {
+  // corpus 2026-11-24 (#1757): the regiment's member is now the Khazalite Holds Gotrek warscroll,
+  // which the November 2026 Battle Profiles (page 14) lists as a Khazalite Holds unit; only that
+  // faction offers it directly (unchanged since corpus 2026-11-19), every other army only through
+  // the regiment.
+  it('offers his warscroll directly only to Khazalite Holds: elsewhere he comes through the regiment', () => {
     expect(
-      AOS4_CATALOG.relationships.filter(
-        relationship => relationship.kind === 'offers' && relationship.to === GOTREK_WARSCROLL_ID
-      )
-    ).toEqual([])
+      AOS4_CATALOG.relationships
+        .filter(relationship => relationship.kind === 'offers' && relationship.to === GOTREK_WARSCROLL_ID)
+        .map(relationship => relationship.from)
+    ).toEqual([factionByName('Khazalite Holds').id])
   })
 
   it('shows the regiment as a builder option for Stormcast Eternals but not for Nighthaunt', () => {
@@ -1172,7 +1186,8 @@ describe('Gotrek Gurnisson Regiment of Renown (issue #2047)', () => {
     expect(selection.diagnostics).toEqual([])
     expect(selection.selectedIds).toContain(GOTREK_WARSCROLL_ID)
     expect(projectReminders(AOS4_CATALOG, selection).map(reminder => reminder.name)).toEqual(
-      expect.arrayContaining(['UNSTOPPABLE BATTLE FURY', '‘I’LL GET THERE MYSELF!’'])
+      // corpus 2026-11-24 (#1757): the Khazalite Holds warscroll's abilities.
+      expect.arrayContaining(['INDIFFERENT AND PRAGMATIC', 'TOO STUBBORN TO DIE', 'A GLORIOUS DOOM'])
     )
   })
 

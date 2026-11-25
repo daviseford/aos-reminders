@@ -292,8 +292,15 @@ export const mergeCurrentWahapediaWarscrollPages = (
    * Reviewed collection anchors for plain-text ORGANISATION members, keyed by the regiment's kept
    * source record id and then by member name.
    */
-  regimentMemberAnchors: ReadonlyMap<string, ReadonlyMap<string, string>> = new Map()
+  regimentMemberAnchors: ReadonlyMap<string, ReadonlyMap<string, string>> = new Map(),
+  /**
+   * Reviewed inclusion faction names a regiment's kept copy no longer prints but the corpus keeps
+   * offering, keyed by the kept source record id (Gotrek Gurnisson's Fyreslayers offer, which a
+   * reviewed context override confines to the 2025-26 past season, #1757).
+   */
+  retainedRegimentInclusions: ReadonlyMap<string, readonly string[]> = new Map()
 ): WahapediaHtmlMergeResult => {
+  const usedRetainedInclusions = new Set<string>()
   const duplicateReviewUrls = rulesPageReviews
     .map(review => review.url)
     .filter((url, index, values) => values.indexOf(url) !== index)
@@ -568,7 +575,16 @@ export const mergeCurrentWahapediaWarscrollPages = (
        * unknown name fails closed.
        */
       if (page.regimentOfRenown) {
-        page.regimentOfRenown.inclusionFactionNames.forEach(inclusionName => {
+        const listed = page.regimentOfRenown.inclusionFactionNames
+        const retained = retainedRegimentInclusions.get(page.meta.sourceRecordId) ?? []
+        retained.forEach(name => {
+          // A retained name the source prints again is stale review: retire it.
+          if (listed.some(value => canonical(value) === canonical(name))) {
+            throw new Error(`Reviewed retained inclusion ${name} is printed again by ${page.name}`)
+          }
+          usedRetainedInclusions.add(`${page.meta.sourceRecordId}|${name}`)
+        })
+        ;[...listed, ...retained].forEach(inclusionName => {
           const inclusionFactionId = factionIdByName.get(canonical(inclusionName))
           if (!inclusionFactionId) {
             if (EXPECTED_NON_FACTION_INCLUSIONS.has(canonical(inclusionName))) return
@@ -690,6 +706,16 @@ export const mergeCurrentWahapediaWarscrollPages = (
   if (unusedMemberAnchors.length) {
     throw new Error(
       `Reviewed member anchors match no kept regiment member: ${unusedMemberAnchors.join(', ')}`
+    )
+  }
+  const unusedRetainedInclusions = Array.from(retainedRegimentInclusions).flatMap(([regiment, names]) =>
+    names
+      .filter(name => !usedRetainedInclusions.has(`${regiment}|${name}`))
+      .map(name => `${regiment} ${name}`)
+  )
+  if (unusedRetainedInclusions.length) {
+    throw new Error(
+      `Reviewed retained inclusions match no kept regiment: ${unusedRetainedInclusions.join(', ')}`
     )
   }
 

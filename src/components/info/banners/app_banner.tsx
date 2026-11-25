@@ -3,13 +3,16 @@ import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { useCheckoutOutcome } from 'utils/checkoutOutcome'
 
 /**
- * The rules-update note for the latest Rules Radar reconciliation (corpus 2026-10-01). Each
+ * The rules-update note for the latest Rules Radar reconciliation (corpus 2026-11-24). Each
  * reconciliation that reaches production gets its own banner name so the note shows once to
  * everyone, including people who dismissed the previous one; keep the copy to a few sentences.
  */
 const RulesUpdateBanner = () => (
-  <NotificationBanner enableLog name="2026-09-rules-update-5" variant="info">
-    <span>The latest September errata has been added.</span>
+  <NotificationBanner enableLog name="2026-11-rules-update-1" variant="info">
+    <span>
+      The November rules update is in. Warscrolls and army rules across many factions now include the latest
+      errata and fixes. If anything looks wrong, please let us know.
+    </span>
   </NotificationBanner>
 )
 

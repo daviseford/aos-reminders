@@ -37,6 +37,8 @@ const PRINTED_BY_PAGE = new Set([
   'ability:10559569-28c9-5b11-a9b5-455883c6478e', // Sentenced to Eternal Torment
   'ability:ff8569fc-42ad-584b-96cc-070c0d2f9680', // A Kingdom Deluded
   'ability:074be6cf-f9f2-5962-8301-e2fba1a0c045', // Bellowing Waaagh!-cries
+  // corpus 2026-11-24 (#1757): the 2026-11-22 Wahapedia pages print this erratum too.
+  'ability:1d26773e-0240-5095-a1e5-a9e7908ab869', // Despoilers (Bestigors)
 ])
 const pinnedRulesUpdatesPages = new Set(
   (

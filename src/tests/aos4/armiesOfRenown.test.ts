@@ -78,6 +78,9 @@ const BATTLETOME_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legend
   { faction: 'Khazalite Holds', name: 'Fyrd of Fyrepeak' },
   { faction: 'Khazalite Holds', name: 'Throngankor Alliance' },
   { faction: 'Khazalite Holds', name: 'Valankrom’s War Throng' },
+  // corpus 2026-11-24 (#1757): the Khazalite Holds page prints The Duardin Ascendant natively (Legends
+  // context kept), so it is classified from its own review entry instead of as a faction variant.
+  { faction: 'Khazalite Holds', name: 'The Duardin Ascendant', legends: true },
   { faction: 'Kruleboyz', name: 'Big Waaagh!' },
   { faction: 'Kruleboyz', name: 'Murkvast Menagerie' },
   { faction: 'Lumineth Realm-lords', name: 'Aelementiri Conclave' },
@@ -110,7 +113,7 @@ const BATTLETOME_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legend
 const FACTION_VARIANT_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legends?: true }> = [
   // Corpus 2026-11-19 (#1757): Khazalite Holds' Lofnir Drothkeepers now comes from its own Wahapedia
   // page, classified from the official Armies of Renown (listed with the official armies).
-  { faction: 'Khazalite Holds', name: 'The Duardin Ascendant', legends: true },
+  // corpus 2026-11-24 (#1757): The Duardin Ascendant, the last variant, is now native page content.
 ]
 const ALL_ARMIES_OF_RENOWN: Array<{ faction: string; name: string; legends?: true }> = [
   ...OFFICIAL_ARMIES_OF_RENOWN,

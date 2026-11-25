@@ -3,7 +3,9 @@ import {
   discoverWahapediaExportUrls,
   discoverWahapediaNavFragmentUrl,
   discoverWahapediaNavigation,
+  unlistedRetainedFactionPages,
   withExportFactionPages,
+  withRetainedFactionPages,
   WAHAPEDIA_GLOSSARY_URL,
 } from '../../review/wahapediaObservation'
 import { compareWahapediaObservation, isAcceptedWahapediaRulesPage, createRadarLane } from '../compare'
@@ -192,6 +194,12 @@ export const observeWahapediaRadar = async (
         navigationArtifact.finalUrl
       )
     }
+    // A reviewed retained page that no Wahapedia surface lists must still be served (#1757).
+    for (const page of unlistedRetainedFactionPages(navigation)) {
+      assertAllowed(page.url)
+      await fetch({ url: page.url, allowedMediaTypes: ['text/html'], maxBytes: 16 * 1024 * 1024 })
+    }
+    navigation = withRetainedFactionPages(navigation)
 
     // The glossary is reviewed only at exact bytes, so it is fingerprinted by content, not by URL.
     // Navigation links it without the trailing slash the page redirects to.

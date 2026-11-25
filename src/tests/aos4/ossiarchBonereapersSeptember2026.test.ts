@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+import { ACCEPTED_REVIEW_PATH } from '../../aos4/data/acceptedRevision'
 import type { Ability, ContentEntity } from '../../aos4/domain'
 import { projectReminders } from '../../aos4/reminders'
 import { resolveSelection } from '../../aos4/select'
@@ -21,12 +23,31 @@ import { AOS4_FULL_CATALOG } from '../support/aos4FullCatalog'
  */
 
 // Corpus 2026-10-20 and again 2026-10-27 re-pin both pages (#1757); they still print the erratum.
-const RE_PINNED_ROOT = 'artifact:sha256:226fe0b4b6336cd9518d7efd6ef48bec7780bd32fb7233b1c3d140538c8d81a4'
+// corpus 2026-11-24 (#1757): both pages re-pinned again from the 2026-11-22 export.
+const RE_PINNED_ROOT = 'artifact:sha256:260db4787bdd7dd8ee242e4bfc372be07ec0d881adca38d7500c5dd4249e5198'
 const RE_PINNED_COLLECTION =
-  'artifact:sha256:cf6d569a19edf06fe3e291589c58b4d4c48ceb6816e0d2d39fefa4f9bc0fd1f1'
+  'artifact:sha256:9db54c6d24da3c174b31848735645d7ca7f912f0302973460e73fbefeed25180'
 const SURCHARGE = /reinforced and has more than half of its starting models/
 const NOVEMBER_RULES_UPDATES_PAGE_65 =
   'source-record:games-workshop:d78cb5c2bf1bdbd72a04804f3f7872bdf3a307a910ee1b0e51bea93ba9673fda%3Apage%3A65'
+/**
+ * corpus 2026-11-24 (#1757): the re-pinned root page prints the page 65 Lance of Ossia erratum, so
+ * the four overrides retired; each ability cites only the page, and the Rules Updates page stays
+ * pinned as reviewed official evidence.
+ */
+const PRINTED_BY_PAGE = new Set([
+  'ability:1cc1cbd2-23e1-5741-ac02-0e13461db4c5', // Vengeful Outriders
+  'ability:3c26fbf7-0d57-555a-86de-b1bf803bc849', // Fury of Zandtos
+  'ability:59b31e18-1482-5bb2-a0c6-54640b0536c1', // Silent Menace
+  'ability:a8b3634f-afa1-5b34-b626-b0c9a4100f5b', // Blood-smeared Hooves
+])
+const pinnedRulesUpdatesPages = new Set(
+  (
+    JSON.parse(readFileSync(ACCEPTED_REVIEW_PATH, 'utf8')) as {
+      officialDocuments: Array<{ sourceRecords: Array<{ id: string }> }>
+    }
+  ).officialDocuments.flatMap(document => document.sourceRecords.map(record => record.id))
+)
 
 const entityById = new Map<string, ContentEntity>(
   AOS4_FULL_CATALOG.entities.map(entity => [entity.id, entity])
@@ -90,11 +111,14 @@ describe('Ossiarch Bonereapers September 2026 Rules Updates page 64 (#2037)', ()
 
   // corpus 2026-11-19 (#1757): the November 2026 Rules Updates page 65 drops the Lance of Ossia
   // surcharge and rewords the declare steps; reviewed overrides ship the printed text.
+  // corpus 2026-11-24 (#1757): the re-pinned page prints it, so the text ships from the page: Vengeful
+  // Outriders' declare ends with its printed period, and Silent Menace gains the declare the retired
+  // override had dropped.
   it.each([
     [
       'ability:1cc1cbd2-23e1-5741-ac02-0e13461db4c5',
       'VENGEFUL OUTRIDERS',
-      'Pick a friendly LANCE OF OSSIA unit that has not used a RELENTLESS DISCIPLINE ability this phase to use this ability',
+      'Pick a friendly LANCE OF OSSIA unit that has not used a RELENTLESS DISCIPLINE ability this phase to use this ability.',
       'Spend 1 relentless discipline point. Add 2" to that unit’s Move characteristic for the rest of the phase.',
     ],
     [
@@ -106,7 +130,7 @@ describe('Ossiarch Bonereapers September 2026 Rules Updates page 64 (#2037)', ()
     [
       'ability:59b31e18-1482-5bb2-a0c6-54640b0536c1',
       'SILENT MENACE',
-      undefined,
+      'Pick a friendly LANCE OF OSSIA unit that has not used a RELENTLESS DISCIPLINE ability this phase to use this ability, then pick a visible enemy unit within 12" of it to be the target.',
       'Spend 1 relentless discipline point. The target cannot use the ‘Redeploy’ command for the rest of the turn.',
     ],
     [
@@ -123,9 +147,15 @@ describe('Ossiarch Bonereapers September 2026 Rules Updates page 64 (#2037)', ()
       expect(lance.text.declare).toBe(declare)
       expect(lance.text.effect).toBe(effect)
       expect(lance.text.effect).not.toMatch(SURCHARGE)
-      expect(lance.sourceRefs.map(reference => reference.sourceRecordId)).toContain(
-        NOVEMBER_RULES_UPDATES_PAGE_65
+      const citesPage65 = lance.sourceRefs.some(
+        reference => String(reference.sourceRecordId) === NOVEMBER_RULES_UPDATES_PAGE_65
       )
+      expect(
+        citesPage65 ||
+          (PRINTED_BY_PAGE.has(id) &&
+            pinnedRulesUpdatesPages.has(NOVEMBER_RULES_UPDATES_PAGE_65) &&
+            artifactIds(lance).includes(RE_PINNED_ROOT))
+      ).toBe(true)
     }
   )
 

@@ -177,10 +177,7 @@ export const withExportFactionPages = (
   factionsCsv: string,
   baseUrl: string = WAHAPEDIA_DATA_EXPORT_URL
 ): WahapediaNavigationDiscovery => {
-  // Navigation and the export both print faction links without a trailing slash, the accepted
-  // manifest with one: a page's identity ignores it (#2113).
-  const pageKey = (url: string) => url.replace(/\/+$/, '').toLowerCase()
-  const listed = new Set(navigation.factionPages.map(page => pageKey(page.url)))
+  const listed = new Set(navigation.factionPages.map(page => factionPageKey(page.url)))
   const exported = factionsCsv
     .split(/\r?\n/)
     .slice(1)
@@ -188,12 +185,42 @@ export const withExportFactionPages = (
       const [, title, link] = line.split('|').map(value => value?.trim())
       if (!title || !link) return []
       const url = normalizedUrl(link, baseUrl)
-      return /^\/aos4\/factions\/[^/]+\/?$/i.test(new URL(url).pathname) && !listed.has(pageKey(url))
+      return /^\/aos4\/factions\/[^/]+\/?$/i.test(new URL(url).pathname) && !listed.has(factionPageKey(url))
         ? [{ url, title }]
         : []
     })
   return { ...navigation, factionPages: uniqueLinks([...navigation.factionPages, ...exported]) }
 }
+
+// Navigation and the export both print faction links without a trailing slash, the accepted
+// manifest with one: a page's identity ignores it (#2113).
+const factionPageKey = (url: string) => url.replace(/\/+$/, '').toLowerCase()
+
+/**
+ * Faction pages kept under observation by review after Wahapedia stopped linking them from both its
+ * navigation and `Factions.csv`. Fyreslayers left the navigation on 2026-11-19 and the export with
+ * the 2026-11-22 21:15:57 publish, but both pages are still served and the corpus keeps Fyreslayers
+ * under the owner's additive contract (#1757). A delisting is not a rules removal, so the page stays
+ * watched; once Wahapedia stops serving it, fetching it fails the observation closed.
+ */
+export const WAHAPEDIA_RETAINED_FACTION_PAGES: ReadonlyArray<{ url: string; title: string }> = [
+  { url: 'https://wahapedia.ru/aos4/factions/fyreslayers/', title: 'Fyreslayers' },
+]
+
+/** The reviewed retained pages neither Wahapedia surface lists any more. */
+export const unlistedRetainedFactionPages = (
+  navigation: WahapediaNavigationDiscovery
+): Array<{ url: string; title: string }> => {
+  const listed = new Set(navigation.factionPages.map(page => factionPageKey(page.url)))
+  return WAHAPEDIA_RETAINED_FACTION_PAGES.filter(page => !listed.has(factionPageKey(page.url)))
+}
+
+export const withRetainedFactionPages = (
+  navigation: WahapediaNavigationDiscovery
+): WahapediaNavigationDiscovery => ({
+  ...navigation,
+  factionPages: uniqueLinks([...navigation.factionPages, ...unlistedRetainedFactionPages(navigation)]),
+})
 
 /**
  * The `.datasheetsCollated` link block Wahapedia used to print on every faction root page is gone
